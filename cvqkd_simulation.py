@@ -241,73 +241,118 @@ def skr_gm(VA, T, eps, beta):
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. M-PSK DM-CVQKD  (Section II-B)
 # ─────────────────────────────────────────────────────────────────────────────
-
 def _ZM_psk(M, VA):
-    """Correlation coefficient Z_M for M-PSK (Section II-B)."""
-    a2 = VA/2
-    def safe(v): return max(v, 1e-300)
+
+    a2  = VA / 2      
+    a2s = VA / (2 * np.sqrt(2))
+
+    def safe(v):
+        return max(float(v), 1e-300)
 
     if M == 2:
-        z0,z1 = safe(np.exp(-a2)*np.cosh(a2)), safe(np.exp(-a2)*np.sinh(a2))
-        return a2*(z0**1.5*z1**-0.5 + z1**1.5*z0**-0.5)
+        z0 = safe(np.exp(-a2) * np.cosh(a2))
+        z1 = safe(np.exp(-a2) * np.sinh(a2))
+        return a2 * (z0**1.5 * z1**(-0.5) + z1**1.5 * z0**(-0.5))
+
     elif M == 4:
-        z = [safe(0.5*np.exp(-a2)*(np.cosh(a2)+np.cos(a2))),
-             safe(0.5*np.exp(-a2)*(np.sinh(a2)+np.sin(a2))),
-             safe(0.5*np.exp(-a2)*(np.cosh(a2)-np.cos(a2))),
-             safe(0.5*np.exp(-a2)*(np.sinh(a2)-np.sin(a2)))]
-        return 2*a2*sum(z[(k-1)%4]**1.5 * z[k]**-0.5 for k in range(4))
+        exp_a2 = np.exp(-a2)
+        z0 = safe(0.5 * exp_a2 * (np.cosh(a2) + np.cos(a2)))  
+        z1 = safe(0.5 * exp_a2 * (np.sinh(a2) + np.sin(a2)))  
+        z2 = safe(0.5 * exp_a2 * (np.cosh(a2) - np.cos(a2)))  
+        z3 = safe(0.5 * exp_a2 * (np.sinh(a2) - np.sin(a2)))  
+        zeta = [z0, z1, z2, z3]
+        return 2 * a2 * sum(zeta[(k - 1) % 4] ** 1.5 * zeta[k] ** (-0.5) for k in range(4))
+
     elif M == 8:
-        z4 = [safe(0.25*np.exp(-a2)*(np.cosh(a2)+np.cos(a2))),
-              safe(0.25*np.exp(-a2)*(np.sinh(a2)+np.sin(a2))),
-              safe(0.25*np.exp(-a2)*(np.cosh(a2)-np.cos(a2))),
-              safe(0.25*np.exp(-a2)*(np.sinh(a2)-np.sin(a2)))]
-        z = z4*2
-        return 2*a2*sum(z[(k-1)%8]**1.5 * z[k]**-0.5 for k in range(8))
+        exp_a2 = np.exp(-a2)
+        z04_base  = np.cosh(a2) + np.cos(a2)
+        z04_extra = 2 * np.cos(a2s) * np.cosh(a2s)
+        z0 = safe(0.25 * exp_a2 * (z04_base + z04_extra))
+        z4 = safe(0.25 * exp_a2 * (z04_base - z04_extra))
+
+        z15_base  = np.sinh(a2) + np.sin(a2)
+        z15_extra = (np.sqrt(2) * np.cos(a2s) * np.sinh(a2s) + np.sqrt(2) * np.sin(a2s) * np.cosh(a2s))
+        z1 = safe(0.25 * exp_a2 * (z15_base + z15_extra))
+        z5 = safe(0.25 * exp_a2 * (z15_base - z15_extra))
+
+        z26_base  = np.cosh(a2) - np.cos(a2)
+        z26_extra = 2 * np.sin(a2s) * np.sinh(a2s)
+        z2 = safe(0.25 * exp_a2 * (z26_base + z26_extra))
+        z6 = safe(0.25 * exp_a2 * (z26_base - z26_extra))
+
+        z37_base    = np.sinh(a2) - np.sin(a2)
+        z37_term1   = np.sqrt(2) * np.cos(a2s) * np.sinh(a2s)  
+        z37_term2   = np.sqrt(2) * np.sin(a2s) * np.cosh(a2s)  
+        z3 = safe(0.25 * exp_a2 * (z37_base - z37_term1 + z37_term2))
+        
+        # ĐÃ SỬA LỖI DẤU Ở ĐÂY:
+        z7 = safe(0.25 * exp_a2 * (z37_base + z37_term1 - z37_term2)) 
+
+        zeta = [z0, z1, z2, z3, z4, z5, z6, z7]
+        return 2 * a2 * sum(zeta[(k - 1) % 8] ** 1.5 * zeta[k] ** (-0.5) for k in range(8))
     else:
-        raise ValueError(f"M={M} not supported for M-PSK")
+        raise ValueError("Chỉ dùng M=2,4,8.")
 
 def _holevo_psk_hom(VA, T, e, M):
+    """Holevo bound cho M-PSK (homodyne)
+    Viết Y HỆT Gaussian, chỉ thay Z -> ZM
     """
-    Holevo bound cho M-PSK (Discrete Modulation)
-    Eq. (12) - (14) trong Sayat 2024 hoặc các tài liệu DM-CVQKD
-    """
-    chi_l = _chi_l(T, e)
-    
-    # --- BƯỚC FIX: Tính ZM cho M-PSK ---
-    # Công thức xấp xỉ cho Z_M của PSK (với M >= 4)
-    # Thường dùng: ZM = VA * sum(lambda_k^1.5...) hoặc đơn giản hóa theo hệ số alpha
-    # Ở đây dùng công thức phổ biến cho thực thể M-PSK:
-    alpha = np.sqrt(VA / 2) # Biên độ trung bình
-    
-    # Tính ZM dựa trên các trạng thái kết hợp (Coherent States)
-    # Đối với 8-PSK, ZM thường nhỏ hơn so với GM (Gaussian)
-    # Một cách xấp xỉ an toàn:
-    ZM = VA * np.sqrt(2 / VA + 1) * (M / np.pi * np.sin(np.pi / M))
-    # Hoặc nếu bạn có công thức riêng từ paper (ví dụ dùng các hàm phi), hãy thay vào đây.
 
-    # Gọi hàm _symp12 với ZM vừa tính
-    l1, l2, B, A = _symp12(VA, T, chi_l, Z=ZM) 
-    
+    chi_l = _chi_l(T, e)
+    chi_h = CHI_HOM
+    chi_tot = chi_l + chi_h / T
+
+    # 🔥 KHÁC DUY NHẤT: dùng ZM thay Z
+    ZM = _ZM_psk(M, VA)
+
+    # --- A, B (GIỮ NGUYÊN FORM GAUSS) ---
+    A = (VA + 1)**2 + T**2 * (VA + 1 + chi_l)**2 - 2 * T * ZM**2
+    B = (T * (VA + 1)**2 + T * (VA + 1) * chi_l - T * ZM**2)**2
+
+    disc12 = max(A**2 - 4 * B, 0)
+    l1 = np.sqrt(0.5 * (A + np.sqrt(disc12)))
+    l2 = np.sqrt(max(0.5 * (A - np.sqrt(disc12)), 1e-30))
+
     sqB = np.sqrt(max(B, 0))
-    chi_tot = chi_l + CHI_HOM / T
     denom = T * (VA + 1 + chi_tot)
 
-    # C_hom và D_hom chuẩn
-    C = (A * CHI_HOM + (VA + 1) * sqB + T * (VA + 1 + chi_l)) / denom
-    D = (sqB * (VA + 1 + sqB * CHI_HOM)) / denom
+    # --- C_hom (COPY GAUSS 100%) ---
+    C = (
+        A * chi_h
+        + (VA + 1) * sqB
+        + T * (VA + 1 + chi_l)
+    ) / denom
+
+    # --- D_hom (COPY GAUSS 100%) ---
+    D = (
+        sqB * (VA + 1 + sqB * chi_h)
+    ) / denom
 
     disc = max(C**2 - 4 * D, 0)
-    l3 = np.sqrt(max(0.5 * (C + np.sqrt(disc)), 1.0))
-    l4 = np.sqrt(max(0.5 * (C - np.sqrt(disc)), 1.0))
+    sqrt_disc = np.sqrt(disc)
 
-    return _G((l1-1)/2) + _G((l2-1)/2) - _G((l3-1)/2) - _G((l4-1)/2)
+    # Clamp để tránh bug T nhỏ
+    l1 = max(l1, 1.0)
+    l2 = max(l2, 1.0)
+    l3 = np.sqrt(max(0.5 * (C + sqrt_disc), 1.0))
+    l4 = np.sqrt(max(0.5 * (C - sqrt_disc), 1.0))
+
+    return (
+        _G((l1 - 1) / 2)
+        + _G((l2 - 1) / 2)
+        - _G((l3 - 1) / 2)
+        - _G((l4 - 1) / 2)
+    )
+
 def skr_psk(VA, T, eps, M, beta):
-    if T <= 1e-7: return 0.0
-    # I_AB của PSK thường dùng cùng công thức Shannon nếu SNR thấp
-    I_AB = _IAB_hom(VA, _chi_t_hom(T, eps)) 
-    chi_BE = _holevo_psk_hom(VA, T, eps, M)
-    return max(beta * I_AB - chi_BE, 0.0)
+    if T <= 1e-6:
+        return 0.0
 
+    chi_t = _chi_t_hom(T, eps)
+    IAB   = _IAB_hom(VA, chi_t)
+    SBE   = _holevo_psk_hom(VA, T, eps, M)
+
+    return max(beta * IAB - SBE, 0.0)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 5. M-QAM DM-CVQKD  (Section II-C)
@@ -690,6 +735,52 @@ def debug_gm_curve(theta_deg, am, Dr, V, Cn2, eps, beta):
             f.write(f"{H/1e3},{T},{s2I},{Asci},{gm}\n")
 
     print("✅ Đã lưu file: gm_debug.csv")
+def debug_psk_curve(theta_deg, am, Dr, V, Cn2, eps, beta, M_list=[4,8]):
+    """
+    Debug M-PSK SKR:
+    - Log T, s2I, Asci, SKR
+    - Check monotonic
+    - Lưu CSV riêng cho từng M
+    """
+
+    theta = np.radians(theta_deg)
+
+    for M in M_list:
+        print(f"\n===== DEBUG {M}-PSK =====")
+
+        prev_skr = None
+
+        filename = f"psk_{M}_debug.csv"
+        with open(filename, "w") as f:
+            f.write("H_km,T,s2I,Asci_dB,SKR\n")
+
+            for H in am:
+                # ===== Channel =====
+                L_tot, L_atm = link_geometry(theta_deg, H, H_OGS_DEF)
+                L_atm_eff = L_atm / np.cos(theta)
+
+                T, _, _ = total_transmittance(theta_deg, H, Dr, V, Cn2)
+
+                # ===== Scintillation =====
+                s2I  = scintillation_index(Cn2, Dr, L_atm_eff)
+                Asci = scintillation_loss_dB(s2I)
+
+                # ===== SKR PSK =====
+                skr = skr_psk(VA_PSK, T, eps, M, beta)
+
+                # ===== Print =====
+                print(f"H={H/1e3:6.0f} km | T={T:.3e} | SKR={skr:.3e}")
+
+                # ===== Check lỗi =====
+                if prev_skr is not None and skr > prev_skr:
+                    print(f"❌ {M}-PSK tăng tại {H/1e3:.0f} km")
+
+                prev_skr = skr
+
+                # ===== Save =====
+                f.write(f"{H/1e3},{T},{s2I},{Asci},{skr}\n")
+
+        print(f"✅ Saved: {filename}")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 9. MAIN
@@ -733,6 +824,20 @@ def main():
     eps=EPS_CH,
     beta=0.9
     )
+    alt_km = np.arange(160, 3000, 20)
+    am = alt_km * 1e3
+
+    debug_psk_curve(
+        theta_deg=90,
+        am=am,
+        Dr=1.0,
+        V=200,
+        Cn2=1e-16,
+        eps=EPS_CH,
+        beta=0.9,
+        M_list=[4, 8]
+    )
+
 
 
 if __name__ == '__main__':
