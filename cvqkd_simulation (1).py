@@ -32,10 +32,11 @@ ASSUMPTIONS (marked inline as # Assumption: ...)
 
 import numpy as np
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from scipy.special import erfinv, comb as sp_comb
+from scipy.optimize import minimize_scalar
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. CONSTANTS & PARAMETERS
@@ -75,14 +76,15 @@ P_THR   = 1e-6    # Link outage probability
 # FER model (Eq. 26, for N=10^6 base; ~0 for N=10^11 at typical SNRs)
 M1, M2, M3 = 0.8218, -19.46, -298.1
 
-LATM      = 20.0   # Atmosphere thickness [km]
+LATM      = 20_000.0   # Atmosphere thickness [m]
 H_OGS_DEF = 0.0        # Default OGS altitude [m]
-H_OGS_ISS = 1_029.0   # Mt. John Observatory [km]
+H_OGS_ISS = 1_029.0   # Mt. John Observatory [m]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. CHANNEL MODEL  (Section IV, Eq. 28-33)
 # ─────────────────────────────────────────────────────────────────────────────
+
 def _L_atm_eff_ray(theta_deg, H_ogs=H_OGS_DEF, H_atm=LATM):
     """
     Đường laser đi qua lớp khí quyển mỏng [m], tính bằng ray-sphere intersection.
@@ -105,22 +107,29 @@ def _L_atm_eff_ray(theta_deg, H_ogs=H_OGS_DEF, H_atm=LATM):
         return float(H_atm)  # fallback: zenith thickness
     return float((-b + np.sqrt(disc)) / 2)
 
-def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM): ## đúng rồi
-    """Total link distance and effective atmosphere thickness (Eq. 28)."""
+
+def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM):
+    """
+    Total link distance L_tot [m] và effective atmosphere thickness L_atm [m].
+
+    L_tot   : dùng law-of-cosines (Eq. 28) — đúng cho khoảng cách satellite.
+    L_atm   : dùng ray-sphere intersection — đúng cho thin atmosphere layer.
+    """
     th = np.radians(theta_deg)
 
-    sa1 = np.clip(np.cos(th) * (RE + H_ogs) / (RE + H_zen), -1, 1)
-    a1  = np.arcsin(sa1) + (np.pi/2 - th)
+    # L_tot (Eq. 28 — đúng)
+    sa1   = np.clip(np.cos(th) * (RE + H_ogs) / (RE + H_zen), -1, 1)
+    a1    = np.arcsin(sa1) + (np.pi/2 - th)
     L_tot = np.sqrt((RE+H_zen)**2 + (RE+H_ogs)**2
                     - 2*(RE+H_zen)*(RE+H_ogs)*np.cos(a1))
 
-    sa2 = np.clip(np.cos(th) * (RE + H_ogs) / (RE + H_atm), -1, 1)
-    a2  = np.arcsin(sa2) + (np.pi/2 - th)
+    # L_atm_eff — ray-sphere intersection (sửa lỗi công thức Eq.28 cho L_atm)
     L_atm = _L_atm_eff_ray(theta_deg, H_ogs, H_atm)
+
     return float(L_tot), float(L_atm)
 
 
-def geometric_loss_dB(L_tot, Dr): ## đúng
+def geometric_loss_dB(L_tot, Dr):
     """Free-space diffraction + hardware loss (Eq. 29)."""
     return 10*np.log10(L_tot**2 * LAMBDA**2
                        / (DT**2 * Dr**2 * TT * (1-LP) * TR))
@@ -151,9 +160,8 @@ def scintillation_index(Cn2, Dr, L_atm):
 def scintillation_loss_dB(s2I, p_thr=P_THR):
     """Scintillation loss with aperture averaging in dB (Eq. 31)."""
     arg = float(np.clip(2*p_thr-1, -0.9999, 0.9999))
-    A_sci = (4.343 * erfinv(arg) * np.sqrt(2 * np.log(s2I + 1))
-             - 0.5 * np.log(s2I + 1))
-    return abs(A_sci)
+    return (4.343*erfinv(arg)*np.sqrt(2*np.log(s2I+1))
+            - 0.5*np.log(s2I+1))
 
 
 def total_transmittance(theta_deg, H_zen, Dr, V_km, Cn2, H_ogs=H_OGS_DEF):
@@ -177,13 +185,9 @@ def total_transmittance(theta_deg, H_zen, Dr, V_km, Cn2, H_ogs=H_OGS_DEF):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _G(x):
-    x = float(x)
-
-    if x < 1e-10:
-        return 0.0
-
-    return (x+1)*np.log2(1 + x) - x*np.log2(x)
-
+    """Entropy function G(x) = (x+1)log2(x+1) - x*log2(x)."""
+    x = max(float(x), 1e-15)
+    return (x+1)*np.log2(x+1) - x*np.log2(x)
 
 def _chi_l(T, e): return 1/T - 1 + e
 def _chi_t_hom(T, e): return _chi_l(T,e) + CHI_HOM/T
@@ -192,147 +196,166 @@ def _IAB_hom(VA, chi_t): return 0.5*np.log2((VA+1+chi_t)/(1+chi_t))
 def _IAB_het(VA, chi_t): return np.log2((VA+1+chi_t)/(1+chi_t))
 
 def _symp12(VA, T, chi_l, Z=None):
-    if Z is None:
-        Z = np.sqrt(VA**2 + 2*VA) # Mặc định cho GM
-    
-    A = (VA + 1)**2 + (T**2) * ((VA + 1 + chi_l)**2) - 2 * T * (Z**2)
-    B_inner = T * (VA + 1)**2 + T * (VA + 1) * chi_l - T * (Z**2)
-    B = B_inner**2
-    
+    """Symplectic eigenvalues λ1,λ2 of γ_AB (Eq. 7-8)."""
+    if Z is None: Z = np.sqrt(VA**2 + 2*VA)
+    A = (VA+1)**2 + T**2*(VA+1+chi_l)**2 - 2*T*Z**2
+    B = (T*(VA+1)**2 + T*(VA+1)*chi_l - T*Z**2)**2
     disc = max(A**2 - 4*B, 0)
-    l1 = np.sqrt(max(0.5 * (A + np.sqrt(disc)), 1.0))
-    l2 = np.sqrt(max(0.5 * (A - np.sqrt(disc)), 1.0))
-    
-    return l1, l2, B, A # Trả về đủ 4 giá trị
+    l1 = np.sqrt(0.5*(A + np.sqrt(disc)))
+    l2 = np.sqrt(max(0.5*(A - np.sqrt(disc)), 1e-30))
+    return l1, l2, B
+
 def _holevo_gm_hom(VA, T, e):
-    """Giới hạn Holevo CHUẨN THEO EQ. (6), (9) CỦA SAYAT 2024"""
-    chi_l = _chi_l(T, e)
-    chi_h = CHI_HOM
-    chi_tot = chi_l + chi_h / T
-
-    # Lấy l1, l2, B và A
-    l1, l2, B, A = _symp12(VA, T, chi_l)
-    sqB = np.sqrt(max(B, 0))
-
-    denom = T * (VA + 1 + chi_tot)
-
-    # --- ✅ C_hom (ĐÚNG FORMULA BÀI BÁO) ---
-    C = (
-        A * chi_h 
-        + (VA + 1) * sqB 
-        + T * (VA + 1 + chi_l)
-    ) / denom
-
-    # --- ✅ D_hom (ĐÚNG FORMULA BÀI BÁO) ---
-    D = (
-        sqB * (VA + 1 + sqB * chi_h)
-    ) / denom
-
-    # Tính l3, l4
-    disc = max(C**2 - 4 * D, 0)
-    sqrt_disc = np.sqrt(disc)
-
-    # Clamp chặt >= 1.0 để dập tắt nhiễu ở T siêu nhỏ
-    l3 = np.sqrt(max(0.5 * (C + sqrt_disc), 1.0))
-    l4 = np.sqrt(max(0.5 * (C - sqrt_disc), 1.0))
-
-    return (
-        _G((l1 - 1) / 2)
-        + _G((l2 - 1) / 2)
-        - _G((l3 - 1) / 2)
-        - _G((l4 - 1) / 2)
-    )
+    """S_BE for GM-CVQKD homodyne (Eq. 6, 9-10)."""
+    cl = _chi_l(T, e); ct = cl + CHI_HOM/T
+    l1, l2, B = _symp12(VA, T, cl)
+    sqB = np.sqrt(max(B,0)); dn = T*(VA+1+ct)
+    Ah = (cl*ct*T*(VA+1) + CHI_HOM*sqB + (VA+1)**2*CHI_HOM) / dn
+    Dh = sqB*(VA+1 + sqB*CHI_HOM) / dn
+    d34 = max(Ah**2 - 4*Dh, 0)
+    l3 = np.sqrt(0.5*(Ah + np.sqrt(d34)))
+    l4 = np.sqrt(max(0.5*(Ah - np.sqrt(d34)), 1e-30))
+    return _G((l1-1)/2)+_G((l2-1)/2)-_G((l3-1)/2)-_G((l4-1)/2)
 
 def skr_gm(VA, T, eps, beta):
-    """Tính Asymptotic SKR và ép về 0 nếu T quá nhỏ (cutoff threshold)"""
-    # Nếu transmittance quá nhỏ, SKR vật lý chắc chắn = 0
-    if T <= 1e-6: 
-        return 0.0   
+    """Asymptotic SKR for GM-CVQKD homodyne [bits/pulse] (Eq. 4)."""
+    if T <= 1e-6: return 0.0   # below this, SKR is always negative; avoid overflow
+    return beta*_IAB_hom(VA, _chi_t_hom(T,eps)) - _holevo_gm_hom(VA,T,eps)
 
-    chi_t = _chi_t_hom(T, eps)
-    I_AB = _IAB_hom(VA, chi_t)
-    S_BE = _holevo_gm_hom(VA, T, eps)
-    
-    val = beta * I_AB - S_BE
-
-    # Tránh âm và dập tắt hoàn toàn nhiễu/spike (Bonus của bạn)
-    return max(val, 0.0)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. M-PSK DM-CVQKD  (Section II-B)
 # ─────────────────────────────────────────────────────────────────────────────
+
 def _ZM_psk(M, VA):
+    """
+    Correlation coefficient Z_M cho M-PSK DM-CVQKD (Section II-B).
+    a2  = alpha^2 = VA/2
+    a2s = alpha^2/sqrt(2)  — dùng cho 8-PSK
+    """
+    a2  = VA / 2
+    a2s = a2 / np.sqrt(2)
+    def safe(v): return max(float(v), 1e-300)
 
-    a2  = VA / 2      
-    a2s = VA / (2 * np.sqrt(2))
-
-    def safe(v):
-        return max(float(v), 1e-300)
-
+    # ── 2-PSK ─────────────────────────────────────────────────────────────
     if M == 2:
-        z0 = safe(np.exp(-a2) * np.cosh(a2))
-        z1 = safe(np.exp(-a2) * np.sinh(a2))
-        return a2 * (z0**1.5 * z1**(-0.5) + z1**1.5 * z0**(-0.5))
+        z0 = safe(np.exp(-a2)*np.cosh(a2))
+        z1 = safe(np.exp(-a2)*np.sinh(a2))
+        return a2*(z0**1.5*z1**-0.5 + z1**1.5*z0**-0.5)
 
+    # ── 4-PSK ─────────────────────────────────────────────────────────────
     elif M == 4:
         exp_a2 = np.exp(-a2)
-        z0 = safe(0.5 * exp_a2 * (np.cosh(a2) + np.cos(a2)))  
-        z1 = safe(0.5 * exp_a2 * (np.sinh(a2) + np.sin(a2)))  
-        z2 = safe(0.5 * exp_a2 * (np.cosh(a2) - np.cos(a2)))  
-        z3 = safe(0.5 * exp_a2 * (np.sinh(a2) - np.sin(a2)))  
-        zeta = [z0, z1, z2, z3]
-        return 2 * a2 * sum(zeta[(k - 1) % 4] ** 1.5 * zeta[k] ** (-0.5) for k in range(4))
+        z = [safe(0.5*exp_a2*(np.cosh(a2)+np.cos(a2))),   # ζ0
+             safe(0.5*exp_a2*(np.sinh(a2)+np.sin(a2))),   # ζ1
+             safe(0.5*exp_a2*(np.cosh(a2)-np.cos(a2))),   # ζ2
+             safe(0.5*exp_a2*(np.sinh(a2)-np.sin(a2)))]   # ζ3
+        return 2*a2*sum(z[(k-1)%4]**1.5 * z[k]**-0.5 for k in range(4))
 
+    # ── 8-PSK — 8 zeta riêng biệt (KHÔNG dùng z4*2) ──────────────────────
     elif M == 8:
         exp_a2 = np.exp(-a2)
-        z04_base  = np.cosh(a2) + np.cos(a2)
-        z04_extra = 2 * np.cos(a2s) * np.cosh(a2s)
-        z0 = safe(0.25 * exp_a2 * (z04_base + z04_extra))
-        z4 = safe(0.25 * exp_a2 * (z04_base - z04_extra))
-
-        z15_base  = np.sinh(a2) + np.sin(a2)
-        z15_extra = (np.sqrt(2) * np.cos(a2s) * np.sinh(a2s) + np.sqrt(2) * np.sin(a2s) * np.cosh(a2s))
-        z1 = safe(0.25 * exp_a2 * (z15_base + z15_extra))
-        z5 = safe(0.25 * exp_a2 * (z15_base - z15_extra))
-
-        z26_base  = np.cosh(a2) - np.cos(a2)
-        z26_extra = 2 * np.sin(a2s) * np.sinh(a2s)
-        z2 = safe(0.25 * exp_a2 * (z26_base + z26_extra))
-        z6 = safe(0.25 * exp_a2 * (z26_base - z26_extra))
-
-        z37_base    = np.sinh(a2) - np.sin(a2)
-        z37_term1   = np.sqrt(2) * np.cos(a2s) * np.sinh(a2s)  
-        z37_term2   = np.sqrt(2) * np.sin(a2s) * np.cosh(a2s)  
-        z3 = safe(0.25 * exp_a2 * (z37_base - z37_term1 + z37_term2))
-        
-        # ĐÃ SỬA LỖI DẤU Ở ĐÂY:
-        z7 = safe(0.25 * exp_a2 * (z37_base + z37_term1 - z37_term2)) 
+        # ζ_{0,4}: ±2*cos(a2s)*cosh(a2s)
+        z04b = np.cosh(a2)+np.cos(a2); z04e = 2*np.cos(a2s)*np.cosh(a2s)
+        z0 = safe(0.25*exp_a2*(z04b + z04e))
+        z4 = safe(0.25*exp_a2*(z04b - z04e))
+        # ζ_{1,5}: ±sqrt2*cos(a2s)*sinh(a2s) ±sqrt2*sin(a2s)*cosh(a2s)
+        z15b = np.sinh(a2)+np.sin(a2)
+        z15e = np.sqrt(2)*np.cos(a2s)*np.sinh(a2s) + np.sqrt(2)*np.sin(a2s)*np.cosh(a2s)
+        z1 = safe(0.25*exp_a2*(z15b + z15e))
+        z5 = safe(0.25*exp_a2*(z15b - z15e))
+        # ζ_{2,6}: ±2*sin(a2s)*sinh(a2s)
+        z26b = np.cosh(a2)-np.cos(a2); z26e = 2*np.sin(a2s)*np.sinh(a2s)
+        z2 = safe(0.25*exp_a2*(z26b + z26e))
+        z6 = safe(0.25*exp_a2*(z26b - z26e))
+        # ζ_{3,7}: ∓sqrt2*cos(a2s)*sinh(a2s) ±sqrt2*sin(a2s)*cosh(a2s)
+        z37b  = np.sinh(a2)-np.sin(a2)
+        z37t1 = np.sqrt(2)*np.cos(a2s)*np.sinh(a2s)
+        z37t2 = np.sqrt(2)*np.sin(a2s)*np.cosh(a2s)
+        z3 = safe(0.25*exp_a2*(z37b - z37t1 + z37t2))
+        z7 = safe(0.25*exp_a2*(z37b + z37t1 + z37t2))
 
         zeta = [z0, z1, z2, z3, z4, z5, z6, z7]
-        return 2 * a2 * sum(zeta[(k - 1) % 8] ** 1.5 * zeta[k] ** (-0.5) for k in range(8))
+        return 2*a2*sum(zeta[(k-1)%8]**1.5 * zeta[k]**-0.5 for k in range(8))
+
     else:
-        raise ValueError("Chỉ dùng M=2,4,8.")
+        raise ValueError(f"M-PSK: M={M} không hỗ trợ. Dùng M=2, 4, hoặc 8.")
 
 def _holevo_psk_hom(VA, T, e, M):
+    """
+    Holevo information S_BE cho M-PSK DM-CVQKD, homodyne (Eq. 6, 9-10).
+    Không dùng _symp12 để tránh conflict return values.
+    Tính A, B trực tiếp từ ZM.
+    """
     cl = _chi_l(T, e); ct = cl + CHI_HOM/T
     ZM = _ZM_psk(M, VA)
+
+    # λ1, λ2 — Eq. 7-8 với Z = ZM
     A  = (VA+1)**2 + T**2*(VA+1+cl)**2 - 2*T*ZM**2
     B  = (T*(VA+1)**2 + T*(VA+1)*cl - T*ZM**2)**2
-    d12 = max(A**2-4*B, 0)
-    l1 = np.sqrt(0.5*(A+np.sqrt(d12)))
-    l2 = np.sqrt(max(0.5*(A-np.sqrt(d12)), 1e-30))
-    sqB = np.sqrt(max(B,0)); denom = T*(VA+1+ct)
-    Ah = (A*CHI_HOM + (VA+1)*sqB + T*(VA+1+cl)) / denom   # ← Eq.10 đúng
-    Dh = sqB*(VA+1+sqB*CHI_HOM) / denom
-    d34 = max(Ah**2-4*Dh, 0)
-    l3 = np.sqrt(0.5*(Ah+np.sqrt(d34)))
-    l4 = np.sqrt(max(0.5*(Ah-np.sqrt(d34)), 1e-30))  # ← KHÔNG clamp về 1.0
+    disc12 = max(A**2 - 4*B, 0)
+    l1 = np.sqrt(0.5*(A + np.sqrt(disc12)))
+    l2 = np.sqrt(max(0.5*(A - np.sqrt(disc12)), 1e-30))
+
+    sqB   = np.sqrt(max(B, 0))
+    denom = T*(VA+1+ct)
+
+    # λ3, λ4 — Eq. 10 ĐÚNG:
+    # C_hom = [A*χ_hom + (VA+1)*√B + T*(VA+1+χ_line)] / [T*(VA+1+χ_tot)]
+    # D_hom = √B*(VA+1+√B*χ_hom) / [T*(VA+1+χ_tot)]
+    Ah = (A*CHI_HOM + (VA+1)*sqB + T*(VA+1+cl)) / denom
+    Dh = sqB*(VA+1 + sqB*CHI_HOM) / denom
+
+    d34 = max(Ah**2 - 4*Dh, 0)
+    l3  = np.sqrt(0.5*(Ah + np.sqrt(d34)))
+    l4  = np.sqrt(max(0.5*(Ah - np.sqrt(d34)), 1e-30))
+
     return _G((l1-1)/2)+_G((l2-1)/2)-_G((l3-1)/2)-_G((l4-1)/2)
 
-def skr_psk(VA, T, eps, M, beta):
+
+def _skr_psk_at_VA(VA, T, eps, M, beta):
+    """SKR tại VA cố định — dùng nội bộ cho optimization."""
+    if T <= 1e-6 or VA <= 0: return -999.0
+    try:
+        IAB = _IAB_hom(VA, _chi_t_hom(T, eps))
+        SBE = _holevo_psk_hom(VA, T, eps, M)
+        return beta*IAB - SBE
+    except Exception:
+        return -999.0
+
+
+def skr_psk(VA, T, eps, M, beta, optimize_VA=True):
+    """
+    Asymptotic SKR cho M-PSK DM-CVQKD, homodyne [bits/pulse] (Eq. 4).
+
+    Parameters
+    ----------
+    VA          : modulation variance khởi đầu (nếu optimize_VA=False thì dùng cố định)
+    optimize_VA : nếu True, tự tìm VA tối ưu tại mỗi T bằng minimize_scalar.
+                  Bài báo chọn VA "close to optimal" nên cần optimize.
+
+    Returns
+    -------
+    skr : float [bits/pulse], NaN nếu âm (để semilogy bỏ qua)
+    """
     if T <= 1e-6: return 0.0
-    return beta*_IAB_hom(VA, _chi_t_hom(T,eps)) - _holevo_psk_hom(VA,T,eps,M)
-    # Không max() — để âm tự nhiên, dùng _nan() khi plot
+
+    if optimize_VA:
+        # VA optimal thay đổi theo T: ~0.4-0.6 cho 4-PSK, ~1.1-2.6 cho 8-PSK
+        VA_bounds = {2:(0.01,3.0), 4:(0.01,3.0), 8:(0.1,5.0)}
+        bounds = VA_bounds.get(M, (0.01, 5.0))
+        res = minimize_scalar(
+            lambda va: -_skr_psk_at_VA(va, T, eps, M, beta),
+            bounds=bounds, method='bounded',
+            options={'xatol': 1e-3}
+        )
+        s = _skr_psk_at_VA(res.x, T, eps, M, beta)
+    else:
+        s = _skr_psk_at_VA(VA, T, eps, M, beta)
+
+    return max(s, 0.0)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 5. M-QAM DM-CVQKD  (Section II-C)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -465,17 +488,17 @@ def plot_fig4(out='/mnt/user-data/outputs/fig4_asymptotic_good.png'):
 
     panels = [
         ('(a) M-PSK', [
-            ('GM-CVQKD','yellow',   'gm', {}),
+            ('GM-CVQKD','k',   'gm', {}),
             ('8-PSK',   'blue','psk',{'M':8}),
             ('4-PSK',   'red', 'psk',{'M':4}),
         ], alt_km, [160,1000]),
         ('(b) 64-QAM', [
-            ('GM-CVQKD',              'yellow',    'gm', {}),
+            ('GM-CVQKD',              'k',    'gm', {}),
             ('Binomial Dist.',         'blue', 'qam',{'M':64}),
             ('Disc. Gaussian Dist.',   'red',  'qam',{'M':64}),
         ], np.arange(160,5100,20), [160,5000]),
         ('(c) 256-QAM', [
-            ('GM-CVQKD',              'yellow',    'gm', {}),
+            ('GM-CVQKD',              'k',    'gm', {}),
             ('Binomial Dist.',         'blue', 'qam',{'M':256}),
             ('Disc. Gaussian Dist.',   'red',  'qam',{'M':256}),
         ], np.arange(160,6100,25), [160,6000]),
@@ -499,7 +522,7 @@ def plot_fig4(out='/mnt/user-data/outputs/fig4_asymptotic_good.png'):
                 for H in am:
                     T,_,_=total_transmittance(th,H,Dr,V,Cn2)
                     if   ptype=='gm':  s=skr_gm(VA_GM,T,eps,beta)
-                    elif ptype=='psk': s=skr_psk(VA_PSK,T,eps,kw['M'],beta)
+                    elif ptype=='psk': s=skr_psk(VA_PSK,T,eps,kw['M'],beta,optimize_VA=True)
                     else:              s=skr_qam(VA_QAM,T,eps,kw['M'],beta)
                     vals.append(_nan(s))
                 lb=lbl if th==ELEVS[0] else '_'
@@ -514,7 +537,7 @@ def plot_fig4(out='/mnt/user-data/outputs/fig4_asymptotic_good.png'):
                   fontsize=7,loc='upper right')
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(out,dpi=150,bbox_inches='tight'); plt.close()
     print(f"  ✓ {out}")
 
 # ── Fig 5 ────────────────────────────────────────────────────────────────────
@@ -537,7 +560,7 @@ def plot_fig5(out='/mnt/user-data/outputs/fig5_asymptotic_bad.png'):
         ax.semilogy(alt_km,ub,'k-',lw=2.5,label='Upper Bound')
 
         for lbl,col,ptype,VA in [
-                ('Gaussian',           'yellow',   'gm', VA_GM),
+                ('Gaussian',           'k',   'gm', VA_GM),
                 ('Binomial Dist.',     'blue','qam',VA_QAM),
                 ('Disc. Gaussian Dist.','red','qam',VA_QAM)]:
             for th,ls in zip(ELEVS,LS):
@@ -558,7 +581,7 @@ def plot_fig5(out='/mnt/user-data/outputs/fig5_asymptotic_bad.png'):
                   fontsize=7,loc='upper right')
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(out,dpi=150,bbox_inches='tight'); plt.close()
     print(f"  ✓ {out}")
 
 # ── Fig 6 ────────────────────────────────────────────────────────────────────
@@ -598,7 +621,7 @@ def plot_fig6(out='/mnt/user-data/outputs/fig6_finite_size.png'):
                   fontsize=8,loc='upper right')
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(out,dpi=150,bbox_inches='tight'); plt.close()
     print(f"  ✓ {out}")
 
 # ── Fig 7 ────────────────────────────────────────────────────────────────────
@@ -615,7 +638,7 @@ def plot_fig7(out='/mnt/user-data/outputs/fig7_iss_elevation.png'):
     ax.set_xlim([0,700]); ax.set_ylim([0,95])
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(out,dpi=150,bbox_inches='tight'); plt.close()
     print(f"  ✓ {out}")
 
 # ── Fig 8 ────────────────────────────────────────────────────────────────────
@@ -664,102 +687,9 @@ def plot_fig8(out='/mnt/user-data/outputs/fig8_skr_vs_elevation.png'):
     print(f"  MSD total key: {total_key['MLC-MSD']/1e6:.1f} Mbit  (paper: 385 Mbit)")
 
     plt.tight_layout()
-    plt.show()
+    plt.savefig(out,dpi=150,bbox_inches='tight'); plt.close()
     print(f"  ✓ {out}")
 
-def debug_gm_curve(theta_deg, am, Dr, V, Cn2, eps, beta):
-    """
-    Debug GM-CVQKD theo altitude:
-    - In ra H, T, s2I, Asci, GM
-    - Bắt lỗi không monotonic
-    - Lưu ra file CSV
-    """
-
-    prev_T  = None
-    prev_gm = None
-
-    with open("gm_debug.csv", "w") as f:
-        f.write("H_km,T,s2I,Asci_dB,GM\n")
-
-        for H in am:
-            # ===== Channel =====
-            L_tot, L_atm = link_geometry(theta_deg, H, H_OGS_DEF)
-
-            theta = np.radians(theta_deg)
-            L_atm_eff = L_atm / np.cos(theta)
-
-            T, _, _ = total_transmittance(theta_deg, H, Dr, V, Cn2)
-
-            # ===== Scintillation =====
-            s2I  = scintillation_index(Cn2, Dr, L_atm_eff)
-            Asci = scintillation_loss_dB(s2I)
-
-            # ===== GM SKR =====
-            gm = skr_gm(VA_GM, T, eps, beta)
-
-            # ===== In ra màn hình =====
-            print(f"H={H/1e3:6.0f} km | T={T:.3e} | s2I={s2I:.3f} | Asci={Asci:.2f} dB | GM={gm:.3e}")
-
-            # ===== Check lỗi =====
-            if prev_T is not None and T > prev_T:
-                print(f"❌ T tăng tại {H/1e3:.0f} km")
-
-            if prev_gm is not None and gm > prev_gm:
-                print(f"❌ GM tăng tại {H/1e3:.0f} km")
-
-            prev_T  = T
-            prev_gm = gm
-
-            # ===== Lưu file =====
-            f.write(f"{H/1e3},{T},{s2I},{Asci},{gm}\n")
-
-    print("✅ Đã lưu file: gm_debug.csv")
-def debug_psk_curve(theta_deg, am, Dr, V, Cn2, eps, beta, M_list=[4,8]):
-    """
-    Debug M-PSK SKR:
-    - Log T, s2I, Asci, SKR
-    - Check monotonic
-    - Lưu CSV riêng cho từng M
-    """
-
-    theta = np.radians(theta_deg)
-
-    for M in M_list:
-        print(f"\n===== DEBUG {M}-PSK =====")
-
-        prev_skr = None
-
-        filename = f"psk_{M}_debug.csv"
-        with open(filename, "w") as f:
-            f.write("H_km,T,s2I,Asci_dB,SKR\n")
-
-            for H in am:
-                # ===== Channel =====
-                L_tot, L_atm = link_geometry(theta_deg, H, H_OGS_DEF)
-                L_atm_eff = L_atm / np.cos(theta)
-
-                T, _, _ = total_transmittance(theta_deg, H, Dr, V, Cn2)
-
-                # ===== Scintillation =====
-                s2I  = scintillation_index(Cn2, Dr, L_atm_eff)
-                Asci = scintillation_loss_dB(s2I)
-
-                # ===== SKR PSK =====
-                skr = skr_psk(VA_PSK, T, eps, M, beta)
-
-                # ===== Print =====
-                print(f"H={H/1e3:6.0f} km | T={T:.3e} | SKR={skr:.3e}")
-
-                # ===== Check lỗi =====
-                if prev_skr is not None and skr > prev_skr:
-                    print(f"❌ {M}-PSK tăng tại {H/1e3:.0f} km")
-
-                prev_skr = skr
-
-                # ===== Save =====
-                f.write(f"{H/1e3},{T},{s2I},{Asci},{skr}\n")
-
-        print(f"✅ Saved: {filename}")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 9. MAIN
@@ -791,33 +721,6 @@ def main():
     print("\n"+"="*68)
     print("All 5 figures saved to /mnt/user-data/outputs/")
     print("="*68)
-    alt_km = np.arange(160, 3000, 20)
-    am = alt_km * 1e3
-
-    debug_gm_curve(
-    theta_deg=90,
-    am=am,
-    Dr=1.0,
-    V=200,
-    Cn2=1e-16,
-    eps=EPS_CH,
-    beta=0.9
-    )
-    alt_km = np.arange(160, 3000, 20)
-    am = alt_km * 1e3
-
-    debug_psk_curve(
-        theta_deg=90,
-        am=am,
-        Dr=1.0,
-        V=200,
-        Cn2=1e-16,
-        eps=EPS_CH,
-        beta=0.9,
-        M_list=[4, 8]
-    )
-
-
 
 if __name__ == '__main__':
     main()
