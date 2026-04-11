@@ -1,0 +1,1587 @@
+
+--- Page 1 ---
+
+3244
+IEEE TRANSACTIONS ON COMMUNICATIONS, VOL. 72, NO. 6, JUNE 2024
+Satellite-to-Ground Continuous Variable Quantum
+Key Distribution: The Gaussian and Discrete
+Modulated Protocols in Low Earth Orbit
+Mikhael T. Sayat , Biveen Shajilal , Sebastian P. Kish , Syed M. Assad , Thomas Symul ,
+Ping Koy Lam , Nicholas J. Rattenbury , and John E. Cater
+Abstract— The
+Gaussian
+modulated
+continuous
+variable
+quantum key distribution (GM-CVQKD) protocol is known to
+maximise the mutual information between two parties during
+quantum key distribution (QKD). An alternative modulation
+scheme is the discrete modulated CVQKD (DM-CVQKD) pro-
+tocol. In this paper, we perform a feasibility study for practical
+satellite-to-ground CVQKD with a focus on comparing existing
+GM-CVQKD and DM-CVQKD protocols with the application
+of the performance of recent reconciliation methods. We use a
+satellite-to-ground link model which takes into account geomet-
+ric, scintillation, and scattering losses from the link distance,
+atmospheric turbulence, and atmospheric aerosols, respectively.
+In addition, recent multidimensional (MD) and multilevel coding
+and multistage decoding (MLC-MSD) reconciliation method
+models in combination with multiedge-type low-density parity-
+check (MET-LDPC) code models have been used to determine
+the reconciliation efficiency. Realistic parameters have been used
+for the calculation of the secret key rate (SKR) along with a
+comparison between MD and MLC-MSD reconciliation during
+satellite-to-ground GM-CVQKD, for the first time. The results
+show that GM-CVQKD outperforms DM-CVQKD. In addition,
+GM-CVQKD with MD reconciliation outperforms GM-CVQKD
+with MLC-MSD reconciliation in the finite size limit by producing
+positive SKRs at larger link distances and lower elevation angles.
+Index Terms— Quantum key distribution, continuous variable,
+Gaussian modulation, discrete modulation, satellite communica-
+tion, quantum communication.
+I. INTRODUCTION
+Q
+UANTUM key distribution (QKD) [1] is a method of
+sharing a secret key between two parties, Alice and Bob,
+Manuscript received 11 May 2023; revised 26 November 2023 and
+17 January 2024; accepted 18 January 2024. Date of publication 29 January
+2024; date of current version 18 June 2024. University of Auckland Doctoral
+Scholarship, for which Mikhael T. Sayat is a recipient. The associate editor
+coordinating the review of this article and approving it for publication was
+A. S. Cacciapuoti. (Corresponding author: Mikhael T. Sayat.)
+Mikhael T. Sayat is with the Department of Physics, The Univer-
+sity of Auckland, Auckland 1010, New Zealand (e-mail: msay024@
+aucklanduni.ac.nz).
+Biveen Shajilal is with the Quantum Innovation Centre, Agency for Science
+Technology and Research, Singapore 138632.
+Sebastian P. Kish is with CSIRO Data61, Marsfield, NSW 2122, Australia.
+Syed M. Assad and Ping Koy Lam are with the Quantum Innovation Centre,
+Agency for Science Technology and Research, Singapore 138632, and also
+with the Department of Quantum Science and Technology, Research School of
+Physics, The Australian National University, Canberra, ACT 2601, Australia.
+Thomas Symul is with QuintessenceLabs, Canberra, ACT 2609, Australia.
+Nicholas J. Rattenbury is with the Department of Physics, The University
+of Auckland, Auckland 1010, New Zealand.
+John E. Cater is with the Department of Mechanical Engineering, University
+of Canterbury, Christchurch 8041, New Zealand.
+Color versions of one or more figures in this article are available at
+https://doi.org/10.1109/TCOMM.2024.3359295.
+Digital Object Identifier 10.1109/TCOMM.2024.3359295
+where eavesdropping by Eve can be inferred as a consequence
+of fundamental quantum mechanics. The most significant
+advancement of QKD in space-based applications was the
+demonstration of discrete variable QKD (DVQKD), which
+uses the available degrees of freedom of single photons,
+to encode a key between optical ground stations on Earth
+and the Micius satellite [2]. Despite its successful deployment
+in space, its use of expensive and inefficient single photon
+detectors for detection poses challenges for its popularisa-
+tion and commercialisation [3]. An appealing alternative is
+continuous variable QKD (CVQKD) which uses multi-photon
+technologies to encode the key in the continuous X and P
+quadratures of light [3], [4]. Its use of homodyne or heterodyne
+detection is more cost-effective, more compatible with stan-
+dard telecommunication optical networks, and more efficient,
+offering higher secret key rates (SKRs) [3], [5], [6].
+CVQKD experiments have predominantly been restricted
+to fibre-based systems in the laboratory where a SKR of
+14.2 Mbit/s over 15 km of optical fibre has been demon-
+strated using a local oscillator [7]. The first demonstration of
+fibre-based CVQKD over 100 km was performed by control-
+ling and suppressing excess noise [8]. A SKR of 2.1 Gbit/s
+in free-space has been achieved using 10-channel wavelength
+division multiplexing in the weak turbulence regime [9]
+using the Kramers-Kronig scheme which digitally separates
+the quadrature components [10], and a SKR greater than
+1.68 Gbit/s can be reached in a lossless and excess noise
+free system that uses two polarisations, six wavelengths,
+and four orbital angular momentum for multiplexing [11].
+In addition, an average SKR of 1.015 Mbit/s was achieved
+over a turbulent 1 m free-space channel with a transmittance
+between −6 dB to −15 dB using the passive-state-preparation
+CVQKD protocol, which has the same security proof as
+GM-CVQKD assuming Alice’s transmitter is trusted [12].
+A study of atmospheric effects on quantum communications
+over 1.6 km of free-space was performed and the experimental
+setup was capable of CVQKD [13]. However, there has only
+been one demonstration of free-space CVQKD which occurred
+over 460 m in an urban environment and achieved a SKR of
+0.152 kbit/s using unidimensional Stokes operator encoding
+by modulating the quantum Stokes parameter with a Gaussian
+distribution [14]. It should be noted that the Kramers-Kronig
+scheme and Stokes operator encoding do not provide uncon-
+ditional security, unlike GM-CVQKD [3].
+The two modulation approaches for CVQKD to encode
+a key are Gaussian modulation (GM-CVQKD) [3] and
+0090-6778 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 2 ---
+
+SAYAT et al.: SATELLITE-TO-GROUND CVQKD: THE GAUSSIAN AND DISCRETE MODULATED PROTOCOLS IN LEO
+3245
+discrete modulation (DM-CVQKD) [15], where implemen-
+tations can be found in associated publications, [16], [17].
+The GM-CVQKD protocol is capable of achieving higher
+SKRs as the coherent state distribution follows a continuous
+Gaussian distribution allowing for more positions on the
+optical phase space [3]. In contrast, DM-CVQKD positions a
+finite number of coherent states on the optical phase space,
+limiting its achievable SKR [18], [19], [20]. Under ideal
+circumstances of perfect CVQKD and channel parameters,
+GM-CVQKD produces larger SKRs. However, it is not evident
+that DM-CVQKD performs better under realistic non-ideal
+parameters. In fact, DM-CVQKD was proposed to address the
+poor performance of CVQKD in the low SNR regimes [15].
+Since the coherent states on the optical phase space follow
+a discretised distribution, it may be argued that the states
+are more distinguishable and can accommodate more excess
+noise.
+Previous studies on satellite-to-ground CVQKD provide a
+variety of models for the laser propagation between a satellite
+and an optical ground station (OGS) [21], [22], [23], [24], [25].
+However, there are no published comparisons between existing
+GM-CVQKD and DM-CVQKD protocols with the application
+of the performance of existing reconciliation methods for
+CVQKD in a satellite-to-ground context. In this work, the
+feasibility of practical low Earth orbit (LEO - orbit altitudes
+of
+160-1000
+km)
+satellite-to-ground
+GM-CVQKD
+and
+DM-CVQKD are investigated. These protocols are also com-
+pared in the asymptotic and finite size limits, using realistic
+parameters to calculate accessible SKRs. The DM-CVQKD
+protocols studied are the M-PSK protocol that assume
+Gaussian optimality under collective attacks [15], [18], [19],
+[20], [26], [27], and the M-QAM protocol which does not
+assume Gaussian optimality under collective attacks [28]. The
+calculated achievable asymptotic limit SKRs are compared
+to the known SKR upper bound in a satellite-to-ground
+context [29], [30]. In addition, the performance of recent
+multidimensional (MD) reconciliation and multilevel coding
+and multistage decoding (MLC-MSD) reconciliation methods
+are applied to the GM-CVQKD protocol for the calculation
+of finite size limit SKRs in a satellite-to-ground context.
+The work is structured as follows. Section II introduces the
+GM-CVQKD protocol as well as the M-PSK and M-QAM
+DM-CVQKD protocol. Section III describes the process used
+when considering finite size effects. Section IV introduces the
+LEO satellite to OGS link model. Section V discusses the
+achievable SKRs of LEO satellite-to-ground GM-CVQKD and
+DM-CVQKD, and the resulting trends in SKR from parameter
+variation. Section VI discusses aspects of the feasibility study
+for real world satellite-to-ground CVQKD, and Section VII
+presents the conclusions.
+II. THE GM-CVQKD AND DM-CVQKD PROTOCOLS
+In this section, the GM-CVQKD protocol and the M-PSK
+DM-CVQKD protocol with security under collective attacks
+and assuming Gaussian optimality are investigated. The
+M-QAM DM-CVQKD protocol with security under collec-
+tive attacks without assuming Gaussian optimality is also
+studied.
+TABLE I
+EXCESS NOISE IN DAYLIGHT [31]. THE VALUES ARE NORMALISED TO
+SHOT NOISE AND ARE EXPRESSED IN SHOT NOISE UNITS (SNU)
+A. GM-CVQKD
+In GM-CVQKD [3], Alice sends a series of displaced
+coherent states,
+|α⟩= |q + ip⟩,
+(1)
+where q and p are the amplitude and phase quadrature
+components. These are both random variables of the same
+zero-centred normal distribution:
+q, p = N(0, VA).
+(2)
+Here, VA is the modulation variance. The covariance matrix
+describing the Gaussian modulated coherent state sent from
+Alice to Bob is
+γAB =
+
+(VA + 1)I
+p
+T(V 2
+A + 2VA)σz
+p
+T(V 2
+A + 2VA)σz T(VA + 1 + χline)I
+
+,
+(3)
+where VA is the modulation variance of Alice, T is the overall
+transmittance between Alice and Bob, and χline is the noise
+in the channel line expressed in shot noise units. I and σz
+are the identity matrix,
+1 0
+0 1
+
+, and the Pauli matrix,
+1 0
+0 −1
+
+,
+respectively.
+The asymptotic limit SKR [bits/pulse] is calculated as
+SKRasy = βIAB −SBE,
+(4)
+where β is the reconciliation efficiency, IAB is the mutual
+information between Alice and Bob, and SBE upper bounds
+the Holevo information that represents the maximum mutual
+information between Eve and Bob in the protocol [15]. The
+mutual information for homodyne and heterodyne detection
+are calculated as
+IAB,hom = 1
+2 log2
+(VA + 1) + χtot
+1 + χtot
+,
+IAB,het = log2
+(VA + 1) + χtot
+1 + χtot
+,
+(5)
+where the total excess noise, χtot, combines both the channel
+noise, χline =
+1
+T −1 + ϵch (where ϵch is the channel excess
+noise (Table I)), and detection excess noise, χhom/het, and is
+expressed as χtot = χline +
+χhom/het
+T
+[19]. The detection noise
+is different for homodyne and heterodyne detection where
+χhom = (1−η)+ϵdet
+η
+and χhet = 1+(1−η)+2ϵdet
+η
+, respectively.
+Here, η is the detector efficiency and ϵdet is the detector excess
+noise (Table I).
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 3 ---
+
+3246
+IEEE TRANSACTIONS ON COMMUNICATIONS, VOL. 72, NO. 6, JUNE 2024
+The Holevo information is calculated as
+SBE = G
+λ1 −1
+2
+
++ G
+λ2 −1
+2
+
+−G
+λ3 −1
+2
+
+−G
+λ4 −1
+2
+
+,
+(6)
+where G(x) = (x + 1) log2(x + 1) −x log2 x and λ are the
+symplectic eigenvalues of the covariance matrix, γAB. λ1,2 is
+calculated as
+λ1,2 =
+r
+1
+2(A ±
+p
+A2 −4B),
+(7)
+where
+A = (VA + 1)2 + T 2(VA + 1 + χline)2 −2TZ2, and
+B = (T(VA + 1)2 + T(VA + 1)χline −TZ2)2.
+(8)
+λ3,4 is calculated as
+λ3,4 =
+r
+1
+2(C ±
+p
+C2 −4D),
+(9)
+where
+Chom = Aχhom + (VA + 1)
+√
+B + T(VA + 1 + χline)
+T(VA + 1 + χtot)
+,
+Dhom =
+√
+B VA + 1 +
+√
+Bχhom
+T(VA + 1 + χtot) ,
+(10)
+for homodyne detection, and
+Chet = Aχ2
+het + B + 1 + 2TZ2
+[T(VA + 1 + χtot)]2
+,
++ 2χhet[(VA + 1)
+√
+B + T(VA + 1 + χline)]
+[T(VA + 1 + χtot)]2
+,
+Dhet =
+ 
+VA + 1 +
+√
+Bχhet
+T(VA + 1 + χtot)
+!2
+(11)
+for heterodyne detection. Here, Z
+=
+p
+V 2
+A + 2VA for
+Gaussian modulation.
+B. M-PSK DM-CVQKD
+In the 2-PSK protocol, Alice sends one of two coherent
+states with equal probability (0.5). In the 4-PSK protocol,
+Alice sends one of four coherent states with equal probability
+(0.25). In the 8-PSK protocol, Alice sends one of eight coher-
+ent states with equal probability (0.125). This is summarised
+below [18]:
+• S2 = {|α⟩, |αeiπ⟩}
+• S4 = {|α⟩, |αeiπ/2⟩, |αeiπ⟩, |αei3π/2⟩}
+• S8 = {|α⟩, |αeiπ/4⟩, |αeiπ/2⟩, |αei3π/4⟩,
+|αeiπ⟩, |αei5π/4⟩, |αei3π/2⟩, |αei7π/8⟩}
+The M-PSK (M = 2, 4, 8) protocols use coherent states with
+a magnitude α, and are represented in the optical phase space
+as shown in Figure 1.
+The DM-CVQKD covariance matrix which describes the
+discretely modulated coherent state sent from Alice to Bob,
+Fig. 1.
+Constellation diagrams of the 2,4,8-PSK protocols on the optical
+phase space. The coherent states have been modulated with a constant α and
+have equal probability. x = amplitude quadrature, p = phase quadrature.
+with security under collective attacks, has the same form as
+the Gaussian modulation scheme [19],
+γAB =
+(VA + 1)I
+√
+TZMσz
+√
+TZMσz T(VA + 1 + χline)I
+
+.
+(12)
+In this case, the correlation coefficient, ZM, varies between
+each M-PSK protocol:
+• Z2 = α2(ζ3/2
+0
+ζ−1/2
+1
++ ζ3/2
+1
+ζ−1/2
+0
+),
+• Z4 = 2α2 P3
+k=0(ζ3/2
+k−1ζ−1/2
+k
+),
+• Z8 = 2α2 P7
+k=0(ζ3/2
+k−1ζ−1/2
+k
+).
+The parameter ζk varies for each M-PSK protocol:
+2-PSK protocol:
+• ζ0 = e−α2cosh α2,
+• ζ1 = e−α2sinh α2.
+4-PSK protocol:
+• ζ0,2 = 1
+2e−α2(cosh α2 ± cos α2),
+• ζ1,3 = 1
+2e−α2(sinh α2 ± sin α2).
+8-PSK protocol:
+• ζ0,4 = 1
+4e−α2(cosh α2 + cos α2 ± 2 cos α2
+√
+2 cosh α2
+√
+2),
+• ζ1,5 = 1
+4e−α2(sinh α2 + sin α2 ±
+√
+2 cos α2
+√
+2 sinh α2
+√
+2 ±
+√
+2 sin α2
+√
+2 cosh α2
+√
+2),
+• ζ2,6 = 1
+4e−α2(cosh α2 −cos α2 ± 2 sin α2
+√
+2 sinh α2
+√
+2),
+• ζ3,7 = 1
+4e−α2(sinh α2 −sin α2 ∓
+√
+2 cos α2
+√
+2 sinh α2
+√
+2 ±
+√
+2 sin α2
+√
+2 cosh α2
+√
+2),
+where α =
+q
+VA
+2 .
+The asymptotic limit SKR is calculated as shown in
+Equations 4-11. However, ZM is used for the Z term.
+C. M-QAM
+In [28], a security proof for the M-PSK and M-QAM
+DM-CVQKD protocols without Gaussian optimality under
+collective attacks from an eavesdropper in the asymptotic limit
+was developed. Unfortunately, using the security proof with
+the transmittances and excess noise in a typical satellite-to-
+ground link (Table I), M-PSK is not capable of producing
+a positive SKR. A more attractive protocol is M-QAM as it
+produces positive SKRs at lower transmittances and higher
+levels of excess noise. In M-QAM, M coherent states are
+modulated to be distributed equidistantly with each other on
+the optical phase space. By assigning a non-uniform prob-
+ability to each coherent state, M-QAM can be tailored to a
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 4 ---
+
+SAYAT et al.: SATELLITE-TO-GROUND CVQKD: THE GAUSSIAN AND DISCRETE MODULATED PROTOCOLS IN LEO
+3247
+discretised Gaussian distribution to further increase the mutual
+information between Alice and Bob.
+The modulated coherent state is described as
+αk,l =
+α
+√
+2
+√m −1
+
+k −m −1
+2
+
++ i
+α
+√
+2
+√m −1
+
+l −m −1
+2
+
+,
+(13)
+where M = m2 and the coherent states are equidistantly
+spaced between −√m −1 and √m −1 in the phase and
+amplitude quadratures. Here, k = l = 0, 1, . . . , (m −1). The
+probability of each coherent state, pk,l, can follow either a
+binomial distribution,
+pk,l =
+1
+22(m−1)
+m −1
+k
+m −1
+l
+
+,
+(14)
+or a discrete Gaussian distribution,
+pk,l ∼exp(−v
+ x2 + p2
+),
+(15)
+where x =
+α
+√
+2
+√m−1
+ k −m−1
+2
+
+and p =
+α
+√
+2
+√m−1
+ l −m−1
+2
+
+.
+Here, v is a free parameter which is optimised to maximise
+the SKR. For example, Figure 2 shows 16-QAM, 64-QAM,
+and 256-QAM on the optical phase space with the probability
+of each modulated coherent state based on the binomial
+distribution. It can be seen that a greater number of coherent
+states better approximates the Gaussian distribution.
+The asymptotic limit SKR is calculated as in Equation 4.
+However, the mutual information is calculated as
+IAB,hom = 1
+2 log2 (1 + TVA
+2 + Tϵ),
+IAB,het = log2 (1 + TVA
+2 + Tϵ).
+(16)
+The Holevo information is determined from the covariance
+matrix given by,
+Γ∗
+AB =
+(VA + 1) I
+Z∗σz
+Z∗σz
+(1 + TVA + Tϵ) I
+
+.
+(17)
+The Holevo information is therefore,
+SBE = G
+λ1 −1
+2
+
++ G
+λ2 −1
+2
+
+−G
+λ3 −1
+2
+
+, (18)
+where λ1 and λ2 are the symplectic eigenvalues of the covari-
+ance matrix, Γ∗
+AB. The symplectic eigenvalue, λ3, is calculated
+as
+λ3,hom =
+s
+(VA + 1)
+
+VA + 1 −
+Z∗2
+1 + TVA + Tϵ
+
+, and
+λ3,het = VA + 1 −
+Z∗2
+2 + TVA + Tϵ,
+(19)
+for homodyne and heterodyne detection, respectively. For
+an arbitrary modulation, the lower bound of the correlation
+coefficient, Z∗, can be calculated as
+Z∗(T, ϵ) = 2
+√
+TTr(τ
+1
+2 ˆaτ
+1
+2 ˆa
+†) −
+√
+2Tϵw,
+(20)
+where ˆa and ˆa
+† are the annihilation and creation operators,
+respectively, ϵ is the total excess noise, and τ is the density
+matrix of the modulation:
+τ =
+X
+k
+pk|αk⟩⟨αk|.
+(21)
+Fig. 2.
+M-QAM with probabilities based on the binomial distribution.
+(a) 16-QAM (b) 64-QAM (c) 256-QAM.
+w is defined as
+w =
+X
+k
+pk
+
+|αk⟩ˆa
+†
+τ ˆaτ|αk⟩−|⟨αk| ˆaτ|αk⟩|2
+.
+(22)
+Although M-QAM is a DM-CVQKD protocol, the assign-
+ment of a probability following a Gaussian distribution to each
+modulated coherent state raises the question of whether or not
+it loses its DM-CVQKD features, especially when M is large.
+In particular, the distinguishability of the coherent states on the
+optical phase space. In addition, the calculation of SKRs in the
+finite size limit for M-QAM remains an open question [28].
+As a result, only the SKRs in the asymptotic limit will be
+studied in a satellite-to-ground context.
+III. FINITE SIZE EFFECTS
+The SKR calculation (Equation 4-11) is for the idealistic
+asymptotic limit in which an infinite number of symbols are
+sent between Alice and Bob, and provides an upper bound
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 5 ---
+
+3248
+IEEE TRANSACTIONS ON COMMUNICATIONS, VOL. 72, NO. 6, JUNE 2024
+to the achievable SKR. The finite size limit SKR, which
+represents a realistic case in which a finite number of symbols
+are sent between Alice and Bob [32], can be calculated as
+SKRfin = f(1 −FER)(1 −v)[βIAB −SBE −δnprivacy],
+(23)
+where f is the laser repetition rate, FER is the frame error rate,
+v is the fraction of symbols excluded for channel parameter
+estimation, and δnprivacy represents the proportion of the key
+further attributed to information gained by the eavesdropper
+to reflect the validity of estimated channel parameters in
+determining the Holevo information. However, to account
+for high error rate error correcting codes in long-distance
+CVQKD, the finite size limit SKR must be amended to
+[33], [34]:
+SKRfin = f[(1 −FER)βIAB −SBE −δnprivacy].
+(24)
+It should be noted that the term (1 −v) has been excluded as
+shown in composable security proofs where Alice can estimate
+channel parameters after error correction [35], [36]. Here,
+δnprivacy is calculated as
+δnprivacy = (d + 1)2
+√
+N
++
+4(d + 1)
+q
+log2( 2
+ϵs )
+√
+N
++
+2 log2(
+2
+ϵ2ϵs )
+√
+N
++
+4ϵsd
+ϵ
+√
+N
+√
+N
+,
+(25)
+where d is a discretisation parameter, ϵs is a smoothing param-
+eter, ϵ is a security parameter representing the probability
+that the key is not secret, and N is the total number of
+symbols sent between Alice and Bob, the details of which
+can be found in previous work [31], [37], [38], [39]. Previous
+experimental CVQKD demonstrations have used laser repe-
+tition rates between 10 and 500 MHz [40], [41], [42], [43].
+A laser repetition rate of f = 50 MHz has been chosen for the
+calculation of finite size limit SKRs, which is near the lower
+end of the range of laser repetition rates used in successfully
+demonstrated CVQKD, to show modest and more achievable
+finite size limit SKRs.
+Reconciliation methods can be split into Multidimensional
+(MD) reconciliation and Multilevel Coding and Multistage
+Decoding (MLC-MSD) reconciliation [32]. MLC-MSD recon-
+ciliation is generally employed for CVQKD at SNRs greater
+than 0 dB, while MD reconciliation is employed for CVQKD
+at SNRs less than 0 dB. Low-density parity-check (LDPC)
+codes can be used with MD and MLC-MSD reconciliation.
+Multiedge-type LDPC (MET-LDPC) codes are regarded as
+suitable for both MD and MLC-MSD reconciliation. Recent
+practical MD reconciliation efficiencies and FERs asymptoti-
+cally approach 100% as the SNR decreases [32].
+The dependency of β and FER on the SNR in (Equation 26)
+have been empirically determined from [32], and are used
+to calculate and analyse the satellite-to-ground SKRs in
+the finite size limit. The FER equation is for N = 106.
+However, the general trend shows that the FER decreases
+as N increases [32]. As a result, a code block length of
+N = 1011 has been used for finite size limit SKR calculations.
+TABLE II
+COEFFICIENTS OF β
+The coefficients, ci, for β are displayed in Table II. The
+calculation of the FER uses the coefficients m1 = 0.8218,
+m2 = −19.46, and m3 = −298.1 as shown in Equation 26.
+βMLC−MSD/MD = cc2SNR
+1
+−cc4SNR
+3
+,
+FER = 1
+2(1 + m1 arctan(m2SNR + m3)). (26)
+The SNR is calculated as
+SNR = 10 log10
+
+T|α|2
+|α|2 + (1 −T)χtot
+
+,
+(27)
+and depends on α, transmittance (T) and excess noise (χtot)
+between Alice and Bob. Note that βMLC−MSD, βMD, and
+FER in Equation 26 are only valid when they have a value
+between 0 and 1.
+IV. SATELLITE-TO-GROUND CHANNEL MODEL
+Clouds, atmospheric turbulence, and atmospheric aerosols
+are the three main sources of signal degradation in the atmo-
+sphere that cause the transmittance of the signal to decrease
+through attenuation. The model developed considers the fol-
+lowing: geometric losses due to the distance between Alice
+(satellite) and Bob (OGS), the hardware used, scintillation
+losses due to the atmospheric turbulence, scattering losses
+due to atmospheric aerosols. Clouds are not included in the
+model as they effectively destroy the signal and act as a
+blockage, completely attenuating the signal. The solution to
+this is accurate cloud coverage analyses and OGS network
+site diversity [44] to spatiotemporally maximise channel links
+between Alice and Bob regardless of environmental condi-
+tions. In addition, weather conditions such as rain, snow, and
+hail effectively destroy the signal and can cause damage to
+an OGS telescope [45]. Therefore, in the presence of clouds,
+rain, snow, and hail, satellite-to-ground CVQKD is not ideal.
+Atmospheric
+losses
+depend
+on
+the
+thickness
+of
+the
+atmosphere or the atmospheric mass the signal propagates
+through. On average, 95% of the total atmosphere mass is
+within the first 20 km from ground to zenith [46], [47] and
+so atmospheric losses can be modelled as approximately
+confined to this range.
+Figure 3 displays the channel link between the satellite and
+OGS where the total link distance and effective atmosphere
+thickness is a function of the elevation angle. The model
+assumes a uniform atmosphere thickness of 20 km. The
+total link distance, Ltot, and effective atmosphere thickness,
+Latm,eff, can be calculated as
+Ltot = ((RE + Lzen)2 + (RE + LOGS)2
+−2(RE + Lzen) (RE + LOGS) cos (α1))
+1
+2
+α1 = arcsin
+
+cos (θ)(RE + LOGS)
+RE + Lzen
+
++ (90 −θ), and
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 6 ---
+
+SAYAT et al.: SATELLITE-TO-GROUND CVQKD: THE GAUSSIAN AND DISCRETE MODULATED PROTOCOLS IN LEO
+3249
+Fig. 3.
+The satellite-to-ground channel model is shown in (a). (b) and (c)
+shows the trigonometric determination of the total link distance and effective
+atmosphere thickness, respectively.
+Latm,eff = ((RE + Latm)2 + (RE + LOGS)2
+−2(RE + Latm)(RE + LOGS) cos (α2))
+1
+2
+α2 = arcsin
+
+cos (θ)(RE + LOGS)
+RE + Latm
+
++ (90 −θ), (28)
+where RE is the radius of Earth, LOGS is the altitude
+of the OGS, Lzen is the altitude of the satellite at zenith
+(90◦elevation angle), Latm is the atmospheric thickness con-
+taining 95% of atmospheric mass, and θ > 0 is the elevation
+angle.
+A. Geometric Losses
+Geometric losses, Ageo (in units of decibels), arise from the
+link distance and optical hardware used in the transmission
+and reception of the signal, and can be estimated from [48],
+Ageo = 10 log10
+L2
+totλ2
+D2
+t D2r
+1
+Tt(1 −Lp)Tr
+
+[dB],
+(29)
+which depends on the total link distance (Ltot), wavelength
+(λ), transmitter and receiver aperture diameter (Dt, Dr), trans-
+mitter and receiver efficiencies (Tt, Tr), and pointing loss
+(Lp) which is attributed to the inefficiency of the acquisition,
+pointing, tracking (APT) system of the OGS as well as beam
+wandering. Equation 29 assumes that the receiver is in the
+far field of the transmitter (Ltot ≥DrDt
+λ
+), the transmitter is
+diffraction limited, and there is no attenuation from the atmo-
+sphere which enables the later addition of other atmospheric
+losses (scattering and scintillation losses) in the overall model.
+B. Scattering Losses
+Atmospheric aerosols attenuate the signal through three
+regimes of scattering [49]: Rayleigh scattering caused by air
+molecules, Mie scattering caused by haze and fog, and geo-
+metrical scattering caused by rain, snow etc. For the 1550 nm
+wavelength used in CVQKD, the effects of Rayleigh scattering
+on the transmittance are negligible [49], and geometrical
+scattering effects are neglected as satellite-to-ground CVQKD,
+in general, is not ideal during weather conditions such as rain,
+snow, and hail.
+The Kruse and Kim model [50] is used to model
+losses related to Mie scattering. The model depends on
+the wavelength of the signal and the atmospheric visibility,
+V (Equation 30). The resulting loss per kilometre is then mul-
+tiplied by the effective atmosphere thickness (Equation 28):
+Ascat = 10 log10(e)(3.912
+V
+)( λ
+550)−p [dB/km],
+p =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.6
+V ≥50 km
+1.3
+6 km ≤V < 50 km
+0.16V + 0.34
+1 km ≤V < 6 km
+V −0.5
+0.5 km ≤V < 1 km
+0
+V < 0.5 km.
+(30)
+C. Scintillation Losses
+Atmospheric turbulence causes refractive index variations in
+the atmosphere and distorts the optical wavefront of the laser,
+leading to intensity fluctuations and losses in the received sig-
+nal observed as speckles on an imaging detector [44]. This is a
+phenomenon known as scintillation, and it can be quantified by
+the scintillation index, σ2
+I . As the receiver involves a telescope,
+it is assumed to have an aperture diameter larger than the
+irradiance correlation width (lateral intensity coherence length)
+of the speckles. Therefore, aperture averaging is utilised,
+decreasing the adverse effects of scintillation [51].
+The losses related to scintillation with aperture averaging are
+described in Equation 31 which depends on the scintillation
+index, σ2
+I , and the probability that the received power is below
+the minimum required power to register a signal, pthr. pthr
+is equivalent to the fraction of link outage time. Here, it is
+assumed that the received signal is a spherical wave. The
+resulting loss as a function of the scintillation index is given
+by [51],
+Asci = 4.343
+
+erf−1 (2pthr −1)
+
+2 ln(σ2
+I + 1)
+ 1
+2
+−1
+2 ln(σ2
+I + 1)
+
+[dB].
+(31)
+The scintillation index can be calculated using Equation 32
+which depends on the Rytov variance (σ2
+R), the effective
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 7 ---
+
+3250
+IEEE TRANSACTIONS ON COMMUNICATIONS, VOL. 72, NO. 6, JUNE 2024
+atmosphere thickness (Latm,eff), and the refractive index
+structure parameter (C2
+n). Here. k = 2π
+λ is the wave number,
+d = Dr(
+π
+2λLatm,eff )
+1
+2 , Dr is the aperture diameter of the
+receiver, and λ is the wavelength.
+σ2
+I (Dr) = exp
+
+0.20σ2
+R
+[1 + 0.18d2 + 0.20(σ2
+R)
+6
+5 ]
+7
+6
++ 0.21σ2
+R[1 + 0.24(σ2
+R)
+6
+5 ]−5
+6
+1 + 0.90d2 + 0.21d2(σ2
+R)
+6
+5
+
+−1,
+σ2
+R = 2.25k
+7
+6
+Z Latm,eff
+0
+C2
+n(z)(Latm,eff −z)
+5
+6 dz.
+(32)
+The refractive index structure parameter, C2
+n [m−2
+3 ], defines
+the intensity of turbulence in the atmosphere. Although this
+can be calculated more accurately through models such as the
+Hufnagel-Valley models [5], [52], C2
+n is set to be a constant
+parameter, where C2
+n = 10−16 corresponds to low turbulence
+levels, C2
+n = 10−14 corresponds to medium turbulence levels,
+and C2
+n = 10−13 corresponds to high turbulence levels [45].
+V. SATELLITE-TO-GROUND GM-CVQKD AND
+DM-CVQKD SKR ANALYSIS
+In this section, the SKRs of satellite-to-ground GM-
+CVQKD and DM-CVQKD are estimated with typical daylight
+excess noise values (Table I), and the losses applied to the
+total link distance and effective atmosphere thickness. The
+total attenuation based on losses is defined as
+Atot = Ageo(Ltot) + AscatLatm,eff + Asci(Latm,eff) [dB]
+(33)
+and the transmittance is calculated as the non-logarithmic
+inverse of Atot. Of the three sources of attenuation, geometric
+loss dominates due to the relatively large distance between
+the satellite and OGS. In calculating geometric losses, the
+assumption that the receiver is in the far field of the transmitter
+is governed by L ≥DrDt
+λ
+. In situations where this inequality
+does not hold, the SKR calculation has been omitted. However,
+the general trend should still apply.
+Several parameters were varied for the analysis of the
+GM-CVQKD and DM-CVQKD protocols under different
+satellite orbits (Table III). The two values for the visibility and
+the refractive index structure parameter correspond to good
+atmospheric conditions where the visibility is high and there is
+low atmospheric turbulence (V = 200 km, C2
+n = 10−16), and
+bad atmospheric conditions where visibility is low and there
+is high atmospheric turbulence (V = 20 km, C2
+n = 10−13).
+Two values of the receiver aperture diameter were also used
+to observe the changes in achievable SKR. The modulation
+variance for Gaussian and discrete modulation were chosen to
+be close to optimal (VA = 5 SNU for Gaussian modulation,
+VA = 0.5 SNU for M-PSK, VA = 2 SNU for M-QAM). The
+SKRs for GM-CVQKD and DM-CVQKD were calculated as a
+function of the satellite altitude at zenith at different elevation
+angles (30◦, 60◦, 90◦) in reference to the satellite altitude at
+zenith.
+TABLE III
+CVQKD LINK PARAMETERS
+A. Asymptotic Limit SKRs of GM-CVQKD and DM-CVQKD
+Protocols
+This section calculates the asymptotic limit SKRs for
+satellite-to-ground GM-CVQKD and DM-CVQKD under col-
+lective attacks from Eve. A reconciliation efficiency of 90%
+has been used for asymptotic limit SKR calculations. The
+asymptotic limit SKRs are also compared to the loss-limited
+SKR upper bound when the satellite is at zenith [29].
+The results in Figure 4 show that for a receiver aperture
+diameter of 1 m and good atmospheric conditions, GM-
+CVQKD outperforms all DM-CVQKD protocols. The 2-PSK
+protocol does not produce any positive SKRs and is there-
+fore unsuitable for satellite-to-ground downlinks. As expected,
+smaller elevation angles produce smaller SKRs as the signal
+travels through a larger link distance and effective atmosphere
+thickness, suffering greater attenuation. The M-QAM protocol
+outperforms the M-PSK protocol, where M-PSK can only
+achieve positive SKRs at smaller LEO altitudes. The M-QAM
+protocol can produce positive SKRs at small medium Earth
+orbits (MEOs - orbit altitudes of 1000-35,786 km) with the
+256-QAM protocol capable of producing positive SKRs at
+larger link distances.
+In bad atmospheric conditions, the M-PSK protocol cannot
+produce positive SKRs in LEO. In addition, the SKRs of
+GM-CVQKD and M-QAM have been significantly decreased
+(Figure 5).
+Figure 4 and Figure 5 show that the asymptotic limit
+SKRs for GM-CVQKD and DM-CVQKD are well below the
+loss-limited upper bound of SKRs [29], [30]. This is because
+of the introduction of excess noise in the model used to
+calculate the SKRs as well as the other parameter values used
+in Table III, that would arise in practical satellite-to-ground
+CVQKD, which lower the achievable SKRs.
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 8 ---
+
+SAYAT et al.: SATELLITE-TO-GROUND CVQKD: THE GAUSSIAN AND DISCRETE MODULATED PROTOCOLS IN LEO
+3251
+Fig. 4.
+Asymptotic limit SKRs as a function of satellite altitude for
+(a) M-PSK, (b) 64-QAM, and (c) 256-QAM DM-CVQKD in relation to
+GM-CVQKD in good atmospheric conditions. The solid lines indicate
+θ = 90◦, dashed lines indicate θ = 60◦, dash-dotted lines indicate θ = 30◦.
+Dr = 1 m, β = 90%.
+B. Finite Size Limit SKRs of GM-CVQKD and DM-CVQKD
+As security proofs for DM-CVQKD in the finite size
+limit are an active field of research [53], [54], [55], SKR
+analysis in the finite size limit was restricted to GM-CVQKD.
+Fig. 5.
+Asymptotic limit SKRs as a function of satellite altitude for
+(a) 64-QAM and (b) 256-QAM DM-CVQKD in relation to GM-CVQKD
+in bad atmospheric conditions. The solid lines indicate θ
+= 90◦,
+dashed lines indicate θ
+= 60◦, dash-dotted lines indicate θ
+= 30◦.
+Dr = 1 m, β = 90%.
+This analysis uses Equations 24-27. However, it is suspected
+that the relationship from asymptotic limit to finite size
+limit DM-CVQKD follows the same trend from asymptotic
+limit to finite size limit GM-CVQKD. No positive finite
+size limit SKRs are achieved in LEO GM-CVQKD in bad
+atmospheric conditions. This is evidence of the inability of
+CVQKD to operate in bad atmospheric conditions due to
+significant signal attenuation.
+Figure 6 shows the finite SKRs in good atmospheric condi-
+tions for MD and MLC-MSD reconciliation. For a 1 m receiver
+aperture diameter, positive SKRs are restricted to a satellite
+orbit altitude below approximately 375 km and with larger
+elevation angles. Active propulsion is required to maintain
+this altitude, adding to the required complexities of a CVQKD
+LEO satellite. However, this situation can be ameliorated by
+increasing the receiver aperture diameter. In this case, the
+receiver aperture diameter was increased from 1 m to 2 m,
+increasing the satellite orbit altitude for which there is a
+positive SKR to a maximum of approximately 850 km and
+with lower elevation angles (Figure 6b). The results show that
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 9 ---
+
+3252
+IEEE TRANSACTIONS ON COMMUNICATIONS, VOL. 72, NO. 6, JUNE 2024
+Fig. 6.
+Finite size limit SKRs as a function of satellite altitude for a (a) 1m
+and (b) 2 m receiver aperture diameter GM-CVQKD downlink using MD and
+MLC-MSD reconciliation with homodyne detection. The solid lines indicate
+θ = 90◦, dashed lines indicate θ = 60◦, dash-dotted lines indicate θ = 30◦.
+MD reconciliation outperforms MLC-MSD reconciliation by
+producing larger positive SKRs for larger link distances and
+lower elevation angles.
+The finite size limit SKR calculation can also be presented
+as a function of elevation angle for a satellite at a certain
+orbit altitude. For this purpose, we assessed the orbit of the
+International Space Station (ISS), which has an average orbit
+altitude at zenith of 417.5 km, and studied a pass, shown in
+Figure 7, which occurred on 9th August 2022, over the Uni-
+versity of Canterbury’s Mt. John Observatory in New Zealand
+(Latitude = −43.9853◦, Longitude = 170.4641◦, Altitude =
+1.029 km). The pass had a duration of 663 s with a maximum
+elevation angle of 87.6◦. The calculations were made using
+the same link parameter values as in Table III with a receiver
+diameter aperture, Dr, of 2 m and OGS altitude, Lgeo,
+of 1.029 km. A practical limitation to be noted is that a LEO
+satellite pass with large elevation angles may go through the
+keyhole of an observatory. In this situation, the satellite cannot
+be tracked.
+Fig. 7.
+Elevation for an ISS pass over Mt. John Observatory on 9th August
+2022. The pass had a maximum elevation angle of 87.6◦.
+Fig. 8. SKR for ISS pass over Mt. John Observatory with maximum elevation
+angle 87.6◦. Dr = 2 m. Homodyne detection. Lgeo = 1.029 km.
+The SKR was calculated assuming good atmospheric con-
+ditions for the ISS pass (Figure 8). The results show that finite
+size limit GM-CVQKD with MD reconciliation outperforms
+MLC-MSD reconciliation by producing larger positive SKRs
+and at lower elevation angles.
+Multiplying the calculated SKR by the time that the ISS
+is at a certain elevation angle produces the total number of
+bits of the secret key. The elevation angle has been discretised
+with a resolution of 1◦in Figure 7 to determine the temporal
+position of the ISS. The secret key has:
+• 1.235 Gbit for GM-CVQKD with MD reconciliation,
+• 385
+Mbit
+for
+GM-CVQKD
+with
+MLC-MSD
+reconciliation.
+C. SKR Trends From Parameter Variation Analysis
+A sensitivity analysis of the parameters leads to the
+following observed trends:
+• Increasing the laser repetition rate increases the finite size
+limit SKR.
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 10 ---
+
+SAYAT et al.: SATELLITE-TO-GROUND CVQKD: THE GAUSSIAN AND DISCRETE MODULATED PROTOCOLS IN LEO
+3253
+• Decreasing the value for allowable information for Eve
+in the finite size limit (δnprivacy) increases the SKR for
+a given link distance. This implies that there is greater
+accuracy in the estimated amount of information Eve has
+intercepted (Holevo information).
+• Increasing the transmitter and receiver aperture diameter
+as well as the transmitter and receiver optics efficiencies
+increases the maximum link distance and therefore satel-
+lite orbit altitude. This increase results from the decrease
+in losses during state preparation and measurement.
+• Decreasing the pointing loss increases the maximum
+link distance and therefore satellite orbit altitude. This
+requires a more accurate APT system as well as less beam
+wandering between Alice and Bob.
+• Increasing the OGS elevation increases the maximum link
+distance and therefore satellite orbit altitude for which a
+positive SKR is possible. This results from the decrease in
+attenuation from a decrease in link distance and effective
+atmosphere thickness as Bob is effectively closer to Alice.
+• Operating in good atmospheric conditions where there
+is greater visibility and a smaller refractive index struc-
+ture parameter increases the maximum link distance and
+therefore satellite orbit altitude. This results from the
+decrease in attenuation due to less atmospheric scattering
+and turbulence.
+• Protocols with a larger number of coherent states lead to
+larger SKRs.
+VI. DISCUSSION
+The performance of recent MD and MLC-MSD recon-
+ciliation methods have been applied to GM-CVQKD in a
+satellite-to-ground context. It should be noted that the com-
+plexities of these reconciliation methods differ leading to
+different real-time decoding rates, and consequently, differ-
+ent times taken for real-time secret key generation between
+a satellite and OGS; the computational overhead of which
+would be more of a burden on the satellite. This stems from
+latency in data post-processing during the classical informa-
+tion reconciliation step in QKD. In combination with power
+consumption and heat dissipation in the satellite hardware,
+these practical elements would lead to a decrease in the
+achievable SKR. A practical solution to this would be to design
+an appropriate thermal management system on the satellite
+which would keep the satellite hardware to an appropriate low
+temperature to mitigate the negative effects of heating [56].
+To solve power consumption and latency issues, the use of
+appropriate field-programmable gate arrays on the satellite
+for data post-processing would lead to relatively lower power
+consumption and high throughput by using their parallel
+computational ability [57]. Overall, a CVQKD satellite would
+need to be designed and engineered based on the desired SKRs
+during CVQKD. An alternative solution would be to perform
+information reconciliation offline and after the distribution of
+the secret key. Given that a LEO satellite pass is typically
+in the order of a few minutes, this is a promising solution for
+satellite-to-ground based QKD where the final secret key (after
+post-processing) is generated some time after the initial trans-
+mission, over multiple passes of the satellite over the OGS.
+High turbulence in the atmosphere causes beam wandering
+during transmission between a satellite and an OGS. This
+may result in a large beam angle-of-arrival on the receiver
+aperture of the OGS, causing non-ideal coupling to fibre as
+the beam may not be focused on the fibre, and therefore this
+can introduce a probabilistic interruption in communication
+between the satellite and OGS. The details of this phenomena
+have previously been published [25], and it is similarly related
+to the probability threshold, pthr, in Equation 31 which is the
+probability that the received power is below the minimum
+required power to register a signal, therefore causing an
+interruption in communication and a substantial decrease in
+achievable SKRs.
+The loss-limited SKR upper bound was compared with
+achievable asymptotic limit SKRs for GM-CVQKD and
+DM-CVQKD. It should be noted that a thermal-loss SKR
+upper bound, which incorporates noise components, and a
+thermal-loss SKR lower bound have also been determined in
+References [29] and [30]. However, as shown in Figure 3
+in Ref. [29], the loss-limited SKR upper bound and the
+thermal-loss SKR upper and lower bounds are identical in
+LEO and low MEO altitudes. For this reason, the loss-limited
+SKR upper bound was used for comparison. Furthermore, the
+bounds are for ideal systems. In contrast, the SKRs calculated
+for GM-CVQKD and DM-CVQKD consider parameters found
+in practical satellite-to-ground CVQKD such as the reconcili-
+ation efficiency as well as the modulation variance, which lead
+to lower but more practical achievable SKRs.
+VII. CONCLUSION
+In this work, a feasibility study for practical satellite-
+to-ground CVQKD with a focus on comparing existing
+GM-CVQKD and DM-CVQKD protocols with the application
+of the performance of recent reconciliation methods is
+presented. The results show that GM-CVQKD outperforms
+both the M-PSK and M-QAM DM-CVQKD protocols in the
+asymptotic limit. However, the M-QAM protocol outperforms
+the M-PSK protocol and is capable of producing positive
+SKRs in both LEO and low MEO. In the finite size limit,
+MD reconciliation outperforms MLC-MSD reconciliation by
+producing larger positive SKRs in GM-CVQKD for larger link
+distances and lower elevation angles. The physical implemen-
+tations of both GM-CVQKD and DM-CVQKD as well as the
+processes for MD and MLC-MSD reconciliation have not been
+considered. These should be investigated further for future
+satellite-to-ground and long distance CVQKD operation.
+REFERENCES
+[1] H.-K. Lo and H. F. Chau, “Unconditional security of quantum key
+distribution over arbitrarily long distances,” Science, vol. 283, no. 5410,
+pp. 2050–2056, Mar. 1999.
+[2] J. Yin et al., “Entanglement-based secure quantum cryptography over
+1,120 kilometres,” Nature, vol. 582, no. 7813, pp. 501–505, Jun. 2020.
+[3] F. Laudenbach et al., “Continuous-variable quantum key distribution
+with Gaussian modulation—The theory of practical implementations,”
+Adv. Quantum Technol., vol. 1, no. 1, Aug. 2018, Art. no. 1800011.
+[4] R. García-Patrón and N. J. Cerf, “Unconditional optimality of Gaussian
+attacks against continuous-variable quantum key distribution,” Phys. Rev.
+Lett., vol. 97, no. 19, Nov. 2006, Art. no. 190503.
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 11 ---
+
+3254
+IEEE TRANSACTIONS ON COMMUNICATIONS, VOL. 72, NO. 6, JUNE 2024
+[5] E. Villaseñor, R. Malaney, K. A. Mudge, and K. J. Grant, “Atmospheric
+effects on satellite-to-ground quantum key distribution using coherent
+states,” in Proc. IEEE Global Commun. Conf., Dec. 2020, pp. 1–6.
+[6] S. P. Kish, P. Gleeson, P. Koy Lam, and S. M. Assad, “Comparison
+of discrete variable and continuous variable quantum key distribu-
+tion protocols with phase noise in the thermal-loss channel,” 2022,
+arXiv:2206.13724.
+[7] S. Ren, S. Yang, A. Wonfor, R. Penty, and I. White, “Experimental
+demonstration of high key rate and low complexity CVQKD system
+with local local oscillator,” in Proc. Opt. Fiber Commun. Conf. Exhib.
+(OFC), Mar. 2020, pp. 1–3.
+[8] D. Huang, P. Huang, D. Lin, and G. Zeng, “Long-distance continuous-
+variable quantum key distribution by controlling excess noise,” Sci. Rep.,
+vol. 6, no. 1, p. 19201, Jan. 2016.
+[9] Z. Qu and I. B. Djordjevic, “High-speed free-space optical continuous
+variable-quantum key distribution based on Kramers–Kronig scheme,”
+IEEE Photon. J., vol. 10, no. 6, pp. 1–7, Dec. 2018.
+[10] A. Mecozzi, C. Antonelli, and M. Shtaif, “Kramers–Kronig coherent
+receiver,” Optica, vol. 3, no. 11, pp. 1220–1227, 2016.
+[11] Z. Qu and I. B. Djordjevic, “High-speed free-space optical continuous-
+variable quantum key distribution enabled by three-dimensional multi-
+plexing,” Opt. Exp., vol. 25, no. 7, p. 7919, 2017.
+[12] M. Zhang, P. Huang, P. Wang, S. Wei, and G. Zeng, “Experimental
+free-space continuous-variable quantum key distribution with thermal
+source,” Opt. Lett., vol. 48, no. 5, pp. 1184–1187, 2023.
+[13] B. Heim et al., “Atmospheric continuous-variable quantum communica-
+tion,” New J. Phys., vol. 16, no. 11, Nov. 2014, Art. no. 113018.
+[14] S.-Y. Shen, M.-W. Dai, X.-T. Zheng, Q.-Y. Sun, G.-C. Guo, and
+Z.-F. Han, “Free-space continuous-variable quantum key distribution of
+unidimensional Gaussian modulation using polarized coherent states
+in an urban environment,” Phys. Rev. A, Gen. Phys., vol. 100, no. 1,
+Jul. 2019, Art. no. 012325.
+[15] A. Leverrier and P. Grangier, “Unconditional security proof of
+long-distance continuous-variable quantum key distribution with dis-
+crete modulation,” Phys. Rev. Lett., vol. 102, no. 18, May 2009,
+Art. no. 180504.
+[16] F. Grosshans and P. Grangier, “Continuous variable quantum cryptogra-
+phy using coherent states,” Phys. Rev. Lett., vol. 88, no. 5, Jan. 2002,
+Art. no. 057902.
+[17] Y. Shen, H. Zou, L. Tian, P. Chen, and J. Yuan, “Experimental study
+on discretely modulated continuous-variable quantum key distribution,”
+Phys. Rev. A, Gen. Phys., vol. 82, no. 2, Aug. 2010, Art. no. 022317.
+[18] W. Zhao, R. Shi, Y. Feng, and D. Huang, “Unidimensional continuous-
+variable quantum key distribution with discrete modulation,” Phys.
+Lett. A, vol. 384, no. 2, Jan. 2020, Art. no. 126061.
+[19] H. Zhang, J. Fang, and G. He, “Improving the performance of the
+four-state continuous-variable quantum key distribution by using optical
+amplifiers,” Phys. Rev. A, Gen. Phys., vol. 86, no. 2, Aug. 2012,
+Art. no. 022338.
+[20] A. Becir, F. El-Orany, and M. Wahiddin, “Continuous-variable quantum
+key distribution protocols with eight-state discrete modulation,” Int. J.
+Quantum Inf., vol. 10, no. 1, 2012, Art. no. 1250004.
+[21] M. Sayat et al., “LEO-to-ground Gaussian modulated continuous vari-
+able quantum key distribution,” in Proc. Int. Astron. Congr., Sep. 2022.
+[22] N. Hosseinidehaj, Z. Babar, R. Malaney, S. X. Ng, and L. Hanzo,
+“Satellite-based continuous-variable quantum communications: State-of-
+the-art and a predictive outlook,” IEEE Commun. Surveys Tuts., vol. 21,
+no. 1, pp. 881–919, 1st Quart., 2019.
+[23] Y. Guo et al., “Channel-parameter estimation for satellite-to-submarine
+continuous-variable quantum key distribution,” Phys. Rev. A, Gen. Phys.,
+vol. 97, no. 5, May 2018, Art. no. 052326.
+[24] D. Dequal et al., “Feasibility of satellite-to-ground continuous-variable
+quantum key distribution,” NPJ Quantum Inf., vol. 7, no. 1, p. 3,
+Jan. 2021.
+[25] S. Wang, P. Huang, T. Wang, and G. Zeng, “Atmospheric effects on
+continuous-variable quantum key distribution,” New J. Phys., vol. 20,
+no. 8, Aug. 2018, Art. no. 083037.
+[26] I. B. Djordjevic, “Optimized-eight-state CV-QKD protocol outperform-
+ing Gaussian modulation based protocols,” IEEE Photon. J., vol. 11,
+no. 4, pp. 1–10, Aug. 2019.
+[27] T.-L. Wang, I. B. Djordjevic, and J. Nagel, “Laser beam propagation
+effects on secure key rates for satellite-to-ground discrete modulation
+CV-QKD,” Appl. Opt., vol. 58, no. 29, pp. 8061–8068, 2019.
+[28] A. Denys, P. Brown, and A. Leverrier, “Explicit asymptotic secret key
+rate of continuous-variable quantum key distribution with an arbitrary
+modulation,” Quantum, vol. 5, p. 540, Sep. 2021.
+[29] S. Pirandola, “Satellite quantum communications: Fundamental bounds
+and practical security,” Phys. Rev. Res., vol. 3, no. 2, May 2021,
+Art. no. 023130.
+[30] S. Pirandola, “Limits and security of free-space quantum communica-
+tions,” Phys. Rev. Res., vol. 3, no. 1, Mar. 2021, Art. no. 013279.
+[31] S. P. Kish, E. Villaseñor, R. Malaney, K. A. Mudge, and K. J. Grant,
+“Feasibility assessment for practical continuous variable quantum key
+distribution over the satellite-to-Earth channel,” Quantum Eng., vol. 2,
+no. 3, p. e50, Sep. 2020.
+[32] H. Mani, T. Gehring, P. Grabenweger, B. Ömer, C. Pacher, and
+U. L. Andersen, “Multiedge-type low-density parity-check codes for
+continuous-variable quantum key distribution,” Phys. Rev. A, Gen. Phys.,
+vol. 103, no. 6, Jun. 2021, Art. no. 062419.
+[33] S. J. Johnson, A. M. Lance, L. Ong, M. Shirvanimoghaddam,
+T. C. Ralph, and T. Symul, “On the problem of non-zero word error
+rates for fixed-rate error correction codes in continuous variable quan-
+tum key distribution,” New J. Phys., vol. 19, no. 2, Feb. 2017,
+Art. no. 023003.
+[34] S. Jeong, H. Jung, and J. Ha, “Rate-compatible multi-edge type low-
+density parity-check code ensembles for continuous-variable quantum
+key distribution systems,” NPJ Quantum Inf., vol. 8, no. 1, p. 6,
+Jan. 2022.
+[35] S. Ghorai, E. Diamanti, and A. Leverrier, “Composable security of
+two-way continuous-variable quantum key distribution without active
+symmetrization,” Phys. Rev. A, Gen. Phys., vol. 99, no. 1, Jan. 2019,
+Art. no. 012311.
+[36] N. Hosseinidehaj, N. Walk, and T. C. Ralph, “Composable finite-
+size effects in free-space continuous-variable quantum-key-distribution
+systems,” Phys. Rev. A, Gen. Phys., vol. 103, no. 1, Jan. 2021,
+Art. no. 012605.
+[37] N. Hosseinidehaj, A. M. Lance, T. Symul, N. Walk, and T. C. Ralph,
+“Finite-size effects in continuous-variable quantum key distribution with
+Gaussian postselection,” Phys. Rev. A, Gen. Phys., vol. 101, no. 5,
+May 2020, Art. no. 052335.
+[38] A. Leverrier, “Composable security proof for continuous-variable quan-
+tum key distribution with coherent states,” Phys. Rev. Lett., vol. 114,
+no. 7, Feb. 2015, Art. no. 070501.
+[39] C. Lupo, C. Ottaviani, P. Papanastasiou, and S. Pirandola, “Continuous-
+variable measurement-device-independent quantum key distribution:
+Composable security against coherent attacks,” Phys. Rev. A, Gen. Phys.,
+vol. 97, no. 5, May 2018, Art. no. 052327.
+[40] H. Wang et al., “25 MHz repetition rate pilot-tone-assisted Gaussian-
+modulated continuous-variable quantum key distribution with a local
+local oscillator,” in Proc. 19th Int. Conf. Opt. Commun. Netw. (ICOCN),
+Aug. 2021, pp. 1–3.
+[41] T. Hirano et al., “Implementation of continuous-variable quantum key
+distribution with discrete modulation,” Quantum Sci. Technol., vol. 2,
+no. 2, Jun. 2017, Art. no. 024010.
+[42] D. Huang, J. Fang, C. Wang, P. Huang, and G.-H. Zeng, “A 300-
+MHz bandwidth balanced homodyne detector for continuous variable
+quantum key distribution,” Chin. Phys. Lett., vol. 30, no. 11, Nov. 2013,
+Art. no. 114209.
+[43] S. Ren, S. Yang, A. Wonfor, I. White, and R. Penty, “Demonstration
+of high-speed and low-complexity continuous variable quantum key
+distribution system with local local oscillator,” Sci. Rep., vol. 11, no. 1,
+p. 9454, May 2021.
+[44] F. H. Bennet, K. Ferguson, K. Grant, E. Kruzins, N. Rattenbury,
+and S. Schediwy, “An Australia/New Zealand optical communications
+ground station network for next generation satellite communica-
+tions,” in Proc. 32nd Free-Space Laser Commun., H. Hemmati and
+D. M. Boroson, Eds., vol. 11272. Bellingham, WA, USA: SPIE,
+Mar. 2020, pp. 1–7.
+[45] S. Muhammad, P. Kohldorfer, and E. Leitgeb, “Channel modeling for
+terrestrial free space optical links,” in Proc. 7th Int. Conf. Transp. Opt.
+Netw., vol. 1, 2005, pp. 407–410.
+[46] C. Liorni, H. Kampermann, and D. Bruß, “Satellite-based links for
+quantum key distribution: Beam effects and weather dependence,” New
+J. Phys., vol. 21, no. 9, Sep. 2019, Art. no. 093055.
+[47] Z. Zuo, Y. Wang, D. Huang, and Y. Guo, “Atmospheric effects on
+satellite-mediated
+continuous-variable
+quantum
+key
+distribution,”
+J.
+Phys.
+A,
+Math.
+Theor.,
+vol.
+53,
+no.
+46,
+Nov.
+2020,
+Art. no. 465302.
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+--- Page 12 ---
+
+SAYAT et al.: SATELLITE-TO-GROUND CVQKD: THE GAUSSIAN AND DISCRETE MODULATED PROTOCOLS IN LEO
+3255
+[48] M. Aspelmeyer, T. Jennewein, M. Pfennigbauer, W. R. Leeb, and
+A. Zeilinger, “Long-distance quantum communication with entangled
+photons using satellites,” IEEE J. Sel. Topics Quantum Electron., vol. 9,
+no. 6, pp. 1541–1551, Nov. 2003.
+[49] I. I. Kim, B. McArthur, and E. J. Korevaar, “Comparison of laser beam
+propagation at 785 nm and 1550 nm in fog and haze for optical wireless
+communications,” in Optical Wireless Communications III, vol. 4214.
+Bellingham, WA, USA: SPIE, 2001, pp. 26–37.
+[50] M. Grabner and V. Kvicera, “Fog attenuation dependence on atmo-
+spheric visibility at two wavelengths for FSO link planning,” in Proc.
+Loughborough Antennas Propagat. Conf., 2010, pp. 193–196.
+[51] D. Giggenbach, “Fading-loss assessment in atmospheric free-space
+optical communication links with on-off keying,” Opt. Eng., vol. 47,
+no. 4, Apr. 2008, Art. no. 046001.
+[52] L. C. Andrews et al., “Near-ground vertical profile of refractive-index
+fluctuations,” in Atmospheric Propagation VI, L. M. W. Thomas and
+G. C. Gilbreath, Eds., vol. 7324. Bellingham, WA, USA: SPIE, 2009,
+pp. 11–22.
+[53] T. Matsuura, K. Maeda, T. Sasaki, and M. Koashi, “Finite-size security
+of continuous-variable quantum key distribution with digital signal
+processing,” Nature Commun., vol. 12, no. 1, p. 252, Jan. 2021.
+[54] S. Yamano, T. Matsuura, Y. Kuramochi, T. Sasaki, and M. Koashi,
+“Finite-size security proof of binary-modulation continuous-variable
+quantum key distribution using only heterodyne measurement,” 2022,
+arXiv:2208.11983.
+[55] F. Kanitschar, I. George, J. Lin, T. Upadhyaya, and N. Lütkenhaus,
+“Finite-size security for discrete-modulated continuous-variable quan-
+tum key distribution protocols,” 2023, arXiv:2301.08686.
+[56] R. Bedington, J. M. Arrazola, and A. Ling, “Progress in satellite
+quantum key distribution,” NPJ Quantum Inf., vol. 3, no. 1, p. 30,
+Aug. 2017.
+[57] S. Yang et al., “Information reconciliation of continuous-variables quan-
+tum key distribution: Principles, implementations and applications,” EPJ
+Quantum Technol., vol. 10, no. 1, p. 40, Dec. 2023.
+Mikhael
+T.
+Sayat
+received the B.E. (Hons.)
+degree in mechatronics engineering and the B.Sc.
+degree in physics from The University of Auckland,
+New Zealand, in 2021, where he is currently pursu-
+ing the Ph.D. degree. His research interests include
+quantum key distribution, quantum communications,
+quantum networks, and space-based quantum tech-
+nologies. He was a recipient of the 2022 New
+Zealand Space Scholarship to Intern at NASA JPL.
+Biveen
+Shajilal
+received the Ph.D. degree in
+quantum optics from The Australian National Uni-
+versity in 2023. He was with the ARC Centre of
+Excellence for Quantum Computation and Commu-
+nication Technology. He is currently a Scientist with
+the Agency for Science, Research and Technology,
+Singapore. His research interests include quantum
+optics and quantum information.
+Sebastian
+P.
+Kish
+received the Ph.D. degree
+in physics from The University of Queensland,
+Australia, in 2019. He is currently a Research Scien-
+tist of quantum key distribution with CSIRO Data61,
+Marsfield. Previously, he was a Post-Doctoral Fel-
+low with The Australian National University and
+a Research Associate with UNSW. His research
+interests include quantum communications, quantum
+information, and quantum entanglement.
+Syed M. Assad received the B.Sc. degree in physics
+and computational science from the National Uni-
+versity of Singapore and the joint Ph.D. degree
+in realization of harmonic entanglement between a
+light beam and its second harmonic and theoreti-
+cal proofs of security for quantum key distribution
+protocols from the National University of Singapore
+and The Australian National University in 2011.
+He was with the National University of Singapore
+as a Teaching Assistant and the Centre for Quantum
+Technologies as a Research Assistant. He has been
+with the Quantum Optics Group, The Australian National University, since
+2011, where he is currently leading the Secure Communications Team. He is
+also a Principal Scientist with A*STAR. He is a member of the Centre of
+Excellence for Quantum Computation and Communication Technology.
+Thomas Symul received the degree from École
+Nationale Supérieure des Télécommunications of
+Paris in 1998 and the Ph.D. degree in physics from
+the University of Paris VI in 2001. He is cur-
+rently the Quantum Research and Development Lead
+with QuintessenceLabs and one of its scientific co-
+founders. He has published over 50 articles during
+his career, including in prestigious journals, such as
+Nature and Physical Review Letters. He received the
+Eureka Prize for Scientific Research in 2006 and the
+AIP Alan Walsh Medal for service to the industry
+in 2014.
+Ping
+Koy
+Lam
+received the B.Sc. degree in
+mathematics and physics from The University of
+Auckland and the M.Sc. degree in theoretical physics
+and the Ph.D. degree in experimental physics from
+The Australian National University (ANU). He was
+a Process Engineer with Sony (audio electronics)
+and Hewlett-Packard (semiconductor LED) for three
+years prior to his post-graduate studies with ANU.
+He is currently the Chief Quantum Scientist with
+the Agency for Science, Technology, and Research
+(A*STAR), Singapore. He has authored around
+260 articles on his research in quantum physics. He was a recipient of the
+Australian Institute of Physics Bragg Medal and the Australian National
+University Crawford Prize for his Ph.D. dissertation in 1999. He received the
+British Council Eureka Prize for inspiring science in 2003 and the University
+of New South Wales Eureka Prize for innovative research in 2006.
+Nicholas J. Rattenbury received the Ph.D. degree
+in physics from The University of Auckland,
+New Zealand, in 2004. His research interests include
+free-space optical communications, astrodynamics,
+and time-domain astrophysics.
+John E. Cater received the B.E. degree (Hons.)
+in mechanical engineering from The University of
+Auckland, New Zealand, in 1997, and the Ph.D.
+degree from Monash University, Australia, in 2003.
+He leads research in aerospace engineering. His
+research interests include electric propulsion for
+small satellites and modeling of thermal protection
+systems for reentry of spacecraft.
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:22:18 UTC from IEEE Xplore.  Restrictions apply. 

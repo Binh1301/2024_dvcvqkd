@@ -22,12 +22,10 @@ STRUCTURE
  9. Main
 
 ASSUMPTIONS (marked inline as # Assumption: ...)
-- Constant Cn2 along atmospheric path (integral approximated analytically)
-- Detector efficiency eta = 0.6 (typical InGaAs at 1550 nm)
+- Constant Cn2 along atmospheric path (integral in Eq. 32 evaluated analytically)
+- Detector efficiency eta = 0.6
 - M-PSK uses homodyne; M-QAM uses heterodyne detection
-- MD beta ~ 0.99 at low SNR (paper: 'asymptotically approach 100%')
-- MLC-MSD beta ~ 0.92 in satellite link SNR regime
-- ISS pass elevation modelled as Gaussian bell curve peaking at t=350s
+- M-QAM discrete-Gaussian shaping parameter v is user-set (paper states it is optimized)
 """
 
 import numpy as np
@@ -36,6 +34,8 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from scipy.special import erfinv, comb as sp_comb
+from functools import lru_cache
+import math
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. CONSTANTS & PARAMETERS
@@ -72,42 +72,23 @@ EPS_S   = 2e-10   # Smoothing parameter
 EPS_SEC = 1e-9    # Security parameter
 P_THR   = 1e-6    # Link outage probability
 
-# FER model (Eq. 26, for N=10^6 base; ~0 for N=10^11 at typical SNRs)
+# FER model (Eq. 26)
 M1, M2, M3 = 0.8218, -19.46, -298.1
+# Table II coefficients for reconciliation efficiency β
+RECON_COEFFS = {
+    'MLC-MSD': {'c1': 0.9655, 'c2': 0.0001507, 'c3': -0.04696, 'c4': -0.2238},
+    'MD':      {'c1': -0.0825, 'c2': 0.1834,   'c3': 0.9821,   'c4': -0.00002815},
+}
 
-# FIX (Eq. 28-33 units): geometry is in meters, so atmosphere thickness must be meters.
 LATM      = 20_000.0   # Atmosphere thickness [m]
 H_OGS_DEF = 0.0        # Default OGS altitude [m]
-# FIX (Fig. 7/8 setup): Mt. John Observatory altitude is ~1029 m, not km.
 H_OGS_ISS = 1_029.0   # Mt. John Observatory [m]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. CHANNEL MODEL  (Section IV, Eq. 28-33)
 # ─────────────────────────────────────────────────────────────────────────────
-def _L_atm_eff_ray(theta_deg, H_ogs=H_OGS_DEF, H_atm=LATM):
-    """
-    Đường laser đi qua lớp khí quyển mỏng [m], tính bằng ray-sphere intersection.
-
-    Đây là phương pháp đúng cho thin atmosphere (Latm << RE).
-    Công thức law-of-cosines trong Eq.28 tính chord xuyên Trái Đất → SAI.
-
-    Ray xuất phát từ OGS tại r=RE+H_ogs theo góc elevation theta.
-    Giao với vỏ cầu r=RE+H_atm → độ dài đoạn laser qua khí quyển.
-    """
-    th    = np.radians(theta_deg)
-    r_ogs = RE + H_ogs
-    r_atm = RE + H_atm
-    # |P|^2 = r_atm^2 với P = r_ogs*(cos_lat, sin_lat) + t*(cos(th), sin(th))
-    # → t^2 + 2*r_ogs*sin(th)*t + r_ogs^2 - r_atm^2 = 0
-    b    = 2 * r_ogs * np.sin(th)
-    c    = r_ogs**2 - r_atm**2
-    disc = b**2 - 4 * c
-    if disc < 0:
-        return float(H_atm)  # fallback: zenith thickness
-    return float((-b + np.sqrt(disc)) / 2)
-
-def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM): ## đúng rồi
+def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM): ## oke
     """Total link distance and effective atmosphere thickness (Eq. 28)."""
     th = np.radians(theta_deg)
 
@@ -118,17 +99,18 @@ def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM): ## đúng rồ
 
     sa2 = np.clip(np.cos(th) * (RE + H_ogs) / (RE + H_atm), -1, 1)
     a2  = np.arcsin(sa2) + (np.pi/2 - th)
-    L_atm = _L_atm_eff_ray(theta_deg, H_ogs, H_atm)
+    L_atm = np.sqrt((RE+H_atm)**2 + (RE+H_ogs)**2
+                    - 2*(RE+H_atm)*(RE+H_ogs)*np.cos(a2))
     return float(L_tot), float(L_atm)
 
 
-def geometric_loss_dB(L_tot, Dr): ## đúng
+def geometric_loss_dB(L_tot, Dr): ## oke
     """Free-space diffraction + hardware loss (Eq. 29)."""
     return 10*np.log10(L_tot**2 * LAMBDA**2
                        / (DT**2 * Dr**2 * TT * (1-LP) * TR))
 
-
-def scattering_loss_dBpkm(V_km):
+ 
+def scattering_loss_dBpkm(V_km):  ##oke
     """Mie scattering loss [dB/km], Kruse-Kim model (Eq. 30)."""
     if   V_km >= 50: p = 1.6
     elif V_km >= 6:  p = 1.3
@@ -139,22 +121,52 @@ def scattering_loss_dBpkm(V_km):
 
 
 def scintillation_index(Cn2, Dr, L_atm):
-    """Aperture-averaged scintillation index (Eq. 32)."""
-    k   = 2*np.pi/LAMBDA
-    d   = Dr * np.sqrt(np.pi/(2*LAMBDA*L_atm))
-    # Assumption: constant Cn2 → sigma2_R integral = Cn2*L^(11/6)*6/11
-    s2R = 2.25 * k**(7/6) * Cn2 * L_atm**(11/6) * (6/11)
-    t1  = 0.20*s2R / (1 + 0.18*d**2 + 0.20*s2R**(6/5))**(7/6)
-    t2  = (0.21*s2R*(1+0.24*s2R**(6/5))**(-5/6)
-           / (1 + 0.90*d**2 + 0.21*d**2*s2R**(6/5)))
-    return float(np.exp(t1+t2) - 1.0)
-
+    """
+    Aperture-averaged scintillation index (Eq. 32).
+    """
+    k = 2 * np.pi / LAMBDA
+    
+    # Tính d theo chuẩn: d = sqrt(k * Dr^2 / (4 * L_atm))
+    d = np.sqrt(k * Dr**2 / (4 * L_atm))
+    
+    # Tính sigma_R^2 (s2R)
+    # Tích phân của (L-z)^(5/6) dz từ 0 đến L là (6/11) * L^(11/6)
+    s2R = 2.25 * (k**(7/6)) * Cn2 * (L_atm**(11/6)) * (6/11)
+    
+    # Số mũ s2R^(6/5) xuất hiện lặp lại nên đặt biến tạm cho gọn
+    s2R_pow = s2R**(6/5)
+    
+    # Tính toán Term 1 (t1)
+    t1_num = 0.20 * s2R
+    t1_den = (1 + 0.18 * (d**2) + 0.20 * s2R_pow)**(7/6)
+    t1 = t1_num / t1_den
+    
+    # Tính toán Term 2 (t2)
+    t2_num = 0.21 * s2R * (1 + 0.24 * s2R_pow)**(-5/6)
+    t2_den = 1 + 0.90 * (d**2) + 0.21 * (d**2) * s2R_pow
+    t2 = t2_num / t2_den
+    
+    # Kết quả theo công thức Exp(t1 + t2) - 1
+    s2I = np.exp(t1 + t2) - 1.0
+    return float(s2I)
 
 def scintillation_loss_dB(s2I, p_thr=P_THR):
-    """Scintillation loss with aperture averaging in dB (Eq. 31)."""
-    arg = float(np.clip(2*p_thr-1, -0.9999, 0.9999))
-    A_sci = (4.343 * erfinv(arg) * np.sqrt(2 * np.log(s2I + 1))
-             - 0.5 * np.log(s2I + 1))
+    """
+    Scintillation loss with aperture averaging in dB (Eq. 31).
+    """
+    # Tránh giá trị s2I quá nhỏ gây lỗi log(1)
+    if s2I <= 0:
+        return 0.0
+        
+    # Tính toán thành phần ln(s2I + 1)
+    ln_term = np.log(s2I + 1)
+    
+    # Đối số cho hàm erfinv
+    arg = float(np.clip(2 * p_thr - 1, -0.9999, 0.9999))
+    
+    # Công thức: 4.343 * [erfinv(2*p_thr - 1) * sqrt(2 * ln(s2I+1)) - 0.5 * ln(s2I+1)]
+    A_sci = 4.343 * (erfinv(arg) * np.sqrt(2 * ln_term) - 0.5 * ln_term)
+    
     return abs(A_sci)
 
 
@@ -184,59 +196,62 @@ def _G(x):
     if x < 1e-10:
         return 0.0
 
-    return (x+1)*np.log2(1 + x) - x*np.log2(x)
+    return (x+1)*np.log2(x + 1) - x*np.log2(x)
 
 
-def _chi_l(T, e): return 1/T - 1 + e
-def _chi_t_hom(T, e): return _chi_l(T,e) + CHI_HOM/T
-def _chi_t_het(T, e): return _chi_l(T,e) + CHI_HET/T
-def _IAB_hom(VA, chi_t): return 0.5*np.log2((VA+1+chi_t)/(1+chi_t))
-def _IAB_het(VA, chi_t): return np.log2((VA+1+chi_t)/(1+chi_t))
+def _chi_l(T, e):
+    Ts = max(float(T), 1e-300)
+    return 1/Ts - 1 + e
+def _chi_t_hom(T, e):
+    Ts = max(float(T), 1e-300)
+    return _chi_l(Ts, e) + CHI_HOM/Ts
+def _chi_t_het(T, e):
+    Ts = max(float(T), 1e-300)
+    return _chi_l(Ts, e) + CHI_HET/Ts
+def _IAB_hom(VA, chi_t): return 0.5*np.log2(1 + VA/(1+chi_t))
+def _IAB_het(VA, chi_t): return np.log2(1 + VA/(1+chi_t))
 
 def _symp12(VA, T, chi_l, Z=None):
+    Ts = max(float(T), 1e-300)
     if Z is None:
-        Z = np.sqrt(VA**2 + 2*VA) # Mặc định cho GM
-    
-    A = (VA + 1)**2 + (T**2) * ((VA + 1 + chi_l)**2) - 2 * T * (Z**2)
-    B_inner = T * (VA + 1)**2 + T * (VA + 1) * chi_l - T * (Z**2)
+        Z = np.sqrt(VA**2 + 2*VA)
+    eps_ch = chi_l - (1/Ts - 1)
+    t_v = 1 + Ts * (VA + eps_ch)  # equals T*(VA+1+chi_l)
+    A = (VA + 1)**2 + t_v**2 - 2 * Ts * (Z**2)
+    B_inner = (VA + 1) + Ts * ((VA + 1)**2 - (VA + 1) + (VA + 1) * eps_ch - Z**2)
     B = B_inner**2
     
     disc = max(A**2 - 4*B, 0)
-    l1 = np.sqrt(max(0.5 * (A + np.sqrt(disc)), 1.0))
-    l2 = np.sqrt(max(0.5 * (A - np.sqrt(disc)), 1.0))
+    l1 = np.sqrt(max(0.5 * (A + np.sqrt(disc)), 1e-30))
+    l2 = np.sqrt(max(0.5 * (A - np.sqrt(disc)), 1e-30))
     
-    return l1, l2, B, A # Trả về đủ 4 giá trị
+    return l1, l2, B, A
 def _holevo_gm_hom(VA, T, e):
-    """Giới hạn Holevo CHUẨN THEO EQ. (6), (9) CỦA SAYAT 2024"""
+    """Holevo bound for GM-CVQKD homodyne (Eq. 6-10)."""
+    Ts = max(float(T), 1e-300)
     chi_l = _chi_l(T, e)
     chi_h = CHI_HOM
-    chi_tot = chi_l + chi_h / T
+    chi_tot = chi_l + chi_h / Ts
 
-    # Lấy l1, l2, B và A
-    l1, l2, B, A = _symp12(VA, T, chi_l)
+    l1, l2, B, A = _symp12(VA, Ts, chi_l)
     sqB = np.sqrt(max(B, 0))
 
-    denom = T * (VA + 1 + chi_tot)
+    denom = 1 + Ts*(VA + e) + chi_h
 
-    # --- ✅ C_hom (ĐÚNG FORMULA BÀI BÁO) ---
     C = (
         A * chi_h 
         + (VA + 1) * sqB 
-        + T * (VA + 1 + chi_l)
+        + Ts * (VA + 1 + chi_l)
     ) / denom
 
-    # --- ✅ D_hom (ĐÚNG FORMULA BÀI BÁO) ---
     D = (
         sqB * (VA + 1 + sqB * chi_h)
     ) / denom
 
-    # Tính l3, l4
     disc = max(C**2 - 4 * D, 0)
     sqrt_disc = np.sqrt(disc)
-
-    # Clamp chặt >= 1.0 để dập tắt nhiễu ở T siêu nhỏ
-    l3 = np.sqrt(max(0.5 * (C + sqrt_disc), 1.0))
-    l4 = np.sqrt(max(0.5 * (C - sqrt_disc), 1.0))
+    l3 = np.sqrt(max(0.5 * (C + sqrt_disc), 1e-30))
+    l4 = np.sqrt(max(0.5 * (C - sqrt_disc), 1e-30))
 
     return (
         _G((l1 - 1) / 2)
@@ -246,19 +261,11 @@ def _holevo_gm_hom(VA, T, e):
     )
 
 def skr_gm(VA, T, eps, beta):
-    """Tính Asymptotic SKR và ép về 0 nếu T quá nhỏ (cutoff threshold)"""
-    # Nếu transmittance quá nhỏ, SKR vật lý chắc chắn = 0
-    if T <= 1e-6: 
-        return 0.0   
-
+    """Asymptotic SKR for GM-CVQKD [bits/pulse] (Eq. 4)."""
     chi_t = _chi_t_hom(T, eps)
     I_AB = _IAB_hom(VA, chi_t)
     S_BE = _holevo_gm_hom(VA, T, eps)
-    
-    val = beta * I_AB - S_BE
-
-    # Tránh âm và dập tắt hoàn toàn nhiễu/spike (Bonus của bạn)
-    return max(val, 0.0)
+    return beta * I_AB - S_BE
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. M-PSK DM-CVQKD  (Section II-B)
@@ -307,61 +314,150 @@ def _ZM_psk(M, VA):
         z37_term2   = np.sqrt(2) * np.sin(a2s) * np.cosh(a2s)  
         z3 = safe(0.25 * exp_a2 * (z37_base - z37_term1 + z37_term2))
         
-        # ĐÃ SỬA LỖI DẤU Ở ĐÂY:
         z7 = safe(0.25 * exp_a2 * (z37_base + z37_term1 - z37_term2)) 
 
         zeta = [z0, z1, z2, z3, z4, z5, z6, z7]
         return 2 * a2 * sum(zeta[(k - 1) % 8] ** 1.5 * zeta[k] ** (-0.5) for k in range(8))
     else:
-        raise ValueError("Chỉ dùng M=2,4,8.")
+        raise ValueError("Only M=2,4,8 are supported.")
 
 def _holevo_psk_hom(VA, T, e, M):
-    cl = _chi_l(T, e); ct = cl + CHI_HOM/T
+    """
+    Holevo information for M-PSK with homodyne detection.
+    S_BE = G((λ1-1)/2) + G((λ2-1)/2) - G((λ3-1)/2) - G((λ4-1)/2)
+    """
+    Ts = max(float(T), 1e-300)
+    cl = _chi_l(Ts, e)
     ZM = _ZM_psk(M, VA)
-    A  = (VA+1)**2 + T**2*(VA+1+cl)**2 - 2*T*ZM**2
-    B  = (T*(VA+1)**2 + T*(VA+1)*cl - T*ZM**2)**2
-    d12 = max(A**2-4*B, 0)
-    l1 = np.sqrt(0.5*(A+np.sqrt(d12)))
-    l2 = np.sqrt(max(0.5*(A-np.sqrt(d12)), 1e-30))
-    sqB = np.sqrt(max(B,0)); denom = T*(VA+1+ct)
-    Ah = (A*CHI_HOM + (VA+1)*sqB + T*(VA+1+cl)) / denom   # ← Eq.10 đúng
-    Dh = sqB*(VA+1+sqB*CHI_HOM) / denom
-    d34 = max(Ah**2-4*Dh, 0)
-    l3 = np.sqrt(0.5*(Ah+np.sqrt(d34)))
-    l4 = np.sqrt(max(0.5*(Ah-np.sqrt(d34)), 1e-30))  # ← KHÔNG clamp về 1.0
-    return _G((l1-1)/2)+_G((l2-1)/2)-_G((l3-1)/2)-_G((l4-1)/2)
+    t_v = 1 + Ts * (VA + e)
+    A = (VA + 1.0)**2 + t_v**2 - 2.0 * Ts * ZM**2
+    B_inner = (VA + 1.0) + Ts * ((VA + 1.0)**2 - (VA + 1.0) + (VA + 1.0) * e - ZM**2)
+    B = B_inner**2
+
+    d12 = max(A**2 - 4.0 * B, 0.0)
+    l1 = np.sqrt(0.5 * (A + np.sqrt(d12)))
+    l2 = np.sqrt(max(0.5 * (A - np.sqrt(d12)), 1e-30))
+
+    sqB = np.sqrt(max(B, 0.0))
+    denom = 1.0 + Ts * (VA + e) + CHI_HOM
+    Ah = (A * CHI_HOM + (VA + 1.0) * sqB + t_v) / denom
+    Dh = sqB * (VA + 1.0 + sqB * CHI_HOM) / denom
+
+    d34 = max(Ah**2 - 4.0 * Dh, 0.0)
+    l3 = np.sqrt(0.5 * (Ah + np.sqrt(d34)))
+    l4 = np.sqrt(max(0.5 * (Ah - np.sqrt(d34)), 1e-30))
+
+    return _G((l1 - 1.0) / 2.0) + _G((l2 - 1.0) / 2.0) - _G((l3 - 1.0) / 2.0) - _G((l4 - 1.0) / 2.0)
 
 def skr_psk(VA, T, eps, M, beta):
-    if T <= 1e-6: return 0.0
-    return beta*_IAB_hom(VA, _chi_t_hom(T,eps)) - _holevo_psk_hom(VA,T,eps,M)
-    # Không max() — để âm tự nhiên, dùng _nan() khi plot
+    """
+    Asymptotic SKR for M-PSK with homodyne detection.
+    SKR = beta * I_AB - S_BE
+    """
+    Ts = max(float(T), 1e-300)
+    chi_t = _chi_t_hom(Ts, eps)
+    I_AB = _IAB_hom(VA, chi_t)
+    S_BE = _holevo_psk_hom(VA, Ts, eps, M)
+    return beta * I_AB - S_BE
 # ─────────────────────────────────────────────────────────────────────────────
 # 5. M-QAM DM-CVQKD  (Section II-C)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _Zstar_qam(T, eps, VA, M):
-    """
-    Lower bound Z* for M-QAM with binomial probability distribution (Eq. 20).
-    # Assumption: w in Eq. 22 ≈ variance of |alpha_k|^2 (coherent state approx.)
-    """
-    m = int(round(np.sqrt(M)))
-    ks = np.arange(m)
-    # Binomial probs per axis
-    pk = np.array([float(sp_comb(m-1, k, exact=True)) for k in ks])
-    pk /= pk.sum()
-    # Coherent state amplitudes on 2D grid (Eq. 13)
-    scale = np.sqrt(VA/2)/np.sqrt(m-1) if m > 1 else 0.0
-    alpha = np.array([scale*((k-(m-1)/2) + 1j*(l-(m-1)/2))
-                      for k in ks for l in ks])
-    prob  = np.array([pk[k]*pk[l] for k in range(m) for l in range(m)])
-    tr    = float(np.sum(prob*np.abs(alpha)**2))
-    w     = float(np.sum(prob*(np.abs(alpha)**2 - tr)**2))
-    Zs = 2*np.sqrt(T)*tr - np.sqrt(2*T*eps)*np.sqrt(max(w,0))
-    return max(float(Zs), 0.0)
+N_FOCK = 32
+QAM_V_DISC_GAUSS = 0.5
 
-def _holevo_qam_het(VA, T, eps, M):
+def _qam_constellation_probs(VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS):
+    m = int(round(np.sqrt(M)))
+    if m*m != M:
+        raise ValueError("M-QAM requires M=m^2.")
+    ks = np.arange(m)
+    # Eq. (13)/(17) consistency: choose grid scaling so binomial-shaped QAM has
+    # modulation variance VA (i.e., E[|alpha|^2] = VA).
+    scale = np.sqrt(2 * VA) / np.sqrt(m - 1) if m > 1 else 0.0
+    xvals = scale * (ks - (m - 1) / 2)
+    yvals = xvals.copy()
+    alpha = np.array([x + 1j*y for x in xvals for y in yvals], dtype=np.complex128)
+    if prob_model == 'binomial':
+        pk = np.array([float(sp_comb(m-1, k, exact=True)) for k in ks], dtype=float)
+        pk /= pk.sum()
+        prob = np.array([pk[k] * pk[l] for k in range(m) for l in range(m)], dtype=float)
+    elif prob_model == 'disc_gaussian':
+        prob = np.array([np.exp(-v * (x*x + y*y)) for x in xvals for y in yvals], dtype=float)
+        prob /= prob.sum()
+    else:
+        raise ValueError("prob_model must be 'binomial' or 'disc_gaussian'.")
+    return alpha, prob
+
+
+def _optimize_disc_gaussian_v(VA, M):
+    alpha, _ = _qam_constellation_probs(VA, M, prob_model='binomial', v=1.0)
+    r2 = np.abs(alpha)**2
+    grid = np.concatenate([
+        np.linspace(0.02, 0.8, 80),
+        np.linspace(0.81, 3.0, 80),
+    ])
+    best_v, best_err = 0.5, np.inf
+    for vv in grid:
+        p = np.exp(-vv * r2)
+        p /= p.sum()
+        va_est = np.sum(p * r2)
+        err = abs(va_est - VA)
+        if err < best_err:
+            best_err = err
+            best_v = float(vv)
+    return best_v
+
+def _annihilation(n_cut):
+    a = np.zeros((n_cut, n_cut), dtype=np.complex128)
+    for n in range(1, n_cut):
+        a[n-1, n] = np.sqrt(n)
+    return a
+
+def _coherent_ket(alpha, n_cut):
+    n = np.arange(n_cut, dtype=float)
+    denom = np.sqrt(np.array([math.factorial(int(k)) for k in n], dtype=float))
+    coeff = np.power(alpha, n) / denom
+    return np.exp(-0.5 * np.abs(alpha)**2) * coeff.astype(np.complex128)
+
+@lru_cache(maxsize=128)
+def _qam_tau_terms_cached(VA, M, prob_model, v, n_cut):
+    alpha, prob = _qam_constellation_probs(VA, M, prob_model=prob_model, v=v)
+    kets = np.array([_coherent_ket(a, n_cut) for a in alpha])
+    tau = np.zeros((n_cut, n_cut), dtype=np.complex128)
+    for p, ket in zip(prob, kets):
+        tau += p * np.outer(ket, np.conjugate(ket))
+
+    evals, evecs = np.linalg.eigh(tau)
+    evals = np.clip(evals, 0.0, None)
+    sqrt_tau = (evecs * np.sqrt(evals)) @ np.conjugate(evecs.T)
+
+    a = _annihilation(n_cut)
+    adag = np.conjugate(a.T)
+    tr_term = np.trace(sqrt_tau @ a @ sqrt_tau @ adag).real
+
+    atau = a @ tau
+    op_w = adag @ tau @ atau
+    w = 0.0
+    for p, ket in zip(prob, kets):
+        t1 = np.vdot(ket, op_w @ ket)
+        t2 = np.vdot(ket, atau @ ket)
+        w += p * (t1.real - np.abs(t2)**2)
+    return float(max(tr_term, 0.0)), float(max(w, 0.0))
+
+def _Zstar_qam(T, eps, VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N_FOCK):
+    tr_term, w = _qam_tau_terms_cached(VA, M, prob_model, float(v), int(n_cut))
+    z_star = 2*np.sqrt(T)*tr_term - np.sqrt(2*T*eps)*w
+    return max(float(z_star), 0.0)
+
+def _IAB_qam_hom(VA, T, eps):
+    return 0.5 * np.log2(1 + T*VA/(2 + T*eps))
+
+def _IAB_qam_het(VA, T, eps):
+    return np.log2(1 + T*VA/(2 + T*eps))
+
+def _holevo_qam_het(VA, T, eps, M, prob_model='binomial', v=QAM_V_DISC_GAUSS):
     """Holevo bound for M-QAM heterodyne (Eq. 17-19)."""
-    Zs  = _Zstar_qam(T, eps, VA, M)
+    Zs  = _Zstar_qam(T, eps, VA, M, prob_model=prob_model, v=v)
     a11 = VA + 1
     a22 = 1 + T * VA + T * eps
     # FIX (Eq. 17-19): use symplectic invariants form for ν1,2.
@@ -373,35 +469,30 @@ def _holevo_qam_het(VA, T, eps, M):
     l3  = max(VA+1 - Zs**2/(2+T*VA+T*eps), 1e-15)
     return _G((l1-1)/2)+_G((l2-1)/2)-_G((l3-1)/2)
 
-def skr_qam(VA, T, eps, M, beta):
+def skr_qam(VA, T, eps, M, beta, prob_model='binomial', v=QAM_V_DISC_GAUSS):
     """Asymptotic SKR for M-QAM DM-CVQKD heterodyne [bits/pulse] (Eq. 4, 16)."""
-    if T <= 1e-6: return 0.0
-    return beta*_IAB_het(VA, _chi_t_het(T,eps)) - _holevo_qam_het(VA,T,eps,M)
+    iab = _IAB_qam_het(VA, T, eps)
+    sbe = _holevo_qam_het(VA, T, eps, M, prob_model=prob_model, v=v)
+    return beta * iab - sbe
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 6. RECONCILIATION & FINITE-SIZE  (Section III)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _SNR_dB(T, VA, chi_t):
+def _SNR_dB(T, alpha_sq, chi_t):
     """SNR in dB (Eq. 27)."""
-    # FIX (Eq. 27): SNR from normalized quadrature variance and total noise.
-    snr_lin = VA / (1 + chi_t)
+    num = T * alpha_sq
+    den = alpha_sq + (1 - T) * chi_t
+    snr_lin = num / max(den, 1e-30)
     return 10*np.log10(max(snr_lin, 1e-30))
 
 def reconciliation_efficiency(snr_dB, mode='MD'):
-    """
-    Empirical reconciliation efficiency.
-    MD  → approaches ~99% at very low SNR (satellite regime, SNR < 0 dB).
-    MLC-MSD → ~92% at moderate SNR.
-    # Assumption: physically motivated models matching paper's stated trends.
-    """
-    # FIX (Eq. 23 trend in paper): keep β in the reported operating ranges.
+    """Reconciliation efficiency β from Eq. (26) and Table II."""
     snr_lin = 10**(snr_dB/10)
-    if mode == 'MD':
-        return float(np.clip(0.99 - 0.02*snr_lin, 0.90, 0.99))
-    else:
-        return float(np.clip(0.92 - 0.01*snr_lin, 0.85, 0.92))
+    c = RECON_COEFFS[mode]
+    beta = c['c1'] * (snr_lin ** c['c2']) + c['c3'] * (snr_lin ** c['c4'])
+    return float(np.clip(beta, 0.0, 1.0))
 
 def frame_error_rate(snr_dB):
     """FER from Eq. 26 (N=10^6 base; ≈ 0 for N=10^11 at satellite SNRs)."""
@@ -418,16 +509,14 @@ def finite_size_skr(VA, T, eps, mode='MD', N=N_BLOCK, f_rep=F_REP):
     """
     Finite-size SKR for GM-CVQKD homodyne [bits/s] (Eq. 24).
     """
-    if T <= 1e-6: return 0.0
     ct  = _chi_t_hom(T, eps)
     snr = _SNR_dB(T, VA, ct)
     bet = reconciliation_efficiency(snr, mode)
     fer = frame_error_rate(snr)
-    if bet <= 0: return 0.0
     IAB = _IAB_hom(VA, ct)
     SBE = _holevo_gm_hom(VA, T, eps)
     dn  = _dn_privacy(N)
-    return max(f_rep*((1-fer)*bet*IAB - SBE - dn), 0.0)
+    return f_rep*((1-fer)*bet*IAB - SBE - dn)
 
 def plob_upper_bound(T):
     """Loss-limited PLOB upper bound [bits/pulse] (Pirandola 2021)."""
@@ -442,7 +531,7 @@ def plob_upper_bound(T):
 def elevation_model(duration=663, max_elev=87.6, dt=1.0):
     """
     ISS pass elevation angle vs time over Mt. John Observatory (9 Aug 2022).
-    # Assumption: Gaussian bell curve peaking at t=350s, σ=115s.
+    # Assumption: Gaussian proxy in absence of measured ephemeris track.
     Returns (t_arr [s], theta_arr [°]).
     """
     t = np.arange(0, duration+dt, dt)
@@ -459,7 +548,10 @@ LS     = ['-', '--', '-.']
 EL_LEG = [Line2D([0],[0],color='gray',ls=s,lw=1.5,label=f'θ={t}°')
           for t,s in zip(ELEVS,LS)]
 
-def _nan(v): return v if v > 1e-12 else np.nan
+def _nan(v, floor=1e-12):
+    if not np.isfinite(v):
+        return np.nan
+    return v if v > floor else np.nan
 
 # ── Fig 4 ────────────────────────────────────────────────────────────────────
 def plot_fig4():
@@ -471,26 +563,27 @@ def plot_fig4():
 
     panels = [
         ('(a) M-PSK', [
-            ('GM-CVQKD','yellow',   'gm', {}),
+            ('Gaussian', 'goldenrod', 'gm', {}),
             ('8-PSK',   'blue','psk',{'M':8}),
             ('4-PSK',   'red', 'psk',{'M':4}),
         ], alt_km, [160,1000]),
         ('(b) 64-QAM', [
-            ('GM-CVQKD',              'yellow',    'gm', {}),
+            ('Gaussian',               'goldenrod', 'gm', {}),
             ('Binomial Dist.',         'blue', 'qam',{'M':64}),
             ('Disc. Gaussian Dist.',   'red',  'qam',{'M':64}),
         ], np.arange(160,5100,20), [160,5000]),
         ('(c) 256-QAM', [
-            ('GM-CVQKD',              'yellow',    'gm', {}),
+            ('Gaussian',               'goldenrod', 'gm', {}),
             ('Binomial Dist.',         'blue', 'qam',{'M':256}),
             ('Disc. Gaussian Dist.',   'red',  'qam',{'M':256}),
         ], np.arange(160,6100,25), [160,6000]),
     ]
 
-    fig, axes = plt.subplots(1,3,figsize=(17,5))
-    fig.suptitle(
-        r'Fig. 4 – Asymptotic SKRs  |  Good: $V\!=\!200$ km, '
-        r'$C_n^2\!=\!10^{-16}$, $D_r\!=\!1$ m, $\beta\!=\!90\%$', fontsize=11)
+    # IEEE-paper-like layout: 3 stacked panels, caption at bottom.
+    fig, axes = plt.subplots(3, 1, figsize=(6.5, 11))
+
+    v64 = _optimize_disc_gaussian_v(VA_QAM, 64)
+    v256 = _optimize_disc_gaussian_v(VA_QAM, 256)
 
     for ax,(title,protos,akm,xlim) in zip(axes,panels):
         ax.set_title(title)
@@ -503,24 +596,41 @@ def plot_fig4():
             for th,ls in zip(ELEVS,LS):
                 vals=[]
                 for H in am:
-                    T,_,_=total_transmittance(th,H,Dr,V,Cn2)
+                    T, _, ff_ok = total_transmittance(th, H, Dr, V, Cn2)
+                    if not ff_ok:
+                        vals.append(np.nan)
+                        continue
                     if   ptype=='gm':  s=skr_gm(VA_GM,T,eps,beta)
                     elif ptype=='psk': s=skr_psk(VA_PSK,T,eps,kw['M'],beta)
-                    else:              s=skr_qam(VA_QAM,T,eps,kw['M'],beta)
+                    else:
+                        if lbl == 'Disc. Gaussian Dist.':
+                            vv = v64 if kw['M'] == 64 else v256
+                            s = skr_qam(VA_QAM, T, eps, kw['M'], beta, prob_model='disc_gaussian', v=vv)
+                        else:
+                            s = skr_qam(VA_QAM, T, eps, kw['M'], beta, prob_model='binomial')
                     vals.append(_nan(s))
                 lb=lbl if th==ELEVS[0] else '_'
                 ax.semilogy(akm,vals,color=col,ls=ls,lw=1.5,label=lb)
 
         ax.set_xlabel('Satellite Altitude at Zenith [km]')
         ax.set_ylabel('SKR [bits/pulse]')
-        # FIX: lower y-min to display low-SKR curves (θ=60°, θ=30°).
-        ax.set_ylim([1e-12,1e0]); ax.set_xlim(xlim)
-        ax.grid(True,which='both',alpha=0.25)
-        h,l=ax.get_legend_handles_labels()
-        ax.legend(handles=h+EL_LEG,labels=l+[e.get_label() for e in EL_LEG],
-                  fontsize=7,loc='upper right')
+        ax.set_ylim([1e-7,1e0]); ax.set_xlim(xlim)
+        ax.minorticks_on()
+        ax.grid(True, which='major', alpha=0.35, linestyle='-')
+        ax.grid(True, which='minor', alpha=0.20, linestyle=':')
+        ax.legend(fontsize=8, loc='upper right', frameon=True)
 
-    plt.tight_layout()
+    fig.text(
+        0.5, 0.02,
+        r'Fig. 4. Asymptotic limit SKRs as a function of satellite altitude for '
+        r'(a) M-PSK, (b) 64-QAM, and (c) 256-QAM DM-CVQKD in relation to '
+        r'GM-CVQKD in good atmospheric conditions. The solid lines indicate '
+        r'$\theta = 90^\circ$, dashed lines indicate $\theta = 60^\circ$, '
+        r'dash-dotted lines indicate $\theta = 30^\circ$. $D_r = 1$ m, '
+        r'$\beta = 90\%$.',
+        ha='center', va='bottom', fontsize=8
+    )
+    plt.tight_layout(rect=[0, 0.06, 1, 1])
     plt.show()
     print("  ✓ Figure 4 displayed")
 
@@ -538,6 +648,8 @@ def plot_fig5():
         r'$C_n^2\!=\!10^{-13}$, $D_r\!=\!1$ m, $\beta\!=\!90\%$  '
         '(M-PSK omitted: no positive SKR)', fontsize=11)
 
+    v64 = _optimize_disc_gaussian_v(VA_QAM, 64)
+    v256 = _optimize_disc_gaussian_v(VA_QAM, 256)
     for ax,M_qam in zip(axes,[64,256]):
         ax.set_title(f'({chr(96+list(axes).index(ax)+1)}) {M_qam}-QAM')
         ub=[plob_upper_bound(total_transmittance(90,H,Dr,V,Cn2)[0]) for H in alt_m]
@@ -551,7 +663,13 @@ def plot_fig5():
                 vals=[]
                 for H in alt_m:
                     T,_,_=total_transmittance(th,H,Dr,V,Cn2)
-                    s = skr_gm(VA,T,eps,beta) if ptype=='gm' else skr_qam(VA,T,eps,M_qam,beta)
+                    if ptype == 'gm':
+                        s = skr_gm(VA, T, eps, beta)
+                    elif lbl == 'Disc. Gaussian Dist.':
+                        vv = v64 if M_qam == 64 else v256
+                        s = skr_qam(VA, T, eps, M_qam, beta, prob_model='disc_gaussian', v=vv)
+                    else:
+                        s = skr_qam(VA, T, eps, M_qam, beta, prob_model='binomial')
                     vals.append(_nan(s))
                 lb=lbl if th==ELEVS[0] else '_'
                 ax.semilogy(alt_km,vals,color=col,ls=ls,lw=1.5,label=lb)
