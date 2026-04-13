@@ -91,16 +91,15 @@ H_OGS_ISS = 1_029.0   # Mt. John Observatory [m]
 def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM): ## oke
     """Total link distance and effective atmosphere thickness (Eq. 28)."""
     th = np.radians(theta_deg)
+    r1 = RE + H_ogs
+    r_sat = RE + H_zen
+    r_atm = RE + H_atm
 
-    sa1 = np.clip(np.cos(th) * (RE + H_ogs) / (RE + H_zen), -1, 1)
-    a1  = np.arcsin(sa1) + (np.pi/2 - th)
-    L_tot = np.sqrt((RE+H_zen)**2 + (RE+H_ogs)**2
-                    - 2*(RE+H_zen)*(RE+H_ogs)*np.cos(a1))
-
-    sa2 = np.clip(np.cos(th) * (RE + H_ogs) / (RE + H_atm), -1, 1)
-    a2  = np.arcsin(sa2) + (np.pi/2 - th)
-    L_atm = np.sqrt((RE+H_atm)**2 + (RE+H_ogs)**2
-                    - 2*(RE+H_atm)*(RE+H_ogs)*np.cos(a2))
+    # Ray-sphere intersection for elevation angle th:
+    # L = -r1*sin(th) + sqrt(r2^2 - r1^2*cos(th)^2)
+    c2 = np.cos(th) ** 2
+    L_tot = -r1 * np.sin(th) + np.sqrt(max(r_sat**2 - r1**2 * c2, 0.0))
+    L_atm = -r1 * np.sin(th) + np.sqrt(max(r_atm**2 - r1**2 * c2, 0.0))
     return float(L_tot), float(L_atm)
 
 
@@ -236,7 +235,7 @@ def _holevo_gm_hom(VA, T, e):
     l1, l2, B, A = _symp12(VA, Ts, chi_l)
     sqB = np.sqrt(max(B, 0))
 
-    denom = 1 + Ts*(VA + e) + chi_h
+    denom = Ts * (1.0 + VA + chi_tot)
 
     C = (
         A * chi_h 
@@ -272,7 +271,8 @@ def skr_gm(VA, T, eps, beta):
 # ─────────────────────────────────────────────────────────────────────────────
 def _ZM_psk(M, VA):
 
-    a2  = VA / 2      
+    alpha = np.sqrt(VA/2)
+    a2  = alpha ** 2      
     a2s = VA / (2 * np.sqrt(2))
 
     def safe(v):
@@ -323,42 +323,62 @@ def _ZM_psk(M, VA):
 
 def _holevo_psk_hom(VA, T, e, M):
     """
-    Holevo information for M-PSK with homodyne detection.
-    S_BE = G((λ1-1)/2) + G((λ2-1)/2) - G((λ3-1)/2) - G((λ4-1)/2)
+    Holevo Information for PSK-modulated Homodyne Detection
+    S_BE = G(λ1-1/2) + G(λ2-1/2) - G(λ3-1/2) - G(λ4-1/2)
     """
     Ts = max(float(T), 1e-300)
     cl = _chi_l(Ts, e)
+    ct = cl + CHI_HOM / Ts
     ZM = _ZM_psk(M, VA)
-    t_v = 1 + Ts * (VA + e)
+    
+    # Calculate A and B (Eq. 8)
+    t_v = Ts * (VA + 1.0 + cl)
     A = (VA + 1.0)**2 + t_v**2 - 2.0 * Ts * ZM**2
-    B_inner = (VA + 1.0) + Ts * ((VA + 1.0)**2 - (VA + 1.0) + (VA + 1.0) * e - ZM**2)
+    B_inner = Ts * ((VA + 1.0)**2 + (VA + 1.0) * cl - ZM**2)
     B = B_inner**2
-
+    
+    # Calculate λ1, λ2
     d12 = max(A**2 - 4.0 * B, 0.0)
     l1 = np.sqrt(0.5 * (A + np.sqrt(d12)))
     l2 = np.sqrt(max(0.5 * (A - np.sqrt(d12)), 1e-30))
-
+    
+    # Calculate λ3, λ4 (Homodyne - Eq. 10)
     sqB = np.sqrt(max(B, 0.0))
-    denom = 1.0 + Ts * (VA + e) + CHI_HOM
+    chi_tot = cl + CHI_HOM / Ts
+    denom = Ts * (1.0 + VA + chi_tot)
+    
     Ah = (A * CHI_HOM + (VA + 1.0) * sqB + t_v) / denom
     Dh = sqB * (VA + 1.0 + sqB * CHI_HOM) / denom
-
+    
     d34 = max(Ah**2 - 4.0 * Dh, 0.0)
     l3 = np.sqrt(0.5 * (Ah + np.sqrt(d34)))
     l4 = np.sqrt(max(0.5 * (Ah - np.sqrt(d34)), 1e-30))
-
+    
+    # Holevo information
     return _G((l1 - 1.0) / 2.0) + _G((l2 - 1.0) / 2.0) - _G((l3 - 1.0) / 2.0) - _G((l4 - 1.0) / 2.0)
 
 def skr_psk(VA, T, eps, M, beta):
     """
-    Asymptotic SKR for M-PSK with homodyne detection.
-    SKR = beta * I_AB - S_BE
+    Secret Key Rate for PSK-modulated Homodyne Detection
+    SKR = β·I_AB - S_BE
+    
+    Args:
+        VA: Modulation variance
+        T: Transmission coefficient
+        eps: Channel excess noise
+        M: PSK modulation order (2, 4, 8, 16, ...)
+        beta: Reconciliation efficiency
+    
+    Returns:
+        SKR in bits/pulse
     """
     Ts = max(float(T), 1e-300)
     chi_t = _chi_t_hom(Ts, eps)
     I_AB = _IAB_hom(VA, chi_t)
     S_BE = _holevo_psk_hom(VA, Ts, eps, M)
+    
     return beta * I_AB - S_BE
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 5. M-QAM DM-CVQKD  (Section II-C)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -503,7 +523,7 @@ def _dn_privacy(N=N_BLOCK):
     d,es,esec = D_DISC, EPS_S, EPS_SEC
     sN = np.sqrt(N)
     return ((d+1)**2/sN + 4*(d+1)*np.sqrt(np.log2(2/es))/sN
-            + 2*np.log2(2/(esec**2*es))/sN + 4*es*d/(esec*sN))
+            + 2*np.log2(2/(esec**2*es))/sN + 4*es*d/(esec*sN)/sN)
 
 def finite_size_skr(VA, T, eps, mode='MD', N=N_BLOCK, f_rep=F_REP):
     """
@@ -516,7 +536,7 @@ def finite_size_skr(VA, T, eps, mode='MD', N=N_BLOCK, f_rep=F_REP):
     IAB = _IAB_hom(VA, ct)
     SBE = _holevo_gm_hom(VA, T, eps)
     dn  = _dn_privacy(N)
-    return f_rep*((1-fer)*bet*IAB - SBE - dn)
+    return f_rep*((1-fer)*(bet*IAB - SBE - dn))
 
 def plob_upper_bound(T):
     """Loss-limited PLOB upper bound [bits/pulse] (Pirandola 2021)."""
