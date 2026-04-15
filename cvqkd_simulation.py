@@ -210,16 +210,15 @@ def _chi_t_het(T, e):
 def _IAB_hom(VA, chi_t): return 0.5*np.log2(1 + VA/(1+chi_t))
 def _IAB_het(VA, chi_t): return np.log2(1 + VA/(1+chi_t))
 
-def _symp12(VA, T, chi_l, Z=None):
+def _symp12(VA, T, chi_l, Z=None): ## đúng
     Ts = max(float(T), 1e-300)
     if Z is None:
         Z = np.sqrt(VA**2 + 2*VA)
     eps_ch = chi_l - (1/Ts - 1)
     t_v = 1 + Ts * (VA + eps_ch)  # equals T*(VA+1+chi_l)
     A = (VA + 1)**2 + t_v**2 - 2 * Ts * (Z**2)
-    B_inner = (VA + 1) + Ts * ((VA + 1)**2 - (VA + 1) + (VA + 1) * eps_ch - Z**2)
+    B_inner =  Ts * ((VA + 1)**2 + (VA + 1) * chi_l - Z**2)
     B = B_inner**2
-    
     disc = max(A**2 - 4*B, 0)
     l1 = np.sqrt(max(0.5 * (A + np.sqrt(disc)), 1e-30))
     l2 = np.sqrt(max(0.5 * (A - np.sqrt(disc)), 1e-30))
