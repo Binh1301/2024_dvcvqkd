@@ -36,6 +36,7 @@ from matplotlib.lines import Line2D
 from scipy.special import erfinv, comb as sp_comb
 from functools import lru_cache
 import math
+from datetime import datetime
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. CONSTANTS & PARAMETERS
@@ -84,6 +85,68 @@ LATM      = 20_000.0   # Atmosphere thickness [m]
 H_OGS_DEF = 0.0        # Default OGS altitude [m]
 H_OGS_ISS = 1_029.0   # Mt. John Observatory [m]
 
+# Calculation logging
+CALC_LOG_XLSX = "cvqkd_calculation_log.xlsx"
+CALC_LOG_ROWS = []
+
+
+def clear_calc_log():
+    CALC_LOG_ROWS.clear()
+
+
+def _normalize_log_value(value):
+    if isinstance(value, (np.floating, np.integer)):
+        return value.item()
+    if isinstance(value, np.bool_):
+        return bool(value)
+    if isinstance(value, (float, int, bool, str)) or value is None:
+        return value
+    if isinstance(value, complex):
+        return f"{value.real:.12g}+{value.imag:.12g}j"
+    if isinstance(value, np.ndarray):
+        return np.array2string(value, precision=8, separator=',')
+    return str(value)
+
+
+def _log_calc(stage, **fields):
+    row = {
+        'row_id': len(CALC_LOG_ROWS) + 1,
+        'timestamp': datetime.utcnow().isoformat(timespec='seconds'),
+        'stage': stage,
+    }
+    for key, value in fields.items():
+        row[key] = _normalize_log_value(value)
+    CALC_LOG_ROWS.append(row)
+
+
+def export_calc_log_to_excel(path=CALC_LOG_XLSX):
+    if not CALC_LOG_ROWS:
+        print("  ! No calculation logs to export.")
+        return
+    try:
+        from openpyxl import Workbook
+    except ModuleNotFoundError as exc:
+        raise ModuleNotFoundError(
+            "Excel export requires openpyxl. Install with: python -m pip install openpyxl"
+        ) from exc
+
+    columns = []
+    seen = set()
+    for row in CALC_LOG_ROWS:
+        for key in row.keys():
+            if key not in seen:
+                seen.add(key)
+                columns.append(key)
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "calc_log"
+    ws.append(columns)
+    for row in CALC_LOG_ROWS:
+        ws.append([row.get(col, None) for col in columns])
+    wb.save(path)
+    print(f"  ✓ Calculation log exported: {path} ({len(CALC_LOG_ROWS)} rows)")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. CHANNEL MODEL  (Section IV, Eq. 28-33)
@@ -98,6 +161,10 @@ def link_geometry(theta_deg, H_zen, H_ogs=H_OGS_DEF, H_atm=LATM): ## oke
     # Ray-sphere intersection for elevation angle th:
     # L = -r1*sin(th) + sqrt(r2^2 - r1^2*cos(th)^2)
     c2 = np.cos(th) ** 2
+    ##alpha_1 = np.arcsin(np.cos(th) * r1 / r_sat) + 90 - theta_deg;
+    ##alpha_2 = np.arcsin(np.cos(th) * r1 / r_atm) + 90 - theta_deg;
+    ##L_tot = r_sat ** 2 + r1 ** 2 - 2 * r1 * r_sat * np.cos(alpha_1) ** 1/2
+    ##L_atm = r_atm ** 2 + r1 ** 2 - 2 * r1 * r_atm * np.cos(alpha_2) ** 1/2
     L_tot = -r1 * np.sin(th) + np.sqrt(max(r_sat**2 - r1**2 * c2, 0.0))
     L_atm = -r1 * np.sin(th) + np.sqrt(max(r_atm**2 - r1**2 * c2, 0.0))
     return float(L_tot), float(L_atm)
@@ -182,6 +249,22 @@ def total_transmittance(theta_deg, H_zen, Dr, V_km, Cn2, H_ogs=H_OGS_DEF):
     A_sci  = scintillation_loss_dB(scintillation_index(Cn2, Dr, L_atm))
 
     T = float(np.clip(10**(-(A_geo+A_scat+A_sci)/10), 0, 1))
+    _log_calc(
+        'total_transmittance',
+        theta_deg=theta_deg,
+        H_zen_m=H_zen,
+        H_ogs_m=H_ogs,
+        Dr_m=Dr,
+        V_km=V_km,
+        Cn2=Cn2,
+        L_tot_m=L_tot,
+        L_atm_m=L_atm,
+        far_field_ok=ff_ok,
+        A_geo_dB=A_geo,
+        A_scat_dB=A_scat,
+        A_sci_dB=A_sci,
+        T=T,
+    )
     return T, L_tot, ff_ok
 
 
@@ -196,6 +279,11 @@ def _G(x):
         return 0.0
 
     return (x+1)*np.log2(x + 1) - x*np.log2(x)
+
+
+def _eps_total(T, eps_ch, eps_det=EPS_DET):
+    Ts = max(float(T), 1e-300)
+    return eps_ch + eps_det / Ts
 
 
 def _chi_l(T, e):
@@ -263,62 +351,59 @@ def skr_gm(VA, T, eps, beta):
     chi_t = _chi_t_hom(T, eps)
     I_AB = _IAB_hom(VA, chi_t)
     S_BE = _holevo_gm_hom(VA, T, eps)
-    return beta * I_AB - S_BE
+    skr = beta * I_AB - S_BE
+    _log_calc(
+        'skr_gm',
+        protocol='GM',
+        VA=VA,
+        T=T,
+        eps_ch=eps,
+        beta=beta,
+        chi_t=chi_t,
+        I_AB=I_AB,
+        S_BE=S_BE,
+        SKR=skr,
+    )
+    return skr
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. M-PSK DM-CVQKD  (Section II-B)
 # ─────────────────────────────────────────────────────────────────────────────
 def _ZM_psk(M, VA):
-
-    alpha = np.sqrt(VA/2)
-    a2  = alpha ** 2      
-    a2s = VA / (2 * np.sqrt(2))
-
-    def safe(v):
-        return max(float(v), 1e-300)
-
-    if M == 2:
-        z0 = safe(np.exp(-a2) * np.cosh(a2))
-        z1 = safe(np.exp(-a2) * np.sinh(a2))
-        return a2 * (z0**1.5 * z1**(-0.5) + z1**1.5 * z0**(-0.5))
-
-    elif M == 4:
-        exp_a2 = np.exp(-a2)
-        z0 = safe(0.5 * exp_a2 * (np.cosh(a2) + np.cos(a2)))  
-        z1 = safe(0.5 * exp_a2 * (np.sinh(a2) + np.sin(a2)))  
-        z2 = safe(0.5 * exp_a2 * (np.cosh(a2) - np.cos(a2)))  
-        z3 = safe(0.5 * exp_a2 * (np.sinh(a2) - np.sin(a2)))  
-        zeta = [z0, z1, z2, z3]
-        return 2 * a2 * sum(zeta[(k - 1) % 4] ** 1.5 * zeta[k] ** (-0.5) for k in range(4))
-
-    elif M == 8:
-        exp_a2 = np.exp(-a2)
-        z04_base  = np.cosh(a2) + np.cos(a2)
-        z04_extra = 2 * np.cos(a2s) * np.cosh(a2s)
-        z0 = safe(0.25 * exp_a2 * (z04_base + z04_extra))
-        z4 = safe(0.25 * exp_a2 * (z04_base - z04_extra))
-
-        z15_base  = np.sinh(a2) + np.sin(a2)
-        z15_extra = (np.sqrt(2) * np.cos(a2s) * np.sinh(a2s) + np.sqrt(2) * np.sin(a2s) * np.cosh(a2s))
-        z1 = safe(0.25 * exp_a2 * (z15_base + z15_extra))
-        z5 = safe(0.25 * exp_a2 * (z15_base - z15_extra))
-
-        z26_base  = np.cosh(a2) - np.cos(a2)
-        z26_extra = 2 * np.sin(a2s) * np.sinh(a2s)
-        z2 = safe(0.25 * exp_a2 * (z26_base + z26_extra))
-        z6 = safe(0.25 * exp_a2 * (z26_base - z26_extra))
-
-        z37_base    = np.sinh(a2) - np.sin(a2)
-        z37_term1   = np.sqrt(2) * np.cos(a2s) * np.sinh(a2s)  
-        z37_term2   = np.sqrt(2) * np.sin(a2s) * np.cosh(a2s)  
-        z3 = safe(0.25 * exp_a2 * (z37_base - z37_term1 + z37_term2))
-        
-        z7 = safe(0.25 * exp_a2 * (z37_base + z37_term1 - z37_term2)) 
-
-        zeta = [z0, z1, z2, z3, z4, z5, z6, z7]
-        return 2 * a2 * sum(zeta[(k - 1) % 8] ** 1.5 * zeta[k] ** (-0.5) for k in range(8))
-    else:
+    if M not in (2, 4, 8):
         raise ValueError("Only M=2,4,8 are supported.")
+    if VA < 0:
+        raise ValueError("VA must be non-negative.")
+    if VA <= np.finfo(float).eps:
+        return 0.0
+
+    a2 = VA / 2.0
+    tiny = np.finfo(float).tiny
+
+    # Stable computation of zeta_k via the DFT form, equivalent to the
+    # closed-form 2/4/8-PSK expressions but less sensitive to cancellation.
+    phi = 2.0 * np.pi * np.arange(M, dtype=float) / M
+    vals = np.exp(a2 * np.exp(1j * phi))
+    zeta = (np.exp(-a2) / M) * np.fft.fft(vals)
+    z = np.clip(np.real_if_close(zeta, tol=1e5).real, tiny, None)
+
+    z_prev = np.roll(z, 1)
+    terms = np.exp(1.5 * np.log(z_prev) - 0.5 * np.log(z))
+    prefactor = a2 if M == 2 else 2.0 * a2
+    zm = float(prefactor * np.sum(terms))
+    _log_calc(
+        'ZM_psk',
+        protocol='PSK',
+        M=M,
+        VA=VA,
+        a2=a2,
+        prefactor=prefactor,
+        zeta_min=np.min(z),
+        zeta_max=np.max(z),
+        terms_sum=np.sum(terms),
+        ZM=zm,
+    )
+    return zm
 
 def _holevo_psk_hom(VA, T, e, M):
     """
@@ -342,7 +427,8 @@ def _holevo_psk_hom(VA, T, e, M):
     l2 = np.sqrt(max(0.5 * (A - np.sqrt(d12)), 1e-30))
     
     # Calculate λ3, λ4 (Homodyne - Eq. 10)
-    sqB = np.sqrt(max(B, 0.0))
+    # Keep the signed sqrt(B) from the unsquared term (B_inner), not |B_inner|.
+    sqB = B_inner
     chi_tot = cl + CHI_HOM / Ts
     denom = Ts * (1.0 + VA + chi_tot)
     
@@ -354,7 +440,29 @@ def _holevo_psk_hom(VA, T, e, M):
     l4 = np.sqrt(max(0.5 * (Ah - np.sqrt(d34)), 1e-30))
     
     # Holevo information
-    return _G((l1 - 1.0) / 2.0) + _G((l2 - 1.0) / 2.0) - _G((l3 - 1.0) / 2.0) - _G((l4 - 1.0) / 2.0)
+    S_BE = _G((l1 - 1.0) / 2.0) + _G((l2 - 1.0) / 2.0) - _G((l3 - 1.0) / 2.0) - _G((l4 - 1.0) / 2.0)
+    _log_calc(
+        'holevo_psk_hom',
+        protocol='PSK',
+        M=M,
+        VA=VA,
+        T=Ts,
+        eps_ch=e,
+        ZM=ZM,
+        A=A,
+        B_inner=B_inner,
+        B=B,
+        sqB=sqB,
+        chi_tot=chi_tot,
+        Ah=Ah,
+        Dh=Dh,
+        l1=l1,
+        l2=l2,
+        l3=l3,
+        l4=l4,
+        S_BE=S_BE,
+    )
+    return S_BE
 
 def skr_psk(VA, T, eps, M, beta):
     """
@@ -375,8 +483,21 @@ def skr_psk(VA, T, eps, M, beta):
     chi_t = _chi_t_hom(Ts, eps)
     I_AB = _IAB_hom(VA, chi_t)
     S_BE = _holevo_psk_hom(VA, Ts, eps, M)
-    
-    return beta * I_AB - S_BE
+    skr = beta * I_AB - S_BE
+    _log_calc(
+        'skr_psk',
+        protocol='PSK',
+        M=M,
+        VA=VA,
+        T=Ts,
+        eps_ch=eps,
+        beta=beta,
+        chi_t=chi_t,
+        I_AB=I_AB,
+        S_BE=S_BE,
+        SKR=skr,
+    )
+    return skr
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 5. M-QAM DM-CVQKD  (Section II-C)
@@ -465,8 +586,26 @@ def _qam_tau_terms_cached(VA, M, prob_model, v, n_cut):
 
 def _Zstar_qam(T, eps, VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N_FOCK):
     tr_term, w = _qam_tau_terms_cached(VA, M, prob_model, float(v), int(n_cut))
-    z_star = 2*np.sqrt(T)*tr_term - np.sqrt(2*T*eps)*w
-    return max(float(z_star), 0.0)
+    Ts = max(float(T), 1e-300)
+    eps_total = _eps_total(Ts, eps)
+    z_star = 2 * np.sqrt(Ts) * tr_term - np.sqrt(2 * Ts * eps_total) * w
+    z_star = max(float(z_star), 0.0)
+    _log_calc(
+        'Zstar_qam',
+        protocol='QAM',
+        M=M,
+        VA=VA,
+        T=Ts,
+        eps_ch=eps,
+        eps_total=eps_total,
+        prob_model=prob_model,
+        v=v,
+        n_cut=n_cut,
+        tr_term=tr_term,
+        w=w,
+        Z_star=z_star,
+    )
+    return z_star
 
 def _IAB_qam_hom(VA, T, eps):
     return 0.5 * np.log2(1 + T*VA/(2 + T*eps))
@@ -476,23 +615,64 @@ def _IAB_qam_het(VA, T, eps):
 
 def _holevo_qam_het(VA, T, eps, M, prob_model='binomial', v=QAM_V_DISC_GAUSS):
     """Holevo bound for M-QAM heterodyne (Eq. 17-19)."""
-    Zs  = _Zstar_qam(T, eps, VA, M, prob_model=prob_model, v=v)
+    Ts = max(float(T), 1e-300)
+    eps_total = _eps_total(Ts, eps)
+    Zs  = _Zstar_qam(Ts, eps, VA, M, prob_model=prob_model, v=v)
     a11 = VA + 1
-    a22 = 1 + T * VA + T * eps
+    a22 = 1 + Ts * VA + Ts * eps_total
     # FIX (Eq. 17-19): use symplectic invariants form for ν1,2.
     theta = a11**2 + a22**2 - 2 * Zs**2
     delta = (a11 * a22 - Zs**2)**2
     dsc   = max(theta**2 - 4 * delta, 0)
     l1    = np.sqrt(max(0.5 * (theta + np.sqrt(dsc)), 1e-30))
     l2    = np.sqrt(max(0.5 * (theta - np.sqrt(dsc)), 1e-30))
-    l3  = max(VA+1 - Zs**2/(2+T*VA+T*eps), 1e-15)
-    return _G((l1-1)/2)+_G((l2-1)/2)-_G((l3-1)/2)
+    l3  = max(VA + 1 - Zs**2 / (2 + Ts * VA + Ts * eps_total), 1e-15)
+    S_BE = _G((l1-1)/2)+_G((l2-1)/2)-_G((l3-1)/2)
+    _log_calc(
+        'holevo_qam_het',
+        protocol='QAM',
+        M=M,
+        VA=VA,
+        T=Ts,
+        eps_ch=eps,
+        eps_total=eps_total,
+        prob_model=prob_model,
+        v=v,
+        Zs=Zs,
+        a11=a11,
+        a22=a22,
+        theta=theta,
+        delta=delta,
+        l1=l1,
+        l2=l2,
+        l3=l3,
+        S_BE=S_BE,
+    )
+    return S_BE
 
 def skr_qam(VA, T, eps, M, beta, prob_model='binomial', v=QAM_V_DISC_GAUSS):
     """Asymptotic SKR for M-QAM DM-CVQKD heterodyne [bits/pulse] (Eq. 4, 16)."""
-    iab = _IAB_qam_het(VA, T, eps)
-    sbe = _holevo_qam_het(VA, T, eps, M, prob_model=prob_model, v=v)
-    return beta * iab - sbe
+    Ts = max(float(T), 1e-300)
+    eps_total = _eps_total(Ts, eps)
+    iab = _IAB_qam_het(VA, Ts, eps_total)
+    sbe = _holevo_qam_het(VA, Ts, eps, M, prob_model=prob_model, v=v)
+    skr = beta * iab - sbe
+    _log_calc(
+        'skr_qam',
+        protocol='QAM',
+        M=M,
+        VA=VA,
+        T=Ts,
+        eps_ch=eps,
+        eps_total=eps_total,
+        beta=beta,
+        prob_model=prob_model,
+        v=v,
+        I_AB=iab,
+        S_BE=sbe,
+        SKR=skr,
+    )
+    return skr
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -511,7 +691,7 @@ def reconciliation_efficiency(snr_dB, mode='MD'):
     snr_lin = 10**(snr_dB/10)
     c = RECON_COEFFS[mode]
     beta = c['c1'] * (snr_lin ** c['c2']) + c['c3'] * (snr_lin ** c['c4'])
-    return float(np.clip(beta, 0.0, 1.0))
+    return beta
 
 def frame_error_rate(snr_dB):
     """FER from Eq. 26 (N=10^6 base; ≈ 0 for N=10^11 at satellite SNRs)."""
@@ -535,7 +715,25 @@ def finite_size_skr(VA, T, eps, mode='MD', N=N_BLOCK, f_rep=F_REP):
     IAB = _IAB_hom(VA, ct)
     SBE = _holevo_gm_hom(VA, T, eps)
     dn  = _dn_privacy(N)
-    return f_rep*((1-fer)*(bet*IAB - SBE - dn))
+    skr = f_rep*((1-fer)*bet*IAB - SBE - dn)
+    _log_calc(
+        'finite_size_skr',
+        protocol='GM',
+        mode=mode,
+        VA=VA,
+        T=T,
+        eps_ch=eps,
+        chi_t=ct,
+        snr_dB=snr,
+        beta=bet,
+        FER=fer,
+        I_AB=IAB,
+        S_BE=SBE,
+        delta_n=dn,
+        f_rep=f_rep,
+        SKR_bps=skr,
+    )
+    return skr
 
 def plob_upper_bound(T):
     """Loss-limited PLOB upper bound [bits/pulse] (Pirandola 2021)."""
@@ -819,6 +1017,7 @@ def plot_fig8():
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
+    clear_calc_log()
     print("="*68)
     print("CV-QKD Satellite-to-Ground Simulation")
     print("Sayat et al., IEEE Trans. Commun. 2024  |  Reproducing Figs 4-8")
@@ -843,6 +1042,10 @@ def main():
 
     print("\n"+"="*68)
     print("All 5 figures reproduced successfully!")
+    try:
+        export_calc_log_to_excel(CALC_LOG_XLSX)
+    except ModuleNotFoundError as exc:
+        print(f"  ! {exc}")
     print("="*68)
 
 
