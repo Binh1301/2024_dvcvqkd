@@ -22,7 +22,8 @@ STRUCTURE
  9. Main
 
 ASSUMPTIONS (marked inline as # Assumption: ...)
-- Constant Cn2 along atmospheric path (integral in Eq. 32 evaluated analytically)
+- Constant Cn2 along atmospheric path by default (Eq. 32 integral also supports
+  a callable Cn2(z) profile)
 - Detector efficiency eta = 0.6
 - M-PSK uses homodyne; M-QAM uses heterodyne detection
 - M-QAM discrete-Gaussian shaping parameter v is user-set (paper states it is optimized)
@@ -37,6 +38,7 @@ from scipy.special import erfinv, comb as sp_comb
 from functools import lru_cache
 import math
 from datetime import datetime
+from threading import Lock
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1. CONSTANTS & PARAMETERS
@@ -85,13 +87,25 @@ LATM      = 20_000.0   # Atmosphere thickness [m]
 H_OGS_DEF = 0.0        # Default OGS altitude [m]
 H_OGS_ISS = 1_029.0   # Mt. John Observatory [m]
 
+# Numerical constants used in Eq. (31)-(32)
+DB_PER_NEPER = 10 * np.log10(np.e)
+RYTOV_PREFAC = 2.25
+RYTOV_INT_COEFF = 6.0 / 11.0
+SCINT_T1_COEFF = 0.20
+SCINT_T1_D_COEFF = 0.18
+SCINT_T2_COEFF = 0.21
+SCINT_T2_S_COEFF = 0.24
+SCINT_T2_D_COEFF = 0.90
+
 # Calculation logging
 CALC_LOG_XLSX = "cvqkd_calculation_log.xlsx"
 CALC_LOG_ROWS = []
+_CALC_LOG_LOCK = Lock()
 
 
 def clear_calc_log():
-    CALC_LOG_ROWS.clear()
+    with _CALC_LOG_LOCK:
+        CALC_LOG_ROWS.clear()
 
 
 def _normalize_log_value(value):
@@ -109,18 +123,23 @@ def _normalize_log_value(value):
 
 
 def _log_calc(stage, **fields):
-    row = {
-        'row_id': len(CALC_LOG_ROWS) + 1,
-        'timestamp': datetime.utcnow().isoformat(timespec='seconds'),
-        'stage': stage,
-    }
+    normalized_fields = {}
     for key, value in fields.items():
-        row[key] = _normalize_log_value(value)
-    CALC_LOG_ROWS.append(row)
+        normalized_fields[key] = _normalize_log_value(value)
+    with _CALC_LOG_LOCK:
+        row = {
+            'row_id': len(CALC_LOG_ROWS) + 1,
+            'timestamp': datetime.utcnow().isoformat(timespec='seconds'),
+            'stage': stage,
+        }
+        row.update(normalized_fields)
+        CALC_LOG_ROWS.append(row)
 
 
 def export_calc_log_to_excel(path=CALC_LOG_XLSX):
-    if not CALC_LOG_ROWS:
+    with _CALC_LOG_LOCK:
+        rows_snapshot = list(CALC_LOG_ROWS)
+    if not rows_snapshot:
         print("  ! No calculation logs to export.")
         return
     try:
@@ -132,7 +151,7 @@ def export_calc_log_to_excel(path=CALC_LOG_XLSX):
 
     columns = []
     seen = set()
-    for row in CALC_LOG_ROWS:
+    for row in rows_snapshot:
         for key in row.keys():
             if key not in seen:
                 seen.add(key)
@@ -142,10 +161,10 @@ def export_calc_log_to_excel(path=CALC_LOG_XLSX):
     ws = wb.active
     ws.title = "calc_log"
     ws.append(columns)
-    for row in CALC_LOG_ROWS:
+    for row in rows_snapshot:
         ws.append([row.get(col, None) for col in columns])
     wb.save(path)
-    print(f"  ✓ Calculation log exported: {path} ({len(CALC_LOG_ROWS)} rows)")
+    print(f"  ✓ Calculation log exported: {path} ({len(rows_snapshot)} rows)")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -183,36 +202,60 @@ def scattering_loss_dBpkm(V_km):  ##oke
     elif V_km >= 1:  p = 0.16*V_km + 0.34
     elif V_km >= 0.5:p = V_km - 0.5
     else:            p = 0.0
-    return 10*np.log10(np.e) * (3.912/V_km) * (1550/550)**(-p)
+    return DB_PER_NEPER * (3.912/V_km) * (1550/550)**(-p)
+
+
+def _cn2_weighted_integral(Cn2, L_atm, integration_points=1024):
+    """
+    Compute ∫ Cn2(z) * (L_atm - z)^(5/6) dz in Eq. (32).
+
+    Supported Cn2 inputs:
+    - scalar (constant Cn2 along path; uses analytic integral),
+    - callable f(z_array) returning a same-shape profile.
+    """
+    if np.isscalar(Cn2):
+        cn2 = float(Cn2)
+        if cn2 < 0:
+            raise ValueError("Cn2 must be non-negative.")
+        return cn2 * (L_atm ** (11.0 / 6.0)) * RYTOV_INT_COEFF
+
+    if callable(Cn2):
+        z = np.linspace(0.0, L_atm, int(integration_points) + 1)
+        cn2_profile = np.asarray(Cn2(z), dtype=float)
+        if cn2_profile.shape != z.shape:
+            raise ValueError("Cn2(z) must return an array with the same shape as z.")
+        if np.any(cn2_profile < 0):
+            raise ValueError("Cn2(z) must be non-negative along the path.")
+        weight = np.power(np.maximum(L_atm - z, 0.0), 5.0 / 6.0)
+        return float(np.trapz(cn2_profile * weight, z))
+
+    raise TypeError("Cn2 must be a non-negative scalar or a callable Cn2(z).")
 
 
 def scintillation_index(Cn2, Dr, L_atm):
     """
     Aperture-averaged scintillation index (Eq. 32).
     """
+    if L_atm <= 0:
+        return 0.0
+    if Dr <= 0:
+        raise ValueError("Dr must be positive.")
+
     k = 2 * np.pi / LAMBDA
-    
-    # Tính d theo chuẩn: d = sqrt(k * Dr^2 / (4 * L_atm))
-    d = np.sqrt(k * Dr**2 / (4 * L_atm))
-    
-    # Tính sigma_R^2 (s2R)
-    # Tích phân của (L-z)^(5/6) dz từ 0 đến L là (6/11) * L^(11/6)
-    s2R = 2.25 * (k**(7/6)) * Cn2 * (L_atm**(11/6)) * (6/11)
-    
-    # Số mũ s2R^(6/5) xuất hiện lặp lại nên đặt biến tạm cho gọn
-    s2R_pow = s2R**(6/5)
-    
-    # Tính toán Term 1 (t1)
-    t1_num = 0.20 * s2R
-    t1_den = (1 + 0.18 * (d**2) + 0.20 * s2R_pow)**(7/6)
+    d = Dr * np.sqrt(np.pi / (2 * LAMBDA * L_atm))
+
+    cn2_int = _cn2_weighted_integral(Cn2, float(L_atm))
+    s2R = RYTOV_PREFAC * (k**(7.0 / 6.0)) * cn2_int
+    s2R_pow = s2R**(6.0 / 5.0)
+
+    t1_num = SCINT_T1_COEFF * s2R
+    t1_den = (1 + SCINT_T1_D_COEFF * (d**2) + SCINT_T1_COEFF * s2R_pow)**(7.0 / 6.0)
     t1 = t1_num / t1_den
-    
-    # Tính toán Term 2 (t2)
-    t2_num = 0.21 * s2R * (1 + 0.24 * s2R_pow)**(-5/6)
-    t2_den = 1 + 0.90 * (d**2) + 0.21 * (d**2) * s2R_pow
+
+    t2_num = SCINT_T2_COEFF * s2R * (1 + SCINT_T2_S_COEFF * s2R_pow)**(-5.0 / 6.0)
+    t2_den = 1 + SCINT_T2_D_COEFF * (d**2) + SCINT_T2_COEFF * (d**2) * s2R_pow
     t2 = t2_num / t2_den
-    
-    # Kết quả theo công thức Exp(t1 + t2) - 1
+
     s2I = np.exp(t1 + t2) - 1.0
     return float(s2I)
 
@@ -230,8 +273,8 @@ def scintillation_loss_dB(s2I, p_thr=P_THR):
     # Đối số cho hàm erfinv
     arg = float(np.clip(2 * p_thr - 1, -0.9999, 0.9999))
     
-    # Công thức: 4.343 * [erfinv(2*p_thr - 1) * sqrt(2 * ln(s2I+1)) - 0.5 * ln(s2I+1)]
-    A_sci = 4.343 * (erfinv(arg) * np.sqrt(2 * ln_term) - 0.5 * ln_term)
+    # Eq. (31): dB conversion factor is 10*log10(e) (≈4.343)
+    A_sci = DB_PER_NEPER * (erfinv(arg) * np.sqrt(2 * ln_term) - 0.5 * ln_term)
     
     return abs(A_sci)
 
@@ -282,6 +325,7 @@ def _G(x):
 
 
 def _eps_total(T, eps_ch, eps_det=EPS_DET):
+    """Total noise referred to channel input: eps_ch + eps_det / T."""
     Ts = max(float(T), 1e-300)
     return eps_ch + eps_det / Ts
 
@@ -303,7 +347,7 @@ def _symp12(VA, T, chi_l, Z=None): ## đúng
     if Z is None:
         Z = np.sqrt(VA**2 + 2*VA)
     eps_ch = chi_l - (1/Ts - 1)
-    t_v = 1 + Ts * (VA + eps_ch)  # equals T*(VA+1+chi_l)
+    t_v =  Ts * (VA + 1 + chi_l)  # equals T*(VA+1+chi_l)
     A = (VA + 1)**2 + t_v**2 - 2 * Ts * (Z**2)
     B_inner =  Ts * ((VA + 1)**2 + (VA + 1) * chi_l - Z**2)
     B = B_inner**2
@@ -369,6 +413,18 @@ def skr_gm(VA, T, eps, beta):
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. M-PSK DM-CVQKD  (Section II-B)
 # ─────────────────────────────────────────────────────────────────────────────
+def _psk_zeta_components(M, a2):
+    idx = np.arange(M, dtype=float)
+    phi = 2.0 * np.pi * idx / M
+    vals = np.exp(a2 * np.exp(1j * phi))
+    phase = np.exp(-1j * np.outer(idx, phi))
+    zeta = (np.exp(-a2) / M) * (phase @ vals)
+    imag_max = float(np.max(np.abs(np.imag(zeta))))
+    z = np.real_if_close(zeta, tol=1e6).real
+    tiny = np.finfo(float).tiny
+    return np.clip(z, tiny, None), imag_max
+
+
 def _ZM_psk(M, VA):
     if M not in (2, 4, 8):
         raise ValueError("Only M=2,4,8 are supported.")
@@ -378,14 +434,9 @@ def _ZM_psk(M, VA):
         return 0.0
 
     a2 = VA / 2.0
-    tiny = np.finfo(float).tiny
-
-    # Stable computation of zeta_k via the DFT form, equivalent to the
-    # closed-form 2/4/8-PSK expressions but less sensitive to cancellation.
-    phi = 2.0 * np.pi * np.arange(M, dtype=float) / M
-    vals = np.exp(a2 * np.exp(1j * phi))
-    zeta = (np.exp(-a2) / M) * np.fft.fft(vals)
-    z = np.clip(np.real_if_close(zeta, tol=1e5).real, tiny, None)
+    z, imag_max = _psk_zeta_components(M, a2)
+    if imag_max > 1e-10:
+        raise ValueError(f"Unexpected complex zeta components for M={M}: imag_max={imag_max:.3e}")
 
     z_prev = np.roll(z, 1)
     terms = np.exp(1.5 * np.log(z_prev) - 0.5 * np.log(z))
@@ -400,6 +451,7 @@ def _ZM_psk(M, VA):
         prefactor=prefactor,
         zeta_min=np.min(z),
         zeta_max=np.max(z),
+        zeta_imag_max=imag_max,
         terms_sum=np.sum(terms),
         ZM=zm,
     )
@@ -412,26 +464,18 @@ def _holevo_psk_hom(VA, T, e, M):
     """
     Ts = max(float(T), 1e-300)
     cl = _chi_l(Ts, e)
-    ct = cl + CHI_HOM / Ts
     ZM = _ZM_psk(M, VA)
-    
-    # Calculate A and B (Eq. 8)
-    t_v = Ts * (VA + 1.0 + cl)
-    A = (VA + 1.0)**2 + t_v**2 - 2.0 * Ts * ZM**2
     B_inner = Ts * ((VA + 1.0)**2 + (VA + 1.0) * cl - ZM**2)
-    B = B_inner**2
-    
-    # Calculate λ1, λ2
-    d12 = max(A**2 - 4.0 * B, 0.0)
-    l1 = np.sqrt(0.5 * (A + np.sqrt(d12)))
-    l2 = np.sqrt(max(0.5 * (A - np.sqrt(d12)), 1e-30))
-    
-    # Calculate λ3, λ4 (Homodyne - Eq. 10)
-    # Keep the signed sqrt(B) from the unsquared term (B_inner), not |B_inner|.
-    sqB = B_inner
+    if B_inner < -1e-12:
+        raise ValueError(
+            f"Unphysical PSK covariance: B_inner={B_inner:.3e} < 0 for M={M}, VA={VA}, T={Ts}."
+        )
+
+    l1, l2, B, A = _symp12(VA, Ts, cl, Z=ZM)
+    sqB = np.sqrt(max(B, 0.0))
     chi_tot = cl + CHI_HOM / Ts
     denom = Ts * (1.0 + VA + chi_tot)
-    
+    t_v = Ts * (VA + 1.0 + cl)
     Ah = (A * CHI_HOM + (VA + 1.0) * sqB + t_v) / denom
     Dh = sqB * (VA + 1.0 + sqB * CHI_HOM) / denom
     
@@ -559,8 +603,13 @@ def _coherent_ket(alpha, n_cut):
     coeff = np.power(alpha, n) / denom
     return np.exp(-0.5 * np.abs(alpha)**2) * coeff.astype(np.complex128)
 
+def _cache_round(value, digits=10):
+    return round(float(value), int(digits))
+
 @lru_cache(maxsize=128)
-def _qam_tau_terms_cached(VA, M, prob_model, v, n_cut):
+def _qam_tau_terms_cached(VA_key, M, prob_model, v_key, n_cut):
+    VA = float(VA_key)
+    v = float(v_key)
     alpha, prob = _qam_constellation_probs(VA, M, prob_model=prob_model, v=v)
     kets = np.array([_coherent_ket(a, n_cut) for a in alpha])
     tau = np.zeros((n_cut, n_cut), dtype=np.complex128)
@@ -584,10 +633,21 @@ def _qam_tau_terms_cached(VA, M, prob_model, v, n_cut):
         w += p * (t1.real - np.abs(t2)**2)
     return float(max(tr_term, 0.0)), float(max(w, 0.0))
 
-def _Zstar_qam(T, eps, VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N_FOCK):
-    tr_term, w = _qam_tau_terms_cached(VA, M, prob_model, float(v), int(n_cut))
+
+def _qam_tau_terms(VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N_FOCK):
+    return _qam_tau_terms_cached(
+        _cache_round(VA),
+        int(M),
+        prob_model,
+        _cache_round(v),
+        int(n_cut),
+    )
+
+def _Zstar_qam(T, eps_total, VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N_FOCK):
+    """Lower-bound correlation Z* in Eq. (20), using total excess noise ε."""
+    tr_term, w = _qam_tau_terms(VA, M, prob_model=prob_model, v=v, n_cut=n_cut)
     Ts = max(float(T), 1e-300)
-    eps_total = _eps_total(Ts, eps)
+    eps_total = max(float(eps_total), 0.0)
     z_star = 2 * np.sqrt(Ts) * tr_term - np.sqrt(2 * Ts * eps_total) * w
     z_star = max(float(z_star), 0.0)
     _log_calc(
@@ -596,7 +656,6 @@ def _Zstar_qam(T, eps, VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N
         M=M,
         VA=VA,
         T=Ts,
-        eps_ch=eps,
         eps_total=eps_total,
         prob_model=prob_model,
         v=v,
@@ -607,17 +666,18 @@ def _Zstar_qam(T, eps, VA, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, n_cut=N
     )
     return z_star
 
-def _IAB_qam_hom(VA, T, eps):
-    return 0.5 * np.log2(1 + T*VA/(2 + T*eps))
+def _IAB_qam_hom(VA, T, eps_total):
+    return 0.5 * np.log2(1 + T*VA/(2 + T*eps_total))
 
-def _IAB_qam_het(VA, T, eps):
-    return np.log2(1 + T*VA/(2 + T*eps))
+def _IAB_qam_het(VA, T, eps_total):
+    return np.log2(1 + T*VA/(2 + T*eps_total))
 
-def _holevo_qam_het(VA, T, eps, M, prob_model='binomial', v=QAM_V_DISC_GAUSS):
+def _holevo_qam_het(VA, T, eps_ch, M, prob_model='binomial', v=QAM_V_DISC_GAUSS, eps_total=None):
     """Holevo bound for M-QAM heterodyne (Eq. 17-19)."""
     Ts = max(float(T), 1e-300)
-    eps_total = _eps_total(Ts, eps)
-    Zs  = _Zstar_qam(Ts, eps, VA, M, prob_model=prob_model, v=v)
+    if eps_total is None:
+        eps_total = _eps_total(Ts, eps_ch)
+    Zs  = _Zstar_qam(Ts, eps_total, VA, M, prob_model=prob_model, v=v)
     a11 = VA + 1
     a22 = 1 + Ts * VA + Ts * eps_total
     # FIX (Eq. 17-19): use symplectic invariants form for ν1,2.
@@ -634,7 +694,7 @@ def _holevo_qam_het(VA, T, eps, M, prob_model='binomial', v=QAM_V_DISC_GAUSS):
         M=M,
         VA=VA,
         T=Ts,
-        eps_ch=eps,
+        eps_ch=eps_ch,
         eps_total=eps_total,
         prob_model=prob_model,
         v=v,
@@ -651,11 +711,14 @@ def _holevo_qam_het(VA, T, eps, M, prob_model='binomial', v=QAM_V_DISC_GAUSS):
     return S_BE
 
 def skr_qam(VA, T, eps, M, beta, prob_model='binomial', v=QAM_V_DISC_GAUSS):
-    """Asymptotic SKR for M-QAM DM-CVQKD heterodyne [bits/pulse] (Eq. 4, 16)."""
+    """
+    Asymptotic SKR for M-QAM DM-CVQKD heterodyne [bits/pulse] (Eq. 4, 16).
+    Input `eps` is channel excess noise ε_ch; ε_total is formed internally.
+    """
     Ts = max(float(T), 1e-300)
     eps_total = _eps_total(Ts, eps)
     iab = _IAB_qam_het(VA, Ts, eps_total)
-    sbe = _holevo_qam_het(VA, Ts, eps, M, prob_model=prob_model, v=v)
+    sbe = _holevo_qam_het(VA, Ts, eps, M, prob_model=prob_model, v=v, eps_total=eps_total)
     skr = beta * iab - sbe
     _log_calc(
         'skr_qam',
@@ -688,10 +751,12 @@ def _SNR_dB(T, alpha_sq, chi_t):
 
 def reconciliation_efficiency(snr_dB, mode='MD'):
     """Reconciliation efficiency β from Eq. (26) and Table II."""
+    if mode not in RECON_COEFFS:
+        raise ValueError(f"Unsupported reconciliation mode: {mode}")
     snr_lin = 10**(snr_dB/10)
     c = RECON_COEFFS[mode]
     beta = c['c1'] * (snr_lin ** c['c2']) + c['c3'] * (snr_lin ** c['c4'])
-    return beta
+    return float(np.clip(beta, 0.0, 1.0))
 
 def frame_error_rate(snr_dB):
     """FER from Eq. 26 (N=10^6 base; ≈ 0 for N=10^11 at satellite SNRs)."""
@@ -701,15 +766,16 @@ def _dn_privacy(N=N_BLOCK):
     """Privacy amplification correction (Eq. 25)."""
     d,es,esec = D_DISC, EPS_S, EPS_SEC
     sN = np.sqrt(N)
+    # Eq. (25): all four terms scale with 1/sqrt(N).
     return ((d+1)**2/sN + 4*(d+1)*np.sqrt(np.log2(2/es))/sN
-            + 2*np.log2(2/(esec**2*es))/sN + 4*es*d/(esec*sN)/sN)
+            + 2*np.log2(2/(esec**2*es))/sN + 4*es*d/(esec*sN))
 
 def finite_size_skr(VA, T, eps, mode='MD', N=N_BLOCK, f_rep=F_REP):
     """
     Finite-size SKR for GM-CVQKD homodyne [bits/s] (Eq. 24).
     """
     ct  = _chi_t_hom(T, eps)
-    snr = _SNR_dB(T, VA, ct)
+    snr = _SNR_dB(T,  VA / 2.0, ct)
     bet = reconciliation_efficiency(snr, mode)
     fer = frame_error_rate(snr)
     IAB = _IAB_hom(VA, ct)
@@ -873,13 +939,16 @@ def plot_fig5():
         ax.semilogy(alt_km,ub,'k-',lw=2.5,label='Upper Bound')
 
         for lbl,col,ptype,VA in [
-                ('Gaussian',           'yellow',   'gm', VA_GM),
+                ('Gaussian',           'goldenrod','gm', VA_GM),
                 ('Binomial Dist.',     'blue','qam',VA_QAM),
                 ('Disc. Gaussian Dist.','red','qam',VA_QAM)]:
             for th,ls in zip(ELEVS,LS):
                 vals=[]
                 for H in alt_m:
-                    T,_,_=total_transmittance(th,H,Dr,V,Cn2)
+                    T, _, ff_ok = total_transmittance(th, H, Dr, V, Cn2)
+                    if not ff_ok:
+                        vals.append(np.nan)
+                        continue
                     if ptype == 'gm':
                         s = skr_gm(VA, T, eps, beta)
                     elif lbl == 'Disc. Gaussian Dist.':
@@ -927,14 +996,17 @@ def plot_fig6():
                 vals=[]
                 for H in am:
                     T,_,ok=total_transmittance(th,H,Dr,V,Cn2)
-                    s=finite_size_skr(VA_GM,T,eps,mode) if ok else 0.0
+                    if not ok:
+                        vals.append(np.nan)
+                        continue
+                    s=finite_size_skr(VA_GM,T,eps,mode)
                     vals.append(_nan(s))
                 lb=mode if th==ELEVS[0] else '_'
                 ax.semilogy(akm,vals,color=COLORS[mode],ls=ls,lw=1.5,label=lb)
 
         ax.set_xlabel('Satellite Altitude at Zenith [km]')
         ax.set_ylabel('SKR [bits/s]')
-        ax.set_ylim([1e4,1e8]); ax.set_xlim([akm[0],akm[-1]])
+        ax.set_ylim(bottom=1e4); ax.set_xlim([akm[0],akm[-1]])
         ax.grid(True,which='both',alpha=0.25)
         h,l=ax.get_legend_handles_labels()
         ax.legend(handles=h+EL_LEG,labels=l+[e.get_label() for e in EL_LEG],
@@ -970,24 +1042,34 @@ def plot_fig8():
     COLORS = {'MD':'blue','MLC-MSD':'red'}
     theta_arr = np.arange(30, 91, 1)
     total_key = {}
+    t_pass, theta_pass = elevation_model()
+    if t_pass.size > 1:
+        sample_dt = np.diff(t_pass, append=t_pass[-1] + (t_pass[-1] - t_pass[-2]))
+        dt_nominal = float(np.median(sample_dt))
+    else:
+        sample_dt = np.array([1.0], dtype=float)
+        dt_nominal = 1.0
+    theta_bins = np.arange(29.5, 91.5, 1.0)
+    pass_mask = theta_pass >= 30.0
+    seconds_per_theta, _ = np.histogram(
+        theta_pass[pass_mask], bins=theta_bins, weights=sample_dt[pass_mask]
+    )
 
     fig, ax = plt.subplots(figsize=(8,5))
     for mode in ['MD','MLC-MSD']:
-        vals=[]
+        vals = []
         for th in theta_arr:
-            T,_,ok=total_transmittance(th,H_iss,Dr,V,Cn2,H_OGS_ISS)
-            s=finite_size_skr(VA_GM,T,eps,mode) if ok else 0.0
+            T, _, ok = total_transmittance(float(th), H_iss, Dr, V, Cn2, H_OGS_ISS)
+            if not ok:
+                vals.append(np.nan)
+                continue
+            s = finite_size_skr(VA_GM, T, eps, mode)
             vals.append(_nan(s))
-        ax.semilogy(theta_arr,vals,color=COLORS[mode],lw=2,label=mode)
+        vals_arr = np.asarray(vals, dtype=float)
+        ax.semilogy(theta_arr, vals_arr, color=COLORS[mode], lw=2, label=mode)
 
-        # Integrate over ISS pass
-        _t,_th = elevation_model()
-        key=0.0
-        for th_t in _th:
-            if th_t < 30: continue
-            T,_,ok=total_transmittance(float(th_t),H_iss,Dr,V,Cn2,H_OGS_ISS)
-            key += finite_size_skr(VA_GM,T,eps,mode) if ok else 0.0
-        total_key[mode] = key
+        valid = np.isfinite(vals_arr)
+        total_key[mode] = float(np.sum(vals_arr[valid] * seconds_per_theta[valid]))
 
     ax.set_xlabel('Elevation Angle [°]', fontsize=12)
     ax.set_ylabel('SKR [bits/s]', fontsize=12)
@@ -998,7 +1080,8 @@ def plot_fig8():
     ax.grid(True,which='both',alpha=0.25)
     ax.legend(fontsize=11)
 
-    txt = (f"Total key – MD:      {total_key['MD']/1e9:.3f} Gbit  [paper: 1.235 Gbit]\n"
+    txt = (f"Pass integration uses 1 deg bins with dt~{dt_nominal:.2f} s/sample\n"
+           f"Total key – MD:      {total_key['MD']/1e9:.3f} Gbit  [paper: 1.235 Gbit]\n"
            f"Total key – MLC-MSD: {total_key['MLC-MSD']/1e6:.1f} Mbit  [paper: 385 Mbit]")
     ax.text(0.04,0.97,txt,transform=ax.transAxes,fontsize=8,va='top',
             bbox=dict(boxstyle='round',fc='wheat',alpha=0.6))
