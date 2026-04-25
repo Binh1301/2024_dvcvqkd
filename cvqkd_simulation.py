@@ -276,7 +276,7 @@ def scintillation_loss_dB(s2I, p_thr=P_THR):
     # Eq. (31): dB conversion factor is 10*log10(e) (≈4.343)
     A_sci = DB_PER_NEPER * (erfinv(arg) * np.sqrt(2 * ln_term) - 0.5 * ln_term)
     
-    return abs(A_sci)
+    return A_sci if A_sci > 0 else 0
 
 
 def total_transmittance(theta_deg, H_zen, Dr, V_km, Cn2, H_ogs=H_OGS_DEF):
