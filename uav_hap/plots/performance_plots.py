@@ -25,6 +25,10 @@ def _default_turbulence_grid_m() -> np.ndarray:
     return np.linspace(0.002, 0.04, 18)
 
 
+def _default_cn2_grid() -> np.ndarray:
+    return np.logspace(-15, -17, 15)
+
+
 def _new_figure(figsize=(7.2, 4.8)):
     fig, ax = plt.subplots(figsize=figsize, dpi=150)
     ax.grid(True, which="major", alpha=0.35)
@@ -245,6 +249,45 @@ def plot_skr_vs_turbulence(
     return fig
 
 
+def plot_skr_vs_cn2(
+    cn2_values: Optional[Sequence[float]] = None,
+    distance_m: Optional[float] = None,
+    geometry: Optional[GeometryParams] = None,
+    channel_params: Optional[ChannelParams] = None,
+    noise_params: Optional[NoiseParams] = None,
+    security_params: Optional[SecurityParams] = None,
+    monte_carlo: Optional[MonteCarloParams] = None,
+    finite_size: Optional[FiniteSizeParams] = None,
+    N: int = 60_000,
+    n: int = 100_000_000,
+    seed: int = 1100,
+) -> plt.Figure:
+    cn2_arr = np.asarray(_default_cn2_grid() if cn2_values is None else cn2_values, dtype=float)
+    geom = GeometryParams() if geometry is None else geometry
+    ch = ChannelParams() if channel_params is None else channel_params
+    nz = NoiseParams() if noise_params is None else noise_params
+    sec = SecurityParams() if security_params is None else security_params
+    mc = MonteCarloParams() if monte_carlo is None else monte_carlo
+    fs = FiniteSizeParams() if finite_size is None else finite_size
+    L_m = float(geom.H_HAP_m - geom.H_UAV_m) if distance_m is None else float(distance_m)
+
+    k_eff = np.empty_like(cn2_arr)
+    for i, cn2 in enumerate(cn2_arr):
+        ch_i = replace(ch, Cn2=float(cn2), use_hv_turbulence=False, sigma_turb_m=None, sigma_r_m=None)
+        out = _sim(L_m, geom, ch_i, nz, sec, mc, fs, N=N, n=n, seed=seed + i)
+        k_eff[i] = out["K_eff"]
+
+    fig, ax = _new_figure()
+    ax.semilogx(cn2_arr, k_eff, linestyle="-", marker="o", markevery=max(len(cn2_arr) // 10, 1), label="Fixed-Cn2 model")
+    ax.invert_xaxis()
+    ax.set_xlabel(r"Refractive-index structure constant $C_n^2$ [m$^{-2/3}$]")
+    ax.set_ylabel("Secret key rate K_eff [bits/use]")
+    ax.set_title("Secret Key Rate vs $C_n^2$ (from $10^{-15}$ to $10^{-17}$)")
+    ax.legend()
+    fig.tight_layout()
+    return fig
+
+
 def plot_outage(
     distances_m: Optional[Sequence[float]] = None,
     geometry: Optional[GeometryParams] = None,
@@ -403,6 +446,7 @@ def example_usage(show: bool = True) -> dict:
         "skr_vs_distance": plot_skr_vs_distance(),
         "skr_vs_jitter": plot_skr_vs_jitter(),
         "skr_vs_turbulence": plot_skr_vs_turbulence(),
+        "skr_vs_cn2": plot_skr_vs_cn2(),
         "outage": plot_outage(),
         "finite_vs_asymptotic": plot_finite_vs_asymptotic(),
         "teff_vs_mc": plot_teff_vs_mc(),

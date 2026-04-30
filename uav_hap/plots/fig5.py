@@ -6,7 +6,6 @@ from ..channel.channel_model import total_transmittance
 from ..config import ELEVS, EPS_CH, LS, VA_GM, VA_QAM
 from ..protocols.gm import skr_gm
 from ..protocols.qam import _optimize_disc_gaussian_v, skr_qam
-from ..reconciliation.finite_size import plob_upper_bound
 
 
 EL_LEG = [Line2D([0], [0], color="gray", ls=s, lw=1.5, label=f"θ={t}°") for t, s in zip(ELEVS, LS)]
@@ -16,6 +15,13 @@ def _nan(v, floor=1e-12):
     if not np.isfinite(v):
         return np.nan
     return v if v > floor else np.nan
+
+
+def _plob_upper_bound(T):
+    t = float(T)
+    if t <= 0.0 or t >= 1.0:
+        return 0.0
+    return -np.log2(1.0 - t)
 
 
 def plot_fig5():
@@ -37,7 +43,7 @@ def plot_fig5():
     v256 = _optimize_disc_gaussian_v(VA_QAM, 256)
     for ax, M_qam in zip(axes, [64, 256]):
         ax.set_title(f"({chr(96 + list(axes).index(ax) + 1)}) {M_qam}-QAM")
-        ub = [plob_upper_bound(total_transmittance(90, H, Dr, V, Cn2)[0]) for H in alt_m]
+        ub = [_plob_upper_bound(total_transmittance(90, H, Dr, V, Cn2)[0]) for H in alt_m]
         ax.semilogy(alt_km, ub, "k-", lw=2.5, label="Upper Bound")
 
         for lbl, col, ptype, VA in [
