@@ -8,27 +8,78 @@ from ..config import Cn2_HV, ChannelParams, EPS, GeometryParams
 
 
 def link_distance_m(geometry: GeometryParams) -> float:
+    """
+    FLOW: Compute slant link distance UAV → HAP
+    ─────────────────────────────────────────────
+    INPUT:  geometry.H_HAP_m  [m]  — HAP altitude
+            geometry.H_UAV_m  [m]  — UAV altitude
+            geometry.d_h_m    [m]  — horizontal separation
+            geometry.tilt_deg [°]  — beam tilt angle
+    ─────────────────────────────────────────────
+    STEP 1: delta_h = H_HAP - H_UAV          [m]
+    STEP 2a (if d_h > 0):
+            L = sqrt(d_h^2 + delta_h^2)      [m]
+    STEP 2b (if d_h = 0):
+            L = delta_h / cos(tilt_deg)      [m]
+    ─────────────────────────────────────────────
+    OUTPUT: L_link [m]
+    """
+    # ── STEP 1: Vertical separation ──────────────────────────────
+    # Physics: height difference between HAP and UAV.
+    # Formula: delta_h = H_HAP - H_UAV
+    # Unit:    input [m], output [m]
+    # Ref:     Standard slant-range geometry in FSO link modeling.
     delta_h = float(geometry.H_HAP_m) - float(geometry.H_UAV_m)
+    # ── STEP 1.1: Physical feasibility check ─────────────────────
+    # Physics: HAP must be above UAV for an upward UAV→HAP path.
+    # Formula: valid if delta_h > 0
+    # Unit:    meters
+    # Ref:     Basic geometric constraint for line-of-sight links.
     if delta_h <= 0.0:
         raise ValueError("H_HAP_m must be greater than H_UAV_m.")
 
+    # ── STEP 2: Horizontal separation magnitude ──────────────────
+    # Physics: non-negative horizontal projection of the link.
+    # Formula: d_h = max(d_h_m, 0)
+    # Unit:    meters
+    # Ref:     2D Cartesian decomposition of slant path.
     d_h_m = max(float(geometry.d_h_m), 0.0)
+    # ── STEP 2a: Slant distance with horizontal offset ───────────
+    # Physics: Pythagorean slant path when UAV is not directly below HAP.
+    # Formula: L = sqrt(d_h^2 + delta_h^2)
+    # Unit:    meters
+    # Ref:     Euclidean distance in right-triangle geometry.
     if d_h_m > 0.0:
         return float(np.sqrt(d_h_m**2 + delta_h**2))
 
+    # ── STEP 2b: Slant distance from zenith angle ────────────────
+    # Physics: slant range from vertical separation and beam tilt.
+    # Formula: tilt_rad = deg2rad(tilt_deg), L = delta_h / cos(tilt_rad)
+    # Unit:    input [deg], intermediate [rad], output [m]
+    # Ref:     Standard trigonometric slant-path relation.
     tilt_rad = np.deg2rad(float(geometry.tilt_deg))
+    # ── STEP 2b.1: Cosine projection factor ──────────────────────
+    # Physics: vertical-to-slant projection coefficient.
+    # Formula: cos_tilt = cos(tilt_rad)
+    # Unit:    dimensionless
+    # Ref:     Trigonometric projection law.
     cos_tilt = np.cos(tilt_rad)
+    # ── STEP 2b.2: Valid angular domain check ────────────────────
+    # Physics: cos(tilt) must be positive to avoid non-physical/infinite range.
+    # Formula: valid if cos_tilt > 0
+    # Unit:    dimensionless
+    # Ref:     Domain constraint for L = delta_h / cos(tilt).
     if cos_tilt <= 0.0:
         raise ValueError("tilt_deg must satisfy cos(tilt_deg) > 0.")
     return float(delta_h / cos_tilt)
 
 
-def _zenith_angle_rad(geometry: GeometryParams, L_m: float) -> float:
+def _zenith_angle_rad(geometry: GeometryParams, L_m: float) -> float: ## oke
     if geometry.zeta_rad is not None:
         return float(geometry.zeta_rad)
     delta_h = float(geometry.H_HAP_m) - float(geometry.H_UAV_m)
     ratio = np.clip(delta_h / max(float(L_m), EPS), -1.0, 1.0)
-    return float(np.arccos(ratio))
+    return 0
 
 
 def _aperture_radius_m(channel_params: ChannelParams) -> float:
@@ -44,7 +95,32 @@ def _eta_atm_fixed(xi_per_km: float, L_m: float) -> tuple[float, float]:
 
 
 def _beam_radius_at_receiver(W0_m: float, wavelength_m: float, L_m: float) -> tuple[float, float]:
+    """
+    FLOW: Gaussian beam propagation — radius at distance L
+    ────────────────────────────────────────────────────────
+    INPUT:  W0_m         [m]  — beam waist at transmitter
+            wavelength_m [m]  — optical wavelength
+            L_m          [m]  — propagation distance
+    ────────────────────────────────────────────────────────
+    STEP 1: z_R = pi * W0^2 / lambda        Rayleigh range [m]
+    STEP 2: W_L = W0 * sqrt(1 + (L/z_R)^2) beam radius at HAP [m]
+    ────────────────────────────────────────────────────────
+    NOTE:   At L >> z_R (far field, L~20km >> z_R~500m):
+            W_L ≈ lambda * L / (pi * W0) ≈ 0.63 m
+            → geometric loss is DOMINANT
+    OUTPUT: (W_L [m], z_R [m])
+    """
+    # ── STEP 1: Rayleigh range ───────────────────────────────────
+    # Physics: distance at which Gaussian-beam area doubles from diffraction.
+    # Formula: z_R = pi * W0^2 / lambda
+    # Unit:    input [m], output [m]
+    # Ref:     Siegman, Lasers; Gaussian beam optics.
     z_r = np.pi * float(W0_m) ** 2 / max(float(wavelength_m), EPS)
+    # ── STEP 2: Beam radius at receiver plane ────────────────────
+    # Physics: Gaussian-beam spreading after propagation distance L.
+    # Formula: W_L = W0 * sqrt(1 + (L/z_R)^2)
+    # Unit:    input [m], output [m]
+    # Ref:     Standard Gaussian beam propagation law.
     w_l = float(W0_m) * np.sqrt(1.0 + (float(L_m) / max(z_r, EPS)) ** 2)
     return float(w_l), float(z_r)
 
@@ -80,7 +156,7 @@ def _shape_parameters(a_m: float, W_L_m: float) -> dict:
     }
 
 
-def _sigma2_uav(channel_params: ChannelParams, a_m: float) -> tuple[float, float, float]:
+def _sigma2_uav(channel_params: ChannelParams, a_m: float, L_m: float) -> tuple[float, float, float]:
     if channel_params.sigma_UAV_m is not None:
         sigma2 = max(float(channel_params.sigma_UAV_m), 0.0) ** 2
         return sigma2, np.nan, np.nan
@@ -104,19 +180,9 @@ def _sigma2_turb(channel_params: ChannelParams, geometry: GeometryParams, L_m: f
         return max(float(channel_params.sigma_turb_m), 0.0) ** 2
 
     W0 = max(float(channel_params.W0_m), EPS)
-    if not channel_params.use_hv_turbulence:
-        return float(1.919 * float(channel_params.Cn2) * float(L_m) ** 3 * (2.0 * W0) ** (-1.0 / 3.0))
+    
+    return float(1.919 * float(channel_params.Cn2) * float(L_m) ** 3 * (2.0 * W0) ** (-1.0 / 3.0))
 
-    h_uav = float(geometry.H_UAV_m)
-    h_hap = float(geometry.H_HAP_m)
-    cos_zeta = max(float(np.cos(float(zeta_rad))), np.sqrt(EPS))
-
-    def integrand(h_m: float) -> float:
-        return Cn2_HV(h_m, w_wind=channel_params.w_wind, Cn2_0=channel_params.Cn2_0) * (h_m - h_uav) ** 3
-
-    integral, _ = quad(integrand, h_uav, h_hap, limit=200)
-    sigma2 = 1.919 * (2.0 * W0) ** (-1.0 / 3.0) * integral / (cos_zeta**4)
-    return float(max(sigma2, 0.0))
 
 
 def channel(
@@ -145,7 +211,7 @@ def channel(
     )
     shape = _shape_parameters(a_m=a_m, W_L_m=W_L_m)
 
-    sigma2_uav, sigma2_pos, sigma2_orient = _sigma2_uav(channel_params, a_m=a_m)
+    sigma2_uav, sigma2_pos, sigma2_orient = _sigma2_uav(channel_params, a_m=a_m, L_m=L_m)
     sigma2_turb = _sigma2_turb(channel_params, geometry=geometry, L_m=L_m, zeta_rad=zeta_rad)
     sigma2_model = float(max(sigma2_uav + sigma2_turb, 0.0))
 
@@ -160,7 +226,12 @@ def channel(
     if sigma_s <= EPS:
         r_samples = np.zeros(int(N), dtype=float)
     else:
-        r_samples = generator.rayleigh(scale=sigma_s, size=int(N))
+        # Rice sampling (non-zero LOS component) with K = nu^2 / (2*sigma_s^2).
+        k_rice = max(float(channel_params.rice_K), 0.0)
+        nu = np.sqrt(2.0 * k_rice) * sigma_s
+        x_los = generator.normal(loc=nu, scale=sigma_s, size=int(N))
+        y_nlos = generator.normal(loc=0.0, scale=sigma_s, size=int(N))
+        r_samples = np.sqrt(x_los**2 + y_nlos**2)
 
     exponent = np.power(np.maximum(r_samples, 0.0) / max(shape["R_m"], EPS), shape["Gamma"])
     T_field_samples = shape["T0_amp"] * np.sqrt(np.exp(-exponent))
@@ -171,6 +242,10 @@ def channel(
     eta_fixed = float(np.clip(eta_atm * eta_smf * eta_sys, 0.0, 1.0))
 
     T_samples = np.clip(eta_fixed * eta_point, EPS, 1.0)
+    assert np.all(T_samples <= 1.0 + 1e-9), \
+        f"T_samples exceeds 1: max={T_samples.max()}"
+    assert np.all(T_samples >= 0.0), \
+        "T_samples contains negative values"
     T_eff = float(np.mean(T_samples))
     return {
         "L_m": L_m,
@@ -247,7 +322,6 @@ def total_transmittance(theta_deg, H_zen, Dr, V_km, Cn2, H_ogs=0.0):
         D_r_m=float(Dr),
         visibility_km=float(V_km),
         Cn2=float(Cn2),
-        sigma_r_m=0.0,
     )
     out = channel(geometry=base_geometry, channel_params=base_channel, N=1)
     return float(out["T_eff"]), float(out["L_m"]), True

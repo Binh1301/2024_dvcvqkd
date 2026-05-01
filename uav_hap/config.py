@@ -94,6 +94,9 @@ class ChannelParams:
     sigma_turb_m: Optional[float] = None
     sigma_UAV_m: Optional[float] = None
     sigma_r_m: Optional[float] = None
+    # Rice K-factor for radial displacement sampling.
+    # K = 0 -> Rayleigh-equivalent (zero boresight bias).
+    rice_K: float = 0.0
 
     eta_SMF: float = 1.0
     T_T: float = 1.0

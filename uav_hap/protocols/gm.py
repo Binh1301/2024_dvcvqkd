@@ -115,6 +115,7 @@ def _holevo_gaussian(VA: float, T, chi_line, X_D: float):
 
     chi_be = _as_array(_G((l1 - 1.0) / 2.0)) + _as_array(_G((l2 - 1.0) / 2.0))
     chi_be -= _as_array(_G((l3 - 1.0) / 2.0)) + _as_array(_G((l4 - 1.0) / 2.0))
+    chi_be = np.maximum(chi_be, 0.0)
     return chi_be
 
 
@@ -124,6 +125,8 @@ def iab_homodyne(VA: float, T, chi_tot, eta_d: float):
     numerator = et * Ts * float(VA)
     denominator = 1.0 + et * Ts * _as_array(chi_tot)
     snr = numerator / np.maximum(denominator, EPS)
+    assert np.all(snr >= 0), f"Negative SNR: min={snr.min()}"
+    assert np.all(np.isfinite(snr)), "Non-finite SNR detected"
     return _as_output(0.5 * np.log2(1.0 + snr))
 
 
@@ -141,7 +144,10 @@ def skr_components(T_samples, noise_terms: dict, security_params: SecurityParams
             X_D=noise_terms["X_D"],
         )
     )
-    skr_arr = float(security_params.beta) * I_AB - chi_be
+    skr_arr = np.maximum(
+        float(security_params.beta) * I_AB - chi_be,
+        0.0
+    )
     return {
         "I_AB": I_AB,
         "chi_BE": chi_be,

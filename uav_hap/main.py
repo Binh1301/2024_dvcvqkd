@@ -7,6 +7,7 @@ import argparse
 import numpy as np
 
 DEFAULT_CHANNEL_LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs", "logs")
+DEFAULT_PAPER_FIG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs", "paper_figures")
 
 if __package__ in (None, ""):
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -272,11 +273,17 @@ def simulate_uav_hap_cvqkd(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="UAV-HAP CV-QKD simulation")
-    parser.add_argument("--no-plots", action="store_true", help="Run simulation without opening plots")
+    parser.add_argument("--no-plots", action="store_true", help="Do not open figure windows (still saves PNGs)")
     parser.add_argument("--log-channel", action="store_true", help="Enable detailed channel CSV logging")
     parser.add_argument("--log-every", type=int, default=1, help="Log every N Monte Carlo samples")
     parser.add_argument("--logs-dir", type=str, default=DEFAULT_CHANNEL_LOG_DIR, help="Directory for channel CSV logs")
     parser.add_argument("--summary-plot", action="store_true", help="Save optional channel_summary.png")
+    parser.add_argument(
+        "--paper-fig-dir",
+        type=str,
+        default=DEFAULT_PAPER_FIG_DIR,
+        help="Directory to save paper figures (Figure 1-5, A, B)",
+    )
     args = parser.parse_args()
 
     out = simulate_uav_hap_cvqkd(
@@ -293,12 +300,13 @@ def main() -> None:
     if "channel_summary_plot" in out:
         print(f"channel_summary_plot = {out['channel_summary_plot']}")
 
-    if not args.no_plots:
-        if __package__ in (None, ""):
-            from uav_hap.plots.performance_plots import example_usage
-        else:
-            from .plots.performance_plots import example_usage
-        example_usage(show=True)
+    if __package__ in (None, ""):
+        from uav_hap.plots.performance_plots import generate_paper_figures
+    else:
+        from .plots.performance_plots import generate_paper_figures
+    figs = generate_paper_figures(show=not args.no_plots, save_dir=args.paper_fig_dir)
+    print(f"paper_figures_dir = {os.path.abspath(args.paper_fig_dir)}")
+    print(f"paper_figures_count = {len(figs)}")
 
 
 if __name__ == "__main__":

@@ -2,6 +2,14 @@
 
 from .performance_plots import (
     example_usage,
+    generate_paper_figures,
+    plot_figure1_teff_vs_distance,
+    plot_figure2_skr_vs_distance,
+    plot_figure3_skr_vs_va,
+    plot_figure4_skr_vs_cn2,
+    plot_figure5_skr_vs_nblock,
+    plot_figureA_skr_vs_sigma_pos,
+    plot_figureB_skr_vs_sigma_orient,
     plot_finite_vs_asymptotic,
     plot_outage,
     plot_skr_vs_cn2,
@@ -21,5 +29,13 @@ __all__ = [
     "plot_finite_vs_asymptotic",
     "plot_teff_vs_mc",
     "plot_transmittance_histogram",
+    "plot_figure1_teff_vs_distance",
+    "plot_figure2_skr_vs_distance",
+    "plot_figure3_skr_vs_va",
+    "plot_figure4_skr_vs_cn2",
+    "plot_figure5_skr_vs_nblock",
+    "plot_figureA_skr_vs_sigma_pos",
+    "plot_figureB_skr_vs_sigma_orient",
+    "generate_paper_figures",
     "example_usage",
 ]
