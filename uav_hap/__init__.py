@@ -1,6 +1,5 @@
 """UAV-to-HAP CV-QKD fading-channel simulation package."""
 
-from .channel.channel_model import channel
 from .config import (
     ChannelParams,
     FiniteSizeParams,
@@ -9,7 +8,6 @@ from .config import (
     NoiseParams,
     SecurityParams,
 )
-from .main import simulate_uav_hap_cvqkd
 from .protocols.gm import noise, skr
 
 __all__ = [
@@ -19,8 +17,6 @@ __all__ = [
     "SecurityParams",
     "MonteCarloParams",
     "FiniteSizeParams",
-    "channel",
     "noise",
     "skr",
-    "simulate_uav_hap_cvqkd",
 ]

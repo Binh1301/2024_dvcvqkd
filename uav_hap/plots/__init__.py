@@ -1,25 +1,5 @@
 """Plotting modules for UAV-HAP CV-QKD performance analysis."""
 
-from .performance_plots import (
-    example_usage,
-    plot_finite_vs_asymptotic,
-    plot_outage,
-    plot_skr_vs_cn2,
-    plot_skr_vs_distance,
-    plot_skr_vs_jitter,
-    plot_skr_vs_turbulence,
-    plot_teff_vs_mc,
-    plot_transmittance_histogram,
-)
+from .skr_gaussian_uav_hap import plot_skr_sweeps
 
-__all__ = [
-    "plot_skr_vs_distance",
-    "plot_skr_vs_jitter",
-    "plot_skr_vs_turbulence",
-    "plot_skr_vs_cn2",
-    "plot_outage",
-    "plot_finite_vs_asymptotic",
-    "plot_teff_vs_mc",
-    "plot_transmittance_histogram",
-    "example_usage",
-]
+__all__ = ["plot_skr_sweeps"]

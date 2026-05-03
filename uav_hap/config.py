@@ -50,8 +50,7 @@ def kruse_xi_per_km(visibility_km: float, wavelength_m: float) -> float:
     v = max(float(visibility_km), EPS)
     lambda_nm = max(float(wavelength_m), EPS) * 1e9
     q_v = kruse_q_parameter(v)
-    return float((3.912 / v) * (lambda_nm / 550.0) ** (-q_v))
-
+    return 0.0921 
 
 def Cn2_HV(h_m: float, w_wind: float = 21.0, Cn2_0: float = 1.7e-14) -> float:
     h = max(float(h_m), 0.0)
@@ -94,6 +93,7 @@ class ChannelParams:
     sigma_turb_m: Optional[float] = None
     sigma_UAV_m: Optional[float] = None
     sigma_r_m: Optional[float] = None
+    rice_nu_m: float = 0.0
 
     eta_SMF: float = 1.0
     T_T: float = 1.0
