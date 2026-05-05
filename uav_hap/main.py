@@ -23,7 +23,10 @@ if __package__ in (None, ""):
         SecurityParams,
     )
     from uav_hap.protocols.gm import noise, optimize_modulation_variance, skr_components
-    from uav_hap.plots.skr_gaussian_uav_hap import plot_skr_sweeps
+    from uav_hap.plots.skr_gaussian_uav_hap import (
+        plot_all_skr_figures,
+        plot_all_skr_figures_combined,
+    )
     from uav_hap.utils.channel_logging import (
         _loss_db_from_eta,
         _timestamp_for_filename,
@@ -53,7 +56,10 @@ else:
         SecurityParams,
     )
     from .protocols.gm import noise, optimize_modulation_variance, skr_components
-    from .plots.skr_gaussian_uav_hap import plot_skr_sweeps
+    from .plots.skr_gaussian_uav_hap import (
+        plot_all_skr_figures,
+        plot_all_skr_figures_combined,
+    )
     from .utils.channel_logging import (
         _loss_db_from_eta,
         _timestamp_for_filename,
@@ -108,17 +114,6 @@ def _array_stats(values: np.ndarray) -> tuple[float, float, float, float]:
         nan = float("nan")
         return nan, nan, nan, nan
     return float(np.mean(arr)), float(np.std(arr)), float(np.min(arr)), float(np.max(arr))
-
-
-def _save_gaussian_skr_sweep_plot() -> str:
-    fig, result = plot_skr_sweeps()
-    try:
-        import matplotlib.pyplot as plt
-
-        plt.close(fig)
-    except Exception:
-        pass
-    return str(result["output_path"])
 
 
 def simulate_uav_hap_cvqkd(
@@ -214,11 +209,7 @@ def simulate_uav_hap_cvqkd(
     chi_tot_eff = _scalar_value(noise_terms_eff["X_tot"])
     X_tot_eff = _scalar_value(noise_terms_eff["X_tot"])
     eta_det = float(noise_terms_eff["eta_d"])
-    chi_hom = (
-        float(nz_cfg.chi_hom)
-        if nz_cfg.chi_hom is not None
-        else (1.0 - eta_det + float(nz_cfg.epsilon_det)) / max(eta_det, 1e-15)
-    )
+    chi_hom = float(noise_terms_eff["X_D"])
     epsilon_ch = float(noise_terms_eff["xi_tot"])
     N_block, n_block, epsilon_total = _finite_size_block_stats(fs_cfg)
     loss_total_db = float(_loss_db_from_eta(T_eff))
@@ -477,6 +468,12 @@ def main() -> None:
     parser.add_argument("--log-every", type=int, default=1, help="Log every N Monte Carlo samples")
     parser.add_argument("--logs-dir", type=str, default=DEFAULT_CHANNEL_LOG_DIR, help="Directory for channel CSV logs")
     parser.add_argument("--summary-plot", action="store_true", help="Save optional channel_summary.png")
+    parser.add_argument(
+        "--plots-output-dir",
+        type=str,
+        default=str((Path(__file__).resolve().parent / "outputs").resolve()),
+        help="Directory to save SKR analysis plots",
+    )
     args = parser.parse_args()
 
     out = simulate_uav_hap_cvqkd(
@@ -493,15 +490,17 @@ def main() -> None:
     if "channel_summary_plot" in out:
         print(f"channel_summary_plot = {out['channel_summary_plot']}")
 
-    skr_plot_path = _save_gaussian_skr_sweep_plot()
-    print(f"skr_sweep_plot = {skr_plot_path}")
-
-    if not args.no_plots:
-        if __package__ in (None, ""):
-            from uav_hap.plots.performance_plots import example_usage
-        else:
-            from .plots.performance_plots import example_usage
-        example_usage(show=True)
+    plots_dir = Path(args.plots_output_dir)
+    plots_dir.mkdir(parents=True, exist_ok=True)
+    plot_results = plot_all_skr_figures(output_dir=plots_dir, show=(not args.no_plots))
+    combined_result = plot_all_skr_figures_combined(
+        save_path=plots_dir / "plot_all.png",
+        show=(not args.no_plots),
+    )
+    print("saved_plots:")
+    for _, payload in plot_results.items():
+        print(f"  - {payload['save_path']}")
+    print(f"  - {combined_result['save_path']}")
 
 
 if __name__ == "__main__":

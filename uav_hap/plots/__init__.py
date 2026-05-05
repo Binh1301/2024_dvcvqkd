@@ -1,5 +1,25 @@
 """Plotting modules for UAV-HAP CV-QKD performance analysis."""
 
-from .skr_gaussian_uav_hap import plot_skr_sweeps
+from .skr_gaussian_uav_hap import (
+    compute_skr,
+    plot_1_skr_vs_distance,
+    plot_2_skr_vs_va,
+    plot_3_skr_vs_cn2,
+    plot_4_loss_decomposition,
+    plot_5_skr_vs_sigma_r,
+    plot_6_skr_heatmap,
+    plot_all_skr_figures,
+    plot_all_skr_figures_combined,
+)
 
-__all__ = ["plot_skr_sweeps"]
+__all__ = [
+    "compute_skr",
+    "plot_1_skr_vs_distance",
+    "plot_2_skr_vs_va",
+    "plot_3_skr_vs_cn2",
+    "plot_4_loss_decomposition",
+    "plot_5_skr_vs_sigma_r",
+    "plot_6_skr_heatmap",
+    "plot_all_skr_figures",
+    "plot_all_skr_figures_combined",
+]

@@ -7,21 +7,21 @@ EPS = 1e-15
 LAMBDA = 1550e-9
 MATPLOTLIB_BACKEND = "TkAgg"
 
-# CV-QKD default noise model (phase-noise term removed from channel excess noise).
-EPS_BG = 0.0002
-EPS_RIN = 0.0001
-EPS_MOD = 0.0005
-EPS_CH = EPS_BG + EPS_RIN + EPS_MOD  # 0.0008
-EPS_DET = 0.013
-V_ELE = 0.10
-ETA = 0.5
-CHI_HOM = (1.0 - ETA + EPS_DET) / ETA
-CHI_HET = (1.0 + (1.0 - ETA) + 2.0 * EPS_DET) / ETA
+# CV-QKD default noise model (UAV-HAP reference point, page 10).
+EPS_BG = 0.01
+EPS_RIN = 0.0
+EPS_MOD = 0.0
+EPS_CH = 0.01
+EPS_DET = 0.01
+V_ELE = 0.01
+ETA = 0.97
+CHI_HOM = (1.0 - ETA) / ETA + V_ELE / ETA
+CHI_HET = (2.0 - ETA) / ETA + 2.0 * V_ELE / ETA
 
 # Default modulation variances used by legacy plotting modules.
-VA_GM = 2.6
-VA_PSK = 2.6
-VA_QAM = 2.6
+VA_GM = 2.0
+VA_PSK = 2.0
+VA_QAM = 2.0
 
 # Legacy constants still imported by utilities/plots.
 CALC_LOG_XLSX = "cvqkd_calculation_log.xlsx"
@@ -41,7 +41,7 @@ def kruse_q_parameter(visibility_km: float) -> float:
     v = float(visibility_km)
     if v > 50.0:
         return 1.6
-    if v > 6.0:
+    if 6.0 < v <= 50.0:
         return 1.3
     return 0.585 * np.cbrt(max(v, EPS))
 
@@ -50,7 +50,7 @@ def kruse_xi_per_km(visibility_km: float, wavelength_m: float) -> float:
     v = max(float(visibility_km), EPS)
     lambda_nm = max(float(wavelength_m), EPS) * 1e9
     q_v = kruse_q_parameter(v)
-    return 0.0921 
+    return float((3.912 / v) * (lambda_nm / 550.0) ** (-q_v))
 
 def Cn2_HV(h_m: float, w_wind: float = 21.0, Cn2_0: float = 1.7e-14) -> float:
     h = max(float(h_m), 0.0)
@@ -63,7 +63,7 @@ def Cn2_HV(h_m: float, w_wind: float = 21.0, Cn2_0: float = 1.7e-14) -> float:
 
 @dataclass(frozen=True)
 class GeometryParams:
-    H_UAV_m: float = 1_000.0
+    H_UAV_m: float = 0.0
     H_HAP_m: float = 20_000.0
     tilt_deg: float = 0.0
     d_h_m: float = 0.0
@@ -73,12 +73,12 @@ class GeometryParams:
 @dataclass(frozen=True)
 class ChannelParams:
     wavelength_m: float = LAMBDA
-    W0_m: float = 0.0157
-    a_m: float = 0.075
+    W0_m: float = 0.0626
+    a_m: float = 0.20
     visibility_km: float = 10.0
     # User-requested fixed attenuation coefficient (km^-1).
-    xi_per_km: float = 0.391260
-    Cn2: float = 1e-16
+    xi_per_km: Optional[float] = 0.09232
+    Cn2: float = 1e-15
     use_hv_turbulence: bool = False
     w_wind: float = 21.0
     Cn2_0: float = 1.7e-14
@@ -122,7 +122,7 @@ class NoiseParams:
     chi_het: Optional[float] = None
 
     # Legacy parameters retained to keep existing callers compatible.
-    xi_ch: Optional[float] = None
+    xi_ch: Optional[float] = EPS_CH
     xi_det: Optional[float] = None
     xi_phase: float = 0.0
 
@@ -139,7 +139,7 @@ class SecurityParams:
 
 @dataclass(frozen=True)
 class MonteCarloParams:
-    N: int = 200_000
+    N: int = 30_000
     seed: Optional[int] = 42
 
 

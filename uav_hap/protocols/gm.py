@@ -1,6 +1,6 @@
 import numpy as np
 
-from ..config import CHI_HOM, EPS, EPS_DET, ETA, NoiseParams, SecurityParams
+from ..config import CHI_HOM, EPS, EPS_DET, NoiseParams, SecurityParams
 
 
 def _as_array(x):
@@ -25,20 +25,30 @@ def _G(x):
     return _as_output(out)
 
 
+def _g_lambda(x):
+    x_arr = _as_array(x)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        out = np.where(
+            x_arr <= 1.0 + 1e-10,
+            0.0,
+            ((x_arr + 1.0) / 2.0) * np.log2((x_arr + 1.0) / 2.0)
+            - ((x_arr - 1.0) / 2.0) * np.log2((x_arr - 1.0) / 2.0),
+        )
+    return _as_output(out)
+
+
 def detection_noise(noise_params: NoiseParams) -> float:
     eta_d = max(float(noise_params.eta_d), EPS)
-
     chi_hom = (
         float(noise_params.chi_hom)
         if noise_params.chi_hom is not None
-        else (1.0 - eta_d + float(noise_params.epsilon_det)) / eta_d
+        else ((1.0 - eta_d) / eta_d + float(noise_params.v_el) / eta_d)
     )
     chi_het = (
         float(noise_params.chi_het)
         if noise_params.chi_het is not None
-        else (2.0 - eta_d + 2.0 * float(noise_params.epsilon_det)) / eta_d
+        else ((2.0 - eta_d) / eta_d + 2.0 * float(noise_params.v_el) / eta_d)
     )
-
     if noise_params.detection == "hom":
         return float(chi_hom)
     if noise_params.detection == "het":
@@ -73,12 +83,28 @@ def noise(T_samples, noise_params: NoiseParams) -> dict:
 
 def _I_AB(VA: float, X_tot, detection: str):
     chi_tot = _as_array(X_tot)
+    V = float(VA) + 1.0
     if detection == "hom":
-        # Homodyne SNR with power transmittance T and trusted detector noise.
-        return _as_output(0.5 * np.log2(1.0 + float(VA) / (1.0 + chi_tot)))
+        return _as_output(0.5 * np.log2((V + chi_tot) / np.maximum(1.0 + chi_tot, EPS)))
     if detection == "het":
-        return _as_output(np.log2(1.0 + float(VA) / (1.0 + chi_tot)))
+        return _as_output(np.log2((V + chi_tot) / np.maximum(1.0 + chi_tot, EPS)))
     raise ValueError("detection must be 'hom' or 'het'.")
+
+
+def _chi_l(T, eps):
+    Ts = np.clip(_as_array(T), EPS, None)
+    return _as_output((1.0 / Ts - 1.0) + float(eps))
+
+
+def _chi_t_hom(T, eps):
+    Ts = np.clip(_as_array(T), EPS, None)
+    return _as_output(_as_array(_chi_l(Ts, eps)) + CHI_HOM / Ts)
+
+
+def _IAB_hom(VA, chi_t):
+    V = float(VA) + 1.0
+    chi_t_arr = _as_array(chi_t)
+    return _as_output(0.5 * np.log2((V + chi_t_arr) / np.maximum(1.0 + chi_t_arr, EPS)))
 
 
 def _symp12(VA, T, chi_line, Z=None):
@@ -98,54 +124,70 @@ def _symp12(VA, T, chi_line, Z=None):
     return l1, l2, B, A
 
 
-def _holevo_gaussian(VA: float, T, chi_line, X_D: float):
-    Ts = np.clip(_as_array(T), EPS, None)
+def _holevo_gaussian_3_eigs(VA: float, T_eff, chi_line, chi_hom: float) -> dict:
+    Ts = np.clip(_as_array(T_eff), EPS, None)
     chi_l = _as_array(chi_line)
-    chi_tot = chi_l + float(X_D) / Ts
+    V = float(VA) + 1.0
+    chi_h = float(chi_hom)
 
-    l1, l2, B, A = _symp12(VA, Ts, chi_l)
-    sqB = np.sqrt(np.maximum(B, 0.0))
+    A = V**2 * (1.0 - 2.0 * Ts) + 2.0 * Ts + Ts**2 * (V + chi_l) ** 2
+    B = Ts**2 * (V * chi_l + 1.0) ** 2
+    disc = np.maximum(A**2 - 4.0 * B, 0.0)
+    lambda1 = np.sqrt(np.maximum(0.5 * (A + np.sqrt(disc)), EPS))
+    lambda2 = np.sqrt(np.maximum(0.5 * (A - np.sqrt(disc)), EPS))
 
-    denom = Ts * (1.0 + float(VA) + chi_tot)
-    C = (A * float(X_D) + (float(VA) + 1.0) * sqB + Ts * (float(VA) + 1.0 + chi_l)) / denom
-    D = (sqB * (float(VA) + 1.0 + sqB * float(X_D))) / denom
-    disc = np.maximum(C**2 - 4.0 * D, 0.0)
-    l3 = np.sqrt(np.maximum(0.5 * (C + np.sqrt(disc)), 1e-30))
-    l4 = np.sqrt(np.maximum(0.5 * (C - np.sqrt(disc)), 1e-30))
+    lambda3_num = (V + chi_l) * (1.0 + chi_h)
+    lambda3_den = np.maximum((V + chi_h) * (V * chi_l + 1.0), EPS)
+    lambda3 = np.sqrt(np.maximum(lambda3_num / lambda3_den, EPS))
 
-    chi_be = _as_array(_G((l1 - 1.0) / 2.0)) + _as_array(_G((l2 - 1.0) / 2.0))
-    chi_be -= _as_array(_G((l3 - 1.0) / 2.0)) + _as_array(_G((l4 - 1.0) / 2.0))
-    return chi_be
+    chi_be = _as_array(_g_lambda(lambda1)) + _as_array(_g_lambda(lambda2)) - _as_array(_g_lambda(lambda3))
+    return {
+        "lambda1": lambda1,
+        "lambda2": lambda2,
+        "lambda3": lambda3,
+        "chi_BE": chi_be,
+    }
+
+
+def _holevo_gaussian(VA: float, T, chi_line, X_D: float):
+    out = _holevo_gaussian_3_eigs(VA=VA, T_eff=T, chi_line=chi_line, chi_hom=float(X_D))
+    return out["chi_BE"]
 
 
 def iab_homodyne(VA: float, T, chi_tot, eta_d: float):
-    Ts = np.clip(_as_array(T), EPS, 1.0)
-    et = max(float(eta_d), EPS)
-    numerator = et * Ts * float(VA)
-    denominator = 1.0 + et * Ts * _as_array(chi_tot)
-    snr = numerator / np.maximum(denominator, EPS)
-    return _as_output(0.5 * np.log2(1.0 + snr))
+    del T, eta_d
+    return _IAB_hom(VA, chi_tot)
 
 
 def skr_components(T_samples, noise_terms: dict, security_params: SecurityParams, detection: str, eta_d: float) -> dict:
+    del eta_d
     T = np.clip(_as_array(T_samples), EPS, 1.0)
     if detection == "hom":
-        I_AB = _as_array(iab_homodyne(security_params.VA, T=T, chi_tot=noise_terms["X_tot"], eta_d=eta_d))
+        I_AB = _as_array(_IAB_hom(security_params.VA, noise_terms["X_tot"]))
+        holevo_terms = _holevo_gaussian_3_eigs(
+            VA=security_params.VA,
+            T_eff=T,
+            chi_line=noise_terms["X_line"],
+            chi_hom=float(noise_terms["X_D"]),
+        )
+        chi_be = _as_array(holevo_terms["chi_BE"])
     else:
         I_AB = _as_array(_I_AB(security_params.VA, noise_terms["X_tot"], detection=detection))
-    chi_be = _as_array(
-        _holevo_gaussian(
+        holevo_terms = _holevo_gaussian_3_eigs(
             VA=security_params.VA,
-            T=T,
+            T_eff=T,
             chi_line=noise_terms["X_line"],
-            X_D=noise_terms["X_D"],
+            chi_hom=float(noise_terms["X_D"]),
         )
-    )
+        chi_be = _as_array(holevo_terms["chi_BE"])
     skr_arr = float(security_params.beta) * I_AB - chi_be
     return {
         "I_AB": I_AB,
         "chi_BE": chi_be,
         "SKR": skr_arr,
+        "lambda1": holevo_terms["lambda1"],
+        "lambda2": holevo_terms["lambda2"],
+        "lambda3": holevo_terms["lambda3"],
     }
 
 
@@ -166,20 +208,6 @@ def _eps_total(T, eps_ch, eps_det=EPS_DET):
     return _as_output(float(eps_ch) + float(eps_det) / Ts)
 
 
-def _chi_l(T, eps):
-    Ts = np.clip(_as_array(T), EPS, None)
-    return _as_output((1.0 / Ts - 1.0) + float(eps))
-
-
-def _chi_t_hom(T, eps):
-    Ts = np.clip(_as_array(T), EPS, None)
-    return _as_output(_as_array(_chi_l(Ts, eps)) + CHI_HOM / Ts)
-
-
-def _IAB_hom(VA, chi_t):
-    return _as_output(0.5 * np.log2(1.0 + float(VA) / (1.0 + _as_array(chi_t))))
-
-
 def holevo_gm_homodyne(VA: float, T, chi_line, chi_D: float):
     return _as_output(_holevo_gaussian(VA=VA, T=T, chi_line=chi_line, X_D=chi_D))
 
@@ -196,6 +224,7 @@ def key_rate_from_noise(VA: float, beta: float, T, xi_tot: float, v_el: float, e
     noise_params = NoiseParams(
         xi_ch=xi_tot,
         eta_d=eta_d,
+        v_el=float(v_el),
         epsilon_det=float(v_el),
         detection="hom",
     )
@@ -213,8 +242,9 @@ def skr_gm(VA, T, eps, beta):
     Ts = np.clip(_as_array(T), EPS, 1.0)
     chi_line = _as_array(_chi_l(Ts, eps))
     chi_tot = chi_line + CHI_HOM / Ts
-    i_ab = _as_array(iab_homodyne(VA=VA, T=Ts, chi_tot=chi_tot, eta_d=ETA))
-    chi_be = _as_array(holevo_gm_homodyne(VA=float(VA), T=Ts, chi_line=chi_line, chi_D=CHI_HOM))
+    i_ab = _as_array(_IAB_hom(VA, chi_tot))
+    holevo_terms = _holevo_gaussian_3_eigs(VA=float(VA), T_eff=Ts, chi_line=chi_line, chi_hom=CHI_HOM)
+    chi_be = _as_array(holevo_terms["chi_BE"])
     return _as_output(float(beta) * i_ab - chi_be)
 
 
