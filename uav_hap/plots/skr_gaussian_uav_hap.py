@@ -7,8 +7,56 @@ from typing import Any, Dict, Mapping, Optional, Union
 import matplotlib
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 from scipy.special import i0, i1
+
+plt.rcParams.update(
+    {
+        "font.family": "serif",
+        "font.serif": ["Times New Roman", "DejaVu Serif"],
+        "font.size": 11,
+        "axes.titlesize": 12,
+        "axes.labelsize": 11,
+        "xtick.labelsize": 10,
+        "ytick.labelsize": 10,
+        "legend.fontsize": 10,
+        "axes.facecolor": "white",
+        "figure.facecolor": "white",
+        "axes.grid": True,
+        "grid.linestyle": ":",
+        "grid.color": "#aaaaaa",
+        "grid.linewidth": 0.6,
+        "axes.axisbelow": True,
+        "axes.edgecolor": "#333333",
+        "axes.linewidth": 0.8,
+        "xtick.direction": "in",
+        "ytick.direction": "in",
+        "xtick.minor.visible": True,
+        "ytick.minor.visible": True,
+        "lines.linewidth": 2.0,
+        "lines.markersize": 5,
+        "figure.dpi": 150,
+        "savefig.dpi": 300,
+        "savefig.bbox": "tight",
+    }
+)
+
+COLORS = {
+    "black": "#000000",
+    "yellow": "#E6A817",
+    "blue": "#2166AC",
+    "red": "#D6604D",
+    "green": "#1A9641",
+    "purple": "#762A83",
+}
+
+LINESTYLES = {
+    "solid": "-",
+    "dashed": "--",
+    "dashdot": "-.",
+    "dotted": ":",
+}
 
 
 XI_KM_INV = 0.09232
@@ -167,8 +215,8 @@ def _compute_one(
     lambda3 = float(
         np.sqrt(
             max(
-                ((V + chi_line) * (1.0 + chi_hom))
-                / max((V + chi_hom) * (V * chi_line + 1.0), EPS),
+                ((V + chi_hom) * (V * chi_line + 1.0))
+                / max((V + chi_line) * (1.0 + chi_hom), EPS),
                 EPS,
             )
         )
@@ -533,128 +581,248 @@ def compute_skr(params: Mapping[str, float]) -> Dict[str, float]:
     return {k: float(np.asarray(v).reshape(-1)[0]) for k, v in out.items()}
 
 
+def debug_reference_case(seed: int = 42, n_samples: int = 30_000) -> Dict[str, float]:
+    vals = compute_skr(
+        {
+            "L_link_m": 20e3,
+            "Cn2": 1e-15,
+            "VA": 2.0,
+            "beta": 0.95,
+            "eta_det": 0.97,
+            "N_samples": int(n_samples),
+            "seed": int(seed),
+            "epsilon_ch": 0.01,
+            "v_el": 0.01,
+            "xi_km_inv": 0.09232,
+            "W0_m": 0.0626,
+            "a_m": 0.20,
+            "lambda_m": 1550e-9,
+            "sigma_x_m": 0.0521,
+            "sigma_y_m": 0.0502,
+            "sigma_z_m": 0.0703,
+            "sigma_th_rad": 2.60e-3,
+            "sigma_ph_rad": 2.04e-3,
+            "sigma_ps_rad": 4.06e-3,
+        }
+    )
+    print(f"eta_atm   = {vals['eta_atm']:.5f}   | chuẩn = 0.15780")
+    print(f"z_R       = {vals['z_R']:.2f} m    | chuẩn = 7942.68 m")
+    print(f"W_L       = {vals['W_L']:.5f} m    | chuẩn = 0.16960 m")
+    print(f"T0        = {vals['T_0']:.5f}       | chuẩn = 0.96852")
+    print(f"sigma2_turb = {vals['sigma2_turb']:.6f} m² | chuẩn = 0.030688")
+    print(f"sigma2_UAV  = {vals['sigma2_UAV']:.6f} m² | chuẩn = 0.010178")
+    print(f"sigma2_r    = {vals['sigma2_r']:.6f} m²   | chuẩn = 0.040866")
+    print(f"Gamma     = {vals['Gamma']:.4f}    | chuẩn = 2.5779")
+    print(f"R         = {vals['R']:.5f} m      | chuẩn = ~0.17 m")
+    print(f"mean_T2   = {vals['mean_T2']:.5f}  | chuẩn = 0.51995")
+    print(f"T_eff     = {vals['T_eff']:.5f}    | chuẩn = 0.08205")
+    print(f"chi_hom   = {vals['chi_hom']:.6f}  | chuẩn = 0.041237")
+    print(f"chi_line  = {vals['chi_line']:.4f} | chuẩn = 11.1976")
+    print(f"chi_tot   = {vals['chi_tot']:.4f}  | chuẩn = 11.7002")
+    print(f"IAB       = {vals['I_AB']:.5f}      | chuẩn = 0.10519")
+    print(f"lambda3   = {vals['lambda3']:.4f}  | chuẩn = 2.668")
+    print(f"chi_BE    = {vals['chi_BE']:.4f}   | chuẩn = 0.094")
+    print(f"SKR       = {vals['SKR_raw']:.5f}      | chuẩn = 0.00593")
+    return vals
+
+
 def _plot_style() -> None:
-    plt.style.use("seaborn-v0_8-darkgrid")
+    pass
+
+
+def _apply_publication_ticks(ax: plt.Axes) -> None:
+    if ax.get_xscale() == "linear":
+        ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
+    if ax.get_yscale() == "linear":
+        ax.yaxis.set_minor_locator(ticker.AutoMinorLocator())
+
+
+def _safe_contour_level(z_values: np.ndarray, desired: float = 1e-6) -> Optional[float]:
+    z = np.asarray(z_values, dtype=float)
+    z_min = float(np.nanmin(z))
+    z_max = float(np.nanmax(z))
+    if z_min <= desired <= z_max:
+        return desired
+    if z_min <= 0.0 <= z_max:
+        return 0.0
+    return None
 
 
 def _finalize_and_save(fig: plt.Figure, path: Path, show: bool) -> None:
     fig.tight_layout()
-    fig.savefig(path, dpi=150, bbox_inches="tight")
+    fig.savefig(path)
     if show:
         plt.show()
     else:
         plt.close(fig)
 
 
-def plot_1_skr_vs_distance(base_params: Optional[Mapping[str, float]] = None, save_path: str = "plot_1.png", show: bool = True) -> Dict[str, Any]:
+def plot_1_skr_vs_distance(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "plot1_SKR_vs_L.png",
+    show: bool = True,
+) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
-    l_values = np.linspace(10e3, 30e3, 80)
-    skr_values = np.zeros_like(l_values)
+    l_values = np.linspace(10e3, 25e3, 60)
     skr_raw = np.zeros_like(l_values)
-    cmap = plt.get_cmap("viridis")
 
     for i, l_m in enumerate(l_values):
         p = dict(params)
         p["L_link_m"] = float(l_m)
         p["seed"] = int(params.get("seed", 42)) + i
         out = compute_skr(p)
-        skr_values[i] = max(out["SKR"], 0.0)
         skr_raw[i] = out["SKR_raw"]
+    skr_values = np.maximum(skr_raw, 1e-8)
 
-    positive_idx = np.where(skr_raw > 0.0)[0]
-    l_max_km = float(l_values[positive_idx[-1]] / 1e3) if positive_idx.size > 0 else float(l_values[0] / 1e3)
+    non_pos = np.where(skr_raw <= 0.0)[0]
+    l_max_km = float(l_values[non_pos[0]] / 1e3) if non_pos.size > 0 else float(l_values[-1] / 1e3)
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.plot(l_values / 1e3, skr_values, color=cmap(0.75), lw=2.0, label="SKR")
-    ax.axhline(0, color="red", linestyle="--", label="SKR = 0")
-    ax.axvline(l_max_km, color="red", linestyle="-.", label=f"L_max ≈ {l_max_km:.2f} km")
-    ax.set_xlabel("Khoảng cách L_link (km)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("SKR vs khoảng cách UAV-HAP")
-    info = (
-        f"C²ₙ = {float(params.get('Cn2', CN2)):.1e}\n"
-        f"V_A = {float(params.get('VA', 2.0)):.2f}\n"
-        f"beta = {float(params.get('beta', 0.95)):.2f}"
+    fig, ax = plt.subplots(figsize=(6, 4.5))
+    ax.semilogy(l_values / 1e3, skr_values, color=COLORS["black"], lw=2, label="SKR (asymptotic)")
+    ax.axhline(1e-8, color="gray", lw=0.8, ls=":")
+    ax.axvline(
+        l_max_km,
+        color=COLORS["red"],
+        lw=1.2,
+        ls=LINESTYLES["dashed"],
+        label=rf"$L_{{max}}$ ≈ {l_max_km:.1f} km",
     )
-    ax.text(0.97, 0.97, info, transform=ax.transAxes, va="top", ha="right", fontsize=9, bbox={"fc": "white", "alpha": 0.85})
-    ax.legend()
+    ax.set_xlabel("Satellite Altitude / Link Distance [km]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title("Secret Key Rate vs Link Distance")
+    ax.set_xlim([10, 25])
+    ax.set_ylim([1e-6, 1])
+    info = (
+        f"$C_n^2 = {float(params.get('Cn2', CN2)):.1e}$ m$^{{-2/3}}$\n"
+        f"$V_A = {float(params.get('VA', 2.0)):.0f}$ SNU\n"
+        f"$\\beta = {float(params.get('beta', 0.95)):.2f}$"
+    )
+    ax.text(
+        0.97,
+        0.97,
+        info,
+        transform=ax.transAxes,
+        fontsize=9,
+        va="top",
+        ha="right",
+        bbox={"boxstyle": "round,pad=0.3", "facecolor": "white", "edgecolor": "gray", "alpha": 0.8},
+    )
+    _apply_publication_ticks(ax)
+    ax.legend(loc="upper right", framealpha=0.9)
 
     _finalize_and_save(fig, Path(save_path), show)
-    return {"L_values_m": l_values, "SKR_values": skr_values, "L_max_km": l_max_km, "save_path": str(Path(save_path))}
+    return {"L_values_m": l_values, "SKR_values": skr_raw, "L_max_km": l_max_km, "save_path": str(Path(save_path))}
 
 
-def plot_2_skr_vs_va(base_params: Optional[Mapping[str, float]] = None, save_path: str = "plot_2.png", show: bool = True) -> Dict[str, Any]:
+def plot_2_skr_vs_va(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "plot2_SKR_vs_VA.png",
+    show: bool = True,
+) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
     params["L_link_m"] = float(params.get("L_link_m", 20e3))
-    va_values = np.linspace(0.1, 20.0, 100)
+    va_values = np.linspace(0.5, 15.0, 100)
     skr_values = np.zeros_like(va_values)
-    cmap = plt.get_cmap("viridis")
 
     for i, va in enumerate(va_values):
         p = dict(params)
         p["VA"] = float(va)
         p["seed"] = int(params.get("seed", 42)) + i
-        skr_values[i] = max(compute_skr(p)["SKR"], 0.0)
+        skr_values[i] = compute_skr(p)["SKR_raw"]
 
     idx = int(np.argmax(skr_values))
     va_opt = float(va_values[idx])
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.plot(va_values, skr_values, color=cmap(0.75), lw=2.0, label="SKR")
-    ax.axvline(va_opt, color="orange", linestyle="--", label=f"V_A opt = {va_opt:.2f} SNU")
-    ax.set_xlabel("Modulation variance V_A (SNU)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("Tối ưu V_A tại L = 20 km")
-    ax.legend()
+    fig, ax = plt.subplots(figsize=(6, 4.5))
+    ax.plot(va_values, skr_values, color=COLORS["yellow"], lw=2, label="SKR (Gaussian)")
+    ax.axvline(
+        va_opt,
+        color=COLORS["red"],
+        lw=1.2,
+        ls=LINESTYLES["dashed"],
+        label=rf"$V_A^{{opt}}$ = {va_opt:.2f} SNU",
+    )
+    ax.set_xlabel(r"Modulation Variance $V_A$ [SNU]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title(r"SKR vs Modulation Variance at $L = 20$ km")
+    ax.set_xlim([0, 15])
+    _apply_publication_ticks(ax)
+    ax.legend(framealpha=0.9)
 
     _finalize_and_save(fig, Path(save_path), show)
     return {"VA_values": va_values, "SKR_values": skr_values, "VA_opt": va_opt, "save_path": str(Path(save_path))}
 
 
-def plot_3_skr_vs_cn2(base_params: Optional[Mapping[str, float]] = None, save_path: str = "plot_3.png", show: bool = True) -> Dict[str, Any]:
+def plot_3_skr_vs_cn2(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "plot3_SKR_vs_Cn2.png",
+    show: bool = True,
+) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
-    params["L_link_m"] = float(params.get("L_link_m", 20e3))
     cn2_values = np.logspace(-17, -14, 60)
-    skr_values = np.zeros_like(cn2_values)
-    skr_raw = np.zeros_like(cn2_values)
-    cmap = plt.get_cmap("viridis")
+    skr_values_l20 = np.zeros_like(cn2_values)
+    skr_values_l15 = np.zeros_like(cn2_values)
 
     for i, cn2 in enumerate(cn2_values):
-        p = dict(params)
-        p["Cn2"] = float(cn2)
-        p["seed"] = int(params.get("seed", 42)) + i
-        out = compute_skr(p)
-        skr_values[i] = max(out["SKR"], 0.0)
-        skr_raw[i] = out["SKR_raw"]
+        p20 = dict(params)
+        p20["L_link_m"] = 20e3
+        p20["Cn2"] = float(cn2)
+        p20["seed"] = int(params.get("seed", 42)) + i
+        skr_values_l20[i] = compute_skr(p20)["SKR_raw"]
 
-    neg_idx = np.where(skr_raw <= 0.0)[0]
-    cn2_max = float(cn2_values[neg_idx[0]]) if neg_idx.size > 0 else float(cn2_values[-1])
+        p15 = dict(params)
+        p15["L_link_m"] = 15e3
+        p15["Cn2"] = float(cn2)
+        p15["seed"] = int(params.get("seed", 42)) + 1000 + i
+        skr_values_l15[i] = compute_skr(p15)["SKR_raw"]
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.semilogx(cn2_values, skr_values, color=cmap(0.75), lw=2.0, label="SKR")
-    ax.axhline(0, color="red", linestyle="--")
-    ax.axvspan(cn2_max, 1e-14, alpha=0.15, color="red", label="Vùng SKR < 0")
-    ax.set_xlabel("Cường độ nhiễu loạn C²ₙ (m⁻²/³)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("SKR vs turbulence tại L = 20 km")
-    ax.legend()
+    neg_idx = np.where(skr_values_l20 <= 0.0)[0]
+    cn2_max = float(cn2_values[neg_idx[0]]) if neg_idx.size > 0 else None
+
+    fig, ax = plt.subplots(figsize=(6, 4.5))
+    ax.semilogx(cn2_values, skr_values_l20, color=COLORS["yellow"], lw=2, label=r"$L = 20$ km")
+    ax.semilogx(
+        cn2_values,
+        skr_values_l15,
+        color=COLORS["blue"],
+        lw=2,
+        ls=LINESTYLES["dashed"],
+        label=r"$L = 15$ km",
+    )
+    ax.axhline(0, color="gray", lw=0.8, ls=LINESTYLES["dashed"])
+    if cn2_max is not None:
+        ax.axvspan(cn2_max, cn2_values[-1], alpha=0.12, color=COLORS["red"], label="SKR < 0")
+
+    ax.set_xlabel(r"Turbulence Strength $C_n^2$ [m$^{-2/3}$]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title(r"SKR vs Atmospheric Turbulence at $L = 20$ km")
+    _apply_publication_ticks(ax)
+    ax.legend(framealpha=0.9)
 
     _finalize_and_save(fig, Path(save_path), show)
-    return {"Cn2_values": cn2_values, "SKR_values": skr_values, "Cn2_max": cn2_max, "save_path": str(Path(save_path))}
+    return {
+        "Cn2_values": cn2_values,
+        "SKR_values_L20": skr_values_l20,
+        "SKR_values_L15": skr_values_l15,
+        "Cn2_max": cn2_max,
+        "save_path": str(Path(save_path)),
+    }
 
 
-def plot_4_loss_decomposition(base_params: Optional[Mapping[str, float]] = None, save_path: str = "plot_4.png", show: bool = True) -> Dict[str, Any]:
+def plot_4_loss_decomposition(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "plot4_loss.png",
+    show: bool = True,
+) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
     l_values = np.linspace(5e3, 30e3, 80)
     eta_atm_list = np.zeros_like(l_values)
     mean_t2_list = np.zeros_like(l_values)
     t_eff_list = np.zeros_like(l_values)
-    cmap = plt.get_cmap("viridis")
-
     for i, l_m in enumerate(l_values):
         p = dict(params)
         p["L_link_m"] = float(l_m)
@@ -664,14 +832,36 @@ def plot_4_loss_decomposition(base_params: Optional[Mapping[str, float]] = None,
         mean_t2_list[i] = out["mean_T2"]
         t_eff_list[i] = out["T_eff"]
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.plot(l_values / 1e3, 10 * np.log10(np.clip(eta_atm_list, EPS, 1.0)), linestyle="--", color=cmap(0.25), label="η_atm (Beer-Lambert)")
-    ax.plot(l_values / 1e3, 10 * np.log10(np.clip(mean_t2_list, EPS, 1.0)), linestyle="-.", color=cmap(0.55), label="⟨T²⟩ (pointing+turb)")
-    ax.plot(l_values / 1e3, 10 * np.log10(np.clip(t_eff_list, EPS, 1.0)), linestyle="-", linewidth=2.2, color=cmap(0.85), label="T_eff = η_atm × ⟨T²⟩")
-    ax.set_xlabel("Khoảng cách L_link (km)")
-    ax.set_ylabel("Suy hao (dB)")
-    ax.set_title("Phân tích suy hao kênh")
-    ax.legend()
+    fig, ax = plt.subplots(figsize=(6, 4.5))
+    ax.plot(
+        l_values / 1e3,
+        10 * np.log10(np.maximum(eta_atm_list, 1e-20)),
+        color=COLORS["black"],
+        lw=2,
+        ls=LINESTYLES["solid"],
+        label=r"$\eta_{atm}$ (Beer–Lambert)",
+    )
+    ax.plot(
+        l_values / 1e3,
+        10 * np.log10(np.maximum(mean_t2_list, 1e-20)),
+        color=COLORS["blue"],
+        lw=2,
+        ls=LINESTYLES["dashed"],
+        label=r"$\langle T^2 \rangle$ (pointing + turbulence)",
+    )
+    ax.plot(
+        l_values / 1e3,
+        10 * np.log10(np.maximum(t_eff_list, 1e-20)),
+        color=COLORS["red"],
+        lw=2.5,
+        ls=LINESTYLES["solid"],
+        label=r"$T_{eff} = \eta_{atm} \cdot \langle T^2 \rangle$",
+    )
+    ax.set_xlabel("Link Distance [km]")
+    ax.set_ylabel("Attenuation [dB]")
+    ax.set_title("Channel Loss Breakdown")
+    _apply_publication_ticks(ax)
+    ax.legend(framealpha=0.9, loc="lower left")
 
     _finalize_and_save(fig, Path(save_path), show)
     return {
@@ -683,15 +873,18 @@ def plot_4_loss_decomposition(base_params: Optional[Mapping[str, float]] = None,
     }
 
 
-def plot_5_skr_vs_sigma_r(base_params: Optional[Mapping[str, float]] = None, save_path: str = "plot_5.png", show: bool = True) -> Dict[str, Any]:
+def plot_5_skr_vs_sigma_r(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "plot5_SKR_vs_sigma.png",
+    show: bool = True,
+) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
-    sigma_r_values = np.linspace(0.01, 0.35, 80)
+    sigma_r_values = np.linspace(0.01, 0.30, 80)
     l_list = [15e3, 20e3]
-    cmap = plt.get_cmap("viridis")
     curves: Dict[str, np.ndarray] = {}
 
-    fig, ax = plt.subplots(figsize=(7, 5))
+    fig, ax = plt.subplots(figsize=(6, 4.5))
     for idx_l, l_m in enumerate(l_list):
         skr_list = np.zeros_like(sigma_r_values)
         for i, sigma_r in enumerate(sigma_r_values):
@@ -699,21 +892,33 @@ def plot_5_skr_vs_sigma_r(base_params: Optional[Mapping[str, float]] = None, sav
             p["L_link_m"] = float(l_m)
             p["sigma_r_override_m"] = float(sigma_r)
             p["seed"] = int(params.get("seed", 42)) + idx_l * 1000 + i
-            skr_list[i] = max(compute_skr(p)["SKR"], 0.0)
+            skr_list[i] = compute_skr(p)["SKR_raw"]
         curves[f"L_{int(l_m/1e3)}km"] = skr_list
-        ax.plot(sigma_r_values * 100.0, skr_list, lw=2.0, color=cmap(0.35 + 0.45 * idx_l), label=f"L = {l_m/1e3:.0f} km")
+        ax.plot(
+            sigma_r_values * 100.0,
+            skr_list,
+            lw=2,
+            color=COLORS["blue"] if idx_l == 0 else COLORS["yellow"],
+            ls=LINESTYLES["solid"] if idx_l == 0 else LINESTYLES["dashed"],
+            label=rf"$L = {l_m/1e3:.0f}$ km",
+        )
 
-    ax.axhline(0, color="red", linestyle="--")
-    ax.set_xlabel("Phương sai lệch tâm σ_r (cm)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("Ảnh hưởng pointing error lên SKR")
-    ax.legend()
+    ax.axhline(0, color="gray", lw=0.8, ls=LINESTYLES["dashed"])
+    ax.set_xlabel(r"Pointing Error Std. Dev. $\sigma_r$ [cm]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title("Effect of Pointing Error on SKR")
+    _apply_publication_ticks(ax)
+    ax.legend(framealpha=0.9)
 
     _finalize_and_save(fig, Path(save_path), show)
     return {"sigma_r_values_m": sigma_r_values, "curves": curves, "save_path": str(Path(save_path))}
 
 
-def plot_6_skr_heatmap(base_params: Optional[Mapping[str, float]] = None, save_path: str = "plot_6.png", show: bool = True) -> Dict[str, Any]:
+def plot_6_skr_heatmap(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "plot6_heatmap.png",
+    show: bool = True,
+) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
     l_arr = np.linspace(10e3, 30e3, 30)
@@ -726,17 +931,46 @@ def plot_6_skr_heatmap(base_params: Optional[Mapping[str, float]] = None, save_p
             p["Cn2"] = float(cn2)
             p["L_link_m"] = float(l_m)
             p["seed"] = int(params.get("seed", 42)) + i * len(l_arr) + j
-            skr_matrix[i, j] = max(compute_skr(p)["SKR"], 0.0)
+            skr_matrix[i, j] = compute_skr(p)["SKR_raw"]
 
-    fig, ax = plt.subplots(figsize=(8, 5))
-    im = ax.pcolormesh(l_arr / 1e3, np.log10(cn2_arr), skr_matrix, cmap="viridis", shading="auto")
-    fig.colorbar(im, ax=ax, label="SKR (bits/pulse)")
-    ax.contour(l_arr / 1e3, np.log10(cn2_arr), skr_matrix, levels=[1e-6], colors="red", linewidths=1.5)
-    ax.set_xlabel("Khoảng cách L_link (km)")
-    ax.set_ylabel("log₁₀(C²ₙ) [m⁻²/³]")
-    ax.set_title("Heatmap SKR - Vùng khả thi hệ thống")
-    ax.plot(20, np.log10(1e-15), "r*", markersize=12, label="Điểm tài liệu (L=20km, C²ₙ=1e-15)")
-    ax.legend(fontsize=9)
+    fig, ax = plt.subplots(figsize=(7, 5))
+    im = ax.pcolormesh(
+        l_arr / 1e3,
+        np.log10(cn2_arr),
+        skr_matrix,
+        cmap="viridis",
+        shading="auto",
+        vmin=0,
+        vmax=max(float(np.nanmax(skr_matrix)), 1e-8),
+    )
+    cbar = plt.colorbar(im, ax=ax)
+    cbar.set_label("SKR [bits/pulse]", fontsize=11)
+
+    level = _safe_contour_level(skr_matrix, desired=1e-6)
+    if level is not None:
+        cs = ax.contour(
+            l_arr / 1e3,
+            np.log10(cn2_arr),
+            skr_matrix,
+            levels=[level],
+            colors=[COLORS["red"]],
+            linewidths=2,
+        )
+        ax.clabel(cs, fmt="SKR = 0", fontsize=9)
+
+    ax.plot(
+        20,
+        np.log10(1e-15),
+        "*",
+        color=COLORS["red"],
+        markersize=12,
+        label="Operating point\n($L=20$ km, $C_n^2=10^{-15}$)",
+    )
+    ax.set_xlabel("Link Distance [km]")
+    ax.set_ylabel(r"$\log_{10}(C_n^2)$ [m$^{-2/3}$]")
+    ax.set_title("SKR Feasibility Map")
+    _apply_publication_ticks(ax)
+    ax.legend(loc="upper right", fontsize=9, framealpha=0.9)
 
     _finalize_and_save(fig, Path(save_path), show)
     return {"L_arr_m": l_arr, "Cn2_arr": cn2_arr, "SKR_matrix": skr_matrix, "save_path": str(Path(save_path))}
@@ -751,86 +985,97 @@ def plot_all_skr_figures(
     out_dir.mkdir(parents=True, exist_ok=True)
     params = dict(base_params or {})
     results = {
-        "plot_1": plot_1_skr_vs_distance(params, save_path=str(out_dir / "plot_1.png"), show=show),
-        "plot_2": plot_2_skr_vs_va(params, save_path=str(out_dir / "plot_2.png"), show=show),
-        "plot_3": plot_3_skr_vs_cn2(params, save_path=str(out_dir / "plot_3.png"), show=show),
-        "plot_4": plot_4_loss_decomposition(params, save_path=str(out_dir / "plot_4.png"), show=show),
-        "plot_5": plot_5_skr_vs_sigma_r(params, save_path=str(out_dir / "plot_5.png"), show=show),
-        "plot_6": plot_6_skr_heatmap(params, save_path=str(out_dir / "plot_6.png"), show=show),
+        "plot_1": plot_1_skr_vs_distance(params, save_path=str(out_dir / "plot1_SKR_vs_L.png"), show=show),
+        "plot_2": plot_2_skr_vs_va(params, save_path=str(out_dir / "plot2_SKR_vs_VA.png"), show=show),
+        "plot_3": plot_3_skr_vs_cn2(params, save_path=str(out_dir / "plot3_SKR_vs_Cn2.png"), show=show),
+        "plot_4": plot_4_loss_decomposition(params, save_path=str(out_dir / "plot4_loss.png"), show=show),
+        "plot_5": plot_5_skr_vs_sigma_r(params, save_path=str(out_dir / "plot5_SKR_vs_sigma.png"), show=show),
+        "plot_6": plot_6_skr_heatmap(params, save_path=str(out_dir / "plot6_heatmap.png"), show=show),
     }
     return results
 
 
 def plot_all_skr_figures_combined(
     base_params: Optional[Mapping[str, float]] = None,
-    save_path: Union[str, Path] = "plot_all.png",
+    save_path: Union[str, Path] = "CV_QKD_all_plots.png",
     show: bool = True,
 ) -> Dict[str, Any]:
     _plot_style()
     params = dict(base_params or {})
-    cmap = plt.get_cmap("viridis")
-    fig, axes = plt.subplots(2, 3, figsize=(16, 10))
-    fig.suptitle("CV-QKD UAV-HAP - Phân tích hiệu năng", fontsize=14)
+    fig, axes = plt.subplots(2, 3, figsize=(16, 9))
+    fig.patch.set_facecolor("white")
+    fig.suptitle("CV-QKD UAV–HAP — Performance Analysis", fontsize=14, fontweight="normal", y=1.01)
 
     # Plot 1
-    l_values = np.linspace(10e3, 30e3, 80)
-    skr_values = np.zeros_like(l_values)
+    l_values = np.linspace(10e3, 25e3, 60)
     skr_raw = np.zeros_like(l_values)
     for i, l_m in enumerate(l_values):
         p = dict(params)
         p["L_link_m"] = float(l_m)
         p["seed"] = int(params.get("seed", 42)) + i
         out = compute_skr(p)
-        skr_values[i] = max(out["SKR"], 0.0)
         skr_raw[i] = out["SKR_raw"]
-    pos = np.where(skr_raw > 0.0)[0]
-    l_max_km = float(l_values[pos[-1]] / 1e3) if pos.size > 0 else float(l_values[0] / 1e3)
+    skr_values = np.maximum(skr_raw, 1e-8)
+    non_pos = np.where(skr_raw <= 0.0)[0]
+    l_max_km = float(l_values[non_pos[0]] / 1e3) if non_pos.size > 0 else float(l_values[-1] / 1e3)
     ax = axes[0, 0]
-    ax.plot(l_values / 1e3, skr_values, color=cmap(0.75), lw=2.0)
-    ax.axhline(0, color="red", linestyle="--")
-    ax.axvline(l_max_km, color="red", linestyle="-.")
-    ax.set_xlabel("Khoảng cách L_link (km)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("1) SKR vs khoảng cách")
+    ax.semilogy(l_values / 1e3, skr_values, color=COLORS["black"], lw=2)
+    ax.axhline(1e-8, color="gray", lw=0.8, ls=LINESTYLES["dotted"])
+    ax.axvline(l_max_km, color=COLORS["red"], lw=1.2, ls=LINESTYLES["dashed"])
+    ax.set_xlabel("Satellite Altitude / Link Distance [km]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title("Secret Key Rate vs Link Distance")
+    ax.set_xlim([10, 25])
+    ax.set_ylim([1e-6, 1])
+    _apply_publication_ticks(ax)
 
     # Plot 2
-    va_values = np.linspace(0.1, 20.0, 100)
+    va_values = np.linspace(0.5, 15.0, 100)
     va_skr = np.zeros_like(va_values)
     for i, va in enumerate(va_values):
         p = dict(params)
         p["L_link_m"] = float(params.get("L_link_m", 20e3))
         p["VA"] = float(va)
         p["seed"] = int(params.get("seed", 42)) + 1000 + i
-        va_skr[i] = max(compute_skr(p)["SKR"], 0.0)
+        va_skr[i] = max(compute_skr(p)["SKR_raw"], 0.0)
     va_opt = float(va_values[int(np.argmax(va_skr))])
     ax = axes[0, 1]
-    ax.plot(va_values, va_skr, color=cmap(0.75), lw=2.0)
-    ax.axvline(va_opt, color="orange", linestyle="--")
-    ax.set_xlabel("Modulation variance V_A (SNU)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("2) SKR vs V_A")
+    ax.plot(va_values, va_skr, color=COLORS["yellow"], lw=2)
+    ax.axvline(va_opt, color=COLORS["red"], lw=1.2, ls=LINESTYLES["dashed"])
+    ax.set_xlabel(r"Modulation Variance $V_A$ [SNU]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title(r"SKR vs Modulation Variance at $L = 20$ km")
+    ax.set_xlim([0, 15])
+    _apply_publication_ticks(ax)
 
     # Plot 3
     cn2_values = np.logspace(-17, -14, 60)
-    cn2_skr = np.zeros_like(cn2_values)
-    cn2_raw = np.zeros_like(cn2_values)
+    cn2_skr_l20 = np.zeros_like(cn2_values)
+    cn2_skr_l15 = np.zeros_like(cn2_values)
     for i, cn2 in enumerate(cn2_values):
-        p = dict(params)
-        p["L_link_m"] = float(params.get("L_link_m", 20e3))
-        p["Cn2"] = float(cn2)
-        p["seed"] = int(params.get("seed", 42)) + 2000 + i
-        out = compute_skr(p)
-        cn2_skr[i] = max(out["SKR"], 0.0)
-        cn2_raw[i] = out["SKR_raw"]
-    neg = np.where(cn2_raw <= 0.0)[0]
-    cn2_max = float(cn2_values[neg[0]]) if neg.size > 0 else float(cn2_values[-1])
+        p20 = dict(params)
+        p20["L_link_m"] = 20e3
+        p20["Cn2"] = float(cn2)
+        p20["seed"] = int(params.get("seed", 42)) + 2000 + i
+        cn2_skr_l20[i] = compute_skr(p20)["SKR_raw"]
+        p15 = dict(params)
+        p15["L_link_m"] = 15e3
+        p15["Cn2"] = float(cn2)
+        p15["seed"] = int(params.get("seed", 42)) + 3000 + i
+        cn2_skr_l15[i] = compute_skr(p15)["SKR_raw"]
+    neg = np.where(cn2_skr_l20 <= 0.0)[0]
+    cn2_max = float(cn2_values[neg[0]]) if neg.size > 0 else None
     ax = axes[0, 2]
-    ax.semilogx(cn2_values, cn2_skr, color=cmap(0.75), lw=2.0)
-    ax.axhline(0, color="red", linestyle="--")
-    ax.axvspan(cn2_max, 1e-14, alpha=0.15, color="red")
-    ax.set_xlabel("Cường độ nhiễu loạn C²ₙ (m⁻²/³)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("3) SKR vs C²ₙ")
+    ax.semilogx(cn2_values, cn2_skr_l20, color=COLORS["yellow"], lw=2, label=r"$L = 20$ km")
+    ax.semilogx(cn2_values, cn2_skr_l15, color=COLORS["blue"], lw=2, ls=LINESTYLES["dashed"], label=r"$L = 15$ km")
+    ax.axhline(0, color="gray", lw=0.8, ls=LINESTYLES["dashed"])
+    if cn2_max is not None:
+        ax.axvspan(cn2_max, cn2_values[-1], alpha=0.12, color=COLORS["red"])
+    ax.set_xlabel(r"Turbulence Strength $C_n^2$ [m$^{-2/3}$]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title(r"SKR vs Atmospheric Turbulence at $L = 20$ km")
+    _apply_publication_ticks(ax)
+    ax.legend(framealpha=0.9)
 
     # Plot 4
     l2_values = np.linspace(5e3, 30e3, 80)
@@ -846,15 +1091,16 @@ def plot_all_skr_figures_combined(
         mean_t2[i] = out["mean_T2"]
         t_eff[i] = out["T_eff"]
     ax = axes[1, 0]
-    ax.plot(l2_values / 1e3, 10 * np.log10(np.clip(eta_atm, EPS, 1.0)), linestyle="--", color=cmap(0.25))
-    ax.plot(l2_values / 1e3, 10 * np.log10(np.clip(mean_t2, EPS, 1.0)), linestyle="-.", color=cmap(0.55))
-    ax.plot(l2_values / 1e3, 10 * np.log10(np.clip(t_eff, EPS, 1.0)), linestyle="-", lw=2.2, color=cmap(0.85))
-    ax.set_xlabel("Khoảng cách L_link (km)")
-    ax.set_ylabel("Suy hao (dB)")
-    ax.set_title("4) Phân tích suy hao")
+    ax.plot(l2_values / 1e3, 10 * np.log10(np.maximum(eta_atm, 1e-20)), color=COLORS["black"], lw=2, ls=LINESTYLES["solid"])
+    ax.plot(l2_values / 1e3, 10 * np.log10(np.maximum(mean_t2, 1e-20)), color=COLORS["blue"], lw=2, ls=LINESTYLES["dashed"])
+    ax.plot(l2_values / 1e3, 10 * np.log10(np.maximum(t_eff, 1e-20)), color=COLORS["red"], lw=2.5, ls=LINESTYLES["solid"])
+    ax.set_xlabel("Link Distance [km]")
+    ax.set_ylabel("Attenuation [dB]")
+    ax.set_title("Channel Loss Breakdown")
+    _apply_publication_ticks(ax)
 
     # Plot 5
-    sigma_r_values = np.linspace(0.01, 0.35, 80)
+    sigma_r_values = np.linspace(0.01, 0.30, 80)
     ax = axes[1, 1]
     for idx_l, l_m in enumerate([15e3, 20e3]):
         y = np.zeros_like(sigma_r_values)
@@ -863,13 +1109,21 @@ def plot_all_skr_figures_combined(
             p["L_link_m"] = float(l_m)
             p["sigma_r_override_m"] = float(sigma_r)
             p["seed"] = int(params.get("seed", 42)) + 4000 + idx_l * 1000 + i
-            y[i] = max(compute_skr(p)["SKR"], 0.0)
-        ax.plot(sigma_r_values * 100.0, y, color=cmap(0.35 + 0.45 * idx_l), lw=2.0, label=f"L={l_m/1e3:.0f} km")
-    ax.axhline(0, color="red", linestyle="--")
-    ax.set_xlabel("Phương sai lệch tâm σ_r (cm)")
-    ax.set_ylabel("SKR (bits/pulse)")
-    ax.set_title("5) SKR vs σ_r")
-    ax.legend(fontsize=8)
+            y[i] = compute_skr(p)["SKR_raw"]
+        ax.plot(
+            sigma_r_values * 100.0,
+            y,
+            color=COLORS["blue"] if idx_l == 0 else COLORS["yellow"],
+            lw=2,
+            ls=LINESTYLES["solid"] if idx_l == 0 else LINESTYLES["dashed"],
+            label=rf"$L = {l_m/1e3:.0f}$ km",
+        )
+    ax.axhline(0, color="gray", lw=0.8, ls=LINESTYLES["dashed"])
+    ax.set_xlabel(r"Pointing Error Std. Dev. $\sigma_r$ [cm]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title("Effect of Pointing Error on SKR")
+    _apply_publication_ticks(ax)
+    ax.legend(fontsize=9, framealpha=0.9)
 
     # Plot 6
     l_arr = np.linspace(10e3, 30e3, 30)
@@ -881,15 +1135,32 @@ def plot_all_skr_figures_combined(
             p["Cn2"] = float(cn2)
             p["L_link_m"] = float(l_m)
             p["seed"] = int(params.get("seed", 42)) + 6000 + i * len(l_arr) + j
-            skr_matrix[i, j] = max(compute_skr(p)["SKR"], 0.0)
+            skr_matrix[i, j] = compute_skr(p)["SKR_raw"]
     ax = axes[1, 2]
-    im = ax.pcolormesh(l_arr / 1e3, np.log10(cn2_arr), skr_matrix, cmap="viridis", shading="auto")
-    ax.contour(l_arr / 1e3, np.log10(cn2_arr), skr_matrix, levels=[1e-6], colors="red", linewidths=1.5)
-    ax.plot(20, np.log10(1e-15), "r*", markersize=10)
-    ax.set_xlabel("Khoảng cách L_link (km)")
-    ax.set_ylabel("log₁₀(C²ₙ)")
-    ax.set_title("6) Heatmap SKR")
-    fig.colorbar(im, ax=ax, label="SKR (bits/pulse)")
+    im = ax.pcolormesh(
+        l_arr / 1e3,
+        np.log10(cn2_arr),
+        skr_matrix,
+        cmap="viridis",
+        shading="auto",
+        vmin=0,
+        vmax=max(float(np.nanmax(skr_matrix)), 1e-8),
+    )
+    level = _safe_contour_level(skr_matrix, desired=1e-6)
+    if level is not None:
+        cs = ax.contour(l_arr / 1e3, np.log10(cn2_arr), skr_matrix, levels=[level], colors=[COLORS["red"]], linewidths=2)
+        ax.clabel(cs, fmt="SKR = 0", fontsize=9)
+    ax.plot(20, np.log10(1e-15), "*", color=COLORS["red"], markersize=12)
+    ax.set_xlabel("Link Distance [km]")
+    ax.set_ylabel(r"$\log_{10}(C_n^2)$ [m$^{-2/3}$]")
+    ax.set_title("SKR Feasibility Map")
+    _apply_publication_ticks(ax)
+    fig.colorbar(im, ax=ax, label="SKR [bits/pulse]")
 
-    _finalize_and_save(fig, Path(save_path), show)
+    fig.tight_layout(pad=2.0)
+    fig.savefig(Path(save_path), dpi=200, bbox_inches="tight")
+    if show:
+        plt.show()
+    else:
+        plt.close(fig)
     return {"save_path": str(Path(save_path))}

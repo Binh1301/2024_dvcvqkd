@@ -2,6 +2,7 @@
 
 from .skr_gaussian_uav_hap import (
     compute_skr,
+    debug_reference_case,
     plot_1_skr_vs_distance,
     plot_2_skr_vs_va,
     plot_3_skr_vs_cn2,
@@ -14,6 +15,7 @@ from .skr_gaussian_uav_hap import (
 
 __all__ = [
     "compute_skr",
+    "debug_reference_case",
     "plot_1_skr_vs_distance",
     "plot_2_skr_vs_va",
     "plot_3_skr_vs_cn2",

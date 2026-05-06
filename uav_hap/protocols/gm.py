@@ -136,8 +136,8 @@ def _holevo_gaussian_3_eigs(VA: float, T_eff, chi_line, chi_hom: float) -> dict:
     lambda1 = np.sqrt(np.maximum(0.5 * (A + np.sqrt(disc)), EPS))
     lambda2 = np.sqrt(np.maximum(0.5 * (A - np.sqrt(disc)), EPS))
 
-    lambda3_num = (V + chi_l) * (1.0 + chi_h)
-    lambda3_den = np.maximum((V + chi_h) * (V * chi_l + 1.0), EPS)
+    lambda3_num = (V + chi_h) * (V * chi_l + 1.0)
+    lambda3_den = np.maximum((V + chi_l) * (1.0 + chi_h), EPS)
     lambda3 = np.sqrt(np.maximum(lambda3_num / lambda3_den, EPS))
 
     chi_be = _as_array(_g_lambda(lambda1)) + _as_array(_g_lambda(lambda2)) - _as_array(_g_lambda(lambda3))

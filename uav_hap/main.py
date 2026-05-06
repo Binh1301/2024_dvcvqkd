@@ -24,6 +24,7 @@ if __package__ in (None, ""):
     )
     from uav_hap.protocols.gm import noise, optimize_modulation_variance, skr_components
     from uav_hap.plots.skr_gaussian_uav_hap import (
+        debug_reference_case,
         plot_all_skr_figures,
         plot_all_skr_figures_combined,
     )
@@ -57,6 +58,7 @@ else:
     )
     from .protocols.gm import noise, optimize_modulation_variance, skr_components
     from .plots.skr_gaussian_uav_hap import (
+        debug_reference_case,
         plot_all_skr_figures,
         plot_all_skr_figures_combined,
     )
@@ -474,6 +476,11 @@ def main() -> None:
         default=str((Path(__file__).resolve().parent / "outputs").resolve()),
         help="Directory to save SKR analysis plots",
     )
+    parser.add_argument(
+        "--no-debug-reference",
+        action="store_true",
+        help="Skip reference-case debug print (L=20km, Cn2=1e-15, VA=2)",
+    )
     args = parser.parse_args()
 
     out = simulate_uav_hap_cvqkd(
@@ -489,6 +496,10 @@ def main() -> None:
         print(f"channel_log_csv = {out['channel_log_csv']}")
     if "channel_summary_plot" in out:
         print(f"channel_summary_plot = {out['channel_summary_plot']}")
+
+    if not args.no_debug_reference:
+        print("\n[DEBUG] Reference case check:")
+        debug_reference_case(seed=42, n_samples=30_000)
 
     plots_dir = Path(args.plots_output_dir)
     plots_dir.mkdir(parents=True, exist_ok=True)
