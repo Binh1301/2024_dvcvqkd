@@ -9,6 +9,7 @@ from .skr_gaussian_uav_hap import (
     plot_4_loss_decomposition,
     plot_5_skr_vs_sigma_r,
     plot_6_skr_heatmap,
+    plot_7_gm_vs_dm_protocols,
     plot_all_skr_figures,
     plot_all_skr_figures_combined,
 )
@@ -22,6 +23,7 @@ __all__ = [
     "plot_4_loss_decomposition",
     "plot_5_skr_vs_sigma_r",
     "plot_6_skr_heatmap",
+    "plot_7_gm_vs_dm_protocols",
     "plot_all_skr_figures",
     "plot_all_skr_figures_combined",
 ]

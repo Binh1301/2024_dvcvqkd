@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional, Union
@@ -657,6 +658,53 @@ def _finalize_and_save(fig: plt.Figure, path: Path, show: bool) -> None:
         plt.close(fig)
 
 
+def _write_protocol_skr_log(
+    csv_path: Path,
+    l_values_m: np.ndarray,
+    t_eff_values: np.ndarray,
+    skr_gm: np.ndarray,
+    skr_2psk: np.ndarray,
+    skr_4psk: np.ndarray,
+    skr_8psk: np.ndarray,
+    skr_16qam: np.ndarray,
+    skr_64qam: np.ndarray,
+    skr_256qam: np.ndarray,
+) -> str:
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "L_m",
+                "L_km",
+                "T_eff",
+                "SKR_GM",
+                "SKR_2PSK",
+                "SKR_4PSK",
+                "SKR_8PSK",
+                "SKR_16QAM",
+                "SKR_64QAM",
+                "SKR_256QAM",
+            ]
+        )
+        for i in range(len(l_values_m)):
+            writer.writerow(
+                [
+                    float(l_values_m[i]),
+                    float(l_values_m[i] / 1e3),
+                    float(t_eff_values[i]),
+                    float(skr_gm[i]),
+                    float(skr_2psk[i]),
+                    float(skr_4psk[i]),
+                    float(skr_8psk[i]),
+                    float(skr_16qam[i]),
+                    float(skr_64qam[i]),
+                    float(skr_256qam[i]),
+                ]
+            )
+    return str(csv_path)
+
+
 def plot_1_skr_vs_distance(
     base_params: Optional[Mapping[str, float]] = None,
     save_path: str = "plot1_SKR_vs_L.png",
@@ -976,6 +1024,135 @@ def plot_6_skr_heatmap(
     return {"L_arr_m": l_arr, "Cn2_arr": cn2_arr, "SKR_matrix": skr_matrix, "save_path": str(Path(save_path))}
 
 
+def plot_7_gm_vs_dm_protocols(
+    base_params: Optional[Mapping[str, float]] = None,
+    save_path: str = "GM_vs_DM_protocols.png",
+    log_csv_path: Optional[Union[str, Path]] = None,
+    show: bool = True,
+) -> Dict[str, Any]:
+    """GM-CVQKD vs DM-CVQKD (2/4/8-PSK and 16/64/256-QAM) for UAV-HAP T_eff."""
+    from ..protocols.gm import skr_gm
+    from ..protocols.psk import compute_SKR_MPSK
+    from ..protocols.qam import compute_SKR_MQAM
+
+    params = dict(base_params or {})
+    va_gm = float(params.get("VA_GM", 2.0))
+    va_psk = float(params.get("VA_PSK", 0.5))
+    va_qam = float(params.get("VA_QAM", 2.0))
+    beta = float(params.get("beta", 0.95))
+    eta_det = float(params.get("eta_det", DEFAULT_ETA_DET))
+    eps_ch = float(params.get("epsilon_ch", EPS_CH))
+    vel = float(params.get("v_el", V_EL))
+    l_values = np.asarray(params.get("L_values_m", np.linspace(10e3, 25e3, 60)), dtype=float)
+    if l_values.ndim != 1:
+        raise ValueError("L_values_m must be a 1-D array.")
+
+    t_eff_values = np.zeros_like(l_values, dtype=float)
+    for i, l_m in enumerate(l_values):
+        p = dict(params)
+        p["L_link_m"] = float(l_m)
+        p["seed"] = int(params.get("seed", 42)) + i
+        t_eff_values[i] = float(compute_skr(p)["T_eff"])
+
+    skr_gm_vals = np.array([max(float(skr_gm(va_gm, t, eps_ch, beta)), 0.0) for t in t_eff_values], dtype=float)
+    skr_2psk = np.array(
+        [compute_SKR_MPSK(t, va_psk, 2, beta, eta_det, eps_ch, vel) for t in t_eff_values],
+        dtype=float,
+    )
+    skr_4psk = np.array(
+        [compute_SKR_MPSK(t, va_psk, 4, beta, eta_det, eps_ch, vel) for t in t_eff_values],
+        dtype=float,
+    )
+    skr_8psk = np.array(
+        [compute_SKR_MPSK(t, va_psk, 8, beta, eta_det, eps_ch, vel) for t in t_eff_values],
+        dtype=float,
+    )
+    skr_16qam = np.array(
+        [compute_SKR_MQAM(t, va_qam, 16, beta, eta_det, eps_ch, vel) for t in t_eff_values],
+        dtype=float,
+    )
+    skr_64qam = np.array(
+        [compute_SKR_MQAM(t, va_qam, 64, beta, eta_det, eps_ch, vel) for t in t_eff_values],
+        dtype=float,
+    )
+    skr_256qam = np.array(
+        [compute_SKR_MQAM(t, va_qam, 256, beta, eta_det, eps_ch, vel) for t in t_eff_values],
+        dtype=float,
+    )
+
+    l_km = l_values / 1e3
+    skr_floor = 1e-8
+    safe_log = lambda arr: np.maximum(np.asarray(arr, dtype=float), skr_floor)
+
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+    fig.suptitle("CV-QKD UAV-HAP - GM vs DM Protocols", fontsize=13)
+
+    ax = axes[0]
+    ax.semilogy(l_km, safe_log(skr_gm_vals), color=COLORS["black"], lw=2, label="GM-CVQKD (Gaussian)")
+    ax.semilogy(l_km, safe_log(skr_8psk), color=COLORS["blue"], lw=2, ls="-", label="8-PSK")
+    ax.semilogy(l_km, safe_log(skr_4psk), color=COLORS["red"], lw=2, ls="-", label="4-PSK")
+    ax.semilogy(l_km, safe_log(skr_2psk), color="gray", lw=1.5, ls="--", label="2-PSK")
+    ax.axhline(skr_floor, color="gray", lw=0.5, ls=":")
+    ax.set_xlabel("Link Distance [km]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title("GM-CVQKD vs M-PSK DM-CVQKD")
+    ax.set_xlim([10, 25])
+    ax.set_ylim([1e-7, 1])
+    ax.legend(fontsize=9, framealpha=0.9)
+
+    ax = axes[1]
+    ax.semilogy(l_km, safe_log(skr_gm_vals), color=COLORS["black"], lw=2, label="GM-CVQKD (Gaussian)")
+    ax.semilogy(l_km, safe_log(skr_256qam), color=COLORS["yellow"], lw=2, ls="-", label="256-QAM")
+    ax.semilogy(l_km, safe_log(skr_64qam), color=COLORS["blue"], lw=2, ls="--", label="64-QAM")
+    ax.semilogy(l_km, safe_log(skr_16qam), color=COLORS["red"], lw=2, ls="-.", label="16-QAM")
+    ax.axhline(skr_floor, color="gray", lw=0.5, ls=":")
+    ax.set_xlabel("Link Distance [km]")
+    ax.set_ylabel("SKR [bits/pulse]")
+    ax.set_title("GM-CVQKD vs M-QAM DM-CVQKD")
+    ax.set_xlim([10, 25])
+    ax.set_ylim([1e-7, 1])
+    ax.legend(fontsize=9, framealpha=0.9)
+
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    save_path_obj = Path(save_path)
+    fig.savefig(save_path_obj, dpi=200)
+    if show:
+        plt.show()
+    else:
+        plt.close(fig)
+
+    if log_csv_path is None:
+        log_path = save_path_obj.with_suffix(".csv")
+    else:
+        log_path = Path(log_csv_path)
+    log_csv = _write_protocol_skr_log(
+        csv_path=log_path,
+        l_values_m=l_values,
+        t_eff_values=t_eff_values,
+        skr_gm=skr_gm_vals,
+        skr_2psk=skr_2psk,
+        skr_4psk=skr_4psk,
+        skr_8psk=skr_8psk,
+        skr_16qam=skr_16qam,
+        skr_64qam=skr_64qam,
+        skr_256qam=skr_256qam,
+    )
+
+    return {
+        "L_values_m": l_values,
+        "T_eff_values": t_eff_values,
+        "SKR_GM": skr_gm_vals,
+        "SKR_2PSK": skr_2psk,
+        "SKR_4PSK": skr_4psk,
+        "SKR_8PSK": skr_8psk,
+        "SKR_16QAM": skr_16qam,
+        "SKR_64QAM": skr_64qam,
+        "SKR_256QAM": skr_256qam,
+        "save_path": str(save_path_obj),
+        "log_csv_path": log_csv,
+    }
+
+
 def plot_all_skr_figures(
     base_params: Optional[Mapping[str, float]] = None,
     output_dir: Union[str, Path] = ".",
@@ -991,6 +1168,7 @@ def plot_all_skr_figures(
         "plot_4": plot_4_loss_decomposition(params, save_path=str(out_dir / "plot4_loss.png"), show=show),
         "plot_5": plot_5_skr_vs_sigma_r(params, save_path=str(out_dir / "plot5_SKR_vs_sigma.png"), show=show),
         "plot_6": plot_6_skr_heatmap(params, save_path=str(out_dir / "plot6_heatmap.png"), show=show),
+        "plot_7": plot_7_gm_vs_dm_protocols(params, save_path=str(out_dir / "GM_vs_DM_protocols.png"), show=show),
     }
     return results
 

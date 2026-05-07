@@ -8,6 +8,8 @@ from .gm import (
     skr,
     skr_components,
 )
+from .psk import compute_SKR_MPSK, compute_ZM_PSK, skr_psk
+from .qam import compute_SKR_MQAM, compute_Zstar_QAM, skr_qam
 
 __all__ = [
     "channel_excess_noise",
@@ -16,4 +18,10 @@ __all__ = [
     "skr",
     "skr_components",
     "optimize_modulation_variance",
+    "compute_ZM_PSK",
+    "compute_SKR_MPSK",
+    "compute_Zstar_QAM",
+    "compute_SKR_MQAM",
+    "skr_psk",
+    "skr_qam",
 ]
