@@ -5,6 +5,77 @@ from .gm import _G, _IAB_hom, _chi_l, _chi_t_hom, _symp12
 from ..config import CHI_HOM
 
 
+def compute_ZM_PSK(VA, M):
+    """Correlation coefficient Z_M for M-PSK (supports M=2,4,8)."""
+    if M not in (2, 4, 8):
+        raise ValueError(f"M-PSK supports only M=2,4,8. M={M}")
+    if VA < 0:
+        raise ValueError("VA must be non-negative.")
+    if VA <= np.finfo(float).eps:
+        return 0.0
+
+    alpha2 = float(VA) / 2.0
+    tiny = np.finfo(float).tiny
+
+    if M == 2:
+        z0 = np.exp(-alpha2) * np.cosh(alpha2)
+        z1 = np.exp(-alpha2) * np.sinh(alpha2)
+        z0 = max(float(z0), tiny)
+        z1 = max(float(z1), tiny)
+        zm = alpha2 * (z0 ** 1.5 * z1 ** (-0.5) + z1 ** 1.5 * z0 ** (-0.5))
+    elif M == 4:
+        ea = np.exp(-alpha2)
+        z = np.array(
+            [
+                0.5 * ea * (np.cosh(alpha2) + np.cos(alpha2)),
+                0.5 * ea * (np.sinh(alpha2) + np.sin(alpha2)),
+                0.5 * ea * (np.cosh(alpha2) - np.cos(alpha2)),
+                0.5 * ea * (np.sinh(alpha2) - np.sin(alpha2)),
+            ],
+            dtype=float,
+        )
+        z = np.maximum(z, tiny)
+        zm = 2.0 * alpha2 * float(np.sum(np.roll(z, 1) ** 1.5 * z ** (-0.5)))
+    else:
+        a2 = alpha2
+        a2s = alpha2 / np.sqrt(2.0)
+        ea = np.exp(-a2)
+        z = np.empty(8, dtype=float)
+        z[0] = 0.25 * ea * (np.cosh(a2) + np.cos(a2) + 2.0 * np.cos(a2s) * np.cosh(a2s))
+        z[4] = 0.25 * ea * (np.cosh(a2) + np.cos(a2) - 2.0 * np.cos(a2s) * np.cosh(a2s))
+        z[1] = 0.25 * ea * (
+            np.sinh(a2)
+            + np.sin(a2)
+            + np.sqrt(2.0) * np.cos(a2s) * np.sinh(a2s)
+            + np.sqrt(2.0) * np.sin(a2s) * np.cosh(a2s)
+        )
+        z[5] = 0.25 * ea * (
+            np.sinh(a2)
+            + np.sin(a2)
+            - np.sqrt(2.0) * np.cos(a2s) * np.sinh(a2s)
+            - np.sqrt(2.0) * np.sin(a2s) * np.cosh(a2s)
+        )
+        z[2] = 0.25 * ea * (np.cosh(a2) - np.cos(a2) + 2.0 * np.sin(a2s) * np.sinh(a2s))
+        z[6] = 0.25 * ea * (np.cosh(a2) - np.cos(a2) - 2.0 * np.sin(a2s) * np.sinh(a2s))
+        z[3] = 0.25 * ea * (
+            np.sinh(a2)
+            - np.sin(a2)
+            - np.sqrt(2.0) * np.cos(a2s) * np.sinh(a2s)
+            + np.sqrt(2.0) * np.sin(a2s) * np.cosh(a2s)
+        )
+        z[7] = 0.25 * ea * (
+            np.sinh(a2)
+            - np.sin(a2)
+            + np.sqrt(2.0) * np.cos(a2s) * np.sinh(a2s)
+            - np.sqrt(2.0) * np.sin(a2s) * np.cosh(a2s)
+        )
+        z = np.maximum(z, 1e-300)
+        zm = 2.0 * alpha2 * float(np.sum(np.roll(z, 1) ** 1.5 * z ** (-0.5)))
+
+    _log_calc("ZM_psk", protocol="PSK", M=M, VA=VA, alpha2=alpha2, ZM=zm)
+    return float(zm)
+
+
 def _psk_zeta_components(M, a2):
     idx = np.arange(M, dtype=float)
     phi = 2.0 * np.pi * idx / M
@@ -18,36 +89,65 @@ def _psk_zeta_components(M, a2):
 
 
 def _ZM_psk(M, VA):
-    if M not in (2, 4, 8):
-        raise ValueError("Only M=2,4,8 are supported.")
-    if VA < 0:
-        raise ValueError("VA must be non-negative.")
-    if VA <= np.finfo(float).eps:
+    return compute_ZM_PSK(VA=VA, M=M)
+
+
+def compute_SKR_MPSK(T_eff, VA, M, beta, eta_det, eps_ch, vel):
+    """SKR for M-PSK DM-CVQKD (homodyne) with UAV-HAP T_eff."""
+    Ts = max(float(T_eff), 1e-300)
+    chi_hom = (1.0 - float(eta_det)) / max(float(eta_det), 1e-300) + float(vel) / max(float(eta_det), 1e-300)
+    chi_line = 1.0 / Ts - 1.0 + float(eps_ch)
+    chi_tot = chi_line + chi_hom / Ts
+    V = float(VA) + 1.0
+    i_ab = 0.5 * np.log2((V + chi_tot) / max(1.0 + chi_tot, 1e-300))
+
+    zm = compute_ZM_PSK(VA=VA, M=M)
+    A = V**2 + Ts**2 * (V + chi_line) ** 2 - 2.0 * Ts * zm**2
+    B = (Ts * V**2 + Ts * V * chi_line - Ts * zm**2) ** 2
+
+    disc = A**2 - 4.0 * B
+    if disc < 0.0:
         return 0.0
+    sqrt_disc = np.sqrt(disc)
+    l1 = np.sqrt(max(0.5 * (A + sqrt_disc), 0.0))
+    l2 = np.sqrt(max(0.5 * (A - sqrt_disc), 0.0))
 
-    a2 = VA / 2.0
-    z, imag_max = _psk_zeta_components(M, a2)
-    if imag_max > 1e-10:
-        raise ValueError(f"Unexpected complex zeta components for M={M}: imag_max={imag_max:.3e}")
+    sqrt_b = np.sqrt(max(B, 0.0))
+    denom = Ts * max(V + chi_tot, 1e-300)
+    C_hom = (A * chi_hom + V * sqrt_b + Ts * (V + chi_line)) / denom
+    D_hom = sqrt_b * (V + sqrt_b * chi_hom) / denom
+    disc3 = C_hom**2 - 4.0 * D_hom
+    if disc3 < 0.0:
+        return 0.0
+    sqrt_disc3 = np.sqrt(disc3)
+    l3 = np.sqrt(max(0.5 * (C_hom + sqrt_disc3), 0.0))
+    l4 = np.sqrt(max(0.5 * (C_hom - sqrt_disc3), 0.0))
 
-    z_prev = np.roll(z, 1)
-    terms = np.exp(1.5 * np.log(z_prev) - 0.5 * np.log(z))
-    prefactor = a2 if M == 2 else 2.0 * a2
-    zm = float(prefactor * np.sum(terms))
+    def g(x):
+        if x <= 1.0 + 1e-10:
+            return 0.0
+        a_ = (x + 1.0) / 2.0
+        b_ = (x - 1.0) / 2.0
+        return a_ * np.log2(a_) - b_ * np.log2(b_)
+
+    chi_be = g(l1) + g(l2) - g(l3) - g(l4)
+    skr = float(beta) * i_ab - chi_be
     _log_calc(
-        "ZM_psk",
+        "skr_mpsk_hom",
         protocol="PSK",
         M=M,
         VA=VA,
-        a2=a2,
-        prefactor=prefactor,
-        zeta_min=np.min(z),
-        zeta_max=np.max(z),
-        zeta_imag_max=imag_max,
-        terms_sum=np.sum(terms),
+        T_eff=Ts,
+        beta=beta,
+        eta_det=eta_det,
+        eps_ch=eps_ch,
+        vel=vel,
         ZM=zm,
+        I_AB=i_ab,
+        chi_BE=chi_be,
+        SKR=skr,
     )
-    return zm
+    return max(float(skr), 0.0)
 
 
 def _holevo_psk_hom(VA, T, e, M):

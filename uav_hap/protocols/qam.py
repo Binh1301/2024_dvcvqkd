@@ -204,3 +204,96 @@ def skr_qam(VA, T, eps, M, beta, prob_model="binomial", v=QAM_V_DISC_GAUSS):
         SKR=skr,
     )
     return skr
+
+
+def compute_Zstar_QAM(VA, M, T_eff, eps_ch):
+    """
+    Approximate Z* for M-QAM using Eq. (20)-style lower bound with binomial p_{k,l}.
+    """
+    m = int(round(np.sqrt(M)))
+    if m * m != int(M):
+        raise ValueError(f"M must be a perfect square for M-QAM. M={M}")
+
+    Ts = max(float(T_eff), 1e-300)
+    alpha_scale = np.sqrt(float(VA) / 2.0) / np.sqrt(m - 1) if m > 1 else np.sqrt(float(VA) / 2.0)
+    norm = float(4 ** (m - 1))
+
+    mean_alpha2 = 0.0
+    for k in range(m):
+        for l in range(m):
+            p = float(sp_comb(m - 1, k, exact=True) * sp_comb(m - 1, l, exact=True)) / norm
+            re = alpha_scale * (k - (m - 1) / 2.0)
+            im = alpha_scale * (l - (m - 1) / 2.0)
+            mean_alpha2 += p * (re * re + im * im)
+
+    eps_total = max(float(eps_ch), 0.0)
+    z_star = 2.0 * np.sqrt(Ts) * mean_alpha2 - np.sqrt(2.0 * Ts * eps_total) * np.sqrt(max(mean_alpha2, 0.0))
+    z_star = max(float(z_star), 0.0)
+    _log_calc(
+        "Zstar_qam_approx",
+        protocol="QAM",
+        M=M,
+        VA=VA,
+        T_eff=Ts,
+        eps_ch=eps_ch,
+        mean_alpha2=mean_alpha2,
+        Z_star=z_star,
+    )
+    return z_star
+
+
+def compute_SKR_MQAM(T_eff, VA, M, beta, eta_det, eps_ch, vel):
+    """SKR for M-QAM DM-CVQKD (homodyne-style equations per Sayat et al. 2024)."""
+    Ts = max(float(T_eff), 1e-300)
+    chi_hom = (1.0 - float(eta_det)) / max(float(eta_det), 1e-300) + float(vel) / max(float(eta_det), 1e-300)
+    chi_line = 1.0 / Ts - 1.0 + float(eps_ch)
+    chi_tot = chi_line + chi_hom / Ts
+    V = float(VA) + 1.0
+
+    i_ab = 0.5 * np.log2(1.0 + Ts * float(VA) / (2.0 + Ts * float(eps_ch)))
+    z_star = compute_Zstar_QAM(VA=VA, M=M, T_eff=Ts, eps_ch=eps_ch)
+
+    b22 = 1.0 + Ts * float(VA) + Ts * float(eps_ch)
+    A_qam = V**2 + b22**2 - 2.0 * z_star**2
+    B_qam = (V * b22 - z_star**2) ** 2
+    disc = A_qam**2 - 4.0 * B_qam
+    if disc < 0.0:
+        return 0.0
+
+    sqrt_disc = np.sqrt(disc)
+    l1 = np.sqrt(max(0.5 * (A_qam + sqrt_disc), 0.0))
+    l2 = np.sqrt(max(0.5 * (A_qam - sqrt_disc), 0.0))
+
+    inner = V * (V - z_star**2 / max(b22, 1e-300))
+    if inner < 0.0:
+        return 0.0
+    l3 = np.sqrt(inner)
+
+    def g(x):
+        if x <= 1.0 + 1e-10:
+            return 0.0
+        a_ = (x + 1.0) / 2.0
+        b_ = (x - 1.0) / 2.0
+        return a_ * np.log2(a_) - b_ * np.log2(b_)
+
+    chi_be = g(l1) + g(l2) - g(l3)
+    skr = float(beta) * i_ab - chi_be
+    _log_calc(
+        "skr_mqam_hom",
+        protocol="QAM",
+        M=M,
+        VA=VA,
+        T_eff=Ts,
+        beta=beta,
+        eta_det=eta_det,
+        eps_ch=eps_ch,
+        vel=vel,
+        chi_hom=chi_hom,
+        chi_line=chi_line,
+        chi_tot=chi_tot,
+        Z_star=z_star,
+        I_AB=i_ab,
+        chi_BE=chi_be,
+        SKR=skr,
+    )
+    return max(float(skr), 0.0)

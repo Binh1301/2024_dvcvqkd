@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from ..channel.channel_model import total_transmittance
-from ..config import EPS_CH, H_OGS_ISS, VA_GM
+from ..config import EPS_CH, H_OGS_ISS, FiniteSizeParams, NoiseParams, SecurityParams, VA_GM
 from ..models.iss_model import elevation_model
-from ..reconciliation.finite_size import finite_size_skr
+from ..protocols.gm import noise, skr_components
 
 
 def _nan(v, floor=1e-12):
@@ -13,12 +13,26 @@ def _nan(v, floor=1e-12):
     return v if v > floor else np.nan
 
 
+def _finite_size_skr_from_t(T, VA, eps, beta):
+    t_arr = np.array([max(float(T), 1e-15)], dtype=float)
+    n_terms = noise(t_arr, NoiseParams(xi_ch=float(eps), detection="hom"))
+    sec = SecurityParams(VA=float(VA), beta=float(beta))
+    comps = skr_components(t_arr, n_terms, sec, detection="hom", eta_d=n_terms["eta_d"])
+    fs = FiniteSizeParams()
+    n_block = int(round(float(fs.n_ratio) * float(fs.N_block)))
+    epsilon = float(fs.epsilon_PE + fs.epsilon_EC + fs.epsilon_PA)
+    delta = 7.0 * np.log2(2.0 / epsilon) / np.sqrt(float(n_block))
+    k = (float(n_block) / float(fs.N_block)) * (float(sec.beta) * float(comps["I_AB"][0]) - float(comps["chi_BE"][0]) - delta)
+    return max(float(k), 0.0)
+
+
 def plot_fig8():
     """SKR vs elevation for ISS pass – GM-CVQKD, MD vs MLC-MSD."""
     print("▶ Figure 8 (SKR vs elevation angle, ISS pass)...")
     H_iss = 417_500.0
     Dr, V, Cn2, eps = 2.0, 200, 1e-16, EPS_CH
     COLORS = {"MD": "blue", "MLC-MSD": "red"}
+    MODE_BETA = {"MD": 0.95, "MLC-MSD": 0.90}
     theta_arr = np.arange(30, 91, 1)
     total_key = {}
     t_pass, theta_pass = elevation_model()
@@ -40,7 +54,7 @@ def plot_fig8():
             if not ok:
                 vals.append(np.nan)
                 continue
-            s = finite_size_skr(VA_GM, T, eps, mode)
+            s = _finite_size_skr_from_t(T, VA_GM, eps, MODE_BETA[mode])
             vals.append(_nan(s))
         vals_arr = np.asarray(vals, dtype=float)
         ax.semilogy(theta_arr, vals_arr, color=COLORS[mode], lw=2, label=mode)

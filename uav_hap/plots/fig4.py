@@ -6,13 +6,19 @@ from ..config import ELEVS, EPS_CH, LS, VA_GM, VA_PSK, VA_QAM
 from ..protocols.gm import skr_gm
 from ..protocols.psk import skr_psk
 from ..protocols.qam import _optimize_disc_gaussian_v, skr_qam
-from ..reconciliation.finite_size import plob_upper_bound
 
 
 def _nan(v, floor=1e-12):
     if not np.isfinite(v):
         return np.nan
     return v if v > floor else np.nan
+
+
+def _plob_upper_bound(T):
+    t = float(T)
+    if t <= 0.0 or t >= 1.0:
+        return 0.0
+    return -np.log2(1.0 - t)
 
 
 def plot_fig4():
@@ -65,7 +71,7 @@ def plot_fig4():
         ax.set_title(title)
         am = akm * 1e3
         # PLOB upper bound at θ=90
-        ub = [plob_upper_bound(total_transmittance(90, H, Dr, V, Cn2)[0]) for H in am]
+        ub = [_plob_upper_bound(total_transmittance(90, H, Dr, V, Cn2)[0]) for H in am]
         ax.semilogy(akm, ub, "k-", lw=2.5, label="Upper Bound")
 
         for lbl, col, ptype, kw in protos:
