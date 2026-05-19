@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # --- STEP 1: ĐỊNH NGHĨA CÁC THAM SỐ HỆ THỐNG ---
-Ncut = 50               # Fock basis cutoff
+Ncut = 25               # Fock basis cutoff
 alpha0 = 2 * np.sqrt(2) # Biên độ gốc chòm sao QAM
 
 # Khởi tạo ma trận mật độ trống (complex128)
@@ -60,9 +60,9 @@ else:
 
 # --- STEP 4: XUẤT DỮ LIỆU VÀ ĐỒ THỊ CHUẨN NGHIÊN CỨU ---
 # 1. Xuất ma trận phần thực ra file CSV phục vụ hậu xử lý (Entropy, Holevo Bound...)
-csv_filename = "rho_real_50x50.csv"
+csv_filename = "rho_real_25x25.csv"
 np.savetxt(csv_filename, np.real(rho), delimiter=",")
-print(f"✓ Đã xuất ma trận số liệu thực 50x50 ra file: '{csv_filename}'")
+print(f"✓ Đã xuất ma trận số liệu thực 25x25 ra file: '{csv_filename}'")
 
 # 2. Vẽ đồ thị Heatmap dạng sạch (annot=False)
 print("Đang tạo đồ thị trực quan (Heatmap)...")
