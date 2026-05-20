@@ -6,11 +6,9 @@ Người dùng điền các tham số: VA, T, eps, M, beta, chi_tot, c_value (Z*
 import math
 
 
-def g(x):
-    """g(x) = (x+1)·log₂(x+1) - x·log₂(x); g(x)=0 nếu x≤1"""
-    if x <= 1.0 + 1e-10:
-        return 0.0
-    return ((x + 1) / 2) * math.log2((x + 1) / 2) - (x / 2) * math.log2(x / 2)
+def g(lam):
+    if lam <= 1.0: return 0.0
+    return (lam+1)/2*math.log2((lam+1)/2) - (lam-1)/2*math.log2((lam-1)/2)
 
 
 def compute_QAM_SKR(VA, T, eps, M, beta, chi_tot, c):
@@ -59,7 +57,7 @@ def compute_QAM_SKR(VA, T, eps, M, beta, chi_tot, c):
         lambda2 = math.sqrt(max(0.5*(Delta - sqrt_disc), 0.0))
     
     # λ₃ = (V_A+1) - c²/(2+T·V_A+T·ε)
-    lambda3 = max(a - c_val**2 / (2.0 + T*VA + T*eps), 1e-15)
+    lambda3 = max(VA + 1.0 - c_val**2 / (2.0 + T*VA + T*eps), 1e-15)
     
     # Holevo bound
     chi_BE = g(lambda1) + g(lambda2) - g(lambda3)
@@ -148,12 +146,12 @@ if __name__ == "__main__":
     
     # Test case 3: M=256
     VA = 2.0
-    T = 0.1
-    eps = 0.01
+    T = 0.25
+    eps = 0.1
     M = 256
     beta = 0.95
-    chi_tot = 11.7002
-    c = 1.547844
+    chi_tot = 0.1
+    c = 1.5445129885
     
     result = compute_QAM_SKR(VA, T, eps, M, beta, chi_tot, c)
     print_result(result, VA, T, eps, M, beta, chi_tot, c)
