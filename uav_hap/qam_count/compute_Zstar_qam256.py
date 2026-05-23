@@ -82,12 +82,14 @@ def build_fock_matrix(alpha_list, Ncut):
     log_fac = np.zeros(Ncut)
     for i in range(1, Ncut):
         log_fac[i] = log_fac[i-1] + np.log(i)
-
     F = np.zeros((N, Ncut), dtype=complex)
     for n_idx, al in enumerate(alpha_list):
-        prefactor = np.exp(-0.5 * abs(al)**2)
+        # compute in log-space to avoid overflow of al**i for large |al| and large i
+        log_al = np.log(al) if al != 0 else -np.inf
         for i in range(Ncut):
-            F[n_idx, i] = prefactor * (al**i) / np.exp(0.5*log_fac[i])
+            # log amplitude: -|al|^2/2 + i*log(al) - 0.5*log(i!)
+            log_amp = -0.5 * (abs(al)**2) + (i * log_al) - 0.5 * log_fac[i]
+            F[n_idx, i] = np.exp(log_amp)
     return F                                # shape (256, Ncut)
 
 # ─────────────────────────────────────────────────────────────
@@ -125,6 +127,14 @@ def build_a_operator(Ncut):
         a_op[j-1, j] = sqrt(j)
     return a_op
 
+
+def build_X_operator(Ncut):
+    """Quadrature X operator in Fock basis: X = (a + a^dagger)/sqrt(2)"""
+    a_op = build_a_operator(Ncut)
+    adag = a_op.conj().T
+    X = (a_op + adag) / sqrt(2.0)
+    return X
+
 # ─────────────────────────────────────────────────────────────
 # STEP 7: Tr(τ^½ â τ^½ â†)
 # ─────────────────────────────────────────────────────────────
@@ -132,6 +142,42 @@ def compute_Tr_C(tau_sqrt, a_op):
     adag = a_op.conj().T
     C    = tau_sqrt @ a_op @ tau_sqrt @ adag
     return np.real(np.trace(C))
+
+
+def compute_Tr_C_quadrature(tau_sqrt, a_op):
+    """Compute Tr( tau^(1/2) X tau^(1/2) X ) where X=(a+a^dagger)/sqrt(2)."""
+    X = (a_op + a_op.conj().T) / sqrt(2.0)
+    Cx = tau_sqrt @ X @ tau_sqrt @ X
+    return np.real(np.trace(Cx))
+
+
+def build_P_operator(Ncut):
+    """Quadrature P operator in Fock basis: P = (a - a^dagger)/(i*sqrt(2))"""
+    a_op = build_a_operator(Ncut)
+    adag = a_op.conj().T
+    P = (a_op - adag) / (1j * sqrt(2.0))
+    return P
+
+
+def compute_quadrature_stats(tau, tau_sqrt, a_op):
+    """Return means and variances of X and P for diagnostics.
+
+    Returns: mean_X, var_X, mean_P, var_P
+    """
+    X = (a_op + a_op.conj().T) / sqrt(2.0)
+    P = (a_op - a_op.conj().T) / (1j * sqrt(2.0))
+
+    mean_X = np.real(np.trace(tau @ X))
+    mean_P = np.real(np.trace(tau @ P))
+
+    # second moments
+    m2_X = np.real(np.trace(tau @ (X @ X)))
+    m2_P = np.real(np.trace(tau @ (P @ P)))
+
+    var_X = m2_X - mean_X**2
+    var_P = m2_P - mean_P**2
+
+    return mean_X, var_X, mean_P, var_P
 
 # ─────────────────────────────────────────────────────────────
 # STEP 8: a_τ = τ^½ · â · τ^(-½)
@@ -168,6 +214,11 @@ def compute_w(tau_sqrt, tau_invsqrt, a_op, F, p):
 # ─────────────────────────────────────────────────────────────
 def compute_Zstar(Tr_C, w, T, eps):
     return 2*sqrt(T)*Tr_C - sqrt(2*T*eps*w)
+
+
+def compute_Zstar_quadrature(Tr_Cx, w, T, eps):
+    """Alternative Z* computed using quadrature correlations Cx."""
+    return 2*sqrt(T)*Tr_Cx - sqrt(2*T*eps*w)
 
 
 # ─────────────────────────────────────────────────────────────

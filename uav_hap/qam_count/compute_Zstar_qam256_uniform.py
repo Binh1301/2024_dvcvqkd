@@ -15,9 +15,9 @@ import compute_Zstar_qam256 as base
 # ------------------------------------------------------------
 # PARAMETERS
 # ------------------------------------------------------------
-Ncut = 25
+Ncut = 150
 alpha0 = sqrt(24/17)
-T = 0.3
+T = 0.2
 eps = 0.01
 beta = 0.95
 eta = 0.6
@@ -72,6 +72,10 @@ if __name__ == "__main__":
     Tr_C = base.compute_Tr_C(tau_sqrt, a_op)
     print(f"         Tr_C = {Tr_C:.15f}")
 
+    # Quadrature-based Tr(C) and Z*
+    Tr_Cx = base.compute_Tr_C_quadrature(tau_sqrt, a_op)
+    print(f"         Tr_C (quadrature X) = {Tr_Cx:.15f}")
+
     # Step 8
     print("\nStep 8: Computing w...")
     w, sum_t1, sum_t2 = base.compute_w(tau_sqrt, tau_invsqrt, a_op, F, p)
@@ -86,12 +90,26 @@ if __name__ == "__main__":
     print(f"         sqrt(2*T*eps)*w = {sqrt(2 * T * eps) * w:.15f}")
     print(f"         Z* = {Zstar:.15f}")
 
+    # compute quadrature Z*
+    Zstar_x = base.compute_Zstar_quadrature(Tr_Cx, w, T, eps)
+    print(f"         Z* (quadrature) = {Zstar_x:.15f}")
+
     # Physical check
     a_cv = VA + 1
     b_cv = 1 + T * VA + T * eps
     Zmax = sqrt(a_cv * b_cv)
     print(f"\n         Z*_max = sqrt[(VA+1)(1+T*VA+T*eps)] = {Zmax:.10f}")
     print(f"         Z* < Z*_max? {Zstar:.6f} < {Zmax:.6f} -> {Zstar < Zmax}")
+    # Quadrature stats for diagnostics
+    mean_X, var_X, mean_P, var_P = base.compute_quadrature_stats(tau, tau_sqrt, a_op)
+    print(f"\n         <X> = {mean_X:.10f}, Var(X) = {var_X:.10f}")
+    print(f"         <P> = {mean_P:.10f}, Var(P) = {var_P:.10f}")
+
+    # If Z* is unphysical, apply safe clip fallback before eigen computation
+    Zstar_used = Zstar
+    if Zstar >= Zmax or (a_cv * b_cv - Zstar**2) <= 0:
+        Zstar_used = min(Zstar, Zmax * (1.0 - 1e-9))
+        print(f"\n         ⚠ Z* is unphysical (Z* > Z*_max). Applying safe clip: Z*_used = {Zstar_used:.12f}")
 
     # SKR part
     print("\n" + "=" * 60)
@@ -104,7 +122,8 @@ if __name__ == "__main__":
     print(f"         chi_tot  = {chi_tot:.10f}")
 
     print("\nStep 11: Symplectic eigenvalues")
-    l1, l2, l3, Delta, B, disc = base.compute_eigenvalues(VA, Zstar, T, eps)
+    # use clipped Z* if necessary
+    l1, l2, l3, Delta, B, disc = base.compute_eigenvalues(VA, Zstar_used, T, eps)
     print(f"         lambda1 = {l1:.15f}")
     print(f"         lambda2 = {l2:.15f}")
     print(f"         lambda3 = {l3:.15f}")
@@ -114,7 +133,7 @@ if __name__ == "__main__":
     print(f"         chi_BE = {chi_BE_val:.15f}")
 
     print("\nStep 13: Mutual information I_AB")
-    IAB_val = base.compute_IAB(VA, T, chi_tot)
+    IAB_val = base.compute_IAB(VA, T, eps)
     print(f"         I_AB = {IAB_val:.15f}")
 
     print("\nStep 14: Secret Key Rate")

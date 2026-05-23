@@ -1,192 +1,240 @@
 """
-So sánh SKR theo T, excess noise (ε), và reconciliation efficiency (β)
-cho QAM-256 Binomial vs Uniform.
+Compare SKR sensitivity for QAM-256 binomial vs uniform ensembles.
 
-Yêu cầu: compute_Zstar_qam256.py phải nằm cùng thư mục.
-Output:  outputs/skr_compare_T_eps_beta.png
+This script visualizes how the secret key rate changes with:
+  - transmittance T,
+  - excess noise eps,
+  - reconciliation efficiency beta,
+
+for the two existing QAM-256 codes:
+  - compute_Zstar_qam256.py (binomial prior)
+  - compute_Zstar_qam256_uniform.py (uniform prior)
+
+The script saves a comparison figure in outputs/.
 """
 
 from __future__ import annotations
 
 import math
+from dataclasses import dataclass
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
 import numpy as np
 from math import comb, sqrt
 from scipy.linalg import eigh
 
 import compute_Zstar_qam256 as base
 
-# ─────────────────────────────────────────────────────────────
-# PARAMETERS
-# ─────────────────────────────────────────────────────────────
+
 Ncut = 25
-ETA  = 0.6
+ETA = 0.6
 V_EL = 0.01
 
 ALPHA0_BINOMIAL = 2 * sqrt(2)
-ALPHA0_UNIFORM  = sqrt(24 / 17)
+ALPHA0_UNIFORM = sqrt(24 / 17)
 
-# Baseline values (dùng khi không sweep tham số đó)
-T_BASE    = 0.30
-EPS_BASE  = 0.01
+T_BASE = 0.3
+EPS_BASE = 0.01
 BETA_BASE = 0.95
 
-# Sweep grids
-T_GRID    = np.linspace(0.02, 0.95, 80)
-EPS_GRID  = np.linspace(0.00, 0.08, 80)
-BETA_GRID = np.linspace(0.50, 1.00, 80)
+T_GRID = np.linspace(0.02, 0.95, 60)
+EPS_GRID = np.linspace(0.0, 0.08, 60)
+BETA_GRID = np.linspace(0.5, 1.0, 60)
 
-# ─────────────────────────────────────────────────────────────
-# BUILD MODEL STATE  (VA, Tr_C, w)
-# ─────────────────────────────────────────────────────────────
+
+@dataclass
+class ModelResult:
+    name: str
+    alpha0: float
+    va: float
+    tr_tau: float
+    c_value: float
+    w_value: float
+    chi_tot: float
+    chi_be: float
+    iab: float
+    skr_raw: float
+    skr: float
+
 
 def build_probs_uniform() -> np.ndarray:
     return np.full(256, 1.0 / 256.0, dtype=float)
 
 
-def build_state(alpha0: float, p: np.ndarray) -> dict:
-    """Trả về dict gồm VA, Tr_C, w cho một model."""
-    alpha_list = base.build_constellation(alpha0)
-    F          = base.build_fock_matrix(alpha_list, Ncut)
-    tau        = base.build_tau(F, p)
-
-    # τ^½ và τ^(-½)
-    eigvals, V   = eigh(tau)
-    eigvals      = np.maximum(eigvals, 0.0)
-    sqrt_ev      = np.sqrt(eigvals)
-    inv_sqrt_ev  = np.where(eigvals > 1e-12, 1.0 / sqrt_ev, 0.0)
-    tau_sqrt     = (V * sqrt_ev[None, :])     @ V.conj().T
-    tau_invsqrt  = (V * inv_sqrt_ev[None, :]) @ V.conj().T
-    # symmetrize
-    tau_sqrt    = 0.5 * (tau_sqrt    + tau_sqrt.conj().T)
+def compute_tau_sqrt_invsqrt(tau: np.ndarray, tol: float = 1e-12):
+    eigvals, V = eigh(tau)
+    eigvals = np.maximum(eigvals, 0.0)
+    sqrt_eigvals = np.sqrt(eigvals)
+    inv_sqrt_eigvals = np.zeros_like(sqrt_eigvals)
+    positive = eigvals > tol
+    inv_sqrt_eigvals[positive] = 1.0 / sqrt_eigvals[positive]
+    tau_sqrt = (V * sqrt_eigvals[None, :]) @ V.conj().T
+    tau_invsqrt = (V * inv_sqrt_eigvals[None, :]) @ V.conj().T
+    tau_sqrt = 0.5 * (tau_sqrt + tau_sqrt.conj().T)
     tau_invsqrt = 0.5 * (tau_invsqrt + tau_invsqrt.conj().T)
+    return tau_sqrt, tau_invsqrt, eigvals
 
+
+def compute_w(tau_sqrt, tau_invsqrt, a_op, F, p):
+    a_tau = tau_sqrt @ a_op @ tau_invsqrt
+    m_t1 = a_tau.conj().T @ a_tau
+
+    w = 0.0
+    for idx in range(len(p)):
+        v = F[idx]
+        term1 = np.real(v.conj() @ m_t1 @ v)
+        inner = v.conj() @ a_tau @ v
+        term2 = np.abs(inner) ** 2
+        w += p[idx] * (term1 - term2)
+
+    return float(w)
+
+
+def build_state(alpha0: float, p: np.ndarray):
+    alpha_list = base.build_constellation(alpha0)
+    F = base.build_fock_matrix(alpha_list, Ncut)
+    tau = base.build_tau(F, p)
+    tau_sqrt, tau_invsqrt, eigvals = compute_tau_sqrt_invsqrt(tau)
     a_op = base.build_a_operator(Ncut)
 
-    VA    = float(np.real(np.trace(tau @ a_op.conj().T @ a_op)))
-    Tr_C  = base.compute_Tr_C(tau_sqrt, a_op)
-    w, _, _ = base.compute_w(tau_sqrt, tau_invsqrt, a_op, F, p)
+    va = float(np.real(np.trace(tau @ a_op.conj().T @ a_op)))
+    tr_tau = float(np.real(np.trace(tau)))
+    c_value = base.compute_Tr_C(tau_sqrt, a_op)
+    w_value = compute_w(tau_sqrt, tau_invsqrt, a_op, F, p)
 
-    return {"VA": VA, "Tr_C": Tr_C, "w": w}
-
-
-# ─────────────────────────────────────────────────────────────
-# SKR tại một điểm (T, eps, beta)
-# ─────────────────────────────────────────────────────────────
-
-def skr_point(state: dict, T: float, eps: float, beta: float) -> float:
-    VA, Tr_C, w = state["VA"], state["Tr_C"], state["w"]
-    chi_tot, _, _ = base.compute_chi_tot(T, eps, ETA, V_EL)
-    Zstar         = base.compute_Zstar(Tr_C, w, T, eps)
-    l1, l2, l3, *_ = base.compute_eigenvalues(VA, Zstar, T, eps)
-    chi_be        = base.compute_chi_BE(l1, l2, l3)
-    iab           = base.compute_IAB(VA, T, chi_tot)
-    return max(beta * iab - chi_be, 0.0)
+    return {
+        "va": va,
+        "tr_tau": tr_tau,
+        "c_value": c_value,
+        "w_value": w_value,
+        "eigvals": eigvals,
+    }
 
 
-# ─────────────────────────────────────────────────────────────
-# SWEEP curves
-# ─────────────────────────────────────────────────────────────
-
-def sweep_T(state, eps=EPS_BASE, beta=BETA_BASE):
-    return T_GRID, np.array([skr_point(state, float(t), eps, beta) for t in T_GRID])
-
-def sweep_eps(state, T=T_BASE, beta=BETA_BASE):
-    return EPS_GRID, np.array([skr_point(state, T, float(e), beta) for e in EPS_GRID])
-
-def sweep_beta(state, T=T_BASE, eps=EPS_BASE):
-    return BETA_GRID, np.array([skr_point(state, T, eps, float(b)) for b in BETA_GRID])
+def compute_skr_curve(va: float, c_value: float, w_value: float, t: float, eps: float, beta: float):
+    chi_tot, _, _ = base.compute_chi_tot(t, eps, ETA, V_EL)
+    zstar = base.compute_Zstar(c_value, w_value, t, eps)
+    l1, l2, l3, _, _, _ = base.compute_eigenvalues(va, zstar, t, eps)
+    chi_be = base.compute_chi_BE(l1, l2, l3)
+    iab = base.compute_IAB(va, t, chi_tot)
+    skr_raw = base.compute_SKR(beta, iab, chi_be)
+    skr = max(skr_raw, 0.0)
+    return skr, skr_raw, chi_be, iab, chi_tot
 
 
-# ─────────────────────────────────────────────────────────────
-# PLOT
-# ─────────────────────────────────────────────────────────────
-
-COLORS = {"Binomial": "#1f77b4", "Uniform": "#d62728"}
-LWIDTH = 2.2
-
-
-def style_ax(ax, xlabel: str, vline: float):
-    ax.set_xlabel(xlabel, fontsize=12)
-    ax.set_ylabel("SKR (bits/use)", fontsize=12)
-    ax.axvline(vline, color="gray", ls="--", lw=1.0, alpha=0.7, label="_baseline")
-    ax.axhline(0,     color="black", ls="-",  lw=0.6, alpha=0.3)
-    ax.grid(alpha=0.25, linewidth=0.6)
-    ax.yaxis.set_minor_locator(ticker.AutoMinorLocator())
-    ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
-    ax.tick_params(which="both", direction="in", top=True, right=True)
-    ax.legend(frameon=True, framealpha=0.9, fontsize=10)
-
-
-def main():
-    print("=" * 70)
-    print("  SKR comparison: QAM-256 Binomial vs Uniform")
-    print("=" * 70)
-
-    # ── Build states ──────────────────────────────────────────
-    print("\n[1/2] Computing model states...")
-    p_binom   = base.build_probs_binomial()
-    p_uniform = build_probs_uniform()
-
-    state_binom   = build_state(ALPHA0_BINOMIAL, p_binom)
-    state_uniform = build_state(ALPHA0_UNIFORM,  p_uniform)
-
-    for name, st in [("Binomial", state_binom), ("Uniform", state_uniform)]:
-        print(f"  {name:9s}  VA={st['VA']:.6f}  Tr_C={st['Tr_C']:.6f}  w={st['w']:.6f}")
-
-    # Baseline SKR
-    skr_b = skr_point(state_binom,   T_BASE, EPS_BASE, BETA_BASE)
-    skr_u = skr_point(state_uniform, T_BASE, EPS_BASE, BETA_BASE)
-    print(f"\n  Baseline (T={T_BASE}, ε={EPS_BASE}, β={BETA_BASE}):")
-    print(f"    Binomial SKR = {skr_b:.8f} bits/use")
-    print(f"    Uniform  SKR = {skr_u:.8f} bits/use")
-
-    # ── Sweep ─────────────────────────────────────────────────
-    print("\n[2/2] Sweeping parameters and plotting...")
-
-    fig, axes = plt.subplots(1, 3, figsize=(17, 5), constrained_layout=True)
-    fig.suptitle(
-        f"SKR sensitivity: QAM-256 Binomial vs Uniform\n"
-        f"η={ETA}, v_el={V_EL}",
-        fontsize=13, fontweight="bold"
+def evaluate_model(name: str, alpha0: float, p: np.ndarray) -> ModelResult:
+    state = build_state(alpha0, p)
+    skr, skr_raw, chi_be, iab, chi_tot = compute_skr_curve(
+        state["va"], state["c_value"], state["w_value"], T_BASE, EPS_BASE, BETA_BASE
+    )
+    return ModelResult(
+        name=name,
+        alpha0=alpha0,
+        va=state["va"],
+        tr_tau=state["tr_tau"],
+        c_value=state["c_value"],
+        w_value=state["w_value"],
+        chi_tot=chi_tot,
+        chi_be=chi_be,
+        iab=iab,
+        skr_raw=skr_raw,
+        skr=skr,
     )
 
-    # --- Panel 1: sweep T ---
-    ax = axes[0]
-    for name, state in [("Binomial", state_binom), ("Uniform", state_uniform)]:
-        xs, ys = sweep_T(state)
-        ax.plot(xs, ys, lw=LWIDTH, color=COLORS[name], label=name)
-    ax.set_title(f"SKR vs T  (ε={EPS_BASE}, β={BETA_BASE})", fontsize=11)
-    style_ax(ax, "Transmittance T", T_BASE)
 
-    # --- Panel 2: sweep ε ---
-    ax = axes[1]
-    for name, state in [("Binomial", state_binom), ("Uniform", state_uniform)]:
-        xs, ys = sweep_eps(state)
-        ax.plot(xs, ys, lw=LWIDTH, color=COLORS[name], label=name)
-    ax.set_title(f"SKR vs ε  (T={T_BASE}, β={BETA_BASE})", fontsize=11)
-    style_ax(ax, "Excess noise ε (SNU)", EPS_BASE)
+def sweep_curve(model_state: dict, sweep_name: str):
+    va = model_state["va"]
+    c_value = model_state["c_value"]
+    w_value = model_state["w_value"]
 
-    # --- Panel 3: sweep β ---
-    ax = axes[2]
-    for name, state in [("Binomial", state_binom), ("Uniform", state_uniform)]:
-        xs, ys = sweep_beta(state)
-        ax.plot(xs, ys, lw=LWIDTH, color=COLORS[name], label=name)
-    ax.set_title(f"SKR vs β  (T={T_BASE}, ε={EPS_BASE})", fontsize=11)
-    style_ax(ax, "Reconciliation efficiency β", BETA_BASE)
+    values = []
+    if sweep_name == "T":
+        xs = T_GRID
+        for t in xs:
+            skr, _, _, _, _ = compute_skr_curve(va, c_value, w_value, float(t), EPS_BASE, BETA_BASE)
+            values.append(skr)
+    elif sweep_name == "eps":
+        xs = EPS_GRID
+        for eps in xs:
+            skr, _, _, _, _ = compute_skr_curve(va, c_value, w_value, T_BASE, float(eps), BETA_BASE)
+            values.append(skr)
+    elif sweep_name == "beta":
+        xs = BETA_GRID
+        for beta in xs:
+            skr, _, _, _, _ = compute_skr_curve(va, c_value, w_value, T_BASE, EPS_BASE, float(beta))
+            values.append(skr)
+    else:
+        raise ValueError(f"Unsupported sweep: {sweep_name}")
 
-    # ── Save ──────────────────────────────────────────────────
+    return xs, np.array(values, dtype=float)
+
+
+def ensure_output_dir() -> Path:
     out_dir = Path(__file__).resolve().parent / "outputs"
     out_dir.mkdir(parents=True, exist_ok=True)
+    return out_dir
+
+
+def main() -> None:
+    print("=" * 80)
+    print("SKR comparison: binomial vs uniform QAM-256")
+    print("=" * 80)
+
+    p_binomial = base.build_probs_binomial()
+    p_uniform = build_probs_uniform()
+
+    bin_state = build_state(ALPHA0_BINOMIAL, p_binomial)
+    uni_state = build_state(ALPHA0_UNIFORM, p_uniform)
+
+    bin_result = evaluate_model("binomial", ALPHA0_BINOMIAL, p_binomial)
+    uni_result = evaluate_model("uniform", ALPHA0_UNIFORM, p_uniform)
+
+    print(f"Binomial: VA={bin_result.va:.8f}, Tr(tau)={bin_result.tr_tau:.8f}, C={bin_result.c_value:.8f}, w={bin_result.w_value:.8f}")
+    print(f"Uniform  : VA={uni_result.va:.8f}, Tr(tau)={uni_result.tr_tau:.8f}, C={uni_result.c_value:.8f}, w={uni_result.w_value:.8f}")
+
+    sweeps = ["T", "eps", "beta"]
+    labels = ["T", "Excess noise ε", "Reconciliation efficiency β"]
+    xlabels = ["T", "ε", "β"]
+    baselines = [f"ε={EPS_BASE}, β={BETA_BASE}", f"T={T_BASE}, β={BETA_BASE}", f"T={T_BASE}, ε={EPS_BASE}"]
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 5.5), constrained_layout=True)
+    fig.suptitle("SKR sensitivity for QAM-256: binomial vs uniform", fontsize=16, fontweight="bold")
+
+    model_states = [bin_state, uni_state]
+    model_labels = ["Binomial", "Uniform"]
+    model_colors = ["#006d77", "#bc6c25"]
+
+    for ax, sweep_name, title, xlabel, baseline in zip(axes, sweeps, labels, xlabels, baselines, strict=True):
+        for state, label, color in zip(model_states, model_labels, model_colors, strict=True):
+            xs, ys = sweep_curve(state, sweep_name)
+            ax.plot(xs, ys, lw=2.2, color=color, label=label)
+
+        if sweep_name == "T":
+            ax.axvline(T_BASE, color="gray", ls="--", lw=1)
+        elif sweep_name == "eps":
+            ax.axvline(EPS_BASE, color="gray", ls="--", lw=1)
+        else:
+            ax.axvline(BETA_BASE, color="gray", ls="--", lw=1)
+
+        ax.set_title(title)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel("SKR (bits/use)")
+        ax.grid(alpha=0.3)
+        ax.legend(frameon=False)
+        ax.text(0.03, 0.95, baseline, transform=ax.transAxes, va="top", fontsize=9,
+                bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="0.8", alpha=0.9))
+
+    out_dir = ensure_output_dir()
     fig_path = out_dir / "skr_compare_T_eps_beta.png"
     fig.savefig(fig_path, dpi=220, bbox_inches="tight")
     plt.close(fig)
 
-    print(f"\n  Saved → {fig_path}")
-    print("Done.")
+    print("\nSaved figure:")
+    print(f"  {fig_path}")
+    print("\nBaseline summary:")
+    print(f"  Binomial SKR = {bin_result.skr:.10f} (raw={bin_result.skr_raw:.10f})")
+    print(f"  Uniform   SKR = {uni_result.skr:.10f} (raw={uni_result.skr_raw:.10f})")
 
 
 if __name__ == "__main__":
