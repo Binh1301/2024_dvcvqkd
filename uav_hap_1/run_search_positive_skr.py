@@ -61,10 +61,19 @@ else:
 
 
 def _status(metrics) -> str:
-    if metrics.z_star_clipped:
+    values = [
+        metrics.z_star_raw,
+        metrics.z_star_max,
+        metrics.chi_be,
+        metrics.i_ab,
+        metrics.skr_raw,
+        metrics.term_signal,
+        metrics.term_noise,
+    ]
+    if not np.all(np.isfinite(values)) or metrics.z_star_max <= 0:
+        return "invalid"
+    if metrics.z_star_raw > metrics.z_star_max:
         return "clipped"
-    if metrics.z_star_raw < 0 or metrics.z_star_raw > metrics.z_star_max:
-        return "unphysical"
     return "physical"
 
 
@@ -87,18 +96,28 @@ def _plot_summary(x_values, series, xlabel, out_path: Path, title: str) -> None:
 
     fig, ax = plt.subplots(figsize=(8.4, 5.0), constrained_layout=True)
     for item in series:
-        ax.plot(x_values, item["skr"], lw=2.0, label=item["label"])
-        clipped_mask = item["status"] == "clipped"
-        unphys_mask = item["status"] == "unphysical"
+        status = item["status"]
+        physical_mask = status == "physical"
+        clipped_mask = status == "clipped"
+        invalid_mask = status == "invalid"
+        skr_physical = np.where(physical_mask, item["skr"], np.nan)
+        ax.plot(x_values, skr_physical, lw=2.0, label=item["label"])
         if np.any(clipped_mask):
             ax.scatter(x_values[clipped_mask], item["skr"][clipped_mask], marker="x", s=50, color="orange")
-        if np.any(unphys_mask):
-            ax.scatter(x_values[unphys_mask], item["skr"][unphys_mask], marker="x", s=50, color="red")
+        if np.any(invalid_mask):
+            ax.scatter(x_values[invalid_mask], item["skr"][invalid_mask], marker="x", s=50, color="red")
     ax.set_title(title)
     ax.set_xlabel(xlabel)
-    ax.set_ylabel("SKR (bits/use)")
+    ax.set_ylabel("SKR_raw (bits/use)")
     ax.grid(alpha=0.3)
-    ax.legend(frameon=False)
+    from matplotlib.lines import Line2D
+
+    legend_extra = [
+        Line2D([0], [0], marker="x", color="orange", linestyle="None", label="clipped (non-physical)"),
+        Line2D([0], [0], marker="x", color="red", linestyle="None", label="invalid"),
+    ]
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(handles + legend_extra, labels + [h.get_label() for h in legend_extra], frameon=False)
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
     plt.close(fig)
 
@@ -169,10 +188,10 @@ def main() -> None:
         "mb_tuned": None,
     }
     counts = {
-        "binomial": {"physical": 0, "clipped": 0, "unphysical": 0},
-        "uniform": {"physical": 0, "clipped": 0, "unphysical": 0},
-        "mb_fixed": {"physical": 0, "clipped": 0, "unphysical": 0},
-        "mb_tuned": {"physical": 0, "clipped": 0, "unphysical": 0},
+        "binomial": {"physical": 0, "clipped": 0, "invalid": 0},
+        "uniform": {"physical": 0, "clipped": 0, "invalid": 0},
+        "mb_fixed": {"physical": 0, "clipped": 0, "invalid": 0},
+        "mb_tuned": {"physical": 0, "clipped": 0, "invalid": 0},
     }
 
     def evaluate(label, state, T, eps, eta, v_el, mode, nu_tilde):
@@ -181,7 +200,7 @@ def main() -> None:
         if label != "mb":
             key = label
         else:
-            key = "mb_fixed" if mode == "fixed" else "mb_tuned"
+            key = "mb_fixed" if mode == "fixed-parameter" else "mb_tuned"
         row = {
             "mode": mode,
             "distribution": label,
@@ -191,9 +210,17 @@ def main() -> None:
             "v_el": float(v_el),
             "nu_tilde": nu_tilde,
             "va": state.va,
+            "tr_c": state.tr_c,
+            "w": state.w,
+            "term_signal": metrics.term_signal,
+            "term_noise": metrics.term_noise,
+            "signal_to_zmax": metrics.term_signal / metrics.z_star_max if metrics.z_star_max > 0 else float("nan"),
+            "noise_fraction": metrics.term_noise / metrics.term_signal if metrics.term_signal > 0 else float("nan"),
             "z_star_raw": metrics.z_star_raw,
-            "z_star": metrics.z_star,
+            "z_star_used": metrics.z_star,
             "z_star_max": metrics.z_star_max,
+            "rho": metrics.z_raw_over_zmax,
+            "margin": metrics.z_raw_margin,
             "z_star_clipped": metrics.z_star_clipped,
             "chi_be": metrics.chi_be,
             "i_ab": metrics.i_ab,
@@ -212,10 +239,10 @@ def main() -> None:
         for eps in eps_grid:
             for eta in eta_grid:
                 for v_el in v_el_grid:
-                    evaluate("binomial", bin_state, T, eps, eta, v_el, "fixed", None)
-                    evaluate("uniform", uni_state, T, eps, eta, v_el, "fixed", None)
-                    evaluate("mb", mb_state_fixed, T, eps, eta, v_el, "fixed", QAM_NU_TILDE)
-                    evaluate("mb", mb_state_tuned, T, eps, eta, v_el, "fixed_va", nu_tuned_bin)
+                    evaluate("binomial", bin_state, T, eps, eta, v_el, "fixed-parameter", None)
+                    evaluate("uniform", uni_state, T, eps, eta, v_el, "fixed-parameter", None)
+                    evaluate("mb", mb_state_fixed, T, eps, eta, v_el, "fixed-parameter", QAM_NU_TILDE)
+                    evaluate("mb", mb_state_tuned, T, eps, eta, v_el, "matched-VA", nu_tuned_bin)
 
     csv_path = out_dir / "qam_search_positive_skr.csv"
     _write_csv(csv_path, rows)
@@ -236,7 +263,7 @@ def main() -> None:
                     metrics = compute_metrics(state, fixed_T, float(x), QAM_BETA, fixed_eta, fixed_v_el)
                 else:
                     metrics = compute_metrics(state, fixed_T, fixed_eps, QAM_BETA, fixed_eta, float(x))
-                skr.append(metrics.skr)
+                skr.append(metrics.skr_raw)
                 status.append(_status(metrics))
             return np.array(skr), np.array(status, dtype=object)
 
@@ -252,13 +279,13 @@ def main() -> None:
     series_v = []
 
     bin_T, bin_eps, bin_v = build_sweep_series(
-        "binomial", bin_state, "fixed", None, QAM_EPS, QAM_ETA, QAM_V_EL
+        "binomial", bin_state, "fixed-parameter", None, QAM_EPS, QAM_ETA, QAM_V_EL
     )
     uni_T, uni_eps, uni_v = build_sweep_series(
-        "uniform", uni_state, "fixed", None, QAM_EPS, QAM_ETA, QAM_V_EL
+        "uniform", uni_state, "fixed-parameter", None, QAM_EPS, QAM_ETA, QAM_V_EL
     )
     mb_T, mb_eps, mb_v = build_sweep_series(
-        "mb", mb_state_tuned, "fixed_va", nu_tuned_bin, QAM_EPS, QAM_ETA, QAM_V_EL
+        "mb", mb_state_tuned, "matched-VA", nu_tuned_bin, QAM_EPS, QAM_ETA, QAM_V_EL
     )
 
     series_T = [
@@ -288,7 +315,7 @@ def main() -> None:
     print(f"Plots saved: {out_dir / 'search_skr_vs_T.png'}, {out_dir / 'search_skr_vs_eps.png'}, {out_dir / 'search_skr_vs_v_el.png'}")
     print("Status counts:")
     for key, stats in counts.items():
-        print(f"  {key}: physical={stats['physical']}, clipped={stats['clipped']}, unphysical={stats['unphysical']}")
+        print(f"  {key}: physical={stats['physical']}, clipped={stats['clipped']}, invalid={stats['invalid']}")
     if best["binomial"]:
         print(f"Best binomial (physical, SKR_raw>0): {best['binomial']}")
     else:

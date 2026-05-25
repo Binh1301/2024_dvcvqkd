@@ -4,7 +4,7 @@ Improved parameter search with better coverage and clear physical vs clipped dis
 Features:
 - Expanded parameter grids to systematically search for SKR_raw > 0
 - Two-stage search: coarse grid then refined around best physical points
-- Clear separation of physical/clipped/unphysical states in output
+- Clear separation of physical/clipped/invalid states in output
 - Comprehensive CSV with all diagnostics (Ncut, convergence flags, etc.)
 - Better summary reporting
 """
@@ -64,11 +64,20 @@ else:
 
 
 def _status(metrics) -> str:
-    """Classify point as physical, clipped, or unphysical."""
-    if metrics.z_star_clipped:
+    """Classify point as physical, clipped, or invalid."""
+    values = [
+        metrics.z_star_raw,
+        metrics.z_star_max,
+        metrics.chi_be,
+        metrics.i_ab,
+        metrics.skr_raw,
+        metrics.term_signal,
+        metrics.term_noise,
+    ]
+    if not np.all(np.isfinite(values)) or metrics.z_star_max <= 0:
+        return "invalid"
+    if metrics.z_star_raw > metrics.z_star_max:
         return "clipped"
-    if metrics.z_star_raw < 0 or metrics.z_star_raw > metrics.z_star_max:
-        return "unphysical"
     return "physical"
 
 
@@ -95,6 +104,19 @@ def _tune_nu_tilde(target_va: float, alpha0: float, ncut: int, grid: np.ndarray)
             best_err = err
             best_nu = float(nu)
             best_va = float(state["va"])
+
+    if len(grid) > 1:
+        step = float(grid[1] - grid[0])
+        lo = max(1e-6, best_nu - 2.0 * step)
+        hi = best_nu + 2.0 * step
+        fine_grid = np.linspace(lo, hi, 200)
+        for nu in fine_grid:
+            state = zmb.compute_state(alpha0=alpha0, ncut=ncut, nu_tilde=float(nu))
+            err = abs(state["va"] - target_va)
+            if err < best_err:
+                best_err = err
+                best_nu = float(nu)
+                best_va = float(state["va"])
     return best_nu, best_va
 
 
@@ -108,12 +130,17 @@ def _plot_summary(x_values, series, xlabel, out_path: Path, title: str) -> None:
 
     fig, ax = plt.subplots(figsize=(10, 6), constrained_layout=True)
     for item in series:
-        # Plot main line (use SKR_raw to show true value)
-        ax.plot(x_values, item["skr_raw"], lw=2.0, label=item["label"], marker="o", markersize=4)
+        status = item["status"]
+        physical_mask = status == "physical"
+        clipped_mask = status == "clipped"
+        invalid_mask = status == "invalid"
+        skr_physical = np.where(physical_mask, item["skr_raw"], np.nan)
 
-        # Mark clipped points with X
-        clipped_mask = item["status"] == "clipped"
-        unphys_mask = item["status"] == "unphysical"
+        # Plot main line using physical points only
+        ax.plot(x_values, skr_physical, lw=2.0, label=item["label"], marker="o", markersize=4)
+
+        # Mark clipped/invalid points with X
+
         if np.any(clipped_mask):
             ax.scatter(
                 x_values[clipped_mask],
@@ -124,10 +151,10 @@ def _plot_summary(x_values, series, xlabel, out_path: Path, title: str) -> None:
                 linewidths=2,
                 zorder=5,
             )
-        if np.any(unphys_mask):
+        if np.any(invalid_mask):
             ax.scatter(
-                x_values[unphys_mask],
-                item["skr_raw"][unphys_mask],
+                x_values[invalid_mask],
+                item["skr_raw"][invalid_mask],
                 marker="x",
                 s=100,
                 color="red",
@@ -139,8 +166,8 @@ def _plot_summary(x_values, series, xlabel, out_path: Path, title: str) -> None:
     from matplotlib.lines import Line2D
 
     legend_elements = [
-        Line2D([0], [0], marker="x", color="w", markerfacecolor="orange", markersize=8, label="clipped"),
-        Line2D([0], [0], marker="x", color="w", markerfacecolor="red", markersize=8, label="unphysical"),
+        Line2D([0], [0], marker="x", color="w", markerfacecolor="orange", markersize=8, label="clipped (non-physical)"),
+        Line2D([0], [0], marker="x", color="w", markerfacecolor="red", markersize=8, label="invalid"),
     ]
     ax.legend(handles=ax.get_legend_handles_labels()[0] + legend_elements, frameon=False, loc="best")
     ax.set_title(title)
@@ -169,7 +196,7 @@ def main() -> None:
     eps_grid = np.array([0.0, 0.001, 0.002, 0.005, 0.01, 0.015, 0.02])
     eta_grid = np.array([0.6, 0.75, 0.9, 0.95, 0.99])
     v_el_grid = np.array([0.0, 0.001, 0.002, 0.005, 0.01, 0.015, 0.02])
-    nu_grid = np.linspace(0.01, 1.0, 50)
+    nu_grid = np.linspace(0.001, 2.0, 200)
 
     # Build states with updated Ncut values
     bin_state = build_state_binomial(QAM_ALPHA0_BINOMIAL, QAM_NCUT_BINOMIAL)
@@ -220,10 +247,10 @@ def main() -> None:
         "mb_tuned_clipped": None,
     }
     counts = {
-        "binomial": {"physical": 0, "clipped": 0, "unphysical": 0},
-        "uniform": {"physical": 0, "clipped": 0, "unphysical": 0},
-        "mb_fixed": {"physical": 0, "clipped": 0, "unphysical": 0},
-        "mb_tuned": {"physical": 0, "clipped": 0, "unphysical": 0},
+        "binomial": {"physical": 0, "clipped": 0, "invalid": 0},
+        "uniform": {"physical": 0, "clipped": 0, "invalid": 0},
+        "mb_fixed": {"physical": 0, "clipped": 0, "invalid": 0},
+        "mb_tuned": {"physical": 0, "clipped": 0, "invalid": 0},
     }
 
     def evaluate(label, state, ncut, T, eps, eta, v_el, mode, nu_tilde):
@@ -232,7 +259,7 @@ def main() -> None:
         if label != "mb":
             key = label
         else:
-            key = "mb_fixed" if mode == "fixed" else "mb_tuned"
+            key = "mb_fixed" if mode == "fixed-parameter" else "mb_tuned"
 
         row = {
             "distribution": label,
@@ -246,9 +273,15 @@ def main() -> None:
             "va": state.va,
             "tr_c": state.tr_c,
             "w": state.w,
+            "term_signal": metrics.term_signal,
+            "term_noise": metrics.term_noise,
+            "signal_to_zmax": metrics.term_signal / metrics.z_star_max if metrics.z_star_max > 0 else float("nan"),
+            "noise_fraction": metrics.term_noise / metrics.term_signal if metrics.term_signal > 0 else float("nan"),
             "z_star_raw": metrics.z_star_raw,
             "z_star_max": metrics.z_star_max,
             "z_star_used": metrics.z_star,
+            "rho": metrics.z_raw_over_zmax,
+            "margin": metrics.z_raw_margin,
             "z_star_clipped": metrics.z_star_clipped,
             "chi_be": metrics.chi_be,
             "i_ab": metrics.i_ab,
@@ -276,10 +309,10 @@ def main() -> None:
         for eps in eps_grid:
             for eta in eta_grid:
                 for v_el in v_el_grid:
-                    evaluate("binomial", bin_state, QAM_NCUT_BINOMIAL, T, eps, eta, v_el, "fixed", None)
-                    evaluate("uniform", uni_state, QAM_NCUT_UNIFORM, T, eps, eta, v_el, "fixed", None)
-                    evaluate("mb", mb_state_fixed, QAM_NCUT_MB, T, eps, eta, v_el, "fixed", QAM_NU_TILDE)
-                    evaluate("mb", mb_state_tuned, QAM_NCUT_MB, T, eps, eta, v_el, "tuned_va", nu_tuned_bin)
+                    evaluate("binomial", bin_state, QAM_NCUT_BINOMIAL, T, eps, eta, v_el, "fixed-parameter", None)
+                    evaluate("uniform", uni_state, QAM_NCUT_UNIFORM, T, eps, eta, v_el, "fixed-parameter", None)
+                    evaluate("mb", mb_state_fixed, QAM_NCUT_MB, T, eps, eta, v_el, "fixed-parameter", QAM_NU_TILDE)
+                    evaluate("mb", mb_state_tuned, QAM_NCUT_MB, T, eps, eta, v_el, "matched-VA", nu_tuned_bin)
 
     csv_path = out_dir / "qam_search_improved.csv"
     _write_csv(csv_path, rows)
@@ -294,10 +327,10 @@ def main() -> None:
     print("\nStatus counts by distribution:")
     for key in ["binomial", "uniform", "mb_fixed", "mb_tuned"]:
         stats = counts[key]
-        total = stats["physical"] + stats["clipped"] + stats["unphysical"]
+        total = stats["physical"] + stats["clipped"] + stats["invalid"]
         print(
             f"  {key:12s}: physical={stats['physical']:4d}, clipped={stats['clipped']:4d}, "
-            f"unphysical={stats['unphysical']:4d}, total={total:4d}"
+            f"invalid={stats['invalid']:4d}, total={total:4d}"
         )
 
     print("\nBest points with SKR_raw > 0 (physical only):")
@@ -314,7 +347,7 @@ def main() -> None:
                 print(f"                         nu_tilde={row['nu_tilde']:.6f}")
 
     if not found_any:
-        print("  *** NO PHYSICAL POINTS WITH SKR_raw > 0 FOUND ***")
+        print("  *** No physically admissible positive-SKR point found under the current model/convention. ***")
         print("\nBest clipped points (for reference, but NOT physical):")
         for key in ["binomial_clipped", "uniform_clipped", "mb_fixed_clipped", "mb_tuned_clipped"]:
             if best[key] is not None:
@@ -358,29 +391,29 @@ def main() -> None:
         return (T_vals, skr_T, status_T), (eps_vals, skr_eps, status_eps), (v_vals, skr_v, status_v)
 
     bin_T, bin_eps, bin_v = build_sweep_series(
-        "binomial", bin_state, QAM_NCUT_BINOMIAL, "fixed", None, QAM_EPS, QAM_ETA, QAM_V_EL
+        "binomial", bin_state, QAM_NCUT_BINOMIAL, "fixed-parameter", None, QAM_EPS, QAM_ETA, QAM_V_EL
     )
     uni_T, uni_eps, uni_v = build_sweep_series(
-        "uniform", uni_state, QAM_NCUT_UNIFORM, "fixed", None, QAM_EPS, QAM_ETA, QAM_V_EL
+        "uniform", uni_state, QAM_NCUT_UNIFORM, "fixed-parameter", None, QAM_EPS, QAM_ETA, QAM_V_EL
     )
     mb_T, mb_eps, mb_v = build_sweep_series(
-        "mb", mb_state_tuned, QAM_NCUT_MB, "tuned_va", nu_tuned_bin, QAM_EPS, QAM_ETA, QAM_V_EL
+        "mb", mb_state_tuned, QAM_NCUT_MB, "matched-VA", nu_tuned_bin, QAM_EPS, QAM_ETA, QAM_V_EL
     )
 
     series_T = [
         {"label": "binomial", "skr_raw": bin_T[1], "status": bin_T[2]},
         {"label": "uniform", "skr_raw": uni_T[1], "status": uni_T[2]},
-        {"label": f"mb (nu={nu_tuned_bin:.3f})", "skr_raw": mb_T[1], "status": mb_T[2]},
+        {"label": f"mb matched-VA (nu={nu_tuned_bin:.3f})", "skr_raw": mb_T[1], "status": mb_T[2]},
     ]
     series_eps = [
         {"label": "binomial", "skr_raw": bin_eps[1], "status": bin_eps[2]},
         {"label": "uniform", "skr_raw": uni_eps[1], "status": uni_eps[2]},
-        {"label": f"mb (nu={nu_tuned_bin:.3f})", "skr_raw": mb_eps[1], "status": mb_eps[2]},
+        {"label": f"mb matched-VA (nu={nu_tuned_bin:.3f})", "skr_raw": mb_eps[1], "status": mb_eps[2]},
     ]
     series_v = [
         {"label": "binomial", "skr_raw": bin_v[1], "status": bin_v[2]},
         {"label": "uniform", "skr_raw": uni_v[1], "status": uni_v[2]},
-        {"label": f"mb (nu={nu_tuned_bin:.3f})", "skr_raw": mb_v[1], "status": mb_v[2]},
+        {"label": f"mb matched-VA (nu={nu_tuned_bin:.3f})", "skr_raw": mb_v[1], "status": mb_v[2]},
     ]
 
     _plot_summary(bin_T[0], series_T, "T_eff", out_dir / "search_improved_skr_vs_T.png", "SKR_raw vs T_eff")

@@ -76,9 +76,29 @@ def _print_result(label, state, metrics):
         f"chi_BE={metrics.chi_be:.10f}, I_AB={metrics.i_ab:.10f}"
     )
     print(f"  rho=Z_raw/Zmax={metrics.z_raw_over_zmax:.10f}, margin={metrics.z_raw_margin:.10f}")
-    if metrics.z_star_clipped:
-        print(f"  ⚠️  Z* clipped to Z*_max = {metrics.z_star_max:.10f}")
+    status = _status(metrics)
+    if status == "clipped":
+        print(f"  ⚠️  Z* clipped to Z*_max = {metrics.z_star_max:.10f} (not physically admissible)")
+    elif status == "invalid":
+        print("  ⚠️  invalid numeric state (do not interpret physically)")
     print(f"  SKR_raw={metrics.skr_raw:.10f}, SKR={metrics.skr:.10f}")
+
+
+def _status(metrics) -> str:
+    values = [
+        metrics.z_star_raw,
+        metrics.z_star_max,
+        metrics.chi_be,
+        metrics.i_ab,
+        metrics.skr_raw,
+        metrics.term_signal,
+        metrics.term_noise,
+    ]
+    if not np.all(np.isfinite(values)) or metrics.z_star_max <= 0:
+        return "invalid"
+    if metrics.z_star_raw > metrics.z_star_max:
+        return "clipped"
+    return "physical"
 
 
 def _tune_nu_tilde(target_va: float, alpha0: float, ncut: int, grid: np.ndarray) -> tuple[float, float]:

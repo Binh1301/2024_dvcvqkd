@@ -64,11 +64,20 @@ else:
 
 
 def _status(metrics) -> str:
-    """Classify point as physical, clipped, or unphysical."""
-    if metrics.z_star_clipped:
+    """Classify point as physical, clipped, or invalid."""
+    values = [
+        metrics.z_star_raw,
+        metrics.z_star_max,
+        metrics.chi_be,
+        metrics.i_ab,
+        metrics.skr_raw,
+        metrics.term_signal,
+        metrics.term_noise,
+    ]
+    if not np.all(np.isfinite(values)) or metrics.z_star_max <= 0:
+        return "invalid"
+    if metrics.z_star_raw > metrics.z_star_max:
         return "clipped"
-    if metrics.z_star_raw < 0 or metrics.z_star_raw > metrics.z_star_max:
-        return "unphysical"
     return "physical"
 
 
@@ -88,7 +97,7 @@ def _tune_nu_tilde_improved(
 ) -> tuple[float, float]:
     """
     Find nu_tilde that matches target VA.
-    Uses finer search and reports quality of match.
+    Two-stage search: coarse grid, then local refinement.
     """
     best_nu = float(grid[0])
     best_err = float("inf")
@@ -100,6 +109,20 @@ def _tune_nu_tilde_improved(
             best_err = err
             best_nu = float(nu)
             best_va = float(state["va"])
+
+    if len(grid) > 1:
+        step = float(grid[1] - grid[0])
+        lo = max(1e-6, best_nu - 2.0 * step)
+        hi = best_nu + 2.0 * step
+        fine_grid = np.linspace(lo, hi, 200)
+        for nu in fine_grid:
+            state = zmb.compute_state(alpha0=alpha0, ncut=ncut, nu_tilde=float(nu))
+            err = abs(state["va"] - target_va)
+            if err < best_err:
+                best_err = err
+                best_nu = float(nu)
+                best_va = float(state["va"])
+
     return best_nu, best_va
 
 
@@ -132,10 +155,11 @@ def main() -> None:
     )
     mb_state_tuned = build_state_mb(QAM_ALPHA0_MB, QAM_NCUT_MB, nu_tuned_bin)
     va_error = abs(va_tuned_bin - bin_state.va)
+    va_rel_error = va_error / bin_state.va if bin_state.va != 0 else float("nan")
     print(
         f"  Target VA (binomial) = {bin_state.va:.10f}"
         f" -> nu_tilde = {nu_tuned_bin:.10f}, VA_MB = {va_tuned_bin:.10f}"
-        f" (error = {va_error:.2e})"
+        f" (abs error = {va_error:.2e}, rel error = {va_rel_error:.2e})"
     )
 
     # ========================================================================
@@ -163,7 +187,7 @@ def main() -> None:
         if label != "mb":
             key = label
         else:
-            key = "mb_fixed" if mode == "fixed" else "mb_matched_VA"
+            key = "mb_fixed" if mode == "fixed-parameter" else "mb_matched_VA"
 
         row = {
             "distribution": label,
@@ -179,6 +203,8 @@ def main() -> None:
             "w": state.w,
             "term_signal": metrics.term_signal,
             "term_noise": metrics.term_noise,
+            "signal_to_zmax": metrics.term_signal / metrics.z_star_max if metrics.z_star_max > 0 else float("nan"),
+            "noise_fraction": metrics.term_noise / metrics.term_signal if metrics.term_signal > 0 else float("nan"),
             "z_star_raw": metrics.z_star_raw,
             "z_star_max": metrics.z_star_max,
             "z_star_used": metrics.z_star,
@@ -204,9 +230,9 @@ def main() -> None:
         for eps in eps_grid:
             for eta in eta_vals:
                 for v_el in v_el_vals:
-                    evaluate("binomial", bin_state, QAM_NCUT_BINOMIAL, T, eps, eta, v_el, "fixed", None)
-                    evaluate("uniform", uni_state, QAM_NCUT_UNIFORM, T, eps, eta, v_el, "fixed", None)
-                    evaluate("mb", mb_state_fixed, QAM_NCUT_MB, T, eps, eta, v_el, "fixed", QAM_NU_TILDE)
+                    evaluate("binomial", bin_state, QAM_NCUT_BINOMIAL, T, eps, eta, v_el, "fixed-parameter", None)
+                    evaluate("uniform", uni_state, QAM_NCUT_UNIFORM, T, eps, eta, v_el, "fixed-parameter", None)
+                    evaluate("mb", mb_state_fixed, QAM_NCUT_MB, T, eps, eta, v_el, "fixed-parameter", QAM_NU_TILDE)
                     evaluate(
                         "mb",
                         mb_state_tuned,
@@ -215,7 +241,7 @@ def main() -> None:
                         eps,
                         eta,
                         v_el,
-                        "matched_VA",
+                        "matched-VA",
                         nu_tuned_bin,
                     )
 
@@ -233,13 +259,13 @@ def main() -> None:
     # Count by status
     phys_count = sum(1 for r in rows if r["status"] == "physical")
     clip_count = sum(1 for r in rows if r["status"] == "clipped")
-    unph_count = sum(1 for r in rows if r["status"] == "unphysical")
+    unph_count = sum(1 for r in rows if r["status"] == "invalid")
     total_count = len(rows)
 
     print(f"\nStatus distribution across all {total_count} evaluations:")
     print(f"  Physical:     {phys_count:4d} ({100*phys_count/total_count:5.1f}%)")
     print(f"  Clipped:      {clip_count:4d} ({100*clip_count/total_count:5.1f}%)")
-    print(f"  Unphysical:   {unph_count:4d} ({100*unph_count/total_count:5.1f}%)")
+    print(f"  Invalid:      {unph_count:4d} ({100*unph_count/total_count:5.1f}%)")
 
     # Physical points with SKR_raw > 0
     phys_pos = [r for r in physical_points if r["skr_raw"] > 0]
@@ -269,6 +295,27 @@ def main() -> None:
     print(f"  Max:    {np.max(rho_array):.6f}")
     print(f"  % > 1.0 (clipped): {100*np.sum(rho_array > 1.0)/len(rho_array):.1f}%")
 
+    # Best physical/clipped points by SKR_raw (even if negative)
+    best_phys_any = max(physical_points, key=lambda x: x["skr_raw"]) if physical_points else None
+    best_clip_any = max(clipped_points, key=lambda x: x["skr_raw"]) if clipped_points else None
+    print("\nBest physical point (by SKR_raw):")
+    if best_phys_any:
+        print(
+            f"  SKR_raw={best_phys_any['skr_raw']:.6f} at T={best_phys_any['T']:.4f}, "
+            f"eps={best_phys_any['eps']:.6f}, eta={best_phys_any['eta']:.4f}, v_el={best_phys_any['v_el']:.6f}"
+        )
+    else:
+        print("  None (no physical points).")
+
+    print("\nBest clipped point (by SKR_raw):")
+    if best_clip_any:
+        print(
+            f"  SKR_raw={best_clip_any['skr_raw']:.6f} at T={best_clip_any['T']:.4f}, "
+            f"eps={best_clip_any['eps']:.6f}, eta={best_clip_any['eta']:.4f}, v_el={best_clip_any['v_el']:.6f}"
+        )
+    else:
+        print("  None (no clipped points).")
+
     # Top points by largest rho (most clipped)
     print(f"\nTop 10 points with largest rho (most severely clipped):")
     sorted_by_rho = sorted(rows, key=lambda x: x["rho"], reverse=True)
@@ -284,9 +331,13 @@ def main() -> None:
     avg_signal = np.mean([r["term_signal"] for r in rows])
     avg_noise = np.mean([r["term_noise"] for r in rows])
     avg_z = np.mean([r["z_star_raw"] for r in rows])
+    avg_signal_to_zmax = np.mean([r["signal_to_zmax"] for r in rows])
+    avg_noise_fraction = np.mean([r["noise_fraction"] for r in rows])
     print(f"  Avg term_signal (2*sqrt(T)*TrC): {avg_signal:.6f}")
     print(f"  Avg term_noise  (sqrt(2*T*eps*w)): {avg_noise:.6f}")
     print(f"  Avg Z_raw: {avg_z:.6f}")
+    print(f"  Avg signal_to_zmax: {avg_signal_to_zmax:.6f}")
+    print(f"  Avg noise_fraction: {avg_noise_fraction:.6f}")
 
     # Plot rho histogram
     try:
@@ -311,7 +362,7 @@ def main() -> None:
                 rho_by_dist[r["distribution"]].append(r["rho"])
 
         box_data = [rho_by_dist[label] for label in dist_labels]
-        bp = ax2.boxplot(box_data, labels=dist_labels, patch_artist=True)
+        bp = ax2.boxplot(box_data, tick_labels=dist_labels, patch_artist=True)
         for patch in bp["boxes"]:
             patch.set_facecolor("lightblue")
         ax2.axhline(1.0, color="red", linestyle="--", linewidth=2, label="Clipping threshold")
@@ -331,26 +382,43 @@ def main() -> None:
     # STAGE 4: Root cause hypothesis
     # ========================================================================
     print(f"\n" + "=" * 90)
-    print("ROOT CAUSE ANALYSIS")
+    print("ROOT CAUSE ANALYSIS (PHYSICAL INTERPRETATION)")
     print("=" * 90)
 
     avg_ratio = np.mean(rho_array)
-    if avg_ratio > 1.5:
-        print(f"\n❌ HYPOTHESIS: Z_raw is systematically TOO LARGE (avg rho={avg_ratio:.3f} >> 1)")
-        print("   Likely causes:")
-        print("   1. Convention mismatch in Z* formula (scale factor off by √2 or 2)")
-        print("   2. Incorrect mapping of Z to covariance matrix")
-        print("   3. TrC or w computed with wrong normalization")
-        print("\n   RECOMMENDATION: Check Z* formula vs original reference.")
-    elif avg_ratio > 1.0:
-        print(f"\n⚠️  HYPOTHESIS: Z_raw occasionally exceeds Z_max (avg rho={avg_ratio:.3f} > 1)")
-        print("   Possible causes:")
-        print("   1. Legitimate physical effect (protocol requires Z > Z_max in some regimes)")
-        print("   2. Numerical precision issue near boundary")
-        print("   3. Slight convention mismatch")
+    median_ratio = np.median(rho_array)
+    clip_fraction = clip_count / total_count if total_count else 0.0
+
+    print(
+        f"\nSummary: clipped fraction = {100*clip_fraction:.1f}% | "
+        f"mean rho = {avg_ratio:.3f} | median rho = {median_ratio:.3f} | max rho = {np.max(rho_array):.3f}"
+    )
+    print(
+        "In the current covariance model, Z_raw > Zmax means the correlation term exceeds the admissible bound."
+    )
+    print("Therefore, clipped points are NOT physically admissible as-is and must not be used for physical conclusions.")
+
+    if clip_fraction > 0.5 or avg_ratio > 1.1:
+        print("\n✅ Interpretation: Z_raw systematically and frequently exceeds Zmax (not a boundary numerical issue).")
+        print("   Most likely causes (in priority order):")
+        print("   1. Convention/scale mismatch between TrC and the covariance correlation term")
+        print("   2. Mapping from Z_raw to the covariance block correlation is inconsistent")
+        print("   3. Numerical issues are a secondary possibility only if rho is near 1 (not the case here)")
     else:
-        print(f"\n✓ HYPOTHESIS: Z_raw mostly within bounds (avg rho={avg_ratio:.3f} <= 1)")
-        print("   No systemic convention mismatch detected.")
+        print("\n⚠️  Interpretation: Z_raw exceeds Zmax in a minority of cases; still non-physical when clipped.")
+        print("   Investigate convention/mapping mismatch before attributing to numerical issues.")
+
+    print("\nSignal vs Zmax diagnostics (by distribution):")
+    for dist in ["binomial", "uniform", "mb"]:
+        dist_rows = [r for r in rows if r["distribution"] == dist]
+        if not dist_rows:
+            continue
+        avg_sig_to_zmax = np.mean([r["signal_to_zmax"] for r in dist_rows])
+        avg_noise_frac = np.mean([r["noise_fraction"] for r in dist_rows])
+        print(
+            f"  {dist:8s}: avg(signal/Zmax)={avg_sig_to_zmax:.3f}, "
+            f"avg(noise_fraction)={avg_noise_frac:.3f}"
+        )
 
     # Further diagnostics at ideal channel
     print(f"\n" + "=" * 90)
@@ -361,7 +429,21 @@ def main() -> None:
     print(f"  Z_raw = {metrics_ideal.z_star_raw:.10f}")
     print(f"  Z_max = {metrics_ideal.z_star_max:.10f}")
     print(f"  rho = {metrics_ideal.z_raw_over_zmax:.10f}")
+    print(f"  signal_to_zmax = {metrics_ideal.term_signal / metrics_ideal.z_star_max:.10f}")
+    print(
+        f"  noise_fraction = "
+        f"{metrics_ideal.term_noise / metrics_ideal.term_signal if metrics_ideal.term_signal > 0 else float('nan'):.10f}"
+    )
     print(f"  Status: {'PHYSICAL' if metrics_ideal.z_star_raw <= metrics_ideal.z_star_max else 'CLIPPED'}")
+
+    print(f"\n" + "=" * 90)
+    print("PHYSICAL INTERPRETATION SUMMARY")
+    print("=" * 90)
+    if not phys_pos:
+        print("No physically admissible positive-SKR point found under the current model/convention.")
+        print("All positive SKR_raw values observed so far are from clipped states (non-physical as-is).")
+    print("Clipped states must NOT be used as physical evidence for protocol performance.")
+    print("The dominant issue is Z_raw frequently exceeding Zmax, suggesting a convention/scale mismatch.")
 
     print(f"\n" + "=" * 90)
     print("DIAGNOSTIC SEARCH COMPLETE")
