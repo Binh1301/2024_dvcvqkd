@@ -6,20 +6,32 @@ import numpy as np
 EPS = 1e-15
 LAMBDA = 1550e-9
 
+
+def qam_alpha0_mb_for_va(va_target: float, nu_tilde: float) -> float:
+    ks = np.arange(16, dtype=float)
+    weights = np.exp(-float(nu_tilde) * (ks - 7.5) ** 2)
+    denom = float(weights.sum())
+    if denom <= 0.0:
+        raise ValueError("Invalid nu_tilde leading to non-positive normalization.")
+    moment = float(np.sum((ks - 7.5) ** 2 * weights) / denom)
+    if moment <= 0.0:
+        raise ValueError("Invalid moment for MB alpha0 computation.")
+    return float(np.sqrt(15.0 * float(va_target) / moment))
+
 # QAM defaults (aligned with uav_hap/qam_count scripts)
 # Note: Ncut tuned for convergence in w, VA, TrC
 QAM_M = 256
 QAM_NCUT_BINOMIAL = 45
 QAM_NCUT_UNIFORM = 150
 QAM_NCUT_MB = 150
-QAM_ALPHA0_BINOMIAL = 2 * np.sqrt(2)
-QAM_ALPHA0_UNIFORM = np.sqrt(24 / 17)
-QAM_ALPHA0_MB = QAM_ALPHA0_BINOMIAL
+QAM_ALPHA0_BINOMIAL = 2
+QAM_ALPHA0_UNIFORM = np.sqrt(12 / 17)
 QAM_NU_TILDE = 0.1
+QAM_ALPHA0_MB = 1.735
 QAM_BETA = 0.95
-QAM_EPS = 0.01
-QAM_ETA = 0.6
-QAM_V_EL = 0.01
+QAM_EPS = 0.001
+QAM_ETA = 0.95
+QAM_V_EL = 0.001
 
 
 def kruse_q_parameter(visibility_km: float) -> float:
