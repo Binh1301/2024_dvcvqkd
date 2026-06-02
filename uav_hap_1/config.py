@@ -40,7 +40,7 @@ def kruse_q_parameter(visibility_km: float) -> float:
         return 1.6
     if 6.0 < v <= 50.0:
         return 1.3
-    return 0.585 * np.cbrt(max(v, EPS))
+    return 0.585 * max(v, EPS) ** (1.0 / 3.0)
 
 
 def kruse_xi_per_km(visibility_km: float, wavelength_m: float) -> float:
@@ -74,7 +74,7 @@ class ChannelParams:
     W0_m: float = 0.0626
     a_m: float = 0.20
     visibility_km: float = 10.0
-    xi_per_km: Optional[float] = 0.09232
+    xi_per_km: Optional[float] = None
     Cn2: float = 1e-15
     use_hv_turbulence: bool = False
     w_wind: float = 21.0

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV-QKD UAV–HAP FSO Channel: T_eff Visualization</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --blue: #1f77b4;
+      --teal: #17becf;
+      --coral: #ff7f0e;
+      --purple: #9467bd;
+      --bg: #f7f7f9;
+      --panel: #ffffff;
+      --border: #d9d9df;
+      --text: #1b1b1f;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 16px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: #4a4a55;
+    }
+    .container {
+      padding: 16px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .chart-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chart-title {
+      font-size: 14px;
+      margin: 0;
+    }
+    .chart-wrapper {
+      height: 280px;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .control {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+    }
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .value {
+      font-weight: 600;
+      color: #0c0c12;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      font-size: 13px;
+    }
+    .info-item {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    .info-label {
+      color: #585865;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CV-QKD UAV–HAP FSO Channel: Effective Transmittance</h1>
+    <p>Interactive 2×2 visualization of T<sub>eff</sub> (dB) under the specified physics model.</p>
+  </header>
+
+  <div class="container">
+    <section class="panel">
+      <h2 class="chart-title">Global controls</h2>
+      <div class="controls">
+        <div class="control">
+          <label>
+            L_link (km)
+            <span class="value" data-param-value="L_link_km"></span>
+          </label>
+          <input type="range" min="5" max="50" step="0.5" value="20" data-param="L_link_km" />
+        </div>
+        <div class="control">
+          <label>
+            lambda (nm)
+            <span class="value" data-param-value="lambda_nm"></span>
+          </label>
+          <input type="range" min="800" max="1600" step="10" value="1550" data-param="lambda_nm" />
+        </div>
+        <div class="control">
+          <label>
+            sigma_UAV (cm)
+            <span class="value" data-param-value="sigma_UAV_cm"></span>
+          </label>
+          <input type="range" min="1" max="30" step="0.1" value="10.2" data-param="sigma_UAV_cm" />
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="chart-title">Operating point (updates with any slider)</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">eta_atm</div>
+          <div class="info-value" id="info-eta">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">WL (cm)</div>
+          <div class="info-value" id="info-wl">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">T0</div>
+          <div class="info-value" id="info-t0">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">T_eff (dB)</div>
+          <div class="info-value" id="info-teff">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 1 — Visibility V (km)</h3>
+        <div class="chart-wrapper"><canvas id="chartV"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>W0 (cm) <span class="value" data-param-value="W0_cm"></span></label>
+            <input type="range" min="2" max="20" step="0.1" value="6.26" data-param="W0_cm" />
+          </div>
+          <div class="control">
+            <label>a (cm) <span class="value" data-param-value="a_cm"></span></label>
+            <input type="range" min="3" max="25" step="0.1" value="7.5" data-param="a_cm" />
+          </div>
+          <div class="control">
+            <label>C2n (×10^-15) <span class="value" data-param-value="C2n_15"></span></label>
+            <input type="range" min="0.01" max="10" step="0.01" value="1.0" data-param="C2n_15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 2 — Beam waist W0 (cm)</h3>
+        <div class="chart-wrapper"><canvas id="chartW0"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>V (km) <span class="value" data-param-value="V_km"></span></label>
+            <input type="range" min="1" max="50" step="0.1" value="10.94" data-param="V_km" />
+          </div>
+          <div class="control">
+            <label>a (cm) <span class="value" data-param-value="a_cm"></span></label>
+            <input type="range" min="3" max="25" step="0.1" value="7.5" data-param="a_cm" />
+          </div>
+          <div class="control">
+            <label>C2n (×10^-15) <span class="value" data-param-value="C2n_15"></span></label>
+            <input type="range" min="0.01" max="10" step="0.01" value="1.0" data-param="C2n_15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 3 — Aperture radius a (cm)</h3>
+        <div class="chart-wrapper"><canvas id="chartA"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>V (km) <span class="value" data-param-value="V_km"></span></label>
+            <input type="range" min="1" max="50" step="0.1" value="10.94" data-param="V_km" />
+          </div>
+          <div class="control">
+            <label>W0 (cm) <span class="value" data-param-value="W0_cm"></span></label>
+            <input type="range" min="2" max="20" step="0.1" value="6.26" data-param="W0_cm" />
+          </div>
+          <div class="control">
+            <label>C2n (×10^-15) <span class="value" data-param-value="C2n_15"></span></label>
+            <input type="range" min="0.01" max="10" step="0.01" value="1.0" data-param="C2n_15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 4 — Turbulence C2n (×10^-15 m^-2/3)</h3>
+        <div class="chart-wrapper"><canvas id="chartC2n"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>V (km) <span class="value" data-param-value="V_km"></span></label>
+            <input type="range" min="1" max="50" step="0.1" value="10.94" data-param="V_km" />
+          </div>
+          <div class="control">
+            <label>W0 (cm) <span class="value" data-param-value="W0_cm"></span></label>
+            <input type="range" min="2" max="20" step="0.1" value="6.26" data-param="W0_cm" />
+          </div>
+          <div class="control">
+            <label>a (cm) <span class="value" data-param-value="a_cm"></span></label>
+            <input type="range" min="3" max="25" step="0.1" value="7.5" data-param="a_cm" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const state = {
+      L_link_km: 20,
+      lambda_nm: 1550,
+      sigma_UAV_cm: 10.2,
+      V_km: 10.94,
+      W0_cm: 6.26,
+      a_cm: 7.5,
+      C2n_15: 1.0
+    };
+
+    const randomUniform = Array.from({ length: 2000 }, () => Math.random());
+
+    function i0(x) {
+      let sum = 1;
+      let term = 1;
+      const x2over4 = (x * x) / 4;
+      for (let k = 1; k <= 25; k += 1) {
+        term *= x2over4 / (k * k);
+        sum += term;
+      }
+      return sum;
+    }
+
+    function i1(x) {
+      let sum = x / 2;
+      let term = x / 2;
+      const x2over4 = (x * x) / 4;
+      for (let k = 1; k <= 25; k += 1) {
+        term *= x2over4 / (k * (k + 1));
+        sum += term;
+      }
+      return sum;
+    }
+
+    function computeTeff(params) {
+      const lambda_nm = params.lambda_nm;
+      const V_km = params.V_km;
+      const L_link_km = params.L_link_km;
+      const W0_cm = params.W0_cm;
+      const a_cm = params.a_cm;
+      const C2n = params.C2n_15 * 1e-15;
+      const sigma_UAV_m = params.sigma_UAV_cm / 100;
+
+      let q;
+      if (V_km > 50) {
+        q = 1.6;
+      } else if (V_km > 6) {
+        q = 1.3;
+      } else {
+        q = 0.585 * Math.pow(V_km, 1 / 3);
+      }
+      const xi = (3.912 / V_km) * Math.pow(lambda_nm / 550, -q);
+      const eta_atm = Math.exp(-xi * L_link_km);
+
+      const W0_m = W0_cm / 100;
+      const a_m = a_cm / 100;
+      const lambda_m = lambda_nm * 1e-9;
+      const L_m = L_link_km * 1000;
+
+      const zR = Math.PI * W0_m * W0_m / lambda_m;
+      const WL = W0_m * Math.sqrt(1 + Math.pow(L_m / zR, 2));
+
+      const T0 = Math.sqrt(1 - Math.exp(-2 * a_m * a_m / (WL * WL)));
+
+      const x = Math.pow((2 * a_m) / WL, 2);
+      const expMinusX = Math.exp(-x);
+      const I0 = i0(x);
+      const I1 = i1(x);
+      const denom = (1 - expMinusX * I0);
+      const Delta = Math.log((2 * T0 * T0) / denom);
+      const Gamma = (8 * Math.pow(x, 4) * expMinusX * I1) / (denom * Delta);
+      const R = a_m / Math.pow(Delta, 1 / Gamma);
+
+      const sigma2_turb = 1.919 * C2n * Math.pow(L_m, 3) * Math.pow(2 * W0_m, -1 / 3);
+      const sigma2_UAV = sigma_UAV_m * sigma_UAV_m;
+      const sigma_r = Math.sqrt(sigma2_turb + sigma2_UAV);
+
+      const sigma_s = sigma_r / Math.sqrt(2);
+      let sum = 0;
+      for (let i = 0; i < randomUniform.length; i += 1) {
+        const u = randomUniform[i];
+        const r = sigma_s * Math.sqrt(-2 * Math.log(1 - u));
+        const T = T0 * T0 * Math.exp(-Math.pow(r / R, Gamma));
+        sum += T;
+      }
+      const E_T2 = sum / randomUniform.length;
+
+      const T_eff = eta_atm * E_T2;
+      const T_eff_dB = 10 * Math.log10(T_eff);
+      return { T_eff_dB, eta_atm, WL_m: WL, T0 };
+    }
+
+    function linspace(start, end, n) {
+      const arr = [];
+      const step = (end - start) / (n - 1);
+      for (let i = 0; i < n; i += 1) {
+        arr.push(start + step * i);
+      }
+      return arr;
+    }
+
+    function formatParam(param, value) {
+      if (param === "lambda_nm") return value.toFixed(0);
+      if (param === "V_km") return value.toFixed(2);
+      if (param === "W0_cm") return value.toFixed(2);
+      if (param === "a_cm") return value.toFixed(2);
+      if (param === "C2n_15") return value.toFixed(2);
+      if (param === "sigma_UAV_cm") return value.toFixed(2);
+      if (param === "L_link_km") return value.toFixed(1);
+      return value.toString();
+    }
+
+    function updateValueDisplays(param, value) {
+      document.querySelectorAll(`[data-param-value="${param}"]`).forEach((el) => {
+        el.textContent = formatParam(param, value);
+      });
+    }
+
+    function syncSliderInputs(param, value) {
+      document.querySelectorAll(`input[data-param="${param}"]`).forEach((el) => {
+        el.value = value;
+      });
+      updateValueDisplays(param, value);
+    }
+
+    function updateInfoPanel() {
+      const { eta_atm, WL_m, T0, T_eff_dB } = computeTeff(state);
+      document.getElementById("info-eta").textContent = eta_atm.toExponential(3);
+      document.getElementById("info-wl").textContent = (WL_m * 100).toFixed(2);
+      document.getElementById("info-t0").textContent = T0.toFixed(4);
+      document.getElementById("info-teff").textContent = T_eff_dB.toFixed(2);
+    }
+
+    function buildDataset(xs, computePoint) {
+      return xs.map((x) => {
+        const y = computePoint(x);
+        return { x, y };
+      });
+    }
+
+    function makeChart(ctx, color, xLabel) {
+      return new Chart(ctx, {
+        type: "line",
+        data: {
+          datasets: [{
+            label: "T_eff (dB)",
+            data: [],
+            borderColor: color,
+            backgroundColor: color,
+            borderWidth: 2,
+            pointRadius: 0,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              type: "linear",
+              title: { display: true, text: xLabel },
+              grid: { display: true }
+            },
+            y: {
+              title: { display: true, text: "T_eff (dB)" },
+              grid: { display: true }
+            }
+          },
+          interaction: {
+            mode: "nearest",
+            intersect: false
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const x = context.parsed.x;
+                  const y = context.parsed.y;
+                  return `x = ${x.toFixed(3)}, T_eff = ${y.toFixed(3)} dB`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    const chartV = makeChart(document.getElementById("chartV"), getComputedStyle(document.documentElement).getPropertyValue("--blue"), "Visibility V (km)");
+    const chartW0 = makeChart(document.getElementById("chartW0"), getComputedStyle(document.documentElement).getPropertyValue("--teal"), "Beam waist W0 (cm)");
+    const chartA = makeChart(document.getElementById("chartA"), getComputedStyle(document.documentElement).getPropertyValue("--coral"), "Aperture radius a (cm)");
+    const chartC2n = makeChart(document.getElementById("chartC2n"), getComputedStyle(document.documentElement).getPropertyValue("--purple"), "Turbulence C2n (×10^-15 m^-2/3)");
+
+    function updateCharts() {
+      const vRange = linspace(1, 50, 50);
+      const w0Range = linspace(2, 20, 50);
+      const aRange = linspace(3, 25, 50);
+      const c2nRange = linspace(0.01, 10, 50);
+
+      chartV.data.datasets[0].data = buildDataset(vRange, (V) => {
+        return computeTeff({ ...state, V_km: V }).T_eff_dB;
+      });
+      chartW0.data.datasets[0].data = buildDataset(w0Range, (W0) => {
+        return computeTeff({ ...state, W0_cm: W0 }).T_eff_dB;
+      });
+      chartA.data.datasets[0].data = buildDataset(aRange, (a) => {
+        return computeTeff({ ...state, a_cm: a }).T_eff_dB;
+      });
+      chartC2n.data.datasets[0].data = buildDataset(c2nRange, (C2n) => {
+        return computeTeff({ ...state, C2n_15: C2n }).T_eff_dB;
+      });
+
+      chartV.update();
+      chartW0.update();
+      chartA.update();
+      chartC2n.update();
+    }
+
+    function updateAll() {
+      updateInfoPanel();
+      updateCharts();
+    }
+
+    document.querySelectorAll("input[data-param]").forEach((input) => {
+      const param = input.dataset.param;
+      updateValueDisplays(param, parseFloat(input.value));
+      input.addEventListener("input", (event) => {
+        const value = parseFloat(event.target.value);
+        state[param] = value;
+        syncSliderInputs(param, value);
+        updateAll();
+      });
+    });
+
+    updateAll();
+  </script>
+</body>
+</html>
