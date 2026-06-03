@@ -122,6 +122,41 @@
       font-weight: 700;
     }
 
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .metrics-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .metrics-table th,
+    .metrics-table td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: right;
+    }
+
+    .metrics-table th:first-child,
+    .metrics-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      background: #f6f8fb;
+    }
+
+    .metrics-table thead th {
+      background: #f0f3f7;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+    }
+
+    .metrics-table .col-uniform { color: var(--blue); }
+    .metrics-table .col-binomial { color: var(--teal); }
+    .metrics-table .col-mb { color: var(--coral); }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -256,6 +291,90 @@
       </div>
     </section>
 
+    <section class="panel">
+      <h2 class="section-title">Channel parameters</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">T_eff (linear)</div>
+          <div class="info-value" id="info-teff-linear">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">eta_atm</div>
+          <div class="info-value" id="info-eta-atm">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">ET2</div>
+          <div class="info-value" id="info-et2">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">sigma_r (cm)</div>
+          <div class="info-value" id="info-sigma-r">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Gamma</div>
+          <div class="info-value" id="info-gamma">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">R (cm)</div>
+          <div class="info-value" id="info-r">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">chi_line</div>
+          <div class="info-value" id="info-chi-line">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">chi_hom</div>
+          <div class="info-value" id="info-chi-hom">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">chi_tot</div>
+          <div class="info-value" id="info-chi-tot">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">Modulation differences at operating point</h2>
+      <div class="table-wrapper">
+        <table class="metrics-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th class="col-uniform">Uniform</th>
+              <th class="col-binomial">Binomial</th>
+              <th class="col-mb">MB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VA_eff</td>
+              <td id="metric-va-uniform">—</td>
+              <td id="metric-va-binomial">—</td>
+              <td id="metric-va-mb">—</td>
+            </tr>
+            <tr>
+              <td>I_AB</td>
+              <td id="metric-iab-uniform">—</td>
+              <td id="metric-iab-binomial">—</td>
+              <td id="metric-iab-mb">—</td>
+            </tr>
+            <tr>
+              <td>chi_BE</td>
+              <td id="metric-chibe-uniform">—</td>
+              <td id="metric-chibe-binomial">—</td>
+              <td id="metric-chibe-mb">—</td>
+            </tr>
+            <tr>
+              <td>SKR (bits/pulse)</td>
+              <td id="metric-skr-uniform">—</td>
+              <td id="metric-skr-binomial">—</td>
+              <td id="metric-skr-mb">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <section class="grid">
       <div class="panel chart-block">
         <h3 class="chart-title">Plot 1 — Visibility V (km)</h3>
@@ -364,6 +483,35 @@
       binomial: "#1D9E75",
       mb: "#D85A30",
       reference: "#9aa1aa"
+    };
+    const QAM_CONSTANTS = {
+      eps: 0.001,
+      eta: 0.95,
+      v_el: 0.001
+    };
+    const QAM_STATES = {
+      binomial: {
+        alpha0: 2.0,
+        ncut: 45,
+        va: 1.9999999999999998,
+        tr_c: 1.414147501311065,
+        w: 0.00011333140444522628
+      },
+      uniform: {
+        alpha0: 0.8401680504168059,
+        ncut: 150,
+        va: 1.9999999999999993,
+        tr_c: 1.4019995788968003,
+        w: 0.026543340397914922
+      },
+      mb: {
+        alpha0: 1.735,
+        ncut: 150,
+        nu_tilde: 0.1,
+        va: 1.9980490544457419,
+        tr_c: 1.4131628716573499,
+        w: 0.00003536190741123598
+      }
     };
 
     const state = {
@@ -543,132 +691,108 @@
       };
     }
 
-    function uniformEffectiveVariance(VA) {
-      return VA / (Math.PI * Math.E / 3);
+    function computeZstar(tr_c, w, T, eps) {
+      return 2 * Math.sqrt(T) * tr_c - Math.sqrt(2 * T * eps * w);
     }
 
-    function binomialEffectiveVariance(VA, nb) {
-      return VA * (1 - 1 / (2 * nb));
-    }
-
-    function mbVarianceForNu(nu) {
-      const alphabet = [-3, -1, 1, 3];
-      const weights = alphabet.map((a) => Math.exp(-nu * a * a));
-      const Z = weights.reduce((sum, value) => sum + value, 0);
-      return alphabet.reduce((sum, a, index) => sum + (weights[index] / Z) * a * a, 0);
-    }
-
-    function findNu(VA_target) {
-      let lo = 0;
-      let hi = 10;
-      let mid = 5;
-      for (let i = 0; i < 40; i += 1) {
-        mid = (lo + hi) / 2;
-        if (mbVarianceForNu(mid) > VA_target) {
-          lo = mid;
-        } else {
-          hi = mid;
-        }
-      }
-      return mid;
-    }
-
-    function mbEffectiveVariance(VA, nb) {
-      if (VA < 1 || VA > 5) {
-        return binomialEffectiveVariance(VA, nb);
-      }
-      const alphabet = [-3, -1, 1, 3];
-      const nu = findNu(VA);
-      const weights = alphabet.map((a) => Math.exp(-nu * a * a));
-      const Z = weights.reduce((sum, value) => sum + value, 0);
-      const probs = weights.map((w) => w / Z);
-      const H_MB = -probs.reduce((sum, p) => sum + p * log2Safe(p), 0);
-      const H_Gauss = 0.5 * log2Safe(2 * Math.PI * Math.E * VA);
-      const shapingFactor = Math.exp(2 * (H_MB - H_Gauss) * Math.LN2);
-      return Math.max(VA * shapingFactor, EPS_SMALL);
-    }
-
-    function computeEffectiveVariances(params) {
-      const VA = clampPositive(params.VA_snu);
-      const nb = Math.round(params.nb);
+    function scaleStateForVA(distState, VA_target) {
+      const VA0 = clampPositive(distState.va);
+      const VA = clampPositive(VA_target);
+      const scale = Math.sqrt(VA / VA0);
       return {
-        uniform: uniformEffectiveVariance(VA),
-        binomial: binomialEffectiveVariance(VA, nb),
-        mb: mbEffectiveVariance(VA, nb)
+        VA,
+        alpha: distState.alpha0 * scale,
+        tr_c: distState.tr_c * scale,
+        w: distState.w * scale * scale
       };
     }
 
-    function computeNoise(T_eff) {
-      const eps_ch = 0.0008;
-      const eps_det = 0.013;
-      const eta_det = 0.97;
-      const teff = clampPositive(T_eff);
-      const chi_line = 1 / teff - 1 + eps_ch;
-      const chi_hom = (1 - eta_det + eps_det) / eta_det;
-      const chi_tot = chi_line + chi_hom / teff;
-      return { chi_line, chi_hom, chi_tot };
+    function computeNoise(T_eff, eps, eta, v_el) {
+      const chi_line = (1 - T_eff) / T_eff + eps;
+      const chi_det = (1 - eta + v_el) / eta;
+      const chi_tot = chi_line + chi_det / T_eff;
+      return { chi_line, chi_det, chi_tot };
     }
 
-    function mutualInformation(VA_eff, chi_tot) {
-      const V_state = VA_eff + 1;
-      return 0.5 * log2Safe((V_state + chi_tot) / (1 + chi_tot));
+    function mutualInformation(VA, T_eff, chi_tot) {
+      return log2Safe(1 + (T_eff * VA) / (2 + T_eff * chi_tot));
     }
 
     function gBosonic(x) {
-      if (Math.abs(x - 1) < 1e-9) return 0;
-      const xSafe = Math.max(x, 1 + 1e-12);
-      const plus = (xSafe + 1) / 2;
-      const minus = Math.max((xSafe - 1) / 2, EPS_SMALL);
-      return plus * log2Safe(plus) - minus * log2Safe(minus);
+      if (x < 0) return 0;
+      if (x < 1e-15) return 0;
+      return (x + 1) * log2Safe(x + 1) - x * log2Safe(x);
     }
 
-    function holevoBound(VA_eff, T_eff, chi_line, chi_hom) {
-      const V = VA_eff + 1;
-      const teff = clampPositive(T_eff);
-      const A =
-        V * V * (1 - 2 * teff)
-        + 2 * teff
-        + teff * teff * Math.pow(V + chi_line, 2);
-      const B = teff * teff * Math.pow(V * chi_line + 1, 2);
-      const disc = Math.sqrt(Math.max(A * A - 4 * B, 0));
-      const lambda1 = Math.sqrt(Math.max((A + disc) / 2, 1));
-      const lambda2 = Math.sqrt(Math.max((A - disc) / 2, 1));
-      const lambda3 = Math.sqrt(
-        Math.max(
-          ((V + chi_line) * (1 + chi_hom)) / ((V + chi_hom) * (V * chi_line + 1)),
-          1
-        )
-      );
-      return gBosonic(lambda1) + gBosonic(lambda2) - gBosonic(lambda3);
+    function computeEigenvalues(VA, zstar, T_eff, eps) {
+      const a = VA + 1;
+      const b = 1 + T_eff * VA + T_eff * eps;
+      const c = zstar;
+      const Delta = a * a + b * b - 2 * c * c;
+      const B = Math.pow(a * b - c * c, 2);
+      let disc = Delta * Delta - 4 * B;
+      if (disc < 0) disc = 0;
+      const sd = Math.sqrt(disc);
+      const lambda1 = Math.sqrt(Math.max(0.5 * (Delta + sd), 0));
+      const lambda2 = Math.sqrt(Math.max(0.5 * (Delta - sd), 0));
+      const lambda3 = Math.max(a - (c * c) / (2 + T_eff * VA + T_eff * eps), 1e-15);
+      return { lambda1, lambda2, lambda3, Delta, B, disc };
+    }
+
+    function holevoBound(VA, zstar, T_eff, eps) {
+      const { lambda1, lambda2, lambda3 } = computeEigenvalues(VA, zstar, T_eff, eps);
+      return gBosonic((lambda1 - 1) / 2) + gBosonic((lambda2 - 1) / 2) - gBosonic((lambda3 - 1) / 2);
     }
 
     function computeDistributionMetrics(params) {
       const channel = computeChannel(params);
-      const { chi_line, chi_hom, chi_tot } = computeNoise(channel.T_eff);
-      const VAeff = computeEffectiveVariances(params);
+      const eps = QAM_CONSTANTS.eps;
+      const eta = QAM_CONSTANTS.eta;
+      const v_el = QAM_CONSTANTS.v_el;
+      const { chi_line, chi_det, chi_tot } = computeNoise(channel.T_eff, eps, eta, v_el);
       const beta = params.beta;
+      const VA_target = clampPositive(params.VA_snu);
 
       const metrics = {};
       [
-        ["uniform", VAeff.uniform],
-        ["binomial", VAeff.binomial],
-        ["mb", VAeff.mb]
-      ].forEach(([key, VA_eff]) => {
-        const I_AB = mutualInformation(VA_eff, chi_tot);
-        const chi_BE = holevoBound(VA_eff, channel.T_eff, chi_line, chi_hom);
-        const skr = Math.max(0, beta * I_AB - chi_BE);
+        ["uniform", QAM_STATES.uniform],
+        ["binomial", QAM_STATES.binomial],
+        ["mb", QAM_STATES.mb]
+      ].forEach(([key, distState]) => {
+        const scaled = scaleStateForVA(distState, VA_target);
+        const VA = scaled.VA;
+        const zStarRaw = computeZstar(scaled.tr_c, scaled.w, channel.T_eff, eps);
+        const a_cv = VA + 1;
+        const b_cv = 1 + channel.T_eff * VA + channel.T_eff * eps;
+        const zStarMax = Math.sqrt(a_cv * b_cv);
+        let zStarUsed = zStarRaw;
+        let clipped = false;
+        if (zStarRaw >= zStarMax || (a_cv * b_cv - zStarRaw * zStarRaw) <= 0) {
+          zStarUsed = Math.min(zStarRaw, zStarMax * (1 - 1e-9));
+          clipped = true;
+        }
+
+        const I_AB = mutualInformation(VA, channel.T_eff, chi_tot);
+        const chi_BE = holevoBound(VA, zStarUsed, channel.T_eff, eps);
+        const skrRaw = beta * I_AB - chi_BE;
+        const skr = skrRaw;
         metrics[key] = {
-          VA_eff,
+          VA_eff: VA,
+          alpha: scaled.alpha,
           I_AB,
           chi_BE,
           skr,
-          logSkr: log10Safe(Math.max(skr, 1e-9))
+          logSkr: log10Safe(Math.max(Math.abs(skrRaw), 1e-12)),
+          z_star_raw: zStarRaw,
+          z_star_used: zStarUsed,
+          z_star_max: zStarMax,
+          z_star_clipped: clipped
         };
       });
 
       return {
         channel,
-        noise: { chi_line, chi_hom, chi_tot },
+        noise: { chi_line, chi_det, chi_tot },
         metrics
       };
     }
@@ -717,7 +841,7 @@
               min: -9,
               title: {
                 display: true,
-                text: "log₁₀(SKR)"
+                text: "log₁₀(|SKR|)"
               },
               grid: {
                 color: "rgba(80, 90, 110, 0.12)"
@@ -737,7 +861,7 @@
                 },
                 label: (context) => {
                   const raw = context.raw;
-                  return `${context.dataset.label}: ${scientific(raw.skr)} bits/pulse  |  log10=${raw.y.toFixed(3)}`;
+                  return `${context.dataset.label}: ${scientific(raw.skr)} bits/pulse  |  log10|SKR|=${raw.y.toFixed(3)}`;
                 }
               }
             }
@@ -771,10 +895,40 @@
 
     function updateInfoPanel() {
       const result = computeDistributionMetrics(state);
-      document.getElementById("info-teff-db").textContent = result.channel.T_eff_dB.toFixed(2);
-      document.getElementById("info-skr-uniform").textContent = scientific(result.metrics.uniform.skr);
-      document.getElementById("info-skr-binomial").textContent = scientific(result.metrics.binomial.skr);
-      document.getElementById("info-skr-mb").textContent = scientific(result.metrics.mb.skr);
+      const channel = result.channel;
+      const noise = result.noise;
+      const metrics = result.metrics;
+
+      document.getElementById("info-teff-db").textContent = channel.T_eff_dB.toFixed(2);
+      document.getElementById("info-skr-uniform").textContent = scientific(metrics.uniform.skr);
+      document.getElementById("info-skr-binomial").textContent = scientific(metrics.binomial.skr);
+      document.getElementById("info-skr-mb").textContent = scientific(metrics.mb.skr);
+
+      document.getElementById("info-teff-linear").textContent = scientific(channel.T_eff);
+      document.getElementById("info-eta-atm").textContent = scientific(channel.eta_atm);
+      document.getElementById("info-et2").textContent = scientific(channel.ET2);
+      document.getElementById("info-sigma-r").textContent = (channel.sigma_r * 100).toFixed(3);
+      document.getElementById("info-gamma").textContent = channel.Gamma.toFixed(3);
+      document.getElementById("info-r").textContent = (channel.R * 100).toFixed(3);
+      document.getElementById("info-chi-line").textContent = scientific(noise.chi_line);
+      document.getElementById("info-chi-hom").textContent = scientific(noise.chi_det);
+      document.getElementById("info-chi-tot").textContent = scientific(noise.chi_tot);
+
+      const rowSpec = [
+        ["va", (entry) => entry.VA_eff.toFixed(4)],
+        ["iab", (entry) => entry.I_AB.toFixed(5)],
+        ["chibe", (entry) => entry.chi_BE.toFixed(5)],
+        ["skr", (entry) => scientific(entry.skr)]
+      ];
+      const distKeys = ["uniform", "binomial", "mb"];
+      rowSpec.forEach(([rowKey, formatter]) => {
+        distKeys.forEach((distKey) => {
+          const cell = document.getElementById(`metric-${rowKey}-${distKey}`);
+          if (cell) {
+            cell.textContent = formatter(metrics[distKey]);
+          }
+        });
+      });
     }
 
     function updateChart(sweepKey) {
