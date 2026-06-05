@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV-QKD UAV–HAP SKR Comparison</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --blue: #378ADD;
+      --teal: #1D9E75;
+      --coral: #D85A30;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --border: #d7dde5;
+      --text: #1b2430;
+      --muted: #5b6472;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      padding: 18px 22px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .container {
+      padding: 18px 22px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(20, 31, 56, 0.05);
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 15px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px 14px;
+    }
+
+    .control {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .value {
+      font-weight: 700;
+      color: #0f1720;
+      white-space: nowrap;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .info-item {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafbfd;
+    }
+
+    .info-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .info-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .metrics-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .metrics-table th,
+    .metrics-table td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: right;
+    }
+
+    .metrics-table th:first-child,
+    .metrics-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      background: #f6f8fb;
+    }
+
+    .metrics-table thead th {
+      background: #f0f3f7;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+    }
+
+    .metrics-table .col-uniform { color: var(--blue); }
+    .metrics-table .col-binomial { color: var(--teal); }
+    .metrics-table .col-mb { color: var(--coral); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .chart-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chart-title {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .chart-wrapper {
+      height: 310px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend-square {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .legend-line {
+      width: 24px;
+      border-top-width: 3px;
+      border-top-style: solid;
+      border-top-color: currentColor;
+      display: inline-block;
+    }
+
+    .solid { border-top-style: solid; }
+    .dashed { border-top-style: dashed; }
+    .dotted { border-top-style: dotted; }
+
+    .blue { color: var(--blue); background-color: var(--blue); }
+    .teal { color: var(--teal); background-color: var(--teal); }
+    .coral { color: var(--coral); background-color: var(--coral); }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CV-QKD UAV–HAP SKR Comparison Dashboard</h1>
+    <p>Interactive browser-only comparison of log<sub>10</sub>(SKR) for Uniform, Binomial, and Maxwell–Boltzmann modulation across visibility, beam waist, aperture radius, and turbulence.</p>
+  </header>
+
+  <div class="container">
+    <section class="panel">
+      <h2 class="section-title">Global controls</h2>
+      <div class="controls">
+        <div class="control">
+          <label>L_link (km)<span class="value" data-param-value="L_link_km"></span></label>
+          <input type="range" min="5" max="50" step="1" value="20" data-param="L_link_km" />
+        </div>
+        <div class="control">
+          <label>lambda (nm)<span class="value" data-param-value="lambda_nm"></span></label>
+          <input type="range" min="800" max="1600" step="50" value="1550" data-param="lambda_nm" />
+        </div>
+        <div class="control">
+          <label>VA (SNU)<span class="value" data-param-value="VA_snu"></span></label>
+          <input type="range" min="0.1" max="10" step="0.1" value="2.0" data-param="VA_snu" />
+        </div>
+        <div class="control">
+          <label>beta<span class="value" data-param-value="beta"></span></label>
+          <input type="range" min="0.5" max="1.0" step="0.01" value="0.95" data-param="beta" />
+        </div>
+        <div class="control">
+          <label>sigma_UAV (cm)<span class="value" data-param-value="sigma_UAV_cm"></span></label>
+          <input type="range" min="1" max="30" step="0.5" value="10.2" data-param="sigma_UAV_cm" />
+        </div>
+        <div class="control">
+          <label>n_b<span class="value" data-param-value="nb"></span></label>
+          <input type="range" min="2" max="64" step="1" value="16" data-param="nb" />
+        </div>
+      </div>
+      <div class="hint">The V, W0, a, and C2n sliders are mirrored across plots so all four charts and the operating-point panel stay aligned.</div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">Operating point</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">T_eff (dB)</div>
+          <div class="info-value" id="info-teff-db">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">SKR Uniform</div>
+          <div class="info-value" id="info-skr-uniform">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">SKR Binomial</div>
+          <div class="info-value" id="info-skr-binomial">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">SKR MB</div>
+          <div class="info-value" id="info-skr-mb">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">Channel parameters</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">T_eff (linear)</div>
+          <div class="info-value" id="info-teff-linear">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">eta_atm</div>
+          <div class="info-value" id="info-eta-atm">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">ET2</div>
+          <div class="info-value" id="info-et2">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">sigma_r (cm)</div>
+          <div class="info-value" id="info-sigma-r">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Gamma</div>
+          <div class="info-value" id="info-gamma">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">R (cm)</div>
+          <div class="info-value" id="info-r">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">chi_line</div>
+          <div class="info-value" id="info-chi-line">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">chi_hom</div>
+          <div class="info-value" id="info-chi-hom">—</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">chi_tot</div>
+          <div class="info-value" id="info-chi-tot">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">Modulation differences at operating point</h2>
+      <div class="table-wrapper">
+        <table class="metrics-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th class="col-uniform">Uniform</th>
+              <th class="col-binomial">Binomial</th>
+              <th class="col-mb">MB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VA_eff</td>
+              <td id="metric-va-uniform">—</td>
+              <td id="metric-va-binomial">—</td>
+              <td id="metric-va-mb">—</td>
+            </tr>
+            <tr>
+              <td>I_AB</td>
+              <td id="metric-iab-uniform">—</td>
+              <td id="metric-iab-binomial">—</td>
+              <td id="metric-iab-mb">—</td>
+            </tr>
+            <tr>
+              <td>chi_BE</td>
+              <td id="metric-chibe-uniform">—</td>
+              <td id="metric-chibe-binomial">—</td>
+              <td id="metric-chibe-mb">—</td>
+            </tr>
+            <tr>
+              <td>SKR (bits/pulse)</td>
+              <td id="metric-skr-uniform">—</td>
+              <td id="metric-skr-binomial">—</td>
+              <td id="metric-skr-mb">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 1 — Visibility V (km)</h3>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-square blue"></span><span class="legend-line solid" style="color: var(--blue);"></span>Uniform</span>
+          <span class="legend-item"><span class="legend-square teal"></span><span class="legend-line dashed" style="color: var(--teal);"></span>Binomial</span>
+          <span class="legend-item"><span class="legend-square coral"></span><span class="legend-line dotted" style="color: var(--coral);"></span>MB</span>
+        </div>
+        <div class="chart-wrapper"><canvas id="chartV"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>W0 (cm)<span class="value" data-param-value="W0_cm"></span></label>
+            <input type="range" min="2" max="20" step="0.1" value="6.26" data-param="W0_cm" />
+          </div>
+          <div class="control">
+            <label>a (cm)<span class="value" data-param-value="a_cm"></span></label>
+            <input type="range" min="3" max="25" step="0.1" value="7.5" data-param="a_cm" />
+          </div>
+          <div class="control">
+            <label>C2n (×10^-15)<span class="value" data-param-value="C2n_15"></span></label>
+            <input type="range" min="0.01" max="10" step="0.01" value="1.0" data-param="C2n_15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 2 — Beam waist W0 (cm)</h3>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-square blue"></span><span class="legend-line solid" style="color: var(--blue);"></span>Uniform</span>
+          <span class="legend-item"><span class="legend-square teal"></span><span class="legend-line dashed" style="color: var(--teal);"></span>Binomial</span>
+          <span class="legend-item"><span class="legend-square coral"></span><span class="legend-line dotted" style="color: var(--coral);"></span>MB</span>
+        </div>
+        <div class="chart-wrapper"><canvas id="chartW0"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>V (km)<span class="value" data-param-value="V_km"></span></label>
+            <input type="range" min="1" max="50" step="0.1" value="10.94" data-param="V_km" />
+          </div>
+          <div class="control">
+            <label>a (cm)<span class="value" data-param-value="a_cm"></span></label>
+            <input type="range" min="3" max="25" step="0.1" value="7.5" data-param="a_cm" />
+          </div>
+          <div class="control">
+            <label>C2n (×10^-15)<span class="value" data-param-value="C2n_15"></span></label>
+            <input type="range" min="0.01" max="10" step="0.01" value="1.0" data-param="C2n_15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 3 — Aperture radius a (cm)</h3>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-square blue"></span><span class="legend-line solid" style="color: var(--blue);"></span>Uniform</span>
+          <span class="legend-item"><span class="legend-square teal"></span><span class="legend-line dashed" style="color: var(--teal);"></span>Binomial</span>
+          <span class="legend-item"><span class="legend-square coral"></span><span class="legend-line dotted" style="color: var(--coral);"></span>MB</span>
+        </div>
+        <div class="chart-wrapper"><canvas id="chartA"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>V (km)<span class="value" data-param-value="V_km"></span></label>
+            <input type="range" min="1" max="50" step="0.1" value="10.94" data-param="V_km" />
+          </div>
+          <div class="control">
+            <label>W0 (cm)<span class="value" data-param-value="W0_cm"></span></label>
+            <input type="range" min="2" max="20" step="0.1" value="6.26" data-param="W0_cm" />
+          </div>
+          <div class="control">
+            <label>C2n (×10^-15)<span class="value" data-param-value="C2n_15"></span></label>
+            <input type="range" min="0.01" max="10" step="0.01" value="1.0" data-param="C2n_15" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel chart-block">
+        <h3 class="chart-title">Plot 4 — Turbulence C2n (×10^-15 m^-2/3)</h3>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-square blue"></span><span class="legend-line solid" style="color: var(--blue);"></span>Uniform</span>
+          <span class="legend-item"><span class="legend-square teal"></span><span class="legend-line dashed" style="color: var(--teal);"></span>Binomial</span>
+          <span class="legend-item"><span class="legend-square coral"></span><span class="legend-line dotted" style="color: var(--coral);"></span>MB</span>
+        </div>
+        <div class="chart-wrapper"><canvas id="chartC2n"></canvas></div>
+        <div class="controls">
+          <div class="control">
+            <label>V (km)<span class="value" data-param-value="V_km"></span></label>
+            <input type="range" min="1" max="50" step="0.1" value="10.94" data-param="V_km" />
+          </div>
+          <div class="control">
+            <label>W0 (cm)<span class="value" data-param-value="W0_cm"></span></label>
+            <input type="range" min="2" max="20" step="0.1" value="6.26" data-param="W0_cm" />
+          </div>
+          <div class="control">
+            <label>a (cm)<span class="value" data-param-value="a_cm"></span></label>
+            <input type="range" min="3" max="25" step="0.1" value="7.5" data-param="a_cm" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const EPS = 1e-12;
+    const EPS_SMALL = 1e-15;
+    const N_MONTE_CARLO = 2000;
+    const COLORS = {
+      uniform: "#378ADD",
+      binomial: "#1D9E75",
+      mb: "#D85A30",
+      reference: "#9aa1aa"
+    };
+    const QAM_CONSTANTS = {
+      eps: 0.001,
+      eta: 0.95,
+      v_el: 0.001
+    };
+    const QAM_STATES = {
+      binomial: {
+        alpha0: 2.0,
+        ncut: 45,
+        va: 1.9999999999999998,
+        tr_c: 1.414147501311065,
+        w: 0.00011333140444522628
+      },
+      uniform: {
+        alpha0: 0.8401680504168059,
+        ncut: 150,
+        va: 1.9999999999999993,
+        tr_c: 1.4019995788968003,
+        w: 0.026543340397914922
+      },
+      mb: {
+        alpha0: 1.735,
+        ncut: 150,
+        nu_tilde: 0.1,
+        va: 1.9980490544457419,
+        tr_c: 1.4131628716573499,
+        w: 0.00003536190741123598
+      }
+    };
+
+    const state = {
+      L_link_km: 20,
+      lambda_nm: 1550,
+      VA_snu: 2.0,
+      beta: 0.95,
+      sigma_UAV_cm: 10.2,
+      nb: 16,
+      V_km: 10.94,
+      W0_cm: 6.26,
+      a_cm: 7.5,
+      C2n_15: 1.0
+    };
+
+    const SWEEPS = {
+      V_km: {
+        canvasId: "chartV",
+        label: "Visibility V (km)",
+        range: linspace(1, 50, 50),
+        formatter: (x) => `${x.toFixed(2)} km`
+      },
+      W0_cm: {
+        canvasId: "chartW0",
+        label: "Beam waist W0 (cm)",
+        range: linspace(2, 20, 50),
+        formatter: (x) => `${x.toFixed(2)} cm`
+      },
+      a_cm: {
+        canvasId: "chartA",
+        label: "Aperture radius a (cm)",
+        range: linspace(3, 25, 50),
+        formatter: (x) => `${x.toFixed(2)} cm`
+      },
+      C2n_15: {
+        canvasId: "chartC2n",
+        label: "Turbulence C2n (×10^-15 m^-2/3)",
+        range: linspace(0.01, 10, 50),
+        formatter: (x) => `${x.toFixed(2)} ×10^-15 m^-2/3`
+      }
+    };
+
+    const uniformSamples = createUniformSamples(N_MONTE_CARLO, 20240602);
+
+    function createUniformSamples(n, seed) {
+      const samples = [];
+      let x = seed >>> 0;
+      for (let i = 0; i < n; i += 1) {
+        x = (1664525 * x + 1013904223) >>> 0;
+        samples.push((x + 0.5) / 4294967296);
+      }
+      return samples;
+    }
+
+    function linspace(start, end, count) {
+      const values = [];
+      const step = (end - start) / (count - 1);
+      for (let i = 0; i < count; i += 1) {
+        values.push(start + step * i);
+      }
+      return values;
+    }
+
+    function clampPositive(value, floor = EPS_SMALL) {
+      return Math.max(value, floor);
+    }
+
+    function log2Safe(value) {
+      return Math.log(clampPositive(value)) / Math.LN2;
+    }
+
+    function log10Safe(value) {
+      return Math.log(clampPositive(value)) / Math.LN10;
+    }
+
+    function db10(value) {
+      return 10 * log10Safe(Math.max(value, 1e-12));
+    }
+
+    function scientific(value) {
+      return value.toExponential(3);
+    }
+
+    function factorial(n) {
+      let result = 1;
+      for (let i = 2; i <= n; i += 1) {
+        result *= i;
+      }
+      return result;
+    }
+
+    function i0(x) {
+      let sum = 1;
+      const core = (x * x) / 4;
+      let factorialTerm = 1;
+      for (let k = 1; k <= 25; k += 1) {
+        factorialTerm *= k;
+        sum += Math.pow(core, k) / (factorialTerm * factorialTerm);
+      }
+      return sum;
+    }
+
+    function i1(x) {
+      let sum = 0;
+      for (let k = 0; k <= 25; k += 1) {
+        const numerator = Math.pow(x / 2, 2 * k + 1);
+        const denominator = factorial(k) * factorial(k + 1);
+        sum += numerator / denominator;
+      }
+      return sum;
+    }
+
+    function kruseQ(visibilityKm) {
+      if (visibilityKm > 50) return 1.6;
+      if (visibilityKm > 6) return 1.3;
+      return 0.585 * Math.pow(clampPositive(visibilityKm), 1 / 3);
+    }
+
+    function computeChannel(params) {
+      const V_km = clampPositive(params.V_km);
+      const lambda_nm = clampPositive(params.lambda_nm);
+      const L_km = clampPositive(params.L_link_km);
+      const W0_m = clampPositive(params.W0_cm / 100);
+      const a_m = clampPositive(params.a_cm / 100);
+      const C2n = clampPositive(params.C2n_15) * 1e-15;
+      const sigma_UAV_m = clampPositive(params.sigma_UAV_cm / 100);
+      const lambda_m = lambda_nm * 1e-9;
+      const L_m = L_km * 1000;
+
+      const q = kruseQ(V_km);
+      const xi = (3.912 / V_km) * Math.pow(lambda_nm / 550, -q);
+      const eta_atm = Math.exp(-xi * L_km);
+
+      const zR = Math.PI * W0_m * W0_m / clampPositive(lambda_m);
+      const WL = W0_m * Math.sqrt(1 + Math.pow(L_m / clampPositive(zR), 2));
+
+      const T0 = Math.sqrt(Math.max(0, 1 - Math.exp(-2 * a_m * a_m / (WL * WL))));
+      const x = Math.pow((2 * a_m) / WL, 2);
+      const ex = Math.exp(-x);
+      const I0 = i0(x);
+      const I1 = i1(x);
+      const denom = clampPositive(1 - ex * I0);
+      const ratio = Math.max((2 * T0 * T0) / denom, 1 + EPS_SMALL);
+      const Delta = clampPositive(Math.log(ratio));
+      const gammaRaw = (8 * Math.pow(x, 4) * ex * I1) / clampPositive(denom * Delta);
+      const Gamma = clampPositive(gammaRaw, 1e-9);
+      const exponent = Math.min(1 / Gamma, 1e6);
+      const R = Math.max(a_m / Math.pow(Delta, exponent), EPS_SMALL);
+
+      const sigma2_turb = 1.919 * C2n * Math.pow(L_m, 3) * Math.pow(2 * W0_m, -1 / 3);
+      const sigma_r = Math.sqrt(Math.max(sigma2_turb + sigma_UAV_m * sigma_UAV_m, 0));
+      const sigma_s = sigma_r / Math.sqrt(2);
+
+      let et2Sum = 0;
+      for (let i = 0; i < uniformSamples.length; i += 1) {
+        const u = Math.min(Math.max(uniformSamples[i], EPS_SMALL), 1 - EPS_SMALL);
+        const r = sigma_s > 0 ? sigma_s * Math.sqrt(-2 * Math.log(u)) : 0;
+        et2Sum += T0 * T0 * Math.exp(-Math.pow(r / R, Gamma));
+      }
+      const ET2 = et2Sum / uniformSamples.length;
+      const T_eff = eta_atm * ET2;
+
+      return {
+        T_eff,
+        T_eff_dB: db10(T_eff),
+        eta_atm,
+        xi,
+        zR,
+        WL,
+        T0,
+        x,
+        Gamma,
+        R,
+        sigma2_turb,
+        sigma_r,
+        ET2
+      };
+    }
+
+    function computeZstar(tr_c, w, T, eps) {
+      return 2 * Math.sqrt(T) * tr_c - Math.sqrt(2 * T * eps * w);
+    }
+
+    function computeEffectiveVariances() {
+      return {
+        uniform: QAM_STATES.uniform.va,
+        binomial: QAM_STATES.binomial.va,
+        mb: QAM_STATES.mb.va
+      };
+    }
+
+    function computeNoise(T_eff, eps, eta, v_el) {
+      const chi_line = (1 - T_eff) / T_eff + eps;
+      const chi_det = (1 - eta + v_el) / eta;
+      const chi_tot = chi_line + chi_det / T_eff;
+      return { chi_line, chi_det, chi_tot };
+    }
+
+    function mutualInformation(VA, T_eff, chi_tot) {
+      return log2Safe(1 + (T_eff * VA) / (2 + T_eff * chi_tot));
+    }
+
+    function gBosonic(x) {
+      if (x < 0) return 0;
+      if (x < 1e-15) return 0;
+      return (x + 1) * log2Safe(x + 1) - x * log2Safe(x);
+    }
+
+    function computeEigenvalues(VA, zstar, T_eff, eps) {
+      const a = VA + 1;
+      const b = 1 + T_eff * VA + T_eff * eps;
+      const c = zstar;
+      const Delta = a * a + b * b - 2 * c * c;
+      const B = Math.pow(a * b - c * c, 2);
+      let disc = Delta * Delta - 4 * B;
+      if (disc < 0) disc = 0;
+      const sd = Math.sqrt(disc);
+      const lambda1 = Math.sqrt(Math.max(0.5 * (Delta + sd), 0));
+      const lambda2 = Math.sqrt(Math.max(0.5 * (Delta - sd), 0));
+      const lambda3 = Math.max(a - (c * c) / (2 + T_eff * VA + T_eff * eps), 1e-15);
+      return { lambda1, lambda2, lambda3, Delta, B, disc };
+    }
+
+    function holevoBound(VA, zstar, T_eff, eps) {
+      const { lambda1, lambda2, lambda3 } = computeEigenvalues(VA, zstar, T_eff, eps);
+      return gBosonic((lambda1 - 1) / 2) + gBosonic((lambda2 - 1) / 2) - gBosonic((lambda3 - 1) / 2);
+    }
+
+    function computeDistributionMetrics(params) {
+      const channel = computeChannel(params);
+      const eps = QAM_CONSTANTS.eps;
+      const eta = QAM_CONSTANTS.eta;
+      const v_el = QAM_CONSTANTS.v_el;
+      const { chi_line, chi_det, chi_tot } = computeNoise(channel.T_eff, eps, eta, v_el);
+      const beta = params.beta;
+
+      const metrics = {};
+      [
+        ["uniform", QAM_STATES.uniform],
+        ["binomial", QAM_STATES.binomial],
+        ["mb", QAM_STATES.mb]
+      ].forEach(([key, distState]) => {
+        const VA = distState.va;
+        const zStarRaw = computeZstar(distState.tr_c, distState.w, channel.T_eff, eps);
+        const a_cv = VA + 1;
+        const b_cv = 1 + channel.T_eff * VA + channel.T_eff * eps;
+        const zStarMax = Math.sqrt(a_cv * b_cv);
+        let zStarUsed = zStarRaw;
+        let clipped = false;
+        if (zStarRaw >= zStarMax || (a_cv * b_cv - zStarRaw * zStarRaw) <= 0) {
+          zStarUsed = Math.min(zStarRaw, zStarMax * (1 - 1e-9));
+          clipped = true;
+        }
+
+        const I_AB = mutualInformation(VA, channel.T_eff, chi_tot);
+        const chi_BE = holevoBound(VA, zStarUsed, channel.T_eff, eps);
+        const skrRaw = beta * I_AB - chi_BE;
+        const skr = Math.max(0, skrRaw);
+        metrics[key] = {
+          VA_eff: VA,
+          I_AB,
+          chi_BE,
+          skr,
+          logSkr: log10Safe(Math.max(skr, 1e-9)),
+          z_star_raw: zStarRaw,
+          z_star_used: zStarUsed,
+          z_star_max: zStarMax,
+          z_star_clipped: clipped
+        };
+      });
+
+      return {
+        channel,
+        noise: { chi_line, chi_det, chi_tot },
+        metrics
+      };
+    }
+
+    function makeReferenceDataset(y, xRange, label) {
+      return {
+        label,
+        data: [
+          { x: xRange[0], y },
+          { x: xRange[xRange.length - 1], y }
+        ],
+        borderColor: COLORS.reference,
+        borderDash: [6, 6],
+        borderWidth: 1.2,
+        pointRadius: 0,
+        tension: 0,
+        meta: "reference"
+      };
+    }
+
+    function makeChart(canvasId, xLabel, formatter) {
+      return new Chart(document.getElementById(canvasId), {
+        type: "line",
+        data: { datasets: [] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          interaction: {
+            mode: "index",
+            intersect: false
+          },
+          parsing: false,
+          scales: {
+            x: {
+              type: "linear",
+              title: {
+                display: true,
+                text: xLabel
+              },
+              grid: {
+                color: "rgba(80, 90, 110, 0.12)"
+              }
+            },
+            y: {
+              min: -9,
+              title: {
+                display: true,
+                text: "log₁₀(SKR)"
+              },
+              grid: {
+                color: "rgba(80, 90, 110, 0.12)"
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              filter: (item) => item.dataset.meta !== "reference",
+              callbacks: {
+                title: (items) => {
+                  if (!items.length) return "";
+                  return formatter(items[0].parsed.x);
+                },
+                label: (context) => {
+                  const raw = context.raw;
+                  return `${context.dataset.label}: ${scientific(raw.skr)} bits/pulse  |  log10=${raw.y.toFixed(3)}`;
+                }
+              }
+            }
+          },
+          elements: {
+            line: {
+              tension: 0.2
+            }
+          }
+        }
+      });
+    }
+
+    const charts = {
+      V_km: makeChart(SWEEPS.V_km.canvasId, SWEEPS.V_km.label, SWEEPS.V_km.formatter),
+      W0_cm: makeChart(SWEEPS.W0_cm.canvasId, SWEEPS.W0_cm.label, SWEEPS.W0_cm.formatter),
+      a_cm: makeChart(SWEEPS.a_cm.canvasId, SWEEPS.a_cm.label, SWEEPS.a_cm.formatter),
+      C2n_15: makeChart(SWEEPS.C2n_15.canvasId, SWEEPS.C2n_15.label, SWEEPS.C2n_15.formatter)
+    };
+
+    function buildCurvePoints(xRange, sweepKey, distKey) {
+      return xRange.map((x) => {
+        const result = computeDistributionMetrics({ ...state, [sweepKey]: x });
+        return {
+          x,
+          y: result.metrics[distKey].logSkr,
+          skr: result.metrics[distKey].skr
+        };
+      });
+    }
+
+    function updateInfoPanel() {
+      const result = computeDistributionMetrics(state);
+      const channel = result.channel;
+      const noise = result.noise;
+      const metrics = result.metrics;
+
+      document.getElementById("info-teff-db").textContent = channel.T_eff_dB.toFixed(2);
+      document.getElementById("info-skr-uniform").textContent = scientific(metrics.uniform.skr);
+      document.getElementById("info-skr-binomial").textContent = scientific(metrics.binomial.skr);
+      document.getElementById("info-skr-mb").textContent = scientific(metrics.mb.skr);
+
+      document.getElementById("info-teff-linear").textContent = scientific(channel.T_eff);
+      document.getElementById("info-eta-atm").textContent = scientific(channel.eta_atm);
+      document.getElementById("info-et2").textContent = scientific(channel.ET2);
+      document.getElementById("info-sigma-r").textContent = (channel.sigma_r * 100).toFixed(3);
+      document.getElementById("info-gamma").textContent = channel.Gamma.toFixed(3);
+      document.getElementById("info-r").textContent = (channel.R * 100).toFixed(3);
+      document.getElementById("info-chi-line").textContent = scientific(noise.chi_line);
+      document.getElementById("info-chi-hom").textContent = scientific(noise.chi_det);
+      document.getElementById("info-chi-tot").textContent = scientific(noise.chi_tot);
+
+      const rowSpec = [
+        ["va", (entry) => entry.VA_eff.toFixed(4)],
+        ["iab", (entry) => entry.I_AB.toFixed(5)],
+        ["chibe", (entry) => entry.chi_BE.toFixed(5)],
+        ["skr", (entry) => scientific(entry.skr)]
+      ];
+      const distKeys = ["uniform", "binomial", "mb"];
+      rowSpec.forEach(([rowKey, formatter]) => {
+        distKeys.forEach((distKey) => {
+          const cell = document.getElementById(`metric-${rowKey}-${distKey}`);
+          if (cell) {
+            cell.textContent = formatter(metrics[distKey]);
+          }
+        });
+      });
+    }
+
+    function updateChart(sweepKey) {
+      const chart = charts[sweepKey];
+      const spec = SWEEPS[sweepKey];
+      const xRange = spec.range;
+      const uniform = buildCurvePoints(xRange, sweepKey, "uniform");
+      const binomial = buildCurvePoints(xRange, sweepKey, "binomial");
+      const mb = buildCurvePoints(xRange, sweepKey, "mb");
+      const yMax = Math.max(
+        0.25,
+        ...uniform.map((p) => p.y),
+        ...binomial.map((p) => p.y),
+        ...mb.map((p) => p.y),
+        0,
+        -3
+      );
+
+      chart.data.datasets = [
+        {
+          label: "Uniform",
+          data: uniform,
+          borderColor: COLORS.uniform,
+          backgroundColor: COLORS.uniform,
+          borderWidth: 2.4,
+          pointRadius: 0
+        },
+        {
+          label: "Binomial",
+          data: binomial,
+          borderColor: COLORS.binomial,
+          backgroundColor: COLORS.binomial,
+          borderDash: [10, 6],
+          borderWidth: 2.4,
+          pointRadius: 0
+        },
+        {
+          label: "MB",
+          data: mb,
+          borderColor: COLORS.mb,
+          backgroundColor: COLORS.mb,
+          borderDash: [2, 6],
+          borderWidth: 2.4,
+          pointRadius: 0
+        },
+        makeReferenceDataset(0, xRange, "SKR = 1"),
+        makeReferenceDataset(-3, xRange, "SKR = 0.001")
+      ];
+      chart.options.scales.y.max = Math.max(0.5, Math.ceil((yMax + 0.2) * 4) / 4);
+      chart.update();
+    }
+
+    function updateAllCharts() {
+      Object.keys(charts).forEach((sweepKey) => updateChart(sweepKey));
+    }
+
+    function formatParam(param, value) {
+      switch (param) {
+        case "L_link_km": return value.toFixed(0);
+        case "lambda_nm": return value.toFixed(0);
+        case "VA_snu": return value.toFixed(1);
+        case "beta": return value.toFixed(2);
+        case "sigma_UAV_cm": return value.toFixed(1);
+        case "nb": return Math.round(value).toString();
+        case "V_km": return value.toFixed(2);
+        case "W0_cm": return value.toFixed(2);
+        case "a_cm": return value.toFixed(2);
+        case "C2n_15": return value.toFixed(2);
+        default: return String(value);
+      }
+    }
+
+    function syncInputs(param, value) {
+      document.querySelectorAll(`input[data-param="${param}"]`).forEach((input) => {
+        input.value = value;
+      });
+      document.querySelectorAll(`[data-param-value="${param}"]`).forEach((span) => {
+        span.textContent = formatParam(param, value);
+      });
+    }
+
+    function updateAll() {
+      updateInfoPanel();
+      updateAllCharts();
+    }
+
+    document.querySelectorAll("input[data-param]").forEach((input) => {
+      const param = input.dataset.param;
+      syncInputs(param, parseFloat(input.value));
+      input.addEventListener("input", (event) => {
+        const rawValue = parseFloat(event.target.value);
+        const value = param === "nb" ? Math.round(rawValue) : rawValue;
+        state[param] = value;
+        syncInputs(param, value);
+        updateAll();
+      });
+    });
+
+    updateAll();
+  </script>
+</body>
+</html>
