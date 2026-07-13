@@ -1,0 +1,84 @@
+\subsection{Discrete-Input Mutual Information}
+\label{subsec:discrete_input_mi}
+
+Let $X\in\mathcal{X}=\{\alpha_1,\ldots,\alpha_M\}$ denote the transmitted
+symbol, where $M=256$, $\Pr[X=\alpha_m]=p_m$, and $\sum_{m=1}^{M}p_m=1$.
+The normalized constellation satisfies
+\begin{equation}
+    \sum_{m=1}^{M}p_m\alpha_m=0,
+    \qquad
+    2\sum_{m=1}^{M}p_m|\alpha_m|^2=V_A.
+\end{equation}
+For an instantaneous channel transmittance $T$, the complex baseband auxiliary
+channel is
+\begin{equation}
+    Y=\sqrt{T}\alpha_X+N,
+    \qquad
+    N\sim\mathcal{CN}(0,\sigma_c^2),
+    \qquad
+    \sigma_c^2=1+\frac{T\epsilon}{2}.
+\end{equation}
+Thus, $\Re\{N\}$ and $\Im\{N\}$ are independent zero-mean Gaussian random
+variables with variance $\sigma_c^2/2$. This convention gives
+\begin{equation}
+    \mathsf{SNR}
+    =\frac{T V_A/2}{1+T\epsilon/2}
+    =\frac{T V_A}{2+T\epsilon},
+\end{equation}
+which is identical to the signal-to-noise convention used by the Gaussian-input
+benchmark.
+
+The discrete-input mutual information is
+\begin{equation}
+    I_{AB}=I(X;Y)=H(X)-H(X|Y).
+\end{equation}
+For an auxiliary channel $Q_{Y|X}$, an achievable mismatched-decoding rate is
+\begin{equation}
+    I_{AB}\geq R_{\mathrm{sym}}
+    =H(X)+\mathbb{E}_{X,Y}
+    \left[\log_2 Q_{X|Y}(X|Y)\right].
+\end{equation}
+Using the unnormalized likelihood
+$Q_{Y|X}(y|\alpha_m)\propto
+\exp[-|y-\sqrt{T}\alpha_m|^2/\sigma_c^2]$, the auxiliary posterior is
+\begin{equation}
+    Q_{X|Y}(\alpha_m|y)
+    =\frac{p_m\exp\!\left(-|y-\sqrt{T}\alpha_m|^2/\sigma_c^2\right)}
+    {\sum_{j=1}^{M}p_j\exp\!\left(-|y-\sqrt{T}\alpha_j|^2/\sigma_c^2\right)}.
+\end{equation}
+The likelihood normalization is omitted because it cancels in the posterior.
+The posterior is evaluated numerically in the log domain using the
+log-sum-exp operation.
+
+For samples $(x_i,y_i)_{i=1}^{N}$, the Monte Carlo estimator is
+\begin{align}
+    \widehat{R}_{\mathrm{sym}}
+    ={}&-\sum_{m=1}^{M}p_m\log_2 p_m \nonumber\\
+    &+\frac{1}{N}\sum_{i=1}^{N}\log_2\!\left[
+    \frac{p_{x_i}\exp\!\left(-|y_i-\sqrt{T}\alpha_{x_i}|^2/\sigma_c^2\right)}
+    {\sum_{j=1}^{M}p_j\exp\!\left(-|y_i-\sqrt{T}\alpha_j|^2/\sigma_c^2\right)}
+    \right].
+\end{align}
+In the implementation, all transmitted constellation points are enumerated
+exactly and weighted by $p_m$, while only the complex additive noise is sampled.
+For fading samples $T_b$, the estimator is evaluated conditionally for every
+$T_b$ and subsequently averaged; the mean transmittance is not substituted into
+the nonlinear mutual-information expression.
+
+The raw asymptotic secret key rate is therefore evaluated as
+\begin{equation}
+    K_{\mathrm{raw}}=\beta\widehat{R}_{\mathrm{sym}}-\chi_{BE}.
+\end{equation}
+No nonnegativity projection is applied during optimization. Only reported
+curves and tables use $K_{\mathrm{reported}}=\max(K_{\mathrm{raw}},0)$.
+The Holevo-information calculation $\chi_{BE}$ and its covariance-matrix model
+remain unchanged.
+
+For comparison only, the Gaussian-input reference mutual information is
+\begin{equation}
+    I_{AB}^{\mathrm{G}}
+    =\log_2\!\left(1+\frac{T V_A}{2+T\epsilon}\right).
+\end{equation}
+The quantity $I_{AB}^{\mathrm{G}}$ is not used to optimize the probabilistic
+shaping network. Unlike the Gaussian reference, the finite-alphabet achievable
+rate saturates at $H(X)\leq\log_2(256)=8$ bits per symbol.
