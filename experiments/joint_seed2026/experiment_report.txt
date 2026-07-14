@@ -1,0 +1,161 @@
+Joint probabilistic/geometric shaping experiment
+==================================================
+
+Imported project components
+---------------------------
+- uav_hap_1.channel.channel_model.channel: instantaneous Rayleigh beam-displacement fading,
+  T_samples, and T_eff.
+- uav_hap_1.config: V_A-related QAM scale, beta=0.95, epsilon=0.001,
+  detector parameters, visibility, beam waist, aperture, and Cn2 defaults.
+- uav_hap_1.zstar.base: square-QAM coordinates, Uniform/MB PMFs, and the reference
+  density-matrix/security equations.
+- uav_hap_1_sample.iab.discrete: reference discrete-MI implementation used for parity testing.
+
+Independent channel data
+------------------------
+Training mean T: 0.07488725922
+Validation mean T: 0.07666687585
+Test mean T: 0.06672799186
+Visibility: 10 km
+Beam waist W0: 0.0626 m
+Aperture radius: 0.2 m
+Cn2: 1e-15 m^(-2/3)
+Rayleigh is used only for beam-displacement/channel fading, never as a symbol PMF.
+
+Source inconsistencies and conventions
+--------------------------------------
+- The original NumPy/SciPy security functions return Python floats, so they are not
+  differentiable. Their equations were translated to complex128 PyTorch here.
+- The original protocol reports Gaussian-input I_AB and includes chi_tot; this experiment
+  uses the requested discrete-input channel variance sigma_c^2 = 1 + T*epsilon/2.
+- QAM_ALPHA0_MB is rounded, so its project V_A is slightly below 2. Every learned
+  ensemble is centered and normalized to E_p[|x|^2]=1, then physically scaled to
+  V_A=2.0 for MI and Holevo calculations.
+- The density matrices are numerically low rank. Eigenvalues at or below 1e-12 are
+  suppressed only in matrix square roots/pseudoinverses, matching the project convention.
+- Physical covariance stabilization limits Z below sqrt(a*b), as in compute_metrics.
+
+Architecture
+------------
+Mode: joint
+Probability network: Linear(3, 128) -> ReLU -> Linear(128, 256)
+Features: [log10(T), epsilon, SNR_dB]
+Symmetry: fourfold; raw_constellation is a 256x2 Parameter. Fourfold mode reads
+only first-quadrant prototypes and mirrors them in deterministic k*16+l order.
+Probability initialization: mb
+Target modulation variance: 2.0
+Training/validation/final Fock cutoffs: 64/150/150
+Precision: float64 / complex128
+The optional hard straight-through Gumbel output is disabled;
+the direct SKR loss always uses exact 256-symbol enumeration.
+
+Loss
+----
+loss = -mean(beta*I_AB_discrete - chi_BE)
+       + 0.001*L_sep
+       + 0.001*L_peak
+       + 0.001*L_drift
+       + 0.0*L_entropy
+K_raw is never clamped in training. Only reported/plotting values use max(K_raw, 0).
+
+Run settings
+------------
+Seed: 2026
+PS/GS/geometry-warmup/joint/refinement epochs:
+200/100/100/300/100
+Training fading samples per newly sampled epoch: 128
+Fading batch size: 8
+Training/validation/test AWGN samples per symbol:
+8/64/128
+Validation/test fading samples: 128/256
+Independent uncertainty runs: 5
+Probability learning rate: 0.001
+Constellation learning rate: 0.0001
+Gradient clip norm: 1.0
+Optimizer/scheduler: adamw/plateau
+Update strategy: simultaneous
+This was a requested training run; convergence still depends on hyperparameter study.
+
+Epoch-zero joint initialization comparison
+------------------------------------------
+Not run for this mode.
+
+Validation
+----------
+- Probability simplex, shaped unit energy, centering, and V_A checks passed.
+- Discrete MI entropy bounds and all finite security/SKR checks passed.
+- Training-gradient checks were skipped in evaluation-only mode; checkpoint tests remain available.
+- No coincident constellation points were found.
+- Bounded fixed-seed MI, Holevo, and SKR probes are bitwise deterministic.
+- Differentiable Tr(C), w, and discrete MI match project references within tolerance.
+- Probability-logit and I/Q finite-difference checks passed.
+- Full-ncut evaluation completed at ncut=150 and was compared with ncut=120.
+
+Baseline comparison
+-------------------
+Scheme                                     H(X)       I_AB     chi_BE     raw SKR    positive    outage
+-------------------------------------------------------------------------------------------------------
+Uniform fixed QAM                        8.0000   0.094342   0.078422   +0.011203    0.011203     0.008
+MB fixed QAM                             6.4089   0.094317   0.063673   +0.025928    0.025928     0.000
+Learned PS fixed QAM                     6.4089   0.094317   0.063673   +0.025928    0.025928     0.000
+Learned GS uniform probabilities         8.0000   0.094342   0.077343   +0.012282    0.012282     0.004
+Learned joint PS+GS                      6.4089   0.094317   0.063637   +0.025964    0.025964     0.000
+
+Uncertainty summary
+-------------------
+{'Model': 'Uniform fixed QAM', 'runs': 5, 'I_AB_mean': 0.09241904561786393, 'I_AB_std': 0.0039631839398991025, 'I_AB_ci95_low': 0.0889451617286596, 'I_AB_ci95_high': 0.09589292950706826, 'Delta_I_AB_vs_PS_mean': 4.4865635583446474e-05, 'Delta_I_AB_vs_PS_std': 5.388492954460134e-05, 'Delta_I_AB_vs_PS_ci95_low': -2.3665876629635566e-06, 'Delta_I_AB_vs_PS_ci95_high': 9.209785882985651e-05, 'chi_BE_mean': 0.0767688118489185, 'chi_BE_std': 0.0032426848460796473, 'chi_BE_ci95_low': 0.07392647326070502, 'chi_BE_ci95_high': 0.07961115043713198, 'Delta_chi_BE_vs_PS_mean': 0.014439731206414638, 'Delta_chi_BE_vs_PS_std': 0.0005953041433112348, 'Delta_chi_BE_vs_PS_ci95_low': 0.013917924117976009, 'Delta_chi_BE_vs_PS_ci95_high': 0.014961538294853267, 'raw_K_mean': 0.011029281488052236, 'raw_K_std': 0.0005261554931465803, 'raw_K_ci95_low': 0.01056808586388325, 'raw_K_ci95_high': 0.011490477112221223, 'Delta_raw_K_vs_PS_mean': -0.014397108852610363, 'Delta_raw_K_vs_PS_std': 0.0006029732984685097, 'Delta_raw_K_vs_PS_ci95_low': -0.014925638251935562, 'Delta_raw_K_vs_PS_ci95_high': -0.013868579453285164}
+{'Model': 'MB fixed QAM', 'runs': 5, 'I_AB_mean': 0.09237417998227973, 'I_AB_std': 0.003969523374882791, 'I_AB_ci95_low': 0.08889473933331091, 'I_AB_ci95_high': 0.09585362063124855, 'Delta_I_AB_vs_PS_mean': -7.549516567451064e-16, 'Delta_I_AB_vs_PS_std': 6.47960436968506e-17, 'Delta_I_AB_vs_PS_ci95_low': -8.117478932297547e-16, 'Delta_I_AB_vs_PS_ci95_high': -6.981554202604581e-16, 'chi_BE_mean': 0.062329080642498716, 'chi_BE_std': 0.0026474162993511256, 'chi_BE_ci95_low': 0.06000851794094342, 'chi_BE_ci95_high': 0.06464964334405401, 'Delta_chi_BE_vs_PS_mean': -5.1486592766991635e-15, 'Delta_chi_BE_vs_PS_std': 2.1650016171246698e-16, 'Delta_chi_BE_vs_PS_ci95_low': -5.3384300355608425e-15, 'Delta_chi_BE_vs_PS_ci95_high': -4.9588885178374844e-15, 'raw_K_mean': 0.025426390340667036, 'raw_K_std': 0.0011252386325779696, 'raw_K_ci95_low': 0.024440075191912564, 'raw_K_ci95_high': 0.02641270548942151, 'Delta_raw_K_vs_PS_mean': 4.4381165409390634e-15, 'Delta_raw_K_vs_PS_std': 2.336847018246698e-16, 'Delta_raw_K_vs_PS_ci95_low': 4.233282868535025e-15, 'Delta_raw_K_vs_PS_ci95_high': 4.642950213343102e-15}
+{'Model': 'Learned PS fixed QAM', 'runs': 5, 'I_AB_mean': 0.09237417998228048, 'I_AB_std': 0.003969523374882779, 'I_AB_ci95_low': 0.08889473933331167, 'I_AB_ci95_high': 0.09585362063124929, 'Delta_I_AB_vs_PS_mean': 0.0, 'Delta_I_AB_vs_PS_std': 0.0, 'Delta_I_AB_vs_PS_ci95_low': 0.0, 'Delta_I_AB_vs_PS_ci95_high': 0.0, 'chi_BE_mean': 0.062329080642503844, 'chi_BE_std': 0.0026474162993513385, 'chi_BE_ci95_low': 0.06000851794094836, 'chi_BE_ci95_high': 0.06464964334405933, 'Delta_chi_BE_vs_PS_mean': 0.0, 'Delta_chi_BE_vs_PS_std': 0.0, 'Delta_chi_BE_vs_PS_ci95_low': 0.0, 'Delta_chi_BE_vs_PS_ci95_high': 0.0, 'raw_K_mean': 0.025426390340662595, 'raw_K_std': 0.001125238632577746, 'raw_K_ci95_low': 0.024440075191908318, 'raw_K_ci95_high': 0.026412705489416873, 'Delta_raw_K_vs_PS_mean': 0.0, 'Delta_raw_K_vs_PS_std': 0.0, 'Delta_raw_K_vs_PS_ci95_low': 0.0, 'Delta_raw_K_vs_PS_ci95_high': 0.0}
+{'Model': 'Learned GS uniform probabilities', 'runs': 5, 'I_AB_mean': 0.09241925415054006, 'I_AB_std': 0.0039632081771948085, 'I_AB_ci95_low': 0.08894534901640934, 'I_AB_ci95_high': 0.09589315928467078, 'Delta_I_AB_vs_PS_mean': 4.5074168259573445e-05, 'Delta_I_AB_vs_PS_std': 5.389457563776562e-05, 'Delta_I_AB_vs_PS_ci95_low': -2.166510160289372e-06, 'Delta_I_AB_vs_PS_ci95_high': 9.231484667943626e-05, 'chi_BE_mean': 0.07571237313839312, 'chi_BE_std': 0.0031997926982955996, 'chi_BE_ci95_low': 0.07290763117537291, 'chi_BE_ci95_high': 0.07851711510141332, 'Delta_chi_BE_vs_PS_mean': 0.013383292495889274, 'Delta_chi_BE_vs_PS_std': 0.0005524069768833511, 'Delta_chi_BE_vs_PS_ci95_low': 0.012899086431679193, 'Delta_chi_BE_vs_PS_ci95_high': 0.013867498560099355, 'raw_K_mean': 0.012085918304619915, 'raw_K_std': 0.0005686744301815318, 'raw_K_ci95_low': 0.011587453188902785, 'raw_K_ci95_high': 0.012584383420337046, 'Delta_raw_K_vs_PS_mean': -0.013340472036042685, 'Delta_raw_K_vs_PS_std': 0.0005602376386888302, 'Delta_raw_K_vs_PS_ci95_low': -0.013831541977958264, 'Delta_raw_K_vs_PS_ci95_high': -0.012849402094127107}
+{'Model': 'Learned joint PS+GS', 'runs': 5, 'I_AB_mean': 0.092374160703888, 'I_AB_std': 0.0039694929612477175, 'I_AB_ci95_low': 0.08889474671364572, 'I_AB_ci95_high': 0.09585357469413028, 'Delta_I_AB_vs_PS_mean': -1.9278392493493612e-08, 'Delta_I_AB_vs_PS_std': 3.4330253774904977e-08, 'Delta_I_AB_vs_PS_ci95_low': -4.937018669469208e-08, 'Delta_I_AB_vs_PS_ci95_high': 1.0813401707704853e-08, 'chi_BE_mean': 0.06229337926213285, 'chi_BE_std': 0.0026459025670353743, 'chi_BE_ci95_low': 0.059974143405453796, 'chi_BE_ci95_high': 0.06461261511881192, 'Delta_chi_BE_vs_PS_mean': -3.570138037099768e-05, 'Delta_chi_BE_vs_PS_std': 1.513818339251926e-06, 'Delta_chi_BE_vs_PS_ci95_low': -3.7028300650161713e-05, 'Delta_chi_BE_vs_PS_ci95_high': -3.437446009183365e-05, 'raw_K_mean': 0.02546207340656073, 'raw_K_std': 0.0011267204002921416, 'raw_K_ci95_low': 0.024474459431138643, 'raw_K_ci95_high': 0.02644968738198282, 'Delta_raw_K_vs_PS_mean': 3.5683065898133023e-05, 'Delta_raw_K_vs_PS_std': 1.485165473047817e-06, 'Delta_raw_K_vs_PS_ci95_low': 3.438126096354937e-05, 'Delta_raw_K_vs_PS_ci95_high': 3.698487083271668e-05}
+
+ncut convergence
+----------------
+{'ncut': 120, 'Model': 'Uniform fixed QAM', 'I_AB': 0.10622389966039969, 'chi_BE': 0.08806099239395485, 'raw_K': 0.012851712283424856, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 1.4155343563970746e-15, 'abs_delta_raw_K_vs_final': 1.4155343563970746e-15}
+{'ncut': 120, 'Model': 'MB fixed QAM', 'I_AB': 0.10789488776501721, 'chi_BE': 0.07156651800786495, 'raw_K': 0.030933625368901395, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 3.0531133177191805e-15, 'abs_delta_raw_K_vs_final': 3.0531133177191805e-15}
+{'ncut': 120, 'Model': 'Learned PS fixed QAM', 'I_AB': 0.10789488776501821, 'chi_BE': 0.07156651800786515, 'raw_K': 0.030933625368902144, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 2.7200464103316335e-15, 'abs_delta_raw_K_vs_final': 2.7200464103316335e-15}
+{'ncut': 120, 'Model': 'Learned GS uniform probabilities', 'I_AB': 0.10622456679829406, 'chi_BE': 0.08685857147522544, 'raw_K': 0.014054766983153917, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 9.71445146547012e-16, 'abs_delta_raw_K_vs_final': 9.71445146547012e-16}
+{'ncut': 120, 'Model': 'Learned joint PS+GS', 'I_AB': 0.10789522112154892, 'chi_BE': 0.07152546016636371, 'raw_K': 0.030974999899107764, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 4.0245584642661925e-15, 'abs_delta_raw_K_vs_final': 4.0245584642661925e-15}
+{'ncut': 150, 'Model': 'Uniform fixed QAM', 'I_AB': 0.10622389966039969, 'chi_BE': 0.08806099239395626, 'raw_K': 0.01285171228342344, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 0.0, 'abs_delta_raw_K_vs_final': 0.0}
+{'ncut': 150, 'Model': 'MB fixed QAM', 'I_AB': 0.10789488776501721, 'chi_BE': 0.0715665180078619, 'raw_K': 0.030933625368904448, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 0.0, 'abs_delta_raw_K_vs_final': 0.0}
+{'ncut': 150, 'Model': 'Learned PS fixed QAM', 'I_AB': 0.10789488776501821, 'chi_BE': 0.07156651800786787, 'raw_K': 0.030933625368899424, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 0.0, 'abs_delta_raw_K_vs_final': 0.0}
+{'ncut': 150, 'Model': 'Learned GS uniform probabilities', 'I_AB': 0.10622456679829406, 'chi_BE': 0.08685857147522447, 'raw_K': 0.014054766983154889, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 0.0, 'abs_delta_raw_K_vs_final': 0.0}
+{'ncut': 150, 'Model': 'Learned joint PS+GS', 'I_AB': 0.10789522112154892, 'chi_BE': 0.07152546016636774, 'raw_K': 0.03097499989910374, 'abs_delta_I_AB_vs_final': 0.0, 'abs_delta_chi_BE_vs_final': 0.0, 'abs_delta_raw_K_vs_final': 0.0}
+
+Finite-difference gradients
+---------------------------
+{'component': 'probability_logit', 'analytical_gradient': 9.439465905981794e-05, 'finite_difference_gradient': 9.439450332493492e-05, 'absolute_error': 1.557348830243891e-10, 'relative_error': 1.6498272738683216e-06, 'passed': True}
+{'component': 'I_coordinate', 'analytical_gradient': 0.0005645994102192975, 'finite_difference_gradient': 0.0005645994893832551, 'absolute_error': 7.916395761576461e-11, 'relative_error': 1.4021259158813625e-07, 'passed': True}
+{'component': 'Q_coordinate', 'analytical_gradient': -0.000344752266734798, 'finite_difference_gradient': -0.0003447520914579005, 'absolute_error': 1.752768975424833e-10, 'relative_error': 5.084140539598416e-07, 'passed': True}
+
+Reproducible commands
+---------------------
+PS-only:
+  python uav_hap_joint_ps_gs.py --config ps_gs_fast_config.json --mode ps
+GS-only:
+  python uav_hap_joint_ps_gs.py --config ps_gs_fast_config.json --mode gs
+Full staged PS+GS:
+  python uav_hap_joint_ps_gs.py --config ps_gs_full_config.json --mode joint
+Resume:
+  python uav_hap_joint_ps_gs.py --config ps_gs_full_config.json --resume ps_gs_results/checkpoints/last_valid_joint.pt --resume-additional-epochs 100
+Evaluation only:
+  python uav_hap_joint_ps_gs.py --config ps_gs_full_config.json --evaluation-only
+Ablation examples:
+  python uav_hap_joint_ps_gs.py --config ps_gs_full_config.json --disable-geometry-regularization
+  python uav_hap_joint_ps_gs.py --config ps_gs_full_config.json --update-strategy alternating
+  python uav_hap_joint_ps_gs.py --config ps_gs_full_config.json --joint-initialization combined
+
+Remaining limitations
+---------------------
+- The Holevo block inherits the project's asymptotic covariance-matrix lower-bound model;
+  this is not a composable finite-size security proof.
+- MI is an AWGN Monte Carlo estimate. Exact symbol enumeration removes symbol-sampling
+  noise, but finite AWGN samples remain.
+- ncut convergence is reported here, but publication thresholds still require a
+  domain-specific tolerance and larger repeated runs.
+- Hermitian eigendecomposition gradients can become ill-conditioned near repeated or
+  thresholded density-matrix eigenvalues.
+- State-conditioned shaping assumes transmitter/receiver access to the channel state and
+  a deployable mechanism for synchronizing the selected PMF/geometry.
+- Fast/smoke checkpoints demonstrate functionality and gradient flow only. PS+GS is
+  claimed better only if repeated full runs give a positive confidence-supported gain.
