@@ -133,6 +133,38 @@ The test suite covers weighted normalization and gradient flow, PS-preserving
 joint equivalence, epoch-zero ranking, checkpoint/RNG restoration, Holevo
 gradients, discrete-MI regressions, and a real `ncut=150` security evaluation.
 
+## Six-scheme SKR parameter sweeps
+
+The publication configuration compares Uniform, Maxwell-Boltzmann, Binomial,
+GS, PS, and PS+GS. Binomial is the third symbol-probability baseline; Rayleigh
+remains exclusively the beam-displacement fading law in the channel model.
+
+Run all five full sweeps:
+
+```powershell
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --all
+```
+
+Run the reduced end-to-end pipeline verification:
+
+```powershell
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --all --quick
+```
+
+Run one full sweep:
+
+```powershell
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep aperture
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep visibility
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep beam_waist
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep turbulence
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep excess_noise
+```
+
+Quick outputs are explicitly marked as non-publication evidence. The full JSON
+uses 21 points, five evaluation seeds, 256 fading samples, 128 AWGN samples per
+symbol, and `ncut=150`.
+
 ## Interpretation
 
 Fast or failed PS+GS optimization is not evidence that PS is fundamentally

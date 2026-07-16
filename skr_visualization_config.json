@@ -1,0 +1,78 @@
+{
+  "baseline_project_config": "ps_gs_full_config.json",
+  "checkpoints": {
+    "gs": "experiments/joint_seed2026/best_gs.pt",
+    "ps": "experiments/joint_seed2026/best_ps.pt",
+    "joint": "experiments/joint_seed2026/best_joint.pt"
+  },
+  "output_directory": "skr_parameter_sweep_results",
+  "device": "cpu",
+  "modulation_order": 256,
+  "modulation_variance": 2.0,
+  "beta": 0.95,
+  "baseline_excess_noise_snu": 0.001,
+  "baseline_geometry": {
+    "H_UAV_m": 0.0,
+    "H_HAP_m": 20000.0,
+    "tilt_deg": 0.0,
+    "d_h_m": 0.0
+  },
+  "baseline_channel_parameters": {
+    "visibility_km": 10.0,
+    "W0_m": 0.0626,
+    "a_m": 0.2,
+    "Cn2": 1e-15
+  },
+  "detector_assumptions": {
+    "eta": 0.95,
+    "electronic_noise_snu": 0.001,
+    "note": "Recorded project defaults; the current translated discrete-I_AB/Holevo path has no separate detector term."
+  },
+  "sweeps": {
+    "aperture": {
+      "minimum": 0.1,
+      "maximum": 0.3,
+      "points": 21,
+      "scale": "linear"
+    },
+    "visibility": {
+      "minimum": 5.0,
+      "maximum": 40.0,
+      "points": 21,
+      "scale": "linear"
+    },
+    "beam_waist": {
+      "minimum": 0.03,
+      "maximum": 0.12,
+      "points": 21,
+      "scale": "linear"
+    },
+    "turbulence": {
+      "minimum": 1e-16,
+      "maximum": 1e-14,
+      "points": 21,
+      "scale": "log"
+    },
+    "excess_noise": {
+      "minimum": 0.0,
+      "maximum": 0.01,
+      "points": 21,
+      "scale": "linear"
+    }
+  },
+  "repetitions": 5,
+  "seed_list": [302026, 303026, 304026, 305026, 306026],
+  "fading_sample_budget": 256,
+  "awgn_sample_budget": 128,
+  "candidate_chunk_size": 64,
+  "ncut": 150,
+  "ncut_convergence": {
+    "comparison_ncut": 120,
+    "fading_samples": 8,
+    "awgn_samples": 16
+  },
+  "show_confidence_bands": true,
+  "plot_positive_skr": true,
+  "output_formats": ["png", "pdf"],
+  "dpi": 300
+}

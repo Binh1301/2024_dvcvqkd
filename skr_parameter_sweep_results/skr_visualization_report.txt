@@ -1,0 +1,69 @@
+UAV-HAP CV-QKD SKR parameter-sweep visualization report
+========================================================
+
+Run mode: FULL CONFIGURATION
+Plotted metric: K_positive = max(0, beta*I_AB-chi_BE)
+Raw CSVs contain both K_raw and K_positive.
+Confidence interval: two-sided Student-t 95% interval over independent repetitions.
+Common random numbers: identical channel and AWGN samples are reused by all six schemes at each point/repetition.
+Rayleigh terminology: Rayleigh is channel beam-displacement fading only; the third fixed symbol PMF is the exact project Binomial PMF.
+
+Checkpoints
+-----------
+GS: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\experiments\joint_seed2026\best_gs.pt (mode=gs, phase=gs, epoch=100)
+PS: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\experiments\joint_seed2026\best_ps.pt (mode=ps, phase=ps, epoch=0)
+PS+GS: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\experiments\joint_seed2026\best_joint.pt (mode=joint, phase=geometry_warmup, epoch=70)
+
+Fixed baseline parameters
+-------------------------
+visibility_km: 10.0
+W0_m: 0.0626
+a_m: 0.2
+Cn2: 1e-15
+excess_noise_snu: 0.001
+beta: 0.95
+modulation_order: 256
+modulation_variance: 2.0
+detector assumptions: {'eta': 0.95, 'electronic_noise_snu': 0.001, 'note': 'Recorded project defaults; the current translated discrete-I_AB/Holevo path has no separate detector term.'}
+ncut: 150
+fading samples per repetition: 256
+AWGN samples per symbol: 128
+repetition seeds: [302026, 303026, 304026, 305026, 306026]
+
+Sweep definitions
+-----------------
+aperture: 0.1 to 0.3 m, 21 points, linear scale
+visibility: 5.0 to 40.0 km, 21 points, linear scale
+beam_waist: 0.03 to 0.12 m, 21 points, linear scale
+turbulence: 1e-16 to 1e-14 m^(-2/3), 21 points, log scale
+excess_noise: 0.0 to 0.01 SNU, 21 points, linear scale
+
+Numerical results
+-----------------
+aperture: highest mean K_positive -> PS+GS (21/21 points)
+aperture: curve crossings -> none detected between evaluated points
+aperture: PS+GS exceeds PS at every evaluated point -> True; paired 95% CI excludes zero positively at 21/21 points.
+visibility: highest mean K_positive -> PS+GS (21/21 points)
+visibility: curve crossings -> Maxwell-Boltzmann QAM / PS
+visibility: PS+GS exceeds PS at every evaluated point -> True; paired 95% CI excludes zero positively at 21/21 points.
+beam_waist: highest mean K_positive -> PS+GS (21/21 points)
+beam_waist: curve crossings -> none detected between evaluated points
+beam_waist: PS+GS exceeds PS at every evaluated point -> True; paired 95% CI excludes zero positively at 21/21 points.
+turbulence: highest mean K_positive -> PS+GS (21/21 points)
+turbulence: curve crossings -> none detected between evaluated points
+turbulence: PS+GS exceeds PS at every evaluated point -> True; paired 95% CI excludes zero positively at 21/21 points.
+excess_noise: highest mean K_positive -> PS+GS (21/21 points)
+excess_noise: curve crossings -> none detected between evaluated points
+excess_noise: PS+GS exceeds PS at every evaluated point -> True; paired 95% CI excludes zero positively at 21/21 points.
+
+Validation and interpretation
+-----------------------------
+Fock-cutoff comparison ncut=120 versus ncut=150; maximum |Delta K_raw|: 7.854828e-15 bit/symbol.
+aperture_radius: consistent with the expected general trend (100% of adjacent PS+GS steps agree).
+visibility: consistent with the expected general trend (100% of adjacent PS+GS steps agree).
+turbulence_strength: consistent with the expected general trend (100% of adjacent PS+GS steps agree).
+excess_noise: consistent with the expected general trend (75% of adjacent PS+GS steps agree).
+beam_waist: no monotonic constraint was imposed; an interior optimum is physically plausible.
+Numerical visualization results and paired evaluation-seed significance do not establish fundamental superiority.
+Independent training seeds are still required to quantify optimization uncertainty.
+No curve values were smoothed, interpolated, or forced to match expected physical trends.

@@ -137,6 +137,8 @@ def build_project_qam(device: torch.device) -> torch.Tensor:
 def project_probabilities(kind: str, device: torch.device) -> torch.Tensor:
     if kind == "uniform":
         values = project_zbase.build_probs_uniform()
+    elif kind == "binomial":
+        values = project_zbase.build_probs_binomial()
     elif kind == "mb":
         values = project_zbase.build_probs_mb(float(QAM_NU_TILDE))
     else:
