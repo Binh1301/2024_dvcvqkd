@@ -139,7 +139,7 @@ The publication configuration compares Uniform, Maxwell-Boltzmann, Binomial,
 GS, PS, and PS+GS. Binomial is the third symbol-probability baseline; Rayleigh
 remains exclusively the beam-displacement fading law in the channel model.
 
-Run all five full sweeps:
+Run all six full sweeps:
 
 ```powershell
 python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --all
@@ -159,11 +159,22 @@ python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json 
 python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep beam_waist
 python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep turbulence
 python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep excess_noise
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep distance --output-dir skr_distance_sweep_results
+```
+
+Run the distance sweep with CUDA:
+
+```powershell
+python visualize_skr_parameter_sweeps.py --config skr_visualization_config.json --sweep distance --device cuda --output-dir skr_distance_sweep_results_gpu
 ```
 
 Quick outputs are explicitly marked as non-publication evidence. The full JSON
 uses 21 points, five evaluation seeds, 256 fading samples, 128 AWGN samples per
-symbol, and `ncut=150`.
+symbol, and `ncut=150`. The distance sweep varies the slant link from 20 to
+100 km while preserving the UAV/HAP altitudes and converting each distance to
+the corresponding horizontal separation and zenith angle. On CUDA,
+ill-conditioned `complex128` eigendecompositions at large Fock cutoffs use the
+stable CPU LAPACK path; MI and the remaining tensor operations stay on GPU.
 
 ## Interpretation
 

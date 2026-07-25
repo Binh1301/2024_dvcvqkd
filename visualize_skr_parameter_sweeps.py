@@ -164,6 +164,15 @@ SWEEP_SPECS: dict[str, SweepSpec] = {
         "skr_vs_excess_noise",
         r"Excess noise $\xi$ [SNU]",
     ),
+    "distance": SweepSpec(
+        "distance",
+        "link_distance",
+        "km",
+        None,
+        "skr_vs_distance.csv",
+        "skr_vs_distance",
+        r"UAV--HAP link distance $L$ [km]",
+    ),
 }
 
 
@@ -249,6 +258,16 @@ def validate_config(config: Mapping[str, Any]) -> None:
             raise ValueError(f"Sweep {key} must contain at least one point.")
         if float(sweep["minimum"]) > float(sweep["maximum"]):
             raise ValueError(f"Sweep {key} minimum exceeds maximum.")
+    baseline_geometry = config.get("baseline_geometry", {})
+    vertical_separation_km = abs(
+        float(baseline_geometry.get("H_HAP_m", 20_000.0))
+        - float(baseline_geometry.get("H_UAV_m", 0.0))
+    ) / 1000.0
+    if float(config["sweeps"]["distance"]["minimum"]) + 1e-12 < vertical_separation_km:
+        raise ValueError(
+            "Distance sweep minimum cannot be shorter than the baseline vertical separation "
+            f"of {vertical_separation_km:.6g} km."
+        )
     required_checkpoints = {"gs", "ps", "joint"}
     if set(config["checkpoints"]) != required_checkpoints:
         raise ValueError(f"checkpoints must contain exactly {sorted(required_checkpoints)}.")
@@ -357,6 +376,34 @@ def build_channel_parameters(config: Mapping[str, Any]) -> core.ChannelParams:
     return core.ChannelParams(**dict(config["baseline_channel_parameters"]))
 
 
+def geometry_for_sweep(
+    config: Mapping[str, Any],
+    sweep_key: str,
+    parameter_value: float,
+) -> core.GeometryParams:
+    """Return baseline geometry or a slant-link geometry with the requested distance."""
+    geometry = build_geometry(config)
+    if sweep_key != "distance":
+        return geometry
+
+    link_distance_m = 1000.0 * float(parameter_value)
+    vertical_separation_m = abs(float(geometry.H_HAP_m) - float(geometry.H_UAV_m))
+    if link_distance_m + 1e-9 < vertical_separation_m:
+        raise ValueError(
+            "Distance sweep cannot be shorter than the fixed vertical separation "
+            f"({vertical_separation_m / 1000.0:.6g} km)."
+        )
+    horizontal_distance_m = math.sqrt(
+        max(link_distance_m * link_distance_m - vertical_separation_m * vertical_separation_m, 0.0)
+    )
+    return replace(
+        geometry,
+        d_h_m=horizontal_distance_m,
+        tilt_deg=0.0,
+        zeta_rad=None,
+    )
+
+
 def sweep_values(config: Mapping[str, Any], sweep_key: str) -> np.ndarray:
     sweep = config["sweeps"][sweep_key]
     minimum = float(sweep["minimum"])
@@ -443,7 +490,9 @@ def parameter_context(
     spec = SWEEP_SPECS[sweep_key]
     channel_parameters = build_channel_parameters(config)
     epsilon = float(config["baseline_excess_noise_snu"])
-    if spec.channel_field is None:
+    if sweep_key == "distance":
+        pass
+    elif spec.channel_field is None:
         epsilon = float(parameter_value)
     else:
         channel_parameters = replace(
@@ -468,7 +517,7 @@ def evaluate_parameter_point(
     awgn_seed = channel_seed + 1
     channel_parameters, epsilon = parameter_context(config, sweep_key, parameter_value)
     transmittance, standard_noise, channel_hash, awgn_hash = common_samples(
-        build_geometry(config),
+        geometry_for_sweep(config, sweep_key, parameter_value),
         channel_parameters,
         int(config["fading_sample_budget"]),
         int(config["awgn_sample_budget"]),
@@ -832,6 +881,7 @@ def physical_trend_messages(summary_rows: Sequence[Mapping[str, Any]]) -> list[s
         "visibility": 1,
         "turbulence_strength": -1,
         "excess_noise": -1,
+        "link_distance": -1,
     }
     messages: list[str] = []
     for parameter_name, direction in expected.items():
@@ -1038,12 +1088,17 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=Path("skr_visualization_config.json"))
     selection = parser.add_mutually_exclusive_group(required=True)
-    selection.add_argument("--all", action="store_true", help="Run all five parameter sweeps.")
+    selection.add_argument("--all", action="store_true", help="Run all six parameter sweeps.")
     selection.add_argument("--sweep", choices=tuple(SWEEP_SPECS))
     parser.add_argument(
         "--quick",
         action="store_true",
         help="Run a reduced pipeline verification; outputs are labeled non-publication.",
+    )
+    parser.add_argument(
+        "--device",
+        choices=("cpu", "cuda"),
+        help="Override the device from the JSON configuration.",
     )
     parser.add_argument("--output-dir", type=Path)
     return parser.parse_args(argv)
@@ -1052,6 +1107,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     config = load_config(args.config, quick=args.quick, output_override=args.output_dir)
+    if args.device is not None:
+        config["device"] = args.device
     selected_sweeps = tuple(SWEEP_SPECS) if args.all else (args.sweep,)
     result = run_pipeline(config, selected_sweeps)
     print(f"\nCreated {len(result.figure_paths)} figure files in {result.output_dir}")

@@ -12,7 +12,7 @@ N\sim\mathcal{CN}(0,\sigma_c^2),\qquad
 \sigma_c^2=1+\frac{T\epsilon}{2}.
 \]
 
-Đây là **khung tối ưu hóa đầu cuối lấy cảm hứng từ Autoencoder**, không phải autoencoder cổ điển có encoder và decoder nơ-ron. Thành phần nơ-ron duy nhất là mạng sinh logit xác suất ở bộ phát. \(I_{AB}\) được tích phân Monte Carlo bằng mật độ AWGN và \(\chi_{BE}\) được tính từ ma trận mật độ/covariance; không tồn tại mạng bộ thu học hậu nghiệm symbol hoặc bit.
+**Mục tiêu của hệ thống** là tạo khóa bí mật giữa UAV và HAP với tốc độ trung bình lớn nhất có thể dưới fading khí quyển và sai lệch hướng chùm, trong khi giữ nguyên ngân sách năng lượng điều chế \(V_A\). Chất lượng của một thiết kế phát không chỉ phụ thuộc vào lượng thông tin Bob thu được, \(I_{AB}\), mà còn phụ thuộc vào giới hạn thông tin rò rỉ cho Eve, \(\chi_{BE}\). Vì vậy, tăng riêng SNR, \(I_{AB}\), entropy hay khoảng cách Euclid không nhất thiết làm tăng tốc độ khóa bí mật.
 
 Luồng phụ thuộc đã kiểm chứng là: cấu hình JSON/CLI \(\rightarrow\) mẫu \(T\) của kênh UAV–HAP \(\rightarrow\) đặc trưng trạng thái kênh \(\rightarrow\) xác suất symbol và tọa độ chòm sao \(\rightarrow\) chuẩn hóa có trọng số và đặt \(V_A\) \(\rightarrow\) \(I_{AB}\) và \(\chi_{BE}\) \(\rightarrow\) \(K_{\rm raw}\) \(\rightarrow\) lan truyền ngược, xác thực và checkpoint.
 
@@ -22,7 +22,53 @@ Luồng phụ thuộc đã kiểm chứng là: cấu hình JSON/CLI \(\rightarro
 - `uav_hap_joint_ps_gs.py`, dòng 56–60 và 285–360: (M=256), đặc trưng kênh và đầu ra mô hình.
 - `uav_hap_joint_ps_gs.py`, dòng 389–475: mô hình (Y\mid S,T) và phép tính (I_{AB}).
 
-## 2.X.2. Biểu diễn nguồn symbol và chòm sao tín hiệu
+## 2.X.2. Phát biểu bài toán (Problem formulation): vì sao và tối ưu đại lượng nào?
+
+Trong QAM thông thường, xác suất symbol và vị trí các điểm chòm sao được ấn định trước. Cách thiết kế này không khai thác được hai đặc trưng của liên kết UAV–HAP: \(T\) biến thiên theo fading và pointing, còn tác động của \(\mathbf p\) và hình học lên \(I_{AB}\) và \(\chi_{BE}\) là ghép cặp, phi tuyến. Một chòm sao tốt ở trạng thái kênh này có thể không còn tốt ở trạng thái khác. Do đó cần tối ưu trực tiếp thiết kế bộ phát theo tiêu chí bảo mật, thay vì chọn một PMF/hình học cố định hoặc tối ưu một proxy cổ điển.
+
+Với trạng thái kênh \(\mathbf h=(T,\epsilon)\), đặt \(\mathbf p_{\boldsymbol\theta}(\mathbf h)\) là PMF do tham số PS \(\boldsymbol\theta\) sinh ra và \(\mathbf c_{\boldsymbol\phi}=\{c_i\}_{i=0}^{M-1}\) là chòm sao thô do tham số GS \(\boldsymbol\phi\) xác định. Sau phép đặt tâm và chuẩn hóa có trọng số, biên độ phát là
+
+\[
+\alpha_i(\mathbf h;\boldsymbol\theta,\boldsymbol\phi)
+=\sqrt{\frac{V_A}{2}}\,
+\frac{c_i-\sum_jp_j(\mathbf h)c_j}
+{\sqrt{\sum_kp_k(\mathbf h)
+\left|c_k-\sum_jp_j(\mathbf h)c_j\right|^2}}.
+\]
+
+Tốc độ khóa bí mật tức thời chưa cắt ngưỡng là
+
+\[
+K_{\rm raw}(\mathbf h;\boldsymbol\theta,\boldsymbol\phi)
+=\beta I_{AB}\!\left(\mathbf p_{\boldsymbol\theta},
+\boldsymbol\alpha,T,\epsilon\right)
+-\chi_{BE}\!\left(\mathbf p_{\boldsymbol\theta},
+\boldsymbol\alpha,T,\epsilon\right).
+\]
+
+Bài toán joint PS–GS được phát biểu như sau:
+
+\[
+\begin{aligned}
+\underset{\boldsymbol\theta,\boldsymbol\phi}{\operatorname{maximize}}
+\quad&
+\mathbb E_{\mathbf h\sim\mathcal H}
+\left[K_{\rm raw}(\mathbf h;\boldsymbol\theta,\boldsymbol\phi)\right]\\
+\operatorname{subject\ to}\quad&
+p_i(\mathbf h)\ge 0,\quad \sum_{i=0}^{M-1}p_i(\mathbf h)=1,
+\quad \forall\mathbf h,\\
+&\sum_i p_i(\mathbf h)\alpha_i(\mathbf h)=0,\quad
+2\sum_i p_i(\mathbf h)|\alpha_i(\mathbf h)|^2=V_A,
+\quad \forall\mathbf h,\\
+&\mathbf c_{\boldsymbol\phi}\in\mathcal C_{\rm sym},
+\end{aligned}
+\]
+
+trong đó \(\mathcal H\) là phân phối trạng thái kênh UAV–HAP và \(\mathcal C_{\rm sym}\) là tập chòm sao thỏa đối xứng được chọn. Nếu cố định \(\boldsymbol\phi\) tại QAM, bài toán trở thành PS; nếu cố định \(\boldsymbol\theta\) tại PMF đều, bài toán trở thành GS; tối ưu cả hai là PS+GS. Các hạng separation, peak và drift trong triển khai là regularizer để ổn định nghiệm số, không thay thế mục tiêu vật lý là cực đại hóa kỳ vọng \(K_{\rm raw}\). \(K_+=\max(0,K_{\rm raw})\) chỉ dùng khi báo cáo, không dùng làm objective huấn luyện.
+
+Đây là bài toán kỳ vọng phi lồi: cả \(I_{AB}\), \(\chi_{BE}\) và phép chuẩn hóa năng lượng đều phụ thuộc đồng thời vào PMF và tọa độ. Nghiệm giải tích đóng không có sẵn, còn vét cạn trên 256 xác suất và hàng trăm tọa độ là không khả thi. Vì vậy, phần tiếp theo đưa ra một **khung tối ưu hóa đầu cuối khả vi lấy cảm hứng từ Autoencoder**: mạng nơ-ron sinh PMF theo trạng thái kênh, tensor học được biểu diễn hình học, khối vật lý–bảo mật tính trực tiếp \(I_{AB}\) và \(\chi_{BE}\), sau đó gradient được lan truyền về PS và/hoặc GS. Đây không phải autoencoder cổ điển có encoder–decoder; hệ thống không có bộ thu nơ-ron học hậu nghiệm symbol hoặc bit.
+
+## 2.X.3. Giải pháp đề xuất (Solution): biểu diễn nguồn symbol và chòm sao tín hiệu
 
 Tập symbol là (\mathcal S=\{0,1,\ldots,255\}). Chòm sao QAM vuông ban đầu được xây dựng bởi
 
@@ -70,7 +116,7 @@ Cấu hình đầy đủ đặt (V_A=2). Chuẩn hóa phụ thuộc đồng th�
 - `uav_hap_joint_ps_gs.py`, dòng 128–185 và 339–345: chuyển tọa độ, đặt tâm, chuẩn hóa và đặt (V_A).
 - `test_uav_hap_joint_ps_gs.py`, dòng 18–36: kiểm thử tâm, năng lượng và gradient.
 
-## 2.X.3. Tạo dạng xác suất
+## 2.X.4. Tạo dạng xác suất
 
 Mạng phân phối nhận véc-tơ trạng thái kênh
 
@@ -127,7 +173,7 @@ Không có “phân phối xác suất symbol Rayleigh” trong đường thực
 - `uav_hap_1/zstar/base.py`, dòng 17–38: PMF nhị thức, đều và MB.
 - `visualize_skr_parameter_sweeps.py`, dòng 1–7, 35–42 và 309–329: sáu phương án thực tế và phân biệt Rayleigh.
 
-## 2.X.4. Tạo dạng hình học
+## 2.X.5. Tạo dạng hình học
 
 `raw_constellation` là một `Parameter` kích thước (256\times2). Ở chế độ PS nó bị đóng băng và đường tiến sử dụng `base_qam`; ở GS và joint nó được cập nhật. Cấu hình mặc định áp đặt đối xứng bốn phần tư. Mỗi điểm lấy trị tuyệt đối của một trong 64 prototype phần tư thứ nhất rồi nhân dấu tương ứng để giữ thứ tự (16k+l). Vì toàn bộ tensor vẫn có `requires_grad=True`, bộ đếm tham số báo 512 số thực, nhưng chỉ 64 cặp prototype được đọc hiệu dụng khi dùng đối xứng bốn phần tư.
 
@@ -157,7 +203,7 @@ với (d_0=0.15), (n_{\max}=5). Ngoài ra, một bước cập nhật bị hủy
 - `uav_hap_joint_ps_gs.py`, dòng 1583–1603: điều kiện hợp lệ và phục hồi cập nhật.
 - `uav_hap_joint_ps_gs.py`, dòng 3166–3179: ngưỡng mặc định.
 
-## 2.X.5. Học đồng thời PS và GS
+## 2.X.6. Học đồng thời PS và GS
 
 PS+GS kết hợp cùng một (\mathbf p(T,\epsilon)) và một hình học thô; phép chuẩn hóa có trọng số khiến tọa độ vật lý phụ thuộc cả hai nhóm tham số. Bốn ứng viên epoch 0 được đánh giá: `ps`, `gs`, `combined` và `ps_preserving`. Ứng viên PS-preserving sao chép mạng phân phối và hình học cố định từ mô hình PS; mã kiểm tra đồng nhất xác suất, tọa độ vật lý, (I_{AB}) và (\chi_{BE}) với sai số tuyệt đối (10^{-11}). Vì thế PS là một trường hợp khả thi của không gian joint tại khởi tạo này. Điều đó chỉ chứng minh quan hệ không gian khả thi, không bảo đảm thuật toán joint luôn tìm được nghiệm tốt hơn PS.
 
@@ -170,7 +216,7 @@ Chiến lược mặc định là cập nhật đồng thời hai nhóm. Tùy ch
 - `uav_hap_joint_ps_gs.py`, dòng 1774–1929: bốn khởi tạo và kiểm tra PS-preserving.
 - `test_uav_hap_joint_ps_gs.py`, dòng 38–64: PS là trường hợp đặc biệt chính xác.
 
-## 2.X.6. Cơ chế lấy mẫu Gumbel–Softmax
+## 2.X.7. Cơ chế lấy mẫu Gumbel–Softmax
 
 Lớp mô hình có thể tạo one-hot cứng theo Gumbel–Softmax với straight-through estimator qua `torch.nn.functional.gumbel_softmax(..., hard=True)`. Về mặt toán học, phép này tương ứng
 
@@ -191,7 +237,7 @@ Tuy nhiên, đường huấn luyện nhiều giai đoạn đang hoạt động (
 - `uav_hap_joint_ps_gs.py`, dòng 1477–1530: đường huấn luyện hiện hành liệt kê symbol trực tiếp.
 - `uav_hap_joint_ps_gs.py`, dòng 3181–3183: cờ CLI mặc định tắt.
 
-## 2.X.7. Mô hình kênh UAV–HAP
+## 2.X.8. Mô hình kênh UAV–HAP
 
 Khoảng cách liên kết là (L=\sqrt{d_h^2+(H_{\rm HAP}-H_{\rm UAV})^2}) nếu có khoảng cách ngang; nếu không, (L=(H_{\rm HAP}-H_{\rm UAV})/\cos\theta). Baseline dùng (H_{\rm UAV}=0), (H_{\rm HAP}=20\,000\) m, (d_h=0) và (\theta=0).
 
@@ -243,7 +289,7 @@ Rayleigh ở đây là fading do beam displacement. Không có fading Rayleigh c
 - `uav_hap_1/channel/channel_model.py`, dòng 125–199: lấy mẫu Rayleigh và (T).
 - `uav_hap_joint_ps_gs.py`, dòng 1992–2046 và 3336–3348: pipeline dùng `T_samples`.
 
-## 2.X.8. Thông tin tương hỗ và thông tin Holevo
+## 2.X.9. Thông tin tương hỗ và thông tin Holevo
 
 ### Thông tin tương hỗ
 
@@ -301,7 +347,7 @@ trong đó (g(x)=(x+1)\log_2(x+1)-x\log_2x). Vì (\tau,\operatorname{Tr}C,w,Z) �
 - `uav_hap_1/zstar/base.py`, dòng 41–151: phương trình NumPy/SciPy tham chiếu và (I_{AB}) Gaussian cũ.
 - `test_uav_hap_joint_ps_gs.py`, dòng 123–146 và 189–206: gradient Holevo và tính hữu hạn tại (n_{\rm cut}=150).
 
-## 2.X.9. Hàm mục tiêu tốc độ khóa bí mật
+## 2.X.10. Hàm mất mát triển khai và tiêu chí checkpoint
 
 Đại lượng tối ưu và tiêu chí checkpoint là
 
@@ -336,7 +382,7 @@ K_+=\max(0,K_{\rm raw}).
 - `uav_hap_joint_ps_gs.py`, dòng 1099–1142: tiêu chí checkpoint ưu tiên raw SKR.
 - `ps_gs_full_config.json`, dòng 40–44: trọng số regularization.
 
-## 2.X.10. Quy trình huấn luyện nhiều giai đoạn
+## 2.X.11. Quy trình huấn luyện nhiều giai đoạn
 
 Pipeline joint chạy PS-only và GS-only độc lập, đánh giá bốn khởi tạo joint, rồi chạy geometry warm-up, joint fine-tuning và refinement. Bảng sau mô tả cấu hình đầy đủ.
 
@@ -361,7 +407,7 @@ Mỗi epoch sinh lại pool fading bằng seed xác định và chỉ lấy mộ
 - `uav_hap_joint_ps_gs.py`, dòng 3425–3494: thứ tự pipeline.
 - `ps_gs_full_config.json`, dòng 8–44: epoch, learning rate, sample budget và regularization.
 
-## 2.X.11. Đánh giá, checkpoint và khả năng tái lập
+## 2.X.12. Đánh giá, checkpoint và khả năng tái lập
 
 Trước cập nhật đầu tiên của mỗi phase, mô hình được đánh giá tại epoch 0 và lưu checkpoint. Epoch 0 tham gia cạnh tranh với mọi epoch sau; vì vậy một cập nhật hình học làm giảm raw SKR không thể ghi đè nghiệm khởi tạo tốt hơn. Cơ chế này đặc biệt quan trọng với PS+GS: checkpoint PS-preserving bảo toàn chính xác kết quả PS trước mọi cập nhật hình học và giữ PS trong tập nghiệm ứng viên thực nghiệm.
 
@@ -379,7 +425,7 @@ Kết quả nhanh đã lưu cho thấy PS+GS không vượt PS trong run rút g�
 - `test_uav_hap_joint_ps_gs.py`, dòng 66–121: xếp hạng epoch-zero và round-trip checkpoint/RNG.
 - `ps_gs_results_fast/experiment_report.txt`, dòng 97–113: quan sát run nhanh và khoảng bất định.
 
-## 2.X.12. Quan hệ với tài liệu tham khảo và tóm tắt
+## 2.X.13. Quan hệ với tài liệu tham khảo và tóm tắt
 
 Repository có `paper.pdf`/`paper_text.txt` mang tiêu đề *Satellite-to-Ground Continuous Variable Quantum Key Distribution: The Gaussian and Discrete Modulated Protocols in Low Earth Orbit*, không phải *Joint Learning of Geometric and Probabilistic Constellation Shaping*. Không tìm thấy trích dẫn nội bộ xác nhận rằng mã PS–GS được lấy từ bài báo thứ hai. Vì vậy chỉ có thể nói mô hình có **tương đồng khái niệm** với joint constellation shaping: xác suất có thể học, tọa độ có thể học, chuẩn hóa năng lượng có trọng số và không gian joint chứa các nghiệm shaping đơn. Không thể quy kết nguồn gốc trực tiếp từ mã hiện tại.
 

@@ -11,9 +11,48 @@ Y=\sqrt{T}\alpha_S+N,\qquad
 N\sim\mathcal{CN}\!\left(0,1+\frac{T\epsilon}{2}\right).
 \end{equation}
 
+Mục tiêu của hệ thống là tạo khóa bí mật giữa UAV và HAP với tốc độ trung bình lớn nhất có thể dưới fading khí quyển và sai lệch hướng chùm, trong khi giữ nguyên ngân sách năng lượng điều chế \(V_A\). Một thiết kế phát phải đồng thời tăng thông tin Bob thu được, \(I_{AB}\), và kiểm soát giới hạn thông tin rò rỉ cho Eve, \(\chi_{BE}\). Vì vậy, tối ưu riêng SNR, \(I_{AB}\), entropy hay khoảng cách Euclid không bảo đảm tối đa hóa tốc độ khóa bí mật.
+
 \paragraph{Nguồn triển khai.} \texttt{uav\_hap\_joint\_ps\_gs.py}, dòng 37--60, 285--360 và 3329--3502.
 
-\subsection{Biểu diễn nguồn symbol và chòm sao}
+\subsection{Phát biểu bài toán}
+
+Trong QAM thông thường, xác suất symbol và vị trí các điểm chòm sao được ấn định trước. Thiết kế này không khai thác được việc \(T\) biến thiên theo fading và pointing, cũng như quan hệ ghép cặp, phi tuyến của xác suất và hình học với \(I_{AB}\) và \(\chi_{BE}\). Vì thế, cần tối ưu trực tiếp bộ phát theo tiêu chí bảo mật thay vì chọn một PMF/hình học cố định hoặc tối ưu một đại lượng thay thế cổ điển.
+
+Với trạng thái kênh \(\mathbf h=(T,\epsilon)\), ký hiệu \(\mathbf p_{\boldsymbol\theta}(\mathbf h)\) là PMF do tham số PS \(\boldsymbol\theta\) sinh ra và \(\mathbf c_{\boldsymbol\phi}=\{c_i\}_{i=0}^{M-1}\) là chòm sao thô do tham số GS \(\boldsymbol\phi\) xác định. Biên độ sau đặt tâm và chuẩn hóa là
+\begin{equation}
+\alpha_i(\mathbf h;\boldsymbol\theta,\boldsymbol\phi)
+=\sqrt{\frac{V_A}{2}}\,
+\frac{c_i-\sum_jp_j(\mathbf h)c_j}
+{\sqrt{\sum_kp_k(\mathbf h)
+\left|c_k-\sum_jp_j(\mathbf h)c_j\right|^2}}.
+\end{equation}
+Tốc độ khóa bí mật tức thời chưa cắt ngưỡng là
+\begin{equation}
+K_{\rm raw}(\mathbf h;\boldsymbol\theta,\boldsymbol\phi)
+=\beta I_{AB}(\mathbf p_{\boldsymbol\theta},\boldsymbol\alpha,T,\epsilon)
+-\chi_{BE}(\mathbf p_{\boldsymbol\theta},\boldsymbol\alpha,T,\epsilon).
+\end{equation}
+Bài toán joint PS--GS là
+\begin{align}
+\underset{\boldsymbol\theta,\boldsymbol\phi}{\operatorname{maximize}}
+\quad&
+\mathbb E_{\mathbf h\sim\mathcal H}
+[K_{\rm raw}(\mathbf h;\boldsymbol\theta,\boldsymbol\phi)]
+\label{eq:joint_ps_gs_problem}\\
+\operatorname{subject\ to}\quad&
+p_i(\mathbf h)\geq0,\quad \sum_{i=0}^{M-1}p_i(\mathbf h)=1,
+\quad \forall\mathbf h,\nonumber\\
+&\sum_i p_i(\mathbf h)\alpha_i(\mathbf h)=0,\quad
+2\sum_i p_i(\mathbf h)|\alpha_i(\mathbf h)|^2=V_A,
+\quad \forall\mathbf h,\nonumber\\
+&\mathbf c_{\boldsymbol\phi}\in\mathcal C_{\rm sym}.\nonumber
+\end{align}
+Ở đây, \(\mathcal H\) là phân phối trạng thái kênh UAV--HAP và \(\mathcal C_{\rm sym}\) là tập chòm sao thỏa đối xứng được chọn. Cố định \(\boldsymbol\phi\) tại QAM cho bài toán PS; cố định \(\boldsymbol\theta\) tại PMF đều cho bài toán GS; tối ưu cả hai cho PS+GS. Các hạng separation, peak và drift chỉ là regularizer ổn định nghiệm số. \(K_+=\max(0,K_{\rm raw})\) chỉ dùng để báo cáo.
+
+Bài toán~\eqref{eq:joint_ps_gs_problem} là bài toán kỳ vọng phi lồi: \(I_{AB}\), \(\chi_{BE}\) và phép chuẩn hóa năng lượng cùng phụ thuộc vào PMF và tọa độ. Không có nghiệm giải tích đóng, còn vét cạn trên 256 xác suất và hàng trăm tọa độ là không khả thi. Do đó, chúng tôi dùng một khung tối ưu hóa đầu cuối khả vi lấy cảm hứng từ Autoencoder: mạng nơ-ron sinh PMF theo trạng thái kênh, tensor học được biểu diễn hình học, khối vật lý--bảo mật tính trực tiếp \(I_{AB}\) và \(\chi_{BE}\), rồi gradient được lan truyền về PS và/hoặc GS. Đây không phải autoencoder cổ điển có encoder--decoder và không có bộ thu nơ-ron.
+
+\subsection{Giải pháp đề xuất: biểu diễn nguồn symbol và chòm sao}
 
 QAM ban đầu được tạo bởi
 \begin{equation}
@@ -146,7 +185,7 @@ với (g(x)=(x+1)\log_2(x+1)-x\log_2x). Toàn bộ khối complex128 khả vi th
 
 \paragraph{Nguồn triển khai.} \texttt{uav\_hap\_joint\_ps\_gs.py}, dòng 371--639.
 
-\subsection{Hàm mục tiêu tốc độ khóa bí mật}
+\subsection{Hàm mất mát triển khai và tiêu chí checkpoint}
 
 \begin{align}
 K_{raw}&=\beta I_{AB}-\chi_{BE},\\

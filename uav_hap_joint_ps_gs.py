@@ -499,6 +499,14 @@ def bosonic_entropy(x: torch.Tensor) -> torch.Tensor:
     )
 
 
+def stable_hermitian_eigh(matrix: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    """Use the stable CPU LAPACK path for ill-conditioned complex128 CUDA matrices."""
+    if matrix.is_cuda and matrix.dtype == torch.complex128 and matrix.shape[-1] >= 128:
+        eigenvalues, eigenvectors = torch.linalg.eigh(matrix.cpu())
+        return eigenvalues.to(matrix.device), eigenvectors.to(matrix.device)
+    return torch.linalg.eigh(matrix)
+
+
 def differentiable_security_block(
     probabilities: torch.Tensor,
     constellation: torch.Tensor,
@@ -554,7 +562,7 @@ def differentiable_security_block(
     fock = coherent_state_matrix(constellation, ncut)
     tau = torch.einsum("bmi,bm,bmj->bij", fock.conj(), probabilities, fock)
     tau = 0.5 * (tau + tau.mH)
-    eigenvalues, eigenvectors = torch.linalg.eigh(tau)
+    eigenvalues, eigenvectors = stable_hermitian_eigh(tau)
     significant = eigenvalues > density_eigenvalue_floor
     safe_eigenvalues = eigenvalues.clamp_min(density_eigenvalue_floor)
     sqrt_values = torch.sqrt(safe_eigenvalues) * significant

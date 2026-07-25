@@ -12,6 +12,7 @@ import torch
 
 import uav_hap_joint_ps_gs as core
 import visualize_skr_parameter_sweeps as sweeps
+from uav_hap_1.channel.channel_model import link_distance_m
 
 
 class SKRParameterSweepTests(unittest.TestCase):
@@ -41,7 +42,7 @@ class SKRParameterSweepTests(unittest.TestCase):
     def tearDownClass(cls) -> None:
         cls.temporary_directory.cleanup()
 
-    def test_all_six_schemes_and_five_sweeps_are_evaluated(self) -> None:
+    def test_all_six_schemes_and_six_sweeps_are_evaluated(self) -> None:
         self.assertEqual(set(self.result.raw_rows), set(sweeps.SWEEP_SPECS))
         for rows in self.result.raw_rows.values():
             self.assertEqual({row["scheme"] for row in rows}, set(sweeps.SCHEME_ORDER))
@@ -80,7 +81,15 @@ class SKRParameterSweepTests(unittest.TestCase):
         values = sweeps.sweep_values(self.config, "turbulence")
         self.assertTrue(np.all(np.diff(values) >= 0.0))
 
-    def test_all_five_png_and_pdf_files_exist(self) -> None:
+    def test_distance_sweep_preserves_altitudes_and_sets_link_length(self) -> None:
+        distance_km = float(sweeps.sweep_values(self.config, "distance")[0])
+        geometry = sweeps.geometry_for_sweep(self.config, "distance", distance_km)
+        baseline = sweeps.build_geometry(self.config)
+        self.assertEqual(geometry.H_UAV_m, baseline.H_UAV_m)
+        self.assertEqual(geometry.H_HAP_m, baseline.H_HAP_m)
+        self.assertAlmostEqual(link_distance_m(geometry) / 1000.0, distance_km, places=10)
+
+    def test_all_six_png_and_pdf_files_exist(self) -> None:
         for spec in sweeps.SWEEP_SPECS.values():
             for extension in ("png", "pdf"):
                 path = self.result.output_dir / f"{spec.figure_stem}.{extension}"
