@@ -1,0 +1,269 @@
+{
+  "config": {
+    "project_config": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\ps_gs_full_config.json",
+    "checkpoints": {
+      "ps": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\experiments\\joint_seed2026\\best_ps.pt",
+      "gs": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\experiments\\joint_seed2026\\best_gs.pt",
+      "joint": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\experiments\\joint_seed2026\\best_joint.pt"
+    },
+    "output_directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\learned_vs_mb_audit_results",
+    "device": "cuda",
+    "mb_fixed_nu": 0.1,
+    "nu_grid": [
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.57,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.69,
+      0.7,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.75,
+      0.76,
+      0.77,
+      0.78,
+      0.79,
+      0.8
+    ],
+    "seeds": {
+      "validation_channel": 810001,
+      "validation_awgn": 810002,
+      "test_channel_start": 820000,
+      "test_awgn_start": 830000,
+      "phase_start": 840000,
+      "confirmation_start": 910000
+    },
+    "validation": {
+      "fading_samples": 32,
+      "awgn_samples": 64,
+      "ncut": 120
+    },
+    "test": {
+      "repetitions": 10,
+      "fading_samples": 16,
+      "awgn_samples": 64,
+      "ncut": 150
+    },
+    "adaptivity_grid": {
+      "T_values": [
+        0.0001,
+        0.001,
+        0.01,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "epsilon_values": [
+        0.0,
+        0.001,
+        0.005,
+        0.01,
+        0.02
+      ]
+    },
+    "geometry_probe_T": 0.05,
+    "phase_maps": {
+      "points_per_axis": 5,
+      "repetitions": 3,
+      "fading_samples": 8,
+      "awgn_samples": 16,
+      "ncut": 64,
+      "pairs": {
+        "T_epsilon": {
+          "x": {
+            "minimum": 0.0001,
+            "maximum": 0.2,
+            "scale": "log",
+            "label": "T"
+          },
+          "y": {
+            "minimum": 0.0,
+            "maximum": 0.03,
+            "scale": "linear",
+            "label": "epsilon [SNU]"
+          }
+        },
+        "L_Cn2": {
+          "x": {
+            "minimum": 20.0,
+            "maximum": 100.0,
+            "scale": "linear",
+            "label": "L [km]"
+          },
+          "y": {
+            "minimum": 1e-16,
+            "maximum": 1e-14,
+            "scale": "log",
+            "label": "Cn2 [m^-2/3]"
+          }
+        },
+        "V_a": {
+          "x": {
+            "minimum": 5.0,
+            "maximum": 40.0,
+            "scale": "linear",
+            "label": "Visibility [km]"
+          },
+          "y": {
+            "minimum": 0.1,
+            "maximum": 0.3,
+            "scale": "linear",
+            "label": "Aperture radius [m]"
+          }
+        },
+        "W0_Cn2": {
+          "x": {
+            "minimum": 0.03,
+            "maximum": 0.12,
+            "scale": "linear",
+            "label": "W0 [m]"
+          },
+          "y": {
+            "minimum": 1e-16,
+            "maximum": 1e-14,
+            "scale": "log",
+            "label": "Cn2 [m^-2/3]"
+          }
+        }
+      }
+    },
+    "confirmation": {
+      "cases_each": 3,
+      "repetitions": 10,
+      "fading_samples": 16,
+      "awgn_samples": 64,
+      "ncut": 150
+    },
+    "_config_path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\learned_vs_mb_audit_config.json",
+    "quick": false
+  },
+  "global_opt_nu": 0.41,
+  "model_metadata": {
+    "PS": {
+      "checkpoint": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\experiments\\joint_seed2026\\best_ps.pt",
+      "phase": "ps",
+      "epoch": 0,
+      "validation_metrics": {
+        "raw_skr": 0.029644591895697767,
+        "i_ab": 0.10612478902231273,
+        "chi_be": 0.07117395767549932,
+        "peak_energy": 11.299365973906337,
+        "minimum_pairwise_distance": 0.31692082395599147,
+        "weighted_mean_abs": 1.3877787807814457e-17,
+        "weighted_mean_energy": 0.9999999999999974,
+        "maximum_symbol_energy": 11.299365973906337,
+        "maximum_pairwise_distance": 6.72290591155531,
+        "probability_entropy": 6.408923689874862,
+        "minimum_probability": 4.142913770202081e-07,
+        "maximum_probability": 0.030297311449261916
+      }
+    },
+    "GS": {
+      "checkpoint": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\experiments\\joint_seed2026\\best_gs.pt",
+      "phase": "gs",
+      "epoch": 100,
+      "validation_metrics": {
+        "raw_skr": 0.014032605068389915,
+        "i_ab": 0.105708645429546,
+        "chi_be": 0.08639060808967877,
+        "peak_energy": 2.7032463045988204,
+        "minimum_pairwise_distance": 0.13468848130451705,
+        "weighted_mean_abs": 6.938893903907228e-18,
+        "weighted_mean_energy": 0.9999999999999998,
+        "maximum_symbol_energy": 2.7032463045988204,
+        "maximum_pairwise_distance": 3.288310389606686,
+        "probability_entropy": 8.0,
+        "minimum_probability": 0.00390625,
+        "maximum_probability": 0.00390625
+      }
+    },
+    "PS+GS": {
+      "checkpoint": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\experiments\\joint_seed2026\\best_joint.pt",
+      "phase": "geometry_warmup",
+      "epoch": 70,
+      "validation_metrics": {
+        "raw_skr": 0.029685316833219212,
+        "i_ab": 0.10612479818904398,
+        "chi_be": 0.07113324144637256,
+        "peak_energy": 11.208270851105539,
+        "minimum_pairwise_distance": 0.30749409629017727,
+        "weighted_mean_abs": 1.2509268882771001e-17,
+        "weighted_mean_energy": 0.999999999999998,
+        "maximum_symbol_energy": 11.208270851105539,
+        "maximum_pairwise_distance": 6.695751145646183,
+        "probability_entropy": 6.408923689874862,
+        "minimum_probability": 4.142913770202081e-07,
+        "maximum_probability": 0.030297311449261916
+      }
+    }
+  },
+  "project_fixed_nu": 0.1,
+  "torch_version": "2.8.0+cu128",
+  "cuda_available": true
+}
