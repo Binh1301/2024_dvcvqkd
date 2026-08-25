@@ -1,0 +1,19 @@
+# Seeds are software choices, not values claimed by the draft paper.
+epochs: null
+learning_rate: null
+train_fading_samples: null
+validation_fading_samples: null
+test_fading_samples: null
+train_awgn_samples_per_symbol: null
+validation_awgn_samples_per_symbol: null
+test_awgn_samples_per_symbol: null
+seeds:
+  train_channel: 202601
+  train_awgn: 202602
+  validation_channel: 202603
+  validation_awgn: 202604
+  test_channel: 202605
+  test_awgn: 202606
+seed_derivation: "BLAKE2b(base_seed, namespace, epoch); no seed addition"
+checkpoint_selection: validation_raw_skr
+final_evaluation_uses_test_only: true

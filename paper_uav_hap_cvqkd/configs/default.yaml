@@ -1,0 +1,41 @@
+# Paper-reproduction configuration. Null values are intentionally unresolved:
+# Sections V--VI contain no numerical setup/results. Do not replace them with
+# legacy values and call the result a paper reproduction.
+channel:
+  h_hap_m: null
+  h_uav_m: null
+  zenith_angle_rad: 0.0
+  wavelength_m: null
+  visibility_km: null
+  beam_waist_m: null
+  aperture_radius_m: null
+  cn2_m_minus_two_thirds: null
+  excess_noise_snu: null
+cvqkd:
+  beta_reconciliation: null
+  fixed_modulation_variance_snu: null
+  v_min_snu: null
+  v_max_snu: null
+  mb_nu: 0.1
+  fock_cutoff: null
+training:
+  epochs: null
+  learning_rate: null
+  train_fading_samples: null
+  validation_fading_samples: null
+  test_fading_samples: null
+  train_awgn_samples_per_symbol: null
+  validation_awgn_samples_per_symbol: null
+  test_awgn_samples_per_symbol: null
+  seeds:
+    train_channel: 202601
+    train_awgn: 202602
+    validation_channel: 202603
+    validation_awgn: 202604
+    test_channel: 202605
+    test_awgn: 202606
+paper_results:
+  expected_figures: []
+  expected_tables:
+    - "Table I: UAV receiver motion and attitude-fluctuation parameters"
+
