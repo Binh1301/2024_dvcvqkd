@@ -43,6 +43,7 @@ def discrete_mutual_information(
     generator: torch.Generator | None = None,
     standard_noise_samples: torch.Tensor | None = None,
     candidate_chunk_size: int = 64,
+    noise_sample_chunk_size: int | None = None,
 ) -> torch.Tensor:
     """Return one discrete-input continuous-output MI value per fading state."""
 
@@ -57,6 +58,10 @@ def discrete_mutual_information(
         raise ValueError("noise_samples_per_symbol must be a positive integer.")
     if not isinstance(candidate_chunk_size, int) or candidate_chunk_size <= 0:
         raise ValueError("candidate_chunk_size must be a positive integer.")
+    if noise_sample_chunk_size is None:
+        noise_sample_chunk_size = noise_samples_per_symbol
+    if not isinstance(noise_sample_chunk_size, int) or noise_sample_chunk_size <= 0:
+        raise ValueError("noise_sample_chunk_size must be a positive integer or None.")
     expected_shape = (batch_size, symbol_count, noise_samples_per_symbol)
     if standard_noise_samples is None:
         if generator is None:
@@ -71,7 +76,6 @@ def discrete_mutual_information(
         raise ValueError("standard_noise_samples has the wrong shape or dtype.")
     sigma2_complex = 1.0 + transmittance * epsilon / 2.0
     means = torch.sqrt(transmittance).unsqueeze(-1) * ensemble.amplitudes
-    received = means.unsqueeze(-1) + torch.sqrt(sigma2_complex)[:, None, None] * standard_noise_samples
     probabilities = ensemble.probabilities
     if probabilities.requires_grad and bool(torch.any(probabilities <= 0.0)):
         raise ValueError(
@@ -85,30 +89,50 @@ def discrete_mutual_information(
         torch.full_like(probabilities, -torch.inf),
     )
     entropy = -torch.sum(torch.special.xlogy(probabilities, probabilities), dim=-1) / math.log(2.0)
-    log_denominator: torch.Tensor | None = None
-    for start in range(0, symbol_count, candidate_chunk_size):
-        stop = min(start + candidate_chunk_size, symbol_count)
-        distances = (
-            received[:, :, :, None] - means[:, None, None, start:stop]
-        ).abs().square()
-        logits = (
-            log_probabilities[:, None, None, start:stop]
-            - distances / sigma2_complex[:, None, None, None]
-        )
-        chunk = torch.logsumexp(logits, dim=-1)
-        log_denominator = chunk if log_denominator is None else torch.logaddexp(log_denominator, chunk)
-    if log_denominator is None:
-        raise RuntimeError("No candidate symbols were evaluated.")
-    true_distance = (received - means.unsqueeze(-1)).abs().square()
-    true_logits = log_probabilities[:, :, None] - true_distance / sigma2_complex[:, None, None]
-    posterior_log = torch.where(
-        positive_probability[:, :, None],
-        true_logits - log_denominator,
-        torch.zeros_like(true_logits),
+    # Chunking the noise axis is an exact batching transformation: the same
+    # explicit noise tensor and estimator are used, while peak memory no longer
+    # grows with the convergence reference count.
+    conditional_sum = torch.zeros(
+        batch_size, dtype=torch.float64, device=ensemble.probabilities.device
     )
-    conditional = torch.sum(
-        probabilities * torch.mean(posterior_log, dim=-1), dim=-1
-    ) / math.log(2.0)
+    for noise_start in range(0, noise_samples_per_symbol, noise_sample_chunk_size):
+        noise_stop = min(noise_start + noise_sample_chunk_size, noise_samples_per_symbol)
+        received = (
+            means.unsqueeze(-1)
+            + torch.sqrt(sigma2_complex)[:, None, None]
+            * standard_noise_samples[..., noise_start:noise_stop]
+        )
+        log_denominator: torch.Tensor | None = None
+        for start in range(0, symbol_count, candidate_chunk_size):
+            stop = min(start + candidate_chunk_size, symbol_count)
+            distances = (
+                received[:, :, :, None] - means[:, None, None, start:stop]
+            ).abs().square()
+            logits = (
+                log_probabilities[:, None, None, start:stop]
+                - distances / sigma2_complex[:, None, None, None]
+            )
+            chunk = torch.logsumexp(logits, dim=-1)
+            log_denominator = (
+                chunk if log_denominator is None
+                else torch.logaddexp(log_denominator, chunk)
+            )
+        if log_denominator is None:
+            raise RuntimeError("No candidate symbols were evaluated.")
+        true_distance = (received - means.unsqueeze(-1)).abs().square()
+        true_logits = (
+            log_probabilities[:, :, None]
+            - true_distance / sigma2_complex[:, None, None]
+        )
+        posterior_log = torch.where(
+            positive_probability[:, :, None],
+            true_logits - log_denominator,
+            torch.zeros_like(true_logits),
+        )
+        conditional_sum = conditional_sum + torch.sum(
+            probabilities[:, :, None] * posterior_log, dim=(-2, -1)
+        )
+    conditional = conditional_sum / (noise_samples_per_symbol * math.log(2.0))
     value = entropy + conditional
     if not bool(torch.all(torch.isfinite(value))):
         raise FloatingPointError("Mutual-information estimator returned NaN or Inf.")

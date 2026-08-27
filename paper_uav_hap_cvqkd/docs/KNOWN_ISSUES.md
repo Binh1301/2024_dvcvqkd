@@ -1,23 +1,23 @@
 # Known issues and publication blockers
 
 1. **No numerical paper results.** Sections V--VI are empty; no figure definitions, experimental table, result values, or final claims can be reproduced.
-2. **Missing numerical parameters.** Link/optical parameters, `beta`, `V_min/V_max`, Fock cutoff, sample budgets, optimizer settings, and seed policy are not fully specified by the paper.
+2. **Numerical freeze remains incomplete.** Link/optical, epsilon, `beta`, and energy-domain author values are now explicit; convergence-selected Fock/MI settings and any still-null optimizer/statistical fields must pass their separate gates before runs.
 3. **Variance notation conflict.** The draft changes from `sigma_r` to undefined `sigma_s` in its PDT equations. The frozen implementation follows Eqs. (21)--(24): Rayleigh scale equals per-axis standard deviation. Legacy code used `sqrt(total_variance/2)`.
-4. **Standard-form security blocker.** The paper covariance assumes quadrature-symmetric standard form, but arbitrary learned PMFs/geometries need not satisfy it. Strict code rejects such ensembles. No full-covariance proof is invented.
+4. **Standard-form security scope.** The frozen transmitter enforces C4 symmetry, zero displacement, and zero pseudomoment by construction. The lower-level covariance code still rejects unsupported asymmetric ensembles; no full-covariance proof is invented.
 5. **Exact CSI oracle.** Pilot estimation and authenticated feedback are described narratively but not modeled quantitatively.
 6. **Asymptotic only.** Parameter-estimation confidence regions, finite-size corrections, authentication, reconciliation leakage, and privacy-amplification costs are absent.
 7. **Ideal detector only.** Detector efficiency and electronic noise are not in the implemented paper path.
 8. **No reconciliation feasibility.** A fixed `beta` does not establish a realizable code for learned low-entropy PMFs.
-9. **PS/GS attribution.** Weighted centering/scaling causes PMF changes to alter normalized/physical coordinates. Raw-geometry freezing is not physical-coordinate freezing.
-10. **Fock truncation.** Every run must report trace error and cutoff convergence over its complete `V_A` range.
+9. **PS/GS attribution is constrained.** The active path has no weighted centering: PS changes orbit probabilities and one statewise scalar, while GS changes one global C4 relative geometry. Claims must still say fourfold-symmetric PS rather than unrestricted 256-way shaping.
+10. **Fock truncation is not certified.** Unit-RMS GS plus softmax PS is unbounded without an extra rule. The common hard `n_peak` mechanism and boundary fixture are implemented, but the threshold/scope remain author-unapproved and convergence has not been run.
 11. **Eigendecomposition gradients.** Gradients may be ill-conditioned near repeated or thresholded density eigenvalues.
 12. **No environment lock.** `requirements.txt` declares interfaces, not an author-validated publication lockfile.
 13. **Legacy results are incompatible.** July checkpoints use a three-input PS network and fixed `V_A`; they cannot initialize or verify the paper architecture.
-14. **Strict learned training is scientifically blocked.** The paper uses a scalar-`Z` standard-form covariance, while unconstrained PS/GS updates generally break quadrature symmetry. The strict path correctly stops; the exploratory override is not security evidence.
-15. **Adaptive-variance fairness is unresolved.** Pointwise `V_min/V_max` bounds do not impose a common fading-averaged energy budget. Adaptive-`V_A` gains require matched average/peak energy and validation-optimized fixed-`V_A` baselines.
-16. **Excess-noise adaptivity is not demonstrated.** The current sampler varies `T` but supplies one configured `epsilon` value to all states. A distribution or block estimator is required before claiming learned `epsilon` adaptation.
-17. **Optional geometry regularizers are not active.** The executed loss is Eq. (184); Eq. (185) coefficients are effectively zero. Nonzero separation/peak/drift terms require author-approved coefficients and a resolved raw-geometry scale gauge.
-18. **No optimized MB comparison.** The smoke baseline evaluates an explicit `nu`; publication claims require validation-only optimization and untouched test evaluation.
+14. **Security boundary remains narrow.** Strict C4 learned training now preserves the accepted scalar-`Z` standard form and the paper scripts fail closed. This does not extend the accepted asymptotic covariance-based bound to arbitrary asymmetric modulation or a composable proof.
+15. **Adaptive-variance numerical fairness is not frozen.** The common pointwise box, projected average-`V_A` controller, and held-out feasibility checks are implemented, but the budget, dual learning rate, and validation-optimized fixed-`V_A` procedure still require author-approved numerical freezing.
+16. **Excess-noise operating domain is author-frozen, not empirically measured.** Production states use independent input-referred `epsilon ~ Uniform[0.001,0.04]` SNU, separate namespaced streams, split hashes, and leakage checks. This is a controlled sensitivity-domain law and must not be presented as measured HAP-UAV coupling.
+17. **Optional geometry regularizers are not active.** Exact canonical separation, physical-peak, and phase-aligned drift terms are implemented, but their primary coefficients remain zero. Nonzero coefficients/thresholds require author approval without test-set tuning.
+18. **Optimized MB search is implemented but not numerically frozen.** The validation-only search covers Uniform/Binomial/fixed-MB `V_A` and optimized-MB `(nu,V_A)`, enforces the common box/budget, and has no test interface. Its grids and reference `nu` remain unresolved.
 19. **Channel-model scope is narrow.** Homogeneous Kruse attenuation and beam wander omit scintillation, altitude profiles, clouds, background light, optical efficiencies, and tracking-loop dynamics.
-20. **No common photon budget.** Before comparing fixed and adaptive modulation variance, define and enforce a shared average photon-number budget and peak constraint.
+20. **Common energy values are unresolved.** Average-budget and hard-peak mechanisms are implemented. `V_A_budget`, `n_peak`, and peak-domain scope must be author-frozen before comparison or convergence; no value is inferred from observed amplitudes.
 21. **Seed derivation was hardened after review.** Training epochs now use namespaced BLAKE2b-derived seeds rather than arithmetic increments; a regression test checks 1,000 epochs against validation/test namespaces.

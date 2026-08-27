@@ -1,9 +1,11 @@
-"""Exact PS architecture from paper Eqs. (141), (145)--(150)."""
+"""Frozen fourfold-symmetric adaptive probabilistic-shaping policy."""
 
 from __future__ import annotations
 
 import torch
 from torch import nn
+
+from .qam256 import c4_orbit_masses, expand_c4_orbit_masses
 
 
 def channel_features(transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
@@ -21,23 +23,31 @@ def channel_features(transmittance: torch.Tensor, epsilon: torch.Tensor) -> torc
 
 
 class ProbabilisticShapingNetwork(nn.Module):
-    """``Linear(2,128) -> ReLU -> Linear(128,256) -> softmax``."""
+    """``Linear(2,128) -> ReLU -> Linear(128,64) -> softmax`` orbit policy."""
 
     def __init__(self, initial_pmf: torch.Tensor | None = None) -> None:
         super().__init__()
         self.network = nn.Sequential(
             nn.Linear(2, 128, dtype=torch.float64),
             nn.ReLU(),
-            nn.Linear(128, 256, dtype=torch.float64),
+            nn.Linear(128, 64, dtype=torch.float64),
         )
         if initial_pmf is not None:
             if initial_pmf.shape != (256,) or bool(torch.any(initial_pmf <= 0.0)):
                 raise ValueError("initial_pmf must be a strictly positive 256-symbol PMF.")
+            initial_orbit_masses = c4_orbit_masses(initial_pmf.to(dtype=torch.float64))
             final_layer = self.network[-1]
             with torch.no_grad():
                 final_layer.weight.zero_()
-                final_layer.bias.copy_(torch.log(initial_pmf.to(dtype=torch.float64)))
+                final_layer.bias.copy_(torch.log(initial_orbit_masses))
 
-    def forward(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
+    def orbit_masses(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
+        """Return the 64 strictly positive, normalized orbit masses ``q_k``."""
+
         logits = self.network(channel_features(transmittance, epsilon))
         return torch.softmax(logits, dim=-1)
+
+    def forward(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
+        """Return the row-major 256-symbol PMF with ``p[k,r] = q[k]/4``."""
+
+        return expand_c4_orbit_masses(self.orbit_masses(transmittance, epsilon))

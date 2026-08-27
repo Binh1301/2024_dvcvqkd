@@ -5,7 +5,7 @@ import torch
 from src.cvqkd.covariance import PhysicalityError, standard_form_covariance
 from src.cvqkd.holevo import density_operator, holevo_information
 from src.modulation.joint_ps_gs import Ensemble, reference_ensemble
-from src.modulation.normalization import physical_amplitudes, weighted_center_and_normalize
+from src.modulation.normalization import physical_amplitudes
 from src.modulation.qam256 import square_qam256, uniform_pmf
 
 
@@ -32,6 +32,12 @@ class HolevoTests(unittest.TestCase):
         self.assertTrue(bool(torch.all(torch.isfinite(result.chi_be))))
         self.assertTrue(result.covariance.symmetry.standard_form_supported)
         self.assertLess(result.diagnostics["maximum_density_trace_error"], 1e-8)
+        self.assertEqual(result.diagnostics["symmetry_tolerance"], 1e-8)
+        self.assertEqual(result.diagnostics["density_trace_tolerance"], 1e-8)
+        self.assertEqual(
+            result.diagnostics["density_eigenvalue_pseudoinverse_tolerance"], 1e-12
+        )
+        self.assertEqual(result.diagnostics["physicality_tolerance"], 1e-10)
 
     def test_asymmetric_ensemble_is_rejected_by_standard_form_guard(self):
         probabilities = uniform_pmf().clone()
@@ -39,8 +45,7 @@ class HolevoTests(unittest.TestCase):
         probabilities[1:] -= 0.01 / 255.0
         probabilities = probabilities.unsqueeze(0)
         raw = square_qam256()
-        unit = weighted_center_and_normalize(probabilities, raw)
-        amplitudes = physical_amplitudes(unit, torch.tensor([2.0]))
+        amplitudes = physical_amplitudes(probabilities, raw, torch.tensor([2.0]))
         ensemble = Ensemble(probabilities, amplitudes, torch.tensor([2.0]), raw)
         with self.assertRaises(PhysicalityError):
             standard_form_covariance(

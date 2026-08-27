@@ -1,4 +1,4 @@
-"""Common physical ensemble and paper training configurations, Eqs. (169), (191)--(195)."""
+"""Frozen C4 transmitter, common physical ensemble, and ablation configurations."""
 
 from __future__ import annotations
 
@@ -8,10 +8,61 @@ import math
 import torch
 from torch import nn
 
-from .geometric_shaping import GlobalGeometricShaping
-from .normalization import physical_amplitudes, validate_probabilities, weighted_center_and_normalize
+from .geometric_shaping import GlobalGeometricShaping, canonical_c4_relative_constellation
+from .normalization import physical_amplitudes, validate_probabilities
 from .probabilistic_shaping import ProbabilisticShapingNetwork, channel_features
-from .qam256 import reference_pmf, square_qam256
+from .qam256 import c4_orbit_indices, c4_orbit_masses, reference_pmf, square_qam256
+
+
+class PeakPhotonConstraintViolation(ValueError):
+    """Raised when a physical ensemble leaves the preregistered peak domain."""
+
+
+def validate_peak_photon_limit(n_peak_photons: float | None) -> float | None:
+    """Validate the optional common hard peak-photon domain.
+
+    ``None`` deliberately disables the mechanism for bounded software tests and
+    legacy callers.  Publication entry points require a finite author-approved
+    value separately; no numerical value is inferred here.
+    """
+
+    if n_peak_photons is None:
+        return None
+    value = float(n_peak_photons)
+    if not math.isfinite(value) or value <= 0.0:
+        raise ValueError("n_peak_photons must be null or finite and positive.")
+    return value
+
+
+def enforce_peak_photon_constraint(
+    ensemble: "Ensemble",
+    n_peak_photons: float | None,
+    *,
+    relative_tolerance: float = 1e-12,
+) -> None:
+    """Fail closed on ``max_i |alpha_i|^2 > n_peak`` without mutation.
+
+    The guard is evaluated on the final physical amplitudes after the frozen
+    scalar energy normalization.  It never clips, translates, rescales, or
+    detaches the ensemble subsequently supplied to MI and Holevo.
+    """
+
+    limit = validate_peak_photon_limit(n_peak_photons)
+    if limit is None:
+        return
+    if not math.isfinite(relative_tolerance) or relative_tolerance < 0.0:
+        raise ValueError("relative_tolerance must be finite and nonnegative.")
+    state_peaks = ensemble.amplitudes.abs().square().amax(dim=-1)
+    allowed = limit * (1.0 + relative_tolerance)
+    violating = state_peaks > allowed
+    if bool(torch.any(violating)):
+        state_index = int(torch.nonzero(violating, as_tuple=False)[0, 0].detach())
+        observed = float(state_peaks[state_index].detach())
+        raise PeakPhotonConstraintViolation(
+            "Hard peak-photon constraint violated: "
+            f"state={state_index}, max|alpha|^2={observed:.17g}, "
+            f"n_peak={limit:.17g}. The physical ensemble was rejected without clipping."
+        )
 
 
 @dataclass(frozen=True)
@@ -23,9 +74,22 @@ class Ensemble:
     declared_va: torch.Tensor
     raw_constellation: torch.Tensor
     exact_csi_oracle: bool = True
+    c4_symmetric: bool = False
+
+    @property
+    def relative_constellation(self) -> torch.Tensor:
+        """Canonical global relative points (legacy field name retained for API stability)."""
+
+        return self.raw_constellation
 
     def computed_va(self) -> torch.Tensor:
         return 2.0 * torch.sum(self.probabilities * self.amplitudes.abs().square(), dim=-1)
+
+    def weighted_mean(self) -> torch.Tensor:
+        return torch.sum(self.probabilities * self.amplitudes, dim=-1)
+
+    def weighted_pseudomoment(self) -> torch.Tensor:
+        return torch.sum(self.probabilities * self.amplitudes.square(), dim=-1)
 
     def validate(self, tolerance: float = 1e-9) -> None:
         validate_probabilities(self.probabilities, tolerance=tolerance)
@@ -45,6 +109,34 @@ class Ensemble:
         scale = torch.maximum(torch.ones_like(declared), torch.abs(declared))
         if not bool(torch.all(error <= tolerance * scale)):
             raise ValueError("Declared V_A does not equal 2 sum_i p_i |alpha_i|^2.")
+        if self.c4_symmetric:
+            if self.probabilities.shape[-1] != 256:
+                raise ValueError("Frozen C4 ensembles must have exactly 256 symbols.")
+            if bool(torch.any(self.probabilities <= 0.0)):
+                raise ValueError("Frozen softmax/reference PMFs must be strictly positive.")
+            # This both checks tied probabilities and gives a direct implementation
+            # guard against an incorrect q -> p expansion or missing factor of four.
+            c4_orbit_masses(self.probabilities, tolerance=tolerance)
+            indices = c4_orbit_indices(device=self.amplitudes.device)
+            grouped = self.amplitudes[..., indices]
+            rotated = 1j * grouped[..., :-1]
+            rotation_error = torch.abs(grouped[..., 1:] - rotated)
+            rotation_error = torch.maximum(
+                rotation_error.amax(dim=(-2, -1)),
+                torch.abs(grouped[..., :1] - 1j * grouped[..., -1:]).amax(dim=(-2, -1)),
+            )
+            amplitude_scale = torch.maximum(
+                torch.ones_like(declared), self.amplitudes.abs().amax(dim=-1)
+            )
+            if not bool(torch.all(rotation_error <= tolerance * amplitude_scale)):
+                raise ValueError("Physical amplitudes do not obey exact C4 rotations.")
+            moment_scale = torch.maximum(torch.ones_like(declared), declared)
+            if not bool(torch.all(self.weighted_mean().abs() <= tolerance * moment_scale)):
+                raise ValueError("Frozen C4 ensemble has nonzero displacement.")
+            if not bool(
+                torch.all(self.weighted_pseudomoment().abs() <= tolerance * moment_scale)
+            ):
+                raise ValueError("Frozen C4 ensemble is not quadrature isotropic.")
 
 
 class AdaptiveVarianceNetwork(nn.Module):
@@ -73,7 +165,10 @@ class AdaptiveVarianceNetwork(nn.Module):
 class JointTransmitter(nn.Module):
     """Paper transmitter modes without a learned receiver/demapper."""
 
-    MODES = {"uniform", "binomial", "mb", "ps", "gs", "ps_gs", "ps_va", "gs_va", "full"}
+    MODES = {
+        "uniform", "binomial", "mb", "optimized_mb", "ps", "gs", "va",
+        "ps_gs", "ps_va", "gs_va", "full",
+    }
 
     def __init__(
         self,
@@ -84,14 +179,23 @@ class JointTransmitter(nn.Module):
         v_max: float | None = None,
         reference_distribution: str = "uniform",
         nu_mb: float | None = None,
+        n_peak_photons: float | None = None,
     ) -> None:
         super().__init__()
         if mode not in self.MODES:
             raise ValueError(f"Unsupported mode {mode!r}.")
         self.mode = mode
-        self.reference_distribution = mode if mode in {"uniform", "binomial", "mb"} else reference_distribution
+        self.n_peak_photons = validate_peak_photon_limit(n_peak_photons)
+        self.reference_distribution = (
+            "mb" if mode == "optimized_mb"
+            else mode if mode in {"uniform", "binomial", "mb"}
+            else reference_distribution
+        )
         base = square_qam256()
         self.register_buffer("base_constellation", base)
+        self.register_buffer(
+            "base_relative_constellation", canonical_c4_relative_constellation(base)
+        )
         fixed_pmf = reference_pmf(
             self.reference_distribution,
             nu_mb=nu_mb,
@@ -110,12 +214,19 @@ class JointTransmitter(nn.Module):
                 v_min if v_min is not None else float("nan"),
                 v_max if v_max is not None else float("nan"),
             )
-            if mode in {"ps_va", "gs_va", "full"}
+            if mode in {"va", "ps_va", "gs_va", "full"}
             else None
         )
         if self.va_network is None:
             if fixed_va is None or not math.isfinite(fixed_va) or fixed_va <= 0.0:
                 raise ValueError("A finite positive fixed_va is required for this mode.")
+            if (v_min is None) != (v_max is None):
+                raise ValueError("v_min and v_max must be supplied together for fixed-V_A modes.")
+            if v_min is not None and v_max is not None:
+                if not math.isfinite(v_min) or not math.isfinite(v_max) or not 0.0 < v_min < v_max:
+                    raise ValueError("Require finite common bounds 0 < v_min < v_max.")
+                if not v_min <= fixed_va <= v_max:
+                    raise ValueError("fixed_va must lie inside the common [v_min,v_max] box.")
             self.fixed_va = float(fixed_va)
         else:
             self.fixed_va = None
@@ -136,17 +247,38 @@ class JointTransmitter(nn.Module):
             if self.ps_network is not None
             else self.fixed_probabilities.unsqueeze(0).expand(transmittance.shape[0], -1)
         )
-        raw = self.gs_model() if self.gs_model is not None else self.base_constellation
-        unit = weighted_center_and_normalize(probabilities, raw)
+        relative = (
+            self.gs_model() if self.gs_model is not None else self.base_relative_constellation
+        )
         variance = (
             self.va_network(transmittance, epsilon)
             if self.va_network is not None
             else torch.full_like(transmittance, self.fixed_va)
         )
-        amplitudes = physical_amplitudes(unit, variance)
-        ensemble = Ensemble(probabilities, amplitudes, variance, raw, exact_csi_oracle=True)
+        amplitudes = physical_amplitudes(probabilities, relative, variance)
+        ensemble = Ensemble(
+            probabilities,
+            amplitudes,
+            variance,
+            relative,
+            exact_csi_oracle=True,
+            c4_symmetric=True,
+        )
         ensemble.validate()
+        enforce_peak_photon_constraint(ensemble, self.n_peak_photons)
         return ensemble
+
+    def trainable_parameter_families(self) -> tuple[str, ...]:
+        """Return the enabled gradient owners in frozen-spec order."""
+
+        families: list[str] = []
+        if self.ps_network is not None:
+            families.append("ps")
+        if self.gs_model is not None:
+            families.append("gs")
+        if self.va_network is not None:
+            families.append("va")
+        return tuple(families)
 
 
 def reference_ensemble(
@@ -155,6 +287,9 @@ def reference_ensemble(
     batch_size: int,
     modulation_variance: float,
     nu_mb: float | None = None,
+    v_min: float | None = None,
+    v_max: float | None = None,
+    n_peak_photons: float | None = None,
     device: torch.device | str | None = None,
 ) -> Ensemble:
     if not isinstance(batch_size, int) or batch_size <= 0:
@@ -162,7 +297,10 @@ def reference_ensemble(
     transmitter = JointTransmitter(
         kind,
         fixed_va=modulation_variance,
+        v_min=v_min,
+        v_max=v_max,
         nu_mb=nu_mb,
+        n_peak_photons=n_peak_photons,
     )
     if device is not None:
         transmitter = transmitter.to(device=device)

@@ -5,7 +5,11 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from _common import REPRODUCTION_REQUIRED, ROOT, load_yaml, missing_required
+from _common import (
+    REPRODUCTION_REQUIRED, ROOT, load_yaml, missing_required,
+    require_holevo_pseudoinverse_approval,
+)
+from src.validation.physical_domain import approved_peak_photon_limit
 
 
 def main() -> int:
@@ -20,7 +24,14 @@ def main() -> int:
         return 2
     missing = missing_required(config, REPRODUCTION_REQUIRED)
     expected_figures = config.get("paper_results", {}).get("expected_figures", [])
-    if missing or not expected_figures:
+    peak_error = None
+    if not missing:
+        try:
+            approved_peak_photon_limit(config)
+            require_holevo_pseudoinverse_approval(config)
+        except ValueError as error:
+            peak_error = str(error)
+    if missing or peak_error or not expected_figures:
         print("Paper reproduction is intentionally BLOCKED.")
         if missing:
             print("Unspecified numerical parameters:")
@@ -28,6 +39,8 @@ def main() -> int:
                 print(f"  - {path}")
         if not expected_figures:
             print("  - Paper Section V specifies no numerical figures/results to reproduce.")
+        if peak_error:
+            print(f"  - {peak_error}")
         print("Supply author-approved values; do not substitute July legacy results.")
         return 2
     print("Configuration is numerically complete, but figure mappings still require author approval.")

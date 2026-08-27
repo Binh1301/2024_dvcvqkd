@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Holevo pseudoinverse-threshold sensitivity evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "test_set_used", "validation_state_realization_sha256", "state_labels", "all_listed_fixtures_pass", "selected_ensemble_certification", "traces", "provenance"],
+  "properties": {
+    "status": {"type": "string"},
+    "test_set_used": {"const": false},
+    "validation_state_realization_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "state_labels": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"enum": ["bad", "medium", "good"]}},
+    "all_listed_fixtures_pass": {"type": "boolean"},
+    "selected_ensemble_certification": {"type": "null"},
+    "traces": {"type": "object"},
+    "provenance": {"type": "object"}
+  }
+}

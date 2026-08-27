@@ -1,10 +1,24 @@
 # Seeds are software choices, not values claimed by the draft paper.
-epochs: null
-learning_rate: null
-train_fading_samples: null
-validation_fading_samples: null
-test_fading_samples: null
-train_awgn_samples_per_symbol: null
+epochs: 2000
+optimizer: adam
+learning_rates:
+  ps: 3.0e-4
+  gs: 1.0e-4
+  va: 1.0e-4
+energy_dual_learning_rate: 1.0e-2
+batch_size: 16
+validation_patience_epochs: 100
+validation_min_delta_bits: 1.0e-5
+validation_energy_budget_margin_snu: 0.1
+gradient_clip_norm: 1.0
+regularization:
+  separation_coefficient: 0.0
+  peak_coefficient: 0.0
+  drift_coefficient: 0.0
+train_fading_samples: 16
+validation_fading_samples: 128
+test_fading_samples: 4096
+train_awgn_samples_per_symbol: 8
 validation_awgn_samples_per_symbol: null
 test_awgn_samples_per_symbol: null
 seeds:
@@ -14,6 +28,7 @@ seeds:
   validation_awgn: 202604
   test_channel: 202605
   test_awgn: 202606
+independent_training_initialization_seeds: [26082701, 26082702, 26082703, 26082704, 26082705, 26082706, 26082707, 26082708, 26082709, 26082710]
 seed_derivation: "BLAKE2b(base_seed, namespace, epoch); no seed addition"
 checkpoint_selection: validation_raw_skr
 final_evaluation_uses_test_only: true

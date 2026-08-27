@@ -17,6 +17,8 @@ class ProtocolAssumptions:
     composable_security: bool = False
     csi: str = "exact instantaneous (T, epsilon) oracle"
     feedback_model: str | None = None
+    security_scope: str = "author-accepted asymptotic covariance-based DM-CV-QKD bound"
+    attack_class: str | None = None
 
 
 PAPER_ASSUMPTIONS = ProtocolAssumptions()
@@ -43,4 +45,3 @@ def validate_channel_state(
     if not bool(torch.all(torch.isfinite(epsilon))) or bool(torch.any(epsilon < 0.0)):
         raise ValueError("epsilon must be finite and nonnegative.")
     return transmittance, epsilon
-

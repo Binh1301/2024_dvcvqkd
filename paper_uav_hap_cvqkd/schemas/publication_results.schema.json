@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Frozen UAV/HAP DM-CV-QKD publication result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "provenance", "analysis_plan", "schemes", "paired_contrasts"],
+  "properties": {
+    "schema_version": {"const": "publication-results-v2"},
+    "status": {"const": "future-result-artifact-not-a-claim"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["git_revision", "git_dirty_diff_sha256", "resolved_config_sha256", "selection_manifest_sha256", "environment_lock_sha256", "device", "test_state_sha256", "test_awgn_seed", "checkpoint_sha256_by_scheme", "raw_artifact_sha256"],
+      "properties": {
+        "git_revision": {"type": "string", "minLength": 7},
+        "git_dirty_diff_sha256": {"type": ["string", "null"]},
+        "resolved_config_sha256": {"$ref": "#/$defs/sha256"},
+        "selection_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "environment_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "device": {"type": "string"},
+        "test_state_sha256": {"$ref": "#/$defs/sha256"},
+        "test_awgn_seed": {"type": "integer", "minimum": 0},
+        "checkpoint_sha256_by_scheme": {"type": "object", "additionalProperties": {"type": "array", "items": {"$ref": "#/$defs/sha256"}}},
+        "raw_artifact_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "analysis_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["t_bin_edges", "epsilon_bin_edges", "outage_threshold_bits", "va_heatmap_t_grid", "va_heatmap_epsilon_grid", "representative_state_rule", "confidence_interval_rule"],
+      "properties": {
+        "t_bin_edges": {"$ref": "#/$defs/numbers"},
+        "epsilon_bin_edges": {"$ref": "#/$defs/numbers"},
+        "outage_threshold_bits": {"type": "number"},
+        "va_heatmap_t_grid": {"$ref": "#/$defs/numbers"},
+        "va_heatmap_epsilon_grid": {"$ref": "#/$defs/numbers"},
+        "representative_state_rule": {"const": "validation quantiles bad=(T10,epsilon90), medium=(T50,epsilon50), good=(T90,epsilon10)"},
+        "confidence_interval_rule": {"const": "paired two-sided Student-t 95% over independent training seeds"}
+      }
+    },
+    "schemes": {"type": "array", "minItems": 11, "items": {"$ref": "#/$defs/scheme"}},
+    "paired_contrasts": {
+      "type": "array",
+      "items": {"type": "object", "additionalProperties": false,
+        "required": ["scheme", "reference", "seed_differences", "n", "mean_difference", "standard_deviation", "degrees_of_freedom", "confidence_interval_95"],
+        "properties": {
+          "scheme": {"type": "string"}, "reference": {"type": "string"},
+          "seed_differences": {"$ref": "#/$defs/numbers"}, "n": {"type": "integer", "minimum": 2},
+          "mean_difference": {"type": "number"}, "standard_deviation": {"type": "number", "minimum": 0},
+          "degrees_of_freedom": {"type": "integer", "minimum": 1}, "confidence_interval_95": {"$ref": "#/$defs/interval"}
+        }}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "numbers": {"type": "array", "minItems": 1, "items": {"type": "number"}},
+    "interval": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+    "matrix": {"type": "array", "minItems": 1, "items": {"type": "array", "minItems": 1, "items": {"type": "number"}}},
+    "representative": {"type": "object", "additionalProperties": false,
+      "required": ["transmittance", "epsilon_snu", "orbit_masses", "probabilities", "hq_bits", "hp_bits"],
+      "properties": {"transmittance": {"type": "number"}, "epsilon_snu": {"type": "number", "minimum": 0}, "orbit_masses": {"$ref": "#/$defs/numbers"}, "probabilities": {"$ref": "#/$defs/numbers"}, "hq_bits": {"type": "number"}, "hp_bits": {"type": "number"}}
+    },
+    "scheme": {"type": "object", "additionalProperties": false,
+      "required": ["name", "seed_level", "aggregate", "binned_skr", "per_state", "adaptive_surfaces", "representative_states", "geometry", "energy_diagnostics", "numerical_diagnostics"],
+      "properties": {
+        "name": {"enum": ["uniform", "binomial", "fixed_mb", "optimized_mb", "ps", "gs", "va", "ps_gs", "ps_va", "gs_va", "full"]},
+        "seed_level": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["initialization_seed", "mean_raw_skr", "positive_skr_probability", "checkpoint_sha256"], "properties": {"initialization_seed": {"type": "integer", "minimum": 0}, "mean_raw_skr": {"type": "number"}, "positive_skr_probability": {"type": "number", "minimum": 0, "maximum": 1}, "checkpoint_sha256": {"$ref": "#/$defs/sha256"}}}},
+        "aggregate": {"type": "object", "additionalProperties": false, "required": ["mean_raw_skr", "aggregate_clipped_skr", "state_selective_positive_skr", "positive_skr_probability", "outage_probability", "n", "standard_deviation", "degrees_of_freedom", "confidence_interval_95"], "properties": {"mean_raw_skr": {"type": "number"}, "aggregate_clipped_skr": {"type": "number", "minimum": 0}, "state_selective_positive_skr": {"type": "number", "minimum": 0}, "positive_skr_probability": {"type": "number", "minimum": 0, "maximum": 1}, "outage_probability": {"type": "number", "minimum": 0, "maximum": 1}, "n": {"type": "integer", "minimum": 1}, "standard_deviation": {"type": "number", "minimum": 0}, "degrees_of_freedom": {"type": "integer", "minimum": 0}, "confidence_interval_95": {"$ref": "#/$defs/interval"}}},
+        "binned_skr": {"type": "object", "additionalProperties": false, "required": ["t_bin_edges", "epsilon_bin_edges", "counts", "mean_raw_skr"], "properties": {"t_bin_edges": {"$ref": "#/$defs/numbers"}, "epsilon_bin_edges": {"$ref": "#/$defs/numbers"}, "counts": {"$ref": "#/$defs/matrix"}, "mean_raw_skr": {"$ref": "#/$defs/matrix"}}},
+        "per_state": {"type": "object", "additionalProperties": false, "required": ["transmittance", "epsilon_snu", "i_ab", "chi_be", "raw_skr", "va_snu", "orbit_entropy_hq_bits", "symbol_entropy_hp_bits"], "properties": {"transmittance": {"$ref": "#/$defs/numbers"}, "epsilon_snu": {"$ref": "#/$defs/numbers"}, "i_ab": {"$ref": "#/$defs/numbers"}, "chi_be": {"$ref": "#/$defs/numbers"}, "raw_skr": {"$ref": "#/$defs/numbers"}, "va_snu": {"$ref": "#/$defs/numbers"}, "orbit_entropy_hq_bits": {"$ref": "#/$defs/numbers"}, "symbol_entropy_hp_bits": {"$ref": "#/$defs/numbers"}}},
+        "adaptive_surfaces": {"type": "object", "additionalProperties": false, "required": ["t_grid", "epsilon_grid", "va_heatmap", "hq_heatmap", "hp_heatmap"], "properties": {"t_grid": {"$ref": "#/$defs/numbers"}, "epsilon_grid": {"$ref": "#/$defs/numbers"}, "va_heatmap": {"$ref": "#/$defs/matrix"}, "hq_heatmap": {"$ref": "#/$defs/matrix"}, "hp_heatmap": {"$ref": "#/$defs/matrix"}}},
+        "representative_states": {"type": "object", "additionalProperties": false, "required": ["bad", "medium", "good"], "properties": {"bad": {"$ref": "#/$defs/representative"}, "medium": {"$ref": "#/$defs/representative"}, "good": {"$ref": "#/$defs/representative"}}},
+        "geometry": {"type": "object", "additionalProperties": false, "required": ["canonical_square_coordinates", "learned_global_coordinates", "gauge_mean_prototype_energy", "minimum_relative_pair_distance", "phase_aligned_drift"], "properties": {"canonical_square_coordinates": {"$ref": "#/$defs/matrix"}, "learned_global_coordinates": {"type": ["array", "null"]}, "gauge_mean_prototype_energy": {"type": "number"}, "minimum_relative_pair_distance": {"type": "number", "minimum": 0}, "phase_aligned_drift": {"type": "number", "minimum": 0}}},
+        "energy_diagnostics": {"type": "object", "additionalProperties": false, "required": ["mean_photon_number", "budget", "budget_slack", "validation_budget_margin_snu", "validation_expected_budget_upper_snu", "heldout_budget_feasible", "comparison_valid", "invalid_reason", "n_peak_photons", "peak_photon_slack", "peak_photon_constraint_satisfied", "maximum_symbol_energy", "papr", "symbol_energy_quantiles"], "properties": {"mean_photon_number": {"type": "number", "minimum": 0}, "budget": {"type": "number", "minimum": 0}, "budget_slack": {"type": "number"}, "validation_budget_margin_snu": {"type": "number", "minimum": 0}, "validation_expected_budget_upper_snu": {"type": "number", "minimum": 0}, "heldout_budget_feasible": {"type": "boolean"}, "comparison_valid": {"type": "boolean"}, "invalid_reason": {"type": ["string", "null"]}, "n_peak_photons": {"type": "number", "exclusiveMinimum": 0}, "peak_photon_slack": {"type": "number"}, "peak_photon_constraint_satisfied": {"const": true}, "maximum_symbol_energy": {"type": "number", "minimum": 0}, "papr": {"$ref": "#/$defs/numbers"}, "symbol_energy_quantiles": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}}}},
+        "numerical_diagnostics": {"type": "object", "additionalProperties": false, "required": ["density_trace_error", "covariance_physical", "repair_applied", "fock_cutoff", "mi_samples_per_symbol", "symmetry_tolerance", "density_trace_tolerance", "density_eigenvalue_pseudoinverse_tolerance", "physicality_tolerance", "holevo_threshold_sensitivity_artifact_sha256"], "properties": {"density_trace_error": {"type": "number", "minimum": 0}, "covariance_physical": {"type": "boolean"}, "repair_applied": {"type": "boolean"}, "fock_cutoff": {"type": "integer", "minimum": 2}, "mi_samples_per_symbol": {"type": "integer", "minimum": 1}, "symmetry_tolerance": {"type": "number", "exclusiveMinimum": 0}, "density_trace_tolerance": {"type": "number", "exclusiveMinimum": 0}, "density_eigenvalue_pseudoinverse_tolerance": {"type": "number", "exclusiveMinimum": 0}, "physicality_tolerance": {"type": "number", "exclusiveMinimum": 0}, "holevo_threshold_sensitivity_artifact_sha256": {"$ref": "#/$defs/sha256"}}}
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ Primary source: `C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf`, inspected Aug
 | Pointing PDT transformation | 35--41 | Direct sampling instead of analytic density | Equivalent accepted computation; explicit PDF not implemented |
 | Composite channel/PDT | 42--48 | `src/channel/fso_channel.py::sample_fso_channel` | Returns instantaneous `T_n` |
 | Mean channel/rate order | 49--55 | `ChannelSamples.mean_transmittance`; `fading_secret_key_rate` | Mean is descriptor; raw rates averaged after statewise evaluation |
-| Excess-noise channel state | 56--64 | `src/cvqkd/protocol.py`; MI noise variance | `epsilon` is explicit; no inferred distribution |
+| Excess-noise channel state | 56--64 | `src/channel/state_distribution.py`; `src/cvqkd/protocol.py`; MI noise variance | Independent bounded-uniform sensitivity domain; bounds must be frozen without test data because the paper supplies no physical `T`--`epsilon` coupling |
 | Square QAM | 65--71 | `src/modulation/qam256.py::square_qam256` | `k*16+l` ordering |
 | Uniform/binomial/MB | 72--81 | `uniform_pmf`, `binomial_pmf`, `maxwell_boltzmann_pmf` | Baseline script |
 | Instantaneous ensemble/SKR | 82--90 | `src/modulation/joint_ps_gs.py::Ensemble`; `fading_secret_key_rate` | Common object is shared by MI/Holevo |
@@ -30,16 +30,16 @@ Primary source: `C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf`, inspected Aug
 | Bosonic entropy/Holevo | 123--129 | `bosonic_entropy`, `holevo_information` | Ideal heterodyne, asymptotic |
 | Fading-average chain | 130--137 | `src/optimization/trainer.py`; `fading_secret_key_rate` | Correct averaging order |
 | CSI acquisition/feedback | 138--144 | `ProtocolAssumptions`, `ChannelSamples.metadata` | Exact-CSI oracle only; estimator is missing from paper |
-| PS network | 145--150 | `ProbabilisticShapingNetwork` | Exact `2-128-256` architecture |
+| Frozen C4 PS policy | `FINAL_MODEL_SPEC.md` Sec. 2.1 | `ProbabilisticShapingNetwork` | `2-128-64`, then exact orbit expansion |
 | Global GS | 151--153 | `GlobalGeometricShaping` | Shared across states |
-| Weighted normalization | 154--160 | `weighted_center_and_normalize` | Mean and unit energy asserted |
+| Frozen physical normalization | `FINAL_MODEL_SPEC.md` Sec. 3 | `physical_amplitudes` | One scalar per state; no weighted centering |
 | Adaptive variance | 161--166 | `AdaptiveVarianceNetwork` | `V_min/V_max` mandatory |
 | Physical amplitudes | 167--169 | `physical_amplitudes`, `Ensemble.validate` | Statewise `V_A` equality asserted |
 | Shared MI/security ensemble | 170--176 | `evaluate_transmitter` | One `Ensemble` passed to both branches |
 | Variance sensitivity statement | 177--181 | Autograd through `AdaptiveVarianceNetwork` | No claimed stationary solution |
 | Training objective | 182--185 | `src/optimization/trainer.py::train_step`; optional expression in `src/optimization/losses.py::paper_loss` | Executed path uses Eq. (184), i.e. all optional Eq. (185) regularizer coefficients are zero until their coefficients/gauge are scientifically frozen |
-| Gradient paths | 186--190 | Torch graph; `tests/test_gradients.py` | Local and end-to-end SKR gradients reach PS, GS, and `V_A` parameters at symmetric initialization; multi-step strict learned training remains blocked by the standard-form issue |
-| Training configurations | 191--195 | `JointTransmitter.MODES`; training scripts | Uniform/binomial/MB, PS, GS, PS+GS, PS+VA, GS+VA, full |
+| Gradient paths | 186--190 | Torch graph; `tests/test_gradients.py` | Local, finite-difference, and end-to-end SKR checks cover PS, GS, and `V_A`; C4 symmetry remains valid after smoke updates |
+| Training configurations | 191--195 | `JointTransmitter.MODES`; training scripts | Uniform/binomial/fixed and selected MB, PS, GS, VA, PS+GS, PS+VA, GS+VA, full |
 | Numerical results | Section V | **MISSING FROM PAPER** | No result or figure copied/invented |
 | Conclusion | Section VI | **MISSING FROM PAPER** | No claim implemented |
 

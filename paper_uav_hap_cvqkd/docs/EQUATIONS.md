@@ -7,6 +7,7 @@
 - Eqs. (11)--(15): Gaussian beam radius, Rayleigh range, and centered aperture coupling `T0^2`.
 - Eqs. (16)--(18): UAV translational/orientation displacement variance.
 - Eq. (19): constant-`C_n^2` turbulence variance including `cos(zeta)^-4`.
+- Publication state distribution: `src/channel/state_distribution.py` draws `T` from the frozen composite FSO model and independently draws input-referred `epsilon ~ Uniform(epsilon_min, epsilon_max)` on preregistered nonnegative bounds. Separate namespaced streams and split hashes make this assumption auditable.
 - Eqs. (21)--(24): `sigma_axis^2 = sigma_turb^2 + sigma_UAV^2`, `r_x,r_y ~ N(0,sigma_axis^2)`, and `r ~ Rayleigh(sigma_axis)`.
 - Eqs. (27)--(34): `eta_p = T0^2 exp[-(r/R)^Gamma]` and Bessel-derived `Gamma,R`.
 - Eqs. (42)--(55): `T = eta_atm eta_p`; rates are evaluated per state before averaging.
@@ -18,12 +19,12 @@ No analytic PDT function is needed for the accepted direct-sampling computation.
 - Eqs. (65)--(69): deterministic 16x16 constellation in `k*16+l` order.
 - Eqs. (70), (81), (86): `V_A = 2 sum_i p_i |alpha_i|^2`.
 - Eqs. (72)--(80): Uniform, Binomial, and MB (`nu_MB` explicit) PMFs.
-- Eqs. (141), (145)--(150): `PSNet([log10 T,epsilon])`, architecture `2-128-256`, softmax PMF.
+- Frozen Sec. 2.1: `PSNet([log10 T,epsilon])`, architecture `2-128-64`, softmax orbit masses and C4 expansion.
 - Eqs. (151)--(153): globally shared raw GS coordinates.
-- Eqs. (154)--(160): probability-weighted centering and unit energy.
+- Frozen Sec. 3: global prototype RMS gauge removal and one statewise physical-energy scale, with no probability-weighted centering.
 - Eqs. (161)--(168): explicit-bounds `V_A` network and `alpha=sqrt(V_A/2)x`.
 
-Weighted normalization means PS changes normalized and physical coordinates even if raw coordinates are fixed. Only weighted energy is held fixed.
+The superseded weighted-centering convention is not active. Under the frozen C4 construction, PS changes probabilities and the one physical energy-normalization scalar, but never translates or deforms the global relative geometry.
 
 ## Mutual information
 

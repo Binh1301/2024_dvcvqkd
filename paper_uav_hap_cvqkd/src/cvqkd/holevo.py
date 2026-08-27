@@ -77,6 +77,14 @@ def holevo_information(
     density_eigenvalue_tolerance: float = 1e-12,
     physicality_tolerance: float = 1e-10,
 ) -> HolevoResult:
+    for name, value in (
+        ("symmetry_tolerance", symmetry_tolerance),
+        ("density_trace_tolerance", density_trace_tolerance),
+        ("density_eigenvalue_tolerance", density_eigenvalue_tolerance),
+        ("physicality_tolerance", physicality_tolerance),
+    ):
+        if not math.isfinite(value) or value <= 0.0:
+            raise ValueError(f"{name} must be finite and positive.")
     ensemble.validate()
     transmittance, epsilon = validate_channel_state(transmittance, epsilon)
     transmittance = transmittance.to(ensemble.probabilities.device)
@@ -158,6 +166,9 @@ def holevo_information(
             "numerical_repairs": tuple(repairs) + covariance.numerical_repairs,
             "standard_form_supported": covariance.symmetry.standard_form_supported,
             "standard_form_override": not require_supported_symmetry,
+            "symmetry_tolerance": symmetry_tolerance,
+            "density_trace_tolerance": density_trace_tolerance,
+            "density_eigenvalue_pseudoinverse_tolerance": density_eigenvalue_tolerance,
+            "physicality_tolerance": physicality_tolerance,
         },
     )
-

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exact selected-roster convergence evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evidence_type", "status", "test_set_used", "coverage_scope", "selection_roster_sha256", "resolved_config_sha256", "baseline_selection_sha256", "validation_state_realization_sha256", "precision", "settings", "all_entries_pass", "entries"],
+  "properties": {
+    "schema_version": {"const": "exact-selected-convergence-evidence-v1"},
+    "evidence_type": {"enum": ["mi", "fock", "holevo_threshold"]},
+    "status": {"const": "exact selected-roster validation evidence; not a publication result"},
+    "test_set_used": {"const": false},
+    "coverage_scope": {"const": "exact_selected_roster_on_preregistered_validation_realization"},
+    "selection_roster_sha256": {"$ref": "#/$defs/sha256"},
+    "resolved_config_sha256": {"$ref": "#/$defs/sha256"},
+    "baseline_selection_sha256": {"$ref": "#/$defs/sha256"},
+    "validation_state_realization_sha256": {"$ref": "#/$defs/sha256"},
+    "precision": {"const": "torch.float64 / torch.complex128 on CPU"},
+    "settings": {"type": "object"},
+    "all_entries_pass": {"type": "boolean"},
+    "minimum_common_sample_count": {"type": ["integer", "null"], "minimum": 1},
+    "minimum_common_fock_cutoff_for_listed_ensembles": {"type": ["integer", "null"], "minimum": 2},
+    "entries": {"type": "array", "minItems": 5, "items": {"$ref": "#/$defs/entry"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "scheme_or_mode", "source_artifact_sha256", "reconstructed_ensemble_sha256", "trace"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["baseline", "checkpoint"]},
+        "scheme_or_mode": {"type": "string", "minLength": 1},
+        "source_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "reconstructed_ensemble_sha256": {"$ref": "#/$defs/sha256"},
+        "trace": {"type": "object"}
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"evidence_type": {"const": "mi"}}}, "then": {"required": ["minimum_common_sample_count"]}},
+    {"if": {"properties": {"evidence_type": {"const": "fock"}}}, "then": {"required": ["minimum_common_fock_cutoff_for_listed_ensembles"]}}
+  ]
+}

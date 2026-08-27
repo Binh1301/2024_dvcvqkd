@@ -5,11 +5,21 @@ finite_size: false
 composable_security: false
 detector_efficiency: null
 electronic_noise_snu: null
-beta_reconciliation: null
+beta_reconciliation: 0.95
 fixed_modulation_variance_snu: null
-v_min_snu: null
-v_max_snu: null
+v_min_snu: 0.1
+v_max_snu: 4.0
+v_a_budget_snu: 1.5
+n_peak_photons: 30.0
+n_peak_author_approved: true
+peak_domain_scope: complete_preregistered_realizations
 mb_nu: 0.1
 fock_cutoff: null
+holevo_numerics:
+  symmetry_tolerance: 1.0e-8
+  density_trace_tolerance: 1.0e-10
+  density_eigenvalue_pseudoinverse_tolerance: 1.0e-12
+  density_eigenvalue_pseudoinverse_author_approved: false
+  physicality_tolerance: 1.0e-10
 require_paper_standard_form_symmetry: true
-
+numerical_precision: "torch.float64 / torch.complex128"

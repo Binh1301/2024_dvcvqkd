@@ -9,6 +9,9 @@ import torch
 from src.modulation.joint_ps_gs import Ensemble
 
 
+SYMMETRY_SCALE_FLOOR = 1e-15
+
+
 class PhysicalityError(ValueError):
     """Raised when paper covariance assumptions or physicality checks fail."""
 
@@ -47,7 +50,10 @@ def quadrature_symmetry_diagnostics(
     variance_i = torch.sum(probabilities * centered_i.square(), dim=-1)
     variance_q = torch.sum(probabilities * centered_q.square(), dim=-1)
     covariance_iq = torch.sum(probabilities * centered_i * centered_q, dim=-1)
-    scale = torch.maximum((variance_i + variance_q) / 2.0, torch.full_like(variance_i, 1e-15))
+    scale = torch.maximum(
+        (variance_i + variance_q) / 2.0,
+        torch.full_like(variance_i, SYMMETRY_SCALE_FLOOR),
+    )
     relative_anisotropy = torch.abs(variance_i - variance_q) / scale
     relative_cross = torch.abs(covariance_iq) / scale
     maximum_anisotropy = float(relative_anisotropy.detach().max())
@@ -117,4 +123,3 @@ def standard_form_covariance(
     if bool(torch.any(minimum_lambda < 1.0 - numerical_tolerance)):
         raise PhysicalityError("Covariance violates the uncertainty condition lambda>=1.")
     return CovarianceResult(matrix, lambda1, lambda2, lambda3, symmetry, tuple(repairs))
-
