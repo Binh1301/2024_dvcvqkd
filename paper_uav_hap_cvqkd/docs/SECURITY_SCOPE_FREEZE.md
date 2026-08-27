@@ -1,9 +1,10 @@
 # Security-scope freeze
 
-Status: **security wording frozen, subject to the two author approvals identified
-in Section E**. This document narrows the claims that may be made from the
-implemented calculation. It does not alter `FINAL_MODEL_SPEC.md` or extend the
-security proof.
+Status: **security/fading wording frozen for the current oracle-CSI simulation**.
+The attack class remains **AUTHOR_REVIEW_REQUIRED** for the adaptive fading
+protocol, for the reasons in Sections A and E. This document narrows the claims
+that may be made from the implemented calculation. It does not alter
+`FINAL_MODEL_SPEC.md` or extend the security proof.
 
 ## A. Exact security assumptions
 
@@ -13,7 +14,7 @@ security proof.
 | Measurement | Bob performs ideal heterodyne (double-homodyne) detection. | Detector efficiency is effectively one and electronic noise is zero in the active equations. No separate trusted-detector loss/noise model is present. |
 | Reconciliation | Asymptotic reverse reconciliation with declared efficiency `beta_rec`. Bob's heterodyne data define the raw key variable. | The rate functional is `K_raw=beta_rec I_AB-chi_BE`. A numerical `beta_rec` does not establish that a practical reconciliation code exists. |
 | Security regime | Asymptotic only. | There is no finite-block penalty, composable security parameter, smoothing term, privacy-amplification cost, authentication cost, or finite-sample confidence interval. |
-| Attack class | **AUTHOR_REVIEW_REQUIRED.** The implemented chain is compatible with the Denys--Brown--Leverrier analytical bound against collective attacks, state by state, only under all conditions listed below. The code correctly leaves `ProtocolAssumptions.attack_class=None` until this interpretation is approved and cited. | It is not a proof against arbitrary coherent/general attacks. Gaussian optimality alone does not promote the result to such a proof. |
+| Attack class | **AUTHOR_REVIEW_REQUIRED for the current adaptive fading protocol.** The adopted single-state functional has the structure of the Denys--Brown--Leverrier asymptotic arbitrary-modulation bound derived in the collective-attack/Devetak--Winter setting. The current simulator, however, supplies exact continuously varying oracle states and does not implement the conditional-iid block/bin parameter estimation and key aggregation needed to assign that attack class to the fading average. `ProtocolAssumptions.attack_class=None` must therefore remain unchanged. | The manuscript may identify the theoretical origin of the functional, but may not call the reported fading average a collective-attack-secure key rate. It is not a proof against arbitrary coherent/general attacks, and Gaussian optimality alone cannot promote it to one. |
 | CSI | Exact instantaneous `(T,epsilon)` is supplied as an oracle to Alice, Bob's model, and the evaluator. The trained policy is frozen offline. | CSI estimation, confidence bounds, feedback delay/error/quantization, feedback authentication cost, and pilot overhead are absent. The manuscript's current narrative that Bob estimates and feeds back the state is not implemented. |
 | Channel parameters | `T` is instantaneous power transmittance. `epsilon>=0` is excess noise in shot-noise units referred to the channel input. | The ideal-channel covariance uses `b=1+T V_A+T epsilon`; no output-referred or detector-referred noise may be substituted. |
 | SNU and modulation | `[x,p]=2i`, vacuum quadrature variance is one, `V_A=2 sum_i p_i |alpha_i|^2=2 n_bar`, and the source-mode covariance diagonal is `V_A+1`. | Bob's complex heterodyne channel uses `CN(0,1+T epsilon/2)`, consistent with per-quadrature variance `1/2+T epsilon/4`. |
@@ -46,10 +47,14 @@ lower bound only if the author explicitly adopts all of the following:
    block/bin or a cited theorem justifies the chosen cross-block aggregation.
 
 The current iid continuous-state simulator does not implement these operational
-steps. It evaluates the conditional asymptotic formula at sampled states. Thus
-the phrase **statewise asymptotic collective-attack calculation** is supportable
-after the author approves the conditions above; the stronger phrase
-**security proof for the adaptive fading protocol** is not.
+steps. It evaluates the conditional asymptotic formula at sampled oracle
+states. Consequently, the qualified phrase **statewise asymptotic
+collective-attack lower-bound calculation** is theoretically supportable only
+after the author adopts all six conditions and adds the primary citation. It is
+not the currently frozen claim. The stronger phrase **security proof for the
+adaptive fading protocol** remains unsupported even after that approval unless
+the corresponding state-conditioning, parameter-estimation, and aggregation
+protocol is implemented and justified.
 
 ## B. Allowed paper claims
 
@@ -74,9 +79,10 @@ The following claims are allowed without broadening the model:
 - Rates are evaluated statewise before taking the declared fading-distribution
   average. This average may be called an **oracle-CSI asymptotic rate
   calculation** or **simulation lower-bound functional**.
-- After the Section-E approvals, the single-state/block calculation may be
-  described as compatible with asymptotic collective attacks under the six
-  conditions above.
+- The single-state functional may be described as originating from the
+  Denys--Brown--Leverrier asymptotic arbitrary-modulation analysis. Until the
+  Section-E approvals are supplied, no attack class is assigned to the reported
+  oracle fading average.
 
 ## C. Prohibited or unsupported claims
 
@@ -107,38 +113,40 @@ The present implementation and manuscript may not claim:
 - publication-ready Holevo values until the finite physical-amplitude domain
   and exact enumerated selected-ensemble/checkpoint Fock convergence are certified.
 
-## D. Exact manuscript-ready paragraph
+## D. Exact manuscript-ready wording
 
-The paragraph below is the recommended replacement security-scope statement.
-It is approved for use **only after** both Section-E author approvals are
-resolved and the primary citation is inserted at `[DBL-2021]`.
+The following is the currently frozen wording. It may be used after the primary
+source is cited at `[DBL-2021]`; it deliberately assigns no attack class to the
+reported adaptive fading average:
 
-> We evaluate a prepare-and-measure 256-state coherent-state discrete-modulated
-> CV-QKD protocol with ideal heterodyne detection and asymptotic reverse
-> reconciliation. For each exact oracle channel state `(T,epsilon)`, the same
-> physical ensemble `{p_i,alpha_i}` is used to compute the discrete-input mutual
-> information and the Denys--Brown--Leverrier arbitrary-modulation
-> covariance-based upper bound on Eve's Holevo information [DBL-2021], through
-> `tau -> (C,w) -> Z -> Gamma_AB -> chi_BE`. Under the explicit modeling
-> assumption that each known fading state represents an asymptotically long
-> stationary memoryless block, that the state and adaptive modulation choice
-> are public to Eve, and that the required first- and second-moment parameters
-> are known asymptotically for each analyzed block or preregistered state bin,
-> the resulting `K_raw=beta_rec I_AB-chi_BE` is interpreted as a statewise lower
-> bound against collective attacks. The reported fading average is an
-> oracle-CSI asymptotic simulation functional obtained only after statewise
-> evaluation. We do not claim finite-size or composable security, security
-> against arbitrary coherent attacks, a proof for imperfect CSI or detector
-> imperfections, or an operational security proof for continuously varying
-> fading without an explicit state-binning, parameter-estimation, and
-> cross-block key-aggregation protocol.
+> The reported secret-key rates are evaluated in the asymptotic
+> reverse-reconciliation regime using the adopted covariance-based
+> discrete-modulation security functional, ideal heterodyne detection, and
+> perfectly known instantaneous channel states. For each oracle state
+> `(T,epsilon)`, the same physical 256-state coherent-state ensemble
+> `{p_i,alpha_i}` is used for the exact discrete-input mutual information and
+> the Denys--Brown--Leverrier arbitrary-modulation covariance chain
+> `tau -> (C,w) -> Z -> Gamma_AB -> chi_BE` [DBL-2021]. The rate
+> `K_raw=beta_rec I_AB-chi_BE` is evaluated statewise before averaging over the
+> simulated fading realization. We report this quantity only as an asymptotic
+> oracle-CSI covariance-based DM-CV-QKD rate functional; no attack class or
+> operational fading-protocol security claim is assigned. In particular, we do
+> not claim finite-size or composable security, security against general
+> coherent attacks, security with imperfect CSI or detector imperfections, or
+> an operational proof for continuously varying fading.
 
-If the author does not approve the conditional collective-attack assumptions,
-replace the sentence beginning "Under the explicit modeling assumption" with:
+Only after both Section-E approvals may the following additional sentence be
+used, and only for the conditional single-state/block interpretation:
 
-> The calculation is reported only as the author's accepted asymptotic
-> covariance-based DM-CV-QKD rate functional; no attack class or operational
-> fading-protocol security claim is assigned.
+> Under the explicit assumptions that each public state label defines an
+> asymptotically long stationary memoryless block, the adaptive ensemble is
+> public to Eve, and the required conditional moments are established for each
+> block or preregistered bin, the statewise value is interpreted as an
+> asymptotic lower-bound calculation against collective attacks.
+
+That optional sentence does not establish collective-attack security for the
+continuously varying fading average without a justified block/bin and
+cross-block key-aggregation protocol.
 
 ## E. Citation/theory dependencies and required author decisions
 

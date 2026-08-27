@@ -375,6 +375,8 @@ def holevo_threshold_sensitivity_trace(
     symmetry_tolerance: float,
     density_trace_tolerance: float,
     physicality_tolerance: float,
+    mutual_information_bits: torch.Tensor | None = None,
+    beta_reconciliation: float | None = None,
 ) -> dict[str, Any]:
     """Measure C/w/Z/chi sensitivity to the density pseudoinverse threshold."""
 
@@ -386,6 +388,12 @@ def holevo_threshold_sensitivity_trace(
     if selected_tolerance not in grid:
         raise ValueError("The active pseudoinverse threshold must be on the sensitivity grid.")
     tolerance.validate()
+    if (mutual_information_bits is None) != (beta_reconciliation is None):
+        raise ValueError("MI and beta must either both be supplied or both omitted.")
+    if mutual_information_bits is not None:
+        mutual_information_bits = mutual_information_bits.detach().reshape(-1)
+        if mutual_information_bits.shape[0] != ensemble.probabilities.shape[0]:
+            raise ValueError("MI must have one value per threshold-sensitivity state.")
     rows: list[dict[str, Any]] = []
     results = []
     for value in grid:
@@ -412,6 +420,14 @@ def holevo_threshold_sensitivity_trace(
             errors[name] = float(error.max())
             bounds[name] = float(bound.max())
             passed = passed and bool(torch.all(error <= bound))
+        if mutual_information_bits is not None:
+            candidate_k = float(beta_reconciliation) * mutual_information_bits - result.chi_be
+            reference_k = float(beta_reconciliation) * mutual_information_bits - reference.chi_be
+            error = (candidate_k.detach() - reference_k.detach()).abs()
+            bound = tolerance.bound(reference_k.detach())
+            errors["raw_K"] = float(error.max())
+            bounds["raw_K"] = float(bound.max())
+            passed = passed and bool(torch.all(error <= bound))
         rows.append({
             "density_eigenvalue_pseudoinverse_tolerance": threshold,
             "maximum_absolute_errors": errors,
@@ -421,11 +437,17 @@ def holevo_threshold_sensitivity_trace(
                 "suppressed_density_eigenvalues"
             ],
         })
-    selected_row = rows[grid.index(selected_tolerance)]
+    selected_index = grid.index(selected_tolerance)
+    selected_row = rows[selected_index]
+    plateau_indices = range(max(0, selected_index - 1), min(len(rows), selected_index + 2))
+    stable_plateau = selected_index > 0 and selected_index < len(rows) - 1 and all(
+        rows[index]["passes"] for index in plateau_indices
+    )
     return {
         "reference_density_eigenvalue_pseudoinverse_tolerance": grid[0],
         "selected_density_eigenvalue_pseudoinverse_tolerance": selected_tolerance,
-        "selected_threshold_passes": selected_row["passes"],
+        "selected_threshold_passes": selected_row["passes"] and stable_plateau,
+        "stable_three_point_plateau_around_selected_threshold": stable_plateau,
         "absolute_tolerance": tolerance.absolute,
         "relative_tolerance": tolerance.relative,
         "rows": rows,

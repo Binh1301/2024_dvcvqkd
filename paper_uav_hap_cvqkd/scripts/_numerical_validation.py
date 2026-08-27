@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -137,21 +138,93 @@ def representative_ensembles(
         result[f"optimized_mb_nu_{nu:g}_high_va_{high[0]:g}"] = high[1]
     # The deterministic initialization and boundary are finite diagnostics;
     # neither certifies unenumerated learned outputs.
-    learned = JointTransmitter("full", v_min=v_min, v_max=v_max,
-                               n_peak_photons=n_peak)
+    fixture_seed = int(config["numerical_validation"]["fixture_initialization_seed"])
+    # Construct the diagnostic initialization reproducibly without perturbing
+    # caller/global RNG state. It is a fixed numerical fixture, not training.
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(fixture_seed)
+        learned = JointTransmitter("full", v_min=v_min, v_max=v_max,
+                                   n_peak_photons=n_peak)
     with torch.no_grad():
         result["untrained_full_initialization"] = learned(t, epsilon)
-    # A deliberately synthetic, C4-symmetric boundary case probes the largest
-    # coherent amplitude admitted by the common hard domain. It is a numerical
-    # convergence fixture, not a transmitter baseline or performance result.
-    photon_mean = v_min / 2.0
-    if n_peak < photon_mean * (1.0 - 1e-12):
-        raise ValueError("n_peak is incompatible with the mandatory V_min average energy.")
-    if abs(n_peak - photon_mean) <= 1e-12 * max(1.0, n_peak):
-        boundary_orbit_masses = torch.full((64,), 1.0 / 64.0, dtype=torch.float64)
-        boundary_prototypes = torch.full((64,), n_peak ** 0.5, dtype=torch.complex128)
-    else:
-        secondary_energy = photon_mean / 2.0
+
+    def deterministically_deform(model: JointTransmitter, *, ps: bool, gs: bool,
+                                 va: bool) -> None:
+        with torch.no_grad():
+            if ps:
+                final = model.ps_network.network[-1]
+                rows = torch.linspace(-1.0, 1.0, 64, dtype=torch.float64)
+                columns = torch.linspace(-1.0, 1.0, 128, dtype=torch.float64)
+                final.weight.copy_(0.015 * torch.outer(rows, columns))
+                final.bias.add_(0.12 * torch.cos(torch.arange(64, dtype=torch.float64)))
+            if gs:
+                prototypes = model.gs_model.raw_prototypes()
+                index = torch.arange(64, dtype=torch.float64)
+                scale = 0.8 + 0.4 * (index / 63.0)
+                phase = 0.08 * torch.sin(index)
+                deformed = prototypes * scale * torch.exp(1j * phase)
+                model.gs_model.raw_coordinates.copy_(torch.view_as_real(deformed))
+            if va:
+                final = model.va_network.network[-1]
+                final.weight.copy_(torch.linspace(
+                    -0.08, 0.08, 64, dtype=torch.float64
+                ).unsqueeze(0))
+                final.bias.fill_(-0.2)
+
+    # Outcome-independent learned-family fixtures. These are deterministic
+    # parameter vectors, never optimized checkpoints.
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(fixture_seed + 1)
+        ps_fixture = JointTransmitter(
+            "ps", fixed_va=va_budget, v_min=v_min, v_max=v_max,
+            n_peak_photons=n_peak,
+        )
+        deterministically_deform(ps_fixture, ps=True, gs=False, va=False)
+        torch.manual_seed(fixture_seed + 2)
+        gs_fixture = JointTransmitter(
+            "gs", fixed_va=va_budget, v_min=v_min, v_max=v_max,
+            n_peak_photons=n_peak,
+        )
+        deterministically_deform(gs_fixture, ps=False, gs=True, va=False)
+        torch.manual_seed(fixture_seed + 3)
+        va_fixture = JointTransmitter(
+            "va", v_min=v_min, v_max=v_max, n_peak_photons=n_peak,
+        )
+        deterministically_deform(va_fixture, ps=False, gs=False, va=True)
+        torch.manual_seed(fixture_seed + 4)
+        full_fixture = JointTransmitter(
+            "full", v_min=v_min, v_max=v_max, n_peak_photons=n_peak,
+        )
+        deterministically_deform(full_fixture, ps=True, gs=True, va=True)
+    with torch.no_grad():
+        result["deterministic_ps_only"] = ps_fixture(t, epsilon)
+        result["deterministic_gs_only"] = gs_fixture(t, epsilon)
+        result["deterministic_va_only"] = va_fixture(t, epsilon)
+        result["deterministic_deformed_full"] = full_fixture(t, epsilon)
+
+    # Near-coincident C4 prototypes stress the low-rank density-operator
+    # pseudoinverse without violating any physical invariant.
+    stress_orbit_masses = torch.full((64,), 1.0 / 64.0, dtype=torch.float64)
+    stress_index = torch.arange(64, dtype=torch.float64)
+    stress_prototypes = math.sqrt(v_max / 2.0) * torch.exp(1j * 1e-7 * stress_index)
+    stress_probabilities = expand_c4_orbit_masses(stress_orbit_masses)
+    stress_amplitudes = expand_c4_orbit_values(stress_prototypes)
+    stress = Ensemble(
+        stress_probabilities.unsqueeze(0).expand(batch_size, -1),
+        stress_amplitudes.unsqueeze(0).expand(batch_size, -1),
+        torch.full((batch_size,), v_max, dtype=torch.float64), stress_amplitudes,
+        exact_csi_oracle=True, c4_symmetric=True,
+    )
+    stress.validate()
+    enforce_peak_photon_constraint(stress, n_peak)
+    result["near_coincident_pseudoinverse_stress"] = stress
+    # Deliberately synthetic C4 boundary cases probe the largest coherent
+    # amplitude at both V_A box endpoints. They are convergence fixtures, not
+    # transmitter baselines or performance results.
+    def build_peak_boundary(declared_va: float, secondary_energy: float) -> Ensemble:
+        photon_mean = declared_va / 2.0
+        if not 0.0 <= secondary_energy < photon_mean <= n_peak:
+            raise ValueError("Invalid peak-boundary mean/secondary energy.")
         rare_mass = (photon_mean - secondary_energy) / (n_peak - secondary_energy)
         if not 0.0 < rare_mass < 1.0:
             raise ValueError("Unable to construct the preregistered peak-boundary fixture.")
@@ -163,19 +236,24 @@ def representative_ensembles(
             (64,), secondary_energy ** 0.5, dtype=torch.complex128
         )
         boundary_prototypes[0] = n_peak ** 0.5
-    boundary_probabilities = expand_c4_orbit_masses(boundary_orbit_masses)
-    boundary_amplitudes = expand_c4_orbit_values(boundary_prototypes)
-    boundary = Ensemble(
-        boundary_probabilities.unsqueeze(0).expand(batch_size, -1),
-        boundary_amplitudes.unsqueeze(0).expand(batch_size, -1),
-        torch.full((batch_size,), v_min, dtype=torch.float64),
-        boundary_amplitudes,
-        exact_csi_oracle=True,
-        c4_symmetric=True,
-    )
-    boundary.validate()
-    enforce_peak_photon_constraint(boundary, n_peak)
-    result["hard_peak_boundary_at_vmin"] = boundary
+        boundary_probabilities = expand_c4_orbit_masses(boundary_orbit_masses)
+        boundary_amplitudes = expand_c4_orbit_values(boundary_prototypes)
+        boundary = Ensemble(
+            boundary_probabilities.unsqueeze(0).expand(batch_size, -1),
+            boundary_amplitudes.unsqueeze(0).expand(batch_size, -1),
+            torch.full((batch_size,), declared_va, dtype=torch.float64),
+            boundary_amplitudes,
+            exact_csi_oracle=True,
+            c4_symmetric=True,
+        )
+        boundary.validate()
+        enforce_peak_photon_constraint(boundary, n_peak)
+        return boundary
+
+    result["hard_peak_boundary_at_vmin"] = build_peak_boundary(v_min, v_min / 4.0)
+    # Author-approved adaptive-domain extremum: mean photon number=V_A/2=2,
+    # secondary orbit energy=1, hence q_peak=(2-1)/(30-1)=1/29 exactly.
+    result["hard_peak_boundary_at_vmax"] = build_peak_boundary(v_max, 1.0)
     return result
 
 
@@ -190,6 +268,41 @@ def ensemble_sha256(ensemble: Ensemble) -> str:
         digest.update(str(tuple(value.shape)).encode("ascii"))
         digest.update(value.numpy().tobytes())
     return digest.hexdigest()
+
+
+def unique_ensemble_roster(
+    ensembles: dict[str, Ensemble],
+) -> tuple[dict[str, Ensemble], dict[str, str]]:
+    """Remove only byte-identical fixtures and report alias -> canonical name.
+
+    This is not a numerical-similarity reduction.  Equal hashes are confirmed
+    by exact tensor equality so the removed unit would execute the same
+    estimator on the same state batch and CRN tensor.
+    """
+
+    canonical_by_hash: dict[str, str] = {}
+    unique: dict[str, Ensemble] = {}
+    aliases: dict[str, str] = {}
+    for name, ensemble in ensembles.items():
+        digest = ensemble_sha256(ensemble)
+        canonical = canonical_by_hash.get(digest)
+        if canonical is None:
+            canonical_by_hash[digest] = name
+            unique[name] = ensemble
+            continue
+        reference = unique[canonical]
+        left = (
+            ensemble.probabilities, ensemble.amplitudes, ensemble.declared_va,
+            ensemble.relative_constellation,
+        )
+        right = (
+            reference.probabilities, reference.amplitudes, reference.declared_va,
+            reference.relative_constellation,
+        )
+        if not all(torch.equal(a, b) for a, b in zip(left, right)):
+            raise RuntimeError("SHA-256 collision in certification ensemble roster.")
+        aliases[name] = canonical
+    return unique, aliases
 
 
 def provenance(
@@ -209,7 +322,9 @@ def provenance(
         "physical_domain_rule": domain["physical_rule"],
         "n_peak_photons": domain["n_peak_photons"],
         "peak_domain_scope": domain["peak_domain_scope"],
-        "boundary_fixture_included": "hard_peak_boundary_at_vmin",
+        "boundary_fixtures_included": [
+            "hard_peak_boundary_at_vmin", "hard_peak_boundary_at_vmax",
+        ],
         "publication_convergence_certification": False,
         "enumerated_fixture_sha256": {
             name: ensemble_sha256(ensemble) for name, ensemble in ensembles.items()

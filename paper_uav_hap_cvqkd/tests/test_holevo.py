@@ -3,13 +3,33 @@ import unittest
 import torch
 
 from src.cvqkd.covariance import PhysicalityError, standard_form_covariance
-from src.cvqkd.holevo import density_operator, holevo_information
+from src.cvqkd.holevo import (
+    density_operator, holevo_information, shared_fixed_ensemble_holevo_chi,
+)
 from src.modulation.joint_ps_gs import Ensemble, reference_ensemble
 from src.modulation.normalization import physical_amplitudes
 from src.modulation.qam256 import square_qam256, uniform_pmf
 
 
 class HolevoTests(unittest.TestCase):
+    def test_shared_fixed_source_cache_matches_generic_holevo(self):
+        t = torch.tensor([0.019, 0.024, 0.029], dtype=torch.float64)
+        epsilon = torch.tensor([0.04, 0.02, 0.001], dtype=torch.float64)
+        for kind, nu, va in (("uniform", None, 0.4), ("binomial", None, 1.5),
+                             ("mb", 0.17, 1.2)):
+            ensemble = reference_ensemble(
+                kind, batch_size=3, modulation_variance=va, nu_mb=nu
+            )
+            generic = holevo_information(
+                ensemble, t, epsilon, fock_cutoff=72,
+                density_trace_tolerance=1e-10,
+            ).chi_be
+            cached = shared_fixed_ensemble_holevo_chi(
+                ensemble, t, epsilon, fock_cutoff=72,
+                density_trace_tolerance=1e-10,
+            )
+            torch.testing.assert_close(cached, generic, rtol=1e-12, atol=1e-12)
+
     def test_density_operator_has_ket_bra_orientation(self):
         amplitude = torch.tensor([[0.3 + 0.4j]], dtype=torch.complex128)
         probability = torch.ones((1, 1), dtype=torch.float64)

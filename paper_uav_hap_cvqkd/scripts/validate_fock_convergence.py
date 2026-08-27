@@ -15,6 +15,7 @@ from _numerical_validation import (
     provenance,
     representative_ensembles,
     require,
+    unique_ensemble_roster,
     validation_representative_states,
 )
 from src.validation.convergence import ConvergenceTolerance, fock_convergence_trace
@@ -53,7 +54,8 @@ def main() -> int:
     ]:
         raise ValueError("Fock convergence and active Holevo trace tolerances must match.")
     states, state_labels, t, epsilon = validation_representative_states(config)
-    ensembles = representative_ensembles(config, t, epsilon)
+    complete_ensembles = representative_ensembles(config, t, epsilon)
+    ensembles, aliases = unique_ensemble_roster(complete_ensembles)
     moment_tolerance = ConvergenceTolerance(
         float(values["moment_absolute_tolerance"]),
         float(values["moment_relative_tolerance"]),
@@ -68,7 +70,7 @@ def main() -> int:
     )
     mi_path = args.mi_evidence.resolve()
     mi_evidence = json.loads(mi_path.read_text(encoding="utf-8"))
-    expected_provenance = provenance(path, config, ensembles)
+    expected_provenance = provenance(path, config, complete_ensembles)
     if mi_evidence.get("validation_state_realization_sha256") != states.realization_sha256:
         raise ValueError("MI evidence is not bound to the same validation realization.")
     if mi_evidence.get("provenance", {}).get("resolved_config_sha256") != expected_provenance[
@@ -104,17 +106,44 @@ def main() -> int:
         )
         for name, ensemble in ensembles.items()
     }
+    for alias, canonical in aliases.items():
+        traces[alias] = {
+            "exact_duplicate_of": canonical,
+            "selected_fock_cutoff": traces[canonical]["selected_fock_cutoff"],
+            "converged": traces[canonical]["converged"],
+        }
     selected = [trace["selected_fock_cutoff"] for trace in traces.values()]
+    all_listed_fixtures_pass = not any(value is None for value in selected)
+    failed_fixtures = sorted(
+        name for name, trace in traces.items()
+        if trace.get("selected_fock_cutoff") is None
+    )
     payload = {
-        "status": "bounded numerical validation; not a publication result",
+        "schema_version": "fock-convergence-evidence-v2",
+        "status": (
+            "CONVERGENCE_SELECTED"
+            if all_listed_fixtures_pass
+            else "FAILED_FROZEN_TOLERANCE"
+        ),
+        "is_convergence_certification": all_listed_fixtures_pass,
+        "publication_training_performed": False,
+        "test_set_used": False,
         "state_split": "validation",
         "state_labels": state_labels,
         "states": {"transmittance": t.tolist(), "epsilon_snu": epsilon.tolist()},
         "validation_state_realization_sha256": states.realization_sha256,
         "traces": traces,
+        "exact_duplicate_aliases": aliases,
         "minimum_common_fock_cutoff_for_listed_ensembles": (
-            None if any(value is None for value in selected)
+            None if not all_listed_fixtures_pass
             else max(int(value) for value in selected)
+        ),
+        "failed_fixtures": failed_fixtures,
+        "blocker": (
+            None
+            if all_listed_fixtures_pass
+            else "No selectable Fock cutoff satisfies every frozen metric tolerance "
+                 "for the complete preregistered fixture roster."
         ),
         "selected_ensemble_certification": None,
         "mi_evidence_path": str(mi_path),

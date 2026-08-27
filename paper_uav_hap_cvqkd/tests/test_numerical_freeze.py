@@ -5,7 +5,18 @@ from pathlib import Path
 import numpy as np
 import torch
 
+import sys
+sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
+from _common import load_yaml
+from _numerical_validation import (
+    ensemble_sha256, representative_ensembles, unique_ensemble_roster,
+    validation_representative_states,
+)
+
 from src.modulation.joint_ps_gs import JointTransmitter, reference_ensemble
+from src.modulation.qam256 import c4_orbit_masses
+from src.cvqkd.covariance import PhysicalityError
+from src.cvqkd.holevo import holevo_information
 from src.optimization.baseline_search import (
     feasible_fixed_va_grid,
     validation_only_baseline_search,
@@ -124,10 +135,73 @@ class NumericalConvergenceTests(unittest.TestCase):
         self.assertEqual(set(first), {"bad", "medium", "good"})
         self.assertEqual(len(set(first.values())), 3)
 
+    def test_certification_fixture_and_exact_duplicate_reduction_are_deterministic(self):
+        root = Path(__file__).parents[1]
+        config = load_yaml(root / "configs" / "default.yaml")
+        _, _, t, epsilon = validation_representative_states(config)
+        first = representative_ensembles(config, t, epsilon)
+        torch.manual_seed(999999)
+        second = representative_ensembles(config, t, epsilon)
+        self.assertEqual(
+            ensemble_sha256(first["untrained_full_initialization"]),
+            ensemble_sha256(second["untrained_full_initialization"]),
+        )
+        unique, aliases = unique_ensemble_roster(first)
+        self.assertEqual(len(first), 18)
+        self.assertEqual(len(unique), 16)
+        self.assertEqual(aliases, {
+            "optimized_mb_nu_0_low_va_0.1": "uniform_low_va_0.1",
+            "optimized_mb_nu_0_high_va_1.5": "uniform_high_va_1.5",
+        })
+        vmax = first["hard_peak_boundary_at_vmax"]
+        masses = c4_orbit_masses(vmax.probabilities[0])
+        self.assertEqual(float(masses[0]), 1.0 / 29.0)
+        self.assertEqual(float(vmax.declared_va[0]), 4.0)
+        self.assertEqual(float(vmax.amplitudes.abs().square().max()), 30.0)
+        torch.testing.assert_close(
+            torch.sum(vmax.probabilities * vmax.amplitudes.abs().square(), dim=-1),
+            torch.full((3,), 2.0, dtype=torch.float64), rtol=1e-14, atol=1e-14,
+        )
+        with self.assertRaisesRegex(PhysicalityError, "Fock truncation"):
+            holevo_information(
+                vmax, t, epsilon, fock_cutoff=64,
+                density_trace_tolerance=1e-10,
+            )
+        passed = holevo_information(
+            vmax, t, epsilon, fock_cutoff=72,
+            density_trace_tolerance=1e-10,
+        )
+        self.assertLess(float((passed.tau_trace - 1.0).abs().max()), 1e-10)
+        for name in (
+            "deterministic_ps_only", "deterministic_gs_only",
+            "deterministic_va_only", "deterministic_deformed_full",
+            "near_coincident_pseudoinverse_stress",
+        ):
+            first[name].validate()
+        self.assertGreater(float(
+            (first["deterministic_ps_only"].probabilities[0]
+             - first["deterministic_ps_only"].probabilities[-1]).abs().max()
+        ), 0.0)
+        self.assertGreater(float(
+            (first["deterministic_va_only"].declared_va[0]
+             - first["deterministic_va_only"].declared_va[-1]).abs()
+        ), 0.0)
+
+    def test_sequential_script_draws_one_fixed_maximum_length_crn_tensor(self):
+        source = (Path(__file__).parents[1] / "scripts" / "validate_mi_convergence.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("(transmittance.shape[0], 256, counts[-1])", source)
+        self.assertNotIn("(ensemble.probabilities.shape[0], 256, count),", source)
+
 
 class BaselineSelectionTests(unittest.TestCase):
     def test_all_four_baselines_are_validation_selected_and_energy_fair(self):
+        score_calls = []
         def score(kind, va, nu):
+            score_calls.append((kind, va, nu))
+            if kind == "uniform":
+                return -1.0 - (va - 1.0) ** 2
             nu_target = 0.2 if kind == "mb" else 0.0
             return -((va - 1.0) ** 2) - ((0.0 if nu is None else nu) - nu_target) ** 2
 
@@ -149,6 +223,13 @@ class BaselineSelectionTests(unittest.TestCase):
             self.assertFalse(selection.test_set_used)
             self.assertLessEqual(selection.selected.modulation_variance_snu, 1.5)
         self.assertEqual(selections["optimized_mb"].selected.mb_nu, 0.2)
+        self.assertEqual(len(score_calls), 15)
+        reused = [candidate for candidate in selections["optimized_mb"].candidates
+                  if candidate.exact_score_reused_from is not None]
+        self.assertEqual(len(reused), 6)
+        self.assertEqual(
+            {candidate.mb_nu for candidate in reused}, {0.0, 0.1}
+        )
 
     def test_test_selection_and_over_budget_candidates_fail_closed(self):
         with self.assertRaisesRegex(ValueError, "validation-only"):

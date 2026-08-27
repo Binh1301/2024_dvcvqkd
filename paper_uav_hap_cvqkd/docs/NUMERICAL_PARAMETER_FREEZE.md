@@ -1,8 +1,9 @@
 # Numerical parameter freeze
 
-Status: **author and software-preregistered choices are frozen, but MI execution
-hit the bounded CPU resource limit and no MI count or Fock cutoff is
-`CONVERGENCE_SELECTED`; publication-scale execution is blocked**. Values are
+Status: **the 16-fixture MI roster passes with `N_MC=2048`, but the added
+near-coincident pseudoinverse-stress fixture has no selectable Fock cutoff below
+the nonselectable 128 reference. Fock, threshold, baseline selection, and
+publication-scale execution are blocked**. Values are
 labelled `AUTHOR_APPROVED`, `DERIVED`, or `CONVERGENCE_SELECTED`. A separately
 labelled `SOFTWARE_PREREGISTERED` seed/count is allowed only for deterministic
 diagnostics and data generation; it is not a scientific parameter. Any
@@ -13,18 +14,32 @@ smoke, or library default.
 
 | Area | Frozen value/classification | Execution result |
 |---|---|---|
-| MI convergence | **SOFTWARE_PREREGISTERED:** counts `64..4096` doubling, five CRN seeds, `0.002 bit + 0.001|I_ref|` | **BLOCKED_RESOURCE_LIMIT:** first 4096-sample fixture/replication exceeded 60 s; an observed-workload extrapolation over 60 equal-structure units is `>1 h`; selected count remains null |
-| Fock convergence | **SOFTWARE_PREREGISTERED:** cutoffs `48,56,64,72,80,96,112,128`; trace `1e-10`; moment/symplectic/information tolerances frozen separately | **NOT_RUN_DEPENDENCY:** raw-SKR cutoff test requires MI evidence; selected cutoff remains null |
+| MI convergence | **SOFTWARE_PREREGISTERED:** sequential counts `256..8192` doubling, five CRN seeds, `0.002 bit + 0.001|I|` | **CONVERGENCE_SELECTED:** `2048` after global passes at `1024` and `2048`; exact 80-unit roster, 237.8 s CPU with exact product-QAM evaluation |
+| Fock convergence | **SOFTWARE_PREREGISTERED:** cutoffs `48,56,64,72,80,96,112,128`; unchanged tolerances | **BLOCKED:** near-coincident stress has no selectable cutoff; every candidate `48..112` fails the frozen `w` tolerance against nonselectable reference `128` |
 | Optimizer | **SOFTWARE_PREREGISTERED:** Adam, PS/GS/VA `3e-4/1e-4/1e-4`, dual `1e-2`, clip `1.0`, regularizers `0/0/0` | Three-step full-transmitter smoke passed; no training |
 | Lifecycle | **SOFTWARE_PREREGISTERED:** batch `16`, cap `2000`, patience `100`, delta `1e-5 bit`, budget margin `0.1 SNU` | Test-blind; publication entry remains fail-closed |
 | Data/statistics | **SOFTWARE_PREREGISTERED:** validation `128`, held-out test `4096`, ten seeds `26082701..26082710`, 95% Student-t CI over seed means | Test realization/outcomes not accessed |
-| Baselines | Existing VA/nu grids; state batch `8` | Not scored because MI/Fock settings are unresolved |
+| Baselines | Exact alias reuse and product-QAM/source-cache paths implemented | **NOT RUN:** expanded Fock gate failed; no candidate selected and no test data accessed |
 
 The exact convergence preregistration is in
-`NUMERICAL_CONVERGENCE_PREREGISTRATION.md`. Machine-readable blocked evidence is
-in `results/mi_convergence.json`, `results/fock_cutoff_certification.json`, and
-`results/validation_baseline_selection.json`. These artifacts may not be cited
-as numerical convergence or performance results.
+`NUMERICAL_CONVERGENCE_PREREGISTRATION.md`. Machine-readable evidence is in
+`results/mi_convergence.json`, `results/fock_convergence.json`, and
+`results/holevo_threshold_sensitivity.json`. These are numerical-validation
+artifacts, not performance results.
+
+The active configuration materializes only the valid MI selection `2048`.
+Fock cutoff is null and pseudoinverse approval is false. Evidence hashes are
+regenerated against this fail-closed configuration; no baseline or publication
+run is authorized.
+
+The baseline resource audit found no bounded exact caching transformation that
+changes the dominant work: every `(nu,V_A,state)` choice requires its own
+256-component log-mixture at the selected MI count. Constellations and log PMFs
+are already cheap, noise generation is negligible, and candidate batching
+changes memory layout but not the `O(candidates * states * 256^2 * N_MC)`
+work. Reordering to reuse CRN tensors would require roughly gigabyte-scale
+storage and saves only RNG generation, not mixture likelihoods. Therefore no
+outcome-dependent grid reduction or approximate/Gaussian shortcut was applied.
 
 | Area | Parameter or rule | Frozen value/status | Evidence or required gate |
 |---|---|---|---|
@@ -62,30 +77,29 @@ as numerical convergence or performance results.
 | Channel | Split channel seeds | train `202601`, validation `202603`, test `202605` with BLAKE2b namespaces | Software seeds, frozen independently of outcomes |
 | MI | Split AWGN seeds | train `202602`, validation `202604`, test `202606` with BLAKE2b namespaces | Software seeds; paired common randomness for comparisons |
 | Data | Train/validation/test state counts | **SOFTWARE_PREREGISTERED:** `16 fresh states/epoch / 128 / 4096` | Split seeds remain distinct; test not accessed |
-| MI | Training/evaluation samples per symbol | training **SOFTWARE_PREREGISTERED:** `8`; validation/test **PENDING_CONVERGENCE_SELECTION:** null | `validate_mi_convergence.py` must select the earliest stable suffix against the largest reference count |
+| MI | Training/evaluation samples per symbol | training **SOFTWARE_PREREGISTERED:** `8`; validation/test **CONVERGENCE_SELECTED:** `2048` | Two consecutive global sequential refinements and replication stability passed |
 | MI | Convergence replications | Five preregistered seeds `202607`--`202611`, reused across configurations | Nested CRN within each replication; reference agreement required across replications |
-| MI | Convergence tolerance/grid | **SOFTWARE_PREREGISTERED:** grid `64,128,256,512,1024,2048,4096`; `0.002 bit + 0.001|I_ref|` | Execution resource-blocked; sample count remains **PENDING_CONVERGENCE_SELECTION** |
-| Holevo | Fock cutoff | **PENDING_CONVERGENCE_SELECTION:** null | Preregistered grid `48,56,64,72,80,96,112,128`; full rule includes the C4 `|alpha|=sqrt(30)` fixture and raw `K` |
+| MI | Convergence tolerance/grid | **SOFTWARE_PREREGISTERED:** grid `256,512,1024,2048,4096,8192`; `0.002 bit + 0.001|I|` | `2048` **CONVERGENCE_SELECTED**; roster hash in `MI_CERTIFICATION_ROSTER.md` |
+| Holevo | Fock cutoff | **BLOCKED / null** | Near-coincident stress has no selectable suffix below reference `128` under the frozen `w` tolerance |
 | Holevo | `C,w,Z`, symplectic, `chi_BE`, raw-`K` tolerances | **SOFTWARE_PREREGISTERED:** moments/symplectic `1e-7+1e-6|ref|`; information `1e-6+1e-5|ref|` bit | Not convergence-selected values; criteria fixed before execution |
 | Holevo | Density trace tolerance | **SOFTWARE_PREREGISTERED active safeguard:** `1e-10` | Matches `configs/default.yaml`, `configs/cvqkd.yaml`, and the Fock preregistration |
-| Holevo | Symmetry/eigen-pseudoinverse/physicality tolerances | symmetry `1e-8`; pseudoinverse candidate `1e-12`; physicality `1e-10` | Pseudoinverse is **PENDING_CONVERGENCE_SELECTION**, approval false until sensitivity passes |
+| Holevo | Symmetry/eigen-pseudoinverse/physicality tolerances | symmetry `1e-8`; candidate pseudoinverse `1e-12`; physicality `1e-10` | **BLOCKED dependency:** threshold replay cannot run without a selected Fock cutoff |
 | Numerics | Precision | CPU `torch.float64` and `torch.complex128` | Active implementation |
 | Numerics | Environment | CPython 3.12.10; exact packages in `requirements-publication.lock` | Manifest must hash the lock and record device |
 | Baselines | Fixed MB reference `nu_MB` | **AUTHOR_APPROVED:** `0.1` | Fixed reference; never validation/test optimized |
 | Baselines | Fixed-VA grid | **SOFTWARE_PREREGISTERED:** `0.1:0.1:1.5 SNU` | Uniform discretization of `[V_min,min(V_max,V_A_budget)]`, selected before outcomes; validation only |
 | Baselines | Optimized-MB `nu` grid | **AUTHOR_APPROVED domain:** `[0,0.3]`; **SOFTWARE_PREREGISTERED:** step `0.01` | 31 validation-only candidates; deterministic tie-break: lower `V_A`, then lower `nu` |
 | Ablations | Fixed `V_A` for PS, GS, and PS+GS learned modes | **null / unresolved** | Requires the same validation-only feasible `V_A` grid and matched training budget; test cannot select it |
-| Evaluation | Final held-out state/AWGN counts | states **SOFTWARE_PREREGISTERED:** `4096`; AWGN **PENDING_CONVERGENCE_SELECTION:** null | Test is evaluated once after all selections freeze |
+| Evaluation | Final held-out state/AWGN counts | states **SOFTWARE_PREREGISTERED:** `4096`; AWGN **CONVERGENCE_SELECTED:** `2048` | Test remains untouched and is evaluated once after all selections freeze |
 | Statistics | Aggregation | Report every seed; primary estimate is the mean of independent training-seed test means | Seed is the independent optimization unit |
 | Statistics | Confidence interval | Two-sided 95% Student-t interval over independent training-seed test means; paired intervals for contrasts | No pooling states as independent training replicates |
 | Provenance | Required record | Resolved config/hash, Git revision/dirty diff, environment lock, device, seeds, state hashes, checkpoint hash, raw per-state data | Required by publication protocol |
 
 ## Numerical validation rule
 
-MI validation uses nested common random numbers. The largest evaluated sample
-count is the explicit reference; a smaller count passes only if it and every
-larger candidate remain within the declared absolute-plus-relative tolerance
-for every bad/medium/good state and every listed transmitter configuration.
+MI validation uses nested common random numbers and the preregistered sequential
+two-refinement stopping rule for every bad/medium/good state, fixture, and
+replication. Replication stability is required at each passing stage.
 
 Fock validation applies the same stable-suffix rule simultaneously to `C`,
 `w`, `Z`, and `chi_BE`, while independently enforcing the density-trace
@@ -97,7 +111,7 @@ ranges.
 Finite fixture scripts are executable only after all physical/numerical fields
 and the explicit `n_peak` approval/scope are supplied. They fail closed before
 claiming publication coverage otherwise. They include a C4 boundary-amplitude
-fixture at `sqrt(n_peak)`, optimized-MB grid values, and peak-feasible baseline
+fixtures at `sqrt(n_peak)` for both `V_A` box endpoints, optimized-MB grid values, and peak-feasible baseline
 VA cases, but remain explicitly finite-fixture diagnostics. Publication
 convergence evidence must separately enumerate and hash-bind every selected
 baseline ensemble and learned checkpoint, identically across MI, Fock, and

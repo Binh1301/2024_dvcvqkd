@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fock_poisson_prescreen.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "is_fock_cutoff_certification", "test_set_used", "mean_photon_number", "rows", "explicit_limitation"],
+  "properties": {
+    "schema_version": {"const": "fock-poisson-prescreen-v1"},
+    "status": {"const": "NONCERTIFYING_PRESCREEN_ONLY"},
+    "is_fock_cutoff_certification": {"const": false},
+    "test_set_used": {"const": false},
+    "mean_photon_number": {"type": "number", "minimum": 0},
+    "rows": {
+      "type": "array", "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["fock_cutoff", "tail_probability", "retained_probability"],
+        "properties": {
+          "fock_cutoff": {"type": "integer", "minimum": 2},
+          "tail_probability": {"type": "number", "minimum": 0, "maximum": 1},
+          "retained_probability": {"type": "number", "minimum": 0, "maximum": 1}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -15,6 +15,7 @@ class BaselineCandidate:
     validation_raw_skr: float | None
     physical_domain_admissible: bool = True
     ineligibility_reason: str | None = None
+    exact_score_reused_from: str | None = None
 
 
 @dataclass(frozen=True)
@@ -95,21 +96,45 @@ def validation_only_baseline_search(
         "optimized_mb": ("mb", nu_values),
     }
     selections: dict[str, BaselineSelection] = {}
+    score_cache: dict[tuple[str, float, float | None], float | None] = {}
+    score_source: dict[tuple[str, float, float | None], str] = {}
     for label, (evaluation_scheme, nus) in definitions.items():
         candidates: list[BaselineCandidate] = []
         for nu in nus:
             for va in va_values:
-                score_value = score_validation_candidate(evaluation_scheme, va, nu)
+                # MB with nu=0 is algebraically Uniform. The optimized-MB
+                # nu=reference candidate is byte-identical to fixed MB. Cache
+                # both exact identities while retaining all public candidate
+                # rows and their declared optimized-MB parameters.
+                cache_key = (
+                    ("uniform", va, None)
+                    if evaluation_scheme == "mb" and nu == 0.0
+                    else (evaluation_scheme, va, nu)
+                )
+                candidate_id = f"{label}:nu={nu}:VA={va}"
+                reused_from = score_source.get(cache_key)
+                if cache_key in score_cache:
+                    score_value = score_cache[cache_key]
+                else:
+                    callback_scheme, callback_va, callback_nu = cache_key
+                    score_value = score_validation_candidate(
+                        callback_scheme, callback_va, callback_nu
+                    )
+                    score_cache[cache_key] = score_value
+                    score_source[cache_key] = candidate_id
                 if score_value is None:
                     candidates.append(BaselineCandidate(
                         label, va, nu, None, False,
                         "violates the common hard physical peak-photon domain",
+                        reused_from,
                     ))
                     continue
                 score = float(score_value)
                 if not math.isfinite(score):
                     raise FloatingPointError(f"Non-finite validation score for {label}.")
-                candidates.append(BaselineCandidate(label, va, nu, score))
+                candidates.append(BaselineCandidate(
+                    label, va, nu, score, exact_score_reused_from=reused_from
+                ))
         eligible = [candidate for candidate in candidates if candidate.physical_domain_admissible]
         if not eligible:
             raise ValueError(

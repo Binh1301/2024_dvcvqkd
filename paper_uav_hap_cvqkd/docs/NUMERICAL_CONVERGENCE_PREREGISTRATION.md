@@ -20,18 +20,19 @@ held-out evaluation.
 
 | Item | Preregistered value |
 |---|---|
-| Nested sample-count grid per symbol | `64,128,256,512,1024,2048,4096` |
+| Nested sequential sample-count grid per symbol | `256,512,1024,2048,4096,8192` |
 | Independent replication base seeds | `202607..202611` |
 | CRN rule | Nested within replication and common across configurations |
 | Absolute tolerance | `0.002 bit` |
 | Relative tolerance | `0.001` times `|I_ref|` |
-| Reference | `4096`; never selectable |
-| Selection | First candidate whose complete suffix passes every state, fixture, and replication |
-| Replication stability | Every reference replication must lie within the same absolute-plus-relative bound of the replication mean |
+| Selection | First count after two consecutive global refinement passes |
+| Replication stability | Required at every passing stage using the same absolute-plus-relative bound |
 
 The absolute term controls low-MI states; the relative term prevents an
-unnecessarily absolute-only criterion at large MI.  Samples are processed in
-chunks of 64 without changing the estimator or RNG stream.
+unnecessarily absolute-only criterion at large MI. Samples are processed in
+chunks of 64 without changing the estimator or RNG stream. The exact
+prospective stopping rule and roster are hash-bound in
+`MI_CERTIFICATION_ROSTER.md`.
 
 ## Fock-cutoff and SKR rule
 

@@ -10,6 +10,46 @@ from src.modulation.joint_ps_gs import Ensemble
 from .protocol import validate_channel_state
 
 
+def _product_qam_factors(
+    probabilities: torch.Tensor, means: torch.Tensor, *, tolerance: float = 1e-12
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Return exact 16x16 Cartesian/product factors or fail closed."""
+
+    if probabilities.shape[-1] != 256 or means.shape != probabilities.shape:
+        raise ValueError("Product-QAM MI requires 256 row-major symbols.")
+    batch_size = probabilities.shape[0]
+    probability_grid = probabilities.reshape(batch_size, 16, 16)
+    mean_grid = means.reshape(batch_size, 16, 16)
+    real_probabilities = probability_grid.sum(dim=-1)
+    imag_probabilities = probability_grid.sum(dim=-2)
+    reconstructed = real_probabilities.unsqueeze(-1) * imag_probabilities.unsqueeze(-2)
+    real_levels = mean_grid[:, :, 0].real
+    imag_levels = mean_grid[:, 0, :].imag
+    reconstructed_means = torch.complex(
+        real_levels.unsqueeze(-1).expand(-1, -1, 16),
+        imag_levels.unsqueeze(-2).expand(-1, 16, -1),
+    )
+    if not bool(torch.allclose(
+        reconstructed.detach(), probability_grid.detach(), atol=tolerance, rtol=tolerance
+    )):
+        raise ValueError("PMF is not an exact 16x16 product distribution.")
+    if not bool(torch.allclose(
+        reconstructed_means.detach(), mean_grid.detach(), atol=tolerance, rtol=tolerance
+    )):
+        raise ValueError("Constellation is not an exact row-major Cartesian product.")
+    return real_probabilities, imag_probabilities, real_levels, imag_levels
+
+
+def is_product_qam_ensemble(ensemble: Ensemble) -> bool:
+    """Return whether the ensemble admits the exact Cartesian/product path."""
+
+    try:
+        _product_qam_factors(ensemble.probabilities, ensemble.amplitudes)
+    except ValueError:
+        return False
+    return True
+
+
 def standard_complex_noise(
     shape: tuple[int, ...],
     *,
@@ -44,9 +84,12 @@ def discrete_mutual_information(
     standard_noise_samples: torch.Tensor | None = None,
     candidate_chunk_size: int = 64,
     noise_sample_chunk_size: int | None = None,
+    implementation: str = "optimized",
 ) -> torch.Tensor:
     """Return one discrete-input continuous-output MI value per fading state."""
 
+    if implementation not in {"optimized", "reference", "product"}:
+        raise ValueError("implementation must be 'optimized', 'reference', or 'product'.")
     ensemble.validate()
     transmittance, epsilon = validate_channel_state(transmittance, epsilon)
     transmittance = transmittance.to(device=ensemble.probabilities.device)
@@ -89,6 +132,10 @@ def discrete_mutual_information(
         torch.full_like(probabilities, -torch.inf),
     )
     entropy = -torch.sum(torch.special.xlogy(probabilities, probabilities), dim=-1) / math.log(2.0)
+    product_factors = (
+        _product_qam_factors(probabilities, means)
+        if implementation == "product" else None
+    )
     # Chunking the noise axis is an exact batching transformation: the same
     # explicit noise tensor and estimator are used, while peak memory no longer
     # grows with the convergence reference count.
@@ -103,11 +150,58 @@ def discrete_mutual_information(
             * standard_noise_samples[..., noise_start:noise_stop]
         )
         log_denominator: torch.Tensor | None = None
-        for start in range(0, symbol_count, candidate_chunk_size):
+        if product_factors is not None:
+            real_p, imag_p, real_levels, imag_levels = product_factors
+            log_real_p = torch.where(
+                real_p > 0.0, torch.log(real_p), torch.full_like(real_p, -torch.inf)
+            )
+            log_imag_p = torch.where(
+                imag_p > 0.0, torch.log(imag_p), torch.full_like(imag_p, -torch.inf)
+            )
+            real_logits = (
+                log_real_p[:, None, None, :]
+                - (received.real[..., None] - real_levels[:, None, None, :]).square()
+                / sigma2_complex[:, None, None, None]
+            )
+            imag_logits = (
+                log_imag_p[:, None, None, :]
+                - (received.imag[..., None] - imag_levels[:, None, None, :]).square()
+                / sigma2_complex[:, None, None, None]
+            )
+            log_denominator = (
+                torch.logsumexp(real_logits, dim=-1)
+                + torch.logsumexp(imag_logits, dim=-1)
+            )
+        for start in range(0, symbol_count, candidate_chunk_size) if product_factors is None else ():
             stop = min(start + candidate_chunk_size, symbol_count)
-            distances = (
-                received[:, :, :, None] - means[:, None, None, start:stop]
-            ).abs().square()
+            candidate_means = means[:, start:stop]
+            if implementation == "reference":
+                distances = (
+                    received[:, :, :, None] - candidate_means[:, None, None, :]
+                ).abs().square()
+            else:
+                # Exact algebraic identity
+                # |y-m|^2=|y|^2+|m|^2-2(Re(y)Re(m)+Im(y)Im(m)).
+                # Flattening only the source/noise observation axes turns the
+                # dominant pairwise operation into two optimized real float64
+                # matrix products.  The candidate chunks, CRN tensor, mixture,
+                # summation order between chunks, and estimator are unchanged.
+                observations = received.reshape(batch_size, -1)
+                observation_coordinates = torch.stack(
+                    (observations.real, observations.imag), dim=-1
+                )
+                candidate_coordinates = torch.stack(
+                    (candidate_means.real, candidate_means.imag), dim=-1
+                )
+                dot = observation_coordinates @ candidate_coordinates.transpose(-2, -1)
+                distances = (
+                    observations.abs().square().unsqueeze(-1)
+                    + candidate_means.abs().square().unsqueeze(-2)
+                    - 2.0 * dot
+                ).reshape(batch_size, symbol_count, noise_stop - noise_start, -1)
+                # A negative value can only be roundoff from the algebraic
+                # rearrangement (the exact squared distance is nonnegative).
+                distances = torch.clamp_min(distances, 0.0)
             logits = (
                 log_probabilities[:, None, None, start:stop]
                 - distances / sigma2_complex[:, None, None, None]

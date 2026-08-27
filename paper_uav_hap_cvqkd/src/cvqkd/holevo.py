@@ -172,3 +172,71 @@ def holevo_information(
             "physicality_tolerance": physicality_tolerance,
         },
     )
+
+
+def shared_fixed_ensemble_holevo_chi(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    *,
+    fock_cutoff: int,
+    require_supported_symmetry: bool = True,
+    symmetry_tolerance: float = 1e-8,
+    density_trace_tolerance: float = 1e-8,
+    density_eigenvalue_tolerance: float = 1e-12,
+    physicality_tolerance: float = 1e-10,
+) -> torch.Tensor:
+    """Compute fixed-baseline chi with tau/C/w evaluated exactly once.
+
+    This path is valid only when every batch row is the same source ensemble.
+    Channel-dependent Z, covariance matrices, symplectic eigenvalues, and chi
+    remain evaluated for every state. No security formula is changed.
+    """
+
+    ensemble.validate()
+    if not all(torch.equal(value, value[:1].expand_as(value)) for value in (
+        ensemble.probabilities, ensemble.amplitudes, ensemble.declared_va,
+    )):
+        raise ValueError("Shared-source Holevo requires one identical fixed ensemble per state.")
+    transmittance, epsilon = validate_channel_state(transmittance, epsilon)
+    if transmittance.shape[0] != ensemble.probabilities.shape[0]:
+        raise ValueError("Channel-state count must match ensemble batch size.")
+    first = Ensemble(
+        ensemble.probabilities[:1], ensemble.amplitudes[:1], ensemble.declared_va[:1],
+        ensemble.relative_constellation,
+        exact_csi_oracle=ensemble.exact_csi_oracle,
+        c4_symmetric=ensemble.c4_symmetric,
+    )
+    source = holevo_information(
+        first, transmittance[:1], epsilon[:1], fock_cutoff=fock_cutoff,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        density_trace_tolerance=density_trace_tolerance,
+        density_eigenvalue_tolerance=density_eigenvalue_tolerance,
+        physicality_tolerance=physicality_tolerance,
+    )
+    t = transmittance.to(ensemble.probabilities.device)
+    e = epsilon.to(ensemble.probabilities.device)
+    c = source.coherent_correlation[0]
+    w = source.w[0]
+    z = 2.0 * torch.sqrt(t) * c - torch.sqrt(2.0 * t * e * w)
+    covariance = standard_form_covariance(
+        ensemble, t, e, z,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        numerical_tolerance=physicality_tolerance,
+    )
+    adjusted = []
+    for value in (covariance.lambda1, covariance.lambda2, covariance.lambda3):
+        adjusted.append(torch.clamp_min(value, 1.0))
+    l1, l2, l3 = adjusted
+    chi = (
+        bosonic_entropy((l1 - 1.0) / 2.0)
+        + bosonic_entropy((l2 - 1.0) / 2.0)
+        - bosonic_entropy((l3 - 1.0) / 2.0)
+    )
+    if bool(torch.any(chi < -physicality_tolerance)):
+        raise PhysicalityError("Holevo information is materially negative.")
+    if not bool(torch.all(torch.isfinite(chi))):
+        raise FloatingPointError("Holevo information returned NaN or Inf.")
+    return torch.clamp_min(chi, 0.0)

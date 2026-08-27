@@ -71,8 +71,8 @@ training:
   validation_fading_samples: 128
   test_fading_samples: 4096
   train_awgn_samples_per_symbol: 8
-  validation_awgn_samples_per_symbol: null
-  test_awgn_samples_per_symbol: null
+  validation_awgn_samples_per_symbol: 2048
+  test_awgn_samples_per_symbol: 2048
   seeds:
     train_channel: 202601
     train_awgn: 202602
@@ -89,10 +89,13 @@ baseline_search:
   state_batch_size: 8
   tie_breaking: "maximum validation raw SKR, then lower V_A, then lower nu"
 numerical_validation:
+  fixture_initialization_seed: 202613
   mi:
-    # SOFTWARE_PREREGISTERED before convergence outcomes.  Nested CRN samples;
-    # the largest count is a reference and cannot itself be selected.
-    sample_counts: [64, 128, 256, 512, 1024, 2048, 4096]
+    # SOFTWARE_PREREGISTERED before sequential convergence outcomes. Nested
+    # CRN samples; stop only after the declared number of consecutive global
+    # refinement passes plus reference-replication stability.
+    sample_counts: [256, 512, 1024, 2048, 4096, 8192]
+    required_consecutive_refinement_passes: 2
     absolute_tolerance_bits: 0.002
     relative_tolerance: 0.001
     noise_sample_chunk_size: 64
@@ -132,7 +135,7 @@ parameter_classification:
   optimizer_and_statistical_protocol: SOFTWARE_PREREGISTERED_SMOKE_VALIDATED
   mi_grid_and_tolerances: SOFTWARE_PREREGISTERED
   fock_grid_and_tolerances: SOFTWARE_PREREGISTERED
-  mi_sample_count: BLOCKED_RESOURCE_LIMIT_NOT_CONVERGENCE_SELECTED
-  fock_cutoff: BLOCKED_DEPENDENCY_NOT_CONVERGENCE_SELECTED
-  pseudoinverse_threshold: PENDING_SENSITIVITY_NOT_CONVERGENCE_SELECTED
-  baseline_selections: BLOCKED_DEPENDENCY
+  mi_sample_count: CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER
+  fock_cutoff: BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF
+  pseudoinverse_threshold: BLOCKED_FOCK_DEPENDENCY
+  baseline_selections: BLOCKED_NUMERICAL_DEPENDENCY
