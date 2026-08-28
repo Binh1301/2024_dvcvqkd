@@ -2,7 +2,8 @@
 
 Status: **the 16-fixture MI roster passes with `N_MC=2048`, but the added
 near-coincident pseudoinverse-stress fixture has no selectable Fock cutoff below
-the nonselectable 128 reference. Fock, threshold, baseline selection, and
+the original nonselectable 128 reference or in the prospectively frozen
+stress-only extension through nonselectable reference 256. Fock, threshold, baseline selection, and
 publication-scale execution are blocked**. Values are
 labelled `AUTHOR_APPROVED`, `DERIVED`, or `CONVERGENCE_SELECTED`. A separately
 labelled `SOFTWARE_PREREGISTERED` seed/count is allowed only for deterministic
@@ -15,7 +16,7 @@ smoke, or library default.
 | Area | Frozen value/classification | Execution result |
 |---|---|---|
 | MI convergence | **SOFTWARE_PREREGISTERED:** sequential counts `256..8192` doubling, five CRN seeds, `0.002 bit + 0.001|I|` | **CONVERGENCE_SELECTED:** `2048` after global passes at `1024` and `2048`; exact 80-unit roster, 237.8 s CPU with exact product-QAM evaluation |
-| Fock convergence | **SOFTWARE_PREREGISTERED:** cutoffs `48,56,64,72,80,96,112,128`; unchanged tolerances | **BLOCKED:** near-coincident stress has no selectable cutoff; every candidate `48..112` fails the frozen `w` tolerance against nonselectable reference `128` |
+| Fock convergence | **SOFTWARE_PREREGISTERED:** original cutoffs `48..128`; prospective stress-only extension `144,160,192,224,256`; unchanged tolerances | **BLOCKED:** neither the active full-matrix path nor the algebraically equivalent support/residual diagnostic has a stable suffix against nonselectable reference `256` |
 | Optimizer | **SOFTWARE_PREREGISTERED:** Adam, PS/GS/VA `3e-4/1e-4/1e-4`, dual `1e-2`, clip `1.0`, regularizers `0/0/0` | Three-step full-transmitter smoke passed; no training |
 | Lifecycle | **SOFTWARE_PREREGISTERED:** batch `16`, cap `2000`, patience `100`, delta `1e-5 bit`, budget margin `0.1 SNU` | Test-blind; publication entry remains fail-closed |
 | Data/statistics | **SOFTWARE_PREREGISTERED:** validation `128`, held-out test `4096`, ten seeds `26082701..26082710`, 95% Student-t CI over seed means | Test realization/outcomes not accessed |
@@ -24,7 +25,8 @@ smoke, or library default.
 The exact convergence preregistration is in
 `NUMERICAL_CONVERGENCE_PREREGISTRATION.md`. Machine-readable evidence is in
 `results/mi_convergence.json`, `results/fock_convergence.json`, and
-`results/holevo_threshold_sensitivity.json`. These are numerical-validation
+`results/holevo_threshold_sensitivity.json`, and
+`results/near_coincident_fock_diagnostic.json`. These are numerical-validation
 artifacts, not performance results.
 
 The active configuration materializes only the valid MI selection `2048`.
@@ -32,14 +34,18 @@ Fock cutoff is null and pseudoinverse approval is false. Evidence hashes are
 regenerated against this fail-closed configuration; no baseline or publication
 run is authorized.
 
-The baseline resource audit found no bounded exact caching transformation that
-changes the dominant work: every `(nu,V_A,state)` choice requires its own
-256-component log-mixture at the selected MI count. Constellations and log PMFs
-are already cheap, noise generation is negligible, and candidate batching
-changes memory layout but not the `O(candidates * states * 256^2 * N_MC)`
-work. Reordering to reuse CRN tensors would require roughly gigabyte-scale
-storage and saves only RNG generation, not mixture likelihoods. Therefore no
-outcome-dependent grid reduction or approximate/Gaussian shortcut was applied.
+An independent coherent-state Gram oracle subsequently resolved all 256
+physical modes at 1250 and 1450 decimal digits and exposed that the active
+`1e-12` support rule suppresses physically relevant stress-fixture modes. This
+does not change the frozen configuration: the official Fock/threshold gates
+remain failed and no baseline selection is authorized. See
+`GRAM_ORACLE_DIAGNOSIS.md`.
+
+The baseline path uses an exact 16-by-16 product-QAM factorization, exact alias
+reuse (510 public rows, 480 unique scores), and candidate-shared `tau,C,w`.
+The bounded diagnostic projects 17,682 s (4.91 h) for the complete validation
+search. This is resource evidence only: the search and the 31-by-15 MB grid
+pre-certification were not run because the upstream Fock/threshold gates fail.
 
 | Area | Parameter or rule | Frozen value/status | Evidence or required gate |
 |---|---|---|---|
@@ -80,10 +86,10 @@ outcome-dependent grid reduction or approximate/Gaussian shortcut was applied.
 | MI | Training/evaluation samples per symbol | training **SOFTWARE_PREREGISTERED:** `8`; validation/test **CONVERGENCE_SELECTED:** `2048` | Two consecutive global sequential refinements and replication stability passed |
 | MI | Convergence replications | Five preregistered seeds `202607`--`202611`, reused across configurations | Nested CRN within each replication; reference agreement required across replications |
 | MI | Convergence tolerance/grid | **SOFTWARE_PREREGISTERED:** grid `256,512,1024,2048,4096,8192`; `0.002 bit + 0.001|I|` | `2048` **CONVERGENCE_SELECTED**; roster hash in `MI_CERTIFICATION_ROSTER.md` |
-| Holevo | Fock cutoff | **BLOCKED / null** | Near-coincident stress has no selectable suffix below reference `128` under the frozen `w` tolerance |
+| Holevo | Fock cutoff | **BLOCKED / null** | Near-coincident stress has no selectable suffix against reference `128` or the prospective stress-only reference `256` under the unchanged `w` tolerance |
 | Holevo | `C,w,Z`, symplectic, `chi_BE`, raw-`K` tolerances | **SOFTWARE_PREREGISTERED:** moments/symplectic `1e-7+1e-6|ref|`; information `1e-6+1e-5|ref|` bit | Not convergence-selected values; criteria fixed before execution |
 | Holevo | Density trace tolerance | **SOFTWARE_PREREGISTERED active safeguard:** `1e-10` | Matches `configs/default.yaml`, `configs/cvqkd.yaml`, and the Fock preregistration |
-| Holevo | Symmetry/eigen-pseudoinverse/physicality tolerances | symmetry `1e-8`; candidate pseudoinverse `1e-12`; physicality `1e-10` | **BLOCKED dependency:** threshold replay cannot run without a selected Fock cutoff |
+| Holevo | Symmetry/eigen-pseudoinverse/physicality tolerances | symmetry `1e-8`; candidate pseudoinverse `1e-12`; physicality `1e-10` | **BLOCKED:** official threshold replay cannot run without a selected cutoff; diagnostic support changes rank `8 -> 6 -> 4` across the frozen grid and `w` has no plateau at `1e-12` |
 | Numerics | Precision | CPU `torch.float64` and `torch.complex128` | Active implementation |
 | Numerics | Environment | CPython 3.12.10; exact packages in `requirements-publication.lock` | Manifest must hash the lock and record device |
 | Baselines | Fixed MB reference `nu_MB` | **AUTHOR_APPROVED:** `0.1` | Fixed reference; never validation/test optimized |
@@ -140,6 +146,9 @@ nearly all PMF mass on near-zero prototypes and vanishing mass on a prototype
 whose relative magnitude approaches eight. Then `E_x` approaches zero and the
 rare physical amplitude grows without a finite global bound even at fixed
 `V_max`. The selected additional rule is the common author-controlled hard
-peak-photon domain. Its software mechanism is implemented, but its numerical
-threshold and scope remain unresolved; therefore no cutoff is certified by
-this freeze.
+30-photon peak domain over complete preregistered realizations. Its threshold
+and scope are author-approved and enforced. The present cutoff failure instead
+comes from the ill-conditioned retained density support of the artificial
+near-coincident fixture (active retained-support condition number about
+`1.73e11`; full physical-spectrum condition number about `1.78e1098`), not an
+unresolved peak parameter or a density-trace deficit.

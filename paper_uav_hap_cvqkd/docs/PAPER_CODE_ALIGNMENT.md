@@ -6,16 +6,20 @@ The manuscript must add `beta_rec=0.95`, the approved physical-channel table,
 the independent assumed `epsilon ~ Uniform[0.001,0.04] SNU` operating domain,
 `V_A in [0.1,4.0] SNU`, `E[V_A]<=1.5 SNU`, the common hard
 `max_i|alpha_i|^2<=30` rule without clipping, the global GS unit-RMS gauge, and
-the validation-only fixed-baseline procedure. It must not yet state numerical
-values for MI samples or Fock cutoff: neither is `CONVERGENCE_SELECTED`.
+the validation-only fixed-baseline procedure. It may state the
+validation-certified MI setting `N_MC=2048`. It must not state a selected Fock
+cutoff or pseudoinverse threshold: those gates remain blocked.
 
-The frozen MI run exceeded the bounded CPU resource window at the first
-`uniform_low_va_0.1`, 4096-sample fixture/replication; the full preregistered
-workload has an observed-unit extrapolation above one hour on the recorded host;
-this is a feasibility estimate, not a proven wall-clock lower bound.
-Consequently Fock raw-SKR convergence, pseudoinverse sensitivity, and baseline
-selection remain dependency-blocked. The cutoff-128, 30-photon-boundary trace
-probe is explicitly noncertifying and must not appear as a paper result.
+The optimized sequential MI run passed the unchanged tolerance over the
+hash-bound 80-unit roster and selected `N_MC=2048`. Fock convergence then
+failed on `near_coincident_pseudoinverse_stress`. The prospectively extended
+stress-only cutoff sequence through the nonselectable cutoff-256 reference also
+has no stable suffix, and the frozen `1e-12` pseudoinverse threshold has no
+three-point sensitivity plateau. Consequently threshold approval and baseline
+selection remain dependency-blocked. The active evidence is
+`results/mi_convergence.json`, `results/fock_convergence.json`, and
+`results/near_coincident_fock_diagnostic.json`; the older
+`results/fock_cutoff_certification.json` probe is deprecated and noncertifying.
 
 This audit is scoped to the transmitter, constraints, baseline selection, and
 security language. `FINAL_MODEL_SPEC.md` was not modified.

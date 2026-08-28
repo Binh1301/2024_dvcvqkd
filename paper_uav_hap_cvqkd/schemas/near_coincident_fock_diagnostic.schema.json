@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Near-coincident Fock numerical diagnostic",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "test_set_used", "publication_training_performed",
+    "fixture", "state_labels", "validation_state_realization_sha256",
+    "active_density_eigenvalue_tolerance", "mutual_information_sample_count",
+    "preregistered_extension_cutoffs",
+    "extension_included", "nonselectable_reference_cutoff", "runtime_seconds",
+    "rows", "stable_suffix_results", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "near-coincident-fock-diagnostic-v1"},
+    "status": {"const": "DIAGNOSTIC_ONLY_NOT_SELECTION"},
+    "test_set_used": {"const": false},
+    "publication_training_performed": {"const": false},
+    "fixture": {"const": "near_coincident_pseudoinverse_stress"},
+    "state_labels": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {"enum": ["bad", "medium", "good"]}
+    },
+    "validation_state_realization_sha256": {
+      "type": "string", "pattern": "^[0-9a-f]{64}$"
+    },
+    "active_density_eigenvalue_tolerance": {"const": 1e-12},
+    "mutual_information_sample_count": {"const": 2048},
+    "preregistered_extension_cutoffs": {
+      "const": [144, 160, 192, 224, 256]
+    },
+    "extension_included": {"const": true},
+    "nonselectable_reference_cutoff": {"const": 256},
+    "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "rows": {
+      "type": "array", "minItems": 13, "maxItems": 13,
+      "items": {
+        "type": "object",
+        "required": [
+          "fock_cutoff", "tau_trace", "tau_trace_deficit", "spectral",
+          "active_full_matrix_C", "support_basis_C", "active_full_matrix_w",
+          "support_basis_w", "support_basis_security", "runtime_seconds", "Z", "lambda1",
+          "lambda2", "lambda3", "chi_BE", "raw_K"
+        ],
+        "properties": {
+          "fock_cutoff": {"type": "integer", "minimum": 2},
+          "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+          "spectral": {
+            "type": "array", "minItems": 3, "maxItems": 3,
+            "items": {
+              "type": "object",
+              "required": [
+                "support_size", "effective_numerical_rank",
+                "pseudoinverse_support_size", "suppressed_density_eigenvalues",
+                "minimum_density_eigenvalue", "maximum_density_eigenvalue",
+                "minimum_retained_density_eigenvalue",
+                "maximum_retained_density_eigenvalue",
+                "retained_density_condition_number"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "stable_suffix_results": {
+      "type": "object",
+      "required": ["active_full_matrix", "support_restricted_residual"]
+    },
+    "provenance": {"type": "object"}
+  }
+}

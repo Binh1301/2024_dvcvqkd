@@ -54,6 +54,89 @@ def annihilation_operator(fock_cutoff: int, device: torch.device) -> torch.Tenso
     return operator
 
 
+def support_restricted_source_moments(
+    tau: torch.Tensor,
+    fock: torch.Tensor,
+    probabilities: torch.Tensor,
+    *,
+    density_eigenvalue_tolerance: float,
+    eigenvalues: torch.Tensor | None = None,
+    eigenvectors: torch.Tensor | None = None,
+) -> tuple[torch.Tensor, torch.Tensor, tuple[dict[str, float | int], ...]]:
+    """Evaluate ``C`` and ``w`` in the retained Hermitian spectral support.
+
+    This is algebraically identical to constructing ``sqrt(tau)`` and its
+    thresholded Moore--Penrose inverse in the full Fock basis.  It avoids that
+    full-matrix reconstruction and evaluates ``t1-|inner|^2`` through an exact
+    residual identity, reducing cancellation when those terms are close.
+    """
+
+    if tau.ndim != 3 or tau.shape[-1] != tau.shape[-2]:
+        raise ValueError("tau must be a batch of square matrices.")
+    if fock.ndim != 3 or fock.shape[0] != tau.shape[0] or fock.shape[-1] != tau.shape[-1]:
+        raise ValueError("fock must match tau batch and cutoff dimensions.")
+    if probabilities.shape != fock.shape[:-1]:
+        raise ValueError("probabilities must match the Fock symbol batch.")
+    if not math.isfinite(density_eigenvalue_tolerance) or density_eigenvalue_tolerance <= 0.0:
+        raise ValueError("density_eigenvalue_tolerance must be finite and positive.")
+    if (eigenvalues is None) != (eigenvectors is None):
+        raise ValueError("eigenvalues and eigenvectors must be supplied together.")
+    if eigenvalues is None:
+        eigenvalues, eigenvectors = torch.linalg.eigh(tau)
+    elif eigenvalues.shape != tau.shape[:-1] or eigenvectors.shape != tau.shape:
+        raise ValueError("Supplied eigendecomposition does not match tau.")
+    if bool(torch.any(eigenvalues < -density_eigenvalue_tolerance)):
+        raise PhysicalityError("Density operator has a materially negative eigenvalue.")
+    significant = eigenvalues > density_eigenvalue_tolerance
+    a = annihilation_operator(tau.shape[-1], tau.device)
+    correlations: list[torch.Tensor] = []
+    penalties: list[torch.Tensor] = []
+    diagnostics: list[dict[str, float | int]] = []
+    for batch_index in range(tau.shape[0]):
+        retained = significant[batch_index]
+        if not bool(torch.any(retained)):
+            raise PhysicalityError("Density spectral support is empty.")
+        values = eigenvalues[batch_index, retained]
+        vectors = eigenvectors[batch_index, :, retained]
+        support_a = vectors.mH @ a @ vectors
+        square_root = torch.sqrt(values)
+        inverse_square_root = torch.rsqrt(values)
+        correlations.append(torch.sum(
+            square_root[:, None]
+            * square_root[None, :]
+            * support_a.abs().square()
+        ).real)
+        a_tau_support = (
+            square_root[:, None] * support_a * inverse_square_root[None, :]
+        )
+        coefficients = fock[batch_index] @ vectors.conj()
+        transformed_fock = (coefficients @ a_tau_support.T) @ vectors.T
+        inner = torch.sum(fock[batch_index].conj() * transformed_fock, dim=-1)
+        norm = torch.sum(fock[batch_index].abs().square(), dim=-1).real
+        if bool(torch.any(norm <= 0.0)):
+            raise PhysicalityError("A truncated coherent vector has nonpositive norm.")
+        residual = transformed_fock - fock[batch_index] * (inner / norm).unsqueeze(-1)
+        difference = (
+            torch.sum(residual.abs().square(), dim=-1).real
+            + inner.abs().square() * (torch.reciprocal(norm) - 1.0)
+        )
+        penalties.append(torch.sum(probabilities[batch_index] * difference).real)
+        minimum = values.min()
+        maximum = values.max()
+        diagnostics.append({
+            "minimum_density_eigenvalue": float(eigenvalues[batch_index].detach().min()),
+            "maximum_density_eigenvalue": float(eigenvalues[batch_index].detach().max()),
+            "support_size": int(retained.detach().sum()),
+            "effective_numerical_rank": int(retained.detach().sum()),
+            "pseudoinverse_support_size": int(retained.detach().sum()),
+            "suppressed_density_eigenvalues": int((~retained).detach().sum()),
+            "minimum_retained_density_eigenvalue": float(minimum.detach()),
+            "maximum_retained_density_eigenvalue": float(maximum.detach()),
+            "retained_density_condition_number": float((maximum / minimum).detach()),
+        })
+    return torch.stack(correlations), torch.stack(penalties), tuple(diagnostics)
+
+
 def bosonic_entropy(x: torch.Tensor) -> torch.Tensor:
     if bool(torch.any(x < 0.0)):
         raise PhysicalityError("Bosonic entropy received a negative occupation number.")

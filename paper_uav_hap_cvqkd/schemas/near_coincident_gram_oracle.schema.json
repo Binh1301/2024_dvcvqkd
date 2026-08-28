@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent high-precision near-coincident Gram oracle",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "test_set_used", "publication_training_performed",
+    "fixture", "overlap_formula", "minus_cross_term_rejected", "fock_cutoff_used",
+    "preregistered_decimal_digits", "adaptive_full_support_confirmation_digits",
+    "executed_decimal_digits", "thresholds",
+    "states", "mutual_information_sample_count_for_raw_K", "precision_rows",
+    "full_mathematical_support_oracle_obtained", "full_support_precision_digits",
+    "successive_full_support_confirmation", "selected_full_support_oracle_digits",
+    "confirmation_full_support_oracle_digits", "selected_full_support_oracle",
+    "successive_full_support_absolute_differences",
+    "successive_full_support_tolerance_comparisons",
+    "successive_full_support_converges_under_frozen_tolerances",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "near-coincident-gram-oracle-v1"},
+    "status": {"const": "HIGH_PRECISION_DIAGNOSTIC_ONLY"},
+    "test_set_used": {"const": false},
+    "publication_training_performed": {"const": false},
+    "fixture": {"const": "near_coincident_pseudoinverse_stress"},
+    "overlap_formula": {
+      "const": "exp(-(|alpha_i|^2+|alpha_j|^2)/2 + conj(alpha_i)*alpha_j)"
+    },
+    "minus_cross_term_rejected": {"const": true},
+    "fock_cutoff_used": {"const": false},
+    "preregistered_decimal_digits": {"const": [50, 80, 120, 160]},
+    "adaptive_full_support_confirmation_digits": {"const": [1050, 1250, 1450]},
+    "executed_decimal_digits": {"const": [50, 80, 120, 160, 1050, 1250, 1450]},
+    "mutual_information_sample_count_for_raw_K": {"const": 2048},
+    "full_mathematical_support_oracle_obtained": {"const": true},
+    "full_support_precision_digits": {"const": [1250, 1450]},
+    "successive_full_support_confirmation": {"const": true},
+    "selected_full_support_oracle_digits": {"const": 1250},
+    "confirmation_full_support_oracle_digits": {"const": 1450},
+    "selected_full_support_oracle": {"type": "object", "required": ["status", "support_size", "C", "w", "states"]},
+    "successive_full_support_absolute_differences": {"type": "object"},
+    "successive_full_support_tolerance_comparisons": {"type": "object"},
+    "successive_full_support_converges_under_frozen_tolerances": {"const": true},
+    "precision_rows": {
+      "type": "array", "minItems": 7, "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": [
+          "decimal_digits", "runtime_seconds", "analytic_physical_rank_distinct_coherent_states",
+          "resolution_floor", "resolved_positive_eigenvalue_count",
+          "expected_physical_eigenvalue_count", "full_support_resolved",
+          "minimum_resolved_positive_eigenvalue", "resolved_spectral_condition_number",
+          "active_threshold_1e_minus_12_reproduction",
+          "threshold_sensitivity_diagnostic_only", "resolved_full_support_candidate",
+          "full_mathematical_support_oracle"
+        ],
+        "properties": {
+          "decimal_digits": {"enum": [50, 80, 120, 160, 1050, 1250, 1450]},
+          "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+          "analytic_physical_rank_distinct_coherent_states": {"const": 256},
+          "expected_physical_eigenvalue_count": {"const": 256},
+          "resolved_positive_eigenvalue_count": {"type": "integer", "minimum": 1, "maximum": 256},
+          "full_support_resolved": {"type": "boolean"},
+          "active_threshold_1e_minus_12_reproduction": {
+            "type": "object", "required": ["support_size", "C", "w", "states"]
+          },
+          "resolved_full_support_candidate": {
+            "type": "object", "required": ["status", "support_size", "C", "w", "states"]
+          },
+          "full_mathematical_support_oracle": {
+            "type": "object", "required": ["status", "C", "w", "states"]
+          }
+        }
+      }
+    },
+    "provenance": {"type": "object"}
+  }
+}

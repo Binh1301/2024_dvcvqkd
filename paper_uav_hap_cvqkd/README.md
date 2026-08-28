@@ -2,7 +2,12 @@
 
 This folder implements the frozen model in `docs/FINAL_MODEL_SPEC.md`. It models a HAP transmitter, UAV receiver, fluctuating FSO channel, 256-point coherent-state modulation, C4-symmetric PS, global GS, adaptive modulation variance, discrete-input mutual information, and the accepted asymptotic ideal-heterodyne Holevo/SKR chain.
 
-It does **not** contain reproduced paper results. The draft's Sections V and VI are empty, no paper figures are defined, and essential numerical values—including `V_min`, `V_max`, the fading-average `V_A` budget, sample budgets, cutoffs, and training settings—are absent. July legacy checkpoints and plots were intentionally not copied.
+It does **not** contain publication results. The physical, optimization, and MI
+settings are frozen, and `N_MC=2048` is convergence-selected, but no Fock
+cutoff or pseudoinverse threshold is currently certified because the
+near-coincident conditioning fixture fails the frozen numerical rule. No
+publication training, final-test evaluation, or baseline ranking has been run.
+July legacy checkpoints and plots were intentionally not copied.
 
 ## Scientific scope
 
@@ -31,7 +36,7 @@ scripts/       baseline, training, evaluation, reproduction validation
 schemas/       future publication-result schema; no claims or values
 tests/         scientific invariants and limiting cases
 docs/          equation, paper, legacy, assumption, and issue maps
-results/       empty until a resolved run is executed
+results/       validation diagnostics and fail-closed lifecycle evidence; no publication claims
 figures/       empty; figures must derive from saved raw data
 ```
 

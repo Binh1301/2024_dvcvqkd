@@ -73,10 +73,18 @@ def main() -> int:
         )
         return 2
     mi_by_ensemble = {}
+    selected_mi_count = int(mi_evidence["minimum_common_sample_count"])
     for name in ensembles:
         replications = mi_evidence["traces"][name]["replications"]
+        selected_rows = [
+            next(
+                row for row in replication["rows"]
+                if int(row["sample_count"]) == selected_mi_count
+            )
+            for replication in replications
+        ]
         mi_by_ensemble[name] = __import__("torch").as_tensor(
-            [replication["rows"][-1]["mi_bits"] for replication in replications],
+            [row["mi_bits"] for row in selected_rows],
             dtype=__import__("torch").float64,
         ).mean(dim=0)
     comparison = ConvergenceTolerance(

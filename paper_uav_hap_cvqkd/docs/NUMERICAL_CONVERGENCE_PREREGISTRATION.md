@@ -58,6 +58,36 @@ reference and `1e-12` as the prospectively active candidate.  Every listed
 fixture must keep `C,w,Z,chi_BE` within `1e-7 + 1e-6 |reference|`.  Retention of
 `1e-12` is conditional on this test.
 
+## Prospectively approved near-coincident extension (2026-08-28)
+
+Before inspecting any Fock outcome above 128, the numerical engineer and
+orchestrator froze the stress-only extension sequence
+`144,160,192,224,256`, with 256 as a nonselectable reference. The combined
+ordered grid is therefore
+`48,56,64,72,80,96,112,128,144,160,192,224,256`. The original stable-suffix
+rule and every tolerance above remain unchanged. The extension is first run on
+`near_coincident_pseudoinverse_stress` using both the active full-matrix path
+and an algebraically equivalent support-restricted/residual diagnostic path.
+It may change neither the active pseudoinverse threshold nor the frozen
+allowance. A full-roster rerun is permitted only if the stress-only result has
+a selectable suffix. No held-out state or performance ranking is involved.
+
+## Prospectively approved Gram-oracle precision extension (2026-08-28)
+
+The independent Gram oracle first froze and executed `50,80,120,160` decimal
+digits. Before any calculation above 160 digits, those runs showed only
+`16,24,33,44` of the analytically expected 256 positive modes above their
+precision floors. A log-spectrum extrapolation estimated `974--986` digits by
+C4 sector. A measured runtime fit (`time ~ digits^0.267`) projected about 90 s
+for four eigensystems at 1050 digits, so `1050` digits is prospectively appended
+as the first adaptive full-support probe. That probe resolved only 244/256
+modes and prospectively updated the sector estimates to `1111--1118` digits.
+Before inspecting any later outcome, `1250` digits is therefore frozen as the
+first expected full-resolution point and `1450` as its successive full-support
+confirmation. The adaptive sequence is `1050,1250,1450`. It is diagnostic
+only; it does not change the `1e-12` production threshold, Fock tolerances, or
+security model.
+
 ## Failure rule
 
 No grid or tolerance may be relaxed after seeing an outcome.  Failure at the

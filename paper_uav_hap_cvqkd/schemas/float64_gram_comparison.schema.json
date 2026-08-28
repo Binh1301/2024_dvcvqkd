@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Float64 C4 Gram comparison",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "test_set_used", "publication_training_performed",
+    "precision", "thresholds", "active_threshold",
+    "prospective_thresholds_not_frozen", "fixture_count", "runtime_seconds",
+    "frozen_tolerances", "well_conditioned_roster_excluding_declared_stress",
+    "stress_threshold_plateau_1e_minus_14_vs_1e_minus_13",
+    "stress_active_threshold_three_float64_formulations", "rows", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "float64-c4-gram-comparison-v1"},
+    "status": {"const": "DIAGNOSTIC_ONLY_NO_ACTIVE_RULE_CHANGE"},
+    "test_set_used": {"const": false},
+    "publication_training_performed": {"const": false},
+    "precision": {"const": "torch.float64/complex128"},
+    "thresholds": {"const": [1e-14, 1e-13, 1e-12]},
+    "active_threshold": {"const": 1e-12},
+    "prospective_thresholds_not_frozen": {"const": [1e-14, 1e-13]},
+    "fixture_count": {"const": 16},
+    "well_conditioned_roster_excluding_declared_stress": {
+      "type": "object",
+      "required": ["fixture_count", "exclusion", "by_threshold"],
+      "properties": {"fixture_count": {"const": 15}}
+    },
+    "stress_threshold_plateau_1e_minus_14_vs_1e_minus_13": {
+      "type": "object",
+      "required": [
+        "support_sizes", "maximum_absolute_differences",
+        "identical_support_and_passes_frozen_tolerances"
+      ],
+      "properties": {
+        "support_sizes": {"const": [8, 8]},
+        "identical_support_and_passes_frozen_tolerances": {"const": true}
+      }
+    },
+    "stress_active_threshold_three_float64_formulations": {
+      "type": "object",
+      "required": [
+        "threshold", "mutual_information_sample_count",
+        "reconciled_mutual_information_bits", "high_precision_full_support_reference",
+        "formulations", "conditioning"
+      ],
+      "properties": {
+        "threshold": {"const": 1e-12},
+        "mutual_information_sample_count": {"const": 2048},
+        "formulations": {
+          "type": "object",
+          "required": [
+            "complex128_c4_gram", "dense_fock_full_matrix_cutoff_128",
+            "dense_fock_support_restricted_residual_cutoff_128"
+          ]
+        }
+      }
+    },
+    "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "rows": {"type": "array", "minItems": 48, "maxItems": 48},
+    "provenance": {"type": "object"}
+  }
+}
