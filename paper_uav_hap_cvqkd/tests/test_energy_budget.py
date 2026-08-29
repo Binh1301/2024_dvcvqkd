@@ -47,7 +47,7 @@ class EnergyBudgetTests(unittest.TestCase):
             torch.tensor([0.001], dtype=torch.float64),
             beta_reconciliation=0.95,
             noise_samples_per_symbol=2,
-            fock_cutoff=40,
+            density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(201),
             energy_budget_controller=controller,
         )
@@ -81,7 +81,7 @@ class EnergyBudgetTests(unittest.TestCase):
             torch.tensor([0.001], dtype=torch.float64),
             beta_reconciliation=0.95,
             noise_samples_per_symbol=2,
-            fock_cutoff=50,
+            density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(1201),
             energy_budget_controller=controller,
         )

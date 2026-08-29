@@ -267,6 +267,7 @@ def fock_convergence_trace(
                 ensemble,
                 transmittance,
                 epsilon,
+                backend="fock_diagnostic",
                 fock_cutoff=cutoff,
                 density_trace_tolerance=density_trace_tolerance,
                 symmetry_tolerance=symmetry_tolerance,
@@ -398,7 +399,8 @@ def holevo_threshold_sensitivity_trace(
     results = []
     for value in grid:
         result = holevo_information(
-            ensemble, transmittance, epsilon, fock_cutoff=fock_cutoff,
+            ensemble, transmittance, epsilon, backend="fock_diagnostic",
+            fock_cutoff=fock_cutoff,
             symmetry_tolerance=symmetry_tolerance,
             density_trace_tolerance=density_trace_tolerance,
             density_eigenvalue_tolerance=value,

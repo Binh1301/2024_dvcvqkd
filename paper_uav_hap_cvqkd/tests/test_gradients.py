@@ -110,7 +110,7 @@ class GradientTests(unittest.TestCase):
                     self.epsilon[:1],
                     beta_reconciliation=0.95,
                     noise_samples_per_symbol=2,
-                    fock_cutoff=40,
+                    density_eigenvalue_tolerance=1e-13,
                     generator=torch.Generator().manual_seed(900 + len(mode)),
                 )
                 (-evaluation.key_rate.fading_average_raw).backward()
@@ -131,7 +131,7 @@ class GradientTests(unittest.TestCase):
             self.epsilon[:1],
             beta_reconciliation=0.95,
             noise_samples_per_symbol=2,
-            fock_cutoff=40,
+            density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(1900),
         )
         (-evaluation.key_rate.fading_average_raw).backward()

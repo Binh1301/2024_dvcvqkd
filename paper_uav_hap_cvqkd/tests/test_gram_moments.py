@@ -21,7 +21,7 @@ class GramMomentTests(unittest.TestCase):
                 ensemble, density_eigenvalue_tolerance=1e-12
             )
             dense = holevo_information(
-                ensemble, t, epsilon, fock_cutoff=72,
+                ensemble, t, epsilon, backend="fock_diagnostic", fock_cutoff=72,
                 density_trace_tolerance=1e-10,
                 density_eigenvalue_tolerance=1e-12,
             )

@@ -26,20 +26,11 @@ def main() -> int:
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--mi-evidence", type=Path,
                         default=ROOT / "results" / "mi_convergence.json")
-    parser.add_argument("--fock-evidence", type=Path,
-                        default=ROOT / "results" / "fock_convergence.json")
     parser.add_argument("--output", type=Path,
                         default=ROOT / "results" / "baseline_runtime_profile.json")
     args = parser.parse_args()
     config = load_yaml(args.config.resolve())
     mi_count = int(json.loads(args.mi_evidence.read_text())["minimum_common_sample_count"])
-    fock_evidence = json.loads(args.fock_evidence.read_text())
-    selected_cutoff = fock_evidence[
-        "minimum_common_fock_cutoff_for_listed_ensembles"
-    ]
-    cutoff = int(selected_cutoff) if selected_cutoff is not None else int(
-        config["numerical_validation"]["fock"]["cutoffs"][-1]
-    )
     training = config["training"]
     states = _channel(
         config, int(training["validation_fading_samples"]),
@@ -75,7 +66,8 @@ def main() -> int:
     mi_seconds = time.perf_counter() - started
     started = time.perf_counter()
     shared_fixed_ensemble_holevo_chi(
-        ensemble, t, epsilon, fock_cutoff=cutoff, **holevo_numerical_kwargs(config)
+        ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+        **holevo_numerical_kwargs(config)
     )
     holevo_seconds = time.perf_counter() - started
     total = noise_seconds + mi_seconds + holevo_seconds
@@ -101,13 +93,12 @@ def main() -> int:
         "publication_training_performed": False,
         "fixture": "uniform_va_0.1_first_validation_state_batch",
         "state_batch_size": batch_size, "mi_sample_count": mi_count,
-        "fock_cutoff": cutoff,
-        "fock_cutoff_role": (
-            "convergence_selected" if selected_cutoff is not None
-            else "nonselectable_reference_for_resource_diagnostic_only"
-        ),
+        "holevo_backend": "c4_gram_candidate_diagnostic",
+        "density_eigenvalue_threshold": float(config["cvqkd"]["holevo_numerics"][
+            "density_eigenvalue_pseudoinverse_tolerance"
+        ]),
         "mi_implementation": "exact_product_qam_float64_same_256_source_crn",
-        "holevo_implementation": "candidate_shared_tau_C_w_then_vectorized_states",
+        "holevo_implementation": "complete_batch_c4_gram_no_fock_fallback",
         "timings_seconds": {"noise_generation": noise_seconds,
                             "mutual_information": mi_seconds,
                             "holevo": holevo_seconds, "total": total},

@@ -95,3 +95,41 @@ largest reference, absence of a stable selectable suffix, or failure of the
 active pseudoinverse threshold leaves the project
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; the approved peak domain must then be
 reconsidered or a new prospectively approved numerical protocol must be issued.
+
+## Prospective production C4-Gram certification (2026-08-29)
+
+Before executing the production integration evidence, the requested production
+threshold is fixed at `1e-13` and its forward reference at `1e-14`. The replay
+covers the existing 16 canonical hash-bound reference fixtures on the three
+bad/medium/good validation states. Raw `K` reuses the arithmetic mean of the
+five maintained `N_MC=2048` MI replication rows; MI convergence is not rerun.
+
+The forward diagnostic checks agreement of `C,w,Z`, all three symplectic
+eigenvalues, `chi_BE`, and raw `K` under the already frozen moment,
+symplectic, and information tolerances. Security review requires exact equality
+of retained support at `1e-14` and `1e-13` for formal threshold certification.
+Earlier diagnostic evidence already showed rank changes for most non-stress
+fixtures, so this two-point rule is explicitly outcome-informed, diagnostic,
+and not frozen; it cannot approve or freeze `1e-13`. The stress
+fixture must also agree with the independent 1250-digit full-support oracle
+under the same observable tolerances.
+
+The full-path gradient diagnostic is prospectively fixed as follows:
+
+- deterministic untrained Full transmitter at fixture seed `202613`;
+- validation representative states only, with explicit CRN seed `202615`;
+- identical `N_MC=2048` noise for center, autograd, and every `+/-` evaluation;
+- central differences at `1e-3,3e-4,1e-4,3e-5,1e-5,3e-6`;
+- three predetermined coordinates per PS, GS, and VA family plus the maximum
+  absolute raw-`K` autograd coordinate when distinct;
+- separate MI, `chi_BE`, and raw-`K` derivatives;
+- agreement allowance `1e-7 + 5e-3 max(|d_h|,|d_next|,|d_auto|)`;
+- at least three consecutive adjacent step pairs must satisfy both adjacent
+  stability and autograd agreement; and
+- the retained sector-support mask must remain unchanged for every `+/-`
+  perturbation, with nearest retained/suppressed eigenvalues recorded.
+
+Any failed hash, observable, high-precision, gradient, or perturbation-support
+gate leaves the configuration unapproved. The historical dense-Fock method is
+retained only as an explicitly selected diagnostic backend and is not a
+production fallback.

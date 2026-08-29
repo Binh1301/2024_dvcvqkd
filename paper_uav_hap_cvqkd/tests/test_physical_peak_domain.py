@@ -214,7 +214,7 @@ class TestCommonPeakPhotonDomain(unittest.TestCase):
             result = train_step(
                 model, optimizer, self.t[:1], self.epsilon[:1],
                 beta_reconciliation=0.95, noise_samples_per_symbol=1,
-                fock_cutoff=40, generator=torch_generator(8801),
+                density_eigenvalue_tolerance=1e-13, generator=torch_generator(8801),
                 gradient_clip_norm=1.0,
             )
         self.assertFalse(result.peak_feasible_step_accepted)

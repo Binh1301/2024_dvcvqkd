@@ -113,7 +113,7 @@ def main() -> int:
             )
             gram_covariance, gram_chi = _security(ensemble, t, epsilon, gram_z)
             dense = holevo_information(
-                ensemble, t, epsilon, fock_cutoff=128,
+                ensemble, t, epsilon, backend="fock_diagnostic", fock_cutoff=128,
                 density_eigenvalue_tolerance=threshold,
                 **{key: value for key, value in holevo_kwargs.items()
                    if key != "density_eigenvalue_tolerance"},

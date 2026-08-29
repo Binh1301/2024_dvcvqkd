@@ -8,7 +8,7 @@ from pathlib import Path
 
 import torch
 
-from _common import ROOT
+from _common import ROOT, load_yaml
 from src.channel.geometry import LinkGeometry
 from src.channel.state_distribution import (
     IndependentUniformExcessNoise,
@@ -33,7 +33,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mb-nu", type=float, required=True)
     parser.add_argument("--fading-samples", type=int, required=True)
     parser.add_argument("--awgn-samples", type=int, required=True)
-    parser.add_argument("--fock-cutoff", type=int, required=True)
+    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--channel-seed", type=int, required=True)
     parser.add_argument("--awgn-seed", type=int, required=True)
     parser.add_argument("--output", type=Path, default=ROOT / "results" / "baseline_smoke.json")
@@ -42,6 +42,10 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    config = load_yaml(args.config.resolve())
+    active_threshold = float(config["cvqkd"]["holevo_numerics"][
+        "density_eigenvalue_pseudoinverse_tolerance"
+    ])
     if args.va > args.va_budget:
         raise ValueError("The fixed baseline V_A exceeds the declared common V_A budget.")
     if not 0.0 < args.v_min < args.v_max or not args.v_min <= args.va <= args.v_max:
@@ -82,7 +86,8 @@ def main() -> int:
             ensemble,
             t,
             epsilon,
-            fock_cutoff=args.fock_cutoff,
+            backend="c4_gram",
+            density_eigenvalue_tolerance=active_threshold,
         )
         rate = fading_secret_key_rate(mi, holevo.chi_be, args.beta)
         diagnostics = ensemble_state_diagnostics(ensemble)

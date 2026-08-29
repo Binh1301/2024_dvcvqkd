@@ -103,7 +103,6 @@ def main() -> int:
             epsilon,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=frozen_evaluation["awgn_samples_per_symbol"],
-            fock_cutoff=cvqkd["fock_cutoff"],
             generator=torch_generator(awgn_seed),
             require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),

@@ -139,7 +139,8 @@ def main() -> int:
         cutoff_started = time.perf_counter()
         print(f"diagnostic cutoff={cutoff}", flush=True)
         result = holevo_information(
-            fixture, t, epsilon, fock_cutoff=cutoff, **kwargs
+            fixture, t, epsilon, backend="fock_diagnostic",
+            fock_cutoff=cutoff, **kwargs
         )
         spectral_eigenvalues, spectral_eigenvectors = torch.linalg.eigh(result.tau)
         support_c, support_w, spectral = support_restricted_source_moments(

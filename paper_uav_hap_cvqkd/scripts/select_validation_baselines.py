@@ -162,7 +162,7 @@ def main() -> int:
         # them once, then vectorize channel-dependent Z/covariance/chi over all
         # validation states exactly.
         full_chi = shared_fixed_ensemble_holevo_chi(
-            full_ensemble, t, epsilon, fock_cutoff=int(fock_cutoff),
+            full_ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
             **holevo_numerical_kwargs(config),
         )
         for batch_index, start in enumerate(range(0, t.numel(), state_batch_size)):

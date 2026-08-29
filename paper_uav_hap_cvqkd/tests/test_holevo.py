@@ -24,7 +24,7 @@ class HolevoTests(unittest.TestCase):
                 kind, batch_size=1, modulation_variance=va, nu_mb=nu
             )
             result = holevo_information(
-                ensemble, t, epsilon, fock_cutoff=48,
+                ensemble, t, epsilon, backend="fock_diagnostic", fock_cutoff=48,
                 density_trace_tolerance=1e-10,
                 density_eigenvalue_tolerance=1e-12,
             )
@@ -49,14 +49,16 @@ class HolevoTests(unittest.TestCase):
                 kind, batch_size=3, modulation_variance=va, nu_mb=nu
             )
             generic = holevo_information(
-                ensemble, t, epsilon, fock_cutoff=72,
+                ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+                density_eigenvalue_tolerance=1e-13,
                 density_trace_tolerance=1e-10,
             ).chi_be
             cached = shared_fixed_ensemble_holevo_chi(
-                ensemble, t, epsilon, fock_cutoff=72,
+                ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+                density_eigenvalue_tolerance=1e-13,
                 density_trace_tolerance=1e-10,
             )
-            torch.testing.assert_close(cached, generic, rtol=1e-12, atol=1e-12)
+            torch.testing.assert_close(cached, generic, rtol=0.0, atol=0.0)
 
     def test_density_operator_has_ket_bra_orientation(self):
         amplitude = torch.tensor([[0.3 + 0.4j]], dtype=torch.complex128)
@@ -75,17 +77,41 @@ class HolevoTests(unittest.TestCase):
             ensemble,
             torch.tensor([0.08], dtype=torch.float64),
             torch.tensor([0.001], dtype=torch.float64),
-            fock_cutoff=40,
+            backend="c4_gram",
+            fock_cutoff=None,
+            density_eigenvalue_tolerance=1e-13,
         )
         self.assertTrue(bool(torch.all(torch.isfinite(result.chi_be))))
         self.assertTrue(result.covariance.symmetry.standard_form_supported)
         self.assertLess(result.diagnostics["maximum_density_trace_error"], 1e-8)
         self.assertEqual(result.diagnostics["symmetry_tolerance"], 1e-8)
+        self.assertIsNone(result.tau)
+        torch.testing.assert_close(result.tau_trace, torch.ones_like(result.tau_trace))
+        self.assertEqual(result.diagnostics["backend"], "c4_gram")
         self.assertEqual(result.diagnostics["density_trace_tolerance"], 1e-8)
         self.assertEqual(
-            result.diagnostics["density_eigenvalue_pseudoinverse_tolerance"], 1e-12
+            result.diagnostics["density_eigenvalue_pseudoinverse_tolerance"], 1e-13
         )
         self.assertEqual(result.diagnostics["physicality_tolerance"], 1e-10)
+
+    def test_public_backend_is_explicit_and_gram_rejects_fock_cutoff(self):
+        ensemble = reference_ensemble("uniform", batch_size=1, modulation_variance=0.4)
+        t = torch.tensor([0.02], dtype=torch.float64)
+        epsilon = torch.tensor([0.01], dtype=torch.float64)
+        with self.assertRaises(TypeError):
+            holevo_information(  # type: ignore[call-arg]
+                ensemble, t, epsilon, density_eigenvalue_tolerance=1e-13
+            )
+        with self.assertRaisesRegex(ValueError, "rejects fock_cutoff"):
+            holevo_information(
+                ensemble, t, epsilon, backend="c4_gram", fock_cutoff=72
+                , density_eigenvalue_tolerance=1e-13
+            )
+        with self.assertRaisesRegex(ValueError, "requires an explicit fock_cutoff"):
+            holevo_information(
+                ensemble, t, epsilon, backend="fock_diagnostic",
+                density_eigenvalue_tolerance=1e-13,
+            )
 
     def test_asymmetric_ensemble_is_rejected_by_standard_form_guard(self):
         probabilities = uniform_pmf().clone()

@@ -33,7 +33,7 @@ class PipelineConsistencyTests(unittest.TestCase):
                 torch.tensor([0.001], dtype=torch.float64),
                 beta_reconciliation=0.95,
                 noise_samples_per_symbol=1,
-                fock_cutoff=10,
+                density_eigenvalue_tolerance=1e-13,
                 generator=torch.Generator().manual_seed(1),
             )
         self.assertEqual(len(seen), 2)
@@ -54,7 +54,7 @@ class PipelineConsistencyTests(unittest.TestCase):
                 torch.tensor([0.001], dtype=torch.float64),
                 beta_reconciliation=0.95,
                 noise_samples_per_symbol=1,
-                fock_cutoff=10,
+                density_eigenvalue_tolerance=1e-13,
                 generator=torch.Generator().manual_seed(2),
                 require_supported_symmetry=False,
             )

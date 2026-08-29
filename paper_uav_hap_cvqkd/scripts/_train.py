@@ -45,7 +45,7 @@ TRAIN_REQUIRED = [
     "channel.excess_noise_distribution.kind",
     "channel.excess_noise_distribution.minimum_snu",
     "channel.excess_noise_distribution.maximum_snu", "cvqkd.beta_reconciliation",
-    "cvqkd.fock_cutoff", "cvqkd.v_a_budget_snu", "cvqkd.v_min_snu",
+    "cvqkd.v_a_budget_snu", "cvqkd.v_min_snu",
     "cvqkd.v_max_snu", "training.epochs",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
     "cvqkd.holevo_numerics.symmetry_tolerance",
@@ -252,7 +252,6 @@ def run_training(mode: str) -> int:
             train_epsilon,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=training["train_awgn_samples_per_symbol"],
-            fock_cutoff=cvqkd["fock_cutoff"],
             generator=torch_generator(
                 derive_seed(seeds["train_awgn"], "train_awgn", epoch)
             ),
@@ -269,7 +268,6 @@ def run_training(mode: str) -> int:
                 validation_epsilon,
                 beta_reconciliation=cvqkd["beta_reconciliation"],
                 noise_samples_per_symbol=training["validation_awgn_samples_per_symbol"],
-                fock_cutoff=cvqkd["fock_cutoff"],
                 generator=torch_generator(
                     derive_seed(seeds["validation_awgn"], "validation_awgn")
                 ),
@@ -329,7 +327,6 @@ def run_training(mode: str) -> int:
             validation_epsilon,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=training["validation_awgn_samples_per_symbol"],
-            fock_cutoff=cvqkd["fock_cutoff"],
             generator=torch_generator(
                 derive_seed(seeds["validation_awgn"], "validation_awgn")
             ),

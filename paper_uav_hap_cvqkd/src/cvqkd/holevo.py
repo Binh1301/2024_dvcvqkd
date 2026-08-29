@@ -4,19 +4,23 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
-from typing import Any
+from typing import Any, Literal
 
 import torch
 
 from src.modulation.joint_ps_gs import Ensemble
 from .covariance import CovarianceResult, PhysicalityError, standard_form_covariance
+from .gram_moments import c4_gram_source_moments
 from .protocol import validate_channel_state
+
+
+HolevoBackend = Literal["c4_gram", "fock_diagnostic"]
 
 
 @dataclass(frozen=True)
 class HolevoResult:
     chi_be: torch.Tensor
-    tau: torch.Tensor
+    tau: torch.Tensor | None
     tau_trace: torch.Tensor
     w: torch.Tensor
     coherent_correlation: torch.Tensor
@@ -148,7 +152,77 @@ def bosonic_entropy(x: torch.Tensor) -> torch.Tensor:
     return value
 
 
-def holevo_information(
+def _holevo_from_source_moments(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    *,
+    coherent_correlation: torch.Tensor,
+    w_raw: torch.Tensor,
+    tau: torch.Tensor | None,
+    tau_trace: torch.Tensor,
+    require_supported_symmetry: bool,
+    symmetry_tolerance: float,
+    physicality_tolerance: float,
+    diagnostics: dict[str, Any],
+) -> HolevoResult:
+    """Apply the frozen security chain to backend-independent source moments."""
+
+    if bool(torch.any(w_raw < -physicality_tolerance)):
+        raise PhysicalityError("Non-Gaussian penalty w is materially negative.")
+    repairs: list[str] = []
+    if bool(torch.any(w_raw < 0.0)):
+        repairs.append("clamped tiny negative w to zero")
+    w = torch.clamp_min(w_raw, 0.0)
+    radicand = 2.0 * transmittance * epsilon * w
+    z = 2.0 * torch.sqrt(transmittance) * coherent_correlation - torch.sqrt(radicand)
+    covariance = standard_form_covariance(
+        ensemble,
+        transmittance,
+        epsilon,
+        z,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        numerical_tolerance=physicality_tolerance,
+    )
+    adjusted_lambdas: list[torch.Tensor] = []
+    for value in (covariance.lambda1, covariance.lambda2, covariance.lambda3):
+        if bool(torch.any(value < 1.0)):
+            repairs.append("clamped symplectic eigenvalue within tolerance to one for entropy")
+        adjusted_lambdas.append(torch.clamp_min(value, 1.0))
+    l1, l2, l3 = adjusted_lambdas
+    chi_be = (
+        bosonic_entropy((l1 - 1.0) / 2.0)
+        + bosonic_entropy((l2 - 1.0) / 2.0)
+        - bosonic_entropy((l3 - 1.0) / 2.0)
+    )
+    if bool(torch.any(chi_be < -physicality_tolerance)):
+        raise PhysicalityError("Holevo information is materially negative.")
+    if not bool(torch.all(torch.isfinite(chi_be))):
+        raise FloatingPointError("Holevo information returned NaN or Inf.")
+    if bool(torch.any(chi_be < 0.0)):
+        repairs.append("clamped tiny negative Holevo information to zero")
+        chi_be = torch.clamp_min(chi_be, 0.0)
+    return HolevoResult(
+        chi_be=chi_be,
+        tau=tau,
+        tau_trace=tau_trace,
+        w=w,
+        coherent_correlation=coherent_correlation,
+        z=z,
+        covariance=covariance,
+        diagnostics={
+            **diagnostics,
+            "numerical_repairs": tuple(repairs) + covariance.numerical_repairs,
+            "standard_form_supported": covariance.symmetry.standard_form_supported,
+            "standard_form_override": not require_supported_symmetry,
+            "symmetry_tolerance": symmetry_tolerance,
+            "physicality_tolerance": physicality_tolerance,
+        },
+    )
+
+
+def dense_fock_holevo_information(
     ensemble: Ensemble,
     transmittance: torch.Tensor,
     epsilon: torch.Tensor,
@@ -160,6 +234,7 @@ def holevo_information(
     density_eigenvalue_tolerance: float = 1e-12,
     physicality_tolerance: float = 1e-10,
 ) -> HolevoResult:
+    """Historical dense-Fock backend retained only for explicit diagnostics."""
     for name, value in (
         ("symmetry_tolerance", symmetry_tolerance),
         ("density_trace_tolerance", density_trace_tolerance),
@@ -197,64 +272,138 @@ def holevo_information(
     t1 = torch.einsum("bmi,bij,bmj->bm", fock.conj(), first_moment, fock).real
     inner = torch.einsum("bmi,bij,bmj->bm", fock.conj(), a_tau, fock)
     w_raw = torch.sum(ensemble.probabilities * (t1 - inner.abs().square()), dim=-1)
-    if bool(torch.any(w_raw < -physicality_tolerance)):
-        raise PhysicalityError("Non-Gaussian penalty w is materially negative.")
-    repairs: list[str] = []
-    if bool(torch.any(w_raw < 0.0)):
-        repairs.append("clamped tiny negative w to zero")
-    w = torch.clamp_min(w_raw, 0.0)
-    radicand = 2.0 * transmittance * epsilon * w
-    z = 2.0 * torch.sqrt(transmittance) * coherent_correlation - torch.sqrt(radicand)
-    covariance = standard_form_covariance(
+    return _holevo_from_source_moments(
         ensemble,
         transmittance,
         epsilon,
-        z,
-        require_supported_symmetry=require_supported_symmetry,
-        symmetry_tolerance=symmetry_tolerance,
-        numerical_tolerance=physicality_tolerance,
-    )
-    lambdas = (covariance.lambda1, covariance.lambda2, covariance.lambda3)
-    adjusted_lambdas: list[torch.Tensor] = []
-    for value in lambdas:
-        if bool(torch.any(value < 1.0)):
-            repairs.append("clamped symplectic eigenvalue within tolerance to one for entropy")
-        adjusted_lambdas.append(torch.clamp_min(value, 1.0))
-    l1, l2, l3 = adjusted_lambdas
-    chi_be = (
-        bosonic_entropy((l1 - 1.0) / 2.0)
-        + bosonic_entropy((l2 - 1.0) / 2.0)
-        - bosonic_entropy((l3 - 1.0) / 2.0)
-    )
-    if bool(torch.any(chi_be < -physicality_tolerance)):
-        raise PhysicalityError("Holevo information is materially negative.")
-    if not bool(torch.all(torch.isfinite(chi_be))):
-        raise FloatingPointError("Holevo information returned NaN or Inf.")
-    if bool(torch.any(chi_be < 0.0)):
-        repairs.append("clamped tiny negative Holevo information to zero")
-        chi_be = torch.clamp_min(chi_be, 0.0)
-    return HolevoResult(
-        chi_be=chi_be,
+        coherent_correlation=coherent_correlation,
+        w_raw=w_raw,
         tau=tau,
         tau_trace=tau_trace,
-        w=w,
-        coherent_correlation=coherent_correlation,
-        z=z,
-        covariance=covariance,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        physicality_tolerance=physicality_tolerance,
         diagnostics={
+            "backend": "fock_diagnostic",
             "fock_cutoff": fock_cutoff,
             "maximum_density_trace_error": float(trace_error.detach().max()),
             "minimum_density_eigenvalue": float(eigenvalues.detach().min()),
             "suppressed_density_eigenvalues": int((~significant).sum().detach()),
-            "numerical_repairs": tuple(repairs) + covariance.numerical_repairs,
-            "standard_form_supported": covariance.symmetry.standard_form_supported,
-            "standard_form_override": not require_supported_symmetry,
-            "symmetry_tolerance": symmetry_tolerance,
             "density_trace_tolerance": density_trace_tolerance,
             "density_eigenvalue_pseudoinverse_tolerance": density_eigenvalue_tolerance,
-            "physicality_tolerance": physicality_tolerance,
         },
     )
+
+
+def c4_gram_holevo_information(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    *,
+    density_eigenvalue_tolerance: float,
+    require_supported_symmetry: bool = True,
+    symmetry_tolerance: float = 1e-8,
+    density_trace_tolerance: float = 1e-10,
+    physicality_tolerance: float = 1e-10,
+) -> HolevoResult:
+    """Cutoff-independent production Holevo evaluation for C4 ensembles."""
+
+    for name, value in (
+        ("symmetry_tolerance", symmetry_tolerance),
+        ("density_trace_tolerance", density_trace_tolerance),
+        ("density_eigenvalue_tolerance", density_eigenvalue_tolerance),
+        ("physicality_tolerance", physicality_tolerance),
+    ):
+        if not math.isfinite(value) or value <= 0.0:
+            raise ValueError(f"{name} must be finite and positive.")
+    if not require_supported_symmetry:
+        raise ValueError("The C4 Gram production backend requires supported symmetry.")
+    ensemble.validate()
+    transmittance, epsilon = validate_channel_state(transmittance, epsilon)
+    transmittance = transmittance.to(ensemble.probabilities.device)
+    epsilon = epsilon.to(ensemble.probabilities.device)
+    moments = c4_gram_source_moments(
+        ensemble,
+        density_eigenvalue_tolerance=density_eigenvalue_tolerance,
+        physicality_tolerance=physicality_tolerance,
+    )
+    support_sizes = [row["support_size"] for row in moments.diagnostics]
+    suppressed = sum(256 - int(value) for value in support_sizes)
+    analytic_trace = ensemble.probabilities.sum(dim=-1)
+    trace_error = torch.abs(analytic_trace - 1.0)
+    if bool(torch.any(trace_error > density_trace_tolerance)):
+        raise PhysicalityError("Weighted Gram trace is outside the declared tolerance.")
+    return _holevo_from_source_moments(
+        ensemble,
+        transmittance,
+        epsilon,
+        coherent_correlation=moments.coherent_correlation,
+        w_raw=moments.w,
+        tau=None,
+        tau_trace=analytic_trace,
+        require_supported_symmetry=True,
+        symmetry_tolerance=symmetry_tolerance,
+        physicality_tolerance=physicality_tolerance,
+        diagnostics={
+            "backend": "c4_gram",
+            "fock_cutoff": None,
+            "source_operator_representation": "weighted_coherent_state_gram",
+            "density_trace_source": "analytic_probability_normalization",
+            "maximum_density_trace_error": float(trace_error.detach().max()),
+            "minimum_density_eigenvalue": min(
+                float(row["minimum_eigenvalue"]) for row in moments.diagnostics
+            ),
+            "suppressed_density_eigenvalues": suppressed,
+            "density_eigenvalue_pseudoinverse_tolerance": density_eigenvalue_tolerance,
+            "density_trace_tolerance": density_trace_tolerance,
+            "source_moment_diagnostics": moments.diagnostics,
+        },
+    )
+
+
+def holevo_information(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    *,
+    backend: HolevoBackend,
+    density_eigenvalue_tolerance: float,
+    fock_cutoff: int | None = None,
+    require_supported_symmetry: bool = True,
+    symmetry_tolerance: float = 1e-8,
+    density_trace_tolerance: float = 1e-8,
+    physicality_tolerance: float = 1e-10,
+) -> HolevoResult:
+    """Public Holevo interface with cutoff-independent C4 Gram production default."""
+
+    if backend == "c4_gram":
+        if fock_cutoff is not None:
+            raise ValueError("The c4_gram backend rejects fock_cutoff; it is cutoff-independent.")
+        return c4_gram_holevo_information(
+            ensemble,
+            transmittance,
+            epsilon,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            density_trace_tolerance=density_trace_tolerance,
+            density_eigenvalue_tolerance=density_eigenvalue_tolerance,
+            physicality_tolerance=physicality_tolerance,
+        )
+    if backend == "fock_diagnostic":
+        if fock_cutoff is None:
+            raise ValueError("The fock_diagnostic backend requires an explicit fock_cutoff.")
+        return dense_fock_holevo_information(
+            ensemble,
+            transmittance,
+            epsilon,
+            fock_cutoff=fock_cutoff,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            density_trace_tolerance=density_trace_tolerance,
+            density_eigenvalue_tolerance=density_eigenvalue_tolerance,
+            physicality_tolerance=physicality_tolerance,
+        )
+    raise ValueError(f"Unsupported Holevo backend: {backend!r}.")
 
 
 def shared_fixed_ensemble_holevo_chi(
@@ -262,11 +411,12 @@ def shared_fixed_ensemble_holevo_chi(
     transmittance: torch.Tensor,
     epsilon: torch.Tensor,
     *,
-    fock_cutoff: int,
+    backend: HolevoBackend,
+    density_eigenvalue_tolerance: float,
+    fock_cutoff: int | None = None,
     require_supported_symmetry: bool = True,
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
-    density_eigenvalue_tolerance: float = 1e-12,
     physicality_tolerance: float = 1e-10,
 ) -> torch.Tensor:
     """Compute fixed-baseline chi with tau/C/w evaluated exactly once.
@@ -284,42 +434,18 @@ def shared_fixed_ensemble_holevo_chi(
     transmittance, epsilon = validate_channel_state(transmittance, epsilon)
     if transmittance.shape[0] != ensemble.probabilities.shape[0]:
         raise ValueError("Channel-state count must match ensemble batch size.")
-    first = Ensemble(
-        ensemble.probabilities[:1], ensemble.amplitudes[:1], ensemble.declared_va[:1],
-        ensemble.relative_constellation,
-        exact_csi_oracle=ensemble.exact_csi_oracle,
-        c4_symmetric=ensemble.c4_symmetric,
-    )
-    source = holevo_information(
-        first, transmittance[:1], epsilon[:1], fock_cutoff=fock_cutoff,
+    # The production Gram path is evaluated on the complete batch. A previous
+    # one-row source cache introduced small eigensolver-path differences, so it
+    # remains disabled until an exact equivalence proof is available.
+    return holevo_information(
+        ensemble,
+        transmittance,
+        epsilon,
+        backend=backend,
+        density_eigenvalue_tolerance=density_eigenvalue_tolerance,
+        fock_cutoff=fock_cutoff,
         require_supported_symmetry=require_supported_symmetry,
         symmetry_tolerance=symmetry_tolerance,
         density_trace_tolerance=density_trace_tolerance,
-        density_eigenvalue_tolerance=density_eigenvalue_tolerance,
         physicality_tolerance=physicality_tolerance,
-    )
-    t = transmittance.to(ensemble.probabilities.device)
-    e = epsilon.to(ensemble.probabilities.device)
-    c = source.coherent_correlation[0]
-    w = source.w[0]
-    z = 2.0 * torch.sqrt(t) * c - torch.sqrt(2.0 * t * e * w)
-    covariance = standard_form_covariance(
-        ensemble, t, e, z,
-        require_supported_symmetry=require_supported_symmetry,
-        symmetry_tolerance=symmetry_tolerance,
-        numerical_tolerance=physicality_tolerance,
-    )
-    adjusted = []
-    for value in (covariance.lambda1, covariance.lambda2, covariance.lambda3):
-        adjusted.append(torch.clamp_min(value, 1.0))
-    l1, l2, l3 = adjusted
-    chi = (
-        bosonic_entropy((l1 - 1.0) / 2.0)
-        + bosonic_entropy((l2 - 1.0) / 2.0)
-        - bosonic_entropy((l3 - 1.0) / 2.0)
-    )
-    if bool(torch.any(chi < -physicality_tolerance)):
-        raise PhysicalityError("Holevo information is materially negative.")
-    if not bool(torch.all(torch.isfinite(chi))):
-        raise FloatingPointError("Holevo information returned NaN or Inf.")
-    return torch.clamp_min(chi, 0.0)
+    ).chi_be

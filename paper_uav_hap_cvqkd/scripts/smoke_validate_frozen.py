@@ -8,7 +8,7 @@ from pathlib import Path
 
 import torch
 
-from _common import ROOT
+from _common import ROOT, holevo_numerical_kwargs, load_yaml
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.modulation.qam256 import c4_orbit_masses
 from src.optimization.trainer import EnergyBudgetController, evaluate_transmitter, train_step
@@ -22,7 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gs-learning-rate", type=float, default=1e-4)
     parser.add_argument("--va-learning-rate", type=float, default=1e-4)
     parser.add_argument("--awgn-samples", type=int, default=2)
-    parser.add_argument("--fock-cutoff", type=int, default=40)
+    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--beta", type=float, default=0.95)
     parser.add_argument("--v-min", type=float, default=0.5)
     parser.add_argument("--v-max", type=float, default=3.0)
@@ -40,6 +40,8 @@ def main() -> int:
     if args.steps <= 0 or args.awgn_samples <= 0:
         raise ValueError("steps and awgn-samples must be positive integers.")
     seed_process(args.seed)
+    config = load_yaml(args.config)
+    holevo_kwargs = holevo_numerical_kwargs(config)
     transmittance = torch.tensor([0.02, 0.08, 0.2], dtype=torch.float64)
     epsilon = torch.tensor([0.004, 0.002, 0.0005], dtype=torch.float64)
     model = JointTransmitter("full", v_min=args.v_min, v_max=args.v_max)
@@ -64,9 +66,9 @@ def main() -> int:
             epsilon,
             beta_reconciliation=args.beta,
             noise_samples_per_symbol=args.awgn_samples,
-            fock_cutoff=args.fock_cutoff,
             generator=torch_generator(awgn_seed),
             require_supported_symmetry=True,
+            **holevo_kwargs,
         )
 
     model.eval()
@@ -82,11 +84,11 @@ def main() -> int:
             epsilon,
             beta_reconciliation=args.beta,
             noise_samples_per_symbol=args.awgn_samples,
-            fock_cutoff=args.fock_cutoff,
             generator=torch_generator(awgn_seed),
             require_supported_symmetry=True,
             gradient_clip_norm=1.0,
             energy_budget_controller=energy_controller,
+            **holevo_kwargs,
         )
         history.append({
             "step": step,
