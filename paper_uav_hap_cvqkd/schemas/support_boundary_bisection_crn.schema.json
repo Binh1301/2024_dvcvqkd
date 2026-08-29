@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prospective support boundary bisection and one-sided CRN audit",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "preregistered_design", "lifecycle_guards",
+    "validation_state_realization_sha256", "bisections", "one_sided_crn",
+    "cross_run_reproducibility", "outward_rollback", "interpretation",
+    "runtime_seconds", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "support-boundary-bisection-crn-v1"},
+    "status": {"const": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN"},
+    "preregistered_design": {"type": "object"},
+    "lifecycle_guards": {"type": "object"},
+    "bisections": {"type": "object", "minProperties": 6, "maxProperties": 6},
+    "cross_run_reproducibility": {"type": "object"},
+    "one_sided_crn": {"type": ["object", "null"]},
+    "outward_rollback": {"type": "array", "minItems": 3, "maxItems": 3},
+    "interpretation": {"type": "string"},
+    "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": false
+}

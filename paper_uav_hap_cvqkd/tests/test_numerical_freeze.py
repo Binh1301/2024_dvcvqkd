@@ -165,11 +165,11 @@ class NumericalConvergenceTests(unittest.TestCase):
         with self.assertRaisesRegex(PhysicalityError, "Fock truncation"):
             holevo_information(
                 vmax, t, epsilon, backend="fock_diagnostic", fock_cutoff=64,
-                density_trace_tolerance=1e-10,
+                density_trace_tolerance=1e-10, density_eigenvalue_tolerance=1e-12,
             )
         passed = holevo_information(
             vmax, t, epsilon, backend="fock_diagnostic", fock_cutoff=72,
-            density_trace_tolerance=1e-10,
+            density_trace_tolerance=1e-10, density_eigenvalue_tolerance=1e-12,
         )
         self.assertLess(float((passed.tau_trace - 1.0).abs().max()), 1e-10)
         for name in (

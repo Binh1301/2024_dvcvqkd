@@ -188,8 +188,8 @@ def _forward_replay(
             "observable_plateau": comparison,
             "support_plateau": {
                 "support_identical": support_identical,
-                "reference_sector_support_sizes_by_state": _support_signature(reference_result),
-                "production_sector_support_sizes_by_state": _support_signature(production_result),
+                "reference_sector_support_masks_by_state": _support_signature(reference_result),
+                "production_sector_support_masks_by_state": _support_signature(production_result),
                 "is_formal_threshold_certification_gate": True,
                 "reason": (
                     "Security review requires identical support for formal threshold certification."
@@ -203,12 +203,16 @@ def _forward_replay(
         "C": torch.full((3,), float(hp["C"]), dtype=torch.float64),
         "w": torch.full((3,), float(hp["w"]), dtype=torch.float64),
         **{
-            metric: torch.tensor([float(state[metric]) for state in hp["states"]])
+            metric: torch.tensor(
+                [float(state[metric]) for state in hp["states"]], dtype=torch.float64
+            )
             for metric in ("Z", "lambda1", "lambda2", "lambda3", "chi_BE", "raw_K")
         },
     }
     stress_production = {
-        name: torch.tensor(stress["production_1e_minus_13"]["values"][name])
+        name: torch.tensor(
+            stress["production_1e_minus_13"]["values"][name], dtype=torch.float64
+        )
         for name in METRICS
     }
     hp_comparison = _observable_comparison(stress_production, hp_values)
@@ -481,9 +485,19 @@ def _gradient_diagnostic(config: dict[str, Any], settings: dict[str, Any]) -> di
                     relative=float(settings["finite_difference_relative_tolerance"]),
                     required_pairs=int(settings["required_adjacent_stable_pairs"]),
                 )
+                window_errors = [
+                    max(abs(value - automatic[metric]) for value in derivatives[metric][start:start + 3])
+                    for start in range(len(derivatives[metric]) - 2)
+                ]
+                best_window_absolute_error = min(window_errors)
+                best_window_relative_error = best_window_absolute_error / max(
+                    abs(automatic[metric]), torch.finfo(torch.float64).tiny
+                )
                 component_checks[metric] = {
                     "autograd": automatic[metric],
                     "central_derivatives": derivatives[metric],
+                    "best_three_step_window_absolute_error": best_window_absolute_error,
+                    "best_three_step_window_relative_error": best_window_relative_error,
                     "adjacent_checks": comparisons,
                     "at_least_three_adjacent_stable_and_autograd_consistent": stable,
                 }

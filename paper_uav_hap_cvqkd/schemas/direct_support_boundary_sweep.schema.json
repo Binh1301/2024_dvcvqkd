@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prospective direct-coordinate support boundary sweep",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "preregistered_design", "lifecycle_guards",
+    "validation_state_realization_sha256", "fixture_aggregates",
+    "disagreement_fixture_summary", "probe_rows", "runtime_seconds", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "direct-support-boundary-sweep-v1"},
+    "status": {"const": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN"},
+    "preregistered_design": {"type": "object"},
+    "lifecycle_guards": {"type": "object"},
+    "fixture_aggregates": {"type": "array", "minItems": 13, "maxItems": 13},
+    "disagreement_fixture_summary": {"type": "object"},
+    "probe_rows": {"type": "array", "minItems": 3822, "maxItems": 3822},
+    "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": false
+}
