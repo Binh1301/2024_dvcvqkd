@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version", "cycle_id", "status", "method", "segment_rows",
+    "aggregate", "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "shifted-inertia-whole-segment-certification-v1"},
+    "status": {"enum": ["EXPERIMENTAL_ALL_SEGMENTS_CERTIFIED", "EXPERIMENTAL_SEGMENTS_FAIL_CLOSED"]},
+    "segment_rows": {"type": "array", "minItems": 12, "maxItems": 12},
+    "aggregate": {"type": "object"},
+    "lifecycle_guards": {"type": "object"},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

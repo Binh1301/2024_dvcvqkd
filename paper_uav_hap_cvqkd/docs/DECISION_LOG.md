@@ -541,7 +541,7 @@ Not superseded.
 
 Date: 2026-08-31
 
-Status: ACTIVE PROPOSED NUMERICAL POLICY, NOT THRESHOLD APPROVAL
+Status: SUPERSEDED AS NEXT-ACTION POLICY BY DEC-0015; HISTORICAL FAIL-CLOSED EVIDENCE
 
 ### Context
 
@@ -579,4 +579,50 @@ security functional.
 ### Supersedes / Superseded by
 
 Refines DEC-0012 by supplying validated Gram arithmetic while preserving its
-fail-closed outcome.
+fail-closed outcome. Superseded by DEC-0015 after shifted inertia resolved the
+endpoint blocker but direct interval certification still failed 0/12.
+
+## DEC-0015 - Accept point inertia evidence; reject direct interval V1 as a certification path
+
+Date: 2026-08-31
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION, NOT THRESHOLD APPROVAL
+
+### Context
+
+Validated block-LDL* resolves every realized endpoint at 160 bits, but the
+direct interval Frobenius guard-band cycle resolves no realized segment after
+299 nodes and 12302.94 seconds. Adversarial review also found missing automatic
+bundle/environment hash enforcement and an overbroad dormant crossing branch
+in the frozen V1 segment producer.
+
+### Decision
+
+Retain the point-inertia implementation and endpoint artifact as valid
+experimental evidence. Preserve the V1 whole-segment artifact as a fail-closed
+0/12 result, but do not allow V1 to produce an acceptable pass. Candidate
+`1e-13` remains proposed/unapproved and configured `1e-12` remains
+invalid/unapproved.
+
+The next cycle must use a new, prospectively hash-bound producer that enforces
+all frozen inputs and runtime acceptance, proves path domain/continuity before
+any intermediate-value crossing claim, and replaces the dependency-inflated
+full-matrix Frobenius guard with a sharper validated fixed-basis
+congruence/cluster, affine/Taylor, or Schur-complement enclosure.
+
+### Consequences
+
+No threshold, optimizer integration, optimized-MB selection, baseline
+selection, publication training, or final-test access is authorized. Claims
+remain limited to validated point support on the finite frozen fixtures.
+
+### Alternatives rejected
+
+Approving from equal endpoint inertia, treating interval zero inclusion as a
+crossing, increasing precision after outcome inspection, accepting V1 despite
+provenance gaps, or changing the physical/security functional.
+
+### Supersedes / Superseded by
+
+Supersedes DEC-0014 as the active numerical next-action policy. Not
+superseded.

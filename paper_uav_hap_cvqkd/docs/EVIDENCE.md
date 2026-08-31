@@ -1017,6 +1017,16 @@ alone cannot prove prospective ordering. New Arb artifacts added by this task
 are present in the worktree portability manifest but are not claimed to be in
 the pre-task commit.
 
+### Subsequent checkpoint verification (2026-08-31)
+
+Commit `34c5eaa632cf7425fb844f82a4d02d3f29d4e6a3` subsequently committed exactly
+the 22-path failed Arb-cycle/state set from the clean parent. Its message is
+`feat: get the real difference to 0 so dont update more`, not the suggested
+historical-checkpoint message, but the tree content preserves the prior 0/12
+artifact and portable inputs. The threshold-shifted-inertia task started from
+a clean index and worktree at this commit; no redundant checkpoint or history
+rewrite was performed.
+
 ## EVID-0021 - Isolated Arb certification backend and exact path fixtures
 
 Date: 2026-08-31
@@ -1094,3 +1104,89 @@ than inferred. The next proof method must count eigenvalues relative to the
 threshold without requiring isolation of every extremely clustered
 eigenvalue, for example validated Hermitian inertia. Candidate `1e-13`
 remains proposed/unapproved and configured `1e-12` remains invalid/unapproved.
+
+## EVID-0023 - Threshold-shifted block-LDL* certifies all realized endpoints
+
+Date: 2026-08-31
+
+Status: ACTIVE EXPERIMENTAL POINT CERTIFICATION, NOT THRESHOLD APPROVAL
+
+For Hermitian `G`, numerical support above proposed `tau` equals the positive
+inertia of `G - tau I`. A validated Arb/acb 1x1/2x2 block-LDL* recursion
+certified 24/24 endpoint rows (15 unique points), with zero unresolved endpoint
+dimensions and support count 13 at both ends of every realized path. All used
+160 bits; the minimum signed pivot/block margin was
+`8.628156120464208e-14`; runtime was `63.32869829982519` seconds.
+
+Evidence: `results/shifted_inertia_environment_v1.json` SHA-256
+`053e6bf516729f44a960ae8e5c433d9531690257ebd878945d51c21ac49d6b61`
+and `results/shifted_inertia_endpoint_certification_v1.json` SHA-256
+`45b509a94ac94ae92f7c9c03d67465d068d426dcb4da10777e613ab3f0152b5d`.
+The isolated certification suite passed 32/32; the production suite discovered
+156 tests, with 124 passes and 32 certification-only skips.
+
+Strictly signed scalar pivots and determinant/trace-certified Hermitian 2x2
+blocks are eliminated by validated Schur complements; Sylvester inertia
+additivity supplies the proof. Floating-point pivot quality selects only among
+already certified candidates. Endpoint equality is not a whole-segment proof.
+The config/result chronology is hash-bound and supported by file creation
+order, but was not committed before execution, so Git history alone does not
+prove preregistration.
+
+## EVID-0024 - Direct interval guard-band inertia remains unresolved on 12/12 paths
+
+Date: 2026-08-31
+
+Status: ACTIVE EXPERIMENTAL FAIL-CLOSED RESULT; V1 NOT ACCEPTABLE FOR A PASS
+
+The endpoint gate permitted a deterministic whole-segment attempt, but direct
+Arb interval propagation, midpoint Frobenius guard bands, and dyadic
+subdivision certified 0/12 paths, proved 0/12 crossings, and left 12/12
+fail-closed. No zero-containing enclosure or guard-count disagreement was
+promoted to a crossing.
+
+Evidence: `results/shifted_inertia_whole_segment_certification_v1.json`,
+SHA-256 `07d61fe810691f7276fc61005224d405a5ab794f380353e0d9386cc8912a6635`.
+Median/max depth was 13/20 and median/max precision was 512/512 bits. There
+were 299 attempted nodes, 260 resource-limit leaves, and zero accepted leaves.
+Final available lower/upper guard counts differed by 61--63 modes (median 62),
+with observed interval Frobenius radii about `1.668e-10` to `1.352e-2`.
+Runtime was `12302.942093300167` seconds (`3.4175` hours), `11.5849x` the
+previous `1061.9827932000626`-second 0/12 cycle. Good/VA alone recorded
+`7425.47932009981` seconds because work-limit checks are cooperative;
+good/mixed was not started after the total limit.
+
+Adversarial review found that V1 records but does not enforce the frozen
+fixture-bundle and environment hashes, so a hypothetical V1 pass could not be
+accepted automatically. Its generic endpoint-rank-difference crossing branch
+also lacks a prior whole-path domain/continuity proof; that branch was dormant
+because current endpoints all had equal counts. Unresolved dimensions must be
+reported by guard-count gaps and unattempted sectors, not only by
+`n_zero_or_unresolved`, which can be zero when two certified guard counts
+differ. These defects do not create a false pass in this 0/12 artifact, but a
+new producer version is mandatory before future acceptance.
+
+## EVID-0025 - Oracle fixtures confirm point machinery and rank/support distinction
+
+Date: 2026-08-31
+
+Status: ACTIVE DIAGNOSTIC CROSS-CHECK, NOT INDEPENDENT THRESHOLD-SUPPORT ORACLE
+
+The validated point routine certified proposed-threshold supports 17, 29, 7,
+and 8 for the four frozen oracle fixtures, all at 160 bits and matching
+complex128 diagnostics. All four fixtures independently have mathematical
+rank 256 at two high-precision settings. This confirms that mathematical rank
+and threshold-dependent numerical support are distinct.
+
+Evidence: `results/shifted_inertia_oracle_crosscheck_v1.json`, SHA-256
+`d03ee8b33f7ad308a2f8e05aa22058341f7abb5adb4a58775c8eafcb0d9c24e5`;
+4/4 point certificates and rank-256 fixtures; runtime
+`14.061144800158218` seconds.
+
+The high-precision artifact stores rank/extreme-eigenvalue evidence, not full
+eigenvalue lists or independent counts above exact binary64 `tau`. Therefore
+17/29/7/8 are validated Arb point results corroborated by complex128, not an
+independent high-precision threshold-support confirmation. The two
+near-coincident fixtures lack prior candidate-count rows. Such a claim would
+require high-precision counts above exact `tau` or validated threshold-gap
+isolation.
