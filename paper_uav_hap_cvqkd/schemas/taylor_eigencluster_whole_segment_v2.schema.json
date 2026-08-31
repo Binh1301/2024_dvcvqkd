@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "execution_scope",
+    "segment_rows",
+    "aggregate",
+    "lifecycle_guards",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-whole-segment-v2"},
+    "status": {
+      "enum": [
+        "FEASIBILITY_GATE_PASS",
+        "FEASIBILITY_GATE_FAIL_CLOSED",
+        "FULL_CYCLE_COMPLETE",
+        "PROVENANCE_FAILURE",
+        "RESOURCE_LIMIT"
+      ]
+    },
+    "execution_scope": {"enum": ["FEASIBILITY_SUBSET", "FULL_12_SEGMENTS"]},
+    "segment_rows": {"type": "array"},
+    "aggregate": {"type": "object"},
+    "lifecycle_guards": {"type": "object"},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

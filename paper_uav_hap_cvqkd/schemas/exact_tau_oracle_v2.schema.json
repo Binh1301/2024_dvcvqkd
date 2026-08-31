@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "exact_tau_oracle_v2.schema.json",
+  "title": "Exact candidate tau arbitrary-precision and Arb certification V2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "candidate_threshold_status",
+    "exact_candidate_tau",
+    "fixture_rows",
+    "aggregate",
+    "lifecycle_guards",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "exact-tau-oracle-v2"},
+    "status": {
+      "enum": ["EXACT_TAU_ORACLE_CERTIFIED", "EXACT_TAU_ORACLE_FAIL_CLOSED"]
+    },
+    "candidate_threshold_status": {"const": "PROPOSED_UNAPPROVED"},
+    "exact_candidate_tau": {"$ref": "#/$defs/exactThreshold"},
+    "fixture_rows": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"$ref": "#/$defs/fixture"}
+    },
+    "aggregate": {
+      "type": "object",
+      "required": [
+        "fixture_count",
+        "certified_fixture_count",
+        "unresolved_fixture_count",
+        "complex128_reference_used",
+        "runtime_seconds"
+      ],
+      "properties": {
+        "fixture_count": {"const": 4},
+        "certified_fixture_count": {"type": "integer", "minimum": 0, "maximum": 4},
+        "unresolved_fixture_count": {"type": "integer", "minimum": 0, "maximum": 4},
+        "complex128_reference_used": {"const": false},
+        "runtime_seconds": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "lifecycle_guards": {
+      "type": "object",
+      "required": [
+        "threshold_approved",
+        "publication_training_performed",
+        "final_test_accessed",
+        "optimized_mb_grid_performed",
+        "baseline_selection_performed",
+        "security_functional_changed"
+      ],
+      "properties": {
+        "threshold_approved": {"const": false},
+        "publication_training_performed": {"const": false},
+        "final_test_accessed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false},
+        "security_functional_changed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "repository_commit",
+        "worktree_dirty",
+        "config_sha256",
+        "producer_sha256",
+        "observed_required_sha256",
+        "confirmation_roster_sha256",
+        "final_model_spec_sha256"
+      ],
+      "properties": {
+        "repository_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "worktree_dirty": {"type": "boolean"},
+        "config_sha256": {"$ref": "#/$defs/sha256"},
+        "producer_sha256": {"$ref": "#/$defs/sha256"},
+        "observed_required_sha256": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/$defs/sha256"}
+        },
+        "confirmation_roster_sha256": {"const": "a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de"},
+        "final_model_spec_sha256": {"const": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "dyadic": {
+      "type": "object",
+      "required": ["numerator", "denominator_power_two", "rational", "decimal"],
+      "properties": {
+        "numerator": {"type": "string", "pattern": "^-?[0-9]+$"},
+        "denominator_power_two": {"type": "integer", "minimum": 0},
+        "rational": {"type": "string"},
+        "decimal": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "exactThreshold": {
+      "type": "object",
+      "required": [
+        "binary64_hex",
+        "numerator",
+        "denominator_power_two",
+        "rational",
+        "decimal"
+      ],
+      "properties": {
+        "binary64_hex": {"const": "0x1.c25c268497682p-44"},
+        "numerator": {"type": "string", "pattern": "^-?[0-9]+$"},
+        "denominator_power_two": {"type": "integer", "minimum": 0},
+        "rational": {"type": "string"},
+        "decimal": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "inertia": {
+      "type": "object",
+      "required": [
+        "status",
+        "n_positive",
+        "n_negative",
+        "n_zero_or_unresolved",
+        "precision_bits",
+        "sector_rows",
+        "threshold",
+        "attempts"
+      ],
+      "properties": {
+        "status": {"enum": ["CERTIFIED_INERTIA", "UNCERTIFIED"]},
+        "n_positive": {"type": "integer", "minimum": 0, "maximum": 256},
+        "n_negative": {"type": "integer", "minimum": 0, "maximum": 256},
+        "n_zero_or_unresolved": {"type": "integer", "minimum": 0, "maximum": 256},
+        "precision_bits": {"type": "integer", "minimum": 2},
+        "sector_rows": {"type": "array"},
+        "threshold": {"$ref": "#/$defs/dyadic"},
+        "attempts": {"type": "array", "minItems": 1}
+      },
+      "additionalProperties": true
+    },
+    "distance": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["CERTIFIED_POSITIVE_DISTANCE_INTERVAL", "UNCERTIFIED_DISTANCE"]
+        },
+        "lower": {"$ref": "#/$defs/dyadic"},
+        "upper": {"$ref": "#/$defs/dyadic"},
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "nearest": {
+      "type": "object",
+      "required": ["bracket", "certified_distance_from_tau"],
+      "properties": {
+        "bracket": {"type": "object"},
+        "certified_distance_from_tau": {"$ref": "#/$defs/distance"}
+      },
+      "additionalProperties": false
+    },
+    "fixture": {
+      "type": "object",
+      "required": [
+        "fixture",
+        "ensemble_sha256",
+        "status",
+        "exact_candidate_tau",
+        "arbitrary_precision_spectrum",
+        "arbitrary_precision_diagnostic_counts",
+        "validated_inertia_at_tau",
+        "runtime_seconds"
+      ],
+      "properties": {
+        "fixture": {"type": "string"},
+        "ensemble_sha256": {"$ref": "#/$defs/sha256"},
+        "status": {
+          "enum": [
+            "CERTIFIED_EXACT_TAU_SUPPORT_AND_NEAREST_GAPS",
+            "UNCERTIFIED_EXACT_TAU_SUPPORT",
+            "UNCERTIFIED_EXACT_TAU_GAPS"
+          ]
+        },
+        "exact_candidate_tau": {"$ref": "#/$defs/exactThreshold"},
+        "arbitrary_precision_spectrum": {
+          "type": "object",
+          "required": [
+            "decimal_digits",
+            "arithmetic",
+            "spectrum_is_rigorous_interval_proof",
+            "resolution_floor",
+            "resolved_positive_count_above_floor",
+            "sector_eigenvalues",
+            "trace_residual",
+            "runtime_seconds"
+          ],
+          "properties": {
+            "decimal_digits": {"type": "integer", "minimum": 50},
+            "arithmetic": {"type": "string"},
+            "spectrum_is_rigorous_interval_proof": {"const": false},
+            "resolution_floor": {"type": "string"},
+            "resolved_positive_count_above_floor": {"type": "integer", "minimum": 0, "maximum": 256},
+            "sector_eigenvalues": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "array",
+                "minItems": 64,
+                "maxItems": 64,
+                "items": {"type": "string"}
+              }
+            },
+            "trace_residual": {"type": "string"},
+            "runtime_seconds": {"type": "number", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "arbitrary_precision_diagnostic_counts": {
+          "type": "object",
+          "required": ["above_tau", "below_tau", "equal_or_unordered_at_tau"],
+          "properties": {
+            "above_tau": {"type": "integer", "minimum": 0, "maximum": 256},
+            "below_tau": {"type": "integer", "minimum": 0, "maximum": 256},
+            "equal_or_unordered_at_tau": {"type": "integer", "minimum": 0, "maximum": 256}
+          },
+          "additionalProperties": false
+        },
+        "validated_inertia_at_tau": {"$ref": "#/$defs/inertia"},
+        "number_rigorously_above_tau": {"type": "integer", "minimum": 0, "maximum": 256},
+        "number_rigorously_below_tau": {"type": "integer", "minimum": 0, "maximum": 256},
+        "number_unresolved_against_tau": {"type": "integer", "minimum": 0, "maximum": 256},
+        "closest_eigenvalue_below_tau": {"$ref": "#/$defs/nearest"},
+        "closest_eigenvalue_above_tau": {"$ref": "#/$defs/nearest"},
+        "complex128_reference_used": {"const": false},
+        "runtime_seconds": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  }
+}
