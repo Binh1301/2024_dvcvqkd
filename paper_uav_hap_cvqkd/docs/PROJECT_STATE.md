@@ -1,11 +1,13 @@
 # Project State
 
-Last updated: `2026-08-31T18:30:00+07:00`
+Last updated: `2026-08-31T21:30:00+07:00`
 
-Repository task-start commit:
-`34c5eaa632cf7425fb844f82a4d02d3f29d4e6a3` on
-`feat/precision-update-confirm`. The task began clean; the current worktree is
-dirty only with this task's prospective certification/state additions.
+Current V2 task-start commit:
+`c9e532092a52c79edc7188409989f9e603ac130a` on `feat/v1-cyclepoint`.
+The worktree and index were clean at reconstruction. This commit contains the
+complete V1 shifted-inertia implementation, tests, configs, schemas,
+documentation, and immutable result artifacts; no duplicate Phase-0 commit is
+required.
 
 ## Terminal Status
 
@@ -98,10 +100,12 @@ None of these issues produced a false pass in the 0/12 result.
 ## Evidence Portability
 
 Commit `34c5eaa...` contains the immutable prior 22-payload failed Arb cycle,
-including `results/rigorous_whole_segment_certification.json` at 0/12. The
-current manifest declares 26 authoritative payloads totaling 28,028,606
-bytes, adding the shifted-inertia environment, endpoint, interval, and oracle
-cross-check artifacts. These additions remain uncommitted.
+including `results/rigorous_whole_segment_certification.json` at 0/12. Commit
+`c9e5320...` checkpoints V1 and the 26-payload, 28,028,606-byte manifest,
+including the shifted-inertia environment, endpoint, interval, and oracle
+cross-check artifacts. The V1 checkpoint message is `feat: update cycle
+point`; it is broader than the suggested certification-only wording but its
+tree content is the authoritative checkpoint.
 
 ## Quantitative Blockers
 
