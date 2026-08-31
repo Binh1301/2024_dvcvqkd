@@ -317,7 +317,10 @@ def high_precision_spectrum(
         sectors = build_mp_sectors(mp_probabilities, mp_prototypes)
         sector_values = []
         for sector in sectors:
-            values = mp.eigvalsh(sector)
+            # mpmath exposes the Hermitian solver as ``eighe`` (not the
+            # NumPy-style ``eigvalsh``).  These values propose brackets only;
+            # all proof decisions remain with shifted Arb inertia below.
+            values, _vectors = mp.eighe(sector)
             sector_values.append([mp.re(values[index]) for index in range(len(values))])
         flattened = sorted(value for values in sector_values for value in values)
         floor = mp.power(10, -(int(decimal_digits) - 10))

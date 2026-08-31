@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 try:
     from flint import acb, arb, ctx
@@ -23,6 +24,19 @@ if str(SCRIPT.parent) not in sys.path:
 
 @unittest.skipIf(arb is None or mp is None, "requires combined isolated certification environment")
 class ExactTauOracleV2Tests(unittest.TestCase):
+    def test_high_precision_spectrum_uses_available_mpmath_hermitian_solver(self):
+        import mpmath as mp
+        from scripts.certify_exact_tau_oracle_v2 import high_precision_spectrum
+
+        sectors = [mp.matrix([[mp.mpf("0.25"), 0], [0, mp.mpf("0.75")]])]
+        with patch(
+            "scripts.certify_exact_tau_oracle_v2.build_mp_sectors",
+            return_value=sectors,
+        ):
+            result = high_precision_spectrum([0.5, 0.5], [0j, 1 + 0j], 50)
+        self.assertEqual(len(result["sector_eigenvalues"]), 1)
+        self.assertEqual(len(result["sector_eigenvalues"][0]), 2)
+
     @classmethod
     def setUpClass(cls) -> None:
         specification = importlib.util.spec_from_file_location("exact_tau_oracle_v2", SCRIPT)
