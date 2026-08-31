@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rigorous Arb whole-segment support certification",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "method", "synthetic_regressions",
+    "segment_rows", "aggregate", "transactional_state_inventory_for_future_integration",
+    "future_transaction_rule_status", "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "rigorous-whole-segment-support-certification-v1"},
+    "status": {"enum": [
+      "EXPERIMENTAL_ALL_REALIZED_SEGMENTS_CERTIFIED",
+      "EXPERIMENTAL_REALIZED_SEGMENTS_FAIL_CLOSED"
+    ]},
+    "method": {"type": "object"},
+    "synthetic_regressions": {"type": "object"},
+    "segment_rows": {"type": "array", "minItems": 12, "maxItems": 12},
+    "aggregate": {"type": "object"},
+    "transactional_state_inventory_for_future_integration": {"type": "array", "minItems": 10},
+    "future_transaction_rule_status": {"const": "DEFINED_NOT_ACTIVATED"},
+    "lifecycle_guards": {
+      "type": "object",
+      "properties": {
+        "threshold_approved": {"const": false},
+        "publication_training_performed": {"const": false},
+        "final_test_accessed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false},
+        "optimizer_integration_performed": {"const": false},
+        "security_functional_changed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": false
+}

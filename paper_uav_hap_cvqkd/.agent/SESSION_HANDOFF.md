@@ -1,95 +1,110 @@
 # Session Handoff
 
-Generated: `2026-08-31T00:30:00+07:00`
+Generated: `2026-08-31T11:11:35+07:00`
 
-Commit/branch: `0ced45a6ed0004267f34e66e7638d7e7d28bc93d` on
-`new/qam-256-autoencoder-fix`.
+Commit/branch: `8daba301cdcb7cc3737323454e6507094848f788` on
+`feat/pre-scale-run`.
 
-Worktree: **DIRTY**. Pre-existing edits were preserved. Review index and
-worktree before committing.
+Worktree: **DIRTY with only this task's certification/state additions relative
+to the clean task-start commit**. Review the full diff before staging or
+committing.
 
 ## Objective and outcome
 
-Built the independent-certification foundation and attempted whole-segment
-support enclosure without training, baseline selection, optimized-MB, final
-test, threshold approval, or security-model changes.
+Implemented a standalone, certification-only Arb/acb direct interval Gram
+backend and evaluated the 12 frozen PS/GS/VA/mixed realized paths. The backend
+and all requested regressions work, but every realized endpoint spectrum
+remains unresolved because validated full eigenvalue isolation fails at all
+scheduled precisions. Lifecycle remains:
 
-Terminal status remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` because the
-proof-producing initial Gram/eigensystem enclosure and transactional optimizer
-guard do not exist.
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-## Completed
+No threshold approval, production training, optimized-MB, baseline selection,
+final-test access, security-functional change, `src/cvqkd` change, or frozen
+model change occurred.
 
-- Restored exact locked CPU environment in ignored `.venv`.
-- Ran 124 repository `unittest` tests successfully.
-- Froze an outcome-uninspected 18-fixture confirmation roster, disjoint from
-  train/validation/test/pilot, with four declared oracle fixtures.
-- Obtained two-successive-precision rank-256 high-precision Gram oracles for
-  all 4/4 declared fixtures.
-- Added analytic interval/derivative propagation through PS, VA, GS gauge,
-  energy normalization, and coherent overlaps.
-- Demonstrated synthetic no-crossing acceptance and known-crossing rejection.
-- Kept all 12 realized paths fail closed because `eta_num` is absent.
-- Regenerated the boundary diagnostic with complete provenance; retained old
-  artifact quarantine.
-- Added a minimal 19-payload, 16,984,424-byte portable evidence manifest and
-  narrow `.gitignore` allowlist.
-- Added EVID-0014 through EVID-0019 and DEC-0010 through DEC-0013.
-- Preserved `FINAL_MODEL_SPEC.md` hash
+## Repository checkpoint reconstruction
+
+- Task start was clean at `8daba301...`; index and unstaged diff were empty.
+- The reported staged 44-path foundation did not exist.
+- HEAD already tracked the prior 19-payload certification foundation, but the
+  commit message is `feat: pre scale + history implement` and its scope is
+  broader than certification-only.
+- No duplicate or misleading checkpoint commit was created.
+- Git history still cannot independently prove prospective roster ordering,
+  because roster and completed oracle first appear together.
+
+## New certification backend
+
+- Isolated ignored environment: `.venv-cert`.
+- Hash-pinned lock: `requirements-certification-flint.lock`.
+- python-flint 0.9.0, FLINT 3.6.0, CPython 3.12.10, one FLINT thread.
+- Precision schedule: 160, 256, 384 bits.
+- Exact binary64 endpoint dyadics are propagated through actual affine/ReLU,
+  softmax PS, sigmoid/log-domain VA, GS interpolation/unit-RMS gauge, energy
+  normalization, analytic coherent overlaps, and four Hermitian C4 sectors.
+- Interval-minus-midpoint Frobenius upper bounds provide rigorous sector
+  perturbation radii; strict Weyl classification and dyadic subdivision fail
+  closed. Approximate eigensolvers are forbidden.
+- Future transaction inventory records model, Adam moments/steps, schedulers,
+  dual variable, CPU/CUDA RNG, data/sampler generators, counters, and gradient
+  scaler, but integration is defined only and inactive.
+
+## Verification
+
+- Isolated certification regressions: `CURRENTLY_VERIFIED_PASS`, 11/11,
+  runtime 0.935 seconds.
+- Production suite: `CURRENTLY_VERIFIED_PASS`, 135 discovered: 124 passed and
+  11 isolated-backend skips, runtime 8.761 seconds.
+- `git diff --check`: pass.
+- `FINAL_MODEL_SPEC.md` SHA-256 remains
   `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
 
-## Key artifacts
+## Realized 12-path result
 
-- `results/independent_confirmation_roster.json`:
-  `a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de`
-- `results/current_environment_manifest.json`:
-  `78c35983aaf7fe9fbc636c80d39b9271ea7930c588b28c4d02703c2e2bce5ff9`
-- `results/current_test_suite.json`:
-  `6709db5bcaec5345281832201075ca9b34a26611c5bb22cf8ed6954d7bb324fe`
-- `results/independent_confirmation_gram_oracles.json`:
-  `b566049ec70588e6112c4d3d327b8af6e60d81c4a04f47f41444ac54490c61b6`
-- `results/whole_segment_support_enclosure_validation.json`:
-  `6e26ce424d96eb0fa1d99d6749d7e743dc27b69e8cabb13a71a9b8de840879ec`
-- `results/support_boundary_bisection_crn_regenerated.json`:
-  `a1d780dc76e251662cadbe99e6f8277e7b59a75d13590b85527beda83fc0af67`
+- Artifact: `results/rigorous_whole_segment_certification.json`.
+- SHA-256:
+  `0b09b2d11c1c645fce882cb5d7403161d98973043bb6dce6a9257c3aa0360cd6`.
+- Runtime: 1061.9827932000626 seconds.
+- Certified: 0/12.
+- Rigorously identified crossings: 0/12.
+- Unresolved/fail-closed: 12/12.
+- Maximum subdivision depth: 0.
+- For every realized start/end spectrum, python-flint/FLINT failed validated
+  eigenvalue isolation at 160, 256, and 384 bits despite `multiple=True`.
+- This is an endpoint eigensystem blocker, not a finite-node pass or a proved
+  crossing.
 
-## Quantitative blockers
+## Portable artifacts
 
-1. Validated complex Gram/Hermitian eigensystem enclosure `eta_num`: absent;
-   realized whole-segment certificates 0/12.
-2. Derivative-bound/endpoint-change ratio 7.97955-52.60276; finite-node gaps
-   only `8.0414e-14`-`8.2549e-14`.
-3. No transactional segment guard integrated with model/Adam/dual/RNG rollback.
-4. Candidate `1e-13` remains proposed/unapproved; active `1e-12` invalid.
-5. Portable evidence changes are staged but not committed.
-6. Downstream counts remain zero: optimized-MB, baseline selection,
-   publication training, and final-test access.
+- `results/certification_flint_environment.json`:
+  `47f6c51f9c76be1ec7cd7411bb3c638dd6d117c4d592ec25de1c988b60db745b`.
+- `results/rigorous_segment_fixture_bundle.json`:
+  `1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149`.
+- `results/rigorous_whole_segment_certification.json`:
+  `0b09b2d11c1c645fce882cb5d7403161d98973043bb6dce6a9257c3aa0360cd6`.
+- The worktree portability manifest declares 22 payloads totaling 18,396,880
+  bytes. The prior 19-payload foundation is in HEAD; the three new payloads
+  and their implementation are uncommitted worktree additions.
 
 ## Exact next action
 
-Implement a verified complex Gram-assembly and Hermitian eigenvalue/inertia
-enclosure that supplies `eta_num`, then compose it with the existing adaptive
-bisection. Reject unresolved arithmetic/eigenvalue/resource cases. Do not
-inspect further candidate outcomes until this proof obligation is closed.
+Before another realized-path run, prospectively specify and implement a
+validated threshold-shifted Hermitian inertia, verified LDL*, or equivalent
+eigencluster enclosure. It must count eigenvalues above candidate `tau`
+without isolating every extremely small/clustered eigenvalue, fail on
+ambiguous interval pivots, and compose with the existing Arb radii and
+subdivision. Do not raise the completed cycle's precision limit or alter a
+threshold post hoc.
 
-## Files added by this certification task
+After implementation, add clustered/repeated/threshold-adjacent and
+resource-failure tests, then run a new explicitly versioned prospective cycle.
 
-- `configs/independent_confirmation_roster.yaml`
-- `configs/independent_confirmation_oracle.yaml`
-- `configs/whole_segment_support_enclosure.yaml`
-- `src/validation/whole_segment_support.py`
-- `scripts/capture_environment_manifest.py`
-- `scripts/freeze_independent_confirmation_roster.py`
-- `scripts/oracle_independent_confirmation_gram.py`
-- `scripts/run_current_test_suite.py`
-- `scripts/validate_whole_segment_support_enclosure.py`
-- Corresponding schemas, tests, and the active result payloads in the
-  certification artifact manifest.
+## Preserved prohibitions and facts
 
-## Warnings
-
-- Do not use the quarantined old boundary payload for approval.
-- Do not call `numpy.nextafter` propagation a validated eigensystem proof.
-- Do not claim uniform continuous-domain conditioning.
-- Keep `N_MC=2048`, frozen security equations, and final-test inaccessibility.
-- Commit portability artifacts before claiming clean-clone reconstruction.
+- Configured `1e-12`: invalid and unapproved.
+- Candidate `1e-13`: proposed and unapproved.
+- MI: `N_MC=2048`.
+- Final test remains inaccessible.
+- No claims beyond the finite, hash-bound realized admissible PS/GS domain.
+- No optimizer rollback integration until standalone certification succeeds.

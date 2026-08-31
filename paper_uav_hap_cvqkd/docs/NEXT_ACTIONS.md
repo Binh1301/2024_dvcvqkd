@@ -9,35 +9,40 @@ access, and threshold approval remain unauthorized.
 
 ## Exact Next Action
 
-Implement and test a validated numerical enclosure `eta_num` for complex C4
-Gram assembly and Hermitian eigenvalue/inertia evaluation. Compose it with the
-existing analytic derivative enclosure and fail-closed adaptive bisection.
+Prospectively specify and implement a validated threshold-shifted Hermitian
+inertia, verified LDL*, or equivalent clustered-eigenvalue enclosure for each
+C4 sector. It must count eigenvalues above candidate `tau` without isolating
+every tiny or repeated eigenvalue, then compose with the existing Arb interval
+Gram radii and fail-closed adaptive subdivision.
 
 ### Required proof obligations
 
-- Outward rounding or a rigorously justified equivalent covers complex
-  coherent overlaps, weighted Gram assembly, and all arithmetic error.
-- Hermitian eigenvalue separation or inertia is verified, not inferred from an
-  ordinary float64 residual.
-- Every accepted segment satisfies a proved separation bound using
-  `R_I = eta_num + h L_I`; unresolved intervals fail closed.
-- ReLU crossings, PS/VA/GS normalization, and physical energy scaling remain
-  enclosed.
-- Tests include no-crossing, known crossing, ill-conditioned full-rank, and
-  resource-exhaustion cases.
+- Inertia/eigencluster bounds are inclusion-producing and operate on the
+  threshold-shifted Hermitian sectors.
+- Singular/ambiguous pivots, interval overlap with zero, arithmetic failure,
+  and resource exhaustion reject rather than infer a rank.
+- The already validated Arb propagation through ReLU, PS/VA/GS normalization,
+  physical scaling, coherent overlaps, and interval Frobenius radii remains
+  unchanged.
+- Precision/work limits and the retry policy are preregistered before another
+  realized-path run.
+- Tests add clustered spectra, exact/repeated eigenvalues, threshold-adjacent
+  inertia, and fail-closed pivot cases.
 
 ### Pass criteria
 
-- `eta_num` is executable, provenance-bound, and mathematically documented.
-- Every accepted interval is enclosed away from the hard threshold.
+- Endpoint numerical support is rigorously counted for the required realized
+  cases without individual full-spectrum isolation.
+- Every accepted interval is enclosed away from the hard threshold by the Arb
+  interval radius plus a validated midpoint support count.
 - All rounding/eigensolver/resource failures reject without changing frozen
   equations or tolerance.
 - The full dynamic suite remains green in the locked environment.
 
 ### Fail criteria
 
-- Endpoint equality, dense sampling, empirical safety factors, or unverified
-  complex128 residuals are used as proof.
+- Endpoint equality, dense sampling, empirical safety factors, approximate
+  eigenvalues, or unverified complex128 residuals are used as proof.
 - A candidate threshold is approved/activated or the functional is regularized.
 - Final-test, validation selection, optimized-MB, or training data is touched.
 
@@ -47,7 +52,8 @@ existing analytic derivative enclosure and fail-closed adaptive bisection.
    and RNG rollback tests.
 2. Obtain independent threshold-approval review using only the frozen roster
    and declared oracle subset.
-3. Commit the minimal portable evidence set for clean-clone reconstruction.
+3. Commit the current 22-payload portable evidence extension after reviewing
+   the complete worktree diff.
 4. Only after certification passes, run validation-only optimized-MB and
    baseline selection.
 5. Publication training and final held-out evaluation remain later stages.
@@ -58,5 +64,7 @@ existing analytic derivative enclosure and fail-closed adaptive bisection.
   `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
 - MI remains `N_MC=2048`.
 - Independent oracle passes 4/4 declared fixtures.
-- Realized whole-segment certificates remain 0/12 because `eta_num` is absent.
+- Arb Gram/path enclosures and perturbation radii are implemented.
+- The realized Arb run is 0/12 certified, 0 crossings, 12 unresolved because
+  endpoint eigenvalue isolation fails at 160/256/384 bits.
 - Candidate `1e-13` remains proposed and unapproved.

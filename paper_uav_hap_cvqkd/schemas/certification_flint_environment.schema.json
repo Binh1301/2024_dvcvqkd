@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "certification_flint_environment.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "python", "platform", "validated_arithmetic",
+    "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "certification-flint-environment-v1"},
+    "status": {"const": "CAPTURED_ISOLATED_VALIDATED_ARITHMETIC_ENVIRONMENT"},
+    "validated_arithmetic": {
+      "type": "object",
+      "required": ["python_flint_version", "flint_version", "default_precision_bits"]
+    },
+    "lifecycle_guards": {
+      "type": "object",
+      "required": ["threshold_approved", "publication_training_performed", "final_test_accessed"]
+    },
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

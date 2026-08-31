@@ -1,13 +1,15 @@
 # Project State
 
-Last updated: `2026-08-31T00:30:00+07:00`
+Last updated: `2026-08-31T11:11:35+07:00`
 
-Repository commit: `0ced45a6ed0004267f34e66e7638d7e7d28bc93d`
+Repository commit: `8daba301cdcb7cc3737323454e6507094848f788`
 
-Branch: `new/qam-256-autoencoder-fix`
+Branch: `feat/pre-scale-run`
 
-Worktree status: **DIRTY**. This work preserves pre-existing edits and adds
-staged/untracked files. Inspect both index and worktree before committing.
+Worktree status at task start: **CLEAN**. Commit `8daba301...` already contains
+the previously staged certification foundation. Its message is
+`feat: pre scale + history implement`, not the proposed dedicated checkpoint
+message, and its scope is broader than foundation-only work.
 
 ## Terminal Status
 
@@ -36,8 +38,11 @@ estimator with convergence-selected `N_MC=2048`.
 
 - Locked environment restored in ignored `.venv`: CPython 3.12.10 and torch
   2.13.0+cpu with the exact publication lock.
-- Current dynamic suite: `CURRENTLY_VERIFIED_PASS`, 124 tests, exit code 0,
-  command `python -m unittest discover -s tests -v`.
+- Current production dynamic suite: `CURRENTLY_VERIFIED_PASS`, 135 discovered:
+  124 passed and 11 certification-only skips, exit code 0, runtime 8.761
+  seconds, command `python -m unittest discover -s tests -v`.
+- Isolated Arb suite: `CURRENTLY_VERIFIED_PASS`, 11/11 passed, 0 failures,
+  runtime 0.935 seconds.
 - Environment artifact SHA-256:
   `78c35983aaf7fe9fbc636c80d39b9271ea7930c588b28c4d02703c2e2bce5ff9`.
 - Test artifact SHA-256:
@@ -77,22 +82,36 @@ verified whole-segment float64 enclosure.
 
 ## Whole-Segment Support Enclosure State
 
-The proof-oriented foundation propagates interval values and derivative bounds
-through affine/ReLU, softmax, sigmoid/log-VA, GS unit-RMS gauge, physical energy
-normalization, and coherent overlaps. Results:
+The original proof-oriented foundation propagates interval values and
+derivative bounds through affine/ReLU, softmax, sigmoid/log-VA, GS unit-RMS
+gauge, physical energy normalization, and coherent overlaps. Its historical
+result remains 0/12 because validated numerical assembly/eigensystem error was
+absent.
 
-- Synthetic obvious no-crossing case certifies.
-- Synthetic known crossing rejects with 768 unresolved subintervals.
-- All 12 realized endpoint changes lie below derivative bounds.
-- Bound/observed ratios range from 7.97955 to 52.60276.
-- Finite-node gaps to `1e-13` range from `8.0414e-14` to `8.2549e-14`;
-  sampled retained rank is 13.
-- Whole-segment realized certificates: **0/12**.
+The new certification-only backend uses python-flint 0.9.0 / FLINT 3.6.0 and
+propagates Arb/acb balls through the actual exact-binary64 parameter path.
+Validated C4 Gram enclosures, rigorous Frobenius perturbation radii, strict
+Weyl classification, and deterministic dyadic subdivision are implemented.
+Results under the frozen 160/256/384-bit schedule:
 
-There is no validated initial Gram-assembly/Hermitian-eigensystem numerical
-enclosure `eta_num`. `numpy.nextafter` expansion and sampled ranks are not a
-verified directed-rounding eigensolver. The logic is also not integrated into
-transactional Adam acceptance with model, optimizer, dual, and RNG rollback.
+- 11/11 isolated certification regressions pass.
+- Obvious and near-boundary scalar non-crossings certify; a known crossing is
+  rigorously identified.
+- Realized whole-segment certificates: **0/12**.
+- Rigorous realized crossings: **0/12**.
+- Unresolved fail-closed: **12/12**.
+- Maximum subdivision depth: 0; runtime: 1061.9827932000626 seconds.
+- Every realized start/end spectrum failed validated eigenvalue isolation at
+  160, 256, and 384 bits despite multiplicity handling.
+- No realized interval was entered after endpoint failure, so realized
+  perturbation-radius/observed-change ratios and certified spectral margins
+  are unavailable rather than inferred.
+
+Validated Gram assembly is no longer absent, but the current full-spectrum
+eigensolver cannot certify threshold-relative endpoint rank for these highly
+clustered spectra. Since endpoints are unresolved, no interval enters
+Weyl/subdivision. The logic is not integrated into transactional Adam
+acceptance; a complete future state inventory is recorded but inactive.
 
 ## Corrected Boundary Diagnostic
 
@@ -107,10 +126,17 @@ proof or threshold approval.
 
 ## Evidence Portability
 
-`docs/CERTIFICATION_ARTIFACT_MANIFEST.json` declares 19 non-quarantined
-payloads totaling 16,984,424 bytes. Exact `.gitignore` exceptions and payloads
-are staged. They are not clean-clone portable from current HEAD until committed.
-Unlisted/quarantined/benchmark/smoke files remain ignored and non-authoritative.
+At task start, commit `8daba301...` cleanly tracked the prior 19-payload,
+16,984,424-byte foundation. No reported 44-path staged set existed, so no
+duplicate checkpoint was created. The worktree manifest now declares 22
+payloads totaling 18,396,880 bytes, adding the isolated environment, exact
+fixture bundle, and realized fail-closed result. Those new worktree additions
+are not claimed to be part of the pre-task commit.
+
+Git history does not independently establish prospective roster ordering:
+the roster and completed oracle outcomes first appear together in the same
+commit. Their embedded producer/config/roster hashes remain verifiable, but
+this ordering limitation must not be hidden.
 
 ## Frozen Numerical Parameters
 
@@ -130,18 +156,17 @@ No Fock cutoff or support threshold is certified.
 
 ## Quantitative Blockers
 
-1. Validated `eta_num` for complex Gram assembly and Hermitian
-   eigenvalue/inertia evaluation is absent; realized path certificates are
-   0/12.
-2. Derivative bounds are 7.98-52.60 times observed endpoint changes while
-   finite-node threshold gaps are only `8.04e-14`-`8.25e-14`; ordinary
-   float64 expansion cannot close the proof obligation.
+1. Validated Arb Gram assembly exists, but endpoint Hermitian eigenvalue
+   isolation fails at every scheduled precision (160/256/384 bits) for all
+   12 realized paths; certificates remain 0/12 and unresolved remain 12/12.
+2. A validated threshold-relative inertia/eigencluster enclosure is absent.
+   Subdivision cannot start while endpoint rank is unresolved.
 3. Transactional optimizer enforcement is absent: no certified integration of
    the segment guard with Adam/model/dual/RNG rollback exists.
 4. Candidate `1e-13` remains outcome-informed and author-unapproved; active
    `1e-12` remains invalid. No independent threshold approval has occurred.
-5. The portable evidence set is staged but uncommitted, so current HEAD alone
-   cannot reconstruct it in a clean clone.
+5. The roster and completed independent-oracle outcomes enter Git history in
+   the same commit, so Git history alone cannot prove pre-outcome ordering.
 6. Downstream work remains intentionally unexecuted: 0 optimized-MB grid
    evaluations, 0 baseline selections, 0 publication training runs, and 0
    final-test accesses.
@@ -155,10 +180,13 @@ imperfect-CSI result, or publication performance claim is established.
 
 ## Next Permitted Action
 
-Implement a validated complex Gram assembly plus Hermitian eigenvalue/inertia
-enclosure that supplies `eta_num`, compose it with the fail-closed adaptive
-segment bisection, and test proof obligations. Do not inspect new candidate
-outcomes or run training, baseline selection, optimized-MB, or final test.
+Prospectively specify and implement a validated threshold-shifted Hermitian
+inertia (or equivalent clustered-eigenvalue) enclosure for each C4 sector.
+It must count eigenvalues above candidate `tau` without requiring isolation of
+every tiny eigenvalue, compose with the existing Arb interval radii and
+fail-closed subdivision, and be tested before another 12-path cycle. Do not
+raise precision or alter thresholds post hoc, inspect new candidate outcomes,
+or run training, baseline selection, optimized-MB, or final test.
 
 ## Evidence Index
 
@@ -171,3 +199,6 @@ outcomes or run training, baseline selection, optimized-MB, or final test.
 - Experimental whole-segment enclosure: EVID-0017.
 - Corrected boundary diagnostic: EVID-0018.
 - Four-fixture full-support oracle: EVID-0019.
+- Repository checkpoint reconstruction: EVID-0020.
+- Isolated Arb backend and fixtures: EVID-0021.
+- Realized Arb fail-closed attempt: EVID-0022.

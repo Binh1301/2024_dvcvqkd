@@ -460,7 +460,7 @@ Not superseded.
 
 Date: 2026-08-30
 
-Status: ACTIVE
+Status: ACTIVE FAIL-CLOSED POLICY; NUMERICAL CONTEXT SUPERSEDED
 
 ### Context
 
@@ -494,7 +494,8 @@ Empirical safety factors, endpoint-only acceptance, and calling
 
 ### Supersedes / Superseded by
 
-Not superseded.
+Refined by DEC-0014, which supplies validated Gram arithmetic but retains the
+fail-closed policy because endpoint support remains unresolved.
 
 ## DEC-0013 - Extend oracle precision only to resolve declared full support
 
@@ -535,3 +536,47 @@ Treating 160-digit truncated rank as truth or changing the threshold policy.
 ### Supersedes / Superseded by
 
 Not superseded.
+
+## DEC-0014 - Keep the Arb direct-enclosure backend experimental and require threshold-relative inertia
+
+Date: 2026-08-31
+
+Status: ACTIVE PROPOSED NUMERICAL POLICY, NOT THRESHOLD APPROVAL
+
+### Context
+
+Validated Arb/acb propagation now covers the actual PS/VA/GS parameter path,
+but full endpoint eigenvalue isolation fails for all 12 realized segments at
+160, 256, and 384 bits. Increasing subdivision cannot repair an unresolved
+endpoint spectrum.
+
+### Decision
+
+Retain the direct interval Gram plus Weyl/subdivision method as an
+experimental mathematically stronger replacement proposal. Continue to fail
+closed. The next implementation cycle must use a validated threshold-relative
+Hermitian inertia or equivalent eigencluster enclosure that can prove the
+number of eigenvalues above `tau` without isolating every clustered
+eigenvalue. Do not increase precision or alter thresholds post hoc in the
+completed cycle.
+
+### Evidence
+
+- EVID-0021
+- EVID-0022
+
+### Consequences
+
+No threshold is approved, no optimizer rollback is activated, and lifecycle
+status remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Alternatives rejected
+
+Treating finite nodes as proof, accepting approximate eigenvalues, silently
+raising the maximum precision after inspecting outcomes, or regularizing the
+security functional.
+
+### Supersedes / Superseded by
+
+Refines DEC-0012 by supplying validated Gram arithmetic while preserving its
+fail-closed outcome.

@@ -1,11 +1,11 @@
 {
   "schema_version": "certification-artifact-portability-manifest-v1",
-  "status": "PORTABILITY_SET_EXTENDED_FOR_INDEPENDENT_CONFIRMATION",
-  "generated_date": "2026-08-30",
-  "repository_commit_at_declaration": "0ced45a6ed0004267f34e66e7638d7e7d28bc93d",
+  "status": "PORTABILITY_SET_EXTENDED_FOR_EXPERIMENTAL_ARB_CERTIFICATION",
+  "generated_date": "2026-08-31",
+  "repository_commit_at_declaration": "8daba301cdcb7cc3737323454e6507094848f788",
   "worktree_was_dirty": true,
   "purpose": "Classify local result payloads and identify the minimum Git-tracked set needed to reconstruct the current certification and lifecycle state in a clean clone.",
-  "selection_rule": "Track every non-quarantined result payload cited directly by active EVID-0003 through EVID-0019. Keep quarantined, deprecated, benchmark, smoke, and runtime-only payloads local-only unless a future evidence decision promotes them.",
+  "selection_rule": "Track every non-quarantined result payload cited directly by active EVID-0003 through EVID-0022. Keep quarantined, deprecated, benchmark, smoke, and runtime-only payloads local-only unless a future evidence decision promotes them.",
   "tracked_authoritative_payloads": [
     {
       "path": "results/amplitude_domain_certification.json",
@@ -34,6 +34,13 @@
       "size_bytes": 9177,
       "schema_version": "current-unittest-suite-v1",
       "evidence_ids": ["EVID-0016"]
+    },
+    {
+      "path": "results/certification_flint_environment.json",
+      "sha256": "47f6c51f9c76be1ec7cd7411bb3c638dd6d117c4d592ec25de1c988b60db745b",
+      "size_bytes": 1703,
+      "schema_version": "certification-flint-environment-v1",
+      "evidence_ids": ["EVID-0021"]
     },
     {
       "path": "results/float64_gram_comparison.json",
@@ -106,6 +113,20 @@
       "evidence_ids": ["EVID-0006", "EVID-0007"]
     },
     {
+      "path": "results/rigorous_segment_fixture_bundle.json",
+      "sha256": "1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149",
+      "size_bytes": 1376159,
+      "schema_version": "rigorous-segment-fixture-bundle-v1",
+      "evidence_ids": ["EVID-0021", "EVID-0022"]
+    },
+    {
+      "path": "results/rigorous_whole_segment_certification.json",
+      "sha256": "0b09b2d11c1c645fce882cb5d7403161d98973043bb6dce6a9257c3aa0360cd6",
+      "size_bytes": 34594,
+      "schema_version": "rigorous-whole-segment-support-certification-v1",
+      "evidence_ids": ["EVID-0022"]
+    },
+    {
       "path": "results/support_rollback_feasibility.json",
       "sha256": "dceba618fe4ad76a24cfb47d849d1d8c20c836e754a9d5048114ea3c589b3460",
       "size_bytes": 811853,
@@ -157,8 +178,8 @@
     {"path": "results/support_rollback_benchmark.json", "sha256": "63e0f2e4e3766c3f815042a28622ca42e974560a326941c1a7a07184ef408389", "classification": "BENCHMARK"}
   ],
   "verification": {
-    "tracked_payload_count": 19,
-    "tracked_payload_total_bytes": 16984424,
+    "tracked_payload_count": 22,
+    "tracked_payload_total_bytes": 18396880,
     "quarantined_payloads_may_support_lifecycle_approval": false,
     "unlisted_results_are_authoritative": false,
     "hash_algorithm": "SHA-256"

@@ -705,7 +705,7 @@ Superseded by EVID-0014 once the staged allowlist is committed.
 
 Date: 2026-08-30
 
-Status: ACTIVE, PENDING COMMIT
+Status: SUPERSEDED REPOSITORY STATE
 
 Scope: Evidence persistence and clean-clone reconstruction.
 
@@ -738,7 +738,8 @@ payloads. A staged-but-uncommitted set is not yet available to a clean clone.
 
 ### Supersedes / Superseded by
 
-Supersedes EVID-0013 after commit.
+Superseded by EVID-0020. Commit `8daba301...` contains this original
+19-payload foundation; the current worktree manifest extends it to 22.
 
 ## EVID-0015 - Outcome-uninspected independent confirmation roster
 
@@ -834,7 +835,7 @@ Supersedes EVID-0012's environment-blocked observation.
 
 Date: 2026-08-30
 
-Status: EXPERIMENTAL / PROPOSED, FAIL-CLOSED
+Status: HISTORICAL EXPERIMENTAL FOUNDATION, SUPERSEDED NUMERICAL BACKEND
 
 Scope: Foundation for prospective C4-Gram segment certification.
 
@@ -880,7 +881,9 @@ Finite-node ranks are diagnostics, not proofs.
 
 ### Supersedes / Superseded by
 
-Not superseded.
+Superseded for validated-arithmetic status by EVID-0021 and for current
+realized-path outcome by EVID-0022. Its derivative-bound diagnostic remains
+historical evidence only.
 
 ## EVID-0018 - Regenerated boundary diagnostic with complete provenance
 
@@ -982,3 +985,112 @@ approve any support threshold.
 
 Extends EVID-0005 from one stress fixture to four prospectively selected
 fixtures.
+
+## EVID-0020 - Repository checkpoint reconstruction
+
+Date: 2026-08-31
+
+Status: ACTIVE REPOSITORY-STATE EVIDENCE
+
+Scope: Phase-0 portability/checkpoint audit only.
+
+### Claim
+
+At task start, branch `feat/pre-scale-run` was clean at commit
+`8daba301cdcb7cc3737323454e6507094848f788`. That commit already tracks the
+19-payload independent-confirmation foundation declared by the then-current
+manifest. There was no staged 44-path foundation set to commit, so no second
+or misleading checkpoint commit was created.
+
+### Evidence
+
+- `git status --short --branch`: clean at task start.
+- `git diff --cached --stat` and `git diff --cached`: empty at task start.
+- Commit `8daba301...`, message `feat: pre scale + history implement`.
+- All 19 former manifest payloads are tracked at that commit.
+
+### Limitations
+
+The commit is broader than a certification-foundation-only commit. The frozen
+roster and completed oracle first enter Git history together, so Git history
+alone cannot prove prospective ordering. New Arb artifacts added by this task
+are present in the worktree portability manifest but are not claimed to be in
+the pre-task commit.
+
+## EVID-0021 - Isolated Arb certification backend and exact path fixtures
+
+Date: 2026-08-31
+
+Status: ACTIVE EXPERIMENTAL NUMERICAL FOUNDATION, NOT THRESHOLD APPROVAL
+
+Scope: Certification-only validated arithmetic and regression evidence.
+
+### Claim
+
+An isolated python-flint backend now propagates Arb/acb balls through the exact
+binary64 PS, bounded log-VA, GS unit-RMS gauge, energy normalization, and C4
+weighted coherent-state Gram path. The certification environment contains
+python-flint 0.9.0 / FLINT 3.6.0 and uses a separate hash-pinned lock. Eleven
+requested certification regression classes pass in that environment.
+
+### Evidence
+
+- `results/certification_flint_environment.json`, SHA-256
+  `47f6c51f9c76be1ec7cd7411bb3c638dd6d117c4d592ec25de1c988b60db745b`.
+- `results/rigorous_segment_fixture_bundle.json`, SHA-256
+  `1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149`.
+- `requirements-certification-flint.lock`.
+- `src/validation/rigorous_flint_support.py`.
+- `docs/RIGOROUS_ARB_CERTIFICATION.md`.
+- Isolated command `python -m unittest -v tests.test_rigorous_flint_support`:
+  `CURRENTLY_VERIFIED_PASS`, 11/11, 0 failures, runtime 0.935 seconds.
+- Production command `python -m unittest discover -s tests -v`:
+  `CURRENTLY_VERIFIED_PASS`, 135 discovered: 124 passed and 11
+  certification-only skips, runtime 8.761 seconds.
+
+### Method and limitations
+
+Every float endpoint is reconstructed as its exact IEEE-754 dyadic. Ambiguous
+ReLU states use the full interval hull. Sector perturbation radii use rigorous
+Frobenius upper bounds, and `algorithm=approx` is forbidden. This establishes
+an inclusion-producing arithmetic path, not an approved threshold, a uniform
+continuous-domain theorem, or optimizer integration.
+
+## EVID-0022 - Realized Arb whole-segment attempt fails closed at endpoint spectra
+
+Date: 2026-08-31
+
+Status: ACTIVE EXPERIMENTAL FAIL-CLOSED RESULT
+
+Scope: Three certification-only channel states times PS/GS/VA/mixed paths.
+
+### Claim
+
+The standalone certifier evaluated all 12 preregistered realized paths under
+the prospectively fixed 160/256/384-bit schedule and work limits. It certified
+0/12, proved 0 crossings, and left 12/12 unresolved. Each path stopped before
+subdivision because the validated FLINT eigensolver could not isolate the
+start or end C4-sector spectra at any scheduled precision, despite
+`multiple=True`. No unresolved result was promoted to pass.
+
+### Evidence
+
+- `results/rigorous_whole_segment_certification.json`, SHA-256
+  `0b09b2d11c1c645fce882cb5d7403161d98973043bb6dce6a9257c3aa0360cd6`.
+- Aggregate: 12 segments; 0 certified; 0 rigorous crossings; 12 unresolved;
+  maximum subdivision depth 0; runtime 1061.9827932000626 seconds.
+- Each endpoint records failed validated isolation at 160, 256, and 384 bits.
+- Synthetic regressions: obvious no crossing passes, known crossing is
+  rigorously identified, near-boundary non-crossing passes.
+
+### Limitations
+
+The result does not establish a threshold-relative endpoint rank or a
+whole-segment support certificate. Because endpoint isolation failed, realized
+Weyl leaves, certified spectral margins, and interval-depth statistics beyond
+depth zero do not exist. No realized interval was entered, so realized
+perturbation-radius/observed-endpoint-change ratios are unavailable rather
+than inferred. The next proof method must count eigenvalues relative to the
+threshold without requiring isolation of every extremely clustered
+eigenvalue, for example validated Hermitian inertia. Candidate `1e-13`
+remains proposed/unapproved and configured `1e-12` remains invalid/unapproved.

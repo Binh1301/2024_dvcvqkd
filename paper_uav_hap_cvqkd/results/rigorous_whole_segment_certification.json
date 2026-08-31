@@ -1,0 +1,797 @@
+{
+  "aggregate": {
+    "maximum_depth_reached": 0,
+    "rigorous_crossing_count": 0,
+    "runtime_seconds": 1061.9827932000626,
+    "segment_count": 12,
+    "unresolved_fail_closed_count": 12,
+    "whole_segment_support_certified_count": 0
+  },
+  "future_transaction_rule_status": "DEFINED_NOT_ACTIVATED",
+  "lifecycle_guards": {
+    "baseline_selection_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "optimizer_integration_performed": false,
+    "publication_training_performed": false,
+    "security_functional_changed": false,
+    "threshold_approved": false
+  },
+  "method": {
+    "arithmetic": "python-flint Arb real balls and acb complex balls",
+    "eigenvalues": "validated acb_mat.eig(multiple=True), never algorithm=approx",
+    "finite_node_sampling_is_proof": false,
+    "gram": "direct interval C4 weighted coherent-state Gram, four Hermitian 64x64 sectors",
+    "path": "exact IEEE-754 endpoint dyadics propagated through actual PS/VA/GS parameter interpolation",
+    "perturbation": "rho_I = Frobenius upper bound of interval sector minus exact-midpoint sector",
+    "support": "strict Weyl retained/suppressed classification with adaptive dyadic subdivision",
+    "threshold_approved": false
+  },
+  "provenance": {
+    "config_sha256": "1e3f1b314949915480e78699baaa6462f48cda092d615f98cbe49f412957fe12",
+    "environment_manifest_sha256": "47f6c51f9c76be1ec7cd7411bb3c638dd6d117c4d592ec25de1c988b60db745b",
+    "final_model_spec_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "fixture_bundle_sha256": "1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149",
+    "flint_version": "3.6.0",
+    "module_sha256": "1792d789557d4234a34c3a1245271a6114c9bd2ad43fd028b86e4b8092665555",
+    "producer_sha256": "b1640578c626e8d9601130f192060a7f91f4d4ded0e70926beaf74e04d866059",
+    "python_flint_version": "0.9.0",
+    "repository_commit": "8daba301cdcb7cc3737323454e6507094848f788",
+    "schema_sha256": "fb5d32f527d39f563accf2c8a94d898c1cf12793b272d76775e7d5694ba791b8"
+  },
+  "schema_version": "rigorous-whole-segment-support-certification-v1",
+  "segment_rows": [
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "ps",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.83c32ffa0adaep-11",
+      "runtime_seconds": 50.70185779989697,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "bad",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "gs",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.5c05f734264fep-15",
+      "runtime_seconds": 501.1761917998083,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "bad",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "va",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.99dae96add2e8p-13",
+      "runtime_seconds": 51.675777199910954,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "bad",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "mixed",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.15328ca38a446p-10",
+      "runtime_seconds": 51.21037310012616,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "bad",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "ps",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.6dbce50da0df7p-11",
+      "runtime_seconds": 50.568336399970576,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "medium",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "gs",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.5e13283192f61p-15",
+      "runtime_seconds": 50.320411200169474,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "medium",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "va",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.9cc0de353b7c4p-13",
+      "runtime_seconds": 50.370208099950105,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "medium",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "mixed",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.07e2b57bf9410p-10",
+      "runtime_seconds": 52.36924450006336,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "medium",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "ps",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.6694bb9e67f5ap-11",
+      "runtime_seconds": 50.250051099807024,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "good",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "gs",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.5e2fd4bb7c9dfp-15",
+      "runtime_seconds": 51.66271060006693,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "good",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "va",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.9677b4c8f6fe8p-13",
+      "runtime_seconds": 50.85789539990947,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "good",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    },
+    {
+      "candidate_threshold_float64_hex": "0x1.c25c268497682p-44",
+      "end_spectrum": {
+        "left": "1/1",
+        "midpoint": "1/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "1/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "family": "mixed",
+      "nodes": [],
+      "observed_endpoint_change_float64_diagnostic": "0x1.03f62837e1765p-10",
+      "runtime_seconds": 50.804964300012216,
+      "start_spectrum": {
+        "left": "0/1",
+        "midpoint": "0/1",
+        "precision_attempts": [
+          {
+            "precision_bits": 160,
+            "reason": "Validated eigensolver failed at 160 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 256,
+            "reason": "Validated eigensolver failed at 256 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          },
+          {
+            "precision_bits": 384,
+            "reason": "Validated eigensolver failed at 384 bits: failed to isolate eigenvalues (try higher prec, multiple=True for multiple eigenvalues, or nonstop=True to avoid the exception)",
+            "status": "FAILED"
+          }
+        ],
+        "retained_count": null,
+        "right": "0/1",
+        "sectors": [],
+        "status": "UNRESOLVED",
+        "unresolved_count": 256
+      },
+      "state_label": "good",
+      "status": "UNCERTIFIED_ENDPOINT_SPECTRUM"
+    }
+  ],
+  "status": "EXPERIMENTAL_REALIZED_SEGMENTS_FAIL_CLOSED",
+  "synthetic_regressions": {
+    "known_crossing": "RIGOROUS_ENDPOINT_RANK_CHANGE_CROSSING",
+    "near_boundary_non_crossing": "WHOLE_SEGMENT_SUPPORT_CERTIFIED",
+    "obvious_no_crossing": "WHOLE_SEGMENT_SUPPORT_CERTIFIED"
+  },
+  "transactional_state_inventory_for_future_integration": [
+    "model_parameters",
+    "adam_first_moments",
+    "adam_second_moments",
+    "amsgrad_max_second_moments_if_enabled",
+    "optimizer_step_counters",
+    "learning_rate_schedulers",
+    "energy_dual_lambda_E",
+    "CPU_RNG_state",
+    "CUDA_RNG_states",
+    "explicit_data_and_sampler_generators",
+    "training_epoch_and_batch_counters",
+    "gradient_scaler_if_enabled"
+  ]
+}
