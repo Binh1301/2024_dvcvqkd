@@ -1,0 +1,14 @@
+{
+  "configured_time_limit_seconds": 3600.0,
+  "elapsed_seconds": 6.200381899951026,
+  "fixture": "four_frozen_exact_tau_oracles",
+  "interval": "point_spectra",
+  "kill_grace_seconds": 5.0,
+  "last_durable_checkpoint": null,
+  "reason": "EXIT_CODE_1",
+  "status": "WORKER_FAILURE",
+  "stderr_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\certify_exact_tau_oracle_v2.py\", line 611, in <module>\n    main()\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\certify_exact_tau_oracle_v2.py\", line 606, in main\n    artifact = run(args.config.resolve(), args.output.resolve())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\certify_exact_tau_oracle_v2.py\", line 535, in run\n    row = certify_fixture(\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\certify_exact_tau_oracle_v2.py\", line 354, in certify_fixture\n    spectrum = high_precision_spectrum(probabilities, prototypes, decimal_digits)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\certify_exact_tau_oracle_v2.py\", line 320, in high_precision_spectrum\n    values = mp.eigvalsh(sector)\n             ^^^^^^^^^^^\nAttributeError: module 'mpmath' has no attribute 'eigvalsh'\n",
+  "stdout_tail": "",
+  "worker_exit_code": 1,
+  "worker_pid": 31672
+}
