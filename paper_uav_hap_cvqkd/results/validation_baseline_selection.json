@@ -1,0 +1,30 @@
+{
+  "schema_version": "validation-baseline-selection-dependency-blocker-v1",
+  "status": "NOT_RUN_NUMERICAL_DEPENDENCY",
+  "is_baseline_selection": false,
+  "selection_split": "validation",
+  "test_set_used": false,
+  "publication_training_performed": false,
+  "mi_sample_count": 2048,
+  "fock_cutoff": null,
+  "pseudoinverse_threshold_approved": false,
+  "public_candidate_count": 510,
+  "unique_candidate_score_count_after_exact_aliases": 480,
+  "selections": {
+    "uniform": null,
+    "binomial": null,
+    "fixed_mb": null,
+    "optimized_mb": null
+  },
+  "blocker": "MI, Fock, and threshold convergence must all pass before selection.",
+  "evidence_sha256": {
+    "mi": "6fb7134690ecfc5c17f427ea348f0b951ea0df0cbe19b1d9d6db2279c19b10a4",
+    "fock": "1ed980bf1bb033147f245c9a04dd0e3d0de55bf39260bb32563714dd4bfcd8dd",
+    "threshold": "92e42eb1489ae1f51133c28adce80ba383abcaf557fb1695e4da63b09687c804"
+  },
+  "alias_policy": {
+    "optimized_mb_nu_0": "exactly reuses Uniform at the same V_A",
+    "optimized_mb_nu_0_1": "exactly reuses fixed-MB nu=0.1 at the same V_A",
+    "public_candidate_rows_retained": true
+  }
+}

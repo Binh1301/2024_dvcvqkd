@@ -1,5 +1,9 @@
 # UAV/HAP FSO 256-point DM-CV-QKD paper code
 
+Current lifecycle/backend state is maintained in `docs/PROJECT_STATE.md`.
+Older numerical documents preserve preregistration and diagnostic history and
+must not override that snapshot.
+
 This folder implements the frozen model in `docs/FINAL_MODEL_SPEC.md`. It models a HAP transmitter, UAV receiver, fluctuating FSO channel, 256-point coherent-state modulation, C4-symmetric PS, global GS, adaptive modulation variance, discrete-input mutual information, and the accepted asymptotic ideal-heterodyne Holevo/SKR chain.
 
 It does **not** contain publication results. The physical, optimization, and MI

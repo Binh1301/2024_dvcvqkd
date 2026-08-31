@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Current worktree unittest suite result",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "command", "test_count", "exit_code",
+    "duration_seconds", "test_inventory", "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "current-unittest-suite-v1"},
+    "status": {"enum": ["CURRENTLY_VERIFIED_PASS", "FAILED"]},
+    "command": {"const": "python -m unittest discover -s tests -v"},
+    "test_count": {"type": "integer", "minimum": 1},
+    "exit_code": {"type": "integer"},
+    "duration_seconds": {"type": "number", "minimum": 0},
+    "test_inventory": {"type": "array", "minItems": 1},
+    "stdout_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stdout_tail": {"type": "string"},
+    "lifecycle_guards": {"type": "object"},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": false
+}

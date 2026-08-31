@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent outcome-uninspected confirmation roster",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "OUTCOME_INSPECTION_STATUS",
+    "lifecycle_guards", "selection_design", "channel_realization",
+    "representative_states", "fixtures", "oracle_subset",
+    "roster_payload_sha256", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "independent-confirmation-roster-v1"},
+    "status": {"const": "FROZEN_OUTCOME_UNINSPECTED"},
+    "OUTCOME_INSPECTION_STATUS": {"const": "NOT_INSPECTED"},
+    "lifecycle_guards": {
+      "type": "object",
+      "properties": {
+        "publication_training_performed": {"const": false},
+        "final_test_accessed": {"const": false},
+        "held_out_evaluation_performed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false},
+        "candidate_threshold_evaluated_on_roster": {"const": false},
+        "threshold_approved": {"const": false}
+      },
+      "required": [
+        "publication_training_performed", "final_test_accessed",
+        "held_out_evaluation_performed", "optimized_mb_grid_performed",
+        "baseline_selection_performed", "candidate_threshold_evaluated_on_roster",
+        "threshold_approved"
+      ],
+      "additionalProperties": false
+    },
+    "selection_design": {"type": "object"},
+    "channel_realization": {"type": "object"},
+    "representative_states": {
+      "type": "array", "minItems": 3, "maxItems": 3
+    },
+    "fixtures": {"type": "array", "minItems": 16},
+    "oracle_subset": {"type": "array", "minItems": 3},
+    "roster_payload_sha256": {
+      "type": "string", "pattern": "^[0-9a-f]{64}$"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "repository_commit", "producer_sha256", "config_sha256",
+        "default_config_sha256", "environment_manifest_sha256",
+        "final_model_spec_sha256", "schema_sha256"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,5 +1,11 @@
 # Author numerical decisions
 
+> Historical decision ledger. Several early addendum rows below are
+> superseded by `NUMERICAL_PARAMETER_FREEZE.md`, `PROJECT_STATE.md`, and
+> `EVIDENCE.md`. In particular, `N_MC=2048` is certified; the current blocker
+> is the Fock/support certification protocol. Do not infer current lifecycle
+> status from the older unresolved rows.
+
 Status: **author channel/energy/security values and software-preregistered
 engineering choices are recorded; numerical convergence is blocked by the
 bounded CPU resource check**. Publication-scale optimization remains

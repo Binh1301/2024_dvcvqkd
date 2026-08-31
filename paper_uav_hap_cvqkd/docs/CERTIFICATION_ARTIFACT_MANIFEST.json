@@ -1,0 +1,166 @@
+{
+  "schema_version": "certification-artifact-portability-manifest-v1",
+  "status": "PORTABILITY_SET_EXTENDED_FOR_INDEPENDENT_CONFIRMATION",
+  "generated_date": "2026-08-30",
+  "repository_commit_at_declaration": "0ced45a6ed0004267f34e66e7638d7e7d28bc93d",
+  "worktree_was_dirty": true,
+  "purpose": "Classify local result payloads and identify the minimum Git-tracked set needed to reconstruct the current certification and lifecycle state in a clean clone.",
+  "selection_rule": "Track every non-quarantined result payload cited directly by active EVID-0003 through EVID-0019. Keep quarantined, deprecated, benchmark, smoke, and runtime-only payloads local-only unless a future evidence decision promotes them.",
+  "tracked_authoritative_payloads": [
+    {
+      "path": "results/amplitude_domain_certification.json",
+      "sha256": "6a73374ffd41fc87f490bdb12071cacf3799898c9ada80b5c9935238fdfe16a5",
+      "size_bytes": 33874,
+      "schema_version": "amplitude-domain-certification-v1",
+      "evidence_ids": ["EVID-0009"]
+    },
+    {
+      "path": "results/direct_support_boundary_sweep.json",
+      "sha256": "983e2b4eb7e19bd543ecf17083375762eb3c7e737aa5a90cd51ab32b9d262c73",
+      "size_bytes": 2961418,
+      "schema_version": "direct-support-boundary-sweep-v1",
+      "evidence_ids": ["EVID-0010"]
+    },
+    {
+      "path": "results/current_environment_manifest.json",
+      "sha256": "78c35983aaf7fe9fbc636c80d39b9271ea7930c588b28c4d02703c2e2bce5ff9",
+      "size_bytes": 5778,
+      "schema_version": "locked-cpu-environment-manifest-v1",
+      "evidence_ids": ["EVID-0016"]
+    },
+    {
+      "path": "results/current_test_suite.json",
+      "sha256": "6709db5bcaec5345281832201075ca9b34a26611c5bb22cf8ed6954d7bb324fe",
+      "size_bytes": 9177,
+      "schema_version": "current-unittest-suite-v1",
+      "evidence_ids": ["EVID-0016"]
+    },
+    {
+      "path": "results/float64_gram_comparison.json",
+      "sha256": "e63abd39e944f4362df36620f4d74ce03afab121337f8d66cdf40981f898cdf6",
+      "size_bytes": 224710,
+      "schema_version": "float64-c4-gram-comparison-v1",
+      "evidence_ids": ["EVID-0007"]
+    },
+    {
+      "path": "results/fock_convergence.json",
+      "sha256": "1ed980bf1bb033147f245c9a04dd0e3d0de55bf39260bb32563714dd4bfcd8dd",
+      "size_bytes": 278837,
+      "schema_version": "fock-convergence-evidence-v2",
+      "evidence_ids": ["EVID-0004"]
+    },
+    {
+      "path": "results/mb_grid_numerical_precertification.json",
+      "sha256": "04bb848f25758b66ac8300ca00d7100e50d78d02c1ef9459e458869058cbd6fd",
+      "size_bytes": 910,
+      "schema_version": "mb-grid-numerical-precertification-dependency-blocker-v1",
+      "evidence_ids": ["EVID-0011"]
+    },
+    {
+      "path": "results/mi_convergence.json",
+      "sha256": "6fb7134690ecfc5c17f427ea348f0b951ea0df0cbe19b1d9d6db2279c19b10a4",
+      "size_bytes": 243892,
+      "schema_version": "mi-sequential-convergence-v2",
+      "evidence_ids": ["EVID-0003"]
+    },
+    {
+      "path": "results/near_coincident_fock_diagnostic.json",
+      "sha256": "b70f480475ea5bbe354354e346044286aef47da5417445ab40f3b1f785854287",
+      "size_bytes": 105783,
+      "schema_version": "near-coincident-fock-diagnostic-v1",
+      "evidence_ids": ["EVID-0004"]
+    },
+    {
+      "path": "results/near_coincident_gram_oracle.json",
+      "sha256": "2db2388d53052c228fcc0bd96b69d90803d3545da270619f390d03ed5b60b2d1",
+      "size_bytes": 2002647,
+      "schema_version": "near-coincident-gram-oracle-v1",
+      "evidence_ids": ["EVID-0005"]
+    },
+    {
+      "path": "results/independent_confirmation_roster.json",
+      "sha256": "a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de",
+      "size_bytes": 14177,
+      "schema_version": "independent-confirmation-roster-v1",
+      "evidence_ids": ["EVID-0015"]
+    },
+    {
+      "path": "results/independent_confirmation_gram_oracles_initial.json",
+      "sha256": "26442175e622d304b35b4ff9cef077310eca67d614fa550f469199d5ae7d5b8d",
+      "size_bytes": 238323,
+      "schema_version": "independent-confirmation-gram-oracles-v1",
+      "evidence_ids": ["EVID-0019"]
+    },
+    {
+      "path": "results/independent_confirmation_gram_oracles.json",
+      "sha256": "b566049ec70588e6112c4d3d327b8af6e60d81c4a04f47f41444ac54490c61b6",
+      "size_bytes": 316294,
+      "schema_version": "independent-confirmation-gram-oracles-v1",
+      "evidence_ids": ["EVID-0019"]
+    },
+    {
+      "path": "results/production_gram_certification.json",
+      "sha256": "694e5237ccbbf2fe231361dd9ef05303cc72c8b215fa47e6bb40d5bf5c3685ab",
+      "size_bytes": 9229360,
+      "schema_version": "production-c4-gram-certification-v1",
+      "evidence_ids": ["EVID-0006", "EVID-0007"]
+    },
+    {
+      "path": "results/support_rollback_feasibility.json",
+      "sha256": "dceba618fe4ad76a24cfb47d849d1d8c20c836e754a9d5048114ea3c589b3460",
+      "size_bytes": 811853,
+      "schema_version": "support-rollback-feasibility-v1",
+      "evidence_ids": ["EVID-0010"]
+    },
+    {
+      "path": "results/support_boundary_bisection_crn_regenerated.json",
+      "sha256": "a1d780dc76e251662cadbe99e6f8277e7b59a75d13590b85527beda83fc0af67",
+      "size_bytes": 23410,
+      "schema_version": "support-boundary-bisection-crn-v1",
+      "evidence_ids": ["EVID-0018"]
+    },
+    {
+      "path": "results/support_threshold_protocol_audit.json",
+      "sha256": "673b957234cebaa349340cdadac0ea25f016d01f2189ab5861a137b0bf3cab5b",
+      "size_bytes": 465935,
+      "schema_version": "support-threshold-protocol-audit-v1",
+      "evidence_ids": ["EVID-0008"]
+    },
+    {
+      "path": "results/validation_baseline_selection.json",
+      "sha256": "842b5b38b9cfd7b75140c552fbb6dd25d2412ca4b1eff785e876c689f4b56800",
+      "size_bytes": 1156,
+      "schema_version": "validation-baseline-selection-dependency-blocker-v1",
+      "evidence_ids": ["EVID-0011"]
+    },
+    {
+      "path": "results/whole_segment_support_enclosure_validation.json",
+      "sha256": "6e26ce424d96eb0fa1d99d6749d7e743dc27b69e8cabb13a71a9b8de840879ec",
+      "size_bytes": 16890,
+      "schema_version": "whole-segment-support-enclosure-validation-v1",
+      "evidence_ids": ["EVID-0017"]
+    }
+  ],
+  "local_only_payloads": [
+    {"path": "results/baseline_runtime_profile.json", "sha256": "b3bcccd051e63dded84fa5301375af0e1d38545ffef4cc0fd3648ebb0241da5d", "classification": "RUNTIME_PROFILE"},
+    {"path": "results/boundary_bisection_benchmark.json", "sha256": "5a3fb284254339aebf456fff413ab0205a44222cdac42f1d73e5c2b762533040", "classification": "BENCHMARK"},
+    {"path": "results/fock_cutoff_certification.json", "sha256": "d325387026cb30a14262b86e012f9e42e23120e00fd56f7ab2027bcdd900b4df", "classification": "DEPRECATED_NONCERTIFYING"},
+    {"path": "results/fock_poisson_prescreen.json", "sha256": "d6b3fbbc7542c990b68a8fe46525fb180f694cb0f5dc6d986eb494eda0c8af69", "classification": "PRESCREEN"},
+    {"path": "results/frozen_channel_diagnostics.json", "sha256": "7380f6f9ad6c30d931078cd8f4485f366247d2b4abe8e215619b8669db2d856d", "classification": "HISTORICAL_DIAGNOSTIC"},
+    {"path": "results/frozen_transmitter_smoke.json", "sha256": "502fe2eb6803015ff413be274fd358e442ebb62f0b4edbd109b11a6a9e130ba2", "classification": "SMOKE"},
+    {"path": "results/gram_oracle_block_regression_50.json", "sha256": "23f090ac4c11c7f4aa1bcafe3afe9687b9d7081e2838da24ce803984dc45eb81", "classification": "PARTIAL_PRECISION_DIAGNOSTIC"},
+    {"path": "results/holevo_threshold_sensitivity.json", "sha256": "92e42eb1489ae1f51133c28adce80ba383abcaf557fb1695e4da63b09687c804", "classification": "HISTORICAL_DIAGNOSTIC"},
+    {"path": "results/mi_runtime_profile.json", "sha256": "1033646c54dda6ee8af98d707268bfdb468d953db704fd41203e67dcb3d74964", "classification": "RUNTIME_PROFILE"},
+    {"path": "results/optimizer_freeze_smoke.json", "sha256": "366d2c58878a37b8547bbcc40e613477825708b0af20f5aba6dd288df4c5025d", "classification": "SMOKE"},
+    {"path": "results/preconvergence_domain_report.json", "sha256": "cb007d54c2dd1f8d56953e847fa23bab7039e1bb64515252faa55e77c4104bf6", "classification": "HISTORICAL_DIAGNOSTIC"},
+    {"path": "results/support_boundary_bisection_crn.json", "sha256": "2d57ab236541d523dfca484478b86e724e2a7391b1ed2df105ab4e3791908418", "classification": "QUARANTINED_INVALID_PRODUCER_PROVENANCE"},
+    {"path": "results/support_rollback_benchmark.json", "sha256": "63e0f2e4e3766c3f815042a28622ca42e974560a326941c1a7a07184ef408389", "classification": "BENCHMARK"}
+  ],
+  "verification": {
+    "tracked_payload_count": 19,
+    "tracked_payload_total_bytes": 16984424,
+    "quarantined_payloads_may_support_lifecycle_approval": false,
+    "unlisted_results_are_authoritative": false,
+    "hash_algorithm": "SHA-256"
+  }
+}

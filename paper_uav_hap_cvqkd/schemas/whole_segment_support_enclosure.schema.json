@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Whole-segment support enclosure validation",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "method_scope", "synthetic_regressions",
+    "confirmation_roster_sha256", "segment_rows", "aggregate",
+    "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "whole-segment-support-enclosure-validation-v1"},
+    "status": {"const": "EXPERIMENTAL_DERIVATIVE_ENCLOSURE_INITIAL_EIGENSYSTEM_BLOCKED"},
+    "method_scope": {"type": "object"},
+    "synthetic_regressions": {"type": "object"},
+    "confirmation_roster_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "segment_rows": {"type": "array", "minItems": 12},
+    "aggregate": {"type": "object"},
+    "lifecycle_guards": {
+      "type": "object",
+      "properties": {
+        "threshold_approved": {"const": false},
+        "publication_training_performed": {"const": false},
+        "final_test_accessed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": false
+}

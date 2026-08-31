@@ -3,6 +3,12 @@
 Status: **diagnostic evidence only; no active numerical rule changed**. No
 training or held-out test realization was accessed.
 
+Current implementation note (2026-08-30): the cutoff-independent C4-Gram
+representation was subsequently integrated as the production Holevo backend.
+The oracle conclusions remain diagnostic because the configured `1e-12`
+support rule is invalid/unapproved and `1e-13` remains proposed. For current
+lifecycle state, use `PROJECT_STATE.md`.
+
 ## Independent construction
 
 The oracle forms the weighted coherent-state Gram matrix
@@ -84,7 +90,8 @@ The unthresholded Gram identities are mathematically exact for C4 ensembles.
 The complex128 hard-threshold realization is a regularized numerical
 approximation: at `1e-14`/`1e-13` it is observable-level tolerance-equivalent
 on this finite roster, but it does not resolve the full 256-mode spectrum. It
-is not wired into production and no new threshold is frozen.
+was not wired into production at the time of this diagnostic. That wiring was
+later implemented (DEC-0009); no new threshold was frozen.
 
 ## Proposed admissibility rule -- not frozen
 

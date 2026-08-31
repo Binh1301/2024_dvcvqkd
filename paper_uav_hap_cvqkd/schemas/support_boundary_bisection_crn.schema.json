@@ -5,21 +5,85 @@
   "required": [
     "schema_version", "status", "preregistered_design", "lifecycle_guards",
     "validation_state_realization_sha256", "bisections", "one_sided_crn",
-    "cross_run_reproducibility", "outward_rollback", "interpretation",
-    "runtime_seconds", "provenance"
+    "outward_rollback", "interpretation", "runtime_seconds", "provenance"
   ],
   "properties": {
     "schema_version": {"const": "support-boundary-bisection-crn-v1"},
     "status": {"const": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN"},
-    "preregistered_design": {"type": "object"},
-    "lifecycle_guards": {"type": "object"},
+    "validation_state_realization_sha256": {
+      "type": "string", "pattern": "^[0-9a-f]{64}$"
+    },
+    "preregistered_design": {
+      "type": "object",
+      "required": [
+        "threshold", "bisection_max_iterations", "bisection_stop_width",
+        "crn_seed", "mutual_information_sample_count", "noise_chunk_size",
+        "va_rhos", "ps_rhos", "gs_rhos", "one_sided_center_rule",
+        "rollback_rule"
+      ],
+      "properties": {
+        "threshold": {"const": 1e-13},
+        "bisection_max_iterations": {"const": 60},
+        "bisection_stop_width": {"const": 1e-12},
+        "crn_seed": {"const": 202615},
+        "mutual_information_sample_count": {"const": 2048},
+        "noise_chunk_size": {"const": 64},
+        "va_rhos": {"const": [0.0001, 0.00001, 0.000001, 0.0000001, 0.00000001]},
+        "ps_rhos": {"const": [0.0001, 0.000001, 0.0000001]},
+        "gs_rhos": {"const": [0.0001, 0.000001]},
+        "one_sided_center_rule": {"type": "string", "minLength": 1},
+        "rollback_rule": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "lifecycle_guards": {
+      "type": "object",
+      "required": [
+        "publication_training_performed", "test_set_accessed",
+        "final_held_out_evaluation_performed",
+        "optimized_mb_grid_performed", "baseline_selection_performed",
+        "active_config_changed", "physical_or_security_functional_changed"
+      ],
+      "properties": {
+        "publication_training_performed": {"const": false},
+        "test_set_accessed": {"const": false},
+        "final_held_out_evaluation_performed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false},
+        "active_config_changed": {"const": false},
+        "physical_or_security_functional_changed": {"const": false}
+      },
+      "additionalProperties": false
+    },
     "bisections": {"type": "object", "minProperties": 6, "maxProperties": 6},
-    "cross_run_reproducibility": {"type": "object"},
     "one_sided_crn": {"type": ["object", "null"]},
     "outward_rollback": {"type": "array", "minItems": 3, "maxItems": 3},
     "interpretation": {"type": "string"},
     "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
-    "provenance": {"type": "object"}
+    "provenance": {
+      "type": "object",
+      "required": [
+        "input_and_source_hashes", "output_path", "runtime_environment",
+        "repository_commit", "producer_sha256", "config_sha256",
+        "input_roster_sha256", "environment_manifest_sha256", "schema_sha256",
+        "numerical_precision", "threshold_under_evaluation", "timestamp_utc"
+      ],
+      "properties": {
+        "input_and_source_hashes": {"type": "object", "minProperties": 1},
+        "output_path": {"type": "string", "minLength": 1},
+        "runtime_environment": {"type": "object", "minProperties": 1}
+        ,"repository_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+        ,"producer_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        ,"config_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        ,"input_roster_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        ,"environment_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        ,"schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        ,"numerical_precision": {"type": "string", "minLength": 1}
+        ,"threshold_under_evaluation": {"const": 1e-13}
+        ,"timestamp_utc": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false
 }

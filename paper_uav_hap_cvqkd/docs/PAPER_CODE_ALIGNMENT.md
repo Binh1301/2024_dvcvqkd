@@ -1,5 +1,9 @@
 # Paper/code alignment for the frozen numerical protocol
 
+> Historical freeze narrative. Production C4-Gram integration occurred after
+> the dense-Fock failure described below, but its support threshold remains
+> unapproved. Use `PROJECT_STATE.md` for current lifecycle/backend state.
+
 ## Pre-publication numerical freeze status (2026-08-27)
 
 The manuscript must add `beta_rec=0.95`, the approved physical-channel table,

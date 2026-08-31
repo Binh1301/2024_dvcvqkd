@@ -1,0 +1,3521 @@
+{
+  "schema_version": "near-coincident-fock-diagnostic-v1",
+  "status": "DIAGNOSTIC_ONLY_NOT_SELECTION",
+  "test_set_used": false,
+  "publication_training_performed": false,
+  "fixture": "near_coincident_pseudoinverse_stress",
+  "state_labels": [
+    "bad",
+    "medium",
+    "good"
+  ],
+  "validation_state_realization_sha256": "247b428bb5dcbaf5e532ecd15a3b46efdf07bdcc47759348a8625576c2c4c500",
+  "active_density_eigenvalue_tolerance": 1e-12,
+  "mutual_information_sample_count": 2048,
+  "preregistered_extension_cutoffs": [
+    144,
+    160,
+    192,
+    224,
+    256
+  ],
+  "extension_included": true,
+  "nonselectable_reference_cutoff": 256,
+  "runtime_seconds": 40.28583519998938,
+  "provenance": {
+    "config_path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\configs\\default.yaml",
+    "resolved_config_sha256": "92ec2f2f3630ee65dff0a2b4d2d7eb6f13c884685f36552ba066692b5ef7994c",
+    "precision": "torch.float64 / torch.complex128 on CPU",
+    "test_set_used": false,
+    "coverage_complete_over_learned_parameter_space": false,
+    "coverage_scope": "finite_preregistered_fixture_suite_only",
+    "physical_domain_rule": "max_i |alpha_i(T,epsilon)|^2 <= n_peak",
+    "n_peak_photons": 30.0,
+    "peak_domain_scope": "complete_preregistered_realizations",
+    "boundary_fixtures_included": [
+      "hard_peak_boundary_at_vmin",
+      "hard_peak_boundary_at_vmax"
+    ],
+    "publication_convergence_certification": false,
+    "enumerated_fixture_sha256": {
+      "uniform_low_va_0.1": "a793b7c6ccc837ac65ae619d721a1120ce99003834fbf6e3d15141e121f7be0f",
+      "uniform_high_va_1.5": "23da6caeead82b36f8733b9e57b2fb3963c68e8734c760355f42f6395955a804",
+      "binomial_low_va_0.1": "a21940562f59b1a49fc2d30894dea0aa73896e5567f293dee8b6767833662e33",
+      "binomial_high_va_1.5": "a656092de81d33d1cb721d66279504b4d193cd1999424c9f519190111cca6902",
+      "fixed_mb_low_va_0.1": "4f00675bca326ef869cd6ceff238775e1c8bc70ec06f2d28f0a95c04e71c4dbe",
+      "fixed_mb_high_va_1.5": "5a655a17e61b4db7c845adb77346c1635a65003d19a253577c9b206a5829da6a",
+      "optimized_mb_nu_0_low_va_0.1": "a793b7c6ccc837ac65ae619d721a1120ce99003834fbf6e3d15141e121f7be0f",
+      "optimized_mb_nu_0_high_va_1.5": "23da6caeead82b36f8733b9e57b2fb3963c68e8734c760355f42f6395955a804",
+      "optimized_mb_nu_0.3_low_va_0.1": "19ac651a574e27543529caee5ea107ee97bcbb6fb722969d2abac8debdfdb49b",
+      "optimized_mb_nu_0.3_high_va_1.5": "863ef0729d33432ce5018c4b565b07e49a7c622d3ddbec659e2c8c6c09fbaa47",
+      "untrained_full_initialization": "f7128dc210719de3942c4af8e2a47811d6994b746b06c1001dea542b39fbe8c4",
+      "deterministic_ps_only": "bd4603f58aecac280dd5adc740d234f7aaf4a7279fc5aa84933b631625e03891",
+      "deterministic_gs_only": "44f6055092c4bfd80789e942f1d46e57dfa64170c7137c02d178e72893a4973b",
+      "deterministic_va_only": "35416ab56bbbafbc0afba782de3fe3d1231ad1d5663bdecf1d15c400f29410bd",
+      "deterministic_deformed_full": "9c7cc47a202f6fbbd6f08db19cd3c09df4dd74cf8653d28388b88ebf8a070362",
+      "near_coincident_pseudoinverse_stress": "4d36a48e7cb13f5f3bb91c86139d17ddcff6ea213cab4a89d2cb06d69b9501e8",
+      "hard_peak_boundary_at_vmin": "d0d8bcef1d9b62c8cb1596687c29b195e263013424783032b0cdfd04bbd65502",
+      "hard_peak_boundary_at_vmax": "d0fc0935a919bd7491743ad8f4e66ae1badda6c7cca42092023c90ca4ff6f761"
+    },
+    "coverage_limitation": "Finite representative and boundary fixtures cannot certify the continuous learned parameter space or any selected checkpoint not explicitly enumerated and hash-bound."
+  },
+  "rows": [
+    {
+      "fock_cutoff": 48,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.0259768001987558e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 42,
+          "minimum_retained_density_eigenvalue": 1.7756413431112696e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867738110.38367
+        },
+        {
+          "minimum_density_eigenvalue": -1.0259768001987558e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 42,
+          "minimum_retained_density_eigenvalue": 1.7756413431112696e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867738110.38367
+        },
+        {
+          "minimum_density_eigenvalue": -1.0259768001987558e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 42,
+          "minimum_retained_density_eigenvalue": 1.7756413431112696e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867738110.38367
+        }
+      ],
+      "active_full_matrix_C": [
+        2.061199010083158,
+        2.061199010083158,
+        2.061199010083158
+      ],
+      "support_basis_C": [
+        2.0611990100831585,
+        2.0611990100831585,
+        2.0611990100831585
+      ],
+      "C_full_minus_support": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.4736608724592722,
+        0.4736608724592722,
+        0.4736608724592722
+      ],
+      "support_basis_w": [
+        0.47366084259608604,
+        0.47366084259608604,
+        0.47366084259608604
+      ],
+      "w_full_minus_support": [
+        2.986318614617289e-08,
+        2.986318614617289e-08,
+        2.986318614617289e-08
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100831585,
+          2.0611990100831585,
+          2.0611990100831585
+        ],
+        "w": [
+          0.47366084259608604,
+          0.47366084259608604,
+          0.47366084259608604
+        ],
+        "Z": [
+          0.550032393281181,
+          0.6262998611193598,
+          0.6764719529687678
+        ],
+        "lambda1": [
+          4.9498190101739405,
+          4.935002188788407,
+          4.924192443592638
+        ],
+        "lambda2": [
+          1.028889320583204,
+          1.0348419235410908,
+          1.0365262361753214
+        ],
+        "lambda3": [
+          4.854485135907178,
+          4.813199307763205,
+          4.783360799907543
+        ],
+        "chi_BE": [
+          0.13775060376097237,
+          0.16371579026987115,
+          0.1745259753577204
+        ],
+        "raw_K": [
+          -0.08538292004386903,
+          -0.09769418866971252,
+          -0.09993956977502746
+        ]
+      },
+      "Z": [
+        0.5500323924368694,
+        0.6262998603899054,
+        0.6764719525353047
+      ],
+      "lambda1": [
+        4.949819010329292,
+        4.935002188941462,
+        4.924192443691024
+      ],
+      "lambda2": [
+        1.0288893207385543,
+        1.0348419236941453,
+        1.0365262362737082
+      ],
+      "lambda3": [
+        4.854485136353915,
+        4.813199308198341,
+        4.783360800185175
+      ],
+      "chi_BE": [
+        0.13775060414865203,
+        0.1637157906319482,
+        0.17452597558733585
+      ],
+      "raw_K": [
+        -0.0853829204315487,
+        -0.09769418903178956,
+        -0.0999395700046429
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555092914278899,
+            0.2555092914278899,
+            0.2555092914278899
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555092914278899,
+            0.2555092914278899,
+            0.2555092914278899
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366084259608604,
+            0.47366084259608604,
+            0.47366084259608604
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172285,
+            0.04438194890172285,
+            0.04438194890172285
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172285,
+            0.04438194890172285,
+            0.04438194890172285
+          ]
+        }
+      ],
+      "runtime_seconds": 0.6711899000220001
+    },
+    {
+      "fock_cutoff": 56,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.0259768001987656e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 50,
+          "minimum_retained_density_eigenvalue": 1.7756413431112694e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867738110.3837
+        },
+        {
+          "minimum_density_eigenvalue": -1.0259768001987656e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 50,
+          "minimum_retained_density_eigenvalue": 1.7756413431112694e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867738110.3837
+        },
+        {
+          "minimum_density_eigenvalue": -1.0259768001987656e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 50,
+          "minimum_retained_density_eigenvalue": 1.7756413431112694e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867738110.3837
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990100831585,
+        2.0611990100831585,
+        2.0611990100831585
+      ],
+      "support_basis_C": [
+        2.0611990100831576,
+        2.0611990100831576,
+        2.0611990100831576
+      ],
+      "C_full_minus_support": [
+        8.881784197001252e-16,
+        8.881784197001252e-16,
+        8.881784197001252e-16
+      ],
+      "active_full_matrix_w": [
+        0.47366115983006696,
+        0.47366115983006696,
+        0.47366115983006696
+      ],
+      "support_basis_w": [
+        0.47366084259530494,
+        0.47366084259530494,
+        0.47366084259530494
+      ],
+      "w_full_minus_support": [
+        3.1723476201506173e-07,
+        3.1723476201506173e-07,
+        3.1723476201506173e-07
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100831576,
+          2.0611990100831576,
+          2.0611990100831576
+        ],
+        "w": [
+          0.47366084259530494,
+          0.47366084259530494,
+          0.47366084259530494
+        ],
+        "Z": [
+          0.5500323932812029,
+          0.6262998611193785,
+          0.6764719529687789
+        ],
+        "lambda1": [
+          4.949819010173936,
+          4.9350021887884035,
+          4.924192443592636
+        ],
+        "lambda2": [
+          1.0288893205831997,
+          1.0348419235410866,
+          1.0365262361753187
+        ],
+        "lambda3": [
+          4.854485135907167,
+          4.813199307763194,
+          4.783360799907536
+        ],
+        "chi_BE": [
+          0.13775060376096127,
+          0.16371579026986138,
+          0.17452597535771464
+        ],
+        "raw_K": [
+          -0.08538292004385793,
+          -0.09769418866970275,
+          -0.09993956977502169
+        ]
+      },
+      "Z": [
+        0.5500323843121364,
+        0.6262998533704328,
+        0.6764719483641284
+      ],
+      "lambda1": [
+        4.949819011824219,
+        4.935002190414296,
+        4.924192444637784
+      ],
+      "lambda2": [
+        1.0288893222334814,
+        1.0348419251669796,
+        1.036526237220467
+      ],
+      "lambda3": [
+        4.854485140652824,
+        4.813199312385607,
+        4.7833608028568015
+      ],
+      "chi_BE": [
+        0.13775060787926519,
+        0.1637157941161944,
+        0.17452597779688173
+      ],
+      "raw_K": [
+        -0.08538292416216185,
+        -0.09769419251603578,
+        -0.09993957221418878
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555092914265956,
+            0.2555092914265956,
+            0.2555092914265956
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555092914265956,
+            0.2555092914265956,
+            0.2555092914265956
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366084259530494,
+            0.47366084259530494,
+            0.47366084259530494
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172277,
+            0.04438194890172277,
+            0.04438194890172277
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172277,
+            0.04438194890172277,
+            0.04438194890172277
+          ]
+        }
+      ],
+      "runtime_seconds": 0.4660533999558538
+    },
+    {
+      "fock_cutoff": 64,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -4.36906262964604e-19,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 58,
+          "minimum_retained_density_eigenvalue": 1.7756445823623262e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867422753.35284
+        },
+        {
+          "minimum_density_eigenvalue": -4.36906262964604e-19,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 58,
+          "minimum_retained_density_eigenvalue": 1.7756445823623262e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867422753.35284
+        },
+        {
+          "minimum_density_eigenvalue": -4.36906262964604e-19,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 58,
+          "minimum_retained_density_eigenvalue": 1.7756445823623262e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172867422753.35284
+        }
+      ],
+      "active_full_matrix_C": [
+        2.061199010116832,
+        2.061199010116832,
+        2.061199010116832
+      ],
+      "support_basis_C": [
+        2.061199010116831,
+        2.061199010116831,
+        2.061199010116831
+      ],
+      "C_full_minus_support": [
+        8.881784197001252e-16,
+        8.881784197001252e-16,
+        8.881784197001252e-16
+      ],
+      "active_full_matrix_w": [
+        0.47365631679633186,
+        0.47365631679633186,
+        0.47365631679633186
+      ],
+      "support_basis_w": [
+        0.47364993498621205,
+        0.47364993498621205,
+        0.47364993498621205
+      ],
+      "w_full_minus_support": [
+        6.381810119804321e-06,
+        6.381810119804321e-06,
+        6.381810119804321e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.061199010116831,
+          2.061199010116831,
+          2.061199010116831
+        ],
+        "w": [
+          0.47364993498621205,
+          0.47364993498621205,
+          0.47364993498621205
+        ],
+        "Z": [
+          0.5500327016794445,
+          0.6263001275666619,
+          0.6764721113045338
+        ],
+        "lambda1": [
+          4.949818953429548,
+          4.935002132882109,
+          4.924192407654114
+        ],
+        "lambda2": [
+          1.0288892638388123,
+          1.0348418676347915,
+          1.0365262002367972
+        ],
+        "lambda3": [
+          4.854484972729357,
+          4.813199148821605,
+          4.783360698493914
+        ],
+        "chi_BE": [
+          0.13775046215440057,
+          0.16371565801372112,
+          0.17452589148440056
+        ],
+        "raw_K": [
+          -0.08538277843729723,
+          -0.09769405641356249,
+          -0.09993948590170762
+        ]
+      },
+      "Z": [
+        0.5500325212472743,
+        0.6262999716798582,
+        0.6764720186720272
+      ],
+      "lambda1": [
+        4.949818986628552,
+        4.935002165590471,
+        4.924192428679532
+      ],
+      "lambda2": [
+        1.0288892970378156,
+        1.0348419003431544,
+        1.0365262212622155
+      ],
+      "lambda3": [
+        4.854485068198545,
+        4.813199241811476,
+        4.783360757824786
+      ],
+      "chi_BE": [
+        0.13775054500307427,
+        0.16371573539109452,
+        0.17452594055352044
+      ],
+      "raw_K": [
+        -0.08538286128597093,
+        -0.09769413379093589,
+        -0.0999395349708275
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555009933222642,
+            0.2555009933222642,
+            0.2555009933222642
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555009933222642,
+            0.2555009933222642,
+            0.2555009933222642
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47364993498621205,
+            0.47364993498621205,
+            0.47364993498621205
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172269,
+            0.04438194890172269,
+            0.04438194890172269
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172269,
+            0.04438194890172269,
+            0.04438194890172269
+          ]
+        }
+      ],
+      "runtime_seconds": 1.6010684999637306
+    },
+    {
+      "fock_cutoff": 72,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.4726935763932764e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 66,
+          "minimum_retained_density_eigenvalue": 1.7755970542218436e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872049967.13086
+        },
+        {
+          "minimum_density_eigenvalue": -1.4726935763932764e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 66,
+          "minimum_retained_density_eigenvalue": 1.7755970542218436e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872049967.13086
+        },
+        {
+          "minimum_density_eigenvalue": -1.4726935763932764e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 66,
+          "minimum_retained_density_eigenvalue": 1.7755970542218436e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872049967.13086
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990101070794,
+        2.0611990101070794,
+        2.0611990101070794
+      ],
+      "support_basis_C": [
+        2.06119901010708,
+        2.06119901010708,
+        2.06119901010708
+      ],
+      "C_full_minus_support": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.47365631385688706,
+        0.47365631385688706,
+        0.47365631385688706
+      ],
+      "support_basis_w": [
+        0.47365345225436284,
+        0.47365345225436284,
+        0.47365345225436284
+      ],
+      "w_full_minus_support": [
+        2.8616025242178544e-06,
+        2.8616025242178544e-06,
+        2.8616025242178544e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.06119901010708,
+          2.06119901010708,
+          2.06119901010708
+        ],
+        "w": [
+          0.47365345225436284,
+          0.47365345225436284,
+          0.47365345225436284
+        ],
+        "Z": [
+          0.5500326022332547,
+          0.6263000416480718,
+          0.6764720602477503
+        ],
+        "lambda1": [
+          4.949818971727365,
+          4.935002150909654,
+          4.9241924192428135
+        ],
+        "lambda2": [
+          1.0288892821366276,
+          1.0348418856623371,
+          1.0365262118254972
+        ],
+        "lambda3": [
+          4.854485025347732,
+          4.8131992000739166,
+          4.783360731195648
+        ],
+        "chi_BE": [
+          0.13775050781691034,
+          0.16371570066104546,
+          0.1745259185301098
+        ],
+        "raw_K": [
+          -0.085382824099807,
+          -0.09769409906088683,
+          -0.09993951294741685
+        ]
+      },
+      "Z": [
+        0.5500325213276513,
+        0.6262999717485861,
+        0.6764720187114275
+      ],
+      "lambda1": [
+        4.949818986613763,
+        4.9350021655760505,
+        4.924192428670589
+      ],
+      "lambda2": [
+        1.0288892970230266,
+        1.0348419003287337,
+        1.036526221253273
+      ],
+      "lambda3": [
+        4.854485068156016,
+        4.813199241770478,
+        4.78336075779955
+      ],
+      "chi_BE": [
+        0.13775054496616823,
+        0.16371573535698003,
+        0.17452594053265091
+      ],
+      "raw_K": [
+        -0.0853828612490649,
+        -0.0976941337568214,
+        -0.09993953494995797
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555028512887934,
+            0.2555028512887934,
+            0.2555028512887934
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555028512887934,
+            0.2555028512887934,
+            0.2555028512887934
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47365345225436284,
+            0.47365345225436284,
+            0.47365345225436284
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722736,
+            0.044381948901722736,
+            0.044381948901722736
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722736,
+            0.044381948901722736,
+            0.044381948901722736
+          ]
+        }
+      ],
+      "runtime_seconds": 0.5155257999431342
+    },
+    {
+      "fock_cutoff": 80,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.4727463944862433e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 74,
+          "minimum_retained_density_eigenvalue": 1.7755970542695779e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872049962.48343
+        },
+        {
+          "minimum_density_eigenvalue": -1.4727463944862433e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 74,
+          "minimum_retained_density_eigenvalue": 1.7755970542695779e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872049962.48343
+        },
+        {
+          "minimum_density_eigenvalue": -1.4727463944862433e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 74,
+          "minimum_retained_density_eigenvalue": 1.7755970542695779e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872049962.48343
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990101070794,
+        2.0611990101070794,
+        2.0611990101070794
+      ],
+      "support_basis_C": [
+        2.06119901010708,
+        2.06119901010708,
+        2.06119901010708
+      ],
+      "C_full_minus_support": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.4736537608103252,
+        0.4736537608103252,
+        0.4736537608103252
+      ],
+      "support_basis_w": [
+        0.4736534522471909,
+        0.4736534522471909,
+        0.4736534522471909
+      ],
+      "w_full_minus_support": [
+        3.0856313426586013e-07,
+        3.0856313426586013e-07,
+        3.0856313426586013e-07
+      ],
+      "support_basis_security": {
+        "C": [
+          2.06119901010708,
+          2.06119901010708,
+          2.06119901010708
+        ],
+        "w": [
+          0.4736534522471909,
+          0.4736534522471909,
+          0.4736534522471909
+        ],
+        "Z": [
+          0.5500326022334575,
+          0.626300041648247,
+          0.6764720602478544
+        ],
+        "lambda1": [
+          4.949818971727327,
+          4.935002150909618,
+          4.9241924192427895
+        ],
+        "lambda2": [
+          1.0288892821365911,
+          1.034841885662301,
+          1.0365262118254732
+        ],
+        "lambda3": [
+          4.854485025347625,
+          4.813199200073812,
+          4.7833607311955815
+        ],
+        "chi_BE": [
+          0.13775050781681974,
+          0.16371570066096197,
+          0.1745259185300525
+        ],
+        "raw_K": [
+          -0.08538282409971641,
+          -0.09769409906080334,
+          -0.09993951294735956
+        ]
+      },
+      "Z": [
+        0.5500325935094923,
+        0.6263000341110598,
+        0.6764720557690368
+      ],
+      "lambda1": [
+        4.949818973332512,
+        4.93500215249108,
+        4.924192420259376
+      ],
+      "lambda2": [
+        1.028889283741775,
+        1.0348418872437628,
+        1.03652621284206
+      ],
+      "lambda3": [
+        4.854485029963597,
+        4.813199204569908,
+        4.783360734064252
+      ],
+      "chi_BE": [
+        0.13775051182258302,
+        0.1637157044021862,
+        0.17452592090256225
+      ],
+      "raw_K": [
+        -0.08538282810547969,
+        -0.09769410280202756,
+        -0.0999395153198693
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.255502851284269,
+            0.255502851284269,
+            0.255502851284269
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.255502851284269,
+            0.255502851284269,
+            0.255502851284269
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.4736534522471909,
+            0.4736534522471909,
+            0.4736534522471909
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722736,
+            0.044381948901722736,
+            0.044381948901722736
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722736,
+            0.044381948901722736,
+            0.044381948901722736
+          ]
+        }
+      ],
+      "runtime_seconds": 0.4186963001266122
+    },
+    {
+      "fock_cutoff": 96,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -2.739442211434328e-18,
+          "maximum_density_eigenvalue": 0.30695110267892894,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 90,
+          "minimum_retained_density_eigenvalue": 1.7755337380284514e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892894,
+          "retained_density_condition_number": 172878214648.7212
+        },
+        {
+          "minimum_density_eigenvalue": -2.739442211434328e-18,
+          "maximum_density_eigenvalue": 0.30695110267892894,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 90,
+          "minimum_retained_density_eigenvalue": 1.7755337380284514e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892894,
+          "retained_density_condition_number": 172878214648.7212
+        },
+        {
+          "minimum_density_eigenvalue": -2.739442211434328e-18,
+          "maximum_density_eigenvalue": 0.30695110267892894,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 90,
+          "minimum_retained_density_eigenvalue": 1.7755337380284514e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892894,
+          "retained_density_condition_number": 172878214648.7212
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990100661357,
+        2.0611990100661357,
+        2.0611990100661357
+      ],
+      "support_basis_C": [
+        2.061199010066136,
+        2.061199010066136,
+        2.061199010066136
+      ],
+      "C_full_minus_support": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.47366625067274715,
+        0.47366625067274715,
+        0.47366625067274715
+      ],
+      "support_basis_w": [
+        0.47366717259383145,
+        0.47366717259383145,
+        0.47366717259383145
+      ],
+      "w_full_minus_support": [
+        -9.21921084306998e-07,
+        -9.21921084306998e-07,
+        -9.21921084306998e-07
+      ],
+      "support_basis_security": {
+        "C": [
+          2.061199010066136,
+          2.061199010066136,
+          2.061199010066136
+        ],
+        "w": [
+          0.47366717259383145,
+          0.47366717259383145,
+          0.47366717259383145
+        ],
+        "Z": [
+          0.550032214311188,
+          0.6262997064945758,
+          0.6764718610836772
+        ],
+        "lambda1": [
+          4.949819043103888,
+          4.935002221231957,
+          4.924192464448406
+        ],
+        "lambda2": [
+          1.0288893535131516,
+          1.034841955984641,
+          1.0365262570310896
+        ],
+        "lambda3": [
+          4.854485230602656,
+          4.813199400000214,
+          4.783360858759683
+        ],
+        "chi_BE": [
+          0.13775068593816675,
+          0.16371586702074659,
+          0.1745260240308979
+        ],
+        "raw_K": [
+          -0.08538300222106342,
+          -0.09769426542058796,
+          -0.09993961844820495
+        ]
+      },
+      "Z": [
+        0.5500322403761809,
+        0.6262997290137775,
+        0.6764718744652466
+      ],
+      "lambda1": [
+        4.949819038308007,
+        4.935002216506954,
+        4.924192461411103
+      ],
+      "lambda2": [
+        1.0288893487172717,
+        1.0348419512596359,
+        1.0365262539937867
+      ],
+      "lambda3": [
+        4.854485216811312,
+        4.813199386567027,
+        4.783360850188826
+      ],
+      "chi_BE": [
+        0.13775067396997587,
+        0.16371585584292347,
+        0.1745260169424423
+      ],
+      "raw_K": [
+        -0.08538299025287253,
+        -0.09769425424276484,
+        -0.09993961135974935
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551202824915636,
+            0.25551202824915636,
+            0.25551202824915636
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551202824915636,
+            0.25551202824915636,
+            0.25551202824915636
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366717259383145,
+            0.47366717259383145,
+            0.47366717259383145
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172316,
+            0.04438194890172316,
+            0.04438194890172316
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172316,
+            0.04438194890172316,
+            0.04438194890172316
+          ]
+        }
+      ],
+      "runtime_seconds": 1.452710699988529
+    },
+    {
+      "fock_cutoff": 112,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -8.131886579782936e-19,
+          "maximum_density_eigenvalue": 0.3069511026789288,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 106,
+          "minimum_retained_density_eigenvalue": 1.7756128101275747e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789288,
+          "retained_density_condition_number": 172870515986.46378
+        },
+        {
+          "minimum_density_eigenvalue": -8.131886579782936e-19,
+          "maximum_density_eigenvalue": 0.3069511026789288,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 106,
+          "minimum_retained_density_eigenvalue": 1.7756128101275747e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789288,
+          "retained_density_condition_number": 172870515986.46378
+        },
+        {
+          "minimum_density_eigenvalue": -8.131886579782936e-19,
+          "maximum_density_eigenvalue": 0.3069511026789288,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 106,
+          "minimum_retained_density_eigenvalue": 1.7756128101275747e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789288,
+          "retained_density_condition_number": 172870515986.46378
+        }
+      ],
+      "active_full_matrix_C": [
+        2.061199010060066,
+        2.061199010060066,
+        2.061199010060066
+      ],
+      "support_basis_C": [
+        2.0611990100600663,
+        2.0611990100600663,
+        2.0611990100600663
+      ],
+      "C_full_minus_support": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.47367094482098604,
+        0.47367094482098604,
+        0.47367094482098604
+      ],
+      "support_basis_w": [
+        0.47366852648782887,
+        0.47366852648782887,
+        0.47366852648782887
+      ],
+      "w_full_minus_support": [
+        2.4183331571725475e-06,
+        2.4183331571725475e-06,
+        2.4183331571725475e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100600663,
+          2.0611990100600663,
+          2.0611990100600663
+        ],
+        "w": [
+          0.47366852648782887,
+          0.47366852648782887,
+          0.47366852648782887
+        ],
+        "Z": [
+          0.5500321760315978,
+          0.6262996734219632,
+          0.6764718414300657
+        ],
+        "lambda1": [
+          4.949819050147219,
+          4.93500222817129,
+          4.924192468909316
+        ],
+        "lambda2": [
+          1.028889360556481,
+          1.0348419629239736,
+          1.036526261492
+        ],
+        "lambda3": [
+          4.854485250856908,
+          4.813199419728736,
+          4.783360871347765
+        ],
+        "chi_BE": [
+          0.13775070351490104,
+          0.1637158834369452,
+          0.17452603444176562
+        ],
+        "raw_K": [
+          -0.08538301979779771,
+          -0.09769428183678658,
+          -0.09993962885907268
+        ]
+      },
+      "Z": [
+        0.5500321076595461,
+        0.6262996143510083,
+        0.6764718063283732
+      ],
+      "lambda1": [
+        4.949819062727469,
+        4.935002240565623,
+        4.924192476876579
+      ],
+      "lambda2": [
+        1.0288893731367326,
+        1.0348419753183065,
+        1.0365262694592623
+      ],
+      "lambda3": [
+        4.854485287033487,
+        4.813199454965823,
+        4.783360893830297
+      ],
+      "chi_BE": [
+        0.13775073490910605,
+        0.163715912757894,
+        0.1745260530357542
+      ],
+      "raw_K": [
+        -0.08538305119200272,
+        -0.09769431115773536,
+        -0.09993964745306125
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555146201355112,
+            0.2555146201355112,
+            0.2555146201355112
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555146201355112,
+            0.2555146201355112,
+            0.2555146201355112
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366852648782887,
+            0.47366852648782887,
+            0.47366852648782887
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172316,
+            0.04438194890172316,
+            0.04438194890172316
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172316,
+            0.04438194890172316,
+            0.04438194890172316
+          ]
+        }
+      ],
+      "runtime_seconds": 0.9179199000354856
+    },
+    {
+      "fock_cutoff": 128,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.6568870578274947e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 122,
+          "minimum_retained_density_eigenvalue": 1.7755803805873264e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172873673326.68744
+        },
+        {
+          "minimum_density_eigenvalue": -1.6568870578274947e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 122,
+          "minimum_retained_density_eigenvalue": 1.7755803805873264e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172873673326.68744
+        },
+        {
+          "minimum_density_eigenvalue": -1.6568870578274947e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 122,
+          "minimum_retained_density_eigenvalue": 1.7755803805873264e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172873673326.68744
+        }
+      ],
+      "active_full_matrix_C": [
+        2.061199010063054,
+        2.061199010063054,
+        2.061199010063054
+      ],
+      "support_basis_C": [
+        2.061199010063054,
+        2.061199010063054,
+        2.061199010063054
+      ],
+      "C_full_minus_support": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "active_full_matrix_w": [
+        0.4736625347483248,
+        0.4736625347483248,
+        0.4736625347483248
+      ],
+      "support_basis_w": [
+        0.4736678105347841,
+        0.4736678105347841,
+        0.4736678105347841
+      ],
+      "w_full_minus_support": [
+        -5.2757864592578585e-06,
+        -5.2757864592578585e-06,
+        -5.2757864592578585e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.061199010063054,
+          2.061199010063054,
+          2.061199010063054
+        ],
+        "w": [
+          0.4736678105347841,
+          0.4736678105347841,
+          0.4736678105347841
+        ],
+        "Z": [
+          0.5500321962741691,
+          0.6262996909110244,
+          0.6764718518230194
+        ],
+        "lambda1": [
+          4.949819046422646,
+          4.935002224501715,
+          4.924192466550359
+        ],
+        "lambda2": [
+          1.0288893568319089,
+          1.034841959254399,
+          1.0365262591330424
+        ],
+        "lambda3": [
+          4.854485240146288,
+          4.8131994092961365,
+          4.783360864691108
+        ],
+        "chi_BE": [
+          0.1377506942201756,
+          0.16371587475592664,
+          0.17452602893643343
+        ],
+        "raw_K": [
+          -0.08538301050307227,
+          -0.09769427315576801,
+          -0.09993962335374049
+        ]
+      },
+      "Z": [
+        0.5500323454339653,
+        0.6262998197796394,
+        0.6764719284005266
+      ],
+      "lambda1": [
+        4.949819018977688,
+        4.935002197462356,
+        4.924192449169055
+      ],
+      "lambda2": [
+        1.028889329386951,
+        1.0348419322150395,
+        1.0365262417517394
+      ],
+      "lambda3": [
+        4.854485161223799,
+        4.813199332423239,
+        4.783360815643433
+      ],
+      "chi_BE": [
+        0.13775062573086228,
+        0.1637158107896104,
+        0.17452598837196298
+      ],
+      "raw_K": [
+        -0.08538294201375894,
+        -0.09769420918945176,
+        -0.09993958278927004
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551343226640916,
+            0.25551343226640916,
+            0.25551343226640916
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551343226640916,
+            0.25551343226640916,
+            0.25551343226640916
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.4736678105347841,
+            0.4736678105347841,
+            0.4736678105347841
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722854,
+            0.044381948901722854,
+            0.044381948901722854
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722854,
+            0.044381948901722854,
+            0.044381948901722854
+          ]
+        }
+      ],
+      "runtime_seconds": 0.7411607999820262
+    },
+    {
+      "fock_cutoff": 144,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.7594104058201525e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 138,
+          "minimum_retained_density_eigenvalue": 1.7755677967184013e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172874898523.29767
+        },
+        {
+          "minimum_density_eigenvalue": -1.7594104058201525e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 138,
+          "minimum_retained_density_eigenvalue": 1.7755677967184013e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172874898523.29767
+        },
+        {
+          "minimum_density_eigenvalue": -1.7594104058201525e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 138,
+          "minimum_retained_density_eigenvalue": 1.7755677967184013e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172874898523.29767
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990100604727,
+        2.0611990100604727,
+        2.0611990100604727
+      ],
+      "support_basis_C": [
+        2.0611990100604727,
+        2.0611990100604727,
+        2.0611990100604727
+      ],
+      "C_full_minus_support": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "active_full_matrix_w": [
+        0.4736635271819134,
+        0.4736635271819134,
+        0.4736635271819134
+      ],
+      "support_basis_w": [
+        0.47366874179250307,
+        0.47366874179250307,
+        0.47366874179250307
+      ],
+      "w_full_minus_support": [
+        -5.214610589665547e-06,
+        -5.214610589665547e-06,
+        -5.214610589665547e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100604727,
+          2.0611990100604727,
+          2.0611990100604727
+        ],
+        "w": [
+          0.47366874179250307,
+          0.47366874179250307,
+          0.47366874179250307
+        ],
+        "Z": [
+          0.5500321699445273,
+          0.6262996681629864,
+          0.6764718383050876
+        ],
+        "lambda1": [
+          4.949819051267221,
+          4.935002229274734,
+          4.924192469618613
+        ],
+        "lambda2": [
+          1.028889361676484,
+          1.0348419640274176,
+          1.0365262622012967
+        ],
+        "lambda3": [
+          4.85448525407766,
+          4.813199422865829,
+          4.783360873349304
+        ],
+        "chi_BE": [
+          0.13775070630988573,
+          0.16371588604733356,
+          0.17452603609712236
+        ],
+        "raw_K": [
+          -0.0853830225927824,
+          -0.09769428444717493,
+          -0.09993963051442942
+        ]
+      },
+      "Z": [
+        0.5500323173745776,
+        0.6262997955371643,
+        0.6764719139945564
+      ],
+      "lambda1": [
+        4.949819024140532,
+        4.935002202548939,
+        4.924192452438874
+      ],
+      "lambda2": [
+        1.0288893345497951,
+        1.0348419373016238,
+        1.0365262450215575
+      ],
+      "lambda3": [
+        4.854485176070407,
+        4.813199346884398,
+        4.783360824870416
+      ],
+      "chi_BE": [
+        0.13775063861482018,
+        0.1637158228228146,
+        0.1745259960030614
+      ],
+      "raw_K": [
+        -0.08538295489771684,
+        -0.09769422122265597,
+        -0.09993959042036846
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551392347871216,
+            0.25551392347871216,
+            0.25551392347871216
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551392347871216,
+            0.25551392347871216,
+            0.25551392347871216
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366874179250307,
+            0.47366874179250307,
+            0.47366874179250307
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.0443819489017231,
+            0.0443819489017231,
+            0.0443819489017231
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.0443819489017231,
+            0.0443819489017231,
+            0.0443819489017231
+          ]
+        }
+      ],
+      "runtime_seconds": 0.7083029001951218
+    },
+    {
+      "fock_cutoff": 160,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -5.581270171169727e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 154,
+          "minimum_retained_density_eigenvalue": 1.7755113987770831e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172880389779.7261
+        },
+        {
+          "minimum_density_eigenvalue": -5.581270171169727e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 154,
+          "minimum_retained_density_eigenvalue": 1.7755113987770831e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172880389779.7261
+        },
+        {
+          "minimum_density_eigenvalue": -5.581270171169727e-18,
+          "maximum_density_eigenvalue": 0.30695110267892883,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 154,
+          "minimum_retained_density_eigenvalue": 1.7755113987770831e-12,
+          "maximum_retained_density_eigenvalue": 0.30695110267892883,
+          "retained_density_condition_number": 172880389779.7261
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990100602697,
+        2.0611990100602697,
+        2.0611990100602697
+      ],
+      "support_basis_C": [
+        2.0611990100602693,
+        2.0611990100602693,
+        2.0611990100602693
+      ],
+      "C_full_minus_support": [
+        4.440892098500626e-16,
+        4.440892098500626e-16,
+        4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.4736648033813867,
+        0.4736648033813867,
+        0.4736648033813867
+      ],
+      "support_basis_w": [
+        0.47366923921632487,
+        0.47366923921632487,
+        0.47366923921632487
+      ],
+      "w_full_minus_support": [
+        -4.435834938143479e-06,
+        -4.435834938143479e-06,
+        -4.435834938143479e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100602693,
+          2.0611990100602693,
+          2.0611990100602693
+        ],
+        "w": [
+          0.47366923921632487,
+          0.47366923921632487,
+          0.47366923921632487
+        ],
+        "Z": [
+          0.5500321558811004,
+          0.6262996560126846,
+          0.676471831084992
+        ],
+        "lambda1": [
+          4.949819053854849,
+          4.935002231824123,
+          4.924192471257405
+        ],
+        "lambda2": [
+          1.0288893642641124,
+          1.0348419665768078,
+          1.0365262638400887
+        ],
+        "lambda3": [
+          4.85448526151881,
+          4.813199430113744,
+          4.783360877973754
+        ],
+        "chi_BE": [
+          0.13775071276735096,
+          0.1637158920783599,
+          0.1745260399217332
+        ],
+        "raw_K": [
+          -0.08538302905024762,
+          -0.09769429047820127,
+          -0.09993963433904027
+        ]
+      },
+      "Z": [
+        0.5500322812931029,
+        0.6262997643640733,
+        0.6764718954705623
+      ],
+      "lambda1": [
+        4.949819030779416,
+        4.935002209089713,
+        4.924192456643388
+      ],
+      "lambda2": [
+        1.0288893411886797,
+        1.034841943842397,
+        1.0365262492260705
+      ],
+      "lambda3": [
+        4.85448519516161,
+        4.813199365479817,
+        4.783360836734982
+      ],
+      "chi_BE": [
+        0.1377506551822596,
+        0.16371583829615366,
+        0.1745260058155509
+      ],
+      "raw_K": [
+        -0.08538297146515626,
+        -0.09769423669599503,
+        -0.09993960023285794
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555115996851496,
+            0.2555115996851496,
+            0.2555115996851496
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555115996851496,
+            0.2555115996851496,
+            0.2555115996851496
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366923921632487,
+            0.47366923921632487,
+            0.47366923921632487
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722534,
+            0.044381948901722534,
+            0.044381948901722534
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901722534,
+            0.044381948901722534,
+            0.044381948901722534
+          ]
+        }
+      ],
+      "runtime_seconds": 0.9364471000153571
+    },
+    {
+      "fock_cutoff": 192,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -3.849559348862166e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 186,
+          "minimum_retained_density_eigenvalue": 1.775587539055407e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872976368.27496
+        },
+        {
+          "minimum_density_eigenvalue": -3.849559348862166e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 186,
+          "minimum_retained_density_eigenvalue": 1.775587539055407e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872976368.27496
+        },
+        {
+          "minimum_density_eigenvalue": -3.849559348862166e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 186,
+          "minimum_retained_density_eigenvalue": 1.775587539055407e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172872976368.27496
+        }
+      ],
+      "active_full_matrix_C": [
+        2.06119901006838,
+        2.06119901006838,
+        2.06119901006838
+      ],
+      "support_basis_C": [
+        2.06119901006838,
+        2.06119901006838,
+        2.06119901006838
+      ],
+      "C_full_minus_support": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "active_full_matrix_w": [
+        0.4736616803400159,
+        0.4736616803400159,
+        0.4736616803400159
+      ],
+      "support_basis_w": [
+        0.47366603290289633,
+        0.47366603290289633,
+        0.47366603290289633
+      ],
+      "w_full_minus_support": [
+        -4.352562880449717e-06,
+        -4.352562880449717e-06,
+        -4.352562880449717e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.06119901006838,
+          2.06119901006838,
+          2.06119901006838
+        ],
+        "w": [
+          0.47366603290289633,
+          0.47366603290289633,
+          0.47366603290289633
+        ],
+        "Z": [
+          0.5500322465337059,
+          0.6262997343338186,
+          0.6764718776269024
+        ],
+        "lambda1": [
+          4.9498190371750415,
+          4.935002215390696,
+          4.924192460693481
+        ],
+        "lambda2": [
+          1.0288893475843055,
+          1.0348419501433794,
+          1.0365262532761643
+        ],
+        "lambda3": [
+          4.854485213553282,
+          4.813199383393509,
+          4.783360848163795
+        ],
+        "chi_BE": [
+          0.1377506711426415,
+          0.16371585320222515,
+          0.17452601526765665
+        ],
+        "raw_K": [
+          -0.08538298742553817,
+          -0.09769425160206652,
+          -0.09993960968496371
+        ]
+      },
+      "Z": [
+        0.5500323695918127,
+        0.6262998406515276,
+        0.6764719408040005
+      ],
+      "lambda1": [
+        4.949819014532715,
+        4.935002193082991,
+        4.924192446353756
+      ],
+      "lambda2": [
+        1.0288893249419782,
+        1.034841927835675,
+        1.03652623893644
+      ],
+      "lambda3": [
+        4.85448514844155,
+        4.813199319972709,
+        4.783360807699042
+      ],
+      "chi_BE": [
+        0.13775061463836202,
+        0.16371580042945988,
+        0.17452598180161738
+      ],
+      "raw_K": [
+        -0.08538293092125869,
+        -0.09769419882930125,
+        -0.09993957621892444
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555160468843317,
+            0.2555160468843317,
+            0.2555160468843317
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555160468843317,
+            0.2555160468843317,
+            0.2555160468843317
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366603290289633,
+            0.47366603290289633,
+            0.47366603290289633
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172307,
+            0.04438194890172307,
+            0.04438194890172307
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172307,
+            0.04438194890172307,
+            0.04438194890172307
+          ]
+        }
+      ],
+      "runtime_seconds": 5.793305899947882
+    },
+    {
+      "fock_cutoff": 224,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.777784452451761e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 218,
+          "minimum_retained_density_eigenvalue": 1.775561802998513e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172875482092.79987
+        },
+        {
+          "minimum_density_eigenvalue": -1.777784452451761e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 218,
+          "minimum_retained_density_eigenvalue": 1.775561802998513e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172875482092.79987
+        },
+        {
+          "minimum_density_eigenvalue": -1.777784452451761e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 218,
+          "minimum_retained_density_eigenvalue": 1.775561802998513e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172875482092.79987
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990100631004,
+        2.0611990100631004,
+        2.0611990100631004
+      ],
+      "support_basis_C": [
+        2.0611990100631,
+        2.0611990100631,
+        2.0611990100631
+      ],
+      "C_full_minus_support": [
+        4.440892098500626e-16,
+        4.440892098500626e-16,
+        4.440892098500626e-16
+      ],
+      "active_full_matrix_w": [
+        0.47366571155176884,
+        0.47366571155176884,
+        0.47366571155176884
+      ],
+      "support_basis_w": [
+        0.47366793760092146,
+        0.47366793760092146,
+        0.47366793760092146
+      ],
+      "w_full_minus_support": [
+        -2.2260491526204795e-06,
+        -2.2260491526204795e-06,
+        -2.2260491526204795e-06
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100631,
+          2.0611990100631,
+          2.0611990100631
+        ],
+        "w": [
+          0.47366793760092146,
+          0.47366793760092146,
+          0.47366793760092146
+        ],
+        "Z": [
+          0.5500321926817118,
+          0.6262996878072759,
+          0.6764718499786878
+        ],
+        "lambda1": [
+          4.949819047083647,
+          4.935002225152948,
+          4.924192466968979
+        ],
+        "lambda2": [
+          1.0288893574929106,
+          1.0348419599056302,
+          1.0365262595516624
+        ],
+        "lambda3": [
+          4.854485242047106,
+          4.813199411147589,
+          4.783360865872397
+        ],
+        "chi_BE": [
+          0.13775069586971567,
+          0.16371587629652895,
+          0.17452602991340793
+        ],
+        "raw_K": [
+          -0.08538301215261233,
+          -0.09769427469637032,
+          -0.09993962433071499
+        ]
+      },
+      "Z": [
+        0.5500322556176289,
+        0.6262997421816092,
+        0.67647188228951
+      ],
+      "lambda1": [
+        4.9498190355036265,
+        4.935002213744063,
+        4.924192459635178
+      ],
+      "lambda2": [
+        1.0288893459128898,
+        1.0348419484967473,
+        1.0365262522178613
+      ],
+      "lambda3": [
+        4.854485208746854,
+        4.813199378712134,
+        4.783360845177408
+      ],
+      "chi_BE": [
+        0.13775066697159843,
+        0.1637158493068296,
+        0.17452601279778923
+      ],
+      "raw_K": [
+        -0.0853829832544951,
+        -0.09769424770667096,
+        -0.09993960721509629
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555192345585672,
+            0.2555192345585672,
+            0.2555192345585672
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.2555192345585672,
+            0.2555192345585672,
+            0.2555192345585672
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.47366793760092146,
+            0.47366793760092146,
+            0.47366793760092146
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901723055,
+            0.044381948901723055,
+            0.044381948901723055
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.044381948901723055,
+            0.044381948901723055,
+            0.044381948901723055
+          ]
+        }
+      ],
+      "runtime_seconds": 12.748538500163704
+    },
+    {
+      "fock_cutoff": 256,
+      "tau_trace": [
+        1.0000000000000004,
+        1.0000000000000004,
+        1.0000000000000004
+      ],
+      "tau_trace_deficit": [
+        -4.440892098500626e-16,
+        -4.440892098500626e-16,
+        -4.440892098500626e-16
+      ],
+      "spectral": [
+        {
+          "minimum_density_eigenvalue": -1.3021516835796917e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 250,
+          "minimum_retained_density_eigenvalue": 1.7756254188171258e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172869288435.51447
+        },
+        {
+          "minimum_density_eigenvalue": -1.3021516835796917e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 250,
+          "minimum_retained_density_eigenvalue": 1.7756254188171258e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172869288435.51447
+        },
+        {
+          "minimum_density_eigenvalue": -1.3021516835796917e-18,
+          "maximum_density_eigenvalue": 0.3069511026789289,
+          "support_size": 6,
+          "effective_numerical_rank": 6,
+          "pseudoinverse_support_size": 6,
+          "suppressed_density_eigenvalues": 250,
+          "minimum_retained_density_eigenvalue": 1.7756254188171258e-12,
+          "maximum_retained_density_eigenvalue": 0.3069511026789289,
+          "retained_density_condition_number": 172869288435.51447
+        }
+      ],
+      "active_full_matrix_C": [
+        2.0611990100761517,
+        2.0611990100761517,
+        2.0611990100761517
+      ],
+      "support_basis_C": [
+        2.0611990100761517,
+        2.0611990100761517,
+        2.0611990100761517
+      ],
+      "C_full_minus_support": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "active_full_matrix_w": [
+        0.47366367843286916,
+        0.47366367843286916,
+        0.47366367843286916
+      ],
+      "support_basis_w": [
+        0.4736632297171629,
+        0.4736632297171629,
+        0.4736632297171629
+      ],
+      "w_full_minus_support": [
+        4.487157062582625e-07,
+        4.487157062582625e-07,
+        4.487157062582625e-07
+      ],
+      "support_basis_security": {
+        "C": [
+          2.0611990100761517,
+          2.0611990100761517,
+          2.0611990100761517
+        ],
+        "w": [
+          0.4736632297171629,
+          0.4736632297171629,
+          0.4736632297171629
+        ],
+        "Z": [
+          0.5500323257890604,
+          0.6262998028081193,
+          0.6764719183174857
+        ],
+        "lambda1": [
+          4.949819022592291,
+          4.93500220102334,
+          4.92419245145767
+        ],
+        "lambda2": [
+          1.0288893330015554,
+          1.0348419357760228,
+          1.036526244040353
+        ],
+        "lambda3": [
+          4.8544851716181885,
+          4.813199342547117,
+          4.783360822101592
+        ],
+        "chi_BE": [
+          0.1377506347511641,
+          0.16371581921373846,
+          0.17452599371312827
+        ],
+        "raw_K": [
+          -0.08538295103406078,
+          -0.09769421761357983,
+          -0.09993958813043533
+        ]
+      },
+      "Z": [
+        0.550032313102712,
+        0.6262997918475778,
+        0.6764719118044107
+      ],
+      "lambda1": [
+        4.949819024926542,
+        4.935002203323093,
+        4.924192452935985
+      ],
+      "lambda2": [
+        1.0288893353358055,
+        1.034841938075777,
+        1.0365262455186695
+      ],
+      "lambda3": [
+        4.85448517833071,
+        4.813199349085315,
+        4.783360826273198
+      ],
+      "chi_BE": [
+        0.13775064057632047,
+        0.1637158246542083,
+        0.17452599716322093
+      ],
+      "raw_K": [
+        -0.08538295685921714,
+        -0.09769422305404968,
+        -0.09993959158052798
+      ],
+      "threshold_diagnostic_only": [
+        {
+          "threshold": 1e-14,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551239397915737,
+            0.25551239397915737,
+            0.25551239397915737
+          ]
+        },
+        {
+          "threshold": 1e-13,
+          "support_size_by_state": [
+            8,
+            8,
+            8
+          ],
+          "support_basis_w": [
+            0.25551239397915737,
+            0.25551239397915737,
+            0.25551239397915737
+          ]
+        },
+        {
+          "threshold": 1e-12,
+          "support_size_by_state": [
+            6,
+            6,
+            6
+          ],
+          "support_basis_w": [
+            0.4736632297171629,
+            0.4736632297171629,
+            0.4736632297171629
+          ]
+        },
+        {
+          "threshold": 1e-11,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172306,
+            0.04438194890172306,
+            0.04438194890172306
+          ]
+        },
+        {
+          "threshold": 1e-10,
+          "support_size_by_state": [
+            4,
+            4,
+            4
+          ],
+          "support_basis_w": [
+            0.04438194890172306,
+            0.04438194890172306,
+            0.04438194890172306
+          ]
+        }
+      ],
+      "runtime_seconds": 13.31472110003233
+    }
+  ],
+  "stable_suffix_results": {
+    "active_full_matrix": {
+      "path": "active_full_matrix",
+      "reference_fock_cutoff": 256,
+      "selected_fock_cutoff": null,
+      "converged": false,
+      "comparisons": [
+        {
+          "fock_cutoff": 48,
+          "maximum_absolute_errors": {
+            "C": 7.006395463804438e-12,
+            "w": 2.8059735969754307e-06,
+            "Z": 7.93341574656381e-08,
+            "lambda1": 1.4597250519443605e-08,
+            "lambda2": 1.459725118557742e-08,
+            "lambda3": 4.19767944848104e-08,
+            "chi_BE": 3.6427668437255534e-08,
+            "raw_K": 3.6427668437255534e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 56,
+          "maximum_absolute_errors": {
+            "C": 7.006839553014288e-12,
+            "w": 2.518602802203951e-06,
+            "Z": 7.120942446814382e-08,
+            "lambda1": 1.3102323670466376e-08,
+            "lambda2": 1.3102324114555586e-08,
+            "lambda3": 3.7677885700304614e-08,
+            "chi_BE": 3.269705528552436e-08,
+            "raw_K": 3.269705528552436e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 64,
+          "maximum_absolute_errors": {
+            "C": 4.0680347979105136e-11,
+            "w": 7.361636537306371e-06,
+            "Z": 2.0814456236362133e-07,
+            "lambda1": 3.829799055665717e-08,
+            "lambda2": 3.8297989890523354e-08,
+            "lambda3": 1.1013216472122167e-07,
+            "chi_BE": 9.557324620601548e-08,
+            "raw_K": 9.557324620601548e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 72,
+          "maximum_absolute_errors": {
+            "C": 3.092770484158791e-11,
+            "w": 7.364575982105048e-06,
+            "Z": 2.0822493940197973e-07,
+            "lambda1": 3.8312779615523596e-08,
+            "lambda2": 3.831277894938978e-08,
+            "lambda3": 1.1017469336849217e-07,
+            "chi_BE": 9.561015223980007e-08,
+            "raw_K": 9.561015223980007e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 80,
+          "maximum_absolute_errors": {
+            "C": 3.092770484158791e-11,
+            "w": 9.91762254398676e-06,
+            "Z": 2.804067803507948e-07,
+            "lambda1": 5.159403038135224e-08,
+            "lambda2": 5.1594030603396845e-08,
+            "lambda3": 1.4836711237364852e-07,
+            "chi_BE": 1.2875373744947183e-07,
+            "raw_K": 1.2875373744947183e-07
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 96,
+          "maximum_absolute_errors": {
+            "C": 1.0015988038958312e-11,
+            "w": 2.5722398779848277e-06,
+            "Z": 7.27265310196401e-08,
+            "lambda1": 1.338146482510183e-08,
+            "lambda2": 1.338146615736946e-08,
+            "lambda3": 3.8480602704282774e-08,
+            "chi_BE": 3.3393655396452004e-08,
+            "raw_K": 3.3393655396452004e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 112,
+          "maximum_absolute_errors": {
+            "C": 1.6085799359188968e-11,
+            "w": 7.266388116877742e-06,
+            "Z": 2.0544316581272426e-07,
+            "lambda1": 3.780092683314251e-08,
+            "lambda2": 3.780092705518712e-08,
+            "lambda3": 1.0870277744601253e-07,
+            "chi_BE": 9.433278558290681e-08,
+            "raw_K": 9.433278558290681e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 128,
+          "maximum_absolute_errors": {
+            "C": 1.3097523066107897e-11,
+            "w": 1.143684544346879e-06,
+            "Z": 3.2331253341233435e-08,
+            "lambda1": 5.948854742143794e-09,
+            "lambda2": 5.948854520099189e-09,
+            "lambda3": 1.710691055478719e-08,
+            "chi_BE": 1.4845458196077743e-08,
+            "raw_K": 1.4845458196077743e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 144,
+          "maximum_absolute_errors": {
+            "C": 1.567901364296631e-11,
+            "w": 1.5125095575996284e-07,
+            "Z": 4.271865639005057e-09,
+            "lambda1": 7.860103679036001e-10,
+            "lambda2": 7.860103679036001e-10,
+            "lambda3": 2.260303055834356e-09,
+            "chi_BE": 1.9615002955220007e-09,
+            "raw_K": 1.9615002955220007e-09
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": true
+        },
+        {
+          "fock_cutoff": 160,
+          "maximum_absolute_errors": {
+            "C": 1.588196241186779e-11,
+            "w": 1.1249485175612861e-06,
+            "Z": 3.180960905790897e-08,
+            "lambda1": 5.8528737412189e-09,
+            "lambda2": 5.85287418530811e-09,
+            "lambda3": 1.683090022908118e-08,
+            "chi_BE": 1.4605939124834322e-08,
+            "raw_K": 1.4605939124834322e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 192,
+          "maximum_absolute_errors": {
+            "C": 7.771561172376096e-12,
+            "w": 1.998092853283673e-06,
+            "Z": 5.648910073041691e-08,
+            "lambda1": 1.0393827132304523e-08,
+            "lambda2": 1.0393827354349128e-08,
+            "lambda3": 2.9889159591789394e-08,
+            "chi_BE": 2.5937958447741494e-08,
+            "raw_K": 2.5937958447741494e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 224,
+          "maximum_absolute_errors": {
+            "C": 1.305133778828349e-11,
+            "w": 2.033118899680275e-06,
+            "Z": 5.748508302705346e-08,
+            "lambda1": 1.057708409746283e-08,
+            "lambda2": 1.0577084319507435e-08,
+            "lambda3": 3.041614426990691e-08,
+            "chi_BE": 2.639527796333141e-08,
+            "raw_K": 2.639527796333141e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736636784328691e-07,
+            "Z": 7.764719118044106e-07,
+            "lambda1": 5.049819024926542e-06,
+            "lambda2": 1.1365262455186695e-06,
+            "lambda3": 4.95448517833071e-06,
+            "chi_BE": 2.7452599716322093e-06,
+            "raw_K": 1.9993959158052797e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        }
+      ]
+    },
+    "support_restricted_residual": {
+      "path": "support_restricted_residual",
+      "reference_fock_cutoff": 256,
+      "selected_fock_cutoff": null,
+      "converged": false,
+      "comparisons": [
+        {
+          "fock_cutoff": 48,
+          "maximum_absolute_errors": {
+            "C": 7.006839553014288e-12,
+            "w": 2.387121076863341e-06,
+            "Z": 6.749212067003185e-08,
+            "lambda1": 1.2418350792131605e-08,
+            "lambda2": 1.241835145826542e-08,
+            "lambda3": 3.571101014898659e-08,
+            "chi_BE": 3.0990191746127493e-08,
+            "raw_K": 3.0990191746127493e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 56,
+          "maximum_absolute_errors": {
+            "C": 7.005951374594588e-12,
+            "w": 2.38712185796075e-06,
+            "Z": 6.749214254142544e-08,
+            "lambda1": 1.2418355233023703e-08,
+            "lambda2": 1.2418355677112913e-08,
+            "lambda3": 3.5711021695306044e-08,
+            "chi_BE": 3.099020284835774e-08,
+            "raw_K": 3.099020284835774e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 64,
+          "maximum_absolute_errors": {
+            "C": 4.0679459800685436e-11,
+            "w": 1.329473095085243e-05,
+            "Z": 3.758903841521999e-07,
+            "lambda1": 6.916274308821357e-08,
+            "lambda2": 6.916274308821357e-08,
+            "lambda3": 1.988888316262205e-07,
+            "chi_BE": 1.7259676354797193e-07,
+            "raw_K": 1.7259676354797193e-07
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 72,
+          "maximum_absolute_errors": {
+            "C": 3.092814893079776e-11,
+            "w": 9.77746280006464e-06,
+            "Z": 2.764441943137186e-07,
+            "lambda1": 5.086492649297725e-08,
+            "lambda2": 5.0864927825244877e-08,
+            "lambda3": 1.4627045619164392e-07,
+            "chi_BE": 1.269342537746354e-07,
+            "raw_K": 1.269342537746354e-07
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 80,
+          "maximum_absolute_errors": {
+            "C": 3.092814893079776e-11,
+            "w": 9.777469971994357e-06,
+            "Z": 2.764443971514652e-07,
+            "lambda1": 5.0864964684649294e-08,
+            "lambda2": 5.0864964240560084e-08,
+            "lambda3": 1.462705636612327e-07,
+            "chi_BE": 1.2693434436883422e-07,
+            "raw_K": 1.2693434436883422e-07
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 96,
+          "maximum_absolute_errors": {
+            "C": 1.0015543949748462e-11,
+            "w": 3.942876668550088e-06,
+            "Z": 1.1147787237764106e-07,
+            "lambda1": 2.051159686544679e-08,
+            "lambda2": 2.0511596199312976e-08,
+            "lambda3": 5.8984467088407655e-08,
+            "chi_BE": 5.1187002636510215e-08,
+            "raw_K": 5.1187002636510215e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 112,
+          "maximum_absolute_errors": {
+            "C": 1.6085355269979118e-11,
+            "w": 5.296770665963457e-06,
+            "Z": 1.497574625419773e-07,
+            "lambda1": 2.7554927228834458e-08,
+            "lambda2": 2.7554925674522224e-08,
+            "lambda3": 7.923871958581685e-08,
+            "chi_BE": 6.876373692676907e-08,
+            "raw_K": 6.876373692676907e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 128,
+          "maximum_absolute_errors": {
+            "C": 1.3097523066107897e-11,
+            "w": 4.580817621169242e-06,
+            "Z": 1.295148912561217e-07,
+            "lambda1": 2.3830354578535662e-08,
+            "lambda2": 2.3830353468312637e-08,
+            "lambda3": 6.852809963930895e-08,
+            "chi_BE": 5.946901149300743e-08,
+            "raw_K": 5.946901149300743e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 144,
+          "maximum_absolute_errors": {
+            "C": 1.567901364296631e-11,
+            "w": 5.512075340163847e-06,
+            "Z": 1.5584453305628188e-07,
+            "lambda1": 2.8674929986038933e-08,
+            "lambda2": 2.8674928653771303e-08,
+            "lambda3": 8.245947125118391e-08,
+            "chi_BE": 7.155872161490606e-08,
+            "raw_K": 7.155872161490606e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 160,
+          "maximum_absolute_errors": {
+            "C": 1.588240650107764e-11,
+            "w": 6.009499161963028e-06,
+            "Z": 1.6990795992377627e-07,
+            "lambda1": 3.1262557875777475e-08,
+            "lambda2": 3.1262556987599055e-08,
+            "lambda3": 8.990062116964737e-08,
+            "chi_BE": 7.801618684410982e-08,
+            "raw_K": 7.801618684410982e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 192,
+          "maximum_absolute_errors": {
+            "C": 7.771561172376096e-12,
+            "w": 2.803185733424307e-06,
+            "Z": 7.925535450148402e-08,
+            "lambda1": 1.4582750118563581e-08,
+            "lambda2": 1.4582750118563581e-08,
+            "lambda3": 4.193509361982706e-08,
+            "chi_BE": 3.63914773870988e-08,
+            "raw_K": 3.63914773870988e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        },
+        {
+          "fock_cutoff": 224,
+          "maximum_absolute_errors": {
+            "C": 1.305178187749334e-11,
+            "w": 4.707883758559017e-06,
+            "Z": 1.3310734858773543e-07,
+            "lambda1": 2.449135561022331e-08,
+            "lambda2": 2.44913551661341e-08,
+            "lambda3": 7.04289178088402e-08,
+            "chi_BE": 6.111855155310764e-08,
+            "raw_K": 6.111855155310764e-08
+          },
+          "maximum_allowed_errors": {
+            "C": 2.1611990100761514e-06,
+            "w": 5.736632297171629e-07,
+            "Z": 7.764719183174856e-07,
+            "lambda1": 5.049819022592291e-06,
+            "lambda2": 1.136526244040353e-06,
+            "lambda3": 4.954485171618188e-06,
+            "chi_BE": 2.745259937131283e-06,
+            "raw_K": 1.999395881304353e-06
+          },
+          "maximum_density_trace_error": 4.440892098500626e-16,
+          "passes_reference_tolerance": false
+        }
+      ]
+    }
+  },
+  "interpretation_rule": {
+    "truncation": "tau trace deficit or cutoff trend common to both algebraically equivalent paths",
+    "threshold_inverse": "support-size or w change across the frozen diagnostic threshold grid",
+    "matrix_cancellation": "active full-matrix minus support-basis value at identical cutoff and threshold"
+  }
+}

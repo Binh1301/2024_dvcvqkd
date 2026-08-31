@@ -1,6 +1,7 @@
 # Proposed numerical certification protocol
 
-Status: **PROPOSED FOR AUTHOR REVIEW; NOT FROZEN; NOT ACTIVE**.
+Status: **PROPOSED DESIGN; ADVERSARIAL REVIEW FAILED; NOT FROZEN; NOT
+ACTIVE**.
 
 This proposal replaces neither `FINAL_MODEL_SPEC.md` nor the active numerical
 configuration. The historical `1e-12` pseudoinverse rule remains invalid and
@@ -8,6 +9,20 @@ unapproved. The `1e-13` threshold is the best current candidate, but it remains
 proposed until this protocol is explicitly approved, frozen, implemented, and
 rerun. No publication training, final-test access, held-out evaluation, or
 optimized-MB selection is authorized.
+
+## Review disposition
+
+The current proposal is not ready for author approval. The pilot data were
+used to choose `1e-13` and several feasibility caps, so those data cannot also
+serve as independent confirmation. In addition, the repository does not yet
+contain the validated interval arithmetic or analytic enclosure required to
+prove that a continuous update segment avoids a hard-support boundary.
+
+The `1e-14` calculation is also not a full-support oracle: it retains only
+8--30 of the 256 mathematically positive modes. Its agreement with `1e-13` is
+useful pilot evidence, not general error control relative to the physical
+full-support functional. Full-support arbitrary-precision evidence currently
+exists only for the near-coincident stress fixture.
 
 ## Why the historical exact-support gate should be revised
 
@@ -34,11 +49,11 @@ unfrozen. This proposal does not silently rewrite that history.
 
 ## Candidate threshold
 
-`delta_prod = 1e-13` and `delta_ref = 1e-14` are proposed.
+`delta_prod = 1e-13` and `delta_ref = 1e-14` remain pilot candidates.
 
 | Threshold | Retained-rank range | Minimum retained eigenvalue | Maximum retained condition number | Result |
 |---|---:|---:|---:|---|
-| `1e-14` | 8--30 | `1.0191e-14` | `7.4117e13` | Observable pass, but about 9.8 times worse conditioned than `1e-13`; no stress-accuracy gain |
+| `1e-14` | 8--30 | `1.0191e-14` | `7.4117e13` | Truncated pilot reference; not a full-support oracle |
 | `1e-13` | 8--29 | `1.0820e-13` | `7.5868e12` | All 16 forward fixtures and the high-precision stress oracle pass |
 | `1e-12` | 6--27 | `1.3906e-12` | `5.1943e11` | Invalid; stress `w` error is `0.2181586469`, about `6.14e5` allowances |
 
@@ -75,8 +90,12 @@ diagnostically, not used as a standalone pass/fail rule.
 
 Every prospectively declared ill-conditioned stress fixture must agree with an
 independent, successively precision-converged, full-support Gram oracle under
-the same per-metric limits. Agreement between two float64 thresholds is not an
-oracle and cannot satisfy this gate.
+the same per-metric limits. The ill-conditioned classes and oracle membership
+must be selected mechanically from input construction before any float64
+outcome is inspected. Agreement between two float64 thresholds is not an
+oracle and cannot satisfy this gate. No eigenvalue-only omitted-mode bound is
+currently accepted for `w` because `tau^(-1/2)` and operator matrix elements
+also enter the functional.
 
 ### 4. Local gradient gate
 
@@ -96,10 +115,12 @@ forward-benign only when both sides separately pass the reference/oracle gates
 and their one-sided `chi_BE` and `K` gap remains within the frozen information
 tolerances.
 
-An exact scalar boundary is not certifiable. For the same hash-bound fixture
-and path, native, 10-thread, and single-thread runs placed the nearest boundary
-in `[0.002889168901951052, 0.002889923634]`, width `7.54732e-7`, even though
-the transition eigenvalue differed from `1e-13` by only order `1e-18`.
+An exact scalar boundary is not currently certifiable. Independent diagnostic
+executions of the same reported fixture/path placed the nearest boundary in
+`[0.002889168901951052, 0.002889923634]`, width `7.54732e-7`, even though the
+transition eigenvalue differed from `1e-13` by only order `1e-18`. Those
+cross-runtime values lack raw per-environment hash binding and are pilot
+observations only.
 
 ### 6. Enhanced support-stable update gate
 
@@ -108,25 +129,37 @@ mask decisions flicker near the threshold. Plain rollback is also rejected:
 the outward-VA diagnostic accepted `0/50` steps when initialized `5e-5` below
 the boundary and then repeated the same rejection.
 
-The proposed implementation must instead:
+Any formal implementation must instead:
 
-1. inspect the whole proposed segment using an adaptively subdivided spectral
-   check; an endpoint-only check is insufficient;
-2. fail closed unless a prospectively calibrated eigenvalue guard band covers
-   measured backend/thread repeatability;
+1. inspect the whole proposed segment using a validated interval enclosure;
+   endpoint checks and dense finite-node sampling are insufficient;
+2. at each interval midpoint, combine an outward-rounded Gram/eigensolver
+   enclosure `eta_num` with a guaranteed interval derivative bound
+   `L_I >= sup ||dG/dt||_2`; with half-width `h`, require every midpoint
+   eigenvalue to remain more than `R_I = eta_num + h*L_I` from the threshold;
 3. backtrack or shrink on a crossing/guard violation;
 4. restore parameters and optimizer state, and remove or reset the rejected
    normal momentum so an unchanged Adam proposal is not retried indefinitely;
 5. log the family, ensemble/state hash, segment, nearest eigenvalue, guard
    margin, backtracking count, and accepted displacement; and
-6. fall back to failure if a certified segment enclosure cannot be obtained.
+6. bisect unresolved intervals and fail closed at prospectively frozen depth,
+   width, or resource limits if a certified enclosure cannot be obtained.
+
+For Adam/AdamW, each trial must snapshot parameters, moments, AMSGrad state,
+step counter, schedulers/controllers, dual variables, and all RNG state. The
+gradient and provisional moment update are computed once. Backtracking scales
+the complete parameter proposal, including AdamW decay, without advancing the
+moments repeatedly. Acceptance commits one moment/step update; exhaustion
+restores the entire snapshot and records a no-op.
 
 The pilot suggests a parameter-distance diagnostic guard of at least `1e-6`
 around the observed transition neighborhood because fixed-side gradients pass
 at `rho=1e-6` and become execution-sensitive by `rho=1e-7`. This is not a
 frozen universal guard. Formal approval must prospectively define a spectral
 guard calibrated from repeated backend/thread runs and then rerun fresh
-evidence.
+evidence. It cannot replace `R_I`. A 65-node dyadic sampler or an empirical
+float64 residual multiplier is diagnostic only and is not a
+continuous-segment certificate.
 
 Proposed feasibility criteria for that future frozen run are:
 
@@ -169,7 +202,22 @@ uniform continuous-domain conditioning claim is allowed.
 - Plain persistent outward rollback can trap and is therefore not proposed for
   adoption.
 
-The pilot supports author review of the enhanced protocol. It does not approve
-the protocol, activate `1e-13`, authorize training, or establish a complete
-quantum-security proof.
+The pilot supports continued protocol engineering. It does not yet support
+protocol approval, activate `1e-13`, authorize training, or establish a
+complete quantum-security proof.
 
+## Required independent confirmation design
+
+Before outcomes are generated, create and hash-bind a certification-only
+channel realization with a new seed namespace disjoint from pilot, train,
+validation, and test. Freeze physical channel strata, new PS/GS/VA/full
+transmitter seeds, a fixed Latin-hypercube VA design, analytic boundary
+families, perturbation directions, scales, environments, and all acceptance
+criteria. Near-coincident oracle cases must be chosen from their analytic
+construction, not observed condition numbers. Report every declared path.
+
+For an iid path claim with target violation rate `q` and one-sided failure
+probability `alpha`, prospectively require at least
+`ceil(log(alpha)/log(1-q))` independent paths; each stratum needs its own fixed
+allocation. This supports only a finite/distributional claim, never a uniform
+continuous-domain proof.

@@ -1,5 +1,10 @@
 # Numerical domain scope
 
+> Current-state note (2026-08-30): the dense-Fock failure below remains
+> relevant diagnostic history. Production now uses cutoff-independent C4
+> Gram moments, but no numerical-support threshold is certified. See
+> `PROJECT_STATE.md` and EVID-0004 through EVID-0008.
+
 ## Scope tested now
 
 The current MI artifact certifies `N_MC=2048` for the sixteen hash-bound

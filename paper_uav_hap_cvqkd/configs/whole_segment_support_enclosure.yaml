@@ -1,0 +1,19 @@
+schema_version: whole-segment-support-enclosure-config-v1
+status: EXPERIMENTAL_NOT_APPROVED
+confirmation_roster: results/independent_confirmation_roster.json
+candidate_threshold_under_evaluation: 1.0e-13
+threshold_approval_permitted: false
+segment_seed: 27083002
+parameter_family_scales:
+  ps: 3.0e-4
+  gs: 1.0e-4
+  va: 1.0e-4
+  mixed: 1.0e-4
+diagnostic_nodes: 17
+validated_initial_eigensystem_enclosure:
+  status: NOT_IMPLEMENTED_FAIL_CLOSED
+  reason: No repository dependency currently provides directed-rounding Hermitian eigensystem or interval-inertia certification.
+resource_limits:
+  maximum_bisection_depth: 20
+  minimum_interval_width: 9.5367431640625e-7
+  unresolved_action: FAIL_CLOSED

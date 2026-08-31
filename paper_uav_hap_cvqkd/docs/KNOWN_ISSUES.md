@@ -1,7 +1,7 @@
 # Known issues and publication blockers
 
 1. **No numerical paper results.** Sections V--VI are empty; no figure definitions, experimental table, result values, or final claims can be reproduced.
-2. **Numerical freeze remains incomplete.** Link/optical, epsilon, `beta`, and energy-domain author values are now explicit; convergence-selected Fock/MI settings and any still-null optimizer/statistical fields must pass their separate gates before runs.
+2. **Numerical freeze remains incomplete.** Link/optical, epsilon, `beta`, energy, optimization, and `N_MC=2048` are frozen/certified as recorded in the current freeze documents. Fock cutoff and pseudoinverse support remain uncertified.
 3. **Variance notation conflict.** The draft changes from `sigma_r` to undefined `sigma_s` in its PDT equations. The frozen implementation follows Eqs. (21)--(24): Rayleigh scale equals per-axis standard deviation. Legacy code used `sqrt(total_variance/2)`.
 4. **Standard-form security scope.** The frozen transmitter enforces C4 symmetry, zero displacement, and zero pseudomoment by construction. The lower-level covariance code still rejects unsupported asymmetric ensembles; no full-covariance proof is invented.
 5. **Exact CSI oracle.** Pilot estimation and authenticated feedback are described narratively but not modeled quantitatively.
@@ -9,7 +9,7 @@
 7. **Ideal detector only.** Detector efficiency and electronic noise are not in the implemented paper path.
 8. **No reconciliation feasibility.** A fixed `beta` does not establish a realizable code for learned low-entropy PMFs.
 9. **PS/GS attribution is constrained.** The active path has no weighted centering: PS changes orbit probabilities and one statewise scalar, while GS changes one global C4 relative geometry. Claims must still say fourfold-symmetric PS rather than unrestricted 256-way shaping.
-10. **Fock truncation is not certified.** Unit-RMS GS plus softmax PS is unbounded without an extra rule. The common hard `n_peak` mechanism and boundary fixture are implemented, but the threshold/scope remain author-unapproved and convergence has not been run.
+10. **Fock/support numerics are not certified.** The cutoff studies show the blocker is support/pseudoinverse conditioning rather than Fock-tail trace loss. Candidate `1e-13` remains outcome-informed, `1e-14` retains only 8--30 of 256 mathematical modes on the pilot roster, and only the near-coincident fixture has a full-support oracle. See `PROJECT_STATE.md`.
 11. **Eigendecomposition gradients.** Gradients may be ill-conditioned near repeated or thresholded density eigenvalues.
 12. **No environment lock.** `requirements.txt` declares interfaces, not an author-validated publication lockfile.
 13. **Legacy results are incompatible.** July checkpoints use a three-input PS network and fixed `V_A`; they cannot initialize or verify the paper architecture.

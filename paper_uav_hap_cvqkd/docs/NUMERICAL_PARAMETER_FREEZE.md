@@ -1,5 +1,11 @@
 # Numerical parameter freeze
 
+> Current-state note (2026-08-30): this document preserves the preregistered
+> dense-Fock convergence history and frozen parameter table. The production
+> source now uses the cutoff-independent C4-Gram backend, but its configured
+> `1e-12` numerical-support rule is invalid/unapproved and `1e-13` remains a
+> rejected proposal. `PROJECT_STATE.md` is the canonical lifecycle snapshot.
+
 Status: **the 16-fixture MI roster passes with `N_MC=2048`, but the added
 near-coincident pseudoinverse-stress fixture has no selectable Fock cutoff below
 the original nonselectable 128 reference or in the prospectively frozen
