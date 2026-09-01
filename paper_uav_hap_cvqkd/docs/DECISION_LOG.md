@@ -804,7 +804,7 @@ and `1e-12` remains invalid.
 
 Date: 2026-09-01
 
-Status: ACTIVE FAIL-CLOSED DESIGN DECISION; IMPLEMENTATION NEXT AUTHORIZED
+Status: SUPERSEDED AS NEXT-ACTION POLICY BY DEC-0020; ACTIVE DESIGN CONTRACT
 
 ### Decision
 
@@ -840,3 +840,33 @@ implementation. No interpolation segment is certified.
 The next permitted task is implementation of this exact protocol. The protocol
 remains `PROPOSED`; the candidate threshold remains `PROPOSED_UNAPPROVED`;
 lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## DEC-0020 - Accept pointwise implementation and authorize smoke test
+
+Date: 2026-09-01
+
+Status: ACTIVE FAIL-CLOSED IMPLEMENTATION DECISION; SMOKE ONLY
+
+### Decision
+
+Accept the pointwise guard implementation against the frozen protocol for the
+scoped implementation matrix. The runtime now performs pre-update point
+checks, rejects before backward, validates the post-update endpoint, defers
+the energy-dual update until commit, and restores complete transaction state
+on rejection. The validated point-certifier and provenance bindings remain
+injected; no raw complex128 fallback exists.
+
+Authorize the separately frozen six-step certification-only smoke test as the
+next task. Do not run it in the implementation task, approve `1e-13`, reactivate
+`1e-12`, or perform publication training, baseline selection, or test access.
+
+### Evidence
+
+- EVID-0031
+- `results/pointwise_guard_implementation_v1.json`
+- `tests/test_pointwise_guard.py`
+
+### Consequences
+
+`NEXT_ACTIONS.md` now names `POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED` as the sole
+next action. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.

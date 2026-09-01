@@ -27,6 +27,8 @@ remains proposed/unapproved; historical `1e-12` remains invalid/unapproved.
   `54a0c46bfb1eab9e00c3e5320489f2c0de8a9fd7541363fed440c21d3d90c979`.
 - Pointwise protocol schema:
   `5950ee485526b69a1656402d8cb88f38408a63e20568f6673d7661446471bca2`.
+- Pointwise implementation artifact:
+  `fdc2d467b44cd69ee2490821f48257aad96a48d42416315368510c95e0ed9262`.
 
 V3 produced `0/4` complete certificates, `0/4` crossings, `4/4` resource
 limits, `4/4` early path-domain certificates, `7/3` attempted/completed
@@ -52,13 +54,12 @@ changed. The historical portability manifest is preserved and
 
 ## Exact Next Permitted Action
 
-`POINTWISE_GUARD_IMPLEMENTATION_AUTHORIZED`
+`POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED`
 
-Implement exactly the frozen `pointwise-guard-protocol-v1` design, including
-validated point checks, local-gradient scope, endpoint proposal validation,
-complete rollback state, provenance bindings, and fail-closed statuses. Do not
-approve a threshold, run smoke/training/evaluation, or silently change the
-physical/security functional or domain.
+Run exactly the frozen six-step certification-only pointwise-guard smoke test.
+Do not approve a threshold, run publication training, baseline selection,
+final-test evaluation, or silently change the physical/security functional or
+domain.
 
 No publication training, optimized-MB search, baseline selection, final-test
 access, held-out evaluation, threshold approval, production `src/cvqkd`

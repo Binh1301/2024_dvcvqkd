@@ -1429,7 +1429,7 @@ no attack class assigned to the fading average.
 
 Date: 2026-09-01
 
-Status: ACTIVE PROPOSED PROTOCOL; IMPLEMENTATION NEXT AUTHORIZED
+Status: ACTIVE PROPOSED PROTOCOL; IMPLEMENTATION RECORDED IN EVID-0031
 
 ### Claim
 
@@ -1474,5 +1474,40 @@ the prospective smoke test is `PROPOSED_NOT_RUN`.
 
 This design does not approve `1e-13`, reactivate `1e-12`, change the security
 functional, establish continuous-domain support, or authorize training,
-baseline selection, final-test access, or smoke execution. It authorizes only
-the next implementation task under the frozen contract.
+baseline selection, final-test access, or smoke execution. Its implementation
+is recorded separately in EVID-0031.
+
+## EVID-0031 - Pointwise guard implementation scoped pass
+
+Date: 2026-09-01
+
+Status: ACTIVE IMPLEMENTATION EVIDENCE; SMOKE NEXT
+
+### Claim
+
+The frozen pointwise protocol is implemented in a small guard module and
+integrated into the existing trainer. It performs exact final-ensemble hash
+deduplication, injected validated-certifier/provenance checks, pre-update
+rejection before backward, endpoint validation, deferred dual updates, and
+complete rollback. No raw complex128 support fallback or interpolation proof
+was added. The implementation matrix passed in the current environment; the
+broader suite remains environment-blocked by missing pytest/locked runtime.
+
+### Evidence
+
+- `results/pointwise_guard_implementation_v1.json`, SHA-256
+  `fdc2d467b44cd69ee2490821f48257aad96a48d42416315368510c95e0ed9262`
+- `src/optimization/pointwise_guard.py`, SHA-256
+  `12c887e6b1896d62b2aac28990463e650ac990c24df9469f74e13423e71971c8`
+- `src/optimization/trainer.py`, SHA-256
+  `42a2ca2e61fc3a0b1f54a759bd522603f92985af864fc792142f5eba9b5cfa37`
+- `tests/test_pointwise_guard.py`: `8/8` pass (`CURRENTLY_VERIFIED_PASS`).
+- Related scoped suite: `35/35` pass (`CURRENTLY_VERIFIED_PASS`).
+- Full discovery: `BLOCKED_BY_ENVIRONMENT`.
+- DEC-0020.
+
+### Limitations
+
+The production validated point-certifier adapter is injected and the threshold
+remains unapproved. The six-step smoke test is frozen but was not run in this
+task. No publication training, baseline selection, or test access is allowed.

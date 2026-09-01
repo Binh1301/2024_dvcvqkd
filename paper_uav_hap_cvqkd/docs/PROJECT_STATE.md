@@ -75,17 +75,18 @@ DEC-0018. It concludes that whole-segment
 support invariance is an additional differentiability/admissibility condition,
 not a prerequisite for the adopted statewise security functional at a
 validated realized point. The pointwise-guard protocol design is now frozen by
-DEC-0019. Its implementation is authorized as the next task; threshold
-approval and realized evaluation remain blocked.
+DEC-0019. Its implementation is complete for the scoped matrix under
+DEC-0020; threshold approval, smoke execution, and realized evaluation remain
+blocked until their separate gates are met.
 
-Authorization: `POINTWISE_GUARD_IMPLEMENTATION_AUTHORIZED`.
+Authorization: `POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED`.
 
 ## Exact Next Permitted Action
 
-Implement exactly the frozen `pointwise-guard-protocol-v1` design from DEC-0019.
-Do not approve a threshold, run the smoke test, perform realized optimization,
-or change the physical/security functional until implementation tests and a
-separate smoke authorization pass. Silent regularization is prohibited.
+Run exactly the frozen six-step certification-only pointwise-guard smoke test.
+Do not approve a threshold, perform publication training, baseline selection,
+final-test access, or change the physical/security functional. Silent
+regularization is prohibited.
 
 ## Lifecycle Restrictions
 
@@ -108,6 +109,8 @@ by V3.
   the locked CPython 3.12.10/torch 2.13.0 environment and pytest are absent.
 - Provenance reconciliation: `CURRENTLY_VERIFIED_PASS`; artifact
   `results/provenance_reconciliation_v1.json`.
+- Pointwise implementation matrix: `CURRENTLY_VERIFIED_PASS`; artifact
+  `results/pointwise_guard_implementation_v1.json`.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -122,6 +125,8 @@ by V3.
 - EVID-0028: current decisive V3 feasibility failure.
 - EVID-0029: provenance reconciliation and method-review result.
 - EVID-0030: pointwise guard protocol design freeze.
+- EVID-0031: pointwise guard implementation scoped pass.
 - DEC-0017: active fail-closed V3 method stop.
 - DEC-0018: pointwise-guard protocol design authorization.
 - DEC-0019: pointwise guard protocol freeze and implementation authorization.
+- DEC-0020: pointwise implementation pass and smoke authorization.

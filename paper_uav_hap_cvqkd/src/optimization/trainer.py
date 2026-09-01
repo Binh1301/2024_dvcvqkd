@@ -17,6 +17,13 @@ from src.modulation.joint_ps_gs import (
     PeakPhotonConstraintViolation,
 )
 from .constraints import ensemble_constraint_metrics, ensemble_state_diagnostics
+from .pointwise_guard import (
+    PointwiseBatchResult,
+    PointwiseGuard,
+    PointwiseGuardRejected,
+    restore_training_transaction,
+    snapshot_training_transaction,
+)
 
 
 @dataclass(frozen=True)
@@ -33,6 +40,8 @@ class Evaluation:
     energy_dual_before_update: float | None = None
     energy_dual_after_update: float | None = None
     peak_feasible_step_accepted: bool | None = None
+    pointwise_guard_result: PointwiseBatchResult | None = None
+    pointwise_guard_committed: bool | None = None
 
 
 @dataclass
@@ -152,11 +161,37 @@ def train_step(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    pointwise_guard: PointwiseGuard | None = None,
+    training_counters: dict[str, int] | None = None,
 ) -> Evaluation:
     if not require_supported_symmetry:
         raise ValueError(
             "The frozen C4 trainer is fail-closed: standard-form symmetry is mandatory."
         )
+    transaction_snapshot = None
+    if pointwise_guard is not None:
+        transaction_snapshot = snapshot_training_transaction(
+            transmitter,
+            optimizer,
+            energy_budget_controller=energy_budget_controller,
+            generator=generator,
+            counters=training_counters,
+        )
+        # Constructing the final physical ensemble is deterministic.  Rejecting
+        # here guarantees no stochastic MI draw or backward pass for an invalid
+        # current point.
+        current_ensemble = transmitter(transmittance, epsilon)
+        current_guard = pointwise_guard.check(current_ensemble)
+        if not current_guard.all_admissible:
+            restore_training_transaction(
+                transaction_snapshot,
+                transmitter,
+                optimizer,
+                energy_budget_controller=energy_budget_controller,
+                generator=generator,
+                counters_target=training_counters,
+            )
+            raise PointwiseGuardRejected(current_guard)
     transmitter.train()
     optimizer.zero_grad(set_to_none=True)
     evaluation = evaluate_transmitter(
@@ -200,26 +235,80 @@ def train_step(
     # amplitudes are never clipped or projected after construction.
     model_before_step = (
         copy.deepcopy(transmitter.state_dict())
-        if transmitter.n_peak_photons is not None else None
+        if transmitter.n_peak_photons is not None and pointwise_guard is None else None
     )
     optimizer_before_step = (
         copy.deepcopy(optimizer.state_dict())
-        if transmitter.n_peak_photons is not None else None
+        if transmitter.n_peak_photons is not None and pointwise_guard is None else None
     )
     optimizer.step()
     peak_step_accepted: bool | None = None
+    pointwise_result: PointwiseBatchResult | None = None
+    pointwise_committed: bool | None = None
     if transmitter.n_peak_photons is not None:
         try:
-            transmitter(transmittance, epsilon)
-            peak_step_accepted = True
+            post_ensemble = transmitter(transmittance, epsilon)
+            if pointwise_guard is not None:
+                pointwise_result = pointwise_guard.check(post_ensemble)
+                if not pointwise_result.all_admissible:
+                    if transaction_snapshot is None:
+                        raise RuntimeError("Pointwise rollback snapshot was not captured.")
+                    restore_training_transaction(
+                        transaction_snapshot,
+                        transmitter,
+                        optimizer,
+                        energy_budget_controller=energy_budget_controller,
+                        generator=generator,
+                        counters_target=training_counters,
+                    )
+                    peak_step_accepted = False
+                    pointwise_committed = False
+                else:
+                    peak_step_accepted = True
+                    pointwise_committed = True
+            else:
+                peak_step_accepted = True
         except PeakPhotonConstraintViolation:
-            if model_before_step is None or optimizer_before_step is None:
-                raise RuntimeError("Peak-domain rollback state was not captured.")
-            transmitter.load_state_dict(model_before_step)
-            optimizer.load_state_dict(optimizer_before_step)
+            if pointwise_guard is not None:
+                if transaction_snapshot is None:
+                    raise RuntimeError("Pointwise rollback snapshot was not captured.")
+                restore_training_transaction(
+                    transaction_snapshot,
+                    transmitter,
+                    optimizer,
+                    energy_budget_controller=energy_budget_controller,
+                    generator=generator,
+                    counters_target=training_counters,
+                )
+                pointwise_committed = False
+            else:
+                if model_before_step is None or optimizer_before_step is None:
+                    raise RuntimeError("Peak-domain rollback state was not captured.")
+                transmitter.load_state_dict(model_before_step)
+                optimizer.load_state_dict(optimizer_before_step)
             peak_step_accepted = False
-    dual_after: float | None = None
-    if energy_budget_controller is not None:
+    elif pointwise_guard is not None:
+        post_ensemble = transmitter(transmittance, epsilon)
+        pointwise_result = pointwise_guard.check(post_ensemble)
+        if not pointwise_result.all_admissible:
+            if transaction_snapshot is None:
+                raise RuntimeError("Pointwise rollback snapshot was not captured.")
+            restore_training_transaction(
+                transaction_snapshot,
+                transmitter,
+                optimizer,
+                energy_budget_controller=energy_budget_controller,
+                generator=generator,
+                counters_target=training_counters,
+            )
+            pointwise_committed = False
+        else:
+            pointwise_committed = True
+    if pointwise_guard is not None and pointwise_committed is False:
+        dual_after = energy_budget_controller.multiplier if energy_budget_controller is not None else None
+    else:
+        dual_after = None
+    if energy_budget_controller is not None and not (pointwise_guard is not None and pointwise_committed is False):
         if violation is None:
             raise RuntimeError("Energy controller was enabled without a constraint violation.")
         energy_budget_controller.projected_ascent(violation)
@@ -232,4 +321,6 @@ def train_step(
         energy_dual_before_update=dual_before,
         energy_dual_after_update=dual_after,
         peak_feasible_step_accepted=peak_step_accepted,
+        pointwise_guard_result=pointwise_result,
+        pointwise_guard_committed=pointwise_committed,
     )

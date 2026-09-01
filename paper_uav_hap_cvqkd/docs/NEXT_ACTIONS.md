@@ -13,17 +13,15 @@ contract breaches. The full 12-segment run was not performed.
 
 ## Exact Next Permitted Action
 
-Implement exactly the frozen `pointwise-guard-protocol-v1` design recorded in
-DEC-0019. The implementation must provide the validated point check,
-local-gradient scope, endpoint proposal check, complete transactional rollback
-inventory, provenance bindings, and explicit fail-closed statuses. The method
-choice is `POINTWISE_GUARD`; implementation must not alter the frozen
-functional.
+Run exactly the frozen six-step certification-only pointwise-guard smoke test
+recorded in DEC-0019/DEC-0020. The method choice is `POINTWISE_GUARD`; smoke
+execution must not alter the frozen functional.
 
-The implementation must preserve the distinction between numerical stability,
+The smoke execution must preserve the distinction between numerical stability,
 mathematical support, and security-model assumptions, and must not silently
 change the threshold, functional, admissible domain, or paper claim. This
-authorization does not approve threshold selection, training, or evaluation.
+authorization does not approve threshold selection, publication training,
+baseline selection, or final-test evaluation.
 
 ## Stop Conditions
 
