@@ -206,7 +206,12 @@ def certify_inertia_at_dyadic_threshold(
 
 
 def _dyadic_floor(value: mp.mpf, denominator_power_two: int) -> int:
-    return int(mp.floor(value * mp.power(2, denominator_power_two)))
+    # ``value`` retains its high-precision mantissa after leaving the spectrum
+    # work context, but arithmetic would otherwise fall back to mpmath's
+    # process-default precision.  The dyadic grid itself fixes the minimum
+    # precision needed to locate the floor without losing bracket-center bits.
+    with mp.workprec(max(int(mp.mp.prec), int(denominator_power_two) + 64)):
+        return int(mp.floor(value * mp.power(2, denominator_power_two)))
 
 
 def prove_eigenvalue_bracket(

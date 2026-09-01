@@ -67,6 +67,17 @@ class ExactTauOracleV2Tests(unittest.TestCase):
             numerator, denominator = value.as_integer_ratio()
             self.assertEqual(lifted, mp.mpf(numerator) / denominator)
 
+    def test_dyadic_bracket_floor_preserves_high_precision_outside_context(self) -> None:
+        with mp.workdps(100):
+            value = mp.mpf(
+                "4.4775903260919510331829160012222374503988850229960684562176e-14"
+            )
+        with mp.workprec(300):
+            expected = int(mp.floor(value * mp.power(2, 180)))
+        with mp.workdps(15):
+            observed = self.oracle._dyadic_floor(value, 180)
+        self.assertEqual(observed, expected)
+
     def test_shifted_inertia_proves_above_below_and_zero_unresolved(self) -> None:
         tau = arb((1, -20))
         delta = arb((1, -60))
