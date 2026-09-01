@@ -28,7 +28,7 @@ remains proposed/unapproved; historical `1e-12` remains invalid/unapproved.
 - Pointwise protocol schema:
   `5950ee485526b69a1656402d8cb88f38408a63e20568f6673d7661446471bca2`.
 - Pointwise implementation artifact:
-  `fdc2d467b44cd69ee2490821f48257aad96a48d42416315368510c95e0ed9262`.
+  `0c73104e4c5625b402f004aa5a8215093066756a13a631a12a4e217fbe27e144`.
 
 V3 produced `0/4` complete certificates, `0/4` crossings, `4/4` resource
 limits, `4/4` early path-domain certificates, `7/3` attempted/completed
