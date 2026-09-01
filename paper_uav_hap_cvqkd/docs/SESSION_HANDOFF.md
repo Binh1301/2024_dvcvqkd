@@ -36,7 +36,7 @@ Final manifest SHA-256:
 ## Decision and Next Action
 
 DEC-0017 stops incremental hard-support whole-segment certification under the
-current method and records this proposed conclusion pending review:
+current method and records this conclusion:
 
 `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
 
