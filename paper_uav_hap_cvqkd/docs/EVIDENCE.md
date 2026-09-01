@@ -1496,13 +1496,13 @@ broader suite remains environment-blocked by missing pytest/locked runtime.
 ### Evidence
 
 - `results/pointwise_guard_implementation_v1.json`, SHA-256
-  `fdc2d467b44cd69ee2490821f48257aad96a48d42416315368510c95e0ed9262`
+  `0c73104e4c5625b402f004aa5a8215093066756a13a631a12a4e217fbe27e144`
 - `src/optimization/pointwise_guard.py`, SHA-256
   `12c887e6b1896d62b2aac28990463e650ac990c24df9469f74e13423e71971c8`
 - `src/optimization/trainer.py`, SHA-256
   `42a2ca2e61fc3a0b1f54a759bd522603f92985af864fc792142f5eba9b5cfa37`
 - `tests/test_pointwise_guard.py`: `8/8` pass (`CURRENTLY_VERIFIED_PASS`).
-- Related scoped suite: `35/35` pass (`CURRENTLY_VERIFIED_PASS`).
+- Related scoped suite: `64/64` pass (`CURRENTLY_VERIFIED_PASS`).
 - Full discovery: `BLOCKED_BY_ENVIRONMENT`.
 - DEC-0020.
 
