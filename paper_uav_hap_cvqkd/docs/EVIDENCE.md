@@ -1577,3 +1577,36 @@ changed. The validated adapter and smoke runner were therefore not attempted.
 No smoke outcome, adapter result, or optimization-usability decision exists.
 The exact frozen smoke remains unrun and the original blocked smoke artifact
 is preserved.
+
+## EVID-0034 - Hash-pinned certification environment restored
+
+Date: 2026-09-01
+
+Status: CURRENTLY_VERIFIED_PASS; ADAPTER NOT STARTED
+
+### Claim
+
+The exact repository certification environment was restored in `.venv-cert`
+using CPython 3.12.10 and only the hash-pinned certification dependencies.
+Verified versions are python-flint 0.9.0, bundled FLINT 3.6.0, PyYAML 6.0.3,
+and NumPy 2.5.2 on Windows x86-64. The environment identity matches the
+repository lock and frozen model hash. The real Arb/acb point-certification
+regressions and shifted-inertia point/segment unit tests pass 32/32.
+
+### Evidence
+
+- `results/certification_environment_restore_v2.json`, SHA-256
+  `0a3849805e5795547aa65302794404f128df712de9fee4bac29de7aaa2ec01cd`
+- `requirements-certification-inertia.lock`, SHA-256
+  `dd03ee6c033b268c6aba1d2e589a5f408e7f872bbd8d8a33d3bec9f77ec4b607`
+- `scripts/capture_taylor_eigencluster_environment_v3.py`
+- `.venv-cert\\Scripts\\python.exe -m unittest -v tests.test_rigorous_flint_support`:
+  `CURRENTLY_VERIFIED_PASS`, 11/11.
+- `.venv-cert\\Scripts\\python.exe -m unittest -v tests.test_rigorous_shifted_inertia tests.test_rigorous_shifted_inertia_segment`:
+  `CURRENTLY_VERIFIED_PASS`, 21/21.
+
+### Limitations
+
+This verifies only the certification environment and existing numerical
+preflight. No pointwise adapter or smoke runner was implemented, and the
+frozen smoke remains unrun.

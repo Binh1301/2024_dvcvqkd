@@ -79,16 +79,14 @@ DEC-0019. Its implementation is complete for the scoped matrix under
 DEC-0020; threshold approval, smoke execution, and realized evaluation remain
 blocked until their separate gates are met.
 
-Authorization: `POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED`.
+Authorization: `POINTWISE_GUARD_ADAPTER_IMPLEMENTATION_AUTHORIZED`.
 
 ## Exact Next Permitted Action
 
-Restore the hash-pinned certification environment and provide a validated
-repository-backed point-certifier adapter, then rerun exactly the frozen
-six-step certification-only pointwise-guard smoke test. Do not approve a
-threshold, perform publication training, baseline selection, final-test access,
-or change the physical/security functional. Silent regularization is
-prohibited.
+Implement the repository-backed validated point-certifier adapter against the
+frozen pointwise contract. Do not run the smoke test, approve a threshold,
+perform publication training, baseline selection, final-test access, or change
+the physical/security functional. Silent regularization is prohibited.
 
 ## Lifecycle Restrictions
 
@@ -117,6 +115,8 @@ by V3.
   `results/pointwise_guard_smoke_v1.json`.
 - Certification environment restore: `BLOCKED_BY_ENVIRONMENT`; artifact
   `results/certification_environment_restore_v1.json`.
+- Certification environment restore: `CURRENTLY_VERIFIED_PASS`; artifact
+  `results/certification_environment_restore_v2.json`.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -138,3 +138,5 @@ by V3.
 - DEC-0020: pointwise implementation pass and smoke authorization.
 - DEC-0021: smoke blocked by missing validated backend.
 - EVID-0033: certification environment restore blocked.
+- EVID-0034: hash-pinned certification environment restored.
+- DEC-0022: restored environment accepted; adapter implementation next.

@@ -898,3 +898,30 @@ The usability decision is `SMOKE_TEST_BLOCKED_BY_ENVIRONMENT`, not
 action is to restore the hash-pinned certification environment and provide a
 validated repository-backed point-certifier adapter, then rerun the same
 frozen six-step smoke test without retuning.
+
+## DEC-0022 - Accept restored certification environment
+
+Date: 2026-09-01
+
+Status: ACTIVE ENVIRONMENT DECISION; ADAPTER NEXT
+
+### Decision
+
+Accept EVID-0034 as a current verified pass for the exact certification
+environment. CPython 3.12.10, python-flint 0.9.0, FLINT 3.6.0, PyYAML 6.0.3,
+NumPy 2.5.2, Windows x86-64, and the lock hash match the frozen requirements.
+The real Arb/acb and shifted-inertia preflight suite passes 32/32.
+
+The next task may implement the repository-backed point-certifier adapter.
+Do not run the smoke test in this environment-only task, approve a threshold,
+or change any scientific/security functional.
+
+### Evidence
+
+- EVID-0034
+- `results/certification_environment_restore_v2.json`
+
+### Consequences
+
+`NEXT_ACTIONS.md` now names adapter implementation as the sole next action.
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
