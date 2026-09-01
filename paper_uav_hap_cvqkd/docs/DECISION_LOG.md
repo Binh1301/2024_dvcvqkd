@@ -870,3 +870,31 @@ next task. Do not run it in the implementation task, approve `1e-13`, reactivate
 
 `NEXT_ACTIONS.md` now names `POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED` as the sole
 next action. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## DEC-0021 - Stop pointwise smoke on missing validated backend
+
+Date: 2026-09-01
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; ENVIRONMENT BLOCKED
+
+### Decision
+
+Do not execute the frozen pointwise smoke when the required validated
+Arb/python-flint backend is unavailable and no repository-backed point
+certifier exists. The injected certifier used by unit tests and raw
+complex128 eigenspectra are not acceptable substitutes. Record the blocked
+attempt with zero updates and preserve the smoke protocol unchanged.
+
+### Evidence
+
+- EVID-0032
+- `results/pointwise_guard_smoke_v1.json`
+- `configs/pointwise_guard_protocol_v1.yaml`
+
+### Consequences
+
+The usability decision is `SMOKE_TEST_BLOCKED_BY_ENVIRONMENT`, not
+`OPTIMIZATION_USABLE` or `OPTIMIZATION_EFFECTIVELY_FROZEN`. The exact next
+action is to restore the hash-pinned certification environment and provide a
+validated repository-backed point-certifier adapter, then rerun the same
+frozen six-step smoke test without retuning.

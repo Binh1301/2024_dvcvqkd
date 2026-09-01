@@ -1511,3 +1511,35 @@ broader suite remains environment-blocked by missing pytest/locked runtime.
 The production validated point-certifier adapter is injected and the threshold
 remains unapproved. The six-step smoke test is frozen but was not run in this
 task. No publication training, baseline selection, or test access is allowed.
+
+## EVID-0032 - Pointwise smoke blocked by certification environment
+
+Date: 2026-09-01
+
+Status: BLOCKED_BY_ENVIRONMENT; NO SMOKE OUTCOME
+
+### Claim
+
+The frozen six-step pointwise-guard smoke test was not executed. The current
+environment has Torch `2.8.0+cu128` and CUDA available but cannot import the
+required validated Arb/python-flint backend. No repository smoke runner or
+repository-backed `certify_point` adapter exists; the injected certifier used
+by unit tests is not a scientific smoke substitute. Therefore no optimizer
+update, certification check, rollback, or determinism metric was attempted.
+
+### Evidence
+
+- `results/pointwise_guard_smoke_v1.json`, SHA-256
+  `4149cc220e41428382f5432255da09414e5de5e7d1eddce6ca2cd9e3ae78e825`
+- `schemas/pointwise_guard_smoke_v1.schema.json`, SHA-256
+  `62d18591ec493d99b894a81121b6775fdf391979b736e212a6c5fb3ab49395ea`
+- `configs/pointwise_guard_protocol_v1.yaml`
+- `src/optimization/pointwise_guard.py`
+- `DEC-0021`
+
+### Limitations
+
+This is an execution blocker, not a usability result. No threshold was
+approved and no scientific/security functional changed. The next action is to
+restore the hash-pinned certification environment and provide a validated
+repository-backed point adapter before rerunning the same frozen smoke.

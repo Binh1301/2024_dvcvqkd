@@ -54,12 +54,14 @@ changed. The historical portability manifest is preserved and
 
 ## Exact Next Permitted Action
 
-`POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED`
+`SMOKE_TEST_BLOCKED_BY_ENVIRONMENT`
 
-Run exactly the frozen six-step certification-only pointwise-guard smoke test.
-Do not approve a threshold, run publication training, baseline selection,
-final-test evaluation, or silently change the physical/security functional or
-domain.
+The frozen six-step smoke was not attempted because python-flint is missing
+and no repository-backed validated point adapter/smoke runner exists. Restore
+the hash-pinned certification environment and provide that adapter, then rerun
+the exact frozen smoke without retuning. Do not approve a threshold, run
+publication training, baseline selection, final-test evaluation, or silently
+change the physical/security functional or domain.
 
 No publication training, optimized-MB search, baseline selection, final-test
 access, held-out evaluation, threshold approval, production `src/cvqkd`

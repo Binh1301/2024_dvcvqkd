@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pointwise guard smoke evidence v1",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "reason", "protocol_config_sha256",
+    "implementation_artifact_sha256", "frozen_model_sha256", "seeds",
+    "number_of_states", "steps", "repetitions", "aggregate", "lifecycle_guards"
+  ],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-smoke-v1"},
+    "status": {"enum": ["SMOKE_TEST_BLOCKED_BY_ENVIRONMENT", "SMOKE_TEST_FAIL_CLOSED", "OPTIMIZATION_USABLE", "OPTIMIZATION_EFFECTIVELY_FROZEN"]},
+    "reason": {"type": "string", "minLength": 1},
+    "protocol_config_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "implementation_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "frozen_model_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "seeds": {"type": "object", "required": ["initialization_seed", "common_random_seed"]},
+    "number_of_states": {"const": 3},
+    "steps": {"const": 6},
+    "repetitions": {"const": 2},
+    "aggregate": {"type": "object", "required": ["attempted_updates", "committed_updates", "total_rollbacks", "rollback_equivalence_failures", "provenance_failures"]},
+    "lifecycle_guards": {"type": "object", "required": ["threshold_approved", "publication_training_performed", "final_test_accessed", "optimized_mb_grid_performed", "baseline_selection_performed", "security_functional_changed", "smoke_test_performed"]}
+  },
+  "additionalProperties": true
+}

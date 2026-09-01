@@ -41,10 +41,10 @@ current method and records this conclusion:
 `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
 
 The separate numerical/security-method review, protocol design, and scoped
-implementation are complete. The only next action is
-`POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED`: run the frozen six-step
-certification-only smoke test. This does not authorize threshold approval,
-training, or evaluation.
+implementation are complete. The smoke is blocked by the missing validated
+python-flint backend and repository-backed point adapter. The only next action
+is to restore those prerequisites and rerun the exact frozen six-step smoke.
+This does not authorize threshold approval, training, or evaluation.
 
 Do not rerun/retune V3, run all 12, create V4 automatically, approve a
 threshold, train, run optimized MB/baselines, access final test, or alter the

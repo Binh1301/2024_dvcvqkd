@@ -83,10 +83,12 @@ Authorization: `POINTWISE_GUARD_SMOKE_TEST_AUTHORIZED`.
 
 ## Exact Next Permitted Action
 
-Run exactly the frozen six-step certification-only pointwise-guard smoke test.
-Do not approve a threshold, perform publication training, baseline selection,
-final-test access, or change the physical/security functional. Silent
-regularization is prohibited.
+Restore the hash-pinned certification environment and provide a validated
+repository-backed point-certifier adapter, then rerun exactly the frozen
+six-step certification-only pointwise-guard smoke test. Do not approve a
+threshold, perform publication training, baseline selection, final-test access,
+or change the physical/security functional. Silent regularization is
+prohibited.
 
 ## Lifecycle Restrictions
 
@@ -111,6 +113,8 @@ by V3.
   `results/provenance_reconciliation_v1.json`.
 - Pointwise implementation matrix: `CURRENTLY_VERIFIED_PASS`; artifact
   `results/pointwise_guard_implementation_v1.json`.
+- Pointwise smoke: `BLOCKED_BY_ENVIRONMENT`; artifact
+  `results/pointwise_guard_smoke_v1.json`.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -130,3 +134,4 @@ by V3.
 - DEC-0018: pointwise-guard protocol design authorization.
 - DEC-0019: pointwise guard protocol freeze and implementation authorization.
 - DEC-0020: pointwise implementation pass and smoke authorization.
+- DEC-0021: smoke blocked by missing validated backend.
