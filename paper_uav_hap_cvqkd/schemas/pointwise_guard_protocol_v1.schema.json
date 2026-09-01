@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pointwise spectral guard protocol v1",
+  "type": "object",
+  "required": [
+    "schema_version", "protocol_version", "status", "lifecycle_status",
+    "pointwise_certification_unit", "threshold", "support_certification",
+    "uncertainty_and_guard", "statuses", "gradient_scope", "update_semantics",
+    "rollback_state", "provenance", "test_matrix", "smoke_test",
+    "claim_boundary", "lifecycle_guards"
+  ],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-protocol-v1"},
+    "protocol_version": {"const": "pointwise-guard-v1"},
+    "status": {"const": "PROPOSED"},
+    "lifecycle_status": {"const": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"},
+    "implementation_authorized": {"const": true},
+    "publication_training_authorized": {"const": false},
+    "threshold_approval_required_before_publication_training": {"const": true},
+    "pointwise_certification_unit": {
+      "type": "object",
+      "required": ["name", "object", "deduplication", "security_scope", "excludes", "batch_rule"],
+      "properties": {
+        "name": {"const": "UNIQUE_REALIZED_STATEWISE_PHYSICAL_ENSEMBLE"},
+        "excludes": {"type": "array", "contains": {"const": "individual Monte Carlo noise samples"}}
+      }
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["representation", "candidate_float64_hex", "candidate_exact_dyadic", "lifecycle_status", "historical_1e_minus_12_status"],
+      "properties": {
+        "representation": {"const": "exact_binary64_dyadic"},
+        "lifecycle_status": {"const": "PROPOSED_UNAPPROVED"},
+        "historical_1e_minus_12_status": {"const": "INVALID_UNAPPROVED"}
+      }
+    },
+    "support_certification": {
+      "type": "object",
+      "required": ["method", "producer_module", "support_definition", "complex128_role", "complete_certificate_required", "unresolved_action"],
+      "properties": {
+        "method": {"const": "VALIDATED_SHIFTED_HERMITIAN_BLOCK_LDL_STAR"},
+        "complex128_role": {"const": "DIAGNOSTIC_ONLY_NOT_PROOF"},
+        "complete_certificate_required": {"const": true},
+        "unresolved_action": {"const": "FAIL_CLOSED"}
+      }
+    },
+    "uncertainty_and_guard": {
+      "type": "object",
+      "required": ["certified_margin_definition", "uncertainty_definition", "safety_factor", "guard_inequality", "equality_semantics", "raw_complex128_distance_is_sufficient", "whole_segment_proof_required"],
+      "properties": {
+        "safety_factor": {"const": 2},
+        "guard_inequality": {"const": "certified_margin > safety_factor * uncertainty_upper"},
+        "equality_semantics": {"const": "POINTWISE_GUARD_BAND_REJECT"},
+        "raw_complex128_distance_is_sufficient": {"const": false},
+        "whole_segment_proof_required": {"const": false}
+      }
+    },
+    "statuses": {
+      "type": "array",
+      "const": ["POINTWISE_ADMISSIBLE", "POINTWISE_GUARD_BAND_REJECT", "POINTWISE_CERTIFICATION_FAILED", "PROVENANCE_FAILURE"]
+    },
+    "gradient_scope": {
+      "type": "object",
+      "required": ["allowed_only_after", "global_differentiability_claim", "continuous_domain_theorem_claim"],
+      "properties": {
+        "allowed_only_after": {"const": "POINTWISE_ADMISSIBLE"},
+        "global_differentiability_claim": {"const": false},
+        "continuous_domain_theorem_claim": {"const": false}
+      }
+    },
+    "update_semantics": {
+      "type": "object",
+      "required": ["pre_update_check", "pre_update_reject", "sequence", "interpolation_certification", "endpoint_only", "rejected_proposal_is_noop"],
+      "properties": {
+        "pre_update_check": {"const": true},
+        "pre_update_reject": {"const": "no backward, no optimizer update, no dual update"},
+        "interpolation_certification": {"const": false},
+        "endpoint_only": {"const": true},
+        "rejected_proposal_is_noop": {"const": true}
+      }
+    },
+    "rollback_state": {
+      "type": "object",
+      "required": ["equivalence_name", "equivalence_definition", "required_fields"],
+      "properties": {
+        "equivalence_name": {"const": "ROLLBACK_EQUIVALENCE"},
+        "required_fields": {"type": "object", "required": ["model_parameters", "optimizer", "energy_dual_controller", "python_rng", "numpy_rng", "torch_cpu_rng", "explicit_torch_generators"]}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["mismatch_status", "required_bindings", "threshold_binding_rule", "test_data_accessed"],
+      "properties": {
+        "mismatch_status": {"const": "PROVENANCE_FAILURE"},
+        "test_data_accessed": {"const": false},
+        "required_bindings": {"type": "array", "minItems": 9}
+      }
+    },
+    "test_matrix": {
+      "type": "object",
+      "required": ["freeze_before_implementation", "required_cases"],
+      "properties": {"freeze_before_implementation": {"const": true}, "required_cases": {"type": "array", "minItems": 20, "uniqueItems": true}}
+    },
+    "smoke_test": {
+      "type": "object",
+      "required": ["authorized_in_this_task", "status", "state_source", "state_source_sha256", "steps", "repetitions_for_determinism", "no_retuning_after_outcome"],
+      "properties": {
+        "authorized_in_this_task": {"const": false},
+        "status": {"const": "PROPOSED_NOT_RUN"},
+        "steps": {"const": 6},
+        "repetitions_for_determinism": {"const": 2},
+        "no_retuning_after_outcome": {"const": true}
+      }
+    },
+    "claim_boundary": {"type": "object", "required": ["allowed", "prohibited"]},
+    "lifecycle_guards": {
+      "type": "object",
+      "required": ["threshold_approved", "publication_training_performed", "final_test_accessed", "optimized_mb_grid_performed", "baseline_selection_performed", "security_functional_changed"],
+      "properties": {
+        "threshold_approved": {"const": false},
+        "publication_training_performed": {"const": false},
+        "final_test_accessed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false},
+        "security_functional_changed": {"const": false}
+      }
+    }
+  },
+  "additionalProperties": true
+}

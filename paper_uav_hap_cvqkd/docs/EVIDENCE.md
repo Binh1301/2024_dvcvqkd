@@ -1419,8 +1419,60 @@ CPython 3.12.10 / torch 2.13.0+cpu environment is not installed locally.
 
 ### Limitations
 
-This evidence authorizes only pointwise-guard protocol design. It does not
-approve `1e-13`, reactivate `1e-12`, certify whole segments, authorize
-optimizer integration, or authorize publication-scale execution. The security
-claim remains oracle-CSI, asymptotic, covariance-based DM-CV-QKD with no
-attack class assigned to the fading average.
+This evidence authorizes implementation of the frozen design as the next task.
+It does not approve `1e-13`, reactivate `1e-12`, certify whole segments,
+authorize training/evaluation, or authorize publication-scale execution. The
+security claim remains oracle-CSI, asymptotic, covariance-based DM-CV-QKD with
+no attack class assigned to the fading average.
+
+## EVID-0030 - Pointwise guard protocol design freeze
+
+Date: 2026-09-01
+
+Status: ACTIVE PROPOSED PROTOCOL; IMPLEMENTATION NEXT AUTHORIZED
+
+### Claim
+
+The pointwise spectral guard protocol is prospectively frozen as a design
+contract. Its certification unit is one unique realized statewise physical
+ensemble, deduplicated by exact canonical hash; Monte Carlo noise samples and
+intermediate optimizer interpolation points are excluded. The threshold is
+parametric and remains unapproved. Validated shifted-Hermitian block-LDL*
+inertia with nearest-eigenvalue brackets is required; raw complex128 distance
+is not certification.
+
+The guard accepts only when the certified lower distance
+`min(tau-upper_below, lower_above-tau)` strictly exceeds twice the maximum
+validated bracket half-width. Equality or insufficient margin rejects. The
+four statuses are exactly `POINTWISE_ADMISSIBLE`,
+`POINTWISE_GUARD_BAND_REJECT`, `POINTWISE_CERTIFICATION_FAILED`, and
+`PROVENANCE_FAILURE`. Local gradients are permitted only after
+`POINTWISE_ADMISSIBLE`. The transaction requires complete rollback equivalence
+for model/optimizer/dual/RNG/generator state and does not prove any segment.
+
+### Evidence
+
+- `configs/pointwise_guard_protocol_v1.yaml`, SHA-256
+  `54a0c46bfb1eab9e00c3e5320489f2c0de8a9fd7541363fed440c21d3d90c979`
+- `schemas/pointwise_guard_protocol_v1.schema.json`, SHA-256
+  `5950ee485526b69a1656402d8cb88f38408a63e20568f6673d7661446471bca2`
+- `docs/POINTWISE_GUARD_PROTOCOL.md`, SHA-256
+  `96fc8c251db8cb0967cf7c0d1cbd67d61f07633814db279a4fd3c261534d3cb8`
+- `tests/test_pointwise_guard_protocol_design.py`, SHA-256
+  `491fa2f1504c71ca68d5f95cb08f6ce3b30587aeae87a9a0aae55e121f040297`
+- Design regression suite: `7/7` pass (`CURRENTLY_VERIFIED_PASS`).
+- DEC-0019.
+
+### Provenance
+
+The protocol binds repository commit, canonical frozen-model hash, protocol
+config/schema, point-certification producer, environment, confirmation roster,
+trainer, and eventual rollback implementation. All lifecycle guards are false;
+the prospective smoke test is `PROPOSED_NOT_RUN`.
+
+### Limitations
+
+This design does not approve `1e-13`, reactivate `1e-12`, change the security
+functional, establish continuous-domain support, or authorize training,
+baseline selection, final-test access, or smoke execution. It authorizes only
+the next implementation task under the frozen contract.

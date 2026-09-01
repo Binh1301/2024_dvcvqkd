@@ -23,6 +23,10 @@ remains proposed/unapproved; historical `1e-12` remains invalid/unapproved.
 - Exact-tau V2.2 result:
   `57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda`.
 - MI remains certified at `N_MC=2048`.
+- Pointwise protocol config:
+  `54a0c46bfb1eab9e00c3e5320489f2c0de8a9fd7541363fed440c21d3d90c979`.
+- Pointwise protocol schema:
+  `5950ee485526b69a1656402d8cb88f38408a63e20568f6673d7661446471bca2`.
 
 V3 produced `0/4` complete certificates, `0/4` crossings, `4/4` resource
 limits, `4/4` early path-domain certificates, `7/3` attempted/completed
@@ -32,12 +36,11 @@ watchdog-return grace; two were `WATCHDOG_CONTRACT_BREACH`, with maximum
 overshoot `637.7792758 s`. Completed roots left `53,52,53` unresolved far
 modes despite 38--43x tighter paired dependency radii.
 
-The current proposed engineering conclusion is:
+The engineering conclusion is:
 
 `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
 
-It is pending independent numerical/security-method review and is not a
-threshold or security approval.
+It is recorded by DEC-0018 and is not a threshold or security approval.
 
 ## Provenance Reconciliation
 
@@ -49,13 +52,13 @@ changed. The historical portability manifest is preserved and
 
 ## Exact Next Permitted Action
 
-`POINTWISE_GUARD_PROTOCOL_DESIGN_AUTHORIZED`
+`POINTWISE_GUARD_IMPLEMENTATION_AUTHORIZED`
 
-Design the prospective pointwise guard, including validated point checks,
-local-gradient scope, endpoint proposal validation, complete rollback state,
-provenance bindings, and fail-closed statuses. Do not implement it, approve a
-threshold, or perform realized optimization/evaluation. Do not silently change
-the physical/security functional or domain.
+Implement exactly the frozen `pointwise-guard-protocol-v1` design, including
+validated point checks, local-gradient scope, endpoint proposal validation,
+complete rollback state, provenance bindings, and fail-closed statuses. Do not
+approve a threshold, run smoke/training/evaluation, or silently change the
+physical/security functional or domain.
 
 No publication training, optimized-MB search, baseline selection, final-test
 access, held-out evaluation, threshold approval, production `src/cvqkd`

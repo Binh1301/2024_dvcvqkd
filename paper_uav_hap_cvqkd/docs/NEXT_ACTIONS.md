@@ -13,19 +13,17 @@ contract breaches. The full 12-segment run was not performed.
 
 ## Exact Next Permitted Action
 
-Design a prospective pointwise-guard protocol, following the completed
-numerical/security-method review recorded in DEC-0018. The design must specify
-the validated point check, local-gradient scope, endpoint proposal check,
-complete transactional rollback inventory, provenance bindings, and explicit
-fail-closed statuses. The method choice is already recorded as
-`POINTWISE_GUARD` in DEC-0018; this design task must not implement it or alter
-the frozen functional.
+Implement exactly the frozen `pointwise-guard-protocol-v1` design recorded in
+DEC-0019. The implementation must provide the validated point check,
+local-gradient scope, endpoint proposal check, complete transactional rollback
+inventory, provenance bindings, and explicit fail-closed statuses. The method
+choice is `POINTWISE_GUARD`; implementation must not alter the frozen
+functional.
 
-The protocol design must distinguish numerical stability, mathematical support,
-and security-model assumptions, quantify any excluded transmitter/domain
-states, and may only propose, not silently apply, changes to the threshold,
-functional, admissible domain, or paper claim. This authorization does not
-approve implementation, threshold selection, training, or evaluation.
+The implementation must preserve the distinction between numerical stability,
+mathematical support, and security-model assumptions, and must not silently
+change the threshold, functional, admissible domain, or paper claim. This
+authorization does not approve threshold selection, training, or evaluation.
 
 ## Stop Conditions
 
@@ -48,6 +46,6 @@ approve implementation, threshold selection, training, or evaluation.
   an input or oracle producer changes.
 - V3 result SHA-256:
   `5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`.
-- Proposed engineering conclusion pending review:
+- Engineering conclusion recorded by DEC-0018:
   `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`.
 - Final test remains inaccessible and untouched.

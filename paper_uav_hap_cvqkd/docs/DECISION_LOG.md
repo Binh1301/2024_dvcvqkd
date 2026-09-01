@@ -737,8 +737,8 @@ superseded.
 
 Date: 2026-09-01
 
-Status: ACTIVE FAIL-CLOSED METHOD DECISION; DESIGN AUTHORIZED, IMPLEMENTATION
-NOT AUTHORIZED
+Status: SUPERSEDED AS NEXT-ACTION POLICY BY DEC-0019; ACTIVE METHOD REVIEW
+EVIDENCE
 
 ### Context
 
@@ -799,3 +799,44 @@ and `1e-12` remains invalid.
    semantics are not yet documented.
 4. `SMOOTHER_EQUIVALENT_FORMULATION_REVIEW` - no mathematically equivalent
    implementation or proof is currently available.
+
+## DEC-0019 - Freeze pointwise guard protocol design
+
+Date: 2026-09-01
+
+Status: ACTIVE FAIL-CLOSED DESIGN DECISION; IMPLEMENTATION NEXT AUTHORIZED
+
+### Decision
+
+Freeze `pointwise-guard-protocol-v1` as a proposed, threshold-parametric design
+for the next implementation task. The smallest certification unit is one
+unique realized statewise physical ensemble, not an individual Monte Carlo
+noise sample. The design reuses validated shifted-Hermitian block-LDL*
+inertia and nearest-eigenvalue brackets. It accepts only if
+
+`certified_margin > 2 * uncertainty_upper`,
+
+where the margin is the minimum certified distance from `tau` to the nearest
+bracketed eigenvalue on either side and `uncertainty_upper` is the maximum
+validated bracket half-width. The factor two is a fixed two-sided enclosure
+allowance, not an outcome-tuned constant.
+
+Only `POINTWISE_ADMISSIBLE` permits a local fixed-support gradient. Guard-band,
+certification, and provenance failures are no-ops. The transaction snapshots
+all mutable model, optimizer, dual-controller, module-mode, RNG, explicit
+generator, and counter state. Schedulers and GradScaler are absent in the
+current repository and become mandatory fields if introduced before
+implementation. No interpolation segment is certified.
+
+### Evidence
+
+- EVID-0030
+- `configs/pointwise_guard_protocol_v1.yaml`
+- `docs/POINTWISE_GUARD_PROTOCOL.md`
+- `tests/test_pointwise_guard_protocol_design.py`
+
+### Consequences
+
+The next permitted task is implementation of this exact protocol. The protocol
+remains `PROPOSED`; the candidate threshold remains `PROPOSED_UNAPPROVED`;
+lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.

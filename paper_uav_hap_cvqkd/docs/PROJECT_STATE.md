@@ -71,26 +71,21 @@ DEC-0017 records the exact proposed engineering conclusion:
 `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
 
 The separate numerical/security-method review is complete and recorded in
-DEC-0018. This remains neither a security theorem nor a threshold decision,
-and it does not authorize implementation or realized evaluation.
-
-The completed review is recorded as DEC-0018. It concludes that whole-segment
+DEC-0018. It concludes that whole-segment
 support invariance is an additional differentiability/admissibility condition,
 not a prerequisite for the adopted statewise security functional at a
-validated realized point. Pointwise-guard protocol design is authorized as the
-next task; implementation, threshold approval, and realized evaluation remain
-blocked.
+validated realized point. The pointwise-guard protocol design is now frozen by
+DEC-0019. Its implementation is authorized as the next task; threshold
+approval and realized evaluation remain blocked.
 
-Authorization: `POINTWISE_GUARD_PROTOCOL_DESIGN_AUTHORIZED`.
+Authorization: `POINTWISE_GUARD_IMPLEMENTATION_AUTHORIZED`.
 
 ## Exact Next Permitted Action
 
-Design the prospective pointwise-guard protocol specified by DEC-0018,
-including point validation, local-gradient scope, endpoint validation,
-complete rollback state, provenance bindings, and fail-closed statuses.
-Any resulting model, domain, security, threshold, or protocol change must be
-proposed explicitly and frozen before implementation or realized evaluation.
-Silent regularization is prohibited.
+Implement exactly the frozen `pointwise-guard-protocol-v1` design from DEC-0019.
+Do not approve a threshold, run the smoke test, perform realized optimization,
+or change the physical/security functional until implementation tests and a
+separate smoke authorization pass. Silent regularization is prohibited.
 
 ## Lifecycle Restrictions
 
@@ -126,5 +121,7 @@ by V3.
 - EVID-0027: historical V2.3 feasibility failure.
 - EVID-0028: current decisive V3 feasibility failure.
 - EVID-0029: provenance reconciliation and method-review result.
+- EVID-0030: pointwise guard protocol design freeze.
 - DEC-0017: active fail-closed V3 method stop.
 - DEC-0018: pointwise-guard protocol design authorization.
+- DEC-0019: pointwise guard protocol freeze and implementation authorization.
