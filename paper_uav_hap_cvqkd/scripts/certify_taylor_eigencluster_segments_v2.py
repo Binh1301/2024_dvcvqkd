@@ -11,7 +11,10 @@ import sys
 import time
 from typing import Any
 
-from _common import ROOT, load_yaml
+try:  # direct script execution
+    from _common import ROOT, load_yaml
+except ModuleNotFoundError:  # package import in regression tests
+    from scripts._common import ROOT, load_yaml
 from src.validation.certification_provenance_v2 import (
     ProvenanceFailure,
     sha256,
@@ -52,6 +55,30 @@ def _lifecycle_guards() -> dict[str, bool]:
         "optimized_mb_grid_performed": False,
         "baseline_selection_performed": False,
         "security_functional_changed": False,
+    }
+
+
+def _verify_exact_tau_gate(path: Path, expected_sha256: str) -> dict[str, Any]:
+    actual = sha256(path)
+    if actual != expected_sha256.lower():
+        raise ProvenanceFailure((
+            f"exact_tau_artifact_sha256 expected={expected_sha256.lower()} actual={actual}",
+        ))
+    artifact = json.loads(path.read_text(encoding="utf-8"))
+    aggregate = artifact.get("aggregate", {})
+    if not (
+        artifact.get("status") == "EXACT_TAU_ORACLE_CERTIFIED"
+        and int(aggregate.get("fixture_count", -1)) == 4
+        and int(aggregate.get("certified_fixture_count", -1)) == 4
+        and int(aggregate.get("unresolved_fixture_count", -1)) == 0
+        and aggregate.get("complex128_reference_used") is False
+    ):
+        raise ProvenanceFailure(("exact_tau_oracle_gate_not_certified",))
+    return {
+        "status": artifact["status"],
+        "sha256": actual,
+        "certified_fixture_count": 4,
+        "unresolved_fixture_count": 0,
     }
 
 
@@ -138,6 +165,8 @@ def run(
     output_path: Path,
     *,
     mode: str,
+    exact_tau_artifact: Path,
+    expected_exact_tau_sha256: str,
     feasibility_artifact: Path | None,
     expected_feasibility_sha256: str | None,
 ) -> dict[str, Any]:
@@ -146,6 +175,9 @@ def run(
             ROOT, manifest_path, expected_manifest_sha256, require_clean_worktree=True
         )
         settings = load_yaml(config_path)
+        exact_tau_gate = _verify_exact_tau_gate(
+            exact_tau_artifact, expected_exact_tau_sha256
+        )
         roster_hash = sha256(ROOT / settings["confirmation_roster"])
         subset = _selected_subset(roster_hash)
         if subset != settings["feasibility_subset"]:
@@ -241,6 +273,7 @@ def run(
         "lifecycle_guards": _lifecycle_guards(),
         "provenance": {
             **provenance,
+            "exact_tau_oracle_gate": exact_tau_gate,
             "config_sha256": sha256(config_path),
             "fixture_bundle_sha256": sha256(bundle),
             "freeze_manifest_sha256": sha256(manifest_path),
@@ -257,12 +290,16 @@ def main() -> None:
     parser.add_argument("--expected-freeze-manifest-sha256", required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--mode", choices=("feasibility", "full"), default="feasibility")
+    parser.add_argument("--exact-tau-artifact", type=Path, required=True)
+    parser.add_argument("--expected-exact-tau-sha256", required=True)
     parser.add_argument("--feasibility-artifact", type=Path)
     parser.add_argument("--expected-feasibility-sha256")
     args = parser.parse_args()
     artifact = run(
         args.config.resolve(), args.freeze_manifest.resolve(),
         args.expected_freeze_manifest_sha256, args.output.resolve(), mode=args.mode,
+        exact_tau_artifact=args.exact_tau_artifact.resolve(),
+        expected_exact_tau_sha256=args.expected_exact_tau_sha256,
         feasibility_artifact=args.feasibility_artifact.resolve()
         if args.feasibility_artifact else None,
         expected_feasibility_sha256=args.expected_feasibility_sha256,
