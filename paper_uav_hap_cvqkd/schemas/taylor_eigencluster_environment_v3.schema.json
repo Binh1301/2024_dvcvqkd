@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "live_environment", "requirements_lock_sha256", "final_model_spec_sha256", "scientific_evaluation_started", "lifecycle_guards", "provenance"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-environment-v3"},
+    "status": {"const": "CERTIFICATION_ENVIRONMENT_CAPTURED"},
+    "live_environment": {"type": "object"},
+    "requirements_lock_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "final_model_spec_sha256": {"const": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"},
+    "scientific_evaluation_started": {"const": false},
+    "lifecycle_guards": {"type": "object"},
+    "provenance": {"type": "object"}
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "attempt_id", "segment_id", "state_label", "family", "complete_interval", "continuity_certified", "relu_transition_points", "certified_leaf_count", "unresolved_leaf_count", "certified_leaves", "unresolved_leaves", "critical_domain_bounds", "path_domain", "runtime_seconds", "provenance"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-path-domain-v3"}, "status": {"enum": ["PATH_DOMAIN_CERTIFIED", "PATH_DOMAIN_UNCERTIFIED"]}, "attempt_id": {"type": "string"}, "segment_id": {"type": "string"},
+    "state_label": {"enum": ["bad", "medium", "good"]}, "family": {"enum": ["ps", "gs", "va", "mixed"]}, "complete_interval": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "string"}}, "continuity_certified": {"type": "boolean"},
+    "relu_transition_points": {"type": "array", "items": {"type": "string"}}, "certified_leaf_count": {"type": "integer", "minimum": 0}, "unresolved_leaf_count": {"type": "integer", "minimum": 0}, "certified_leaves": {"type": "array"}, "unresolved_leaves": {"type": "array"},
+    "critical_domain_bounds": {"type": "object"}, "path_domain": {"type": "object"}, "runtime_seconds": {"type": "number", "minimum": 0}, "provenance": {"type": "object"}
+  }
+}

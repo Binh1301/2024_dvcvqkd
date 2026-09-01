@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "execution_scope", "candidate_threshold_status", "selection", "segment_rows", "feasibility_gate", "aggregate", "lifecycle_guards", "provenance"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-whole-segment-v3"},
+    "status": {"enum": ["FEASIBILITY_GATE_PASS", "FEASIBILITY_GATE_FAIL_CLOSED", "PROVENANCE_FAILURE"]},
+    "execution_scope": {"const": "FEASIBILITY_SUBSET"},
+    "candidate_threshold_status": {"const": "PROPOSED_UNAPPROVED"},
+    "selection": {"type": "object"},
+    "segment_rows": {"type": "array", "minItems": 0, "maxItems": 4, "items": {"$ref": "#/$defs/segment"}},
+    "feasibility_gate": {"type": ["object", "null"]},
+    "aggregate": {"type": "object"},
+    "lifecycle_guards": {"type": "object"},
+    "provenance": {"type": "object"}
+  },
+  "$defs": {
+    "segment": {"type": "object", "required": ["state_label", "family", "status", "attempted_node_count", "completed_node_count", "path_domain_persisted", "journal_status"], "properties": {"state_label": {"enum": ["bad", "medium", "good"]}, "family": {"enum": ["ps", "gs", "va", "mixed"]}, "status": {"enum": ["CERTIFIED_FIXED_INERTIA", "PROVEN_CROSSING", "UNCERTIFIED", "RESOURCE_LIMIT", "PROVENANCE_FAILURE"]}, "attempted_node_count": {"type": "integer", "minimum": 0}, "completed_node_count": {"type": "integer", "minimum": 0}, "path_domain_persisted": {"type": "boolean"}, "journal_status": {"enum": ["JOURNAL_VALID", "JOURNAL_INVALID", "JOURNAL_MISSING"]}}, "additionalProperties": true}
+  }
+}

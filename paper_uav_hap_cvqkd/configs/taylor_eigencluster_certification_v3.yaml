@@ -1,0 +1,145 @@
+schema_version: taylor-eigencluster-certification-config-v3
+cycle_id: coefficient-congruence-sequential-schur-whole-segment-v3
+status: PROSPECTIVE_FROZEN_BEFORE_V3_SELECTION_RESOLUTION_AND_OUTCOMES
+
+confirmation_roster: results/independent_confirmation_roster.json
+confirmation_roster_sha256: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+fixture_bundle: results/rigorous_segment_fixture_bundle.json
+fixture_bundle_sha256: 1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149
+endpoint_gate_artifact: results/shifted_inertia_endpoint_certification_v1.json
+endpoint_gate_artifact_sha256: 45b509a94ac94ae92f7c9c03d67465d068d426dcb4da10777e613ab3f0152b5d
+exact_tau_artifact: results/exact_tau_oracle_v2_2.json
+exact_tau_artifact_sha256: 57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda
+historical_v2_3_result: results/taylor_eigencluster_feasibility_v2_3.json
+historical_v2_3_result_sha256: b7430af4831d96a7b94d88383aab3a64190aecf4ad50099bc3e6a8901921fd1d
+
+candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+candidate_threshold_exact_dyadic: 3961408125713217/2^95
+threshold_status: PROPOSED_UNAPPROVED
+
+arithmetic:
+  backend: python-flint Arb/acb inclusion arithmetic
+  python_flint_version: 0.9.0
+  flint_version: 3.6.0
+  diagnostic_midpoint_backend: numpy complex128 eigh; diagnostic only
+  exact_binary64_embedding: exact integer-ratio dyadics
+  flint_threads: 1
+precision_bits: [160, 256, 384, 512]
+
+taylor:
+  scalar_path: theta(t)=theta_0+t*(theta_1-theta_0)
+  order: 2
+  remainder: rigorous cubic coefficient interval over each complete smooth cell
+  coefficient_congruence: form Q_star_G_j_Q for j=0,1,2 before entrywise interval widening
+  shifted_constant: Q_star_G_0_Q minus tau times Q_star_Q
+  relu_rule: exact Fraction roots; split before Taylor evaluation
+  exact_c4_reduction: four 64-dimensional Hermitian DFT sectors
+path_domain:
+  maximum_subdivision_depth: 8
+  required_status: PATH_DOMAIN_CERTIFIED
+  persistence: hash-chained journal commit before spectral work
+  crossing_requires_certified_continuity: true
+
+eigencluster:
+  true_near_size_per_sector: 8
+  construction_rule: nearest absolute shifted midpoint distance then original index
+  unresolved_far_never_reclassified_as_near: true
+far_elimination:
+  sign_groups: [POSITIVE, NEGATIVE]
+  candidate_order: greatest absolute shifted midpoint distance; POSITIVE before NEGATIVE on ties; then original index
+  block_size_schedule: [32, 16, 8, 4, 2, 1]
+  failed_block_action: retry same ordered prefix at next smaller size
+  failed_singleton_action: retain as UNRESOLVED_FAR
+  sign_acceptance: validated homogeneous block inertia only
+schur:
+  solve: python-flint acb_mat.solve algorithm precond
+  explicit_inverse_permitted: false
+  acceptance: finite validated solution and residual inclusions contain zero
+  inertia_identity: inertia(H)=sum eliminated inertias+inertia(final Schur matrix)
+
+subdivision:
+  strategy: deterministic depth-first dyadic after failed node certificate
+  maximum_depth: 12
+  maximum_nodes_per_segment: 31
+  exact_gap_free_coverage_required: true
+resources:
+  platform: Windows
+  enforcement: CreateProcessW suspended; assign complete tree to kill-on-close Job Object; resume; TerminateJobObject at deadline
+  watchdog_poll_seconds: 0.05
+  kill_grace_seconds: 1.5
+  finalization_allowance_seconds: 0.5
+  maximum_timeout_overshoot_seconds: 2.0
+  maximum_seconds_per_segment: 420
+  maximum_feasibility_seconds: 1800
+  maximum_full_cycle_seconds: 5400
+  journal_durability: append-only hash chain; flush and fsync after every event
+
+selection:
+  namespace: whole-segment-v3-feasibility
+  candidate_states: [bad, medium, good]
+  candidate_families: [ps, gs, va, mixed]
+  score_serialization: namespace NUL roster_sha256 NUL fixture_bundle_sha256 NUL family NUL state_label NUL canonical_segment_identity_sha256
+  rule: independently per family choose lexicographically smallest SHA256 score; tie by ASCII state_label
+  resolve_only_after_preselection_manifest_is_committed: true
+
+synthetic_preflight:
+  required_case_count: 20
+  required_cases:
+    - exact_affine_hermitian_path
+    - quadratic_taylor_path
+    - known_fixed_inertia_path
+    - known_crossing_path
+    - same_inertia_endpoints_interior_crossing
+    - repeated_eigenvalue_cluster
+    - positive_far_block_elimination
+    - negative_far_block_elimination
+    - alternating_sequential_reductions
+    - one_by_one_schur_elimination
+    - two_by_two_schur_elimination
+    - c4_symmetry_decomposition_equivalence
+    - path_domain_failure
+    - path_domain_persistence_after_worker_timeout
+    - node_journal_recovery_after_forced_termination
+    - provenance_mismatch
+    - environment_mismatch
+    - hard_per_worker_timeout
+    - total_run_timeout
+    - deterministic_replay
+
+feasibility_gate:
+  exact_selected_segment_count: 4
+  required_synthetic_case_count: 20
+  require_watchdog_tree_kill_pass: true
+  maximum_timeout_overshoot_seconds: 2.0
+  require_journal_recovery_pass: true
+  require_all_path_domains_certified_and_durable: true
+  require_zero_provenance_failures: true
+  require_zero_resource_limits: true
+  require_zero_journal_or_watchdog_contract_defects: true
+  minimum_certified_fixed_inertia_segments: 1
+  require_successful_schur_for_every_segment_reaching_spectral_work: true
+  maximum_median_terminal_unresolved_far_count: 37
+  maximum_median_terminal_final_reduced_dimension: 61
+  require_all_paired_coefficient_to_entrywise_radius_ratios_strictly_below: 1.0
+  fixed_inertia_support_must_match_endpoint_gate: true
+  failure_action: stop; do not rerun or retune; do not run all 12; record proposed impracticality conclusion pending review
+
+status_semantics:
+  CERTIFIED_FIXED_INERTIA: complete gap-free whole-segment fixed-inertia proof
+  PROVEN_CROSSING: certified domain continuity plus rigorously certified differing inertias on one connected path
+  UNCERTIFIED: numerical inclusion insufficient
+  RESOURCE_LIMIT: hard resource deadline reached
+  PROVENANCE_FAILURE: required hash, environment, schema, selection, or journal binding failed
+  zero_inclusion_alone_proves_crossing: false
+  same_endpoint_inertia_proves_whole_path: false
+
+lifecycle_guards:
+  final_model_spec_mutable: false
+  production_security_functional_mutable: false
+  threshold_approved: false
+  final_test_access_permitted: false
+  publication_training_permitted: false
+  optimized_mb_permitted: false
+  baseline_selection_permitted: false
+  optimizer_integration_permitted: false
+  full_12_execution_permitted_before_feasibility_pass: false

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "source_freeze_commit", "selection_namespace", "candidate_threshold_float64_hex", "candidate_threshold_exact_dyadic", "candidate_threshold_status", "live_environment", "file_bindings", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-preselection-manifest-v3"},
+    "status": {"const": "PROSPECTIVE_FROZEN_BEFORE_V3_SELECTION_RESOLUTION_AND_OUTCOMES"},
+    "source_freeze_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "selection_namespace": {"const": "whole-segment-v3-feasibility"},
+    "candidate_threshold_float64_hex": {"const": "0x1.c25c268497682p-44"},
+    "candidate_threshold_exact_dyadic": {"const": "3961408125713217/2^95"},
+    "candidate_threshold_status": {"const": "PROPOSED_UNAPPROVED"},
+    "live_environment": {"type": "object", "additionalProperties": false, "required": ["python", "python_flint", "flint", "numpy", "pyyaml", "flint_threads", "os_name", "platform_system", "platform_release", "platform_version", "machine", "windows_job_objects"], "properties": {"python": {"type": "string"}, "python_flint": {"type": "string"}, "flint": {"type": "string"}, "numpy": {"type": "string"}, "pyyaml": {"type": "string"}, "flint_threads": {"const": 1}, "os_name": {"const": "nt"}, "platform_system": {"const": "Windows"}, "platform_release": {"type": "string"}, "platform_version": {"type": "string"}, "machine": {"type": "string"}, "windows_job_objects": {"const": true}}},
+    "file_bindings": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "lifecycle_guards": {"$ref": "#/$defs/guards"}
+  },
+  "$defs": {"guards": {"type": "object", "additionalProperties": false, "required": ["threshold_approved", "publication_training_performed", "final_test_accessed", "optimized_mb_grid_performed", "baseline_selection_performed", "security_functional_changed"], "properties": {"threshold_approved": {"const": false}, "publication_training_performed": {"const": false}, "final_test_accessed": {"const": false}, "optimized_mb_grid_performed": {"const": false}, "baseline_selection_performed": {"const": false}, "security_functional_changed": {"const": false}}}}
+}
