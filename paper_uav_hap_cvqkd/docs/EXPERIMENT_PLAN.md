@@ -1,6 +1,12 @@
 # Experiment plan for the frozen adaptive DM-CV-QKD model
 
-Status: **preregistered design; no experiments have been run by this task**. This plan evaluates the model in `FINAL_MODEL_SPEC.md`. The experiment code must implement that specification before any publication-scale training begins.
+Status: **preregistered design; no experiments have been run by this task**.
+The original first-run peak wording below is historical and is superseded by
+the author-approved common 30-photon domain in
+`AMPLITUDE_DOMAIN_DECISION.md`, `NUMERICAL_PARAMETER_FREEZE.md`, and
+`configs/default.yaml`. This plan evaluates the model in
+`FINAL_MODEL_SPEC.md`; the experiment code must implement that specification
+before any publication-scale training begins.
 
 ## 1. Claims and decision questions
 
@@ -97,7 +103,11 @@ Every method uses:
 
 For each fixed-PMF/fixed-geometry comparator, tune its one scalar \(V_A\) on validation data subject to the common budget. For optimized MB, jointly select the global \((\nu,V_A)\) on validation. Adaptive policies must satisfy the same budget on validation and test. Report both achieved average photon number and any residual constraint violation; do not compare an over-budget policy as if it were feasible.
 
-No hard peak-amplitude limit is imposed in the first run. All methods must report \(A_{\max}\), PAPR, and amplitude-tail diagnostics. If these expose a hardware or cutoff problem, set a physically justified common threshold before a separately labeled rerun.
+Historical first-run wording: no hard peak-amplitude limit was imposed. The
+current author-approved protocol instead applies the common hard
+`max_i |alpha_i|^2 <= 30` photon rule to every eligible realized ensemble,
+without clipping, while still requiring \(A_{\max}\), PAPR, and amplitude-tail
+diagnostics.
 
 ## 5. Training protocol
 

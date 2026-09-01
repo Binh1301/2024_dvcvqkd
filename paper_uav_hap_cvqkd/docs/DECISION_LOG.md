@@ -732,3 +732,70 @@ activity or a smaller radius as a complete path proof; and proceeding to all
 
 Supersedes DEC-0016 as the active numerical next-action policy. Not
 superseded.
+
+## DEC-0018 - Authorize pointwise-guard protocol design only
+
+Date: 2026-09-01
+
+Status: ACTIVE FAIL-CLOSED METHOD DECISION; DESIGN AUTHORIZED, IMPLEMENTATION
+NOT AUTHORIZED
+
+### Context
+
+The V3 hard-support whole-segment feasibility cycle failed closed, while exact
+point-inertia/gap evidence and fixed-support local-gradient diagnostics remain
+available on finite rosters. The provenance audit found only CRLF/LF byte
+normalization mismatches; no scientific payload changed.
+
+### Decision
+
+Authorize the next task to design a prospective pointwise admissibility guard
+and transactional rollback protocol. Do not implement it in this cycle, do
+not approve any support threshold, and do not perform realized optimization or
+evaluation. The guard must validate the current point, use locally valid
+fixed-support gradients, validate the proposed endpoint, and commit or restore
+the complete mutable training state. It must not certify intermediate points
+or alter the security functional.
+
+### Method review conclusion
+
+Whole-segment support invariance is not required for validity of the adopted
+statewise security calculation at a validated realized point; it was an
+additional numerical condition for claiming smooth optimization through a hard
+support operation. A transition at an unobserved interpolation point affects
+optimization smoothness and admissibility, not the already computed pointwise
+value, provided the pointwise evaluator and numerical rule are themselves
+validated. Current evidence supports this only on the finite exact-tau,
+endpoint, stress-oracle, and local-gradient rosters.
+
+The pointwise rule changes only the numerical optimization domain. Physical
+modulation, MI, Holevo, and reported SKR equations remain unchanged. Claims of
+global differentiability, continuous-domain support stability, and
+whole-trajectory certification remain prohibited. `attack_class=None` limits
+manuscript security wording but does not by itself block numerical design;
+the separate threshold/support blocker still prevents execution.
+
+### Evidence
+
+- EVID-0029
+- EVID-0026, EVID-0027, EVID-0028
+- `docs/SECURITY_SCOPE_FREEZE.md`
+- `docs/PROPOSED_NUMERICAL_CERTIFICATION_PROTOCOL.md`
+
+### Consequences
+
+`NEXT_ACTIONS.md` now names pointwise-guard protocol design as the sole next
+permitted action. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; candidate `1e-13` remains proposed
+and `1e-12` remains invalid.
+
+### Alternatives ranked
+
+1. `POINTWISE_GUARD` - best supported by finite point-inertia and local-gradient
+   evidence, and it preserves the frozen security functional.
+2. `NARROW_PAPER_CLAIM` - scientifically safe fallback but does not address
+   optimization usability.
+3. `NUMERICAL_REGULARIZATION_REDESIGN` - potentially useful, but its security
+   semantics are not yet documented.
+4. `SMOOTHER_EQUIVALENT_FORMULATION_REVIEW` - no mathematically equivalent
+   implementation or proof is currently available.

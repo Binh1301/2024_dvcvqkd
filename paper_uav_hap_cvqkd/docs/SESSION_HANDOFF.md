@@ -40,10 +40,10 @@ current method and records this proposed conclusion pending review:
 
 `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
 
-The only next action is a separate numerical/security-method review deciding
-whether to adopt a documented regularization architecture, derive a smoother
-mathematically equivalent formulation, define a prospective admissibility
-strategy, or narrow the paper claim.
+The separate numerical/security-method review is complete. The only next
+action is `POINTWISE_GUARD_PROTOCOL_DESIGN_AUTHORIZED`: design the prospective
+pointwise guard and complete transactional rollback protocol. This does not
+authorize implementation, threshold approval, training, or evaluation.
 
 Do not rerun/retune V3, run all 12, create V4 automatically, approve a
 threshold, train, run optimized MB/baselines, access final test, or alter the

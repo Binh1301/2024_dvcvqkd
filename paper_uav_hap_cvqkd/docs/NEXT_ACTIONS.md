@@ -13,20 +13,19 @@ contract breaches. The full 12-segment run was not performed.
 
 ## Exact Next Permitted Action
 
-Perform a separate numerical/security-method review. The review must decide
-whether the research should use:
+Design a prospective pointwise-guard protocol, following the completed
+numerical/security-method review recorded in DEC-0018. The design must specify
+the validated point check, local-gradient scope, endpoint proposal check,
+complete transactional rollback inventory, provenance bindings, and explicit
+fail-closed statuses. The method choice is already recorded as
+`POINTWISE_GUARD` in DEC-0018; this design task must not implement it or alter
+the frozen functional.
 
-1. a different numerical regularization architecture whose security meaning
-   is documented;
-2. a mathematically equivalent smoother formulation of the frozen functional;
-3. an explicit, prospectively frozen conditioning/admissibility strategy; or
-4. a narrower paper claim that avoids unsupported continuous-path
-   conditioning.
-
-The review must distinguish numerical stability, mathematical support, and
-security-model assumptions. It must quantify any excluded transmitter/domain
-states and may only propose—not silently apply—changes to the threshold,
-functional, admissible domain, or paper claim.
+The protocol design must distinguish numerical stability, mathematical support,
+and security-model assumptions, quantify any excluded transmitter/domain
+states, and may only propose, not silently apply, changes to the threshold,
+functional, admissible domain, or paper claim. This authorization does not
+approve implementation, threshold selection, training, or evaluation.
 
 ## Stop Conditions
 

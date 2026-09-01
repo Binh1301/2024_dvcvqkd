@@ -1,6 +1,6 @@
 # Project State
 
-Last updated: `2026-09-01T00:00:00+07:00`
+Last updated: `2026-09-01T00:00:00+07:00` (provenance/method review)
 
 ## Terminal Status
 
@@ -70,21 +70,24 @@ DEC-0017 records the exact proposed engineering conclusion:
 
 `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
 
-This is pending a separate numerical/security-method review. It is not a
-security theorem, threshold decision, protocol approval, or authorization to
-change the frozen functional.
+The separate numerical/security-method review is complete and recorded in
+DEC-0018. This remains neither a security theorem nor a threshold decision,
+and it does not authorize implementation or realized evaluation.
+
+The completed review is recorded as DEC-0018. It concludes that whole-segment
+support invariance is an additional differentiability/admissibility condition,
+not a prerequisite for the adopted statewise security functional at a
+validated realized point. Pointwise-guard protocol design is authorized as the
+next task; implementation, threshold approval, and realized evaluation remain
+blocked.
+
+Authorization: `POINTWISE_GUARD_PROTOCOL_DESIGN_AUTHORIZED`.
 
 ## Exact Next Permitted Action
 
-Conduct a separate numerical/security-method review that decides among:
-
-1. a different numerical regularization architecture with explicit security
-   semantics;
-2. a mathematically equivalent smoother formulation;
-3. a prospectively defined admissibility strategy; or
-4. a narrowed paper claim that does not require the failed whole-segment
-   support certificate.
-
+Design the prospective pointwise-guard protocol specified by DEC-0018,
+including point validation, local-gradient scope, endpoint validation,
+complete rollback state, provenance bindings, and fail-closed statuses.
 Any resulting model, domain, security, threshold, or protocol change must be
 proposed explicitly and frozen before implementation or realized evaluation.
 Silent regularization is prohibited.
@@ -105,7 +108,11 @@ by V3.
 
 - V3 synthetic preflight: `20/20` passed; artifact SHA-256
   `81fe173259071b3124d13da13cd7618564e566e32c7cba7a4a9ea300acb87b50`.
-- Combined repository suite: `259 passed` (`CURRENTLY_VERIFIED_PASS`).
+- Historical locked-environment suite: `259 passed` before V3
+  (`LAST_KNOWN_PASS`); current local suite is `BLOCKED_BY_ENVIRONMENT` because
+  the locked CPython 3.12.10/torch 2.13.0 environment and pytest are absent.
+- Provenance reconciliation: `CURRENTLY_VERIFIED_PASS`; artifact
+  `results/provenance_reconciliation_v1.json`.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -118,4 +125,6 @@ by V3.
 - EVID-0026: independent exact-dyadic point support and nearest-gap oracle.
 - EVID-0027: historical V2.3 feasibility failure.
 - EVID-0028: current decisive V3 feasibility failure.
-- DEC-0017: active fail-closed method stop and review requirement.
+- EVID-0029: provenance reconciliation and method-review result.
+- DEC-0017: active fail-closed V3 method stop.
+- DEC-0018: pointwise-guard protocol design authorization.

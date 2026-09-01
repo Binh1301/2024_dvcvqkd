@@ -39,12 +39,23 @@ The current proposed engineering conclusion is:
 It is pending independent numerical/security-method review and is not a
 threshold or security approval.
 
+## Provenance Reconciliation
+
+The frozen model and all reported roster/MB/V3 provenance mismatches were
+CRLF/LF normalization only. Canonical UTF-8 LF hashes now match the recorded
+digests under `.gitattributes`; scientific payloads and security code were not
+changed. The historical portability manifest is preserved and
+`docs/CERTIFICATION_ARTIFACT_MANIFEST_CURRENT.json` indexes current EVID-0026--0028.
+
 ## Exact Next Permitted Action
 
-Conduct that separate review to choose among a documented regularization
-architecture, a mathematically equivalent smoother formulation, a
-prospectively frozen admissibility strategy, or a narrowed paper claim. Do not
-silently change the physical/security functional or domain.
+`POINTWISE_GUARD_PROTOCOL_DESIGN_AUTHORIZED`
+
+Design the prospective pointwise guard, including validated point checks,
+local-gradient scope, endpoint proposal validation, complete rollback state,
+provenance bindings, and fail-closed statuses. Do not implement it, approve a
+threshold, or perform realized optimization/evaluation. Do not silently change
+the physical/security functional or domain.
 
 No publication training, optimized-MB search, baseline selection, final-test
 access, held-out evaluation, threshold approval, production `src/cvqkd`

@@ -1371,3 +1371,56 @@ Evidence:
 
 The full 12-segment run is prohibited. Candidate `1e-13` remains proposed and
 unapproved. No V4 is authorized automatically.
+
+## EVID-0029 - Provenance reconciliation and method-review authorization
+
+Date: 2026-09-01
+
+Status: ACTIVE REPOSITORY-STATE EVIDENCE; POINTWISE DESIGN ONLY
+
+### Claim
+
+The frozen-model and reported certification provenance mismatches were audited
+at the byte level. Every mismatch was CRLF/LF normalization only; canonical
+UTF-8 LF bytes matched the historical recorded digests and semantic payloads
+were unchanged. Explicit `eol=lf` attributes now cover the frozen model,
+current hash-bound source/config/schema files, the MB dependency-blocker
+payload, and the V3 text chain. The historical portability manifest remains
+unchanged and a new current V3 manifest is authoritative for EVID-0026--0028.
+
+The read-only numerical/security review concluded that whole-segment support
+invariance is an additional condition for differentiability through the hard
+support operation, not a prerequisite for the adopted statewise security
+functional at a validated realized point. Existing pointwise support/gap and
+local-gradient evidence is finite and diagnostic. A prospective transactional
+pointwise guard may therefore be designed without changing the physical model,
+MI functional, Holevo functional, or SKR evaluator. It may only restrict the
+optimization domain and remains subject to a future threshold/protocol freeze.
+
+### Evidence
+
+- `results/provenance_reconciliation_v1.json`, SHA-256
+  `5e50caf7171e88d2455eeaf10847804bb1b211cbeb679c65536633dad8c6e70f`
+- `docs/CERTIFICATION_ARTIFACT_MANIFEST_CURRENT.json`, SHA-256
+  `4de0b1cddbb3533b93c3e8b80b88667b921a37ff2852a0cc34a6eb36b01493b3`
+- `.gitattributes`
+- `tests/test_independent_confirmation_roster.py` (2/2 pass after policy fix)
+- EVID-0026, EVID-0027, EVID-0028
+- DEC-0018
+
+### Provenance
+
+Producer: repository byte-policy audit and deterministic hash checks.
+
+Repository commit at audit: `e29d55850e7a6cf5c49f0917eb7ea96e167989ba`.
+
+Current dynamic full-suite status: `BLOCKED_BY_ENVIRONMENT`; the locked
+CPython 3.12.10 / torch 2.13.0+cpu environment is not installed locally.
+
+### Limitations
+
+This evidence authorizes only pointwise-guard protocol design. It does not
+approve `1e-13`, reactivate `1e-12`, certify whole segments, authorize
+optimizer integration, or authorize publication-scale execution. The security
+claim remains oracle-CSI, asymptotic, covariance-based DM-CV-QKD with no
+attack class assigned to the fading average.
