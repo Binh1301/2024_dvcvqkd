@@ -1,6 +1,42 @@
 # Project State
 
-Last updated: `2026-08-31T21:30:00+07:00`
+Last updated: `2026-09-01T00:00:00+07:00`
+
+## Current V2.3 Superseding Update
+
+This section supersedes the older V1 next-action language retained below for
+history.
+
+- V1 checkpoint commit: `c9e532092a52c79edc7188409989f9e603ac130a`.
+- Repository-state reconciliation commit: `d08438dacd8be3f8c36e1c80abb5dc1acb5ae272`.
+- V2 source/config freeze commit: `565db027f422c67a2e59403aed96f5604916be51`.
+- Current certified exact-tau artifact: V2.2, SHA-256
+  `57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda`.
+- Exact-tau support counts: `17, 29, 7, 8`; four fixtures certified,
+  zero unresolved, nearest gaps certified, exact-threshold inertia at 160 bits.
+- Current segment freeze manifest: V2.3, SHA-256
+  `57e3f7692fcd86c8f31ce70daf7b82a2a8dfa757064a3c44a3be6e6eb426fb1b`.
+- V2.3 feasibility artifact: SHA-256
+  `b7430af4831d96a7b94d88383aab3a64190aecf4ad50099bc3e6a8901921fd1d`.
+- Feasibility result: 0/4 certified, 0 crossings, 4/4 resource-limit rows,
+  zero provenance failures, 1800.0383 seconds; full 12-path run prohibited.
+- Last durable nodes reached depth 3/3/2, cluster cap 24, and Taylor radii
+  `4.188e-5`, `1.607e-6`, and `2.091e-5`; combined far-block inertia remained
+  uncertified.
+- Hard-watchdog acceptance failed: medium/PS recorded 1004.227 seconds
+  against its nominal 450-second limit. The implementation lacks bounded
+  process-tree/pipe cleanup, but the realized overrun's exact cause was not
+  independently traced.
+- The complete combined suite passes 203 tests after the exact-tau gate tests;
+  the V2.2 oracle-specific suite passes 8 tests. Production `src/cvqkd`, the
+  physical/security functional, and `FINAL_MODEL_SPEC.md` are unchanged.
+
+The exact next action is a prospectively frozen V3 feasibility protocol. It
+must first prove process-tree timeout enforcement and durable path-domain
+journaling synthetically. It must then retain Taylor coefficient dependence
+through fixed congruence and improve far-block reduction before another small
+SHA-selected subset is evaluated. No all-12 run is permitted until that new
+gate passes quantitatively.
 
 Current V2 task-start commit:
 `c9e532092a52c79edc7188409989f9e603ac130a` on `feat/v1-cyclepoint`.
@@ -56,9 +92,9 @@ Sylvester additivity certified:
 
 The four frozen oracle fixtures certify point supports 17, 29, 7, and 8 at
 160 bits. Their independent high-precision mathematical rank is 256, proving
-that mathematical rank and numerical support are distinct. The high-precision
-artifact does not store independent counts above exact candidate `tau`, so it
-does not independently confirm those four threshold counts.
+that mathematical rank and numerical support are distinct. EVID-0026 now also
+independently certifies those four exact-tau counts and nearest gaps with
+exact-dyadic Arb inertia brackets.
 
 ## Whole-Segment Result
 
@@ -113,22 +149,24 @@ tree content is the authoritative checkpoint.
    ambiguous after depth 20; complete certification remains 0/12.
 2. The V1 segment provenance/domain/runtime defects require a new producer
    version before any future pass can be accepted.
-3. Independent high-precision counts above exact candidate `tau` are absent.
-4. Transactional integration covering model, Adam, dual, scheduler, RNG, and
+3. V2.3 timed out on 4/4 feasibility rows; one nominal 450-second worker
+   returned after 1004.227 seconds, so hard process-tree enforcement failed.
+4. V2.3 did not persist standalone path-domain artifacts and its durable nodes
+   exhausted cluster cap 24 with combined far-block inertia unresolved.
+5. Transactional integration covering model, Adam, dual, scheduler, RNG, and
    sampler state is absent and remains downstream.
-5. Candidate `1e-13` is unapproved and configured `1e-12` remains invalid.
-6. Downstream work remains intentionally unexecuted: zero optimized-MB grid
+6. Candidate `1e-13` is unapproved and configured `1e-12` remains invalid.
+7. Downstream work remains intentionally unexecuted: zero optimized-MB grid
    evaluations, baseline selections, publication training runs, and final-test
    accesses.
 
 ## Exact Next Permitted Action
 
-Create a new prospectively hash-bound segment producer that enforces every
-frozen input and actual runtime acceptance, proves path domain/continuity
-before any crossing claim, and uses a sharper validated fixed-basis
-congruence/cluster, affine/Taylor, or Schur-complement enclosure instead of
-the dependency-inflated full-matrix Frobenius guard. Freeze and test that
-producer before another realized 12-path run. Do not change thresholds,
+Create a new prospectively hash-bound V3 feasibility producer with tested
+Windows process-tree enforcement, early durable path-domain journaling,
+coefficient-level Taylor congruence, and sequential positive/negative
+far-block reduction. Freeze and test it before another small realized subset;
+do not run 12 paths until that gate passes. Do not change thresholds,
 physical/security equations, or downstream lifecycle state.
 
 ## Evidence Index
@@ -138,3 +176,5 @@ physical/security equations, or downstream lifecycle state.
 - Shifted point inertia/endpoints: EVID-0023.
 - Shifted whole-segment fail-closed attempt: EVID-0024.
 - Oracle-fixture point cross-check: EVID-0025.
+- Exact-dyadic support/gap oracle: EVID-0026.
+- Taylor/eigencluster feasibility failure: EVID-0027.

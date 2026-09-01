@@ -626,3 +626,52 @@ provenance gaps, or changing the physical/security functional.
 
 Supersedes DEC-0014 as the active numerical next-action policy. Not
 superseded.
+
+## DEC-0016 - Accept the exact-tau oracle; reject V2 whole-segment feasibility
+
+Date: 2026-09-01
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION, NOT THRESHOLD APPROVAL
+
+### Context
+
+The V2.2 exact-dyadic oracle independently certified the four expected support
+counts and nearest gaps. The prospectively selected V2.3 Taylor/eigencluster
+feasibility subset then certified 0/4 segments, produced four resource-limit
+rows, and exceeded one nominal hard deadline. The implementation lacks bounded
+Windows process-tree/pipe cleanup, but the realized overrun's exact cause was
+not independently traced. Durable nodes also exhausted the cluster cap and
+failed far-block inertia.
+
+### Decision
+
+Accept EVID-0026 as validated point support/gap evidence. Preserve EVID-0027
+as unsuccessful whole-segment evidence and stop before the all-12 cycle. Do
+not approve candidate `1e-13`, reactivate historical `1e-12`, or authorize any
+downstream baseline/training/test action.
+
+Any next segment attempt must be a newly frozen V3. It must use a tested
+Windows process-tree/Job-Object timeout, durably checkpoint path-domain results
+before spectral work, retain scalar Taylor coefficient dependence through the
+fixed congruence instead of collapsing immediately to entrywise balls, and
+test sequential positive/negative far-block elimination or an independently
+proved tighter equivalent as a tightening strategy.
+
+### Consequences
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. V2 is not permitted
+to run all 12 paths because its prospectively frozen feasibility gate failed.
+The exact-tau oracle resolves the former independent-support-count blocker but
+does not establish whole-path fixed inertia or optimizer admissibility.
+
+### Alternatives rejected
+
+Increasing the V2 wall-clock limit after observing timeouts, raising its
+cluster cap, loosening the threshold, treating checkpoint control flow as a
+persistent path-domain certificate, accepting a late worker result, or using
+zero-containing intervals as crossings.
+
+### Supersedes / Superseded by
+
+Supersedes DEC-0015 as the active numerical next-action policy. Not
+superseded.

@@ -1190,3 +1190,106 @@ independent high-precision threshold-support confirmation. The two
 near-coincident fixtures lack prior candidate-count rows. Such a claim would
 require high-precision counts above exact `tau` or validated threshold-gap
 isolation.
+
+## EVID-0026 - Exact-dyadic oracle independently certifies support and nearest gaps
+
+Date: 2026-09-01
+
+Status: ACTIVE VALIDATED POINT EVIDENCE, NOT THRESHOLD APPROVAL
+
+The hash-frozen V2.2 oracle reconstructed the four roster fixtures from exact
+binary64 dyadics. Arbitrary-precision mpmath spectra proposed dyadic brackets
+only. Arb/acb shifted block-LDL* inertia independently proved support counts
+above exact `0x1.c25c268497682p-44`, the counts below it, and one-eigenvalue
+brackets immediately on both sides.
+
+The certified above/below/unresolved counts are respectively:
+
+- Uniform high-VA: `17 / 239 / 0`;
+- Binomial high-VA: `29 / 227 / 0`;
+- near-coincident `5e-8`: `7 / 249 / 0`;
+- near-coincident `2e-7`: `8 / 248 / 0`.
+
+All exact-threshold inertias passed at 160 bits. Certified lower bounds on the
+distance from `tau` to the closest eigenvalues below/above are approximately
+`5.5224e-14 / 4.5299e-13`, `6.5291e-14 / 3.1807e-14`,
+`5.3588e-14 / 5.9219e-14`, and `9.9999999968e-14 / 6.4259e-13`.
+The scientific runtime was `694.6966014998034` seconds; the outer worker
+completed before its 3600-second hard deadline.
+
+Evidence:
+
+- `results/exact_tau_oracle_v2_2.json`, SHA-256
+  `57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda`;
+- `results/exact_tau_oracle_v2_2_watchdog.json`, SHA-256
+  `1b7279a1f5c102a9bd99216af3fc6acabd8d0cb6f10b95783f9cda0f923af259`;
+- V2.2 freeze manifest SHA-256
+  `2bd9f865ebe0f191ec5b5e1e5df8b4e628c24afb0e13d1fd3d050600d8fdd08e`.
+
+The initial V2 producer failure and V2.1 partial result are preserved. V2
+failed before scientific output because it called nonexistent
+`mpmath.eigvalsh`. V2.1 rigorously certified the same four counts but failed
+nearest-gap brackets because bracket-center arithmetic fell back to 15-digit
+mpmath precision. Both defects received new code/config/manifest revisions
+and regression tests before re-execution; neither `tau` nor numerical limits
+changed.
+
+## EVID-0027 - Taylor/eigencluster feasibility gate fails closed under hard budgets
+
+Date: 2026-09-01
+
+Status: ACTIVE EXPERIMENTAL FAIL-CLOSED RESULT; FULL 12-PATH RUN PROHIBITED
+
+The prospectively selected SHA-ranked subset was `medium/ps`, `good/gs`,
+`medium/va`, and `medium/mixed`. The V2.3 parent verified the frozen bindings,
+the live FLINT environment, and the certified exact-tau oracle before starting
+segment work. The frozen gate failed:
+
+- whole segments certified: `0/4`;
+- proven crossings: `0/4`;
+- resource-limit rows: `4/4`;
+- provenance failures: `0/4`;
+- accepted segment artifacts/path-domain rows: `0/4`;
+- total parent runtime: `1800.0382972999942` seconds.
+
+Three workers wrote durable checkpoints before termination. Medium/PS and
+good/GS completed four nodes and reached depth 3; medium/VA completed three
+nodes and reached depth 2. Their last node used 512 bits, exhausted the fixed
+cluster cap 24, and failed to certify the combined far block. Last-node Taylor
+Frobenius radii were `4.1878038679e-5`, `1.6073560576e-6`, and
+`2.0905619381e-5`, with about 89--92 seconds per completed node. No mixed-path
+worker was started after the total budget was exhausted.
+
+The checkpoints can exist only after the worker's path-domain routine returned
+`PATH_DOMAIN_CERTIFIED`, but the worker did not durably journal that result
+before node evaluation. Because killed workers produced no final segment row,
+the aggregate correctly reports zero accepted machine-readable path-domain
+certificates. This control-flow implication is diagnostic, not a substitute
+for the required persistent Phase-3 artifact.
+
+The hard-timeout implementation also failed its strict acceptance contract:
+medium/PS recorded `1004.2271167999133` seconds against a 450-second segment
+limit. On Windows, terminating the immediate Python process did not bound the
+post-termination wait; the exact process-tree/pipe cause was not independently
+traced. Good/GS recorded 450.012 seconds and medium/VA received only 345.791
+seconds from the remaining total budget.
+
+Evidence:
+
+- `results/taylor_eigencluster_feasibility_v2_3.json`, SHA-256
+  `b7430af4831d96a7b94d88383aab3a64190aecf4ad50099bc3e6a8901921fd1d`;
+- versioned checkpoint/watchdog files under
+  `results/taylor_eigencluster_feasibility_v2_3_work/`;
+- config SHA-256
+  `a3ee9c1afcfb35b4422265057ef2635fd61479317af9b47bae725c7df9b68406`;
+- V2.3 freeze-manifest SHA-256
+  `57e3f7692fcd86c8f31ce70daf7b82a2a8dfa757064a3c44a3be6e6eb426fb1b`.
+
+V2 validates common scalar-path Taylor propagation through the actual
+transmitter and C4 Gram construction, but then collapses cross-entry Taylor
+correlation to independent matrix balls before fixed-basis congruence/Schur
+work. The observed radii remain many orders of magnitude larger than `tau`.
+Rounded-Q nonsingularity did certify, with Frobenius defects about
+`9.48e-15`--`1.13e-14`, but each last far block certified only 2 positive
+modes and left 38/40 dimensions unresolved; no Schur solve was reached. The
+quantitative gate failed every acceptance check, so no all-12 V2 cycle ran.
