@@ -675,3 +675,60 @@ zero-containing intervals as crossings.
 
 Supersedes DEC-0015 as the active numerical next-action policy. Not
 superseded.
+
+## DEC-0017 - Stop incremental hard-support whole-segment certification
+
+Date: 2026-09-01
+
+Status: ACTIVE FAIL-CLOSED ENGINEERING DECISION; METHOD IMPRACTICALITY PROPOSED
+
+### Context
+
+V3 prospectively implemented every declared architectural tightening:
+Windows Job Objects, early path-domain persistence, complete hash-chained node
+and Schur journals, exact C4 sectors, coefficient-level Taylor congruence, and
+deterministic sequential sign-homogeneous Schur elimination. The paired
+dependency radius improved by about 38--43x, and realized Schur reductions
+executed, but the frozen four-row gate still produced 0/4 complete segments,
+four resource limits, 52--53 unresolved far modes on completed roots, and two
+large watchdog return-bound breaches.
+
+### Decision
+
+Preserve EVID-0028 as the decisive failed V3 cycle. Do not rerun or retune V3,
+do not execute all 12, and do not automatically create V4. Record
+`HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
+as a proposed engineering conclusion pending independent numerical/security-
+method review.
+
+The review must decide whether to change numerical regularization
+architecture, derive a mathematically equivalent smoother formulation,
+change optimization admissibility strategy, or narrow the paper claim. It may
+not silently regularize the security functional or approve a threshold.
+
+### Evidence
+
+- EVID-0028
+- V3 result SHA-256
+  `5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`
+- V3 manifest SHA-256
+  `5057cbd443c1d5aa37206fd282a8de949559b03ed39ba41e88c3cb5c898b202b`
+
+### Consequences
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. Candidate `1e-13`
+remains proposed/unapproved, `1e-12` remains invalid/unapproved, and no
+baseline selection, optimized-MB grid, training, final-test access, or
+publication claim is authorized.
+
+### Alternatives rejected
+
+Post-outcome increases to precision, runtime, Taylor order, cluster size,
+block schedule, or subdivision; rerunning a favorable subset; treating Schur
+activity or a smaller radius as a complete path proof; and proceeding to all
+12 despite the failed gate.
+
+### Supersedes / Superseded by
+
+Supersedes DEC-0016 as the active numerical next-action policy. Not
+superseded.

@@ -7,11 +7,14 @@ must not override that snapshot.
 This folder implements the frozen model in `docs/FINAL_MODEL_SPEC.md`. It models a HAP transmitter, UAV receiver, fluctuating FSO channel, 256-point coherent-state modulation, C4-symmetric PS, global GS, adaptive modulation variance, discrete-input mutual information, and the accepted asymptotic ideal-heterodyne Holevo/SKR chain.
 
 It does **not** contain publication results. The physical, optimization, and MI
-settings are frozen, and `N_MC=2048` is convergence-selected, but no Fock
-cutoff or pseudoinverse threshold is currently certified because the
-near-coincident conditioning fixture fails the frozen numerical rule. No
-publication training, final-test evaluation, or baseline ranking has been run.
-July legacy checkpoints and plots were intentionally not copied.
+settings are frozen, and `N_MC=2048` is convergence-selected. Exact-dyadic
+point-oracle evidence exists, but neither candidate support threshold is
+approved and the prospectively frozen V3 whole-segment feasibility gate failed
+`0/4` with four resource limits. Incremental hard-support whole-segment
+certification is therefore stopped pending the separate method review recorded
+in `docs/PROJECT_STATE.md`. No publication training, final-test evaluation, or
+baseline ranking has been run. July legacy checkpoints and plots were
+intentionally not copied.
 
 ## Scientific scope
 

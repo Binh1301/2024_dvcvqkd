@@ -2,6 +2,13 @@
 
 Status: `EXPERIMENTAL_PROPOSED_NOT_APPROVED`
 
+This document preserves the historical first Arb backend and its realized
+result. Its forward-looking "next prospective method" language is superseded
+by `PROJECT_STATE.md`: V2.3 and V3 were subsequently executed under separate
+prospective freezes, both failed their small feasibility gates, and V3 may not
+be rerun or expanded to all 12. The current next action is a separate
+numerical/security-method review.
+
 This backend is certification-only. It neither replaces the production
 complex128/PyTorch implementation nor approves a numerical-support threshold.
 Configured `1e-12` remains invalid/unapproved and candidate `1e-13` remains

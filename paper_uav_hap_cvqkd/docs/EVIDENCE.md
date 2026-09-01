@@ -1293,3 +1293,81 @@ Rounded-Q nonsingularity did certify, with Frobenius defects about
 `9.48e-15`--`1.13e-14`, but each last far block certified only 2 positive
 modes and left 38/40 dimensions unresolved; no Schur solve was reached. The
 quantitative gate failed every acceptance check, so no all-12 V2 cycle ran.
+
+## EVID-0028 - V3 coefficient-congruence feasibility fails the decisive gate
+
+Date: 2026-09-01
+
+Status: ACTIVE EXPERIMENTAL FAIL-CLOSED RESULT; CURRENT HARD-SUPPORT METHOD STOPPED
+
+V3 was frozen in two prospective phases. Source, numerical rules, the new
+selection namespace, schemas, and tests were committed at
+`b0ff03b963a50219bcee3439fd9175a9891e39a3`. The preselection manifest was
+then committed before fixture IDs were resolved. Its SHA-256 is
+`660ea716bc05b933d5b4b342c0fd8b1a5aa9584f3bdc41a93c77577664c210b5`.
+Only afterward did the outcome-blind resolver select `bad/ps`, `bad/gs`,
+`bad/va`, and `bad/mixed` under namespace
+`whole-segment-v3-feasibility`; the selection artifact SHA-256 is
+`1ea89229c267c395842757bdee2793d4acfd44946266d9b1b41162c347bdf8ba`.
+The final execution manifest SHA-256 is
+`5057cbd443c1d5aa37206fd282a8de949559b03ed39ba41e88c3cb5c898b202b`.
+
+The complete repository suite passed 259 tests before execution. The frozen
+20-case synthetic preflight passed 20/20; its real Windows descendant-tree
+timeout had 0.0012818-second overshoot. The preflight artifact SHA-256 is
+`81fe173259071b3124d13da13cd7618564e566e32c7cba7a4a9ea300acb87b50`.
+
+The realized feasibility result failed closed:
+
+- complete fixed-inertia segments: `0/4`;
+- proven crossings: `0/4`;
+- resource-limit rows: `4/4`;
+- path-domain certificates persisted: `4/4`;
+- attempted/completed nodes reconstructed from journals: `7/3`;
+- successful Schur eliminations durably recorded: `52`;
+- total runtime: `2438.1743897000006 s` against the frozen `1800 s` limit.
+
+| Segment | Limit (s) | Return (s) | Overshoot (s) | Nodes attempted/completed | Schur events |
+|---|---:|---:|---:|---:|---:|
+| bad/ps | 420.000 | 420.002312 | 0.002312 | 2/1 | 14 |
+| bad/gs | 420.000 | 420.001134 | 0.001134 | 2/1 | 24 |
+| bad/va | 420.000 | 751.528187 | 331.528187 | 2/1 | 14 |
+| bad/mixed | 207.136480 | 844.915756 | 637.779276 | 1/0 | 0 |
+
+All four Job records eventually report zero active processes and complete tree
+termination. The first two met the frozen two-second return bound. The latter
+two are `WATCHDOG_CONTRACT_BREACH`: Job termination did not bound parent
+return. The implementation calls `TerminateJobObject` synchronously; the
+artifact does not independently locate where the long return was spent, so a
+blocking termination call under active native computation is a source-
+supported hypothesis, not a proven operating-system cause.
+
+The three completed root nodes all stopped in C4 sector 0 at 512 bits with
+`RESIDUAL_INERTIA_UNCERTIFIED`. Their true-near cluster stayed exactly eight.
+Coefficient-level congruence reduced the paired root enclosure radius to
+`0.0265262`, `0.0264878`, and `0.0231441` of the entrywise-then-congruence
+radius. Sequential Schur reduction executed 2, 3, and 2 successful
+eliminations in those completed nodes. Nevertheless, terminal unresolved far
+counts were `53,52,53` (median 53 versus V2.3's representative 38), and final
+reduced dimensions were `61,60,61` (median 61 versus V2.3's approximately
+62). Dependency tightening worked, but did not make the proof practical.
+
+All path artifacts were committed before spectral work. Their critical lower
+bounds include orbit mass at least `0.0155679464`, positive VA-to-bound
+margins at least `0.521169873` and `3.378347420`, raw GS gauge energy at least
+`1.4166666559`, physical normalization energy at least `0.996348573`, and
+physical scale at least `0.557314046`; every coherent amplitude was finite.
+
+Evidence:
+
+- `results/taylor_eigencluster_feasibility_v3.json`, SHA-256
+  `5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`;
+- hash-chained journals, path-domain artifacts, and watchdog records under
+  `results/taylor_eigencluster_feasibility_v3_work/`;
+- config SHA-256
+  `878a17f51734e2c1565276b5ee13d8a0cf2b7bfedfab5f6a7749409b0ee57a20`;
+- V3 environment artifact SHA-256
+  `75ecb123dff9b9df94c7cb0b2a2f9f4a258007e637b8e35417756933704ca6a1`.
+
+The full 12-segment run is prohibited. Candidate `1e-13` remains proposed and
+unapproved. No V4 is authorized automatically.

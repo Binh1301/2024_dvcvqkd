@@ -4,52 +4,48 @@ Date: 2026-09-01
 
 Lifecycle: `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-## Completed
+## Completed V3 Cycle
 
-- Preserved V1 at commit `c9e5320`; reconciled repository state at `d08438d`.
-- Added hash-bound scalar Taylor, exact ReLU partition, path-domain, fixed
-  rounded-Q congruence, deterministic cluster, validated Schur/inertia,
-  provenance, and watchdog V2 components.
-- Combined repository suite passed 203 tests; no production security code or
-  frozen model file changed.
-- Preserved the initial exact-oracle API failure and V2.1 partial result.
-- Certified the V2.2 exact-tau oracle on 4/4 fixtures: supports
-  `17,29,7,8`, zero unresolved comparisons, nearest gaps certified.
-- Ran only the prospectively selected four-case V2.3 feasibility subset.
-- Stopped before all 12 because the feasibility gate failed 0/4 with four
-  resource-limit rows.
+- Prospectively froze source/rules, then preselection, deterministic fixture
+  selection, synthetic preflight, and the final execution manifest.
+- Passed the 20-case synthetic preflight and the combined 259-test suite.
+- Ran only the selected `bad/ps`, `bad/gs`, `bad/va`, and `bad/mixed`
+  feasibility rows.
+- Persisted all four path-domain certificates before spectral work.
+- Recorded fsync-backed hash-chained node/Schur journals and Job-Object
+  watchdog artifacts.
+- Stopped after the frozen feasibility gate failed; the full 12-row cycle was
+  not run.
 
-## Authoritative artifacts
+## Authoritative Result
 
-- `results/exact_tau_oracle_v2_2.json`
-  (`57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda`).
-- `results/taylor_eigencluster_feasibility_v2_3.json`
-  (`b7430af4831d96a7b94d88383aab3a64190aecf4ad50099bc3e6a8901921fd1d`).
-- `configs/taylor_eigencluster_certification_v2.yaml`
-  (`a3ee9c1afcfb35b4422265057ef2635fd61479317af9b47bae725c7df9b68406`).
-- `configs/taylor_eigencluster_freeze_manifest_v2_3.json`
-  (`57e3f7692fcd86c8f31ce70daf7b82a2a8dfa757064a3c44a3be6e6eb426fb1b`).
+V3 result SHA-256:
+`5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`.
 
-## Immediate blockers
+The result is `0/4` complete certificates, `0/4` crossings, `4/4`
+resource limits, `7/3` attempted/completed nodes, 52 durable Schur events,
+and `2438.1743897000006 s` runtime against a frozen `1800 s` total. Two
+segment returns breached the watchdog grace, by `331.5281874 s` and
+`637.7792758 s`. Completed roots retained `53,52,53` unresolved far modes.
 
-1. Hard timeout is not a demonstrated Windows process-tree deadline: one
-   450-second worker returned after 1004.227 seconds; exact cause is untraced.
-2. Path-domain success was not checkpointed before spectral work; killed
-   workers left no accepted machine-readable path-domain rows.
-3. V2 collapses Taylor dependence to entrywise balls before congruence.
-4. Completed nodes cost about 89--92 seconds and exhausted cluster cap 24.
-5. Combined far-block LDL remained uncertified; no Schur reduction completed.
-6. The quantitative gate has failed, so full 12-path V2 execution is forbidden.
-7. Future full-mode acceptance needs canonical feasibility-artifact binding
-   and explicit schema/provenance validation beyond its status field.
+V3 config SHA-256:
+`878a17f51734e2c1565276b5ee13d8a0cf2b7bfedfab5f6a7749409b0ee57a20`.
+Final manifest SHA-256:
+`5057cbd443c1d5aa37206fd282a8de949559b03ed39ba41e88c3cb5c898b202b`.
 
-## Next permitted action
+## Decision and Next Action
 
-Design/freeze V3 with Job-Object process-tree enforcement, early durable
-path-domain artifacts, coefficient-level Taylor congruence, and sequential
-positive/negative far-block Schur reduction. Run synthetic regressions first,
-then only a newly frozen small feasibility subset. Do not change `tau`, the
-physical/security equations, `FINAL_MODEL_SPEC.md`, or lifecycle boundaries.
+DEC-0017 stops incremental hard-support whole-segment certification under the
+current method and records this proposed conclusion pending review:
 
-No training, optimized-MB grid, baseline selection, final-test access,
-threshold approval, or publication claim occurred.
+`HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
+
+The only next action is a separate numerical/security-method review deciding
+whether to adopt a documented regularization architecture, derive a smoother
+mathematically equivalent formulation, define a prospective admissibility
+strategy, or narrow the paper claim.
+
+Do not rerun/retune V3, run all 12, create V4 automatically, approve a
+threshold, train, run optimized MB/baselines, access final test, or alter the
+frozen physical/security equations. `FINAL_MODEL_SPEC.md` and production
+`src/cvqkd` remain unchanged.
