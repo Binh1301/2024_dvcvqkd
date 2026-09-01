@@ -115,6 +115,8 @@ by V3.
   `results/pointwise_guard_implementation_v1.json`.
 - Pointwise smoke: `BLOCKED_BY_ENVIRONMENT`; artifact
   `results/pointwise_guard_smoke_v1.json`.
+- Certification environment restore: `BLOCKED_BY_ENVIRONMENT`; artifact
+  `results/certification_environment_restore_v1.json`.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -135,3 +137,4 @@ by V3.
 - DEC-0019: pointwise guard protocol freeze and implementation authorization.
 - DEC-0020: pointwise implementation pass and smoke authorization.
 - DEC-0021: smoke blocked by missing validated backend.
+- EVID-0033: certification environment restore blocked.

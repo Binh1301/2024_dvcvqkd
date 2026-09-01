@@ -13,9 +13,11 @@ contract breaches. The full 12-segment run was not performed.
 
 ## Exact Next Permitted Action
 
-Run exactly the frozen six-step certification-only pointwise-guard smoke test
-recorded in DEC-0019/DEC-0020. The method choice is `POINTWISE_GUARD`; smoke
-execution must not alter the frozen functional.
+Restore the exact hash-pinned certification environment and provide a
+repository-backed validated point-certifier adapter, then run exactly the
+frozen six-step certification-only pointwise-guard smoke test recorded in
+DEC-0019/DEC-0020. The method choice is `POINTWISE_GUARD`; execution must not
+alter the frozen functional.
 
 The smoke execution must preserve the distinction between numerical stability,
 mathematical support, and security-model assumptions, and must not silently

@@ -1543,3 +1543,37 @@ This is an execution blocker, not a usability result. No threshold was
 approved and no scientific/security functional changed. The next action is to
 restore the hash-pinned certification environment and provide a validated
 repository-backed point adapter before rerunning the same frozen smoke.
+
+## EVID-0033 - Certification environment restore blocked
+
+Date: 2026-09-01
+
+Status: BLOCKED_BY_ENVIRONMENT; ADAPTER NOT STARTED
+
+### Claim
+
+The required certification environment could not be restored on this machine.
+The repository lock requires CPython 3.12.10, python-flint 0.9.0/FLINT 3.6.0,
+PyYAML 6.0.3, and Windows x86-64. Only CPython 3.13.7 is installed; the
+Python 3.12 launcher/interpreter, repository-local certification virtual
+environments, and `python-flint` import are absent. Dependency pins were not
+changed. The validated adapter and smoke runner were therefore not attempted.
+
+### Evidence
+
+- `results/certification_environment_restore_v1.json`, SHA-256
+  `1fd40556a71790d06e087126b3802143d657bb6aca19431776e50ce293dc1557`
+- `schemas/certification_environment_restore_v1.schema.json`, SHA-256
+  `555b87ef24c4d9781b8956bc9a8ffa06d7ec25fc2860b76a81916a7609abcae0`
+- `requirements-certification-inertia.lock`, SHA-256
+  `dd03ee6c033b268c6aba1d2e589a5f408e7f872bbd8d8a33d3bec9f77ec4b607`
+- `requirements-certification-flint.lock`, SHA-256
+  `cfc1bab0f88ec71776fd4430be0f81d0aae3acf5b7fe9f143b796c5853080450`
+- EVID-0032
+- DEC-0021
+
+### Limitations
+
+No smoke outcome, adapter result, or optimization-usability decision exists.
+The exact frozen smoke remains unrun and the original blocked smoke artifact
+is preserved.

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Certification environment restore evidence v1",
+  "type": "object",
+  "required": ["schema_version", "status", "required_environment", "current_environment", "actions", "blockers"],
+  "properties": {
+    "schema_version": {"const": "certification-environment-restore-v1"},
+    "status": {"const": "CERTIFICATION_ENVIRONMENT_RESTORE_BLOCKED"},
+    "actions": {"type": "object", "properties": {"environment_created": {"const": false}, "dependencies_changed": {"const": false}, "adapter_implemented": {"const": false}, "smoke_executed": {"const": false}, "alternate_backend_used": {"const": false}}},
+    "blockers": {"type": "array", "minItems": 1}
+  },
+  "additionalProperties": true
+}
