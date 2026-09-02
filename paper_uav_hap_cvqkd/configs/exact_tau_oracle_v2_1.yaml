@@ -1,0 +1,52 @@
+schema_version: exact-tau-oracle-config-v2.1
+cycle_id: exact-tau-oracle-v2.1-api-defect-correction
+status: PROSPECTIVE_FROZEN_BEFORE_V2_1_OUTCOMES
+base_v2_config: configs/taylor_eigencluster_certification_v2.yaml
+base_v2_config_sha256: a3ee9c1afcfb35b4422265057ef2635fd61479317af9b47bae725c7df9b68406
+defect_corrected: mpmath Hermitian solver API eigvalsh -> eighe
+prior_failure_artifact: results/exact_tau_oracle_v2_watchdog.json
+resources:
+  maximum_exact_tau_oracle_seconds: 3600
+  kill_grace_seconds: 5
+exact_tau_oracle:
+  candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+  confirmation_roster: results/independent_confirmation_roster.json
+  confirmation_roster_config: configs/independent_confirmation_roster.yaml
+  default_config: configs/default.yaml
+  oracle_fixtures:
+    - uniform_high_va_1.5
+    - binomial_high_va_1.5
+    - near_coincident_phase_step_5e-08
+    - near_coincident_phase_step_2e-07
+  diagnostic_expected_above_tau_counts: [17, 29, 7, 8]
+  diagnostic_expectations_are_not_acceptance_inputs: true
+  decimal_digits_by_class:
+    fixed_uniform: 200
+    fixed_binomial: 200
+    analytic_near_coincident: 1200
+  arb_precision_bits: [160, 256, 384, 512]
+  bracket_denominator_power_two: 180
+  maximum_bracket_expansions: 4
+  maximum_seconds_per_inertia_point: 120
+  producer_sha256: 0d3c58b99bb853e20707475e0efd9c70165ba65ebce7cb740ee8e4f04f605ac5
+  required_input_sha256:
+    docs/FINAL_MODEL_SPEC.md: 561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1
+    results/independent_confirmation_roster.json: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+    configs/independent_confirmation_roster.yaml: b8205459bf186ce662a649fb819c5d80f8c75c5eba443a12db94d2dc138e70eb
+    configs/default.yaml: dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015
+    results/shifted_inertia_environment_v1.json: 053e6bf516729f44a960ae8e5c433d9531690257ebd878945d51c21ac49d6b61
+    requirements-certification-inertia.lock: dd03ee6c033b268c6aba1d2e589a5f408e7f872bbd8d8a33d3bec9f77ec4b607
+    scripts/oracle_independent_confirmation_gram.py: 287da3958450fb411be7280a34fbe94231c4e7c623abce24f217fb843d8b2d8f
+    scripts/_numerical_validation.py: f57bbd8b5f364a34f0cd70a95e1a2c9ba807d7d7c7a6cb70a1bd07bff9e7fbd1
+    scripts/freeze_independent_confirmation_roster.py: fb2dcb8c19ee45b28e5d5c192db0d982cbc861e3c24afe1c49d5f04e4c62ecb4
+    src/modulation/qam256.py: 34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa
+    src/validation/rigorous_flint_support.py: 1792d789557d4234a34c3a1245271a6114c9bd2ad43fd028b86e4b8092665555
+    src/validation/rigorous_shifted_inertia.py: 9a26b40c5cb19c8128378dfefc7c1592ebe02930e34739404344d0cb8a4ec661
+  threshold_approval_permitted: false
+  final_test_access_permitted: false
+lifecycle_guards:
+  threshold_approved: false
+  final_test_access_permitted: false
+  publication_training_permitted: false
+  optimized_mb_permitted: false
+  baseline_selection_permitted: false

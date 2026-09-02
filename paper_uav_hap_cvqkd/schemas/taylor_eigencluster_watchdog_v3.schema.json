@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "status", "reason", "fixture", "interval", "scientific_evaluation_started", "configured_time_limit_seconds", "kill_grace_seconds", "finalization_allowance_seconds", "tree_termination_confirmed"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-watchdog-v3"},
+    "status": {"enum": ["WORKER_COMPLETED", "WORKER_FAILURE", "RESOURCE_LIMIT", "WATCHDOG_CONTRACT_BREACH", "WATCHDOG_PLATFORM_UNSUPPORTED", "WATCHDOG_LAUNCH_FAILURE"]},
+    "reason": {"type": ["string", "null"]}, "fixture": {"type": "string"}, "interval": {"type": "string"}, "scientific_evaluation_started": {"type": "boolean"},
+    "configured_time_limit_seconds": {"type": "number", "exclusiveMinimum": 0}, "kill_grace_seconds": {"type": "number", "minimum": 0}, "finalization_allowance_seconds": {"type": "number", "minimum": 0},
+    "maximum_allowed_return_seconds": {"type": "number"}, "process_elapsed_seconds": {"type": ["number", "null"]}, "watchdog_return_elapsed_seconds": {"type": ["number", "null"]}, "overshoot_seconds": {"type": ["number", "null"]}, "return_bound_satisfied": {"type": "boolean"},
+    "process_signaled_before_deadline": {"type": "boolean"}, "termination_requested": {"type": "boolean"}, "tree_termination_confirmed": {"type": ["boolean", "null"]}, "worker_pid": {"type": ["integer", "null"]}, "worker_exit_code": {"type": ["integer", "null"]},
+    "job_accounting": {"type": ["object", "null"]}, "stdout": {"type": ["object", "null"]}, "stderr": {"type": ["object", "null"]}, "stdout_tail": {"type": "string"}, "stderr_tail": {"type": "string"}, "log_tail_bytes": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Non-certifying physical-domain precheck",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "is_fock_cutoff_certification", "test_set_used", "physical_rule", "n_peak_photons", "n_peak_author_approved", "peak_domain_scope", "maximum_permitted_amplitude_abs", "maximum_permitted_photon_number", "maximum_permitted_papr_over_va_box", "worst_case_domain_statement", "reference_baseline_domain_audit", "scheme_fairness_audit", "all_eleven_schemes", "common_rule_applies_to_all_eleven", "mandatory_fixed_benchmarks_feasible", "physical_domain_configuration_complete", "blockers"],
+  "properties": {
+    "schema_version": {"const": "preconvergence-domain-report-v1"},
+    "status": {"enum": ["BLOCKED_UNRESOLVED", "READY_FOR_CONVERGENCE_EXECUTION"]},
+    "is_fock_cutoff_certification": {"const": false},
+    "test_set_used": {"const": false},
+    "physical_rule": {"const": "max_i |alpha_i(T,epsilon)|^2 <= n_peak"},
+    "n_peak_photons": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "n_peak_author_approved": {"type": "boolean"},
+    "peak_domain_scope": {"type": ["string", "null"]},
+    "maximum_permitted_amplitude_abs": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "maximum_permitted_photon_number": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "maximum_permitted_papr_over_va_box": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "worst_case_domain_statement": {"type": "string"},
+    "reference_baseline_domain_audit": {"type": "object"},
+    "scheme_fairness_audit": {"type": "object"},
+    "all_eleven_schemes": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"type": "string"}},
+    "common_rule_applies_to_all_eleven": {"const": true},
+    "mandatory_fixed_benchmarks_feasible": {"type": "boolean"},
+    "physical_domain_configuration_complete": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string"}}
+  }
+}

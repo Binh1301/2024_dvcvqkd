@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "required_case_count", "passed_case_count", "failed_case_count", "cases", "watchdog", "journal_recovery", "provenance", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-synthetic-preflight-v3"},
+    "status": {"enum": ["SYNTHETIC_PREFLIGHT_PASS", "SYNTHETIC_PREFLIGHT_FAIL"]},
+    "required_case_count": {"const": 20},
+    "passed_case_count": {"type": "integer", "minimum": 0, "maximum": 20},
+    "failed_case_count": {"type": "integer", "minimum": 0, "maximum": 20},
+    "cases": {"type": "array", "minItems": 20, "maxItems": 20},
+    "watchdog": {"type": "object"},
+    "journal_recovery": {"type": "object"},
+    "provenance": {"type": "object"},
+    "lifecycle_guards": {"type": "object"}
+  }
+}

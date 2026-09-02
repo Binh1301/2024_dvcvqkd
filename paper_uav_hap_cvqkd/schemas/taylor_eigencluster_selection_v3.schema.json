@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "scientific_evaluation_started", "preselection_manifest_sha256", "config_sha256", "confirmation_roster_sha256", "fixture_bundle_sha256", "selection", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-selection-v3"},
+    "status": {"const": "DETERMINISTIC_SELECTION_RESOLVED_BEFORE_V3_OUTCOMES"},
+    "scientific_evaluation_started": {"const": false},
+    "preselection_manifest_sha256": {"$ref": "#/$defs/hash"},
+    "config_sha256": {"$ref": "#/$defs/hash"},
+    "confirmation_roster_sha256": {"$ref": "#/$defs/hash"},
+    "fixture_bundle_sha256": {"$ref": "#/$defs/hash"},
+    "selection": {"type": "object", "additionalProperties": false, "required": ["namespace", "score_serialization", "candidate_rows", "selected_rows", "selection_payload_sha256"], "properties": {"namespace": {"const": "whole-segment-v3-feasibility"}, "score_serialization": {"type": "string"}, "candidate_rows": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/row"}}, "selected_rows": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/row"}}, "selection_payload_sha256": {"$ref": "#/$defs/hash"}}},
+    "lifecycle_guards": {"type": "object", "additionalProperties": false, "required": ["threshold_approved", "publication_training_performed", "final_test_accessed", "optimized_mb_grid_performed", "baseline_selection_performed", "full_12_execution_performed", "security_functional_changed"], "properties": {"threshold_approved": {"const": false}, "publication_training_performed": {"const": false}, "final_test_accessed": {"const": false}, "optimized_mb_grid_performed": {"const": false}, "baseline_selection_performed": {"const": false}, "full_12_execution_performed": {"const": false}, "security_functional_changed": {"const": false}}}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "row": {"type": "object", "additionalProperties": false, "required": ["family", "state_label", "segment_identity_sha256", "ranking_sha256"], "properties": {"family": {"enum": ["ps", "gs", "va", "mixed"]}, "state_label": {"enum": ["bad", "medium", "good"]}, "segment_identity_sha256": {"$ref": "#/$defs/hash"}, "ranking_sha256": {"$ref": "#/$defs/hash"}}}
+  }
+}

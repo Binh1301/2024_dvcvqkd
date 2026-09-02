@@ -1,0 +1,872 @@
+{
+  "schema_version": "amplitude-domain-certification-v1",
+  "status": "PASS_FIXED_BASELINES_LEARNED_RUNTIME_GUARD_PENDING_SELECTED_ROSTER",
+  "is_fock_cutoff_certification": false,
+  "publication_training_performed": false,
+  "test_set_used": false,
+  "classifications": {
+    "beta_reconciliation": "AUTHOR_APPROVED",
+    "v_min_snu": "AUTHOR_APPROVED",
+    "v_max_snu": "AUTHOR_APPROVED",
+    "v_a_budget_snu": "AUTHOR_APPROVED",
+    "mean_photon_budget": "DERIVED",
+    "n_peak_photons": "AUTHOR_APPROVED",
+    "fixed_mb_nu": "AUTHOR_APPROVED",
+    "optimized_mb_nu_domain": "AUTHOR_APPROVED",
+    "va_grid_snu": "SOFTWARE_PREREGISTERED",
+    "optimized_mb_nu_grid": "SOFTWARE_PREREGISTERED",
+    "papr_and_peak_values": "DERIVED",
+    "mi_samples_and_fock_cutoff": "PENDING_CONVERGENCE_SELECTION"
+  },
+  "classification_status": {
+    "mi_samples_and_fock_cutoff": "PENDING_NOT_YET_SELECTED"
+  },
+  "approved_domain": {
+    "beta_reconciliation": 0.95,
+    "v_min_snu": 0.1,
+    "v_max_snu": 4.0,
+    "v_a_budget_snu": 1.5,
+    "mean_photon_budget": 0.75,
+    "n_peak_photons": 30.0,
+    "maximum_amplitude_abs": 5.477225575051661,
+    "fixed_mb_nu": 0.1,
+    "optimized_mb_nu_domain": [
+      0.0,
+      0.3
+    ],
+    "numerical_precision": "torch.float64 / torch.complex128"
+  },
+  "software_preregistered_discretization": {
+    "selection_data": "validation_only",
+    "fixed_va_grid_snu": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5
+    ],
+    "fixed_va_grid_step_snu": 0.1,
+    "optimized_mb_nu_grid": [
+      0.0,
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3
+    ],
+    "optimized_mb_nu_grid_step": 0.01,
+    "chosen_before_validation_or_test_outcomes": true,
+    "test_selection_forbidden": true
+  },
+  "fixed_baseline_certification": {
+    "uniform": {
+      "nu_mb": null,
+      "papr": 2.6470588235294112,
+      "papr_exact": "45/17",
+      "analytic_peak_energy_at_v_max_photons": 5.2941176470588225,
+      "numerical_peak_energy_at_v_max_photons": 5.294117647058823,
+      "analytic_numerical_absolute_error": 8.881784197001252e-16,
+      "peak_energy_at_fixed_search_ceiling_photons": 1.9852941176470584,
+      "peak_feasible_va_upper_unclipped_snu": 22.66666666666667,
+      "peak_feasible_va_range_within_common_box_snu": [
+        0.1,
+        4.0
+      ],
+      "full_common_va_box_certified": true,
+      "fixed_search_feasible_va_candidates_snu": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ],
+      "fixed_search_peak_excluded_va_candidates_snu": [],
+      "excluded_from_comparison": false
+    },
+    "binomial": {
+      "nu_mb": null,
+      "papr": 14.999999999999995,
+      "papr_exact": "15",
+      "analytic_peak_energy_at_v_max_photons": 29.99999999999999,
+      "numerical_peak_energy_at_v_max_photons": 29.99999999999999,
+      "analytic_numerical_absolute_error": 0.0,
+      "peak_energy_at_fixed_search_ceiling_photons": 11.249999999999996,
+      "peak_feasible_va_upper_unclipped_snu": 4.000000000000002,
+      "peak_feasible_va_range_within_common_box_snu": [
+        0.1,
+        4.0
+      ],
+      "full_common_va_box_certified": true,
+      "fixed_search_feasible_va_candidates_snu": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ],
+      "fixed_search_peak_excluded_va_candidates_snu": [],
+      "excluded_from_comparison": false
+    },
+    "fixed_mb": {
+      "nu_mb": 0.1,
+      "papr": 2.754443493980498,
+      "papr_exact": null,
+      "analytic_peak_energy_at_v_max_photons": 5.508886987960996,
+      "numerical_peak_energy_at_v_max_photons": 5.508886987960997,
+      "analytic_numerical_absolute_error": 8.881784197001252e-16,
+      "peak_energy_at_fixed_search_ceiling_photons": 2.0658326204853736,
+      "peak_feasible_va_upper_unclipped_snu": 21.782984523415607,
+      "peak_feasible_va_range_within_common_box_snu": [
+        0.1,
+        4.0
+      ],
+      "full_common_va_box_certified": true,
+      "fixed_search_feasible_va_candidates_snu": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ],
+      "fixed_search_peak_excluded_va_candidates_snu": [],
+      "excluded_from_comparison": false
+    },
+    "optimized_mb_candidates": [
+      {
+        "nu_mb": 0.0,
+        "papr": 2.6470588235294112,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.2941176470588225,
+        "numerical_peak_energy_at_v_max_photons": 5.294117647058823,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 1.9852941176470584,
+        "peak_feasible_va_upper_unclipped_snu": 22.66666666666667,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.01,
+        "papr": 2.6575498040615626,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.315099608123125,
+        "numerical_peak_energy_at_v_max_photons": 5.315099608123123,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 1.993162353046172,
+        "peak_feasible_va_upper_unclipped_snu": 22.577187418388675,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.02,
+        "papr": 2.6680954864753517,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.336190972950703,
+        "numerical_peak_energy_at_v_max_photons": 5.336190972950704,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0010716148565137,
+        "peak_feasible_va_upper_unclipped_snu": 22.487950788921022,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.03,
+        "papr": 2.678695984267691,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.357391968535382,
+        "numerical_peak_energy_at_v_max_photons": 5.357391968535383,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0090219882007685,
+        "peak_feasible_va_upper_unclipped_snu": 22.39895843066452,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.04,
+        "papr": 2.6893514093378923,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.378702818675785,
+        "numerical_peak_energy_at_v_max_photons": 5.3787028186757855,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0170135570034193,
+        "peak_feasible_va_upper_unclipped_snu": 22.310211968458137,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.05,
+        "papr": 2.7000618719729514,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.400123743945903,
+        "numerical_peak_energy_at_v_max_photons": 5.400123743945905,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0250464039797134,
+        "peak_feasible_va_upper_unclipped_snu": 22.221712999546057,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.06,
+        "papr": 2.7108274808329793,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.421654961665959,
+        "numerical_peak_energy_at_v_max_photons": 5.421654961665959,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0331206106247346,
+        "peak_feasible_va_upper_unclipped_snu": 22.133463093550787,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.07,
+        "papr": 2.7216483429367786,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.443296685873557,
+        "numerical_peak_energy_at_v_max_photons": 5.443296685873558,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.041236257202584,
+        "peak_feasible_va_upper_unclipped_snu": 22.045463792452097,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.08,
+        "papr": 2.732524563647566,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.465049127295132,
+        "numerical_peak_energy_at_v_max_photons": 5.465049127295133,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0493934227356747,
+        "peak_feasible_va_upper_unclipped_snu": 21.95771661057194,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.09,
+        "papr": 2.7434562466588583,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.486912493317717,
+        "numerical_peak_energy_at_v_max_photons": 5.486912493317716,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0575921849941436,
+        "peak_feasible_va_upper_unclipped_snu": 21.870223034565072,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.1,
+        "papr": 2.754443493980498,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.508886987960996,
+        "numerical_peak_energy_at_v_max_photons": 5.508886987960997,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0658326204853736,
+        "peak_feasible_va_upper_unclipped_snu": 21.782984523415607,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.11,
+        "papr": 2.7654864059248583,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.530972811849717,
+        "numerical_peak_energy_at_v_max_photons": 5.5309728118497175,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.074114804443644,
+        "peak_feasible_va_upper_unclipped_snu": 21.696002508439115,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.12,
+        "papr": 2.7765850810931982,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.5531701621863965,
+        "numerical_peak_energy_at_v_max_photons": 5.553170162186398,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0824388108198986,
+        "peak_feasible_va_upper_unclipped_snu": 21.6092783932905,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.13,
+        "papr": 2.787739616362192,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.575479232724384,
+        "numerical_peak_energy_at_v_max_photons": 5.575479232724384,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.090804712271644,
+        "peak_feasible_va_upper_unclipped_snu": 21.522813553977418,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.14,
+        "papr": 2.7989501068706204,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.597900213741241,
+        "numerical_peak_energy_at_v_max_photons": 5.597900213741239,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.0992125801529653,
+        "peak_feasible_va_upper_unclipped_snu": 21.436609338879315,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.15,
+        "papr": 2.810216646006248,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.620433292012496,
+        "numerical_peak_energy_at_v_max_photons": 5.620433292012495,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.107662484504686,
+        "peak_feasible_va_upper_unclipped_snu": 21.35066706877182,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.16,
+        "papr": 2.821539325392868,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.643078650785736,
+        "numerical_peak_energy_at_v_max_photons": 5.6430786507857364,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.116154494044651,
+        "peak_feasible_va_upper_unclipped_snu": 21.26498803685668,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.17,
+        "papr": 2.8329182348775266,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.665836469755053,
+        "numerical_peak_energy_at_v_max_photons": 5.665836469755053,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.124688676158145,
+        "peak_feasible_va_upper_unclipped_snu": 21.17957350879699,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.18,
+        "papr": 2.8443534625179367,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.6887069250358735,
+        "numerical_peak_energy_at_v_max_photons": 5.688706925035873,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.1332650968884526,
+        "peak_feasible_va_upper_unclipped_snu": 21.094424722757758,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.19,
+        "papr": 2.855845094570078,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.711690189140156,
+        "numerical_peak_energy_at_v_max_photons": 5.711690189140157,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.1418838209275584,
+        "peak_feasible_va_upper_unclipped_snu": 21.009542889451595,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.2,
+        "papr": 2.8673932154759765,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.734786430951953,
+        "numerical_peak_energy_at_v_max_photons": 5.734786430951955,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.1505449116069824,
+        "peak_feasible_va_upper_unclipped_snu": 20.92492919218972,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.21,
+        "papr": 2.878997907851691,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.757995815703382,
+        "numerical_peak_energy_at_v_max_photons": 5.757995815703383,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.1592484308887685,
+        "peak_feasible_va_upper_unclipped_snu": 20.8405847869379,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.22,
+        "papr": 2.890659252475487,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.781318504950974,
+        "numerical_peak_energy_at_v_max_photons": 5.781318504950974,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.1679944393566153,
+        "peak_feasible_va_upper_unclipped_snu": 20.75651080237753,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.23,
+        "papr": 2.9023773282762066,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.804754656552413,
+        "numerical_peak_energy_at_v_max_photons": 5.804754656552413,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.176782996207155,
+        "peak_feasible_va_upper_unclipped_snu": 20.672708339971592,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.24,
+        "papr": 2.9141522123218557,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.8283044246437115,
+        "numerical_peak_energy_at_v_max_photons": 5.8283044246437115,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.185614159241392,
+        "peak_feasible_va_upper_unclipped_snu": 20.58917847403547,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.25,
+        "papr": 2.9259839798083727,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.851967959616745,
+        "numerical_peak_energy_at_v_max_photons": 5.851967959616746,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.1944879848562797,
+        "peak_feasible_va_upper_unclipped_snu": 20.505922251812702,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.26,
+        "papr": 2.937872704048631,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.875745408097262,
+        "numerical_peak_energy_at_v_max_photons": 5.875745408097264,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.203404528036473,
+        "peak_feasible_va_upper_unclipped_snu": 20.422940693555255,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.27,
+        "papr": 2.94981845646163,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.89963691292326,
+        "numerical_peak_energy_at_v_max_photons": 5.8996369129232615,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.2123638423462224,
+        "peak_feasible_va_upper_unclipped_snu": 20.340234792608655,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.28,
+        "papr": 2.9618213065619097,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.923642613123819,
+        "numerical_peak_energy_at_v_max_photons": 5.923642613123818,
+        "analytic_numerical_absolute_error": 1.7763568394002505e-15,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.2213659799214325,
+        "peak_feasible_va_upper_unclipped_snu": 20.257805515501598,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.29,
+        "papr": 2.9738813219491873,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.947762643898375,
+        "numerical_peak_energy_at_v_max_photons": 5.947762643898375,
+        "analytic_numerical_absolute_error": 0.0,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.2304109914618904,
+        "peak_feasible_va_upper_unclipped_snu": 20.175653802040046,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      },
+      {
+        "nu_mb": 0.3,
+        "papr": 2.9859985682982044,
+        "papr_exact": null,
+        "analytic_peak_energy_at_v_max_photons": 5.971997136596409,
+        "numerical_peak_energy_at_v_max_photons": 5.97199713659641,
+        "analytic_numerical_absolute_error": 8.881784197001252e-16,
+        "peak_energy_at_fixed_search_ceiling_photons": 2.2394989262236535,
+        "peak_feasible_va_upper_unclipped_snu": 20.093780565405797,
+        "peak_feasible_va_range_within_common_box_snu": [
+          0.1,
+          4.0
+        ],
+        "full_common_va_box_certified": true,
+        "fixed_search_peak_excluded_va_candidates_snu": [],
+        "excluded_from_comparison": false,
+        "all_preregistered_va_candidates_feasible": true
+      }
+    ],
+    "all_fixed_families_full_common_va_box_certified": true,
+    "binomial_v_max_boundary": {
+      "v_a_snu": 4.0,
+      "analytic_peak_photons": 29.99999999999999,
+      "equals_n_peak": true,
+      "purpose": "physical-domain boundary diagnostic; not a budget-feasible fixed-policy candidate"
+    }
+  },
+  "all_eleven_rule_audit": {
+    "uniform": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": true,
+      "learned_selected_roster_required": false,
+      "status": "ANALYTIC_AND_NUMERIC_FIXED_FAMILY_CERTIFIED"
+    },
+    "binomial": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": true,
+      "learned_selected_roster_required": false,
+      "status": "ANALYTIC_AND_NUMERIC_FIXED_FAMILY_CERTIFIED"
+    },
+    "fixed_mb": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": true,
+      "learned_selected_roster_required": false,
+      "status": "ANALYTIC_AND_NUMERIC_FIXED_FAMILY_CERTIFIED"
+    },
+    "optimized_mb": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": true,
+      "learned_selected_roster_required": false,
+      "status": "ANALYTIC_AND_NUMERIC_FIXED_FAMILY_CERTIFIED"
+    },
+    "ps": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": false,
+      "learned_selected_roster_required": true,
+      "status": "RUNTIME_ENFORCED_NOT_GLOBALLY_CERTIFIED_PRETRAINING"
+    },
+    "gs": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": false,
+      "learned_selected_roster_required": true,
+      "status": "RUNTIME_ENFORCED_NOT_GLOBALLY_CERTIFIED_PRETRAINING"
+    },
+    "va": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": true,
+      "learned_selected_roster_required": false,
+      "status": "ANALYTIC_AND_NUMERIC_FIXED_FAMILY_CERTIFIED",
+      "reference_family": "uniform"
+    },
+    "ps_gs": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": false,
+      "learned_selected_roster_required": true,
+      "status": "RUNTIME_ENFORCED_NOT_GLOBALLY_CERTIFIED_PRETRAINING"
+    },
+    "ps_va": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": false,
+      "learned_selected_roster_required": true,
+      "status": "RUNTIME_ENFORCED_NOT_GLOBALLY_CERTIFIED_PRETRAINING"
+    },
+    "gs_va": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": false,
+      "learned_selected_roster_required": true,
+      "status": "RUNTIME_ENFORCED_NOT_GLOBALLY_CERTIFIED_PRETRAINING"
+    },
+    "full": {
+      "same_hard_peak_rule_photons": 30.0,
+      "rule_applied_to_final_physical_amplitudes": true,
+      "clipping_or_posthoc_renormalization": false,
+      "fixed_reference_full_va_box_certified": false,
+      "learned_selected_roster_required": true,
+      "status": "RUNTIME_ENFORCED_NOT_GLOBALLY_CERTIFIED_PRETRAINING"
+    }
+  },
+  "all_eleven_modes_covered": true,
+  "common_fail_closed_rule": "max_i |alpha_i(T,epsilon)|^2 <= n_peak",
+  "learned_roster": {
+    "status": "UNRESOLVED_PRETRAINING",
+    "global_peak_certification_claimed": false,
+    "runtime_guard_required": true,
+    "selected_roster_recertification_required": true
+  },
+  "blockers_for_numerical_convergence_handoff": [],
+  "provenance": {
+    "config_path": "configs\\default.yaml",
+    "config_sha256": "48019b65376607341fd2f3c90c64f1c63bec96ad56125d3a54968f882d35bc1f",
+    "generator": "scripts/certify_amplitude_domain.py"
+  }
+}

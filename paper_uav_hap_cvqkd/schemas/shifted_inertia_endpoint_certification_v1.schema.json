@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version", "cycle_id", "status", "mathematical_equivalence",
+    "method", "endpoint_rows", "aggregate", "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "shifted-inertia-endpoint-certification-v1"},
+    "status": {"enum": ["ENDPOINT_FEASIBILITY_GATE_PASS", "ENDPOINT_FEASIBILITY_GATE_FAIL_CLOSED"]},
+    "endpoint_rows": {"type": "array", "minItems": 24, "maxItems": 24},
+    "aggregate": {
+      "type": "object",
+      "required": [
+        "endpoint_count", "unique_point_count", "certified_endpoint_count",
+        "unresolved_endpoint_count", "runtime_seconds", "proceed_to_whole_segment"
+      ]
+    },
+    "lifecycle_guards": {"type": "object"},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

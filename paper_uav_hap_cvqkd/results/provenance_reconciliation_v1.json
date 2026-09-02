@@ -1,0 +1,58 @@
+{
+  "schema_version": "provenance-reconciliation-v1",
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "date": "2026-09-01",
+  "scope": "Frozen-model and certification provenance byte-policy audit",
+  "cause_classification": "CRLF_LF_NORMALIZATION_ONLY",
+  "semantic_payload_changes": false,
+  "scientific_functional_changed": false,
+  "historical_manifest_preserved": true,
+  "cross_platform_policy": "UTF-8 without BOM, canonical LF for frozen specs and all current hash-bound source/config/schema/result text; historical CRLF-pinned result artifacts retain their explicit eol=crlf rules.",
+  "reconciled_files": [
+    {
+      "artifact": "docs/FINAL_MODEL_SPEC.md",
+      "expected_hash": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+      "pre_fix_raw_hash": "f35656e70c312793d7705c2b5048921ea3b9136d9dd3833da1230db6690ace43",
+      "post_fix_hash": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+      "cause": "CRLF checkout versus canonical LF bytes; UTF-8, no BOM, no semantic diff",
+      "scientific_payload_changed": false,
+      "action": "Pinned text eol=lf and converted only line endings"
+    },
+    {
+      "artifact": "results/mb_grid_numerical_precertification.json",
+      "expected_hash": "04bb848f25758b66ac8300ca00d7100e50d78d02c1ef9459e458869058cbd6fd",
+      "pre_fix_raw_hash": "2fe0d823dc72429c94b4372bfe11c1d2de9c3c47bac0c8c63a895e348b04e4b1",
+      "post_fix_hash": "04bb848f25758b66ac8300ca00d7100e50d78d02c1ef9459e458869058cbd6fd",
+      "expected_size_bytes": 910,
+      "pre_fix_size_bytes": 930,
+      "post_fix_size_bytes": 910,
+      "cause": "20 CRLF pairs in a canonical LF dependency-blocker JSON",
+      "scientific_payload_changed": false,
+      "action": "Pinned text eol=lf and converted only line endings"
+    },
+    {
+      "artifact": "results/independent_confirmation_roster.json",
+      "expected_hashes": {
+        "producer_sha256": "fb2dcb8c19ee45b28e5d5c192db0d982cbc861e3c24afe1c49d5f04e4c62ecb4",
+        "config_sha256": "b8205459bf186ce662a649fb819c5d80f8c75c5eba443a12db94d2dc138e70eb",
+        "default_config_sha256": "dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015",
+        "final_model_spec_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+        "schema_sha256": "04dc4a082d7171edfb85eb0b8d7f9460d638955696a2e8b3b044cb1f1d0836ee"
+      },
+      "cause": "Referenced files were checked out as CRLF while roster provenance records canonical LF blob bytes",
+      "scientific_payload_changed": false,
+      "action": "Pinned each referenced text file eol=lf; roster provenance test passes"
+    }
+  ],
+  "verification": {
+    "provenance_test": "CURRENTLY_VERIFIED_PASS",
+    "provenance_test_command": "python -m unittest tests.test_independent_confirmation_roster -v",
+    "provenance_test_count": 2,
+    "manifest_hash_validation": "CURRENTLY_VERIFIED_PASS",
+    "final_model_hash_validation": "CURRENTLY_VERIFIED_PASS"
+  },
+  "limitations": [
+    "This artifact does not approve a numerical support threshold.",
+    "This artifact does not authorize training, baseline selection, or final-test access."
+  ]
+}

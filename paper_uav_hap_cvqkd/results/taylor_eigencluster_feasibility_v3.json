@@ -1,0 +1,557 @@
+{
+  "aggregate": {
+    "attempted_node_count": 7,
+    "certified_fixed_inertia_count": 0,
+    "completed_node_count": 3,
+    "path_domain_certified_count": 4,
+    "proven_crossing_count": 0,
+    "resource_limit_count": 4,
+    "runtime_seconds": 2438.1743897000006,
+    "segment_count": 4,
+    "successful_schur_elimination_count": 52,
+    "unresolved_count": 0
+  },
+  "candidate_threshold_status": "PROPOSED_UNAPPROVED",
+  "execution_scope": "FEASIBILITY_SUBSET",
+  "feasibility_gate": {
+    "checks": {
+      "all_paired_coefficient_radii_strictly_tighter": true,
+      "all_path_domains_certified_and_durable": true,
+      "all_twenty_synthetic_cases_passed": true,
+      "exact_four_selected_segments": true,
+      "hard_total_runtime_bound": false,
+      "median_terminal_reduced_dimension_improves_v2_3": true,
+      "median_terminal_unresolved_far_improves_v2_3": false,
+      "minimum_certified_fixed_inertia_segments": false,
+      "successful_schur_for_every_spectral_segment": false,
+      "zero_provenance_resource_journal_or_watchdog_defects": false
+    },
+    "final_reduced_dimension_distribution": [
+      61,
+      60,
+      61
+    ],
+    "historical_v2_3_comparison": {
+      "certified_segments": 0,
+      "crossings": 0,
+      "representative_effective_reduced_dimension": 62,
+      "representative_last_unresolved_far_per_sector": 38,
+      "resource_limits": 4,
+      "runtime_seconds": 1800.0382972999942
+    },
+    "median_terminal_final_reduced_dimension": 61,
+    "median_terminal_unresolved_far_count": 53,
+    "paired_radius_ratio_distribution": [
+      0.026526160245278287,
+      0.026487779370555076,
+      0.023144083117663035
+    ],
+    "passed": false,
+    "unresolved_far_distribution": [
+      53,
+      52,
+      53
+    ]
+  },
+  "lifecycle_guards": {
+    "baseline_selection_performed": false,
+    "final_test_accessed": false,
+    "full_12_execution_performed": false,
+    "optimized_mb_grid_performed": false,
+    "publication_training_performed": false,
+    "security_functional_changed": false,
+    "threshold_approved": false
+  },
+  "provenance": {
+    "config_sha256": "878a17f51734e2c1565276b5ee13d8a0cf2b7bfedfab5f6a7749409b0ee57a20",
+    "exact_tau_oracle": {
+      "sha256": "57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda",
+      "status": "EXACT_TAU_ORACLE_CERTIFIED"
+    },
+    "file_binding_count": 28,
+    "freeze_manifest_sha256": "5057cbd443c1d5aa37206fd282a8de949559b03ed39ba41e88c3cb5c898b202b",
+    "live_environment": {
+      "flint": "3.6.0",
+      "flint_threads": 1,
+      "machine": "AMD64",
+      "numpy": "2.5.2",
+      "os_name": "nt",
+      "platform_release": "11",
+      "platform_system": "Windows",
+      "platform_version": "10.0.26200",
+      "python": "3.12.10",
+      "python_flint": "0.9.0",
+      "pyyaml": "6.0.3",
+      "windows_job_objects": true
+    },
+    "repository_head": "bd8a0af760006142895cc7b9e77e2512a2a4d25c",
+    "selection_artifact_sha256": "1ea89229c267c395842757bdee2793d4acfd44946266d9b1b41162c347bdf8ba",
+    "source_freeze_commit": "95f9c88465cecf5ff8e5c46d9755e2a1dff5ce75",
+    "status": "PROVENANCE_VERIFIED",
+    "synthetic_preflight": {
+      "sha256": "81fe173259071b3124d13da13cd7618564e566e32c7cba7a4a9ea300acb87b50",
+      "status": "SYNTHETIC_PREFLIGHT_PASS"
+    }
+  },
+  "schema_version": "taylor-eigencluster-whole-segment-v3",
+  "segment_rows": [
+    {
+      "attempted_node_count": 2,
+      "completed_node_count": 1,
+      "family": "ps",
+      "journal": {
+        "attempted_node_count": 2,
+        "chunk_count": 1,
+        "chunks": [
+          {
+            "complete_record_count": 20,
+            "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_ps\\journal\\events-000000.jsonl",
+            "sha256": "6f892f60cdae9a001d256343bff6f98e347b942b061a6a7431242923bbc79311",
+            "size_bytes": 2931444,
+            "torn_tail_sha256": null,
+            "torn_tail_size_bytes": 0
+          }
+        ],
+        "completed_node_count": 1,
+        "head_sha256": "66708a82b54aacd06f43fb8a0f5fc1e12582f35e634c535eb4a683f8d4009f50",
+        "outstanding_node_id": "node-000001",
+        "path_domain_persisted": true,
+        "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+        "record_count": 20,
+        "segment_completed_event_persisted": false,
+        "status": "JOURNAL_VALID",
+        "successful_schur_elimination_count": 14,
+        "torn_tail_count": 0
+      },
+      "journal_status": "JOURNAL_VALID",
+      "metrics": {
+        "final_reduced_dimension_distribution": [
+          61
+        ],
+        "paired_radius_ratios": [
+          0.026526160245278287
+        ],
+        "true_near_size_distribution": [
+          8
+        ],
+        "unresolved_far_distribution": [
+          53
+        ]
+      },
+      "path_domain_persisted": true,
+      "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+      "reason": "HARD_WALL_CLOCK_TIMEOUT",
+      "state_label": "bad",
+      "status": "RESOURCE_LIMIT",
+      "successful_schur_elimination_count": 14,
+      "watchdog": {
+        "configured_time_limit_seconds": 420.0,
+        "finalization_allowance_seconds": 0.5,
+        "fixture": "bad/ps",
+        "interval": "0/1..1/1",
+        "job_accounting": {
+          "active_processes": 0,
+          "terminated_processes": 0,
+          "total_processes": 3
+        },
+        "kill_grace_seconds": 1.5,
+        "log_tail_bytes": 4000,
+        "maximum_allowed_return_seconds": 422.0,
+        "overshoot_seconds": 0.0023122000002331333,
+        "process_elapsed_seconds": 420.0008350999997,
+        "process_signaled_before_deadline": false,
+        "reason": "HARD_WALL_CLOCK_TIMEOUT",
+        "return_bound_satisfied": true,
+        "schema_version": "taylor-eigencluster-watchdog-v3",
+        "scientific_evaluation_started": true,
+        "status": "RESOURCE_LIMIT",
+        "stderr": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_ps\\watchdog.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stderr_tail": "",
+        "stdout": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_ps\\watchdog.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout_tail": "",
+        "termination_requested": true,
+        "tree_termination_confirmed": true,
+        "watchdog_return_elapsed_seconds": 420.00231220000023,
+        "worker_exit_code": 124,
+        "worker_pid": 6332
+      },
+      "worker_result": null
+    },
+    {
+      "attempted_node_count": 2,
+      "completed_node_count": 1,
+      "family": "gs",
+      "journal": {
+        "attempted_node_count": 2,
+        "chunk_count": 1,
+        "chunks": [
+          {
+            "complete_record_count": 30,
+            "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_gs\\journal\\events-000000.jsonl",
+            "sha256": "4f202d8db690cad1cbb1f803deda8c4d4d5f486929337b4e0c7a6d868aac7728",
+            "size_bytes": 2917801,
+            "torn_tail_sha256": null,
+            "torn_tail_size_bytes": 0
+          }
+        ],
+        "completed_node_count": 1,
+        "head_sha256": "d9f5e822c703cbc7f8f9a5f5437da74f12058c42ab47f9c58056362029559b02",
+        "outstanding_node_id": "node-000001",
+        "path_domain_persisted": true,
+        "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+        "record_count": 30,
+        "segment_completed_event_persisted": false,
+        "status": "JOURNAL_VALID",
+        "successful_schur_elimination_count": 24,
+        "torn_tail_count": 0
+      },
+      "journal_status": "JOURNAL_VALID",
+      "metrics": {
+        "final_reduced_dimension_distribution": [
+          60
+        ],
+        "paired_radius_ratios": [
+          0.026487779370555076
+        ],
+        "true_near_size_distribution": [
+          8
+        ],
+        "unresolved_far_distribution": [
+          52
+        ]
+      },
+      "path_domain_persisted": true,
+      "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+      "reason": "HARD_WALL_CLOCK_TIMEOUT",
+      "state_label": "bad",
+      "status": "RESOURCE_LIMIT",
+      "successful_schur_elimination_count": 24,
+      "watchdog": {
+        "configured_time_limit_seconds": 420.0,
+        "finalization_allowance_seconds": 0.5,
+        "fixture": "bad/gs",
+        "interval": "0/1..1/1",
+        "job_accounting": {
+          "active_processes": 0,
+          "terminated_processes": 0,
+          "total_processes": 3
+        },
+        "kill_grace_seconds": 1.5,
+        "log_tail_bytes": 4000,
+        "maximum_allowed_return_seconds": 422.0,
+        "overshoot_seconds": 0.0011340999999447376,
+        "process_elapsed_seconds": 420.0005504999999,
+        "process_signaled_before_deadline": false,
+        "reason": "HARD_WALL_CLOCK_TIMEOUT",
+        "return_bound_satisfied": true,
+        "schema_version": "taylor-eigencluster-watchdog-v3",
+        "scientific_evaluation_started": true,
+        "status": "RESOURCE_LIMIT",
+        "stderr": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_gs\\watchdog.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stderr_tail": "",
+        "stdout": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_gs\\watchdog.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout_tail": "",
+        "termination_requested": true,
+        "tree_termination_confirmed": true,
+        "watchdog_return_elapsed_seconds": 420.00113409999994,
+        "worker_exit_code": 124,
+        "worker_pid": 13052
+      },
+      "worker_result": null
+    },
+    {
+      "attempted_node_count": 2,
+      "completed_node_count": 1,
+      "family": "va",
+      "journal": {
+        "attempted_node_count": 2,
+        "chunk_count": 1,
+        "chunks": [
+          {
+            "complete_record_count": 20,
+            "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_va\\journal\\events-000000.jsonl",
+            "sha256": "502fe30f2024a5c1db37fe94a003c3418f44f06859407a4709eae6b8725f29bc",
+            "size_bytes": 2931425,
+            "torn_tail_sha256": null,
+            "torn_tail_size_bytes": 0
+          }
+        ],
+        "completed_node_count": 1,
+        "head_sha256": "f26e169a873972662075563e9f6f79f7d895331b74cd2546d0bb025032059cfa",
+        "outstanding_node_id": "node-000001",
+        "path_domain_persisted": true,
+        "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+        "record_count": 20,
+        "segment_completed_event_persisted": false,
+        "status": "JOURNAL_VALID",
+        "successful_schur_elimination_count": 14,
+        "torn_tail_count": 0
+      },
+      "journal_status": "JOURNAL_VALID",
+      "metrics": {
+        "final_reduced_dimension_distribution": [
+          61
+        ],
+        "paired_radius_ratios": [
+          0.023144083117663035
+        ],
+        "true_near_size_distribution": [
+          8
+        ],
+        "unresolved_far_distribution": [
+          53
+        ]
+      },
+      "path_domain_persisted": true,
+      "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+      "reason": "MEASURED_RETURN_BOUND_EXCEEDED",
+      "state_label": "bad",
+      "status": "RESOURCE_LIMIT",
+      "successful_schur_elimination_count": 14,
+      "watchdog": {
+        "configured_time_limit_seconds": 420.0,
+        "finalization_allowance_seconds": 0.5,
+        "fixture": "bad/va",
+        "interval": "0/1..1/1",
+        "job_accounting": {
+          "active_processes": 0,
+          "terminated_processes": 0,
+          "total_processes": 3
+        },
+        "kill_grace_seconds": 1.5,
+        "log_tail_bytes": 4000,
+        "maximum_allowed_return_seconds": 422.0,
+        "overshoot_seconds": 331.5281873999993,
+        "process_elapsed_seconds": 751.5269479999988,
+        "process_signaled_before_deadline": false,
+        "reason": "MEASURED_RETURN_BOUND_EXCEEDED",
+        "return_bound_satisfied": false,
+        "schema_version": "taylor-eigencluster-watchdog-v3",
+        "scientific_evaluation_started": true,
+        "status": "WATCHDOG_CONTRACT_BREACH",
+        "stderr": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_va\\watchdog.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stderr_tail": "",
+        "stdout": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_va\\watchdog.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout_tail": "",
+        "termination_requested": true,
+        "tree_termination_confirmed": true,
+        "watchdog_return_elapsed_seconds": 751.5281873999993,
+        "worker_exit_code": 124,
+        "worker_pid": 23116
+      },
+      "worker_result": null
+    },
+    {
+      "attempted_node_count": 1,
+      "completed_node_count": 0,
+      "family": "mixed",
+      "journal": {
+        "attempted_node_count": 1,
+        "chunk_count": 1,
+        "chunks": [
+          {
+            "complete_record_count": 4,
+            "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_mixed\\journal\\events-000000.jsonl",
+            "sha256": "31744b18ba6f6cd5066955a455dcff2d86e7a3effdb3f5c20bc5fa104fddd48f",
+            "size_bytes": 6708,
+            "torn_tail_sha256": null,
+            "torn_tail_size_bytes": 0
+          }
+        ],
+        "completed_node_count": 0,
+        "head_sha256": "5252f3b0bd4aaeb10091541879de51896f2d454c662d3256e324d36b99ab9a62",
+        "outstanding_node_id": "node-000000",
+        "path_domain_persisted": true,
+        "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+        "record_count": 4,
+        "segment_completed_event_persisted": false,
+        "status": "JOURNAL_VALID",
+        "successful_schur_elimination_count": 0,
+        "torn_tail_count": 0
+      },
+      "journal_status": "JOURNAL_VALID",
+      "metrics": {
+        "final_reduced_dimension_distribution": [],
+        "paired_radius_ratios": [],
+        "true_near_size_distribution": [],
+        "unresolved_far_distribution": []
+      },
+      "path_domain_persisted": true,
+      "path_domain_status": "PATH_DOMAIN_CERTIFIED",
+      "reason": "MEASURED_RETURN_BOUND_EXCEEDED",
+      "state_label": "bad",
+      "status": "RESOURCE_LIMIT",
+      "successful_schur_elimination_count": 0,
+      "watchdog": {
+        "configured_time_limit_seconds": 207.13648000000012,
+        "finalization_allowance_seconds": 0.5,
+        "fixture": "bad/mixed",
+        "interval": "0/1..1/1",
+        "job_accounting": {
+          "active_processes": 0,
+          "terminated_processes": 0,
+          "total_processes": 3
+        },
+        "kill_grace_seconds": 1.5,
+        "log_tail_bytes": 4000,
+        "maximum_allowed_return_seconds": 209.13648000000012,
+        "overshoot_seconds": 637.7792758000005,
+        "process_elapsed_seconds": 844.9137226999992,
+        "process_signaled_before_deadline": false,
+        "reason": "MEASURED_RETURN_BOUND_EXCEEDED",
+        "return_bound_satisfied": false,
+        "schema_version": "taylor-eigencluster-watchdog-v3",
+        "scientific_evaluation_started": true,
+        "status": "WATCHDOG_CONTRACT_BREACH",
+        "stderr": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_mixed\\watchdog.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stderr_tail": "",
+        "stdout": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v3_work\\bad_mixed\\watchdog.stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "stdout_tail": "",
+        "termination_requested": true,
+        "tree_termination_confirmed": true,
+        "watchdog_return_elapsed_seconds": 844.9157558000006,
+        "worker_exit_code": 124,
+        "worker_pid": 13164
+      },
+      "worker_result": null
+    }
+  ],
+  "selection": {
+    "candidate_rows": [
+      {
+        "family": "ps",
+        "ranking_sha256": "3fa244857ec2be85f29e65d13540dd925c5d547de554f33907ae6392db4577c9",
+        "segment_identity_sha256": "089d81c5de3537467ef6a02d06f2cdb0576f43e56bc75aaaa6a0b9f7759e50ff",
+        "state_label": "bad"
+      },
+      {
+        "family": "ps",
+        "ranking_sha256": "418039fae0d0719ecd978d63713f5c8c8d6357ec1f5303d07d5720106fe3958e",
+        "segment_identity_sha256": "81fc600384982521b871a77eacd56a608532445b86f1f6c87436a35b0683a70a",
+        "state_label": "medium"
+      },
+      {
+        "family": "ps",
+        "ranking_sha256": "445c982fdd2cf0f33c5b96270b46a9a33c54370fa883e2ea67855de8a8e60c13",
+        "segment_identity_sha256": "634faf67f84a0e3ca082c9b57bf2f27872e2070fead7c42428120832a8e53910",
+        "state_label": "good"
+      },
+      {
+        "family": "gs",
+        "ranking_sha256": "33f4762086636b789adbeecf2791dd9d1cbb6aaad26742ba7c9fda080db4a927",
+        "segment_identity_sha256": "59baf32a632497c9a69c913d7ab0d85d0df1fd5f1a9f3dfbf4015cb7a7b6890c",
+        "state_label": "bad"
+      },
+      {
+        "family": "gs",
+        "ranking_sha256": "88151f066a4297ad3ca58d06c9038c2a9ff147997bd41f7e82bb3c552b734a5b",
+        "segment_identity_sha256": "1519f3b08ce2165a1a9e6c79b432c856fa6ddfe4944a8ac16c5202d969730247",
+        "state_label": "medium"
+      },
+      {
+        "family": "gs",
+        "ranking_sha256": "be9954a044e761ce18adc2011ae5fc319455c8f27c8f7e0bf20e7216ca5329b5",
+        "segment_identity_sha256": "e9b1b2d0c5e42e81b386a048202dcb8c286ec67f6c3c6bd0aa8fa3370c8d6226",
+        "state_label": "good"
+      },
+      {
+        "family": "va",
+        "ranking_sha256": "65a98a73800b35694185bac96e47f8acfcee85020d1bbfc430a7927b958d8b9e",
+        "segment_identity_sha256": "33cb2cf8c0fc67d52f8aba4cad512cc7d56b928dda991499ad031b25afed16e4",
+        "state_label": "bad"
+      },
+      {
+        "family": "va",
+        "ranking_sha256": "9b3013120e853952953235cc5910c1895741fdefb3d28092799d3913ff285acb",
+        "segment_identity_sha256": "0897bca19642e1570b97a624e05680a42dd08d88c8724daa63a28dbb53f74191",
+        "state_label": "medium"
+      },
+      {
+        "family": "va",
+        "ranking_sha256": "7615f9cfb82cf0d68cfcdc725c04b92f2e01d7f0591998a7668d1076c28aed14",
+        "segment_identity_sha256": "c37117f2cccd513662e020aeb55c9bbebb466e371215efc2fd40b86cdbb14549",
+        "state_label": "good"
+      },
+      {
+        "family": "mixed",
+        "ranking_sha256": "0224f3aa7e202b54470b8c85401edcf6ed949ace16350370512d29b171b4f3f8",
+        "segment_identity_sha256": "bf7870d43bdcbfbc98cc087bbaf690eb8387b2645779bbd9b3c3170ef0cdbb3c",
+        "state_label": "bad"
+      },
+      {
+        "family": "mixed",
+        "ranking_sha256": "0eccb1915fcf203842addf26ca360058b761f0b20ba42083b099a47a5805b05a",
+        "segment_identity_sha256": "a34e5f69f36084ad2eafb8d44d0d9852d900846295fc794dab891f915bfd5f5f",
+        "state_label": "medium"
+      },
+      {
+        "family": "mixed",
+        "ranking_sha256": "4671d436294c89f41e844505ade6d673f64ce4a4717035d5372c6cb70892f2f8",
+        "segment_identity_sha256": "fce143a1f2305678aba1959319d50445410b9b962801b7e84e62cc7d27f0395d",
+        "state_label": "good"
+      }
+    ],
+    "namespace": "whole-segment-v3-feasibility",
+    "score_serialization": "UTF8(namespace\\0roster_sha256\\0fixture_bundle_sha256\\0family\\0state_label\\0canonical_segment_identity_sha256)",
+    "selected_rows": [
+      {
+        "family": "ps",
+        "ranking_sha256": "3fa244857ec2be85f29e65d13540dd925c5d547de554f33907ae6392db4577c9",
+        "segment_identity_sha256": "089d81c5de3537467ef6a02d06f2cdb0576f43e56bc75aaaa6a0b9f7759e50ff",
+        "state_label": "bad"
+      },
+      {
+        "family": "gs",
+        "ranking_sha256": "33f4762086636b789adbeecf2791dd9d1cbb6aaad26742ba7c9fda080db4a927",
+        "segment_identity_sha256": "59baf32a632497c9a69c913d7ab0d85d0df1fd5f1a9f3dfbf4015cb7a7b6890c",
+        "state_label": "bad"
+      },
+      {
+        "family": "va",
+        "ranking_sha256": "65a98a73800b35694185bac96e47f8acfcee85020d1bbfc430a7927b958d8b9e",
+        "segment_identity_sha256": "33cb2cf8c0fc67d52f8aba4cad512cc7d56b928dda991499ad031b25afed16e4",
+        "state_label": "bad"
+      },
+      {
+        "family": "mixed",
+        "ranking_sha256": "0224f3aa7e202b54470b8c85401edcf6ed949ace16350370512d29b171b4f3f8",
+        "segment_identity_sha256": "bf7870d43bdcbfbc98cc087bbaf690eb8387b2645779bbd9b3c3170ef0cdbb3c",
+        "state_label": "bad"
+      }
+    ],
+    "selection_payload_sha256": "d0ad317dc4058cac5af7c82b5628217c4cd3fd5305c82b7c082be7f6ce72366d"
+  },
+  "status": "FEASIBILITY_GATE_FAIL_CLOSED"
+}

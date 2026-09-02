@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "attempt_id", "segment_id", "identity", "sequence", "event_type", "previous_record_sha256", "payload", "record_sha256"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-journal-event-v3"},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "segment_id": {"type": "string", "minLength": 1},
+    "identity": {"type": "object", "minProperties": 1},
+    "sequence": {"type": "integer", "minimum": 0},
+    "event_type": {"enum": ["RUN_STARTED", "PATH_DOMAIN_COMMITTED", "WORK_QUEUE_INITIALIZED", "NODE_STARTED", "SCHUR_ELIMINATION_COMMITTED", "NODE_COMMITTED", "SEGMENT_COMPLETED", "RECOVERY_STARTED"]},
+    "previous_record_sha256": {"anyOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]},
+    "payload": {"type": "object"},
+    "record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

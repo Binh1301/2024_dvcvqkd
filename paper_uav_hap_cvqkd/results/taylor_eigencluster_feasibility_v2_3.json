@@ -1,0 +1,141 @@
+{
+  "aggregate": {
+    "attempted_node_count": 0,
+    "certified_fixed_inertia_count": 0,
+    "path_domain_certified_count": 0,
+    "proven_crossing_count": 0,
+    "provenance_failure_count": 0,
+    "resource_limit_count": 4,
+    "runtime_seconds": 1800.0382972999942,
+    "segment_count": 4,
+    "unresolved_count": 0
+  },
+  "candidate_threshold_status": "PROPOSED_UNAPPROVED",
+  "execution_scope": "FEASIBILITY_SUBSET",
+  "feasibility_gate": {
+    "checks": {
+      "all_path_domains_certified": false,
+      "median_cluster_dimension": false,
+      "minimum_complete_segments": false,
+      "no_provenance_or_resource_failure": false,
+      "strictly_below_v1_ambiguity": false,
+      "taylor_radius_ratio": false
+    },
+    "maximum_cluster_dimension": null,
+    "maximum_taylor_frobenius_radius": null,
+    "median_cluster_dimension": null,
+    "passed": false,
+    "root_radius_ratios_to_v1": []
+  },
+  "lifecycle_guards": {
+    "baseline_selection_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "publication_training_performed": false,
+    "security_functional_changed": false,
+    "threshold_approved": false
+  },
+  "provenance": {
+    "config_sha256": "a3ee9c1afcfb35b4422265057ef2635fd61479317af9b47bae725c7df9b68406",
+    "exact_tau_oracle_gate": {
+      "certified_fixture_count": 4,
+      "sha256": "57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda",
+      "status": "EXACT_TAU_ORACLE_CERTIFIED",
+      "unresolved_fixture_count": 0
+    },
+    "file_binding_count": 30,
+    "fixture_bundle_sha256": "1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149",
+    "freeze_manifest_sha256": "57e3f7692fcd86c8f31ce70daf7b82a2a8dfa757064a3c44a3be6e6eb426fb1b",
+    "live_environment": {
+      "flint": "3.6.0",
+      "flint_threads": 1,
+      "numpy": "2.5.2",
+      "python": "3.12.10",
+      "python_flint": "0.9.0",
+      "pyyaml": "6.0.3"
+    },
+    "repository_head": "401e428b88ba61f51d81373408b731dc430c44b2",
+    "source_freeze_commit": "769525c8c2addc8bf5f22594dabe6dc12725f566",
+    "status": "PROVENANCE_VERIFIED"
+  },
+  "schema_version": "taylor-eigencluster-whole-segment-v2",
+  "segment_rows": [
+    {
+      "family": "ps",
+      "state_label": "medium",
+      "status": "RESOURCE_LIMIT",
+      "watchdog": {
+        "configured_time_limit_seconds": 450.0,
+        "elapsed_seconds": 1004.2271167999133,
+        "fixture": "medium/ps",
+        "interval": "0/1..1/1",
+        "kill_grace_seconds": 5.0,
+        "last_durable_checkpoint": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v2_3_work\\medium_ps_checkpoint.json",
+          "sha256": "94be0c741a63df5e4b13276f683e2bc6e2bf38bf21a5f4022a7a640db4234b18",
+          "size_bytes": 27612
+        },
+        "reason": "HARD_WALL_CLOCK_TIMEOUT",
+        "status": "RESOURCE_LIMIT",
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "worker_exit_code": 1,
+        "worker_pid": 27884
+      }
+    },
+    {
+      "family": "gs",
+      "state_label": "good",
+      "status": "RESOURCE_LIMIT",
+      "watchdog": {
+        "configured_time_limit_seconds": 450.0,
+        "elapsed_seconds": 450.01194839994423,
+        "fixture": "good/gs",
+        "interval": "0/1..1/1",
+        "kill_grace_seconds": 5.0,
+        "last_durable_checkpoint": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v2_3_work\\good_gs_checkpoint.json",
+          "sha256": "b016b99507ceb093703bea262f1fcf22cfd4520584ee03f7eb964c9dcfcbf3c0",
+          "size_bytes": 27584
+        },
+        "reason": "HARD_WALL_CLOCK_TIMEOUT",
+        "status": "RESOURCE_LIMIT",
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "worker_exit_code": 1,
+        "worker_pid": 16576
+      }
+    },
+    {
+      "family": "va",
+      "state_label": "medium",
+      "status": "RESOURCE_LIMIT",
+      "watchdog": {
+        "configured_time_limit_seconds": 345.75495350011624,
+        "elapsed_seconds": 345.79113529995084,
+        "fixture": "medium/va",
+        "interval": "0/1..1/1",
+        "kill_grace_seconds": 5.0,
+        "last_durable_checkpoint": {
+          "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\taylor_eigencluster_feasibility_v2_3_work\\medium_va_checkpoint.json",
+          "sha256": "82c9bf688a34b4e2e2f11ea70b39c1ddeea88cf24b6abd21bf7bbc2525494c37",
+          "size_bytes": 27554
+        },
+        "reason": "HARD_WALL_CLOCK_TIMEOUT",
+        "status": "RESOURCE_LIMIT",
+        "stderr_tail": "",
+        "stdout_tail": "",
+        "worker_exit_code": 1,
+        "worker_pid": 19928
+      }
+    },
+    {
+      "elapsed_seconds": 1800.038235400105,
+      "family": "mixed",
+      "reason": "TOTAL_HARD_BUDGET_EXHAUSTED_BEFORE_START",
+      "state_label": "medium",
+      "status": "RESOURCE_LIMIT"
+    }
+  ],
+  "status": "FEASIBILITY_GATE_FAIL_CLOSED"
+}

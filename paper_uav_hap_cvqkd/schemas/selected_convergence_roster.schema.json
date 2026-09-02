@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Post-selection roster frozen before exact convergence evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "test_set_accessed_during_selection", "resolved_config_sha256", "validation_state_sha256", "baseline_selection_sha256", "learned_selection_sha256", "artifact_paths", "checkpoints"],
+  "properties": {
+    "schema_version": {"const": "selected-convergence-roster-v1"},
+    "status": {"const": "selected-roster-frozen-before-convergence"},
+    "test_set_accessed_during_selection": {"const": false},
+    "resolved_config_sha256": {"$ref": "#/$defs/sha256"},
+    "validation_state_sha256": {"$ref": "#/$defs/sha256"},
+    "baseline_selection_sha256": {"$ref": "#/$defs/sha256"},
+    "learned_selection_sha256": {"$ref": "#/$defs/sha256"},
+    "artifact_paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolved_config", "baseline_selection", "learned_selection"],
+      "properties": {
+        "resolved_config": {"type": "string", "minLength": 1},
+        "baseline_selection": {"type": "string", "minLength": 1},
+        "learned_selection": {"type": "string", "minLength": 1}
+      }
+    },
+    "checkpoints": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/checkpoint"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "mode", "path", "sha256", "initialization_seed", "selected_fixed_va_snu", "validation_peak_feasible", "validation_max_symbol_energy", "validation_budget_feasible", "validation_mean_va_snu", "validation_expected_budget_upper_snu"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "mode": {"enum": ["ps", "gs", "va", "ps_gs", "ps_va", "gs_va", "full"]},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "initialization_seed": {"type": "integer", "minimum": 0},
+        "selected_fixed_va_snu": {"type": ["number", "null"]},
+        "validation_peak_feasible": {"const": true},
+        "validation_max_symbol_energy": {"type": "number", "minimum": 0},
+        "validation_budget_feasible": {"const": true},
+        "validation_mean_va_snu": {"type": "number", "exclusiveMinimum": 0},
+        "validation_expected_budget_upper_snu": {"type": "number", "exclusiveMinimum": 0}
+      }
+    }
+  }
+}

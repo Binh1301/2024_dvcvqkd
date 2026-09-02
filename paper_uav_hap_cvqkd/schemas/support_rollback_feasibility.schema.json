@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prospective fail-closed support rollback feasibility audit",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "preregistered_design", "lifecycle_guards",
+    "validation_state_realization_sha256", "state_labels", "transmittance",
+    "epsilon_snu", "base_parameter_sha256", "base_support",
+    "aggregate_by_family_multiplier", "proposal_rows",
+    "rollback_trajectory_aggregate_by_family", "rollback_trajectory_rows",
+    "deterministic_outcomes_sha256", "overall",
+    "runtime_seconds", "conclusion_scope", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "support-rollback-feasibility-v1"},
+    "status": {"const": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN"},
+    "validation_state_realization_sha256": {
+      "type": "string", "pattern": "^[0-9a-f]{64}$"
+    },
+    "preregistered_design": {
+      "type": "object",
+      "required": [
+        "candidate_threshold", "initialization_seed", "model_mode",
+        "proposal_families", "nominal_learning_rates", "multipliers",
+        "proposals_per_family_multiplier_cell", "direction_rule",
+        "proposal_rule", "acceptance_rule", "interpretation",
+        "rollback_trajectory_design"
+      ],
+      "properties": {
+        "candidate_threshold": {"const": 1e-13},
+        "initialization_seed": {"const": 202613},
+        "model_mode": {"const": "full"},
+        "proposal_families": {"const": ["ps", "gs", "va"]},
+        "multipliers": {"const": [1, 3, 10, 30, 100]},
+        "proposals_per_family_multiplier_cell": {"type": "integer", "minimum": 1}
+      }
+    },
+    "lifecycle_guards": {
+      "type": "object",
+      "required": [
+        "publication_training_performed", "test_set_accessed",
+        "final_held_out_evaluation_performed", "optimized_mb_grid_performed",
+        "baseline_selection_performed", "active_config_changed",
+        "physical_or_security_functional_changed"
+      ],
+      "properties": {
+        "publication_training_performed": {"const": false},
+        "test_set_accessed": {"const": false},
+        "final_held_out_evaluation_performed": {"const": false},
+        "optimized_mb_grid_performed": {"const": false},
+        "baseline_selection_performed": {"const": false},
+        "active_config_changed": {"const": false},
+        "physical_or_security_functional_changed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "state_labels": {"const": ["bad", "medium", "good"]},
+    "transmittance": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+    },
+    "epsilon_snu": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "items": {"type": "number", "minimum": 0}
+    },
+    "base_parameter_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "base_support": {"type": "array", "minItems": 3, "maxItems": 3},
+    "aggregate_by_family_multiplier": {"type": "array", "minItems": 15, "maxItems": 15},
+    "proposal_rows": {"type": "array", "minItems": 15},
+    "rollback_trajectory_aggregate_by_family": {
+      "type": "array", "minItems": 3, "maxItems": 3
+    },
+    "rollback_trajectory_rows": {"type": "array", "minItems": 24, "maxItems": 24},
+    "deterministic_outcomes_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "overall": {
+      "type": "object",
+      "required": [
+        "proposal_count", "rejected_support_transition_count",
+        "rejected_invalid_count", "support_transition_fraction",
+        "fail_closed_rejection_fraction"
+      ]
+    },
+    "runtime_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "conclusion_scope": {"type": "string"},
+    "provenance": {
+      "type": "object",
+      "required": ["input_and_source_hashes", "output_path", "precision"],
+      "properties": {
+        "input_and_source_hashes": {"type": "object", "minProperties": 1},
+        "output_path": {"type": "string", "minLength": 1},
+        "precision": {"type": "object", "minProperties": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "source_freeze_commit", "preselection_manifest_sha256", "selection_artifact_sha256", "candidate_threshold_float64_hex", "candidate_threshold_exact_dyadic", "candidate_threshold_status", "execution_scope", "live_environment", "file_bindings", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-freeze-manifest-v3"},
+    "status": {"const": "PROSPECTIVE_FROZEN_BEFORE_V3_FEASIBILITY_OUTCOMES"},
+    "source_freeze_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "preselection_manifest_sha256": {"$ref": "#/$defs/hash"},
+    "selection_artifact_sha256": {"$ref": "#/$defs/hash"},
+    "candidate_threshold_float64_hex": {"const": "0x1.c25c268497682p-44"},
+    "candidate_threshold_exact_dyadic": {"const": "3961408125713217/2^95"},
+    "candidate_threshold_status": {"const": "PROPOSED_UNAPPROVED"},
+    "execution_scope": {"const": "FEASIBILITY_SUBSET_ONLY"},
+    "live_environment": {"type": "object"},
+    "file_bindings": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/hash"}},
+    "lifecycle_guards": {"type": "object"}
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

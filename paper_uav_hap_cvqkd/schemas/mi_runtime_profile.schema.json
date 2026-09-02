@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mi_runtime_profile.schema.json",
+  "type": "object",
+  "required": ["schema_version", "status", "test_set_used", "estimator", "precision", "tensor_shapes", "timings_seconds", "numerical_equivalence"],
+  "properties": {
+    "schema_version": {"const": "mi-runtime-profile-v1"},
+    "test_set_used": {"const": false},
+    "estimator": {"type": "string"},
+    "precision": {"const": "torch.float64 / torch.complex128"},
+    "tensor_shapes": {"type": "object"},
+    "timings_seconds": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+    "numerical_equivalence": {
+      "type": "object",
+      "required": ["maximum_absolute_difference_bits", "strict_atol_bits", "strict_rtol", "passes"],
+      "properties": {"passes": {"const": true}},
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

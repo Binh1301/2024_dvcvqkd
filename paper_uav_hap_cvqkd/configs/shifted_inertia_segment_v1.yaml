@@ -1,0 +1,36 @@
+schema_version: shifted-inertia-segment-config-v1
+cycle_id: shifted-hermitian-inertia-v1
+phase_id: whole-segment-v1
+status: PROSPECTIVE_FROZEN_BEFORE_SEGMENT_OUTCOMES
+base_cycle_config: configs/shifted_inertia_certification_v1.yaml
+base_cycle_config_sha256: bb1b9287caae49299795c88e5e5fd9c8d3a46a17c6830f902dec3dad7ac92156
+endpoint_gate_artifact: results/shifted_inertia_endpoint_certification_v1.json
+endpoint_gate_artifact_sha256: 45b509a94ac94ae92f7c9c03d67465d068d426dcb4da10777e613ab3f0152b5d
+required_endpoint_gate_status: ENDPOINT_FEASIBILITY_GATE_PASS
+candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+threshold_status: PROPOSED_UNAPPROVED
+precision_bits: [160, 256, 384, 512]
+method: VALIDATED_MIDPOINT_BLOCK_LDL_WITH_INTERVAL_WEYL_GUARD_BAND
+proof_rule: equal_verified_positive_inertia_counts_at_tau_minus_rho_and_tau_plus_rho
+zero_inclusion_semantics: UNRESOLVED_NOT_CROSSING
+subdivision:
+  maximum_depth: 20
+  minimum_interval_width_power_of_two: -20
+  maximum_nodes_per_segment: 31
+  maximum_seconds_per_node: 120
+  maximum_seconds_per_segment: 600
+  maximum_total_seconds: 7200
+resource_exhaustion_action: FAIL_CLOSED
+producer_bindings:
+  point_module: src/validation/rigorous_shifted_inertia.py
+  point_module_sha256: 9a26b40c5cb19c8128378dfefc7c1592ebe02930e34739404344d0cb8a4ec661
+  segment_module: src/validation/rigorous_shifted_inertia_segment.py
+  segment_runner: scripts/certify_shifted_inertia_segments_v1.py
+  segment_module_sha256: a81ad8021c0b0130cb20945d10caba9ba16f54a6d5e612c2e658fcc645062840
+  segment_runner_sha256: 31588672aef6dc9ab7f4e5fa46fcee892989c2cfb6695f2a91e2e7f8a1ed2a77
+threshold_approval_permitted: false
+final_test_access_permitted: false
+publication_training_permitted: false
+optimized_mb_permitted: false
+baseline_selection_permitted: false
+optimizer_integration_permitted: false

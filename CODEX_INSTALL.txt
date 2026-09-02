@@ -1,0 +1,20 @@
+Codex compatibility build
+=========================
+
+This version intentionally does NOT hard-code model or model_reasoning_effort
+in .codex/config.toml or .codex/agents/*.toml.
+
+Why:
+Your local Codex client reported `gpt-5.6` as unsupported for custom subagents.
+When model/model_reasoning_effort are omitted, Codex custom subagents inherit
+the model and reasoning effort of the parent Codex session.
+
+Install:
+1. Copy AGENTS.md and .codex/ into the root of your project.
+2. If those already exist, merge rather than overwrite unrelated settings.
+3. Restart/reopen the Codex project/chat so configuration is reloaded.
+4. Select a model that your Codex UI actually offers.
+5. Test with:
+   Use the qam256_shaping_expert custom subagent to perform a read-only audit.
+   Do not use a proxy or fallback agent. If the named custom agent cannot launch,
+   report the exact launch error and stop.

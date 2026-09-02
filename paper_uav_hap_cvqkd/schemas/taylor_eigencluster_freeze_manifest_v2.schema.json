@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "source_freeze_commit",
+    "file_bindings",
+    "live_environment"
+  ],
+  "properties": {
+    "schema_version": {"const": "taylor-eigencluster-freeze-manifest-v2"},
+    "status": {"const": "PROSPECTIVE_FROZEN_BEFORE_V2_OUTCOMES"},
+    "source_freeze_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "file_bindings": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "live_environment": {
+      "type": "object",
+      "required": ["python", "python_flint", "flint", "numpy", "pyyaml", "flint_threads"]
+    }
+  },
+  "additionalProperties": true
+}

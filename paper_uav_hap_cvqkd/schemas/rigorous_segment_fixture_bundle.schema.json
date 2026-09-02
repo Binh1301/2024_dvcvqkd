@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rigorous_segment_fixture_bundle.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "candidate_threshold_float64_hex", "states",
+    "start_parameters", "segments", "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "rigorous-segment-fixture-bundle-v1"},
+    "status": {"const": "FROZEN_FLOAT64_PARAMETER_PATH_INPUTS"},
+    "states": {"type": "array", "minItems": 3, "maxItems": 3},
+    "segments": {"type": "array", "minItems": 4, "maxItems": 4},
+    "start_parameters": {"type": "object"},
+    "lifecycle_guards": {
+      "type": "object",
+      "required": [
+        "threshold_approved", "publication_training_performed", "final_test_accessed",
+        "optimized_mb_grid_performed", "baseline_selection_performed"
+      ]
+    },
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": true
+}

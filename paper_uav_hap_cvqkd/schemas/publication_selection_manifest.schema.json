@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pre-test publication selection manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "test_set_accessed_during_selection", "resolved_config_sha256", "validation_state_sha256", "baseline_selection_sha256", "learned_selection_sha256", "convergence_evidence_sha256", "environment_lock_sha256", "attempted_seed_accounting_sha256", "git_revision", "artifact_paths", "test_evaluation", "analysis_plan", "checkpoints"],
+  "properties": {
+    "schema_version": {"const": "publication-selection-manifest-v1"},
+    "status": {"const": "selections-and-analysis-frozen-before-test"},
+    "test_set_accessed_during_selection": {"const": false},
+    "resolved_config_sha256": {"type": "string"},
+    "validation_state_sha256": {"type": "string"},
+    "baseline_selection_sha256": {"type": "string"},
+    "learned_selection_sha256": {"type": "string"},
+    "convergence_evidence_sha256": {"type": "string"},
+    "environment_lock_sha256": {"type": "string"},
+    "attempted_seed_accounting_sha256": {"type": "string"},
+    "git_revision": {"type": "string"},
+    "artifact_paths": {"type": "object", "additionalProperties": false, "required": ["resolved_config", "baseline_selection", "learned_selection", "convergence_evidence", "environment_lock", "attempted_seed_accounting"], "properties": {"resolved_config": {"type": "string"}, "baseline_selection": {"type": "string"}, "learned_selection": {"type": "string"}, "convergence_evidence": {"type": "string"}, "environment_lock": {"type": "string"}, "attempted_seed_accounting": {"type": "string"}}},
+    "test_evaluation": {"type": "object", "additionalProperties": false, "required": ["fading_samples", "awgn_samples_per_symbol", "channel_seed", "awgn_seed"], "properties": {"fading_samples": {"type": "integer", "minimum": 1}, "awgn_samples_per_symbol": {"type": "integer", "minimum": 1}, "channel_seed": {"type": "integer", "minimum": 0}, "awgn_seed": {"type": "integer", "minimum": 0}}},
+    "analysis_plan": {"type": "object", "additionalProperties": false, "required": ["t_bin_edges", "epsilon_bin_edges", "va_heatmap_t_grid", "va_heatmap_epsilon_grid", "outage_threshold_bits", "confidence_interval"], "properties": {"t_bin_edges": {"type": "array", "items": {"type": "number"}}, "epsilon_bin_edges": {"type": "array", "items": {"type": "number"}}, "va_heatmap_t_grid": {"type": "array", "items": {"type": "number"}}, "va_heatmap_epsilon_grid": {"type": "array", "items": {"type": "number"}}, "outage_threshold_bits": {"type": "number"}, "confidence_interval": {"const": "paired two-sided Student-t 95%"}}},
+    "checkpoints": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["id", "mode", "path", "sha256", "initialization_seed", "selected_fixed_va_snu", "validation_peak_feasible", "validation_max_symbol_energy", "validation_budget_feasible", "validation_mean_va_snu", "validation_expected_budget_upper_snu"], "properties": {"id": {"type": "string"}, "mode": {"enum": ["ps", "gs", "va", "ps_gs", "ps_va", "gs_va", "full"]}, "path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "initialization_seed": {"type": "integer", "minimum": 0}, "selected_fixed_va_snu": {"type": ["number", "null"]}, "validation_peak_feasible": {"const": true}, "validation_max_symbol_energy": {"type": "number", "minimum": 0}, "validation_budget_feasible": {"const": true}, "validation_mean_va_snu": {"type": "number", "exclusiveMinimum": 0}, "validation_expected_budget_upper_snu": {"type": "number", "exclusiveMinimum": 0}}}}
+  }
+}

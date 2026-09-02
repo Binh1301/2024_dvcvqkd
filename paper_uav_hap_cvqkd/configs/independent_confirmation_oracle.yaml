@@ -1,0 +1,18 @@
+schema_version: independent-confirmation-oracle-config-v1
+status: ADAPTIVE_RANK_RESOLUTION_EXTENSION_FROZEN
+confirmation_roster: results/independent_confirmation_roster.json
+mi_sample_count: 2048
+mi_seed: 27083010
+precision_sequences:
+  regular: [50, 80, 120, 160, 600, 800]
+  analytic_near_coincident: [1050, 1250, 1450]
+resolution_guard_digits: 10
+full_support_confirmation_required: 2
+threshold_approval_permitted: false
+final_test_access_permitted: false
+adaptive_extension:
+  trigger: mathematical_rank_not_resolved_at_160_digits
+  selection_input: resolved_rank_sequence_only
+  candidate_threshold_observables_used: false
+  added_regular_precision_digits: [600, 800]
+  initial_artifact: results/independent_confirmation_gram_oracles_initial.json

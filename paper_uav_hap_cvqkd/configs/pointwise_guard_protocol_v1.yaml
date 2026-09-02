@@ -1,0 +1,215 @@
+schema_version: pointwise-guard-protocol-v1
+protocol_version: pointwise-guard-v1
+status: PROPOSED
+lifecycle_status: NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+implementation_authorized: true
+implementation_scope: "next task only; exact protocol implementation, no threshold approval or realized evaluation"
+publication_training_authorized: false
+threshold_approval_required_before_publication_training: true
+
+pointwise_certification_unit:
+  name: UNIQUE_REALIZED_STATEWISE_PHYSICAL_ENSEMBLE
+  object: "one row of the final physical Ensemble={probabilities, amplitudes, declared_va}"
+  deduplication: "exact canonical physical-ensemble hash; preserve first occurrence and an index map"
+  security_scope: "the same statewise ensemble consumed by MI and Holevo"
+  excludes:
+    - "individual Monte Carlo noise samples"
+    - "raw network logits before physical normalization"
+    - "intermediate optimizer interpolation points"
+  batch_rule: "certify every unique batch/state ensemble row before using its local gradient"
+
+threshold:
+  representation: exact_binary64_dyadic
+  candidate_float64_hex: 0x1.c25c268497682p-44
+  candidate_exact_dyadic: 3961408125713217/2^95
+  lifecycle_status: PROPOSED_UNAPPROVED
+  historical_1e_minus_12_status: INVALID_UNAPPROVED
+
+support_certification:
+  method: VALIDATED_SHIFTED_HERMITIAN_BLOCK_LDL_STAR
+  producer_module: src/validation/rigorous_shifted_inertia.py
+  required_point_adapter: "reuse validated point-inertia machinery and expose nearest-eigenvalue brackets"
+  support_definition: "positive inertia of G(theta)-tau I"
+  matrix: "weighted C4 coherent-state Gram representation of the final physical ensemble"
+  arithmetic: outward_rounded_Arb_acb
+  complex128_role: DIAGNOSTIC_ONLY_NOT_PROOF
+  complete_certificate_required: true
+  unresolved_action: FAIL_CLOSED
+  material_negative_or_nonhermitian_action: FAIL_CLOSED
+  nearest_gap_brackets_required: true
+
+uncertainty_and_guard:
+  certified_margin_definition: "min(tau-upper_nearest_below, lower_nearest_above-tau)"
+  uncertainty_definition: "maximum half-width of the validated nearest-eigenvalue brackets, including all outward Arb/acb enclosure uncertainty"
+  safety_factor: 2
+  safety_factor_rationale: "two-sided outward uncertainty is charged once on each side; no empirical acceptance tuning"
+  guard_inequality: "certified_margin > safety_factor * uncertainty_upper"
+  equality_semantics: POINTWISE_GUARD_BAND_REJECT
+  missing_or_nonpositive_margin_semantics: POINTWISE_GUARD_BAND_REJECT
+  raw_complex128_distance_is_sufficient: false
+  whole_segment_proof_required: false
+
+statuses:
+  - POINTWISE_ADMISSIBLE
+  - POINTWISE_GUARD_BAND_REJECT
+  - POINTWISE_CERTIFICATION_FAILED
+  - PROVENANCE_FAILURE
+
+status_semantics:
+  POINTWISE_ADMISSIBLE: "All provenance, physicality, support-count, nearest-gap, and strict guard checks pass for this unique realized ensemble. A local fixed-support gradient may be used."
+  POINTWISE_GUARD_BAND_REJECT: "The point is certified enough to identify the support calculation, but the strict certified gap does not exceed twice validated uncertainty. No backward or update is permitted."
+  POINTWISE_CERTIFICATION_FAILED: "Validated arithmetic, Hermitian inertia, nearest-gap bracketing, resource, physicality, or completeness checks did not finish successfully. No backward or update is permitted."
+  PROVENANCE_FAILURE: "Any repository, protocol, threshold representation, producer, schema, environment, roster, trainer, or rollback binding mismatches. No backward or update is permitted."
+
+gradient_scope:
+  allowed_only_after: POINTWISE_ADMISSIBLE
+  claim: "local fixed-support gradient on the finite validated roster and guarded realized states"
+  global_differentiability_claim: false
+  continuous_domain_theorem_claim: false
+
+update_semantics:
+  pre_update_check: true
+  pre_update_reject: "no backward, no optimizer update, no dual update"
+  stochastic_evaluation_snapshot_order: "snapshot before point check and before any MI/noise draw"
+  sequence:
+    - pointwise_check_theta_n
+    - existing_raw_skr_loss
+    - backward_once
+    - snapshot_transaction_if_not_already_snapshotted
+    - propose_one_optimizer_update
+    - pointwise_check_theta_n_plus_1
+    - commit_if_admissible_else_full_rollback
+  interpolation_certification: false
+  endpoint_only: true
+  rejected_proposal_is_noop: true
+
+rollback_state:
+  equivalence_name: ROLLBACK_EQUIVALENCE
+  equivalence_definition: "After rejection, all listed observable mutable state equals the pre-proposal snapshot byte/value-wise within exact tensor equality."
+  required_fields:
+    model_parameters:
+      present: true
+      components: [ps_network, gs_raw_prototypes, va_network]
+    model_gradients:
+      present: true
+      components: [all_enabled_parameter_gradients]
+    optimizer:
+      present: true
+      type: Adam
+      components: [parameter_groups, learning_rates, exp_avg, exp_avg_sq, step_counters, other_state_dict_fields]
+    energy_dual_controller:
+      present: true
+      components: [multiplier, va_budget, dual_learning_rate]
+    schedulers:
+      present: false
+      current_repository_status: ABSENT
+      rule: "If introduced before implementation, it becomes mandatory snapshot state rather than an implicit omission."
+    grad_scaler:
+      present: false
+      current_repository_status: ABSENT
+      rule: "If introduced before implementation, it becomes mandatory snapshot state."
+    python_rng:
+      present: true
+      source: random.getstate/setstate
+    numpy_rng:
+      present: true
+      source: numpy.random.get_state/set_state
+    torch_cpu_rng:
+      present: true
+      source: torch.get_rng_state/set_rng_state
+    torch_cuda_rng:
+      present: conditional
+      source: torch.cuda.get_rng_state_all/set_rng_state_all
+      current_locked_environment: ABSENT_CPU_ONLY
+    explicit_torch_generators:
+      present: true
+      source: generator.get_state/set_state
+      current_use: MI_noise_generator
+    sampler_generators:
+      present: false
+      current_repository_status: "channel NumPy generators are freshly derived per epoch; no persistent sampler object exists"
+    training_counters:
+      present: conditional
+      current_use: "outer training epoch/update counters"
+      rule: "capture any counter participating in observable trainer state"
+    module_training_flags:
+      present: true
+      source: module.training/eval flags
+
+provenance:
+  mismatch_status: PROVENANCE_FAILURE
+  required_bindings:
+    - repository_commit
+    - final_model_spec_canonical_lf_sha256
+    - pointwise_protocol_config_sha256
+    - point_certification_producer_sha256
+    - relevant_schema_sha256
+    - certification_environment_sha256
+    - confirmation_roster_sha256
+    - trainer_implementation_sha256
+    - rollback_implementation_sha256
+  current_frozen_model_sha256: 561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1
+  current_confirmation_roster_sha256: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+  threshold_binding_rule: "bind both exact dyadic value and float64 hex representation; never infer approval from the config value"
+  test_data_accessed: false
+
+test_matrix:
+  freeze_before_implementation: true
+  required_cases:
+    - 01_safe_point_admissible
+    - 02_guard_overlap_reject
+    - 03_certification_unresolved_reject
+    - 04_provenance_mismatch_reject
+    - 05_ps_local_gradient
+    - 06_gs_local_gradient
+    - 07_va_local_gradient
+    - 08_inadmissible_state_no_backward
+    - 09_accepted_update_commit
+    - 10_rejected_update_rollback
+    - 11_model_parameters_restored
+    - 12_adam_first_moments_restored
+    - 13_adam_second_moments_restored
+    - 14_optimizer_step_counters_restored
+    - 15_energy_dual_restored
+    - 16_rng_restored
+    - 17_explicit_generator_restored
+    - 18_scheduler_controller_restored_or_absent_attested
+    - 19_repeated_reject_deterministic
+    - 20_far_update_matches_ordinary_optimizer
+
+smoke_test:
+  authorized_in_this_task: false
+  status: PROPOSED_NOT_RUN
+  state_source: results/independent_confirmation_roster.json
+  state_source_sha256: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+  state_labels: [bad, medium, good]
+  initialization_seed: 202613
+  common_random_seed: 202615
+  steps: 6
+  optimizer: adam
+  learning_rates: {ps: 3.0e-4, gs: 1.0e-4, va: 1.0e-4}
+  energy_dual_learning_rate: 1.0e-2
+  gradient_clip_norm: 1.0
+  regularizers: {separation: 0.0, peak: 0.0, drift: 0.0}
+  repetitions_for_determinism: 2
+  metrics: [attempted_updates, accepted_updates, pre_update_rejects, post_update_rejects, certification_failures, provenance_failures, acceptance_rate, guard_margin_distribution, raw_skr_progression, runtime_seconds, rollback_determinism]
+  optimization_usable_rule: "at least one committed update, zero rollback-equivalence failures, zero provenance failures, and byte-identical repeated traces"
+  optimization_effectively_frozen_rule: "zero committed updates with every rejection explained by a frozen guard/certification status; do not retune in this cycle"
+  no_retuning_after_outcome: true
+
+claim_boundary:
+  allowed: "Gradient updates are restricted to numerically admissible realized states whose numerical support is pointwise separated from the regularization boundary by the validated guard criterion. Reported secret-key rates use the unchanged validated security functional."
+  prohibited:
+    - global_differentiability_of_skr
+    - continuous_domain_support_stability
+    - whole_trajectory_certification
+    - mathematical_full_rank_recovery_from_complex128
+    - operational_security_for_unspecified_adaptive_fading_attack_class
+
+lifecycle_guards:
+  threshold_approved: false
+  publication_training_performed: false
+  final_test_accessed: false
+  optimized_mb_grid_performed: false
+  baseline_selection_performed: false
+  security_functional_changed: false

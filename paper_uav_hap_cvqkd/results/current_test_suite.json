@@ -1,0 +1,132 @@
+{
+  "command": "python -m unittest discover -s tests -v",
+  "duration_seconds": 5.931752800010145,
+  "exit_code": 0,
+  "lifecycle_guards": {
+    "baseline_selection_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "publication_training_performed": false,
+    "threshold_approved": false
+  },
+  "provenance": {
+    "environment_manifest_sha256": "78c35983aaf7fe9fbc636c80d39b9271ea7930c588b28c4d02703c2e2bce5ff9",
+    "final_model_spec_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "producer_sha256": "2b76ea628ef6cd06d0f9804c6f5a904e1ac8c7e24a11daac473bd27334599fb5",
+    "python_executable_role": "project_local_ignored_venv",
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "repository_commit": "0ced45a6ed0004267f34e66e7638d7e7d28bc93d",
+    "schema_sha256": "f7175cbb21b7dd9d213f8cbdc09da40acf46c8ad67787c69f1c926fd1492b35e"
+  },
+  "schema_version": "current-unittest-suite-v1",
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "stdout_sha256": "46bb27b90686ee4b72068a911d165b1333eda31655ca7b6fe8fc569221ddd31d",
+  "stdout_tail": "_16_by_16_grid_and_order) ... ok\ntest_mb_uses_canonical_unit_rms_square_energy (test_qam256.Qam256Tests.test_mb_uses_canonical_unit_rms_square_energy) ... ok\ntest_reference_pmf_orbit_round_trip_and_entropy_identity (test_qam256.Qam256Tests.test_reference_pmf_orbit_round_trip_and_entropy_identity) ... ok\ntest_reference_probabilities (test_qam256.Qam256Tests.test_reference_probabilities) ... ok\ntest_evidence_rejects_duplicate_missing_and_binding_mismatch (test_selected_roster_convergence.SelectedRosterConvergenceTests.test_evidence_rejects_duplicate_missing_and_binding_mismatch) ... ok\ntest_reconstructs_all_eleven_hash_bound_synthetic_ensembles (test_selected_roster_convergence.SelectedRosterConvergenceTests.test_reconstructs_all_eleven_hash_bound_synthetic_ensembles) ... ok\ntest_average_is_after_instantaneous_skr (test_skr.SecretKeyRateTests.test_average_is_after_instantaneous_skr) ... ok\ntest_invalid_beta_rejected (test_skr.SecretKeyRateTests.test_invalid_beta_rejected) ... ok\ntest_direction_is_unit_norm_and_reproducible (test_support_rollback_feasibility.SupportRollbackFeasibilityTests.test_direction_is_unit_norm_and_reproducible) ... ok\ntest_generated_grid_has_exact_requested_dimensions (test_support_rollback_feasibility.SupportRollbackFeasibilityTests.test_generated_grid_has_exact_requested_dimensions) ... ok\ntest_prospective_grid_constants_are_exact (test_support_rollback_feasibility.SupportRollbackFeasibilityTests.test_prospective_grid_constants_are_exact) ... ok\ntest_schema_cannot_claim_freeze_or_lifecycle_activity (test_support_rollback_feasibility.SupportRollbackFeasibilityTests.test_schema_cannot_claim_freeze_or_lifecycle_activity) ... ok\ntest_generated_artifact_has_complete_disagreement_characterization (test_support_threshold_protocol_audit.SupportThresholdProtocolAuditTests.test_generated_artifact_has_complete_disagreement_characterization) ... ok\ntest_schema_is_proposed_and_fail_closed_on_lifecycle (test_support_threshold_protocol_audit.SupportThresholdProtocolAuditTests.test_schema_is_proposed_and_fail_closed_on_lifecycle) ... ok\ntest_zero_safe_relative_error_and_frozen_pass_formula_are_separate (test_support_threshold_protocol_audit.SupportThresholdProtocolAuditTests.test_zero_safe_relative_error_and_frozen_pass_formula_are_separate) ... ok\ntest_bisection_certifies_complete_no_crossing_segment (test_whole_segment_support.WholeSegmentSupportTests.test_bisection_certifies_complete_no_crossing_segment) ... ok\ntest_bisection_rejects_known_support_crossing (test_whole_segment_support.WholeSegmentSupportTests.test_bisection_rejects_known_support_crossing) ... ok\ntest_gs_perturbation_derivative_enclosure_is_finite (test_whole_segment_support.WholeSegmentSupportTests.test_gs_perturbation_derivative_enclosure_is_finite) ... ok\ntest_known_crossing_fails_closed (test_whole_segment_support.WholeSegmentSupportTests.test_known_crossing_fails_closed) ... ok\ntest_missing_numerical_enclosure_always_fails_closed (test_whole_segment_support.WholeSegmentSupportTests.test_missing_numerical_enclosure_always_fails_closed) ... ok\ntest_mixed_perturbation_derivative_enclosure_is_finite (test_whole_segment_support.WholeSegmentSupportTests.test_mixed_perturbation_derivative_enclosure_is_finite) ... ok\ntest_near_boundary_non_crossing_certifies_with_sufficient_margin (test_whole_segment_support.WholeSegmentSupportTests.test_near_boundary_non_crossing_certifies_with_sufficient_margin) ... ok\ntest_obvious_no_crossing_certifies (test_whole_segment_support.WholeSegmentSupportTests.test_obvious_no_crossing_certifies) ... ok\ntest_ps_perturbation_derivative_enclosure_is_finite (test_whole_segment_support.WholeSegmentSupportTests.test_ps_perturbation_derivative_enclosure_is_finite) ... ok\ntest_va_perturbation_derivative_enclosure_is_finite (test_whole_segment_support.WholeSegmentSupportTests.test_va_perturbation_derivative_enclosure_is_finite) ... ok\n\n----------------------------------------------------------------------\nRan 124 tests in 4.011s\n\nOK\n",
+  "test_count": 124,
+  "test_inventory": [
+    {
+      "path": "tests/test_amplitude_domain_certification.py",
+      "sha256": "832e3bd6184a7e2f3d3e9345a9ded8e5650807994e10174034fd4c1dfe5b9b64"
+    },
+    {
+      "path": "tests/test_boundary_bisection_crn.py",
+      "sha256": "7f77208d64dd9939c7758a2ae0339fdc5c9522244f8557647e002260f1c9699b"
+    },
+    {
+      "path": "tests/test_channel.py",
+      "sha256": "91aead13c441334d5598143adda97dd485be6d04e492a8fd9e7fd6a0b9c4bc36"
+    },
+    {
+      "path": "tests/test_channel_state_distribution.py",
+      "sha256": "8ca235cefea5aeffb6c66a8ec286b5351f61a40c780c1f3b4ed848607194a026"
+    },
+    {
+      "path": "tests/test_direct_support_boundaries.py",
+      "sha256": "40115d3e6503fe283327a7aad821eeda6eef2aa48499de3f5f23d5059fbf06ac"
+    },
+    {
+      "path": "tests/test_energy_budget.py",
+      "sha256": "7beb91cbac4a6c704816dcfbccaa5d47c72ef7fe9eee94e3dbf27ecd7e7313d4"
+    },
+    {
+      "path": "tests/test_frozen_channel_diagnostics.py",
+      "sha256": "7d69e27ce5f8eb57eacd83c9656a739526df2e4ec7c3a6e437aea57cb3b85e97"
+    },
+    {
+      "path": "tests/test_frozen_transmitter.py",
+      "sha256": "cae32f1fb11cf7bfedb9f29c8fda51157f57644d6137c9420ea0a3d56becadfe"
+    },
+    {
+      "path": "tests/test_gradients.py",
+      "sha256": "f09ca0872b993e967f4da83a5f24a55ab8d48c2ba2126fc7efded486fb3fb39c"
+    },
+    {
+      "path": "tests/test_gram_moments.py",
+      "sha256": "b9c8df7c8c035d215cad51574b0d7e014e46ddf94dc2d038bca050786c154ab6"
+    },
+    {
+      "path": "tests/test_gram_oracle.py",
+      "sha256": "8998aa6d2aeeebf96be15ded2387b4d52cb57312cf3e54b5ccd54dfdbb458544"
+    },
+    {
+      "path": "tests/test_holevo.py",
+      "sha256": "4a4517a0d5d123520fcf97e903ffd585e54d679492afaf7bd86d9b9e92bdb8a4"
+    },
+    {
+      "path": "tests/test_independent_confirmation_roster.py",
+      "sha256": "8bbedbcd7312ca65727a9f39cc01a4f4bd711c75a2bad257893446832dce8061"
+    },
+    {
+      "path": "tests/test_invalid_inputs.py",
+      "sha256": "837bbe82fd8ae536187229c4a2309da8e27ab02178b4a54d13751295d247da51"
+    },
+    {
+      "path": "tests/test_losses.py",
+      "sha256": "5a043d97c7e525816d6ad752f818dcd4367a417754dab52e355f2aeab522d361"
+    },
+    {
+      "path": "tests/test_mutual_information.py",
+      "sha256": "3839e0120335805710789a1b1983aa76b155782de372050ba83edb6c1af05cd3"
+    },
+    {
+      "path": "tests/test_normalization.py",
+      "sha256": "f335bc1c611fad8505d2a1b76aac506526938f740a53cb076bf252017b35f7c5"
+    },
+    {
+      "path": "tests/test_numerical_freeze.py",
+      "sha256": "788a87f2f576f46dd284337f58230a93b154f8a973133924d79e8ed04799514e"
+    },
+    {
+      "path": "tests/test_physical_peak_domain.py",
+      "sha256": "6b9f135f73343a4a260fe98c23b33d324d70d011a8cfd922342898c82d19ec21"
+    },
+    {
+      "path": "tests/test_pipeline_consistency.py",
+      "sha256": "e6b49702a3adb69a5018c643c60fd327fcfef5a2ba680cbb576e74376d63a6d2"
+    },
+    {
+      "path": "tests/test_qam256.py",
+      "sha256": "26bfe991eb242d7fa4f28c70bbf204a8a28c7842f755f4c72c4b6a51982a6d64"
+    },
+    {
+      "path": "tests/test_selected_roster_convergence.py",
+      "sha256": "95aa8f855284849b98ca71beb7affc996594c01e0d389c838c2830e5b2aeda6b"
+    },
+    {
+      "path": "tests/test_skr.py",
+      "sha256": "5f2e332c4d064f329eecad17b3e72c8821ce9cf180a1affd59db46b1245965a6"
+    },
+    {
+      "path": "tests/test_support_rollback_feasibility.py",
+      "sha256": "61329c447f5747d43d7b709d26f97507486f39a29db7d1080c7981ea0da7d1c8"
+    },
+    {
+      "path": "tests/test_support_threshold_protocol_audit.py",
+      "sha256": "90d5ffd2b1f6f1ff2027648a2d2c8fa0939f830d5d52c88798baac5b8bed7e90"
+    },
+    {
+      "path": "tests/test_whole_segment_support.py",
+      "sha256": "5727e9720aefe488638f8a80f1340d544530cca965c1ecb4c5433fa311d293f0"
+    }
+  ]
+}

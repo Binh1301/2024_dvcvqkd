@@ -1,0 +1,153 @@
+# Author-freeze configuration. Explicit values are approved or derived as
+# documented; remaining null fields stay unresolved and fail closed.
+channel:
+  h_hap_m: 20000.0
+  h_uav_m: 1000.0
+  zenith_angle_rad: 0.0
+  expected_derived_link_length_m: 19000.0
+  wavelength_m: 1.55e-6
+  visibility_km: 200.0
+  beam_waist_m: 0.0157
+  aperture_radius_m: 0.075
+  cn2_m_minus_two_thirds: 1.0e-16
+  scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
+  uav_motion:
+    sigma_x_m: 0.0521
+    sigma_y_m: 0.0502
+    sigma_z_m: 0.0703
+    sigma_theta_rad: 0.00260
+    sigma_phi_rad: 0.00204
+    sigma_psi_rad: 0.00406
+  excess_noise_distribution:
+    kind: independent_uniform
+    minimum_snu: 0.001
+    maximum_snu: 0.04
+    dependence_on_transmittance: independent
+    interpretation: "author-approved assumed operating-domain distribution; not a measured HAP-UAV joint law"
+  diagnostics:
+    sample_count: 1000000
+    seed: 202612
+    quantile_probabilities: [0.01, 0.10, 0.50, 0.90, 0.99]
+    classification: SOFTWARE_PREREGISTERED
+cvqkd:
+  beta_reconciliation: 0.95
+  fixed_modulation_variance_snu: null
+  v_min_snu: 0.1
+  v_max_snu: 4.0
+  v_a_budget_snu: 1.5
+  # Common hard physical domain, in coherent-state photons per symbol.
+  # Publication entry points also require the explicit author-approval gate.
+  n_peak_photons: 30.0
+  n_peak_author_approved: true
+  # Only this finite realized-state scope is currently machine-verifiable.
+  # Continuous support or bins require future external hash-bound certification.
+  peak_domain_scope: "complete_preregistered_realizations"
+  mb_nu: 0.1
+  fock_cutoff: null
+  holevo_numerics:
+    symmetry_tolerance: 1.0e-8
+    density_trace_tolerance: 1.0e-10
+    density_eigenvalue_pseudoinverse_tolerance: 1.0e-12
+    density_eigenvalue_pseudoinverse_author_approved: false
+    physicality_tolerance: 1.0e-10
+training:
+  optimizer: adam
+  epochs: 2000
+  learning_rates:
+    ps: 3.0e-4
+    gs: 1.0e-4
+    va: 1.0e-4
+  energy_dual_learning_rate: 1.0e-2
+  batch_size: 16
+  validation_patience_epochs: 100
+  validation_min_delta_bits: 1.0e-5
+  validation_energy_budget_margin_snu: 0.1
+  gradient_clip_norm: 1.0
+  regularization:
+    separation_coefficient: 0.0
+    peak_coefficient: 0.0
+    drift_coefficient: 0.0
+  train_fading_samples: 16
+  validation_fading_samples: 128
+  test_fading_samples: 4096
+  train_awgn_samples_per_symbol: 8
+  validation_awgn_samples_per_symbol: 2048
+  test_awgn_samples_per_symbol: 2048
+  seeds:
+    train_channel: 202601
+    train_awgn: 202602
+    validation_channel: 202603
+    validation_awgn: 202604
+    test_channel: 202605
+    test_awgn: 202606
+  independent_training_initialization_seeds: [26082701, 26082702, 26082703, 26082704, 26082705, 26082706, 26082707, 26082708, 26082709, 26082710]
+baseline_search:
+  # SOFTWARE_PREREGISTERED validation discretizations of author-approved
+  # domains. They were fixed before validation/test outcomes were observed.
+  va_grid_snu: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
+  optimized_mb_nu_grid: [0.00, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.27, 0.28, 0.29, 0.30]
+  state_batch_size: 8
+  tie_breaking: "maximum validation raw SKR, then lower V_A, then lower nu"
+numerical_validation:
+  fixture_initialization_seed: 202613
+  mi:
+    # SOFTWARE_PREREGISTERED before sequential convergence outcomes. Nested
+    # CRN samples; stop only after the declared number of consecutive global
+    # refinement passes plus reference-replication stability.
+    sample_counts: [256, 512, 1024, 2048, 4096, 8192]
+    required_consecutive_refinement_passes: 2
+    absolute_tolerance_bits: 0.002
+    relative_tolerance: 0.001
+    noise_sample_chunk_size: 64
+    # Replications are fixed independently of outcomes. Each seed is reused
+    # across every transmitter configuration (cross-configuration CRN).
+    seeds: [202607, 202608, 202609, 202610, 202611]
+  fock:
+    # SOFTWARE_PREREGISTERED before convergence outcomes.  The 128 reference
+    # exceeds the Poisson-tail resolution needed at |alpha|^2=30.
+    cutoffs: [48, 56, 64, 72, 80, 96, 112, 128]
+    moment_absolute_tolerance: 1.0e-7
+    moment_relative_tolerance: 1.0e-6
+    # Backward-compatible names consumed by exact selected-roster replay.
+    absolute_tolerance: 1.0e-7
+    relative_tolerance: 1.0e-6
+    symplectic_absolute_tolerance: 1.0e-7
+    symplectic_relative_tolerance: 1.0e-6
+    information_absolute_tolerance_bits: 1.0e-6
+    information_relative_tolerance: 1.0e-5
+    density_trace_tolerance: 1.0e-10
+  holevo_threshold_sensitivity:
+    density_eigenvalue_pseudoinverse_tolerances: [1.0e-14, 1.0e-13, 1.0e-12, 1.0e-11, 1.0e-10]
+    absolute_tolerance: 1.0e-7
+    relative_tolerance: 1.0e-6
+  production_gram_candidate_diagnostic:
+    reference_density_eigenvalue_threshold: 1.0e-14
+    candidate_density_eigenvalue_threshold: 1.0e-13
+    support_identity_required_for_formal_threshold_certification: true
+    formal_threshold_certification: false
+    rule_status: "OUTCOME_INFORMED_DIAGNOSTIC_NOT_FROZEN"
+    gradient_crn_seed: 202615
+    gradient_sample_count: 2048
+    finite_difference_steps: [1.0e-3, 3.0e-4, 1.0e-4, 3.0e-5, 1.0e-5, 3.0e-6]
+    finite_difference_absolute_tolerance: 1.0e-7
+    finite_difference_relative_tolerance: 5.0e-3
+    required_adjacent_stable_pairs: 3
+evaluation:
+  numerical_precision: "torch.float64 / torch.complex128"
+  confidence_level: 0.95
+  confidence_interval_unit: independent_training_seed
+paper_results:
+  expected_figures: []
+  expected_tables:
+    - "Table I: UAV receiver motion and attitude-fluctuation parameters"
+parameter_classification:
+  physical_channel: AUTHOR_APPROVED
+  beta_and_energy_domain: AUTHOR_APPROVED
+  baseline_search_grids: SOFTWARE_PREREGISTERED
+  optimizer_and_statistical_protocol: SOFTWARE_PREREGISTERED_SMOKE_VALIDATED
+  mi_grid_and_tolerances: SOFTWARE_PREREGISTERED
+  fock_grid_and_tolerances: SOFTWARE_PREREGISTERED
+  mi_sample_count: CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER
+  fock_cutoff: BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF
+  pseudoinverse_threshold: BLOCKED_FOCK_DEPENDENCY
+  baseline_selections: BLOCKED_NUMERICAL_DEPENDENCY

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mi_convergence.schema.json",
+  "title": "Bounded MI convergence or resource-blocker evidence",
+  "type": "object",
+  "required": [
+    "status",
+    "minimum_common_sample_count",
+    "repeated_run_variance_bits_squared",
+    "worst_certified_state_fixture"
+  ],
+  "properties": {
+    "status": {"type": "string"},
+    "minimum_common_sample_count": {"type": ["integer", "null"], "minimum": 1},
+    "repeated_run_variance_bits_squared": {
+      "type": ["object", "null"],
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "number", "minimum": 0}
+      }
+    },
+    "worst_certified_state_fixture": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": [
+            "fixture", "state_label", "transmittance", "epsilon_snu",
+            "replication_index", "selected_common_sample_count",
+            "absolute_error_bits", "maximum_allowed_error_bits",
+            "error_to_tolerance_ratio"
+          ],
+          "properties": {
+            "fixture": {"type": "string", "minLength": 1},
+            "state_label": {"enum": ["bad", "medium", "good"]},
+            "transmittance": {"type": "number", "minimum": 0, "maximum": 1},
+            "epsilon_snu": {"type": "number", "minimum": 0},
+            "replication_index": {"type": "integer", "minimum": 0},
+            "selected_common_sample_count": {"type": "integer", "minimum": 1},
+            "absolute_error_bits": {"type": "number", "minimum": 0},
+            "maximum_allowed_error_bits": {"type": "number", "exclusiveMinimum": 0},
+            "error_to_tolerance_ratio": {"type": "number", "minimum": 0, "maximum": 1}
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "unavailable_reporting_fields_reason": {"type": "string"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"minimum_common_sample_count": {"type": "integer"}},
+        "required": ["minimum_common_sample_count"]
+      },
+      "then": {
+        "properties": {
+          "repeated_run_variance_bits_squared": {"type": "object"},
+          "worst_certified_state_fixture": {"type": "object"}
+        }
+      },
+      "else": {
+        "properties": {
+          "worst_certified_state_fixture": {"type": "null"}
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,402 @@
+{
+  "OUTCOME_INSPECTION_STATUS": "NOT_INSPECTED",
+  "aliases": {
+    "optimized_mb_nu_0_high_va_1.5": "uniform_high_va_1.5",
+    "optimized_mb_nu_0_low_va_0.1": "uniform_low_va_0.1"
+  },
+  "channel_realization": {
+    "base_seed": 202701,
+    "epsilon_variance_snu2": 0.0001316321753306592,
+    "excess_noise_seed": 7532781154601827120,
+    "joint_distribution": "p_FSO(T) * Uniform(epsilon_min, epsilon_max)",
+    "realization_sha256": "7cb2b2a44eafff3cc672a1e9c1d60eac21c2fefedcfb21155f360945e8cf47d2",
+    "sample_count": 384,
+    "statistical_dependence": "T and epsilon independent by construction",
+    "transmittance_seed": 4207139285333541027,
+    "transmittance_variance": 1.1959402158559838e-05
+  },
+  "fixtures": [
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_uniform",
+      "declared_va_snu": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "ensemble_sha256": "a793b7c6ccc837ac65ae619d721a1120ce99003834fbf6e3d15141e121f7be0f",
+      "maximum_symbol_photons": 0.13235294117647062,
+      "minimum_probability": 0.00390625,
+      "name": "uniform_low_va_0.1",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_uniform",
+      "declared_va_snu": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "ensemble_sha256": "23da6caeead82b36f8733b9e57b2fb3963c68e8734c760355f42f6395955a804",
+      "maximum_symbol_photons": 1.9852941176470584,
+      "minimum_probability": 0.00390625,
+      "name": "uniform_high_va_1.5",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_binomial",
+      "declared_va_snu": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "ensemble_sha256": "a21940562f59b1a49fc2d30894dea0aa73896e5567f293dee8b6767833662e33",
+      "maximum_symbol_photons": 0.7499999999999999,
+      "minimum_probability": 9.313225746154785e-10,
+      "name": "binomial_low_va_0.1",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_binomial",
+      "declared_va_snu": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "ensemble_sha256": "a656092de81d33d1cb721d66279504b4d193cd1999424c9f519190111cca6902",
+      "maximum_symbol_photons": 11.250000000000002,
+      "minimum_probability": 9.313225746154785e-10,
+      "name": "binomial_high_va_1.5",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_mb",
+      "declared_va_snu": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "ensemble_sha256": "4f00675bca326ef869cd6ceff238775e1c8bc70ec06f2d28f0a95c04e71c4dbe",
+      "maximum_symbol_photons": 0.1377221746990249,
+      "minimum_probability": 0.0033065769461339874,
+      "name": "fixed_mb_low_va_0.1",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_mb",
+      "declared_va_snu": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "ensemble_sha256": "5a655a17e61b4db7c845adb77346c1635a65003d19a253577c9b206a5829da6a",
+      "maximum_symbol_photons": 2.0658326204853736,
+      "minimum_probability": 0.0033065769461339874,
+      "name": "fixed_mb_high_va_1.5",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_optimized_mb_domain_extrema",
+      "declared_va_snu": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "ensemble_sha256": "19ac651a574e27543529caee5ea107ee97bcbb6fb722969d2abac8debdfdb49b",
+      "maximum_symbol_photons": 0.14929992841491024,
+      "minimum_probability": 0.0023423929722417034,
+      "name": "optimized_mb_nu_0.3_low_va_0.1",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "fixed_optimized_mb_domain_extrema",
+      "declared_va_snu": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "ensemble_sha256": "863ef0729d33432ce5018c4b565b07e49a7c622d3ddbec659e2c8c6c09fbaa47",
+      "maximum_symbol_photons": 2.239498926223655,
+      "minimum_probability": 0.0023423929722417034,
+      "name": "optimized_mb_nu_0.3_high_va_1.5",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "untrained_full",
+      "declared_va_snu": [
+        0.5261861310247191,
+        0.5372044150293557,
+        0.5407215495514743
+      ],
+      "ensemble_sha256": "55126c105b839e4ec6a13737abdc1886b128ba7d56958bbcd32cb6dbf984ce88",
+      "maximum_symbol_photons": 0.715660874406363,
+      "minimum_probability": 0.00390625,
+      "name": "untrained_full_initialization",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "deterministic_ps",
+      "declared_va_snu": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "ensemble_sha256": "3253e5931f35084e1eceabed435392c77832ba1c6e8d96cc180e355d1452325a",
+      "maximum_symbol_photons": 1.9596621674245267,
+      "minimum_probability": 0.0033246067379438114,
+      "name": "deterministic_ps_only",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "deterministic_gs",
+      "declared_va_snu": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "ensemble_sha256": "44f6055092c4bfd80789e942f1d46e57dfa64170c7137c02d178e72893a4973b",
+      "maximum_symbol_photons": 2.5344348056420114,
+      "minimum_probability": 0.00390625,
+      "name": "deterministic_gs_only",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "deterministic_va",
+      "declared_va_snu": [
+        0.49990618955915933,
+        0.5017656545665857,
+        0.5027454902118993
+      ],
+      "ensemble_sha256": "a2fc17dbc96d222934019609d04383d40ef93bec479ed20c4f432a594413269e",
+      "maximum_symbol_photons": 0.6653984429275137,
+      "minimum_probability": 0.00390625,
+      "name": "deterministic_va_only",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "deterministic_mixed",
+      "declared_va_snu": [
+        0.5826197141853418,
+        0.5816106694306996,
+        0.5825037678134812
+      ],
+      "ensemble_sha256": "726d987ff74b123a580c801d21cdb762e576c5129da326d762bf5cf70b3702aa",
+      "maximum_symbol_photons": 0.963282757359724,
+      "minimum_probability": 0.0032799784326526206,
+      "name": "deterministic_deformed_full",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "analytic_peak_boundary",
+      "declared_va_snu": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "ensemble_sha256": "d0d8bcef1d9b62c8cb1596687c29b195e263013424783032b0cdfd04bbd65502",
+      "maximum_symbol_photons": 30.0,
+      "minimum_probability": 0.0002085070892410342,
+      "name": "hard_peak_boundary_at_vmin",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "predefined_configuration_class",
+      "configuration_class": "analytic_peak_boundary",
+      "declared_va_snu": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "ensemble_sha256": "d0fc0935a919bd7491743ad8f4e66ae1badda6c7cca42092023c90ca4ff6f761",
+      "maximum_symbol_photons": 30.0,
+      "minimum_probability": 0.003831417624521073,
+      "name": "hard_peak_boundary_at_vmax",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "analytic_near_coincident_phase_spacing",
+      "configuration_class": "analytic_near_coincident",
+      "declared_va_snu": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "ensemble_sha256": "0e4c601cbae0ead77c647cf2a57a49b74c3a1ee853f99b4b0830cd5e315db1c8",
+      "maximum_symbol_photons": 2.000000000000001,
+      "minimum_probability": 0.00390625,
+      "name": "near_coincident_phase_step_5e-08",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "analytic_near_coincident_phase_spacing",
+      "configuration_class": "analytic_near_coincident",
+      "declared_va_snu": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "ensemble_sha256": "4d36a48e7cb13f5f3bb91c86139d17ddcff6ea213cab4a89d2cb06d69b9501e8",
+      "maximum_symbol_photons": 2.000000000000001,
+      "minimum_probability": 0.00390625,
+      "name": "near_coincident_phase_step_1e-07",
+      "state_count": 3,
+      "symbol_count": 256
+    },
+    {
+      "conditioning_risk_descriptor": "analytic_near_coincident_phase_spacing",
+      "configuration_class": "analytic_near_coincident",
+      "declared_va_snu": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "ensemble_sha256": "d2367696a4fc81a6d3ed4d6d0efffc79a65b8e5a50964f01dfc44e9cfe685dd5",
+      "maximum_symbol_photons": 2.000000000000001,
+      "minimum_probability": 0.00390625,
+      "name": "near_coincident_phase_step_2e-07",
+      "state_count": 3,
+      "symbol_count": 256
+    }
+  ],
+  "lifecycle_guards": {
+    "baseline_selection_performed": false,
+    "candidate_threshold_evaluated_on_roster": false,
+    "final_test_accessed": false,
+    "held_out_evaluation_performed": false,
+    "optimized_mb_grid_performed": false,
+    "publication_training_performed": false,
+    "threshold_approved": false
+  },
+  "oracle_subset": [
+    "uniform_high_va_1.5",
+    "binomial_high_va_1.5",
+    "near_coincident_phase_step_5e-08",
+    "near_coincident_phase_step_2e-07"
+  ],
+  "provenance": {
+    "config_sha256": "b8205459bf186ce662a649fb819c5d80f8c75c5eba443a12db94d2dc138e70eb",
+    "default_config_sha256": "dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015",
+    "environment_manifest_sha256": "78c35983aaf7fe9fbc636c80d39b9271ea7930c588b28c4d02703c2e2bce5ff9",
+    "final_model_spec_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "output_path": "results\\independent_confirmation_roster.json",
+    "producer_sha256": "fb2dcb8c19ee45b28e5d5c192db0d982cbc861e3c24afe1c49d5f04e4c62ecb4",
+    "repository_commit": "0ced45a6ed0004267f34e66e7638d7e7d28bc93d",
+    "schema_sha256": "04dc4a082d7171edfb85eb0b8d7f9460d638955696a2e8b3b044cb1f1d0836ee"
+  },
+  "representative_states": [
+    {
+      "epsilon_snu": 0.03593823132320524,
+      "label": "bad",
+      "realization_index": 338,
+      "transmittance": 0.019897838757807564
+    },
+    {
+      "epsilon_snu": 0.019954386156085278,
+      "label": "medium",
+      "realization_index": 34,
+      "transmittance": 0.02583730812687789
+    },
+    {
+      "epsilon_snu": 0.0036952822145354465,
+      "label": "good",
+      "realization_index": 193,
+      "transmittance": 0.028288549412250903
+    }
+  ],
+  "roster_payload_sha256": "b5c25689c3634c5bf9f525bc7366b8661174f628077d92f128b3feaa5ae09762",
+  "schema_version": "independent-confirmation-roster-v1",
+  "selection_design": {
+    "candidate_threshold_values_read_or_evaluated": false,
+    "config": {
+      "certification_seed_namespace": "independent_support_confirmation_v1",
+      "channel_base_seed": 202701,
+      "channel_sample_count": 384,
+      "coverage_classes": [
+        "fixed_uniform",
+        "fixed_binomial",
+        "fixed_mb",
+        "fixed_optimized_mb_domain_extrema",
+        "untrained_full",
+        "deterministic_ps",
+        "deterministic_gs",
+        "deterministic_va",
+        "deterministic_mixed",
+        "analytic_near_coincident",
+        "analytic_peak_boundary"
+      ],
+      "fixture_initialization_seed": 27083001,
+      "near_coincident_phase_steps_rad": [
+        5e-08,
+        1e-07,
+        2e-07
+      ],
+      "oracle_subset": [
+        "uniform_high_va_1.5",
+        "binomial_high_va_1.5",
+        "near_coincident_phase_step_5e-08",
+        "near_coincident_phase_step_2e-07"
+      ],
+      "outcome_inspection_status": "NOT_INSPECTED",
+      "prohibited_selection_inputs": [
+        "candidate_threshold_pass_fail",
+        "candidate_threshold_observable_error",
+        "retained_support_at_candidate_threshold",
+        "validation_or_test_skr",
+        "final_test_data"
+      ],
+      "representative_state_rule": {
+        "bad": [
+          0.1,
+          0.9
+        ],
+        "distance_scaling": "componentwise_interdecile_range",
+        "good": [
+          0.9,
+          0.1
+        ],
+        "medium": [
+          0.5,
+          0.5
+        ],
+        "tie_break": "original_realization_order"
+      },
+      "schema_version": "independent-confirmation-roster-config-v1",
+      "status": "FROZEN_BEFORE_CANDIDATE_OUTCOME_INSPECTION"
+    },
+    "final_test_data_read": false,
+    "fixture_generation": "fixed algebraic families and deterministic fresh-seed parameterizations",
+    "oracle_subset_selection": "named configuration classes fixed in roster config before evaluation",
+    "representative_state_algorithm": "componentwise quantile targets with interdecile scaling",
+    "selection_inputs_are_outcome_independent": true
+  },
+  "status": "FROZEN_OUTCOME_UNINSPECTED"
+}

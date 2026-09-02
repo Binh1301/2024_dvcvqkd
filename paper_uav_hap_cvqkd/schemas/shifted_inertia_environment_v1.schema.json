@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "python", "platform", "validated_arithmetic",
+    "diagnostic_only", "lifecycle_guards", "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "shifted-inertia-environment-v1"},
+    "status": {"const": "CAPTURED_CERTIFICATION_ONLY_ENVIRONMENT"}
+  },
+  "additionalProperties": true
+}

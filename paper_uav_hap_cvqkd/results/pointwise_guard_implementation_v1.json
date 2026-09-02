@@ -1,0 +1,54 @@
+{
+  "schema_version": "pointwise-guard-implementation-v1",
+  "status": "IMPLEMENTATION_SCOPED_TEST_PASS",
+  "date": "2026-09-01",
+  "repository_head_before_commit": "08f1f1cf5b0ec16ec2059cea1059901d0a9b31ba",
+  "protocol_config_sha256": "54a0c46bfb1eab9e00c3e5320489f2c0de8a9fd7541363fed440c21d3d90c979",
+  "protocol_schema_sha256": "5950ee485526b69a1656402d8cb88f38408a63e20568f6673d7661446471bca2",
+  "implementation_sources": {
+    "src/optimization/pointwise_guard.py": "12c887e6b1896d62b2aac28990463e650ac990c24df9469f74e13423e71971c8",
+    "src/optimization/trainer.py": "42a2ca2e61fc3a0b1f54a759bd522603f92985af864fc792142f5eba9b5cfa37",
+    "src/optimization/__init__.py": "edcee0b495fe1c2075f27a3fa1606d5f719e8d93f1204c565aeae12529ca78a4",
+    "tests/test_pointwise_guard.py": "df6acb76bc87edcb1a50e637cec7b600206a76ed869d9573d58a4884b635b4e6"
+  },
+  "certification_unit": "UNIQUE_REALIZED_STATEWISE_PHYSICAL_ENSEMBLE",
+  "support_backend": "INJECTED_VALIDATED_SHIFTED_HERMITIAN_BLOCK_LDL_STAR_ADAPTER",
+  "raw_complex128_fallback": false,
+  "guard_inequality": "certified_margin > 2 * uncertainty_upper",
+  "statuses": [
+    "POINTWISE_ADMISSIBLE",
+    "POINTWISE_GUARD_BAND_REJECT",
+    "POINTWISE_CERTIFICATION_FAILED",
+    "PROVENANCE_FAILURE"
+  ],
+  "transaction": {
+    "rollback_equivalence": true,
+    "dual_update_deferred_until_endpoint_commit": true,
+    "interpolation_segment_certified": false,
+    "snapshot_inventory": [
+      "model_parameters", "parameter_gradients", "optimizer_state_and_step_counters",
+      "energy_dual_controller", "python_rng", "numpy_rng", "torch_cpu_rng",
+      "conditional_cuda_rng", "explicit_torch_generator", "module_training_flags",
+      "training_counters_if_present"
+    ],
+    "absent_state_attestations": ["scheduler", "grad_scaler", "persistent_sampler"]
+  },
+  "tests": {
+    "runtime_pointwise_guard": {"command": "python -m unittest tests.test_pointwise_guard -v", "status": "CURRENTLY_VERIFIED_PASS", "passed": 8, "failed": 0},
+    "related_scoped_suite": {"status": "CURRENTLY_VERIFIED_PASS", "passed": 64, "failed": 0},
+    "full_discovery": {"command": "python -m unittest discover -s tests -v", "status": "BLOCKED_BY_ENVIRONMENT", "discovered": 211, "import_errors": 7, "certification_only_skips": 73, "reason": "pytest and locked CPython 3.12.10/torch 2.13.0 environment unavailable"}
+  },
+  "lifecycle_guards": {
+    "threshold_approved": false,
+    "publication_training_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "baseline_selection_performed": false,
+    "security_functional_changed": false,
+    "smoke_test_performed": false
+  },
+  "limitations": [
+    "The validated point-certifier adapter is injected; no publication threshold is approved.",
+    "This artifact does not authorize the prospective smoke test in the same task."
+  ]
+}

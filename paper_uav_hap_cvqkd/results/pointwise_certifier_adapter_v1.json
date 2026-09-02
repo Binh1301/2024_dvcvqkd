@@ -1,0 +1,39 @@
+{
+  "schema_version": "pointwise-certifier-adapter-evidence-v1",
+  "status": "REAL_BACKEND_ADAPTER_VERIFIED",
+  "date": "2026-09-02",
+  "adapter_commit": "1f172be1bbfa3189d5e4e39e6330e38daf397a2e",
+  "runner_freeze_commit": "dfc655b7313c6e1dcd860bd3f82c4f0b64b0cb10",
+  "architecture": "deterministic canonical-JSON subprocess from production Torch runtime to pinned .venv-cert Arb/FLINT worker",
+  "production_environment": {"python": "3.13.7", "torch": "2.8.0+cu128"},
+  "certification_environment": {"python": "3.12.10", "python_flint": "0.9.0", "flint": "3.6.0", "pyyaml": "6.0.3", "numpy": "2.5.2"},
+  "certification_unit": "UNIQUE_REALIZED_STATEWISE_PHYSICAL_ENSEMBLE",
+  "input_encoding": "all 256 probabilities and 256 complex amplitudes serialized as exact Python float.hex binary64 values",
+  "output_schema": "schemas/pointwise_certifier_result_v1.schema.json",
+  "raw_complex128_role": "DIAGNOSTIC_BRACKET_SEED_ONLY_NOT_PROOF",
+  "fallback": "NONE_FAIL_CLOSED",
+  "source_hashes": {
+    "src/optimization/real_point_certifier_adapter.py": "5b3883039761580f5d10d65042053807c9690057871de1a8e8082409b8f04c24",
+    "src/validation/realized_point_certifier.py": "ca31f17ebd2d9cd0297999e95495f608b031c2dd8343e4e250e9aad58df34c7b",
+    "scripts/pointwise_certifier_worker.py": "5effe2ebe411f959785d566f759a58d18884d614a6870f79984d2551f5945e89",
+    "tests/test_pointwise_guard.py": "ab5fb723201b6e1f2fea1991ea859d74b3e02b5e9153b1f395a3bf8005978b2f"
+  },
+  "runner_freeze": {
+    "runner_sha256": "a63e2f49224561412cbebffd4d871fbfaa1cbada3918caeff1a45eccebcd9914",
+    "execution_manifest_sha256": null,
+    "execution_manifest_schema_sha256": "db3045de61e1c087df874b6c3ef19a8b4f1fc257a2256416b4897e7383b7b73d",
+    "smoke_output_schema_sha256": "646378de0d0e01cc27d33178e38f20331a79aa4c818c2683cc51a85617d42393",
+    "smoke_executed": false
+  },
+  "tests": {
+    "pointwise_runtime_and_real_adapter": {"status": "CURRENTLY_VERIFIED_PASS", "passed": 12, "failed": 0},
+    "real_arb_shifted_inertia": {"status": "CURRENTLY_VERIFIED_PASS", "passed": 32, "failed": 0},
+    "runner_freeze": {"status": "CURRENTLY_VERIFIED_PASS", "passed": 2, "failed": 0},
+    "known_uniform_support": 17,
+    "known_binomial_support": 29,
+    "near_coincident_execution": "REAL_BACKEND_FAIL_CLOSED_OR_CERTIFIED_ONLY",
+    "exact_probability_roundtrip": true,
+    "exact_amplitude_roundtrip": true
+  },
+  "lifecycle_guards": {"threshold_approved": false, "publication_training_performed": false, "final_test_accessed": false, "optimized_mb_grid_performed": false, "baseline_selection_performed": false, "security_functional_changed": false, "smoke_executed": false}
+}

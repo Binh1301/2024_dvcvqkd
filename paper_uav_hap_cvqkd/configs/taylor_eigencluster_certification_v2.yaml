@@ -1,0 +1,162 @@
+schema_version: taylor-eigencluster-certification-config-v2
+cycle_id: hash-bound-taylor-eigencluster-whole-segment-v2
+status: PROSPECTIVE_FROZEN_BEFORE_V2_OUTCOMES
+
+confirmation_roster: results/independent_confirmation_roster.json
+confirmation_roster_sha256: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+fixture_bundle: results/rigorous_segment_fixture_bundle.json
+fixture_bundle_sha256: 1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149
+endpoint_gate_artifact: results/shifted_inertia_endpoint_certification_v1.json
+endpoint_gate_artifact_sha256: 45b509a94ac94ae92f7c9c03d67465d068d426dcb4da10777e613ab3f0152b5d
+v1_segment_artifact: results/shifted_inertia_whole_segment_certification_v1.json
+v1_segment_artifact_sha256: 07d61fe810691f7276fc61005224d405a5ab794f380353e0d9386cc8912a6635
+candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+candidate_threshold_exact_dyadic: 3961408125713217/2^95
+threshold_status: PROPOSED_UNAPPROVED
+
+arithmetic:
+  backend: python-flint Arb/acb inclusion arithmetic
+  python_flint_version: 0.9.0
+  flint_version: 3.6.0
+  diagnostic_midpoint_backend: numpy complex128 eigh, one thread, no proof decision
+  exact_binary64_embedding: exact integer-ratio dyadics
+precision_bits: [160, 256, 384, 512]
+
+taylor:
+  scalar_path: theta(t)=theta_0+t*(theta_1-theta_0)
+  order: 2
+  normalized_derivatives: true
+  remainder: cubic coefficient interval over each complete smooth cell
+  relu_rule: exact Fraction roots of affine first-layer preactivations
+  ambiguous_relu_action: split before Taylor evaluation
+  fresh_model_per_child: true
+path_domain:
+  maximum_subdivision_depth: 8
+  required_status: PATH_DOMAIN_CERTIFIED
+  ps_semantics: finite exponentials, positive masses, normalization by construction
+  va_semantics: sigmoid strictly in (0,1), hence V_min < VA < V_max
+  gs_semantics: raw mean energy and gauge denominator rigorously positive
+  physical_energy_semantics: q_min times exact GS-gauge energy identity
+  overlap_semantics: coherent-state exponential is entire on finite amplitudes
+
+fixed_basis:
+  midpoint_eigensolver: numpy.linalg.eigh diagnostic preconditioner only
+  rounded_basis_semantics: each complex128 component is an exact dyadic
+  nonsingularity_proof: validated positive inertia of Q_star_Q
+  congruence: exact rounded Q_star_H_Q inclusion enclosure
+eigencluster:
+  construction_rule: seed modes nearest exact tau by (absolute midpoint distance, original index)
+  seed_size: 8
+  expansion_rule: add next four nearest modes per attempt; include cap as final attempt
+  expansion_step: 4
+  maximum_size_per_sector: 24
+  cap_exhaustion: UNCERTIFIED_CLUSTER_LIMIT
+  midpoint_order_is_diagnostic_only: true
+schur:
+  far_block: combined complement of the near cluster
+  far_inertia: validated Hermitian 1x1/2x2 block LDL*
+  solve: python-flint acb_mat.solve algorithm precond
+  solve_acceptance: finite solution and residual inclusion; backend validated solve success
+  coupling_accounted: full E_star_A_inverse_E Schur enclosure
+  reduced_cluster_inertia: validated Hermitian 1x1/2x2 block LDL*
+
+subdivision:
+  strategy: deterministic depth-first dyadic after failed Taylor/eigencluster attempt
+  maximum_depth: 12
+  minimum_interval_width_power_of_two: -12
+  maximum_nodes_per_segment: 31
+  exact_gap_free_coverage_required: true
+resources:
+  cooperative_maximum_seconds_per_node: 60
+  maximum_seconds_per_segment: 450
+  maximum_feasibility_seconds: 1800
+  maximum_full_cycle_seconds: 5400
+  maximum_exact_tau_oracle_seconds: 3600
+  kill_grace_seconds: 5
+  hard_enforcement: parent-owned subprocess deadline and termination
+  durable_checkpoint: atomically after every completed node
+
+acceptance_semantics:
+  fixed_inertia: path domain certified; exact rounded Q nonsingular; four sector inertias certified; gap-free cover; support agrees with endpoint gate
+  unresolved: any zero-containing enclosure, failed basis, failed far block, failed solve, failed reduced inertia, cap, precision, subdivision, or resource limit
+  crossing: PATH_DOMAIN_CERTIFIED plus two certified points on same connected path with different shifted inertia
+  zero_inclusion_alone_proves_crossing: false
+  threshold_approval_permitted: false
+
+feasibility_subset_rule: independently for each family select lexicographically smallest SHA256(roster_sha256|family|state_label)
+feasibility_subset:
+  - {state_label: medium, family: ps, ranking_sha256: 43ba081dd1e66bbbd70f40172eaac5448dae72892e6c9687a09e17de9b539edd}
+  - {state_label: good, family: gs, ranking_sha256: 4b0048802e393576f6123f448e67af5cca88b4640a1755c4a5cc5014da9efb1e}
+  - {state_label: medium, family: va, ranking_sha256: 41b634510eb06fae52e6aef64e670dd779c0f2f11957e925141e835c9b678218}
+  - {state_label: medium, family: mixed, ranking_sha256: 56ad5c49174ebc5cebcca498a07e332e45696ebe012abaee3769b133bb517665}
+feasibility_gate:
+  minimum_certified_segments: 1
+  maximum_median_cluster_dimension: 16
+  v1_minimum_ambiguous_modes: 61
+  maximum_root_radius_ratio_to_v1: 0.25
+  require_all_path_domains: true
+  require_zero_provenance_failures: true
+  require_zero_resource_limits: true
+  failure_action: stop; do not run all 12; changes require V3
+v1_comparison:
+  certified_segments: 0
+  crossings: 0
+  unresolved_segments: 12
+  attempted_nodes: 299
+  median_depth: 13
+  maximum_depth: 20
+  maximum_precision_bits: 512
+  runtime_seconds: 12302.942093300167
+  ambiguous_modes_range: [61, 63]
+  feasibility_root_sector0_rho:
+    medium/ps: 0.0124260425592788
+    good/gs: 0.000175755481456532
+    medium/va: 0.000632299981343858
+    medium/mixed: 0.0128179218590459
+
+exact_tau_oracle:
+  candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+  confirmation_roster: results/independent_confirmation_roster.json
+  confirmation_roster_config: configs/independent_confirmation_roster.yaml
+  default_config: configs/default.yaml
+  oracle_fixtures:
+    - uniform_high_va_1.5
+    - binomial_high_va_1.5
+    - near_coincident_phase_step_5e-08
+    - near_coincident_phase_step_2e-07
+  diagnostic_expected_above_tau_counts: [17, 29, 7, 8]
+  diagnostic_expectations_are_not_acceptance_inputs: true
+  decimal_digits_by_class:
+    fixed_uniform: 200
+    fixed_binomial: 200
+    analytic_near_coincident: 1200
+  arb_precision_bits: [160, 256, 384, 512]
+  bracket_denominator_power_two: 180
+  maximum_bracket_expansions: 4
+  maximum_seconds_per_inertia_point: 120
+  producer_sha256: 2926eb46164a41e6ab18012528c7727c898ec27961ec9f1c7ded59ef54437273
+  required_input_sha256:
+    docs/FINAL_MODEL_SPEC.md: 561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1
+    results/independent_confirmation_roster.json: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+    configs/independent_confirmation_roster.yaml: b8205459bf186ce662a649fb819c5d80f8c75c5eba443a12db94d2dc138e70eb
+    configs/default.yaml: dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015
+    results/shifted_inertia_environment_v1.json: 053e6bf516729f44a960ae8e5c433d9531690257ebd878945d51c21ac49d6b61
+    requirements-certification-inertia.lock: dd03ee6c033b268c6aba1d2e589a5f408e7f872bbd8d8a33d3bec9f77ec4b607
+    scripts/oracle_independent_confirmation_gram.py: 287da3958450fb411be7280a34fbe94231c4e7c623abce24f217fb843d8b2d8f
+    scripts/_numerical_validation.py: f57bbd8b5f364a34f0cd70a95e1a2c9ba807d7d7c7a6cb70a1bd07bff9e7fbd1
+    scripts/freeze_independent_confirmation_roster.py: fb2dcb8c19ee45b28e5d5c192db0d982cbc861e3c24afe1c49d5f04e4c62ecb4
+    src/modulation/qam256.py: 34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa
+    src/validation/rigorous_flint_support.py: 1792d789557d4234a34c3a1245271a6114c9bd2ad43fd028b86e4b8092665555
+    src/validation/rigorous_shifted_inertia.py: 9a26b40c5cb19c8128378dfefc7c1592ebe02930e34739404344d0cb8a4ec661
+  threshold_approval_permitted: false
+  final_test_access_permitted: false
+
+lifecycle_guards:
+  final_model_spec_mutable: false
+  production_security_functional_mutable: false
+  threshold_approved: false
+  final_test_access_permitted: false
+  publication_training_permitted: false
+  optimized_mb_permitted: false
+  baseline_selection_permitted: false
+  optimizer_integration_permitted: false

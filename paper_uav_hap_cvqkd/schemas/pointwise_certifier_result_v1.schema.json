@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Validated realized point-certifier result v1",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": {"enum": ["CERTIFIED_POINT", "UNCERTIFIED_POINT"]},
+    "support_count": {"type": "integer", "minimum": 1},
+    "negative_count": {"type": "integer", "minimum": 0},
+    "precision_bits": {"type": "integer", "minimum": 1},
+    "lower_nearest_below": {"type": "number"},
+    "upper_nearest_below": {"type": "number"},
+    "lower_nearest_above": {"type": "number"},
+    "upper_nearest_above": {"type": "number"},
+    "diagnostic_support_count": {"type": "integer", "minimum": 0},
+    "diagnostic_role": {"const": "DIAGNOSTIC_ONLY_NOT_PROOF"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "CERTIFIED_POINT"}}}, "then": {"required": ["support_count", "negative_count", "precision_bits", "lower_nearest_below", "upper_nearest_below", "lower_nearest_above", "upper_nearest_above"]}}
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,56 @@
+schema_version: shifted-inertia-certification-config-v1
+cycle_id: shifted-hermitian-inertia-v1
+status: PROSPECTIVE_FROZEN_BEFORE_ENDPOINT_OUTCOMES
+base_repository_commit: 34c5eaa632cf7425fb844f82a4d02d3f29d4e6a3
+historical_cycle_artifact: results/rigorous_whole_segment_certification.json
+historical_cycle_artifact_sha256: 0b09b2d11c1c645fce882cb5d7403161d98973043bb6dce6a9257c3aa0360cd6
+certification_environment_artifact: results/shifted_inertia_environment_v1.json
+certification_environment_sha256: 053e6bf516729f44a960ae8e5c433d9531690257ebd878945d51c21ac49d6b61
+confirmation_roster: results/independent_confirmation_roster.json
+confirmation_roster_sha256: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+parameter_fixture_bundle: results/rigorous_segment_fixture_bundle.json
+parameter_fixture_bundle_sha256: 1a29b45266c4fa3f0dd8a3773c31665dd49679c64466835a9a92a8b767dd2149
+candidate_threshold_decimal_label: 1.0e-13
+candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+threshold_status: PROPOSED_UNAPPROVED
+configured_1e_minus_12_status: INVALID_UNAPPROVED
+threshold_approval_permitted: false
+final_test_access_permitted: false
+producer_bindings:
+  point_module: src/validation/rigorous_shifted_inertia.py
+  endpoint_runner: scripts/certify_shifted_inertia_endpoints_v1.py
+  point_module_sha256: 9a26b40c5cb19c8128378dfefc7c1592ebe02930e34739404344d0cb8a4ec661
+  endpoint_runner_sha256: d4ab4ab2c1ab70ebf81b35f96cdd7dd8cb45b7fd2be4ddaecfaa809be2e685b3
+point_inertia:
+  method: VALIDATED_HERMITIAN_BLOCK_LDL_STAR
+  pivot_strategy: deterministic_best_normalized_certified_principal_1x1_or_2x2
+  scalar_pivot_rule: strict_interval_sign_excludes_zero
+  block_pivot_rule: certified_determinant_and_trace_inertia
+  update_rule: validated_arb_acb_schur_complement
+  proof_rule: sylvester_congruence_inertia_additivity
+  complex128_role: DIAGNOSTIC_ONLY_NOT_PROOF
+  precision_bits: [160, 256, 384, 512]
+  maximum_seconds_per_unique_endpoint: 120
+  maximum_total_endpoint_seconds: 3600
+  unresolved_action: FAIL_CLOSED
+endpoint_feasibility_gate:
+  required_certified_endpoints: 24
+  required_equal_start_end_inertia_per_segment: true
+  proceed_to_whole_segment_only_on_gate_pass: true
+whole_segment:
+  method: VALIDATED_MIDPOINT_BLOCK_LDL_WITH_INTERVAL_WEYL_GUARD_BAND
+  maximum_depth: 20
+  minimum_interval_width_power_of_two: -20
+  maximum_nodes_per_segment: 31
+  maximum_seconds_per_segment: 600
+  maximum_total_seconds: 7200
+  leaf_pass_state: CERTIFIED_FIXED_INERTIA
+  zero_included_state: UNRESOLVED
+  proven_crossing_rule: certified_endpoint_inertia_difference_for_continuous_path
+  resource_exhaustion_state: UNCERTIFIED_RESOURCE_LIMIT
+comparison_baseline_runtime_seconds: 1061.9827932000626
+finite_node_sampling_is_proof: false
+optimizer_integration_permitted: false
+publication_training_permitted: false
+optimized_mb_permitted: false
+baseline_selection_permitted: false

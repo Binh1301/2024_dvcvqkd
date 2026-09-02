@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version", "cycle_id", "status", "base_repository_commit",
+    "candidate_threshold_float64_hex", "threshold_status", "producer_bindings",
+    "point_inertia", "endpoint_feasibility_gate", "whole_segment"
+  ],
+  "properties": {
+    "schema_version": {"const": "shifted-inertia-certification-config-v1"},
+    "cycle_id": {"const": "shifted-hermitian-inertia-v1"},
+    "status": {"enum": [
+      "PROSPECTIVE_DESIGN_DRAFT_NO_ENDPOINT_EXECUTION",
+      "PROSPECTIVE_FROZEN_BEFORE_ENDPOINT_OUTCOMES"
+    ]},
+    "threshold_approval_permitted": {"const": false},
+    "final_test_access_permitted": {"const": false}
+  },
+  "additionalProperties": true
+}
