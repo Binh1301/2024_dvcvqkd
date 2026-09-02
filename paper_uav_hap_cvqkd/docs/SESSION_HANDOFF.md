@@ -42,10 +42,10 @@ current method and records this conclusion:
 
 The separate numerical/security-method review, protocol design, and scoped
 implementation are complete. The certification environment is restored and
-verified 32/32. The smoke remains blocked until the repository-backed
-point-certifier adapter is implemented. The only next action is to implement
-that adapter, then rerun the exact frozen six-step smoke.
-This does not authorize threshold approval, training, or evaluation.
+verified 32/32. The real point-certifier adapter and no-override smoke runner
+are frozen and verified. The only next action is to run the exact frozen
+six-step smoke. This does not authorize threshold approval, training, or
+evaluation.
 
 Do not rerun/retune V3, run all 12, create V4 automatically, approve a
 threshold, train, run optimized MB/baselines, access final test, or alter the

@@ -1610,3 +1610,68 @@ regressions and shifted-inertia point/segment unit tests pass 32/32.
 This verifies only the certification environment and existing numerical
 preflight. No pointwise adapter or smoke runner was implemented, and the
 frozen smoke remains unrun.
+
+## EVID-0035 - Real point-certifier adapter verified
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; REAL BACKEND
+
+### Claim
+
+The production final physical ensemble now crosses an explicit subprocess
+boundary into the restored `.venv-cert` Arb/FLINT runtime. All 256
+probabilities and complex amplitudes are serialized as exact binary64
+`float.hex` values in canonical JSON. The worker reconstructs C4 sectors
+without centering, clipping, reordering, or renormalization and uses validated
+Arb eigenvalue balls or shifted-Hermitian inertia for proof decisions. NumPy
+complex128 values may seed bracket candidates only and never establish support
+or admissibility.
+
+Uniform and Binomial historical fixtures reproduce support counts 17 and 29;
+a near-coincident fixture executes the real backend and returns only certified
+or explicit fail-closed output. Exact production probability/amplitude
+round-trip tests pass.
+
+### Evidence
+
+- `results/pointwise_certifier_adapter_v1.json`, SHA-256
+  `5c1b11eb5eb9838c37c53cf5572647d58f63c80c39f57e4c9551239efabab313`
+- adapter commit `1f172be1bbfa3189d5e4e39e6330e38daf397a2e`
+- pointwise runtime/adapter tests: `12/12` (`CURRENTLY_VERIFIED_PASS`)
+- real Arb/shifted-inertia suite: `32/32` (`CURRENTLY_VERIFIED_PASS`)
+
+### Limitations
+
+No smoke outcome was consumed. The threshold remains proposed/unapproved and
+the adapter does not change the production security functional.
+
+## EVID-0036 - Frozen pointwise smoke runner and execution manifest
+
+Date: 2026-09-02
+
+Status: PROSPECTIVE_FROZEN_BEFORE_SMOKE_OUTCOMES
+
+### Claim
+
+The minimal no-override runner reads the committed pointwise protocol and
+representative-state roster, uses the production transactional trainer plus
+the real subprocess adapter, and writes the required two-repetition trace. A
+prospective execution manifest binds the stable adapter commit, runner,
+worker, certifier, trainer, schemas, protocol, restored environment, lock,
+roster, default config, and frozen model before execution. The runner was not
+invoked.
+
+### Evidence
+
+- `configs/pointwise_guard_execution_manifest_v1.json`, SHA-256
+  `c41b5fc6e819889abe6d0e4ebe8c84c649f99a440380dcb277731033b38a8529`
+- runner commit `dfc655b7313c6e1dcd860bd3f82c4f0b64b0cb10`
+- runner freeze tests: `2/2` (`CURRENTLY_VERIFIED_PASS`)
+- DEC-0023
+
+### Limitations
+
+The execution manifest authorizes only the already frozen six-step
+certification-only smoke. It does not approve a threshold or publication-scale
+execution.

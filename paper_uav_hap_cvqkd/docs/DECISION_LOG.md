@@ -925,3 +925,33 @@ or change any scientific/security functional.
 
 `NEXT_ACTIONS.md` now names adapter implementation as the sole next action.
 Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## DEC-0023 - Freeze real adapter and authorize smoke execution
+
+Date: 2026-09-02
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; SMOKE AUTHORIZED
+
+### Decision
+
+Accept EVID-0035 and EVID-0036. The real adapter uses the restored pinned
+Arb/FLINT environment through canonical JSON and preserves the final physical
+ensemble exactly. The no-override runner and prospective execution manifest
+are frozen before smoke outcomes. Authorize the exact six-step, three-state,
+two-repetition smoke test as the next task.
+
+Do not change the threshold, guard inequality, seeds, state roster, precision,
+optimizer settings, or security functional. Do not run publication training,
+baseline selection, optimized-MB search, or final-test evaluation.
+
+### Evidence
+
+- EVID-0035
+- EVID-0036
+- `configs/pointwise_guard_execution_manifest_v1.json`
+
+### Consequences
+
+`NEXT_ACTIONS.md` now names `FROZEN_POINTWISE_SMOKE_EXECUTION_AUTHORIZED` as
+the sole next permitted action. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.

@@ -79,12 +79,12 @@ DEC-0019. Its implementation is complete for the scoped matrix under
 DEC-0020; threshold approval, smoke execution, and realized evaluation remain
 blocked until their separate gates are met.
 
-Authorization: `POINTWISE_GUARD_ADAPTER_IMPLEMENTATION_AUTHORIZED`.
+Authorization: `FROZEN_POINTWISE_SMOKE_EXECUTION_AUTHORIZED`.
 
 ## Exact Next Permitted Action
 
-Implement the repository-backed validated point-certifier adapter against the
-frozen pointwise contract. Do not run the smoke test, approve a threshold,
+Run exactly the frozen six-step certification-only pointwise-guard smoke test
+using the real adapter and execution manifest. Do not approve a threshold,
 perform publication training, baseline selection, final-test access, or change
 the physical/security functional. Silent regularization is prohibited.
 
@@ -117,6 +117,10 @@ by V3.
   `results/certification_environment_restore_v1.json`.
 - Certification environment restore: `CURRENTLY_VERIFIED_PASS`; artifact
   `results/certification_environment_restore_v2.json`.
+- Real point-certifier adapter: `CURRENTLY_VERIFIED_PASS`; artifact
+  `results/pointwise_certifier_adapter_v1.json`.
+- Smoke runner freeze: `CURRENTLY_VERIFIED_PASS`; manifest
+  `configs/pointwise_guard_execution_manifest_v1.json`.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -140,3 +144,6 @@ by V3.
 - EVID-0033: certification environment restore blocked.
 - EVID-0034: hash-pinned certification environment restored.
 - DEC-0022: restored environment accepted; adapter implementation next.
+- EVID-0035: real point-certifier adapter verified.
+- EVID-0036: smoke runner and execution manifest frozen.
+- DEC-0023: frozen smoke execution authorized.
