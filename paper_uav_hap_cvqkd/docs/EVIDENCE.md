@@ -1650,7 +1650,7 @@ the adapter does not change the production security functional.
 
 Date: 2026-09-02
 
-Status: PROSPECTIVE_FROZEN_BEFORE_SMOKE_OUTCOMES
+Status: PROSPECTIVE_FROZEN_BEFORE_SMOKE_OUTCOMES; EXECUTION NOT RUN
 
 ### Claim
 
@@ -1666,7 +1666,7 @@ invoked.
 
 - `configs/pointwise_guard_execution_manifest_v1.json`, SHA-256
   `03273a5dc6b58669853d7d7bac2078312e0276b78924ca502273e8a643723006`
-- runner commit `dfc655b7313c6e1dcd860bd3f82c4f0b64b0cb10`
+- initial runner freeze commit `dfc655b7313c6e1dcd860bd3f82c4f0b64b0cb10`; final runner source hash is bound in the manifest
 - runner freeze tests: `2/2` (`CURRENTLY_VERIFIED_PASS`)
 - DEC-0023
 

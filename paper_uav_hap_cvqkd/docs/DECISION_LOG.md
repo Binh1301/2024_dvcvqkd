@@ -903,7 +903,7 @@ frozen six-step smoke test without retuning.
 
 Date: 2026-09-01
 
-Status: ACTIVE ENVIRONMENT DECISION; ADAPTER NEXT
+Status: SUPERSEDED AS NEXT-ACTION POLICY BY DEC-0023; ACTIVE ENVIRONMENT EVIDENCE
 
 ### Decision
 
@@ -912,7 +912,8 @@ environment. CPython 3.12.10, python-flint 0.9.0, FLINT 3.6.0, PyYAML 6.0.3,
 NumPy 2.5.2, Windows x86-64, and the lock hash match the frozen requirements.
 The real Arb/acb and shifted-inertia preflight suite passes 32/32.
 
-The next task may implement the repository-backed point-certifier adapter.
+At the time of this decision, the next task was adapter implementation; that
+adapter and the smoke runner are now frozen by DEC-0023.
 Do not run the smoke test in this environment-only task, approve a threshold,
 or change any scientific/security functional.
 
