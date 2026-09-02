@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pointwise guard execution manifest v1",
+  "type": "object",
+  "required": ["schema_version", "status", "repository_head", "file_bindings", "smoke_parameters", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-execution-manifest-v1"},
+    "status": {"const": "PROSPECTIVE_FROZEN_BEFORE_SMOKE_OUTCOMES"},
+    "repository_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "file_bindings": {"type": "object", "minProperties": 15, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "smoke_parameters": {"type": "object", "required": ["initialization_seed", "common_random_seed", "state_labels", "states", "steps", "repetitions", "precision_bits"]},
+    "lifecycle_guards": {"type": "object", "required": ["threshold_approved", "publication_training_performed", "final_test_accessed", "optimized_mb_grid_performed", "baseline_selection_performed", "security_functional_changed", "smoke_executed"]}
+  },
+  "additionalProperties": true
+}
