@@ -1636,7 +1636,7 @@ round-trip tests pass.
 ### Evidence
 
 - `results/pointwise_certifier_adapter_v1.json`, SHA-256
-  `5c1b11eb5eb9838c37c53cf5572647d58f63c80c39f57e4c9551239efabab313`
+  `03cf353c27bdd10e572ec52a727c16f7596a8f152962b63670859a190c304ed5`
 - adapter commit `1f172be1bbfa3189d5e4e39e6330e38daf397a2e`
 - pointwise runtime/adapter tests: `12/12` (`CURRENTLY_VERIFIED_PASS`)
 - real Arb/shifted-inertia suite: `32/32` (`CURRENTLY_VERIFIED_PASS`)
@@ -1665,7 +1665,7 @@ invoked.
 ### Evidence
 
 - `configs/pointwise_guard_execution_manifest_v1.json`, SHA-256
-  `c41b5fc6e819889abe6d0e4ebe8c84c649f99a440380dcb277731033b38a8529`
+  `03273a5dc6b58669853d7d7bac2078312e0276b78924ca502273e8a643723006`
 - runner commit `dfc655b7313c6e1dcd860bd3f82c4f0b64b0cb10`
 - runner freeze tests: `2/2` (`CURRENTLY_VERIFIED_PASS`)
 - DEC-0023

@@ -163,7 +163,9 @@ def run_repetition(manifest: dict, repetition: int) -> list[dict]:
                 model, optimizer, transmittance, epsilon,
                 beta_reconciliation=float(cvqkd["beta_reconciliation"]),
                 noise_samples_per_symbol=int(training["train_awgn_samples_per_symbol"]),
-                density_eigenvalue_tolerance=1.0e-13, generator=generator,
+                density_eigenvalue_tolerance=float.fromhex(
+                    protocol["threshold"]["candidate_float64_hex"]
+                ), generator=generator,
                 gradient_clip_norm=float(training["gradient_clip_norm"]), energy_budget_controller=controller,
                 pointwise_guard=guard,
             )
