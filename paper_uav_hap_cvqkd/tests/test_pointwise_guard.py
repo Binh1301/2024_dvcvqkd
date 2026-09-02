@@ -3,15 +3,19 @@
 from __future__ import annotations
 
 import copy
+import math
 import random
 import unittest
 from unittest.mock import patch
+from pathlib import Path
 
 import numpy as np
 import torch
 
+ROOT = Path(__file__).resolve().parents[1]
+
 from src.cvqkd.secret_key_rate import FadingKeyRate
-from src.modulation.joint_ps_gs import JointTransmitter
+from src.modulation.joint_ps_gs import Ensemble, JointTransmitter
 from src.optimization.pointwise_guard import (
     PointwiseGuard,
     PointwiseGuardConfig,
@@ -19,6 +23,7 @@ from src.optimization.pointwise_guard import (
     PointwiseStatus,
     deduplicate_ensemble_rows,
 )
+from src.optimization.real_point_certifier_adapter import RealPointCertifierAdapter
 from src.optimization.trainer import (
     EnergyBudgetController,
     Evaluation,
@@ -185,6 +190,80 @@ class PointwiseGuardTests(unittest.TestCase):
         self.assertEqual(result.pointwise_guard_result.status, PointwiseStatus.POINTWISE_ADMISSIBLE)
         self.assertTrue(any(not torch.equal(old, new) for old, new in zip(before, self.model.parameters())))
         self.assertGreater(result.energy_dual_after_update, result.energy_dual_before_update)
+
+    def test_real_flint_adapter_certifies_uniform_fixture(self) -> None:
+        adapter = RealPointCertifierAdapter(
+            ROOT,
+            worker=ROOT / "scripts" / "pointwise_certifier_worker.py",
+            certification_python=ROOT / ".venv-cert" / "Scripts" / "python.exe",
+            expected_provenance={"protocol": "x"},
+            actual_provenance={"protocol": "x"},
+            timeout_seconds=600.0,
+        )
+        ensemble = JointTransmitter("uniform", fixed_va=1.5, v_min=0.1, v_max=4.0)(
+            self.t[:1], self.epsilon[:1]
+        )
+        result = adapter(ensemble, 0, _config())
+        self.assertEqual(result["status"], "CERTIFIED_POINT", result)
+        self.assertEqual(result["support_count"], 17)
+        self.assertLess(result["upper_nearest_below"], _config().tau_float64)
+        self.assertGreater(result["lower_nearest_above"], _config().tau_float64)
+
+    def test_adapter_serialization_preserves_final_ensemble_exactly(self) -> None:
+        ensemble = JointTransmitter("full", v_min=0.1, v_max=4.0)(
+            self.t[:1], self.epsilon[:1]
+        )
+        request = RealPointCertifierAdapter._request(ensemble, 0, _config())
+        probabilities = torch.tensor(
+            [float.fromhex(value) for value in request["probabilities_float64_hex"]],
+            dtype=torch.float64,
+        )
+        amplitudes = torch.tensor(
+            [complex(float.fromhex(real), float.fromhex(imag))
+             for real, imag in request["amplitudes_float64_hex"]],
+            dtype=torch.complex128,
+        )
+        self.assertTrue(torch.equal(probabilities, ensemble.probabilities[0]))
+        self.assertTrue(torch.equal(amplitudes, ensemble.amplitudes[0]))
+
+    def test_real_flint_adapter_certifies_binomial_fixture(self) -> None:
+        adapter = RealPointCertifierAdapter(
+            ROOT,
+            worker=ROOT / "scripts" / "pointwise_certifier_worker.py",
+            certification_python=ROOT / ".venv-cert" / "Scripts" / "python.exe",
+            expected_provenance={"protocol": "x"},
+            actual_provenance={"protocol": "x"},
+            timeout_seconds=600.0,
+        )
+        ensemble = JointTransmitter("binomial", fixed_va=1.5, v_min=0.1, v_max=4.0)(
+            self.t[:1], self.epsilon[:1]
+        )
+        result = adapter(ensemble, 0, _config())
+        self.assertEqual(result["status"], "CERTIFIED_POINT", result)
+        self.assertEqual(result["support_count"], 29)
+
+    def test_real_flint_adapter_near_coincident_fixture_fails_only_closed(self) -> None:
+        orbit_masses = torch.full((64,), 1.0 / 64.0, dtype=torch.float64)
+        from src.modulation.qam256 import expand_c4_orbit_masses, expand_c4_orbit_values
+        prototypes = math.sqrt(4.0 / 2.0) * torch.exp(
+            1j * 5e-8 * torch.arange(64, dtype=torch.float64)
+        )
+        ensemble = Ensemble(
+            expand_c4_orbit_masses(orbit_masses).unsqueeze(0),
+            expand_c4_orbit_values(prototypes).unsqueeze(0),
+            torch.tensor([4.0], dtype=torch.float64), prototypes,
+            exact_csi_oracle=True, c4_symmetric=True,
+        )
+        adapter = RealPointCertifierAdapter(
+            ROOT,
+            worker=ROOT / "scripts" / "pointwise_certifier_worker.py",
+            certification_python=ROOT / ".venv-cert" / "Scripts" / "python.exe",
+            expected_provenance={"protocol": "x"},
+            actual_provenance={"protocol": "x"},
+            timeout_seconds=600.0,
+        )
+        result = adapter(ensemble, 0, _config())
+        self.assertIn(result["status"], {"CERTIFIED_POINT", "UNCERTIFIED_POINT"})
 
 
 def _snapshot(model, optimizer, controller, generator):

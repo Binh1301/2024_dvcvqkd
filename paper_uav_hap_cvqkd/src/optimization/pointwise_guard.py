@@ -101,6 +101,10 @@ class PointwiseGuardRejected(RuntimeError):
         super().__init__(f"Pointwise guard rejected current state: {result.status.value}")
 
 
+class PointwiseProvenanceError(RuntimeError):
+    """Raised by an adapter when its frozen provenance bindings do not match."""
+
+
 def _tensor_bytes(value: torch.Tensor) -> bytes:
     tensor = value.detach().to(device="cpu").contiguous()
     return tensor.numpy().tobytes()
@@ -188,6 +192,12 @@ class PointwiseGuard:
             )
         try:
             evidence = dict(self.certify_point(ensemble, row, self.config))
+        except PointwiseProvenanceError as error:
+            return PointwiseGuardResult(
+                PointwiseStatus.PROVENANCE_FAILURE, row_hash, None, None, None,
+                self.config.tau_float64_hex, self.config.tau_exact_dyadic,
+                str(error), self.provenance_ids,
+            )
         except Exception as error:
             return PointwiseGuardResult(
                 PointwiseStatus.POINTWISE_CERTIFICATION_FAILED, row_hash, None, None, None,
