@@ -1,0 +1,114 @@
+{
+  "schema_version": "pointwise-guard-v2-methodology-review-v1",
+  "status": "METHODOLOGY_REVIEW_COMPLETED",
+  "review_date": "2026-09-02",
+  "v1_outcome": {
+    "decision": "OPTIMIZATION_EFFECTIVELY_FROZEN",
+    "smoke_artifact": "results/pointwise_guard_smoke_v2.json",
+    "smoke_artifact_sha256": "4a914944aecb09204187040e461e84cd67e34f4c254647eea8ece2e625854360",
+    "manifest_sha256": "03273a5dc6b58669853d7d7bac2078312e0276b78924ca502273e8a643723006",
+    "manifest_binding_mismatches": 0,
+    "repetitions": 2,
+    "steps_per_repetition": 6,
+    "pre_update_guard_rejects": 12,
+    "proposed_updates": 0,
+    "committed_updates": 0,
+    "rollback_equivalence_failures": 0,
+    "byte_identical_replay": true,
+    "smoke_rerun_performed": false
+  },
+  "support_certification": {
+    "v1_smoke_support_rigorously_certified": true,
+    "unique_realized_ensembles_per_step": 3,
+    "certified_support_count_each": 13,
+    "basis": "CERTIFIED_POINT is emitted only after all Arb eigenvalue balls separate from exact dyadic tau or complete shifted-Hermitian Arb inertia succeeds",
+    "complex128_role": "DIAGNOSTIC_ONLY_NOT_PROOF"
+  },
+  "arb_bounds": {
+    "individual_eigenvalue_balls_are_rigorous_enclosures": true,
+    "validated_inertia_count_change_brackets_adjacent_eigenvalue": true,
+    "current_direct_eigenball_midpoint_selection_proves_nearest": false,
+    "current_exported_nearest_fields_are_uniformly_proven_to_enclose_true_adjacent_eigenvalues": false,
+    "reason": "the direct eigenball branch selects by binary64 midpoint without proving interval order; each selected ball remains rigorous for an eigenvalue but the nearest label is not generally certified",
+    "serialization_caveat": "ordinary float conversion is not a directed-outward endpoint serialization and must not decide V2 admission"
+  },
+  "certified_distance": {
+    "conditional_statement": "if U_minus is a rigorous upper bound for every eigenvalue below tau and L_plus is a rigorous lower bound for every eigenvalue above tau, min(tau-U_minus,L_plus-tau) is a rigorous lower bound on distance to tau",
+    "positive_margin_proves_separation": true,
+    "interval_uncertainty_already_included": true,
+    "required_direct_eigenball_endpoints": {
+      "U_minus": "maximum upper endpoint across every ball certified below tau",
+      "L_plus": "minimum lower endpoint across every ball certified above tau"
+    }
+  },
+  "v1_uncertainty_rule": {
+    "formula": "certified_margin > 2 * uncertainty_upper",
+    "double_counts_interval_uncertainty_as_a_support_or_distance_proof": true,
+    "independently_justified_optimization_safety_requirement": false,
+    "explanation": "certified_margin already uses the inward-facing outward interval endpoints; the additional half-width multiplier is a separate buffer, not another necessary enclosure correction"
+  },
+  "gradient_evidence": {
+    "artifact": "results/production_gram_certification.json",
+    "artifact_sha256": "694e5237ccbbf2fe231361dd9ef05303cc72c8b215fa47e6bb40d5bf5c3685ab",
+    "coordinates_passed": 12,
+    "coordinates_total": 12,
+    "families": ["ps", "gs", "va"],
+    "finite_difference_steps": [0.001, 0.0003, 0.0001, 0.00003, 0.00001, 0.000003],
+    "absolute_tolerance": 1e-7,
+    "relative_tolerance": 0.005,
+    "required_adjacent_stable_pairs": 3,
+    "support_mask_must_be_unchanged_for_every_plus_minus": true,
+    "justified_claim": "local fixed-support gradients on the finite audited coordinates",
+    "justifies_2_times_arb_uncertainty": false,
+    "justifies_whole_segment_or_optimizer_step_support_stability": false
+  },
+  "recommended_v2": {
+    "protocol": "configs/pointwise_guard_protocol_v2.yaml",
+    "protocol_sha256": "37b8195b39950fb2244309963c2fe27dddd9e011d597d0831f2fd44971a83b6b",
+    "protocol_schema": "schemas/pointwise_guard_protocol_v2.schema.json",
+    "protocol_schema_sha256": "0f6375d0c59addc8d6d3524cd494a0fa8b6ea8a3bc0c187c1c940de49ced9ef7",
+    "method_spec": "docs/POINTWISE_GUARD_PROTOCOL_V2.md",
+    "method_spec_sha256": "11c620c2e55183798f478501466db816ded013e16fa173fe3dfe055805014b7f",
+    "formula": "support_is_rigorously_certified AND certified_margin > 0",
+    "engineering_margin": 0,
+    "implementation_requirements": [
+      "use global inward-facing endpoints across all classified Arb eigenvalue balls or certified adjacent inertia brackets",
+      "perform the strict positive-margin decision in Arb or equivalent exact arithmetic",
+      "preserve exact or directed-outward endpoints across the adapter boundary",
+      "fail closed on overlap, equality, incomplete classification, resource limit, or provenance mismatch"
+    ],
+    "implementation_performed": false,
+    "smoke_rerun_authorized": false
+  },
+  "threshold_status": {
+    "candidate_1e_minus_13": "PROPOSED_UNAPPROVED",
+    "historical_1e_minus_12": "INVALID_UNAPPROVED",
+    "selected_from_v1_smoke_margins": false
+  },
+  "authorization": {
+    "status": "POINTWISE_GUARD_V2_IMPLEMENTATION_AUTHORIZED",
+    "scope": "implement the repository-backed validated V2 point-certifier adapter and frozen V2 smoke runner; do not execute the smoke",
+    "v2_protocol_active": false
+  },
+  "provenance": {
+    "starting_repository_head": "adffd1df534f7ec7d118720dc325e7007befb797",
+    "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "review_schema_sha256": "979664aa301bc868c210e7f0d7c1107f93007d93a7e19667c680285f06dc22e7",
+    "v1_protocol_sha256": "54a0c46bfb1eab9e00c3e5320489f2c0de8a9fd7541363fed440c21d3d90c979",
+    "realized_point_certifier_sha256": "ca31f17ebd2d9cd0297999e95495f608b031c2dd8343e4e250e9aad58df34c7b",
+    "rigorous_flint_support_sha256": "ed98288ad30b4ef80e2b072f208b09c18e52d9de783b5f9ebda1b1ec2fc6b160",
+    "rigorous_shifted_inertia_sha256": "d70498e0858573b7462b857f3368d81b5d808464e22bcd52f0e72ab5f05be880",
+    "pointwise_guard_runtime_sha256": "7079d7455a1447c60e3fe23aedb2e5426dab538ddb336ed1205202a34c21bbc8"
+  },
+  "lifecycle_guards": {
+    "scientific_source_changed": false,
+    "security_functional_changed": false,
+    "frozen_model_changed": false,
+    "threshold_approved": false,
+    "smoke_rerun_performed": false,
+    "publication_training_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "baseline_selection_performed": false
+  }
+}

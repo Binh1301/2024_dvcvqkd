@@ -1,0 +1,44 @@
+{
+  "schema_version": "pointwise-guard-implementation-v2",
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "implementation_scope": "repository-backed V2 point-certifier and frozen runner only",
+  "v2_rule": "support_is_rigorously_certified AND certified_margin > 0",
+  "arb_sign_decision": true,
+  "global_inward_endpoint_selection": true,
+  "midpoint_ordering_used_as_proof": false,
+  "nearest_round_endpoint_used_for_admission": false,
+  "v1_behavior_preserved_as_historical": true,
+  "tests": {
+    "production_pointwise_and_protocol": {"command": "python -m unittest -v tests.test_pointwise_guard tests.test_pointwise_smoke_runner_freeze tests.test_pointwise_guard_protocol_v2_design tests.test_pointwise_guard_protocol_design", "passed": 31, "failed": 0},
+    "real_arb_backend": {"command": ".venv-cert\\Scripts\\python.exe -m unittest -v tests.test_rigorous_flint_support tests.test_rigorous_shifted_inertia tests.test_rigorous_shifted_inertia_segment", "passed": 34, "failed": 0}
+  },
+  "manifest": {
+    "path": "configs/pointwise_guard_execution_manifest_v2.json",
+    "status": "PROSPECTIVE_FROZEN_BEFORE_V2_SMOKE_OUTCOMES",
+    "sha256": "d27d7fd6be10121b4217e8cc72af88481e994acb89d30787cfa7c8c9b5e4f568",
+    "binding_mismatches": 0
+  },
+  "smoke": {"executed": false, "output": "results/pointwise_guard_smoke_v3.json"},
+  "scientific_invariants": {
+    "tau_unchanged": true,
+    "mi_holevo_skr_unchanged": true,
+    "security_functional_unchanged": true,
+    "frozen_model_unchanged": true,
+    "optimizer_settings_seeds_states_precision_unchanged": true,
+    "final_test_accessed": false
+  },
+  "source_hashes": {
+    "realized_point_certifier": "b217df8dfe0dbaf7cc533dcbff484103fcbdacf7fb7862a80b95f8ce56255b0c",
+    "pointwise_guard": "1c5ee7983067465dbf6616907ddb6f1de37032405e554e9bf816aa9f58787fb3",
+    "real_point_certifier_adapter": "f56838c3bbae41a5a19e527f13714012d216f848fcc26c3c2b1832e88db3ccab",
+    "worker": "79944cd6da18b4549fa4bb17ee9da5de235314c15e526e15881291ff0072b018",
+    "v2_runner": "eebfd19c61c52e197bf1a0866943f48c25c2a0961512ff8eebef69b12f2ec9f2",
+    "v2_protocol": "6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845",
+    "v2_protocol_schema": "2ec0b6e24929d4c0275e88da79b4a46e15a2787059d0c31d44efaa06ecf84f44",
+    "v2_result_schema": "c4880f49d093add67a8ee90f0fe6e67ad96144408986d612313017ab9de8726f",
+    "v2_manifest_schema": "4a50aa04091d50fd0baa2c9e4dc08c741c429272a3fe6fa33c96a782609ac8e",
+    "v2_smoke_schema": "ac844feb4af78fb2903ad49cc820ef3baa3c2589d0d9f328b187b62d29185353",
+    "v2_protocol_spec": "1bc1959b80b592227eaa671a4204a6dc3eec5110fe1064c03ecc88865c918a35"
+  },
+  "lifecycle_authorization": "FROZEN_POINTWISE_GUARD_V2_SMOKE_EXECUTION_AUTHORIZED"
+}

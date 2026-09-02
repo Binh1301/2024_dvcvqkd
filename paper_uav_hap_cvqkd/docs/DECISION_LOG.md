@@ -931,7 +931,7 @@ Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
 Date: 2026-09-02
 
-Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; SMOKE AUTHORIZED
+Status: SUPERSEDED AS NEXT-ACTION POLICY BY DEC-0024; ACTIVE V1 PROVENANCE
 
 ### Decision
 
@@ -955,4 +955,76 @@ baseline selection, optimized-MB search, or final-test evaluation.
 
 `NEXT_ACTIONS.md` now names `FROZEN_POINTWISE_SMOKE_EXECUTION_AUTHORIZED` as
 the sole next permitted action. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
+
+Date: 2026-09-02
+
+Status: SUPERSEDED AS NEXT-ACTION POLICY BY DEC-0025; ACTIVE V2 METHOD
+
+### Decision
+
+Accept EVID-0037 as the completed V1 smoke outcome
+`OPTIMIZATION_EFFECTIVELY_FROZEN`. Preserve the V1 protocol, blocked artifact,
+completed artifact, states, seeds, optimizer, precision, `tau`, and all smoke
+settings without rerun or retuning.
+
+Accept EVID-0038 and freeze `pointwise-guard-v2` as a proposed, inactive
+replacement. V2 admits a realized point exactly when support is rigorously
+certified and the rigorous spectral-distance lower bound is strictly positive.
+The reported interval half-width is diagnostic and is not charged again.
+No positive engineering margin is adopted because pre-existing independent
+evidence supplies none.
+
+Authorize implementation and scoped verification of the repository-backed V2
+point-certifier adapter and frozen V2 smoke runner only. The implementation
+must not use midpoint order as proof, nearest-round Arb endpoints before the
+decision, alter the scientific/security functional, or execute the smoke.
+
+### Evidence
+
+- EVID-0037
+- EVID-0038
+- `results/pointwise_guard_v2_methodology_review.json`
+- `configs/pointwise_guard_protocol_v2.yaml`
+- `docs/POINTWISE_GUARD_PROTOCOL_V2.md`
+
+### Consequences
+
+The exact next action is to implement the repository-backed validated V2
+point-certifier adapter and frozen V2 smoke runner. Candidate `1e-13` remains
+`PROPOSED_UNAPPROVED`; historical `1e-12` remains `INVALID_UNAPPROVED`.
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. V2 smoke execution,
+publication training, baseline selection, optimized-MB search, and final-test
+access remain unauthorized.
+
+## DEC-0025 - Authorize frozen V2 smoke execution
+
+Date: 2026-09-02
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; V2 SMOKE ONLY
+
+### Decision
+
+Accept EVID-0039. The V2 implementation is complete for its scoped matrix and
+the V2 execution manifest is frozen after passing production and real Arb/FLINT
+tests. Authorize exactly the manifest-bound V2 smoke runner as the next task.
+
+Do not rerun or modify V1 evidence, change `tau`, threshold status, states,
+seeds, optimizer, precision, MI, Holevo, SKR, security scope, or the frozen
+model. Do not perform publication training, baseline selection, optimized-MB
+search, or final-test access. No V2 smoke outcome exists yet.
+
+### Evidence
+
+- EVID-0039
+- `configs/pointwise_guard_execution_manifest_v2.json`
+- `results/pointwise_guard_implementation_v2.json`
+
+### Consequences
+
+The exact next permitted action is to run the frozen V2 smoke execution. The
+V2 protocol remains proposed with candidate `1e-13` unapproved and historical
+`1e-12` invalid/unapproved. Lifecycle remains
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.

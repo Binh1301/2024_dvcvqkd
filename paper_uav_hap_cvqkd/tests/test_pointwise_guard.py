@@ -42,27 +42,29 @@ EXPECTED = {
 }
 
 
-def _config() -> PointwiseGuardConfig:
+def _config(protocol_version="pointwise-guard-v1") -> PointwiseGuardConfig:
     return PointwiseGuardConfig(
         tau_float64_hex="0x1.c25c268497682p-44",
         tau_exact_dyadic="3961408125713217/2^95",
+        safety_factor=None if protocol_version == "pointwise-guard-v2" else 2,
+        protocol_version=protocol_version,
     )
 
 
-def _guard(certify, *, provenance=True) -> PointwiseGuard:
+def _guard(certify, *, provenance=True, protocol_version="pointwise-guard-v1") -> PointwiseGuard:
     expected = {"protocol": "p", "producer": "q"}
     actual = expected if provenance else {"protocol": "p", "producer": "wrong"}
     return PointwiseGuard(
-        _config(),
+        _config(protocol_version),
         certify_point=certify,
         expected_provenance=expected,
         actual_provenance=actual,
     )
 
 
-def _evidence(status="CERTIFIED_POINT", margin=0.4, uncertainty=0.05):
+def _evidence(status="CERTIFIED_POINT", margin=0.4, uncertainty=0.05, exact_certificate=True, protocol_version=None):
     tau = _config().tau_float64
-    return {
+    evidence = {
         "status": status,
         "support_count": 13,
         "lower_nearest_below": tau - margin - uncertainty,
@@ -70,6 +72,15 @@ def _evidence(status="CERTIFIED_POINT", margin=0.4, uncertainty=0.05):
         "lower_nearest_above": tau + margin,
         "upper_nearest_above": tau + margin + uncertainty,
     }
+    if exact_certificate:
+        evidence.update({
+            "protocol_version": protocol_version or "pointwise-guard-v1",
+            "support_is_rigorously_certified": True,
+            "strict_separation_certified": True,
+            "certified_margin_lower_bound": "0.0625",
+            "certified_margin_lower_bound_float": margin,
+        })
+    return evidence
 
 
 class PointwiseGuardTests(unittest.TestCase):
@@ -94,6 +105,36 @@ class PointwiseGuardTests(unittest.TestCase):
                 ))
                 result = guard.check(self.model(self.t[:1], self.epsilon[:1]))
                 self.assertEqual(result.status, PointwiseStatus.POINTWISE_GUARD_BAND_REJECT)
+
+    def test_v2_accepts_arb_positive_margin_without_second_uncertainty_charge(self) -> None:
+        guard = _guard(
+            lambda ensemble, row, config: _evidence(margin=1e-16, uncertainty=1e-10, protocol_version="pointwise-guard-v2"),
+            protocol_version="pointwise-guard-v2",
+        )
+        result = guard.check(self.model(self.t[:1], self.epsilon[:1]))
+        self.assertEqual(result.status, PointwiseStatus.POINTWISE_ADMISSIBLE)
+        self.assertEqual(result.unique_results[0].certified_margin_exact, "0.0625")
+
+    def test_v2_missing_arb_separation_certificate_fails_closed(self) -> None:
+        guard = _guard(
+            lambda ensemble, row, config: _evidence(exact_certificate=False, protocol_version="pointwise-guard-v2"),
+            protocol_version="pointwise-guard-v2",
+        )
+        result = guard.check(self.model(self.t[:1], self.epsilon[:1]))
+        self.assertEqual(result.status, PointwiseStatus.POINTWISE_CERTIFICATION_FAILED)
+
+    def test_v2_rejects_nonpositive_exact_margin_even_if_diagnostic_is_positive(self) -> None:
+        guard = _guard(
+            lambda ensemble, row, config: {
+                **_evidence(),
+                "certified_margin_lower_bound": "-0.0001",
+                "certified_margin_lower_bound_float": 0.4,
+                "protocol_version": "pointwise-guard-v2",
+            },
+            protocol_version="pointwise-guard-v2",
+        )
+        result = guard.check(self.model(self.t[:1], self.epsilon[:1]))
+        self.assertEqual(result.status, PointwiseStatus.POINTWISE_CERTIFICATION_FAILED)
 
     def test_unresolved_certification_fails_closed(self) -> None:
         guard = _guard(lambda ensemble, row, config: _evidence(status="UNCERTIFIED_PIVOT"))
@@ -203,9 +244,12 @@ class PointwiseGuardTests(unittest.TestCase):
         ensemble = JointTransmitter("uniform", fixed_va=1.5, v_min=0.1, v_max=4.0)(
             self.t[:1], self.epsilon[:1]
         )
-        result = adapter(ensemble, 0, _config())
+        result = adapter(ensemble, 0, _config("pointwise-guard-v2"))
         self.assertEqual(result["status"], "CERTIFIED_POINT", result)
         self.assertEqual(result["support_count"], 17)
+        self.assertTrue(result["support_is_rigorously_certified"])
+        self.assertTrue(result["strict_separation_certified"])
+        self.assertGreater(float(result["certified_margin_lower_bound"]), 0.0)
         self.assertLess(result["upper_nearest_below"], _config().tau_float64)
         self.assertGreater(result["lower_nearest_above"], _config().tau_float64)
 

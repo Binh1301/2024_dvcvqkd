@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 import copy
+from decimal import Decimal, InvalidOperation
 import hashlib
 import random
 from typing import Any, Callable, Mapping, Sequence
@@ -37,11 +38,12 @@ STATUS_ORDER = (
 
 @dataclass(frozen=True)
 class PointwiseGuardConfig:
-    """Threshold-parametric guard settings from protocol v1."""
+    """Threshold-parametric settings for the frozen pointwise protocols."""
 
     tau_float64_hex: str
     tau_exact_dyadic: str
-    safety_factor: int = 2
+    safety_factor: int | None = 2
+    protocol_version: str = "pointwise-guard-v1"
 
     def validate(self) -> None:
         try:
@@ -52,8 +54,14 @@ class PointwiseGuardConfig:
             raise ValueError("tau_float64_hex must be finite and positive.")
         if not isinstance(self.tau_exact_dyadic, str) or not self.tau_exact_dyadic:
             raise ValueError("tau_exact_dyadic must be a nonempty exact representation.")
-        if self.safety_factor != 2:
-            raise ValueError("pointwise-guard-v1 freezes safety_factor=2.")
+        if self.protocol_version == "pointwise-guard-v1":
+            if self.safety_factor != 2:
+                raise ValueError("pointwise-guard-v1 freezes safety_factor=2.")
+        elif self.protocol_version == "pointwise-guard-v2":
+            if self.safety_factor is not None:
+                raise ValueError("pointwise-guard-v2 has no additional safety factor.")
+        else:
+            raise ValueError("Unknown pointwise guard protocol version.")
 
     @property
     def tau_float64(self) -> float:
@@ -72,6 +80,7 @@ class PointwiseGuardResult:
     threshold_exact_dyadic: str
     reason: str
     provenance_ids: tuple[str, ...] = ()
+    certified_margin_exact: str | None = None
 
 
 @dataclass(frozen=True)
@@ -209,6 +218,39 @@ class PointwiseGuard:
                 PointwiseStatus.POINTWISE_CERTIFICATION_FAILED, row_hash, None, None, None,
                 self.config.tau_float64_hex, self.config.tau_exact_dyadic,
                 str(evidence.get("reason", "point certification did not complete")), self.provenance_ids,
+            )
+        if self.config.protocol_version == "pointwise-guard-v2":
+            try:
+                support_count = int(evidence["support_count"])
+                support_certified = evidence["support_is_rigorously_certified"] is True
+                separation_certified = evidence["strict_separation_certified"] is True
+                if evidence["protocol_version"] != self.config.protocol_version:
+                    raise ValueError("V2 certificate protocol version does not match the guard.")
+                margin_exact = str(evidence["certified_margin_lower_bound"])
+                margin_value = Decimal(margin_exact)
+                margin_diagnostic = float(evidence["certified_margin_lower_bound_float"])
+                margin_positive = margin_value.is_finite() and margin_value > 0
+            except (KeyError, TypeError, ValueError, OverflowError, InvalidOperation) as error:
+                return PointwiseGuardResult(
+                    PointwiseStatus.POINTWISE_CERTIFICATION_FAILED, row_hash, None, None, None,
+                    self.config.tau_float64_hex, self.config.tau_exact_dyadic,
+                    f"malformed V2 Arb certificate: {error}", self.provenance_ids,
+                )
+            if (support_count <= 0 or not support_certified or not separation_certified
+                    or not margin_exact or not margin_positive or not np.isfinite(margin_diagnostic)):
+                return PointwiseGuardResult(
+                    PointwiseStatus.POINTWISE_CERTIFICATION_FAILED, row_hash, support_count,
+                    margin_diagnostic, None, self.config.tau_float64_hex,
+                    self.config.tau_exact_dyadic,
+                    "V2 rigorous support or strict-separation certificate is missing",
+                    self.provenance_ids,
+                )
+            return PointwiseGuardResult(
+                PointwiseStatus.POINTWISE_ADMISSIBLE, row_hash, support_count,
+                margin_diagnostic, None, self.config.tau_float64_hex,
+                self.config.tau_exact_dyadic,
+                "Arb certified support and strictly positive spectral distance",
+                self.provenance_ids, margin_exact,
             )
         try:
             support_count = int(evidence["support_count"])

@@ -36,6 +36,7 @@ def main() -> int:
         bracket_denominator_power_two=int(request.get("bracket_denominator_power_two", 48)),
         maximum_bracket_expansions=int(request.get("maximum_bracket_expansions", 8)),
         maximum_seconds_per_inertia=float(request.get("maximum_seconds_per_inertia", 120.0)),
+        protocol_version=str(request.get("protocol_version", "pointwise-guard-v1")),
     )
     json.dump(result, sys.stdout, sort_keys=True, separators=(",", ":"))
     sys.stdout.write("\n")

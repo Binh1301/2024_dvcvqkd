@@ -1675,3 +1675,128 @@ invoked.
 The execution manifest authorizes only the already frozen six-step
 certification-only smoke. It does not approve a threshold or publication-scale
 execution.
+
+## EVID-0037 - Completed V1 pointwise smoke is optimization-effectively-frozen
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; V1 OUTCOME PRESERVED
+
+### Claim
+
+The prospectively frozen V1 guard smoke completed under the real restored
+Arb/FLINT adapter and the hash-bound execution manifest. Both six-step
+repetitions are byte-identical after excluding only repetition and runtime.
+All 12 steps rejected at the pre-update V1 guard, so no backward pass,
+proposal, rollback, or commit occurred. All three unique realized ensembles
+returned `CERTIFIED_POINT` support count 13; the batch status was always
+`POINTWISE_GUARD_BAND_REJECT` because the V1 certified margins did not exceed
+the frozen `2 * uncertainty_upper` buffer.
+
+Under the prospectively frozen V1 outcome rule, zero committed updates with
+every rejection explained by a frozen guard status is
+`OPTIMIZATION_EFFECTIVELY_FROZEN`. This is an outcome of V1, not permission to
+retune or rerun it.
+
+### Evidence
+
+- `results/pointwise_guard_smoke_v2.json`, SHA-256
+  `4a914944aecb09204187040e461e84cd67e34f4c254647eea8ece2e625854360`
+- execution manifest SHA-256
+  `03273a5dc6b58669853d7d7bac2078312e0276b78924ca502273e8a643723006`
+- manifest file-binding mismatches: `0`
+- trace hashes: two identical
+  `a7daf2245e7624f63e487d5f32835bf28e04b05405f84c56296aaf55f0bdcebb`
+
+### Limitations
+
+The result tests only the fixed three-state, six-step, two-repetition smoke.
+It does not approve `1e-13`, establish a continuous-domain theorem, or
+authorize publication training. The earlier blocked
+`results/pointwise_guard_smoke_v1.json` is also preserved.
+
+## EVID-0038 - Prospective pointwise guard V2 methodology review
+
+Date: 2026-09-02
+
+Status: PROPOSED V2 FROZEN BEFORE IMPLEMENTATION; IMPLEMENTATION ONLY
+
+### Claim
+
+Arb eigenvalue balls rigorously enclose eigenvalues, and validated
+inertia-count changes rigorously bracket the adjacent eigenvalue. However, the
+current direct-eigenball path selects its alleged nearest balls by binary64
+midpoint without proving interval order. Its selected ball is rigorous for an
+eigenvalue, but the exported `nearest` label is not uniformly proved. Ordinary
+float conversion also does not preserve a directed-outward endpoint contract.
+
+When the inward-facing endpoints are rigorous, the quantity
+
+`min(tau - max_i(U_i below tau), min_j(L_j above tau) - tau)`
+
+already includes interval uncertainty and is a rigorous distance lower bound.
+Strict positivity proves separation. The V1 `2 * uncertainty_upper` condition
+therefore adds a second buffer; it is not required for support or distance
+certification. The repository's 12/12 finite-difference evidence requires
+fixed plus/minus support masks and three adjacent stable step pairs, but it
+does not justify any Arb-width multiplier.
+
+The proposed V2 rule is consequently:
+
+`support_is_rigorously_certified AND certified_margin > 0`.
+
+Any engineering margin is fixed at zero. V2 implementation must use global
+inward-facing Arb endpoints or certified adjacent inertia brackets, decide
+strict positivity before non-directed serialization, and fail closed.
+
+### Evidence
+
+- `results/pointwise_guard_v2_methodology_review.json`, SHA-256
+  `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`
+- `configs/pointwise_guard_protocol_v2.yaml`, SHA-256
+  `6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845`
+- `schemas/pointwise_guard_protocol_v2.schema.json`, SHA-256
+  `2ec0b6e24929d4c0275e88da79b4a46e15a2787059d0c31d44efaa06ecf84f44`
+- `docs/POINTWISE_GUARD_PROTOCOL_V2.md`, SHA-256
+  `1bc1959b80b592227eaa671a4204a6dc3eec5110fe1064c03ecc88865c918a35`
+- fixed-support gradient evidence:
+  `results/production_gram_certification.json`, SHA-256
+  `694e5237ccbbf2fe231361dd9ef05303cc72c8b215fa47e6bb40d5bf5c3685ab`
+
+### Limitations
+
+V2 is proposed and inactive. No V2 runtime, adapter, smoke execution,
+threshold approval, security-functional change, or frozen-model change
+occurred.
+
+## EVID-0039 - V2 implementation and smoke manifest freeze
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; V2 SMOKE AUTHORIZED NOT RUN
+
+### Claim
+
+The V2 Arb-side strict-separation certificate, V2 guard mode, real worker
+protocol, and no-override smoke runner pass the scoped implementation tests.
+The V2 execution manifest is hash-bound to the tested source, protocol,
+schemas, restored certification environment, roster, trainer, and frozen model.
+The manifest authorizes only the later six-step, two-repetition smoke; that
+smoke was not run in this task.
+
+### Evidence
+
+- `results/pointwise_guard_implementation_v2.json`, SHA-256
+  `7c6c64ae34e7acdd3e7af5a586fd808e70c2476b4755e82b177d51128913dc01`
+- `configs/pointwise_guard_execution_manifest_v2.json`, SHA-256
+  `d27d7fd6be10121b4217e8cc72af88481e994acb89d30787cfa7c8c9b5e4f568`
+- `scripts/run_pointwise_guard_smoke_v2.py`
+- production scoped tests: `31/31` pass
+- pinned Arb/FLINT tests: `34/34` pass
+- V2 manifest binding mismatches: `0`
+
+### Limitations
+
+No V2 smoke outcome exists yet. Candidate `1e-13` remains unapproved;
+publication training, baseline selection, optimized-MB search, and final-test
+access remain unauthorized.

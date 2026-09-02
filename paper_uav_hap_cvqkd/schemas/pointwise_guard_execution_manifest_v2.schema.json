@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pointwise guard V2 execution manifest",
+  "type": "object",
+  "required": ["schema_version", "status", "repository_head", "protocol_config_sha256", "file_bindings", "smoke_parameters", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-execution-manifest-v2"},
+    "status": {"const": "PROSPECTIVE_FROZEN_BEFORE_V2_SMOKE_OUTCOMES"},
+    "file_bindings": {"type": "object", "minProperties": 10, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "lifecycle_guards": {"type": "object", "additionalProperties": {"const": false}}
+  },
+  "additionalProperties": true
+}

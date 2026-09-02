@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pointwise guard smoke execution v3",
+  "type": "object",
+  "required": ["schema_version", "status", "protocol_config_sha256", "execution_manifest_sha256", "frozen_model_sha256", "trace_hashes", "deterministic_replay", "traces", "runtime_seconds", "lifecycle_guards"],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-smoke-v3"},
+    "status": {"const": "SMOKE_EXECUTION_COMPLETED"},
+    "trace_hashes": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "deterministic_replay": {"type": "object", "required": ["status", "byte_identical", "excluded_fields"]},
+    "traces": {"type": "array", "minItems": 2, "maxItems": 2},
+    "lifecycle_guards": {"type": "object"}
+  },
+  "additionalProperties": true
+}

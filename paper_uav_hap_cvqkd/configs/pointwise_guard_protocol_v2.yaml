@@ -1,0 +1,102 @@
+schema_version: pointwise-guard-protocol-v2
+protocol_version: pointwise-guard-v2
+status: PROPOSED
+freeze_status: FROZEN_BEFORE_IMPLEMENTATION
+lifecycle_status: NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+implementation_authorized: true
+implementation_performed: true
+smoke_rerun_authorized: true
+publication_training_authorized: false
+
+supersession:
+  prospective_replacement_for: pointwise-guard-v1
+  effective_only_after_implementation_and_scoped_verification: true
+  v1_smoke_evidence_preserved: results/pointwise_guard_smoke_v2.json
+
+threshold:
+  representation: exact_binary64_dyadic
+  candidate_float64_hex: 0x1.c25c268497682p-44
+  candidate_exact_dyadic: 3961408125713217/2^95
+  lifecycle_status: PROPOSED_UNAPPROVED
+  historical_1e_minus_12_status: INVALID_UNAPPROVED
+
+pointwise_certification_unit:
+  name: UNIQUE_REALIZED_STATEWISE_PHYSICAL_ENSEMBLE
+  object: "one row of the final physical Ensemble={probabilities, amplitudes, declared_va}"
+  batch_rule: "certify every unique batch/state ensemble row before using its local gradient"
+  whole_segment_proof_required: false
+
+support_certification:
+  matrix: "weighted C4 coherent-state Gram representation of the final physical ensemble"
+  arithmetic: outward_rounded_Arb_acb
+  complete_spectrum_classification_required: true
+  complete_inertia_certificate_allowed: true
+  unresolved_action: FAIL_CLOSED
+  complex128_role: DIAGNOSTIC_ONLY_NOT_PROOF
+  support_definition: "positive inertia of G(theta)-tau I"
+  direct_eigenball_rule: "every Arb eigenvalue enclosure must lie wholly below or wholly above tau"
+  midpoint_ordering_is_proof: false
+
+certified_distance:
+  below_endpoint: "max_i upper(B_i) over every eigenvalue enclosure B_i certified below tau"
+  above_endpoint: "min_j lower(B_j) over every eigenvalue enclosure B_j certified above tau"
+  certified_margin_definition: "min(tau-below_endpoint, above_endpoint-tau)"
+  inertia_bracket_alternative: "validated inertia-count changes may directly bracket the adjacent eigenvalue on each side"
+  endpoint_serialization: "retain exact or directed-outward endpoints; an ordinary nearest-rounded float conversion is forbidden for admission"
+  comparison_location: "perform certified_margin > 0 in Arb/exact arithmetic before serialization"
+
+admission_rule:
+  formula: "support_is_rigorously_certified AND certified_margin > 0"
+  strict: true
+  equality_or_overlap: POINTWISE_CERTIFICATION_FAILED
+  uncertainty_upper_role: DIAGNOSTIC_ONLY
+  interval_uncertainty_accounting: "already included by use of upper bounds below tau and lower bounds above tau"
+  additional_safety_factor: null
+
+engineering_gradient_margin:
+  status: NO_PREEXISTING_INDEPENDENT_JUSTIFICATION_FOR_POSITIVE_MARGIN
+  value: 0
+  role: OPTIONAL_FUTURE_ENGINEERING_POLICY_NOT_PART_OF_SUPPORT_PROOF
+  change_rule: "requires a new prospective protocol and independent evidence; V1 smoke margins may not select it"
+
+gradient_scope:
+  allowed_only_after: POINTWISE_ADMISSIBLE
+  evidence_scope: "12/12 finite-roster PS/GS/VA coordinates with common random numbers and fixed plus/minus support masks"
+  finite_difference_rule: "at least three consecutive stable step pairs under abs 1e-7 plus relative 5e-3 scale"
+  arb_uncertainty_factor_justified_by_existing_evidence: false
+  global_differentiability_claim: false
+  continuous_domain_theorem_claim: false
+
+update_semantics:
+  pre_update_check: true
+  pre_update_reject: "no backward, no optimizer update, no dual update"
+  post_update_endpoint_check: true
+  interpolation_certification: false
+  rejected_proposal_is_noop: true
+  rollback_contract: "unchanged from pointwise-guard-v1"
+
+prospective_v2_smoke:
+  status: PROSPECTIVE_FROZEN_AND_AUTHORIZED_NOT_RUN
+  state_source: results/independent_confirmation_roster.json
+  state_source_sha256: a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de
+  state_labels: [bad, medium, good]
+  initialization_seed: 202613
+  common_random_seed: 202615
+  steps: 6
+  repetitions_for_determinism: 2
+  precision_bits: [160, 256, 384, 512]
+  optimizer: adam
+  learning_rates: {ps: 3.0e-4, gs: 1.0e-4, va: 1.0e-4}
+  energy_dual_learning_rate: 1.0e-2
+  gradient_clip_norm: 1.0
+  regularizers: {separation: 0.0, peak: 0.0, drift: 0.0}
+  no_retuning_after_outcome: true
+
+lifecycle_guards:
+  threshold_approved: false
+  publication_training_performed: false
+  final_test_accessed: false
+  optimized_mb_grid_performed: false
+  baseline_selection_performed: false
+  security_functional_changed: false
+  frozen_model_changed: false

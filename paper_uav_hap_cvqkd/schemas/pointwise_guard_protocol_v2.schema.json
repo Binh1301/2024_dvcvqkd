@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prospective pointwise spectral guard protocol v2",
+  "type": "object",
+  "required": [
+    "schema_version", "protocol_version", "status", "freeze_status",
+    "lifecycle_status", "implementation_authorized", "implementation_performed",
+    "smoke_rerun_authorized", "threshold", "support_certification",
+    "certified_distance", "admission_rule", "engineering_gradient_margin",
+    "gradient_scope", "prospective_v2_smoke", "lifecycle_guards"
+  ],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-protocol-v2"},
+    "protocol_version": {"const": "pointwise-guard-v2"},
+    "status": {"const": "PROPOSED"},
+    "freeze_status": {"const": "FROZEN_BEFORE_IMPLEMENTATION"},
+    "lifecycle_status": {"const": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"},
+    "implementation_authorized": {"const": true},
+    "implementation_performed": {"const": true},
+    "smoke_rerun_authorized": {"const": true},
+    "publication_training_authorized": {"const": false},
+    "threshold": {
+      "type": "object",
+      "required": ["representation", "candidate_float64_hex", "candidate_exact_dyadic", "lifecycle_status", "historical_1e_minus_12_status"],
+      "properties": {
+        "representation": {"const": "exact_binary64_dyadic"},
+        "lifecycle_status": {"const": "PROPOSED_UNAPPROVED"},
+        "historical_1e_minus_12_status": {"const": "INVALID_UNAPPROVED"}
+      }
+    },
+    "support_certification": {
+      "type": "object",
+      "required": ["arithmetic", "complete_spectrum_classification_required", "unresolved_action", "complex128_role", "midpoint_ordering_is_proof"],
+      "properties": {
+        "arithmetic": {"const": "outward_rounded_Arb_acb"},
+        "complete_spectrum_classification_required": {"const": true},
+        "unresolved_action": {"const": "FAIL_CLOSED"},
+        "complex128_role": {"const": "DIAGNOSTIC_ONLY_NOT_PROOF"},
+        "midpoint_ordering_is_proof": {"const": false}
+      }
+    },
+    "admission_rule": {
+      "type": "object",
+      "required": ["formula", "strict", "uncertainty_upper_role", "additional_safety_factor"],
+      "properties": {
+        "formula": {"const": "support_is_rigorously_certified AND certified_margin > 0"},
+        "strict": {"const": true},
+        "uncertainty_upper_role": {"const": "DIAGNOSTIC_ONLY"},
+        "additional_safety_factor": {"type": "null"}
+      }
+    },
+    "engineering_gradient_margin": {
+      "type": "object",
+      "required": ["status", "value"],
+      "properties": {
+        "status": {"const": "NO_PREEXISTING_INDEPENDENT_JUSTIFICATION_FOR_POSITIVE_MARGIN"},
+        "value": {"const": 0}
+      }
+    },
+    "prospective_v2_smoke": {
+      "type": "object",
+      "required": ["status", "state_labels", "initialization_seed", "common_random_seed", "steps", "repetitions_for_determinism", "optimizer", "learning_rates"],
+      "properties": {
+        "status": {"const": "PROSPECTIVE_FROZEN_AND_AUTHORIZED_NOT_RUN"},
+        "state_labels": {"const": ["bad", "medium", "good"]},
+        "initialization_seed": {"const": 202613},
+        "common_random_seed": {"const": 202615},
+        "steps": {"const": 6},
+        "repetitions_for_determinism": {"const": 2},
+        "optimizer": {"const": "adam"}
+      }
+    },
+    "lifecycle_guards": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": true
+}

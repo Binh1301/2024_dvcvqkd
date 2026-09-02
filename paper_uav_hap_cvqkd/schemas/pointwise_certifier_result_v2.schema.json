@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Validated realized point-certifier result v2",
+  "type": "object",
+  "required": ["schema_version", "protocol_version", "status"],
+  "properties": {
+    "schema_version": {"const": "pointwise-certifier-result-v2"},
+    "protocol_version": {"enum": ["pointwise-guard-v1", "pointwise-guard-v2"]},
+    "status": {"enum": ["CERTIFIED_POINT", "UNCERTIFIED_POINT"]},
+    "support_count": {"type": "integer", "minimum": 1},
+    "negative_count": {"type": "integer", "minimum": 0},
+    "precision_bits": {"type": "integer", "minimum": 1},
+    "support_is_rigorously_certified": {"type": "boolean"},
+    "strict_separation_certified": {"type": "boolean"},
+    "certified_margin_lower_bound": {"type": "string", "minLength": 1},
+    "certified_margin_lower_bound_float": {"type": "number"},
+    "below_endpoint_upper": {"type": "string", "minLength": 1},
+    "above_endpoint_lower": {"type": "string", "minLength": 1},
+    "binary64_endpoint_role": {"const": "DIAGNOSTIC_ONLY_NOT_PROOF"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "CERTIFIED_POINT"}}},
+      "then": {
+        "required": [
+          "support_count", "negative_count", "precision_bits",
+          "support_is_rigorously_certified", "strict_separation_certified",
+          "certified_margin_lower_bound", "certified_margin_lower_bound_float",
+          "below_endpoint_upper", "above_endpoint_lower", "binary64_endpoint_role"
+        ]
+      }
+    }
+  ],
+  "additionalProperties": true
+}

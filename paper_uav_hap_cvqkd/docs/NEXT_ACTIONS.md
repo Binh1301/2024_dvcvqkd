@@ -4,46 +4,43 @@
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-V3 implemented and prospectively froze the requested Job-Object watchdog,
-early durable path certificates, coefficient-level Taylor congruence, exact C4
-sectors, and sequential sign-homogeneous Schur reductions. Its four-row
-feasibility gate still failed: `0/4` certificates, `4/4` resource limits,
-median 53 unresolved far modes on completed roots, and two realized watchdog
-contract breaches. The full 12-segment run was not performed.
+The completed V1 smoke outcome is `OPTIMIZATION_EFFECTIVELY_FROZEN` and must
+not be rerun or retuned. V2 is implemented and frozen; its smoke is not yet
+executed.
 
 ## Exact Next Permitted Action
 
-Run exactly the frozen six-step certification-only pointwise-guard smoke test
-using the real adapter and frozen execution manifest. The method choice is
-`POINTWISE_GUARD`; execution must not alter the frozen functional.
+Run exactly the frozen V2 smoke runner using
+`configs/pointwise_guard_execution_manifest_v2.json`.
 
-The smoke execution must preserve the distinction between numerical stability,
-mathematical support, and security-model assumptions, and must not silently
-change the threshold, functional, admissible domain, or paper claim. This
-authorization does not approve threshold selection, publication training,
-baseline selection, or final-test evaluation.
+The implementation must compute the strict positive-margin decision in Arb or
+equivalent exact arithmetic, use global inward-facing endpoints over every
+classified eigenvalue enclosure or certified adjacent inertia brackets, and
+preserve directed-outward endpoint semantics across the adapter boundary.
+Midpoint ordering is not proof. This is the sole authorized next action.
 
 ## Stop Conditions
 
-- Do not rerun or retune V3 after observing its result.
-- Do not execute the full 12-segment V3 cycle.
-- Do not automatically create V4 or expand precision, runtime, Taylor order,
-  cluster size, block schedule, or subdivision limits.
+- Do not rerun or retune the completed V1 smoke.
+- Do not rerun or retune V2 after observing its outcome.
+- Do not add a positive engineering margin without a new prospective protocol
+  and independent evidence.
 - Do not approve candidate `1e-13` or reactivate historical `1e-12`.
-- Do not silently regularize or replace the discrete-modulation security
-  functional.
-- Do not perform publication training, the optimized-MB grid, baseline
+- Do not change the physical model, `tau`, MI, Holevo, SKR, security
+  functional, optimizer settings, seeds, states, precision, or smoke settings.
+- Do not perform publication training, optimized-MB search, baseline
   selection, final-test access, or held-out evaluation.
 
 ## Preserved Facts
 
 - Frozen model SHA-256:
   `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
-- MI remains `N_MC=2048`.
-- Exact-tau V2.2 point result remains valid and need not be recomputed unless
-  an input or oracle producer changes.
-- V3 result SHA-256:
-  `5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`.
-- Engineering conclusion recorded by DEC-0018:
-  `HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`.
+- V1 smoke artifact SHA-256:
+  `4a914944aecb09204187040e461e84cd67e34f4c254647eea8ece2e625854360`.
+- Proposed V2 config SHA-256:
+  `6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845`.
+- V2 execution manifest SHA-256:
+  `d27d7fd6be10121b4217e8cc72af88481e994acb89d30787cfa7c8c9b5e4f568`.
+- V2 methodology artifact SHA-256:
+  `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.
 - Final test remains inaccessible and untouched.

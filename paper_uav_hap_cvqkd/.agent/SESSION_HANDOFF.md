@@ -1,70 +1,49 @@
 # Session Handoff
 
-Date: 2026-09-01
+Date: 2026-09-02
 
 ## Authoritative Lifecycle
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-V3 is complete and failed its frozen four-row feasibility gate. Do not rerun,
-retune, expand to all 12, or automatically create V4. Candidate `1e-13`
-remains proposed/unapproved; historical `1e-12` remains invalid/unapproved.
+Authorization: `FROZEN_POINTWISE_GUARD_V2_SMOKE_EXECUTION_AUTHORIZED`.
 
 ## Current Evidence
 
-- Frozen model:
-  `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
-- V3 config:
-  `878a17f51734e2c1565276b5ee13d8a0cf2b7bfedfab5f6a7749409b0ee57a20`.
-- V3 final manifest:
-  `5057cbd443c1d5aa37206fd282a8de949559b03ed39ba41e88c3cb5c898b202b`.
-- V3 result:
-  `5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`.
-- Exact-tau V2.2 result:
-  `57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda`.
-- MI remains certified at `N_MC=2048`.
-- Pointwise protocol config:
-  `54a0c46bfb1eab9e00c3e5320489f2c0de8a9fd7541363fed440c21d3d90c979`.
-- Pointwise protocol schema:
-  `5950ee485526b69a1656402d8cb88f38408a63e20568f6673d7661446471bca2`.
-- Pointwise implementation artifact:
-  `0c73104e4c5625b402f004aa5a8215093066756a13a631a12a4e217fbe27e144`.
+The provenance-valid V1 smoke is complete and preserved at
+`results/pointwise_guard_smoke_v2.json`, SHA-256
+`4a914944aecb09204187040e461e84cd67e34f4c254647eea8ece2e625854360`.
+Its two six-step traces are byte-identical; every step is a pre-update
+`POINTWISE_GUARD_BAND_REJECT`; no proposal or commit occurred. The frozen V1
+outcome is `OPTIMIZATION_EFFECTIVELY_FROZEN`. Do not rerun or retune it.
 
-V3 produced `0/4` complete certificates, `0/4` crossings, `4/4` resource
-limits, `4/4` early path-domain certificates, `7/3` attempted/completed
-nodes, and 52 durable Schur events. Runtime was `2438.1743897000006 s`
-against the frozen `1800 s` limit. Two rows met the two-second
-watchdog-return grace; two were `WATCHDOG_CONTRACT_BREACH`, with maximum
-overshoot `637.7792758 s`. Completed roots left `53,52,53` unresolved far
-modes despite 38--43x tighter paired dependency radii.
+The V2 methodology and implementation are frozen; the smoke is authorized but
+not executed:
 
-The engineering conclusion is:
+- config SHA-256:
+  `6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845`;
+- execution manifest SHA-256:
+  `d27d7fd6be10121b4217e8cc72af88481e994acb89d30787cfa7c8c9b5e4f568`;
+- methodology artifact SHA-256:
+  `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`;
+- rule: rigorously certified support and `certified_margin > 0`;
+- `uncertainty_upper`: diagnostic only;
+- positive engineering margin: none justified, fixed at zero.
 
-`HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
+Implementation must use global inward-facing Arb endpoints or certified
+adjacent inertia brackets, make the strict comparison before non-directed
+float serialization, and fail closed. The current direct-eigenball midpoint
+selection is not by itself a proof of adjacency.
 
-It is recorded by DEC-0018 and is not a threshold or security approval.
-
-## Provenance Reconciliation
-
-The frozen model and all reported roster/MB/V3 provenance mismatches were
-CRLF/LF normalization only. Canonical UTF-8 LF hashes now match the recorded
-digests under `.gitattributes`; scientific payloads and security code were not
-changed. The historical portability manifest is preserved and
-`docs/CERTIFICATION_ARTIFACT_MANIFEST_CURRENT.json` indexes current EVID-0026--0028.
+Candidate `1e-13` remains `PROPOSED_UNAPPROVED`; historical `1e-12` remains
+`INVALID_UNAPPROVED`. The frozen model SHA-256 remains
+`561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
 
 ## Exact Next Permitted Action
 
-`FROZEN_POINTWISE_SMOKE_EXECUTION_AUTHORIZED`
+Run exactly the frozen V2 smoke runner using the hash-bound execution
+manifest. Do not rerun V1 or retune any setting.
 
-The exact hash-pinned certification environment is restored, the real adapter
-passes its scoped tests, and the no-override runner/manifest are frozen. Run
-the exact six-step smoke without retuning. Do not approve a threshold, run
-publication training, baseline selection, final-test evaluation, or silently
-change the physical/security functional or domain.
-
-No publication training, optimized-MB search, baseline selection, final-test
-access, held-out evaluation, threshold approval, production `src/cvqkd`
-change, security-functional change, or frozen-model change occurred.
-
-This handoff is lower authority than active specifications, source, frozen
-configs, machine-readable artifacts, and `docs/PROJECT_STATE.md`.
+No scientific source, security functional, frozen model, training, baseline
+selection, optimized-MB search, final-test access, or held-out evaluation
+changed or occurred.

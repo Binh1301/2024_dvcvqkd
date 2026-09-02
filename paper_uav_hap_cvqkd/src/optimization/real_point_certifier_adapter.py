@@ -48,6 +48,7 @@ class RealPointCertifierAdapter:
             "bracket_denominator_power_two": 48,
             "maximum_bracket_expansions": 8,
             "maximum_seconds_per_inertia": 120.0,
+            "protocol_version": config.protocol_version,
         }
 
     def __call__(self, ensemble: Ensemble, row: int, config: PointwiseGuardConfig) -> Mapping[str, Any]:

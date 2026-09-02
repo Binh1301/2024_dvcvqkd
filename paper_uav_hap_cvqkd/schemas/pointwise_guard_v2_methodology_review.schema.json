@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pointwise guard V2 methodology review",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "v1_outcome", "support_certification",
+    "arb_bounds", "certified_distance", "v1_uncertainty_rule",
+    "gradient_evidence", "recommended_v2", "threshold_status",
+    "authorization", "provenance", "lifecycle_guards"
+  ],
+  "properties": {
+    "schema_version": {"const": "pointwise-guard-v2-methodology-review-v1"},
+    "status": {"const": "METHODOLOGY_REVIEW_COMPLETED"},
+    "v1_outcome": {
+      "type": "object",
+      "properties": {
+        "decision": {"const": "OPTIMIZATION_EFFECTIVELY_FROZEN"},
+        "smoke_rerun_performed": {"const": false}
+      },
+      "required": ["decision", "smoke_rerun_performed"]
+    },
+    "recommended_v2": {
+      "type": "object",
+      "properties": {
+        "formula": {"const": "support_is_rigorously_certified AND certified_margin > 0"},
+        "engineering_margin": {"const": 0},
+        "implementation_performed": {"const": false}
+      },
+      "required": ["formula", "engineering_margin", "implementation_performed"]
+    },
+    "threshold_status": {
+      "type": "object",
+      "properties": {
+        "candidate_1e_minus_13": {"const": "PROPOSED_UNAPPROVED"},
+        "historical_1e_minus_12": {"const": "INVALID_UNAPPROVED"}
+      },
+      "required": ["candidate_1e_minus_13", "historical_1e_minus_12"]
+    },
+    "lifecycle_guards": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": true
+}

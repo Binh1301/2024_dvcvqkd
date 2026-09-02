@@ -115,6 +115,68 @@ def _diagnostic_nearest(sectors: Sequence[Sequence[Sequence[acb]]], threshold: f
     return int(np.count_nonzero(values > threshold)), float(np.max(below)), float(np.min(above))
 
 
+def _global_inward_eigenball_bounds(
+    below_balls: Sequence[acb], above_balls: Sequence[acb]
+) -> tuple[acb, acb, arb, arb]:
+    """Return the balls attaining the global inward-facing rigorous endpoints."""
+
+    if not below_balls or not above_balls:
+        raise ValueError("A point certificate requires eigenvalues on both sides of tau.")
+    below = below_balls[0]
+    for candidate in below_balls[1:]:
+        if bool(candidate.real.upper() > below.real.upper()):
+            below = candidate
+    above = above_balls[0]
+    for candidate in above_balls[1:]:
+        if bool(candidate.real.lower() < above.real.lower()):
+            above = candidate
+    return below, above, below.real.upper(), above.real.lower()
+
+
+def _strict_separation_certificate(tau: arb, upper_below: arb, lower_above: arb) -> dict[str, Any]:
+    """Decide strict separation using only rigorous Arb endpoints."""
+
+    below_gap = (tau - upper_below).lower()
+    above_gap = (lower_above - tau).lower()
+    margin = below_gap if bool(below_gap <= above_gap) else above_gap
+    if not bool(margin > 0):
+        raise ValueError("Rigorous spectral distance from tau is not strictly positive.")
+    return {
+        "support_is_rigorously_certified": True,
+        "strict_separation_certified": True,
+        "certified_margin_lower_bound": margin.str(40, radius=False),
+        "certified_margin_lower_bound_float": float(margin),
+        "below_endpoint_upper": upper_below.str(40, radius=False),
+        "above_endpoint_lower": lower_above.str(40, radius=False),
+        "binary64_endpoint_role": "DIAGNOSTIC_ONLY_NOT_PROOF",
+    }
+
+
+def _certified_point_result(
+    *, support_count: int, negative_count: int, precision_bits: int,
+    lower_below: arb, upper_below: arb, lower_above: arb, upper_above: arb,
+    tau: arb, diagnostic_support_count: int, bracket_source: str,
+    protocol_version: str,
+) -> dict[str, Any]:
+    certificate = _strict_separation_certificate(tau, upper_below, lower_above)
+    return {
+        "schema_version": "pointwise-certifier-result-v2",
+        "protocol_version": protocol_version,
+        "status": "CERTIFIED_POINT",
+        "support_count": int(support_count),
+        "negative_count": int(negative_count),
+        "precision_bits": int(precision_bits),
+        "lower_nearest_below": float(lower_below),
+        "upper_nearest_below": float(upper_below),
+        "lower_nearest_above": float(lower_above),
+        "upper_nearest_above": float(upper_above),
+        "diagnostic_support_count": diagnostic_support_count,
+        "diagnostic_role": "DIAGNOSTIC_ONLY_NOT_PROOF",
+        "bracket_source": bracket_source,
+        **certificate,
+    }
+
+
 def _certify_at(sectors: Sequence[Sequence[Sequence[acb]]], threshold: arb, bits: int, timeout: float) -> dict[str, Any]:
     ctx.prec = int(bits)
     rows = []
@@ -149,16 +211,17 @@ def _validated_float_bracket(
 
     for width in (1e-12, 1e-13, 1e-14, 1e-15, 1e-16):
         left_value, right_value = approximate - width, approximate + width
+        left_candidate, right_candidate = _decimal_arb(left_value), _decimal_arb(right_value)
         if side == "BELOW":
-            if right_value >= float(tau):
+            if not bool(right_candidate < tau):
                 continue
             expected_left, expected_right = expected_negative - 1, expected_negative
         else:
-            if left_value <= float(tau):
+            if not bool(left_candidate > tau):
                 continue
             expected_left, expected_right = expected_negative, expected_negative + 1
-        left = _certify_at(sectors, _decimal_arb(left_value), bits, timeout)
-        right = _certify_at(sectors, _decimal_arb(right_value), bits, timeout)
+        left = _certify_at(sectors, left_candidate, bits, timeout)
+        right = _certify_at(sectors, right_candidate, bits, timeout)
         if (left["status"] == "CERTIFIED_INERTIA" and right["status"] == "CERTIFIED_INERTIA"
                 and left["n_negative"] == expected_left and right["n_negative"] == expected_right):
             return {
@@ -167,6 +230,8 @@ def _validated_float_bracket(
                 "lower_text": format(left_value, ".18e"),
                 "upper_text": format(right_value, ".18e"),
                 "width": width,
+                "_lower_arb": left_candidate,
+                "_upper_arb": right_candidate,
             }
     return {"status": "UNCERTIFIED_EIGENVALUE_BRACKET"}
 
@@ -210,6 +275,8 @@ def _bracket(
             "lower_text": lower.str(30, radius=False),
             "upper_text": upper.str(30, radius=False),
             "expansion_index": expansion_index,
+            "_lower_arb": lower,
+            "_upper_arb": upper,
         }
     return {"status": "UNCERTIFIED_EIGENVALUE_BRACKET"}
 
@@ -221,6 +288,7 @@ def certify_final_ensemble_point(
     # validated inertia calls, not the center, decide the accepted bracket.
     bracket_denominator_power_two: int = 48, maximum_bracket_expansions: int = 8,
     maximum_seconds_per_inertia: float = 120.0,
+    protocol_version: str = "pointwise-guard-v1",
 ) -> dict[str, Any]:
     """Return validated support and nearest-side brackets for one final ensemble."""
 
@@ -248,21 +316,18 @@ def certify_final_ensemble_point(
             below_balls = [value for value in balls if bool(value.real.upper() < tau_arb)]
             above_balls = [value for value in balls if bool(value.real.lower() > tau_arb)]
             if len(below_balls) + len(above_balls) == len(balls) and below_balls and above_balls:
-                nearest_below = max(below_balls, key=lambda value: float(value.real.mid()))
-                nearest_above = min(above_balls, key=lambda value: float(value.real.mid()))
-                return {
-                    "status": "CERTIFIED_POINT",
-                    "support_count": len(above_balls),
-                    "negative_count": len(below_balls),
-                    "precision_bits": int(bits),
-                    "lower_nearest_below": float(nearest_below.real.lower()),
-                    "upper_nearest_below": float(nearest_below.real.upper()),
-                    "lower_nearest_above": float(nearest_above.real.lower()),
-                    "upper_nearest_above": float(nearest_above.real.upper()),
-                    "diagnostic_support_count": diagnostic_support,
-                    "diagnostic_role": "DIAGNOSTIC_ONLY_NOT_PROOF",
-                    "bracket_source": "validated_Arb_eigenvalue_balls",
-                }
+                below, above, upper_below, lower_above = _global_inward_eigenball_bounds(
+                    below_balls, above_balls
+                )
+                return _certified_point_result(
+                    support_count=len(above_balls), negative_count=len(below_balls),
+                    precision_bits=int(bits), lower_below=below.real.lower(),
+                    upper_below=upper_below, lower_above=lower_above,
+                    upper_above=above.real.upper(), tau=tau_arb,
+                    diagnostic_support_count=diagnostic_support,
+                    bracket_source="validated_Arb_eigenvalue_balls",
+                    protocol_version=protocol_version,
+                )
         except (ValueError, ArithmeticError, TypeError):
             pass
         at_tau = _certify_at(sectors, dyadic_arb(tau_num, tau_power), int(bits), maximum_seconds_per_inertia)
@@ -281,25 +346,19 @@ def certify_final_ensemble_point(
             above_balls = [value for value in balls if bool(value.real.lower() > dyadic_arb(tau_num, tau_power))]
             if len(below_balls) + len(above_balls) != len(balls) or not below_balls or not above_balls:
                 raise ValueError("validated eigenvalue balls do not separate from tau")
-            nearest_below = max(below_balls, key=lambda value: float(value.real.mid()))
-            nearest_above = min(above_balls, key=lambda value: float(value.real.mid()))
-            lower_below = float(nearest_below.real.lower())
-            upper_below = float(nearest_below.real.upper())
-            lower_above = float(nearest_above.real.lower())
-            upper_above = float(nearest_above.real.upper())
-            return {
-                "status": "CERTIFIED_POINT",
-                "support_count": int(at_tau["n_positive"]),
-                "negative_count": int(at_tau["n_negative"]),
-                "precision_bits": int(bits),
-                "lower_nearest_below": lower_below,
-                "upper_nearest_below": upper_below,
-                "lower_nearest_above": lower_above,
-                "upper_nearest_above": upper_above,
-                "diagnostic_support_count": diagnostic_support,
-                "diagnostic_role": "DIAGNOSTIC_ONLY_NOT_PROOF",
-                "bracket_source": "validated_Arb_eigenvalue_balls",
-            }
+            below, above, upper_below, lower_above = _global_inward_eigenball_bounds(
+                below_balls, above_balls
+            )
+            return _certified_point_result(
+                support_count=int(at_tau["n_positive"]),
+                negative_count=int(at_tau["n_negative"]), precision_bits=int(bits),
+                lower_below=below.real.lower(), upper_below=upper_below,
+                lower_above=lower_above, upper_above=above.real.upper(),
+                tau=dyadic_arb(tau_num, tau_power),
+                diagnostic_support_count=diagnostic_support,
+                bracket_source="validated_Arb_eigenvalue_balls",
+                protocol_version=protocol_version,
+            )
         except (ValueError, ArithmeticError, TypeError):
             pass
         below = _validated_float_bracket(
@@ -312,19 +371,16 @@ def certify_final_ensemble_point(
         )
         last_debug.update({"below": below, "above": above})
         if below["status"] == "CERTIFIED_SINGLE_EIGENVALUE_BRACKET" and above["status"] == "CERTIFIED_SINGLE_EIGENVALUE_BRACKET":
-            return {
-                "status": "CERTIFIED_POINT",
-                "support_count": int(at_tau["n_positive"]),
-                "negative_count": int(at_tau["n_negative"]),
-                "precision_bits": int(bits),
-                "lower_nearest_below": below["lower"],
-                "upper_nearest_below": below["upper"],
-                "lower_nearest_above": above["lower"],
-                "upper_nearest_above": above["upper"],
-                "diagnostic_support_count": diagnostic_support,
-                "diagnostic_role": "DIAGNOSTIC_ONLY_NOT_PROOF",
-                "bracket_source": "validated_Arb_inertia_at_fixed_decimal_candidates",
-            }
+            return _certified_point_result(
+                support_count=int(at_tau["n_positive"]),
+                negative_count=int(at_tau["n_negative"]), precision_bits=int(bits),
+                lower_below=below["_lower_arb"], upper_below=below["_upper_arb"],
+                lower_above=above["_lower_arb"], upper_above=above["_upper_arb"],
+                tau=dyadic_arb(tau_num, tau_power),
+                diagnostic_support_count=diagnostic_support,
+                bracket_source="validated_Arb_inertia_at_fixed_decimal_candidates",
+                protocol_version=protocol_version,
+            )
         below = _bracket(
             sectors, approximate_below, at_tau["n_negative"], side="BELOW",
             tau_numerator=bracket_tau_num, tau_power=bracket_power,
@@ -338,17 +394,14 @@ def certify_final_ensemble_point(
             maximum_expansions=maximum_bracket_expansions,
         )
         if below["status"] == "CERTIFIED_SINGLE_EIGENVALUE_BRACKET" and above["status"] == "CERTIFIED_SINGLE_EIGENVALUE_BRACKET":
-            return {
-                "status": "CERTIFIED_POINT",
-                "support_count": int(at_tau["n_positive"]),
-                "negative_count": int(at_tau["n_negative"]),
-                "precision_bits": int(bits),
-                "lower_nearest_below": below["lower"],
-                "upper_nearest_below": below["upper"],
-                "lower_nearest_above": above["lower"],
-                "upper_nearest_above": above["upper"],
-                "brackets": {"below": below, "above": above},
-                "diagnostic_support_count": diagnostic_support,
-                "diagnostic_role": "DIAGNOSTIC_ONLY_NOT_PROOF",
-            }
+            return _certified_point_result(
+                support_count=int(at_tau["n_positive"]),
+                negative_count=int(at_tau["n_negative"]), precision_bits=int(bits),
+                lower_below=below["_lower_arb"], upper_below=below["_upper_arb"],
+                lower_above=above["_lower_arb"], upper_above=above["_upper_arb"],
+                tau=dyadic_arb(tau_num, tau_power),
+                diagnostic_support_count=diagnostic_support,
+                bracket_source="validated_Arb_inertia_at_dyadic_candidates",
+                protocol_version=protocol_version,
+            )
     return {"status": "UNCERTIFIED_POINT", "reason": "validated tau inertia or nearest-side bracket failed", "diagnostic_support_count": diagnostic_support, "diagnostic_nearest_below": approximate_below, "diagnostic_nearest_above": approximate_above, "debug": last_debug}

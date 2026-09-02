@@ -128,6 +128,28 @@ class RigorousFlintSupportTests(unittest.TestCase):
         self.assertEqual(shallow["status"], deep["status"])
         self.assertEqual(shallow["status"], "WHOLE_SEGMENT_SUPPORT_CERTIFIED")
 
+    def test_12_point_certificate_uses_global_inward_endpoints_not_midpoints(self) -> None:
+        from src.validation.realized_point_certifier import _global_inward_eigenball_bounds
+
+        below = [acb(arb("0.8", "0.15")), acb(arb("0.9", "0.01"))]
+        above = [acb(arb("1.2", "0.15")), acb(arb("1.1", "0.01"))]
+        _, _, upper_below, lower_above = _global_inward_eigenball_bounds(below, above)
+
+        self.assertGreater(float(upper_below), 0.94)
+        self.assertLess(float(lower_above), 1.06)
+
+    def test_13_point_certificate_decides_strict_margin_in_arb(self) -> None:
+        from src.validation.realized_point_certifier import _strict_separation_certificate
+
+        certificate = _strict_separation_certificate(
+            arb(1), arb((15, -4)), arb((17, -4))
+        )
+        self.assertTrue(certificate["support_is_rigorously_certified"])
+        self.assertTrue(certificate["strict_separation_certified"])
+        self.assertEqual(float(certificate["certified_margin_lower_bound"]), 0.0625)
+        with self.assertRaises(ValueError):
+            _strict_separation_certificate(arb(1), arb(1), arb((17, -4)))
+
 
 if __name__ == "__main__":
     unittest.main()
