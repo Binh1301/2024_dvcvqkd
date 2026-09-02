@@ -11,11 +11,10 @@ remains closed pending threshold/numerical approval.
 
 ## Exact Next Permitted Action
 
-Freeze and execute the minimum prospective finite threshold validation using
-independent full-support arbitrary-precision C4-Gram oracles for every
-declared ill-conditioned production fixture, then obtain explicit author
-approval before changing threshold status. This is the sole authorized next
-action.
+Run `python scripts\\run_threshold_validation_v1.py
+--execute-frozen-validation` from the project root exactly once. The frozen
+manifest is `configs/threshold_validation_execution_manifest_v1.json`; obtain
+explicit author approval before changing threshold status.
 
 ## Stop Conditions
 

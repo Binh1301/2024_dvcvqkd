@@ -6,7 +6,7 @@ Last updated: `2026-09-02` (threshold/numerical approval gate review)
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `PROSPECTIVE_THRESHOLD_NUMERICAL_VALIDATION_DESIGN_AUTHORIZED`.
+Authorization: `FROZEN_THRESHOLD_VALIDATION_EXECUTION_AUTHORIZED` (harness corrected; validation not rerun).
 
 ## Current Pointwise State
 
@@ -59,11 +59,14 @@ be made in Arb or equivalent exact arithmetic and fail closed.
 
 ## Exact Next Permitted Action
 
-Freeze and execute the minimum prospective finite threshold validation: use
-independent full-support arbitrary-precision C4-Gram oracles for every
-declared ill-conditioned production fixture and compare all frozen observables
-under existing tolerances. Explicit author threshold approval and numerical
-prerequisite completion are required before publication-scale experiments.
+Execute the hash-bound 12-fixture threshold validation exactly once using
+`configs/threshold_validation_execution_manifest_v1.json`. It uses full-support
+600/800-digit C4-Gram oracles and compares production `tau=1e-13` support/rank,
+`C,w,Z`, symplectic spectrum, Holevo, and raw SKR under existing tolerances.
+Explicit author threshold approval remains required before any status change.
+
+The prior attempt failed before threshold evaluation because the oracle harness
+checked an independent-roster hash against the frozen production fixture.
 
 ## Lifecycle Restrictions
 
@@ -86,6 +89,7 @@ evaluation, or publication claim is authorized.
 - DEC-0024: V2 methodology and implementation authorization.
 - DEC-0026: V2 usability accepted; publication gate retained.
 - EVID-0041: threshold/numerical approval gate review.
+- EVID-0043: threshold fixture provenance harness correction; validation not rerun.
 - DEC-0027: minimum prospective threshold validation authorized.
 - Methodology artifact SHA-256:
   `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.

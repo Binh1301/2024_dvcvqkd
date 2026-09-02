@@ -201,11 +201,13 @@ def run(config_path: Path, default_path: Path, roster_path: Path, roster_config_
                 reusable[(fixture["fixture"], int(row["decimal_digits"]))] = row
     if settings["threshold_approval_permitted"] or settings["final_test_access_permitted"]:
         raise ValueError("Oracle expansion must not approve thresholds or access final-test data.")
-    state_rows = roster["representative_states"]
+    state_rows = settings.get("representative_states", roster["representative_states"])
     t = torch.tensor([row["transmittance"] for row in state_rows], dtype=torch.float64)
     epsilon = torch.tensor([row["epsilon_snu"] for row in state_rows], dtype=torch.float64)
     fixture_config = copy.deepcopy(default)
-    fixture_config["numerical_validation"]["fixture_initialization_seed"] = int(roster_design["fixture_initialization_seed"])
+    fixture_config["numerical_validation"]["fixture_initialization_seed"] = int(
+        settings.get("fixture_initialization_seed", roster_design["fixture_initialization_seed"])
+    )
     ensembles = representative_ensembles(fixture_config, t, epsilon)
     ensembles.pop("near_coincident_pseudoinverse_stress", None)
     for phase in roster_design["near_coincident_phase_steps_rad"]:
@@ -213,8 +215,12 @@ def run(config_path: Path, default_path: Path, roster_path: Path, roster_config_
             float(phase), batch_size=3, v_max=float(default["cvqkd"]["v_max_snu"]),
             n_peak=float(default["cvqkd"]["n_peak_photons"]),
         )
-    roster_hashes = {row["name"]: row["ensemble_sha256"] for row in roster["fixtures"]}
-    oracle_names = roster["oracle_subset"]
+    roster_hashes = settings.get(
+        "fixture_roster", {row["name"]: row["ensemble_sha256"] for row in roster["fixtures"]}
+    )
+    # A later frozen finite gate may bind a strict subset without changing the
+    # outcome-uninspected roster itself.
+    oracle_names = settings.get("oracle_fixtures", roster["oracle_subset"])
     for name in oracle_names:
         if ensemble_sha256(ensembles[name]) != roster_hashes[name]:
             raise ValueError(f"Reconstructed oracle fixture hash mismatch: {name}")

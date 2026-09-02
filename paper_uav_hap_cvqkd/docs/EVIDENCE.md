@@ -1903,3 +1903,38 @@ access is authorized.
 `1e-13` remains `PROPOSED_UNAPPROVED`; `1e-12` remains
 `INVALID_UNAPPROVED`. The active security claims and frozen model are
 unchanged.
+
+## EVID-0042 - Frozen 12-fixture prospective threshold validation
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; EXECUTION NOT RUN
+
+The manifest binds the 12 production fixtures with observed support-mask
+differences, their ensemble hashes, a full-support arbitrary-precision C4-Gram
+oracle at 600/800 digits, production `tau=1e-13`, required observables, and
+the existing moment/information tolerances. The oracle determines support from
+full mathematical support and convergence only; it does not apply production
+tau. The runner requires its explicit execution flag and was not invoked.
+
+- Manifest: `configs/threshold_validation_execution_manifest_v1.json`, SHA-256
+  `20002a34598afd2b0a9673bb73318601ec53bc89f4315503d9c7b74151b917b7`.
+- Config SHA-256: `bb6425290286f02a849149eac5cc234babefd0fdcdd5c6cf17d7110beb8b95c7`.
+- Frozen model SHA-256:
+  `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
+
+## EVID-0043 - Threshold fixture hash mismatch is a harness failure
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; VALIDATION NOT RERUN
+
+`untrained_full_initialization` deterministically reconstructs to frozen hash
+`f7128dc210719de3942c4af8e2a47811d6994b746b06c1001dea542b39fbe8c4`
+from the frozen production seed and three validation states. The failed harness
+instead checked independent-roster hash
+`55126c105b839e4ec6a13737abdc1886b128ba7d56958bbcd32cb6dbf984ce88`.
+The correction passes the already-frozen production hash through the reusable
+oracle harness. No threshold evaluation or scientific fixture change occurred.
+Diagnosis artifact SHA-256:
+`8e0c89a5e219d4df44295db7975e996a3c465d8f7561c6b7284513d5c18ab528`.

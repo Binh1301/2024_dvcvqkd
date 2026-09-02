@@ -993,6 +993,39 @@ prerequisites are required before publication-scale experiments.
 - `configs/default.yaml`
 - `docs/FINAL_MODEL_SPEC.md`, Section 11
 
+## DEC-0028 - Freeze minimum prospective threshold validation execution
+
+Date: 2026-09-02
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; THRESHOLD UNAPPROVED
+
+### Decision
+
+Freeze the 12 production fixtures whose declared `1e-14`/`1e-13` support masks
+differ, with their roster hashes in `configs/threshold_validation_v1.yaml`.
+For each, independently resolve full mathematical support with the existing
+arbitrary-precision C4-Gram oracle at 600 and 800 decimal digits; accept only
+two converged 256-mode rows and production `tau=1e-13` agreement for
+support/rank diagnostics, `C,w,Z`, all three symplectic eigenvalues, `chi_BE`,
+and raw `K` under the already frozen tolerances. The oracle never applies tau.
+
+Authorize only the manifest-bound runner. A pass is pending explicit author
+approval and does not itself change threshold status or publication lifecycle.
+
+## DEC-0029 - Correct threshold-validation fixture provenance wiring
+
+Date: 2026-09-02
+
+Status: ACTIVE HARNESS CORRECTION; VALIDATION NOT RERUN
+
+The attempted validation stopped before threshold evaluation. Its production
+fixture reconstruction deterministically matched the frozen
+`untrained_full_initialization` hash, but the reusable oracle harness compared
+it to the different independent-confirmation roster hash. Bind the harness to
+the already frozen production fixture hashes. The Torch-bearing production
+Python runtime is required; the Arb-only environment has no Torch. No
+scientific fixture, tau, tolerance, or expected production hash changed.
+
 ## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
 
 Date: 2026-09-02

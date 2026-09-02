@@ -1,0 +1,16 @@
+{
+  "schema_version": "threshold-validation-execution-manifest-v1",
+  "status": "FROZEN_THRESHOLD_VALIDATION_EXECUTION_AUTHORIZED",
+  "command": "python scripts\\run_threshold_validation_v1.py --execute-frozen-validation",
+  "required_sha256": {
+    "configs/threshold_validation_v1.yaml": "bb6425290286f02a849149eac5cc234babefd0fdcdd5c6cf17d7110beb8b95c7",
+    "schemas/threshold_validation_v1.schema.json": "bb9a8bc5e3676f45c7170e76db3f3fcaab87401243c641b0047579033e14d61d",
+    "scripts/run_threshold_validation_v1.py": "88453fc5ff5eebd5d98f7b18f49ca2c546de31f8056d2c458e08bb31c3157bc3",
+    "scripts/oracle_independent_confirmation_gram.py": "1594a0cfe6a2239cdf21c8a86ee7c3316c1926509ce2fe4ce5c48de225e66cb4",
+    "results/independent_confirmation_roster.json": "a9362ee752be5e9eeb5c0152574d0909a95bf7927e48be727ad9a9534600c1de",
+    "results/mi_convergence.json": "6fb7134690ecfc5c17f427ea348f0b951ea0df0cbe19b1d9d6db2279c19b10a4",
+    "configs/default.yaml": "dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015",
+    "docs/FINAL_MODEL_SPEC.md": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+  },
+  "lifecycle_guards": {"threshold_approved": false, "publication_training_performed": false, "final_test_accessed": false, "optimized_mb_grid_performed": false, "baseline_selection_performed": false}
+}

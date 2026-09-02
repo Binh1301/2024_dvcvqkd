@@ -1,0 +1,39 @@
+schema_version: threshold-validation-config-v1
+status: FROZEN_BEFORE_EXECUTION
+candidate_threshold_float64_hex: 0x1.c25c268497682p-44
+candidate_status: PROPOSED_UNAPPROVED
+fixture_roster:
+  uniform_low_va_0.1: a793b7c6ccc837ac65ae619d721a1120ce99003834fbf6e3d15141e121f7be0f
+  uniform_high_va_1.5: 23da6caeead82b36f8733b9e57b2fb3963c68e8734c760355f42f6395955a804
+  binomial_low_va_0.1: a21940562f59b1a49fc2d30894dea0aa73896e5567f293dee8b6767833662e33
+  binomial_high_va_1.5: a656092de81d33d1cb721d66279504b4d193cd1999424c9f519190111cca6902
+  fixed_mb_low_va_0.1: 4f00675bca326ef869cd6ceff238775e1c8bc70ec06f2d28f0a95c04e71c4dbe
+  fixed_mb_high_va_1.5: 5a655a17e61b4db7c845adb77346c1635a65003d19a253577c9b206a5829da6a
+  optimized_mb_nu_0.3_low_va_0.1: 19ac651a574e27543529caee5ea107ee97bcbb6fb722969d2abac8debdfdb49b
+  optimized_mb_nu_0.3_high_va_1.5: 863ef0729d33432ce5018c4b565b07e49a7c622d3ddbec659e2c8c6c09fbaa47
+  untrained_full_initialization: f7128dc210719de3942c4af8e2a47811d6994b746b06c1001dea542b39fbe8c4
+  deterministic_ps_only: bd4603f58aecac280dd5adc740d234f7aaf4a7279fc5aa84933b631625e03891
+  deterministic_gs_only: 44f6055092c4bfd80789e942f1d46e57dfa64170c7137c02d178e72893a4973b
+  deterministic_deformed_full: 9c7cc47a202f6fbbd6f08db19cd3c09df4dd74cf8653d28388b88ebf8a070362
+oracle:
+  mi_sample_count: 2048
+  mi_seed: 27083010
+  fixture_initialization_seed: 202613
+  representative_states:
+    - {transmittance: 0.019578268889726566, epsilon_snu: 0.03867731384331396}
+    - {transmittance: 0.024818627441116906, epsilon_snu: 0.022774224302158367}
+    - {transmittance: 0.028033551713780087, epsilon_snu: 0.00711953053971582}
+  oracle_fixtures: [uniform_low_va_0.1, uniform_high_va_1.5, binomial_low_va_0.1, binomial_high_va_1.5, fixed_mb_low_va_0.1, fixed_mb_high_va_1.5, optimized_mb_nu_0.3_low_va_0.1, optimized_mb_nu_0.3_high_va_1.5, untrained_full_initialization, deterministic_ps_only, deterministic_gs_only, deterministic_deformed_full]
+  precision_sequences: {regular: [600, 800], analytic_near_coincident: [1050, 1250, 1450]}
+  resolution_guard_digits: 10
+  full_support_confirmation_required: 2
+  threshold_approval_permitted: false
+  final_test_access_permitted: false
+observables: [support_rank, C, w, Z, lambda1, lambda2, lambda3, chi_BE, raw_K]
+tolerances:
+  moment_absolute: 1.0e-7
+  moment_relative: 1.0e-6
+  information_absolute_bits: 1.0e-6
+  information_relative: 1.0e-5
+pass_rule: each fixture has two converged 256-mode full-support oracle rows and production tau observables are within existing frozen tolerances
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false}
