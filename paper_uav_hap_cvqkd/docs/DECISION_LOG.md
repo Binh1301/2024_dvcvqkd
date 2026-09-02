@@ -957,6 +957,42 @@ baseline selection, optimized-MB search, or final-test evaluation.
 the sole next permitted action. Lifecycle remains
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
+## DEC-0027 - Retain threshold blocker and authorize minimum prospective validation
+
+Date: 2026-09-02
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION; THRESHOLD UNAPPROVED
+
+### Decision
+
+Accept EVID-0041. Record `OPTIMIZATION_USABLE` as a pointwise optimizer result,
+but do not approve `1e-13`. The dense-Fock cutoff label is stale for the active
+cutoff-independent C4-Gram backend, while the failed Fock stress suffix remains
+historical diagnostic evidence. The active threshold/support blocker is genuine:
+formal support identity is false and the candidate comparison is
+outcome-informed. Baseline selection remains a downstream numerical blocker.
+
+Authorize only the minimum prospective finite threshold validation described by
+EVID-0041. It must be frozen before outcomes, use independent full-support
+arbitrary-precision Gram oracles for every declared ill-conditioned production
+fixture, and compare all frozen observables under existing tolerances. Do not
+rerun either smoke, change tau or security claims, or perform any publication
+experiment.
+
+### Consequences
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. The exact next action
+is to freeze and execute the prospective threshold/numerical validation gate;
+explicit author threshold approval and completion of the existing numerical
+prerequisites are required before publication-scale experiments.
+
+### Evidence
+
+- EVID-0041
+- `results/threshold_numerical_gate_review_v1.json`
+- `configs/default.yaml`
+- `docs/FINAL_MODEL_SPEC.md`, Section 11
+
 ## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
 
 Date: 2026-09-02
@@ -1014,7 +1050,8 @@ tests. Authorize exactly the manifest-bound V2 smoke runner as the next task.
 Do not rerun or modify V1 evidence, change `tau`, threshold status, states,
 seeds, optimizer, precision, MI, Holevo, SKR, security scope, or the frozen
 model. Do not perform publication training, baseline selection, optimized-MB
-search, or final-test access. No V2 smoke outcome exists yet.
+search, or final-test access. At this pre-execution decision point, no V2
+smoke outcome existed; the later result is recorded by EVID-0040.
 
 ### Evidence
 
@@ -1028,3 +1065,40 @@ The exact next permitted action is to run the frozen V2 smoke execution. The
 V2 protocol remains proposed with candidate `1e-13` unapproved and historical
 `1e-12` invalid/unapproved. Lifecycle remains
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## DEC-0026 - Accept V2 smoke usability and retain publication gate
+
+Date: 2026-09-02
+
+Status: ACTIVE FAIL-CLOSED LIFECYCLE DECISION; OPTIMIZATION USABLE
+
+### Decision
+
+Accept EVID-0040. The frozen V2 smoke satisfies the preregistered
+`OPTIMIZATION_USABLE` rule: at least one committed update, zero
+rollback-equivalence failures, zero provenance failures, and byte-identical
+repeated traces. All pre/post point checks were admissible and all recorded
+gradients were finite.
+
+Preserve the completed V1 negative evidence and do not rerun either smoke.
+This usability result changes no threshold, physical/security functional,
+frozen model, or publication lifecycle authorization.
+
+### Consequences
+
+The project remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. The still-required
+gate before publication-scale experiments is explicit approval of the
+candidate numerical threshold/support policy, followed by completion of the
+existing frozen numerical prerequisites currently marked
+`BLOCKED_FOCK_DEPENDENCY` and `BLOCKED_NUMERICAL_DEPENDENCY` for pseudoinverse,
+Fock-cutoff, and baseline-selection state. No baseline selection, training,
+optimized-MB search, or final-test access is authorized by this decision.
+
+The exact next permitted action is to resolve that threshold/numerical approval
+gate under a separately authorized lifecycle task.
+
+### Evidence
+
+- EVID-0040
+- `configs/default.yaml`
+- `docs/FINAL_MODEL_SPEC.md`, Section 11

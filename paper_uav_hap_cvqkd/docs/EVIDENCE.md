@@ -1797,6 +1797,109 @@ smoke was not run in this task.
 
 ### Limitations
 
-No V2 smoke outcome exists yet. Candidate `1e-13` remains unapproved;
-publication training, baseline selection, optimized-MB search, and final-test
-access remain unauthorized.
+At the time of this pre-execution freeze, no V2 smoke outcome existed;
+subsequent EVID-0040 records the completed outcome. Candidate `1e-13` remains
+unapproved; publication training, baseline selection, optimized-MB search, and
+final-test access remain unauthorized.
+
+## EVID-0040 - Completed V2 pointwise guard smoke is optimization-usable
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; REAL BACKEND; V2 OUTCOME PRESERVED
+
+### Claim
+
+The authorized V2 smoke completed once under the frozen V2 execution manifest.
+Both six-step repetitions are byte-identical after excluding only repetition
+and runtime. All 12 steps attempted and committed an optimizer update. Every
+pre-update and post-update pointwise check was `POINTWISE_ADMISSIBLE`; all 12
+gradient-finite checks passed; there were zero rollbacks, rollback-equivalence
+failures, certification failures, or provenance failures. The three unique
+realized ensembles carried support count 13 and strictly positive Arb-certified
+spectral margins.
+
+The preregistered V2 usability criterion therefore passes:
+`OPTIMIZATION_USABLE`.
+
+### Evidence
+
+- `results/pointwise_guard_smoke_v3.json`, SHA-256
+  `321b6dc4fd28168878d84e511478c209379b6c0aa36da5d9e794092317ca36f6`
+- `configs/pointwise_guard_execution_manifest_v2.json`, SHA-256
+  `d27d7fd6be10121b4217e8cc72af88481e994acb89d30787cfa7c8c9b5e4f568`
+- protocol config SHA-256
+  `6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845`
+- trace hash, repeated twice:
+  `63d8a4a860f62f4ab2e768fc88e1c97c256052acc528608d485cf829c613020f`
+- attempts/commits/rollbacks: `12/12/0`
+- pre/post admissibility: `12/12` and `12/12`
+- finite gradients: `12/12`
+- rollback-equivalence failures: `0`
+- certification/provenance failures: `0/0`
+- lifecycle guards: all `false`
+
+### Limitations
+
+This is a finite, three-state, six-step, two-repetition smoke result. It does
+not approve `1e-13`, establish continuous-domain support stability, or
+authorize publication-scale training. All V1 negative evidence remains
+preserved, including the V1 guard-band rejection artifact.
+
+## EVID-0041 - Threshold and numerical approval gate review
+
+Date: 2026-09-02
+
+Status: CURRENTLY_VERIFIED_PASS; THRESHOLD APPROVAL BLOCKED
+
+### Claim
+
+The active production Holevo implementation is cutoff-independent C4 Gram, so
+the `fock_cutoff` configuration label is stale as a production backend
+dependency. The dense-Fock stress study did fail its frozen suffix and remains
+preserved diagnostic evidence; it is not silently upgraded or deleted.
+
+The active numerical blocker is the threshold-dependent C4-Gram support rule:
+the `1e-14` versus `1e-13` support masks change on 12 fixtures, the production
+formal support-identity gate is false, and the existing comparison was
+outcome-informed. The `BLOCKED_NUMERICAL_DEPENDENCY` baseline-selection label
+is downstream of this unresolved numerical decision.
+
+Existing evidence satisfies the exact tau binding, environment/backend,
+active C4-Gram implementation, high-precision stress oracle, finite
+complex128/high-precision observable comparison, fixed-support gradient audit,
+and V2 optimizer-usability gate. It is not sufficient to approve `1e-13` for
+publication-scale experiments.
+
+### Minimum required prospective validation
+
+Authorize design only for a new outcome-independent finite validation protocol:
+independent full-support arbitrary-precision Gram oracles for every declared
+ill-conditioned production fixture, comparison of `C,w,Z`, symplectic
+eigenvalues, `chi_BE`, and raw `K` against those oracles under the existing
+frozen tolerances, and explicit author approval before changing threshold
+status. No smoke, training, baseline selection, optimized-MB search, or test
+access is authorized.
+
+### Evidence
+
+- `results/threshold_numerical_gate_review_v1.json`, SHA-256
+  `3f75ddb9325ee8a15af2b05039232aec0d76088fff2b1e86a3ab3137b1d008de`
+- `results/fock_convergence.json`, SHA-256
+  `1ed980bf1bb033147f245c9a04dd0e3d0de55bf39260bb32563714dd4bfcd8dd`
+- `results/near_coincident_gram_oracle.json`, SHA-256
+  `2db2388d53052c228fcc0bd96b69d90803d3545da270619f390d03ed5b60b2d1`
+- `results/production_gram_certification.json`, SHA-256
+  `694e5237ccbbf2fe231361dd9ef05303cc72c8b215fa47e6bb40d5bf5c3685ab`
+- `results/float64_gram_comparison.json`, SHA-256
+  `e63abd39e944f4362df36620f4d74ce03afab121337f8d66cdf40981f898cdf6`
+- `results/exact_tau_oracle_v2_2.json`, SHA-256
+  `57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda`
+- `results/pointwise_guard_smoke_v3.json`, SHA-256
+  `321b6dc4fd28168878d84e511478c209379b6c0aa36da5d9e794092317ca36f6`
+
+### Limitations
+
+`1e-13` remains `PROPOSED_UNAPPROVED`; `1e-12` remains
+`INVALID_UNAPPROVED`. The active security claims and frozen model are
+unchanged.

@@ -1,12 +1,12 @@
 # Project State
 
-Last updated: `2026-09-02` (pointwise guard V2 methodology review)
+Last updated: `2026-09-02` (threshold/numerical approval gate review)
 
 ## Terminal Status
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `FROZEN_POINTWISE_GUARD_V2_SMOKE_EXECUTION_AUTHORIZED`.
+Authorization: `PROSPECTIVE_THRESHOLD_NUMERICAL_VALIDATION_DESIGN_AUTHORIZED`.
 
 ## Current Pointwise State
 
@@ -25,7 +25,20 @@ Authorization: `FROZEN_POINTWISE_GUARD_V2_SMOKE_EXECUTION_AUTHORIZED`.
 - V2 is implemented and frozen at
   `configs/pointwise_guard_protocol_v2.yaml`, SHA-256
   `6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845`.
-- V2 smoke has not been executed.
+- V2 smoke outcome: `OPTIMIZATION_USABLE`.
+- V2 smoke artifact SHA-256:
+  `321b6dc4fd28168878d84e511478c209379b6c0aa36da5d9e794092317ca36f6`.
+- V2 smoke had 12/12 attempted and committed updates, 12/12 admissible
+  pre-checks, 12/12 admissible post-checks, 12/12 finite gradients, zero
+  rollbacks/equivalence failures/certification failures/provenance failures,
+  and byte-identical repetitions.
+- `BLOCKED_FOCK_DEPENDENCY` is stale as an active production-backend label:
+  the deployed Holevo route is cutoff-independent C4 Gram. The failed dense-
+  Fock stress suffix remains preserved diagnostic evidence.
+- The threshold-dependent support gate is a genuine blocker. The production
+  formal support-identity gate is false and the `1e-14`/`1e-13` comparison is
+  outcome-informed. `BLOCKED_NUMERICAL_DEPENDENCY` for baseline selection is
+  downstream of this decision.
 
 ## V2 Method Decision
 
@@ -46,9 +59,11 @@ be made in Arb or equivalent exact arithmetic and fail closed.
 
 ## Exact Next Permitted Action
 
-Run exactly the frozen V2 smoke runner using the hash-bound V2 execution
-manifest. Do not retune, rerun V1, approve a threshold, or alter scientific
-settings.
+Freeze and execute the minimum prospective finite threshold validation: use
+independent full-support arbitrary-precision C4-Gram oracles for every
+declared ill-conditioned production fixture and compare all frozen observables
+under existing tolerances. Explicit author threshold approval and numerical
+prerequisite completion are required before publication-scale experiments.
 
 ## Lifecycle Restrictions
 
@@ -66,10 +81,16 @@ evaluation, or publication claim is authorized.
 - EVID-0037: completed V1 smoke and effectively-frozen outcome.
 - EVID-0038: V2 methodology review and prospective protocol freeze.
 - EVID-0039: V2 implementation and manifest freeze.
+- EVID-0040: completed V2 smoke and `OPTIMIZATION_USABLE` outcome.
 - DEC-0025: V2 smoke execution authorization.
 - DEC-0024: V2 methodology and implementation authorization.
+- DEC-0026: V2 usability accepted; publication gate retained.
+- EVID-0041: threshold/numerical approval gate review.
+- DEC-0027: minimum prospective threshold validation authorized.
 - Methodology artifact SHA-256:
   `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.
+- Threshold gate review artifact SHA-256:
+  `3f75ddb9325ee8a15af2b05039232aec0d76088fff2b1e86a3ab3137b1d008de`.
 
 No scientific source, security functional, frozen model, training state, or
 test data changed or was accessed in this review.

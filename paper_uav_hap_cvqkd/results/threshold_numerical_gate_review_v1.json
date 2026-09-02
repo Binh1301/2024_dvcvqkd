@@ -1,0 +1,80 @@
+{
+  "schema_version": "threshold-numerical-gate-review-v1",
+  "status": "THRESHOLD_APPROVAL_BLOCKED",
+  "review_date": "2026-09-02",
+  "current_optimization_status": "OPTIMIZATION_USABLE",
+  "tau": {
+    "float64_hex": "0x1.c25c268497682p-44",
+    "exact_dyadic": "3961408125713217/2^95",
+    "candidate_status": "PROPOSED_UNAPPROVED",
+    "historical_1e_minus_12_status": "INVALID_UNAPPROVED"
+  },
+  "blocker_status": {
+    "fock_cutoff": {
+      "configuration_label": "BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF",
+      "status": "STALE_AS_ACTIVE_PRODUCTION_DEPENDENCY_DIAGNOSTIC_FAILURE_PRESERVED",
+      "basis": "active production Holevo path is cutoff-independent C4 Gram; dense-Fock study failed its frozen stress suffix and remains diagnostic evidence",
+      "new_fock_run_required_for_active_c4_gram_path": false,
+      "scope_decision_still_needed": true
+    },
+    "pseudoinverse_threshold": {
+      "configuration_label": "BLOCKED_FOCK_DEPENDENCY",
+      "status": "GENUINE_ACTIVE_NUMERICAL_BLOCKER",
+      "basis": "active C4 Gram path still uses threshold-dependent support; production formal support identity is false and the candidate was outcome-informed",
+      "new_evidence_required": true
+    },
+    "baseline_selections": {
+      "configuration_label": "BLOCKED_NUMERICAL_DEPENDENCY",
+      "status": "DOWNSTREAM_BLOCKER",
+      "basis": "baseline selection cannot run until the numerical threshold/support policy is approved",
+      "new_evidence_required": false
+    }
+  },
+  "requirements_already_satisfied": [
+    "exact tau representation is hash-bound",
+    "restored certification environment and real Arb/FLINT backend",
+    "active C4-Gram production path",
+    "independent full-support high-precision stress oracle",
+    "complex128 versus high-precision observable comparison on the finite pilot roster",
+    "12/12 local fixed-support gradient coordinates",
+    "V2 pointwise smoke OPTIMIZATION_USABLE"
+  ],
+  "evidence_not_sufficient_for_threshold_approval": [
+    "production formal support identity gate is false",
+    "1e-14 versus 1e-13 support changes occur on 12 fixtures",
+    "full-support oracle coverage is not established for every production fixture",
+    "the existing comparison is outcome-informed and diagnostic",
+    "V2 smoke validates optimizer guard usability, not threshold correctness"
+  ],
+  "minimum_prospective_validation": {
+    "status": "AUTHORIZED_DESIGN_ONLY",
+    "scope": "finite non-test production/validation fixture roster",
+    "requirements": [
+      "freeze a new outcome-independent validation protocol before execution",
+      "use independent arbitrary-precision full-support Gram oracles for every declared ill-conditioned fixture",
+      "compare 1e-13 C4-Gram C,w,Z,symplectic eigenvalues, chi_BE, and raw K against the full-support oracle under existing frozen tolerances",
+      "record retained/suppressed support and omitted-mode diagnostics without treating two float64 thresholds as an oracle",
+      "obtain explicit author approval before changing candidate status"
+    ],
+    "execution_performed": false,
+    "test_data_accessed": false
+  },
+  "provenance": {
+    "fock_artifact_sha256": "1ed980bf1bb033147f245c9a04dd0e3d0de55bf39260bb32563714dd4bfcd8dd",
+    "stress_oracle_sha256": "2db2388d53052c228fcc0bd96b69d90803d3545da270619f390d03ed5b60b2d1",
+    "production_gram_sha256": "694e5237ccbbf2fe231361dd9ef05303cc72c8b215fa47e6bb40d5bf5c3685ab",
+    "float64_comparison_sha256": "e63abd39e944f4362df36620f4d74ce03afab121337f8d66cdf40981f898cdf6",
+    "exact_tau_oracle_sha256": "57da0dfc9bb040774f053498935b692f99360c254cd7c700619a707be17e1bda",
+    "v2_smoke_sha256": "321b6dc4fd28168878d84e511478c209379b6c0aa36da5d9e794092317ca36f6",
+    "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+  },
+  "lifecycle_guards": {
+    "threshold_approved": false,
+    "publication_training_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "baseline_selection_performed": false,
+    "security_functional_changed": false,
+    "smoke_rerun_performed": false
+  }
+}
