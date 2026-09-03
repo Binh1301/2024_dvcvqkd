@@ -6,7 +6,7 @@ Last updated: `2026-09-02` (threshold/numerical approval gate review)
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `FROZEN_THRESHOLD_VALIDATION_EXECUTION_AUTHORIZED` (harness corrected; validation not rerun).
+Authorization: `FROZEN_FULL_SUPPORT_BACKEND_EVALUATION_VALIDATION_AUTHORIZED`.
 
 ## Current Pointwise State
 
@@ -65,8 +65,13 @@ Execute the hash-bound 12-fixture threshold validation exactly once using
 `C,w,Z`, symplectic spectrum, Holevo, and raw SKR under existing tolerances.
 Explicit author threshold approval remains required before any status change.
 
-The prior attempt failed before threshold evaluation because the oracle harness
-checked an independent-roster hash against the frozen production fixture.
+Threshold validation executed and failed closed: full-support rank was 256 for
+the two learned-like failures while the thresholded production path retained
+13/14 modes and exceeded frozen tolerances. The next permitted work is the
+frozen support-free backend implementation; no training is authorized.
+
+The evaluation-only full-support backend is now implemented and its
+12-fixture validation manifest is frozen. Fallback gradients remain blocked.
 
 ## Lifecycle Restrictions
 
@@ -90,6 +95,8 @@ evaluation, or publication claim is authorized.
 - DEC-0026: V2 usability accepted; publication gate retained.
 - EVID-0041: threshold/numerical approval gate review.
 - EVID-0043: threshold fixture provenance harness correction; validation not rerun.
+- EVID-0044: full-support C4-Gram backend protocol freeze.
+- EVID-0045: evaluation backend implementation and validation-manifest freeze.
 - DEC-0027: minimum prospective threshold validation authorized.
 - Methodology artifact SHA-256:
   `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.

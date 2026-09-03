@@ -11,10 +11,10 @@ remains closed pending threshold/numerical approval.
 
 ## Exact Next Permitted Action
 
-Run `python scripts\\run_threshold_validation_v1.py
---execute-frozen-validation` from the project root exactly once. The frozen
-manifest is `configs/threshold_validation_execution_manifest_v1.json`; obtain
-explicit author approval before changing threshold status.
+Run `python scripts\\run_full_support_c4_gram_evaluation_validation.py` exactly
+once from the project root under
+`configs/full_support_c4_gram_backend_implementation_manifest_v1.json`. Do
+not train, search baselines, access final-test data, or enable fallback gradients.
 
 ## Stop Conditions
 

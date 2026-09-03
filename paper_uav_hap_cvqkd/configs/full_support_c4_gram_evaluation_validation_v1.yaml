@@ -1,0 +1,8 @@
+schema_version: full-support-c4-gram-evaluation-validation-config-v1
+status: FROZEN_BEFORE_EXECUTION
+protocol: configs/full_support_c4_gram_backend_protocol_v1.yaml
+fixture_roster: configs/threshold_validation_v1.yaml
+observables: [support_rank, C, w, Z, lambda1, lambda2, lambda3, chi_BE, raw_K]
+required_route_fields: [route, fast_path_gate, fallback_precisions, exact_input_provenance]
+repeat_count: 2
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false}

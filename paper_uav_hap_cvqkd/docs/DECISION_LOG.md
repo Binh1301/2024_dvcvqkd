@@ -1026,6 +1026,32 @@ the already frozen production fixture hashes. The Torch-bearing production
 Python runtime is required; the Arb-only environment has no Torch. No
 scientific fixture, tau, tolerance, or expected production hash changed.
 
+## DEC-0030 - Freeze support-free full-support C4-Gram implementation
+
+Date: 2026-09-03
+
+Status: ACTIVE IMPLEMENTATION DECISION; NO SCIENTIFIC CHANGE
+
+Accept EVID-0044. Authorize implementation of the frozen full-support C4
+sector source-moment backend only. It preserves the existing security chain
+and all 12 fixtures, replaces threshold support with mathematical full support,
+uses a residual-norm `w`, and sends insufficiently conditioned complex128
+states to a fixed arbitrary-precision evaluation fallback. No gradient through
+the fallback, training, threshold approval, or publication experiment is
+authorized.
+
+## DEC-0031 - Authorize frozen full-support evaluation validation
+
+Date: 2026-09-03
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; VALIDATION ONLY
+
+Accept EVID-0045. The evaluation-only full-support backend implementation and
+hash-bound 12-fixture validation manifest are complete. Authorize exactly one
+manifest-bound evaluation validation. Do not train, select baselines, access
+final-test data, or authorize fallback gradients. A validation pass does not
+approve a threshold or publication-scale experiments.
+
 ## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
 
 Date: 2026-09-02

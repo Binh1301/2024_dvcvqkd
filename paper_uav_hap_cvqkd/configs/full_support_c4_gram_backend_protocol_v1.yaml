@@ -1,0 +1,22 @@
+schema_version: full-support-c4-gram-backend-protocol-v1
+status: FROZEN_BEFORE_IMPLEMENTATION
+source_support: mathematical_full_support_256
+candidate_threshold_role: diagnostic_history_only_not_source_moments
+fixture_roster: configs/threshold_validation_v1.yaml
+full_support_oracle:
+  ensemble_serialization: exact_binary64_float_hex
+  c4_sectors: 4
+  precision_ladder_decimal_digits: [1050, 1250, 1450]
+  convergence_rows: [1250, 1450]
+  required_rank: 256
+  convergence: existing_C_w_Z_lambda_chi_BE_raw_K_tolerances
+fast_path:
+  arithmetic: torch_float64_complex128_cpu
+  max_sector_condition_number: 1.0e6
+  max_relative_sector_reconstruction_residual: 1.0e-12
+  max_residual_identity_relative_error: 1.0e-12
+  otherwise: arbitrary_precision_fallback
+forbidden: [lambda_threshold_support, eigenvalue_flooring, epsilon_identity_regularization, straight_through_gradients, post_outcome_tuning]
+observables: [support_rank, C, w, Z, lambda1, lambda2, lambda3, chi_BE, raw_K]
+gradient_mode: evaluation_only_fallback_until_analytic_vjp_is_certified
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false}

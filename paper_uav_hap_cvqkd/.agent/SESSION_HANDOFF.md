@@ -54,17 +54,10 @@ Candidate `1e-13` remains `PROPOSED_UNAPPROVED`; historical `1e-12` remains
 
 ## Exact Next Permitted Action
 
-Run `python scripts\\run_threshold_validation_v1.py
---execute-frozen-validation` exactly once from the project root. The manifest
-binds 12 fixtures, their hashes, 600/800-digit full-support oracle convergence,
-the candidate production path, existing tolerances, and all required
-observables. Do not rerun either smoke; a pass still needs explicit author
-threshold approval.
-
-The only attempt failed before threshold calculation because the harness used
-the production fixture seed/state binding but checked the independent-roster
-hash. EVID-0043 records the corrected wiring; the production fixture is
-unchanged.
+Run `python scripts\\run_full_support_c4_gram_evaluation_validation.py` exactly
+once under the frozen implementation manifest. The new full-support C4 backend
+is evaluation-only on fallback; training gradients through fallback remain
+unauthorized. Do not train, select baselines, or access final-test data.
 
 No scientific source, security functional, frozen model, training, baseline
 selection, optimized-MB search, final-test access, or held-out evaluation

@@ -1938,3 +1938,39 @@ The correction passes the already-frozen production hash through the reusable
 oracle harness. No threshold evaluation or scientific fixture change occurred.
 Diagnosis artifact SHA-256:
 `8e0c89a5e219d4df44295db7975e996a3c465d8f7561c6b7284513d5c18ab528`.
+
+## EVID-0044 - Full-support C4-Gram backend protocol freeze
+
+Date: 2026-09-03
+
+Status: CURRENTLY_VERIFIED_PASS; IMPLEMENTATION NOT RUN
+
+The frozen protocol removes `tau` only from source-moment support selection,
+retains all 256 mathematical C4-Gram modes, requires residual-norm `w`, and
+freezes deterministic complex128-or-fallback routing. The fallback is exact
+binary64 serialization to a 1050/1250/1450-digit arbitrary-precision C4
+worker and is evaluation-only until an analytic VJP is independently validated.
+All 12 threshold fixtures remain included.
+
+- Freeze artifact: `results/full_support_c4_gram_backend_protocol_freeze_v1.json`.
+- Freeze artifact SHA-256:
+  `b422f97cad1a4873b6ba07d87098fd72850fb7a7ed0e1e9c23d8fea5e9f8ea4e`.
+- Protocol config SHA-256:
+  `9955b5d09e6219ba4b19b702bec3747a8d5a3b42de63d1af5d9e23c9575761d2`.
+
+## EVID-0045 - Full-support C4-Gram evaluation backend implemented
+
+Date: 2026-09-03
+
+Status: CURRENTLY_VERIFIED_PASS; VALIDATION NOT RUN
+
+The C4 source path now retains full mathematical support, has deterministic
+complex128-or-arbitrary-precision routing, and rejects fallback gradients.
+`tau` is diagnostic metadata only at this interface. Focused production tests
+pass 5/5 and pinned Arb/FLINT tests pass 13/13. The 12-fixture validation is
+frozen but was not invoked.
+
+- Implementation artifact SHA-256:
+  `53c8159629e81630b6948225baacbbf4fe1c89c140f01d44d53047495be2503c`.
+- Validation manifest SHA-256:
+  `194afcaccf0d1eeec250b25faadeb9b923baa19e7d225e536b1ae53268d88537`.

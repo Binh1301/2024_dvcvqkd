@@ -1,16 +1,20 @@
-"""Exact C4 coherent-state Gram evaluation of the paper source moments."""
-
+"""Support-free C4 coherent-state Gram source moments."""
 from __future__ import annotations
-
 from dataclasses import dataclass
-import math
+import json, math
+from pathlib import Path
+import subprocess, sys
 from typing import Any
-
 import torch
-
 from src.modulation.joint_ps_gs import Ensemble
 from src.modulation.qam256 import c4_orbit_indices
 
+FAST_MAX_CONDITION = 1.0e6
+FAST_MAX_RESIDUAL = 1.0e-12
+PRECISION_LADDER = (1050, 1250, 1450)
+
+class FullSupportGradientUnavailable(RuntimeError):
+    """The arbitrary-precision fallback is evaluation-only."""
 
 @dataclass(frozen=True)
 class GramMomentResult:
@@ -18,176 +22,66 @@ class GramMomentResult:
     w: torch.Tensor
     diagnostics: tuple[dict[str, Any], ...]
 
+def _hex(value: float) -> str: return float(value).hex()
 
-def c4_gram_source_moments(
-    ensemble: Ensemble,
-    *,
-    density_eigenvalue_tolerance: float,
-    physicality_tolerance: float = 1e-10,
-) -> GramMomentResult:
-    """Compute thresholded ``C,w`` without a Fock cutoff.
+def _sectors(p: torch.Tensor, z: torch.Tensor) -> list[torch.Tensor]:
+    rotations = torch.tensor([1, 1j, -1, -1j], dtype=torch.complex128)
+    weight = torch.sqrt(p[:, None] * p[None, :]); blocks=[]
+    for rotation in rotations:
+        right=rotation*z
+        blocks.append(weight*torch.exp(-.5*(z.abs().square()[:,None]+right.abs().square()[None,:])+z.conj()[:,None]*right[None,:]))
+    answer=[]
+    for s in range(4):
+        matrix=sum(blocks[d]*rotations[(s*d)%4] for d in range(4)); answer.append(.5*(matrix+matrix.mH))
+    return answer
 
-    The transformation is an exact unitary C4 block diagonalization of the
-    weighted coherent-state Gram matrix. It retains the paper's absolute
-    density-eigenvalue support rule unchanged.
-    """
+def _fast(p: torch.Tensor, z: torch.Tensor) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    sectors=_sectors(p,z); pairs=[torch.linalg.eigh(x) for x in sectors]
+    values=[x[0] for x in pairs]; vectors=[x[1] for x in pairs]
+    minimum=min(float(x.min()) for x in values); maximum=max(float(x.max()) for x in values)
+    reconstruction=max(float((g-u@torch.diag(v).to(torch.complex128)@u.mH).norm()/g.norm()) for g,v,u in zip(sectors,values,vectors))
+    gate={"all_sectors_positive":minimum>0,"sector_condition_number":math.inf if minimum<=0 else maximum/minimum,"sector_reconstruction_residual":reconstruction}
+    if not gate["all_sectors_positive"] or gate["sector_condition_number"]>FAST_MAX_CONDITION or reconstruction>FAST_MAX_RESIDUAL: return None,gate
+    square=[torch.diag(torch.sqrt(v).to(torch.complex128)) for v in values]; b=[]; a=[]; q=[]; c=torch.zeros((),dtype=torch.float64)
+    for s in range(4):
+        previous=(s-1)%4; m=vectors[s].mH@(z[:,None]*vectors[previous])
+        # Factorized right-side Hermitian solves; no elementwise eigenvalue ratios.
+        bs=square[s]@torch.linalg.solve(square[previous],m.mH).mH
+        aa=square[s]@torch.linalg.solve(square[previous],(square[s]@bs).mH).mH
+        b.append(bs); a.append(aa); c+=torch.trace(square[s]@bs@square[previous]@bs.mH).real
+        q.append(square[s]@vectors[s].mH/(2*torch.sqrt(p))[None,:])
+    t=[a[s]@q[(s-1)%4] for s in range(4)]
+    d=sum(torch.sum(q[s].conj()*t[s],dim=0) for s in range(4))
+    first=sum(torch.sum(values[(s-1)%4][None,:]*a[s].abs().square()).real for s in range(4))
+    subtraction=first-torch.sum(4*p*d.abs().square()).real
+    residual=sum(torch.sum(4*p*torch.sum((t[s]-q[s]*d[None,:]).abs().square(),dim=0)).real for s in range(4))
+    gate["residual_identity_relative_error"]=abs(float(subtraction-residual))/max(1.,abs(float(subtraction)))
+    if gate["residual_identity_relative_error"]>FAST_MAX_RESIDUAL or not bool(torch.isfinite(c)) or not bool(torch.isfinite(residual)): return None,gate
+    return {"C":c,"w":residual},gate
 
+def _fallback(p: torch.Tensor,z: torch.Tensor) -> dict[str,Any]:
+    worker=Path(__file__).parents[2]/"scripts"/"full_support_c4_worker.py"
+    request={"probabilities_float64_hex":[_hex(x) for x in p.detach().tolist()],"prototypes_float64_hex":[[_hex(complex(x).real),_hex(complex(x).imag)] for x in z.detach().tolist()],"precision_ladder_decimal_digits":list(PRECISION_LADDER)}
+    try: done=subprocess.run([sys.executable,str(worker)],input=json.dumps(request,sort_keys=True),text=True,capture_output=True,timeout=3600,check=False)
+    except subprocess.TimeoutExpired: return {"status":"FAIL_CLOSED","reason":"fallback timeout"}
+    if done.returncode: return {"status":"FAIL_CLOSED","reason":done.stderr[-2000:] or f"worker exit {done.returncode}"}
+    try: return json.loads(done.stdout)
+    except json.JSONDecodeError as error: return {"status":"FAIL_CLOSED","reason":f"worker JSON failure: {error}"}
+
+def c4_gram_source_moments(ensemble: Ensemble, *, density_eigenvalue_tolerance: float, physicality_tolerance: float=1e-10) -> GramMomentResult:
+    """Full mathematical support; threshold is diagnostic metadata only."""
     ensemble.validate()
-    if not ensemble.c4_symmetric:
-        raise ValueError("C4 Gram moments require a declared C4 ensemble.")
-    if ensemble.probabilities.dtype != torch.float64 or ensemble.declared_va.dtype != torch.float64:
-        raise TypeError("C4 Gram production requires float64 probabilities and declared VA.")
-    if ensemble.amplitudes.dtype != torch.complex128:
-        raise TypeError("C4 Gram production requires complex128 amplitudes.")
-    if any(value.device.type != "cpu" for value in (
-        ensemble.probabilities, ensemble.amplitudes, ensemble.declared_va
-    )):
-        raise ValueError("C4 Gram certification currently requires CPU tensors.")
-    for name, value in (
-        ("density_eigenvalue_tolerance", density_eigenvalue_tolerance),
-        ("physicality_tolerance", physicality_tolerance),
-    ):
-        if not math.isfinite(value) or value <= 0.0:
-            raise ValueError(f"{name} must be finite and positive.")
-    indices = c4_orbit_indices(device=ensemble.probabilities.device)
-    rotations = torch.tensor(
-        [1.0 + 0.0j, 0.0 + 1.0j, -1.0 + 0.0j, 0.0 - 1.0j],
-        dtype=torch.complex128, device=ensemble.probabilities.device,
-    )
-    correlations = []
-    penalties = []
-    diagnostics = []
-    for batch in range(ensemble.probabilities.shape[0]):
-        grouped_probabilities = ensemble.probabilities[batch, indices]
-        if not torch.allclose(
-            grouped_probabilities, grouped_probabilities[:, :1].expand_as(grouped_probabilities),
-            rtol=1e-12, atol=1e-14,
-        ):
-            raise ValueError("C4 Gram moments require tied orbit probabilities.")
-        prototypes = ensemble.amplitudes[batch, indices[:, 0]]
-        symbol_probabilities = grouped_probabilities[:, 0]
-        square_root_weights = torch.sqrt(
-            symbol_probabilities[:, None] * symbol_probabilities[None, :]
-        )
-        blocks = []
-        for difference in range(4):
-            rotated = rotations[difference] * prototypes
-            overlap = torch.exp(
-                -0.5 * (
-                    prototypes.abs().square()[:, None]
-                    + rotated.abs().square()[None, :]
-                )
-                + prototypes.conj()[:, None] * rotated[None, :]
-            )
-            blocks.append(square_root_weights * overlap)
-        sectors = []
-        eigenvalues = []
-        eigenvectors = []
-        for sector in range(4):
-            matrix = sum(
-                blocks[difference] * rotations[(sector * difference) % 4]
-                for difference in range(4)
-            )
-            matrix = 0.5 * (matrix + matrix.mH)
-            values, vectors = torch.linalg.eigh(matrix)
-            if bool(torch.any(values < -density_eigenvalue_tolerance)):
-                raise ValueError("A C4 Gram sector has a materially negative eigenvalue.")
-            sectors.append(matrix)
-            eigenvalues.append(values)
-            eigenvectors.append(vectors)
-        supports = [values > density_eigenvalue_tolerance for values in eigenvalues]
-        if any(not bool(torch.any(support)) for support in supports):
-            raise ValueError("A C4 Gram sector has empty retained support.")
-        a_tau_blocks = []
-        correlation = torch.zeros((), dtype=torch.float64, device=prototypes.device)
-        for sector in range(4):
-            previous = (sector - 1) % 4
-            row_values = eigenvalues[sector][supports[sector]]
-            column_values = eigenvalues[previous][supports[previous]]
-            row_vectors = eigenvectors[sector][:, supports[sector]]
-            column_vectors = eigenvectors[previous][:, supports[previous]]
-            matrix_element = row_vectors.mH @ (prototypes[:, None] * column_vectors)
-            a_support = (
-                torch.sqrt(row_values)[:, None] * matrix_element
-                / torch.sqrt(column_values)[None, :]
-            )
-            correlation = correlation + torch.sum(
-                torch.sqrt(row_values)[:, None]
-                * torch.sqrt(column_values)[None, :]
-                * a_support.abs().square()
-            ).real
-            a_tau_blocks.append(
-                torch.sqrt(row_values)[:, None] * a_support
-                / torch.sqrt(column_values)[None, :]
-            )
-        coefficients = []
-        for sector in range(4):
-            values = eigenvalues[sector][supports[sector]]
-            vectors = eigenvectors[sector][:, supports[sector]]
-            coefficients.append(
-                torch.sqrt(values)[:, None] * vectors.mH
-                / (2.0 * torch.sqrt(symbol_probabilities))[None, :]
-            )
-        transformed = [
-            a_tau_blocks[sector] @ coefficients[(sector - 1) % 4]
-            for sector in range(4)
-        ]
-        inner = sum(
-            torch.sum(coefficients[sector].conj() * transformed[sector], dim=0)
-            for sector in range(4)
-        )
-        first_term = sum(
-            torch.sum(
-                eigenvalues[(sector - 1) % 4][supports[(sector - 1) % 4]][None, :]
-                * a_tau_blocks[sector].abs().square()
-            )
-            for sector in range(4)
-        ).real
-        penalty = first_term - torch.sum(
-            4.0 * symbol_probabilities * inner.abs().square()
-        ).real
-        if not bool(torch.isfinite(correlation)) or not bool(torch.isfinite(penalty)):
-            raise FloatingPointError("C4 Gram source moments returned NaN or Inf.")
-        if bool(penalty < -physicality_tolerance):
-            raise ValueError("C4 Gram non-Gaussian penalty is materially negative.")
-        correlations.append(correlation)
-        penalties.append(penalty)
-        retained = torch.cat([values[support] for values, support in zip(eigenvalues, supports)])
-        all_values = torch.cat(eigenvalues)
-        diagnostics.append({
-            "expected_coherent_state_rank_from_unique_float_amplitudes": len(set(
-                complex(value) for value in ensemble.amplitudes[batch].detach().tolist()
-            )),
-            "numerical_retained_rank": int(sum(int(support.sum()) for support in supports)),
-            "support_size": int(sum(int(support.sum()) for support in supports)),
-            "sector_support_sizes": [int(support.sum()) for support in supports],
-            "sector_support_masks": [
-                [bool(value) for value in support.detach().tolist()]
-                for support in supports
-            ],
-            "sector_minimum_retained_eigenvalues": [
-                float(values[support].detach().min())
-                for values, support in zip(eigenvalues, supports)
-            ],
-            "sector_maximum_suppressed_eigenvalues": [
-                (
-                    float(values[~support].detach().max())
-                    if bool(torch.any(~support)) else None
-                )
-                for values, support in zip(eigenvalues, supports)
-            ],
-            "minimum_eigenvalue": float(all_values.detach().min()),
-            "maximum_eigenvalue": float(all_values.detach().max()),
-            "nearest_suppressed_eigenvalue_below_threshold": float(
-                max(
-                    values[~support].detach().max() if bool(torch.any(~support))
-                    else torch.tensor(float("-inf"), dtype=torch.float64)
-                    for values, support in zip(eigenvalues, supports)
-                )
-            ),
-            "minimum_retained_eigenvalue": float(retained.detach().min()),
-            "retained_condition_number": float(
-                (retained.detach().max() / retained.detach().min())
-            ),
-        })
-    return GramMomentResult(torch.stack(correlations), torch.stack(penalties), tuple(diagnostics))
+    if not ensemble.c4_symmetric or ensemble.probabilities.dtype!=torch.float64 or ensemble.amplitudes.dtype!=torch.complex128: raise ValueError("Support-free C4 Gram requires a float64/complex128 C4 ensemble.")
+    if not math.isfinite(density_eigenvalue_tolerance) or density_eigenvalue_tolerance<=0: raise ValueError("diagnostic threshold must be finite and positive.")
+    indices=c4_orbit_indices(device=ensemble.probabilities.device); cs=[]; ws=[]; diagnostics=[]
+    for row in range(ensemble.probabilities.shape[0]):
+        p=ensemble.probabilities[row,indices[:,0]]; z=ensemble.amplitudes[row,indices[:,0]]; fast,gate=_fast(p,z)
+        if fast is None:
+            if p.requires_grad or z.requires_grad: raise FullSupportGradientUnavailable("FULL_SUPPORT_FALLBACK_EVALUATION_ONLY")
+            fallback=_fallback(p,z)
+            if fallback.get("status")!="FULL_SUPPORT_CONVERGED": raise FloatingPointError(f"full-support fallback failed closed: {fallback.get('reason','unresolved')}")
+            c,w=torch.tensor(float(fallback["C"]),dtype=torch.float64),torch.tensor(float(fallback["w"]),dtype=torch.float64); route="ARBITRARY_PRECISION_FALLBACK"; rows=fallback["rows"]
+        else: c,w,route,rows=fast["C"],fast["w"],"COMPLEX128_FAST",[]
+        if not bool(torch.isfinite(c)) or not bool(torch.isfinite(w)) or bool(w < -physicality_tolerance): raise FloatingPointError("support-free C4 moments nonfinite or nonphysical")
+        cs.append(c); ws.append(w); diagnostics.append({"route":route,"fast_path_gate":gate,"fallback_precisions":list(PRECISION_LADDER) if rows else [],"fallback_rows":rows,"support_size":256,"numerical_retained_rank":256,"tau_diagnostic":density_eigenvalue_tolerance,"exact_input_provenance":"float.hex binary64"})
+    return GramMomentResult(torch.stack(cs),torch.stack(ws),tuple(diagnostics))
