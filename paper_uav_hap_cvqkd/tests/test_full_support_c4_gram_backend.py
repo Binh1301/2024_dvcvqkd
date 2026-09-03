@@ -20,7 +20,30 @@ class FullSupportC4GramTests(unittest.TestCase):
 
     def test_fallback_is_deterministic_and_threshold_is_diagnostic_only(self):
         ensemble = reference_ensemble("uniform", batch_size=1, modulation_variance=0.1)
-        response = {"status": "FULL_SUPPORT_CONVERGED", "C": "0.2", "w": "0.01", "rows": [{"digits": 1050}, {"digits": 1250}, {"digits": 1450}]}
+        response = {
+    "status": "FULL_SUPPORT_CONVERGED",
+    "C": "0.2",
+    "w": "0.01",
+    "rows": [
+        {
+            "digits": 1050,
+            "rank": 256,
+            "resolved": True,
+            "minimum_eigenvalue": "1e-20",
+        },
+        {
+            "digits": 1250,
+            "rank": 256,
+            "resolved": True,
+            "minimum_eigenvalue": "1e-20",
+        },
+        {
+            "digits": 1450,
+            "rank": 256,
+            "resolved": True,
+            "minimum_eigenvalue": "1e-20",
+        },
+    ],}
         with patch.object(gm, "_fast", return_value=(None, {"all_sectors_positive": False})), patch.object(gm, "_fallback", return_value=response):
             left = gm.c4_gram_source_moments(ensemble, density_eigenvalue_tolerance=1e-13)
             right = gm.c4_gram_source_moments(ensemble, density_eigenvalue_tolerance=1e-10)

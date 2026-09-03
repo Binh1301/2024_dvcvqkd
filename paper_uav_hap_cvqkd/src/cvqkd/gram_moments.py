@@ -40,7 +40,13 @@ def _fast(p: torch.Tensor, z: torch.Tensor) -> tuple[dict[str, Any] | None, dict
     values=[x[0] for x in pairs]; vectors=[x[1] for x in pairs]
     minimum=min(float(x.min()) for x in values); maximum=max(float(x.max()) for x in values)
     reconstruction=max(float((g-u@torch.diag(v).to(torch.complex128)@u.mH).norm()/g.norm()) for g,v,u in zip(sectors,values,vectors))
-    gate={"all_sectors_positive":minimum>0,"sector_condition_number":math.inf if minimum<=0 else maximum/minimum,"sector_reconstruction_residual":reconstruction}
+    gate = {
+    "all_sectors_positive": minimum > 0,
+    "minimum_eigenvalue": minimum,
+    "sector_condition_number": (
+        math.inf if minimum <= 0 else maximum / minimum
+    ),
+    "sector_reconstruction_residual": reconstruction,}
     if not gate["all_sectors_positive"] or gate["sector_condition_number"]>FAST_MAX_CONDITION or reconstruction>FAST_MAX_RESIDUAL: return None,gate
     square=[torch.diag(torch.sqrt(v).to(torch.complex128)) for v in values]; b=[]; a=[]; q=[]; c=torch.zeros((),dtype=torch.float64)
     for s in range(4):
@@ -68,20 +74,126 @@ def _fallback(p: torch.Tensor,z: torch.Tensor) -> dict[str,Any]:
     try: return json.loads(done.stdout)
     except json.JSONDecodeError as error: return {"status":"FAIL_CLOSED","reason":f"worker JSON failure: {error}"}
 
-def c4_gram_source_moments(ensemble: Ensemble, *, density_eigenvalue_tolerance: float, physicality_tolerance: float=1e-10) -> GramMomentResult:
+def c4_gram_source_moments(
+    ensemble: Ensemble,
+    *,
+    density_eigenvalue_tolerance: float,
+    physicality_tolerance: float = 1e-10,
+) -> GramMomentResult:
     """Full mathematical support; threshold is diagnostic metadata only."""
+
     ensemble.validate()
-    if not ensemble.c4_symmetric or ensemble.probabilities.dtype!=torch.float64 or ensemble.amplitudes.dtype!=torch.complex128: raise ValueError("Support-free C4 Gram requires a float64/complex128 C4 ensemble.")
-    if not math.isfinite(density_eigenvalue_tolerance) or density_eigenvalue_tolerance<=0: raise ValueError("diagnostic threshold must be finite and positive.")
-    indices=c4_orbit_indices(device=ensemble.probabilities.device); cs=[]; ws=[]; diagnostics=[]
+
+    if (
+        not ensemble.c4_symmetric
+        or ensemble.probabilities.dtype != torch.float64
+        or ensemble.amplitudes.dtype != torch.complex128
+    ):
+        raise ValueError(
+            "Support-free C4 Gram requires a float64/complex128 C4 ensemble."
+        )
+
+    if (
+        not math.isfinite(density_eigenvalue_tolerance)
+        or density_eigenvalue_tolerance <= 0
+    ):
+        raise ValueError(
+            "diagnostic threshold must be finite and positive."
+        )
+
+    indices = c4_orbit_indices(
+        device=ensemble.probabilities.device
+    )
+
+    cs = []
+    ws = []
+    diagnostics = []
+
     for row in range(ensemble.probabilities.shape[0]):
-        p=ensemble.probabilities[row,indices[:,0]]; z=ensemble.amplitudes[row,indices[:,0]]; fast,gate=_fast(p,z)
+        p = ensemble.probabilities[row, indices[:, 0]]
+        z = ensemble.amplitudes[row, indices[:, 0]]
+
+        fast, gate = _fast(p, z)
+
         if fast is None:
-            if p.requires_grad or z.requires_grad: raise FullSupportGradientUnavailable("FULL_SUPPORT_FALLBACK_EVALUATION_ONLY")
-            fallback=_fallback(p,z)
-            if fallback.get("status")!="FULL_SUPPORT_CONVERGED": raise FloatingPointError(f"full-support fallback failed closed: {fallback.get('reason','unresolved')}")
-            c,w=torch.tensor(float(fallback["C"]),dtype=torch.float64),torch.tensor(float(fallback["w"]),dtype=torch.float64); route="ARBITRARY_PRECISION_FALLBACK"; rows=fallback["rows"]
-        else: c,w,route,rows=fast["C"],fast["w"],"COMPLEX128_FAST",[]
-        if not bool(torch.isfinite(c)) or not bool(torch.isfinite(w)) or bool(w < -physicality_tolerance): raise FloatingPointError("support-free C4 moments nonfinite or nonphysical")
-        cs.append(c); ws.append(w); diagnostics.append({"route":route,"fast_path_gate":gate,"fallback_precisions":list(PRECISION_LADDER) if rows else [],"fallback_rows":rows,"support_size":256,"numerical_retained_rank":256,"tau_diagnostic":density_eigenvalue_tolerance,"exact_input_provenance":"float.hex binary64"})
-    return GramMomentResult(torch.stack(cs),torch.stack(ws),tuple(diagnostics))
+            if p.requires_grad or z.requires_grad:
+                raise FullSupportGradientUnavailable(
+                    "FULL_SUPPORT_FALLBACK_EVALUATION_ONLY"
+                )
+
+            fallback = _fallback(p, z)
+
+            if fallback.get("status") != "FULL_SUPPORT_CONVERGED":
+                raise FloatingPointError(
+                    "full-support fallback failed closed: "
+                    f"{fallback.get('reason', 'unresolved')}"
+                )
+
+            c = torch.tensor(
+                float(fallback["C"]),
+                dtype=torch.float64,
+            )
+
+            w = torch.tensor(
+                float(fallback["w"]),
+                dtype=torch.float64,
+            )
+
+            route = "ARBITRARY_PRECISION_FALLBACK"
+            rows = fallback["rows"]
+
+            # The worker reports this for every precision row.
+            minimum_eigenvalue = min(
+                float(item["minimum_eigenvalue"])
+                for item in rows
+            )
+
+        else:
+            c = fast["C"]
+            w = fast["w"]
+            route = "COMPLEX128_FAST"
+            rows = []
+
+            # _fast() already computes this from all C4 sectors.
+            minimum_eigenvalue = float(
+                gate["minimum_eigenvalue"]
+            )
+
+        if (
+            not bool(torch.isfinite(c))
+            or not bool(torch.isfinite(w))
+            or bool(w < -physicality_tolerance)
+        ):
+            raise FloatingPointError(
+                "support-free C4 moments nonfinite or nonphysical"
+            )
+
+        cs.append(c)
+        ws.append(w)
+
+        diagnostics.append(
+            {
+                "route": route,
+                "fast_path_gate": gate,
+                "fallback_precisions": (
+                    list(PRECISION_LADDER)
+                    if rows
+                    else []
+                ),
+                "fallback_rows": rows,
+
+                # REQUIRED BY holevo.py
+                "minimum_eigenvalue": minimum_eigenvalue,
+
+                "support_size": 256,
+                "numerical_retained_rank": 256,
+                "tau_diagnostic": density_eigenvalue_tolerance,
+                "exact_input_provenance": "float.hex binary64",
+            }
+        )
+
+    return GramMomentResult(
+        torch.stack(cs),
+        torch.stack(ws),
+        tuple(diagnostics),
+    )
