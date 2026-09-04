@@ -6,7 +6,7 @@ Last updated: `2026-09-02` (threshold/numerical approval gate review)
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `FROZEN_FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT_NOT_EXECUTED`.
+Authorization: `FROZEN_MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT_NOT_EXECUTED`.
 
 ## Current Pointwise State
 
@@ -87,6 +87,17 @@ EVID-0033 establishes that the frozen Full center is AP-only and cannot support
 complex128-fast gradient certification. The next work is a synthetic fast-route
 VJP harness freeze, not gradient-certification execution or training.
 
+EVID-0034 freezes the synthetic fast-route harness. It is the only authorized
+VJP execution and remains unrelated to Full-center training eligibility.
+
+EVID-0035 preserves the failed v1 harness result and freezes a repaired v2
+harness. Only the v2 command is authorized; synthetic validation remains
+`NOT_RUN` under the repaired runner.
+
+EVID-0036 supersedes the v2 independent-sector directional fixture only. The
+next work is a manifold-consistent synthetic harness freeze; no VJP execution
+is authorized under the amendment.
+
 ## Lifecycle Restrictions
 
 Do not rerun the V1 smoke, implement a different rule, approve a threshold,
@@ -115,6 +126,9 @@ evaluation, or publication claim is authorized.
 - EVID-0047: cluster-safe spectral Fréchet amendment freeze.
 - EVID-0048: analytic VJP implementation and execution-manifest freeze.
 - EVID-0049: fast-route gradient/VJP feasibility amendment freeze.
+- EVID-0050: synthetic fast-route VJP harness and execution-manifest freeze.
+- EVID-0051: synthetic fast-route VJP harness repair and v2-manifest freeze.
+- EVID-0052: manifold-consistent C/w VJP amendment freeze.
 - DEC-0027: minimum prospective threshold validation authorized.
 - Methodology artifact SHA-256:
   `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.

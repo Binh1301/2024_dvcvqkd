@@ -25,12 +25,14 @@ harness are now frozen.
 
 `FROZEN FULL CENTER: AP-ONLY / GRADIENT-INELIGIBLE`.
 
-`SYNTHETIC FAST-ROUTE VJP FEASIBILITY: FROZEN / NOT EXECUTED`.
+`SYNTHETIC FAST-ROUTE VJP HARNESS: FROZEN / EXECUTION AUTHORIZED`.
 
-Implement and freeze the synthetic fast-route VJP validation harness from
-`docs/FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT.md`. Do not execute it,
-modify a fast gate, differentiate the arbitrary-precision fallback, or start
-training.
+`MANIFOLD-CONSISTENT C/W VJP AMENDMENT: FROZEN / NOT EXECUTED`.
+
+Implement and freeze a manifold-consistent synthetic VJP harness using Fixture
+B from `docs/MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT.md`. Do not
+execute it, infer Full-center trainability, modify a fast gate, differentiate
+the arbitrary-precision fallback, or start training.
 
 ## Stop Conditions
 

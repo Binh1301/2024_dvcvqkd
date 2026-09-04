@@ -1,0 +1,7 @@
+schema_version: synthetic-fast-route-vjp-validation-config-v1
+status: FROZEN_BEFORE_EXECUTION
+amendment_config: configs/fast_route_gradient_vjp_feasibility_amendment_v1.yaml
+required_route: COMPLEX128_FAST
+finite_difference: {step: 1.0e-6, absolute_tolerance: 1.0e-10, relative_tolerance: 1.0e-9}
+required_rows: [inverse_sqrt, square_root, C, w, downstream]
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false, security_functional_changed: false, synthetic_fast_validation_executed: false}

@@ -1,11 +1,11 @@
 {
   "schema_version": "certification-artifact-current-manifest-v1",
-  "status": "CURRENT_FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT_FROZEN_MANIFEST",
+  "status": "CURRENT_MANIFOLD_CONSISTENT_CW_VJP_AMENDMENT_FROZEN_MANIFEST",
   "generated_date": "2026-09-04",
   "repository_head": "6110aae8c790c4da775b8596beec8f97d938a4fc",
   "extends_for_current_claims": "docs/CERTIFICATION_ARTIFACT_MANIFEST.json",
   "historical_manifest_preserved": true,
-  "purpose": "Current provenance index preserving prior fail-closed evidence, validated full-support C4-Gram evaluation evidence, the historical gradient/VJP artifacts, and the frozen fast-route feasibility amendment. It authorizes only later synthetic-fast-route harness implementation, not gradient certification, publication training, final-test access, a hard support threshold, or fallback differentiation.",
+  "purpose": "Current provenance index preserving prior fail-closed evidence, validated full-support C4-Gram evaluation evidence, historical gradient/VJP artifacts, preserved failed synthetic executions, and the frozen manifold-consistent C/w amendment. It authorizes only later manifold-consistent harness implementation, not VJP execution, Full-transmitter gradient certification, publication training, final-test access, a hard support threshold, or fallback differentiation.",
   "byte_policy": "All listed source/config/schema/result text payloads use UTF-8 without BOM and LF line endings. Historical CRLF-pinned result payloads remain governed by the preserved historical manifest.",
   "claims": [
     {
@@ -98,6 +98,49 @@
       "synthetic_validation_executed": false,
       "publication_training_authorized": false,
       "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0034",
+      "status": "FROZEN_SYNTHETIC_FAST_ROUTE_VJP_VALIDATION_HARNESS_NOT_EXECUTED",
+      "primary_artifact": "results/synthetic_fast_route_vjp_validation_harness_v1.json",
+      "primary_artifact_sha256": "866c1a76aee6e4dc5d0e09944b31f9f081b232c4660786d8f23b5e4f89bf6b8a",
+      "execution_manifest": "configs/synthetic_fast_route_vjp_validation_execution_manifest_v1.json",
+      "execution_manifest_sha256": "efd92b3f86344695b15cce59a543d30139deeafafb6ce00ebbb4c8dea452884e",
+      "synthetic_validation_executed": false,
+      "full_center_gradient_eligibility": "INELIGIBLE",
+      "claim_boundary": "fast_domain_vjp_only_not_end_to_end_full_training",
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0035",
+      "status": "FROZEN_SYNTHETIC_FAST_ROUTE_VJP_HARNESS_REPAIRED_EXECUTION_AUTHORIZED_NOT_EXECUTED",
+      "prior_failed_result": "results/synthetic_fast_route_vjp_validation_v1.json",
+      "prior_failed_result_sha256": "e5f4febe2de4e65ebe06df4b48de1b20aee2d110ba5a81f62f08338a961a8dfa",
+      "repair_audit": "results/synthetic_fast_route_vjp_validation_repair_audit_v1.json",
+      "repair_audit_sha256": "75363a93461f9c4359b3a58890e03427631bf27dad681a1f87ab2e409a97b932",
+      "primary_artifact": "results/synthetic_fast_route_vjp_validation_harness_v2.json",
+      "primary_artifact_sha256": "56652afb1a26ffe4e36c025f33e0412718fc04a25670fc6a205fa1ca69f0320c",
+      "execution_manifest": "configs/synthetic_fast_route_vjp_validation_execution_manifest_v2.json",
+      "execution_manifest_sha256": "a5c677d138de8da98b3e67ce4973044485aaa6ac31f7f2938a25b2df962edc22",
+      "synthetic_validation_executed": false,
+      "full_center_gradient_eligibility": "INELIGIBLE",
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0036",
+      "status": "FROZEN_MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT_NOT_EXECUTED",
+      "supersedes": "EVID-0035 only for synthetic C/w directional fixture semantics",
+      "primary_artifact": "results/manifold_consistent_cw_vjp_validation_amendment_freeze_v1.json",
+      "primary_artifact_sha256": "77900c988d8898f950e14b17cab5184ed9f5a27b0ffc39a36b78ef684341d4af",
+      "freeze_manifest": "configs/manifold_consistent_cw_vjp_validation_freeze_manifest_v1.json",
+      "freeze_manifest_sha256": "1fbabf3018851faf1cc0feb6c1428ddb30094d3bc4cbb7e00aa7365150ebe623",
+      "fixture_b_sha256": "8295448cd256be370cb5a2537c16d023363a7e8baf04a272e6a6c06a851253fe",
+      "frozen_full_center_gradient_eligibility": "INELIGIBLE",
+      "manifold_consistent_validation_executed": false,
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
     }
   ],
   "file_bindings": {
@@ -147,6 +190,22 @@
     ,"docs/FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT.md": "18a47f4e24331620d0c0ff3f9b97a324a5cb8e1e4ecc5addeb8abfdf8f891f3f"
     ,"configs/fast_route_gradient_vjp_feasibility_freeze_manifest_v1.json": "6c77459a9cac83ba9e0a61d37d3d66c537dfdfdda73ba42617b250c782dd4f4e"
     ,"results/fast_route_gradient_vjp_feasibility_amendment_freeze_v1.json": "7117ae0b7235c51df018bddb772bb461a3cb5084ee2dc9cb05555e3548f8354a"
+    ,"configs/synthetic_fast_route_vjp_validation_v1.yaml": "ca2e735eb2763d6e5325133fe5f20764a2c3eaa263ddd359b87b474cf2f96749"
+    ,"schemas/synthetic_fast_route_vjp_validation_v1.schema.json": "dc24668fc8474429da033452d77f03a46c990b9a7343b5ea97cd5b578ebc1496"
+    ,"schemas/synthetic_fast_route_vjp_validation_v2.schema.json": "00b0b017225f735d92c884dc34d38e6f367ac9deacd03f3a22f582059351d226"
+    ,"scripts/run_synthetic_fast_route_vjp_validation.py": "a5f3f8e0e9ec1aafbfe78add7d159791c758b8c101eafc3905b3c9961c869a43"
+    ,"configs/synthetic_fast_route_vjp_validation_execution_manifest_v1.json": "efd92b3f86344695b15cce59a543d30139deeafafb6ce00ebbb4c8dea452884e"
+    ,"results/synthetic_fast_route_vjp_validation_harness_v1.json": "866c1a76aee6e4dc5d0e09944b31f9f081b232c4660786d8f23b5e4f89bf6b8a"
+    ,"configs/synthetic_fast_route_vjp_validation_execution_manifest_v2.json": "a5c677d138de8da98b3e67ce4973044485aaa6ac31f7f2938a25b2df962edc22"
+    ,"results/synthetic_fast_route_vjp_validation_v1.json": "e5f4febe2de4e65ebe06df4b48de1b20aee2d110ba5a81f62f08338a961a8dfa"
+    ,"results/synthetic_fast_route_vjp_validation_repair_audit_v1.json": "75363a93461f9c4359b3a58890e03427631bf27dad681a1f87ab2e409a97b932"
+    ,"results/synthetic_fast_route_vjp_validation_harness_v2.json": "56652afb1a26ffe4e36c025f33e0412718fc04a25670fc6a205fa1ca69f0320c"
+    ,"configs/manifold_consistent_cw_vjp_validation_amendment_v1.yaml": "54e714e3ee5896df5a149b42d4cf974ef4b4250b12c67ee333fd5ec0089f14bc"
+    ,"schemas/manifold_consistent_cw_vjp_validation_amendment_v1.schema.json": "d1b13f22806889ee4b8a564494f4ca86543cd12f0b77c3d4d4c11d5f300a25a9"
+    ,"docs/MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT.md": "2888c64b54089bd3d5624e3dbe279d3bf5514d94b87f93e57f9e0882c62a92fe"
+    ,"configs/manifold_consistent_cw_vjp_validation_freeze_manifest_v1.json": "1fbabf3018851faf1cc0feb6c1428ddb30094d3bc4cbb7e00aa7365150ebe623"
+    ,"results/manifold_consistent_cw_vjp_validation_amendment_freeze_v1.json": "77900c988d8898f950e14b17cab5184ed9f5a27b0ffc39a36b78ef684341d4af"
+    ,"results/synthetic_fast_route_vjp_validation_v2.json": "7cad42876c5078b29113f3481d4f071a6c6805ff9d2b5536614741f5f43a34dc"
   },
   "lifecycle_guards": {
     "threshold_approved": false,

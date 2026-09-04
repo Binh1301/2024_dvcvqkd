@@ -1103,6 +1103,41 @@ fast-route feasibility. Authorize implementation and freeze of a separate
 synthetic fast-route harness with no training claim. Do not execute it yet,
 relax gates, or differentiate fallback.
 
+## DEC-0036 - Freeze synthetic fast-route VJP harness and authorize execution
+
+Date: 2026-09-04
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; SYNTHETIC ONLY
+
+Accept EVID-0050. Authorize exactly one execution of the hash-bound synthetic
+fast-route VJP preflight. A result applies only to the algebraic fast-domain
+fixture; it cannot authorize Full-center training, AP differentiation,
+publication training, threshold approval, selection, or final-test access.
+
+## DEC-0037 - Repair synthetic fast-route VJP harness and reauthorize v2
+
+Date: 2026-09-04
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; V2 NOT EXECUTED
+
+Accept EVID-0051. Preserve the v1 failed execution as a harness failure. The
+v2 runner reads the frozen tolerance field names exactly and has distinct
+runtime-attempt provenance. Authorize exactly one later v2 synthetic preflight
+execution. No Full-center gradient claim, training, fallback differentiation,
+threshold approval, selection, or final-test access is authorized.
+
+## DEC-0038 - Freeze manifold-consistent C/w VJP amendment
+
+Date: 2026-09-04
+
+Status: ACTIVE IMPLEMENTATION DECISION; AMENDMENT NOT EXECUTED
+
+Accept EVID-0052. The prior v2 failure arose from an independent-sector path
+outside the production C4 manifold, not from a fast-gate defect. Preserve both
+failed synthetic artifacts. Authorize only implementation and freeze of a
+manifold-consistent synthetic VJP harness using Fixture B. Do not execute it,
+relax gates, or claim Full-center training eligibility.
+
 ## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
 
 Date: 2026-09-02

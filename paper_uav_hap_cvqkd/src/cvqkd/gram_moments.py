@@ -37,7 +37,14 @@ def _sectors(p: torch.Tensor, z: torch.Tensor) -> list[torch.Tensor]:
     return answer
 
 def _fast(p: torch.Tensor, z: torch.Tensor) -> tuple[dict[str, Any] | None, dict[str, Any]]:
-    sectors = _sectors(p, z)
+    return _fast_from_sectors(p, z, _sectors(p, z))
+
+
+def _fast_from_sectors(
+    p: torch.Tensor, z: torch.Tensor, sectors: list[torch.Tensor]
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    if len(sectors) != 4 or any(matrix.shape != (64, 64) for matrix in sectors):
+        raise ValueError("C4 fast path requires four 64-by-64 sectors")
     # Gate-only eigensystems are detached. Differentiable work below uses
     # whole-matrix Fréchet functions and solves, never eigenvectors.
     with torch.no_grad():

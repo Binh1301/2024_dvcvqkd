@@ -2040,3 +2040,53 @@ differentiation occurred.
 
 - Freeze artifact: `results/fast_route_gradient_vjp_feasibility_amendment_freeze_v1.json`,
   SHA-256 `7117ae0b7235c51df018bddb772bb461a3cb5084ee2dc9cb05555e3548f8354a`.
+
+## EVID-0050 - Synthetic fast-route VJP harness freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; SYNTHETIC VALIDATION NOT EXECUTED
+
+The separate algebraic 4-by-64-sector harness constructs the frozen HPD
+synthetic fixture, verifies the existing fast gate, exercises Fréchet matrix
+functions plus C/residual-w and bounded downstream preflights, and writes only
+the dedicated future result artifact. It never substitutes the frozen Full
+center, permits AP differentiation, or claims training validity.
+
+- Harness artifact: `results/synthetic_fast_route_vjp_validation_harness_v1.json`,
+  SHA-256 `866c1a76aee6e4dc5d0e09944b31f9f081b232c4660786d8f23b5e4f89bf6b8a`.
+- Execution manifest SHA-256:
+  `efd92b3f86344695b15cce59a543d30139deeafafb6ce00ebbb4c8dea452884e`.
+
+## EVID-0051 - Synthetic fast-route VJP harness repair freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; V2 EXECUTION NOT RUN
+
+The v1 synthetic validation failed before evaluation because the runner read
+nonexistent tolerance keys. The failed v1 result is preserved unchanged. The
+repaired runner reads the frozen `absolute_tolerance` and `relative_tolerance`
+fields exactly, writes a separate v2 result path, and emits an explicit runtime
+attempt fact. Lifecycle guard values remain pre-execution authorization state.
+
+- Repair audit: `results/synthetic_fast_route_vjp_validation_repair_audit_v1.json`,
+  SHA-256 `75363a93461f9c4359b3a58890e03427631bf27dad681a1f87ab2e409a97b932`.
+- V2 execution manifest SHA-256:
+  `a5c677d138de8da98b3e67ce4973044485aaa6ac31f7f2938a25b2df962edc22`.
+
+## EVID-0052 - Manifold-consistent C/w VJP amendment freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; AMENDMENT NOT EXECUTED
+
+The v2 synthetic failure is preserved as an invalid independent-sector
+direction. Fixture A remains spectral-only. Fixture B now freezes a uniform
+`p_0`, deterministic `z_k=k+1`, and radial `dz=z` prototype direction; all
+four sectors are regenerated through the production mapping for every endpoint.
+The center and both frozen-step endpoints pass all existing fast gates before
+any VJP comparison. No production code or gate changed.
+
+- Freeze artifact: `results/manifold_consistent_cw_vjp_validation_amendment_freeze_v1.json`,
+  SHA-256 `77900c988d8898f950e14b17cab5184ed9f5a27b0ffc39a36b78ef684341d4af`.

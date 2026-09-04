@@ -1,0 +1,18 @@
+{
+  "schema_version": "synthetic-fast-route-vjp-validation-repair-audit-v1",
+  "status": "SYNTHETIC_FAST_ROUTE_VJP_HARNESS_REPAIRED_NOT_EXECUTED",
+  "prior_failed_execution": {
+    "path": "results/synthetic_fast_route_vjp_validation_v1.json",
+    "sha256": "e5f4febe2de4e65ebe06df4b48de1b20aee2d110ba5a81f62f08338a961a8dfa",
+    "status": "SYNTHETIC_FAST_ROUTE_VJP_VALIDATION_FAIL_CLOSED",
+    "failure_reason": "KeyError: 'absolute'",
+    "preserved_unchanged": true
+  },
+  "root_cause": "runner read nonexistent finite_difference.absolute and finite_difference.relative fields instead of frozen absolute_tolerance and relative_tolerance",
+  "lifecycle_semantics": {
+    "v1_synthetic_fast_validation_executed": "pre-execution guard copied from frozen config; not a runtime-attempt fact",
+    "v2_runtime_validation_execution_attempted": "runtime fact emitted true only by a future runner invocation"
+  },
+  "repair": "read frozen absolute_tolerance and relative_tolerance fields exactly; write future v2 result path and runtime attempt provenance",
+  "lifecycle_guards": {"threshold_approved": false, "publication_training_performed": false, "final_test_accessed": false, "optimized_mb_grid_performed": false, "baseline_selection_performed": false, "security_functional_changed": false, "synthetic_fast_validation_executed": false}
+}

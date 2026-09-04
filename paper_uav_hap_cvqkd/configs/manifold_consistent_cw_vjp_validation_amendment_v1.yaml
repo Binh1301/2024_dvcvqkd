@@ -1,0 +1,28 @@
+schema_version: manifold-consistent-cw-vjp-validation-amendment-v1
+status: FROZEN_BEFORE_IMPLEMENTATION_AND_EXECUTION
+supersedes: {evidence_id: EVID-0035, scope: synthetic_C_w_directional_fixture_semantics_only}
+fixture_a:
+  kind: algebraic_repeated_spectrum_spectral_frechet_only
+  sector_rule: S_s=0.00390625_I_64_for_s_0_to_3
+  permitted_checks: [hermitian_sqrt, hermitian_inverse_sqrt, repeated_eigenvalues, clustered_subspaces, loewner_map, complex_directional_derivative, hermiticity, basis_invariance]
+  prohibited_checks: [C, w, Z, covariance, symplectic, chi_BE, raw_K]
+fixture_b:
+  kind: algebraic_c4_manifold_fast_route_preflight_not_physical_transmitter
+  dimension: 64
+  symbol_count: 256
+  probability_rule: uniform_symbol_probability_1_over_256
+  prototype_rule: z_k=(k+1)+0i_for_k_0_to_63
+  direction_rule: dz_k=z_k
+  sector_construction: gram_moments._sectors(p,z)
+  finite_difference_source: configs/synthetic_fast_route_vjp_validation_v1.yaml
+  fixture_sha256: 8295448cd256be370cb5a2537c16d023363a7e8baf04a272e6a6c06a851253fe
+  center_fast_gate: {all_sectors_positive: true, minimum_eigenvalue: 3.7461458210398666e-05, sector_condition_number: 261.1167061866176, sector_reconstruction_residual: 1.799202582485924e-15, residual_identity_relative_error: 4.107825191113079e-15, C: 1397.8548415650553, w: 0.23449939539114395}
+  plus_fast_gate: {all_sectors_positive: true, minimum_eigenvalue: 3.7462164379468074e-05, sector_condition_number: 261.11152339102847, sector_reconstruction_residual: 1.9949278443181858e-15, residual_identity_relative_error: 1.9456658506555868e-14}
+  minus_fast_gate: {all_sectors_positive: true, minimum_eigenvalue: 3.74607520512814e-05, sector_condition_number: 261.12188910875557, sector_reconstruction_residual: 1.858521731950751e-15, residual_identity_relative_error: 5.189182417097982e-13}
+required_route: COMPLEX128_FAST
+required_gate_checks: [all_sectors_positive, condition_number, reconstruction_residual, residual_identity_relative_error, finite_C, finite_w]
+claim_limitations:
+  validates: manifold_consistent_fast_domain_C_w_and_downstream_VJP_only
+  does_not_validate: [frozen_Full_PS_GS_VA_training, AP_differentiation, publication_training, physical_transmitter_performance, security_functional_change]
+forbidden: [independent_sector_C_w_perturbation, fast_gate_relaxation, finite_difference_step_change, eigenvalue_flooring, epsilon_identity_regularization, support_truncation, spectral_perturbation, straight_through_estimator, AP_differentiation, numerical_override]
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false, security_functional_changed: false, manifold_consistent_validation_executed: false}
