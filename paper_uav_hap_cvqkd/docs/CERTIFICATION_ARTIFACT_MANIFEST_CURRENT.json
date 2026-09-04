@@ -1,11 +1,11 @@
 {
   "schema_version": "certification-artifact-current-manifest-v1",
-  "status": "CURRENT_MANIFOLD_CONSISTENT_CW_VJP_AMENDMENT_FROZEN_MANIFEST",
+  "status": "CURRENT_MANIFOLD_CONSISTENT_SYNTHETIC_VJP_HARNESS_FROZEN_MANIFEST",
   "generated_date": "2026-09-04",
   "repository_head": "6110aae8c790c4da775b8596beec8f97d938a4fc",
   "extends_for_current_claims": "docs/CERTIFICATION_ARTIFACT_MANIFEST.json",
   "historical_manifest_preserved": true,
-  "purpose": "Current provenance index preserving prior fail-closed evidence, validated full-support C4-Gram evaluation evidence, historical gradient/VJP artifacts, preserved failed synthetic executions, and the frozen manifold-consistent C/w amendment. It authorizes only later manifold-consistent harness implementation, not VJP execution, Full-transmitter gradient certification, publication training, final-test access, a hard support threshold, or fallback differentiation.",
+  "purpose": "Current provenance index preserving prior fail-closed evidence, validated full-support C4-Gram evaluation evidence, historical gradient/VJP artifacts, preserved failed synthetic executions, the frozen manifold-consistent C/w amendment, and its frozen synthetic harness. It does not yet authorize VJP execution, Full-transmitter gradient certification, publication training, final-test access, a hard support threshold, or fallback differentiation.",
   "byte_policy": "All listed source/config/schema/result text payloads use UTF-8 without BOM and LF line endings. Historical CRLF-pinned result payloads remain governed by the preserved historical manifest.",
   "claims": [
     {
@@ -129,9 +129,9 @@
       "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
     },
     {
-      "evidence_id": "EVID-0036",
+      "evidence_id": "EVID-0052",
       "status": "FROZEN_MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT_NOT_EXECUTED",
-      "supersedes": "EVID-0035 only for synthetic C/w directional fixture semantics",
+      "supersedes": "EVID-0051 only for synthetic C/w directional fixture semantics",
       "primary_artifact": "results/manifold_consistent_cw_vjp_validation_amendment_freeze_v1.json",
       "primary_artifact_sha256": "77900c988d8898f950e14b17cab5184ed9f5a27b0ffc39a36b78ef684341d4af",
       "freeze_manifest": "configs/manifold_consistent_cw_vjp_validation_freeze_manifest_v1.json",
@@ -139,6 +139,19 @@
       "fixture_b_sha256": "8295448cd256be370cb5a2537c16d023363a7e8baf04a272e6a6c06a851253fe",
       "frozen_full_center_gradient_eligibility": "INELIGIBLE",
       "manifold_consistent_validation_executed": false,
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0053",
+      "status": "FROZEN_MANIFOLD_CONSISTENT_SYNTHETIC_VJP_HARNESS_NOT_EXECUTED",
+      "primary_artifact": "results/manifold_consistent_synthetic_vjp_harness_v1.json",
+      "primary_artifact_sha256": "e2e8d88916305a90fd49696055bce06ce8b23891fd594a608527053f5b9dbcec",
+      "execution_manifest": "configs/manifold_consistent_synthetic_vjp_validation_execution_manifest_v1.json",
+      "execution_manifest_sha256": "dd81a21bb77acb133278a8c39f342f3c821dca135b5882b9728bb2d5aa9d529a",
+      "fixture_b_sha256": "8295448cd256be370cb5a2537c16d023363a7e8baf04a272e6a6c06a851253fe",
+      "validation_executed": false,
+      "full_center_gradient_eligibility": "INELIGIBLE",
       "publication_training_authorized": false,
       "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
     }
@@ -180,7 +193,7 @@
     ,"configs/gradient_vjp_spectral_frechet_freeze_manifest_v1.json": "f3d8573d07cf2a752092c98bdac75af56a2197a11cc75b6d935d6758be59c645"
     ,"results/gradient_vjp_spectral_frechet_amendment_freeze_v1.json": "484e18f87ce10d9d0ecea82e829735a4eee65f4e7b69c724c42382823f98fb9d"
     ,"src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388"
-    ,"src/cvqkd/gram_moments.py": "8f376f1dd3e63b2ec220370073134b1119932eb03b38bc3c982b51c45072e959"
+    ,"src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551"
     ,"scripts/run_gradient_vjp_validation.py": "4df129aa71e15c3fe14203ebef9138175b7aac58e20604a3a3ba385d72e8f9b3"
     ,"schemas/gradient_vjp_validation_v1.schema.json": "7da35a2c7aa5c8b0412eb71c12e891f2b0446017814eeab414ae59fbe2b0b629"
     ,"configs/gradient_vjp_validation_execution_manifest_v1.json": "455eea2e195ed1509283314d8f7e60e578fc26240961f6c31689bc12019603cf"
@@ -206,6 +219,10 @@
     ,"configs/manifold_consistent_cw_vjp_validation_freeze_manifest_v1.json": "1fbabf3018851faf1cc0feb6c1428ddb30094d3bc4cbb7e00aa7365150ebe623"
     ,"results/manifold_consistent_cw_vjp_validation_amendment_freeze_v1.json": "77900c988d8898f950e14b17cab5184ed9f5a27b0ffc39a36b78ef684341d4af"
     ,"results/synthetic_fast_route_vjp_validation_v2.json": "7cad42876c5078b29113f3481d4f071a6c6805ff9d2b5536614741f5f43a34dc"
+    ,"scripts/run_manifold_consistent_synthetic_vjp_validation.py": "913401be0d8c6d8d78244d0a165fda8a8afe66d11deee5b69fa86417197f9d9a"
+    ,"schemas/manifold_consistent_synthetic_vjp_validation_v1.schema.json": "aac1bed0728d15164a920925049477fadb460cb0d6a8482963acc75a9fdd4425"
+    ,"configs/manifold_consistent_synthetic_vjp_validation_execution_manifest_v1.json": "dd81a21bb77acb133278a8c39f342f3c821dca135b5882b9728bb2d5aa9d529a"
+    ,"results/manifold_consistent_synthetic_vjp_harness_v1.json": "e2e8d88916305a90fd49696055bce06ce8b23891fd594a608527053f5b9dbcec"
   },
   "lifecycle_guards": {
     "threshold_approved": false,

@@ -6,7 +6,7 @@ Date: 2026-09-04
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `FROZEN_MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT_NOT_EXECUTED`.
+Authorization: `FROZEN_MANIFOLD_CONSISTENT_SYNTHETIC_VJP_HARNESS_NOT_EXECUTED`.
 
 ## Current Evidence
 
@@ -67,9 +67,10 @@ evidence, but EVID-0033 establishes that the frozen Full center is AP-only and
 gradient-ineligible under the unrelaxed fast gate. EVID-0034 freezes the
 separate synthetic fast-route harness. Its v1 attempt failed before evaluation
 on a tolerance-key lookup and is preserved; the v2 independent-sector attempt
-is also preserved as a manifold-inconsistent failure. EVID-0036 freezes
+is also preserved as a manifold-inconsistent failure. EVID-0052 freezes
 Fixture B, which regenerates all four sectors from `p,z` at center and endpoints.
-The next task is implementation and freeze of that harness only—not execution.
+EVID-0053 now freezes the separate manifold-consistent harness; it remains
+unexecuted and requires a distinct lifecycle review before any command runs.
 It cannot establish Full-center training eligibility. Do not start publication
 training, baseline selection, optimized-MB search, or final-test access.
 

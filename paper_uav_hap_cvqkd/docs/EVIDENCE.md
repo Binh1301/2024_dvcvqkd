@@ -2090,3 +2090,20 @@ any VJP comparison. No production code or gate changed.
 
 - Freeze artifact: `results/manifold_consistent_cw_vjp_validation_amendment_freeze_v1.json`,
   SHA-256 `77900c988d8898f950e14b17cab5184ed9f5a27b0ffc39a36b78ef684341d4af`.
+
+## EVID-0053 - Manifold-consistent synthetic VJP harness freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; VALIDATION NOT EXECUTED
+
+The dedicated runner keeps Fixture A spectral-only and regenerates all four
+Fixture B sectors from the exact frozen `(p,z)` at center and both endpoints.
+It provides detailed gate failures, separate C and residual-w directional rows,
+and a bounded downstream raw-K preflight. The runner is frozen but was not
+invoked; neither historical synthetic failure was modified.
+
+- Harness artifact: `results/manifold_consistent_synthetic_vjp_harness_v1.json`,
+  SHA-256 `e2e8d88916305a90fd49696055bce06ce8b23891fd594a608527053f5b9dbcec`.
+- Execution manifest SHA-256:
+  `dd81a21bb77acb133278a8c39f342f3c821dca135b5882b9728bb2d5aa9d529a`.

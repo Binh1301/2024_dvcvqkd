@@ -27,12 +27,11 @@ harness are now frozen.
 
 `SYNTHETIC FAST-ROUTE VJP HARNESS: FROZEN / EXECUTION AUTHORIZED`.
 
-`MANIFOLD-CONSISTENT C/W VJP AMENDMENT: FROZEN / NOT EXECUTED`.
+`MANIFOLD-CONSISTENT SYNTHETIC VJP HARNESS: FROZEN / NOT EXECUTED`.
 
-Implement and freeze a manifold-consistent synthetic VJP harness using Fixture
-B from `docs/MANIFOLD_CONSISTENT_CW_VJP_VALIDATION_AMENDMENT.md`. Do not
-execute it, infer Full-center trainability, modify a fast gate, differentiate
-the arbitrary-precision fallback, or start training.
+Review the frozen harness and explicitly authorize or reject one execution in
+a separate lifecycle task. Do not infer Full-center trainability, modify a
+fast gate, differentiate the arbitrary-precision fallback, or start training.
 
 ## Stop Conditions
 

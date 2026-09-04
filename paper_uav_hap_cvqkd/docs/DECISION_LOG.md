@@ -1138,6 +1138,17 @@ failed synthetic artifacts. Authorize only implementation and freeze of a
 manifold-consistent synthetic VJP harness using Fixture B. Do not execute it,
 relax gates, or claim Full-center training eligibility.
 
+## DEC-0039 - Freeze manifold-consistent synthetic VJP harness
+
+Date: 2026-09-04
+
+Status: ACTIVE IMPLEMENTATION DECISION; HARNESS NOT EXECUTED
+
+Accept EVID-0053. The separate runner preserves the spectral-only and
+manifold-consistent paths and binds their inputs before future execution. Do
+not execute it until a separate lifecycle review authorizes the command. It
+cannot establish Full-center training eligibility or publication readiness.
+
 ## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
 
 Date: 2026-09-02
