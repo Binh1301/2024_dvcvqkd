@@ -1,12 +1,12 @@
 # Session Handoff
 
-Date: 2026-09-02
+Date: 2026-09-04
 
 ## Authoritative Lifecycle
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `FROZEN_THRESHOLD_VALIDATION_EXECUTION_AUTHORIZED`.
+Authorization: `GRADIENT_VJP_VALIDATION_PROTOCOL_DESIGN_AUTHORIZED`.
 
 ## Current Evidence
 
@@ -54,10 +54,16 @@ Candidate `1e-13` remains `PROPOSED_UNAPPROVED`; historical `1e-12` remains
 
 ## Exact Next Permitted Action
 
-Run `python scripts\\run_full_support_c4_gram_evaluation_validation.py` exactly
-once under the frozen implementation manifest. The new full-support C4 backend
-is evaluation-only on fallback; training gradients through fallback remain
-unauthorized. Do not train, select baselines, or access final-test data.
+The full-support C4-Gram evaluation validation passed at implementation HEAD
+`6110aae8c790c4da775b8596beec8f97d938a4fc`: 12 fixtures,
+`FULL_SUPPORT_BACKEND_VALIDATION_PASS`, artifact
+`results/full_support_c4_gram_evaluation_validation_v1.json`, SHA-256
+`6a837711998c2c403f1300c502990ddcc51df21c096381e44265f3fe9f43516d`.
+This is frozen validated evaluation evidence only. The arbitrary-precision
+fallback remains evaluation-only and must not become a training differentiation
+path. The next gate is independent gradient/VJP validation; do not start
+publication training, baseline selection, optimized-MB search, or final-test
+access.
 
 No scientific source, security functional, frozen model, training, baseline
 selection, optimized-MB search, final-test access, or held-out evaluation

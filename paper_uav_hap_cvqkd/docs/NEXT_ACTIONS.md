@@ -11,10 +11,15 @@ remains closed pending threshold/numerical approval.
 
 ## Exact Next Permitted Action
 
-Run `python scripts\\run_full_support_c4_gram_evaluation_validation.py` exactly
-once from the project root under
-`configs/full_support_c4_gram_backend_implementation_manifest_v1.json`. Do
-not train, search baselines, access final-test data, or enable fallback gradients.
+`FULL-SUPPORT C4 GRAM EVALUATION BACKEND: PASS / FROZEN`.
+
+The arbitrary-precision fallback remains evaluation-only. No hard support
+threshold is approved; publication training is unauthorized; baseline
+selection and optimized-MB grid selection remain unperformed; final-test data
+remain untouched.
+
+Design and freeze an independent gradient/VJP validation protocol before any
+publication-scale training.
 
 ## Stop Conditions
 

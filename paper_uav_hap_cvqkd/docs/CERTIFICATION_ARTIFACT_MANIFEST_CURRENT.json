@@ -1,11 +1,11 @@
 {
   "schema_version": "certification-artifact-current-manifest-v1",
-  "status": "CURRENT_FAIL_CLOSED_V3_MANIFEST",
-  "generated_date": "2026-09-01",
-  "repository_head": "e29d55850e7a6cf5c49f0917eb7ea96e167989ba",
+  "status": "CURRENT_FULL_SUPPORT_EVALUATION_VALIDATED_MANIFEST",
+  "generated_date": "2026-09-04",
+  "repository_head": "6110aae8c790c4da775b8596beec8f97d938a4fc",
   "extends_for_current_claims": "docs/CERTIFICATION_ARTIFACT_MANIFEST.json",
   "historical_manifest_preserved": true,
-  "purpose": "Current provenance index for the exact-tau point evidence and the failed V3 feasibility cycle. This manifest authorizes no threshold, training, or test action.",
+  "purpose": "Current provenance index preserving prior fail-closed evidence and adding frozen full-support C4-Gram evaluation backend PASS evidence. It does not authorize publication training, final-test access, or a hard support threshold.",
   "byte_policy": "All listed source/config/schema/result text payloads use UTF-8 without BOM and LF line endings. Historical CRLF-pinned result payloads remain governed by the preserved historical manifest.",
   "claims": [
     {
@@ -33,6 +33,21 @@
       "selection_artifact_sha256": "1ea89229c267c395842757bdee2793d4acfd44946266d9b1b41162c347bdf8ba",
       "synthetic_preflight": "results/taylor_eigencluster_synthetic_preflight_v3.json",
       "synthetic_preflight_sha256": "81fe173259071b3124d13da13cd7618564e566e32c7cba7a4a9ea300acb87b50"
+    },
+    {
+      "evidence_id": "EVID-0029",
+      "status": "ACTIVE_VALIDATED_FULL_SUPPORT_EVALUATION_BACKEND",
+      "scope": "evaluation_only_fallback_no_training",
+      "primary_artifact": "results/full_support_c4_gram_evaluation_validation_v1.json",
+      "primary_artifact_sha256": "6a837711998c2c403f1300c502990ddcc51df21c096381e44265f3fe9f43516d",
+      "validation_status": "FULL_SUPPORT_BACKEND_VALIDATION_PASS",
+      "fixture_count": 12,
+      "validated_repository_head": "6110aae8c790c4da775b8596beec8f97d938a4fc",
+      "implementation_manifest": "configs/full_support_c4_gram_backend_implementation_manifest_v1.json",
+      "implementation_manifest_sha256": "5e548fb8dfe6f68941a4963074221fd322c35e05cef9ae4f3c1c6105bcebc6d7",
+      "config_sha256": "f1b4e2fe0040dcaa79d191685a7cae020cf59d8e72390b7259947974529536c3",
+      "protocol_sha256": "9955b5d09e6219ba4b19b702bec3747a8d5a3b42de63d1af5d9e23c9575761d2",
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
     }
   ],
   "file_bindings": {
@@ -52,6 +67,15 @@
     "src/validation/durable_journal_v3.py": "361bfee8ee06409c535ad102f4c58a5315f5a07679a5ef4457ed1005f020a6eb",
     "src/validation/hard_watchdog_v3.py": "6ccd4bd393fd88b0a106157bb6bae9bec403bf288fbdf5e88d3484bd1aaed41a",
     "src/validation/sequential_schur_v3.py": "c9bcbc37fc6938b671a4a99bc1a3d7bd7086dc0f92804e0fcb9235aaa3c964f8"
+    ,"configs/full_support_c4_gram_backend_implementation_manifest_v1.json": "5e548fb8dfe6f68941a4963074221fd322c35e05cef9ae4f3c1c6105bcebc6d7"
+    ,"configs/full_support_c4_gram_backend_protocol_v1.yaml": "9955b5d09e6219ba4b19b702bec3747a8d5a3b42de63d1af5d9e23c9575761d2"
+    ,"configs/full_support_c4_gram_evaluation_validation_v1.yaml": "f1b4e2fe0040dcaa79d191685a7cae020cf59d8e72390b7259947974529536c3"
+    ,"schemas/full_support_c4_gram_evaluation_validation_v1.schema.json": "109a0ab4a385a211e2b151f443b41aecf4b40a08378f3bb7c1fa183b668c4fe5"
+    ,"src/cvqkd/gram_moments.py": "874d652ab9b53178f310d05adc2d75116c6673e8bd0ac1193c0f6d0b06c904da"
+    ,"scripts/full_support_c4_worker.py": "48d0ed268bf885d651dcb3db9038615b849a58c6366550397a4bd11e83f096a0"
+    ,"scripts/run_full_support_c4_gram_evaluation_validation.py": "378f8604b7e8a781cebe41867f9a490c09148740536a40e9ef97715eb23754f0"
+    ,"docs/FULL_SUPPORT_C4_GRAM_BACKEND_PROTOCOL.md": "a3a990bf1695a650d8d8e849897ce9496882de16dd16fa604b6a6c05a8ed6cfc"
+    ,"results/full_support_c4_gram_evaluation_validation_v1.json": "6a837711998c2c403f1300c502990ddcc51df21c096381e44265f3fe9f43516d"
   },
   "lifecycle_guards": {
     "threshold_approved": false,
