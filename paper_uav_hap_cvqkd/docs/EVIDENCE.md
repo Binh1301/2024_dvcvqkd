@@ -1974,3 +1974,69 @@ frozen but was not invoked.
   `53c8159629e81630b6948225baacbbf4fe1c89c140f01d44d53047495be2503c`.
 - Validation manifest SHA-256:
   `194afcaccf0d1eeec250b25faadeb9b923baa19e7d225e536b1ae53268d88537`.
+
+## EVID-0046 - Gradient/VJP validation protocol freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; PROTOCOL NOT EXECUTED
+
+The fast-path-only analytic-VJP protocol is hash-bound to EVID-0029. It reuses
+the frozen deterministic Full transmitter, representative states, CRN seed,
+coordinates, finite-difference ladder, and derivative tolerance. Any fallback
+route is an evaluation-only fail-closed result. No gradient implementation,
+protocol execution, training, selection, threshold approval, or test access
+occurred.
+
+- Freeze artifact: `results/gradient_vjp_validation_protocol_freeze_v1.json`,
+  SHA-256 `e4ce779092d837974a094b109f0de03fec434bd1382662f4df91fcd0ea149721`.
+
+## EVID-0047 - Spectral Fréchet amendment freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; AMENDMENT NOT EXECUTED
+
+EVID-0031 freezes a basis-invariant Fréchet/VJP definition for the positive
+definite inverse square root used on the complex128 fast route. It resolves the
+pre-certification repeated-eigenvalue definition blocker without changing the
+security functional or EVID-0030's non-spectral settings. Synthetic derivative
+preflights pass; no analytic VJP implementation or gradient certification ran.
+
+- Freeze artifact: `results/gradient_vjp_spectral_frechet_amendment_freeze_v1.json`,
+  SHA-256 `484e18f87ce10d9d0ecea82e829735a4eee65f4e7b69c724c42382823f98fb9d`.
+
+## EVID-0048 - Analytic gradient/VJP implementation freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; CERTIFICATION NOT EXECUTED
+
+The complex128 fast route now uses whole-matrix cluster-safe Loewner Fréchet
+boundaries for Hermitian square root and inverse square root. C and residual-w
+are expressed in the original sector bases, so native eigenvector backward is
+absent from the differentiable graph. The no-override runner loads every probe,
+CRN, step, and tolerance from EVID-0030 and fails closed on any non-fast route.
+Thirty cheap tests pass. The AP fallback remains non-differentiable.
+
+- Implementation artifact: `results/gradient_vjp_implementation_v1.json`,
+  SHA-256 `23ee572c1644ad7dbd765d6cf31e2e599b9be4b8007115456944e5dc865fc84b`.
+- Execution manifest SHA-256:
+  `455eea2e195ed1509283314d8f7e60e578fc26240961f6c31689bc12019603cf`.
+
+## EVID-0049 - Fast-route gradient/VJP feasibility amendment freeze
+
+Date: 2026-09-04
+
+Status: CURRENTLY_VERIFIED_PASS; AMENDMENT NOT EXECUTED
+
+The frozen untrained Full center is a mathematical-full-support AP-only
+evaluation fixture, with positive arbitrary-precision modes near `10^-675` but
+negative complex128 roundoff-scale eigenvalues. EVID-0033 retains that fixture
+without relaxing the fast gate and makes it gradient-ineligible. A separate
+algebraic synthetic C4-sector preflight is frozen to validate only the
+fast-domain Fréchet/VJP machinery. No gradient certification, training, or AP
+differentiation occurred.
+
+- Freeze artifact: `results/fast_route_gradient_vjp_feasibility_amendment_freeze_v1.json`,
+  SHA-256 `7117ae0b7235c51df018bddb772bb461a3cb5084ee2dc9cb05555e3548f8354a`.

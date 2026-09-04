@@ -6,7 +6,7 @@ Last updated: `2026-09-02` (threshold/numerical approval gate review)
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Authorization: `FROZEN_FULL_SUPPORT_BACKEND_EVALUATION_VALIDATION_AUTHORIZED`.
+Authorization: `FROZEN_FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT_NOT_EXECUTED`.
 
 ## Current Pointwise State
 
@@ -59,11 +59,10 @@ be made in Arb or equivalent exact arithmetic and fail closed.
 
 ## Exact Next Permitted Action
 
-Execute the hash-bound 12-fixture threshold validation exactly once using
-`configs/threshold_validation_execution_manifest_v1.json`. It uses full-support
-600/800-digit C4-Gram oracles and compares production `tau=1e-13` support/rank,
-`C,w,Z`, symplectic spectrum, Holevo, and raw SKR under existing tolerances.
-Explicit author threshold approval remains required before any status change.
+Implement and freeze a synthetic fast-route VJP validation harness under
+EVID-0033. The frozen Full center remains AP-only and cannot enter
+complex128-fast gradient certification. No gradient certification, training,
+threshold approval, or final-test access is authorized in that task.
 
 Threshold validation executed and failed closed: full-support rank was 256 for
 the two learned-like failures while the thresholded production path retained
@@ -72,6 +71,21 @@ frozen support-free backend implementation; no training is authorized.
 
 The evaluation-only full-support backend is now implemented and its
 12-fixture validation manifest is frozen. Fallback gradients remain blocked.
+
+The full-support evaluation validation is now authoritative PASS evidence.
+The independent gradient/VJP protocol is frozen but unexecuted; only its
+analytic fast-path implementation and runner are authorized next.
+
+EVID-0031 freezes the cluster-safe spectral Fréchet amendment for the
+fast-path inverse-square-root derivative. It does not authorize gradient
+validation execution, fallback differentiation, threshold approval, or training.
+
+EVID-0032 freezes the analytic fast-path VJP and no-override validation runner.
+Its frozen Full center cannot pass the fast-route precondition.
+
+EVID-0033 establishes that the frozen Full center is AP-only and cannot support
+complex128-fast gradient certification. The next work is a synthetic fast-route
+VJP harness freeze, not gradient-certification execution or training.
 
 ## Lifecycle Restrictions
 
@@ -97,6 +111,10 @@ evaluation, or publication claim is authorized.
 - EVID-0043: threshold fixture provenance harness correction; validation not rerun.
 - EVID-0044: full-support C4-Gram backend protocol freeze.
 - EVID-0045: evaluation backend implementation and validation-manifest freeze.
+- EVID-0046: gradient/VJP validation protocol freeze.
+- EVID-0047: cluster-safe spectral Fréchet amendment freeze.
+- EVID-0048: analytic VJP implementation and execution-manifest freeze.
+- EVID-0049: fast-route gradient/VJP feasibility amendment freeze.
 - DEC-0027: minimum prospective threshold validation authorized.
 - Methodology artifact SHA-256:
   `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.

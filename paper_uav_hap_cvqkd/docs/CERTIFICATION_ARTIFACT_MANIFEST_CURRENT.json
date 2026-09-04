@@ -1,11 +1,11 @@
 {
   "schema_version": "certification-artifact-current-manifest-v1",
-  "status": "CURRENT_FULL_SUPPORT_EVALUATION_VALIDATED_MANIFEST",
+  "status": "CURRENT_FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT_FROZEN_MANIFEST",
   "generated_date": "2026-09-04",
   "repository_head": "6110aae8c790c4da775b8596beec8f97d938a4fc",
   "extends_for_current_claims": "docs/CERTIFICATION_ARTIFACT_MANIFEST.json",
   "historical_manifest_preserved": true,
-  "purpose": "Current provenance index preserving prior fail-closed evidence and adding frozen full-support C4-Gram evaluation backend PASS evidence. It does not authorize publication training, final-test access, or a hard support threshold.",
+  "purpose": "Current provenance index preserving prior fail-closed evidence, validated full-support C4-Gram evaluation evidence, the historical gradient/VJP artifacts, and the frozen fast-route feasibility amendment. It authorizes only later synthetic-fast-route harness implementation, not gradient certification, publication training, final-test access, a hard support threshold, or fallback differentiation.",
   "byte_policy": "All listed source/config/schema/result text payloads use UTF-8 without BOM and LF line endings. Historical CRLF-pinned result payloads remain governed by the preserved historical manifest.",
   "claims": [
     {
@@ -48,6 +48,56 @@
       "config_sha256": "f1b4e2fe0040dcaa79d191685a7cae020cf59d8e72390b7259947974529536c3",
       "protocol_sha256": "9955b5d09e6219ba4b19b702bec3747a8d5a3b42de63d1af5d9e23c9575761d2",
       "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0030",
+      "status": "FROZEN_GRADIENT_VJP_VALIDATION_PROTOCOL_NOT_EXECUTED",
+      "scope": "fast_path_analytic_vjp_only",
+      "primary_artifact": "results/gradient_vjp_validation_protocol_freeze_v1.json",
+      "primary_artifact_sha256": "e4ce779092d837974a094b109f0de03fec434bd1382662f4df91fcd0ea149721",
+      "evaluation_backend_evidence": "EVID-0029",
+      "fallback_policy": "evaluation_only_fail_closed_for_gradient_validation",
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0031",
+      "status": "FROZEN_GRADIENT_VJP_PROTOCOL_AMENDMENT_SPECTRAL_FRECHET_NOT_EXECUTED",
+      "supersedes": "EVID-0030 for spectral-gradient semantics only",
+      "primary_artifact": "results/gradient_vjp_spectral_frechet_amendment_freeze_v1.json",
+      "primary_artifact_sha256": "484e18f87ce10d9d0ecea82e829735a4eee65f4e7b69c724c42382823f98fb9d",
+      "freeze_manifest": "configs/gradient_vjp_spectral_frechet_freeze_manifest_v1.json",
+      "freeze_manifest_sha256": "f3d8573d07cf2a752092c98bdac75af56a2197a11cc75b6d935d6758be59c645",
+      "implementation_blocker_discovered_before_certification": true,
+      "gradient_validation_passed": false,
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0032",
+      "status": "FROZEN_GRADIENT_VJP_IMPLEMENTATION_EXECUTION_AUTHORIZED_NOT_EXECUTED",
+      "primary_artifact": "results/gradient_vjp_implementation_v1.json",
+      "primary_artifact_sha256": "23ee572c1644ad7dbd765d6cf31e2e599b9be4b8007115456944e5dc865fc84b",
+      "execution_manifest": "configs/gradient_vjp_validation_execution_manifest_v1.json",
+      "execution_manifest_sha256": "455eea2e195ed1509283314d8f7e60e578fc26240961f6c31689bc12019603cf",
+      "repeated_eigenvalue_policy": "EVID-0031",
+      "gradient_validation_executed": false,
+      "ap_fallback_differentiable": false,
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+    },
+    {
+      "evidence_id": "EVID-0033",
+      "status": "FROZEN_FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT_NOT_EXECUTED",
+      "supersedes": "EVID-0032 only for frozen Full-center fast-route feasibility",
+      "primary_artifact": "results/fast_route_gradient_vjp_feasibility_amendment_freeze_v1.json",
+      "primary_artifact_sha256": "7117ae0b7235c51df018bddb772bb461a3cb5084ee2dc9cb05555e3548f8354a",
+      "freeze_manifest": "configs/fast_route_gradient_vjp_feasibility_freeze_manifest_v1.json",
+      "freeze_manifest_sha256": "6c77459a9cac83ba9e0a61d37d3d66c537dfdfdda73ba42617b250c782dd4f4e",
+      "frozen_center_gradient_eligibility": "INELIGIBLE",
+      "synthetic_fixture_claim_boundary": "fast_domain_vjp_only_not_end_to_end_full_training",
+      "synthetic_validation_executed": false,
+      "publication_training_authorized": false,
+      "frozen_model_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
     }
   ],
   "file_bindings": {
@@ -76,6 +126,27 @@
     ,"scripts/run_full_support_c4_gram_evaluation_validation.py": "378f8604b7e8a781cebe41867f9a490c09148740536a40e9ef97715eb23754f0"
     ,"docs/FULL_SUPPORT_C4_GRAM_BACKEND_PROTOCOL.md": "a3a990bf1695a650d8d8e849897ce9496882de16dd16fa604b6a6c05a8ed6cfc"
     ,"results/full_support_c4_gram_evaluation_validation_v1.json": "6a837711998c2c403f1300c502990ddcc51df21c096381e44265f3fe9f43516d"
+    ,"configs/gradient_vjp_validation_protocol_v1.yaml": "4a238d6c35deb306bfe406a3851646d0ac315df1cfa2f556319a4fb9690f1fb7"
+    ,"schemas/gradient_vjp_validation_protocol_v1.schema.json": "d059fabc22c588cba591589c206c0ae55062123b8135188ac290f41a19c06966"
+    ,"docs/GRADIENT_VJP_VALIDATION_PROTOCOL.md": "c89fe02ef77e7969ded8cbfb13959d30d7cac2483942b6ab9c3455da04771b0b"
+    ,"docs/superpowers/plans/2026-09-04-gradient-vjp-validation.md": "607b262a997aea8a7e63a4f7de920c5150c2d62b69635d5e8f8d590216272e6f"
+    ,"results/gradient_vjp_validation_protocol_freeze_v1.json": "e4ce779092d837974a094b109f0de03fec434bd1382662f4df91fcd0ea149721"
+    ,"configs/gradient_vjp_spectral_frechet_amendment_v1.yaml": "fd7e7dc91b533b2e3c0abe2f77ce527327b24a96548f0f2269709af3982ff0eb"
+    ,"schemas/gradient_vjp_spectral_frechet_amendment_v1.schema.json": "2486c8cb663a2acb04e740009e59681f1cc5c3197959d81fc0e0d0c213879ee4"
+    ,"docs/GRADIENT_VJP_SPECTRAL_FRECHET_AMENDMENT.md": "9eccf0861a58587b93f2d1c3c2c4cd1dbb0629ee6615e5cc8d3311b080e76e8b"
+    ,"configs/gradient_vjp_spectral_frechet_freeze_manifest_v1.json": "f3d8573d07cf2a752092c98bdac75af56a2197a11cc75b6d935d6758be59c645"
+    ,"results/gradient_vjp_spectral_frechet_amendment_freeze_v1.json": "484e18f87ce10d9d0ecea82e829735a4eee65f4e7b69c724c42382823f98fb9d"
+    ,"src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388"
+    ,"src/cvqkd/gram_moments.py": "8f376f1dd3e63b2ec220370073134b1119932eb03b38bc3c982b51c45072e959"
+    ,"scripts/run_gradient_vjp_validation.py": "4df129aa71e15c3fe14203ebef9138175b7aac58e20604a3a3ba385d72e8f9b3"
+    ,"schemas/gradient_vjp_validation_v1.schema.json": "7da35a2c7aa5c8b0412eb71c12e891f2b0446017814eeab414ae59fbe2b0b629"
+    ,"configs/gradient_vjp_validation_execution_manifest_v1.json": "455eea2e195ed1509283314d8f7e60e578fc26240961f6c31689bc12019603cf"
+    ,"results/gradient_vjp_implementation_v1.json": "23ee572c1644ad7dbd765d6cf31e2e599b9be4b8007115456944e5dc865fc84b"
+    ,"configs/fast_route_gradient_vjp_feasibility_amendment_v1.yaml": "d1f75943cd20b917b030f11b4973033d8b40715583469791ad1754034ed5561e"
+    ,"schemas/fast_route_gradient_vjp_feasibility_amendment_v1.schema.json": "d23925267ec2eae99e9d057a024de53fc4ecddca2217a2c8a718c159da206138"
+    ,"docs/FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT.md": "18a47f4e24331620d0c0ff3f9b97a324a5cb8e1e4ecc5addeb8abfdf8f891f3f"
+    ,"configs/fast_route_gradient_vjp_feasibility_freeze_manifest_v1.json": "6c77459a9cac83ba9e0a61d37d3d66c537dfdfdda73ba42617b250c782dd4f4e"
+    ,"results/fast_route_gradient_vjp_feasibility_amendment_freeze_v1.json": "7117ae0b7235c51df018bddb772bb461a3cb5084ee2dc9cb05555e3548f8354a"
   },
   "lifecycle_guards": {
     "threshold_approved": false,

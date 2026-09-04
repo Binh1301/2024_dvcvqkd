@@ -18,8 +18,19 @@ threshold is approved; publication training is unauthorized; baseline
 selection and optimized-MB grid selection remain unperformed; final-test data
 remain untouched.
 
-Design and freeze an independent gradient/VJP validation protocol before any
-publication-scale training.
+`GRADIENT/VJP SPECTRAL FRÉCHET AMENDMENT: FROZEN / NOT EXECUTED`.
+
+The cluster-safe analytic Fréchet VJP and hash-bound no-override validation
+harness are now frozen.
+
+`FROZEN FULL CENTER: AP-ONLY / GRADIENT-INELIGIBLE`.
+
+`SYNTHETIC FAST-ROUTE VJP FEASIBILITY: FROZEN / NOT EXECUTED`.
+
+Implement and freeze the synthetic fast-route VJP validation harness from
+`docs/FAST_ROUTE_GRADIENT_VJP_FEASIBILITY_AMENDMENT.md`. Do not execute it,
+modify a fast gate, differentiate the arbitrary-precision fallback, or start
+training.
 
 ## Stop Conditions
 

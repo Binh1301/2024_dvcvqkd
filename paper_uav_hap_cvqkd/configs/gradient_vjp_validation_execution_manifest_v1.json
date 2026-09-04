@@ -1,0 +1,42 @@
+{
+  "schema_version": "gradient-vjp-validation-execution-manifest-v1",
+  "status": "FROZEN_GRADIENT_VJP_IMPLEMENTATION_EXECUTION_AUTHORIZED_NOT_EXECUTED",
+  "command": "python scripts\\run_gradient_vjp_validation.py",
+  "required_sha256": {
+    "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+    "src/cvqkd/gram_moments.py": "8f376f1dd3e63b2ec220370073134b1119932eb03b38bc3c982b51c45072e959",
+    "src/cvqkd/holevo.py": "6d402996aa0b9ebd43636a2a2f1e1e70276325fedc82b8e9da1b5209065429bd",
+    "src/cvqkd/covariance.py": "03dc348868ba5ec4415ac714311efe22bb3b3578f9adfc738f86044d4e80109f",
+    "src/cvqkd/mutual_information.py": "1c0ee6378b58fd12a58601abb635698917518ab49883b9fe8f7074f7d67daf6a",
+    "src/cvqkd/secret_key_rate.py": "60eb1267d283effa4447ef6b6b7081be0c8d1f7aa5c3f94b25a2c37cf4abc41a",
+    "src/modulation/joint_ps_gs.py": "d8258bdfba5404d2e638ebd97252b68ff4a11ab6f3239e7783e676cd8f4997b5",
+    "src/modulation/geometric_shaping.py": "cb7903ef233b92f3073440da830e6a61c487d7c3ac393c0649e56299c2e28868",
+    "src/modulation/normalization.py": "af8aee6bbaec42101aa620ca222df0d23ca7991fd4f7f77ef99c88889801ae5a",
+    "scripts/run_gradient_vjp_validation.py": "4df129aa71e15c3fe14203ebef9138175b7aac58e20604a3a3ba385d72e8f9b3",
+    "scripts/_numerical_validation.py": "b92f34712463fbae46efb0d00c95499d82d2fdd96954b986f03c52848af65f6a",
+    "configs/gradient_vjp_validation_protocol_v1.yaml": "4a238d6c35deb306bfe406a3851646d0ac315df1cfa2f556319a4fb9690f1fb7",
+    "schemas/gradient_vjp_validation_protocol_v1.schema.json": "d059fabc22c588cba591589c206c0ae55062123b8135188ac290f41a19c06966",
+    "results/gradient_vjp_validation_protocol_freeze_v1.json": "e4ce779092d837974a094b109f0de03fec434bd1382662f4df91fcd0ea149721",
+    "configs/gradient_vjp_spectral_frechet_amendment_v1.yaml": "fd7e7dc91b533b2e3c0abe2f77ce527327b24a96548f0f2269709af3982ff0eb",
+    "schemas/gradient_vjp_spectral_frechet_amendment_v1.schema.json": "2486c8cb663a2acb04e740009e59681f1cc5c3197959d81fc0e0d0c213879ee4",
+    "results/gradient_vjp_spectral_frechet_amendment_freeze_v1.json": "484e18f87ce10d9d0ecea82e829735a4eee65f4e7b69c724c42382823f98fb9d",
+    "configs/gradient_vjp_spectral_frechet_freeze_manifest_v1.json": "f3d8573d07cf2a752092c98bdac75af56a2197a11cc75b6d935d6758be59c645",
+    "schemas/gradient_vjp_validation_v1.schema.json": "7da35a2c7aa5c8b0412eb71c12e891f2b0446017814eeab414ae59fbe2b0b629",
+    "configs/default.yaml": "dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015",
+    "docs/FINAL_MODEL_SPEC.md": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "results/full_support_c4_gram_evaluation_validation_v1.json": "6a837711998c2c403f1300c502990ddcc51df21c096381e44265f3fe9f43516d",
+    "tests/test_spectral_frechet_vjp.py": "ea08b23f92cdec2b3eeb86ec4ffc17a2559398ad7c0b9b8ff868f697f08b367c",
+    "tests/test_full_support_c4_gram_backend.py": "3f0dc693f6ee5ad00590d5a4d1d8bf72a4de2394ceb3471422f176d3e766990b",
+    "tests/test_gradient_vjp_preflight.py": "7e5000daea54fb1ac269baf8e5d645449c63362fbc46f6b0d791751f4db44bd0",
+    "tests/test_gradient_vjp_runner.py": "0ed722bc35a08f4a89b80e6d8554b275a652d36e1de251bb4ff8f96b104f26a3"
+  },
+  "lifecycle_guards": {
+    "threshold_approved": false,
+    "publication_training_performed": false,
+    "final_test_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "baseline_selection_performed": false,
+    "security_functional_changed": false,
+    "gradient_vjp_validation_executed": false
+  }
+}

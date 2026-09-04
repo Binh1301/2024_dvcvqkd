@@ -1052,6 +1052,57 @@ manifest-bound evaluation validation. Do not train, select baselines, access
 final-test data, or authorize fallback gradients. A validation pass does not
 approve a threshold or publication-scale experiments.
 
+## DEC-0032 - Freeze independent gradient/VJP validation protocol
+
+Date: 2026-09-04
+
+Status: ACTIVE IMPLEMENTATION DECISION; PROTOCOL NOT EXECUTED
+
+Accept EVID-0046. Authorize only implementation of the future analytic
+fast-path VJP and its no-override validation runner. The arbitrary-precision
+fallback remains evaluation-only; any fallback route fails gradient validation
+closed. A later execution requires a separate frozen execution manifest. No
+training, threshold approval, baseline selection, optimized-MB search, or
+final-test access is authorized.
+
+## DEC-0033 - Freeze cluster-safe spectral Fréchet amendment
+
+Date: 2026-09-04
+
+Status: ACTIVE IMPLEMENTATION DECISION; AMENDMENT NOT EXECUTED
+
+Accept EVID-0047. Supersede EVID-0030 only for the spectral-gradient rule:
+the fast-path inverse-square-root derivative is the basis-invariant Loewner
+Fréchet operator, with its Hermitian real-inner-product VJP. Do not use
+individual-eigenvector backward or add an eigengap criterion. Authorize only
+implementation of this custom fast-path VJP and a hash-bound runner; do not
+execute gradient validation, differentiate fallback, or train.
+
+## DEC-0034 - Freeze analytic VJP implementation and authorize validation
+
+Date: 2026-09-04
+
+Status: ACTIVE FAIL-CLOSED EXECUTION DECISION; CERTIFICATION NOT EXECUTED
+
+Accept EVID-0048. Authorize exactly one later execution of the hash-bound
+gradient/VJP validation runner. EVID-0031 defines repeated-eigenvalue behavior;
+AP fallback remains evaluation-only. This does not establish gradient
+correctness, approve a threshold, authorize training, or permit final-test or
+selection access.
+
+## DEC-0035 - Freeze fast-route gradient/VJP feasibility amendment
+
+Date: 2026-09-04
+
+Status: ACTIVE IMPLEMENTATION DECISION; SYNTHETIC VALIDATION NOT EXECUTED
+
+Accept EVID-0049. The frozen Full center cannot enter `COMPLEX128_FAST` because
+its full-support modes are below binary64 resolution; it remains AP-only and
+gradient-ineligible. This amendment supersedes EVID-0032 only for that center's
+fast-route feasibility. Authorize implementation and freeze of a separate
+synthetic fast-route harness with no training claim. Do not execute it yet,
+relax gates, or differentiate fallback.
+
 ## DEC-0024 - Preserve V1 outcome and freeze prospective pointwise guard V2
 
 Date: 2026-09-02

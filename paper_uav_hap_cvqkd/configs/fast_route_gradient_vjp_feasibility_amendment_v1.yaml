@@ -1,0 +1,25 @@
+schema_version: fast-route-gradient-vjp-feasibility-amendment-v1
+status: FROZEN_BEFORE_IMPLEMENTATION_AND_EXECUTION
+supersedes: {evidence_id: EVID-0032, scope: frozen_center_fast_route_feasibility_only}
+frozen_center:
+  fixture: untrained_full_initialization
+  ensemble_sha256: f7128dc210719de3942c4af8e2a47811d6994b746b06c1001dea542b39fbe8c4
+  route: ARBITRARY_PRECISION_FALLBACK
+  gradient_eligibility: INELIGIBLE
+  complex128_minimum_eigenvalues: [-1.5057797299260998e-16, -9.706370717790091e-17, -9.618782743210534e-17]
+  arbitrary_precision_minimum_eigenvalues: [3.4890503656957067e-675, 1.472286013399618e-675, 7.857520910897023e-676]
+synthetic_fast_fixture:
+  kind: algebraic_c4_sector_preflight_not_physical_transmitter
+  dimension: 64
+  sector_count: 4
+  sector_eigenvalue: 0.00390625
+  symbol_probability: 0.00390625
+  prototype_real: 0.125
+  prototype_imag: 0.25
+  required_route: COMPLEX128_FAST
+  required_checks: [positive_eigenvalues, existing_condition_number, existing_reconstruction_residual, existing_residual_identity, cluster_safe_frechet, complex_directional_derivative, basis_invariance, C, w, Z, covariance, symplectic, chi_BE, raw_K_where_feasible]
+claim_limitations:
+  validates: analytic_vjp_implementation_on_fast_domain_only
+  does_not_validate: [end_to_end_PS_GS_VA_training_on_frozen_full_center, AP_differentiation, publication_training, security_functional_change]
+forbidden: [fast_gate_relaxation, eigengap_threshold, simple_spectrum_requirement, eigenvalue_flooring, epsilon_identity_regularization, support_truncation, spectral_perturbation, straight_through_estimator, AP_differentiation, numerical_override]
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false, security_functional_changed: false, synthetic_fast_validation_executed: false}

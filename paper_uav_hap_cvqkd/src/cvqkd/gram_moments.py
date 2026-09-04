@@ -8,6 +8,7 @@ from typing import Any
 import torch
 from src.modulation.joint_ps_gs import Ensemble
 from src.modulation.qam256 import c4_orbit_indices
+from .spectral_frechet import hermitian_inverse_sqrt, hermitian_sqrt
 
 FAST_MAX_CONDITION = 1.0e6
 FAST_MAX_RESIDUAL = 1.0e-12
@@ -36,10 +37,22 @@ def _sectors(p: torch.Tensor, z: torch.Tensor) -> list[torch.Tensor]:
     return answer
 
 def _fast(p: torch.Tensor, z: torch.Tensor) -> tuple[dict[str, Any] | None, dict[str, Any]]:
-    sectors=_sectors(p,z); pairs=[torch.linalg.eigh(x) for x in sectors]
-    values=[x[0] for x in pairs]; vectors=[x[1] for x in pairs]
-    minimum=min(float(x.min()) for x in values); maximum=max(float(x.max()) for x in values)
-    reconstruction=max(float((g-u@torch.diag(v).to(torch.complex128)@u.mH).norm()/g.norm()) for g,v,u in zip(sectors,values,vectors))
+    sectors = _sectors(p, z)
+    # Gate-only eigensystems are detached. Differentiable work below uses
+    # whole-matrix Fréchet functions and solves, never eigenvectors.
+    with torch.no_grad():
+        pairs = [torch.linalg.eigh(matrix.detach()) for matrix in sectors]
+        values = [pair[0] for pair in pairs]
+        vectors = [pair[1] for pair in pairs]
+        minimum = min(float(value.min()) for value in values)
+        maximum = max(float(value.max()) for value in values)
+        reconstruction = max(
+            float(
+                (matrix.detach() - vector @ torch.diag(value).to(torch.complex128) @ vector.mH).norm()
+                / matrix.detach().norm()
+            )
+            for matrix, value, vector in zip(sectors, values, vectors)
+        )
     gate = {
     "all_sectors_positive": minimum > 0,
     "minimum_eigenvalue": minimum,
@@ -47,23 +60,61 @@ def _fast(p: torch.Tensor, z: torch.Tensor) -> tuple[dict[str, Any] | None, dict
         math.inf if minimum <= 0 else maximum / minimum
     ),
     "sector_reconstruction_residual": reconstruction,}
-    if not gate["all_sectors_positive"] or gate["sector_condition_number"]>FAST_MAX_CONDITION or reconstruction>FAST_MAX_RESIDUAL: return None,gate
-    square=[torch.diag(torch.sqrt(v).to(torch.complex128)) for v in values]; b=[]; a=[]; q=[]; c=torch.zeros((),dtype=torch.float64)
-    for s in range(4):
-        previous=(s-1)%4; m=vectors[s].mH@(z[:,None]*vectors[previous])
-        # Factorized right-side Hermitian solves; no elementwise eigenvalue ratios.
-        bs=square[s]@torch.linalg.solve(square[previous],m.mH).mH
-        aa=square[s]@torch.linalg.solve(square[previous],(square[s]@bs).mH).mH
-        b.append(bs); a.append(aa); c+=torch.trace(square[s]@bs@square[previous]@bs.mH).real
-        q.append(square[s]@vectors[s].mH/(2*torch.sqrt(p))[None,:])
-    t=[a[s]@q[(s-1)%4] for s in range(4)]
-    d=sum(torch.sum(q[s].conj()*t[s],dim=0) for s in range(4))
-    first=sum(torch.sum(values[(s-1)%4][None,:]*a[s].abs().square()).real for s in range(4))
-    subtraction=first-torch.sum(4*p*d.abs().square()).real
-    residual=sum(torch.sum(4*p*torch.sum((t[s]-q[s]*d[None,:]).abs().square(),dim=0)).real for s in range(4))
-    gate["residual_identity_relative_error"]=abs(float(subtraction-residual))/max(1.,abs(float(subtraction)))
-    if gate["residual_identity_relative_error"]>FAST_MAX_RESIDUAL or not bool(torch.isfinite(c)) or not bool(torch.isfinite(residual)): return None,gate
-    return {"C":c,"w":residual},gate
+    if not gate["all_sectors_positive"] or gate["sector_condition_number"] > FAST_MAX_CONDITION or reconstruction > FAST_MAX_RESIDUAL:
+        return None, gate
+
+    square = [hermitian_sqrt(matrix) for matrix in sectors]
+    inverse_square = [hermitian_inverse_sqrt(matrix) for matrix in sectors]
+    diagonal_z = torch.diag(z)
+    diagonal_weight = torch.diag(1.0 / (2.0 * torch.sqrt(p))).to(torch.complex128)
+    b_blocks = []
+    a_blocks = []
+    coefficients = []
+    correlation = torch.zeros((), dtype=torch.float64, device=z.device)
+    for sector in range(4):
+        previous = (sector - 1) % 4
+        b = square[sector] @ diagonal_z @ inverse_square[previous]
+        left = sectors[sector] @ diagonal_z
+        a = torch.linalg.solve(sectors[previous], left.mH).mH
+        b_blocks.append(b)
+        a_blocks.append(a)
+        correlation = correlation + torch.trace(
+            square[sector] @ b @ square[previous] @ b.mH
+        ).real
+        coefficients.append(square[sector] @ diagonal_weight)
+
+    transformed = [
+        a_blocks[sector] @ coefficients[(sector - 1) % 4]
+        for sector in range(4)
+    ]
+    inner = sum(
+        torch.sum(coefficients[sector].conj() * transformed[sector], dim=0)
+        for sector in range(4)
+    )
+    first = sum(
+        torch.sum((a_blocks[sector] @ square[(sector - 1) % 4]).abs().square()).real
+        for sector in range(4)
+    )
+    subtraction = first - torch.sum(4.0 * p * inner.abs().square()).real
+    residual = sum(
+        torch.sum(
+            4.0 * p
+            * torch.sum(
+                (transformed[sector] - coefficients[sector] * inner[None, :]).abs().square(),
+                dim=0,
+            )
+        ).real
+        for sector in range(4)
+    )
+    gate["residual_identity_relative_error"] = abs(float((subtraction - residual).detach())) / max(
+        1.0, abs(float(subtraction.detach()))
+    )
+    gate["spectral_backward"] = "CUSTOM_LOEWNER_FRECHET"
+    if gate["residual_identity_relative_error"] > FAST_MAX_RESIDUAL or not bool(
+        torch.isfinite(correlation)
+    ) or not bool(torch.isfinite(residual)):
+        return None, gate
+    return {"C": correlation, "w": residual}, gate
 
 def _fallback(p: torch.Tensor,z: torch.Tensor) -> dict[str,Any]:
     worker=Path(__file__).parents[2]/"scripts"/"full_support_c4_worker.py"

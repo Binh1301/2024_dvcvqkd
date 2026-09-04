@@ -1,0 +1,16 @@
+schema_version: gradient-vjp-spectral-frechet-amendment-v1
+status: FROZEN_BEFORE_IMPLEMENTATION_AND_EXECUTION
+supersedes: {evidence_id: EVID-0030, scope: spectral_gradient_semantics_only}
+fast_route_requirements: [positive_definite_hermitian, existing_conditioning_gate, existing_reconstruction_gate, COMPLEX128_FAST]
+matrix_function: inverse_square_root
+loewner_coefficient: -1/(sqrt(lambda_i)*sqrt(lambda_j)*(sqrt(lambda_i)+sqrt(lambda_j)))
+repeated_eigenvalue_limit: -1/(2*lambda_i^(3/2))
+complex_vjp_inner_product: Re(tr(G^H E)) on Hermitian perturbations
+upstream_symmetrization: (G+G^H)/2
+eigenvalue_gap_threshold: forbidden
+cluster_policy: basis_invariant_loewner_frechet_no_individual_eigenvector_backward
+physical_security_scope: unchanged
+frozen_v1_inputs: configs/gradient_vjp_validation_protocol_v1.yaml
+synthetic_preflight: {finite_difference_step: 1.0e-6, absolute_tolerance: 1.0e-10, relative_tolerance: 1.0e-9}
+forbidden: [torch_eigh_eigenvector_backward, eigenvalue_gap_threshold, simple_spectrum_requirement, eigenvalue_perturbation, epsilon_identity_regularization, random_cluster_splitting, fallback_autograd, straight_through_estimator]
+lifecycle_guards: {threshold_approved: false, publication_training_performed: false, final_test_accessed: false, optimized_mb_grid_performed: false, baseline_selection_performed: false, security_functional_changed: false}
