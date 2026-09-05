@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import json
+import subprocess
 import time
 from pathlib import Path
 from typing import Any, Callable
@@ -26,6 +28,66 @@ from src.optimization.constraints import ensemble_state_diagnostics
 from src.utils.random import torch_generator
 
 
+def load_experiment_config(path: Path, overrides: dict[str, Any] | None = None) -> dict[str, Any]:
+    raw = json.loads(path.read_text(encoding="utf-8")) if path.suffix.lower() == ".json" else load_yaml(path)
+    sections = ("channel", "modulation", "security", "simulation", "output")
+    settings: dict[str, Any] = {key: raw[key] for key in ("experiment_name",) if key in raw}
+    for section in sections:
+        values = raw.get(section, {})
+        if not isinstance(values, dict):
+            raise ValueError(f"config section {section!r} must be a mapping")
+        settings.update(values)
+    settings.update({key: value for key, value in (overrides or {}).items() if value is not None})
+    required = (
+        "h_hap_m", "h_uav_m", "wavelength_m", "visibility_km", "beam_waist_m",
+        "aperture_radius_m", "cn2", "epsilon_min", "epsilon_max", "va", "v_min",
+        "v_max", "va_budget", "n_peak_photons", "beta", "mb_nu", "fading_samples",
+        "awgn_samples", "channel_seed", "awgn_seed",
+    )
+    missing = [key for key in required if key not in settings]
+    if missing:
+        raise ValueError("missing required config values: " + ", ".join(missing))
+    settings.setdefault("output_dir", ROOT / "results")
+    settings.setdefault("checkpoint_each_scheme", True)
+    settings.setdefault("schemes", ["uniform", "binomial", "mb"])
+    return settings
+
+
+def collect_run_metadata(config_path: Path, seeds: dict[str, Any]) -> dict[str, Any]:
+    try:
+        commit = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=False
+        ).stdout.strip()
+        dirty = bool(subprocess.run(
+            ["git", "status", "--porcelain"], cwd=ROOT, capture_output=True, text=True, check=False
+        ).stdout.strip())
+    except OSError:
+        print("warning: Git metadata unavailable; continuing in development mode", flush=True)
+        commit, dirty = None, None
+    try:
+        config_value = config_path.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        config_value = str(config_path)
+    return {
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "git_commit": commit or None,
+        "git_dirty": dirty,
+        "script": "scripts/run_baselines_cached_source_moments.py",
+        "config_path": config_value,
+        "seeds": dict(seeds),
+    }
+
+
+def checkpoint_matches(path: Path, config: dict[str, Any]) -> bool:
+    if not path.is_file():
+        return False
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    return payload.get("run_config") == config
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in (
@@ -33,14 +95,15 @@ def parse_args() -> argparse.Namespace:
         "aperture-radius-m", "cn2", "epsilon-min", "epsilon-max", "va", "v-min", "v-max",
         "va-budget", "n-peak-photons", "beta",
     ):
-        parser.add_argument(f"--{name}", type=float, required=True)
-    parser.add_argument("--mb-nu", type=float, required=True)
-    parser.add_argument("--fading-samples", type=int, required=True)
-    parser.add_argument("--awgn-samples", type=int, required=True)
-    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
-    parser.add_argument("--channel-seed", type=int, required=True)
-    parser.add_argument("--awgn-seed", type=int, required=True)
-    parser.add_argument("--output-dir", type=Path, default=ROOT / "results")
+        parser.add_argument(f"--{name}", type=float)
+    parser.add_argument("--mb-nu", type=float)
+    parser.add_argument("--fading-samples", type=int)
+    parser.add_argument("--awgn-samples", type=int)
+    parser.add_argument("--config", type=Path, default=ROOT / "configs" / "baseline_smoke.json")
+    parser.add_argument("--channel-seed", type=int)
+    parser.add_argument("--awgn-seed", type=int)
+    parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--resume", action="store_true")
     return parser.parse_args()
 
 
@@ -159,38 +222,48 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
 
 def main() -> int:
     args = parse_args()
-    config = load_yaml(args.config.resolve())
+    overrides = {
+        key: value for key, value in vars(args).items()
+        if key not in {"config", "output_dir", "resume"}
+    }
+    if args.output_dir is not None:
+        overrides["output_dir"] = str(args.output_dir)
+    settings = load_experiment_config(args.config.resolve(), overrides)
+    output_dir = Path(settings["output_dir"])
     active_threshold = float(
-        config["cvqkd"]["holevo_numerics"]["density_eigenvalue_pseudoinverse_tolerance"]
+        settings.get("density_eigenvalue_pseudoinverse_tolerance", 1e-13)
     )
-    if args.va > args.va_budget:
+    if settings["va"] > settings["va_budget"]:
         raise ValueError("The fixed baseline V_A exceeds the declared common V_A budget.")
-    if not 0.0 < args.v_min < args.v_max or not args.v_min <= args.va <= args.v_max:
+    if not 0.0 < settings["v_min"] < settings["v_max"] or not settings["v_min"] <= settings["va"] <= settings["v_max"]:
         raise ValueError("Require V_A inside the declared common 0 < v_min < v_max box.")
     channel = sample_channel_state_distribution(
-        geometry=LinkGeometry(args.h_hap_m, args.h_uav_m, 0.0),
-        wavelength_m=args.wavelength_m,
-        visibility_km=args.visibility_km,
-        beam_waist_m=args.beam_waist_m,
-        aperture_radius_m=args.aperture_radius_m,
-        cn2_m_minus_two_thirds=args.cn2,
-        excess_noise=IndependentUniformExcessNoise(args.epsilon_min, args.epsilon_max),
-        sample_count=args.fading_samples,
-        seed=args.channel_seed,
+        geometry=LinkGeometry(settings["h_hap_m"], settings["h_uav_m"], 0.0),
+        wavelength_m=settings["wavelength_m"], visibility_km=settings["visibility_km"],
+        beam_waist_m=settings["beam_waist_m"], aperture_radius_m=settings["aperture_radius_m"],
+        cn2_m_minus_two_thirds=settings["cn2"],
+        excess_noise=IndependentUniformExcessNoise(settings["epsilon_min"], settings["epsilon_max"]),
+        sample_count=settings["fading_samples"], seed=settings["channel_seed"],
     )
     transmittance = torch.as_tensor(channel.transmittance, dtype=torch.float64)
     epsilon = torch.as_tensor(channel.excess_noise_snu, dtype=torch.float64)
-    parameters = vars(args) | {"output_dir": str(args.output_dir)}
+    settings["output_dir"] = str(output_dir)
+    metadata = collect_run_metadata(args.config, {
+        "channel_seed": settings["channel_seed"], "awgn_seed": settings["awgn_seed"]
+    })
     rows: list[dict[str, Any]] = []
-    for kind in ("uniform", "binomial", "mb"):
+    for configured_kind in settings["schemes"]:
+        kind = {"uniform": "uniform", "binomial": "binomial", "mb": "mb", "fixed-mb": "mb"}[configured_kind.lower()]
+        checkpoint = output_dir / f"baseline_cached_{kind}.json"
+        if args.resume and checkpoint_matches(checkpoint, settings):
+            rows.append(json.loads(checkpoint.read_text(encoding="utf-8"))["result"])
+            print(f"[{kind}] resumed from checkpoint", flush=True)
+            continue
         source_ensemble = reference_ensemble(
             kind,
             batch_size=1,
-            modulation_variance=args.va,
-            nu_mb=args.mb_nu if kind == "mb" else None,
-            v_min=args.v_min,
-            v_max=args.v_max,
-            n_peak_photons=args.n_peak_photons,
+            modulation_variance=settings["va"], nu_mb=settings["mb_nu"] if kind == "mb" else None,
+            v_min=settings["v_min"], v_max=settings["v_max"], n_peak_photons=settings["n_peak_photons"],
         )
         print(f"[{kind}] source moments start", flush=True)
         row = evaluate_fixed_ensemble(
@@ -198,17 +271,17 @@ def main() -> int:
             transmittance,
             epsilon,
             density_eigenvalue_tolerance=active_threshold,
-            beta_reconciliation=args.beta,
-            awgn_samples=args.awgn_samples,
-            awgn_generator=torch_generator(args.awgn_seed, transmittance.device),
+            beta_reconciliation=settings["beta"], awgn_samples=settings["awgn_samples"],
+            awgn_generator=torch_generator(settings["awgn_seed"], transmittance.device),
         )
         print(f"[{kind}] source moments finished in {row['source_moments']['elapsed_seconds']:.3f} s", flush=True)
         print(f"[{kind}] downstream fading evaluation finished in {row['downstream_elapsed_seconds']:.3f} s", flush=True)
         row["scheme"] = kind
         rows.append(row)
-        _write_json(args.output_dir / f"baseline_cached_{kind}.json", {
+        _write_json(checkpoint, {
             "status": "smoke evaluation; not a paper result",
-            "parameters": parameters,
+            "run_config": settings,
+            "run_metadata": metadata,
             "channel_metadata": channel.metadata,
             "channel": {
                 "sample_count": int(transmittance.numel()),
@@ -221,9 +294,10 @@ def main() -> int:
             },
             "result": row,
         })
-    _write_json(args.output_dir / "baseline_cached_source_moments_smoke.json", {
+    _write_json(output_dir / "baseline_cached_source_moments_smoke.json", {
         "status": "smoke evaluation; not a paper result",
-        "parameters": parameters,
+        "run_config": settings,
+        "run_metadata": metadata,
         "channel_metadata": channel.metadata,
         "channel": {
             "sample_count": int(transmittance.numel()),
