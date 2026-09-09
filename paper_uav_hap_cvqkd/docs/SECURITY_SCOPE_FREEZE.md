@@ -1,6 +1,7 @@
 # Security-scope freeze
 
-Status: **security/fading wording frozen for the current oracle-CSI simulation**.
+Status: **security/fading wording amended for the current oracle-CSI
+simulation; full-interval theory review remains required**.
 The attack class remains **AUTHOR_REVIEW_REQUIRED** for the adaptive fading
 protocol, for the reasons in Sections A and E. This document narrows the claims
 that may be made from the implemented calculation. It does not alter
@@ -15,19 +16,20 @@ that may be made from the implemented calculation. It does not alter
 | Reconciliation | Asymptotic reverse reconciliation with declared efficiency `beta_rec`. Bob's heterodyne data define the raw key variable. | The rate functional is `K_raw=beta_rec I_AB-chi_BE`. A numerical `beta_rec` does not establish that a practical reconciliation code exists. |
 | Security regime | Asymptotic only. | There is no finite-block penalty, composable security parameter, smoothing term, privacy-amplification cost, authentication cost, or finite-sample confidence interval. |
 | Attack class | **AUTHOR_REVIEW_REQUIRED for the current adaptive fading protocol.** The adopted single-state functional has the structure of the Denys--Brown--Leverrier asymptotic arbitrary-modulation bound derived in the collective-attack/Devetak--Winter setting. The current simulator, however, supplies exact continuously varying oracle states and does not implement the conditional-iid block/bin parameter estimation and key aggregation needed to assign that attack class to the fading average. `ProtocolAssumptions.attack_class=None` must therefore remain unchanged. | The manuscript may identify the theoretical origin of the functional, but may not call the reported fading average a collective-attack-secure key rate. It is not a proof against arbitrary coherent/general attacks, and Gaussian optimality alone cannot promote it to one. |
-| CSI | Exact instantaneous `(T,epsilon)` is supplied as an oracle to Alice, Bob's model, and the evaluator. The trained policy is frozen offline. | CSI estimation, confidence bounds, feedback delay/error/quantization, feedback authentication cost, and pilot overhead are absent. The manuscript's current narrative that Bob estimates and feeds back the state is not implemented. |
-| Channel parameters | `T` is instantaneous power transmittance. `epsilon>=0` is excess noise in shot-noise units referred to the channel input. | The ideal-channel covariance uses `b=1+T V_A+T epsilon`; no output-referred or detector-referred noise may be substituted. |
+| CSI | Exact instantaneous `(T,epsilon_base)` is supplied as an oracle to Alice, Bob's model, and the evaluator. A fixed public phase scenario is also known. The trained policy is frozen offline. | CSI estimation, confidence bounds, feedback delay/error/quantization, feedback authentication cost, and pilot overhead are absent. The policy sees `epsilon_base`, not its own post-action total. |
+| Channel parameters | `T` is instantaneous power transmittance. `epsilon_base>=0` is exogenous input-referred baseline noise. `epsilon_total=epsilon_base+c_phi V_A>=0` is the input-referred total used by information/security calculations. | The ideal-channel covariance uses `b=1+T V_A+T epsilon_total`; no output-referred or detector-referred noise may be substituted. `Cn_phi2` is an external SI scenario input, distinct from the beam-wander/HV `Cn2(h)` field. |
 | SNU and modulation | `[x,p]=2i`, vacuum quadrature variance is one, `V_A=2 sum_i p_i |alpha_i|^2=2 n_bar`, and the source-mode covariance diagonal is `V_A+1`. | Bob's complex heterodyne channel uses `CN(0,1+T epsilon/2)`, consistent with per-quadrature variance `1/2+T epsilon/4`. |
 | Ensemble consistency | The identical statewise `Ensemble={p_i,alpha_i}` is passed unchanged to the MI and Holevo branches. | PS, GS, and adaptive `V_A` affect both branches through the same physical amplitudes and probabilities. |
 | Symmetry/standard form | Zero displacement, equal quadrature variances, zero I/Q covariance, and zero pseudomoment are enforced by C4 construction. Unsupported asymmetric ensembles fail closed. | The scalar standard-form covariance used by the Holevo calculation is not claimed for arbitrary asymmetric 256-state modulation. |
-| Fading average | `I_AB`, the Holevo bound, and `K_raw` are evaluated conditionally for each oracle state before averaging. | The current average is an oracle fading-distribution performance functional. An operational fading-channel secret-key rate requires the block/conditioning assumptions below. |
+| Fading average | `I_AB`, the full-interval Holevo upper bound, and `K_raw` are evaluated conditionally for each oracle state before averaging. | The current average is an oracle fading-distribution performance functional. An operational fading-channel secret-key rate requires the block/conditioning assumptions below. |
 
 ### Conditional collective-attack interpretation
 
 The statewise calculation may be described as an asymptotic collective-attack
 lower bound only if the author explicitly adopts all of the following:
 
-1. Each evaluated `(T,epsilon)` represents a stationary, memoryless channel
+1. Each evaluated `(T,epsilon_base)` plus its declared public phase scenario
+   represents a stationary, memoryless channel
    block containing asymptotically many signals, so the same conditional state
    is repeated within that block.
 2. The channel-state label and the resulting modulation policy are treated as
@@ -37,8 +39,8 @@ lower bound only if the author explicitly adopts all of the following:
    heterodyne detection with the normalization in the table above.
 4. The first- and second-moment constraints required by the arbitrary-
    modulation bound are established asymptotically for every security-relevant
-   block or preregistered state bin. Supplying simulated true `T` and `epsilon`
-   is not a replacement for experimental parameter estimation.
+   block or preregistered state bin. Supplying simulated true `T` and
+   `epsilon_base` is not a replacement for experimental parameter estimation.
 5. Fading-state binning, acceptance/abort behavior, and aggregation of keys
    across blocks are fixed independently of secret/test outcomes. No
    post-selection advantage is claimed by silently discarding negative-rate
@@ -63,19 +65,22 @@ The following claims are allowed without broadening the model:
 - The study evaluates a 256-state coherent-state DM-CV-QKD prepare-and-measure
   protocol with ideal heterodyne detection and asymptotic reverse
   reconciliation.
-- For each oracle channel state, it computes exact discrete-input mutual
-  information and a covariance-based upper bound on Eve's Holevo information
-  from the same physical discrete ensemble.
+- For each oracle channel state, it evaluates the discrete-input mutual
+  information with the declared Monte-Carlo estimator (subject to its
+  convergence evidence) and a covariance-based upper bound on Eve's Holevo
+  information from the same physical discrete ensemble.
 - The implemented Holevo path is
-  `tau -> (C,w) -> Z_lower -> Gamma_AB -> symplectic eigenvalues -> chi_BE_upper`.
-  Consequently, `beta_rec I_AB-chi_BE_upper` is a lower-bound rate functional
-  within the accepted asymptotic model, up to separately certified numerical
-  truncation/Monte Carlo error.
+  `tau -> (C,w) -> [Z_minus,Z_plus] intersect physical domain -> max_Z chi_BE(Z)`.
+  It records both endpoints and the selected worst-case point rather than
+  assuming a fixed endpoint. Consequently, `beta_rec I_AB-chi_BE_max` is the
+  implemented rate functional, subject to separately certified numerical
+  truncation/Monte Carlo and full-interval-maximizer error.
 - The C4 restriction supports the scalar standard form used in the calculation;
   the result covers the implemented C4 PMFs/geometries, not unrestricted
   asymmetric 256-way shaping.
-- PS and `V_A` adapt to exact `(T,epsilon)` oracle CSI while GS remains global,
-  and all learned parameters are frozen before deployment/evaluation.
+- PS and `V_A` adapt to exact `(T,epsilon_base)` oracle CSI while GS remains
+  global; `epsilon_total` is then constructed from the selected `V_A`, and all
+  learned parameters are frozen before deployment/evaluation.
 - Rates are evaluated statewise before taking the declared fading-distribution
   average. This average may be called an **oracle-CSI asymptotic rate
   calculation** or **simulation lower-bound functional**.
@@ -123,11 +128,14 @@ reported adaptive fading average:
 > reverse-reconciliation regime using the adopted covariance-based
 > discrete-modulation security functional, ideal heterodyne detection, and
 > perfectly known instantaneous channel states. For each oracle state
-> `(T,epsilon)`, the same physical 256-state coherent-state ensemble
-> `{p_i,alpha_i}` is used for the exact discrete-input mutual information and
+> `(T,epsilon_base)` and declared public phase scenario, the same physical
+> 256-state coherent-state ensemble
+> `{p_i,alpha_i}` is used for the discrete-input mutual information estimator
+> and
 > the Denys--Brown--Leverrier arbitrary-modulation covariance chain
-> `tau -> (C,w) -> Z -> Gamma_AB -> chi_BE` [DBL-2021]. The rate
-> `K_raw=beta_rec I_AB-chi_BE` is evaluated statewise before averaging over the
+> `tau -> (C,w) -> [Z_minus,Z_plus] intersect physical domain -> max_Z chi_BE`
+> is evaluated using `epsilon_total=epsilon_base+c_phi V_A`. The rate
+> `K_raw=beta_rec I_AB-chi_BE_max` is evaluated statewise before averaging over the
 > simulated fading realization. We report this quantity only as an asymptotic
 > oracle-CSI covariance-based DM-CV-QKD rate functional; no attack class or
 > operational fading-protocol security claim is assigned. In particular, we do
@@ -169,14 +177,19 @@ uses the same structural expressions implemented here:
 - `C=Tr(sqrt(tau) a sqrt(tau) a^dagger)`;
 - `a_tau=sqrt(tau) a tau^(-1/2)` and the corresponding non-Gaussian penalty
   `w`;
-- `Z_lower=2 sqrt(T) C-sqrt(2 T epsilon w)`;
-- `a=V_A+1`, `b=1+T V_A+T epsilon`, `c=Z_lower`, ideal-heterodyne conditional
+- the lower-endpoint expression
+  `Z_-=2 sqrt(T) C-sqrt(2 T epsilon_total w)`;
+- `a=V_A+1`, `b=1+T V_A+T epsilon_total`, ideal-heterodyne conditional
   eigenvalue `lambda_3=a-c^2/(b+1)`, and the three-entropy Holevo expression.
 
-The active code matches this structural chain. Its different density-matrix
-pseudoinverse threshold is a numerical truncation choice that must be covered
-by the already required Fock-cutoff convergence study, not presented as a new
-security theorem.
+The active code uses the current manuscript's broader interval construction
+`[Z_-,Z_+] intersect [-Z_phys,Z_phys]` and maximizes the displayed Holevo
+function numerically over it.  DBL-2021 must not be cited as if it alone proves
+that broader maximization choice: an independent security review and a direct
+primary source/theorem for that step remain required.  Its different
+density-matrix pseudoinverse threshold is a numerical truncation choice that
+must be covered by the already required Fock-cutoff convergence study, not
+presented as a new security theorem.
 
 ### Existing manuscript references
 
@@ -198,6 +211,14 @@ security theorem.
    long fading blocks, preregistered state bins, parameter estimation, and
    per-bin/cross-bin key aggregation. The latter is a protocol/theory extension
    and is not implemented by this task.
+3. **FULL_INTERVAL_SECURITY_APPROVAL:** provide a primary-theory justification
+   for maximizing `chi_BE(Z)` over the full current-manuscript physical
+   interval, or narrow the claim back to a theorem-supported construction.
+   The code implements the manuscript model but this approval is not inferred
+   from a numerical search.
+4. **PHASE_SCENARIO_APPROVAL:** supply a provenance-backed, SI-valued
+   `Cn_phi2` for every reported scenario.  It must be distinct from the
+   Hufnagel--Valley/beam-wander `Cn2(h)` field.
 
 ### Parameter-estimation requirements for any future operational claim
 
@@ -207,18 +228,19 @@ modulation covariance bound (often represented by `c1`, `c2`, and `n_B` in the
 primary source), using data not retained for the key. Finite-size use requires
 worst-case confidence bounds and associated failure probabilities. The current
 simulator instead substitutes the exact Gaussian-channel expectations implied
-by oracle `T` and input-referred `epsilon`; this is sufficient only for the
+by oracle `T` and input-referred `epsilon_total`; this is sufficient only for the
 declared asymptotic model calculation.
 
 ### Numerical/physical checks that remain mandatory
 
 - certify MI Monte Carlo convergence independently of the security theorem;
-- certify density trace, `C`, `w`, `Z`, and `chi_BE` convergence over the final
+- certify density trace, `C`, `w`, `Z_-`, `Z_+`, `Z_phys`, endpoint values,
+  selected `Z_star`, and `chi_BE_max` convergence over the final
   finite physical-amplitude domain;
 - reject material negative density eigenvalues, `w<0`, nonphysical covariance
   matrices, or symplectic eigenvalues below one rather than repairing them;
 - record every within-tolerance numerical repair;
-- verify `0<T<=1`, `epsilon>=0`, one ensemble at both interfaces, and the C4
+- verify `0<T<=1`, `epsilon_base>=0`, `epsilon_total>=0`, one ensemble at both interfaces, and the C4
   standard-form invariants for every evaluated state;
 - report raw fading averages separately from aggregate clipping and the
   state-selective positive-part diagnostic.
@@ -228,15 +250,17 @@ declared asymptotic model calculation.
 - `src/cvqkd/protocol.py`: ideal heterodyne, asymptotic reverse reconciliation,
   no finite/composable claim, oracle CSI, and intentionally unresolved attack
   class.
-- `src/cvqkd/holevo.py`: exact `tau -> C,w,Z` path and fail-closed Fock/density
-  diagnostics.
+- `src/cvqkd/holevo.py`: exact `tau -> C,w -> physical Z interval -> max chi`
+  path and fail-closed Fock/density diagnostics.
 - `src/cvqkd/covariance.py`: the standard covariance, symplectic eigenvalues,
   ideal-heterodyne conditional eigenvalue, and uncertainty guard.
 - `src/cvqkd/secret_key_rate.py`: `beta_rec I_AB-chi_BE` and statewise-before-
   average ordering.
-- `src/optimization/trainer.py` and `tests/test_pipeline_consistency.py`: the
-  identical `Ensemble` object reaches MI and Holevo without mutation.
-- Source manuscript Eqs. (56)--(64), (82)--(90), and (103)--(137): noise/SNU,
-  statewise ensemble, Holevo chain, and fading-order statements. Its Sec. IV-A
+- `src/channel/phase_noise.py`, `src/optimization/trainer.py`, and
+  `tests/test_pipeline_consistency.py`: policy input is `epsilon_base`, and the
+  identical `epsilon_total` tensor reaches MI and Holevo without mutation.
+- Uploaded current manuscript pp. 7--8, 13--16, and 26--29: phase/SI,
+  statewise ensemble, full-interval Holevo chain, and optimizer statements.
+  Its Sec. IV-A
   pilot-estimation narrative conflicts with the frozen oracle-CSI limitation
   and must not be used as an implemented security claim.

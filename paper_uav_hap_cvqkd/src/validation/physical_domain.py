@@ -381,7 +381,7 @@ def preconvergence_domain_report(config: dict[str, Any]) -> dict[str, Any]:
         "status": "READY_FOR_CONVERGENCE_EXECUTION" if not blockers else "BLOCKED_UNRESOLVED",
         "is_fock_cutoff_certification": False,
         "test_set_used": False,
-        "physical_rule": "max_i |alpha_i(T,epsilon)|^2 <= n_peak",
+        "physical_rule": "max_i |alpha_i(T,epsilon_base)|^2 <= n_peak",
         "n_peak_photons": float(n_peak) if finite_limit else None,
         "n_peak_author_approved": approved,
         "peak_domain_scope": scope,

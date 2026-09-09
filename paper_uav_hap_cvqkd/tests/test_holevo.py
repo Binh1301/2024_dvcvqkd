@@ -2,9 +2,17 @@ import unittest
 
 import torch
 
-from src.cvqkd.covariance import PhysicalityError, standard_form_covariance
+from src.cvqkd.covariance import (
+    PhysicalityError,
+    physical_correlation_bound,
+    standard_form_covariance,
+)
 from src.cvqkd.holevo import (
-    density_operator, holevo_information, shared_fixed_ensemble_holevo_chi,
+    SecurityDomainError,
+    _holevo_from_source_moments,
+    density_operator,
+    holevo_information,
+    shared_fixed_ensemble_holevo_chi,
     support_restricted_source_moments,
 )
 from src.modulation.joint_ps_gs import Ensemble, reference_ensemble
@@ -13,6 +21,50 @@ from src.modulation.qam256 import square_qam256, uniform_pmf
 
 
 class HolevoTests(unittest.TestCase):
+    @staticmethod
+    def _synthetic_interval_result(
+        *,
+        center_fraction_of_z_phys: float,
+        radius_fraction_of_z_phys: float,
+    ):
+        """Exercise interval geometry independently of a particular C4 source.
+
+        The source moments below are synthetic, but nonnegative ``w`` makes
+        them legitimate inputs to the paper's interval construction.  This
+        isolates the implementation's physical-domain and max-over-interval
+        behavior from the separate Gram-moment calculation.
+        """
+
+        ensemble = reference_ensemble("uniform", batch_size=1, modulation_variance=2.0)
+        transmittance = torch.tensor([0.1], dtype=torch.float64)
+        epsilon = torch.tensor([0.001], dtype=torch.float64)
+        va = ensemble.computed_va()
+        a = 1.0 + va
+        b = 1.0 + transmittance * va + transmittance * epsilon
+        z_phys = physical_correlation_bound(
+            a, b, numerical_tolerance=1e-10
+        ).z_phys
+        center = center_fraction_of_z_phys * z_phys
+        radius = radius_fraction_of_z_phys * z_phys
+        coherent_correlation = center / (2.0 * torch.sqrt(transmittance))
+        w = radius.square() / (2.0 * transmittance * epsilon)
+        result = _holevo_from_source_moments(
+            ensemble,
+            transmittance,
+            epsilon,
+            coherent_correlation=coherent_correlation,
+            w_raw=w,
+            tau=None,
+            tau_trace=torch.ones_like(transmittance),
+            require_supported_symmetry=True,
+            symmetry_tolerance=1e-8,
+            physicality_tolerance=1e-10,
+            interval_grid_size=65,
+            interval_refinement_iterations=16,
+            diagnostics={"backend": "synthetic_interval_test"},
+        )
+        return result, z_phys
+
     def test_support_restricted_source_moments_match_full_matrix_reference(self):
         t = torch.tensor([0.024], dtype=torch.float64)
         epsilon = torch.tensor([0.02], dtype=torch.float64)
@@ -138,6 +190,104 @@ class HolevoTests(unittest.TestCase):
                 torch.tensor([0.001]),
                 torch.tensor([100.0]),
             )
+
+    def test_physical_boundary_symplectic_roots_use_stable_forms(self):
+        # These two binary64 cases exercise cancellation in the smaller
+        # symplectic root and in the heterodyne conditional eigenvalue.  The
+        # supplied correlation is the implementation's physical boundary,
+        # so a stable evaluation must accept it without clipping any root.
+        cases = (
+            (46.461146333425674, 0.0034909983989396447, 1.84946998518394e-11),
+            (0.9189930250498547, 0.7516824389811251, 5403.630819492455),
+        )
+        for va_value, t_value, epsilon_value in cases:
+            with self.subTest(va=va_value, t=t_value, epsilon=epsilon_value):
+                ensemble = reference_ensemble(
+                    "uniform", batch_size=1, modulation_variance=va_value
+                )
+                transmittance = torch.tensor([t_value], dtype=torch.float64)
+                epsilon = torch.tensor([epsilon_value], dtype=torch.float64)
+                va = ensemble.computed_va()
+                bound = physical_correlation_bound(
+                    1.0 + va,
+                    1.0 + transmittance * va + transmittance * epsilon,
+                    numerical_tolerance=1e-10,
+                )
+                covariance = standard_form_covariance(
+                    ensemble,
+                    transmittance,
+                    epsilon,
+                    bound.z_phys,
+                )
+                self.assertGreaterEqual(float(covariance.lambda2[0]), 1.0)
+                self.assertGreaterEqual(float(covariance.lambda3[0]), 1.0)
+
+    def test_full_interval_intersects_both_sides_of_the_physical_domain(self):
+        upper_clipped, z_phys = self._synthetic_interval_result(
+            center_fraction_of_z_phys=1.1,
+            radius_fraction_of_z_phys=0.4,
+        )
+        torch.testing.assert_close(upper_clipped.z_minus, 0.7 * z_phys)
+        torch.testing.assert_close(upper_clipped.z_plus, 1.5 * z_phys)
+        torch.testing.assert_close(upper_clipped.z_lower, 0.7 * z_phys)
+        torch.testing.assert_close(upper_clipped.z_upper, z_phys)
+
+        lower_clipped, _ = self._synthetic_interval_result(
+            center_fraction_of_z_phys=-1.1,
+            radius_fraction_of_z_phys=0.4,
+        )
+        torch.testing.assert_close(lower_clipped.z_lower, -z_phys)
+        torch.testing.assert_close(lower_clipped.z_upper, -0.7 * z_phys)
+
+    def test_degenerate_and_narrow_physical_intervals_are_evaluated(self):
+        degenerate, _ = self._synthetic_interval_result(
+            center_fraction_of_z_phys=0.0,
+            radius_fraction_of_z_phys=0.0,
+        )
+        torch.testing.assert_close(degenerate.z_lower, torch.zeros_like(degenerate.z_lower))
+        torch.testing.assert_close(degenerate.z_upper, torch.zeros_like(degenerate.z_upper))
+        self.assertEqual(degenerate.maximizer_location, ("degenerate_interval",))
+
+        narrow, _ = self._synthetic_interval_result(
+            center_fraction_of_z_phys=0.2,
+            radius_fraction_of_z_phys=1e-10,
+        )
+        self.assertLessEqual(float(narrow.z_lower[0]), float(narrow.z_star[0]))
+        self.assertLessEqual(float(narrow.z_star[0]), float(narrow.z_upper[0]))
+        self.assertTrue(bool(torch.all(torch.isfinite(narrow.chi_be))))
+
+    def test_empty_interval_raises_structured_security_domain_failure(self):
+        with self.assertRaises(SecurityDomainError) as captured:
+            self._synthetic_interval_result(
+                center_fraction_of_z_phys=2.0,
+                radius_fraction_of_z_phys=0.0,
+            )
+        error = captured.exception
+        self.assertEqual(error.batch_indices, (0,))
+        self.assertGreater(
+            float(error.interval_diagnostics["z_lower"][0]),
+            float(error.interval_diagnostics["z_upper"][0]),
+        )
+
+    def test_interval_maximizer_is_not_fixed_to_the_lower_endpoint(self):
+        # The Holevo function for this symmetric interval is maximal at Z=0,
+        # while the lower endpoint is strictly negative.  It catches a return
+        # to the former fixed-Z_minus implementation.
+        result, z_phys = self._synthetic_interval_result(
+            center_fraction_of_z_phys=0.0,
+            radius_fraction_of_z_phys=0.8,
+        )
+        torch.testing.assert_close(result.z_lower, -0.8 * z_phys)
+        self.assertGreater(float(result.z_star[0]), float(result.z_lower[0]))
+        self.assertLess(abs(float(result.z_star[0])), 1e-12)
+        self.assertGreaterEqual(
+            float(result.chi_be[0]), float(result.chi_at_z_lower[0])
+        )
+        self.assertGreaterEqual(
+            float(result.chi_be[0]), float(result.chi_at_z_upper[0])
+        )
+        diagnostics = result.diagnostics["security_interval"]
+        self.assertEqual(diagnostics["maximizer_location"], ("interior",))
 
 
 if __name__ == "__main__":

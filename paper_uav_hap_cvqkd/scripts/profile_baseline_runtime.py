@@ -15,6 +15,7 @@ import torch
 
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
 from _train import _channel
+from src.channel.phase_noise import total_excess_noise
 from src.cvqkd.holevo import shared_fixed_ensemble_holevo_chi
 from src.cvqkd.mutual_information import discrete_mutual_information, standard_complex_noise
 from src.modulation.joint_ps_gs import reference_ensemble
@@ -38,12 +39,19 @@ def main() -> int:
     )
     batch_size = int(config["baseline_search"]["state_batch_size"])
     t = torch.as_tensor(states.transmittance[:batch_size], dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu[:batch_size], dtype=torch.float64)
+    if states.phase_noise_scenario is None:
+        raise RuntimeError("Channel state lacks the required phase-noise scenario.")
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu[:batch_size], dtype=torch.float64)
     ensemble = reference_ensemble(
         "uniform", batch_size=batch_size, modulation_variance=0.1,
         v_min=float(config["cvqkd"]["v_min_snu"]),
         v_max=float(config["cvqkd"]["v_max_snu"]),
         n_peak_photons=float(config["cvqkd"]["n_peak_photons"]),
+    )
+    epsilon_total = total_excess_noise(
+        epsilon_base,
+        ensemble.declared_va,
+        states.phase_noise_scenario.c_phi,
     )
     started = time.perf_counter()
     noise = standard_complex_noise(
@@ -56,7 +64,7 @@ def main() -> int:
     noise_seconds = time.perf_counter() - started
     started = time.perf_counter()
     discrete_mutual_information(
-        ensemble, t, epsilon, noise_samples_per_symbol=mi_count,
+        ensemble, t, epsilon_total, noise_samples_per_symbol=mi_count,
         standard_noise_samples=noise,
         noise_sample_chunk_size=int(
             config["numerical_validation"]["mi"]["noise_sample_chunk_size"]
@@ -66,7 +74,7 @@ def main() -> int:
     mi_seconds = time.perf_counter() - started
     started = time.perf_counter()
     shared_fixed_ensemble_holevo_chi(
-        ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+        ensemble, t, epsilon_total, backend="c4_gram", fock_cutoff=None,
         **holevo_numerical_kwargs(config)
     )
     holevo_seconds = time.perf_counter() - started

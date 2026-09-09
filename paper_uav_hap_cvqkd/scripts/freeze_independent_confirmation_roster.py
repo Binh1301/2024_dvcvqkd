@@ -99,15 +99,15 @@ def run(default_config_path: Path, roster_config_path: Path,
         raise ValueError("Independent confirmation seeds overlap an existing project seed.")
 
     states = _channel(config, int(design["channel_sample_count"]), channel_seed)
-    indices = select_representative_state_indices(states.transmittance, states.excess_noise_snu)
+    indices = select_representative_state_indices(states.transmittance, states.epsilon_base_snu)
     labels = ("bad", "medium", "good")
     ordered_indices = [indices[label] for label in labels]
     transmittance = torch.as_tensor(states.transmittance[ordered_indices], dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu[ordered_indices], dtype=torch.float64)
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu[ordered_indices], dtype=torch.float64)
 
     fixture_config = copy.deepcopy(config)
     fixture_config["numerical_validation"]["fixture_initialization_seed"] = fixture_seed
-    complete = representative_ensembles(fixture_config, transmittance, epsilon)
+    complete = representative_ensembles(fixture_config, transmittance, epsilon_base)
     complete.pop("near_coincident_pseudoinverse_stress", None)
     v_max = float(config["cvqkd"]["v_max_snu"])
     n_peak = float(config["cvqkd"]["n_peak_photons"])
@@ -145,7 +145,7 @@ def run(default_config_path: Path, roster_config_path: Path,
             "label": label,
             "realization_index": int(index),
             "transmittance": float(states.transmittance[index]),
-            "epsilon_snu": float(states.excess_noise_snu[index]),
+            "epsilon_base_snu": float(states.epsilon_base_snu[index]),
         }
         for label, index in zip(labels, ordered_indices)
     ]
@@ -161,13 +161,18 @@ def run(default_config_path: Path, roster_config_path: Path,
     channel_payload = {
         "base_seed": channel_seed,
         "transmittance_seed": int(states.transmittance_seed),
-        "excess_noise_seed": int(states.excess_noise_seed),
+        "epsilon_base_seed": int(states.epsilon_base_seed),
         "sample_count": int(states.sample_count),
         "realization_sha256": states.realization_sha256,
         "joint_distribution": states.metadata["joint_distribution"],
         "statistical_dependence": states.metadata["statistical_dependence"],
         "transmittance_variance": float(states.metadata["empirical_transmittance_variance"]),
-        "epsilon_variance_snu2": float(states.metadata["empirical_epsilon_variance_snu2"]),
+        "epsilon_base_variance_snu2": float(
+            states.metadata["empirical_epsilon_base_variance_snu2"]
+        ),
+        "phase_noise_scenario": (
+            None if states.phase_noise_scenario is None else states.phase_noise_scenario.metadata()
+        ),
     }
     roster_payload = {
         "selection_design": selection_design,

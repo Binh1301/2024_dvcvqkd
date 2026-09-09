@@ -7,7 +7,8 @@
 - Eqs. (11)--(15): Gaussian beam radius, Rayleigh range, and centered aperture coupling `T0^2`.
 - Eqs. (16)--(18): UAV translational/orientation displacement variance.
 - Eq. (19): constant-`C_n^2` turbulence variance including `cos(zeta)^-4`.
-- Publication state distribution: `src/channel/state_distribution.py` draws `T` from the frozen composite FSO model and independently draws input-referred `epsilon ~ Uniform(epsilon_min, epsilon_max)` on preregistered nonnegative bounds. Separate namespaced streams and split hashes make this assumption auditable.
+- Publication state distribution: `src/channel/state_distribution.py` draws `T` from the frozen composite FSO model and independently draws input-referred `epsilon_base ~ Uniform(epsilon_base_min, epsilon_base_max)` on preregistered nonnegative bounds. Separate namespaced streams and split hashes make this assumption auditable.
+- Current-manuscript phase scenario: `src/channel/phase_noise.py` uses external fixed `Cn_phi2` in `m^-2/3`, distinct from beam-wander `Cn2`, with `tau_phi2=2.46*Cn_phi2*(2*pi/lambda_m)^(7/6)*L_link_m^(11/6)`, `c_phi=tau_phi2+0.25*tau_phi2^2`, and post-action `epsilon_total=epsilon_base+c_phi*V_A`.
 - Eqs. (21)--(24): `sigma_axis^2 = sigma_turb^2 + sigma_UAV^2`, `r_x,r_y ~ N(0,sigma_axis^2)`, and `r ~ Rayleigh(sigma_axis)`.
 - Eqs. (27)--(34): `eta_p = T0^2 exp[-(r/R)^Gamma]` and Bessel-derived `Gamma,R`.
 - Eqs. (42)--(55): `T = eta_atm eta_p`; rates are evaluated per state before averaging.
@@ -19,7 +20,7 @@ No analytic PDT function is needed for the accepted direct-sampling computation.
 - Eqs. (65)--(69): deterministic 16x16 constellation in `k*16+l` order.
 - Eqs. (70), (81), (86): `V_A = 2 sum_i p_i |alpha_i|^2`.
 - Eqs. (72)--(80): Uniform, Binomial, and MB (`nu_MB` explicit) PMFs.
-- Frozen Sec. 2.1: `PSNet([log10 T,epsilon])`, architecture `2-128-64`, softmax orbit masses and C4 expansion.
+- Frozen Sec. 2.1: `PSNet([log10 T,epsilon_base])`, architecture `2-128-64`, softmax orbit masses and C4 expansion.
 - Eqs. (151)--(153): globally shared raw GS coordinates.
 - Frozen Sec. 3: global prototype RMS gauge removal and one statewise physical-energy scale, with no probability-weighted centering.
 - Eqs. (161)--(168): explicit-bounds `V_A` network and `alpha=sqrt(V_A/2)x`.
@@ -28,14 +29,14 @@ The superseded weighted-centering convention is not active. Under the frozen C4 
 
 ## Mutual information
 
-`src/cvqkd/mutual_information.py` implements Eqs. (91)--(101): exact source-symbol enumeration and independent complex-AWGN Monte Carlo integration, with log-sum-exp accumulation. The noise convention is `CN(0, 1+T epsilon/2)`.
+`src/cvqkd/mutual_information.py` implements exact source-symbol enumeration and independent complex-AWGN Monte Carlo integration, with log-sum-exp accumulation. The active noise convention is `CN(0, 1+T epsilon_total/2)`.
 
 ## Holevo and SKR
 
 - Eq. (103): `tau_nm = sum_i p_i f_i,n f_i,m*`. This is the ket--bra orientation.
-- Eqs. (105)--(110): `C`, `a_tau`, `w`, and `Z`.
+- Current-manuscript interval equations: `C`, `a_tau`, `w`, `Z_-`, `Z_+`, and `Z_phys`.
 - Eqs. (111)--(122): paper standard-form covariance and symplectic eigenvalues.
-- Eqs. (123)--(126): bosonic entropy and `chi_BE`.
-- Eqs. (131)--(136): `K_n=beta I_AB,n-chi_BE,n`, followed by fading averaging.
+- Bosonic entropy and `chi_BE(Z)` are evaluated over the full physical correlation interval; `chi_BE_max` records the selected `Z_star` and both endpoint values.
+- `K_n=beta I_AB,n-chi_BE_max,n`, followed by fading averaging.
 
 The covariance is not capped or silently made physical. Tiny within-tolerance roundoff corrections are listed in returned diagnostics; material violations raise `PhysicalityError`.

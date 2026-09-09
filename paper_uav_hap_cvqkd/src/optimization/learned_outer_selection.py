@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass
 import math
+import re
 from typing import Any, Iterable
 
 from src.optimization.baseline_search import feasible_fixed_va_grid
@@ -42,6 +43,8 @@ def validation_only_learned_fixed_va_selection(
     v_max: float,
     va_budget: float,
     initialization_seeds: Iterable[int],
+    expected_phase_scenario_sha256: str | None = None,
+    expected_resolved_config_sha256: str | None = None,
 ) -> dict[str, LearnedFixedVASelection]:
     """Select PS/GS/PS+GS fixed VA using matched validation runs only.
 
@@ -56,10 +59,19 @@ def validation_only_learned_fixed_va_selection(
     expected_seeds = tuple(initialization_seeds)
     if not expected_seeds or len(set(expected_seeds)) != len(expected_seeds):
         raise ValueError("initialization_seeds must be a distinct nonempty preregistration.")
+    if expected_phase_scenario_sha256 is not None and re.fullmatch(
+        r"[0-9a-f]{64}", expected_phase_scenario_sha256
+    ) is None:
+        raise ValueError("expected_phase_scenario_sha256 must be a SHA-256 value.")
+    if expected_resolved_config_sha256 is not None and re.fullmatch(
+        r"[0-9a-f]{64}", expected_resolved_config_sha256
+    ) is None:
+        raise ValueError("expected_resolved_config_sha256 must be a SHA-256 value.")
     grouped: dict[tuple[str, float], list[dict[str, Any]]] = defaultdict(list)
     protocol_hash: str | None = None
     development_seeds_identity: tuple[tuple[str, int], ...] | None = None
     validation_state_sha256: str | None = None
+    phase_scenario_sha256: str | None = None
     for record in records:
         if any(token in record for token in FORBIDDEN_TEST_TOKENS):
             raise ValueError("Outer-selection records must not contain test results.")
@@ -73,6 +85,8 @@ def validation_only_learned_fixed_va_selection(
         checkpoint_id = record.get("checkpoint_id")
         record_development_seeds = record.get("development_seeds")
         record_validation_hash = record.get("validation_state_realization_sha256")
+        record_phase_hash = record.get("phase_noise_scenario_sha256")
+        record_config_hash = record.get("resolved_config_sha256")
         if mode not in FIXED_VA_LEARNED_MODES or va not in feasible:
             raise ValueError("Record mode/VA is outside the preregistered outer-search grid.")
         if seed not in expected_seeds or not isinstance(score, (float, int)) or not math.isfinite(score):
@@ -113,6 +127,26 @@ def validation_only_learned_fixed_va_selection(
             validation_state_sha256 = record_validation_hash
         elif record_validation_hash != validation_state_sha256:
             raise ValueError("All outer-search runs must use the same validation realization.")
+        if not isinstance(record_phase_hash, str) or re.fullmatch(
+            r"[0-9a-f]{64}", record_phase_hash
+        ) is None:
+            raise ValueError("phase_noise_scenario_sha256 is required.")
+        if expected_phase_scenario_sha256 is not None and record_phase_hash != (
+            expected_phase_scenario_sha256
+        ):
+            raise ValueError("Record phase-noise scenario differs from the resolved config.")
+        if not isinstance(record_config_hash, str) or re.fullmatch(
+            r"[0-9a-f]{64}", record_config_hash
+        ) is None:
+            raise ValueError("resolved_config_sha256 is required.")
+        if expected_resolved_config_sha256 is not None and record_config_hash != (
+            expected_resolved_config_sha256
+        ):
+            raise ValueError("Record resolved config differs from the current config.")
+        if phase_scenario_sha256 is None:
+            phase_scenario_sha256 = record_phase_hash
+        elif record_phase_hash != phase_scenario_sha256:
+            raise ValueError("All outer-search runs must use the same phase-noise scenario.")
         if protocol_hash is None:
             protocol_hash = run_protocol_hash
         elif run_protocol_hash != protocol_hash:

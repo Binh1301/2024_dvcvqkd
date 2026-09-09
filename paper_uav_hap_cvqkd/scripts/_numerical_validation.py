@@ -28,26 +28,44 @@ from src.utils.random import derive_seed
 COMMON_REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m",
     "channel.visibility_km", "channel.beam_waist_m", "channel.aperture_radius_m",
-    "channel.cn2_m_minus_two_thirds", "channel.excess_noise_distribution.kind",
+    "channel.cn2_m_minus_two_thirds", "channel.phase_noise.cn_phi2_m_minus_two_thirds",
+    "channel.epsilon_base_distribution.kind",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
-    "channel.excess_noise_distribution.minimum_snu",
-    "channel.excess_noise_distribution.maximum_snu", "cvqkd.v_min_snu",
+    "channel.epsilon_base_distribution.minimum_snu",
+    "channel.epsilon_base_distribution.maximum_snu", "cvqkd.v_min_snu",
     "cvqkd.v_max_snu", "cvqkd.v_a_budget_snu", "cvqkd.mb_nu",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
     "cvqkd.holevo_numerics.symmetry_tolerance",
     "cvqkd.holevo_numerics.density_trace_tolerance",
     "cvqkd.holevo_numerics.density_eigenvalue_pseudoinverse_tolerance",
     "cvqkd.holevo_numerics.physicality_tolerance",
+    "cvqkd.holevo_numerics.interval_grid_size",
+    "cvqkd.holevo_numerics.interval_refinement_iterations",
     "training.validation_fading_samples", "training.seeds.validation_channel",
 ]
+
+
+MODEL_AMENDMENT_REVALIDATION_REQUIRED = (
+    "The historical numerical-validation producers certify the superseded "
+    "(T, epsilon)-plus-Z_lower functional.  They are blocked until a fresh "
+    "post-amendment protocol freezes epsilon_base/phase-noise inputs and the "
+    "full-interval Holevo observables before any numerical result is generated."
+)
+
+
+def require_current_model_validation_protocol() -> None:
+    """Stop historical numerical producers before they can emit new artifacts."""
+
+    raise RuntimeError(MODEL_AMENDMENT_REVALIDATION_REQUIRED)
 
 
 def require(config: dict[str, Any], extra: list[str]) -> None:
     missing = missing_required(config, COMMON_REQUIRED + extra)
     if missing:
         raise ValueError("Unresolved required configuration: " + ", ".join(missing))
+    raise RuntimeError(MODEL_AMENDMENT_REVALIDATION_REQUIRED)
 
 
 def validation_representative_states(config: dict[str, Any]):
@@ -58,13 +76,13 @@ def validation_representative_states(config: dict[str, Any]):
         derive_seed(int(training["seeds"]["validation_channel"]), "validation_channel"),
     )
     indices = select_representative_state_indices(
-        states.transmittance, states.excess_noise_snu
+        states.transmittance, states.epsilon_base_snu
     )
     order = (indices["bad"], indices["medium"], indices["good"])
     t = torch.as_tensor(states.transmittance[list(order)], dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu[list(order)], dtype=torch.float64)
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu[list(order)], dtype=torch.float64)
     labels = ["bad", "medium", "good"]
-    return states, labels, t, epsilon
+    return states, labels, t, epsilon_base
 
 
 def full_validation_states(config: dict[str, Any]):
@@ -77,12 +95,12 @@ def full_validation_states(config: dict[str, Any]):
         derive_seed(int(training["seeds"]["validation_channel"]), "validation_channel"),
     )
     t = torch.as_tensor(states.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu, dtype=torch.float64)
-    return states, t, epsilon
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu, dtype=torch.float64)
+    return states, t, epsilon_base
 
 
 def representative_ensembles(
-    config: dict[str, Any], t: torch.Tensor, epsilon: torch.Tensor
+    config: dict[str, Any], t: torch.Tensor, epsilon_base: torch.Tensor
 ) -> dict[str, Ensemble]:
     """Finite representative set; not global learned-GS/PS coverage."""
 
@@ -146,7 +164,7 @@ def representative_ensembles(
         learned = JointTransmitter("full", v_min=v_min, v_max=v_max,
                                    n_peak_photons=n_peak)
     with torch.no_grad():
-        result["untrained_full_initialization"] = learned(t, epsilon)
+        result["untrained_full_initialization"] = learned(t, epsilon_base)
 
     def deterministically_deform(model: JointTransmitter, *, ps: bool, gs: bool,
                                  va: bool) -> None:
@@ -197,10 +215,10 @@ def representative_ensembles(
         )
         deterministically_deform(full_fixture, ps=True, gs=True, va=True)
     with torch.no_grad():
-        result["deterministic_ps_only"] = ps_fixture(t, epsilon)
-        result["deterministic_gs_only"] = gs_fixture(t, epsilon)
-        result["deterministic_va_only"] = va_fixture(t, epsilon)
-        result["deterministic_deformed_full"] = full_fixture(t, epsilon)
+        result["deterministic_ps_only"] = ps_fixture(t, epsilon_base)
+        result["deterministic_gs_only"] = gs_fixture(t, epsilon_base)
+        result["deterministic_va_only"] = va_fixture(t, epsilon_base)
+        result["deterministic_deformed_full"] = full_fixture(t, epsilon_base)
 
     # Near-coincident C4 prototypes stress the low-rank density-operator
     # pseudoinverse without violating any physical invariant.

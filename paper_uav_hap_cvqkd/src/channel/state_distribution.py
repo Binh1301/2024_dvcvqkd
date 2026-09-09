@@ -1,10 +1,10 @@
-"""Joint physical-transmittance/excess-noise state distribution.
+"""Joint physical-transmittance/baseline-noise state distribution.
 
-The frozen propagation model supplies ``T``.  The manuscript does not supply
-an empirical model linking input-referred excess noise to atmospheric fading,
-so production states use an explicitly declared independent bounded-uniform
-excess-noise model.  Separate namespaced random streams make that assumption
-an implementation property rather than an accidental sample correlation.
+The propagation model supplies ``T``.  The manuscript does not supply an
+empirical model linking baseline input-referred excess noise to atmospheric
+fading, so states use an explicitly declared independent bounded-uniform
+``epsilon_base`` model.  Separate namespaced random streams make that
+assumption an implementation property rather than an accidental correlation.
 """
 
 from __future__ import annotations
@@ -18,12 +18,17 @@ from src.utils.random import array_sha256, derive_seed
 
 from .fso_channel import ChannelSamples, sample_fso_channel
 from .geometry import LinkGeometry
+from .phase_noise import (
+    PhaseNoiseScenario,
+    phase_noise_scenario_sha256,
+    validate_phase_noise_scenario_binding,
+)
 from .turbulence import UavMotion
 
 
 @dataclass(frozen=True)
-class IndependentUniformExcessNoise:
-    """Bounded input-referred excess noise in shot-noise units.
+class IndependentUniformBaselineNoise:
+    """Bounded exogenous baseline noise in input-referred shot-noise units.
 
     This is a declared simulation distribution, not a measured atmospheric
     law.  Bounds are therefore mandatory experiment parameters and must be
@@ -41,7 +46,7 @@ class IndependentUniformExcessNoise:
             raise ValueError("minimum_snu must be nonnegative.")
         if self.maximum_snu <= self.minimum_snu:
             raise ValueError(
-                "maximum_snu must exceed minimum_snu so epsilon genuinely varies."
+                "maximum_snu must exceed minimum_snu so epsilon_base genuinely varies."
             )
 
     @property
@@ -55,11 +60,12 @@ class ChannelStateSamples:
     """One independently generated realization of the joint state law."""
 
     transmittance: np.ndarray
-    excess_noise_snu: np.ndarray
+    epsilon_base_snu: np.ndarray
     fso: ChannelSamples
     base_seed: int
     transmittance_seed: int
-    excess_noise_seed: int
+    epsilon_base_seed: int
+    phase_noise_scenario: PhaseNoiseScenario | None
     metadata: dict[str, Any]
 
     @property
@@ -68,8 +74,16 @@ class ChannelStateSamples:
 
     @property
     def realization_sha256(self) -> str:
-        pairs = np.column_stack((self.transmittance, self.excess_noise_snu))
+        pairs = np.column_stack((self.transmittance, self.epsilon_base_snu))
         return array_sha256(pairs)
+
+    @property
+    def phase_noise_scenario_sha256(self) -> str | None:
+        """Hash the fixed scenario separately from the exogenous state hash."""
+
+        if self.phase_noise_scenario is None:
+            return None
+        return phase_noise_scenario_sha256(self.phase_noise_scenario)
 
 
 def sample_channel_state_distribution(
@@ -80,14 +94,15 @@ def sample_channel_state_distribution(
     beam_waist_m: float,
     aperture_radius_m: float,
     cn2_m_minus_two_thirds: float,
-    excess_noise: IndependentUniformExcessNoise,
+    epsilon_base: IndependentUniformBaselineNoise,
     sample_count: int,
     seed: int,
     uav_motion: UavMotion | None = None,
+    phase_noise_scenario: PhaseNoiseScenario | None = None,
 ) -> ChannelStateSamples:
-    """Draw iid states from ``p_FSO(T) p_epsilon(epsilon)``.
+    """Draw iid exogenous states from ``p_FSO(T) p(epsilon_base)``.
 
-    ``T`` follows the frozen HAP--UAV FSO sampler.  ``epsilon`` is sampled
+    ``T`` follows the HAP--UAV FSO sampler.  ``epsilon_base`` is sampled
     independently from ``Uniform[minimum_snu, maximum_snu]`` because neither
     the frozen equations nor the available measurements define a physical
     coupling.  A coupling may only replace this model with documented data or
@@ -98,9 +113,15 @@ def sample_channel_state_distribution(
         raise ValueError("Joint channel realizations require sample_count >= 2.")
     if not isinstance(seed, int) or seed < 0:
         raise ValueError("seed must be a nonnegative integer.")
-    excess_noise.validate()
+    epsilon_base.validate()
+    if phase_noise_scenario is not None:
+        validate_phase_noise_scenario_binding(
+            phase_noise_scenario,
+            wavelength_m=wavelength_m,
+            link_distance_m=geometry.link_length_m,
+        )
     transmittance_seed = derive_seed(seed, "joint_state_transmittance")
-    excess_noise_seed = derive_seed(seed, "joint_state_excess_noise")
+    epsilon_base_seed = derive_seed(seed, "joint_state_epsilon_base")
     fso = sample_fso_channel(
         geometry=geometry,
         wavelength_m=wavelength_m,
@@ -112,9 +133,9 @@ def sample_channel_state_distribution(
         rng=np.random.default_rng(transmittance_seed),
         uav_motion=uav_motion,
     )
-    epsilon = np.random.default_rng(excess_noise_seed).uniform(
-        excess_noise.minimum_snu,
-        excess_noise.maximum_snu,
+    epsilon = np.random.default_rng(epsilon_base_seed).uniform(
+        epsilon_base.minimum_snu,
+        epsilon_base.maximum_snu,
         size=sample_count,
     ).astype(np.float64, copy=False)
     transmittance = np.asarray(fso.transmittance, dtype=np.float64)
@@ -127,38 +148,44 @@ def sample_channel_state_distribution(
     metadata = dict(fso.metadata)
     metadata.update(
         {
-            "joint_distribution": "p_FSO(T) * Uniform(epsilon_min, epsilon_max)",
-            "statistical_dependence": "T and epsilon independent by construction",
+            "joint_distribution": "p_FSO(T) * Uniform(epsilon_base_min, epsilon_base_max)",
+            "statistical_dependence": "T and epsilon_base independent by construction",
             "dependence_justification": (
-                "The frozen propagation model and available manuscript provide no "
-                "measured or mechanistic T-epsilon coupling."
+                "The propagation model and available manuscript provide no "
+                "measured or mechanistic T-epsilon_base coupling."
             ),
             "temporal_model": "iid Monte Carlo states; no time correlation",
-            "epsilon_units": "input-referred SNU",
-            "epsilon_minimum_snu": float(excess_noise.minimum_snu),
-            "epsilon_maximum_snu": float(excess_noise.maximum_snu),
-            "epsilon_theoretical_variance_snu2": excess_noise.theoretical_variance_snu2,
+            "epsilon_base_units": "input-referred SNU",
+            "epsilon_base_minimum_snu": float(epsilon_base.minimum_snu),
+            "epsilon_base_maximum_snu": float(epsilon_base.maximum_snu),
+            "epsilon_base_theoretical_variance_snu2": epsilon_base.theoretical_variance_snu2,
             "transmittance_physical_upper_bound": physical_upper,
             "empirical_transmittance_variance": float(np.var(transmittance)),
-            "empirical_epsilon_variance_snu2": float(np.var(epsilon)),
-            "empirical_t_epsilon_correlation": float(
+            "empirical_epsilon_base_variance_snu2": float(np.var(epsilon)),
+            "empirical_t_epsilon_base_correlation": float(
                 np.corrcoef(transmittance, epsilon)[0, 1]
             ),
             "base_seed": seed,
             "transmittance_seed": transmittance_seed,
-            "excess_noise_seed": excess_noise_seed,
+            "epsilon_base_seed": epsilon_base_seed,
             "transmittance_sha256": array_sha256(transmittance),
-            "excess_noise_sha256": array_sha256(epsilon),
+            "epsilon_base_sha256": array_sha256(epsilon),
             "realization_sha256": array_sha256(pairs),
         }
     )
+    if phase_noise_scenario is not None:
+        metadata["phase_noise_scenario"] = phase_noise_scenario.metadata()
+        metadata["phase_noise_scenario_sha256"] = phase_noise_scenario_sha256(
+            phase_noise_scenario
+        )
     return ChannelStateSamples(
         transmittance=transmittance,
-        excess_noise_snu=epsilon,
+        epsilon_base_snu=epsilon,
         fso=fso,
         base_seed=seed,
         transmittance_seed=transmittance_seed,
-        excess_noise_seed=excess_noise_seed,
+        epsilon_base_seed=epsilon_base_seed,
+        phase_noise_scenario=phase_noise_scenario,
         metadata=metadata,
     )
 
@@ -181,7 +208,7 @@ def assert_disjoint_state_realizations(
     pair_sets: list[set[bytes]] = []
     for _, sample in samples:
         pairs = np.ascontiguousarray(
-            np.column_stack((sample.transmittance, sample.excess_noise_snu)),
+            np.column_stack((sample.transmittance, sample.epsilon_base_snu)),
             dtype=np.float64,
         )
         pair_sets.append({row.tobytes() for row in pairs})

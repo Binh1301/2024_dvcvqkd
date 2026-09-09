@@ -65,13 +65,17 @@ def main() -> int:
     awgn_seed = derive_seed(frozen["awgn_seed"], "held_out_test_awgn")
     states = _channel(config, int(frozen["fading_samples"]), channel_seed)
     t = torch.as_tensor(states.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu, dtype=torch.float64)
+    if states.phase_noise_scenario is None:
+        raise RuntimeError("Channel state lacks the required phase-noise scenario.")
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu, dtype=torch.float64)
     with torch.no_grad():
         evaluation = evaluate_transmitter(
-            transmitter, t, epsilon,
+            transmitter, t, epsilon_base,
             beta_reconciliation=float(cvqkd["beta_reconciliation"]),
             noise_samples_per_symbol=int(frozen["awgn_samples_per_symbol"]),
-            generator=torch_generator(awgn_seed), require_supported_symmetry=True,
+            generator=torch_generator(awgn_seed),
+            phase_noise_coefficient=states.phase_noise_scenario.c_phi,
+            require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),
         )
     budget_status = heldout_budget_comparison_status(
@@ -88,7 +92,7 @@ def main() -> int:
         "heldout_budget_validity": budget_status,
         "test_state_realization_sha256": states.realization_sha256,
         "mean_raw_skr": float(evaluation.key_rate.fading_average_raw),
-        "per_state": _state_payload(evaluation, t, epsilon),
+        "per_state": _state_payload(evaluation, t, epsilon_base),
         "policy": {
             "orbit_masses": c4_orbit_masses(evaluation.ensemble.probabilities).tolist(),
             "probabilities": evaluation.ensemble.probabilities.tolist(),

@@ -14,6 +14,8 @@ from _common import (
     ROOT, holevo_numerical_kwargs, load_yaml, missing_required,
 )
 from _train import _channel
+from src.channel.phase_noise import total_excess_noise
+from src.channel.phase_noise import phase_noise_scenario_sha256
 from src.cvqkd.holevo import shared_fixed_ensemble_holevo_chi
 from src.cvqkd.mutual_information import (
     discrete_mutual_information,
@@ -26,23 +28,27 @@ from src.utils.random import derive_seed, torch_generator
 from src.validation.physical_domain import (
     approved_peak_photon_limit, require_preconvergence_domain_ready,
 )
+from src.validation.publication_manifest import canonical_json_sha256
 
 
 REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m",
     "channel.visibility_km", "channel.beam_waist_m", "channel.aperture_radius_m",
-    "channel.cn2_m_minus_two_thirds", "channel.excess_noise_distribution.kind",
+    "channel.cn2_m_minus_two_thirds", "channel.phase_noise.cn_phi2_m_minus_two_thirds",
+    "channel.epsilon_base_distribution.kind",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
-    "channel.excess_noise_distribution.minimum_snu",
-    "channel.excess_noise_distribution.maximum_snu", "cvqkd.beta_reconciliation",
+    "channel.epsilon_base_distribution.minimum_snu",
+    "channel.epsilon_base_distribution.maximum_snu", "cvqkd.beta_reconciliation",
     "cvqkd.v_min_snu", "cvqkd.v_max_snu", "cvqkd.v_a_budget_snu",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
     "cvqkd.holevo_numerics.symmetry_tolerance",
     "cvqkd.holevo_numerics.density_trace_tolerance",
     "cvqkd.holevo_numerics.density_eigenvalue_pseudoinverse_tolerance",
     "cvqkd.holevo_numerics.physicality_tolerance",
+    "cvqkd.holevo_numerics.interval_grid_size",
+    "cvqkd.holevo_numerics.interval_refinement_iterations",
     "cvqkd.mb_nu", "training.validation_fading_samples",
     "training.seeds.validation_channel",
     "training.seeds.validation_awgn", "baseline_search.va_grid_snu",
@@ -132,7 +138,10 @@ def main() -> int:
         derive_seed(int(training["seeds"]["validation_channel"]), "validation_channel"),
     )
     t = torch.as_tensor(states.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu, dtype=torch.float64)
+    if states.phase_noise_scenario is None:
+        raise RuntimeError("Channel state lacks the required phase-noise scenario.")
+    phase_scenario_hash = phase_noise_scenario_sha256(states.phase_noise_scenario)
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu, dtype=torch.float64)
     awgn_count = int(awgn_count)
     state_batch_size = int(config["baseline_search"]["state_batch_size"])
     if state_batch_size <= 0:
@@ -161,8 +170,13 @@ def main() -> int:
         # tau, C, and w depend only on this fixed source ensemble. Evaluate
         # them once, then vectorize channel-dependent Z/covariance/chi over all
         # validation states exactly.
+        epsilon_total = total_excess_noise(
+            epsilon_base,
+            full_ensemble.declared_va,
+            states.phase_noise_scenario.c_phi,
+        )
         full_chi = shared_fixed_ensemble_holevo_chi(
-            full_ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+            full_ensemble, t, epsilon_total, backend="c4_gram", fock_cutoff=None,
             **holevo_numerical_kwargs(config),
         )
         for batch_index, start in enumerate(range(0, t.numel(), state_batch_size)):
@@ -170,7 +184,7 @@ def main() -> int:
                 raise RuntimeCapReached("Validation baseline runtime cap reached.")
             stop = min(start + state_batch_size, t.numel())
             batch_t = t[start:stop]
-            batch_epsilon = epsilon[start:stop]
+            batch_epsilon_total = epsilon_total[start:stop]
             ensemble = Ensemble(
                 full_ensemble.probabilities[start:stop],
                 full_ensemble.amplitudes[start:stop],
@@ -192,7 +206,7 @@ def main() -> int:
             mi = discrete_mutual_information(
                 ensemble,
                 batch_t,
-                batch_epsilon,
+                batch_epsilon_total,
                 noise_samples_per_symbol=awgn_count,
                 standard_noise_samples=common_noise,
                 noise_sample_chunk_size=int(
@@ -251,7 +265,10 @@ def main() -> int:
         "status": "validation-only selection; no test evaluation and no publication claim",
         "selection_split": "validation",
         "test_set_used": False,
+        "resolved_config_sha256": canonical_json_sha256(config),
         "validation_state_realization_sha256": states.realization_sha256,
+        "phase_noise_scenario": states.phase_noise_scenario.metadata(),
+        "phase_noise_scenario_sha256": phase_scenario_hash,
         "common_random_numbers_across_candidates": True,
         "state_batch_size": state_batch_size,
         "mi_sample_count": awgn_count,

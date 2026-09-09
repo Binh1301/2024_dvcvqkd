@@ -6,6 +6,7 @@ from src.channel.diagnostics import (
     transformed_rayleigh_transmittance_quantile,
 )
 from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import phase_noise_scenario
 from src.channel.turbulence import UavMotion
 
 
@@ -18,6 +19,9 @@ class FrozenChannelDiagnosticsTests(unittest.TestCase):
             beam_waist_m=0.0157,
             aperture_radius_m=0.075,
             cn2_m_minus_two_thirds=1.0e-16,
+            phase_noise_scenario=phase_noise_scenario(
+                1.0e-20, 1.55e-6, 19_000.0
+            ),
             motion=UavMotion(),
             epsilon_minimum_snu=0.001,
             epsilon_maximum_snu=0.04,
@@ -53,7 +57,7 @@ class FrozenChannelDiagnosticsTests(unittest.TestCase):
         right = second["monte_carlo_diagnostic"]
         self.assertEqual(left["joint_realization_sha256"], right["joint_realization_sha256"])
         self.assertEqual(left["transmittance_seed"], right["transmittance_seed"])
-        self.assertEqual(left["excess_noise_seed"], right["excess_noise_seed"])
+        self.assertEqual(left["epsilon_base_seed"], right["epsilon_base_seed"])
         self.assertNotEqual(
             left["joint_realization_sha256"],
             self._diagnostics(seed=202613)["monte_carlo_diagnostic"]["joint_realization_sha256"],
@@ -79,10 +83,10 @@ class FrozenChannelDiagnosticsTests(unittest.TestCase):
         for probability, quantile in zip(probabilities, quantiles):
             self.assertAlmostEqual(quantile, upper * probability**exponent, places=14)
 
-    def test_independent_epsilon_is_nonconstant_and_in_support(self):
+    def test_independent_epsilon_base_is_nonconstant_and_in_support(self):
         result = self._diagnostics()["monte_carlo_diagnostic"]
-        self.assertGreater(result["empirical_epsilon_variance_snu2"], 0.0)
-        self.assertTrue(math.isfinite(result["empirical_t_epsilon_correlation"]))
+        self.assertGreater(result["empirical_epsilon_base_variance_snu2"], 0.0)
+        self.assertTrue(math.isfinite(result["empirical_t_epsilon_base_correlation"]))
 
 
 if __name__ == "__main__":

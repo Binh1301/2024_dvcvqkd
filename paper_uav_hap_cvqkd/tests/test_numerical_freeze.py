@@ -138,6 +138,15 @@ class NumericalConvergenceTests(unittest.TestCase):
     def test_certification_fixture_and_exact_duplicate_reduction_are_deterministic(self):
         root = Path(__file__).parents[1]
         config = load_yaml(root / "configs" / "default.yaml")
+        with self.assertRaisesRegex(ValueError, "unresolved"):
+            validation_representative_states(config)
+        # This test exercises the historical deterministic ensemble fixture,
+        # not a phase-noise numerical result.  An explicit zero-turbulence
+        # reference preserves epsilon_total=epsilon_base for that fixture.
+        config["channel"]["phase_noise"].update({
+            "cn_phi2_m_minus_two_thirds": 0.0,
+            "allow_zero_turbulence_reference": True,
+        })
         _, _, t, epsilon = validation_representative_states(config)
         first = representative_ensembles(config, t, epsilon)
         torch.manual_seed(999999)
@@ -296,6 +305,8 @@ class PublicationLifecycleTests(unittest.TestCase):
                         },
                         "selected_validation_peak_feasible": True,
                         "training_protocol_sha256": "same-protocol",
+                        "phase_noise_scenario_sha256": "b" * 64,
+                        "resolved_config_sha256": "d" * 64,
                         "checkpoint_id": f"{mode}-{va}-{seed}",
                         "test_set_accessed": False,
                         "development_seeds": {
@@ -314,6 +325,13 @@ class PublicationLifecycleTests(unittest.TestCase):
         )
         self.assertEqual(set(selected), set(FIXED_VA_LEARNED_MODES))
         self.assertTrue(all(value.modulation_variance_snu == 1.0 for value in selected.values()))
+        phase_mismatch = list(records)
+        phase_mismatch[0] = {**phase_mismatch[0], "phase_noise_scenario_sha256": "c" * 64}
+        with self.assertRaisesRegex(ValueError, "same phase-noise scenario"):
+            validation_only_learned_fixed_va_selection(
+                phase_mismatch, va_grid=(0.5, 1.0), v_min=0.5, v_max=2.0,
+                va_budget=1.0, initialization_seeds=(11, 22)
+            )
         contaminated = list(records)
         contaminated[0] = {**contaminated[0], "test_raw_skr": 999.0}
         with self.assertRaisesRegex(ValueError, "test results"):

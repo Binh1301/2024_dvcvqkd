@@ -9,8 +9,9 @@ import numpy as np
 
 from .atmospheric_loss import extinction_coefficient_per_km
 from .geometry import LinkGeometry
+from .phase_noise import PhaseNoiseScenario
 from .state_distribution import (
-    IndependentUniformExcessNoise,
+    IndependentUniformBaselineNoise,
     sample_channel_state_distribution,
 )
 from .turbulence import UavMotion
@@ -93,6 +94,7 @@ def frozen_channel_diagnostics(
     beam_waist_m: float,
     aperture_radius_m: float,
     cn2_m_minus_two_thirds: float,
+    phase_noise_scenario: PhaseNoiseScenario,
     motion: UavMotion,
     epsilon_minimum_snu: float,
     epsilon_maximum_snu: float,
@@ -128,12 +130,13 @@ def frozen_channel_diagnostics(
         beam_waist_m=beam_waist_m,
         aperture_radius_m=aperture_radius_m,
         cn2_m_minus_two_thirds=cn2_m_minus_two_thirds,
-        excess_noise=IndependentUniformExcessNoise(
+        epsilon_base=IndependentUniformBaselineNoise(
             epsilon_minimum_snu, epsilon_maximum_snu
         ),
         sample_count=sample_count,
         seed=seed,
         uav_motion=motion,
+        phase_noise_scenario=phase_noise_scenario,
     )
     fso = states.fso
     pointing = fso.pointing
@@ -185,7 +188,7 @@ def frozen_channel_diagnostics(
     if pointing.beam_radius_receiver_m < beam_waist_m:
         raise FloatingPointError("Gaussian beam radius contracted in free propagation.")
     if not states.metadata["statistical_dependence"].startswith(
-        "T and epsilon independent"
+        "T and epsilon_base independent"
     ):
         raise FloatingPointError("The approved independent T-epsilon law was not used.")
 
@@ -233,12 +236,14 @@ def frozen_channel_diagnostics(
             "beam_waist_m": beam_waist_m,
             "aperture_radius_m": aperture_radius_m,
             "cn2_m_minus_two_thirds": cn2_m_minus_two_thirds,
+            "phase_noise_scenario": phase_noise_scenario.metadata(),
+            "phase_noise_scenario_sha256": states.phase_noise_scenario_sha256,
             "uav_motion_standard_deviations": {
                 key: float(value) for key, value in motion.__dict__.items()
             },
-            "epsilon_minimum_snu": float(epsilon_minimum_snu),
-            "epsilon_maximum_snu": float(epsilon_maximum_snu),
-            "epsilon_distribution": (
+            "epsilon_base_minimum_snu": float(epsilon_minimum_snu),
+            "epsilon_base_maximum_snu": float(epsilon_maximum_snu),
+            "epsilon_base_distribution": (
                 f"independent Uniform[{float(epsilon_minimum_snu):g},"
                 f"{float(epsilon_maximum_snu):g}] input-referred SNU"
             ),
@@ -271,19 +276,20 @@ def frozen_channel_diagnostics(
             "sample_count": sample_count,
             "base_seed": seed,
             "transmittance_seed": states.transmittance_seed,
-            "excess_noise_seed": states.excess_noise_seed,
+            "epsilon_base_seed": states.epsilon_base_seed,
             "empirical_mean_transmittance": empirical_mean,
             "mean_standard_error": mean_standard_error,
             "analytic_mean_difference_in_standard_errors": float(mean_z_score),
             "empirical_transmittance_variance": float(np.var(states.transmittance)),
-            "empirical_epsilon_mean_snu": float(np.mean(states.excess_noise_snu)),
-            "empirical_epsilon_variance_snu2": float(np.var(states.excess_noise_snu)),
-            "empirical_t_epsilon_correlation": float(
-                np.corrcoef(states.transmittance, states.excess_noise_snu)[0, 1]
+            "empirical_epsilon_base_mean_snu": float(np.mean(states.epsilon_base_snu)),
+            "empirical_epsilon_base_variance_snu2": float(np.var(states.epsilon_base_snu)),
+            "empirical_t_epsilon_base_correlation": float(
+                np.corrcoef(states.transmittance, states.epsilon_base_snu)[0, 1]
             ),
             "transmittance_sha256": states.metadata["transmittance_sha256"],
-            "excess_noise_sha256": states.metadata["excess_noise_sha256"],
+            "epsilon_base_sha256": states.metadata["epsilon_base_sha256"],
             "joint_realization_sha256": states.realization_sha256,
+            "phase_noise_scenario_sha256": states.phase_noise_scenario_sha256,
             "quantiles": quantile_records,
         },
         "validity_and_limitations": [
@@ -293,11 +299,12 @@ def frozen_channel_diagnostics(
             "Independent zero-mean Gaussian UAV components and zero boresight produce Rayleigh radial jitter.",
             "States are iid, not a time-correlated UAV trajectory.",
             "No additional optical-throughput or detector-efficiency loss is included in T.",
-            "Epsilon is an assumed independent operating-domain distribution, not measured atmospheric coupling.",
+            "Epsilon_base is an assumed independent operating-domain distribution, not measured atmospheric coupling.",
+            "The separate phase-noise scenario is fixed and is not derived from the beam-wander Cn2 input.",
         ],
         "downstream_channel_outputs": {
-            "qam_adaptation": ["instantaneous power transmittance T", "input-referred epsilon in SNU"],
-            "cvqkd": ["the identical instantaneous power transmittance T", "the identical input-referred epsilon in SNU"],
+            "qam_adaptation": ["instantaneous power transmittance T", "input-referred epsilon_base in SNU"],
+            "cvqkd": ["the identical instantaneous power transmittance T", "post-action epsilon_total in SNU"],
             "do_not_substitute": ["field amplitude sqrt(T)", "received-power SNR", "detector-output noise"],
         },
     }

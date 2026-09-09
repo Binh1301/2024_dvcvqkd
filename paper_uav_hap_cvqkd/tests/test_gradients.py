@@ -112,6 +112,7 @@ class GradientTests(unittest.TestCase):
                     noise_samples_per_symbol=2,
                     density_eigenvalue_tolerance=1e-13,
                     generator=torch.Generator().manual_seed(900 + len(mode)),
+                    phase_noise_coefficient=0.0,
                 )
                 (-evaluation.key_rate.fading_average_raw).backward()
                 target = getattr(model, target_name)
@@ -133,6 +134,7 @@ class GradientTests(unittest.TestCase):
             noise_samples_per_symbol=2,
             density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(1900),
+            phase_noise_coefficient=0.0,
         )
         (-evaluation.key_rate.fading_average_raw).backward()
         for target_name in ("ps_network", "gs_model", "va_network"):
@@ -145,6 +147,40 @@ class GradientTests(unittest.TestCase):
                 0.0,
                 target_name,
             )
+
+    def test_phase_noise_keeps_the_variance_policy_on_the_skr_gradient_path(self):
+        model = JointTransmitter("va", v_min=0.5, v_max=3.0)
+        phase_coefficient = 2.0e-3
+        evaluation = evaluate_transmitter(
+            model,
+            self.t[:1],
+            self.epsilon[:1],
+            beta_reconciliation=0.95,
+            noise_samples_per_symbol=2,
+            density_eigenvalue_tolerance=1e-13,
+            generator=torch.Generator().manual_seed(2900),
+            phase_noise_coefficient=phase_coefficient,
+        )
+        torch.testing.assert_close(
+            evaluation.phase_excess_noise,
+            phase_coefficient * evaluation.ensemble.declared_va,
+        )
+        torch.testing.assert_close(
+            evaluation.epsilon_total,
+            evaluation.epsilon_base + evaluation.phase_excess_noise,
+        )
+        (-evaluation.key_rate.fading_average_raw).backward()
+        gradients = [
+            parameter.grad
+            for parameter in model.va_network.parameters()
+            if parameter.grad is not None
+        ]
+        self.assertTrue(gradients)
+        self.assertTrue(all(bool(torch.all(torch.isfinite(value))) for value in gradients))
+        self.assertGreater(
+            sum(float(torch.linalg.vector_norm(value).detach()) for value in gradients),
+            0.0,
+        )
 
 
 if __name__ == "__main__":

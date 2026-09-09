@@ -7,7 +7,10 @@ import json
 from pathlib import Path
 
 from _common import load_yaml, require_holevo_pseudoinverse_approval
-from _numerical_validation import full_validation_states
+from _numerical_validation import (
+    full_validation_states,
+    require_current_model_validation_protocol,
+)
 from src.utils.random import derive_seed
 from src.validation.publication_manifest import (
     canonical_json_sha256,
@@ -28,6 +31,7 @@ def _resolve(manifest_path: Path, value: str) -> Path:
 
 
 def main() -> int:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser(description=__doc__)
     selection = parser.add_mutually_exclusive_group(required=True)
     selection.add_argument("--selection-manifest", type=Path)

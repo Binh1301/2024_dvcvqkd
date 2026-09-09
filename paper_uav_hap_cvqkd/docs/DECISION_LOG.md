@@ -732,3 +732,57 @@ activity or a smaller radius as a complete path proof; and proceeding to all
 
 Supersedes DEC-0016 as the active numerical next-action policy. Not
 superseded.
+
+## DEC-0018 - Adopt current-manuscript phase/noise and full-interval functional
+
+Date: 2026-09-09
+
+Status: ACTIVE MODEL AMENDMENT; NUMERICAL REVALIDATION REQUIRED
+
+### Context
+
+The user directed implementation against the current uploaded manuscript and
+explicitly specified three equations that conflict with the pre-amendment
+frozen functional: exogenous `(T,epsilon_base)` rather than `(T,epsilon)`,
+scenario-level `Cn_phi2` phase noise with
+`epsilon_total=epsilon_base+c_phi*V_A`, and maximization of the Holevo value
+over the full physical correlation interval rather than a fixed lower
+endpoint.  The manuscript source is recorded in
+`MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`.
+
+### Decision
+
+Adopt the specified functional in the active implementation and freeze it in
+`FINAL_MODEL_SPEC.md` SHA-256
+`f3c118768fc3e4fe5e308d3e660507f815526b86e442100945ab47e6924ca974`.
+Use a distinct fixed `Cn_phi2` SI scenario input, do not derive it from the
+Hufnagel--Valley/beam-wander `Cn2(h)` field, and leave it unresolved in the
+default configuration until author approval.  Treat an empty physical
+correlation interval or materially invalid spectral quantity as a structured
+failure, never a safe fallback.
+
+### Consequences
+
+Historical numerical evidence, including any fixed-`Z_lower` result, does not
+certify the amended functional.  Existing numerical-validation producers are
+blocked pending a new protocol.  The deterministic full-interval maximizer is
+only piecewise differentiable and has no configured global-optimality proof;
+grid/refinement convergence and independent theory review are mandatory before
+numerical results.
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. No training,
+baseline selection, final-test access, held-out evaluation, threshold approval,
+or publication claim is authorized by this decision.
+
+### Evidence
+
+- EVID-0029 (post-amendment implementation/test evidence);
+- `docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md` SHA-256
+  `fae9c754474183f4214db5848c834739278961f6853622b12c7a18eef0bd2776`;
+- uploaded `2026__Binh_s_work (22).pdf`, cited in the amendment record.
+
+### Supersedes / Superseded by
+
+Supersedes DEC-0017 only as the active *functional/model* next-action policy.
+DEC-0017 remains active historical evidence and a stop condition for the old
+V3 support-certification method. Not superseded.

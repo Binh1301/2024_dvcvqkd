@@ -11,6 +11,12 @@ source caveats remain active. This audit is read against the immutable
 `AMPLITUDE_DOMAIN_DECISION.md`. It does not assign missing values, change the
 channel model, or authorize publication-scale training.
 
+Amendment note (2026-09-09): its `epsilon`/`IndependentUniformExcessNoise`
+references describe the pre-amendment state law. The active implementation
+uses `epsilon_base`, a separate external `Cn_phi2` phase scenario, and
+post-action `epsilon_total`; this audit cannot establish the required phase
+scenario provenance.
+
 The active propagation path is
 `src/channel/state_distribution.py -> src/channel/fso_channel.py`, using
 `geometry.py`, `atmospheric_loss.py`, `pointing_error.py`, and `turbulence.py`.

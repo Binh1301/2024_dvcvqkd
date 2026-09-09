@@ -95,15 +95,18 @@ def main() -> int:
     awgn_seed = derive_seed(frozen_evaluation["awgn_seed"], "held_out_test_awgn")
     channel = _channel(config, frozen_evaluation["fading_samples"], channel_seed)
     transmittance = torch.as_tensor(channel.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(channel.excess_noise_snu, dtype=torch.float64)
+    if channel.phase_noise_scenario is None:
+        raise RuntimeError("Channel state lacks the required phase-noise scenario.")
+    epsilon_base = torch.as_tensor(channel.epsilon_base_snu, dtype=torch.float64)
     with torch.no_grad():
         evaluation = evaluate_transmitter(
             transmitter,
             transmittance,
-            epsilon,
+            epsilon_base,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=frozen_evaluation["awgn_samples_per_symbol"],
             generator=torch_generator(awgn_seed),
+            phase_noise_coefficient=channel.phase_noise_scenario.c_phi,
             require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),
         )
@@ -138,10 +141,18 @@ def main() -> int:
         "va_budget_feasible": bool(budget_status["heldout_budget_feasible"]),
         "per_state": {
             "transmittance": transmittance.tolist(),
-            "epsilon": epsilon.tolist(),
+            "epsilon_base": epsilon_base.tolist(),
+            "xi_phase": evaluation.phase_excess_noise.tolist(),
+            "epsilon_total": evaluation.epsilon_total.tolist(),
             "i_ab": evaluation.mutual_information.tolist(),
             "chi_be": evaluation.holevo.chi_be.tolist(),
             "raw_skr": evaluation.key_rate.instantaneous_raw.tolist(),
+            "z_minus": evaluation.holevo.z_minus.tolist(),
+            "z_plus": evaluation.holevo.z_plus.tolist(),
+            "z_phys": evaluation.holevo.z_phys.tolist(),
+            "z_lower": evaluation.holevo.z_lower.tolist(),
+            "z_upper": evaluation.holevo.z_upper.tolist(),
+            "z_star": evaluation.holevo.z_star.tolist(),
             "declared_va": evaluation.ensemble.declared_va.tolist(),
             **{name: value.tolist() for name, value in evaluation.state_diagnostics.items()},
         },

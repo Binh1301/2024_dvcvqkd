@@ -16,6 +16,7 @@ from _common import ROOT, load_yaml
 from _numerical_validation import (
     ensemble_sha256,
     representative_ensembles,
+    require_current_model_validation_protocol,
     unique_ensemble_roster,
     validation_representative_states,
 )
@@ -536,6 +537,7 @@ def _gradient_diagnostic(config: dict[str, Any], settings: dict[str, Any]) -> di
 
 
 def main() -> int:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--mi-evidence", type=Path, default=ROOT / "results" / "mi_convergence.json")

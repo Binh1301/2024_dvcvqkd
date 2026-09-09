@@ -9,6 +9,12 @@ optics:
   beam_waist_m: 0.0157
   aperture_radius_m: 0.075
   cn2_m_minus_two_thirds: 1.0e-16
+  phase_noise:
+    cn_phi2_m_minus_two_thirds: null
+    units: "m^-2/3"
+    allow_zero_turbulence_reference: false
+    status: "AUTHOR_INPUT_REQUIRED_BEFORE_ANY_NUMERICAL_RUN"
+    interpretation: "fixed per turbulence scenario; not derived from Cn2(h)"
 scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
 uav_motion_from_paper_table_i:
   sigma_x_m: 0.0521
@@ -18,13 +24,13 @@ uav_motion_from_paper_table_i:
   sigma_phi_rad: 0.00204
   sigma_psi_rad: 0.00406
 variance_convention: "sigma_axis^2=sigma_turb^2+sigma_uav^2; r~Rayleigh(sigma_axis)"
-excess_noise_distribution:
+epsilon_base_distribution:
   kind: independent_uniform
   minimum_snu: 0.001
   maximum_snu: 0.04
   units: input_referred_snu
   dependence_on_transmittance: independent
-  justification: "Author-approved assumed operating-domain distribution; it is not a measured HAP-UAV joint law, and no empirical or mechanistic T-epsilon coupling is supplied."
+  justification: "Exogenous baseline-noise distribution; it is not a measured HAP-UAV joint law, and no empirical or mechanistic T-epsilon_base coupling is supplied."
 diagnostics:
   sample_count: 1000000
   seed: 202612

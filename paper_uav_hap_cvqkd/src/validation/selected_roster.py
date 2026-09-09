@@ -21,6 +21,7 @@ from src.modulation.joint_ps_gs import Ensemble, JointTransmitter
 from src.validation.physical_domain import approved_peak_photon_limit
 from src.validation.publication_manifest import (
     _validate_baseline_selection_artifact,
+    _require_phase_provenance,
     canonical_json_sha256,
     common_protocol_config,
     file_sha256,
@@ -173,6 +174,7 @@ def _load_json(path: Path) -> dict[str, Any]:
 def _validate_learned_selection(
     learned: dict[str, Any], manifest: dict[str, Any], config: dict[str, Any], n_peak: float
 ) -> None:
+    _require_phase_provenance(learned, config, manifest)
     if learned.get("test_set_used") is not False or set(learned.get("selections", {})) != {
         "ps", "gs", "ps_gs"
     }:

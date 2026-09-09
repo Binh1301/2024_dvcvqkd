@@ -8,6 +8,7 @@ import math
 
 import torch
 
+from src.channel.phase_noise import phase_excess_noise, total_excess_noise
 from src.cvqkd.holevo import HolevoResult, holevo_information
 from src.cvqkd.mutual_information import discrete_mutual_information
 from src.cvqkd.secret_key_rate import FadingKeyRate, fading_secret_key_rate
@@ -22,6 +23,9 @@ from .constraints import ensemble_constraint_metrics, ensemble_state_diagnostics
 @dataclass(frozen=True)
 class Evaluation:
     ensemble: Ensemble
+    epsilon_base: torch.Tensor
+    phase_excess_noise: torch.Tensor
+    epsilon_total: torch.Tensor
     mutual_information: torch.Tensor
     holevo: HolevoResult
     key_rate: FadingKeyRate
@@ -82,39 +86,62 @@ class EnergyBudgetController:
 def evaluate_transmitter(
     transmitter: JointTransmitter,
     transmittance: torch.Tensor,
-    epsilon: torch.Tensor,
+    epsilon_base: torch.Tensor,
     *,
     beta_reconciliation: float,
     noise_samples_per_symbol: int,
     density_eigenvalue_tolerance: float,
     generator: torch.Generator,
+    phase_noise_coefficient: float | torch.Tensor,
     require_supported_symmetry: bool = True,
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    interval_grid_size: int = 65,
+    interval_refinement_iterations: int = 32,
 ) -> Evaluation:
     if not require_supported_symmetry:
         raise ValueError(
             "The frozen C4 trainer is fail-closed: standard-form symmetry is mandatory."
         )
-    ensemble = transmitter(transmittance, epsilon)
+    transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
+    epsilon_base_tensor = torch.as_tensor(
+        epsilon_base,
+        dtype=transmittance.dtype,
+        device=transmittance.device,
+    ).reshape(-1)
+    if epsilon_base_tensor.numel() == 1:
+        epsilon_base_tensor = epsilon_base_tensor.expand_as(transmittance)
+    if epsilon_base_tensor.shape != transmittance.shape:
+        raise ValueError("epsilon_base must be scalar or match transmittance.")
+    # The policies observe only exogenous pre-action state.  In particular,
+    # epsilon_total must not feed back into the V_A branch.
+    ensemble = transmitter(transmittance, epsilon_base_tensor)
+    xi_phase = phase_excess_noise(ensemble.declared_va, phase_noise_coefficient)
+    epsilon_total = total_excess_noise(
+        epsilon_base_tensor,
+        ensemble.declared_va,
+        phase_noise_coefficient,
+    )
     mutual_information = discrete_mutual_information(
         ensemble,
         transmittance,
-        epsilon,
+        epsilon_total,
         noise_samples_per_symbol=noise_samples_per_symbol,
         generator=generator,
     )
     holevo = holevo_information(
         ensemble,
         transmittance,
-        epsilon,
+        epsilon_total,
         backend="c4_gram",
         require_supported_symmetry=require_supported_symmetry,
         symmetry_tolerance=symmetry_tolerance,
         density_trace_tolerance=density_trace_tolerance,
         density_eigenvalue_tolerance=density_eigenvalue_tolerance,
         physicality_tolerance=physicality_tolerance,
+        interval_grid_size=interval_grid_size,
+        interval_refinement_iterations=interval_refinement_iterations,
     )
     key_rate = fading_secret_key_rate(mutual_information, holevo.chi_be, beta_reconciliation)
     constraints = ensemble_constraint_metrics(ensemble)
@@ -126,13 +153,22 @@ def evaluate_transmitter(
             ),
             "peak_photon_constraint_satisfied": 1.0,
         })
+    state_diagnostics = ensemble_state_diagnostics(ensemble)
+    state_diagnostics.update({
+        "epsilon_base_snu": epsilon_base_tensor,
+        "xi_phase_snu": xi_phase,
+        "epsilon_total_snu": epsilon_total,
+    })
     return Evaluation(
         ensemble,
+        epsilon_base_tensor,
+        xi_phase,
+        epsilon_total,
         mutual_information,
         holevo,
         key_rate,
         constraints,
-        ensemble_state_diagnostics(ensemble),
+        state_diagnostics,
     )
 
 
@@ -140,18 +176,21 @@ def train_step(
     transmitter: JointTransmitter,
     optimizer: torch.optim.Optimizer,
     transmittance: torch.Tensor,
-    epsilon: torch.Tensor,
+    epsilon_base: torch.Tensor,
     *,
     beta_reconciliation: float,
     noise_samples_per_symbol: int,
     density_eigenvalue_tolerance: float,
     generator: torch.Generator,
+    phase_noise_coefficient: float | torch.Tensor,
     require_supported_symmetry: bool = True,
     gradient_clip_norm: float | None = None,
     energy_budget_controller: EnergyBudgetController | None = None,
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    interval_grid_size: int = 65,
+    interval_refinement_iterations: int = 32,
 ) -> Evaluation:
     if not require_supported_symmetry:
         raise ValueError(
@@ -162,15 +201,18 @@ def train_step(
     evaluation = evaluate_transmitter(
         transmitter,
         transmittance,
-        epsilon,
+        epsilon_base,
         beta_reconciliation=beta_reconciliation,
         noise_samples_per_symbol=noise_samples_per_symbol,
         generator=generator,
+        phase_noise_coefficient=phase_noise_coefficient,
         require_supported_symmetry=require_supported_symmetry,
         symmetry_tolerance=symmetry_tolerance,
         density_trace_tolerance=density_trace_tolerance,
         density_eigenvalue_tolerance=density_eigenvalue_tolerance,
         physicality_tolerance=physicality_tolerance,
+        interval_grid_size=interval_grid_size,
+        interval_refinement_iterations=interval_refinement_iterations,
     )
     negative_raw_skr = -evaluation.key_rate.fading_average_raw
     energy_term = torch.zeros_like(negative_raw_skr)
@@ -210,7 +252,7 @@ def train_step(
     peak_step_accepted: bool | None = None
     if transmitter.n_peak_photons is not None:
         try:
-            transmitter(transmittance, epsilon)
+            transmitter(transmittance, epsilon_base)
             peak_step_accepted = True
         except PeakPhotonConstraintViolation:
             if model_before_step is None or optimizer_before_step is None:

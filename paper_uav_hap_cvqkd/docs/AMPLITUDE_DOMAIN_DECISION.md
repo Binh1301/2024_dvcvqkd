@@ -7,6 +7,11 @@ security scope in `SECURITY_SCOPE_FREEZE.md`, and does not authorize
 publication-scale training.  It defines the additional common admissibility
 domain needed to certify a finite Fock cutoff.
 
+Amendment note (2026-09-09): any use below of `(T,epsilon)` as a policy label
+is historical shorthand. The physical peak domain itself is unchanged, but
+the active policy state is `(T,epsilon_base)` and its security evaluation uses
+post-action `epsilon_total`.
+
 ## 1. Exact source of the unbounded rare amplitude
 
 For orbit mass `q_k`, global relative prototype `z_k`, and its four rotations,

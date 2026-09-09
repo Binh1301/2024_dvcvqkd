@@ -20,6 +20,7 @@ from _common import ROOT, load_yaml
 from _numerical_validation import (
     ensemble_sha256,
     representative_ensembles,
+    require_current_model_validation_protocol,
     unique_ensemble_roster,
     validation_representative_states,
 )
@@ -384,6 +385,7 @@ def build_audit(
 
 
 def main() -> None:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument(

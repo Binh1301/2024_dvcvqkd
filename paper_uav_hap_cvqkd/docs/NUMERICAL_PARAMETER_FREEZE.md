@@ -5,6 +5,11 @@
 > source now uses the cutoff-independent C4-Gram backend, but its configured
 > `1e-12` numerical-support rule is invalid/unapproved and `1e-13` remains a
 > rejected proposal. `PROJECT_STATE.md` is the canonical lifecycle snapshot.
+>
+> Amendment note (2026-09-09): all numerical choices in this historical freeze
+> concern the prior `(T,epsilon)`/fixed-endpoint functional. They are not a
+> freeze for the active `epsilon_base`, phase-noise, full-interval model and
+> must not be reused without a new prospective protocol.
 
 Status: **the 16-fixture MI roster passes with `N_MC=2048`, but the added
 near-coincident pseudoinverse-stress fixture has no selectable Fock cutoff below

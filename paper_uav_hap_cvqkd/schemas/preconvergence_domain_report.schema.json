@@ -9,7 +9,7 @@
     "status": {"enum": ["BLOCKED_UNRESOLVED", "READY_FOR_CONVERGENCE_EXECUTION"]},
     "is_fock_cutoff_certification": {"const": false},
     "test_set_used": {"const": false},
-    "physical_rule": {"const": "max_i |alpha_i(T,epsilon)|^2 <= n_peak"},
+    "physical_rule": {"const": "max_i |alpha_i(T,epsilon_base)|^2 <= n_peak"},
     "n_peak_photons": {"type": ["number", "null"], "exclusiveMinimum": 0},
     "n_peak_author_approved": {"type": "boolean"},
     "peak_domain_scope": {"type": ["string", "null"]},

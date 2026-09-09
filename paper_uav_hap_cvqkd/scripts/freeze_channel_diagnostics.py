@@ -10,6 +10,7 @@ from _common import ROOT, load_yaml
 
 from src.channel.diagnostics import frozen_channel_diagnostics
 from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import phase_noise_scenario_from_channel_config
 from src.channel.turbulence import UavMotion
 
 
@@ -33,14 +34,14 @@ def main() -> None:
     if not isinstance(channel, dict):
         raise ValueError("config.channel must be a mapping.")
     motion_config = _required(channel, "uav_motion")
-    epsilon_config = _required(channel, "excess_noise_distribution")
+    epsilon_config = _required(channel, "epsilon_base_distribution")
     diagnostics_config = _required(channel, "diagnostics")
     if diagnostics_config.get("classification") != "SOFTWARE_PREREGISTERED":
         raise ValueError("Channel diagnostic seed/count must be SOFTWARE_PREREGISTERED.")
     if epsilon_config.get("kind") != "independent_uniform":
-        raise ValueError("The approved channel freeze requires independent_uniform epsilon.")
+        raise ValueError("The channel freeze requires independent_uniform epsilon_base.")
     if epsilon_config.get("dependence_on_transmittance") != "independent":
-        raise ValueError("The approved freeze forbids an invented T-epsilon coupling.")
+        raise ValueError("The freeze forbids an invented T-epsilon_base coupling.")
     geometry = LinkGeometry(
             float(_required(channel, "h_hap_m")),
             float(_required(channel, "h_uav_m")),
@@ -51,6 +52,10 @@ def main() -> None:
         raise ValueError(
             "Derived geometry link length disagrees with the author-approved 19 km record."
         )
+    phase_scenario = phase_noise_scenario_from_channel_config(
+        channel,
+        link_distance_m=geometry.link_length_m,
+    )
     payload = frozen_channel_diagnostics(
         geometry=geometry,
         wavelength_m=float(_required(channel, "wavelength_m")),
@@ -58,6 +63,7 @@ def main() -> None:
         beam_waist_m=float(_required(channel, "beam_waist_m")),
         aperture_radius_m=float(_required(channel, "aperture_radius_m")),
         cn2_m_minus_two_thirds=float(_required(channel, "cn2_m_minus_two_thirds")),
+        phase_noise_scenario=phase_scenario,
         motion=UavMotion(
             sigma_x_m=float(_required(motion_config, "sigma_x_m")),
             sigma_y_m=float(_required(motion_config, "sigma_y_m")),

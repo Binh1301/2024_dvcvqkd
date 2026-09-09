@@ -17,6 +17,7 @@ import time
 import mpmath as mp
 
 from _common import ROOT, load_yaml
+from _numerical_validation import require_current_model_validation_protocol
 
 
 # Frozen before arbitrary-precision outcomes were inspected.
@@ -434,6 +435,7 @@ def _run_precision(
 
 
 def main() -> int:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--mi-evidence", type=Path, default=ROOT / "results" / "mi_convergence.json")

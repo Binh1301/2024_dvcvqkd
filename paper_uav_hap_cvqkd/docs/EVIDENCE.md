@@ -9,13 +9,13 @@ are ignored by `.gitignore`; see EVID-0013.
 
 Date: 2026-08-30
 
-Status: ACTIVE
+Status: SUPERSEDED MODEL IDENTITY; HISTORICAL PRE-AMENDMENT EVIDENCE
 
 Scope: Scientific model and permitted security claims.
 
 ### Claim
 
-`FINAL_MODEL_SPEC.md` is the authoritative frozen model and has SHA-256
+The then-authoritative `FINAL_MODEL_SPEC.md` had SHA-256
 `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
 The implemented claim is an asymptotic oracle-CSI covariance-based DM-CV-QKD
 rate functional; no attack class is assigned to the adaptive fading average.
@@ -41,8 +41,8 @@ Schema version: not applicable.
 
 ### Reproduction / verification
 
-Run `Get-FileHash docs/FINAL_MODEL_SPEC.md -Algorithm SHA256` from the project
-root and compare the lowercase digest above.
+This digest is historical. Do not compare it to the active model; see
+EVID-0029 and `MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`.
 
 ### Limitations
 
@@ -52,6 +52,7 @@ proof.
 ### Supersedes / Superseded by
 
 Supersedes pre-freeze unrestricted-PMF/weighted-centering descriptions.
+Superseded for the active model identity by EVID-0029.
 
 ## EVID-0002 — Frozen C4 transmitter implementation
 
@@ -1371,3 +1372,65 @@ Evidence:
 
 The full 12-segment run is prohibited. Candidate `1e-13` remains proposed and
 unapproved. No V4 is authorized automatically.
+
+## EVID-0029 - Current-manuscript amendment implementation and targeted verification
+
+Date: 2026-09-10
+
+Status: ACTIVE IMPLEMENTATION EVIDENCE; NOT NUMERICAL CERTIFICATION
+
+Scope: The user-directed current-manuscript functional only. The amendment
+uses exogenous `S=(T,epsilon_base)`, a separate fixed SI `Cn_phi2` phase
+scenario, `epsilon_total=epsilon_base+c_phi*V_A`, and a numerical maximum over
+the full physical correlation interval. It also hardens provenance and
+physical-boundary evaluation; it does not authorize training, selection,
+held-out evaluation, or publication-scale claims.
+
+Evidence:
+
+- `docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md` records the source equations,
+  scope, unresolved author inputs, and historical-artifact limitations.
+- `docs/FINAL_MODEL_SPEC.md` is the amended active specification. Its current
+  SHA-256 is `f3c118768fc3e4fe5e308d3e660507f815526b86e442100945ab47e6924ca974`.
+- `docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md` has SHA-256
+  `fae9c754474183f4214db5848c834739278961f6853622b12c7a18eef0bd2776`.
+- `src/channel/phase_noise.py` enforces SI units, keeps `Cn_phi2` separate from
+  beam-wander `Cn2`, validates scenario/geometry binding, and hashes the fixed
+  scenario separately from the `(T,epsilon_base)` realization.
+- `src/optimization/trainer.py` constructs one differentiable
+  `epsilon_total` tensor and passes it identically to MI and Holevo; policies
+  receive only `epsilon_base`.
+- `src/cvqkd/holevo.py` evaluates the physical interval and records endpoints,
+  the selected maximizer, and structured empty-domain failures.
+- `src/cvqkd/covariance.py` uses a product-form smaller symplectic root and
+  explicit machine-precision physical-boundary identities, with no generic
+  lambda/chi clipping.
+- Selection/checkpoint artifacts bind the resolved-config hash and fixed phase
+  scenario hash/metadata; historical validation producers fail before writing
+  new artifacts.
+
+Verification performed in the project `.venv` with
+`OMP_NUM_THREADS=1 MKL_NUM_THREADS=1`:
+
+- 77 focused amendment/channel/Holevo/pipeline/lifecycle/roster tests passed;
+- `compileall` passed for `src`, `scripts`, and `tests`;
+- a 300-case binary64 physical-boundary stress probe produced no covariance
+  endpoint failures after the stable-root change;
+- `git diff --check` passed.
+
+Limitations:
+
+- The available environment lacks `pytest`; full unittest discovery ran 222
+  tests but has seven pytest-import errors and 73 isolated FLINT skips, so
+  this is not a clean full-suite claim.
+- The default `Cn_phi2` remains null and fail-closed. No current-model
+  numerical result was generated.
+- The finite grid plus local refinement in the Holevo maximizer is a numerical
+  approximation, not a global-optimality theorem; a prospective convergence
+  and independent security review remain mandatory.
+- The full-interval security interpretation itself remains an author/theory
+  approval item.
+
+This evidence supersedes no historical numerical result; it documents the
+post-amendment code and tests that make those results inapplicable to the
+current functional.

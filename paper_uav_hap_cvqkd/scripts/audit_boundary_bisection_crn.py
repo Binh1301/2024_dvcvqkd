@@ -15,7 +15,8 @@ import torch
 
 from _common import ROOT, load_yaml
 from _numerical_validation import (
-    representative_ensembles, unique_ensemble_roster, validation_representative_states,
+    representative_ensembles, require_current_model_validation_protocol,
+    unique_ensemble_roster, validation_representative_states,
 )
 from audit_direct_support_boundaries import _single_state, _support
 from src.cvqkd.holevo import holevo_information
@@ -356,6 +357,7 @@ def run(config: dict[str, Any], *, config_path: Path, output_path: Path,
 
 
 def main() -> None:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--environment-manifest", type=Path, default=ROOT / "results" / "current_environment_manifest.json")

@@ -15,7 +15,7 @@ class ProtocolAssumptions:
     electronic_noise_snu: float | None = None
     finite_size: bool = False
     composable_security: bool = False
-    csi: str = "exact instantaneous (T, epsilon) oracle"
+    csi: str = "exact instantaneous (T, epsilon_base) oracle with fixed public phase scenario"
     feedback_model: str | None = None
     security_scope: str = "author-accepted asymptotic covariance-based DM-CV-QKD bound"
     attack_class: str | None = None
@@ -30,6 +30,12 @@ def validate_channel_state(
     *,
     allow_zero_transmittance: bool = True,
 ) -> tuple[torch.Tensor, torch.Tensor]:
+    """Validate a physical ``T`` and effective input-referred total noise.
+
+    The generic MI/Holevo interfaces retain the short argument name
+    ``epsilon``.  Their callers must pass ``epsilon_total`` rather than the
+    pre-action ``epsilon_base`` when the active phase-noise scenario is used.
+    """
     transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
     epsilon = torch.as_tensor(epsilon, dtype=torch.float64, device=transmittance.device).reshape(-1)
     if epsilon.numel() == 1:

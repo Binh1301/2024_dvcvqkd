@@ -1,7 +1,7 @@
 # Proposed numerical certification protocol
 
 Status: **PROPOSED DESIGN; ADVERSARIAL REVIEW FAILED; NOT FROZEN; NOT
-ACTIVE**.
+ACTIVE; SUPERSEDED FOR THE 2026-09-09 AMENDED FUNCTIONAL**.
 
 This proposal replaces neither `FINAL_MODEL_SPEC.md` nor the active numerical
 configuration. The historical `1e-12` pseudoinverse rule remains invalid and
@@ -9,6 +9,14 @@ unapproved. The `1e-13` threshold is the best current candidate, but it remains
 proposed until this protocol is explicitly approved, frozen, implemented, and
 rerun. No publication training, final-test access, held-out evaluation, or
 optimized-MB selection is authorized.
+
+This proposal was written for the earlier exogenous `(T,epsilon)` and
+fixed-`Z_lower` functional.  It cannot be revived unchanged after the active
+`epsilon_base -> epsilon_total` phase-noise and full-physical-interval Holevo
+amendment.  A replacement must add phase-scenario provenance, interval-boundary
+and maximizer convergence tests, non-smooth switching analysis, and an
+independent review of the full-interval security interpretation.  See
+`MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`.
 
 ## Review disposition
 

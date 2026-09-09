@@ -7,6 +7,7 @@ import unittest
 import torch
 import yaml
 
+from src.channel.phase_noise import phase_noise_scenario, phase_noise_scenario_sha256
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.validation.publication_manifest import canonical_json_sha256, file_sha256
 from src.validation.selected_roster import (
@@ -21,6 +22,17 @@ class SelectedRosterConvergenceTests(unittest.TestCase):
         state_hash = "a" * 64
         modes = ("ps", "gs", "va", "ps_gs", "ps_va", "gs_va", "full")
         config = {
+            "channel": {
+                "h_hap_m": 20_000.0,
+                "h_uav_m": 1_000.0,
+                "zenith_angle_rad": 0.0,
+                "wavelength_m": 1.55e-6,
+                "phase_noise": {
+                    "cn_phi2_m_minus_two_thirds": 0.0,
+                    "units": "m^-2/3",
+                    "allow_zero_turbulence_reference": True,
+                },
+            },
             "cvqkd": {
                 "fixed_modulation_variance_snu": None,
                 "v_min_snu": 0.5, "v_max_snu": 2.0, "v_a_budget_snu": 2.0,
@@ -73,7 +85,16 @@ class SelectedRosterConvergenceTests(unittest.TestCase):
             }
         baseline = {
             "selection_split": "validation", "test_set_used": False,
+            "resolved_config_sha256": canonical_json_sha256(config),
             "validation_state_realization_sha256": state_hash,
+            "phase_noise_scenario": phase_noise_scenario(
+                0.0, 1.55e-6, 19_000.0, allow_zero_turbulence_reference=True
+            ).metadata(),
+            "phase_noise_scenario_sha256": phase_noise_scenario_sha256(
+                phase_noise_scenario(
+                    0.0, 1.55e-6, 19_000.0, allow_zero_turbulence_reference=True
+                )
+            ),
             "common_random_numbers_across_candidates": True,
             "energy_fairness": {
                 "v_min_snu": 0.5, "v_max_snu": 2.0, "v_a_budget_snu": 2.0,
@@ -128,6 +149,15 @@ class SelectedRosterConvergenceTests(unittest.TestCase):
         learned = {
             "test_set_used": False, "all_selected_checkpoints_peak_feasible": True,
             "n_peak_photons": 100.0,
+            "resolved_config_sha256": canonical_json_sha256(config),
+            "phase_noise_scenario": phase_noise_scenario(
+                0.0, 1.55e-6, 19_000.0, allow_zero_turbulence_reference=True
+            ).metadata(),
+            "phase_noise_scenario_sha256": phase_noise_scenario_sha256(
+                phase_noise_scenario(
+                    0.0, 1.55e-6, 19_000.0, allow_zero_turbulence_reference=True
+                )
+            ),
             "selections": {
                 mode: {"mode": mode, "modulation_variance_snu": 0.5,
                        "initialization_seeds": [7], "checkpoint_ids": [fixed_ids[mode]]}

@@ -15,8 +15,13 @@ from _common import (
     require_holevo_pseudoinverse_approval,
 )
 from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import (
+    PhaseNoiseScenario,
+    phase_noise_scenario_from_channel_config,
+    phase_noise_scenario_sha256,
+)
 from src.channel.state_distribution import (
-    IndependentUniformExcessNoise,
+    IndependentUniformBaselineNoise,
     assert_disjoint_state_realizations,
     sample_channel_state_distribution,
 )
@@ -42,9 +47,10 @@ TRAIN_REQUIRED = [
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
-    "channel.excess_noise_distribution.kind",
-    "channel.excess_noise_distribution.minimum_snu",
-    "channel.excess_noise_distribution.maximum_snu", "cvqkd.beta_reconciliation",
+    "channel.phase_noise.cn_phi2_m_minus_two_thirds",
+    "channel.epsilon_base_distribution.kind",
+    "channel.epsilon_base_distribution.minimum_snu",
+    "channel.epsilon_base_distribution.maximum_snu", "cvqkd.beta_reconciliation",
     "cvqkd.v_a_budget_snu", "cvqkd.v_min_snu",
     "cvqkd.v_max_snu", "training.epochs",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
@@ -52,6 +58,8 @@ TRAIN_REQUIRED = [
     "cvqkd.holevo_numerics.density_trace_tolerance",
     "cvqkd.holevo_numerics.density_eigenvalue_pseudoinverse_tolerance",
     "cvqkd.holevo_numerics.physicality_tolerance",
+    "cvqkd.holevo_numerics.interval_grid_size",
+    "cvqkd.holevo_numerics.interval_refinement_iterations",
     "training.train_fading_samples",
     "training.optimizer", "training.batch_size", "training.validation_patience_epochs",
     "training.validation_min_delta_bits", "training.gradient_clip_norm",
@@ -68,16 +76,33 @@ TRAIN_REQUIRED = [
 ]
 
 
-def _channel(config: dict[str, Any], count: int, seed: int):
+def _phase_noise_scenario(config: dict[str, Any]) -> PhaseNoiseScenario:
+    values = config["channel"]
+    geometry = LinkGeometry(
+        values["h_hap_m"], values["h_uav_m"], values.get("zenith_angle_rad", 0.0)
+    )
+    return phase_noise_scenario_from_channel_config(
+        values,
+        link_distance_m=geometry.link_length_m,
+    )
+
+
+def _channel(
+    config: dict[str, Any],
+    count: int,
+    seed: int,
+    *,
+    phase_noise_scenario: PhaseNoiseScenario | None = None,
+):
     values = config["channel"]
     geometry = LinkGeometry(values["h_hap_m"], values["h_uav_m"], values.get("zenith_angle_rad", 0.0))
-    epsilon_values = values["excess_noise_distribution"]
+    epsilon_values = values["epsilon_base_distribution"]
     motion_values = values.get("uav_motion")
     if not isinstance(motion_values, dict):
         raise ValueError("channel.uav_motion must explicitly resolve all six jitter values.")
     if epsilon_values.get("kind") != "independent_uniform":
         raise ValueError(
-            "The frozen numerical protocol requires channel.excess_noise_distribution.kind "
+            "The model requires channel.epsilon_base_distribution.kind "
             "to be 'independent_uniform'."
         )
     return sample_channel_state_distribution(
@@ -87,27 +112,39 @@ def _channel(config: dict[str, Any], count: int, seed: int):
         beam_waist_m=values["beam_waist_m"],
         aperture_radius_m=values["aperture_radius_m"],
         cn2_m_minus_two_thirds=values["cn2_m_minus_two_thirds"],
-        excess_noise=IndependentUniformExcessNoise(
+        epsilon_base=IndependentUniformBaselineNoise(
             minimum_snu=epsilon_values["minimum_snu"],
             maximum_snu=epsilon_values["maximum_snu"],
         ),
         sample_count=int(count),
         seed=seed,
         uav_motion=UavMotion(**motion_values),
+        phase_noise_scenario=(
+            _phase_noise_scenario(config)
+            if phase_noise_scenario is None else phase_noise_scenario
+        ),
     )
 
 
 def _state_payload(
-    evaluation: Evaluation, transmittance: torch.Tensor, epsilon: torch.Tensor
+    evaluation: Evaluation, transmittance: torch.Tensor, epsilon_base: torch.Tensor
 ) -> dict[str, Any]:
     """Serialize the raw per-state values needed to audit every evaluation."""
 
     return {
         "transmittance": transmittance.detach().tolist(),
-        "epsilon": epsilon.detach().tolist(),
+        "epsilon_base": epsilon_base.detach().tolist(),
+        "xi_phase": evaluation.phase_excess_noise.detach().tolist(),
+        "epsilon_total": evaluation.epsilon_total.detach().tolist(),
         "i_ab": evaluation.mutual_information.detach().tolist(),
         "chi_be": evaluation.holevo.chi_be.detach().tolist(),
         "raw_skr": evaluation.key_rate.instantaneous_raw.detach().tolist(),
+        "z_minus": evaluation.holevo.z_minus.detach().tolist(),
+        "z_plus": evaluation.holevo.z_plus.detach().tolist(),
+        "z_phys": evaluation.holevo.z_phys.detach().tolist(),
+        "z_lower": evaluation.holevo.z_lower.detach().tolist(),
+        "z_upper": evaluation.holevo.z_upper.detach().tolist(),
+        "z_star": evaluation.holevo.z_star.detach().tolist(),
         **{
             name: value.detach().tolist()
             for name, value in evaluation.state_diagnostics.items()
@@ -141,6 +178,8 @@ def run_training(mode: str) -> int:
         raise ValueError("Training/validation seeds must be distinct.")
     cvqkd = config["cvqkd"]
     training = config["training"]
+    phase_scenario = _phase_noise_scenario(config)
+    phase_scenario_hash = phase_noise_scenario_sha256(phase_scenario)
     n_peak = approved_peak_photon_limit(config)
     require_preconvergence_domain_ready(config)
     require_holevo_pseudoinverse_approval(config)
@@ -221,10 +260,11 @@ def run_training(mode: str) -> int:
         config,
         training["validation_fading_samples"],
         derive_seed(seeds["validation_channel"], "validation_channel"),
+        phase_noise_scenario=phase_scenario,
     )
     validation_t = torch.as_tensor(validation_channel.transmittance, dtype=torch.float64)
-    validation_epsilon = torch.as_tensor(
-        validation_channel.excess_noise_snu, dtype=torch.float64
+    validation_epsilon_base = torch.as_tensor(
+        validation_channel.epsilon_base_snu, dtype=torch.float64
     )
     best_value = float("-inf")
     best_state: dict[str, torch.Tensor] | None = None
@@ -236,6 +276,7 @@ def run_training(mode: str) -> int:
             config,
             training["train_fading_samples"],
             derive_seed(seeds["train_channel"], "train_channel", epoch),
+            phase_noise_scenario=phase_scenario,
         )
         assert_disjoint_state_realizations(
             (
@@ -244,17 +285,18 @@ def run_training(mode: str) -> int:
             )
         )
         train_t = torch.as_tensor(train_channel.transmittance, dtype=torch.float64)
-        train_epsilon = torch.as_tensor(train_channel.excess_noise_snu, dtype=torch.float64)
+        train_epsilon_base = torch.as_tensor(train_channel.epsilon_base_snu, dtype=torch.float64)
         train_eval = train_step(
             transmitter,
             optimizer,
             train_t,
-            train_epsilon,
+            train_epsilon_base,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=training["train_awgn_samples_per_symbol"],
             generator=torch_generator(
                 derive_seed(seeds["train_awgn"], "train_awgn", epoch)
             ),
+            phase_noise_coefficient=phase_scenario.c_phi,
             require_supported_symmetry=True,
             gradient_clip_norm=gradient_clip_norm,
             energy_budget_controller=energy_controller,
@@ -265,12 +307,13 @@ def run_training(mode: str) -> int:
             validation_eval = evaluate_transmitter(
                 transmitter,
                 validation_t,
-                validation_epsilon,
+                validation_epsilon_base,
                 beta_reconciliation=cvqkd["beta_reconciliation"],
                 noise_samples_per_symbol=training["validation_awgn_samples_per_symbol"],
                 generator=torch_generator(
                     derive_seed(seeds["validation_awgn"], "validation_awgn")
                 ),
+                phase_noise_coefficient=phase_scenario.c_phi,
                 require_supported_symmetry=True,
                 **holevo_numerical_kwargs(config),
             )
@@ -298,9 +341,9 @@ def run_training(mode: str) -> int:
                 "validation_expected_budget": validation_budget,
                 "peak_feasible_step_accepted": train_eval.peak_feasible_step_accepted,
                 "validation_peak_photon_constraint_satisfied": True,
-                "train_per_state": _state_payload(train_eval, train_t, train_epsilon),
+                "train_per_state": _state_payload(train_eval, train_t, train_epsilon_base),
                 "validation_per_state": _state_payload(
-                    validation_eval, validation_t, validation_epsilon
+                    validation_eval, validation_t, validation_epsilon_base
                 ),
             }
         )
@@ -324,12 +367,13 @@ def run_training(mode: str) -> int:
         selected_validation_eval = evaluate_transmitter(
             transmitter,
             validation_t,
-            validation_epsilon,
+            validation_epsilon_base,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=training["validation_awgn_samples_per_symbol"],
             generator=torch_generator(
                 derive_seed(seeds["validation_awgn"], "validation_awgn")
             ),
+            phase_noise_coefficient=phase_scenario.c_phi,
             require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),
         )
@@ -361,6 +405,8 @@ def run_training(mode: str) -> int:
             "selected_validation_peak_feasible": True,
             "selected_validation_expected_budget": selected_budget,
             "initialization_seed": args.initialization_seed,
+            "phase_noise_scenario": phase_scenario.metadata(),
+            "phase_noise_scenario_sha256": phase_scenario_hash,
         },
         output_dir / "best.pt",
     )
@@ -383,6 +429,7 @@ def run_training(mode: str) -> int:
                     key: value for key, value in cvqkd.items()
                     if key != "fixed_modulation_variance_snu"
                 },
+                "phase_noise_scenario_sha256": phase_scenario_hash,
             }
         ),
         "history": history,
@@ -401,7 +448,7 @@ def run_training(mode: str) -> int:
             "maximum_symbol_energy"
         ],
         "selected_validation_per_state": _state_payload(
-            selected_validation_eval, validation_t, validation_epsilon
+            selected_validation_eval, validation_t, validation_epsilon_base
         ),
         "selected_validation_constraints": selected_validation_eval.constraints,
         "selected_validation_holevo_diagnostics": (
@@ -409,6 +456,9 @@ def run_training(mode: str) -> int:
         ),
         "validation_channel_metadata": validation_channel.metadata,
         "validation_state_realization_sha256": validation_channel.realization_sha256,
+        "phase_noise_scenario": phase_scenario.metadata(),
+        "phase_noise_scenario_sha256": phase_scenario_hash,
+        "resolved_config_sha256": canonical_json_sha256(config),
         "development_seeds": {
             name: seeds[name] for name in development_seed_names
         },

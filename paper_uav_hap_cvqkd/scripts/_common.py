@@ -37,7 +37,7 @@ def missing_required(config: dict[str, Any], dotted_paths: list[str]) -> list[st
     return missing
 
 
-def holevo_numerical_kwargs(config: dict[str, Any]) -> dict[str, float]:
+def holevo_numerical_kwargs(config: dict[str, Any]) -> dict[str, float | int]:
     """Resolve every active Holevo numerical threshold from configuration."""
 
     values = config.get("cvqkd", {}).get("holevo_numerics")
@@ -49,12 +49,21 @@ def holevo_numerical_kwargs(config: dict[str, Any]) -> dict[str, float]:
         "density_eigenvalue_tolerance": "density_eigenvalue_pseudoinverse_tolerance",
         "physicality_tolerance": "physicality_tolerance",
     }
-    result: dict[str, float] = {}
+    result: dict[str, float | int] = {}
     for argument, key in mapping.items():
         value = values.get(key)
         if not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0.0:
             raise ValueError(f"cvqkd.holevo_numerics.{key} must be finite and positive.")
         result[argument] = float(value)
+    for argument, key in (
+        ("interval_grid_size", "interval_grid_size"),
+        ("interval_refinement_iterations", "interval_refinement_iterations"),
+    ):
+        value = values.get(key)
+        if not isinstance(value, int) or value < (3 if argument == "interval_grid_size" else 0):
+            minimum = 3 if argument == "interval_grid_size" else 0
+            raise ValueError(f"cvqkd.holevo_numerics.{key} must be an integer >= {minimum}.")
+        result[argument] = value
     return result
 
 
@@ -75,15 +84,16 @@ REPRODUCTION_REQUIRED = [
     "channel.beam_waist_m",
     "channel.aperture_radius_m",
     "channel.cn2_m_minus_two_thirds",
+    "channel.phase_noise.cn_phi2_m_minus_two_thirds",
     "channel.uav_motion.sigma_x_m",
     "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m",
     "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad",
     "channel.uav_motion.sigma_psi_rad",
-    "channel.excess_noise_distribution.kind",
-    "channel.excess_noise_distribution.minimum_snu",
-    "channel.excess_noise_distribution.maximum_snu",
+    "channel.epsilon_base_distribution.kind",
+    "channel.epsilon_base_distribution.minimum_snu",
+    "channel.epsilon_base_distribution.maximum_snu",
     "cvqkd.beta_reconciliation",
     "cvqkd.fixed_modulation_variance_snu",
     "cvqkd.v_min_snu",
@@ -97,6 +107,8 @@ REPRODUCTION_REQUIRED = [
     "cvqkd.holevo_numerics.density_trace_tolerance",
     "cvqkd.holevo_numerics.density_eigenvalue_pseudoinverse_tolerance",
     "cvqkd.holevo_numerics.physicality_tolerance",
+    "cvqkd.holevo_numerics.interval_grid_size",
+    "cvqkd.holevo_numerics.interval_refinement_iterations",
     "training.epochs",
     "training.optimizer",
     "training.learning_rates.ps",

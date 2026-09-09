@@ -15,6 +15,7 @@ import torch
 from _common import ROOT, load_yaml
 from _numerical_validation import (
     ensemble_sha256, representative_ensembles, unique_ensemble_roster,
+    require_current_model_validation_protocol,
     validation_representative_states,
 )
 from audit_support_threshold_protocol import _sector_eigenvalues
@@ -259,6 +260,7 @@ def run(config: dict[str, Any], *, config_path: Path, support_artifact_path: Pat
 
 
 def main() -> None:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument(

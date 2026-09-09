@@ -17,7 +17,10 @@ import torch
 
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
 from _numerical_validation import (
-    provenance, representative_ensembles, validation_representative_states,
+    MODEL_AMENDMENT_REVALIDATION_REQUIRED,
+    provenance,
+    representative_ensembles,
+    validation_representative_states,
 )
 from src.cvqkd.holevo import (
     bosonic_entropy, coherent_state_vectors, holevo_information,
@@ -96,6 +99,10 @@ def _stable_suffix_against_last_reference(
 
 
 def main() -> int:
+    # The retained comparison calculation below uses the superseded
+    # fixed-Z_lower chain.  It is historical only until an amended protocol
+    # and independent oracle are prospectively frozen.
+    raise RuntimeError(MODEL_AMENDMENT_REVALIDATION_REQUIRED)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--mi-evidence", type=Path, default=ROOT / "results" / "mi_convergence.json")
@@ -167,17 +174,10 @@ def main() -> int:
                 "physicality_tolerance"
             ]),
         )
-        s1, s2, s3 = (
-            torch.clamp_min(value, 1.0) for value in (
-                support_covariance.lambda1,
-                support_covariance.lambda2,
-                support_covariance.lambda3,
-            )
-        )
         support_chi = (
-            bosonic_entropy((s1 - 1.0) / 2.0)
-            + bosonic_entropy((s2 - 1.0) / 2.0)
-            - bosonic_entropy((s3 - 1.0) / 2.0)
+            bosonic_entropy((support_covariance.lambda1 - 1.0) / 2.0)
+            + bosonic_entropy((support_covariance.lambda2 - 1.0) / 2.0)
+            - bosonic_entropy((support_covariance.lambda3 - 1.0) / 2.0)
         )
         threshold_rows = []
         for threshold in threshold_grid:

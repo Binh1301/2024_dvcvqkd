@@ -1,21 +1,32 @@
 # Final mathematical model specification
 
-Status: **authoritative implemented specification**. This document freezes the scientific model for the manuscript and implementation. Where it differs from older documentation, this document takes precedence.
+Status: **authoritative implemented specification, amended 2026-09-09**. This
+document freezes the scientific model for the manuscript and implementation.
+The active amendment is recorded in
+`docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`; where older documentation or
+artifacts differ, this document takes precedence.
 
 No finite-size or composable-security claim is made. The security calculation is the author's accepted asymptotic reverse-reconciliation, ideal-heterodyne DM-CV-QKD chain
 
 \[
-\tau\longrightarrow(C,w)\longrightarrow Z\longrightarrow\Gamma_{AB}\longrightarrow\chi_{BE}.
+\tau\longrightarrow(C,w)\longrightarrow[Z_-,Z_+]\cap[-Z_{\rm phys},Z_{\rm phys}]
+\longrightarrow\max_Z\chi_{BE}(Z).
 \]
 
-The HAP transmitter is given perfect instantaneous oracle CSI \((T,\epsilon)\), where \(T\) is power transmittance and \(\epsilon\) is input-referred excess noise in SNU. CSI estimation, feedback, delay, quantization, and authentication are outside the present model. All neural and geometry parameters are learned offline and frozen at deployment.
+The HAP transmitter is given perfect instantaneous oracle CSI
+\((T,\epsilon_{\rm base})\), where \(T\) is power transmittance and
+\(\epsilon_{\rm base}\) is exogenous input-referred baseline excess noise in
+SNU.  A fixed, public phase-noise scenario then makes the total noise
+action-dependent.  CSI estimation, feedback, delay, quantization, and
+authentication are outside the present model. All neural and geometry
+parameters are learned offline and frozen at deployment.
 
 ## 1. Scientific objective and common ensemble
 
-For channel state
+For exogenous channel state
 
 \[
-s=[\log_{10}T,\epsilon],
+s=[\log_{10}T,\epsilon_{\rm base}],
 \]
 
 the frozen transmitter produces a 256-symbol PMF and a modulation variance,
@@ -30,21 +41,111 @@ One globally learned geometry \(C_\psi\) is shared by every state. The statewise
 \mathcal E(s)=\{p_i(s),\alpha_i(s)\}_{i=1}^{256}
 \]
 
-is constructed once and passed unchanged to both the discrete-input mutual-information calculation and the accepted Holevo calculation. It is invalid to compute \(I_{AB}\) and \(\chi_{BE}\) from different PMFs, amplitudes, centering conventions, or values of \(V_A\).
+is constructed once and passed unchanged to both the discrete-input
+mutual-information calculation and the accepted Holevo calculation. It is
+invalid to compute \(I_{AB}\) and \(\chi_{BE}\) from different PMFs,
+amplitudes, centering conventions, values of \(V_A\), or values of total
+excess noise.
+
+### 1.1 Fixed phase-noise scenario and post-action noise
+
+The phase parameter \(C_{n,\phi}^2\) is an external, fixed scenario input in
+\({\rm m}^{-2/3}\).  It is not the altitude-dependent
+Hufnagel--Valley/beam-wander \(C_n^2(h)\) field and is never inferred from
+that field or sampled per fading state.  With the SI wavelength
+\(\lambda_{\rm m}\) and geometric link distance \(L_{\rm link,m}\), define
+
+\[
+\tau_{\phi2}=2.46C_{n,\phi}^2
+\left(\frac{2\pi}{\lambda_{\rm m}}\right)^{7/6}
+L_{\rm link,m}^{11/6},\qquad
+c_\phi=\tau_{\phi2}+\frac14\tau_{\phi2}^2.
+\]
+
+The name \(\tau_{\phi2}\) stores the manuscript quantity
+\(\tau_\phi^2\); therefore the final term is the required fourth-order
+quantity, not an additional interpretation of \(\tau_\phi\).  For each
+statewise ensemble, the only noise supplied to both information branches is
+
+\[
+\epsilon_{\rm total}(s)=\epsilon_{\rm base}+c_\phi V_A(s).
+\]
+
+The policy observes \(\epsilon_{\rm base}\), not its own
+\(\epsilon_{\rm total}\) output.  The computational graph nevertheless keeps
+the \(c_\phi V_A\) path so variance-policy gradients contain the corresponding
+phase-noise effect.
+
+### 1.2 Full physical correlation interval and worst-case Holevo value
+
+For the source moments \(C,w\) and \(\epsilon=\epsilon_{\rm total}\), define
+
+\[
+Z_- =2\sqrt{T}C-\sqrt{2T\epsilon w},\qquad
+Z_+ =2\sqrt{T}C+\sqrt{2T\epsilon w},
+\]
+
+\[
+a=1+V_A,\qquad b=1+TV_A+T\epsilon,\qquad
+Z_{\rm phys}=\sqrt{ab-1-|a-b|},
+\]
+
+\[
+[Z_L,Z_U]=[\max(Z_-,-Z_{\rm phys}),\min(Z_+,Z_{\rm phys})].
+\]
+
+An empty interval is a structured security-domain failure, not a clipped or
+defaulted covariance.  For each admissible \(Z\), the standard covariance has
+correlation \(c=Z\), symplectic eigenvalues
+
+\[
+\lambda_{1,2}=\sqrt{\frac{\Delta\pm\sqrt{\Delta^2-4D}}{2}},
+\quad\Delta=a^2+b^2-2Z^2,\quad D=(ab-Z^2)^2,
+\quad\lambda_3=a-\frac{Z^2}{b+1},
+\]
+
+The implementation evaluates the smaller symplectic root through the
+algebraically equivalent product form
+`lambda2^2 = 2D/(Delta + sqrt(Delta^2-4D))` to avoid endpoint cancellation,
+and evaluates `lambda3` with the numerator form
+`(a*(b+1)-Z^2)/(b+1)`.  When a supplied correlation agrees with the analytic
+physical boundary to a machine-precision residual, the corresponding exact
+boundary identity `lambda2=1` (and, when `b>a`, `lambda3=1`) is recorded as an
+explicit numerical event; no generic eigenvalue clipping is performed.
+
+The ideal-heterodyne Holevo value
+\(\chi_{BE}(Z)=g((\lambda_1-1)/2)+g((\lambda_2-1)/2)-g((\lambda_3-1)/2)\).
+The active objective is
+
+\[
+\chi_{BE}^{\max}=\max_{Z\in[Z_L,Z_U]}\chi_{BE}(Z),
+\]
+
+not evaluation at a preselected endpoint.  The numerical solver searches the
+full interval, records both endpoint values and its selected \(Z_*\), and is
+only piecewise differentiable where maximizer/cell choices switch.  A future
+numerical protocol must demonstrate grid/refinement convergence; no configured
+finite grid is treated as a mathematical global-optimality certificate.
 
 The scientific optimization is
 
 \[
 \max_{\theta,\phi,\psi}\;\mathbb E_{s\sim\mathcal D_{\rm train}}[K(s)],
 \qquad
-K(s)=\beta I_{AB}(\mathcal E(s);T,\epsilon)-\chi_{BE}(\mathcal E(s);T,\epsilon),
+K(s)=\beta I_{AB}(\mathcal E(s);T,\epsilon_{\rm total})
+-\chi_{BE}^{\max}(\mathcal E(s);T,\epsilon_{\rm total}),
 \]
 
 subject to the energy conditions in Section 8. This is direct expected-SKR optimization, not BER, reconstruction-loss, or MI-only optimization.
 
 ## 2. Channel-conditioned neural transmitter
 
-The PS and variance branches are independent. They have no shared trainable trunk, which keeps their gradient ownership and ablations unambiguous. Both receive exactly \(s=[\log_{10}T,\epsilon]\). Any future affine feature standardization must use training-set statistics frozen before validation and testing and must be recorded as part of the model; it is not part of the model frozen here.
+The PS and variance branches are independent. They have no shared trainable
+trunk, which keeps their gradient ownership and ablations unambiguous. Both
+receive exactly \(s=[\log_{10}T,\epsilon_{\rm base}]\). Any future affine
+feature standardization must use training-set statistics frozen before
+validation and testing and must be recorded as part of the model; it is not
+part of the model frozen here.
 
 ### 2.1 PS branch: fourfold-symmetric 256-symbol PMF
 
@@ -200,7 +301,9 @@ All three are fourfold symmetric and are compatible with the normalization above
 | GS + adaptive VA | uniform | global \(x_\psi\) | \(V_{A,\phi}(s)\) | \(\psi,\phi\) |
 | Full | \(p_\theta(s)\) | global \(x_\psi\) | \(V_{A,\phi}(s)\) | \(\theta,\psi,\phi\) |
 
-The GS-only and GS-combination modes learn one geometry over the training channel distribution. They do not condition geometry on \(T\) or \(\epsilon\).
+The GS-only and GS-combination modes learn one geometry over the training
+channel distribution. They do not condition geometry on \(T\) or
+\(\epsilon_{\rm base}\).
 
 ## 6. Raw SKR objective and rate reporting
 
@@ -325,18 +428,41 @@ Every implementation mode must test, statewise and at strict numerical tolerance
 - \(2\sum_i p_i|\alpha_i|^2=V_A\);
 - equal I/Q variance and zero I/Q covariance;
 - identical ensemble object/values at the MI and Holevo interfaces;
+- `epsilon_total=epsilon_base+c_phi*V_A` supplied identically to those two
+  interfaces, while policies receive only `epsilon_base`;
+- finite `Z_-`, `Z_+`, `Z_phys`, a nonempty physical intersection, both
+  endpoint Holevo values, and a recorded selected `Z_star`;
 - finite, physical covariance/symplectic spectra with no silent repair;
-- nonzero finite-difference and autograd sensitivity along every enabled parameter path;
+- nonzero finite-difference and autograd sensitivity along every enabled
+  parameter path, including the phase-noise `V_A` path away from maximizer
+  switching points;
 - MI Monte Carlo convergence and density-matrix/Fock-cutoff trace convergence across the entire \(V_A\) and amplitude range.
 
 ## 10. Contribution and scope
 
 The precise contribution to test is:
 
-> A channel-conditioned fourfold-symmetric probabilistic-shaping and modulation-variance policy, combined with one globally optimized 256-state geometry, trained offline end-to-end by direct expected asymptotic SKR maximization over an ideal-CSI HAP--UAV FSO fading distribution.
+> A channel-conditioned fourfold-symmetric probabilistic-shaping and
+> modulation-variance policy, combined with one globally optimized 256-state
+> geometry, trained offline end-to-end by direct expected asymptotic SKR
+> maximization over an ideal-CSI HAP--UAV FSO fading distribution with an
+> externally fixed phase-noise scenario and a full physical correlation-domain
+> Holevo search.
 
 The work does not claim that PS, GS, 256-QAM, CV-QKD, or adaptive \(V_A\) is individually novel. Its evidence must isolate the incremental value of channel-conditioned PS, channel-conditioned variance, and global geometry under one energy-fair security calculation.
 
 ## 11. Remaining numerical decisions
 
-The mathematical architecture is frozen. Before publication-scale training, the experiment configuration must still declare: \(V_{\min}\), \(V_{\max}\), \(V_{A,\rm budget}\), \(\beta\), the joint train/validation/test distributions of \((T,\epsilon)\), Fock cutoff and convergence tolerance, MI sample budgets, optimizer/schedule/seed counts, and any activated regularizer thresholds. Reconciliation feasibility, imperfect CSI, finite-size security, detector imperfections, and a transmit/abstain protocol remain explicit limitations or future work, not blockers to implementing this asymptotic oracle study.
+The mathematical architecture is frozen. Before any targeted numerical
+validation, the experiment configuration must still declare: \(V_{\min}\),
+\(V_{\max}\), \(V_{A,\rm budget}\), \(\beta\), the joint
+train/validation/test distributions of \((T,\epsilon_{\rm base})\), a
+provenanced SI value of \(C_{n,\phi}^2\) for every phase scenario, Fock cutoff
+and convergence tolerance, MI sample budgets, full-interval
+maximizer grid/refinement convergence criteria, optimizer/schedule/seed counts,
+and any activated regularizer thresholds.  Reconciliation feasibility,
+imperfect CSI, finite-size security, detector imperfections, a
+transmit/abstain protocol, and independent review of the full-interval
+security interpretation remain explicit limitations or future work.  The
+current default configuration intentionally leaves \(C_{n,\phi}^2\) unresolved
+and must fail closed before a numerical run.

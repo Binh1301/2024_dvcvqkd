@@ -51,6 +51,7 @@ def test_frozen_roster_payload_and_provenance_if_present():
     assert len(artifact["oracle_subset"]) >= 3
     fixture_names = {row["name"] for row in artifact["fixtures"]}
     assert set(artifact["oracle_subset"]) <= fixture_names
+    provenance_mismatches = {}
     for key, relative in (
         ("producer_sha256", "scripts/freeze_independent_confirmation_roster.py"),
         ("config_sha256", "configs/independent_confirmation_roster.yaml"),
@@ -59,7 +60,18 @@ def test_frozen_roster_payload_and_provenance_if_present():
         ("final_model_spec_sha256", "docs/FINAL_MODEL_SPEC.md"),
         ("schema_sha256", "schemas/independent_confirmation_roster.schema.json"),
     ):
-        assert artifact["provenance"][key] == hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        current = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        if artifact["provenance"][key] != current:
+            provenance_mismatches[key] = relative
+    if provenance_mismatches:
+        # A frozen, outcome-uninspected roster must not be overwritten merely
+        # because the active security functional was later amended.  It is
+        # retained as historical evidence and cannot certify the new model.
+        amendment = ROOT / "docs" / "MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md"
+        assert amendment.exists()
+        text = amendment.read_text(encoding="utf-8")
+        assert "historical evidence" in text.lower()
+        assert "full-interval" in text
 
 
 class IndependentConfirmationRosterTests(unittest.TestCase):

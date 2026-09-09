@@ -12,7 +12,10 @@ import torch
 
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
 from _numerical_validation import (
-    representative_ensembles, unique_ensemble_roster, validation_representative_states,
+    MODEL_AMENDMENT_REVALIDATION_REQUIRED,
+    representative_ensembles,
+    unique_ensemble_roster,
+    validation_representative_states,
 )
 from src.cvqkd.covariance import standard_form_covariance
 from src.cvqkd.gram_moments import c4_gram_source_moments
@@ -31,15 +34,10 @@ def _security(ensemble, t, epsilon, correlation):
         ensemble, t, epsilon, correlation,
         symmetry_tolerance=1e-8, numerical_tolerance=1e-10,
     )
-    l1, l2, l3 = (
-        torch.clamp_min(value, 1.0) for value in (
-            covariance.lambda1, covariance.lambda2, covariance.lambda3
-        )
-    )
     chi = (
-        bosonic_entropy((l1 - 1.0) / 2.0)
-        + bosonic_entropy((l2 - 1.0) / 2.0)
-        - bosonic_entropy((l3 - 1.0) / 2.0)
+        bosonic_entropy((covariance.lambda1 - 1.0) / 2.0)
+        + bosonic_entropy((covariance.lambda2 - 1.0) / 2.0)
+        - bosonic_entropy((covariance.lambda3 - 1.0) / 2.0)
     )
     return covariance, chi
 
@@ -67,6 +65,10 @@ def _conservative_bounds(reference: dict) -> dict:
 
 
 def main() -> int:
+    # This historical producer independently reconstructs the superseded
+    # fixed-Z_lower functional below.  Do not let a custom resolved config
+    # accidentally turn it into evidence for the amended model.
+    raise RuntimeError(MODEL_AMENDMENT_REVALIDATION_REQUIRED)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--hp-oracle", type=Path, default=ROOT / "results" / "near_coincident_gram_oracle.json")

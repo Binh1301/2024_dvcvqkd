@@ -7,12 +7,15 @@ import json
 from pathlib import Path
 
 from _common import ROOT, load_yaml, missing_required, require_holevo_pseudoinverse_approval
+from _train import _phase_noise_scenario
+from src.channel.phase_noise import phase_noise_scenario_sha256
 from src.optimization.learned_outer_selection import (
     validation_only_learned_fixed_va_selection,
 )
 from src.validation.physical_domain import (
     approved_peak_photon_limit, require_preconvergence_domain_ready,
 )
+from src.validation.publication_manifest import canonical_json_sha256
 
 
 REQUIRED = [
@@ -37,6 +40,8 @@ def main() -> int:
     n_peak = approved_peak_photon_limit(config)
     require_preconvergence_domain_ready(config)
     require_holevo_pseudoinverse_approval(config)
+    phase_scenario = _phase_noise_scenario(config)
+    phase_scenario_hash = phase_noise_scenario_sha256(phase_scenario)
     selections = validation_only_learned_fixed_va_selection(
         records,
         va_grid=config["baseline_search"]["va_grid_snu"],
@@ -44,10 +49,15 @@ def main() -> int:
         v_max=float(cvqkd["v_max_snu"]),
         va_budget=float(cvqkd["v_a_budget_snu"]),
         initialization_seeds=config["training"]["independent_training_initialization_seeds"],
+        expected_phase_scenario_sha256=phase_scenario_hash,
+        expected_resolved_config_sha256=canonical_json_sha256(config),
     )
     payload = {
         "status": "validation-only learned fixed-VA selection; no test access",
         "test_set_used": False,
+        "resolved_config_sha256": canonical_json_sha256(config),
+        "phase_noise_scenario": phase_scenario.metadata(),
+        "phase_noise_scenario_sha256": phase_scenario_hash,
         "n_peak_photons": n_peak,
         "all_selected_checkpoints_peak_feasible": True,
         "selections": {name: value.as_dict() for name, value in selections.items()},

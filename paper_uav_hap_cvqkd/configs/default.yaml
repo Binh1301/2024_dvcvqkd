@@ -10,6 +10,15 @@ channel:
   beam_waist_m: 0.0157
   aperture_radius_m: 0.075
   cn2_m_minus_two_thirds: 1.0e-16
+  # Independent scenario-level phase-distortion surrogate.  This must never
+  # be inferred from the beam-wander Cn2 field above.  The current manuscript
+  # requires an author-prescribed value, which has not yet been supplied.
+  phase_noise:
+    cn_phi2_m_minus_two_thirds: null
+    units: "m^-2/3"
+    allow_zero_turbulence_reference: false
+    status: "AUTHOR_INPUT_REQUIRED_BEFORE_ANY_NUMERICAL_RUN"
+    interpretation: "fixed per turbulence scenario; not sampled and not derived from Cn2(h)"
   scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
   uav_motion:
     sigma_x_m: 0.0521
@@ -18,12 +27,12 @@ channel:
     sigma_theta_rad: 0.00260
     sigma_phi_rad: 0.00204
     sigma_psi_rad: 0.00406
-  excess_noise_distribution:
+  epsilon_base_distribution:
     kind: independent_uniform
     minimum_snu: 0.001
     maximum_snu: 0.04
     dependence_on_transmittance: independent
-    interpretation: "author-approved assumed operating-domain distribution; not a measured HAP-UAV joint law"
+    interpretation: "exogenous input-referred baseline-noise distribution; not a measured HAP-UAV joint law"
   diagnostics:
     sample_count: 1000000
     seed: 202612
@@ -50,6 +59,8 @@ cvqkd:
     density_eigenvalue_pseudoinverse_tolerance: 1.0e-12
     density_eigenvalue_pseudoinverse_author_approved: false
     physicality_tolerance: 1.0e-10
+    interval_grid_size: 65
+    interval_refinement_iterations: 32
 training:
   optimizer: adam
   epochs: 2000

@@ -1,16 +1,40 @@
 # Project State
 
-Last updated: `2026-09-01T00:00:00+07:00`
+Last updated: `2026-09-10T00:00:00+07:00`
 
-## Terminal Status
+## Active Lifecycle Status
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-The prospectively frozen V3 feasibility cycle failed closed. The current
-incremental hard-support whole-segment method is stopped. Do not rerun or
-retune V3, execute the full 12-segment cycle, or automatically create V4.
+The current-manuscript amendment is active.  It replaces the exogenous
+`(T,epsilon)` plus fixed-`Z_lower` functional with `(T,epsilon_base)`, a fixed
+external phase scenario, `epsilon_total=epsilon_base+c_phi*V_A`, and a
+full-physical-interval numerical Holevo maximization.  See
+`docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`.
 
-## Current Authoritative Numerical State
+No training, baseline selection, final-test access, held-out evaluation,
+threshold approval, or publication-scale claim is authorized for the amended
+functional.  The default configuration deliberately leaves `Cn_phi2` null and
+must fail before any numerical run.
+
+## Active Authoritative Model
+
+- Amended `FINAL_MODEL_SPEC.md` SHA-256:
+  `f3c118768fc3e4fe5e308d3e660507f815526b86e442100945ab47e6924ca974`.
+- Amendment record SHA-256:
+  `fae9c754474183f4214db5848c834739278961f6853622b12c7a18eef0bd2776`.
+- Required unresolved scientific input: a provenance-backed scenario value
+  for `Cn_phi2` in `m^-2/3`, distinct from `Cn2(h)`.
+- Required before targeted numerical validation: a prospectively frozen
+  full-interval maximizer convergence protocol and independent theory review.
+
+Prior numerical artifacts remain historical evidence only.  They do not
+certify the amended functional, because their state/noise and/or Holevo
+endpoint definitions differ.
+
+## Historical V3 Status (superseded functional)
+
+### Historical Authoritative Numerical State
 
 - Frozen model SHA-256:
   `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
@@ -76,17 +100,18 @@ change the frozen functional.
 
 ## Exact Next Permitted Action
 
-Conduct a separate numerical/security-method review that decides among:
+Before any targeted numerical validation is proposed, obtain a documented
+author decision on `Cn_phi2` for each scenario and freeze a new,
+full-interval-specific numerical certification protocol.  That protocol must
+cover grid/refinement convergence, physical-boundary behavior, maximizer
+switching/nonsmoothness, and the `epsilon_base -> epsilon_total` action path.
+It also requires an independent security/theory review of the current
+full-interval maximization.
 
-1. a different numerical regularization architecture with explicit security
-   semantics;
-2. a mathematically equivalent smoother formulation;
-3. a prospectively defined admissibility strategy; or
-4. a narrowed paper claim that does not require the failed whole-segment
-   support certificate.
-
-Any resulting model, domain, security, threshold, or protocol change must be
-proposed explicitly and frozen before implementation or realized evaluation.
+The historical V3 method review remains relevant only to old support-threshold
+artifacts.  Do not rerun or retune V3, execute its full 12-segment cycle, or
+automatically create V4.  Any resulting numerical/domain/security/protocol
+change must be proposed explicitly and frozen before a realized evaluation.
 Silent regularization is prohibited.
 
 ## Lifecycle Restrictions
@@ -97,15 +122,16 @@ claim is authorized. No full 12-segment V3 run occurred. Claims remain limited
 to validated point evidence and the finite hash-bound realized domain; no
 uniform continuous-domain conditioning result exists.
 
-Production `src/cvqkd`, the physical/security functional,
-`docs/FINAL_MODEL_SPEC.md`, training state, and final-test data were unchanged
-by V3.
+The V3 record accurately says that its own run did not change production code;
+the later 2026-09-09 current-manuscript amendment did change the active
+functional. Final-test data remain inaccessible and untouched.
 
 ## Verification
 
 - V3 synthetic preflight: `20/20` passed; artifact SHA-256
   `81fe173259071b3124d13da13cd7618564e566e32c7cba7a4a9ea300acb87b50`.
-- Combined repository suite: `259 passed` (`CURRENTLY_VERIFIED_PASS`).
+- Historical combined repository suite: `259 passed` before the amendment.
+  Post-amendment targeted test evidence is recorded in EVID-0029.
 - Final V3 manifest hash enforcement and live-environment verification passed.
 - V3 journals are fsync-backed and hash-chained; replay reconstructs the
   recorded node and Schur counts.
@@ -118,4 +144,6 @@ by V3.
 - EVID-0026: independent exact-dyadic point support and nearest-gap oracle.
 - EVID-0027: historical V2.3 feasibility failure.
 - EVID-0028: current decisive V3 feasibility failure.
+- EVID-0029: current-manuscript model amendment and targeted implementation
+  verification.
 - DEC-0017: active fail-closed method stop and review requirement.

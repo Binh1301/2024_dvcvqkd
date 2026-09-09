@@ -15,7 +15,11 @@ import mpmath as mp
 import torch
 
 from _common import ROOT, load_yaml
-from _numerical_validation import ensemble_sha256, representative_ensembles
+from _numerical_validation import (
+    MODEL_AMENDMENT_REVALIDATION_REQUIRED,
+    ensemble_sha256,
+    representative_ensembles,
+)
 from freeze_independent_confirmation_roster import stress_ensemble
 from src.cvqkd.mutual_information import discrete_mutual_information, standard_complex_noise
 from src.utils.random import torch_generator
@@ -325,6 +329,10 @@ def run(config_path: Path, default_path: Path, roster_path: Path, roster_config_
 
 
 def main() -> None:
+    # The arbitrary-precision security_chain in this archival producer uses a
+    # fixed lower correlation endpoint.  It cannot certify the amended
+    # full-physical-interval model.
+    raise RuntimeError(MODEL_AMENDMENT_REVALIDATION_REQUIRED)
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "independent_confirmation_oracle.yaml")
     parser.add_argument("--default-config", type=Path, default=ROOT / "configs" / "default.yaml")

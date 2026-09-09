@@ -13,6 +13,11 @@ from pathlib import Path
 import re
 from typing import Any
 
+from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import (
+    phase_noise_scenario_from_channel_config,
+    phase_noise_scenario_sha256,
+)
 from src.validation.physical_domain import approved_peak_photon_limit
 
 
@@ -154,6 +159,36 @@ def common_protocol_config(config: dict[str, Any]) -> dict[str, Any]:
     return normalized
 
 
+def _require_phase_provenance(
+    artifact: dict[str, Any], config: dict[str, Any], manifest: dict[str, Any]
+) -> None:
+    """Bind a selection artifact to the resolved config and fixed phase case."""
+
+    expected_config_hash = canonical_json_sha256(config)
+    if artifact.get("resolved_config_sha256") != expected_config_hash or artifact.get(
+        "resolved_config_sha256"
+    ) != manifest.get("resolved_config_sha256"):
+        raise ValueError(
+            "Selection artifact is not bound to the manifest's resolved configuration."
+        )
+    channel = config.get("channel")
+    if not isinstance(channel, dict):
+        raise ValueError("Resolved configuration must contain channel phase provenance.")
+    geometry = LinkGeometry(
+        float(channel["h_hap_m"]),
+        float(channel["h_uav_m"]),
+        float(channel.get("zenith_angle_rad", 0.0)),
+    )
+    scenario = phase_noise_scenario_from_channel_config(
+        channel, link_distance_m=geometry.link_length_m
+    )
+    expected_phase_hash = phase_noise_scenario_sha256(scenario)
+    if artifact.get("phase_noise_scenario_sha256") != expected_phase_hash:
+        raise ValueError("Selection artifact is bound to a different phase-noise scenario.")
+    if artifact.get("phase_noise_scenario") != scenario.metadata():
+        raise ValueError("Selection artifact phase-noise metadata differs from config.")
+
+
 def validate_manifest_against_config(manifest: dict[str, Any], config: dict[str, Any]) -> None:
     """Require the exact learned mode/seed roster declared by resolved config."""
 
@@ -214,6 +249,7 @@ def _resolve_artifact(manifest_path: Path, value: str) -> Path:
 def _validate_baseline_selection_artifact(
     baseline: dict[str, Any], config: dict[str, Any], manifest: dict[str, Any]
 ) -> None:
+    _require_phase_provenance(baseline, config, manifest)
     if baseline.get("test_set_used") is not False or baseline.get("selection_split") != "validation":
         raise ValueError("Baseline selection is not validation-only.")
     if baseline.get("validation_state_realization_sha256") != manifest["validation_state_sha256"]:
@@ -311,6 +347,7 @@ def verify_bound_artifacts(manifest_path: Path, manifest: dict[str, Any]) -> dic
     baseline = json.loads(paths["baseline_selection"].read_text(encoding="utf-8"))
     _validate_baseline_selection_artifact(baseline, config, manifest)
     learned = json.loads(paths["learned_selection"].read_text(encoding="utf-8"))
+    _require_phase_provenance(learned, config, manifest)
     if learned.get("test_set_used") is not False or set(learned.get("selections", {})) != {
         "ps", "gs", "ps_gs"
     }:

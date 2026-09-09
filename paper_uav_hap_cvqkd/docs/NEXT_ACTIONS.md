@@ -4,14 +4,24 @@
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-V3 implemented and prospectively froze the requested Job-Object watchdog,
-early durable path certificates, coefficient-level Taylor congruence, exact C4
-sectors, and sequential sign-homogeneous Schur reductions. Its four-row
-feasibility gate still failed: `0/4` certificates, `4/4` resource limits,
-median 53 unresolved far modes on completed roots, and two realized watchdog
-contract breaches. The full 12-segment run was not performed.
+The active model was amended on 2026-09-09 to use exogenous
+`(T,epsilon_base)`, external fixed `Cn_phi2`,
+`epsilon_total=epsilon_base+c_phi*V_A`, and a full-physical-interval Holevo
+maximizer. The amendment record is
+`docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`. The default configuration has no
+approved `Cn_phi2` value and fails closed.
 
 ## Exact Next Permitted Action
+
+Obtain and freeze a provenance-backed SI `Cn_phi2` for each scenario, then
+write and independently review a new numerical certification protocol for the
+amended functional. At minimum it must establish full-interval maximizer
+grid/refinement convergence, boundary/domain failures, nonsmooth switching
+behavior, and the causal `epsilon_base -> V_A -> epsilon_total` path. It must
+also obtain a primary-theory justification for the full-interval security
+interpretation.
+
+## Historical V3 Review
 
 Perform a separate numerical/security-method review. The review must decide
 whether the research should use:
@@ -39,10 +49,15 @@ functional, admissible domain, or paper claim.
   functional.
 - Do not perform publication training, the optimized-MB grid, baseline
   selection, final-test access, or held-out evaluation.
+- Do not assign `Cn_phi2` by copying/reusing the Hufnagel--Valley/beam-wander
+  `Cn2(h)` value.
+- Do not use an old fixed-`Z_lower` artifact as full-interval Holevo evidence.
 
 ## Preserved Facts
 
-- Frozen model SHA-256:
+- Active amended model SHA-256:
+  `f3c118768fc3e4fe5e308d3e660507f815526b86e442100945ab47e6924ca974`.
+- Historical pre-amendment model SHA-256:
   `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
 - MI remains `N_MC=2048`.
 - Exact-tau V2.2 point result remains valid and need not be recomputed unless

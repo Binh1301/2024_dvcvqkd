@@ -9,12 +9,45 @@ from typing import Any, Literal
 import torch
 
 from src.modulation.joint_ps_gs import Ensemble
-from .covariance import CovarianceResult, PhysicalityError, standard_form_covariance
+from .covariance import (
+    CovarianceResult,
+    PhysicalityError,
+    physical_correlation_bound,
+    standard_form_covariance,
+)
 from .gram_moments import c4_gram_source_moments
 from .protocol import validate_channel_state
 
 
 HolevoBackend = Literal["c4_gram", "fock_diagnostic"]
+
+INTERVAL_GRID_SIZE = 65
+INTERVAL_REFINEMENT_ITERATIONS = 32
+
+
+class SecurityDomainError(PhysicalityError):
+    """A manuscript correlation interval has no physical covariance point."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        batch_indices: tuple[int, ...],
+        z_minus: torch.Tensor,
+        z_plus: torch.Tensor,
+        z_phys: torch.Tensor,
+        z_lower: torch.Tensor,
+        z_upper: torch.Tensor,
+    ) -> None:
+        super().__init__(message)
+        self.batch_indices = batch_indices
+        self.interval_diagnostics = {
+            "z_minus": z_minus,
+            "z_plus": z_plus,
+            "z_phys": z_phys,
+            "z_lower": z_lower,
+            "z_upper": z_upper,
+        }
 
 
 @dataclass(frozen=True)
@@ -24,7 +57,17 @@ class HolevoResult:
     tau_trace: torch.Tensor
     w: torch.Tensor
     coherent_correlation: torch.Tensor
+    # ``z`` remains a compatibility alias for the selected worst-case point.
     z: torch.Tensor
+    z_minus: torch.Tensor
+    z_plus: torch.Tensor
+    z_phys: torch.Tensor
+    z_lower: torch.Tensor
+    z_upper: torch.Tensor
+    z_star: torch.Tensor
+    chi_at_z_lower: torch.Tensor
+    chi_at_z_upper: torch.Tensor
+    maximizer_location: tuple[str, ...]
     covariance: CovarianceResult
     diagnostics: dict[str, Any]
 
@@ -164,61 +207,288 @@ def _holevo_from_source_moments(
     require_supported_symmetry: bool,
     symmetry_tolerance: float,
     physicality_tolerance: float,
+    interval_grid_size: int,
+    interval_refinement_iterations: int,
     diagnostics: dict[str, Any],
 ) -> HolevoResult:
-    """Apply the frozen security chain to backend-independent source moments."""
+    """Apply the manuscript's full-interval security chain to source moments."""
 
-    if bool(torch.any(w_raw < -physicality_tolerance)):
-        raise PhysicalityError("Non-Gaussian penalty w is materially negative.")
-    repairs: list[str] = []
+    if not isinstance(interval_grid_size, int) or interval_grid_size < 3:
+        raise ValueError("interval_grid_size must be an integer of at least three.")
+    if not isinstance(interval_refinement_iterations, int) or interval_refinement_iterations < 0:
+        raise ValueError("interval_refinement_iterations must be a nonnegative integer.")
     if bool(torch.any(w_raw < 0.0)):
-        repairs.append("clamped tiny negative w to zero")
-    w = torch.clamp_min(w_raw, 0.0)
-    radicand = 2.0 * transmittance * epsilon * w
-    z = 2.0 * torch.sqrt(transmittance) * coherent_correlation - torch.sqrt(radicand)
-    covariance = standard_form_covariance(
-        ensemble,
-        transmittance,
-        epsilon,
-        z,
-        require_supported_symmetry=require_supported_symmetry,
-        symmetry_tolerance=symmetry_tolerance,
+        raise PhysicalityError("Non-Gaussian penalty w is negative; no zero-clamp is permitted.")
+    w = w_raw
+    correlation_radicand = 2.0 * transmittance * epsilon * w
+    if bool(torch.any(correlation_radicand < 0.0)):
+        raise PhysicalityError("Correlation-interval radicand is negative.")
+    correlation_radius = torch.sqrt(correlation_radicand)
+    z_minus = 2.0 * torch.sqrt(transmittance) * coherent_correlation - correlation_radius
+    z_plus = 2.0 * torch.sqrt(transmittance) * coherent_correlation + correlation_radius
+
+    va = ensemble.computed_va()
+    a = 1.0 + va
+    b = 1.0 + transmittance * va + transmittance * epsilon
+    bound = physical_correlation_bound(
+        a,
+        b,
         numerical_tolerance=physicality_tolerance,
     )
-    adjusted_lambdas: list[torch.Tensor] = []
-    for value in (covariance.lambda1, covariance.lambda2, covariance.lambda3):
-        if bool(torch.any(value < 1.0)):
-            repairs.append("clamped symplectic eigenvalue within tolerance to one for entropy")
-        adjusted_lambdas.append(torch.clamp_min(value, 1.0))
-    l1, l2, l3 = adjusted_lambdas
-    chi_be = (
-        bosonic_entropy((l1 - 1.0) / 2.0)
-        + bosonic_entropy((l2 - 1.0) / 2.0)
-        - bosonic_entropy((l3 - 1.0) / 2.0)
+    z_phys = bound.z_phys
+    z_lower = torch.maximum(z_minus, -z_phys)
+    z_upper = torch.minimum(z_plus, z_phys)
+    invalid_interval = z_lower > z_upper
+    if bool(torch.any(invalid_interval)):
+        indices = tuple(
+            int(index.detach())
+            for index in torch.nonzero(invalid_interval, as_tuple=False).reshape(-1)
+        )
+        raise SecurityDomainError(
+            "SECURITY_DOMAIN_FAILURE: [Z_minus,Z_plus] has empty intersection "
+            "with [-Z_phys,Z_phys].",
+            batch_indices=indices,
+            z_minus=z_minus,
+            z_plus=z_plus,
+            z_phys=z_phys,
+            z_lower=z_lower,
+            z_upper=z_upper,
+        )
+
+    chi_be, z_star, chi_at_z_lower, chi_at_z_upper, maximizer_location, covariance = (
+        _maximize_holevo_over_interval(
+            ensemble,
+            transmittance,
+            epsilon,
+            z_lower,
+            z_upper,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            physicality_tolerance=physicality_tolerance,
+            grid_size=interval_grid_size,
+            refinement_iterations=interval_refinement_iterations,
+        )
     )
-    if bool(torch.any(chi_be < -physicality_tolerance)):
-        raise PhysicalityError("Holevo information is materially negative.")
+    if bool(torch.any(chi_be < 0.0)):
+        raise PhysicalityError("Holevo information is negative; no zero-clamp is permitted.")
     if not bool(torch.all(torch.isfinite(chi_be))):
         raise FloatingPointError("Holevo information returned NaN or Inf.")
-    if bool(torch.any(chi_be < 0.0)):
-        repairs.append("clamped tiny negative Holevo information to zero")
-        chi_be = torch.clamp_min(chi_be, 0.0)
     return HolevoResult(
         chi_be=chi_be,
         tau=tau,
         tau_trace=tau_trace,
         w=w,
         coherent_correlation=coherent_correlation,
-        z=z,
+        z=z_star,
+        z_minus=z_minus,
+        z_plus=z_plus,
+        z_phys=z_phys,
+        z_lower=z_lower,
+        z_upper=z_upper,
+        z_star=z_star,
+        chi_at_z_lower=chi_at_z_lower,
+        chi_at_z_upper=chi_at_z_upper,
+        maximizer_location=maximizer_location,
         covariance=covariance,
         diagnostics={
             **diagnostics,
-            "numerical_repairs": tuple(repairs) + covariance.numerical_repairs,
+            "numerical_repairs": covariance.numerical_repairs,
+            "roundoff_events": {
+                "z_phys": bound.roundoff_events,
+                "selected_covariance": covariance.roundoff_events,
+            },
+            "security_interval": {
+                "z_minus": z_minus.detach().tolist(),
+                "z_plus": z_plus.detach().tolist(),
+                "z_phys": z_phys.detach().tolist(),
+                "z_lower": z_lower.detach().tolist(),
+                "z_upper": z_upper.detach().tolist(),
+                "z_star": z_star.detach().tolist(),
+                "chi_at_z_lower": chi_at_z_lower.detach().tolist(),
+                "chi_at_z_upper": chi_at_z_upper.detach().tolist(),
+                "chi_star": chi_be.detach().tolist(),
+                "maximizer_location": maximizer_location,
+            },
+            "interval_maximizer": {
+                "algorithm": "coarse_grid_plus_local_golden_refinement_piecewise_autodiff",
+                "grid_size": interval_grid_size,
+                "refinement_iterations": interval_refinement_iterations,
+                "global_optimality_certificate": False,
+            },
             "standard_form_supported": covariance.symmetry.standard_form_supported,
             "standard_form_override": not require_supported_symmetry,
             "symmetry_tolerance": symmetry_tolerance,
             "physicality_tolerance": physicality_tolerance,
         },
+    )
+
+
+def _chi_at_correlation(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    correlation: torch.Tensor,
+    *,
+    require_supported_symmetry: bool,
+    symmetry_tolerance: float,
+    physicality_tolerance: float,
+) -> tuple[torch.Tensor, CovarianceResult]:
+    """Evaluate the manuscript Holevo expression at one batch of correlations."""
+
+    covariance = standard_form_covariance(
+        ensemble,
+        transmittance,
+        epsilon,
+        correlation,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        numerical_tolerance=physicality_tolerance,
+    )
+    chi = (
+        bosonic_entropy((covariance.lambda1 - 1.0) / 2.0)
+        + bosonic_entropy((covariance.lambda2 - 1.0) / 2.0)
+        - bosonic_entropy((covariance.lambda3 - 1.0) / 2.0)
+    )
+    if not bool(torch.all(torch.isfinite(chi))):
+        raise FloatingPointError("Holevo information returned NaN or Inf.")
+    return chi, covariance
+
+
+def _maximize_holevo_over_interval(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    z_lower: torch.Tensor,
+    z_upper: torch.Tensor,
+    *,
+    require_supported_symmetry: bool,
+    symmetry_tolerance: float,
+    physicality_tolerance: float,
+    grid_size: int,
+    refinement_iterations: int,
+) -> tuple[
+    torch.Tensor,
+    torch.Tensor,
+    torch.Tensor,
+    torch.Tensor,
+    tuple[str, ...],
+    CovarianceResult,
+]:
+    """Maximize the actual scalar Holevo function on each physical interval.
+
+    The solver explicitly includes both endpoints, selects the best point on a
+    deterministic full interval grid, then performs a bounded golden-section
+    refinement in that grid cell.  ``argmax`` and branch choices make the
+    resulting value function piecewise differentiable; within a fixed active
+    candidate, the selected value retains the ordinary torch gradient.
+    """
+
+    if z_lower.shape != z_upper.shape:
+        raise ValueError("Correlation interval endpoints must have identical shapes.")
+    fractions = torch.linspace(
+        0.0,
+        1.0,
+        grid_size,
+        dtype=z_lower.dtype,
+        device=z_lower.device,
+    )
+    grid_z = z_lower.unsqueeze(-1) + (z_upper - z_lower).unsqueeze(-1) * fractions
+    grid_chi = torch.stack(
+        [
+            _chi_at_correlation(
+                ensemble,
+                transmittance,
+                epsilon,
+                grid_z[:, column],
+                require_supported_symmetry=require_supported_symmetry,
+                symmetry_tolerance=symmetry_tolerance,
+                physicality_tolerance=physicality_tolerance,
+            )[0]
+            for column in range(grid_size)
+        ],
+        dim=-1,
+    )
+    chi_at_z_lower = grid_chi[:, 0]
+    chi_at_z_upper = grid_chi[:, -1]
+    coarse_index = torch.argmax(grid_chi, dim=-1)
+    coarse_z = torch.gather(grid_z, 1, coarse_index.unsqueeze(-1)).squeeze(-1)
+    coarse_chi = torch.gather(grid_chi, 1, coarse_index.unsqueeze(-1)).squeeze(-1)
+
+    left_index = torch.clamp(coarse_index - 1, min=0)
+    right_index = torch.clamp(coarse_index + 1, max=grid_size - 1)
+    left = torch.gather(grid_z, 1, left_index.unsqueeze(-1)).squeeze(-1)
+    right = torch.gather(grid_z, 1, right_index.unsqueeze(-1)).squeeze(-1)
+    golden_fraction = (math.sqrt(5.0) - 1.0) / 2.0
+    for _ in range(refinement_iterations):
+        left_probe = right - golden_fraction * (right - left)
+        right_probe = left + golden_fraction * (right - left)
+        left_value = _chi_at_correlation(
+            ensemble,
+            transmittance,
+            epsilon,
+            left_probe,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            physicality_tolerance=physicality_tolerance,
+        )[0]
+        right_value = _chi_at_correlation(
+            ensemble,
+            transmittance,
+            epsilon,
+            right_probe,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            physicality_tolerance=physicality_tolerance,
+        )[0]
+        move_left = left_value < right_value
+        left = torch.where(move_left, left_probe, left)
+        right = torch.where(move_left, right, right_probe)
+    refined_z = 0.5 * (left + right)
+    refined_chi, _ = _chi_at_correlation(
+        ensemble,
+        transmittance,
+        epsilon,
+        refined_z,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        physicality_tolerance=physicality_tolerance,
+    )
+
+    candidate_z = torch.stack((z_lower, z_upper, coarse_z, refined_z), dim=-1)
+    candidate_chi = torch.stack(
+        (chi_at_z_lower, chi_at_z_upper, coarse_chi, refined_chi), dim=-1
+    )
+    selected_index = torch.argmax(candidate_chi, dim=-1)
+    z_star = torch.gather(candidate_z, 1, selected_index.unsqueeze(-1)).squeeze(-1)
+    chi_star = torch.gather(candidate_chi, 1, selected_index.unsqueeze(-1)).squeeze(-1)
+    selected_chi, selected_covariance = _chi_at_correlation(
+        ensemble,
+        transmittance,
+        epsilon,
+        z_star,
+        require_supported_symmetry=require_supported_symmetry,
+        symmetry_tolerance=symmetry_tolerance,
+        physicality_tolerance=physicality_tolerance,
+    )
+    if not bool(torch.allclose(chi_star, selected_chi, rtol=1e-12, atol=1e-12)):
+        raise FloatingPointError("Interval maximizer candidate and selected evaluation disagree.")
+    locations: list[str] = []
+    for row in range(z_star.numel()):
+        if bool(torch.isclose(z_lower[row], z_upper[row], rtol=0.0, atol=0.0)):
+            locations.append("degenerate_interval")
+        elif bool(torch.isclose(z_star[row], z_lower[row], rtol=0.0, atol=0.0)):
+            locations.append("z_lower")
+        elif bool(torch.isclose(z_star[row], z_upper[row], rtol=0.0, atol=0.0)):
+            locations.append("z_upper")
+        else:
+            locations.append("interior")
+    return (
+        selected_chi,
+        z_star,
+        chi_at_z_lower,
+        chi_at_z_upper,
+        tuple(locations),
+        selected_covariance,
     )
 
 
@@ -233,6 +503,8 @@ def dense_fock_holevo_information(
     density_trace_tolerance: float = 1e-8,
     density_eigenvalue_tolerance: float = 1e-12,
     physicality_tolerance: float = 1e-10,
+    interval_grid_size: int = INTERVAL_GRID_SIZE,
+    interval_refinement_iterations: int = INTERVAL_REFINEMENT_ITERATIONS,
 ) -> HolevoResult:
     """Historical dense-Fock backend retained only for explicit diagnostics."""
     for name, value in (
@@ -283,6 +555,8 @@ def dense_fock_holevo_information(
         require_supported_symmetry=require_supported_symmetry,
         symmetry_tolerance=symmetry_tolerance,
         physicality_tolerance=physicality_tolerance,
+        interval_grid_size=interval_grid_size,
+        interval_refinement_iterations=interval_refinement_iterations,
         diagnostics={
             "backend": "fock_diagnostic",
             "fock_cutoff": fock_cutoff,
@@ -305,6 +579,8 @@ def c4_gram_holevo_information(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-10,
     physicality_tolerance: float = 1e-10,
+    interval_grid_size: int = INTERVAL_GRID_SIZE,
+    interval_refinement_iterations: int = INTERVAL_REFINEMENT_ITERATIONS,
 ) -> HolevoResult:
     """Cutoff-independent production Holevo evaluation for C4 ensembles."""
 
@@ -344,6 +620,8 @@ def c4_gram_holevo_information(
         require_supported_symmetry=True,
         symmetry_tolerance=symmetry_tolerance,
         physicality_tolerance=physicality_tolerance,
+        interval_grid_size=interval_grid_size,
+        interval_refinement_iterations=interval_refinement_iterations,
         diagnostics={
             "backend": "c4_gram",
             "fock_cutoff": None,
@@ -373,6 +651,8 @@ def holevo_information(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    interval_grid_size: int = INTERVAL_GRID_SIZE,
+    interval_refinement_iterations: int = INTERVAL_REFINEMENT_ITERATIONS,
 ) -> HolevoResult:
     """Public Holevo interface with cutoff-independent C4 Gram production default."""
 
@@ -388,6 +668,8 @@ def holevo_information(
             density_trace_tolerance=density_trace_tolerance,
             density_eigenvalue_tolerance=density_eigenvalue_tolerance,
             physicality_tolerance=physicality_tolerance,
+            interval_grid_size=interval_grid_size,
+            interval_refinement_iterations=interval_refinement_iterations,
         )
     if backend == "fock_diagnostic":
         if fock_cutoff is None:
@@ -402,6 +684,8 @@ def holevo_information(
             density_trace_tolerance=density_trace_tolerance,
             density_eigenvalue_tolerance=density_eigenvalue_tolerance,
             physicality_tolerance=physicality_tolerance,
+            interval_grid_size=interval_grid_size,
+            interval_refinement_iterations=interval_refinement_iterations,
         )
     raise ValueError(f"Unsupported Holevo backend: {backend!r}.")
 
@@ -418,6 +702,8 @@ def shared_fixed_ensemble_holevo_chi(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    interval_grid_size: int = INTERVAL_GRID_SIZE,
+    interval_refinement_iterations: int = INTERVAL_REFINEMENT_ITERATIONS,
 ) -> torch.Tensor:
     """Compute fixed-baseline chi with tau/C/w evaluated exactly once.
 
@@ -448,4 +734,6 @@ def shared_fixed_ensemble_holevo_chi(
         symmetry_tolerance=symmetry_tolerance,
         density_trace_tolerance=density_trace_tolerance,
         physicality_tolerance=physicality_tolerance,
+        interval_grid_size=interval_grid_size,
+        interval_refinement_iterations=interval_refinement_iterations,
     ).chi_be

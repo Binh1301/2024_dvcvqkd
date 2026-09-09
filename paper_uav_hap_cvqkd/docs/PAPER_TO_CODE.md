@@ -1,6 +1,9 @@
 # Paper-to-code map
 
-Primary source: `C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf`, inspected August 25, 2026.
+Current-manuscript source for the active amendment:
+`C:\Users\HP\Downloads\2026__Binh_s_work (22).pdf`, inspected September 9,
+2026.  The prior `(8).pdf` mapping is historical where it conflicts with
+`MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`.
 
 | Paper item | Equations | Implementation | Called by / status |
 |---|---:|---|---|
@@ -15,7 +18,9 @@ Primary source: `C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf`, inspected Aug
 | Pointing PDT transformation | 35--41 | Direct sampling instead of analytic density | Equivalent accepted computation; explicit PDF not implemented |
 | Composite channel/PDT | 42--48 | `src/channel/fso_channel.py::sample_fso_channel` | Returns instantaneous `T_n` |
 | Mean channel/rate order | 49--55 | `ChannelSamples.mean_transmittance`; `fading_secret_key_rate` | Mean is descriptor; raw rates averaged after statewise evaluation |
-| Excess-noise channel state | 56--64 | `src/channel/state_distribution.py`; `src/cvqkd/protocol.py`; MI noise variance | Independent bounded-uniform sensitivity domain; bounds must be frozen without test data because the paper supplies no physical `T`--`epsilon` coupling |
+| Baseline-noise state | Current manuscript state equations | `src/channel/state_distribution.py`; `src/cvqkd/protocol.py` | Independent bounded-uniform `epsilon_base` sensitivity domain; no empirical `T`--`epsilon_base` coupling is asserted |
+| Turbulence phase distortion | Current manuscript pp. 7--8, Eqs. 90--108 | `src/channel/phase_noise.py` | `Cn_phi2` is external fixed `m^-2/3` scenario input; SI wavelength/link length; never reuse HV/beam-wander `Cn2(h)` |
+| Post-action total noise | Current manuscript pp. 7--8, Eqs. 93--103 | `phase_excess_noise`, `total_excess_noise`, `evaluate_transmitter` | `epsilon_total=epsilon_base+c_phi V_A`; same tensor reaches MI and Holevo |
 | Square QAM | 65--71 | `src/modulation/qam256.py::square_qam256` | `k*16+l` ordering |
 | Uniform/binomial/MB | 72--81 | `uniform_pmf`, `binomial_pmf`, `maxwell_boltzmann_pmf` | Baseline script |
 | Instantaneous ensemble/SKR | 82--90 | `src/modulation/joint_ps_gs.py::Ensemble`; `fading_secret_key_rate` | Common object is shared by MI/Holevo |
@@ -24,11 +29,11 @@ Primary source: `C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf`, inspected Aug
 | Density operator | 103--104 | `src/cvqkd/holevo.py::density_operator` | Correct ket--bra orientation |
 | Coherent correlation | 105 | `holevo_information` | Differentiable Fock calculation |
 | Transformed annihilation/penalty | 106--108 | `holevo_information` | Pseudoinverse threshold reported |
-| Correlation bound | 109--110 | `holevo_information` | No hidden `Z` cap |
+| Correlation interval / physical domain | Current manuscript pp. 13--16, Eqs. 176--222 | `holevo_information`, `physical_correlation_bound` | Records `Z_-`, `Z_+`, `Z_phys`, intersection, endpoint values; empty domain is a structured failure |
 | Standard covariance | 111--116 | `src/cvqkd/covariance.py::standard_form_covariance` | Asymmetry guard defaults strict |
 | Symplectic eigenvalues | 117--122 | `standard_form_covariance` | Material invalidity raises |
-| Bosonic entropy/Holevo | 123--129 | `bosonic_entropy`, `holevo_information` | Ideal heterodyne, asymptotic |
-| Fading-average chain | 130--137 | `src/optimization/trainer.py`; `fading_secret_key_rate` | Correct averaging order |
+| Bosonic entropy/Holevo maximization | Current manuscript pp. 13--16 and 26--29 | `bosonic_entropy`, `holevo_information` | Ideal heterodyne, asymptotic; numerical full-interval max with recorded `Z_star`, not fixed lower endpoint |
+| Fading-average chain | Current manuscript pp. 13--16 | `src/optimization/trainer.py`; `fading_secret_key_rate` | `epsilon_total` and worst-case interval Holevo evaluated statewise before average |
 | CSI acquisition/feedback | 138--144 | `ProtocolAssumptions`, `ChannelSamples.metadata` | Exact-CSI oracle only; estimator is missing from paper |
 | Frozen C4 PS policy | `FINAL_MODEL_SPEC.md` Sec. 2.1 | `ProbabilisticShapingNetwork` | `2-128-64`, then exact orbit expansion |
 | Global GS | 151--153 | `GlobalGeometricShaping` | Shared across states |
@@ -36,7 +41,7 @@ Primary source: `C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf`, inspected Aug
 | Adaptive variance | 161--166 | `AdaptiveVarianceNetwork` | `V_min/V_max` mandatory |
 | Physical amplitudes | 167--169 | `physical_amplitudes`, `Ensemble.validate` | Statewise `V_A` equality asserted |
 | Shared MI/security ensemble | 170--176 | `evaluate_transmitter` | One `Ensemble` passed to both branches |
-| Variance sensitivity statement | 177--181 | Autograd through `AdaptiveVarianceNetwork` | No claimed stationary solution |
+| Variance sensitivity statement | Current manuscript pp. 26--29 | Autograd through `AdaptiveVarianceNetwork` and `c_phi V_A` | Piecewise differentiable away from interval-maximizer switching points; no stationary-solution claim |
 | Training objective | 182--185 | `src/optimization/trainer.py::train_step`; optional expression in `src/optimization/losses.py::paper_loss` | Executed path uses Eq. (184), i.e. all optional Eq. (185) regularizer coefficients are zero until their coefficients/gauge are scientifically frozen |
 | Gradient paths | 186--190 | Torch graph; `tests/test_gradients.py` | Local, finite-difference, and end-to-end SKR checks cover PS, GS, and `V_A`; C4 symmetry remains valid after smoke updates |
 | Training configurations | 191--195 | `JointTransmitter.MODES`; training scripts | Uniform/binomial/fixed and selected MB, PS, GS, VA, PS+GS, PS+VA, GS+VA, full |

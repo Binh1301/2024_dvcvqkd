@@ -1,6 +1,31 @@
 # Session Handoff
 
-Date: 2026-09-01
+Date: 2026-09-10
+
+## Current-Manuscript Amendment (active)
+
+The active functional changed on 2026-09-09 under the user-directed current
+manuscript source of truth. Read these before any task action:
+
+1. `docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md`;
+2. `docs/FINAL_MODEL_SPEC.md` (SHA-256
+   `f3c118768fc3e4fe5e308d3e660507f815526b86e442100945ab47e6924ca974`);
+3. `docs/MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md` (SHA-256
+   `fae9c754474183f4214db5848c834739278961f6853622b12c7a18eef0bd2776`);
+4. `docs/PROJECT_STATE.md`.
+
+The exogenous state is now `(T, epsilon_base)`. `Cn_phi2` is a separate,
+fixed SI phase-scenario input; it must not be derived from beam-wander/HV
+`Cn2(h)`. The action path is
+`epsilon_total=epsilon_base+c_phi*V_A`, with the identical total tensor sent
+to MI and the full-physical-interval Holevo maximizer. The default config has
+`Cn_phi2: null`, so numerical entry points must fail closed.
+
+No prior numerical artifact certifies this amended functional. Before any
+targeted numerical validation, freeze an author-provided `Cn_phi2`, an
+interval-maximizer certification/convergence protocol, and obtain independent
+security review. No training, baseline selection, final-test access, held-out
+evaluation, or publication-scale result is authorized.
 
 ## Authoritative Lifecycle
 
@@ -47,8 +72,9 @@ prospectively frozen admissibility strategy, or a narrowed paper claim. Do not
 silently change the physical/security functional or domain.
 
 No publication training, optimized-MB search, baseline selection, final-test
-access, held-out evaluation, threshold approval, production `src/cvqkd`
-change, security-functional change, or frozen-model change occurred.
+access, held-out evaluation, or threshold approval occurred. The historical V3
+run did not change production code; the later active 2026-09-09 amendment did
+change production `src/cvqkd` and the frozen model as documented above.
 
 This handoff is lower authority than active specifications, source, frozen
 configs, machine-readable artifacts, and `docs/PROJECT_STATE.md`.

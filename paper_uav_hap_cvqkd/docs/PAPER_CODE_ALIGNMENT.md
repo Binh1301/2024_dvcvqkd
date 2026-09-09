@@ -3,6 +3,13 @@
 > Historical freeze narrative. Production C4-Gram integration occurred after
 > the dense-Fock failure described below, but its support threshold remains
 > unapproved. Use `PROJECT_STATE.md` for current lifecycle/backend state.
+>
+> Amendment status (2026-09-09): this document's `(T,epsilon)` policy and
+> fixed-endpoint security wording is historical. The active state is
+> `(T,epsilon_base)`, phase noise is scenario-level, and Holevo is searched
+> over the full physical correlation interval. Do not use this document to
+> authorize a current numerical run; see
+> `MODEL_AMENDMENT_CURRENT_MANUSCRIPT.md` and `FINAL_MODEL_SPEC.md`.
 
 ## Pre-publication numerical freeze status (2026-08-27)
 

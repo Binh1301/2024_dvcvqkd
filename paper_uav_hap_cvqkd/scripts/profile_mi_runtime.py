@@ -12,7 +12,10 @@ import time
 import torch
 
 from _common import ROOT, load_yaml
-from _numerical_validation import validation_representative_states
+from _numerical_validation import (
+    require_current_model_validation_protocol,
+    validation_representative_states,
+)
 from src.cvqkd.mutual_information import discrete_mutual_information, standard_complex_noise
 from src.modulation.joint_ps_gs import reference_ensemble
 from src.utils.random import torch_generator
@@ -32,6 +35,7 @@ def _elapsed(callable_):
 
 
 def main() -> int:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--samples", type=int, default=256)

@@ -17,7 +17,10 @@ from typing import Any
 import torch
 
 from _common import ROOT, load_yaml
-from _numerical_validation import validation_representative_states
+from _numerical_validation import (
+    require_current_model_validation_protocol,
+    validation_representative_states,
+)
 from audit_support_threshold_protocol import _sector_eigenvalues
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.utils.random import derive_seed
@@ -517,6 +520,7 @@ def run_grid(
 
 
 def main() -> None:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--proposals-per-cell", type=int, default=PROPOSALS_PER_CELL)

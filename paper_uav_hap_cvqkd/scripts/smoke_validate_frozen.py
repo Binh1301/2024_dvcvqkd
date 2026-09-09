@@ -9,6 +9,8 @@ from pathlib import Path
 import torch
 
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
+from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import phase_noise_scenario_from_channel_config
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.modulation.qam256 import c4_orbit_masses
 from src.optimization.trainer import EnergyBudgetController, evaluate_transmitter, train_step
@@ -42,8 +44,17 @@ def main() -> int:
     seed_process(args.seed)
     config = load_yaml(args.config)
     holevo_kwargs = holevo_numerical_kwargs(config)
+    channel_config = config["channel"]
+    phase_scenario = phase_noise_scenario_from_channel_config(
+        channel_config,
+        link_distance_m=LinkGeometry(
+            channel_config["h_hap_m"],
+            channel_config["h_uav_m"],
+            channel_config.get("zenith_angle_rad", 0.0),
+        ).link_length_m,
+    )
     transmittance = torch.tensor([0.02, 0.08, 0.2], dtype=torch.float64)
-    epsilon = torch.tensor([0.004, 0.002, 0.0005], dtype=torch.float64)
+    epsilon_base = torch.tensor([0.004, 0.002, 0.0005], dtype=torch.float64)
     model = JointTransmitter("full", v_min=args.v_min, v_max=args.v_max)
     family_modules = {"ps": model.ps_network, "gs": model.gs_model, "va": model.va_network}
     family_rates = {
@@ -63,10 +74,11 @@ def main() -> int:
         return evaluate_transmitter(
             model,
             transmittance,
-            epsilon,
+            epsilon_base,
             beta_reconciliation=args.beta,
             noise_samples_per_symbol=args.awgn_samples,
             generator=torch_generator(awgn_seed),
+            phase_noise_coefficient=phase_scenario.c_phi,
             require_supported_symmetry=True,
             **holevo_kwargs,
         )
@@ -81,10 +93,11 @@ def main() -> int:
             model,
             optimizer,
             transmittance,
-            epsilon,
+            epsilon_base,
             beta_reconciliation=args.beta,
             noise_samples_per_symbol=args.awgn_samples,
             generator=torch_generator(awgn_seed),
+            phase_noise_coefficient=phase_scenario.c_phi,
             require_supported_symmetry=True,
             gradient_clip_norm=1.0,
             energy_budget_controller=energy_controller,
@@ -138,7 +151,8 @@ def main() -> int:
             **vars(args),
             "output": str(args.output.resolve()),
             "transmittance": transmittance.tolist(),
-            "epsilon": epsilon.tolist(),
+            "epsilon_base": epsilon_base.tolist(),
+            "phase_noise_scenario": phase_scenario.metadata(),
             "derived_common_awgn_seed": awgn_seed,
         },
         "optimizer_freeze_probe": {

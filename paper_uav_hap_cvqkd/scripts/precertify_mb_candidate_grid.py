@@ -13,6 +13,7 @@ import torch
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
 from _numerical_validation import (
     ensemble_sha256, provenance, representative_ensembles,
+    require_current_model_validation_protocol,
     validation_representative_states,
 )
 from src.cvqkd.mutual_information import discrete_mutual_information, standard_complex_noise
@@ -24,6 +25,7 @@ from src.validation.convergence import (
 
 
 def main() -> int:
+    require_current_model_validation_protocol()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
     parser.add_argument("--output", type=Path,
