@@ -1,110 +1,44 @@
-# Paper/code alignment for the frozen numerical protocol
+# Current paper/code alignment audit
 
-> Historical freeze narrative. Production C4-Gram integration occurred after
-> the dense-Fock failure described below, but its support threshold remains
-> unapproved. Use `PROJECT_STATE.md` for current lifecycle/backend state.
+Audit date: 2026-09-10. This is the primary current matrix. The intended
+mathematical model is in FINAL_MODEL_SPEC.md; PAPER_TO_CODE.md is structural
+only.
 
-## Pre-publication numerical freeze status (2026-08-27)
+Statuses: ALIGNED, PARTIAL, MISMATCH, NOT VERIFIED, NOT IMPLEMENTED.
 
-The manuscript must add `beta_rec=0.95`, the approved physical-channel table,
-the independent assumed `epsilon ~ Uniform[0.001,0.04] SNU` operating domain,
-`V_A in [0.1,4.0] SNU`, `E[V_A]<=1.5 SNU`, the common hard
-`max_i|alpha_i|^2<=30` rule without clipping, the global GS unit-RMS gauge, and
-the validation-only fixed-baseline procedure. It may state the
-validation-certified MI setting `N_MC=2048`. It must not state a selected Fock
-cutoff or pseudoinverse threshold: those gates remain blocked.
+| Item | Paper | Intended model | Code | Status | Evidence |
+|---|---|---|---|---|---|
+| Physical channel | \(T_{\rm raw}=\eta_{\rm atm}H_{\rm sc}H_{\rm p}B_{\rm AoA}\) | Power \(T\), active \(0<T\le1\), outage \(K=0\) | sample_fso_channel uses atmospheric loss times pointing loss and beam-wander displacement | MISMATCH | src/channel/fso_channel.py, docs/FINAL_MODEL_SPEC.md |
+| Scintillation | \(H_{\rm sc}\) | Scenario/state fading factor | No scintillation sampler or H_sc field | NOT IMPLEMENTED | src/channel/ search |
+| Pointing | \(H_{\rm p}\) | Gaussian-beam aperture/pointing loss | pointing_power_transmittance exists | ALIGNED | src/channel/pointing_error.py |
+| AoA | \(B_{\rm AoA}\) | Zero factor is an outage | No AoA factor or outage branch | NOT IMPLEMENTED | src/channel/ search |
+| Physical-domain \(T\) | No silent min(T_raw,1); report \(p_{>1}\) | Restrict/renormalize active states | Code directly constructs \(T>0\); no T_raw or p_gt_1 | MISMATCH | src/channel/fso_channel.py |
+| Wavelength SI | Extinction may use nm; propagation uses m | \(\lambda_m=10^{-9}\lambda_{nm}\) | Channel functions accept wavelength_m; extinction converts to nm; no active phase expression | PARTIAL | src/channel/atmospheric_loss.py, pointing_error.py, diagnostics.py |
+| Phase variance | External \(C_{n,\phi}^2\), tau_phi2, \(c_\phi\) | Scenario-level, two-stage surrogate | No C_n_phi2, tau_phi2, or c_phi | NOT IMPLEMENTED | src/ and configs/ search |
+| Epsilon causal order | \(\epsilon_{\rm total}=\epsilon_{\rm base}+c_\phi V_A\) | MI/security use post-action epsilon | Sampled epsilon is passed unchanged to policy, MI, and Holevo | MISMATCH | state_distribution.py, joint_ps_gs.py, trainer.py |
+| 256-QAM / PS | 64 orbit masses, \(p_{k,r}=q_k/4\) | Fourfold-symmetric adaptive PS | 2 -> 128 -> 64, exact C4 expansion | ALIGNED | probabilistic_shaping.py, qam256.py |
+| GS | 64 complex prototypes, \(z_{k,r}=i^rz_k\) | One global geometry, no state conditioning | Global unit-RMS C4 prototypes | ALIGNED | geometric_shaping.py |
+| \(V_A\) | 2 -> 64 -> 1, bounded physical mapping | State-conditioned scalar \(V_A\) | Log-domain bounded mapping | ALIGNED | joint_ps_gs.py |
+| Physical mapping | \(E_z=\sum q_k|z_k|^2\), \(\alpha=\sqrt{V_A/(2E_z)}i^rz_k\) | One statewise scalar, no centering/deformation | Exact scalar normalization and C4 invariants | ALIGNED | normalization.py, tests |
+| MI noise | \(\sigma_c^2=1+T\epsilon_{\rm total}/2\) | Same post-action epsilon | Correct formula for direct epsilon argument | PARTIAL | mutual_information.py |
+| Full \(Z\) interval | \(I=[\max(Z_-,-Z_{\rm phys}),\min(Z_+,Z_{\rm phys})]\) | Empty interval fails closed | Only \(Z_-\) is computed | NOT IMPLEMENTED | holevo.py |
+| Holevo max | \(\chi_{BE}^{ub}=\max_{Z\in I}\chi_{BE}(Z)\) | Endpoint/interior maximum over moving interval | No interval solver or maximum | NOT IMPLEMENTED | holevo.py |
+| Empty security interval | \(Z_L>Z_U\Rightarrow\) failure | No clipping or repair | No interval exists in active path | NOT IMPLEMENTED | holevo.py |
+| Raw training \(K\) | \(K=\beta I-\chi\), no statewise positive clipping | Statewise before fading average | train_step uses negative raw SKR | ALIGNED | trainer.py, secret_key_rate.py |
+| Average photon dual | \(g_B=\operatorname{mean}(V_A/2)-\bar n_{\rm budget}\) | Separate from peak rule | Dual uses mean V_A against stored V_A budget; algebraically equivalent | ALIGNED | trainer.py, configs/default.yaml |
+| Peak constraint | \(\max_i|\alpha_i|^2\le n_{\rm peak}\) | Common hard fail-closed rule | Forward guard plus optimizer rollback | ALIGNED | joint_ps_gs.py, trainer.py |
+| Moving-domain gradient | Differentiate value function only after interval solver is fixed | No global smoothness claim | No inner interval/max gradient path | NOT IMPLEMENTED | holevo.py, gram_moments.py |
+| Numerical certification | Full-support source moments plus target security observables | Threshold/provenance must be approved | C4 Gram production path exists; support threshold remains unapproved | PARTIAL | PROJECT_STATE.md, results/production_gram_certification.json |
 
-The optimized sequential MI run passed the unchanged tolerance over the
-hash-bound 80-unit roster and selected `N_MC=2048`. Fock convergence then
-failed on `near_coincident_pseudoinverse_stress`. The prospectively extended
-stress-only cutoff sequence through the nonselectable cutoff-256 reference also
-has no stable suffix, and the frozen `1e-12` pseudoinverse threshold has no
-three-point sensitivity plateau. Consequently threshold approval and baseline
-selection remain dependency-blocked. The active evidence is
-`results/mi_convergence.json`, `results/fock_convergence.json`, and
-`results/near_coincident_fock_diagnostic.json`; the older
-`results/fock_cutoff_certification.json` probe is deprecated and noncertifying.
+## Audit conclusion
 
-This audit is scoped to the transmitter, constraints, baseline selection, and
-security language. `FINAL_MODEL_SPEC.md` was not modified.
+The transmitter and raw-SKR plumbing are aligned with the intended C4 design.
+The channel/phase causal chain and full-interval security definition are not
+implemented. Therefore security, phase-noise, and SKR plots for the target model
+are not presentation-safe yet. Deterministic constellation/PMF/orbit plots do
+not depend on those blockers.
 
-## ALIGNED
-
-| Topic | Implemented/paper contract |
-|---|---|
-| Physical mapping | `p_(k,r)=q_k/4`, `E_x=sum_k q_k|z_k|^2`, and `alpha_(k,r)=sqrt(V_A/(2E_x)) i^r z_k`; no PMF-weighted translation or per-symbol clipping. |
-| C4 notation | 64 deterministic row-major orbits, four exact rotations, tied probabilities, zero displacement, and zero pseudomoment. |
-| Global GS | One channel-independent 64-prototype geometry is shared over all states. |
-| Adaptive PS | The 64 orbit masses depend on exact oracle features `[log10(T),epsilon]`. |
-| Adaptive VA | Only the scalar `V_A(T,epsilon)` adapts, within the author-frozen box. |
-| Energy budget | Fixed policies satisfy `V_A<=V_A_budget`; adaptive policies use projected dual ascent and complete-validation feasibility. |
-| GS gauge | `z_k=g_k/sqrt((1/64)sum_l|g_l|^2)`, so `(1/64)sum_k|z_k|^2=1` without changing physical alpha. |
-| MI/Holevo identity | The same final `Ensemble={p_i,alpha_i}` object is passed unchanged to both branches. |
-| Baseline selection | Uniform, Binomial, fixed MB, and optimized MB are selected only on validation; PS/GS/PS+GS fixed VA uses the same outer VA grid. |
-
-## PAPER_UPDATE_REQUIRED
-
-1. Add the common physical-domain equation after the scalar normalization:
-
-   \[
-   A_{\max}(T,\epsilon)=\max_{k,r}|\alpha_{k,r}(T,\epsilon)|^2
-   \le n_{\rm peak}.
-   \]
-
-   State that the single preregistered `n_peak` applies to all eleven schemes,
-   is checked on final physical amplitudes, and is neither post-hoc clipping nor
-   a soft-penalty definition. Insert the exact paragraph from
-   `AMPLITUDE_DOMAIN_DECISION.md` after author approval.
-
-2. Add the GS scale gauge explicitly:
-
-   \[
-   z_k=\frac{g_k}{\sqrt{64^{-1}\sum_l|g_l|^2}},\qquad
-   64^{-1}\sum_k|z_k|^2=1.
-   \]
-
-   Explain that `g -> c g`, `c>0`, leaves every physical amplitude unchanged.
-
-3. Replace any statement that peak energy is guaranteed by `V_A<=V_max` or by
-   the GS gauge alone. The rare-amplitude counterexample in
-   `AMPLITUDE_DOMAIN_DECISION.md` shows that neither bounds the joint PS+GS
-   parameterization.
-
-4. Describe baseline selection exactly: one common validation-only VA grid;
-   fixed MB uses preregistered `nu_MB`; optimized MB uses the Cartesian
-   validation grid; peak-infeasible candidates are ineligible; no test metric
-   participates; ties prefer lower VA then lower nu.
-
-5. State adaptive-budget enforcement and checkpoint selection exactly:
-   projected dual ascent on mean `V_A-V_A_budget`, rollback of any peak-invalid
-   physical optimizer step, and highest complete-validation mean raw SKR among
-   checkpoints satisfying `mean_validation(V_A)+margin<=V_A_budget` and the
-   peak constraint. A held-out negative budget slack invalidates that comparison
-   artifact and may not trigger retraining or reselection.
-
-6. Describe convergence scope exactly. Finite bad/medium/good/boundary fixtures
-   are prechecks, not learned-domain certificates. Publication evidence must
-   enumerate and hash-bind every selected baseline ensemble/checkpoint, and must
-   include a density-pseudoinverse-threshold sensitivity audit for `C,w,Z,chi_BE`.
-   State that the exact producer and combiner independently reconstruct the
-   selected roster on the complete frozen validation realization and bind every
-   trace to its source and deterministic physical-ensemble hashes.
-
-7. Replace security language with the approved paragraph in
-   `SECURITY_SCOPE_FREEZE.md`. Until its two author decisions are signed, use
-   the fallback wording: asymptotic covariance-based DM-CV-QKD rate functional,
-   ideal heterodyne, reverse reconciliation, exact oracle CSI, no assigned
-   attack class, and no finite/composable/general-attack claim.
-
-8. Correct any claim that Bob-estimated/feedback-impaired CSI is simulated.
-   The code consumes exact instantaneous oracle `(T,epsilon)` and models no
-   estimator, delay, quantization, feedback overhead, or authentication cost.
-
-## CODE_UPDATE_REQUIRED
-
-No unresolved code/model mismatch was found in the scoped implementation.
-Publication execution is nevertheless blocked by unresolved author values and
-subsequent convergence evidence. A future nonzero boresight, nonideal detector,
-finite-size security treatment, coupled `T`--epsilon law, or optical-throughput
-factor would be a genuine model/code amendment and must not be inserted through
-configuration prose alone.
+No manuscript source is present in the repository. The referenced
+C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf is unavailable; the only
+local PDF is an unrelated 2024 satellite-to-ground reference and its text stream
+is corrupted, so manuscript claims are NOT VERIFIED.

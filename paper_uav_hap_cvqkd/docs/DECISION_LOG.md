@@ -1258,3 +1258,31 @@ gate under a separately authorized lifecycle task.
 - EVID-0040
 - `configs/default.yaml`
 - `docs/FINAL_MODEL_SPEC.md`, Section 11
+## DEC-0040 - Documentation-only current model/code alignment
+
+Date: 2026-09-10
+
+Status: ACTIVE DOCUMENTATION DECISION; SCIENTIFIC IMPLEMENTATION BLOCKED
+
+### Decision
+
+Update the existing authoritative Markdown documents to distinguish the current
+intended model from the current source implementation. Record the pre-action
+state, post-action phase-noise chain, target physical fading factors, full
+correlation interval, and the exact current code mismatches. Do not resolve
+those mismatches by changing source, tests, parameters, or numerical evidence.
+
+### Evidence
+
+- EVID-0054
+- docs/PAPER_CODE_ALIGNMENT.md
+- docs/KNOWN_ISSUES.md
+- docs/PROJECT_STATE.md
+
+### Consequences
+
+The lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS. Deterministic
+constellation/PMF/orbit diagnostics remain permissible as non-publication
+preliminary work. Target phase/channel/security/SKR figures remain blocked until
+the listed implementation and numerical gates are separately authorized and
+verified.

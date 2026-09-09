@@ -4,6 +4,10 @@ Status: **SOFTWARE_PREREGISTERED before convergence outcomes were inspected**.
 This document freezes engineering error criteria and candidate grids; it is
 not convergence evidence and does not authorize training or test access.
 
+Scope boundary (2026-09-10): these grids bind the prior direct-epsilon,
+lower-endpoint implementation. They must be rebound before they can certify the
+target post-action phase chain or full \(Z\)-interval Holevo value.
+
 ## Scope
 
 The bounded pretraining fixture roster is generated only from the frozen

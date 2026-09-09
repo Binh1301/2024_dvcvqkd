@@ -1,67 +1,52 @@
 # Next Actions
 
-## Current Gate
+## Current gate
 
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS
 
-The completed V1 smoke outcome is `OPTIMIZATION_EFFECTIVELY_FROZEN` and must
-not be rerun or retuned. V2 is implemented, frozen, and
-`OPTIMIZATION_USABLE`; neither smoke may be rerun. Publication lifecycle
-remains closed pending threshold/numerical approval.
+The documentation audit is complete. No training, threshold approval,
+baseline selection, final-test access, or publication-scale evaluation is
+authorized.
 
-## Exact Next Permitted Action
+## Priority order
 
-`FULL-SUPPORT C4 GRAM EVALUATION BACKEND: PASS / FROZEN`.
+### P0 — resolve target-model blockers
 
-The arbitrary-precision fallback remains evaluation-only. No hard support
-threshold is approved; publication training is unauthorized; baseline
-selection and optimized-MB grid selection remain unperformed; final-test data
-remain untouched.
+1. Freeze the phase parameters and implement the causal
+   \(\epsilon_{\mathrm{base}}\rightarrow\epsilon_{\mathrm{total}}\) chain.
+2. Decide and implement the intended scintillation/AoA/raw-\(T\) channel path.
+3. Implement and verify the full \(Z\) interval, empty-domain failure, and
+   inner \(\chi_{BE}\) maximization.
+4. Rebind numerical/provenance evidence after the target path exists.
 
-`GRADIENT/VJP SPECTRAL FRÉCHET AMENDMENT: FROZEN / NOT EXECUTED`.
+### P1 — deterministic Friday diagnostics
 
-The cluster-safe analytic Fréchet VJP and hash-bound no-override validation
-harness are now frozen.
+Use only existing deterministic transmitter modules for regular 256-QAM,
+Uniform/Binomial/MB PMFs, C4 orbit expansion, and global-geometry figures.
+These do not require training or security evaluation.
 
-`FROZEN FULL CENTER: AP-ONLY / GRADIENT-INELIGIBLE`.
+### P2 — current-channel diagnostic, if explicitly labeled
 
-`SYNTHETIC FAST-ROUTE VJP HARNESS: FROZEN / EXECUTION AUTHORIZED`.
+A small runner may visualize the current atmospheric/pointing sampler and its
+physical \(T\), but it must be labeled as the implemented current sampler, not
+as the target scintillation/AoA model.
 
-`MANIFOLD-CONSISTENT SYNTHETIC VJP HARNESS: FROZEN / NOT EXECUTED`.
+### P3 — target channel/phase diagnostics
 
-Review the frozen harness and explicitly authorize or reject one execution in
-a separate lifecycle task. Do not infer Full-center trainability, modify a
-fast gate, differentiate the arbitrary-precision fallback, or start training.
+Run only after P0 resolves the required modules and parameters:
+\(H_{\mathrm{sc}}\), \(H_{\mathrm p}\), \(B_{\mathrm{AoA}}\), raw/physical \(T\),
+\(p_{>1}\), \(\xi_{\mathrm{phase}}(V_A)\), and
+\(\epsilon_{\mathrm{total}}(V_A)\).
 
-## Stop Conditions
+### P4 — security/SKR and learned output
 
-- Do not rerun or retune the completed V1 smoke.
-- Do not rerun or retune V2 after observing its outcome.
-- Do not treat `OPTIMIZATION_USABLE` as threshold approval or publication
-  authorization.
-- Do not add a positive engineering margin without a new prospective protocol
-  and independent evidence.
-- Do not approve candidate `1e-13` or reactivate historical `1e-12` in this
-  validation-design task.
-- Do not change the physical model, `tau`, MI, Holevo, SKR, security
-  functional, optimizer settings, seeds, states, precision, or smoke settings.
-- Do not perform publication training, optimized-MB search, baseline
-  selection, final-test access, or held-out evaluation.
+Run only after P0 plus numerical approval: \(\chi_{BE}(Z)\) over the physical
+interval, fixed-baseline K plots, and then learned PS/GS/\(V_A\) diagnostics.
 
-## Preserved Facts
+## Stop conditions
 
-- Frozen model SHA-256:
-  `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
-- V1 smoke artifact SHA-256:
-  `4a914944aecb09204187040e461e84cd67e34f4c254647eea8ece2e625854360`.
-- Proposed V2 config SHA-256:
-  `6eb21147336e4ca4c305abdf2532fe03eaa8e4bb570a4c8918bdb91638727845`.
-- V2 execution manifest SHA-256:
-  `d27d7fd6be10121b4217e8cc72af88481e994acb89d30787cfa7c8c9b5e4f568`.
-- V2 smoke artifact SHA-256:
-  `321b6dc4fd28168878d84e511478c209379b6c0aa36da5d9e794092317ca36f6`.
-- V2 methodology artifact SHA-256:
-  `dbf1b4dc369195f8ee94bd8870f3a6142a69bba7e3130f2a2d8822e699d5ad77`.
-- Threshold gate review artifact SHA-256:
-  `3f75ddb9325ee8a15af2b05039232aec0d76088fff2b1e86a3ab3137b1d008de`.
-- Final test remains inaccessible and untouched.
+- Do not convert current lower-endpoint Holevo values into full-interval claims.
+- Do not use epsilon_total as a policy input or sample it independently.
+- Do not call current channel artifacts scintillation/AoA evidence.
+- Do not run publication training, baseline selection, optimized-MB search,
+  final-test access, or long certification.

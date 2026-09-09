@@ -11,6 +11,11 @@ source caveats remain active. This audit is read against the immutable
 `AMPLITUDE_DOMAIN_DECISION.md`. It does not assign missing values, change the
 channel model, or authorize publication-scale training.
 
+Current target boundary (2026-09-10): this historical audit covers the existing
+atmospheric/pointing parameterization. It does not freeze the target
+scintillation, AoA, raw-T admission, or phase-noise parameters; those remain
+open in KNOWN_ISSUES.md.
+
 The active propagation path is
 `src/channel/state_distribution.py -> src/channel/fso_channel.py`, using
 `geometry.py`, `atmospheric_loss.py`, `pointing_error.py`, and `turbulence.py`.

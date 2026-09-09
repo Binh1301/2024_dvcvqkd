@@ -20,6 +20,10 @@ convergence tests. Diagnostic RNG settings are separately marked
 the value. `NO` means the rule is already fixed by the immutable model or by a
 reproducibility contract; it is still reported in every artifact.
 
+Model-alignment note (2026-09-10): the epsilon endpoints below describe the
+pre-action base-noise operating domain. The target post-action epsilon_total and
+phase/scintillation/AoA parameters are not frozen by this historical ledger.
+
 ## Software-preregistered engineering addendum (2026-08-27)
 
 These values were frozen without test access and before convergence outcomes.

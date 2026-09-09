@@ -50,7 +50,7 @@ Any gain is attributed to one channel-independent learned relative geometry, not
 Report the learned response surface, not just average SKR:
 
 \[
-V_A^*(T,\epsilon),
+  V_A^*(T,\epsilon_{\mathrm{base}}),
 \qquad
 H(P(T,\epsilon))=-\sum_i p_i(T,\epsilon)\log_2p_i(T,\epsilon),
 \]
@@ -79,7 +79,7 @@ All modes use the same 256 labels, fourfold rotational orbit construction, scala
 
 ## 3. Data and split discipline
 
-1. Define one joint target distribution \(\mathcal D(T,\epsilon)\). It must genuinely vary both \(T\) and \(\epsilon\) before making a two-variable adaptivity claim.
+1. Define one joint target distribution \(\mathcal D(T,\epsilon_{\mathrm{base}})\). It must genuinely vary both \(T\) and \(\epsilon_{\mathrm{base}}\) before making a two-variable adaptivity claim. Derive \(\epsilon_{\mathrm{total}}\) only after the policy action.
 2. Generate disjoint train, validation, and test channel-state realizations with namespaced seeds. Never recycle validation/test states into stochastic training batches.
 3. Generate disjoint AWGN/MI random streams for training, validation, and testing. For each held-out comparison, use common random numbers across all methods so paired differences do not include avoidable Monte Carlo noise.
 4. Train each learned mode from multiple independent initialization/training seeds. Freeze the selected checkpoint using a validation-only rule declared before test evaluation.
@@ -154,7 +154,7 @@ Publication-scale training does not start until these gates pass.
 ### 7.2 Mechanism decomposition
 
 - \(I_{AB}\) and \(\chi_{BE}\), reported separately as well as through SKR;
-- \(V_A(T,\epsilon)\) and \(\bar n(T,\epsilon)=V_A/2\);
+- \(V_A(T,\epsilon_{\mathrm{base}})\) and \(\bar n(T,\epsilon_{\mathrm{base}})=V_A/2\);
 - PMF entropy \(H(P(T,\epsilon))\);
 - orbit masses \(q_k(T,\epsilon)\), full 256-entry PMFs, and PMF heat maps on square labels;
 - global relative-geometry plot, minimum pair distance, and drift from square QAM;
@@ -163,7 +163,7 @@ Publication-scale training does not start until these gates pass.
 
 ### 7.3 Adaptivity measures
 
-For state pairs \(s_a,s_b\), report
+For state pairs \(S_a,S_b\), report
 
 \[
 D_{\rm TV}(P_a,P_b)=\frac12\sum_i|p_i(s_a)-p_i(s_b)|,
@@ -177,14 +177,19 @@ Select representative states before inspecting learned outputs. Use fixed quanti
 
 For each bad, medium, and good state, publish:
 
-- the exact \((T,\epsilon)\);
-- \(V_A^*(T,\epsilon)\);
-- \(H(P(T,\epsilon))\);
+- the exact \((T,\epsilon_{\mathrm{base}})\) and derived \(\epsilon_{\mathrm{total}}\);
+- \(V_A^*(T,\epsilon_{\mathrm{base}})\);
+- \(H(P(T,\epsilon_{\mathrm{base}}))\);
 - the 16-by-16 label heat map and numerical 256-entry PMF artifact;
 - the physical constellation with probability encoded visually;
 - \(I_{AB}\), \(\chi_{BE}\), raw SKR, \(A_{\max}\), and PAPR.
 
-In addition, show two controlled sweeps: vary \(T\) at fixed \(\epsilon\), and vary \(\epsilon\) at fixed \(T\). This distinguishes genuine two-input response from correlation in the sampled channel distribution. Do not describe a visually plausible direction as optimal without the SKR contrast that supports it.
+In addition, show two controlled sweeps: vary \(T\) at fixed
+\(\epsilon_{\mathrm{base}}\), and vary \(\epsilon_{\mathrm{base}}\) at fixed \(T\).
+Derive the post-action \(\epsilon_{\mathrm{total}}\) for every point. This
+distinguishes genuine two-input response from correlation in the sampled channel
+distribution. Do not describe a visually plausible direction as optimal without
+the SKR contrast that supports it.
 
 ## 9. Analysis of the four questions
 
@@ -193,7 +198,7 @@ Use paired held-out differences. For every contrast report the mean/median effec
 - **Q1 succeeds** only if Adaptive PS exceeds the best validation-tuned fixed shaping baseline on held-out raw average SKR and the gain is robust across seeds.
 - **Q2 succeeds** only if adaptive-VA members improve their directly matched fixed-VA counterparts under the same achieved average photon budget.
 - **Q3 succeeds** only if adding global GS improves each declared matched comparison without obtaining the gain from extra energy or invalid covariance states.
-- **Q4 succeeds** only if \(V_A\) and/or PMF outputs show reproducible, nontrivial state dependence on controlled \(T\) and \(\epsilon\) sweeps. If outputs collapse to constants, report that honestly even if Full performs well.
+- **Q4 succeeds** only if \(V_A\) and/or PMF outputs show reproducible, nontrivial state dependence on controlled \(T\) and \(\epsilon_{\mathrm{base}}\) sweeps. If outputs collapse to constants, report that honestly even if Full performs well.
 
 Correct multiplicity for the set of headline contrasts or state clearly that intervals are simultaneous/exploratory. Include effect sizes; a small statistically resolved gain may still be practically negligible because of computational or implementation cost.
 
@@ -202,7 +207,7 @@ Correct multiplicity for the set of headline contrasts or state clearly that int
 1. **Model/fairness table:** parameters, adaptive components, achieved photon budget, peak diagnostics, training cost.
 2. **Primary SKR table:** raw average SKR, \(I_{AB}\), \(\chi_{BE}\), uncertainty, and paired deltas for all 11 baselines/ablations.
 3. **SKR versus channel figure:** per-state rates and binned summaries versus \(T\) and \(\epsilon\).
-4. **Variance surface:** \(V_A^*(T,\epsilon)\) with budget summary.
+4. **Variance surface:** \(V_A^*(T,\epsilon_{\mathrm{base}})\) with budget summary.
 5. **Entropy surface:** \(H(P(T,\epsilon))\).
 6. **Representative policies:** PMFs and physical constellations for preregistered bad/medium/good states.
 7. **Global GS figure:** learned relative geometry versus square QAM, clearly labeled channel-independent.
@@ -220,6 +225,30 @@ Release or archive, for every reported run:
 - 256-entry PMFs or sufficient frozen checkpoints/code to reproduce them;
 - geometry coordinates, amplitude diagnostics, constraint diagnostics, and convergence traces;
 - failed-run logs and the complete seed inventory.
+
+## Preliminary Friday Diagnostic Phase
+
+Purpose: visual communication and debugging only. These plots are not final
+numerical evidence, do not authorize training, and must not be reported as
+publication results. Set Publication evidence? = NO for every row.
+
+| ID | Goal | Required modules | Preconditions | Expected runtime | Publication evidence? |
+|---|---|---|---|---|---|
+| FRI-01 | Regular 256-QAM constellation | modulation/qam256.py | none; deterministic construction | seconds | NO |
+| FRI-02 | Uniform, Binomial, and fixed-MB PMF maps | modulation/qam256.py | fixed PMF parameters only | seconds | NO |
+| FRI-03 | Fourfold 64-orbit to 256-point visualization | modulation/qam256.py | orbit map invariant check | seconds | NO |
+| FRI-04 | Current implemented pointing/physical-T diagnostic | channel/fso_channel.py, channel/diagnostics.py | label as current sampler, not target scintillation/AoA | seconds to minutes | NO |
+| FRI-05 | Scintillation H_sc and AoA B_AoA components | target channel modules | P0 channel implementation and parameters | not available yet | NO |
+| FRI-06 | Raw-T versus physical-T and p_gt_1 | target channel modules | P0 raw-T/admission rule | not available yet | NO |
+| FRI-07 | xi_phase versus V_A | target phase module | frozen C_n_phi2 and wavelength SI rule | not available yet | NO |
+| FRI-08 | epsilon_total versus V_A | target phase plus transmitter | FRI-07 and post-action causal chain | not available yet | NO |
+| FRI-09 | chi_BE(Z) over the physical interval | target security solver | full interval, empty-domain, and numerical gates verified | not available yet | NO |
+| FRI-10 | Fixed-baseline K versus T or V_A | MI/Holevo/SKR path | FRI-09 plus numerical approval | not available yet | NO |
+| FRI-11 | Learned PS/GS/V_A preliminary output | training and target security path | training authorization and all P0 gates | not available yet | NO |
+
+The current code can support only FRI-01 through FRI-04, with FRI-04 explicitly
+scoped to its present atmospheric/pointing implementation. It cannot support the
+target phase, scintillation, AoA, full-interval Holevo, or target-SKR plots.
 
 ## 12. Decisions required before execution
 

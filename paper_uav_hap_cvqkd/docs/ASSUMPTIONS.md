@@ -1,17 +1,69 @@
 # Assumptions
 
-1. The HAP is Alice/transmitter and the UAV is Bob/receiver.
-2. The paper default is vertical. Nonvertical support exists only to implement the explicit zenith factor and is not claimed as a completed paper experiment.
-3. Atmospheric loss is spatially homogeneous Kruse/Beer--Lambert loss.
-4. Turbulence uses the constant-`C_n^2` closed form in the draft.
-5. Boresight offset is zero; displacement components are independent zero-mean Gaussian variables.
-6. `sigma_axis` follows explicit Eqs. (21)--(24), not the legacy `sqrt(total/2)` convention.
-7. Excess noise is input-referred SNU. Publication experiments draw it from an explicitly bounded uniform sensitivity domain independently of `T`; this is not asserted to be an empirical atmospheric law. The independence is required because the frozen model supplies no measured or mechanistic `T`--`epsilon` coupling.
-8. Exact instantaneous `(T,epsilon)` is available to the transmitter as an oracle. No estimator, feedback delay, quantization, authentication cost, or CSI error is implemented.
-9. Bob performs ideal heterodyne detection. Detector efficiency/electronic noise have no separate term in the paper equations implemented here.
-10. Reconciliation is asymptotic reverse reconciliation with explicit `beta`.
-11. No finite-size or composable-security claim is made.
-12. The same physical `Ensemble` is passed to MI and Holevo.
-13. Global GS does not depend on channel state; PS and optional `V_A` do.
-14. Direct symbol probabilities are used; no Gumbel sampling, bit labeling, neural receiver, distribution matcher, GMI, BER, or coded-throughput model is present.
-15. Channel-state samples are iid Monte Carlo realizations, not a temporally correlated UAV trajectory.
+## Physical assumptions
+
+- The HAP is Alice/transmitter and the UAV is Bob/receiver.
+- The active physical state uses power transmittance \(0<T\le1\); field
+  attenuation is \(\sqrt T\).
+- The intended raw fading factor is
+  \(T_{\mathrm{raw}}=\eta_{\mathrm{atm}}H_{\mathrm{sc}}H_{\mathrm p}B_{\mathrm{AoA}}\).
+  AoA outage gives \(T=0\) and \(K=0\).
+- \(C_{n,\phi}^2\) is independently prescribed per turbulence scenario,
+  fixed within that scenario, and is not derived from \(C_n^2(h)\).
+- Turbulence beam wandering is neglected in the intended current model; the
+  repository's existing sampler still contains a constant-\(C_n^2\) beam-wander
+  term and therefore remains a code mismatch.
+- The phase model is a two-stage surrogate: Rytov-based phase distortion followed
+  by a CV-QKD phase-noise mapping. It is not an exact unified derivation.
+- Propagation uses \(\lambda_m=10^{-9}\lambda_{nm}\). Empirical extinction may
+  use \(\lambda_{nm}\); propagation may not use an ambiguous wavelength unit.
+
+## Statistical independence assumptions
+
+- The exogenous state is \(S=(T,\epsilon_{\mathrm{base}})\).
+- \(T\) and \(\epsilon_{\mathrm{base}}\) are iid Monte Carlo coordinates and are
+  independent unless a measured or mechanistic coupling is separately approved.
+- epsilon_total is derived after the policy action; it is not an independently
+  sampled state coordinate.
+- The current input-referred base-noise sensitivity law is bounded uniform. Its
+  bounds are operating-domain assumptions, not measured atmospheric coupling.
+
+## Security assumptions
+
+- Bob uses ideal heterodyne detection.
+- Reconciliation is asymptotic reverse reconciliation with declared
+  \(0<\beta_{\mathrm{rec}}\le1\).
+- The same physical ensemble and the same post-action
+  \(\epsilon_{\mathrm{total}}\) feed MI and Holevo.
+- The intended Holevo definition maximizes over the full physically admissible
+  \(Z\) interval and fails closed on an empty interval.
+- Finite-key, composable-security, detector-imperfection, and general-attack
+  claims are out of scope.
+
+## CSI assumptions
+
+- The transmitter receives exact instantaneous oracle
+  \(h=[\log_{10}T,\epsilon_{\mathrm{base}}]^{\mathsf T}\).
+- No estimator, feedback delay, quantization, authentication cost, or CSI error
+  is modeled.
+- GS is global and channel-independent; PS and \(V_A\) may depend on the state.
+
+## Phase-noise modeling assumptions
+
+- \(\tau_{\phi2}=2.46C_{n,\phi}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6}\).
+- \(c_\phi=\tau_{\phi2}+\tau_{\phi2}^2/4\).
+- \(\xi_{\mathrm{phase}}=c_\phi V_A\) and
+  \(\epsilon_{\mathrm{total}}=\epsilon_{\mathrm{base}}+\xi_{\mathrm{phase}}\).
+- The current source/configuration does not yet implement these quantities;
+  this is an explicit alignment blocker, not an inferred value.
+
+## Numerical assumptions
+
+- The C4 transmitter uses 64 orbit masses, fourfold rotations, global GS, and
+  one scalar physical normalization.
+- The common hard peak rule is \(\max_i|\alpha_i|^2\le n_{\mathrm{peak}}\);
+  the average-energy dual does not enforce it.
+- Training uses raw statewise \(K\), with no statewise positive-part clipping.
+- Finite-size and operational fading-block aggregation are out of scope.
+- Numerical tolerances, MI convergence, source-moment support, and the moving
+  full-interval \(Z\) maximization must be verified before security/SKR claims.

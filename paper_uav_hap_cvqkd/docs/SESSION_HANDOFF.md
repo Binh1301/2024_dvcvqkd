@@ -1,53 +1,39 @@
 # Session Handoff
 
-Date: 2026-09-01
+Date: 2026-09-10
 
-Lifecycle: `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
+Lifecycle: NOT_READY_FOR_PUBLICATION_SCALE_RUNS
 
-## Completed V3 Cycle
+## Verified
 
-- Prospectively froze source/rules, then preselection, deterministic fixture
-  selection, synthetic preflight, and the final execution manifest.
-- Passed the 20-case synthetic preflight and the combined 259-test suite.
-- Ran only the selected `bad/ps`, `bad/gs`, `bad/va`, and `bad/mixed`
-  feasibility rows.
-- Persisted all four path-domain certificates before spectral work.
-- Recorded fsync-backed hash-chained node/Schur journals and Job-Object
-  watchdog artifacts.
-- Stopped after the frozen feasibility gate failed; the full 12-row cycle was
-  not run.
+- All 45 Markdown files were inventoried and the authoritative documentation
+  hierarchy was inspected.
+- Source, tests, configs, experiment entry points, available results, and
+  manuscript/PDF availability were audited read-only.
+- The C4 transmitter, raw-SKR plumbing, average-energy dual, and finite
+  realized-state peak guard are present.
+- The current code does not implement target scintillation/AoA/raw-T,
+  post-action phase noise, or full-interval Holevo maximization.
+- No training, long certification, test access, or experiment was run.
 
-## Authoritative Result
+## Documentation changed
 
-V3 result SHA-256:
-`5427c6828254f79deb954f096122a26dc8ae2038c686adca42513378ed567483`.
+- FINAL_MODEL_SPEC.md, EQUATIONS.md, ASSUMPTIONS.md
+- CHANNEL_STATE_DISTRIBUTION.md, SECURITY_SCOPE_FREEZE.md
+- PAPER_CODE_ALIGNMENT.md, PAPER_TO_CODE.md, KNOWN_ISSUES.md
+- PROJECT_STATE.md, NEXT_ACTIONS.md, EXPERIMENT_PLAN.md
+- RUNNING_NUMERICAL_EXPERIMENTS.md, NUMERICAL_PARAMETER_FREEZE.md
+- PUBLICATION_EXPERIMENT_PROTOCOL.md, README.md
 
-The result is `0/4` complete certificates, `0/4` crossings, `4/4`
-resource limits, `7/3` attempted/completed nodes, 52 durable Schur events,
-and `2438.1743897000006 s` runtime against a frozen `1800 s` total. Two
-segment returns breached the watchdog grace, by `331.5281874 s` and
-`637.7792758 s`. Completed roots retained `53,52,53` unresolved far modes.
+## Open blockers
 
-V3 config SHA-256:
-`878a17f51734e2c1565276b5ee13d8a0cf2b7bfedfab5f6a7749409b0ee57a20`.
-Final manifest SHA-256:
-`5057cbd443c1d5aa37206fd282a8de949559b03ed39ba41e88c3cb5c898b202b`.
+1. Implement/verify the post-action phase chain and freeze its parameters.
+2. Resolve the intended scintillation/AoA/raw-T channel path.
+3. Implement/verify the full moving Z interval and inner Holevo maximum.
+4. Rebind numerical evidence after the target path exists.
 
-## Decision and Next Action
+## Exact next task
 
-DEC-0017 stops incremental hard-support whole-segment certification under the
-current method and records this conclusion:
-
-`HARD_SUPPORT_WHOLE_SEGMENT_CERTIFICATION_NOT_PRACTICAL_UNDER_CURRENT_METHOD`
-
-The separate numerical/security-method review, protocol design, and scoped
-implementation are complete. The certification environment is restored and
-verified 32/32. The real point-certifier adapter and no-override smoke runner
-are frozen and verified. The only next action is to run the exact frozen
-six-step smoke. This does not authorize threshold approval, training, or
-evaluation.
-
-Do not rerun/retune V3, run all 12, create V4 automatically, approve a
-threshold, train, run optimized MB/baselines, access final test, or alter the
-frozen physical/security equations. `FINAL_MODEL_SPEC.md` and production
-`src/cvqkd` remain unchanged.
+Implement the smallest deterministic diagnostic/plotting entry point for the
+READY_NOW 256-QAM/PMF/C4 figures only; keep target phase/channel/security/SKR
+figures disabled until the blockers above are resolved.

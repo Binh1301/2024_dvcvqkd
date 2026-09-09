@@ -53,6 +53,13 @@ proof.
 
 Supersedes pre-freeze unrestricted-PMF/weighted-centering descriptions.
 
+### Current status note (2026-09-10)
+
+EVID-0001 preserves the former implementation-spec hash as historical evidence.
+The current edited specification hash and its documentation-only scope are
+recorded in EVID-0054; old artifacts must not be reused as evidence for the new
+target model.
+
 ## EVID-0002 — Frozen C4 transmitter implementation
 
 Date: 2026-08-30
@@ -2107,3 +2114,51 @@ invoked; neither historical synthetic failure was modified.
   SHA-256 `e2e8d88916305a90fd49696055bce06ce8b23891fd594a608527053f5b9dbcec`.
 - Execution manifest SHA-256:
   `dd81a21bb77acb133278a8c39f342f3c821dca135b5882b9728bb2d5aa9d529a`.
+## EVID-0054 - Current model/code documentation alignment audit
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; DOCUMENTATION AUDIT ONLY
+
+### Claim
+
+The documentation audit inspected all 45 Markdown files, the source tree,
+tests, configs, numerical entry points, available result metadata, and
+manuscript/PDF availability without modifying scientific source or tests and
+without running an experiment. The current source implements the C4
+PS/GS/adaptive-\(V_A\) transmitter, raw-SKR loss, average-energy dual, and
+finite-realization hard peak guard. It does not implement the target
+scintillation/AoA/raw-\(T\) path, post-action phase-noise chain, or full
+correlation-interval Holevo maximization.
+
+### Evidence
+
+- docs/FINAL_MODEL_SPEC.md
+- docs/EQUATIONS.md
+- docs/ASSUMPTIONS.md
+- docs/CHANNEL_STATE_DISTRIBUTION.md
+- docs/SECURITY_SCOPE_FREEZE.md
+- docs/PAPER_CODE_ALIGNMENT.md
+- src/channel/fso_channel.py
+- src/channel/state_distribution.py
+- src/modulation/joint_ps_gs.py
+- src/cvqkd/mutual_information.py
+- src/cvqkd/holevo.py
+- src/optimization/trainer.py
+- configs/default.yaml
+- tests/ and results/current_test_suite.json were inspected read-only
+
+### Provenance
+
+Repository HEAD at audit start: 08cba9e743b249e439bfa8c899e5476e23003e62.
+Initial FINAL_MODEL_SPEC SHA-256:
+561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1.
+Current edited FINAL_MODEL_SPEC SHA-256:
+8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843.
+No test, training, publication-scale Monte Carlo, certification, or final-test
+access was performed by this audit.
+
+### Limitations
+
+This is documentation/source inspection evidence, not a scientific result,
+security certification, or authorization to run the target model.

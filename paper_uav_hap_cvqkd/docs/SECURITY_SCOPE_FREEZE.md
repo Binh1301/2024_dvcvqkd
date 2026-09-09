@@ -1,10 +1,58 @@
 # Security-scope freeze
 
-Status: **security/fading wording frozen for the current oracle-CSI simulation**.
+Status: **current target security scope is full-interval, asymptotic, oracle-CSI
+DM-CV-QKD**. The active code audit remains MISMATCH: it evaluates only the
+lower correlation endpoint.
 The attack class remains **AUTHOR_REVIEW_REQUIRED** for the adaptive fading
 protocol, for the reasons in Sections A and E. This document narrows the claims
 that may be made from the implemented calculation. It does not alter
 `FINAL_MODEL_SPEC.md` or extend the security proof.
+
+## Current target security definition
+
+For the pre-action state \(S=(T,\epsilon_{\mathrm{base}})\), derive
+
+\[
+\epsilon_{\mathrm{total}}
+=\epsilon_{\mathrm{base}}+c_\phi V_A(S).
+\]
+
+Use this same post-action epsilon in MI and security. With source moments \(C,w\),
+
+\[
+Z_-=2\sqrt{T}C-\sqrt{2T\epsilon_{\mathrm{total}}w},
+\qquad
+Z_+=2\sqrt{T}C+\sqrt{2T\epsilon_{\mathrm{total}}w},
+\]
+
+\[
+a=1+V_A,\qquad b=1+TV_A+T\epsilon_{\mathrm{total}},
+\qquad
+Z_{\mathrm{phys}}=\sqrt{ab-1-|a-b|},
+\]
+
+\[
+I=[Z_L,Z_U],\quad
+Z_L=\max(Z_-,-Z_{\mathrm{phys}}),\quad
+Z_U=\min(Z_+,Z_{\mathrm{phys}}).
+\]
+
+An empty interval is a SECURITY-DOMAIN FAILURE. No clipping or repair is
+allowed. The intended Holevo value is
+
+\[
+\chi_{BE}^{\mathrm{ub}}=\max_{Z\in I}\chi_{BE}(Z).
+\]
+
+The lower endpoint \(Z_-\) is a correlation lower bound, not automatically the
+worst-case Holevo point. The interval can move with \(V_A\) and
+\(\epsilon_{\mathrm{total}}\), so global smoothness is not claimed.
+
+Current code status: src/cvqkd/holevo.py computes
+\(Z=2\sqrt{T}C-\sqrt{2T\epsilon w}\) directly, with no \(Z_+\),
+\(Z_{\mathrm{phys}}\), empty-interval guard, or inner maximization. Existing
+Gram/Fock artifacts therefore do not certify the target full-interval
+functional.
 
 ## A. Exact security assumptions
 
@@ -15,21 +63,21 @@ that may be made from the implemented calculation. It does not alter
 | Reconciliation | Asymptotic reverse reconciliation with declared efficiency `beta_rec`. Bob's heterodyne data define the raw key variable. | The rate functional is `K_raw=beta_rec I_AB-chi_BE`. A numerical `beta_rec` does not establish that a practical reconciliation code exists. |
 | Security regime | Asymptotic only. | There is no finite-block penalty, composable security parameter, smoothing term, privacy-amplification cost, authentication cost, or finite-sample confidence interval. |
 | Attack class | **AUTHOR_REVIEW_REQUIRED for the current adaptive fading protocol.** The adopted single-state functional has the structure of the Denys--Brown--Leverrier asymptotic arbitrary-modulation bound derived in the collective-attack/Devetak--Winter setting. The current simulator, however, supplies exact continuously varying oracle states and does not implement the conditional-iid block/bin parameter estimation and key aggregation needed to assign that attack class to the fading average. `ProtocolAssumptions.attack_class=None` must therefore remain unchanged. | The manuscript may identify the theoretical origin of the functional, but may not call the reported fading average a collective-attack-secure key rate. It is not a proof against arbitrary coherent/general attacks, and Gaussian optimality alone cannot promote it to one. |
-| CSI | Exact instantaneous `(T,epsilon)` is supplied as an oracle to Alice, Bob's model, and the evaluator. The trained policy is frozen offline. | CSI estimation, confidence bounds, feedback delay/error/quantization, feedback authentication cost, and pilot overhead are absent. The manuscript's current narrative that Bob estimates and feeds back the state is not implemented. |
-| Channel parameters | `T` is instantaneous power transmittance. `epsilon>=0` is excess noise in shot-noise units referred to the channel input. | The ideal-channel covariance uses `b=1+T V_A+T epsilon`; no output-referred or detector-referred noise may be substituted. |
-| SNU and modulation | `[x,p]=2i`, vacuum quadrature variance is one, `V_A=2 sum_i p_i |alpha_i|^2=2 n_bar`, and the source-mode covariance diagonal is `V_A+1`. | Bob's complex heterodyne channel uses `CN(0,1+T epsilon/2)`, consistent with per-quadrature variance `1/2+T epsilon/4`. |
+| CSI | Exact instantaneous `(T,epsilon_base)` is supplied as an oracle to the policy and evaluator. The trained policy is frozen offline. `epsilon_total` is derived after the action. | CSI estimation, confidence bounds, feedback delay/error/quantization, feedback authentication cost, and pilot overhead are absent. |
+| Channel parameters | `T` is instantaneous power transmittance. `epsilon_base>=0` is pre-action input-referred excess noise; `epsilon_total=epsilon_base+c_phi V_A` is the post-action value. | MI and covariance must use the same post-action value; no output-referred or detector-referred noise may be substituted. |
+| SNU and modulation | `[x,p]=2i`, vacuum quadrature variance is one, `V_A=2 sum_i p_i |alpha_i|^2=2 n_bar`, and the source-mode covariance diagonal is `V_A+1`. | Bob's complex heterodyne channel uses `CN(0,1+T epsilon_total/2)`, consistent with per-quadrature variance `1/2+T epsilon_total/4`. |
 | Ensemble consistency | The identical statewise `Ensemble={p_i,alpha_i}` is passed unchanged to the MI and Holevo branches. | PS, GS, and adaptive `V_A` affect both branches through the same physical amplitudes and probabilities. |
 | Symmetry/standard form | Zero displacement, equal quadrature variances, zero I/Q covariance, and zero pseudomoment are enforced by C4 construction. Unsupported asymmetric ensembles fail closed. | The scalar standard-form covariance used by the Holevo calculation is not claimed for arbitrary asymmetric 256-state modulation. |
-| Fading average | `I_AB`, the Holevo bound, and `K_raw` are evaluated conditionally for each oracle state before averaging. | The current average is an oracle fading-distribution performance functional. An operational fading-channel secret-key rate requires the block/conditioning assumptions below. |
+| Fading average | `I_AB`, the full-interval Holevo bound, and `K_raw` are evaluated conditionally for each oracle state before averaging. | The current average is an oracle fading-distribution performance functional. The active code still uses the lower endpoint only; an operational fading-channel secret-key rate requires the block/conditioning assumptions below. |
 
 ### Conditional collective-attack interpretation
 
 The statewise calculation may be described as an asymptotic collective-attack
 lower bound only if the author explicitly adopts all of the following:
 
-1. Each evaluated `(T,epsilon)` represents a stationary, memoryless channel
-   block containing asymptotically many signals, so the same conditional state
-   is repeated within that block.
+1. Each evaluated `(T,epsilon_base)` represents a stationary, memoryless channel
+   block containing asymptotically many signals; the post-action
+   `epsilon_total` is derived from the declared policy within that block.
 2. The channel-state label and the resulting modulation policy are treated as
    public side information available to Eve; adaptation is not a secret
    randomization.
@@ -37,8 +85,9 @@ lower bound only if the author explicitly adopts all of the following:
    heterodyne detection with the normalization in the table above.
 4. The first- and second-moment constraints required by the arbitrary-
    modulation bound are established asymptotically for every security-relevant
-   block or preregistered state bin. Supplying simulated true `T` and `epsilon`
-   is not a replacement for experimental parameter estimation.
+   block or preregistered state bin. Supplying simulated true `T`,
+   `epsilon_base`, and derived `epsilon_total` is not a replacement for
+   experimental parameter estimation.
 5. Fading-state binning, acceptance/abort behavior, and aggregation of keys
    across blocks are fixed independently of secret/test outcomes. No
    post-selection advantage is claimed by silently discarding negative-rate
@@ -66,16 +115,17 @@ The following claims are allowed without broadening the model:
 - For each oracle channel state, it computes exact discrete-input mutual
   information and a covariance-based upper bound on Eve's Holevo information
   from the same physical discrete ensemble.
-- The implemented Holevo path is
-  `tau -> (C,w) -> Z_lower -> Gamma_AB -> symplectic eigenvalues -> chi_BE_upper`.
-  Consequently, `beta_rec I_AB-chi_BE_upper` is a lower-bound rate functional
-  within the accepted asymptotic model, up to separately certified numerical
-  truncation/Monte Carlo error.
+- The intended Holevo path is
+  `tau -> (C,w) -> I=[Z_L,Z_U] -> max_Z chi_BE(Z)` followed by the covariance
+  and entropy calculation. The current implementation instead uses only
+  `Z_lower`; it cannot support the full-interval claim until that path is
+  implemented and verified.
 - The C4 restriction supports the scalar standard form used in the calculation;
   the result covers the implemented C4 PMFs/geometries, not unrestricted
   asymmetric 256-way shaping.
-- PS and `V_A` adapt to exact `(T,epsilon)` oracle CSI while GS remains global,
-  and all learned parameters are frozen before deployment/evaluation.
+- PS and `V_A` adapt to exact `(T,epsilon_base)` oracle CSI while GS remains
+  global; `epsilon_total` is derived after the action, and all learned
+  parameters are frozen before deployment/evaluation.
 - Rates are evaluated statewise before taking the declared fading-distribution
   average. This average may be called an **oracle-CSI asymptotic rate
   calculation** or **simulation lower-bound functional**.
@@ -113,9 +163,16 @@ The present implementation and manuscript may not claim:
 - publication-ready Holevo values until the finite physical-amplitude domain
   and exact enumerated selected-ensemble/checkpoint Fock convergence are certified.
 
-## D. Exact manuscript-ready wording
+## D. Historical manuscript wording boundary
 
-The following is the currently frozen wording. It may be used after the primary
+The wording below predates the 2026-09-10 model-alignment audit. It is retained
+for provenance only and must not be used for the current target because it names
+the sampled epsilon directly and describes the lower-endpoint path. A new
+manuscript paragraph is required after the phase chain and full-interval solver
+are implemented and independently verified.
+
+The following is historical wording only. It may not be used as the current
+manuscript paragraph. It may be reused after the primary
 source is cited at `[DBL-2021]`; it deliberately assigns no attack class to the
 reported adaptive fading average:
 
@@ -149,6 +206,10 @@ continuously varying fading average without a justified block/bin and
 cross-block key-aggregation protocol.
 
 ## E. Citation/theory dependencies and required author decisions
+
+The source/code audit in this section predates the current full-interval target.
+Its lower-endpoint equations and implementation references are retained for
+provenance and require a fresh audit after the target solver is implemented.
 
 ### Primary dependency that must be added and verified
 

@@ -7,6 +7,11 @@ security scope in `SECURITY_SCOPE_FREEZE.md`, and does not authorize
 publication-scale training.  It defines the additional common admissibility
 domain needed to certify a finite Fock cutoff.
 
+State notation follows the current target model: the physical ensemble is
+indexed by the pre-action state \(S=(T,\epsilon_{\mathrm{base}})\), with
+\(V_A(S)\) and physical amplitudes derived after the policy action. Existing
+finite artifacts remain scoped to their recorded implementation path.
+
 ## 1. Exact source of the unbounded rare amplitude
 
 For orbit mass `q_k`, global relative prototype `z_k`, and its four rotations,

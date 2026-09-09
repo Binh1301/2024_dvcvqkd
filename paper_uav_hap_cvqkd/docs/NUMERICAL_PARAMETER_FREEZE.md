@@ -1,10 +1,14 @@
 # Numerical parameter freeze
 
-> Current-state note (2026-08-30): this document preserves the preregistered
+> Current-state note (2026-09-10): this document preserves the preregistered
 > dense-Fock convergence history and frozen parameter table. The production
 > source now uses the cutoff-independent C4-Gram backend, but its configured
 > `1e-12` numerical-support rule is invalid/unapproved and `1e-13` remains a
 > rejected proposal. `PROJECT_STATE.md` is the canonical lifecycle snapshot.
+
+> Model-alignment boundary: the artifacts and tolerances below were produced for
+> the prior direct-epsilon, lower-endpoint security path. They do not certify the
+> target post-action phase-noise chain or full (Z)-interval Holevo value.
 
 Status: **the 16-fixture MI roster passes with `N_MC=2048`, but the added
 near-coincident pseudoinverse-stress fixture has no selectable Fock cutoff below
@@ -55,7 +59,7 @@ pre-certification were not run because the upstream Fock/threshold gates fail.
 
 | Area | Parameter or rule | Frozen value/status | Evidence or required gate |
 |---|---|---|---|
-| Security | Protocol | Asymptotic reverse reconciliation, ideal heterodyne, exact instantaneous `(T,epsilon)` oracle CSI | `FINAL_MODEL_SPEC.md` |
+| Security | Protocol | Asymptotic reverse reconciliation, ideal heterodyne, exact instantaneous `(T,epsilon_base)` oracle CSI, with derived post-action `epsilon_total` | `FINAL_MODEL_SPEC.md`; target path not yet implemented |
 | Security | `beta_rec` | **AUTHOR_APPROVED:** `0.95` | Identical for every scheme |
 | Energy | `V_min` | **AUTHOR_APPROVED:** `0.1 SNU` | Common statewise lower bound |
 | Energy | `V_max` | **AUTHOR_APPROVED:** `4.0 SNU` | Common statewise upper bound |

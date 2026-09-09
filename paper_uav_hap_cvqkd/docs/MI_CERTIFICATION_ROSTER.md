@@ -4,6 +4,10 @@ Status: **SOFTWARE_PREREGISTERED before sequential convergence outcomes**.
 This roster uses validation states only. It neither reads the final test set nor
 authorizes publication training.
 
+The roster certifies only the recorded prior direct-epsilon MI path. It is not
+evidence for target post-action epsilon_total until the phase chain is
+implemented and the roster is regenerated or explicitly rebound.
+
 ## Frozen sequential rule
 
 - Per-symbol counts: `256, 512, 1024, 2048, 4096, 8192`.

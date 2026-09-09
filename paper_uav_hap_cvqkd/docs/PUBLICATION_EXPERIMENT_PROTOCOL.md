@@ -8,10 +8,17 @@ diagnostics do not certify a learned domain. After training and validation
 selection, final held-out evaluation remains blocked until convergence passes
 for the exact enumerated, hash-bound selected ensembles/checkpoints.
 
+Current model gate: this workflow is not executable for the target model until
+the pre-action \(S=(T,\epsilon_{\rm base})\) to post-action
+\(\epsilon_{\rm total}\) chain, the intended physical fading factors, and the
+full correlation-interval Holevo maximization are implemented and verified.
+
 ## Dataset generation and split separation
 
-Generate `T` only through the frozen HAP--UAV FSO channel and generate
-`epsilon` independently from the declared bounded-uniform sensitivity law.
+Generate `T` only through the resolved HAP--UAV FSO channel and generate
+`epsilon_base` independently from the declared bounded-uniform sensitivity law.
+Derive `epsilon_total = epsilon_base + c_phi*V_A` after the policy action and
+use it in both MI and security. Do not expose `epsilon_total` to the policy.
 The independence assumption is explicit because no measured or mechanistic
 coupling is available. Use the frozen train/validation/test base seeds and
 namespaced streams. Save exact state arrays, metadata, seeds, and SHA-256
@@ -151,8 +158,8 @@ No field below is a result or claim yet. Future artifacts conform to
 
 - average raw SKR, aggregate-clipped SKR, `I_AB`, and `chi_BE` for all four
   fixed baselines and all seven learned ablations;
-- per-state and binned SKR versus `(T,epsilon)`;
-- the `V_A(T,epsilon)` heatmap grid and values;
+- per-state and binned SKR versus `(T,epsilon_base,epsilon_total)`;
+- the `V_A(T,epsilon_base)` heatmap grid and values;
 - orbit entropy `H(Q)`, full entropy `H(P)=H(Q)+2`, orbit masses, and full PMFs;
 - preregistered bad/medium/good states with representative PMFs;
 - canonical square and learned global GS coordinates with explicit gauge;
