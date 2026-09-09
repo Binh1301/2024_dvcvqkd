@@ -47,7 +47,8 @@ class FullSupportC4GramTests(unittest.TestCase):
             return [identity + delta * direction for _ in range(4)]
 
         with patch.object(gm, "_sectors", side_effect=repeated_sectors):
-            result, _ = gm._fast(p, z)
+
+            
             self.assertIsNotNone(result)
             gradient, = torch.autograd.grad(result["C"] + result["w"], z)
         self.assertTrue(torch.isfinite(gradient).all())
