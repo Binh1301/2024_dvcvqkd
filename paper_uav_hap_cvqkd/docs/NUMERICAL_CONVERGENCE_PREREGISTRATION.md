@@ -8,6 +8,12 @@ Scope boundary (2026-09-10): these grids bind the prior direct-epsilon,
 lower-endpoint implementation. They must be rebound before they can certify the
 target post-action phase chain or full \(Z\)-interval Holevo value.
 
+The PRE-Numerical model-alignment pass adds a diagnostic-only full-\(Z\)
+resolution sweep at 17, 33, 65, and 129 closed-grid candidates, with fixed
+golden refinement and controlled interior/boundary/narrow-interval fixtures.
+Those checks validate solver resolution only; they do not amend this
+preregistration, certify the moving value function, or authorize any run.
+
 ## Scope
 
 The bounded pretraining fixture roster is generated only from the frozen

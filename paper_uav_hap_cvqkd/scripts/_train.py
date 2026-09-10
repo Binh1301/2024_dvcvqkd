@@ -15,6 +15,7 @@ from _common import (
     require_holevo_pseudoinverse_approval,
 )
 from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import phase_parameter_provenance
 from src.channel.state_distribution import (
     IndependentUniformExcessNoise,
     assert_disjoint_state_realizations,
@@ -39,9 +40,18 @@ from src.utils.random import derive_seed, seed_process, torch_generator
 TRAIN_REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m", "channel.visibility_km",
     "channel.beam_waist_m", "channel.aperture_radius_m", "channel.cn2_m_minus_two_thirds",
+    "channel.cn_phi2_m_minus_two_thirds",
+    "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
+    "channel.turbulence_profile.model",
+    "channel.scintillation.aperture_averaging_model",
+    "channel.scintillation.v_sc_override",
+    "channel.pointing.sigma_hap_ang_rad",
+    "channel.pointing.hap_angular_jitter_convention",
+    "channel.aoa.model",
+    "channel.raw_transmittance.active_treatment",
     "channel.excess_noise_distribution.kind",
     "channel.excess_noise_distribution.minimum_snu",
     "channel.excess_noise_distribution.maximum_snu", "cvqkd.beta_reconciliation",
@@ -66,6 +76,81 @@ TRAIN_REQUIRED = [
     "training.seeds.train_awgn", "training.seeds.validation_channel",
     "training.seeds.validation_awgn",
 ]
+
+
+def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
+    """Resolve the active composite-channel choices, failing on missing mappings."""
+
+    profile = values.get("turbulence_profile")
+    scintillation = values.get("scintillation")
+    pointing = values.get("pointing")
+    aoa = values.get("aoa")
+    raw = values.get("raw_transmittance")
+    if not all(isinstance(item, dict) for item in (profile, scintillation, pointing, aoa, raw)):
+        raise ValueError(
+            "Active channel requires explicit turbulence_profile, scintillation, "
+            "pointing, aoa, and raw_transmittance mappings."
+        )
+    if raw.get("active_treatment") != "truncated_renormalized_active_law":
+        raise ValueError(
+            "Only the explicit truncated_renormalized_active_law T treatment is supported."
+        )
+    profile_model = profile.get("model")
+    v_sc_override = scintillation.get("v_sc_override")
+    sigma_R0_squared = scintillation.get("sigma_R0_squared")
+    aperture_model = scintillation.get("aperture_averaging_model")
+    has_explicit_identity = (
+        sigma_R0_squared is not None
+        and aperture_model == "identity_sigma_R0_explicit"
+    )
+    if profile_model is None and v_sc_override is None and not has_explicit_identity:
+        raise ValueError(
+            "The active channel requires a supported C_n^2(h) profile or explicit v_sc_override; "
+            "no aperture/scintillation mapping is inferred."
+        )
+    if profile_model in {"hufnagel_valley", "Hufnagel-Valley"}:
+        raise ValueError(
+            "Hufnagel-Valley parameters are not frozen in this repository; profile resolution fails closed."
+        )
+    profile_heights = profile.get("heights_m")
+    profile_cn2 = profile.get("cn2_m_minus_two_thirds")
+    if profile_model == "external_altitude_profile" and (
+        not isinstance(profile_heights, list) or not isinstance(profile_cn2, list)
+    ):
+        raise ValueError("An external altitude profile requires explicit height and C_n^2 arrays.")
+    if profile_model not in {None, "external_altitude_profile"}:
+        raise ValueError(f"Unsupported turbulence_profile.model={profile_model!r}.")
+    sigma_hap = pointing.get("sigma_hap_ang_rad")
+    if sigma_hap is None:
+        raise ValueError("channel.pointing.sigma_hap_ang_rad must be explicitly resolved.")
+    aoa_model = aoa.get("model")
+    if aoa_model not in {"disabled", "external_validated"}:
+        raise ValueError(f"Unsupported channel.aoa.model={aoa_model!r}.")
+    sigma_turb_aoa = aoa.get("sigma_turb_AoA2_rad2")
+    if aoa_model == "external_validated" and not aoa.get("provenance"):
+        raise ValueError("External turbulence-AoA variance requires provenance.")
+    return {
+        "scintillation_log_variance": None,
+        "v_sc_override": v_sc_override,
+        "aperture_averaging_model": aperture_model,
+        "turbulence_profile_heights_m": (
+            None if profile_heights is None else profile_heights
+        ),
+        "turbulence_profile_cn2_m_minus_two_thirds": (
+            None if profile_cn2 is None else profile_cn2
+        ),
+        "sigma_R0_squared": sigma_R0_squared,
+        "boresight_x_m": pointing.get("boresight_x_m", 0.0),
+        "boresight_y_m": pointing.get("boresight_y_m", 0.0),
+        "sigma_hap_ang_rad": sigma_hap,
+        "hap_angular_jitter_convention": pointing.get(
+            "hap_angular_jitter_convention"
+        ),
+        "aoa_model": aoa_model,
+        "sigma_turb_AoA2": sigma_turb_aoa,
+        "turbulence_aoa_provenance": aoa.get("provenance"),
+        "theta_fov_rad": aoa.get("theta_fov_rad"),
+    }
 
 
 def _channel(config: dict[str, Any], count: int, seed: int):
@@ -94,17 +179,57 @@ def _channel(config: dict[str, Any], count: int, seed: int):
         sample_count=int(count),
         seed=seed,
         uav_motion=UavMotion(**motion_values),
+        **_channel_model_kwargs(values),
     )
 
 
+def _phase_provenance(config: dict[str, Any]) -> dict[str, Any]:
+    values = config["channel"]
+    cn_phi2 = values.get("cn_phi2_m_minus_two_thirds")
+    if cn_phi2 is None:
+        raise ValueError(
+            "channel.cn_phi2_m_minus_two_thirds must be an explicit author-approved "
+            "effective same-turbulence value; no production default is assumed."
+        )
+    if values.get("cn_phi2_mapping_status") != "validated" or values.get(
+        "cn_phi2_author_approved"
+    ) is not True:
+        raise ValueError(
+            "Production phase requires a validated, author-approved mapping from "
+            "the common C_n^2(h) turbulence scenario to C_n,phi^2."
+        )
+    geometry = LinkGeometry(
+        values["h_hap_m"],
+        values["h_uav_m"],
+        values.get("zenith_angle_rad", 0.0),
+    )
+    return phase_parameter_provenance(
+        cn_phi2,
+        values["wavelength_m"],
+        geometry.link_length_m,
+        mapping_status=values["cn_phi2_mapping_status"],
+        author_approved=values["cn_phi2_author_approved"],
+    )
+
+
+def _phase_coefficient(config: dict[str, Any]) -> float:
+    return _phase_provenance(config)["c_phi"]
+
+
 def _state_payload(
-    evaluation: Evaluation, transmittance: torch.Tensor, epsilon: torch.Tensor
+    evaluation: Evaluation, transmittance: torch.Tensor, epsilon_base: torch.Tensor
 ) -> dict[str, Any]:
     """Serialize the raw per-state values needed to audit every evaluation."""
 
     return {
         "transmittance": transmittance.detach().tolist(),
-        "epsilon": epsilon.detach().tolist(),
+        "epsilon_base": epsilon_base.detach().tolist(),
+        "epsilon": epsilon_base.detach().tolist(),
+        "epsilon_total": (
+            None
+            if evaluation.epsilon_total is None
+            else evaluation.epsilon_total.detach().tolist()
+        ),
         "i_ab": evaluation.mutual_information.detach().tolist(),
         "chi_be": evaluation.holevo.chi_be.detach().tolist(),
         "raw_skr": evaluation.key_rate.instantaneous_raw.detach().tolist(),
@@ -141,6 +266,8 @@ def run_training(mode: str) -> int:
         raise ValueError("Training/validation seeds must be distinct.")
     cvqkd = config["cvqkd"]
     training = config["training"]
+    phase_provenance = _phase_provenance(config)
+    phase_coefficient = phase_provenance["c_phi"]
     n_peak = approved_peak_photon_limit(config)
     require_preconvergence_domain_ready(config)
     require_holevo_pseudoinverse_approval(config)
@@ -223,8 +350,8 @@ def run_training(mode: str) -> int:
         derive_seed(seeds["validation_channel"], "validation_channel"),
     )
     validation_t = torch.as_tensor(validation_channel.transmittance, dtype=torch.float64)
-    validation_epsilon = torch.as_tensor(
-        validation_channel.excess_noise_snu, dtype=torch.float64
+    validation_epsilon_base = torch.as_tensor(
+        validation_channel.epsilon_base_snu, dtype=torch.float64
     )
     best_value = float("-inf")
     best_state: dict[str, torch.Tensor] | None = None
@@ -244,12 +371,14 @@ def run_training(mode: str) -> int:
             )
         )
         train_t = torch.as_tensor(train_channel.transmittance, dtype=torch.float64)
-        train_epsilon = torch.as_tensor(train_channel.excess_noise_snu, dtype=torch.float64)
+        train_epsilon_base = torch.as_tensor(
+            train_channel.epsilon_base_snu, dtype=torch.float64
+        )
         train_eval = train_step(
             transmitter,
             optimizer,
             train_t,
-            train_epsilon,
+            train_epsilon_base,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=training["train_awgn_samples_per_symbol"],
             generator=torch_generator(
@@ -259,13 +388,14 @@ def run_training(mode: str) -> int:
             gradient_clip_norm=gradient_clip_norm,
             energy_budget_controller=energy_controller,
             **holevo_numerical_kwargs(config),
+            phase_coefficient=phase_coefficient,
         )
         transmitter.eval()
         with torch.no_grad():
             validation_eval = evaluate_transmitter(
                 transmitter,
                 validation_t,
-                validation_epsilon,
+                validation_epsilon_base,
                 beta_reconciliation=cvqkd["beta_reconciliation"],
                 noise_samples_per_symbol=training["validation_awgn_samples_per_symbol"],
                 generator=torch_generator(
@@ -273,6 +403,7 @@ def run_training(mode: str) -> int:
                 ),
                 require_supported_symmetry=True,
                 **holevo_numerical_kwargs(config),
+                phase_coefficient=phase_coefficient,
             )
         validation_value = float(validation_eval.key_rate.fading_average_raw)
         validation_mean_va = float(validation_eval.ensemble.declared_va.mean())
@@ -298,9 +429,9 @@ def run_training(mode: str) -> int:
                 "validation_expected_budget": validation_budget,
                 "peak_feasible_step_accepted": train_eval.peak_feasible_step_accepted,
                 "validation_peak_photon_constraint_satisfied": True,
-                "train_per_state": _state_payload(train_eval, train_t, train_epsilon),
+                "train_per_state": _state_payload(train_eval, train_t, train_epsilon_base),
                 "validation_per_state": _state_payload(
-                    validation_eval, validation_t, validation_epsilon
+                    validation_eval, validation_t, validation_epsilon_base
                 ),
             }
         )
@@ -324,7 +455,7 @@ def run_training(mode: str) -> int:
         selected_validation_eval = evaluate_transmitter(
             transmitter,
             validation_t,
-            validation_epsilon,
+            validation_epsilon_base,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=training["validation_awgn_samples_per_symbol"],
             generator=torch_generator(
@@ -332,6 +463,7 @@ def run_training(mode: str) -> int:
             ),
             require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),
+            phase_coefficient=phase_coefficient,
         )
     selected_validation_mean_va = float(
         selected_validation_eval.ensemble.declared_va.mean()
@@ -350,6 +482,8 @@ def run_training(mode: str) -> int:
             "mode": mode,
             "configuration": config,
             "transmitter_spec": "frozen_c4_v1",
+            "phase_coefficient": phase_coefficient,
+            "phase_provenance": phase_provenance,
             "n_peak_photons": n_peak,
             "energy_budget_controller": (
                 None if energy_controller is None else energy_controller.state_dict()
@@ -369,6 +503,8 @@ def run_training(mode: str) -> int:
         "mode": mode,
         "checkpoint_id": f"{mode}-seed-{args.initialization_seed}-va-{cvqkd.get('fixed_modulation_variance_snu')}",
         "transmitter_spec": "frozen_c4_v1",
+        "phase_coefficient": phase_coefficient,
+        "phase_provenance": phase_provenance,
         "fixed_modulation_variance_snu": cvqkd.get("fixed_modulation_variance_snu"),
         "training_protocol_sha256": canonical_json_sha256(
             {
@@ -401,7 +537,7 @@ def run_training(mode: str) -> int:
             "maximum_symbol_energy"
         ],
         "selected_validation_per_state": _state_payload(
-            selected_validation_eval, validation_t, validation_epsilon
+            selected_validation_eval, validation_t, validation_epsilon_base
         ),
         "selected_validation_constraints": selected_validation_eval.constraints,
         "selected_validation_holevo_diagnostics": (

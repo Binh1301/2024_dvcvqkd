@@ -246,9 +246,11 @@ publication results. Set Publication evidence? = NO for every row.
 | FRI-10 | Fixed-baseline K versus T or V_A | MI/Holevo/SKR path | FRI-09 plus numerical approval | not available yet | NO |
 | FRI-11 | Learned PS/GS/V_A preliminary output | training and target security path | training authorization and all P0 gates | not available yet | NO |
 
-The current code can support only FRI-01 through FRI-04, with FRI-04 explicitly
-scoped to its present atmospheric/pointing implementation. It cannot support the
-target phase, scintillation, AoA, full-interval Holevo, or target-SKR plots.
+The current code can support FRI-01 through FRI-04 and the full-interval
+security API in focused diagnostics. FRI-04 remains explicitly scoped to the
+present atmospheric/pointing implementation. Target phase, scintillation, AoA,
+and target-SKR plots remain blocked by unresolved parameters, channel scope,
+and numerical approval.
 
 ## 12. Decisions required before execution
 

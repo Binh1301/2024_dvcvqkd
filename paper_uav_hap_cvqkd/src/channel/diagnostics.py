@@ -16,6 +16,44 @@ from .state_distribution import (
 from .turbulence import UavMotion
 
 
+def composite_transmittance_diagnostics(
+    raw_transmittance: Iterable[float],
+    physical_transmittance: Iterable[float],
+    *,
+    aoa_gate: Iterable[int] | None = None,
+) -> dict[str, float | None]:
+    """Summarize raw/physical moments without hiding domain violations."""
+
+    raw = np.asarray(tuple(raw_transmittance), dtype=np.float64)
+    physical = np.asarray(tuple(physical_transmittance), dtype=np.float64)
+    if raw.ndim != 1 or physical.shape != raw.shape or raw.size == 0:
+        raise ValueError("Raw and physical transmittance arrays must be nonempty and equally shaped.")
+    if not np.all(np.isfinite(raw)) or not np.all(np.isfinite(physical)):
+        raise ValueError("Raw and physical transmittances must be finite.")
+    if np.any(raw < 0.0) or np.any(physical < 0.0) or np.any(physical > 1.0):
+        raise ValueError("Transmittances must be nonnegative and physical T must be at most one.")
+    if aoa_gate is None:
+        gate = (raw > 0.0).astype(np.int8)
+    else:
+        gate = np.asarray(tuple(aoa_gate), dtype=np.int8)
+        if gate.shape != raw.shape or not np.all(np.isin(gate, (0, 1))):
+            raise ValueError("aoa_gate must be a zero/one array matching transmittances.")
+    raw_mean = float(np.mean(raw))
+    physical_mean = float(np.mean(physical))
+    return {
+        "p_out": float(np.mean(gate == 0)),
+        "p_in": float(np.mean(gate == 1)),
+        "p_above_one": float(np.mean(raw > 1.0)),
+        "raw_mean_T": raw_mean,
+        "physical_mean_T": physical_mean,
+        "delta_T": (
+            None
+            if physical_mean == 0.0
+            else float(abs(raw_mean - physical_mean) / physical_mean)
+        ),
+    }
+
+
 def _positive_finite(name: str, value: float) -> float:
     value = float(value)
     if not math.isfinite(value) or value <= 0.0:
@@ -185,9 +223,9 @@ def frozen_channel_diagnostics(
     if pointing.beam_radius_receiver_m < beam_waist_m:
         raise FloatingPointError("Gaussian beam radius contracted in free propagation.")
     if not states.metadata["statistical_dependence"].startswith(
-        "T and epsilon independent"
+        "T and epsilon_base independent"
     ):
-        raise FloatingPointError("The approved independent T-epsilon law was not used.")
+        raise FloatingPointError("The approved independent T-epsilon_base law was not used.")
 
     wave_number_per_m = 2.0 * math.pi / wavelength_m
     rytov_variance_plane_wave = (
@@ -207,7 +245,7 @@ def frozen_channel_diagnostics(
         )
     }
     return {
-        "schema": "frozen-channel-diagnostics-v1",
+        "schema": "frozen-channel-diagnostics-v2-composite-compatible",
         "status": "PASS",
         "scenario": {
             "name": "nominal_good_weather_homogeneous_kruse_sensitivity_scenario",
@@ -242,6 +280,10 @@ def frozen_channel_diagnostics(
                 f"independent Uniform[{float(epsilon_minimum_snu):g},"
                 f"{float(epsilon_maximum_snu):g}] input-referred SNU"
             ),
+            "beam_wander_status": metadata["beam_wander_status"],
+            "aoa_model": metadata["provenance"]["aoa_model"],
+            "scintillation_model": metadata["provenance"]["scintillation_model"],
+            "physical_domain_rule": metadata["physical_domain_rule"],
         },
         "derived": {
             "vertical_separation_m": float(geometry.vertical_separation_m),
@@ -266,38 +308,57 @@ def frozen_channel_diagnostics(
             },
             "analytic_mean_transmittance": float(analytic_mean),
             "plane_wave_rytov_variance_diagnostic": float(rytov_variance_plane_wave),
+            "p_out": float(metadata["p_out"]),
+            "p_in": float(metadata["p_in"]),
+            "p_above_one": float(metadata["p_above_one"]),
+            "raw_mean_T": float(metadata["raw_mean_T"]),
+            "physical_mean_T": float(metadata["physical_mean_T"]),
+            "delta_T": metadata["delta_T"],
         },
         "monte_carlo_diagnostic": {
             "sample_count": sample_count,
             "base_seed": seed,
             "transmittance_seed": states.transmittance_seed,
+            "epsilon_base_seed": states.epsilon_base_seed,
             "excess_noise_seed": states.excess_noise_seed,
             "empirical_mean_transmittance": empirical_mean,
             "mean_standard_error": mean_standard_error,
             "analytic_mean_difference_in_standard_errors": float(mean_z_score),
             "empirical_transmittance_variance": float(np.var(states.transmittance)),
-            "empirical_epsilon_mean_snu": float(np.mean(states.excess_noise_snu)),
-            "empirical_epsilon_variance_snu2": float(np.var(states.excess_noise_snu)),
+            "empirical_epsilon_base_mean_snu": float(np.mean(states.epsilon_base_snu)),
+            "empirical_epsilon_base_variance_snu2": float(
+                np.var(states.epsilon_base_snu)
+            ),
+            "empirical_epsilon_mean_snu": float(np.mean(states.epsilon_base_snu)),
+            "empirical_epsilon_variance_snu2": float(np.var(states.epsilon_base_snu)),
             "empirical_t_epsilon_correlation": float(
-                np.corrcoef(states.transmittance, states.excess_noise_snu)[0, 1]
+                np.corrcoef(states.transmittance, states.epsilon_base_snu)[0, 1]
             ),
             "transmittance_sha256": states.metadata["transmittance_sha256"],
+            "epsilon_base_sha256": states.metadata["epsilon_base_sha256"],
             "excess_noise_sha256": states.metadata["excess_noise_sha256"],
             "joint_realization_sha256": states.realization_sha256,
             "quantiles": quantile_records,
+            "raw_mean_T": float(metadata["raw_mean_T"]),
+            "physical_mean_T": float(metadata["physical_mean_T"]),
+            "p_out": float(metadata["p_out"]),
+            "p_in": float(metadata["p_in"]),
+            "p_above_one": float(metadata["p_above_one"]),
+            "delta_T": metadata["delta_T"],
         },
         "validity_and_limitations": [
             "Vertical 19 km path with homogeneous 200 km Kruse visibility.",
-            "Constant Cn2 beam-wander model; no altitude profile, scintillation, or turbulence-induced beam spread.",
+            "The legacy scalar Cn2 is not used for active pointing beam wander; no validated altitude-profile or aperture mapping is frozen.",
             "Plane-wave Rytov variance is an applicability diagnostic only and is not an added fading term.",
             "Independent zero-mean Gaussian UAV components and zero boresight produce Rayleigh radial jitter.",
             "States are iid, not a time-correlated UAV trajectory.",
             "No additional optical-throughput or detector-efficiency loss is included in T.",
-            "Epsilon is an assumed independent operating-domain distribution, not measured atmospheric coupling.",
+            "Epsilon_base is an assumed independent operating-domain distribution, not measured atmospheric coupling.",
+            "AoA turbulence is explicitly disabled because no validated C_n^2(h)->AoA mapping is available.",
         ],
         "downstream_channel_outputs": {
-            "qam_adaptation": ["instantaneous power transmittance T", "input-referred epsilon in SNU"],
-            "cvqkd": ["the identical instantaneous power transmittance T", "the identical input-referred epsilon in SNU"],
+            "qam_adaptation": ["instantaneous power transmittance T", "input-referred epsilon_base in SNU"],
+            "cvqkd": ["the identical instantaneous power transmittance T", "epsilon_base input and evaluator-derived epsilon_total in SNU"],
             "do_not_substitute": ["field amplitude sqrt(T)", "received-power SNR", "detector-output noise"],
         },
     }

@@ -11,6 +11,7 @@ import torch
 from src.cvqkd.holevo import HolevoResult, holevo_information
 from src.cvqkd.mutual_information import discrete_mutual_information
 from src.cvqkd.secret_key_rate import FadingKeyRate, fading_secret_key_rate
+from src.channel.phase_noise import total_excess_noise
 from src.modulation.joint_ps_gs import (
     Ensemble,
     JointTransmitter,
@@ -42,6 +43,7 @@ class Evaluation:
     peak_feasible_step_accepted: bool | None = None
     pointwise_guard_result: PointwiseBatchResult | None = None
     pointwise_guard_committed: bool | None = None
+    epsilon_total: torch.Tensor | None = None
 
 
 @dataclass
@@ -91,7 +93,7 @@ class EnergyBudgetController:
 def evaluate_transmitter(
     transmitter: JointTransmitter,
     transmittance: torch.Tensor,
-    epsilon: torch.Tensor,
+    epsilon_base: torch.Tensor,
     *,
     beta_reconciliation: float,
     noise_samples_per_symbol: int,
@@ -101,23 +103,42 @@ def evaluate_transmitter(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    phase_coefficient: torch.Tensor | float | None = None,
 ) -> Evaluation:
     if not require_supported_symmetry:
         raise ValueError(
             "The frozen C4 trainer is fail-closed: standard-form symmetry is mandatory."
         )
-    ensemble = transmitter(transmittance, epsilon)
+    if phase_coefficient is None:
+        raise ValueError(
+            "phase_coefficient must be explicitly supplied; "
+            "the target path does not assume zero phase noise."
+        )
+    transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
+    if bool(torch.any(~torch.isfinite(transmittance))) or bool(
+        torch.any(transmittance <= 0.0)
+    ):
+        raise ValueError(
+            "Policy evaluation accepts active T>0 states only; AoA outage T=0 "
+            "states must retain K=0 outside the policy feature path."
+        )
+    ensemble = transmitter(transmittance, epsilon_base)
+    epsilon_total = total_excess_noise(
+        epsilon_base,
+        ensemble.declared_va,
+        phase_coefficient,
+    )
     mutual_information = discrete_mutual_information(
         ensemble,
         transmittance,
-        epsilon,
+        epsilon_total,
         noise_samples_per_symbol=noise_samples_per_symbol,
         generator=generator,
     )
     holevo = holevo_information(
         ensemble,
         transmittance,
-        epsilon,
+        epsilon_total,
         backend="c4_gram",
         require_supported_symmetry=require_supported_symmetry,
         symmetry_tolerance=symmetry_tolerance,
@@ -142,6 +163,7 @@ def evaluate_transmitter(
         key_rate,
         constraints,
         ensemble_state_diagnostics(ensemble),
+        epsilon_total=epsilon_total,
     )
 
 
@@ -149,7 +171,7 @@ def train_step(
     transmitter: JointTransmitter,
     optimizer: torch.optim.Optimizer,
     transmittance: torch.Tensor,
-    epsilon: torch.Tensor,
+    epsilon_base: torch.Tensor,
     *,
     beta_reconciliation: float,
     noise_samples_per_symbol: int,
@@ -161,6 +183,7 @@ def train_step(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    phase_coefficient: torch.Tensor | float | None = None,
     pointwise_guard: PointwiseGuard | None = None,
     training_counters: dict[str, int] | None = None,
 ) -> Evaluation:
@@ -169,6 +192,14 @@ def train_step(
             "The frozen C4 trainer is fail-closed: standard-form symmetry is mandatory."
         )
     transaction_snapshot = None
+    transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
+    if bool(torch.any(~torch.isfinite(transmittance))) or bool(
+        torch.any(transmittance <= 0.0)
+    ):
+        raise ValueError(
+            "Training policy features require active T>0 states; outage states "
+            "are not passed through log10(T)."
+        )
     if pointwise_guard is not None:
         transaction_snapshot = snapshot_training_transaction(
             transmitter,
@@ -180,7 +211,7 @@ def train_step(
         # Constructing the final physical ensemble is deterministic.  Rejecting
         # here guarantees no stochastic MI draw or backward pass for an invalid
         # current point.
-        current_ensemble = transmitter(transmittance, epsilon)
+        current_ensemble = transmitter(transmittance, epsilon_base)
         current_guard = pointwise_guard.check(current_ensemble)
         if not current_guard.all_admissible:
             restore_training_transaction(
@@ -197,7 +228,7 @@ def train_step(
     evaluation = evaluate_transmitter(
         transmitter,
         transmittance,
-        epsilon,
+        epsilon_base,
         beta_reconciliation=beta_reconciliation,
         noise_samples_per_symbol=noise_samples_per_symbol,
         generator=generator,
@@ -206,6 +237,7 @@ def train_step(
         density_trace_tolerance=density_trace_tolerance,
         density_eigenvalue_tolerance=density_eigenvalue_tolerance,
         physicality_tolerance=physicality_tolerance,
+        phase_coefficient=phase_coefficient,
     )
     negative_raw_skr = -evaluation.key_rate.fading_average_raw
     energy_term = torch.zeros_like(negative_raw_skr)
@@ -247,7 +279,7 @@ def train_step(
     pointwise_committed: bool | None = None
     if transmitter.n_peak_photons is not None:
         try:
-            post_ensemble = transmitter(transmittance, epsilon)
+            post_ensemble = transmitter(transmittance, epsilon_base)
             if pointwise_guard is not None:
                 pointwise_result = pointwise_guard.check(post_ensemble)
                 if not pointwise_result.all_admissible:
@@ -288,7 +320,7 @@ def train_step(
                 optimizer.load_state_dict(optimizer_before_step)
             peak_step_accepted = False
     elif pointwise_guard is not None:
-        post_ensemble = transmitter(transmittance, epsilon)
+        post_ensemble = transmitter(transmittance, epsilon_base)
         pointwise_result = pointwise_guard.check(post_ensemble)
         if not pointwise_result.all_admissible:
             if transaction_snapshot is None:

@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 
 from _common import holevo_numerical_kwargs, require_holevo_pseudoinverse_approval
-from _train import _channel, _state_payload
+from _train import _channel, _phase_provenance, _state_payload
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.modulation.qam256 import c4_orbit_masses
 from src.optimization.trainer import evaluate_transmitter
@@ -64,15 +64,18 @@ def main() -> int:
     channel_seed = derive_seed(frozen["channel_seed"], "held_out_test_channel")
     awgn_seed = derive_seed(frozen["awgn_seed"], "held_out_test_awgn")
     states = _channel(config, int(frozen["fading_samples"]), channel_seed)
+    phase_provenance = _phase_provenance(config)
+    phase_coefficient = phase_provenance["c_phi"]
     t = torch.as_tensor(states.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu, dtype=torch.float64)
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu, dtype=torch.float64)
     with torch.no_grad():
         evaluation = evaluate_transmitter(
-            transmitter, t, epsilon,
+            transmitter, t, epsilon_base,
             beta_reconciliation=float(cvqkd["beta_reconciliation"]),
             noise_samples_per_symbol=int(frozen["awgn_samples_per_symbol"]),
             generator=torch_generator(awgn_seed), require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),
+            phase_coefficient=phase_coefficient,
         )
     budget_status = heldout_budget_comparison_status(
         float(evaluation.ensemble.declared_va.mean()), float(cvqkd["v_a_budget_snu"])
@@ -83,12 +86,14 @@ def main() -> int:
         "selection_manifest_sha256": file_sha256(manifest_path),
         "baseline_selection_sha256": file_sha256(baseline_path),
         "n_peak_photons": n_peak,
+        "phase_coefficient": phase_coefficient,
+        "phase_provenance": phase_provenance,
         "peak_photon_constraint_satisfied": True,
         "publication_eligible": bool(budget_status["comparison_valid"]),
         "heldout_budget_validity": budget_status,
         "test_state_realization_sha256": states.realization_sha256,
         "mean_raw_skr": float(evaluation.key_rate.fading_average_raw),
-        "per_state": _state_payload(evaluation, t, epsilon),
+        "per_state": _state_payload(evaluation, t, epsilon_base),
         "policy": {
             "orbit_masses": c4_orbit_masses(evaluation.ensemble.probabilities).tolist(),
             "probabilities": evaluation.ensemble.probabilities.tolist(),

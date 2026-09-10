@@ -1,8 +1,8 @@
 # Security-scope freeze
 
 Status: **current target security scope is full-interval, asymptotic, oracle-CSI
-DM-CV-QKD**. The active code audit remains MISMATCH: it evaluates only the
-lower correlation endpoint.
+DM-CV-QKD**. The active code computes the physical correlation interval and
+bounded maximum, but target numerical evidence remains unbound to that path.
 The attack class remains **AUTHOR_REVIEW_REQUIRED** for the adaptive fading
 protocol, for the reasons in Sections A and E. This document narrows the claims
 that may be made from the implemented calculation. It does not alter
@@ -48,11 +48,10 @@ The lower endpoint \(Z_-\) is a correlation lower bound, not automatically the
 worst-case Holevo point. The interval can move with \(V_A\) and
 \(\epsilon_{\mathrm{total}}\), so global smoothness is not claimed.
 
-Current code status: src/cvqkd/holevo.py computes
-\(Z=2\sqrt{T}C-\sqrt{2T\epsilon w}\) directly, with no \(Z_+\),
-\(Z_{\mathrm{phys}}\), empty-interval guard, or inner maximization. Existing
-Gram/Fock artifacts therefore do not certify the target full-interval
-functional.
+Current code status: src/cvqkd/holevo.py computes both interval endpoints,
+the physical intersection, and the bounded inner maximum with structured
+empty-domain/physicality failures. Existing Gram/Fock artifacts therefore do
+not certify the target full-interval functional.
 
 ## A. Exact security assumptions
 
@@ -68,7 +67,7 @@ functional.
 | SNU and modulation | `[x,p]=2i`, vacuum quadrature variance is one, `V_A=2 sum_i p_i |alpha_i|^2=2 n_bar`, and the source-mode covariance diagonal is `V_A+1`. | Bob's complex heterodyne channel uses `CN(0,1+T epsilon_total/2)`, consistent with per-quadrature variance `1/2+T epsilon_total/4`. |
 | Ensemble consistency | The identical statewise `Ensemble={p_i,alpha_i}` is passed unchanged to the MI and Holevo branches. | PS, GS, and adaptive `V_A` affect both branches through the same physical amplitudes and probabilities. |
 | Symmetry/standard form | Zero displacement, equal quadrature variances, zero I/Q covariance, and zero pseudomoment are enforced by C4 construction. Unsupported asymmetric ensembles fail closed. | The scalar standard-form covariance used by the Holevo calculation is not claimed for arbitrary asymmetric 256-state modulation. |
-| Fading average | `I_AB`, the full-interval Holevo bound, and `K_raw` are evaluated conditionally for each oracle state before averaging. | The current average is an oracle fading-distribution performance functional. The active code still uses the lower endpoint only; an operational fading-channel secret-key rate requires the block/conditioning assumptions below. |
+| Fading average | `I_AB`, the full-interval Holevo bound, and `K_raw` are evaluated conditionally for each oracle state before averaging. | The current average is an oracle fading-distribution performance functional. The active code now evaluates the physical Z interval, while an operational fading-channel secret-key rate still requires the block/conditioning assumptions below. |
 
 ### Conditional collective-attack interpretation
 
@@ -117,9 +116,10 @@ The following claims are allowed without broadening the model:
   from the same physical discrete ensemble.
 - The intended Holevo path is
   `tau -> (C,w) -> I=[Z_L,Z_U] -> max_Z chi_BE(Z)` followed by the covariance
-  and entropy calculation. The current implementation instead uses only
-  `Z_lower`; it cannot support the full-interval claim until that path is
-  implemented and verified.
+  and entropy calculation. The active implementation now evaluates that
+  physical intersection with a deterministic bounded candidate/refinement
+  maximizer and retains boundary/interior diagnostics. Existing numerical
+  artifacts remain lower-endpoint evidence and cannot certify the new path.
 - The C4 restriction supports the scalar standard form used in the calculation;
   the result covers the implemented C4 PMFs/geometries, not unrestricted
   asymmetric 256-way shaping.
@@ -209,7 +209,8 @@ cross-block key-aggregation protocol.
 
 The source/code audit in this section predates the current full-interval target.
 Its lower-endpoint equations and implementation references are retained for
-provenance and require a fresh audit after the target solver is implemented.
+provenance; the new interval solver requires fresh numerical verification before
+any target claim.
 
 ### Primary dependency that must be added and verified
 

@@ -30,22 +30,23 @@ class ChannelStateDistributionTests(unittest.TestCase):
         upper = states.fso.atmospheric_transmittance * states.fso.pointing.t0_power
         self.assertTrue(np.all(states.transmittance > 0.0))
         self.assertTrue(np.all(states.transmittance <= upper * (1.0 + 1e-12)))
-        self.assertTrue(np.all(states.excess_noise_snu >= 0.0))
-        self.assertTrue(np.all(states.excess_noise_snu >= 5e-4))
-        self.assertTrue(np.all(states.excess_noise_snu <= 5e-3))
+        self.assertTrue(np.all(states.epsilon_base_snu >= 0.0))
+        self.assertTrue(np.all(states.epsilon_base_snu >= 5e-4))
+        self.assertTrue(np.all(states.epsilon_base_snu <= 5e-3))
         self.assertGreater(float(np.var(states.transmittance)), 0.0)
-        self.assertGreater(float(np.var(states.excess_noise_snu)), 0.0)
+        self.assertGreater(float(np.var(states.epsilon_base_snu)), 0.0)
+        self.assertNotIn("epsilon_total", states.metadata)
         self.assertEqual(states.metadata["transmittance_physical_upper_bound"], upper)
         self.assertEqual(
             states.metadata["statistical_dependence"],
-            "T and epsilon independent by construction",
+            "T and epsilon_base independent by construction",
         )
 
     def test_fixed_seed_reproduces_exact_realization(self):
         first = self._sample(4102)
         second = self._sample(4102)
         np.testing.assert_array_equal(first.transmittance, second.transmittance)
-        np.testing.assert_array_equal(first.excess_noise_snu, second.excess_noise_snu)
+        np.testing.assert_array_equal(first.epsilon_base_snu, second.epsilon_base_snu)
         self.assertEqual(first.realization_sha256, second.realization_sha256)
         self.assertNotEqual(first.transmittance_seed, first.excess_noise_seed)
 
@@ -61,7 +62,7 @@ class ChannelStateDistributionTests(unittest.TestCase):
         assert_disjoint_state_realizations(splits)
         self.assertEqual(len({states.realization_sha256 for _, states in splits}), 3)
         pair_sets = [
-            set(zip(states.transmittance.tolist(), states.excess_noise_snu.tolist()))
+            set(zip(states.transmittance.tolist(), states.epsilon_base_snu.tolist()))
             for _, states in splits
         ]
         self.assertFalse(pair_sets[0] & pair_sets[1])

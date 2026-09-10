@@ -10,6 +10,10 @@ import torch
 
 from _common import ROOT, load_yaml
 from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import (
+    phase_parameter_provenance,
+    total_excess_noise,
+)
 from src.channel.state_distribution import (
     IndependentUniformExcessNoise,
     sample_channel_state_distribution,
@@ -26,11 +30,15 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in (
         "h-hap-m", "h-uav-m", "wavelength-m", "visibility-km", "beam-waist-m",
-        "aperture-radius-m", "cn2", "epsilon-min", "epsilon-max", "va", "v-min", "v-max",
+        "aperture-radius-m", "cn2", "cn-phi2", "epsilon-min", "epsilon-max", "va", "v-min", "v-max",
         "va-budget", "n-peak-photons", "beta",
     ):
         parser.add_argument(f"--{name}", type=float, required=True)
     parser.add_argument("--mb-nu", type=float, required=True)
+    parser.add_argument(
+        "--v-sc-override", type=float, required=True,
+        help="Explicit non-publication scintillation log-variance override.",
+    )
     parser.add_argument("--fading-samples", type=int, required=True)
     parser.add_argument("--awgn-samples", type=int, required=True)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "default.yaml")
@@ -61,9 +69,19 @@ def main() -> int:
         excess_noise=IndependentUniformExcessNoise(args.epsilon_min, args.epsilon_max),
         sample_count=args.fading_samples,
         seed=args.channel_seed,
+        scintillation_log_variance=None,
+        v_sc_override=args.v_sc_override,
+        aperture_averaging_model="explicit_v_sc_override",
+        aoa_model="disabled",
     )
+    phase_provenance = phase_parameter_provenance(
+        args.cn_phi2,
+        args.wavelength_m,
+        geometry.link_length_m,
+    )
+    phase_coefficient = phase_provenance["c_phi"]
     t = torch.as_tensor(channel.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(channel.excess_noise_snu, dtype=torch.float64)
+    epsilon_base = torch.as_tensor(channel.epsilon_base_snu, dtype=torch.float64)
     rows: list[dict[str, object]] = []
     for index, kind in enumerate(("uniform", "binomial", "mb")):
         ensemble = reference_ensemble(
@@ -75,17 +93,22 @@ def main() -> int:
             v_max=args.v_max,
             n_peak_photons=args.n_peak_photons,
         )
+        epsilon_total = total_excess_noise(
+            epsilon_base,
+            ensemble.declared_va,
+            phase_coefficient,
+        )
         mi = discrete_mutual_information(
             ensemble,
             t,
-            epsilon,
+            epsilon_total,
             noise_samples_per_symbol=args.awgn_samples,
             generator=torch_generator(args.awgn_seed, t.device),
         )
         holevo = holevo_information(
             ensemble,
             t,
-            epsilon,
+            epsilon_total,
             backend="c4_gram",
             density_eigenvalue_tolerance=active_threshold,
         )
@@ -106,6 +129,8 @@ def main() -> int:
         "status": "smoke evaluation; not a paper result",
         "parameters": vars(args) | {"output": str(args.output)},
         "channel_metadata": channel.metadata,
+        "phase_coefficient": phase_coefficient,
+        "phase_provenance": phase_provenance,
         "results": rows,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

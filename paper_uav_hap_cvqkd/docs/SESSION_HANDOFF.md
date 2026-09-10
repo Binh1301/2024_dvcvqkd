@@ -6,34 +6,57 @@ Lifecycle: NOT_READY_FOR_PUBLICATION_SCALE_RUNS
 
 ## Verified
 
-- All 45 Markdown files were inventoried and the authoritative documentation
-  hierarchy was inspected.
-- Source, tests, configs, experiment entry points, available results, and
-  manuscript/PDF availability were audited read-only.
-- The C4 transmitter, raw-SKR plumbing, average-energy dual, and finite
-  realized-state peak guard are present.
-- The current code does not implement target scintillation/AoA/raw-T,
-  post-action phase noise, or full-interval Holevo maximization.
-- No training, long certification, test access, or experiment was run.
+- The active channel path composes `eta_atm * H_sc * H_p * B_AoA`, uses
+  generalized Rician pointing, and admits raw states without clipping or a
+  positive floor. Active-domain rejection preserves the AoA outage atom.
+- Profile-integrated Rytov support, normalized unit-mean lognormal sampling,
+  explicit `v_sc` overrides, AoA gating, and raw/physical diagnostics are
+  implemented. Unresolved production mappings fail closed.
+- The legacy constant-`C_n^2` beam-wander helper remains available only for
+  historical diagnostics and is not called by the active sampler; `sigma_z`
+  and yaw remain excluded from their active variance terms.
+- The policy receives `(log10(T), epsilon_base)` only for positive-T states;
+  `epsilon_total = epsilon_base + c_phi V_A` is derived after the action and
+  the same tensor reaches MI and Holevo. Outages retain `T=0` outside policy
+  evaluation.
+- Full-Z resolution fixtures cover 17/33/65/129 candidates, including
+  interior, boundary, narrow, and near-boundary intervals. This is diagnostic
+  evidence, not certification.
+- The scoped composite/channel/provenance/phase/pipeline/full-Z/MI/SKR/
+  baseline verification passed 90 tests in 2.744 seconds; targeted
+  `py_compile`, `git diff --check`, and the frozen final-spec hash check pass.
+  The broader legacy gradient/optimizer selection has seven
+  `FULL_SUPPORT_FALLBACK_EVALUATION_ONLY` errors and remains evaluation-only;
+  worker-backed pointwise/full-support tests were not completed.
+- No training, publication-scale Monte Carlo, certification, held-out or
+  final-test evaluation was run. Pre-existing dirty-worktree changes were
+  preserved.
 
-## Documentation changed
+## Important files
 
-- FINAL_MODEL_SPEC.md, EQUATIONS.md, ASSUMPTIONS.md
-- CHANNEL_STATE_DISTRIBUTION.md, SECURITY_SCOPE_FREEZE.md
-- PAPER_CODE_ALIGNMENT.md, PAPER_TO_CODE.md, KNOWN_ISSUES.md
-- PROJECT_STATE.md, NEXT_ACTIONS.md, EXPERIMENT_PLAN.md
-- RUNNING_NUMERICAL_EXPERIMENTS.md, NUMERICAL_PARAMETER_FREEZE.md
-- PUBLICATION_EXPERIMENT_PROTOCOL.md, README.md
+- Composite channel: `src/channel/fso_channel.py`, `scintillation.py`,
+  `aoa.py`, `turbulence.py`, and `state_distribution.py`.
+- Causal phase and active entry-point resolution: `src/channel/phase_noise.py`,
+  `src/optimization/trainer.py`, `scripts/_train.py`, and baseline/evaluation
+  scripts.
+- Current audit/evidence: `docs/PHYSICAL_PARAMETER_AUDIT.md`,
+  `docs/PROJECT_STATE.md`, `docs/EVIDENCE.md`, and `docs/DECISION_LOG.md`.
+- `docs/FINAL_MODEL_SPEC.md` was not modified; its SHA-256 is
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`.
 
 ## Open blockers
 
-1. Implement/verify the post-action phase chain and freeze its parameters.
-2. Resolve the intended scintillation/AoA/raw-T channel path.
-3. Implement/verify the full moving Z interval and inner Holevo maximum.
-4. Rebind numerical evidence after the target path exists.
+1. AUTHOR DECISION: freeze one common turbulence scenario and its profile,
+   aperture, AoA, and effective-phase choices.
+2. MISSING LITERATURE MAPPING: validate profile-to-`v_sc`, turbulence-to-AoA,
+   and profile-to-effective-`C_n,phi^2` mappings.
+3. NUMERICAL CERTIFICATION: rebind support/tolerance/convergence evidence to
+   the composite post-action/full-Z target path.
+4. LEGACY TEST DEBT: update or scope gradient/optimizer tests that invoke the
+   evaluation-only full-support fallback.
 
 ## Exact next task
 
-Implement the smallest deterministic diagnostic/plotting entry point for the
-READY_NOW 256-QAM/PMF/C4 figures only; keep target phase/channel/security/SKR
-figures disabled until the blockers above are resolved.
+Freeze one author-approved, source-supported common-turbulence scenario
+(profile, aperture mapping, AoA status/mapping, and effective `C_n,phi^2`
+mapping/value), then rebind numerical provenance; do not execute it now.

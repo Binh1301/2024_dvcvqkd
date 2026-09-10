@@ -59,7 +59,7 @@ pre-certification were not run because the upstream Fock/threshold gates fail.
 
 | Area | Parameter or rule | Frozen value/status | Evidence or required gate |
 |---|---|---|---|
-| Security | Protocol | Asymptotic reverse reconciliation, ideal heterodyne, exact instantaneous `(T,epsilon_base)` oracle CSI, with derived post-action `epsilon_total` | `FINAL_MODEL_SPEC.md`; target path not yet implemented |
+| Security | Protocol | Asymptotic reverse reconciliation, ideal heterodyne, exact instantaneous `(T,epsilon_base)` oracle CSI, with derived post-action `epsilon_total` | `FINAL_MODEL_SPEC.md`; full-interval implementation exists, but target numerical evidence is not rebound |
 | Security | `beta_rec` | **AUTHOR_APPROVED:** `0.95` | Identical for every scheme |
 | Energy | `V_min` | **AUTHOR_APPROVED:** `0.1 SNU` | Common statewise lower bound |
 | Energy | `V_max` | **AUTHOR_APPROVED:** `4.0 SNU` | Common statewise upper bound |
@@ -83,6 +83,7 @@ pre-certification were not run because the upstream Fock/threshold gates fail.
 | Optimization | Independent initialization seeds | **SOFTWARE_PREREGISTERED:** `26082701`--`26082710` | Ten independent runs; CLI rejects unregistered seeds |
 | Channel | `h_HAP,h_UAV,zeta` | **AUTHOR_APPROVED:** `20000 m,1000 m,0 rad` | Vertical primary scenario on a common altitude datum |
 | Channel | `L_link` | **DERIVED:** `19000 m` | `h_HAP-h_UAV` for `zeta=0`; not an independently tunable input |
+| Channel | Scenario-level `C_n,phi^2` / `cn_phi2_m_minus_two_thirds` | **BLOCKED / null** | Units `m^-2/3`; an effective scalar representation of the same altitude-dependent `C_n^2(h)` scenario, with no validated profile mapping or author-approved value. Test fixtures are not publication inputs. |
 | Channel | `lambda,W0,a_UAV,C_n^2` | **AUTHOR_APPROVED:** `1.55e-6 m,0.0157 m,0.075 m,1e-16 m^-2/3` | SI units; waist/aperture are radii |
 | Channel | Visibility/scenario | **AUTHOR_APPROVED:** `200 km`, nominal good-weather homogeneous Kruse sensitivity scenario | Must not be described as universal weather or a vertically resolved atmosphere |
 | Channel | UAV motion SDs | **AUTHOR_APPROVED adoption of manuscript Table I:** position `(0.0521,0.0502,0.0703) m`; attitude `(0.00260,0.00204,0.00406) rad` | Independent zero-mean Gaussian component/zero-boresight model; source limitation remains disclosed |

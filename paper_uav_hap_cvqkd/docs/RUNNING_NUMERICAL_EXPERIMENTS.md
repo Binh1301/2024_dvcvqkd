@@ -17,8 +17,9 @@ The fixed-baseline smoke entry point is:
 python scripts\run_baselines_cached_source_moments.py --config configs\baseline_smoke.json
 ~~~
 
-It evaluates the current C4 Gram/lower-endpoint path and must not be used as a
-target full-interval security or publication result.
+It evaluates the current C4 Gram/full-interval path, but must not be used as a
+target security or publication result until the phase/channel parameters and
+target numerical evidence are rebound.
 
 ## Preliminary diagnostic
 
@@ -28,10 +29,12 @@ Seconds to a few minutes after a resolved diagnostic configuration exists:
 python scripts\freeze_channel_diagnostics.py --config configs\default.yaml --output results\frozen_channel_diagnostics.json
 ~~~
 
-This existing command uses the current atmospheric/pointing sampler. It does
-not generate plots, scintillation, AoA outages, raw-T/p_gt_1, phase noise, or
-epsilon_total. The plotting module only requires a saved raw-data path; no
-plotting entry point currently exists.
+This existing command uses the current composite sampler with its explicit
+fixture defaults (zero scintillation, disabled AoA, and no HAP angular jitter).
+It records the composite raw/physical-T diagnostics, but it is not target
+profile/AoA/phase evidence and remains parameter-blocked for publication.
+The plotting module only requires a saved raw-data path; no plotting entry
+point currently exists.
 
 ## Certification
 
@@ -47,8 +50,8 @@ figures:
 - run_gradient_vjp_validation.py
 - run_manifold_consistent_synthetic_vjp_validation_v3.py
 
-These commands do not resolve the missing target phase chain or full-interval
-security solver.
+These commands do not resolve the missing target phase/channel path or the
+numerical rebinding required for the full-interval security solver.
 
 ## Publication-scale
 

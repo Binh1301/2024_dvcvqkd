@@ -14,6 +14,7 @@ import torch
 
 from _common import ROOT, load_yaml
 from src.channel.geometry import LinkGeometry
+from src.channel.phase_noise import phase_parameter_provenance, total_excess_noise
 from src.channel.state_distribution import (
     IndependentUniformExcessNoise,
     sample_channel_state_distribution,
@@ -40,11 +41,11 @@ def load_experiment_config(path: Path, overrides: dict[str, Any] | None = None) 
     settings.update({key: value for key, value in (overrides or {}).items() if value is not None})
     required = (
         "h_hap_m", "h_uav_m", "wavelength_m", "visibility_km", "beam_waist_m",
-        "aperture_radius_m", "cn2", "epsilon_min", "epsilon_max", "va", "v_min",
+        "aperture_radius_m", "cn2", "cn_phi2", "epsilon_min", "epsilon_max", "va", "v_min",
         "v_max", "va_budget", "n_peak_photons", "beta", "mb_nu", "fading_samples",
         "awgn_samples", "channel_seed", "awgn_seed",
     )
-    missing = [key for key in required if key not in settings]
+    missing = [key for key in required if key not in settings or settings[key] is None]
     if missing:
         raise ValueError("missing required config values: " + ", ".join(missing))
     settings.setdefault("output_dir", ROOT / "results")
@@ -92,11 +93,12 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in (
         "h-hap-m", "h-uav-m", "wavelength-m", "visibility-km", "beam-waist-m",
-        "aperture-radius-m", "cn2", "epsilon-min", "epsilon-max", "va", "v-min", "v-max",
+        "aperture-radius-m", "cn2", "cn-phi2", "epsilon-min", "epsilon-max", "va", "v-min", "v-max",
         "va-budget", "n-peak-photons", "beta",
     ):
         parser.add_argument(f"--{name}", type=float)
     parser.add_argument("--mb-nu", type=float)
+    parser.add_argument("--v-sc-override", type=float)
     parser.add_argument("--fading-samples", type=int)
     parser.add_argument("--awgn-samples", type=int)
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "baseline_smoke.json")
@@ -123,8 +125,9 @@ def _repeat_ensemble(source: Ensemble, batch_size: int) -> Ensemble:
 def evaluate_fixed_ensemble(
     source_ensemble: Ensemble,
     transmittance: torch.Tensor,
-    epsilon: torch.Tensor,
+    epsilon_base: torch.Tensor,
     *,
+    phase_coefficient: float,
     density_eigenvalue_tolerance: float,
     beta_reconciliation: float,
     awgn_samples: int,
@@ -134,11 +137,14 @@ def evaluate_fixed_ensemble(
     """Evaluate one fixed physical ensemble over channel rows without source reuse across ensembles."""
 
     source_ensemble.validate()
-    transmittance, epsilon = validate_channel_state(transmittance, epsilon)
+    transmittance, epsilon_base = validate_channel_state(transmittance, epsilon_base)
     if transmittance.device != source_ensemble.probabilities.device:
         transmittance = transmittance.to(source_ensemble.probabilities.device)
-        epsilon = epsilon.to(source_ensemble.probabilities.device)
+        epsilon_base = epsilon_base.to(source_ensemble.probabilities.device)
     batch_ensemble = _repeat_ensemble(source_ensemble, transmittance.numel())
+    epsilon_total = total_excess_noise(
+        epsilon_base, batch_ensemble.declared_va, phase_coefficient
+    )
 
     source_start = time.perf_counter()
     moments = source_moment_evaluator(
@@ -155,14 +161,14 @@ def evaluate_fixed_ensemble(
     mi = discrete_mutual_information(
         batch_ensemble,
         transmittance,
-        epsilon,
+        epsilon_total,
         noise_samples_per_symbol=awgn_samples,
         generator=awgn_generator,
     )
     holevo = _holevo_from_source_moments(
         batch_ensemble,
         transmittance,
-        epsilon,
+        epsilon_total,
         coherent_correlation=coherent_correlation,
         w_raw=w_raw,
         tau=None,
@@ -204,7 +210,8 @@ def evaluate_fixed_ensemble(
         "per_state": [
             {
                 "T": float(transmittance[index]),
-                "epsilon": float(epsilon[index]),
+                "epsilon_base": float(epsilon_base[index]),
+                "epsilon_total": float(epsilon_total[index]),
                 "I_AB": float(mi[index]),
                 "chi_BE": float(holevo.chi_be[index]),
                 "raw_K": float(rate.instantaneous_raw[index]),
@@ -229,6 +236,11 @@ def main() -> int:
     if args.output_dir is not None:
         overrides["output_dir"] = str(args.output_dir)
     settings = load_experiment_config(args.config.resolve(), overrides)
+    if settings.get("v_sc_override") is None:
+        raise ValueError(
+            "An explicit v_sc_override is required for this development baseline path; "
+            "no aperture mapping is inferred."
+        )
     output_dir = Path(settings["output_dir"])
     active_threshold = float(
         settings.get("density_eigenvalue_pseudoinverse_tolerance", 1e-13)
@@ -237,16 +249,28 @@ def main() -> int:
         raise ValueError("The fixed baseline V_A exceeds the declared common V_A budget.")
     if not 0.0 < settings["v_min"] < settings["v_max"] or not settings["v_min"] <= settings["va"] <= settings["v_max"]:
         raise ValueError("Require V_A inside the declared common 0 < v_min < v_max box.")
+    geometry = LinkGeometry(settings["h_hap_m"], settings["h_uav_m"], 0.0)
     channel = sample_channel_state_distribution(
-        geometry=LinkGeometry(settings["h_hap_m"], settings["h_uav_m"], 0.0),
+        geometry=geometry,
         wavelength_m=settings["wavelength_m"], visibility_km=settings["visibility_km"],
         beam_waist_m=settings["beam_waist_m"], aperture_radius_m=settings["aperture_radius_m"],
         cn2_m_minus_two_thirds=settings["cn2"],
         excess_noise=IndependentUniformExcessNoise(settings["epsilon_min"], settings["epsilon_max"]),
         sample_count=settings["fading_samples"], seed=settings["channel_seed"],
+        scintillation_log_variance=None,
+        v_sc_override=settings["v_sc_override"],
+        aperture_averaging_model="explicit_v_sc_override",
+        aoa_model="disabled",
     )
+    phase_provenance = phase_parameter_provenance(
+        settings["cn_phi2"], settings["wavelength_m"],
+        geometry.link_length_m,
+    )
+    phase_coefficient = phase_provenance["c_phi"]
     transmittance = torch.as_tensor(channel.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(channel.excess_noise_snu, dtype=torch.float64)
+    epsilon_base = torch.as_tensor(channel.epsilon_base_snu, dtype=torch.float64)
+    settings["phase_coefficient"] = phase_coefficient
+    settings["phase_provenance"] = phase_provenance
     settings["output_dir"] = str(output_dir)
     metadata = collect_run_metadata(args.config, {
         "channel_seed": settings["channel_seed"], "awgn_seed": settings["awgn_seed"]
@@ -269,7 +293,8 @@ def main() -> int:
         row = evaluate_fixed_ensemble(
             source_ensemble,
             transmittance,
-            epsilon,
+            epsilon_base,
+            phase_coefficient=phase_coefficient,
             density_eigenvalue_tolerance=active_threshold,
             beta_reconciliation=settings["beta"], awgn_samples=settings["awgn_samples"],
             awgn_generator=torch_generator(settings["awgn_seed"], transmittance.device),
@@ -288,9 +313,9 @@ def main() -> int:
                 "mean_T": float(transmittance.mean()),
                 "min_T": float(transmittance.min()),
                 "max_T": float(transmittance.max()),
-                "mean_epsilon": float(epsilon.mean()),
-                "min_epsilon": float(epsilon.min()),
-                "max_epsilon": float(epsilon.max()),
+                "mean_epsilon_base": float(epsilon_base.mean()),
+                "min_epsilon_base": float(epsilon_base.min()),
+                "max_epsilon_base": float(epsilon_base.max()),
             },
             "result": row,
         })
@@ -304,9 +329,9 @@ def main() -> int:
             "mean_T": float(transmittance.mean()),
             "min_T": float(transmittance.min()),
             "max_T": float(transmittance.max()),
-            "mean_epsilon": float(epsilon.mean()),
-            "min_epsilon": float(epsilon.min()),
-            "max_epsilon": float(epsilon.max()),
+            "mean_epsilon_base": float(epsilon_base.mean()),
+            "min_epsilon_base": float(epsilon_base.min()),
+            "max_epsilon_base": float(epsilon_base.max()),
         },
         "results": rows,
     })

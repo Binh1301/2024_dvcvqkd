@@ -1,6 +1,6 @@
 # Project State
 
-Last updated: 2026-09-10 (documentation/model/code alignment audit)
+Last updated: 2026-09-10 (Cn_phi2 freeze/provenance audit)
 
 ## Terminal status
 
@@ -24,28 +24,54 @@ final-test access, held-out evaluation, or publication claim is authorized.
   scalar-epsilon/lower-endpoint path, not certification of the new target.
 - The transmitter architecture, C4 invariants, raw-SKR loss, average-energy
   dual, and finite-realization hard peak guard remain present in source.
-- The current code is not aligned with the target phase chain, scintillation/AoA
-  fading, raw-T diagnostic, or full-interval Holevo maximization.
+- The causal phase/post-action epsilon chain and canonical scenario-level phase
+  provenance are aligned in source and active evaluation plumbing, but its
+  C_n_phi2 value remains null. The composite channel architecture and raw-T
+  diagnostics are implemented, while production scintillation/AoA mappings
+  remain unresolved. The
+  full physical Z interval, structured empty-domain failure, and deterministic
+  bounded Holevo maximization are now implemented and focused-tested; target
+  numerical evidence remains bound to the prior lower-endpoint path.
+
+## Current PRE-Numerical channel alignment
+
+- The active sampler now composes eta_atm, normalized lognormal H_sc,
+  generalized Rician H_p, and optional hard AoA B_AoA, with raw/physical
+  diagnostics and no clipping or floor.
+- The legacy constant-C_n^2 beam-wander equation is not used by the active
+  sampler. sigma_z is excluded from pointing variance and yaw from AoA
+  orientation variance.
+- Explicit profile Rytov support, v_sc overrides, AoA gating, and channel
+  provenance are implemented for resolved inputs. No production profile,
+  aperture-averaging, turbulence-AoA, or profile-to-effective-phase mapping
+  is frozen; unresolved choices fail closed.
+- Full-Z resolution diagnostics now cover 17/33/65/129 candidate grids.
+  They are numerical validation evidence only, not certification.
 
 ## Numerical and security gate
 
 - Existing MI/Gram artifacts remain scoped to the prior code path.
 - The C4 Gram production backend is cutoff-independent and the arbitrary-
   precision fallback is evaluation-only.
+- Full-interval covariance/entropy candidates use the existing physicality
+  guard and explicit diagnostics.
 - Support/tolerance approval remains unresolved; no security/SKR figure may be
   presented as target-model evidence.
 - Existing test artifact results/current_test_suite.json is a
   LAST_KNOWN_PASS for its recorded repository/model provenance, not a current
-  pass for the edited target specification. No test was run by this audit.
+  pass for the edited target specification. The scoped channel/security
+  verification for this milestone passed 90 tests; worker-backed
+  full-support/pointwise certification tests were not completed. No
+  certification or publication-scale test was run.
 
 ## Friday preliminary diagnostic posture
 
 | Class | Status | Scope |
 |---|---|---|
 | Regular 256-QAM, fixed PMFs, C4 orbit geometry | READY_NOW | Deterministic, data-free transmitter diagnostics |
-| Current atmospheric/pointing T diagnostics | SAFE_AFTER_SMALL_FIX | Label as current sampler only |
-| Target phase, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Required source/code path is absent |
-| Target epsilon_total and full-interval chi_BE/SKR | BLOCKED | Phase chain and security solver are absent |
+| Current composite-channel T diagnostics | ALIGNED_API_ONLY | Resolved inputs are supported; production profile/aperture/AoA choices remain blocked |
+| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Composite architecture exists, but profile/aperture/AoA/common-phase mappings remain unresolved |
+| Target epsilon_total and full-interval chi_BE/SKR | BLOCKED | Epsilon chain and interval implementation exist, but C_n_phi2, target channel paths, and numerical evidence rebinding remain unresolved |
 | Learned PS/GS/V_A outputs | BLOCKED | Training is closed and target security is not aligned |
 
 ## Preliminary figure readiness audit
@@ -55,38 +81,50 @@ final-test access, held-out evaluation, or publication claim is authorized.
 | Regular 256-QAM | READY NOW | Deterministic construction exists in qam256.py |
 | Uniform / Binomial / MB PMF | READY NOW | Deterministic PMF constructors exist |
 | Fourfold orbit visualization | READY NOW | Exact C4 index and expansion functions exist |
-| Phase-noise curve xi_phase(V_A) | BLOCKED | c_phi and phase module/config are absent |
-| epsilon_total(V_A) | BLOCKED | Post-action phase-noise chain is absent |
-| H_sc Monte Carlo | BLOCKED | No scintillation sampler or frozen mapping |
+| Phase-noise curve xi_phase(V_A) | BLOCKED | c_phi API exists, but no author-approved C_n_phi2 is configured |
+| epsilon_total(V_A) | ALIGNED_API_ONLY | Post-action chain is implemented; target plotting remains parameter-blocked |
+| H_sc Monte Carlo | ALIGNED_API_ONLY | Positive unit-mean lognormal sampler exists; production v_sc mapping is unresolved |
 | H_p Monte Carlo | SAFE AFTER SMALL FIX | Pointing sampler exists; a raw-data/plot wrapper is missing |
-| AoA outage Monte Carlo | BLOCKED | No B_AoA factor or outage branch |
-| T_raw histogram | BLOCKED | No raw product/admission path |
-| Physical T histogram | SAFE AFTER SMALL FIX | Current sampler can produce T, but only as the present atmospheric/pointing path |
-| p_gt_1 diagnostic | BLOCKED | No T_raw diagnostic |
-| chi_BE(Z) interval diagnostic | BLOCKED | Only Z_minus is evaluated |
+| AoA outage Monte Carlo | ALIGNED_API_ONLY | Hard B_AoA gate exists; turbulence-AoA mapping/FOV remains unresolved |
+| T_raw histogram | ALIGNED_API_ONLY | Raw product/admission path exists; target parameters remain unresolved |
+| Physical T histogram | ALIGNED_API_ONLY | Composite physical sampler exists; target parameters remain unresolved |
+| p_gt_1 diagnostic | ALIGNED_API_ONLY | p_above_one is recorded by the sampler; target parameterization remains unresolved |
+| chi_BE(Z) interval diagnostic | ALIGNED_API_ONLY | Full physical intersection and deterministic max diagnostics exist; target parameter and numerical gates remain blocked |
 | Baseline K versus T | BLOCKED | Full-interval security and numerical gate are unresolved |
 | Baseline K versus V_A | BLOCKED | Full-interval security and numerical gate are unresolved |
 | Learned PS/GS/V_A output | BLOCKED | Training is closed and target security is not aligned |
 
 ## Exact next permitted action
 
-Prepare a tiny deterministic diagnostic/plotting entry point for the
-READY_NOW transmitter figures and, separately, resolve the single highest
-scientific blocker before any target channel/security Monte Carlo:
-the post-action phase chain plus full-interval security definition.
+Freeze one author-approved, source-supported common-turbulence scenario and
+its profile, aperture-averaging, AoA, and effective-phase mappings; do not
+execute that task now.
 
 ## Lifecycle restrictions
 
-Do not modify scientific source or tests in this documentation task. Do not
-run training, publication-scale Monte Carlo, long Gram/Holevo certification,
-threshold approval, or final-test evaluation. Do not silently replace the
-target equations with the current implementation.
+Do not run training, publication-scale Monte Carlo, long Gram/Holevo
+certification, threshold approval, or final-test evaluation. Do not silently
+replace the target equations with the current implementation.
 
 ## Current evidence
 
 - EVID-0054: 2026-09-10 documentation/source/config/manuscript availability
   audit.
+- EVID-0055: 2026-09-10 causal phase/post-action noise implementation and
+  focused verification; parameter readiness remains open.
+- EVID-0056: 2026-09-10 full physical Z-interval implementation and focused
+  interval/gradient verification; target numerical rebinding remains open.
 - DEC-0040: documentation-only alignment; unresolved model/code mismatches are
   retained as blockers.
+- DEC-0041: full Z-interval implementation; no lifecycle or numerical approval
+  was granted.
+- EVID-0057: 2026-09-10 Cn_phi2 scientific/configuration freeze audit and
+  focused provenance verification.
+- DEC-0042: retain unresolved Cn_phi2 as null; derive c_phi and persist its
+  canonical provenance without granting lifecycle or numerical approval.
+- EVID-0058: 2026-09-10 PRE-Numerical composite-channel alignment and focused
+  physical/provenance/resolution verification.
+- DEC-0043: align the active composite channel while retaining unresolved
+  scientific mappings as fail-closed blockers.
 - Existing historical numerical evidence remains in EVIDENCE.md and
   DECISION_LOG.md under its original provenance.

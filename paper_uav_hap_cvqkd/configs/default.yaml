@@ -9,7 +9,37 @@ channel:
   visibility_km: 200.0
   beam_waist_m: 0.0157
   aperture_radius_m: 0.075
+  # Retained scalar for legacy diagnostics; it is not an active beam-wander input.
   cn2_m_minus_two_thirds: 1.0e-16
+  turbulence_profile:
+    # No supported altitude-profile parameters are frozen in this repository.
+    model: null
+    heights_m: null
+    cn2_m_minus_two_thirds: null
+  scintillation:
+    # sigma_R0^2 is not silently identified with v_sc. No aperture mapping is frozen.
+    aperture_averaging_model: null
+    v_sc_override: null
+    sigma_R0_squared: null
+  pointing:
+    boresight_x_m: 0.0
+    boresight_y_m: 0.0
+    # Explicit zero is a declared no-HAP-jitter fixture approximation.
+    sigma_hap_ang_rad: 0.0
+    hap_angular_jitter_convention: per_axis
+  aoa:
+    # Turbulence-induced AoA is explicitly disabled until a mapping is validated.
+    model: disabled
+    sigma_turb_AoA2_rad2: 0.0
+    provenance: "explicit disabled approximation; no validated C_n^2(h)->AoA mapping"
+    theta_fov_rad: null
+  raw_transmittance:
+    active_treatment: truncated_renormalized_active_law
+  # Effective scalar representation of the same physical turbulence scenario.
+  # No validated C_n^2(h)->C_n,phi^2 mapping or author-approved value exists.
+  cn_phi2_m_minus_two_thirds: null
+  cn_phi2_mapping_status: unresolved
+  cn_phi2_author_approved: false
   scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
   uav_motion:
     sigma_x_m: 0.0521

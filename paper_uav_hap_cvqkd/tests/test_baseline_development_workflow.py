@@ -22,13 +22,25 @@ def load_runner():
 
 
 class BaselineDevelopmentWorkflowTests(unittest.TestCase):
+    def test_missing_phase_scenario_fails_closed(self):
+        runner = load_runner()
+        with self.assertRaisesRegex(ValueError, "cn_phi2"):
+            runner.load_experiment_config(ROOT / "configs" / "baseline_smoke.json")
+
+    def test_training_phase_scenario_resolution_fails_closed(self):
+        runner = load_runner()
+        from _train import _phase_coefficient
+
+        with self.assertRaisesRegex(ValueError, "author-approved"):
+            _phase_coefficient(runner.load_yaml(ROOT / "configs" / "default.yaml"))
+
     def test_json_config_loads_and_cli_override_is_explicit(self):
         runner = load_runner()
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "config.json"
             config = json.loads((ROOT / "configs" / "baseline_smoke.json").read_text(encoding="utf-8"))
             path.write_text(json.dumps(config), encoding="utf-8")
-            settings = runner.load_experiment_config(path, {"va": 0.5})
+            settings = runner.load_experiment_config(path, {"va": 0.5, "cn_phi2": 0.0})
         self.assertEqual(settings["h_hap_m"], 20000)
         self.assertEqual(settings["va"], 0.5)
         self.assertEqual(settings["fading_samples"], 2)

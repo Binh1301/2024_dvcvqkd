@@ -49,6 +49,7 @@ class EnergyBudgetTests(unittest.TestCase):
             noise_samples_per_symbol=2,
             density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(201),
+            phase_coefficient=0.0,
             energy_budget_controller=controller,
         )
         self.assertAlmostEqual(float(result.energy_constraint_violation), 0.5, places=12)
@@ -83,6 +84,7 @@ class EnergyBudgetTests(unittest.TestCase):
             noise_samples_per_symbol=2,
             density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(1201),
+            phase_coefficient=0.0,
             energy_budget_controller=controller,
         )
         self.assertGreater(float(result.energy_constraint_violation), 0.0)

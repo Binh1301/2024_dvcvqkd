@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 
 from _common import holevo_numerical_kwargs, require_holevo_pseudoinverse_approval
-from _train import _channel
+from _train import _channel, _phase_provenance
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.modulation.qam256 import c4_orbit_masses
 from src.optimization.trainer import evaluate_transmitter
@@ -94,18 +94,21 @@ def main() -> int:
     )
     awgn_seed = derive_seed(frozen_evaluation["awgn_seed"], "held_out_test_awgn")
     channel = _channel(config, frozen_evaluation["fading_samples"], channel_seed)
+    phase_provenance = _phase_provenance(config)
+    phase_coefficient = phase_provenance["c_phi"]
     transmittance = torch.as_tensor(channel.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(channel.excess_noise_snu, dtype=torch.float64)
+    epsilon_base = torch.as_tensor(channel.epsilon_base_snu, dtype=torch.float64)
     with torch.no_grad():
         evaluation = evaluate_transmitter(
             transmitter,
             transmittance,
-            epsilon,
+            epsilon_base,
             beta_reconciliation=cvqkd["beta_reconciliation"],
             noise_samples_per_symbol=frozen_evaluation["awgn_samples_per_symbol"],
             generator=torch_generator(awgn_seed),
             require_supported_symmetry=True,
             **holevo_numerical_kwargs(config),
+            phase_coefficient=phase_coefficient,
         )
     budget_status = heldout_budget_comparison_status(
         float(evaluation.ensemble.declared_va.mean()), va_budget
@@ -130,6 +133,8 @@ def main() -> int:
         },
         "derived_seeds": {"channel": channel_seed, "awgn": awgn_seed},
         "channel_metadata": channel.metadata,
+        "phase_coefficient": phase_coefficient,
+        "phase_provenance": phase_provenance,
         "mean_raw_skr": float(evaluation.key_rate.fading_average_raw),
         "va_budget": va_budget,
         "n_peak_photons": n_peak,
@@ -138,7 +143,9 @@ def main() -> int:
         "va_budget_feasible": bool(budget_status["heldout_budget_feasible"]),
         "per_state": {
             "transmittance": transmittance.tolist(),
-            "epsilon": epsilon.tolist(),
+            "epsilon_base": epsilon_base.tolist(),
+            "epsilon": epsilon_base.tolist(),
+            "epsilon_total": evaluation.epsilon_total.tolist(),
             "i_ab": evaluation.mutual_information.tolist(),
             "chi_be": evaluation.holevo.chi_be.tolist(),
             "raw_skr": evaluation.key_rate.instantaneous_raw.tolist(),

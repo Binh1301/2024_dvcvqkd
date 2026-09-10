@@ -9,6 +9,32 @@ optics:
   beam_waist_m: 0.0157
   aperture_radius_m: 0.075
   cn2_m_minus_two_thirds: 1.0e-16
+phase:
+  # Effective scalar representation of the same physical C_n^2(h) turbulence.
+  # No validated mapping or author-approved value exists; target paths fail closed.
+  cn_phi2_m_minus_two_thirds: null
+  cn_phi2_mapping_status: unresolved
+  cn_phi2_author_approved: false
+turbulence_profile:
+  model: null
+  heights_m: null
+  cn2_m_minus_two_thirds: null
+scintillation:
+  aperture_averaging_model: null
+  v_sc_override: null
+  sigma_R0_squared: null
+pointing:
+  boresight_x_m: 0.0
+  boresight_y_m: 0.0
+  sigma_hap_ang_rad: 0.0
+  hap_angular_jitter_convention: per_axis
+aoa:
+  model: disabled
+  sigma_turb_AoA2_rad2: 0.0
+  provenance: "explicit disabled approximation; no validated mapping"
+  theta_fov_rad: null
+raw_transmittance:
+  active_treatment: truncated_renormalized_active_law
 scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
 uav_motion_from_paper_table_i:
   sigma_x_m: 0.0521

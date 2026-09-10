@@ -9,6 +9,7 @@ from pathlib import Path
 import torch
 
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
+from _train import _phase_provenance
 from src.modulation.joint_ps_gs import JointTransmitter
 from src.modulation.qam256 import c4_orbit_masses
 from src.optimization.trainer import EnergyBudgetController, evaluate_transmitter, train_step
@@ -41,9 +42,11 @@ def main() -> int:
         raise ValueError("steps and awgn-samples must be positive integers.")
     seed_process(args.seed)
     config = load_yaml(args.config)
+    phase_provenance = _phase_provenance(config)
+    phase_coefficient = phase_provenance["c_phi"]
     holevo_kwargs = holevo_numerical_kwargs(config)
     transmittance = torch.tensor([0.02, 0.08, 0.2], dtype=torch.float64)
-    epsilon = torch.tensor([0.004, 0.002, 0.0005], dtype=torch.float64)
+    epsilon_base = torch.tensor([0.004, 0.002, 0.0005], dtype=torch.float64)
     model = JointTransmitter("full", v_min=args.v_min, v_max=args.v_max)
     family_modules = {"ps": model.ps_network, "gs": model.gs_model, "va": model.va_network}
     family_rates = {
@@ -63,12 +66,13 @@ def main() -> int:
         return evaluate_transmitter(
             model,
             transmittance,
-            epsilon,
+            epsilon_base,
             beta_reconciliation=args.beta,
             noise_samples_per_symbol=args.awgn_samples,
             generator=torch_generator(awgn_seed),
             require_supported_symmetry=True,
             **holevo_kwargs,
+            phase_coefficient=phase_coefficient,
         )
 
     model.eval()
@@ -81,7 +85,7 @@ def main() -> int:
             model,
             optimizer,
             transmittance,
-            epsilon,
+            epsilon_base,
             beta_reconciliation=args.beta,
             noise_samples_per_symbol=args.awgn_samples,
             generator=torch_generator(awgn_seed),
@@ -89,6 +93,7 @@ def main() -> int:
             gradient_clip_norm=1.0,
             energy_budget_controller=energy_controller,
             **holevo_kwargs,
+            phase_coefficient=phase_coefficient,
         )
         history.append({
             "step": step,
@@ -138,8 +143,9 @@ def main() -> int:
             **vars(args),
             "output": str(args.output.resolve()),
             "transmittance": transmittance.tolist(),
-            "epsilon": epsilon.tolist(),
+            "epsilon_base": epsilon_base.tolist(),
             "derived_common_awgn_seed": awgn_seed,
+            "phase_provenance": phase_provenance,
         },
         "optimizer_freeze_probe": {
             "optimizer": "Adam",

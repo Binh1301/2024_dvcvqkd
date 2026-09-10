@@ -13,7 +13,8 @@ import torch
 from _common import (
     ROOT, holevo_numerical_kwargs, load_yaml, missing_required,
 )
-from _train import _channel
+from _train import _channel, _phase_provenance
+from src.channel.phase_noise import total_excess_noise
 from src.cvqkd.holevo import shared_fixed_ensemble_holevo_chi
 from src.cvqkd.mutual_information import (
     discrete_mutual_information,
@@ -32,6 +33,14 @@ REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m",
     "channel.visibility_km", "channel.beam_waist_m", "channel.aperture_radius_m",
     "channel.cn2_m_minus_two_thirds", "channel.excess_noise_distribution.kind",
+    "channel.cn_phi2_m_minus_two_thirds",
+    "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
+    "channel.turbulence_profile.model",
+    "channel.scintillation.aperture_averaging_model",
+    "channel.scintillation.v_sc_override",
+    "channel.pointing.sigma_hap_ang_rad",
+    "channel.pointing.hap_angular_jitter_convention",
+    "channel.aoa.model", "channel.raw_transmittance.active_treatment",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
@@ -68,6 +77,8 @@ def main() -> int:
     missing = missing_required(config, REQUIRED)
     if missing:
         raise ValueError("Unresolved required configuration: " + ", ".join(missing))
+    phase_provenance = _phase_provenance(config)
+    phase_coefficient = phase_provenance["c_phi"]
     cvqkd = config["cvqkd"]
     n_peak = approved_peak_photon_limit(config)
     require_preconvergence_domain_ready(config)
@@ -99,6 +110,7 @@ def main() -> int:
             "publication_training_performed": False,
             "mi_sample_count": awgn_count,
             "fock_cutoff": fock_cutoff,
+            "phase_provenance": phase_provenance,
             "pseudoinverse_threshold_approved": bool(
                 evidence["threshold"].get("all_listed_fixtures_pass", False)
             ),
@@ -132,7 +144,7 @@ def main() -> int:
         derive_seed(int(training["seeds"]["validation_channel"]), "validation_channel"),
     )
     t = torch.as_tensor(states.transmittance, dtype=torch.float64)
-    epsilon = torch.as_tensor(states.excess_noise_snu, dtype=torch.float64)
+    epsilon_base = torch.as_tensor(states.epsilon_base_snu, dtype=torch.float64)
     awgn_count = int(awgn_count)
     state_batch_size = int(config["baseline_search"]["state_batch_size"])
     if state_batch_size <= 0:
@@ -161,8 +173,11 @@ def main() -> int:
         # tau, C, and w depend only on this fixed source ensemble. Evaluate
         # them once, then vectorize channel-dependent Z/covariance/chi over all
         # validation states exactly.
+        epsilon_total = total_excess_noise(
+            epsilon_base, full_ensemble.declared_va, phase_coefficient
+        )
         full_chi = shared_fixed_ensemble_holevo_chi(
-            full_ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+            full_ensemble, t, epsilon_total, backend="c4_gram", fock_cutoff=None,
             **holevo_numerical_kwargs(config),
         )
         for batch_index, start in enumerate(range(0, t.numel(), state_batch_size)):
@@ -170,7 +185,7 @@ def main() -> int:
                 raise RuntimeCapReached("Validation baseline runtime cap reached.")
             stop = min(start + state_batch_size, t.numel())
             batch_t = t[start:stop]
-            batch_epsilon = epsilon[start:stop]
+            batch_epsilon_total = epsilon_total[start:stop]
             ensemble = Ensemble(
                 full_ensemble.probabilities[start:stop],
                 full_ensemble.amplitudes[start:stop],
@@ -192,7 +207,7 @@ def main() -> int:
             mi = discrete_mutual_information(
                 ensemble,
                 batch_t,
-                batch_epsilon,
+                batch_epsilon_total,
                 noise_samples_per_symbol=awgn_count,
                 standard_noise_samples=common_noise,
                 noise_sample_chunk_size=int(
@@ -232,6 +247,7 @@ def main() -> int:
             "selection_split": "validation", "test_set_used": False,
             "publication_training_performed": False,
             "mi_sample_count": awgn_count, "fock_cutoff": fock_cutoff,
+            "phase_provenance": phase_provenance,
             "runtime_cap_seconds": args.runtime_cap_seconds,
             "observed_elapsed_seconds": elapsed,
             "candidate_calls_started": progress["candidate_calls_started"],
@@ -255,6 +271,7 @@ def main() -> int:
         "common_random_numbers_across_candidates": True,
         "state_batch_size": state_batch_size,
         "mi_sample_count": awgn_count,
+        "phase_provenance": phase_provenance,
         "fock_cutoff": fock_cutoff,
         "convergence_evidence_sha256": {
             name: hashlib.sha256(value.read_bytes()).hexdigest()

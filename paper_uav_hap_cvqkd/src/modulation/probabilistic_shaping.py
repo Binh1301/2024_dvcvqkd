@@ -8,18 +8,18 @@ from torch import nn
 from .qam256 import c4_orbit_masses, expand_c4_orbit_masses
 
 
-def channel_features(transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
+def channel_features(transmittance: torch.Tensor, epsilon_base: torch.Tensor) -> torch.Tensor:
     transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
-    epsilon = torch.as_tensor(epsilon, dtype=torch.float64, device=transmittance.device).reshape(-1)
-    if epsilon.numel() == 1:
-        epsilon = epsilon.expand_as(transmittance)
-    if epsilon.shape != transmittance.shape:
-        raise ValueError("epsilon must be scalar or match transmittance.")
+    epsilon_base = torch.as_tensor(epsilon_base, dtype=torch.float64, device=transmittance.device).reshape(-1)
+    if epsilon_base.numel() == 1:
+        epsilon_base = epsilon_base.expand_as(transmittance)
+    if epsilon_base.shape != transmittance.shape:
+        raise ValueError("epsilon_base must be scalar or match transmittance.")
     if not bool(torch.all(torch.isfinite(transmittance))) or bool(torch.any(transmittance <= 0.0)):
         raise ValueError("PS/V_A channel features require finite T>0.")
-    if not bool(torch.all(torch.isfinite(epsilon))) or bool(torch.any(epsilon < 0.0)):
-        raise ValueError("epsilon must be finite and nonnegative.")
-    return torch.stack((torch.log10(transmittance), epsilon), dim=-1)
+    if not bool(torch.all(torch.isfinite(epsilon_base))) or bool(torch.any(epsilon_base < 0.0)):
+        raise ValueError("epsilon_base must be finite and nonnegative.")
+    return torch.stack((torch.log10(transmittance), epsilon_base), dim=-1)
 
 
 class ProbabilisticShapingNetwork(nn.Module):
@@ -41,13 +41,21 @@ class ProbabilisticShapingNetwork(nn.Module):
                 final_layer.weight.zero_()
                 final_layer.bias.copy_(torch.log(initial_orbit_masses))
 
-    def orbit_masses(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
-        """Return the 64 strictly positive, normalized orbit masses ``q_k``."""
+    def orbit_masses(
+        self,
+        transmittance: torch.Tensor,
+        epsilon_base: torch.Tensor,
+    ) -> torch.Tensor:
+        """Return the 64 strictly positive, normalized orbit masses."""
 
-        logits = self.network(channel_features(transmittance, epsilon))
+        logits = self.network(channel_features(transmittance, epsilon_base))
         return torch.softmax(logits, dim=-1)
 
-    def forward(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
-        """Return the row-major 256-symbol PMF with ``p[k,r] = q[k]/4``."""
+    def forward(
+        self,
+        transmittance: torch.Tensor,
+        epsilon_base: torch.Tensor,
+    ) -> torch.Tensor:
+        """Return the row-major C4-expanded 256-symbol PMF."""
 
-        return expand_c4_orbit_masses(self.orbit_masses(transmittance, epsilon))
+        return expand_c4_orbit_masses(self.orbit_masses(transmittance, epsilon_base))

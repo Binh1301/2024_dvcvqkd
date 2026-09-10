@@ -36,9 +36,12 @@ class FrozenChannelDiagnosticsTests(unittest.TestCase):
         self.assertAlmostEqual(
             derived["centered_aperture_power_coupling_t0_squared"], 0.031042111435033548
         )
-        self.assertAlmostEqual(derived["sigma_turbulence_m"], 0.06459213118645223)
-        self.assertAlmostEqual(derived["sigma_uav_m"], 0.10087960227047885)
-        self.assertAlmostEqual(derived["sigma_r_rayleigh_scale_m"], 0.11978663350081199)
+        self.assertAlmostEqual(derived["sigma_turbulence_m"], 0.0)
+        self.assertAlmostEqual(
+            derived["sigma_uav_m"],
+            math.sqrt((0.0521**2 + 0.0502**2) / 2.0),
+        )
+        self.assertAlmostEqual(derived["sigma_r_rayleigh_scale_m"], derived["sigma_uav_m"])
         support = derived["transmittance_support"]
         self.assertEqual(support["lower"], 0.0)
         self.assertFalse(support["lower_inclusive"])

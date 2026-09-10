@@ -9,8 +9,8 @@ This folder contains the implementation and documentation for the target model i
 modulation, adaptive PS/GS/(V_A), and asymptotic ideal-heterodyne DM-CV-QKD.
 The target now distinguishes pre-action `epsilon_base` from derived
 `epsilon_total` and defines a full physical correlation interval for Holevo.
-`docs/PAPER_CODE_ALIGNMENT.md` records which target pieces are not implemented
-in the current source yet.
+`docs/PAPER_CODE_ALIGNMENT.md` records which target pieces remain outside the
+current source.
 
 It does **not** contain publication results. The physical, optimization, and MI
 settings are frozen, and `N_MC=2048` is convergence-selected. Exact-dyadic
@@ -25,8 +25,8 @@ intentionally not copied.
 ## Scientific scope
 
 - Power transmittance is evaluated instantaneously and SKR is averaged after per-state evaluation.
-- The intended state is `(T, epsilon_base)`; `epsilon_total` is derived after the action. Current code still passes its sampled epsilon directly and is not target-aligned.
-- The current channel sampler has atmospheric/pointing/beam-wander terms only; target scintillation, AoA outage, raw-T, and phase diagnostics are not implemented.
+- The active state is `(T, epsilon_base)`; `epsilon_total` is derived after the action and is passed unchanged to MI and Holevo. The production phase coefficient remains unresolved.
+- The active channel sampler composes atmospheric loss, normalized lognormal scintillation, generalized Rician pointing, and optional AoA outage with raw/physical-T diagnostics; production profile, aperture, AoA, and phase mappings remain unresolved and fail closed.
 - `V_A = 2 sum_i p_i |alpha_i|^2` is asserted statewise.
 - The PS network is `2 -> 128 -> 64` on `[log10(T), epsilon]`; 64 orbit masses expand to a tied 256-symbol PMF.
 - The adaptive-variance network is exactly `2 -> 64 -> 1`, followed by the paper's bounded log-domain mapping. Bounds are mandatory.
@@ -35,7 +35,7 @@ intentionally not copied.
 - Bob uses ideal heterodyne detection and asymptotic reverse reconciliation.
 - Exact instantaneous CSI is an oracle assumption. There is no estimator, feedback delay, or CSI-error model.
 - The paper's standard-form covariance is rejected by default when the ensemble is quadrature-asymmetric.
-- Numerical corrections are reported through diagnostics; materially invalid density/covariance states raise errors. The current Holevo path still evaluates only the lower Z endpoint; it is not the target full-interval maximization.
+- Numerical corrections are reported through diagnostics; materially invalid density/covariance states raise errors. Holevo now evaluates the physical Z intersection with deterministic bounded maximization, but target numerical evidence remains to be rebound.
 
 ## Structure
 
@@ -53,6 +53,15 @@ docs/          equation, paper, legacy, assumption, and issue maps
 results/       validation diagnostics and fail-closed lifecycle evidence; no publication claims
 figures/       empty; figures must derive from saved raw data
 ```
+
+## Current PRE-Numerical channel alignment
+
+The active sampler now composes atmospheric loss, normalized lognormal
+scintillation, generalized Rician pointing, and optional hard AoA outage,
+followed by raw-to-physical transmittance admission with no clipping or floor.
+The legacy constant-C_n^2 beam-wander equation is not used by that path.
+Production runs remain blocked until the altitude profile, aperture-averaging,
+turbulence-AoA, and common-turbulence phase mappings are author/source frozen.
 
 ## Environment
 

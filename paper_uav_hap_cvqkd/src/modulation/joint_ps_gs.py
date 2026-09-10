@@ -156,8 +156,14 @@ class AdaptiveVarianceNetwork(nn.Module):
             nn.Linear(64, 1, dtype=torch.float64),
         )
 
-    def forward(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> torch.Tensor:
-        unit = torch.sigmoid(self.network(channel_features(transmittance, epsilon)).squeeze(-1))
+    def forward(
+        self,
+        transmittance: torch.Tensor,
+        epsilon_base: torch.Tensor,
+    ) -> torch.Tensor:
+        unit = torch.sigmoid(
+            self.network(channel_features(transmittance, epsilon_base)).squeeze(-1)
+        )
         ratio = self.v_max / self.v_min
         return self.v_min * torch.pow(torch.as_tensor(ratio, dtype=unit.dtype, device=unit.device), unit)
 
@@ -231,19 +237,23 @@ class JointTransmitter(nn.Module):
         else:
             self.fixed_va = None
 
-    def forward(self, transmittance: torch.Tensor, epsilon: torch.Tensor) -> Ensemble:
+    def forward(
+        self,
+        transmittance: torch.Tensor,
+        epsilon_base: torch.Tensor,
+    ) -> Ensemble:
         transmittance = torch.as_tensor(
             transmittance, dtype=torch.float64, device=self.base_constellation.device
         ).reshape(-1)
-        epsilon = torch.as_tensor(
-            epsilon, dtype=torch.float64, device=self.base_constellation.device
+        epsilon_base = torch.as_tensor(
+            epsilon_base, dtype=torch.float64, device=self.base_constellation.device
         ).reshape(-1)
-        if epsilon.numel() == 1:
-            epsilon = epsilon.expand_as(transmittance)
+        if epsilon_base.numel() == 1:
+            epsilon_base = epsilon_base.expand_as(transmittance)
         # Validation and exact paper features are shared by PS and V_A branches.
-        channel_features(transmittance, epsilon)
+        channel_features(transmittance, epsilon_base)
         probabilities = (
-            self.ps_network(transmittance, epsilon)
+            self.ps_network(transmittance, epsilon_base)
             if self.ps_network is not None
             else self.fixed_probabilities.unsqueeze(0).expand(transmittance.shape[0], -1)
         )
@@ -251,7 +261,7 @@ class JointTransmitter(nn.Module):
             self.gs_model() if self.gs_model is not None else self.base_relative_constellation
         )
         variance = (
-            self.va_network(transmittance, epsilon)
+            self.va_network(transmittance, epsilon_base)
             if self.va_network is not None
             else torch.full_like(transmittance, self.fixed_va)
         )

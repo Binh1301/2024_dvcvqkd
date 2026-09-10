@@ -156,6 +156,62 @@ Primary publication links used to verify the existing references:
   fails closed because the adaptive network consumes `log10(T)`; no outage or
   floor convention is frozen.
 
+## Scenario-level phase parameter freeze audit (2026-09-10)
+
+The phase parameter is a separate scenario-level effective input.  It is not
+the altitude-dependent beam-wander/scintillation parameter `C_n^2(h)`, and the
+repository contains no validated mapping between those quantities.  The active
+production field is `channel.cn_phi2_m_minus_two_thirds` in SI units
+`m^(-2/3)`.  It is fixed within a scenario and resolved with
+
+```text
+kappa = 2*pi / wavelength_m
+tau_phi2 = 2.46 * Cn_phi2 * kappa^(7/6) * link_distance_m^(11/6)
+c_phi = tau_phi2 + 0.25*tau_phi2^2
+xi_phase = c_phi * V_A
+epsilon_total = epsilon_base + xi_phase
+```
+
+`wavelength_m` and the derived `link_distance_m` are metres.  The link length
+is derived by `LinkGeometry` as
+`(h_hap_m-h_uav_m)/cos(zenith_angle_rad)`; the approved vertical scenario gives
+`19000 m`.  The product in `tau_phi2` has dimensions
+`m^(-2/3) * m^(-7/6) * m^(11/6) = m^0`, so `tau_phi2` and `c_phi` are
+dimensionless.  `c_phi` is derived by `phase_parameter_provenance` and has no
+independent configuration override.
+
+### Author-freeze template
+
+| Field | Required author decision |
+|---|---|
+| Scenario label | `[author supplies a stable scenario identifier]` |
+| `Cn_phi2` / `channel.cn_phi2_m_minus_two_thirds` | `[author supplies one nonnegative value in m^(-2/3), or an explicitly approved scenario set]` |
+| Intended meaning | Effective phase-distortion turbulence strength for the two-stage surrogate; not `C_n^2(h)` and not the current beam-wander `cn2_m_minus_two_thirds` field |
+| Mapping from `C_n^2(h)` | `[author supplies a validated mapping, or explicitly approves independence]`; none is currently evidenced |
+| Wavelength | Existing active value `1.55e-6 m`; retain only if the author confirms it for this phase scenario |
+| Link geometry | Existing active vertical geometry derives `19000 m`; confirm the altitude datum and zenith convention |
+| Source/provenance | `[author supplies manuscript/table/reference and exact page/equation]` |
+| Approver/date | `[author supplies name/role and approval date]` |
+| Derived record | `tau_phi2`, `c_phi`, and the canonical SI input record are recomputed from the approved inputs |
+
+### Candidate evidence found
+
+| Value | Units | Source | Classification | Usable for publication? |
+|---|---|---|---|---|
+| `0` | `m^(-2/3)` | `tests/test_phase_noise.py`, explicit zero-limit fixture | `TEST_ONLY` | No |
+| `1e-16` | `m^(-2/3)` | `tests/test_phase_noise.py`, coefficient formula fixture; same numeral as the separate current `cn2` field | `TEST_ONLY` for `Cn_phi2`; not transferable from `cn2` | No |
+| `2e-16` | `m^(-2/3)` | `tests/test_phase_noise.py` and phase-provenance sensitivity fixtures | `TEST_ONLY` | No |
+
+No `AUTHOR_APPROVED` or `LITERATURE_DERIVED` value for `Cn_phi2` was found in
+the repository or available manuscript-alignment evidence.  The current
+`cn2_m_minus_two_thirds=1e-16` value is a separate beam-wander input and is not
+a phase candidate.  Because the evidence does not support a weak/nominal/strong
+numerical set, no scenario values are activated; this document intentionally
+provides a freeze template only.
+
+**Current decision: BLOCKED - no author-approved `Cn_phi2`; production remains
+`null`.**
+
 ## Monte Carlo generation and validation recipe
 
 After author values are approved, generate each split with its distinct frozen
@@ -199,6 +255,31 @@ moments `E[r]=sigma_axis sqrt(pi/2)` and `E[r^2]=2 sigma_axis^2`.
    `cos(zeta)^-4` factor. No cited derivation establishes that combined
    extension, so only the frozen `zeta=0` case is supported.
 
+## Current PRE-Numerical composite-channel audit
+
+The active target path now has one explicit physical turbulence provenance
+record. The scalar cn2_m_minus_two_thirds is retained only for historical
+compatibility and does not enter active pointing variance. The active pointing
+scale is the transverse UAV variance plus the explicitly declared HAP
+angular-jitter convention; sigma_z and yaw are excluded from their respective
+active variances. The legacy constant beam-wander function remains callable
+only for historical diagnostics.
+
+| Choice | Current status | Code behavior | Blocker |
+|---|---|---|---|
+| C_n^2(h) profile | PLACEHOLDER/UNRESOLVED | Explicit profile arrays and the specified sigma_R0^2 integral are supported; no Hufnagel--Valley parameters are invented | Author/source profile required |
+| sigma_R0^2 -> v_sc aperture mapping | BLOCKED | Explicit v_sc_override or an explicitly frozen identity mapping only; otherwise raises | Missing literature/author mapping |
+| H_sc | IMPLEMENTED_FOR_RESOLVED_INPUT | Positive lognormal samples with analytic mean one | Production v_sc unresolved |
+| Rician pointing | IMPLEMENTED | Generalized Gaussian-beam H_p, boresight, transverse UAV jitter, and HAP convention | HAP jitter value/convention still author-bound |
+| AoA/FOV | IMPLEMENTED_FOR_RESOLVED_INPUT | Two-axis orientation Rayleigh magnitude and hard gate with analytic outage | Turbulence-induced AoA mapping has no validated source; disabled by default |
+| Raw-to-physical T | IMPLEMENTED | No clipping/floor; active values are truncated-renormalized and outages remain zero | Full target distribution awaits unresolved inputs |
+| Effective C_n,phi^2 | BLOCKED | Same-turbulence provenance, derived tau_phi2/c_phi, strict production mapping/value gate | Validated profile-to-phase mapping and author value missing |
+
+This section supersedes neither the historical table above nor the frozen
+mathematical specification. It records implementation alignment and blockers
+only; it does not authorize numerical, training, held-out, or publication
+workflows.
+
 ## Numerical-engineer handoff and exact downstream outputs
 
 The numerical engineer must leave publication execution blocked until all
@@ -210,14 +291,17 @@ bound. It must not import the smoke/legacy constants.
 
 Pass exactly:
 
-- to the QAM/PS/VA agent: instantaneous `[log10(T),epsilon]`, where `T` is
-  power transmittance and epsilon is input-referred SNU, plus split weights and
-  oracle/iid metadata; do not pass `T_eff` or SNR as a substitute;
-- to the CV-QKD agent: the identical instantaneous `T` and epsilon arrays,
-  together with the identical physical modulation ensemble supplied by the
-  transmitter; do not fold detector efficiency, electronic noise, or an RF
-  path-loss convention into either channel coordinate;
-- for provenance: raw `T`, epsilon, radial displacement, physical support,
-  every approved/derived channel parameter, stream seeds, realization hashes,
-  and the explicit assumptions `T independent of epsilon`, `iid`,
-  `zero-boresight`, and `exact CSI oracle`.
+- to the QAM/PS/VA agent: instantaneous `[log10(T),epsilon_base]` for active
+  `T>0` states, where `T` is power transmittance and epsilon_base is
+  input-referred SNU; preserve outage masks and zero-key semantics outside the
+  policy feature path, and do not pass `T_eff` or SNR as a substitute;
+- to the CV-QKD agent: the identical instantaneous `T` and epsilon_base
+  arrays, the derived `epsilon_total`, and the identical physical modulation
+  ensemble supplied by the transmitter; do not fold detector efficiency,
+  electronic noise, or an RF path-loss convention into either channel
+  coordinate;
+- for provenance: raw `T_raw`, physical `T`, epsilon_base, radial displacement,
+  H_sc/B_AoA factors or hashes, every approved/derived channel parameter,
+  stream seeds, realization hashes, and the explicit assumptions `T independent
+  of epsilon_base`, `iid`, the declared boresight/jitter conventions, and
+  `exact CSI oracle`.

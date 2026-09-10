@@ -1286,3 +1286,108 @@ constellation/PMF/orbit diagnostics remain permissible as non-publication
 preliminary work. Target phase/channel/security/SKR figures remain blocked until
 the listed implementation and numerical gates are separately authorized and
 verified.
+
+## DEC-0041 - Implement full physically admissible Z-interval Holevo maximum
+
+Date: 2026-09-10
+
+Status: ACTIVE IMPLEMENTATION DECISION; NUMERICAL CERTIFICATION BLOCKED
+
+### Decision
+
+Implement the frozen `Z_minus`, `Z_plus`, `Z_phys`, `Z_L`, and `Z_U` equations
+in the active Holevo path. For every valid interval, evaluate the existing
+covariance/entropy functional over a deterministic closed-interval candidate
+grid and bounded refinement of every grid cell, including both boundaries;
+select the maximum without assuming monotonicity. For an empty interval or
+candidate physicality failure, fail closed with structured diagnostics.
+
+### Evidence
+
+- EVID-0056
+- `src/cvqkd/holevo.py`
+- `tests/test_holevo_interval.py`
+- `docs/EQUATIONS.md`
+- `docs/PAPER_CODE_ALIGNMENT.md`
+
+### Consequences
+
+`HolevoResult.z` now denotes the selected `Z_star`, and its diagnostics expose
+the interval endpoints, physical bound, width, selected value, maximizing
+location, and security-domain validity. The selected covariance uses Z directly.
+The phase/post-action epsilon chain, policy features, source-moment backend,
+and raw-SKR ordering are unchanged. The value function is only piecewise
+differentiable because candidate/interval argmax changes are nonsmooth.
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; existing numerical
+artifacts do not certify the new target functional.
+
+## DEC-0043 - Align the active composite channel before numerical work
+
+Date: 2026-09-10
+
+Status: ACTIVE IMPLEMENTATION DECISION; SCIENTIFIC MAPPINGS BLOCKED
+
+### Decision
+
+Use one common altitude-dependent C_n^2(h) turbulence provenance for
+scintillation, effective phase, and optional AoA. Remove the legacy
+constant-C_n^2 beam-wander term from the active target sampler while retaining
+the equation only as a marked legacy helper. Implement the source-supported
+Rician pointing, normalized lognormal scintillation, hard AoA gate, raw-T
+diagnostics, and truncated physical-domain admission. Do not invent the
+profile-to-phase, aperture-averaging, or turbulence-to-AoA mappings; unresolved
+production choices remain explicit and fail closed.
+
+### Evidence
+
+- EVID-0058
+- src/channel/fso_channel.py
+- src/channel/scintillation.py
+- src/channel/aoa.py
+- tests/test_composite_channel.py
+- tests/test_channel_provenance.py
+- tests/test_holevo_resolution.py
+
+### Consequences
+
+The policy remains on (T, epsilon_base), and one post-action epsilon_total
+continues to feed both MI and Holevo. Production configuration remains
+blocked by unresolved profile/aperture/AoA/phase choices. Full-Z numerical
+resolution is tested at 17/33/65/129 candidates but is not certified.
+Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## DEC-0042 - Retain unresolved Cn_phi2 and bind canonical provenance
+
+Date: 2026-09-10
+
+Status: ACTIVE CONFIGURATION DECISION; AUTHOR FREEZE BLOCKED
+
+### Decision
+
+Retain `channel.cn_phi2_m_minus_two_thirds: null` in production
+configuration. Treat `Cn_phi2` as an explicitly prescribed, scenario-level
+effective representation of the same physical turbulence in `m^(-2/3)`,
+separate from the legacy `cn2_m_minus_two_thirds` compatibility field and
+without an evidenced mapping from an altitude-dependent `C_n^2(h)` profile.
+Derive `tau_phi2` and `c_phi` from `Cn_phi2`, SI wavelength, and the resolved
+link distance; do not expose an independent `c_phi` configuration value.
+Persist the canonical phase provenance record in active run/checkpoint
+metadata and retain existing resolved-config hash binding.
+
+### Evidence
+
+- EVID-0057
+- `src/channel/phase_noise.py`
+- `scripts/_train.py`
+- `configs/default.yaml`
+- `docs/PHYSICAL_PARAMETER_AUDIT.md`
+
+### Consequences
+
+The explicit zero and nonzero values in focused tests remain test-only, and
+the separate configured/current `cn2` value is not a phase substitute. Target
+entry points continue to fail closed while the author value is null. The
+policy input remains `(T, epsilon_base)`, the same post-action
+`epsilon_total` remains the MI/Holevo input, and the full-Z Holevo interval is
+unchanged. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; no
+training, target evaluation, certification, or numerical approval is granted.

@@ -2162,3 +2162,179 @@ access was performed by this audit.
 
 This is documentation/source inspection evidence, not a scientific result,
 security certification, or authorization to run the target model.
+
+## EVID-0055 - Causal phase/post-action noise implementation
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; TARGET PARAMETER READINESS BLOCKED
+
+### Claim
+
+The implementation now samples and names the exogenous channel quantity as
+(\epsilon_{\mathrm{base}}), passes it to the adaptive transmitter, computes
+the canonical scenario-level phase coefficient and
+(\epsilon_{\mathrm{total}}=\epsilon_{\mathrm{base}}+c_\phi V_A) after the
+transmitter action, and passes the same derived tensor to MI and the existing
+lower-endpoint Holevo interface. No (C_{n,\phi}^2) production value was
+invented; the default target configuration remains null and target entry
+points fail closed.
+
+### Verification
+
+- Command: `.\\.venv\\Scripts\\python.exe -m unittest tests.test_phase_noise tests.test_pipeline_consistency tests.test_channel_state_distribution tests.test_baseline_development_workflow tests.test_baseline_cached_source_moments -v`
+- Result: 27 tests passed in 2.015 seconds; a supplemental 8-test PS/GS/
+  gradient/controller selection also passed in 0.541 seconds.
+- Additional static checks: targeted `py_compile` passed and `git diff --check`
+  passed.
+- The adaptive-(V_A) regression test exercised the SKR gradient through
+  (V_A\rightarrow\epsilon_{\mathrm{total}}); the direct algebra test
+  verified (d\epsilon_{\mathrm{total}}/dV_A=c_\phi).
+
+### Scope and limitations
+
+The existing Holevo (Z_-)-only algorithm was not modified. Composite
+scintillation/AoA/raw-(T), full-(Z) maximization, training, publication-scale
+Monte Carlo, certification, and final-test access were not run or implemented.
+This entry is implementation evidence, not target-model numerical or
+publication evidence.
+
+## EVID-0056 - Full physically admissible Z-interval Holevo implementation
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; TARGET NUMERICAL REBINDING BLOCKED
+
+### Claim
+
+The active Holevo path now computes `Z_minus`, `Z_plus`, `Z_phys`, and their
+closed physical intersection using the already-derived post-action
+`epsilon_total`. It fails closed with `SecurityDomainError` and structured
+interval diagnostics when the intersection is empty or a candidate covariance
+fails physicality. For valid intervals it evaluates the existing standard-form
+covariance and entropy functional over a deterministic fixed grid plus bounded
+golden-section refinement in every grid cell, retains both boundaries, and
+returns the selected `Z_star` and `chi_BE_ub`. The covariance cross block uses
+the selected Z directly, with no additional `sqrt(T)` factor.
+
+### Verification
+
+- Command: `.\\.venv\\Scripts\\python.exe -m unittest tests.test_holevo_interval -q`
+- Result: 11 tests passed.
+- Command: `.\\.venv\\Scripts\\python.exe -m unittest tests.test_holevo_interval tests.test_phase_noise tests.test_pipeline_consistency tests.test_channel_state_distribution tests.test_baseline_development_workflow tests.test_baseline_cached_source_moments -q`
+- Result: 38 tests passed in 3.969 seconds.
+- Selected gradient and C4 backend command: 11 tests passed in 1.949 seconds.
+- Selected cached shared-source downstream command: 2 tests passed.
+- Targeted `py_compile`, `git diff --check`, and the current
+  `FINAL_MODEL_SPEC.md` SHA-256 check passed; the hash remains
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`.
+
+### Known pre-existing test blockers
+
+- A 12-test legacy C4 backend selection ran 11 tests and encountered one
+  pre-existing `NameError` because `test_fast_path_vjp_is_finite_at_repeated_sector_spectrum`
+  references an undefined local `result`.
+- A 25-test legacy gradient/optimizer selection ran 22 tests and encountered
+  three pre-existing `FULL_SUPPORT_FALLBACK_EVALUATION_ONLY` errors. The
+  arbitrary-precision fallback remains evaluation-only and was not changed.
+
+### Scope and limitations
+
+The fixed grid/refinement maximum is a deterministic numerical implementation;
+it is not a new continuous-domain or numerical-certification theorem. Existing
+MI/Gram evidence remains bound to the prior scalar-epsilon/lower-endpoint path
+and must be rebound before target security/SKR claims. No C_n_phi2 value was
+invented, and no training, certification, publication-scale Monte Carlo,
+final-test access, or held-out evaluation was performed.
+
+## EVID-0057 - Cn_phi2 scientific and configuration freeze audit
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; AUTHOR FREEZE BLOCKED
+
+### Claim
+
+`channel.cn_phi2_m_minus_two_thirds` is a scenario-level effective phase
+turbulence input in `m^(-2/3)`. The repository provides no validated mapping
+from the altitude-dependent `C_n^2(h)` scenario to this effective scalar, so
+the phase and scintillation quantities remain distinct derived representations
+of one physical source. The
+production value remains `null`; no author-approved or literature-derived
+phase value was found. `c_phi` is derived from the canonical `Cn_phi2`, SI
+wavelength, and `LinkGeometry` link distance rather than configured independently.
+
+### Candidate audit
+
+The only `Cn_phi2` numeric values found were explicit test fixtures: `0`,
+`1e-16`, and `2e-16 m^(-2/3)`. They are classified `TEST_ONLY` and are not
+publication candidates. The active `cn2_m_minus_two_thirds=1e-16` value is a
+separate legacy compatibility input and was not promoted to `Cn_phi2`.
+
+### Verification
+
+- Command: `.\\venv\\Scripts\\python.exe -m unittest tests.test_phase_parameter_freeze tests.test_phase_noise tests.test_pipeline_consistency tests.test_holevo_interval tests.test_baseline_development_workflow tests.test_baseline_cached_source_moments -v`
+- Result: 42 focused tests passed in 7.517 seconds.
+- Command: targeted `py_compile` over all changed Python entry points/modules/tests.
+- Result: `CURRENTLY_VERIFIED_PASS`.
+- `git diff --check` and the current `FINAL_MODEL_SPEC.md` SHA-256 check were
+  run after the audit; the frozen specification remained unchanged.
+
+### Scope and limitations
+
+The freeze template proposes no weak/nominal/strong numeric scenarios because
+the repository contains no defensible approved values. Provenance is recorded
+alongside existing scalar coefficients and existing resolved-config hashing is
+retained. No training, target/publication Monte Carlo, certification,
+final-test, held-out evaluation, or numerical approval was performed.
+
+## EVID-0058 - PRE-Numerical composite-channel alignment
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; PRODUCTION MAPPINGS BLOCKED
+
+### Claim
+
+The active channel architecture now composes deterministic Beer--Lambert
+atmospheric loss, normalized lognormal scintillation, generalized Rician
+pointing, and a hard AoA gate as
+T_raw = eta_atm H_sc H_p B_AoA. Active physical admission rejects raw values
+above one rather than clipping or flooring them, retains an outage zero, and
+records p_out, p_in, p_above_one, raw/physical means, delta_T, and provenance.
+The active sampler does not call the legacy constant-C_n^2 beam-wander
+variance; sigma_z is excluded from pointing and yaw from AoA variance.
+
+### Scientific blockers
+
+No supported Hufnagel--Valley/profile parameter set, aperture-averaging
+mapping from sigma_R0^2 to v_sc, turbulence-induced AoA mapping, or validated
+profile-to-effective-C_n,phi^2 mapping was found. Production configuration
+therefore remains unresolved/null and fails closed.
+
+### Verification
+
+- tests.test_composite_channel, tests.test_channel_provenance, and
+  tests.test_holevo_resolution: CURRENTLY_VERIFIED_PASS.
+- Existing channel/state/diagnostic, phase, pipeline, and full-Z focused
+  suites: CURRENTLY_VERIFIED_PASS.
+- Scoped command covering those modules plus the existing MI, SKR,
+  invalid-input, and cached-baseline invariants: CURRENTLY_VERIFIED_PASS;
+  90 tests passed in 2.744 seconds.
+- Targeted py_compile over changed Python files: CURRENTLY_VERIFIED_PASS.
+- git diff --check and frozen FINAL_MODEL_SPEC SHA-256 check:
+  CURRENTLY_VERIFIED_PASS; SHA-256 remains
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`.
+- The broader legacy gradient/optimizer selection remains separately
+  `FAILED` with seven `FULL_SUPPORT_FALLBACK_EVALUATION_ONLY` errors; the
+  evaluation-only full-support guard was not weakened.
+- Worker-backed pointwise/full-support certification tests: `NOT_RUN` to
+  completion under the lifecycle restriction.
+- Training, publication-scale Monte Carlo, certification, held-out evaluation,
+  and final-test access: NOT_RUN by policy.
+
+### Scope
+
+The 17/33/65/129 full-Z cases are numerical-resolution diagnostics only.
+Existing numerical artifacts remain bound to their prior provenance and do not
+certify this composite target.

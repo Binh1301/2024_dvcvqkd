@@ -216,6 +216,7 @@ class TestCommonPeakPhotonDomain(unittest.TestCase):
                 beta_reconciliation=0.95, noise_samples_per_symbol=1,
                 density_eigenvalue_tolerance=1e-13, generator=torch_generator(8801),
                 gradient_clip_norm=1.0,
+                phase_coefficient=0.0,
             )
         self.assertFalse(result.peak_feasible_step_accepted)
         for name, value in model.state_dict().items():

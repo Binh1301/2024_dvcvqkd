@@ -112,6 +112,7 @@ class GradientTests(unittest.TestCase):
                     noise_samples_per_symbol=2,
                     density_eigenvalue_tolerance=1e-13,
                     generator=torch.Generator().manual_seed(900 + len(mode)),
+                    phase_coefficient=0.0,
                 )
                 (-evaluation.key_rate.fading_average_raw).backward()
                 target = getattr(model, target_name)
@@ -133,6 +134,7 @@ class GradientTests(unittest.TestCase):
             noise_samples_per_symbol=2,
             density_eigenvalue_tolerance=1e-13,
             generator=torch.Generator().manual_seed(1900),
+            phase_coefficient=0.0,
         )
         (-evaluation.key_rate.fading_average_raw).backward()
         for target_name in ("ps_network", "gs_model", "va_network"):

@@ -15,7 +15,7 @@ class ProtocolAssumptions:
     electronic_noise_snu: float | None = None
     finite_size: bool = False
     composable_security: bool = False
-    csi: str = "exact instantaneous (T, epsilon) oracle"
+    csi: str = "exact instantaneous (T, epsilon_base) oracle"
     feedback_model: str | None = None
     security_scope: str = "author-accepted asymptotic covariance-based DM-CV-QKD bound"
     attack_class: str | None = None

@@ -3,16 +3,23 @@
 ## Physical assumptions
 
 - The HAP is Alice/transmitter and the UAV is Bob/receiver.
-- The active physical state uses power transmittance \(0<T\le1\); field
-  attenuation is \(\sqrt T\).
+- The sampled physical state uses power transmittance \(0\le T\le1\); field
+  attenuation is \(\sqrt T\) on active states, while (T=0) is an outage.
 - The intended raw fading factor is
   \(T_{\mathrm{raw}}=\eta_{\mathrm{atm}}H_{\mathrm{sc}}H_{\mathrm p}B_{\mathrm{AoA}}\).
   AoA outage gives \(T=0\) and \(K=0\).
-- \(C_{n,\phi}^2\) is independently prescribed per turbulence scenario,
-  fixed within that scenario, and is not derived from \(C_n^2(h)\).
-- Turbulence beam wandering is neglected in the intended current model; the
-  repository's existing sampler still contains a constant-\(C_n^2\) beam-wander
-  term and therefore remains a code mismatch.
+- One physical altitude-dependent \(C_n^2(h)\) turbulence scenario is the
+  common source for scintillation, the effective phase scalar, and optional AoA
+  turbulence. The mapping from that profile to \(C_{n,\phi}^2\) is not yet
+  validated; a scalar must not be treated as an independent atmosphere.
+- Explicit turbulence-induced beam wandering is neglected in the active target
+  model. The old constant-\(C_n^2\) equation remains only as a marked legacy
+  diagnostic and is not called by the active sampler.
+- \(H_{\mathrm{sc}}\) uses a normalized lognormal law only after an explicit
+  \(v_{\mathrm{sc}}\) choice. The repository does not infer aperture averaging
+  from \(\sigma_{R0}^2\).
+- AoA turbulence is explicitly disabled unless an externally validated value
+  and provenance are supplied; yaw is excluded from the orientation variance.
 - The phase model is a two-stage surrogate: Rytov-based phase distortion followed
   by a CV-QKD phase-noise mapping. It is not an exact unified derivation.
 - Propagation uses \(\lambda_m=10^{-9}\lambda_{nm}\). Empirical extinction may
@@ -54,8 +61,10 @@
 - \(c_\phi=\tau_{\phi2}+\tau_{\phi2}^2/4\).
 - \(\xi_{\mathrm{phase}}=c_\phi V_A\) and
   \(\epsilon_{\mathrm{total}}=\epsilon_{\mathrm{base}}+\xi_{\mathrm{phase}}\).
-- The current source/configuration does not yet implement these quantities;
-  this is an explicit alignment blocker, not an inferred value.
+- The source implements the two-stage phase equations and records their resolved
+  SI inputs/derived values in `phase_parameter_provenance`; production
+  configuration remains null until an author-approved scenario value exists.
+  Target entry points therefore fail closed rather than infer a value.
 
 ## Numerical assumptions
 

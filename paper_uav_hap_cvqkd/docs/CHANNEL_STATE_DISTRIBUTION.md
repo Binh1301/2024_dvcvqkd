@@ -1,11 +1,13 @@
 # Channel-state distribution
 
-Status: the pre-action sampling contract is implemented; the post-action
-phase-noise transformation is the current model/code blocker.
+Status: the pre-action contract, composite-channel architecture, physical-domain
+admission, and post-action phase-noise transformation are implemented in
+source. Target runs remain parameter-blocked until the unresolved profile,
+aperture, AoA, and common-turbulence phase mappings are frozen.
 
 ## Pre-action state
 
-For every active realization,
+For every sampled realization,
 
 \[
 S=(T,\epsilon_{\mathrm{base}})\sim\mathcal D,
@@ -21,10 +23,11 @@ T_{\mathrm{raw}}
 =\eta_{\mathrm{atm}}H_{\mathrm{sc}}H_{\mathrm p}B_{\mathrm{AoA}}.
 \]
 
-The active domain keeps \(0<T\le1\). It records
-\(p_{>1}=P(T_{\mathrm{raw}}>1)\) and does not silently saturate
-\(T_{\mathrm{raw}}\). An AoA outage has \(B_{\mathrm{AoA}}=0\), \(T=0\), and
-zero key rate.
+The active domain keeps \(0\le T\le1\), with \(T=0\) reserved for the AoA
+outage atom. It records \(p_{>1}=P(T_{\mathrm{raw}}>1)\), raw and physical
+means, and the relative mean discrepancy. Active states use the
+truncated-renormalized law on \(0<T\le1\); no pointwise saturation or floor is
+used. An AoA outage has \(B_{\mathrm{AoA}}=0\), \(T=0\), and zero key rate.
 
 The current base-noise sensitivity law is
 
@@ -41,7 +44,7 @@ by construction because no measured or mechanistic coupling is available.
 
 ## Policy input and post-action state
 
-The policy receives only
+For non-outage states, the policy receives only
 
 \[
 h=[\log_{10}(T),\epsilon_{\mathrm{base}}]^{\mathsf T}.
@@ -63,12 +66,14 @@ an independent coordinate and must be used consistently in MI and security.
 
 ## Current code boundary
 
-The current implementation samples transmittance and excess_noise_snu
-independently, then passes the latter unchanged to the PS,
-adaptive-\(V_A\), MI, and Holevo paths. It has no phase coefficient, no
-post-action epsilon construction, no scintillation factor, no AoA outage, and no
-raw-transmittance diagnostic. Existing channel artifacts therefore describe the
-current sampler, not the complete target distribution above.
+The active implementation composes eta_atm, normalized lognormal
+\(H_{\mathrm{sc}}\), generalized Rician \(H_{\mathrm p}\), and a hard AoA
+gate, then admits only physical \(T\). The scalar
+cn2_m_minus_two_thirds is not used as active beam-wander input. The canonical
+phase API is present, but the production common-turbulence mapping/value is
+unresolved and target entry points fail closed. An explicit v_sc_override is
+available for non-publication fixtures; no aperture law is inferred. The
+policy receives only positive-\(T\) states and never evaluates log10(0).
 
 ## Split generation and reproduction
 
@@ -85,6 +90,8 @@ identical realization hashes, and exact paired-state overlap.
   \(\epsilon_{\mathrm{total}}\), and the identical physical ensemble.
 - Provenance: raw \(T_{\mathrm{raw}}\), admitted \(T\), all fading components,
   base noise, derived phase noise, seeds, hashes, and outage/overflow counts.
+  The active record binds geometry, wavelength, visibility, profile/scintillation
+  status, jitter conventions, boresight, AoA status/FOV, and raw-\(T\) treatment.
 
 Do not pass received-power SNR, detector-output noise, or epsilon_total as a
 policy input.
