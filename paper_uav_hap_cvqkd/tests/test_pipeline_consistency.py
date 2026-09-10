@@ -5,7 +5,7 @@ from unittest.mock import patch
 import torch
 
 from src.modulation.joint_ps_gs import JointTransmitter
-from src.optimization.trainer import evaluate_transmitter
+from src.optimization.trainer import EnergyBudgetController, evaluate_transmitter, train_step
 
 
 class PipelineConsistencyTests(unittest.TestCase):
@@ -69,19 +69,123 @@ class PipelineConsistencyTests(unittest.TestCase):
                 generator=torch.Generator().manual_seed(3),
             )
 
-    def test_policy_path_rejects_aoa_outage_without_evaluating_log10_zero(self):
+    def test_policy_path_skips_aoa_outage_and_returns_zero_rate(self):
         model = JointTransmitter("uniform", fixed_va=2.0)
-        with self.assertRaisesRegex(ValueError, "outage"):
-            evaluate_transmitter(
+        seen_transmittance = []
+
+        def fake_mi(_ensemble, transmittance, *_args, **_kwargs):
+            seen_transmittance.append(transmittance.clone())
+            return torch.full((transmittance.numel(),), 0.5, dtype=torch.float64)
+
+        def fake_holevo(ensemble, transmittance, *_args, **_kwargs):
+            seen_transmittance.append(transmittance.clone())
+            return types.SimpleNamespace(
+                chi_be=torch.full(
+                    (ensemble.probabilities.shape[0],), 0.1, dtype=torch.float64
+                )
+            )
+
+        with patch(
+            "src.optimization.trainer.discrete_mutual_information", side_effect=fake_mi
+        ), patch(
+            "src.optimization.trainer.holevo_information", side_effect=fake_holevo
+        ):
+            result = evaluate_transmitter(
                 model,
-                torch.tensor([0.0], dtype=torch.float64),
-                torch.tensor([0.001], dtype=torch.float64),
+                torch.tensor([0.0, 0.1], dtype=torch.float64),
+                torch.tensor([0.001, 0.002], dtype=torch.float64),
                 beta_reconciliation=0.95,
                 noise_samples_per_symbol=1,
                 density_eigenvalue_tolerance=1e-13,
                 generator=torch.Generator().manual_seed(30),
                 phase_coefficient=0.0,
             )
+
+        self.assertEqual(result.active_mask.tolist(), [False, True])
+        self.assertEqual(result.ensemble.probabilities.shape[0], 1)
+        self.assertEqual(len(seen_transmittance), 2)
+        for transmittance in seen_transmittance:
+            torch.testing.assert_close(
+                transmittance, torch.tensor([0.1], dtype=torch.float64)
+            )
+        torch.testing.assert_close(
+            result.key_rate.instantaneous_raw,
+            torch.tensor([0.0, 0.95 * 0.5 - 0.1], dtype=torch.float64),
+        )
+
+    def test_mixed_outage_batch_preserves_active_gradient(self):
+        model = JointTransmitter("va", v_min=0.5, v_max=3.0, n_peak_photons=30.0)
+
+        def fake_mi(ensemble, _transmittance, epsilon_total, **_kwargs):
+            return epsilon_total
+
+        def fake_holevo(ensemble, *_args, **_kwargs):
+            return types.SimpleNamespace(
+                chi_be=torch.zeros(
+                    ensemble.probabilities.shape[0], dtype=torch.float64
+                )
+            )
+
+        with patch(
+            "src.optimization.trainer.discrete_mutual_information", side_effect=fake_mi
+        ), patch(
+            "src.optimization.trainer.holevo_information", side_effect=fake_holevo
+        ):
+            result = evaluate_transmitter(
+                model,
+                torch.tensor([0.0, 0.1], dtype=torch.float64),
+                torch.tensor([0.001, 0.002], dtype=torch.float64),
+                beta_reconciliation=0.95,
+                noise_samples_per_symbol=1,
+                density_eigenvalue_tolerance=1e-13,
+                generator=torch.Generator().manual_seed(31),
+                phase_coefficient=0.25,
+            )
+
+        (-result.key_rate.fading_average_raw).backward()
+        gradients = [
+            parameter.grad
+            for parameter in model.va_network.parameters()
+            if parameter.grad is not None
+        ]
+        self.assertTrue(gradients)
+        self.assertTrue(any(bool(torch.any(gradient != 0.0)) for gradient in gradients))
+
+    def test_train_step_excludes_outage_from_policy_update(self):
+        model = JointTransmitter("va", v_min=0.5, v_max=3.0, n_peak_photons=30.0)
+        optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+
+        def fake_mi(ensemble, _transmittance, epsilon_total, **_kwargs):
+            return epsilon_total
+
+        def fake_holevo(ensemble, *_args, **_kwargs):
+            return types.SimpleNamespace(
+                chi_be=torch.zeros(
+                    ensemble.probabilities.shape[0], dtype=torch.float64
+                )
+            )
+
+        with patch(
+            "src.optimization.trainer.discrete_mutual_information", side_effect=fake_mi
+        ), patch(
+            "src.optimization.trainer.holevo_information", side_effect=fake_holevo
+        ):
+            result = train_step(
+                model,
+                optimizer,
+                torch.tensor([0.0, 0.1], dtype=torch.float64),
+                torch.tensor([0.001, 0.002], dtype=torch.float64),
+                beta_reconciliation=0.95,
+                noise_samples_per_symbol=1,
+                density_eigenvalue_tolerance=1e-13,
+                generator=torch.Generator().manual_seed(32),
+                energy_budget_controller=EnergyBudgetController(3.0, 0.1),
+                phase_coefficient=0.0,
+            )
+
+        self.assertEqual(result.active_mask.tolist(), [False, True])
+        self.assertAlmostEqual(float(result.key_rate.instantaneous_raw[0].detach()), 0.0)
+        self.assertTrue(result.peak_feasible_step_accepted)
 
     def test_phase_coefficient_cannot_change_policy_action(self):
         model = JointTransmitter("full", v_min=0.5, v_max=3.0)

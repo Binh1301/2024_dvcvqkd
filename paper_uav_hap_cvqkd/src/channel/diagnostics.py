@@ -40,12 +40,14 @@ def composite_transmittance_diagnostics(
             raise ValueError("aoa_gate must be a zero/one array matching transmittances.")
     raw_mean = float(np.mean(raw))
     physical_mean = float(np.mean(physical))
+    mean_difference = raw_mean - physical_mean
     return {
         "p_out": float(np.mean(gate == 0)),
         "p_in": float(np.mean(gate == 1)),
         "p_above_one": float(np.mean(raw > 1.0)),
         "raw_mean_T": raw_mean,
         "physical_mean_T": physical_mean,
+        "mean_difference_T": mean_difference,
         "delta_T": (
             None
             if physical_mean == 0.0

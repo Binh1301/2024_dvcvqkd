@@ -1356,6 +1356,31 @@ blocked by unresolved profile/aperture/AoA/phase choices. Full-Z numerical
 resolution is tested at 17/33/65/129 candidates but is not certified.
 Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
 
+## DEC-0047 - Reuse stable AP source moments for exploratory B-D subsets
+
+Date: 2026-09-10
+
+Status: ACTIVE FAIL-CLOSED EXPLORATORY DECISION
+
+### Decision
+
+Reuse the 900-digit-stable \(C,w\) only because the exact ensemble hash is
+identical across Cases A-D. Evaluate B-D on 16 active states each through the
+existing full-Z path. Keep the reuse evaluation-only; do not route it into
+training, certification, or publication workflows.
+
+### Evidence
+
+- EVID-0062
+- EVID-0063
+- results/exploratory_cases_BD_full_security_20260910.json
+
+### Consequences
+
+Cases B-D obtain bounded exploratory MI/Holevo/raw-K values. Case D retains
+outage rows at K=0 and satisfies the active-fraction identity. No lifecycle
+gate, physical parameter, Gram gate, or security equation was changed.
+
 ## DEC-0042 - Retain unresolved Cn_phi2 and bind canonical provenance
 
 Date: 2026-09-10
@@ -1391,3 +1416,191 @@ policy input remains `(T, epsilon_base)`, the same post-action
 `epsilon_total` remains the MI/Holevo input, and the full-Z Holevo interval is
 unchanged. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; no
 training, target evaluation, certification, or numerical approval is granted.
+## DEC-0044 - Run only non-publication exploratory composite cases
+
+Date: 2026-09-10
+
+Status: ACTIVE FAIL-CLOSED EXPLORATORY DECISION
+
+### Decision
+
+Permit Cases A--D with explicit development-only scintillation, pointing, and
+AoA values, \(N=1000\) channel samples per case, and explicit zero phase. Keep
+all unresolved mappings labeled exploratory. Do not invoke training, baseline
+selection, final-test, certification, or the arbitrary-precision Holevo
+fallback.
+
+Accept the outage-aware active-only SKR plumbing and relative transmittance
+diagnostic fix as the minimum code change required for the case harness.
+
+### Evidence
+
+- EVID-0059
+- EVID-0060
+- results/exploratory_cases_20260910.json
+
+### Consequences
+
+Channel and MI preflight behavior may be reported as exploratory only. Holevo,
+active-K, and outage-weighted-K remain unreported because the complex128 fast
+gate fails and the fallback is evaluation-only. Lifecycle remains
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## DEC-0046 - Accept one bounded AP-backed Case A security result
+
+Date: 2026-09-10
+
+Status: ACTIVE FAIL-CLOSED EXPLORATORY DECISION
+
+### Decision
+
+Accept the one-state Case A AP-backed source-moment/full-Z result as
+EXPLORATORY_EVALUATION_ONLY. Preserve the complex128 fast gate, keep AP
+evaluation-only, and do not generalize the result to Cases B-D, learned
+training, certification, or publication.
+
+### Evidence
+
+- EVID-0062
+- results/exploratory_case_A_full_security_20260910.json
+- src/cvqkd/gram_moments.py
+- scripts/full_support_c4_worker.py
+
+### Consequences
+
+Case A has a finite exploratory \(C,w,Z_\star,\chi_{BE}^{ub},K\) result.
+The numerical artifact remains bounded to one exact ensemble and a single
+evaluation-only AP route. Lifecycle remains
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## DEC-0045 - Preserve the Gram fast gate after numerical root-cause audit
+
+Date: 2026-09-10
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Classify the exploratory uniform-ensemble failure as
+FLOATING_POINT_ROUNDOFF plus NUMERICAL_ILL_CONDITIONING, not probability
+support loss, constellation collapse, or an implementation-indexing bug.
+Preserve the complex128 gate, do not add clipping/jitter/support truncation, and
+do not enable the arbitrary-precision fallback for training. Keep the fallback
+evaluation-only and require a separate bounded one-state security run before
+claiming exploratory Holevo/K completion.
+
+### Evidence
+
+- EVID-0061
+- results/exploratory_cases_20260910.json
+- src/cvqkd/gram_moments.py
+- scripts/full_support_c4_worker.py
+
+### Consequences
+
+No numerical tolerance or security formula changed. The current exploratory
+cases have finite MI/channel metrics but incomplete Holevo/K metrics. Lifecycle
+remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## DEC-0048 - Classify complex128 differentiable path as blocked
+
+Date: 2026-09-10
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Classify the current differentiable complex128 full-support source-moment path
+as EXACT_FULL_SUPPORT_NOT_PRACTICAL_IN_COMPLEX128 for the investigated exact
+256-state ensemble. Preserve the gate and AP evaluation-only boundary. Do not
+implement clipping, jitter, support reduction, tolerance weakening, or an
+unproven reformulation.
+
+### Evidence
+
+- EVID-0064
+- src/cvqkd/gram_moments.py
+- src/cvqkd/spectral_frechet.py
+- tests/test_holevo_interval.py
+- tests/test_gradients.py
+
+### Consequences
+
+The AP-backed forward evaluator is exploratory only. Adaptive training remains
+unauthorized and the next work is a separately scoped differentiable numerical
+design investigation.
+
+## DEC-0049 - Stop AP custom-backward validation at the fallback definition mismatch
+
+Date: 2026-09-10
+
+Status: SUPERSEDED BY DEC-0050; HISTORICAL FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Classify this feasibility run as `AP_CUSTOM_BACKWARD_NOT_VALIDATED`. Preserve
+the isolated AP implicit-adjoint prototype and the complex128 production gate,
+but do not integrate the prototype into `gram_moments.py`, `holevo.py`, or
+`trainer.py`. Do not repair or regenerate the existing AP/security artifacts in
+this task.
+
+The stop condition is a newly verified forward-definition mismatch: the AP
+worker's `aa=sr*x2.T` does not implement the current C4 reference
+(G_sD G_{s-1}^{-1}=x2.T), so its stored (w) cannot be used as the forward
+target for custom-backward validation. The small-fixture adjoint test is not
+enough to authorize a 256-state gradient claim.
+
+### Evidence
+
+- EVID-0065
+- `results/ap_custom_backward_case_A_20260910.json`, SHA-256
+  `dc11c998f755d328906558b949444e4bf45a088657938f7b4b1c1a13daaf58d4`
+- `src/cvqkd/ap_custom_backward.py`
+- `tests/test_ap_custom_backward.py`
+- `src/cvqkd/gram_moments.py`, `tests/test_full_support_c4_gram_backend.py`
+- `scripts/full_support_c4_worker.py`
+
+### Consequences
+
+The prototype remains experimental and evaluation-only. No Case A AP
+directional finite-difference suite, torch PS/GS/V_A chain, full-Z backward,
+optimizer step, training, certification, final-test access, or publication-scale
+evaluation is authorized. Existing worker-backed C/w/security artifacts remain
+historical pending one separately scoped AP fallback correction and artifact
+rebind. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive
+training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## DEC-0050 - Accept corrected AP worker and bounded Case A rebind
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED EXPLORATORY DECISION
+
+### Decision
+
+Accept the one-line AP worker correction `aa=x2.T` as matching the frozen
+production C4 (A_s=G_sDG_{s-1}^{-1}) definition. Accept the corrected 800/900
+digit Case A source moments and the bounded corrected full-Z result as current
+exploratory evidence only. Mark all old worker-backed (w)-dependent artifacts
+`SUPERSEDED_WRONG_AP_W`; retain their old numbers for provenance.
+
+Do not recompute Cases B-D in this task. Keep the custom backward isolated with
+status `PENDING_CORRECTED_AP_DIRECTIONAL_VALIDATION`.
+
+### Evidence
+
+- EVID-0066
+- `results/ap_worker_corrected_case_A_20260911.json`, SHA-256
+  `f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44`
+- `results/exploratory_case_A_full_security_corrected_20260911.json`, SHA-256
+  `a3b7aaa23635ac5e01e08f3486d4131fe9d17580c51b32ef9b498324fa5723fa`
+- `tests/test_ap_worker_equivalence.py`
+
+### Consequences
+
+Corrected Case A has (w=0.018327610474963502...),
+([Z_L,Z_U]=[0.2914192733053753,0.2934784546975139]),
+(chi_{BE}^{ub}=0.01518919002933572), and raw
+(K=0.004757635492383283). These remain bounded exploratory values; no
+publication, certification, training, final-test, or B-D authorization follows.
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.

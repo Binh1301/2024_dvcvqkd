@@ -8,6 +8,34 @@ The documentation and source alignment audit is complete. No training, threshold
 baseline selection, final-test access, or publication-scale evaluation is
 authorized.
 
+Cases A--D have now completed as EXPLORATORY_ONLY channel/MI preflights at
+N=1000 per case. Full-Z Holevo/K was intentionally not completed after the
+complex128 fast gate failed; the arbitrary-precision fallback remains
+evaluation-only.
+
+The Gram root-cause audit found floating-point roundoff plus severe numerical
+ill-conditioning, not duplicate states or probability support loss. The old AP
+worker w definition was corrected and the bounded Case A result was rebound;
+it remains evaluation-only and must not be used for training or certification.
+
+The corrected Case A AP/source-moment/full-Z result is recorded in EVID-0066.
+EVID-0062, EVID-0063, and all old worker-backed w-dependent artifacts are
+marked SUPERSEDED_WRONG_AP_W.
+
+The old B-D subset is not current evidence. B-D must be recomputed only after
+the corrected Case A source moments are accepted in a separate bounded task.
+
+The short differentiable investigation classified the current exact complex128
+path as EXACT_FULL_SUPPORT_NOT_PRACTICAL_IN_COMPLEX128. The isolated AP
+implicit-adjoint prototype remains PENDING_CORRECTED_AP_DIRECTIONAL_VALIDATION.
+Do not train.
+
+## Exact next numerical action
+
+Recompute the bounded B-D exploratory subsets using the corrected Case A C,w
+and full-Z path. Do not execute that task in the current lifecycle state
+without separate authorization.
+
 ## Priority order
 
 ### P0 — resolve target-model blockers

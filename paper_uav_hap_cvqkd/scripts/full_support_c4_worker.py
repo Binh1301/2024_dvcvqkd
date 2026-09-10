@@ -139,7 +139,7 @@ def _row(p, z, digits):
                 (sr * b).T,
             )
 
-            aa = sr * x2.T
+            aa = x2.T
 
             a.append(aa)
 

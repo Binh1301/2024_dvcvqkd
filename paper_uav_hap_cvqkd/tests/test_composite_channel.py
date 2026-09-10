@@ -195,6 +195,10 @@ class CompositeChannelTests(unittest.TestCase):
         )
         self.assertAlmostEqual(diagnostics["p_above_one"], 1.0 / 3.0)
         self.assertAlmostEqual(diagnostics["p_out"], 1.0 / 3.0)
+        self.assertAlmostEqual(
+            diagnostics["mean_difference_T"],
+            (0.4 + 1.2 + 0.0) / 3.0 - (0.4 + 0.8 + 0.0) / 3.0,
+        )
         self.assertGreater(float(diagnostics["delta_T"]), 0.0)
 
     def test_sampled_transmittance_is_physical_and_has_no_unit_atom(self):
@@ -203,6 +207,9 @@ class CompositeChannelTests(unittest.TestCase):
         self.assertTrue(np.all(result.transmittance <= 1.0))
         self.assertFalse(np.any(result.transmittance == 1.0))
         self.assertEqual(result.metadata["physical_domain_rule"], "truncated_renormalized_active_law")
+        self.assertIn("mean_difference_T", result.metadata)
+        self.assertAlmostEqual(result.metadata["delta_T"], 0.0)
+        self.assertIn("proposal_delta_T", result.metadata)
 
 
 if __name__ == "__main__":

@@ -44,6 +44,7 @@ class Evaluation:
     pointwise_guard_result: PointwiseBatchResult | None = None
     pointwise_guard_committed: bool | None = None
     epsilon_total: torch.Tensor | None = None
+    active_mask: torch.Tensor | None = None
 
 
 @dataclass
@@ -114,13 +115,46 @@ def evaluate_transmitter(
             "phase_coefficient must be explicitly supplied; "
             "the target path does not assume zero phase noise."
         )
-    transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
-    if bool(torch.any(~torch.isfinite(transmittance))) or bool(
-        torch.any(transmittance <= 0.0)
-    ):
-        raise ValueError(
-            "Policy evaluation accepts active T>0 states only; AoA outage T=0 "
-            "states must retain K=0 outside the policy feature path."
+    transmittance, epsilon_base, active_mask = _active_state_tensors(
+        transmittance, epsilon_base
+    )
+    if not bool(torch.all(active_mask)):
+        if not bool(torch.any(active_mask)):
+            raise ValueError("A batch with no active T>0 states has no policy evaluation.")
+        active_evaluation = evaluate_transmitter(
+            transmitter,
+            transmittance[active_mask],
+            epsilon_base[active_mask],
+            beta_reconciliation=beta_reconciliation,
+            noise_samples_per_symbol=noise_samples_per_symbol,
+            density_eigenvalue_tolerance=density_eigenvalue_tolerance,
+            generator=generator,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            density_trace_tolerance=density_trace_tolerance,
+            physicality_tolerance=physicality_tolerance,
+            phase_coefficient=phase_coefficient,
+        )
+        mutual_information = torch.zeros_like(transmittance)
+        mutual_information[active_mask] = active_evaluation.mutual_information
+        chi_be = torch.zeros_like(transmittance)
+        chi_be[active_mask] = active_evaluation.holevo.chi_be
+        epsilon_total = torch.zeros_like(transmittance)
+        epsilon_total[active_mask] = active_evaluation.epsilon_total
+        try:
+            full_holevo = replace(active_evaluation.holevo, chi_be=chi_be)
+        except TypeError:
+            full_holevo = copy.copy(active_evaluation.holevo)
+            full_holevo.chi_be = chi_be
+        return replace(
+            active_evaluation,
+            mutual_information=mutual_information,
+            holevo=full_holevo,
+            key_rate=fading_secret_key_rate(
+                mutual_information, chi_be, beta_reconciliation
+            ),
+            epsilon_total=epsilon_total,
+            active_mask=active_mask,
         )
     ensemble = transmitter(transmittance, epsilon_base)
     epsilon_total = total_excess_noise(
@@ -164,7 +198,33 @@ def evaluate_transmitter(
         constraints,
         ensemble_state_diagnostics(ensemble),
         epsilon_total=epsilon_total,
+        active_mask=active_mask,
     )
+
+
+def _active_state_tensors(
+    transmittance: torch.Tensor,
+    epsilon_base: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
+    epsilon_base = torch.as_tensor(
+        epsilon_base, dtype=torch.float64, device=transmittance.device
+    ).reshape(-1)
+    if epsilon_base.numel() == 1:
+        epsilon_base = epsilon_base.expand_as(transmittance)
+    if epsilon_base.shape != transmittance.shape:
+        raise ValueError("epsilon_base must be scalar or match transmittance.")
+    if bool(torch.any(~torch.isfinite(transmittance))) or bool(
+        torch.any(transmittance < 0.0)
+    ):
+        raise ValueError("transmittance must be finite and nonnegative.")
+    if bool(torch.any(transmittance > 1.0)):
+        raise ValueError("Power transmittance cannot exceed one.")
+    if bool(torch.any(~torch.isfinite(epsilon_base))) or bool(
+        torch.any(epsilon_base < 0.0)
+    ):
+        raise ValueError("epsilon_base must be finite and nonnegative.")
+    return transmittance, epsilon_base, transmittance > 0.0
 
 
 def train_step(
@@ -192,14 +252,13 @@ def train_step(
             "The frozen C4 trainer is fail-closed: standard-form symmetry is mandatory."
         )
     transaction_snapshot = None
-    transmittance = torch.as_tensor(transmittance, dtype=torch.float64).reshape(-1)
-    if bool(torch.any(~torch.isfinite(transmittance))) or bool(
-        torch.any(transmittance <= 0.0)
-    ):
-        raise ValueError(
-            "Training policy features require active T>0 states; outage states "
-            "are not passed through log10(T)."
-        )
+    transmittance, epsilon_base, active_mask = _active_state_tensors(
+        transmittance, epsilon_base
+    )
+    if not bool(torch.any(active_mask)):
+        raise ValueError("A batch with no active T>0 states cannot produce gradients.")
+    active_transmittance = transmittance[active_mask]
+    active_epsilon_base = epsilon_base[active_mask]
     if pointwise_guard is not None:
         transaction_snapshot = snapshot_training_transaction(
             transmitter,
@@ -211,7 +270,7 @@ def train_step(
         # Constructing the final physical ensemble is deterministic.  Rejecting
         # here guarantees no stochastic MI draw or backward pass for an invalid
         # current point.
-        current_ensemble = transmitter(transmittance, epsilon_base)
+        current_ensemble = transmitter(active_transmittance, active_epsilon_base)
         current_guard = pointwise_guard.check(current_ensemble)
         if not current_guard.all_admissible:
             restore_training_transaction(
@@ -279,7 +338,7 @@ def train_step(
     pointwise_committed: bool | None = None
     if transmitter.n_peak_photons is not None:
         try:
-            post_ensemble = transmitter(transmittance, epsilon_base)
+            post_ensemble = transmitter(active_transmittance, active_epsilon_base)
             if pointwise_guard is not None:
                 pointwise_result = pointwise_guard.check(post_ensemble)
                 if not pointwise_result.all_admissible:
@@ -320,7 +379,7 @@ def train_step(
                 optimizer.load_state_dict(optimizer_before_step)
             peak_step_accepted = False
     elif pointwise_guard is not None:
-        post_ensemble = transmitter(transmittance, epsilon_base)
+        post_ensemble = transmitter(active_transmittance, active_epsilon_base)
         pointwise_result = pointwise_guard.check(post_ensemble)
         if not pointwise_result.all_admissible:
             if transaction_snapshot is None:

@@ -4,59 +4,52 @@ Date: 2026-09-10
 
 Lifecycle: NOT_READY_FOR_PUBLICATION_SCALE_RUNS
 
-## Verified
+## Completed
 
-- The active channel path composes `eta_atm * H_sc * H_p * B_AoA`, uses
-  generalized Rician pointing, and admits raw states without clipping or a
-  positive floor. Active-domain rejection preserves the AoA outage atom.
-- Profile-integrated Rytov support, normalized unit-mean lognormal sampling,
-  explicit `v_sc` overrides, AoA gating, and raw/physical diagnostics are
-  implemented. Unresolved production mappings fail closed.
-- The legacy constant-`C_n^2` beam-wander helper remains available only for
-  historical diagnostics and is not called by the active sampler; `sigma_z`
-  and yaw remain excluded from their active variance terms.
-- The policy receives `(log10(T), epsilon_base)` only for positive-T states;
-  `epsilon_total = epsilon_base + c_phi V_A` is derived after the action and
-  the same tensor reaches MI and Holevo. Outages retain `T=0` outside policy
-  evaluation.
-- Full-Z resolution fixtures cover 17/33/65/129 candidates, including
-  interior, boundary, narrow, and near-boundary intervals. This is diagnostic
-  evidence, not certification.
-- The scoped composite/channel/provenance/phase/pipeline/full-Z/MI/SKR/
-  baseline verification passed 90 tests in 2.744 seconds; targeted
-  `py_compile`, `git diff --check`, and the frozen final-spec hash check pass.
-  The broader legacy gradient/optimizer selection has seven
-  `FULL_SUPPORT_FALLBACK_EVALUATION_ONLY` errors and remains evaluation-only;
-  worker-backed pointwise/full-support tests were not completed.
-- No training, publication-scale Monte Carlo, certification, held-out or
-  final-test evaluation was run. Pre-existing dirty-worktree changes were
-  preserved.
+- Added outage-aware active-only evaluation/training behavior: \(T=0\) never
+  reaches policy features, outage raw \(K=0\), active gradients remain live.
+- Added signed mean_difference_T beside relative delta_T diagnostics.
+- Audited the prior Case B/C delta_T anomaly: paired retained samples now
+  define delta_T; proposal-vs-admitted sampling remains proposal_delta_T.
+- Audited the exact Gram failure: no duplicate states or zero probabilities;
+  the cause is FLOATING_POINT_ROUNDOFF plus NUMERICAL_ILL_CONDITIONING.
+- Short differentiable-path investigation localized failure at the C4
+  positive-definite eigengate; sqrt/inverse-sqrt, C, w, and backward are not
+  reached in complex128. Classification:
+  EXACT_FULL_SUPPORT_NOT_PRACTICAL_IN_COMPLEX128.
+- Focused outage/composite tests: 20 passed.
+- Ran four exploratory composite-channel cases at N=1000:
+  deterministic A, explicit-v_sc B, Rician-pointing C, and AoA-outage D.
+- Saved results/exploratory_cases_20260910.json with EXPLORATORY_ONLY status.
 
-## Important files
+## Numerical result boundary
 
-- Composite channel: `src/channel/fso_channel.py`, `scintillation.py`,
-  `aoa.py`, `turbulence.py`, and `state_distribution.py`.
-- Causal phase and active entry-point resolution: `src/channel/phase_noise.py`,
-  `src/optimization/trainer.py`, `scripts/_train.py`, and baseline/evaluation
-  scripts.
-- Current audit/evidence: `docs/PHYSICAL_PARAMETER_AUDIT.md`,
-  `docs/PROJECT_STATE.md`, `docs/EVIDENCE.md`, and `docs/DECISION_LOG.md`.
-- `docs/FINAL_MODEL_SPEC.md` was not modified; its SHA-256 is
-  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`.
+MI preflight values were finite. Full-Z Holevo/K was not completed because the
+fixed 256-QAM fixture failed the complex128 fast gate at approximately
+\(-1.57\times10^{-16}\); the arbitrary-precision fallback is evaluation-only
+and was not run. The broader gradient/optimizer focused selection remains
+FAILED with four pre-existing FULL_SUPPORT_FALLBACK_EVALUATION_ONLY errors.
+
+## Changed files
+
+- src/optimization/trainer.py
+- src/channel/diagnostics.py
+- tests/test_pipeline_consistency.py
+- tests/test_composite_channel.py
+- results/exploratory_cases_20260910.json
+- current-state evidence/decision/project/next-action documents
 
 ## Open blockers
 
-1. AUTHOR DECISION: freeze one common turbulence scenario and its profile,
-   aperture, AoA, and effective-phase choices.
-2. MISSING LITERATURE MAPPING: validate profile-to-`v_sc`, turbulence-to-AoA,
-   and profile-to-effective-`C_n,phi^2` mappings.
-3. NUMERICAL CERTIFICATION: rebind support/tolerance/convergence evidence to
-   the composite post-action/full-Z target path.
-4. LEGACY TEST DEBT: update or scope gradient/optimizer tests that invoke the
-   evaluation-only full-support fallback.
+1. Freeze one author-approved common-turbulence scenario and its profile,
+   aperture-averaging, AoA, and effective phase mappings.
+2. Rebind numerical/security evidence to the composite post-action/full-Z path.
+3. Keep learned training and publication lifecycle closed.
+4. Do not weaken the complex128 gate or enable AP fallback for training.
 
 ## Exact next task
 
-Freeze one author-approved, source-supported common-turbulence scenario
-(profile, aperture mapping, AoA status/mapping, and effective `C_n,phi^2`
-mapping/value), then rebind numerical provenance; do not execute it now.
+Cases B--D now completed bounded 16-active-state full-Z subsets using the
+verified stable AP source moments. The next task is to design one mathematically
+exact hybrid/custom-backward strategy for C/w with an explicit error bound or
+controlled AP directional reference; do not execute it in this handoff.

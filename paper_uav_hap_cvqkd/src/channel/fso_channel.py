@@ -348,10 +348,17 @@ def sample_fso_channel(
         0.0 if candidate_count == 0 else candidate_raw_sum / candidate_count
     )
     raw_mean = float(p_in * candidate_active_raw_mean)
+    paired_raw_mean = float(np.mean(raw))
     physical_mean = float(np.mean(transmittance))
-    delta = (
+    paired_mean_difference = paired_raw_mean - physical_mean
+    paired_delta = (
         None if physical_mean == 0.0
-        else float(abs(raw_mean - physical_mean) / physical_mean)
+        else float(abs(paired_mean_difference) / physical_mean)
+    )
+    proposal_mean_difference = raw_mean - physical_mean
+    proposal_delta = (
+        None if physical_mean == 0.0
+        else float(abs(proposal_mean_difference) / physical_mean)
     )
     candidate_hp_mean = (
         0.0 if candidate_count == 0 else candidate_hp_sum / candidate_count
@@ -465,7 +472,12 @@ def sample_fso_channel(
         ),
         "raw_mean_T": raw_mean,
         "physical_mean_T": physical_mean,
-        "delta_T": delta,
+        "raw_mean_T_unconditioned": raw_mean,
+        "paired_raw_mean_T": paired_raw_mean,
+        "mean_difference_T": paired_mean_difference,
+        "delta_T": paired_delta,
+        "proposal_mean_difference_T": proposal_mean_difference,
+        "proposal_delta_T": proposal_delta,
         "raw_identity_mean_T": raw_identity_mean,
         "raw_candidate_count": candidate_count,
         "raw_candidate_count_including_outages": candidate_count + (sample_count - active_count),

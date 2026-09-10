@@ -2338,3 +2338,335 @@ therefore remains unresolved/null and fails closed.
 The 17/33/65/129 full-Z cases are numerical-resolution diagnostics only.
 Existing numerical artifacts remain bound to their prior provenance and do not
 certify this composite target.
+
+## EVID-0059 - Outage-aware active-state SKR plumbing
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; EXPLORATORY PIPELINE FIX
+
+### Claim
+
+Mixed batches now keep AoA-outage states at exact \(T=0\), skip the policy and
+the \(\log_{10}(T)\) feature for those rows, assign outage raw SKR exactly zero,
+and preserve gradients through active rows. The composite diagnostics now expose
+the signed mean_difference_T alongside the manuscript-relative delta_T.
+
+### Verification
+
+- python -m unittest tests.test_pipeline_consistency tests.test_composite_channel -v
+  — 20 tests passed.
+- Targeted py_compile for changed source/tests — pass.
+- git diff --check — pass.
+
+### Scope
+
+The all-outage training batch fails closed because it has no active gradient
+source. No security formula, phase ordering, PS/GS/VA architecture, or lifecycle
+gate changed.
+
+## EVID-0060 - Four exploratory composite-channel cases
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; EXPLORATORY_ONLY; NOT_PUBLICATION_APPROVED
+
+### Claim
+
+Cases A--D were sampled with \(N=1000\) each using explicit development
+settings. Case A was deterministic atmospheric attenuation; B used
+v_sc_override=0.25; C added Rician pointing with
+sigma_hap_ang_rad=5e-6; D added an external-validated zero-turbulence AoA
+gate with theoretical outage 0.25. Phase was explicitly zero and is not a
+publication-approved parameter.
+
+The channel behaved as expected: A had deterministic positive \(T\); B
+broaded \(T\) with active mean \(H_{\rm sc}\approx1.029\); C reduced mean
+pointing collection; D produced 268/1000 exact outage states versus theoretical
+0.25. MI preflight values were finite. The paired manuscript delta_T is zero
+for these retained raw/physical pairs; the prior nonzero discrepancy is retained
+as proposal_delta_T because proposal and admitted populations differ.
+
+### Evidence
+
+- Artifact: results/exploratory_cases_20260910.json
+- Pre-supersession artifact SHA-256:
+  355ac90e98cd1c2e723a64e2d7fe8af68b360e5a09a64422bffd1870cc0be212
+- Direct one-off Python runner from the project root; no training or
+  publication entry point was invoked.
+
+### Security limitation
+
+Full-Z Holevo/K was not completed. The complex128 fast gate failed on the fixed
+256-QAM fixture with minimum sector eigenvalue approximately
+\(-1.57\times10^{-16}\); the arbitrary-precision fallback is evaluation-only
+and was not run for this exploratory batch. Therefore all chi_BE, active-K,
+and outage-weighted-K fields are intentionally null, not zero or inferred.
+
+## EVID-0061 - Gram/full-support root-cause audit
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; NUMERICAL EVALUATION BLOCKED
+
+### Claim
+
+The exact exploratory uniform 256-QAM ensemble has 256 strictly positive
+probabilities, 256 unique coherent amplitudes, minimum pairwise distance
+0.1084652289, maximum amplitude 1.15044748, mean \(|alpha|^2=0.5\), and
+\(V_A=1\). The complex128 full Gram and all C4 sectors are Hermitian to the
+reported float64 residual, but are severely ill-conditioned: singular minima
+are approximately \(10^{-20}\), with condition numbers \(10^{17}\)–\(10^{19}\).
+
+Arbitrary-precision sector eigensolves on the same binary64 ensemble gave
+minimum residuals of approximately \(10^{-52}\), \(10^{-103}\), \(10^{-203}\),
+\(10^{-403}\), and \(10^{-604}\) at 50, 100, 200, 400, and 600 decimal digits.
+The 600-digit resolution count was 254/256. This establishes floating-point
+roundoff plus extreme numerical ill-conditioning as the root cause; no
+duplicate constellation, zero probability, or sector-indexing bug was found.
+
+### Verification
+
+- Float64 sector/full-Gram diagnostic: 256 positive probabilities and unique
+  states; Hermiticity residual 0.0 at reported precision.
+- Existing fast gate reproduced a negative eigenvalue at approximately
+  \(-1.573e-16\) and infinite condition number.
+- Existing AP worker was run only on the one exact state at 400 and 600 digits
+  before the bounded diagnostic was stopped; no \(C,w,\chi_{BE}\), or K result
+  was promoted from that run.
+- No Gram/Holevo production code or numerical gate was changed.
+
+### Limitations
+
+The mathematical full-support conclusion follows from the distinct coherent
+states and positive probabilities, but the tiny eigenvalue scale was not fully
+resolved to 256/256 within the bounded exploratory budget. This is not
+numerical certification and does not authorize training or target SKR claims.
+
+## EVID-0062 - One bounded AP-backed Case A full-Z security evaluation
+
+Date: 2026-09-10
+
+Status: SUPERSEDED_WRONG_AP_W
+
+### Claim
+
+The exact Case A uniform 256-QAM ensemble completed one bounded
+arbitrary-precision-backed source-moment evaluation at 800 decimal digits.
+Full support resolved at 256/256 with minimum positive eigenvalue approximately
+\(3.973e-618\). The resulting \(C,w\) were transferred to the existing float64
+covariance/full-Z evaluator without changing its equations or gate.
+
+The physical interval was valid:
+
+\[
+[Z_L,Z_U]=[0.2910038617,\;0.2938938663],
+\]
+
+and the full-Z maximum occurred at the lower boundary:
+
+\[
+Z_\star=0.2910038617,\qquad
+\chi_{BE}^{ub}=0.01562624349,
+\qquad
+K=0.00432058203.
+\]
+
+### Evidence
+
+- Artifact: results/exploratory_case_A_full_security_20260910.json
+- Pre-supersession artifact SHA-256:
+  4e12de13919931a0f54ec9dbc895be5249f1194c408bfe3c322239089031dfad
+- AP worker runtime: 290.929 seconds for the one exact state.
+- MI used 64 samples per symbol; \(I_{AB}=0.02099665844\).
+
+### Limitations
+
+This entry is retained as historical evidence only. Its AP worker used the
+wrong (w) definition and all downstream interval/Holevo/K values are stale.
+The corrected Case A result is recorded in EVID-0066.
+
+## EVID-0063 - Exploratory B-D full-Z security subset
+
+Date: 2026-09-10
+
+Status: SUPERSEDED_WRONG_AP_W
+
+### Claim
+
+After exact ensemble identity and C/w stability were established, Cases B-D were
+evaluated on deterministic active security subsets of 16 states using the
+verified 900-digit Case A source moments. No AP calculation was repeated per
+state; no training path was enabled.
+
+Results:
+
+| Case | Mean MI | Mean chi_BE | Mean K active | Mean K all | p_out | Domain failures |
+|---|---:|---:|---:|---:|---:|---:|
+| B | 0.0291497460 | 0.0204856716 | 0.0072065872 | 0.0072065872 | 0 | 0 |
+| C | 0.0267353449 | 0.0188097272 | 0.0065888504 | 0.0065888504 | 0 | 0 |
+| D | 0.0236421496 | 0.0167342180 | 0.0057258242 | 0.0041913033 | 0.268 | 0 |
+
+Case D satisfies the sampled outage identity:
+\(0.732\times0.0057258242=0.0041913033\).
+All 16/16 optima in B-D were at the lower interval boundary; no upper-boundary,
+interior, or security-domain failures occurred.
+
+### Evidence
+
+- Artifact: results/exploratory_cases_BD_full_security_20260910.json
+- Artifact SHA-256:
+  e493bbdeda8ce8913862b8336a859dc2458a16dd444f392882d9b2389e39cc74
+- Exact ensemble hash reused for all cases:
+  c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3
+
+### Limitations
+
+The security subset is 16 active states per case, not a full-channel estimate.
+In addition, the reused AP (w) was superseded by the corrected worker. These
+values are historical only and are not current evidence or certification.
+
+## EVID-0064 - Differentiable complex128 source-moment investigation
+
+Date: 2026-09-10
+
+Status: CURRENTLY_VERIFIED_PASS; DIFFERENTIABLE_PATH_BLOCKED
+
+### Claim
+
+The complex128 instability occurs at the C4 eigendecomposition/gate, before
+matrix square-root, inverse-square-root, C, or w evaluation. Sector matrices
+are finite and Hermitian with zero reported Hermiticity residual, but their
+smallest float64 eigenvalues are roundoff-scale negative and their singular
+condition numbers are approximately \(10^{17}\)–\(10^{20}\). Both existing
+Hermitian square-root functions fail closed on the exact Case A sectors because
+they require positive-definite input.
+
+The same fast-gate failure persists for fixed \(V_A=0.5,1,2,4\), a mildly
+nonuniform strictly-positive PS fixture, and a perturbed valid GS fixture.
+No exact differentiable complex128 C/w formulation was found or implemented.
+
+### Verification
+
+- Exact Case A stage diagnostic: sector construction finite, Hermitian,
+  eigensolver finite; sqrt/inverse-sqrt fail at the positive-definite guard.
+- Existing gradient selection: four
+  FULL_SUPPORT_FALLBACK_EVALUATION_ONLY errors; no AP gradient claim.
+- No production Gram/Holevo/security code changed.
+
+### Classification
+
+FLOATING_POINT_ROUNDOFF plus NUMERICAL_ILL_CONDITIONING. This is not classified
+as constellation collapse, probability support loss, or implementation indexing
+bug. Differentiable training remains blocked.
+
+## EVID-0065 - AP custom-backward feasibility audit
+
+Date: 2026-09-10
+
+Status: SUPERSEDED_BY_EVID-0066; PENDING_CORRECTED_AP_DIRECTIONAL_VALIDATION
+
+### Claim
+
+The requested square-root/inverse-square-root implicit adjoint was derived and
+implemented as an isolated experimental AP VJP in
+`src/cvqkd/ap_custom_backward.py`. On a small positive C4 fixture, the
+combined (aC+bw) reverse VJP agrees with an 80-digit central difference to
+the recorded test tolerance. The exact Case A ensemble was reconstructed with
+row hash
+`c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`.
+
+At 800 decimal digits the experimental AP run resolved all 256 modes and
+matched the stored (C) value, but its current-formula (w) was
+`0.018327610474963502...`, whereas the stored AP worker/reference value is
+`0.036100542613870033...`. The discrepancy is 0.017772932138906531... (about
+49.23% of the stored reference), so the requested Case A directional VJP
+validation was stopped before it could produce a valid claim.
+
+### Evidence
+
+- Artifact: `results/ap_custom_backward_case_A_20260910.json`
+- Artifact SHA-256:
+  `dc11c998f755d328906558b949444e4bf45a088657938f7b4b1c1a13daaf58d4`
+- Experimental derivation/plan:
+  `docs/superpowers/plans/2026-09-10-ap-custom-backward.md`
+- Focused AP custom tests: `tests/test_ap_custom_backward.py`, 2/2 passed.
+- Case A AP custom runtime: 1364.634083500001 seconds at 800 decimal digits.
+- Existing AP forward reference runtime: 290.9291875362396 seconds; the
+  additional reverse work is estimated at 1073.7048959637614 seconds. Linear
+  total-cost estimates are 10917.072668 seconds for batch 8 and
+  43668.290672 seconds for batch 32; neither batch was run.
+- Resolved minimum positive eigenvalue:
+  `3.9730108272405810054e-618`.
+
+### Root cause and limitations
+
+At the time of this audit, `scripts/full_support_c4_worker.py` formed
+`aa=sr*x2.T`; the current C4 implementation required
+(G_s D G_{s-1}^{-1}=x2.T). EVID-0066 corrected the worker and rebound the
+bounded Case A result. The custom-backward directional suite remains pending
+against the corrected AP oracle.
+
+No Case A AP central-difference directional validation, torch PS/GS/\(V_A\)
+chain, full-Z backward, optimizer step, training, certification, final-test,
+or publication-scale evaluation was run.
+
+## EVID-0066 - Corrected AP worker and Case A full-Z rebind
+
+Date: 2026-09-11
+
+Status: CURRENTLY_VERIFIED_PASS; CORRECTED_AP_FORWARD_VALIDATED; EXPLORATORY_ONLY
+
+### Claim
+
+The AP worker now matches the frozen production C4 (A_s=G_sDG_{s-1}^{-1})
+definition: `aa=x2.T`. The prior `aa=sr*x2.T` expression multiplied the
+production block by an extra (S_s) and produced the wrong (w).
+
+Three explicit 20-digit fixture checks passed for uniform, mildly nonuniform
+positive PMF, and perturbed real geometry. The exact Case A ensemble hash is
+`c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`.
+
+Corrected AP forward results:
+
+| Digits | Modes | lambda_min | C | w | Runtime (s) |
+|---:|---:|---:|---:|---:|---:|
+| 800 | 256/256 | 3.973010827240581e-618 | 0.85985110654649868138 | 0.01832761047496350205 | 367.3323453 |
+| 900 | 256/256 | 3.973010827240581e-618 | 0.85985110654649868138 | 0.01832761047496350205 | 416.6573139 |
+
+The displayed 50-digit C and w values agree between 800 and 900 digits; the
+reported difference is below (10^{-49}).
+
+Using corrected (C,w), the bounded Case A full-Z result is:
+
+\[
+[Z_L,Z_U]=[0.2914192733053753,;0.2934784546975139],
+\]
+
+with interval width `0.002059181392138565`,
+(Z_\star=0.2914192733053753),
+(chi_{BE}^{ub}=0.01518919002933572), and raw
+(K=0.004757635492383283). The maximizing branch was evaluated by the full
+interval solver and occurred at the lower boundary for this state.
+
+### Evidence
+
+- `results/ap_worker_corrected_case_A_20260911.json`, SHA-256
+  `f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44`
+- `results/exploratory_case_A_full_security_corrected_20260911.json`, SHA-256
+  `a3b7aaa23635ac5e01e08f3486d4131fe9d17580c51b32ef9b498324fa5723fa`
+- Worker SHA-256:
+  `2cd1feeeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Corrected Case A full-security artifact records old-vs-corrected values and
+  marks the old result `SUPERSEDED_WRONG_AP_W`.
+- Superseded artifacts: `exploratory_case_A_full_security_20260910.json`,
+  `exploratory_cases_BD_full_security_20260910.json`,
+  `baseline_cached_uniform.json`, `baseline_cached_binomial.json`,
+  `baseline_cached_mb.json`, `baseline_cached_source_moments_smoke.json`,
+  and `full_support_c4_gram_evaluation_validation_v1.json`.
+
+### Limitations
+
+Cases B-D were not recomputed. The corrected Case A result remains bounded,
+exploratory, and evaluation-only. Custom backward directional validation is
+pending against this corrected AP oracle.
