@@ -204,6 +204,19 @@ def _maximize_bounded_scalar(
     grid = lower.unsqueeze(-1) + width.unsqueeze(-1) * fractions
 
     def evaluate(points: torch.Tensor) -> torch.Tensor:
+        scale = torch.maximum(
+            torch.ones_like(lower),
+            torch.maximum(torch.abs(lower), torch.abs(upper)),
+        ).unsqueeze(-1)
+        tolerance = 1.0e-12 * scale
+        if not bool(torch.all(torch.isfinite(points))):
+            raise FloatingPointError("Bounded scalar candidates must be finite.")
+        if bool(torch.any(points < lower.unsqueeze(-1) - tolerance)) or bool(
+            torch.any(points > upper.unsqueeze(-1) + tolerance)
+        ):
+            raise FloatingPointError(
+                "Bounded scalar candidate escaped its declared closed interval."
+            )
         values = evaluator(points)
         if values.shape != points.shape:
             raise ValueError(

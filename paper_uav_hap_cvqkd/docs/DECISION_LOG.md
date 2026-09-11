@@ -1776,3 +1776,274 @@ full-support source-moment gradient boundary, including the reverse path.
 The next permitted task is validation of the remaining source directions or a
 separately scoped practical exact-backend investigation; neither authorizes
 training or final-test access.
+
+## DEC-0055 - Accept bounded four-direction C4 forward tangent; keep adaptive training closed
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Accept the bounded GS-real, GS-imaginary, and V_A constrained-solve
+forward-tangent rows as passing when combined with the recovered PS row in
+EVID-0070. The target study used the existing GS/V_A transmitter mapping,
+the corrected AP worker, 800 AP digits, and one h=10^{-4} central
+finite-difference endpoint pair per direction. It preserved positive
+probabilities, 256 unique states, full 256/256 support, the corrected C/w
+functional, and the physical normalization; phase remained disabled.
+
+The aggregate classification is
+`FULL_SOURCE_FORWARD_TANGENT_VALIDATED`, but it is diagnostic-only. The exact
+tangent is not computationally practical for the proposed adaptive workload:
+the three remaining direction totals were 2001.04 s, 2878.94 s, and 1795.96 s
+respectively, in addition to the prior 1181.13 s PS tangent. Keep the old AP
+custom reverse classified `AP_CUSTOM_BACKWARD_NOT_VALIDATED`. Do not start
+reverse repair, full-Z backward, optimizer steps, training, final-test access,
+publication-scale evaluation, or security evaluation from this decision.
+
+### Evidence
+
+- EVID-0071
+- `results/c4_remaining_forward_tangents_20260911.json`, SHA-256
+  `471e04862ef5cfaaa3ee65c01d229285ce43f93cb4c08ca8bfc4a198a4414566`
+- `scripts/validate_remaining_c4_forward_tangents.py`, SHA-256
+  `a829e608a73d91a08222753f7660a8303186f9d6b618c26d640331b19641534a`
+- `src/cvqkd/c4_constrained_tangent.py`, SHA-256
+  `a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258`
+- `tests/test_c4_constrained_tangent.py`, SHA-256
+  `a6b8024aece7257b803c20fdc8ba48cd046d13b012b80f09888ae8c375d08c78`
+- Corrected worker SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Exact ensemble SHA-256:
+  `c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`
+
+### Consequences
+
+The project lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and
+adaptive readiness remains `NOT_READY_FOR_ADAPTIVE_TRAINING`. The single
+remaining blocker is a validated and computationally practical reverse/adjoint
+of the constrained C4 source-moment system. The next task is a separately
+scoped practicality study of that blocker; this decision does not authorize
+executing it, full-Z backward, or training.
+
+## DEC-0056 - Skip mpmath reverse; build compiled multiprecision prototype
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Select exactly
+SKIP_MPMATH_REVERSE_AND_BUILD_COMPILED_MULTIPRECISION_PROTOTYPE.
+
+The solve-based reverse derivation for the validated C4 constrained forward
+graph is mathematically sound on paper: it requires eight cached primal right
+solves, eight adjoint right solves, and four self-adjoint square-root
+Sylvester solves, without explicit inverse matrices. The estimated tape is
+manageable, but the target approximately 1e-618 eigenvalue scale and the
+minutes-long forward tangent measurements make an mpmath reverse implausible
+for the current runtime gates. The reverse has not been implemented or
+validated.
+
+Authorize only a separately scoped compiled primitive benchmark. Keep full
+reverse execution, full-Z backward, optimizer steps, adaptive training,
+baseline selection, final-test access, security evaluation, and
+publication-scale evaluation closed.
+
+### Evidence
+
+- EVID-0072
+- docs/CONSTRAINED_REVERSE_PRACTICALITY_STUDY.md
+- Report SHA-256:
+  5a8bfb0444d1658fed55ad6f1a13cf29c7b4c53bf3614e676db1a97a3a3c0f16
+
+### Consequences
+
+The project lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
+adaptive readiness remains NOT_READY_FOR_ADAPTIVE_TRAINING. The next
+permitted action is one C++17 64x64 one-sector primitive bundle at 1250,
+1450, and 1650 decimal digits with residual, inner-product, and timing
+gates. This decision does not authorize implementing the complete reverse.
+
+## DEC-0057 - Refine the compiled reverse prototype backend
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Accept EVID-0073 and use the deep research report as the current numerical
+and mathematical decision boundary for the full-support source-moment
+gradient. Refine DEC-0056's compiled multiprecision prototype choice to:
+
+1. use C++17 with MPFR/MPC point arithmetic for the primary constrained
+   right-solve and Sylvester-adjoint benchmark; and
+2. use Arb/acb_mat through FLINT as an independent enclosure/reference mode
+   after the point primitives pass.
+
+Retain the exact C4 constrained equations, the corrected complex \(u\), the
+weighted \(w\), and all 256 full-support states. Do not use thresholded
+eigenvalues, jitter, a pseudoinverse, or an unproved reformulation.
+
+This decision authorizes only the already scoped one-sector primitive
+benchmark. It does not authorize a complete reverse VJP, full-\(Z\)
+backward, optimizer step, adaptive training, baseline selection, final-test
+access, publication-scale evaluation, or a new security claim.
+
+### Evidence
+
+- EVID-0073
+- docs/DEEP_RESEARCH_SOURCE_MOMENT_REVERSE_GRADIENT.md, SHA-256
+  f6bc18fe28747ee123514d69171f55f49383975e732f51e8dd5a40785bd97996
+- DEC-0056 and docs/CONSTRAINED_REVERSE_PRACTICALITY_STUDY.md
+
+### Consequences
+
+The lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and adaptive
+readiness remains NOT_READY_FOR_ADAPTIVE_TRAINING. The next task is a
+narrow C++17 64x64 one-sector benchmark at 1250, 1450, and 1650 decimal
+digits with right-solve, adjoint right-solve, square-root Sylvester,
+residual, inner-product, factor-reuse, and timing gates. The report's
+sub-10-second full-state discussion remains an unproven engineering target,
+not a project result.
+
+## DEC-0058 - Keep bounded analysis figures diagnostic and stop before publication run
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED ANALYSIS DECISION
+
+### Decision
+
+Accept EVID-0074 as a completed, analysis-only figure workflow. The isolated
+training surrogate may be used as a search aid because it passed all four
+directional calibration gates and the nearby full-support checks. Exact
+corrected AP source moments and the existing full-physical-Z Holevo path remain
+the only security authority for the reported anchors.
+
+Do not promote the surrogate search values to security results. Do not begin a
+publication-scale run from these figures: all active exact raw-K anchors are
+negative, and Full has no meaningful exact-bin advantage over the fixed MB
+baseline. Preserve the phase-disabled label, corrected w, full-Z maximization,
+outage K=0 rule, and unresolved production channel/phase mappings.
+
+### Evidence
+
+- EVID-0074
+- `docs/ANALYSIS_FIGURES_REPORT_20260911.md`
+- `results/analysis_figures_artifact_20260911.json`
+
+### Consequences
+
+The analysis status is `ANALYSIS_FIGURES_READY`; the scientific conclusion is
+`MIXED_PRELIMINARY_SUPPORT`; and the publication status remains
+`NOT_PUBLICATION_CERTIFIED`. The next recommended investigation is the
+Full-vs-MB surrogate/objective mismatch, not a publication-scale run. This
+decision does not authorize reverse repair, full-Z backward, adaptive
+training, baseline selection, final-test access, or publication-scale
+evaluation. DEC-0057's separately scoped compiled primitive benchmark remains
+unexecuted and outside this analysis result.
+
+## DEC-0059 - Repair the full-Z search objective before interpreting learned gains
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED ANALYSIS DECISION
+
+### Decision
+
+Accept EVID-0075 and the accompanying deep-research report as the current
+decision boundary for the Full-vs-MB blocker. The primary cause is the
+analysis search objective, not arbitrary precision or source-moment
+differentiation: its smooth `tanh` representative evaluates `Z` below `Z_L`
+in all 16 active grid states and is not the frozen full-Z functional.
+
+Treat the apparent proxy improvement and its PS+`V_A`/Full ranking as invalid
+for scientific or security interpretation. Keep the weight audit result as a
+pass for the diagnostic fixture: active mass `0.732`, outage mass `0.268`,
+equal active weights `0.04575`, and total mass one. Keep raw negative rates;
+do not replace the objective with `max(0,K_raw)`.
+
+Select exactly one immediate numerical task: repair the proxy using an
+interval-preserving `Z` parameterization (or the exact bounded full-Z
+functional), then perform a bounded fixed-grid baseline/ranking audit and
+short candidate recheck. The exact PS+`V_A` check and Full-minus-GS control
+are downstream checks after this repair, not parallel next tasks.
+
+Classify the current positive joint-adaptation novelty as
+`CURRENT_NOVELTY_NOT_SUPPORTED`. Do not present Full PS+GS+`V_A` as a
+positive exact full-Z result on the current evidence.
+
+### Evidence
+
+- EVID-0075
+- `docs/DEEP_RESEARCH_FADING_FULL_Z_BLOCKER_20260911.md`, SHA-256
+  `2cc9f30119903c858304567d8abf962930ce845327db70c35ef9715094d5bc99`
+- `results/analysis_objective_audit_20260911.json`, SHA-256
+  `bbf6389997941e8447a51261405e45fbfb0b6653a210207f8dda7d070acd6b69`
+
+### Consequences
+
+This decision authorizes only the bounded diagnostic objective repair and
+recheck described above. It does not authorize reverse repair, full-Z
+backward, adaptive training, baseline selection, final-test access,
+publication-scale evaluation, or a new security claim. The lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`, adaptive readiness remains
+`NOT_READY_FOR_ADAPTIVE_TRAINING`, and the separately scoped C++ primitive
+benchmark from DEC-0057 remains unexecuted.
+
+## DEC-0060 - Accept the interval-preserving full-Z objective repair
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED ANALYSIS DECISION
+
+### Decision
+
+Accept EVID-0076 and
+`docs/REPAIRED_FULL_Z_OBJECTIVE_REPORT_20260911.md` as the current decision
+boundary for the repaired search-objective audit. The repaired runner calls
+the existing physical `[Z_L,Z_U]` construction and full-Z maximizer with only
+surrogate `C,w` during search. Its candidate audit has `0/96` interval
+violations, the corrected Case-A and existing anchor-equivalence gates pass,
+and PS/GS/V_A gradient smoke is finite.
+
+Classify the objective as exactly:
+`FULL_Z_SEARCH_OBJECTIVE_REPAIRED`.
+
+Do not restore the paper novelty claim: use exactly
+`CURRENT_NOVELTY_NOT_SUPPORTED`. The bounded exact subset shows Full above MB
+on the three selected states, but optimized PS+V_A failed closed at the
+full-support AP source-moment gate, so the required PS+V_A-versus-Full ranking
+is incomplete.
+
+### Evidence
+
+- EVID-0076
+- `docs/REPAIRED_FULL_Z_OBJECTIVE_REPORT_20260911.md`, SHA-256:
+  `b6077b4942390ea90840b463d495a3199a85fa332f21ede11e604868265b3a5c`
+- `results/repaired_full_z_objective_analysis_20260911.json`, SHA-256:
+  `aa94fc2032ab9d1421c3f4256cf3a7a4be6526c612797f4b162c1c8c85d98f23`
+- `results/repaired_full_z_exact_jobs_20260911.json`, SHA-256:
+  `52eafe5ee42af34a53b2280ddf10639fe77d50f87702ddc754ababbb06b5ad5c`
+- `results/repaired_full_z_ps_va_exact_failure_20260911.json`, SHA-256:
+  `27b6474a67b26755f076d3ed7569fe5fe22b3f0758df0242e059ccf4333b997f`
+
+### Consequences
+
+The old off-interval proxy and its learned ranking must not be used as
+security or novelty evidence. The bounded repaired optimization remains an
+analysis estimate only. Keep exactly
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and
+`NOT_READY_FOR_ADAPTIVE_TRAINING`; do not run publication-scale training,
+final-test evaluation, reverse VJP/full-Z backward, baseline selection, or a
+new security claim.
+
+The one remaining numerical blocker is the missing converged exact PS+V_A
+source-moment/ranking result. The next task is to add a full-support-
+preserving PS+V_A parameterization or conditioning guard and repeat only the
+three-state exact AP/full-Z comparison; do not execute that task under this
+decision.

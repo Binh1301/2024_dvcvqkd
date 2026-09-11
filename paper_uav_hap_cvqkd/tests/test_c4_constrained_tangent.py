@@ -2,7 +2,12 @@ import unittest
 
 import mpmath as mp
 
-from scripts.validate_corrected_ap_custom_backward import _fixture_inputs, _generic_ap_row
+from scripts.validate_corrected_ap_custom_backward import (
+    _fixture_inputs,
+    _generic_ap_row,
+    _target_directional_inputs,
+    _target_structure_record,
+)
 from src.cvqkd.c4_constrained_tangent import EXPERIMENTAL_DIAGNOSTIC_ONLY, forward_tangent
 
 
@@ -80,6 +85,34 @@ class C4ConstrainedTangentTests(unittest.TestCase):
             )
             self.assertEqual(result.diagnostics["marker"], "EXPERIMENTAL_DIAGNOSTIC_ONLY")
             self.assertEqual(result.diagnostics["reverse"], "not_implemented")
+
+    def test_remaining_target_direction_mappings_preserve_full_support(self):
+        structures = {
+            family: _target_structure_record(family)
+            for family in ("gs_real", "gs_imag", "va")
+        }
+        for family, structure in structures.items():
+            self.assertEqual(structure["prototype_count"], 64, family)
+            self.assertTrue(structure["positive_probabilities"], family)
+            self.assertEqual(structure["probability_sum"], 1.0, family)
+            self.assertEqual(structure["unique_state_count"], 256, family)
+            self.assertGreater(structure["directional_z_norm"], 0.0, family)
+        self.assertNotEqual(
+            structures["gs_real"]["direction_sha256"],
+            structures["gs_imag"]["direction_sha256"],
+        )
+        self.assertNotEqual(
+            structures["gs_real"]["direction_sha256"],
+            structures["va"]["direction_sha256"],
+        )
+
+    def test_va_direction_propagates_only_through_physical_amplitudes(self):
+        p, z, dp, dz = _target_directional_inputs("va")
+        for probability in dp:
+            self.assertAlmostEqual(probability, 0.0, places=15)
+        for observed, amplitude in zip(dz, z):
+            self.assertAlmostEqual(observed.real, 0.5 * amplitude.real, places=15)
+            self.assertAlmostEqual(observed.imag, 0.5 * amplitude.imag, places=15)
 
 
 if __name__ == "__main__":

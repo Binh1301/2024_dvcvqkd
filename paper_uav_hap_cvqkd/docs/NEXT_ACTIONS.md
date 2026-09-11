@@ -8,6 +8,33 @@ The documentation and source alignment audit is complete. No training, threshold
 baseline selection, final-test access, or publication-scale evaluation is
 authorized.
 
+## Latest bounded analysis outcome
+
+The analysis-only surrogate and exact AP/full-Z anchor workflow is complete
+and recorded in EVID-0074. It produced six analysis-grade SVG figures, but all
+active exact raw-K anchors are negative and Full does not meaningfully improve
+the fixed MB baseline. Treat the result as `MIXED_PRELIMINARY_SUPPORT`, keep
+`ANALYSIS_FIGURES_READY`, and retain `NOT_PUBLICATION_CERTIFIED`.
+
+Do not launch a publication-scale run or spend this task on MPFR/MPC reverse
+engineering. EVID-0075/DEC-0059 identify the decisive blocker: the smooth
+search proxy evaluates `Z` below the frozen source-moment interval in all 16
+active states. The selected next task is a bounded interval-preserving
+objective repair and fixed-baseline/ranking recheck; that authorization has
+now been consumed by EVID-0076. It authorized only the isolated diagnostic
+recheck, not production training or final evaluation.
+
+That repair is now complete under EVID-0076/DEC-0060. The existing full-Z
+path was reused with surrogate `C,w` during search; all `96/96` old proxy rows
+were reproduced as below-`Z_L`, while the repaired search had `0/96` interval
+violations. Case-A, existing exact-anchor equivalence, rank consistency, and
+PS/GS/V_A gradient smoke passed. The bounded PS+V_A and Full 50-step checks
+passed their 20-step smoke. Full exceeded MB at all three available exact
+states, but optimized PS+V_A failed closed at the full-support AP gate, so
+the exact adaptive ranking remains incomplete. Classification is
+`FULL_Z_SEARCH_OBJECTIVE_REPAIRED`; novelty remains
+`CURRENT_NOVELTY_NOT_SUPPORTED`.
+
 Cases A--D now have corrected bounded exploratory evidence at N=1000 channel
 samples per case. Case A and the new B-D source-moment/full-Z result remain
 evaluation-only; no publication or certification claim follows.
@@ -29,24 +56,43 @@ The short differentiable investigation classified the current exact complex128
 path as EXACT_FULL_SUPPORT_NOT_PRACTICAL_IN_COMPLEX128. The isolated AP
 implicit-adjoint prototype passes cheap fixtures but failed one bounded
   corrected 800-digit PS target VJP by many orders of magnitude; EVID-0068
-  classifies it AP_CUSTOM_BACKWARD_NOT_VALIDATED. GS-real, GS-imag, V_A, and
-  full-Z backward were not started. Do not train.
+  classifies it AP_CUSTOM_BACKWARD_NOT_VALIDATED. The isolated forward
+  tangent now covers GS-real, GS-imaginary, and V_A; reverse/full-Z work
+  remains closed. Do not train.
 - The full-support differentiable source-moment research audit is recorded in
   FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md and EVID-0069. It
   recommends an exact C4 constrained-solve forward tangent before reverse
   repair; this recommendation does not authorize training.
-- EVID-0070 records the isolated exact C4 constrained-solve tangent. The
-  recovered Case-A PS direction passes at 800 digits, but 200/400/600 digits
-  fail closed and the resolved target row takes 1181.1304 seconds. The tangent
-  is diagnostic-only and not practical for adaptive training.
+- EVID-0070 records the isolated exact C4 constrained-solve tangent for PS.
+  EVID-0071 records the bounded GS-real, GS-imaginary, and V_A extensions;
+  all four directions pass at 800 digits, but the remaining direction totals
+  are 2001.04 s, 2878.94 s, and 1795.96 s. The exact tangent remains
+  diagnostic-only and is not practical for adaptive training.
+- EVID-0072 records the constrained reverse practicality study. The
+  solve-based reverse is mathematically sound as a design, but primitive
+  adjoint identities, target reverse validation, and compiled timing remain
+  unrun. The selected path is
+  SKIP_MPMATH_REVERSE_AND_BUILD_COMPILED_MULTIPRECISION_PROTOTYPE.
+- EVID-0073 records the deep research refinement. The primary prototype
+  backend is C++17 MPFR/MPC point arithmetic; Arb/acb_mat is reserved for
+  independent reference/enclosure checks. The report supplies the exact
+  right-solve/Sylvester adjoints and conservative \(C,w\)-to-\(Z\) value
+  error propagation, but it does not validate a reverse VJP or authorize
+  training.
 
 ## Exact next numerical action
 
-Run the same isolated forward-tangent diagnostic for GS-real, GS-imaginary,
-and V_A only if the bounded numerical study is continued. Do not repair the
-reverse VJP, run full-Z backward, execute adaptive training, select a
-baseline, or access final-test data until all required source directions pass
-and a practical exact gradient boundary is separately established.
+The one remaining numerical blocker is the missing converged exact PS+V_A
+source-moment/ranking result. The next and only numerical task is to add a
+full-support-preserving PS+V_A parameterization or conditioning guard, then
+repeat only the three-state exact AP/full-Z comparison. Keep the same grid,
+weights, outage rule, beta, seeds, and phase-disabled label. Do not execute a
+complete reverse, full-Z backward, adaptive training, baseline selection,
+final-test access, or publication-scale evaluation from this handoff.
+
+DEC-0057's C++17 MPFR/MPC one-sector primitive benchmark remains a separately
+scoped, unexecuted recommendation and is not needed to interpret the current
+objective blocker.
 
 ## Priority order
 

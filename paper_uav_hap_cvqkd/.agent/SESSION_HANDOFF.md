@@ -6,65 +6,78 @@ Date: 2026-09-11
 
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
-Adaptive-training status: `NOT_READY_FOR_ADAPTIVE_TRAINING`.
-No training, optimizer step, final-test access, certification, or
-publication-scale evaluation occurred.
+Adaptive-training status: `NOT_READY_FOR_ADAPTIVE_TRAINING`. No production
+training, publication-scale evaluation, final-test access, reverse VJP,
+full-Z backward, or security certification occurred.
 
-## Completed this session
+## Latest decision boundary
 
-- Read the full-support differentiable source-moments research report and
-  bounded Superpowers plan before implementation.
-- Added the isolated `EXPERIMENTAL_DIAGNOSTIC_ONLY` arbitrary-precision C4
-  forward tangent in `src/cvqkd/c4_constrained_tangent.py`.
-- Implemented exact full-support raw/sector tangents, Sylvester square-root
-  tangents, constrained right solves for B/A and dB/dA, and C/w propagation.
-  The module does not import or call the old custom reverse.
-- Added fast focused tests in `tests/test_c4_constrained_tangent.py` and the
-  manual runner `scripts/validate_c4_constrained_tangent.py`.
-- Cheap uniform, nonuniform-positive, perturbed-real, and
-  perturbed-imaginary fixtures passed direct/constrained, residual, forward,
-  and central-difference checks.
-- Recovered the exact prior Case-A PS direction by hash and ran the bounded
-  200/400/600/800 AP ladder. The 800-digit constrained row resolved 256/256
-  modes and passed the 1e-8 dC/dw/dJ comparison to the prior corrected AP
-  finite difference.
+EVID-0076 and DEC-0060 accept the isolated interval-preserving full-Z search
+objective. The old `tanh` proxy was reproduced as below `Z_L` in `96/96`
+mode-state rows. The repaired runner reuses the existing physical
+`[Z_L,Z_U]` construction and full-Z maximizer with only surrogate `C,w`
+during search; it has `0/96` interval violations, passes Case-A and existing
+anchor-equivalence gates, and passes finite PS/GS/V_A gradient smoke.
 
-## Target result boundary
+The bounded PS+V_A and Full searches each passed the 20-step smoke and ran 50
+analysis steps. Full exceeded MB at all three available exact poor/median/good
+states. The optimized PS+V_A exact AP rows failed closed at the full-support
+gate, so no PS+V_A exact K or complete adaptive ranking is claimed.
 
-Artifact:
-`results/c4_constrained_forward_tangent_20260911.json`
+Classification: `FULL_Z_SEARCH_OBJECTIVE_REPAIRED`.
+Novelty: `CURRENT_NOVELTY_NOT_SUPPORTED`.
+Analysis/lifecycle: `ANALYSIS_ESTIMATE`,
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-The target 800-digit row reports:
+## Completed in this session
 
-- `C=0.85985110654649868138037962728289179096834048571987`;
-- `w=0.018327610474963502048823295065766568532781601388489`;
-- `dC=0.00050092422832962377222627091862944921206718683231693`;
-- `dw=-0.0011532623534953207533476618573511008283277382475422`;
-- `dJ=0.0017741810709566170444324223035415062817078761571016`;
-- relative errors to prior AP: `1.35e-9` for dC, `5.55e-10` for dw,
-  `9.37e-10` for dJ;
-- runtime: `1181.1304 s`.
+- Added the isolated repaired-objective runner:
+  `scripts/run_repaired_full_z_objective.py`.
+- Added the fail-closed bounded-scalar interval assertion in
+  `src/cvqkd/holevo.py`.
+- Produced the repaired objective artifact, exact Full source-job cache, and
+  PS+V_A exact fail-closed diagnostic under `results/`.
+- Added focused interval, proxy-reproduction, Case-A, anchor, and gradient
+  tests; `unittest` passed 16/16 focused tests.
+- Produced `docs/REPAIRED_FULL_Z_OBJECTIVE_REPORT_20260911.md`.
+- Updated EVID-0076, DEC-0060, PROJECT_STATE, NEXT_ACTIONS, the Superpowers
+  plan, and both session handoffs.
 
-Classification: `CONSTRAINED_TANGENT_VALIDATED`, diagnostic-only. The lower
-precision rows fail closed before resolving all modes. The target explicit
-R/J comparison was attempted but not completed within an approximately
-16-minute window; cheap-fixture explicit/constrained evidence passed.
+## Provenance
 
-## Verification
+- Report SHA-256:
+  `b6077b4942390ea90840b463d495a3199a85fa332f21ede11e604868265b3a5c`
+- Producer SHA-256:
+  `cd8e4080f5ec859c7466b252a236a88804e01a0c62aa4641e12b1c7a1d6409b3`
+- Holevo source SHA-256:
+  `2380cd196238a06438e86d767f4cb342361ae5054d5154df7f398556e4b0b3c5`
+- Result artifact SHA-256:
+  `aa94fc2032ab9d1421c3f4256cf3a7a4be6526c612797f4b162c1c8c85d98f23`
+- Exact Full job cache SHA-256:
+  `52eafe5ee42af34a53b2280ddf10639fe77d50f87702ddc754ababbb06b5ad5c`
+- PS+V_A failure diagnostic SHA-256:
+  `27b6474a67b26755f076d3ed7569fe5fe22b3f0758df0242e059ccf4333b997f`
+- Focused-test source SHA-256:
+  `e979927fcfd06e4296d31f8f51b2825b9668ec20615256503a41d497312692da`
+- Frozen model-spec SHA-256:
+  `8ec01861627c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
 
-- `tests.test_c4_constrained_tangent` plus the existing corrected AP
-  regression: 5/5 passed.
-- `py_compile` for module, runner, and tests passed.
-- `git diff --check` passed after the implementation checks; rerun after any
-  subsequent evidence edit.
+## One remaining blocker
 
-## Open blockers and next action
+The optimized PS+V_A checkpoint does not produce converged full-support C,w
+source moments in the required high-precision AP worker, so its exact
+poor/median/good ranking is unavailable.
 
-1. The exact tangent is too slow for the proposed adaptive runtime gate and
-   does not repair the custom reverse.
-2. Validate remaining GS-real, GS-imaginary, and V_A forward directions only
-   as bounded diagnostics if continuing this line.
-3. Keep reverse repair, full-Z backward, adaptive training, final-test access,
-   baseline selection, threshold approval, and publication-scale work closed.
-4. Preserve the frozen full-support C4 model: no clipping, jitter, epsilon
-   identity, pseudoinverse rank reduction, support truncation, or model change.
+## Exact next task
+
+Add a full-support-preserving PS+V_A parameterization or conditioning guard,
+then repeat only the three-state exact AP/full-Z ranking check and persist the
+complete comparison. Do not execute this task from this handoff.
+
+## Explicitly closed
+
+Keep complete reverse execution, full-Z backward, adaptive/production
+training, baseline selection, threshold approval, final-test access,
+publication-scale evaluation, and any new security claim closed. Do not modify
+the corrected AP worker, C/w definitions, channel physics, beta, phase,
+epsilon, outage rule, or raw-K convention.

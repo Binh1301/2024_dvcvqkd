@@ -1,0 +1,404 @@
+{
+  "status": "TRAINING_SURROGATE_CALIBRATED",
+  "artifact_class": "TRAINING_SURROGATE",
+  "selected_regularization": 1e-10,
+  "acceptance": {
+    "derivative_sign_required": true,
+    "directional_relative_error_max": 0.1,
+    "reference_C_relative_error_max": 0.01,
+    "reference_w_relative_error_max": 0.05,
+    "selection_rule": "choose the stability-first 1e-10 shift after comparing the bounded set; do not use surrogate values for security"
+  },
+  "candidates": [
+    {
+      "regularization": 1e-08,
+      "reference": {
+        "C": 0.8598518690041788,
+        "w": 0.01832805870682164,
+        "C_relative_error": 8.867322194488464e-07,
+        "w_relative_error": 2.445664473005252e-05,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-08,
+        "minimum_shifted_eigenvalue": 9.999999948338175e-09,
+        "maximum_shifted_eigenvalue": 0.6359235938868725
+      },
+      "directions": [
+        {
+          "direction": "ps",
+          "exact": {
+            "dC": 0.0005009242283296238,
+            "dw": -0.0011532623534953209,
+            "dJ": 0.001774181070956617
+          },
+          "surrogate": {
+            "dC": 0.0005009967566993942,
+            "dw": -0.001153352842607904,
+            "dJ": 0.0017743767604752932
+          },
+          "relative_error": {
+            "dC": 0.00014478910315888585,
+            "dw": 7.846359703755013e-05,
+            "dJ": 0.00011029850440841775
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "gs_real",
+          "exact": {
+            "dC": -0.00012344647696769045,
+            "dw": 0.00034799892528874674,
+            "dJ": -0.0004882581510760712
+          },
+          "surrogate": {
+            "dC": -0.00012344630538248556,
+            "dw": 0.0003480023438594838,
+            "dJ": -0.0004882605942378125
+          },
+          "relative_error": {
+            "dC": 1.3899562718028442e-06,
+            "dw": 9.823509466877835e-06,
+            "dJ": 5.003831960502647e-06
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "gs_imag",
+          "exact": {
+            "dC": -0.00012344647696769045,
+            "dw": 0.00034799892528874674,
+            "dJ": -0.0004882581510760712
+          },
+          "surrogate": {
+            "dC": -0.00012344630538249055,
+            "dw": 0.0003480023438595497,
+            "dJ": -0.0004882605942378737
+          },
+          "relative_error": {
+            "dC": 1.3899562314020965e-06,
+            "dw": 9.823509656302247e-06,
+            "dJ": 5.003832085852756e-06
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "va",
+          "exact": {
+            "dC": 0.5702504189394424,
+            "dw": 0.012488915319381651,
+            "dJ": 0.9594345799415468
+          },
+          "surrogate": {
+            "dC": 0.5702516022478988,
+            "dw": 0.012488546478955921,
+            "dJ": 0.9594368866382632
+          },
+          "relative_error": {
+            "dC": 2.0750681054184856e-06,
+            "dw": 2.95334235437719e-05,
+            "dJ": 2.4042251182512025e-06
+          },
+          "sign_pass": true,
+          "passes": true
+        }
+      ],
+      "passes": true
+    },
+    {
+      "regularization": 1e-10,
+      "reference": {
+        "C": 0.859851111334353,
+        "w": 0.018327634601681193,
+        "C_relative_error": 5.568236522308716e-09,
+        "w_relative_error": 1.316413709393774e-06,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-10,
+        "minimum_shifted_eigenvalue": 9.999988024919205e-11,
+        "maximum_shifted_eigenvalue": 0.6359235839868724
+      },
+      "directions": [
+        {
+          "direction": "ps",
+          "exact": {
+            "dC": 0.0005009242283296238,
+            "dw": -0.0011532623534953209,
+            "dJ": 0.001774181070956617
+          },
+          "surrogate": {
+            "dC": 0.0005009249647530412,
+            "dw": -0.0011532708297330673,
+            "dJ": 0.0017741891038666239
+          },
+          "relative_error": {
+            "dC": 1.4701293643145445e-06,
+            "dw": 7.349791416257776e-06,
+            "dJ": 4.5276720276052365e-06
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "gs_real",
+          "exact": {
+            "dC": -0.00012344647696769045,
+            "dw": 0.00034799892528874674,
+            "dJ": -0.0004882581510760712
+          },
+          "surrogate": {
+            "dC": -0.00012344647419820965,
+            "dw": 0.0003479990078069183,
+            "dJ": -0.00048825821238249103
+          },
+          "relative_error": {
+            "dC": 2.2434668579860275e-08,
+            "dw": 2.3712191490479533e-07,
+            "dJ": 1.2556148773403278e-07
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "gs_imag",
+          "exact": {
+            "dC": -0.00012344647696769045,
+            "dw": 0.00034799892528874674,
+            "dJ": -0.0004882581510760712
+          },
+          "surrogate": {
+            "dC": -0.00012344647419821377,
+            "dw": 0.00034799900780507146,
+            "dJ": -0.0004882582123810206
+          },
+          "relative_error": {
+            "dC": 2.2434635205329414e-08,
+            "dw": 2.3711660790570308e-07,
+            "dJ": 1.255584761116089e-07
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "va",
+          "exact": {
+            "dC": 0.5702504189394424,
+            "dw": 0.012488915319381651,
+            "dJ": 0.9594345799415468
+          },
+          "surrogate": {
+            "dC": 0.5702504302470534,
+            "dw": 0.01248891232606307,
+            "dJ": 0.9594346015591402
+          },
+          "relative_error": {
+            "dC": 1.982920236993161e-08,
+            "dw": 2.39678026818197e-07,
+            "dJ": 2.2531597082269587e-08
+          },
+          "sign_pass": true,
+          "passes": true
+        }
+      ],
+      "passes": true
+    },
+    {
+      "regularization": 1e-12,
+      "reference": {
+        "C": 0.8598511065600001,
+        "w": 0.018327612302498478,
+        "C_relative_error": 1.570204666793251e-11,
+        "w_relative_error": 9.971485243772479e-08,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-12,
+        "minimum_shifted_eigenvalue": 9.999296278145181e-13,
+        "maximum_shifted_eigenvalue": 0.6359235838878726
+      },
+      "directions": [
+        {
+          "direction": "ps",
+          "exact": {
+            "dC": 0.0005009242283296238,
+            "dw": -0.0011532623534953209,
+            "dJ": 0.001774181070956617
+          },
+          "surrogate": {
+            "dC": 0.0005009242358896479,
+            "dw": -0.0011532640549289984,
+            "dJ": 0.0017741824449556002
+          },
+          "relative_error": {
+            "dC": 1.509215103852189e-08,
+            "dw": 1.4753223083931039e-06,
+            "dJ": 7.744412369505987e-07
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "gs_real",
+          "exact": {
+            "dC": -0.00012344647696769045,
+            "dw": 0.00034799892528874674,
+            "dJ": -0.0004882581510760712
+          },
+          "surrogate": {
+            "dC": -0.00012344647693106835,
+            "dw": 0.0003479989304175507,
+            "dJ": -0.00048825815511685674
+          },
+          "relative_error": {
+            "dC": 2.96663789576089e-10,
+            "dw": 1.4737987919928887e-08,
+            "dJ": 8.275920323390358e-09
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "gs_imag",
+          "exact": {
+            "dC": -0.00012344647696769045,
+            "dw": 0.00034799892528874674,
+            "dJ": -0.0004882581510760712
+          },
+          "surrogate": {
+            "dC": -0.00012344647693106683,
+            "dw": 0.0003479989304428782,
+            "dJ": -0.0004882581551371162
+          },
+          "relative_error": {
+            "dC": 2.9667608545588047e-10,
+            "dw": 1.4810768331044618e-08,
+            "dJ": 8.317413652197102e-09
+          },
+          "sign_pass": true,
+          "passes": true
+        },
+        {
+          "direction": "va",
+          "exact": {
+            "dC": 0.5702504189394424,
+            "dw": 0.012488915319381651,
+            "dJ": 0.9594345799415468
+          },
+          "surrogate": {
+            "dC": 0.5702504190480842,
+            "dw": 0.012488915807635425,
+            "dJ": 0.9594345797356347
+          },
+          "relative_error": {
+            "dC": 1.905158832766269e-10,
+            "dw": 3.909497035815999e-08,
+            "dJ": 2.1461814018528573e-10
+          },
+          "sign_pass": true,
+          "passes": true
+        }
+      ],
+      "passes": true
+    }
+  ],
+  "selected": {
+    "regularization": 1e-10,
+    "reference": {
+      "C": 0.859851111334353,
+      "w": 0.018327634601681193,
+      "C_relative_error": 5.568236522308716e-09,
+      "w_relative_error": 1.316413709393774e-06,
+      "marker": "TRAINING_SURROGATE_ONLY",
+      "regularization": 1e-10,
+      "minimum_shifted_eigenvalue": 9.999988024919205e-11,
+      "maximum_shifted_eigenvalue": 0.6359235839868724
+    },
+    "directions": [
+      {
+        "direction": "ps",
+        "exact": {
+          "dC": 0.0005009242283296238,
+          "dw": -0.0011532623534953209,
+          "dJ": 0.001774181070956617
+        },
+        "surrogate": {
+          "dC": 0.0005009249647530412,
+          "dw": -0.0011532708297330673,
+          "dJ": 0.0017741891038666239
+        },
+        "relative_error": {
+          "dC": 1.4701293643145445e-06,
+          "dw": 7.349791416257776e-06,
+          "dJ": 4.5276720276052365e-06
+        },
+        "sign_pass": true,
+        "passes": true
+      },
+      {
+        "direction": "gs_real",
+        "exact": {
+          "dC": -0.00012344647696769045,
+          "dw": 0.00034799892528874674,
+          "dJ": -0.0004882581510760712
+        },
+        "surrogate": {
+          "dC": -0.00012344647419820965,
+          "dw": 0.0003479990078069183,
+          "dJ": -0.00048825821238249103
+        },
+        "relative_error": {
+          "dC": 2.2434668579860275e-08,
+          "dw": 2.3712191490479533e-07,
+          "dJ": 1.2556148773403278e-07
+        },
+        "sign_pass": true,
+        "passes": true
+      },
+      {
+        "direction": "gs_imag",
+        "exact": {
+          "dC": -0.00012344647696769045,
+          "dw": 0.00034799892528874674,
+          "dJ": -0.0004882581510760712
+        },
+        "surrogate": {
+          "dC": -0.00012344647419821377,
+          "dw": 0.00034799900780507146,
+          "dJ": -0.0004882582123810206
+        },
+        "relative_error": {
+          "dC": 2.2434635205329414e-08,
+          "dw": 2.3711660790570308e-07,
+          "dJ": 1.255584761116089e-07
+        },
+        "sign_pass": true,
+        "passes": true
+      },
+      {
+        "direction": "va",
+        "exact": {
+          "dC": 0.5702504189394424,
+          "dw": 0.012488915319381651,
+          "dJ": 0.9594345799415468
+        },
+        "surrogate": {
+          "dC": 0.5702504302470534,
+          "dw": 0.01248891232606307,
+          "dJ": 0.9594346015591402
+        },
+        "relative_error": {
+          "dC": 1.982920236993161e-08,
+          "dw": 2.39678026818197e-07,
+          "dJ": 2.2531597082269587e-08
+        },
+        "sign_pass": true,
+        "passes": true
+      }
+    ],
+    "passes": true
+  },
+  "tangent_artifact": "results\\c4_remaining_forward_tangents_20260911.json",
+  "tangent_artifact_sha256": "471e04862ef5cfaaa3ee65c01d229285ce43f93cb4c08ca8bfc4a198a4414566",
+  "corrected_reference": {
+    "C": "0.85985110654649868138037962728289179096834048571987",
+    "w": "0.018327610474963502048823295065766568532781601388489"
+  }
+}

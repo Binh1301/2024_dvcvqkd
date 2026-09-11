@@ -3032,3 +3032,448 @@ that the old reverse is repaired. Adaptive readiness remains
 `NOT_READY_FOR_ADAPTIVE_TRAINING`. The next permitted derivative task is to
 validate the remaining source directions and then separately design a
 practical exact reverse boundary; do not start training or full-Z backward.
+
+## EVID-0071 - Bounded full-support forward tangent for remaining source directions
+
+Date: 2026-09-11
+
+Status: CURRENTLY_VERIFIED_PASS; DIAGNOSTIC_ONLY
+
+### Claim
+
+The same isolated arbitrary-precision C4 constrained-solve forward tangent
+passed bounded target validation for GS-real, GS-imaginary, and \(V_A\), in
+that order, using the existing physical transmitter mapping and the corrected
+AP worker for central finite differences. Together with EVID-0070, all four
+source directions (PS, GS-real, GS-imaginary, and \(V_A\)) have a validated
+forward tangent at the 800-digit target. This does not validate the old
+reverse, establish a production gradient, authorize adaptive training, or
+change the security model.
+
+No manual 256-alpha perturbation was used. The GS-real path perturbs
+`coordinates[0,0]` in the existing 64-prototype representation; GS-imag
+perturbs `coordinates[0,1]` through an independent mapping call. Both retain
+unit-RMS gauge removal and V_A=1. The V_A path fixes the uniform PMF
+and relative constellation and uses (V_A=1+	heta). All target endpoints
+use the existing physical normalization
+
+    E_z=sum q|z|^2; s=sqrt(V_A/(2 E_z)); alpha=s*i^r*z,
+
+with phase disabled (`c_phi=0`). The AP finite difference evaluates the
+production map at (	heta=-h,+h), rather than linearly perturbing 256
+amplitudes.
+
+### Machine-readable artifact and provenance
+
+- Artifact:
+  `results/c4_remaining_forward_tangents_20260911.json`
+- Artifact SHA-256:
+  `471e04862ef5cfaaa3ee65c01d229285ce43f93cb4c08ca8bfc4a198a4414566`
+- Runner:
+  `scripts/validate_remaining_c4_forward_tangents.py`
+- Runner SHA-256:
+  `a829e608a73d91a08222753f7660a8303186f9d6b618c26d640331b19641534a`
+- Tangent module SHA-256:
+  `a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258`
+- Focused tests SHA-256:
+  `a6b8024aece7257b803c20fdc8ba48cd046d13b012b80f09888ae8c375d08c78`
+- Existing production-map source SHA-256:
+  `6fa71c0d1d055627a4fa93af79e12617d166712bd0ed14534319d394190e8db9`
+- Corrected worker SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Exact ensemble SHA-256:
+  `c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`
+- FINAL_MODEL_SPEC SHA-256:
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+- Prior PS tangent artifact SHA-256:
+  `023fb41db59a079314f639ff47513890445c7a7b885c17273a5f3df52b71ddcb`
+
+### Cheap directional preflight
+
+All 12 combinations of the three direction families and four small,
+well-conditioned fixtures passed at 70 AP digits with h=10^{-5}. The
+largest relative errors over the four fixtures were:
+
+| direction | max rel. dC | max rel. dw | max rel. dJ | result |
+|---|---:|---:|---:|---|
+| GS-real | 7.34e-12 | 1.00e-9 | 2.45e-11 | pass |
+| GS-imaginary | 8.66e-12 | 1.24e-10 | 1.46e-11 | pass |
+| V_A | 8.88e-12 | 3.39e-10 | 6.29e-12 | pass |
+
+The preflight passed before any 800-digit target computation.
+
+### Target tangent and corrected AP finite difference
+
+Each row used 800 AP digits and one primary h=10^{-4}. The reported
+relative target is 10^{-6} for non-near-zero references; all nine target
+derivative references were non-near-zero.
+
+| direction | FD dC | tangent dC | rel. dC | FD dw | tangent dw | rel. dw | rel. dJ | tangent s | minus s | plus s | total s |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| GS-real | -1.23446476359084e-4 | -1.23446476967690e-4 | 4.9301e-9 | 3.47998923826786e-4 | 3.47998925288747e-4 | 4.2010e-9 | 4.5144e-9 | 1406.56 | 297.11 | 297.06 | 2001.04 |
+| GS-imaginary | -1.23446476359084e-4 | -1.23446476967690e-4 | 4.9301e-9 | 3.47998923826786e-4 | 3.47998925288747e-4 | 4.2010e-9 | 4.5144e-9 | 1085.59 | 1497.54 | 295.52 | 2878.94 |
+| V_A | 5.70250419269228e-1 | 5.70250418939442e-1 | 5.7832e-10 | 1.24889153232869e-2 | 1.24889153193817e-2 | 3.1270e-10 | 5.8108e-10 | 1081.90 | 299.22 | 414.53 | 1795.96 |
+
+All target rows passed. The endpoint-minus and endpoint-plus structures were
+positive, normalized, 256-state unique, and full support resolved. The
+GS endpoints have physical energy 0.5 for V_A=1; the V_A endpoints
+have physical energies 0.49995 and 0.50005 for V_A=0.9999,1.0001.
+
+### Support, residual, and magnitude diagnostics
+
+| direction | central min eigenvalue | minus min eigenvalue | plus min eigenvalue | central/minus/plus rank | max B rel. residual | max dB rel. residual | max A rel. residual | max dA rel. residual | max Sylvester rel. residual |
+|---|---:|---:|---:|---|---:|---:|---:|---:|---:|
+| GS-real | 3.9730e-618 | 3.9600e-618 | 3.9861e-618 | 256/256/256 | 8.08e-800 | 1.59e-799 | 7.66e-735 | 1.07e-799 | 3.72e-800 |
+| GS-imaginary | 3.9730e-618 | 3.9600e-618 | 3.9861e-618 | 256/256/256 | 8.08e-800 | 1.29e-799 | 7.66e-735 | 1.14e-799 | 3.64e-800 |
+| V_A | 3.9730e-618 | 3.8730e-618 | 4.0756e-618 | 256/256/256 | 8.08e-800 | 4.64e-800 | 7.66e-735 | 2.11e-798 | 6.14e-800 |
+
+The largest central constrained magnitudes, reported as log_{10} of
+the maximum absolute entry, were:
+
+| direction | H | dH | G | dG | S | dS | B | dB | A | dA | Q | dQ | T | dT | u | du | E | dE |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| GS-real | -2.408 | -2.833 | -1.809 | -2.252 | -1.709 | -1.963 | 1.202 | 1.941 | 68.993 | 70.368 | -0.806 | -1.060 | -0.540 | -0.765 | 0.337 | -0.034 | -1.471 | -1.811 |
+| GS-imaginary | -2.408 | -2.833 | -1.809 | -2.252 | -1.709 | -1.963 | 1.202 | 1.941 | 68.993 | 70.368 | -0.806 | -1.060 | -0.540 | -0.765 | 0.337 | -0.034 | -1.471 | -1.811 |
+| V_A | -2.408 | -2.637 | -1.809 | -2.201 | -1.709 | -2.008 | 1.202 | -0.740 | 68.993 | 69.057 | -0.806 | -1.105 | -0.540 | -0.674 | 0.337 | -0.320 | -1.471 | -1.394 |
+
+### Verification and consequences
+
+- `.venv\Scripts\python.exe -m unittest tests.test_c4_constrained_tangent tests.test_ap_custom_backward_corrected -v`: 7/7 passed.
+- `.venv\Scripts\python.exe -m py_compile scripts\validate_remaining_c4_forward_tangents.py tests\test_c4_constrained_tangent.py`: passed.
+- `.venv\Scripts\python.exe scripts\validate_remaining_c4_forward_tangents.py --phase cheap`: 12/12 cheap directional rows passed.
+- `git diff --check`: passed after the implementation checks; rerun after this evidence update.
+
+No reverse VJP, full-Z backward, optimizer step, training, B-D/Holevo
+backward, final-test access, publication-scale evaluation, or security-model
+change occurred. The existing corrected `w` definition and source-moment
+functional are unchanged. The target study total was 6677.63 seconds,
+including 1.69 seconds of cheap preflight; target-direction totals were
+6675.94 seconds.
+
+Classify the combined four-direction diagnostic as
+`FULL_SOURCE_FORWARD_TANGENT_VALIDATED`. This remains diagnostic-only and
+does not make the path computationally practical for adaptive training.
+Adaptive readiness remains `NOT_READY_FOR_ADAPTIVE_TRAINING`. The single
+remaining blocker is a validated and computationally practical reverse/adjoint
+of the constrained C4 source-moment system. The next permitted task is a
+separately scoped practicality study of that boundary; do not execute reverse,
+full-Z backward, or training as part of this evidence.
+
+## EVID-0072 - Constrained reverse practicality study
+
+Date: 2026-09-11
+
+Status: CURRENTLY VERIFIED PASS; DESIGN ONLY; NO REVERSE EXECUTED
+
+### Claim
+
+The exact C4 constrained-solve reverse is mathematically sound as a
+solve-based adjoint of the validated forward graph. Its minimal expensive
+solve count is eight cached primal right solves, eight adjoint right solves,
+and four self-adjoint square-root Sylvester solves. It needs no explicit
+inverse matrices and has a manageable sub-GB tape estimate, but the target
+conditioning and current Python/multiprecision runtime model fail the
+practicality gates for an mpmath training backend.
+
+The separately scoped report therefore selects exactly
+SKIP_MPMATH_REVERSE_AND_BUILD_COMPILED_MULTIPRECISION_PROTOTYPE.
+Adaptive readiness remains NOT_READY_FOR_ADAPTIVE_TRAINING; no reverse VJP,
+full-Z backward, optimizer step, training, final-test access, or
+publication-scale evaluation occurred.
+
+### Evidence
+
+- docs/CONSTRAINED_REVERSE_PRACTICALITY_STUDY.md
+- Report SHA-256:
+  5a8bfb0444d1658fed55ad6f1a13cf29c7b4c53bf3614e676db1a97a3a3c0f16
+- docs/FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md
+- src/cvqkd/c4_constrained_tangent.py, SHA-256
+  a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258
+- results/c4_remaining_forward_tangents_20260911.json, SHA-256
+  471e04862ef5cfaaa3ee65c01d229285ce43f93cb4c08bfc4a198a4414566
+- FINAL_MODEL_SPEC.md, SHA-256
+  8ec01861627c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843
+
+### Boundary
+
+The report is a derivation and planning artifact, not a reverse-validation
+result. Primitive adjoint identities, a complete reverse VJP, compiled
+multiprecision timing, full-Z backward, and training remain unrun. The next
+permitted task is one narrow C++17 64x64 one-sector primitive benchmark at
+1250, 1450, and 1650 decimal digits with residual and inner-product gates.
+
+## EVID-0073 - Deep research refinement of the reverse-gradient boundary
+
+Date: 2026-09-11
+
+Status: CURRENTLY VERIFIED PASS; RESEARCH/DESIGN ONLY; NO REVERSE EXECUTED
+
+### Claim
+
+The current full-support reverse-gradient blocker has been expanded into a
+37-section literature-backed decision report. The report derives the exact
+right-solve and square-root Sylvester adjoints under the real Frobenius
+pairing, preserves complex \(u\) and weighted \(w\), compares MPFR/MPC with
+Arb/FLINT and Julia/Nemo, gives conservative \(C,w\) error propagation into
+the \(Z\) interval, and rejects unannounced spectral truncation. It selects
+the compiled C++17 MPFR/MPC constrained reverse as the primary point
+prototype, with Arb/acb_mat as a certification/reference mode.
+
+This is a research and engineering recommendation. It does not validate a
+reverse VJP, certify an approximate gradient, authorize adaptive training,
+or broaden the project's asymptotic security scope.
+
+### Evidence
+
+- docs/DEEP_RESEARCH_SOURCE_MOMENT_REVERSE_GRADIENT.md
+- Report SHA-256:
+  f6bc18fe28747ee123514d69171f55f49383975e732f51e8dd5a40785bd97996
+- docs/CONSTRAINED_REVERSE_PRACTICALITY_STUDY.md, SHA-256:
+  5a8bfb0444d1658fed55ad6f1a13cf29c7b4c53bf3614e676db1a97a3a3c0f16
+- results/c4_remaining_forward_tangents_20260911.json, SHA-256:
+  471e04862ef5cfaaa3ee65c01d229285ce43f93cb4c08bfc4a198a4414566
+- src/cvqkd/c4_constrained_tangent.py, SHA-256:
+  a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258
+- docs/FINAL_MODEL_SPEC.md, SHA-256:
+  8ec01861627c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843
+- External theorem, numerical-linear-algebra, arbitrary-precision, and
+  DM-CV-QKD references are listed in the report's Sources section.
+
+### Boundary
+
+No primitive adjoint identity, compiled benchmark, full reverse VJP,
+full-\(Z\) backward, optimizer step, training run, final-test access,
+publication-scale evaluation, or security approval occurred. The next
+permitted action remains the one-sector C++17 multiprecision benchmark at
+1250, 1450, and 1650 decimal digits, with residual, inner-product, factor
+reuse, and timing gates.
+
+## EVID-0074 - Bounded training-surrogate analysis figures and exact anchors
+
+Date: 2026-09-11
+
+Status: CURRENTLY VERIFIED PASS; ANALYSIS ONLY; NEGATIVE FULL-METHOD OUTCOME
+
+### Claim
+
+An isolated `TRAINING_SURROGATE_ONLY` complex128 source-moment path passed the
+predeclared Case-A directional calibration and four nearby full-support
+ensemble checks. It was used only to search six bounded analysis methods on a
+deterministic 16-active-state representative grid with explicit AoA outage
+mass. The exact corrected AP worker and existing full-physical-Z Holevo chain
+then evaluated MB and seven Full anchors. All eight AP anchor jobs converged;
+all 21 exact-vs-surrogate anchor orderings were rank-consistent; the maximum
+relative C, w, and K discrepancies were `6.16e-9`, `2.16e-6`, and `2.18e-6`,
+respectively.
+
+The figures are analysis-grade and phase-disabled. They do not establish a
+positive security result: every active exact raw-K anchor is negative, and the
+Full exact-bin estimate (`-0.0015155352`) is worse than the fixed MB baseline
+(`-0.0011516261`). The weighted surrogate search-proxy values are marked
+`OPTIMIZATION/ANALYSIS ESTIMATE` and are not security certificates.
+
+### Evidence
+
+- `docs/ANALYSIS_FIGURES_REPORT_20260911.md`
+- Report SHA-256:
+  `b9f0d1f2edb78ec4d9ef02cb4dea063ea175591050c1d7a436f731dfeb1a02c5`
+- `src/cvqkd/training_surrogate.py`, SHA-256:
+  `266100eb00b8108e7b4738fc6489a697a09c099f76a147895df78579464819be`
+- `scripts/run_analysis_figures.py`, SHA-256:
+  `9f9b085c2ddddb9acf484070e5b32eddf2d883d7dcd040416df506b048da549f`
+- `results/training_surrogate_calibration_20260911.json`, SHA-256:
+  `7a299f20e7948819ee5f27a737b27669df9f337e7ed9356c288df3bb12b8a8f0`
+- `results/training_surrogate_nearby_calibration_20260911.json`, SHA-256:
+  `333147ffcccee3adff4ce4da23eb40043ca213b0709edc7d16182149bc0b4a60`
+- `results/analysis_channel_grid_20260911.json`, SHA-256:
+  `973b282bf62f6b908dd6fabde98947f04e633aca6862870f7e4f54a5bb370c58`
+- `results/analysis_training_checkpoints_20260911.json`, SHA-256:
+  `c512d37be22890cbbbeef8a6dba0fac38f1bd549a51c7b674956f415c02110eb`
+- `results/analysis_candidate_ensembles_20260911.json`, SHA-256:
+  `cf46ac546f61cea46bf8b89a12b50045cf90e120faf88a9d087e26347e24c057`
+- `results/analysis_exact_ap_security_anchors_20260911.json`, SHA-256:
+  `b24d230f5c120fb978636e3f38b244dd48e3f11e9bf911e9777ad6a740aaa637`
+- `results/analysis_figure_data_20260911.json`, SHA-256:
+  `239d3da2a8cd318d92eab77108f28afd36109cfdd068dc56332d5776b679e699`
+- `results/analysis_figures_artifact_20260911.json`, SHA-256:
+  `4918fad14ab9a59ede0ac8e4392bc0130df99d1f2fd1a26e6785a59366dc3292`
+- Exact corrected worker SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Grid hash:
+  `af2f912e81000a4b09d1942f28ac03078ddc6602774e9b772ba020c4557c5ad2`
+
+### Boundary and verification
+
+The channel grid is a reconstructed exploratory Case-D representative grid,
+not a frozen production channel scenario: 1000 sampled realizations, 16
+active representatives, active mass `0.732`, and outage mass `0.268`. Phase
+was deliberately disabled with `c_phi=0` and
+`epsilon_total=epsilon_base`. The active environment had no matplotlib/PIL or
+other raster/PDF backend, so six pure-stdlib SVG figures were produced; no
+PNG/PDF claim is made.
+
+The smoke and 50-step analysis optimizations passed finite-gradient, PMF,
+constellation, V_A-bound, energy, and 256-state uniqueness checks. Uniform and
+MB were fixed baselines; `nu=0.1` was not selected as a new formal MB optimum.
+The runner took approximately 3654.46 seconds, dominated by the bounded exact
+AP anchor rows. A post-write stale print reference was corrected after the
+artifact was synthesized; the final artifact provenance is rebound to the
+current runner hash above.
+
+No production security implementation, exact C/w definition, full-Z equation,
+channel equation, outage rule, phase mapping, final-test data, publication
+training, publication-scale evaluation, or lifecycle authorization changed.
+The analysis result is `ANALYSIS_FIGURES_READY` but remains
+`NOT_PUBLICATION_CERTIFIED`. The scientific classification is
+`MIXED_PRELIMINARY_SUPPORT`: the search surrogate is well supported as a
+local optimization aid, while the Full method has no meaningful exact
+full-Z advantage over the simple baseline in this scenario.
+
+## EVID-0075 - Full-Z objective and aggregation mismatch audit
+
+Date: 2026-09-11
+
+Status: CURRENTLY VERIFIED PASS; DIAGNOSTIC ANALYSIS ONLY; NO SECURITY CLAIM
+
+### Claim
+
+The saved analysis objective audit identifies a decisive mismatch between the
+smooth search proxy and the frozen full-Z target. The proxy's `tanh` mapping
+places `Z_proxy` below the source-moment lower endpoint `Z_L` in all 16 active
+representative states for every tested method mode. The ratio `Z_proxy/Z_L`
+is approximately `0.767--0.790`. The proxy is therefore not an
+interval-preserving approximation to `max_{Z in [Z_L,Z_U]} chi_BE(Z)` and can
+change method rankings.
+
+The fixed-grid aggregation arithmetic passes: active mass is `0.732`, explicit
+outage mass is `0.268`, each active representative has unconditional weight
+`0.04575`, and all weights sum to one within floating-point roundoff. Active
+conditional normalization is a common factor and cannot explain a rank
+reversal. The raw negative-rate convention remains intentional under the
+frozen specification.
+
+For the fixed baselines, exact full-Z weighted raw K is `-0.0011904563`
+(Uniform) and `-0.0009584152` (MB), while the proxy reports
+`-0.0273018358` and `-0.0273036361`; exact positive active cells are 5/16
+and 7/16 respectively, versus 0/16 for both proxy rows. A first Uniform grid
+state has exact interval approximately `[0.1888606775, 0.1919762611]` but
+`Z_proxy=0.1449848007`; its exact raw K is `+0.0006380156` and proxy raw K is
+`-0.0211091475`.
+
+The saved learned-candidate full-Z recheck is explicitly an analysis estimate
+because it uses saved surrogate `C,w`, not corrected AP source moments. It
+reverses the proxy ranking: MB is above Uniform, `V_A`, Full, PS+`V_A`, and
+PS. Current exact Full anchors also remain worse than MB except at one small
+lowest-T difference; the exact-bin Full estimate is `-0.0015155352` versus MB
+`-0.0011516261`.
+
+### Evidence and provenance
+
+- `docs/DEEP_RESEARCH_FADING_FULL_Z_BLOCKER_20260911.md`, SHA-256:
+  `2cc9f30119903c858304567d8abf962930ce845327db70c35ef9715094d5bc99`
+- `scripts/audit_analysis_objective.py`, SHA-256:
+  `cabc201737aa3292d528e1cc616a64f3dff1beb25ebf9532fd8f24845f6be80`
+- `results/analysis_objective_audit_20260911.json`, SHA-256:
+  `bbf6389997941e8447a51261405e45fbfb0b6653a210207f8dda7d070acd6b69`
+- Input figure data SHA-256:
+  `239d3da2a8cd318d92eab77108f28afd36109cfdd068dc56332d5776b679e699`
+- Analysis runner SHA-256:
+  `9f9b085c2ddddb9acf484070e5b32eddf2d883d7dcd040416df506b048da549f`
+- Frozen model specification SHA-256:
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+- Representative-grid hash:
+  `af2f912e81000a4b09d1942f28ac03078ddc6602774e9b772ba020c4557c5ad2`
+
+### Boundary
+
+The producer is read-only analysis code. It did not modify the production
+security implementation, frozen model, channel model, final-test data, or
+lifecycle authorization. It performed no publication-scale training, final-
+test access, reverse VJP, full-Z backward, baseline selection, or security
+certification. The 1000-sample/16-representative grid is exploratory, phase is
+disabled, and the current fading average remains an oracle-CSI analysis
+functional rather than an operational fading security proof.
+
+### Next action supported by this evidence
+
+Repair the search objective with an interval-preserving `Z` parameterization
+or the exact bounded full-Z functional, then run only a bounded baseline/rank
+audit and short candidate recheck. Defer exact PS+`V_A`, Full-minus-GS causal
+controls, and any larger training until the repaired objective agrees with the
+exact full-Z reference. Keep `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and
+`NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## EVID-0076 - Interval-preserving full-Z search objective repair
+
+Date: 2026-09-11
+
+Status: CURRENTLY VERIFIED PASS; ANALYSIS ONLY; EXACT PS+V_A RANKING FAIL-CLOSED
+
+### Claim
+
+The isolated repaired search objective reuses the existing full-physical-Z
+Holevo path and its deterministic bounded maximizer with surrogate `C,w`
+only during search. The old smooth `tanh` proxy was reproduced first and was
+outside the source-moment interval in all `96/96` mode-state rows. The repaired
+path had `0/96` interval violations, passed the corrected Case-A reference,
+matched the existing Uniform/MB/Full exact AP/full-Z anchor orderings, and
+passed finite PS/GS/V_A gradient smoke.
+
+The bounded PS+V_A and Full 50-step analysis checks both passed their 20-step
+smoke. On the three selected poor/median/good states, new Full exact AP source
+rows converged and Full exceeded MB at all three states; the equal-weight
+three-state Full-minus-MB raw-K difference was `+0.0006754022`. The optimized
+PS+V_A exact AP rows all failed closed at the full-support worker gate, so no
+PS+V_A exact K or complete PS+V_A-versus-Full ranking is claimed.
+
+### Evidence and provenance
+
+- `docs/REPAIRED_FULL_Z_OBJECTIVE_REPORT_20260911.md`, SHA-256:
+  `b6077b4942390ea90840b463d495a3199a85fa332f21ede11e604868265b3a5c`
+- `scripts/run_repaired_full_z_objective.py`, SHA-256:
+  `cd8e4080f5ec859c7466b252a236a88804e01a0c62aa4641e12b1c7a1d6409b3`
+- `src/cvqkd/holevo.py`, SHA-256:
+  `2380cd196238a06438e86d767f4cb342361ae5054d5154df7f398556e4b0b3c5`
+- `tests/test_repaired_full_z_objective.py`, SHA-256:
+  `e979927fcfd06e4296d31f8f51b2825b9668ec20615256503a41d497312692da`
+- `results/repaired_full_z_objective_analysis_20260911.json`, SHA-256:
+  `aa94fc2032ab9d1421c3f4256cf3a7a4be6526c612797f4b162c1c8c85d98f23`
+- `results/repaired_full_z_exact_jobs_20260911.json`, SHA-256:
+  `52eafe5ee42af34a53b2280ddf10639fe77d50f87702ddc754ababbb06b5ad5c`
+- `results/repaired_full_z_ps_va_exact_failure_20260911.json`, SHA-256:
+  `27b6474a67b26755f076d3ed7569fe5fe22b3f0758df0242e059ccf4333b997f`
+- Existing figure input SHA-256:
+  `239d3da2a8cd318d92eab77108f28afd36109cfdd068dc56332d5776b679e699`
+- Frozen model specification SHA-256:
+  `8ec01861627c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+
+### Verification
+
+The corrected Case-A exact raw K was `0.004757635492383283`; the repaired
+surrogate/full-Z value was `0.004757636501528051`, with absolute difference
+`1.0091e-9`. Existing anchor comparison had maximum absolute K error
+`5.2219e-9`, maximum relative error `2.1818e-6`, and consistent ordering on
+all seven anchors. Focused `unittest` ran `16` tests with `OK`.
+
+The repaired artifact records the fixed-candidate rank change from
+old-proxy order
+`PS+V_A > Full > PS > V_A > Uniform > MB` to repaired order
+`MB > V_A > Uniform > Full > PS+V_A > PS`. The selected full-Z points are
+inside `[Z_L,Z_U]` and the added scalar-evaluator assertion fails closed on
+non-finite or out-of-interval candidates.
+
+### Boundary and consequences
+
+This is `ANALYSIS_ESTIMATE` evidence on the existing phase-disabled,
+exploratory 16-state grid. It is not a security certification, baseline
+selection, adaptive-training authorization, or publication result. No
+publication-scale training, final-test access, MPFR/MPC implementation,
+corrected AP worker change, C/w definition change, channel/beta/phase/epsilon
+change, K clipping, or full-Z equation change occurred.
+
+The exact PS+V_A failure is recorded separately and is not converted to a K:
+the 100/150/200-digit diagnostic ranks were below the required 256 full
+support in all three states, and the required 800/900-digit attempts returned
+`FAIL_CLOSED`. The remaining lifecycle status is
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; novelty remains
+`CURRENT_NOVELTY_NOT_SUPPORTED`.

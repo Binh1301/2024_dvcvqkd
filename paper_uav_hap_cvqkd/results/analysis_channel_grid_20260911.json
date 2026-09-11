@@ -1,0 +1,375 @@
+{
+  "artifact_class": "ANALYSIS_ESTIMATE",
+  "source": {
+    "case": "D",
+    "sample_count": 1000,
+    "channel_seed": 20260910,
+    "epsilon_base_seed": 4542851964011138592,
+    "transmittance_sha256": "3352f1aa071b0f2336d50c4b0e3a0ae4023a90c03ca9ad581a5168fd32f51046",
+    "epsilon_base_sha256": "58ee41dd2a39254b8af3409f5a28717c5ea4b3d4a3cea2e32f0941fd942217ce",
+    "realization_sha256": "12f055fdd8a99dbe672990e4212cf40a41bada654c27f1149a27cf2ab12e34d9",
+    "channel_config": {
+      "case": "D",
+      "sample_count": 1000,
+      "seed": 20260910,
+      "v_sc_override": 0.25,
+      "sigma_hap_ang_rad": 5e-06,
+      "aoa_model": "external_validated",
+      "sigma_turb_AoA2": 0.0,
+      "turbulence_aoa_provenance": "development fixture: zero turbulence-induced AoA variance",
+      "theta_fov_rad": 0.0038910863,
+      "uav_motion": {
+        "sigma_x_m": 0.0521,
+        "sigma_y_m": 0.0502,
+        "sigma_z_m": 0.0703,
+        "sigma_theta_rad": 0.0026,
+        "sigma_phi_rad": 0.00204,
+        "sigma_psi_rad": 0.00406
+      }
+    },
+    "channel_metadata": {
+      "link_length_m": 19000.0,
+      "zenith_angle_rad": 0.0,
+      "sigma2_uav_m2": 0.002617225,
+      "sigma2_hap_m2": 0.009025000000000002,
+      "sigma2_turbulence_m2": 0.0,
+      "sigma2_axis_m2": 0.011642225000000003,
+      "rayleigh_scale_convention": "legacy name; sigma_axis is each Rician Cartesian component",
+      "displacement_law": "Rician",
+      "pointing_model": "generalized_gaussian_beam",
+      "sigma_z_included": false,
+      "beam_wander_status": "LEGACY_NOT_USED",
+      "csi_assumption": "exact instantaneous physical T and epsilon_base oracle; no estimator model",
+      "physical_domain_rule": "truncated_renormalized_active_law",
+      "raw_transmittance_array_semantics": "pre-admission product for the retained realization; active rows are conditioned on T_raw<=1",
+      "raw_mean_scope": "unconditioned proposal before active-domain rejection",
+      "physical_support_upper": 1.0,
+      "p_out": 0.268,
+      "p_in": 0.732,
+      "p_out_analytic": 0.24999999771918283,
+      "p_above_one": 0.0,
+      "p_above_one_active": 0.0,
+      "raw_mean_T": 0.018572237759386725,
+      "physical_mean_T": 0.018873208422052853,
+      "raw_mean_T_unconditioned": 0.018572237759386725,
+      "paired_raw_mean_T": 0.018873208422052853,
+      "mean_difference_T": 0.0,
+      "delta_T": 0.0,
+      "proposal_mean_difference_T": -0.00030097066266612793,
+      "proposal_delta_T": 0.01594697922767872,
+      "raw_identity_mean_T": 0.018706653797762415,
+      "raw_candidate_count": 1464,
+      "raw_candidate_count_including_outages": 1732,
+      "unit_transmittance_atom_created": false,
+      "provenance": {
+        "geometry": {
+          "h_hap_m": 20000.0,
+          "h_uav_m": 1000.0,
+          "zenith_angle_rad": 0.0,
+          "link_length_m": 19000.0
+        },
+        "wavelength_m": 1.55e-06,
+        "visibility_km": 200.0,
+        "atmospheric_model": "Kruse extinction with Beer-Lambert eta_atm",
+        "turbulence_source": "one shared C_n^2(h) scenario; scalar cn2 retained only as legacy input",
+        "legacy_scalar_cn2_m_minus_two_thirds": 1e-16,
+        "turbulence_profile": {
+          "model": "profile_unresolved",
+          "array_hashes": null
+        },
+        "scintillation_model": {
+          "profile_model": "profile_unresolved",
+          "sigma_R0_squared": null,
+          "v_sc": 0.25,
+          "aperture_averaging_status": "explicit_v_sc_override",
+          "lognormal_parameterization": "ln(H_sc) ~ Normal(-v_sc/2, v_sc)",
+          "mean_H_sc": 1.0
+        },
+        "aperture_averaging_model": "explicit_v_sc_override",
+        "aperture_averaging_status": "explicit_v_sc_override",
+        "beam_waist_m": 0.0157,
+        "aperture_radius_m": 0.075,
+        "pointing_model": "generalized_gaussian_beam",
+        "pointing_parameters": {
+          "beam_radius_receiver_m": 0.5972908436983067,
+          "rayleigh_range_m": 499.5943052795794,
+          "t0_power": 0.031042111435033548,
+          "gamma": 2.0000026122267047,
+          "scale_radius_m": 0.4256987375105642
+        },
+        "boresight_m": [
+          0.0,
+          0.0
+        ],
+        "uav_motion": {
+          "sigma_x_m": 0.0521,
+          "sigma_y_m": 0.0502,
+          "sigma_z_m": 0.0703,
+          "sigma_theta_rad": 0.0026,
+          "sigma_phi_rad": 0.00204,
+          "sigma_psi_rad": 0.00406
+        },
+        "sigma_hap_ang_rad": 5e-06,
+        "sigma_uav_trans_m2": 0.002617225,
+        "sigma_hap_disp_m2": 0.009025000000000002,
+        "sigma_axis_m2": 0.011642225000000003,
+        "jitter_convention": {
+          "uav_transverse": "(sigma_x^2+sigma_y^2)/2 per axis",
+          "sigma_z": "excluded from pointing",
+          "hap_angular": "per_axis"
+        },
+        "aoa_model": "external_validated",
+        "sigma_turb_AoA2_rad2": 0.0,
+        "turbulence_aoa_provenance": "development fixture: zero turbulence-induced AoA variance",
+        "aoa_sigma_o2_rad2": 5.4608e-06,
+        "theta_fov_rad": 0.0038910863,
+        "physical_domain_rule": "truncated_renormalized_active_law"
+      }
+    }
+  },
+  "weighting": "equal probability bins in T crossed with equal probability bins in independent epsilon_base",
+  "active_count": 732,
+  "active_mass": 0.732,
+  "outage_count": 268,
+  "outage_mass": 0.268,
+  "points": [
+    {
+      "index": 0,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.0122605976009728,
+      "epsilon_base": 0.00539972141922648,
+      "epsilon_total": 0.00539972141922648,
+      "T_bin": 0,
+      "epsilon_bin": 0
+    },
+    {
+      "index": 1,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.0122605976009728,
+      "epsilon_base": 0.015506838058304377,
+      "epsilon_total": 0.015506838058304377,
+      "T_bin": 0,
+      "epsilon_bin": 1
+    },
+    {
+      "index": 2,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.0122605976009728,
+      "epsilon_base": 0.02556641535642754,
+      "epsilon_total": 0.02556641535642754,
+      "T_bin": 0,
+      "epsilon_bin": 2
+    },
+    {
+      "index": 3,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.0122605976009728,
+      "epsilon_base": 0.035043510873143745,
+      "epsilon_total": 0.035043510873143745,
+      "T_bin": 0,
+      "epsilon_bin": 3
+    },
+    {
+      "index": 4,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.019165541814694473,
+      "epsilon_base": 0.00539972141922648,
+      "epsilon_total": 0.00539972141922648,
+      "T_bin": 1,
+      "epsilon_bin": 0
+    },
+    {
+      "index": 5,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.019165541814694473,
+      "epsilon_base": 0.015506838058304377,
+      "epsilon_total": 0.015506838058304377,
+      "T_bin": 1,
+      "epsilon_bin": 1
+    },
+    {
+      "index": 6,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.019165541814694473,
+      "epsilon_base": 0.02556641535642754,
+      "epsilon_total": 0.02556641535642754,
+      "T_bin": 1,
+      "epsilon_bin": 2
+    },
+    {
+      "index": 7,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.019165541814694473,
+      "epsilon_base": 0.035043510873143745,
+      "epsilon_total": 0.035043510873143745,
+      "T_bin": 1,
+      "epsilon_bin": 3
+    },
+    {
+      "index": 8,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.027037351052171317,
+      "epsilon_base": 0.00539972141922648,
+      "epsilon_total": 0.00539972141922648,
+      "T_bin": 2,
+      "epsilon_bin": 0
+    },
+    {
+      "index": 9,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.027037351052171317,
+      "epsilon_base": 0.015506838058304377,
+      "epsilon_total": 0.015506838058304377,
+      "T_bin": 2,
+      "epsilon_bin": 1
+    },
+    {
+      "index": 10,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.027037351052171317,
+      "epsilon_base": 0.02556641535642754,
+      "epsilon_total": 0.02556641535642754,
+      "T_bin": 2,
+      "epsilon_bin": 2
+    },
+    {
+      "index": 11,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.027037351052171317,
+      "epsilon_base": 0.035043510873143745,
+      "epsilon_total": 0.035043510873143745,
+      "T_bin": 2,
+      "epsilon_bin": 3
+    },
+    {
+      "index": 12,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.040990840401720144,
+      "epsilon_base": 0.00539972141922648,
+      "epsilon_total": 0.00539972141922648,
+      "T_bin": 3,
+      "epsilon_bin": 0
+    },
+    {
+      "index": 13,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.040990840401720144,
+      "epsilon_base": 0.015506838058304377,
+      "epsilon_total": 0.015506838058304377,
+      "T_bin": 3,
+      "epsilon_bin": 1
+    },
+    {
+      "index": 14,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.040990840401720144,
+      "epsilon_base": 0.02556641535642754,
+      "epsilon_total": 0.02556641535642754,
+      "T_bin": 3,
+      "epsilon_bin": 2
+    },
+    {
+      "index": 15,
+      "active": true,
+      "weight": 0.04575,
+      "T": 0.040990840401720144,
+      "epsilon_base": 0.035043510873143745,
+      "epsilon_total": 0.035043510873143745,
+      "T_bin": 3,
+      "epsilon_bin": 3
+    },
+    {
+      "index": 16,
+      "active": false,
+      "weight": 0.268,
+      "T": 0.0,
+      "epsilon_base": 0.0199645149990303,
+      "epsilon_total": 0.0199645149990303,
+      "outage_rule": "T=0 -> no policy, MI, Holevo; raw K=0"
+    }
+  ],
+  "anchor_points": [
+    {
+      "index": 0,
+      "weight": 0.10457142857142857,
+      "T": 0.0073339133098251396,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.02,
+      "active": true
+    },
+    {
+      "index": 1,
+      "weight": 0.10457142857142857,
+      "T": 0.013900297474705297,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.18,
+      "active": true
+    },
+    {
+      "index": 2,
+      "weight": 0.10457142857142857,
+      "T": 0.018268766018760943,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.34,
+      "active": true
+    },
+    {
+      "index": 3,
+      "weight": 0.10457142857142857,
+      "T": 0.022181763383054068,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.5,
+      "active": true
+    },
+    {
+      "index": 4,
+      "weight": 0.10457142857142857,
+      "T": 0.028314980161201608,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.66,
+      "active": true
+    },
+    {
+      "index": 5,
+      "weight": 0.10457142857142857,
+      "T": 0.03667392689472688,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.8200000000000001,
+      "active": true
+    },
+    {
+      "index": 6,
+      "weight": 0.10457142857142857,
+      "T": 0.06615993381916557,
+      "epsilon_base": 0.02025322309984713,
+      "epsilon_total": 0.02025322309984713,
+      "quantile": 0.98,
+      "active": true
+    }
+  ],
+  "phase_disabled": true,
+  "c_phi": 0.0,
+  "epsilon_total_definition": "epsilon_total = epsilon_base + 0 * V_A",
+  "grid_sha256": "af2f912e81000a4b09d1942f28ac03078ddc6602774e9b772ba020c4557c5ad2"
+}

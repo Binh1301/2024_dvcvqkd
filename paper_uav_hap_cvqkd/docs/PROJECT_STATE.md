@@ -1,6 +1,6 @@
 # Project State
 
-Last updated: 2026-09-11 (corrected AP worker, bounded B-D rebind, AP custom-backward validation, source-moment research audit, and C4 tangent diagnostic)
+Last updated: 2026-09-11 (interval-preserving full-Z objective repair and bounded exact check; prior corrected AP/tangent/reverse evidence retained)
 
 ## Terminal status
 
@@ -8,6 +8,48 @@ NOT_READY_FOR_PUBLICATION_SCALE_RUNS
 
 No publication-scale training, baseline selection, optimized-MB search,
 final-test access, held-out evaluation, or publication claim is authorized.
+
+## Latest bounded analysis result
+
+EVID-0074 and DEC-0058 record the completed analysis-figure workflow. The
+isolated `TRAINING_SURROGATE_ONLY` source-moment path passed Case-A
+directional calibration and four nearby full-support checks. It drove only a
+50-step search over six methods on 16 active representative Case-D states,
+with explicit outage mass `0.268` and phase disabled (`c_phi=0`,
+`epsilon_total=epsilon_base`).
+
+Eight exact AP anchor jobs (MB plus seven Full states) converged at the
+800/900-digit ladder. The existing corrected full-Z security chain was used
+for the anchor table; all 21 exact-vs-surrogate method orderings were
+consistent. However, every active exact raw-K anchor is negative, and the Full
+exact-bin estimate `-0.0015155352` is worse than the fixed MB baseline
+`-0.0011516261`. Classification: `MIXED_PRELIMINARY_SUPPORT`.
+
+The six SVG outputs are `ANALYSIS_FIGURES_READY` and analysis-grade only. The
+surrogate security estimates are not authoritative, and publication status is
+`NOT_PUBLICATION_CERTIFIED`. The next recommended investigation is the
+Full-vs-MB surrogate/objective mismatch; no publication run is justified by
+this result.
+
+EVID-0075 and DEC-0059 now resolve the primary part of that mismatch: the
+smooth search `tanh` maps `Z` below `Z_L` in all 16 active states, so it is not
+an interval-preserving approximation to the frozen full-Z objective. The
+weight audit passes (`0.732` active mass, `0.268` outage mass, total one), and
+the raw negative-rate convention remains intentional. The current positive
+joint-adaptation novelty is therefore `CURRENT_NOVELTY_NOT_SUPPORTED` until
+the objective is repaired and rechecked.
+
+EVID-0076 and DEC-0060 record the completed bounded objective repair. The
+repaired runner uses the existing physical `[Z_L,Z_U]` interval and full-Z
+maximizer, with `0/96` interval violations, corrected Case-A agreement,
+existing exact-anchor rank consistency, and finite PS/GS/V_A gradient smoke.
+The bounded PS+V_A and Full searches each passed the 20-step smoke and ran
+50 analysis steps. The three-state exact check found Full above MB at all
+available states, but the optimized PS+V_A AP source rows failed closed at the
+full-support gate, so no complete adaptive ranking or novelty claim follows.
+The final classification is `FULL_Z_SEARCH_OBJECTIVE_REPAIRED`; novelty stays
+`CURRENT_NOVELTY_NOT_SUPPORTED` and the lifecycle stays
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
 ## Current model status
 
@@ -30,8 +72,9 @@ final-test access, held-out evaluation, or publication claim is authorized.
   diagnostics are implemented, while production scintillation/AoA mappings
   remain unresolved. The
   full physical Z interval, structured empty-domain failure, and deterministic
-  bounded Holevo maximization are now implemented and focused-tested; target
-  numerical evidence remains bound to the prior lower-endpoint path.
+  bounded Holevo maximization are now implemented and focused-tested. The
+  repaired objective audit is analysis-only and does not rebind publication
+  security evidence.
 - Mixed batches now evaluate only active \(T>0\) rows; outage rows remain
   \(T=0\), bypass the policy, receive raw \(K=0\), and do not receive fake
   gradients. The relative transmittance diagnostic and signed mean difference
@@ -100,8 +143,9 @@ final-test access, held-out evaluation, or publication claim is authorized.
   fixtures and complex-alpha convention checks, but its bounded 800-digit PS
   target VJP is materially wrong (`3.3995e+102` versus corrected AP
   `0.001774...`). It is classified `AP_CUSTOM_BACKWARD_NOT_VALIDATED`; no
-  256-state directional gradient claim or adaptive-training authorization
-    exists. GS-real, GS-imag, V_A, and full-Z backward were not run.
+  256-state production directional gradient claim or adaptive-training
+  authorization exists. The old reverse and full-Z backward were not run;
+  the isolated forward tangent is recorded separately in EVID-0070/0071.
 - The full-support differentiable source-moment research audit is recorded in
   FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md. It confirms the
   forward tangent equations, quantifies the inverse-spectrum scales, and
@@ -109,11 +153,28 @@ final-test access, held-out evaluation, or publication claim is authorized.
   This is research-only evidence and does not change the security model or
   lifecycle state.
 - The isolated C4 constrained-solve forward tangent is now validated for the
-  recovered Case-A PS direction at 800 AP digits: 256/256 modes resolve and
-  dC, dw, and combined dJ agree with the prior corrected AP finite difference
-  within 1e-8. The 200/400/600 ladder rows fail closed before full support;
-  the resolved row takes 1181.1304 seconds. This is diagnostic-only evidence;
-  no practical production gradient or adaptive-training authorization exists.
+  recovered Case-A PS direction and the remaining GS-real, GS-imaginary, and
+  V_A directions at the bounded 800-digit target. Each target has positive
+  probabilities, 256 unique states, 256/256 resolved support, and dC, dw, and
+  dJ agreement with corrected AP central differences below 1e-6. The combined
+  result is `FULL_SOURCE_FORWARD_TANGENT_VALIDATED`, diagnostic-only. Target
+  direction totals were 2001.04 s (GS-real), 2878.94 s (GS-imaginary), and
+  1795.96 s (V_A), so no practical production gradient or adaptive-training
+  authorization exists.
+- The constrained reverse practicality study is recorded in
+  CONSTRAINED_REVERSE_PRACTICALITY_STUDY.md and EVID-0072. Its solve-based
+  adjoint is mathematically sound as a design, but primitive identities,
+  target reverse validation, and compiled timing remain unrun. Select
+  SKIP_MPMATH_REVERSE_AND_BUILD_COMPILED_MULTIPRECISION_PROTOTYPE; this does
+  not authorize a complete reverse, full-Z backward, or training.
+- The 37-section deep research refinement is recorded in
+  DEEP_RESEARCH_SOURCE_MOMENT_REVERSE_GRADIENT.md and EVID-0073. It derives
+  the right-solve and square-root Sylvester adjoints, gives conservative
+  value-error propagation from \(C,w\) into the \(Z\) interval, rejects
+  unannounced spectral truncation, and selects C++17 MPFR/MPC point
+  arithmetic as the primary compiled prototype with Arb/acb_mat as a
+  certification/reference mode. It is design evidence only; no reverse VJP
+  or security certification occurred.
 
 ## Friday preliminary diagnostic posture
 
@@ -155,11 +216,13 @@ EVID-0068, and the superseded artifacts.
 
 ## Exact next permitted action
 
-Extend the isolated exact C4 forward tangent diagnostic to the remaining
-GS-real, GS-imaginary, and V_A source directions only as a bounded numerical
-study. Keep reverse repair, full-Z backward, adaptive training, and
-publication-scale evaluation closed until all source directions are validated
-and a practical exact gradient boundary is separately established.
+The repaired objective is accepted for bounded analysis only. The one
+remaining numerical blocker is the missing converged exact PS+`V_A` source-
+moment/ranking result. The next task is a full-support-preserving PS+`V_A`
+parameterization or conditioning guard followed by the same three-state exact
+AP/full-Z comparison. Keep complete reverse execution, full-Z backward,
+adaptive training, baseline selection, final-test access, and publication-
+scale evaluation closed.
 
 ## Lifecycle restrictions
 
@@ -226,5 +289,34 @@ replace the target equations with the current implementation.
   validated at 800 digits, with a 1181.1304-second diagnostic runtime.
 - DEC-0054: accept the bounded PS tangent as diagnostic evidence; retain
   `NOT_READY_FOR_ADAPTIVE_TRAINING` and keep the reverse path closed.
+- EVID-0071: bounded GS-real, GS-imaginary, and V_A forward tangents passed at
+  800 AP digits; all four source directions are forward-tangent validated.
+- DEC-0055: accept the four-direction forward tangent diagnostically while
+  retaining the practical reverse/adjoint blocker and lifecycle gates.
+- EVID-0072: constrained reverse practicality study; solve-based adjoint
+  derivation is design-sound, mpmath reverse is skipped, and compiled
+  multiprecision primitives are the only next permitted task.
+- DEC-0056: select
+  SKIP_MPMATH_REVERSE_AND_BUILD_COMPILED_MULTIPRECISION_PROTOTYPE; retain
+  NOT_READY_FOR_ADAPTIVE_TRAINING and all lifecycle gates.
+- EVID-0073: deep research refinement of the reverse-gradient boundary;
+  exact right-solve/Sylvester adjoints, security-rigorous value-error
+  propagation, backend comparison, and compiled MPFR/MPC primary
+  recommendation; no reverse or training authorization.
+- DEC-0057: refine the compiled prototype backend to C++17 MPFR/MPC point
+  arithmetic with Arb/acb_mat as an independent reference/enclosure mode;
+  retain all lifecycle gates.
+- EVID-0075: objective/aggregation audit; the smooth search proxy violates the
+  full-Z source-moment interval in all tested active states, while fixture
+  weight arithmetic passes.
+- DEC-0059: repair the interval-preserving objective before interpreting
+  learned gains; classify the current positive joint-adaptation novelty as
+  `CURRENT_NOVELTY_NOT_SUPPORTED` and retain all lifecycle gates.
+- EVID-0076: interval-preserving full-Z objective repair; zero repaired
+  interval violations and passing objective/gradient gates, with exact
+  PS+`V_A` comparison fail-closed.
+- DEC-0060: accept `FULL_Z_SEARCH_OBJECTIVE_REPAIRED`, retain
+  `CURRENT_NOVELTY_NOT_SUPPORTED`, and keep the publication/adaptive lifecycle
+  gates closed.
 - Existing historical numerical evidence remains in EVIDENCE.md and
   DECISION_LOG.md under its original provenance.

@@ -1,0 +1,191 @@
+{
+  "status": "NEARBY_SURROGATE_PASS",
+  "artifact_class": "TRAINING_SURROGATE",
+  "acceptance": {
+    "C_relative_error_max": 0.02,
+    "w_relative_error_max": 0.1,
+    "full_Z_domain": "one deterministic active state at T=0.03, epsilon_base=0.02"
+  },
+  "rows": [
+    {
+      "ensemble": "mild_ps",
+      "artifact_class": "TRAINING_SURROGATE",
+      "exact": {
+        "C": "0.85989444724116828012504981459146307001938644871061",
+        "w": "0.018230358577797447301348076189097696635771635952047",
+        "minimum_eigenvalue": "1.5559827796042238087728496038412414330365725925379e-617",
+        "worker_rows": [
+          {
+            "C": "0.85989444724116828012504981459146307001938644871061",
+            "digits": 800,
+            "minimum_eigenvalue": "1.5559827796042238087728496038412414330365725925379e-617",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.018230358577797447301348076189097696635771635952047"
+          },
+          {
+            "C": "0.85989444724116828012504981459146307001938644871061",
+            "digits": 900,
+            "minimum_eigenvalue": "1.5559827796042238087728496038412414330365725925379e-617",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.018230358577797447301348076189097696635771635952047"
+          }
+        ]
+      },
+      "surrogate": {
+        "C": 0.8598944520989342,
+        "w": 0.018230381939684438,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-10,
+        "minimum_shifted_eigenvalue": 9.999989037242792e-11,
+        "maximum_shifted_eigenvalue": 0.635944511014052
+      },
+      "relative_error": {
+        "C": 5.649258444270917e-09,
+        "w": 1.2814825825394957e-06
+      },
+      "full_Z_domain_check": "PASS",
+      "passes": true
+    },
+    {
+      "ensemble": "mild_gs_real",
+      "artifact_class": "TRAINING_SURROGATE",
+      "exact": {
+        "C": "0.85984680258282291609911024272510151099088898945575",
+        "w": "0.018339750068496058499094259122048413112786963528442",
+        "minimum_eigenvalue": "1.0434591214191094125735661056766032552575912061611e-617",
+        "worker_rows": [
+          {
+            "C": "0.85984680258282291609911024272510151099088898945575",
+            "digits": 800,
+            "minimum_eigenvalue": "1.0434591214191094125735661056766032552575912061611e-617",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.018339750068496058499094259122048413112786963528442"
+          },
+          {
+            "C": "0.85984680258282291609911024272510151099088898945575",
+            "digits": 900,
+            "minimum_eigenvalue": "1.0434591214191094125735661056766032552575912061611e-617",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.018339750068496058499094259122048413112786963528442"
+          }
+        ]
+      },
+      "surrogate": {
+        "C": 0.8598468073707757,
+        "w": 0.018339774198119916,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-10,
+        "minimum_shifted_eigenvalue": 9.999996490779236e-11,
+        "maximum_shifted_eigenvalue": 0.6359069085162711
+      },
+      "relative_error": {
+        "C": 5.56837892240795e-09,
+        "w": 1.3157008011511657e-06
+      },
+      "full_Z_domain_check": "PASS",
+      "passes": true
+    },
+    {
+      "ensemble": "mild_va",
+      "artifact_class": "TRAINING_SURROGATE",
+      "exact": {
+        "C": "0.91643145107672696166063101045809144795944175043115",
+        "w": "0.01952808743262951819421446815498818457692069180174",
+        "minimum_eigenvalue": "1.4255915467743810127457809371600500315268426504852e-607",
+        "worker_rows": [
+          {
+            "C": "0.91643145107672696166063101045809144795944175043115",
+            "digits": 800,
+            "minimum_eigenvalue": "1.4255915467743810127457809371600500315268426504852e-607",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.01952808743262951819421446815498818457692069180174"
+          },
+          {
+            "C": "0.91643145107672696166063101045809144795944175043115",
+            "digits": 900,
+            "minimum_eigenvalue": "1.4255915467743810127457809371600500315268426504852e-607",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.01952808743262951819421446815498818457692069180174"
+          }
+        ]
+      },
+      "surrogate": {
+        "C": 0.9164314570066332,
+        "w": 0.019528111324811165,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-10,
+        "minimum_shifted_eigenvalue": 9.999991496400626e-11,
+        "maximum_shifted_eigenvalue": 0.610779158078342
+      },
+      "relative_error": {
+        "C": 6.470648978435307e-09,
+        "w": 1.2234778100381298e-06
+      },
+      "full_Z_domain_check": "PASS",
+      "passes": true
+    },
+    {
+      "ensemble": "combined",
+      "artifact_class": "TRAINING_SURROGATE",
+      "exact": {
+        "C": "0.91645576563193406241943009877404525788246737408792",
+        "w": "0.019477478924672458665309906912742885302648587730083",
+        "minimum_eigenvalue": "7.6954102809555185042820039404249351981834999772964e-607",
+        "worker_rows": [
+          {
+            "C": "0.91645576563193406241943009877404525788246737408792",
+            "digits": 800,
+            "minimum_eigenvalue": "7.6954102809555185042820039404249351981834999772964e-607",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.019477478924672458665309906912742885302648587730083"
+          },
+          {
+            "C": "0.91645576563193406241943009877404525788246737408792",
+            "digits": 900,
+            "minimum_eigenvalue": "7.6954102809555185042820039404249351981834999772964e-607",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.019477478924672458665309906912742885302648587730083"
+          }
+        ]
+      },
+      "surrogate": {
+        "C": 0.9164557716025833,
+        "w": 0.01947750229778735,
+        "marker": "TRAINING_SURROGATE_ONLY",
+        "regularization": 1e-10,
+        "minimum_shifted_eigenvalue": 9.999991630843993e-11,
+        "maximum_shifted_eigenvalue": 0.6107740122954557
+      },
+      "relative_error": {
+        "C": 6.5149344040149e-09,
+        "w": 1.2000071971246512e-06
+      },
+      "full_Z_domain_check": "PASS",
+      "passes": true
+    }
+  ],
+  "provenance": {
+    "corrected_worker": "scripts\\full_support_c4_worker.py",
+    "corrected_worker_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+    "precision_ladder_decimal_digits": [
+      800,
+      900
+    ],
+    "phase_disabled": true,
+    "reused_exact_rows": [
+      "mild_ps",
+      "mild_gs_real",
+      "mild_va"
+    ],
+    "reused_artifact": "results\\training_surrogate_nearby_calibration_20260911.json",
+    "reused_artifact_sha256": "4e75c8cc45176f22771ff1b859cbc1a25755f7b27b66e83af6d84095ceb842e4"
+  }
+}
