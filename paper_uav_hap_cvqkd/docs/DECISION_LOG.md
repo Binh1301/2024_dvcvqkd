@@ -1604,3 +1604,175 @@ Corrected Case A has (w=0.018327610474963502...),
 (K=0.004757635492383283). These remain bounded exploratory values; no
 publication, certification, training, final-test, or B-D authorization follows.
 Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## DEC-0051 - Accept corrected bounded B-D security rebind as exploratory evidence
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED EXPLORATORY DECISION
+
+### Decision
+
+Accept the newly generated B-D artifact as a corrected, bounded,
+evaluation-only source-moment/full-Z exploratory rebind. It uses the accepted
+corrected AP `(C,w)`, the exact uniform 256-state ensemble hash, direct seeded
+physical channel samples, active-only statewise MI/Holevo evaluation, and raw
+signed SKR with no clipping. Case D outage rows remain outside MI/Holevo and
+have exact `K=0`.
+
+Because the historical ignored B-D artifact and its exact index roster were
+unavailable in this checkout, the new artifact uses and records the declared
+`evenly_spaced_active_rows_v1` reconstruction rule. Its values must not be
+described as a publication-scale or exact historical-subset result.
+
+### Evidence
+
+- EVID-0067
+- `results/exploratory_cases_BD_full_security_corrected_20260911.json`,
+  SHA-256 `c7c88940e5219a191277f358318eb756dcdeea61d6a6e546d0286af42a3c2ba0`
+- `scripts/recompute_corrected_bd_security.py`
+- Corrected worker SHA-256
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+
+### Consequences
+
+The corrected A-D exploratory table is now complete for the bounded
+development subset. B, C, and D have negative mean raw K under corrected w;
+those signed values are retained and are not clamped. The lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`, adaptive training remains
+`NOT_READY_FOR_ADAPTIVE_TRAINING`, and the remaining blocker is corrected AP
+custom-backward directional validation. Do not run that validation as part of
+this rebind.
+
+## DEC-0052 - Stop corrected AP custom-backward validation after bounded PS failure
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Accept the cheap independent four-state checks and the four physical-mapping
+structure checks as exploratory diagnostics only. Do not accept a 256-state
+custom-backward gradient claim. Stop the target suite after one bounded PS
+direction: the corrected AP reference resolved all 256 modes, but the custom
+combined VJP differed materially (`3.3995565604790261e+102` versus
+`0.0017741810692945003680`). Do not launch GS-real, GS-imag, V_A, or full-Z
+backward jobs.
+
+Classify the validation as `AP_CUSTOM_BACKWARD_NOT_VALIDATED` and retain the
+custom path isolated from production. The measured custom reverse runtime was
+`25653.3898618 s`, so ordinary adaptive training remains closed independently
+of the correctness failure.
+
+### Evidence
+
+- EVID-0068
+- `results/ap_custom_backward_corrected_directional_validation_20260911.json`,
+  SHA-256 `60d6da12dc23bb8d4d086fef6ab3a349201c33745d0a930ba37be8b76203bc14`
+- `results/ap_custom_backward_ps_target_attempt_20260911.json`,
+  SHA-256 `3c8b87793b76abc82e0ecc89a5e33fb9c513dec749cdbbd2e4e2f5b4f3856d2a`
+- `scripts/validate_corrected_ap_custom_backward.py`,
+  SHA-256 `6fa71c0d1d055627a4fa93af79e12617d166712bd0ed14534319d394190e8db9`
+- Target-attempt runner SHA-256
+  `3f24854ccf9906a42bde8132f8e6d175ca7a49c928c2caf32027c5914a767244`
+- Corrected worker SHA-256
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Corrected AP source-moment artifact SHA-256
+  `f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44`
+
+The old custom-backward artifact remains `SUPERSEDED_WRONG_AP_W` and is not
+an oracle.
+
+### Consequences
+
+Adaptive training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`; the single
+remaining blocker is a root-cause fix and fresh full-support validation of the
+AP reverse path at the `~10^-618` eigenvalue scale. No training, optimizer
+step, channel change, security-equation change, final-test access, or
+publication-scale evaluation was performed.
+
+## DEC-0053 - Prefer an exact C4 tangent audit before reverse repair
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Treat the full-support differentiable source-moment problem as unresolved at
+the target spectrum. Do not patch the custom reverse by changing transpose
+conventions based only on the \(10^{102}\) output. The corrected worker's
+ordinary transpose is part of its solve orientation; the correct next
+diagnostic is an independent arbitrary-precision forward tangent.
+
+The approved research direction is to preserve the exact C4 C/w functional
+while evaluating
+\(B_sS_{s-1}=S_sD\) and
+\(A_sG_{s-1}=G_sD\) by constrained solves, and differentiating those
+constraints together with the square-root Sylvester equation. A compiled
+multiprecision backend is conditional on passing the tangent and local
+adjoint tests.
+
+### Evidence
+
+- EVID-0069
+- docs/FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md
+- Corrected target result and custom failure in EVID-0068
+
+### Consequences
+
+Keep the AP custom backward isolated and classified
+AP_CUSTOM_BACKWARD_NOT_VALIDATED. Do not start GS, \(V_A\), full-Z backward,
+adaptive training, or publication-scale evaluation until the source-moment
+three-way validation passes and runtime is separately acceptable. The
+security equations, full support, corrected C/w, and complex128 gate remain
+unchanged.
+
+## DEC-0054 - Accept one bounded C4 forward tangent diagnostic; keep training closed
+
+Date: 2026-09-11
+
+Status: ACTIVE FAIL-CLOSED NUMERICAL DECISION
+
+### Decision
+
+Accept the isolated C4 constrained-solve forward tangent as
+`CONSTRAINED_TANGENT_VALIDATED` for the single recovered Case-A PS direction.
+The exact full-support C/w functional is unchanged. The tangent may be used
+as a diagnostic boundary, but not as a production gradient or adaptive-
+training authorization. Keep the old AP custom reverse classified
+`AP_CUSTOM_BACKWARD_NOT_VALIDATED` and do not begin reverse repair, GS-real,
+GS-imaginary, V_A, full-Z backward, optimizer steps, or training in this task.
+
+The 800-digit target row resolved 256/256 modes and matched the prior corrected
+AP reference within 1e-8 for dC, dw, and combined dJ. The 200/400/600 rows
+failed closed before full support was resolved. The target constrained-only
+row took 1181.1304 seconds, so the exact tangent is not computationally
+practical for the proposed adaptive workload. The target explicit R/J
+comparison was not completed within the bounded runtime window; cheap-fixture
+explicit/constrained identities and residuals passed.
+
+### Evidence
+
+- EVID-0070
+- `results/c4_constrained_forward_tangent_20260911.json`, SHA-256
+  `023fb41db59a079314f639ff47513890445c7a7b885c17273a5f3df52b71ddcb`
+- `src/cvqkd/c4_constrained_tangent.py`, SHA-256
+  `a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258`
+- `scripts/validate_c4_constrained_tangent.py`, SHA-256
+  `de7f5e9c6ec9060c5135092aba89864b46bcd019884f10c34514af86405b6c70`
+- `tests/test_c4_constrained_tangent.py`, SHA-256
+  `6763a7c82c74929a4e4ba3b06df4376fbf027abc417d3dc69a2a4fe711f59c09`
+- Prior corrected PS direction hash:
+  `e274073c5038308b521bd1a348c932a4a249cd5fc59a006b7611911e2be6dd87`
+
+### Consequences
+
+Adaptive training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`, and the project
+lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. The remaining
+numerical blocker is a complete, validated, and computationally practical
+full-support source-moment gradient boundary, including the reverse path.
+The next permitted task is validation of the remaining source directions or a
+separately scoped practical exact-backend investigation; neither authorizes
+training or final-test access.

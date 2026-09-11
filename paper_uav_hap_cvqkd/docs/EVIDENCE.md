@@ -2670,3 +2670,365 @@ interval solver and occurred at the lower boundary for this state.
 Cases B-D were not recomputed. The corrected Case A result remains bounded,
 exploratory, and evaluation-only. Custom backward directional validation is
 pending against this corrected AP oracle.
+
+## EVID-0067 - Corrected B-D bounded full-Z security rebind
+
+Date: 2026-09-11
+
+Status: CURRENTLY_VERIFIED_PASS; CORRECTED_A_TO_D_EXPLORATORY_SECURITY_COMPLETED; EXPLORATORY_ONLY
+
+### Claim
+
+Cases B, C, and D were recomputed through the existing physical channel,
+statewise MI, corrected source moments, full physical-Z interval Holevo
+maximization, and signed raw SKR path. The run used the exact uniform
+256-state ensemble row hash
+`c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`,
+corrected
+`C=0.85985110654649868138037962728289179096834048571987`, and corrected
+`w=0.018327610474963502048823295065766568532781601388489`.
+
+The bounded security subset contains 16 evenly spaced active rows per case.
+The prior ignored B-D artifact and its exact indices were unavailable in this
+checkout, so the runner records the deterministic reconstruction rule and new
+index/state-pair hashes rather than claiming historical-index reuse.
+
+| Case | mean T | std T | p_out | mean I_AB | mean chi_BE | mean K_active | mean K_all | positive-K fraction |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| B | 0.029744159058456707 | 0.016634846625299900 | 0 | 0.021431275288813056 | 0.021120154675722480 | -0.000760443151350077 | -0.000760443151350077 | 0.375 |
+| C | 0.026411389634989624 | 0.015289139587414003 | 0 | 0.020185924876130967 | 0.019927263946943247 | -0.000750635314618829 | -0.000750635314618829 | 0.375 |
+| D | 0.018873208422052853 | 0.016631411472660677 | 0.268 | 0.018074194289578682 | 0.019002584302762596 | -0.001832099727662848 | -0.001341097000649205 | 0.375 |
+
+Case D has active fraction `0.732`, outage fraction `0.268`, and exactly
+`268/1000` outage samples. Outage rows were excluded from MI/Holevo and
+assigned exact raw `K=0`; the recorded mean-all identity discrepancy is
+`0.0`.
+
+For every evaluated case, all 16 full-Z optima were at the lower boundary;
+there were zero upper-boundary or interior optima and zero security-domain
+failures. Minimum interval widths were B `0.003086232377970677`, C
+`0.0029270446367630765`, and D `0.0037002532899432783`; mean widths were B
+`0.008015264181052232`, C `0.007714133290954911`, and D
+`0.008364188796830796`. The minimum symplectic physicality diagnostics were
+B `1.0003897834020814`, C `1.0003379486510962`, and D
+`1.000706473068511`.
+
+Negative statewise raw K values were retained; no positive clipping was used.
+The corrected-vs-old-w comparisons are stored in the artifact. The corrected
+mean chi_BE changes are +`0.000634483075722480`, +`0.001117536746943247`, and
++`0.002268366302762596` for B, C, and D respectively. Corrected mean K_active
+changes are -`0.007967030351350077`, -`0.007339485714618829`, and
+-`0.007557923927662849` respectively.
+
+### Evidence and provenance
+
+- New artifact: `results/exploratory_cases_BD_full_security_corrected_20260911.json`
+- Artifact SHA-256:
+  `c7c88940e5219a191277f358318eb756dcdeea61d6a6e546d0286af42a3c2ba0`.
+- Producer: `scripts/recompute_corrected_bd_security.py`, SHA-256
+  `7ed8327a7389b2ec3f1babba3ef5e4f682f95ca538d4bf4918eb4c79b2a6904c`.
+- Corrected worker SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`.
+- Corrected AP artifact SHA-256:
+  `f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44`.
+- Corrected Case A artifact SHA-256:
+  `a3b7aaa23635ac5e01e08f3486d4131fe9d17580c51b32ef9b498324fa5723fa`.
+- Superseded old B-D artifact SHA-256:
+  `e493bbdeda8ce8913862b8336a859dc2458a16dd444f392882d9b2389e39cc74`.
+
+The run used `N_channel=1000`, channel seed `20260910`, derived epsilon seed
+`4542851964011138592`, AWGN seed `20260911`, 64 noise samples per symbol,
+`V_A=1`, beta `0.95`, phase coefficient `0`, and explicit `v_sc=0.25`.
+Producer runtimes were B `2.45327990000078 s`, C `2.1217880999902263 s`, and
+D `2.2559983000101056 s`, for total `6.839092400012305 s`.
+No AP eigendecomposition, training, optimizer step, final-test access, or
+publication-scale evaluation was performed. The current FINAL_MODEL_SPEC
+hash remains `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`.
+
+### Verification and limitations
+
+- Focused numerical/regression command: 44/44 tests passed.
+- `tests.test_ap_worker_equivalence`: `BLOCKED_BY_ENVIRONMENT`; 1 test passed,
+  1 slow test was skipped, and 3 tests errored because ignored historical or
+  corrected-A JSON fixtures are absent from this checkout.
+- Targeted `py_compile` passed.
+- The result is a bounded exploratory rebind, not a publication, certification,
+  target-model, or adaptive-training result. Corrected AP custom-backward
+  directional validation remains pending.
+
+## EVID-0068 - Corrected AP custom-backward cheap validation and bounded PS failure
+
+Date: 2026-09-11
+
+Status: CURRENTLY_VERIFIED_CHEAP_PASS; TARGET_DIRECTIONAL_VALIDATION_FAILED; EXPLORATORY_ONLY
+
+### Claim
+
+The isolated `source_moments_vjp` forward path matches an independent corrected
+arbitrary-precision C4 oracle on four well-conditioned four-state fixtures.
+Separate C and w directional components, the combined
+`J=1.7*C-0.8*w` VJP, and real- and imaginary-alpha convention checks all pass
+at 80 digits. The cheap h sweep uses
+`1e-3, 3e-4, 1e-4, 3e-5, 1e-5` and reaches a central-difference plateau.
+
+| Fixture | custom/AP C abs. error | custom/AP w abs. error | combined VJP relative error | Status |
+|---|---:|---:|---:|---|
+| uniform | 1.5431942360347756e-15 | 3.2995049782161180e-17 | 8.40796455182627e-12 | PASS |
+| nonuniform positive | 1.3525230168992008e-15 | 5.4567820514094683e-17 | 3.65192560699911e-12 | PASS |
+| perturbed real | 1.5657513429009646e-15 | 1.2421912587767274e-17 | 6.73185627518239e-12 | PASS |
+| perturbed imaginary | 1.2576776804968873e-15 | 2.3831893654227314e-17 | 1.11326675514486e-11 | PASS |
+
+The exact Case A mapping constructors also pass preflight structure checks
+for PS, GS-real, GS-imag, and V_A: positive probabilities, probability sum
+`1.0`, 256 unique states, zero-sum probability tangents to floating-point
+roundoff, and nonzero geometry/variance tangents.
+
+A single bounded 800-digit PS target attempt then failed the custom reverse
+comparison. Corrected AP plus and minus endpoints both resolved `256/256`
+with minimum eigenvalues `3.9787561820e-618` and `3.9672737490e-618`.
+The corrected AP reference at `h=1e-4` was:
+
+| AP dC | AP dw | AP dJ (`1.7*dC-0.8*dw`) |
+|---:|---:|---:|
+| 0.0005009242276532432925 | -0.0011532623528549834635 | 0.0017741810692945003680 |
+
+The custom combined result was `3.3995565604790261e+102`, with relative
+error `1.9161271751314836e+105`; this is a material failure, not a tolerance
+reinterpretation. The custom VJP took `25653.3898618 s`; the two AP endpoints
+took `392.6064219 s` and `297.1369369 s`, total target-attempt time
+`26348.3480433 s`. GS-real, GS-imag, V_A component tables and full-Z backward
+were not started after this fail-closed stop.
+
+The conditioning probe independently shows reverse error increasing as the
+smallest Gram eigenvalue approaches the full-support scale, while the forward
+remains resolved. This supports a numerical reverse-stability blocker, but
+does not validate the 256-state custom gradient.
+
+### Evidence and provenance
+
+- Cheap artifact: `results/ap_custom_backward_corrected_directional_validation_20260911.json`
+- Cheap artifact SHA-256:
+  `60d6da12dc23bb8d4d086fef6ab3a349201c33745d0a930ba37be8b76203bc14`
+- Bounded target-attempt artifact:
+  `results/ap_custom_backward_ps_target_attempt_20260911.json`
+- Target-attempt artifact SHA-256:
+  `3c8b87793b76abc82e0ecc89a5e33fb9c513dec749cdbbd2e4e2f5b4f3856d2a`
+- Producer SHA-256:
+  `6fa71c0d1d055627a4fa93af79e12617d166712bd0ed14534319d394190e8db9`
+- Target-attempt runner SHA-256:
+  `3f24854ccf9906a42bde8132f8e6d175ca7a49c928c2caf32027c5914a767244`
+- Custom-backward SHA-256:
+  `f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92`
+- Corrected worker SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Corrected AP source-moment artifact SHA-256:
+  `f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44`
+- Exact ensemble SHA-256:
+  `c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`
+- Current FINAL_MODEL_SPEC SHA-256:
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+
+The prior custom-backward artifact SHA-256
+`dc11c998f755d328906558b949444e4bf45a088657938f7b4b1c1a13daaf58d4`
+is `SUPERSEDED_WRONG_AP_W`; it is not used as a forward or gradient oracle.
+No training, optimizer step, final-test access, channel change, security
+equation change, clipping, jitter, support truncation, or full-Z backward was
+performed.
+
+### Verification
+
+- `python scripts/validate_corrected_ap_custom_backward.py --phase cheap`:
+  `CHEAP_FIXTURE_VALIDATION_PASS`.
+- Focused custom/spectral/gradient/protocol suite (including the cheap
+  corrected-backward regression): `20/20` passed; the
+  parser-negative `--seed` usage line is expected.
+- `tests.test_ap_worker_equivalence`: `1` passed, `1` skipped, `3` errored
+  because ignored historical/corrected-A artifacts are absent locally;
+  classification `BLOCKED_BY_ENVIRONMENT`.
+- `py_compile`, JSON parsing/hash checks, and `git diff --check` passed.
+
+### Consequences
+
+Classify the isolated prototype as `AP_CUSTOM_BACKWARD_NOT_VALIDATED`.
+Adaptive training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`; the next task is
+one root-cause investigation of full-support AP reverse stability/precision.
+
+## EVID-0069 - Full-support differentiable source-moment research audit
+
+Date: 2026-09-11
+
+Status: CURRENTLY_VERIFIED_RESEARCH_ONLY; NO_LIFECYCLE_CHANGE
+
+### Claim
+
+The bounded research audit confirms that the frozen C4 C/w equations are
+consistent with the analytical finite-constellation DM-CV-QKD source objects,
+and that the proposed forward tangent is the correct diagnostic boundary.
+The target custom VJP remains invalid and impractical: corrected AP gives
+\(dJ=0.0017741810692945003680\), while the custom reverse gives
+\(3.3995565604790261\times10^{102}\) after approximately 7.1 hours.
+
+The target \(\lambda_{\min}\approx3.9730108272405810054\times10^{-618}\)
+implies inverse-square-root and Frechet-derivative scales beyond binary64 and
+supports a numerical-cancellation hypothesis. This does not, by itself,
+exclude a reverse implementation bug.
+
+The primary recommended research path is an exact C4 operator/tangent
+reformulation using the solve constraints
+\(B_sS_{s-1}=S_sD\) and
+\(A_sG_{s-1}=G_sD\), followed by a compiled multiprecision backend only
+after the forward tangent and local adjoint identities pass. No security
+surrogate, spectral repair, or training was introduced.
+
+### Evidence and provenance
+
+- Research artifact:
+  docs/FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md
+- Research artifact SHA-256:
+  6624e6451c1cec060853d2101e5f3dd247d9ec2c73ae416414d59ed1e29d5ad6
+- Bounded workflow plan:
+  docs/superpowers/plans/2026-09-11-full-support-differentiable-source-moments-research.md
+- The report cites Denys et al. for \(\tau\), \(a_\tau\), \(w\), and QAM
+  context; Higham and related matrix-function references for Frechet and
+  Sylvester theory; and Arb/FLINT/MPFR references for backend limitations.
+- Existing numerical values and hashes are inherited from EVID-0068; no
+  target AP job was rerun for this report.
+
+### Verification
+
+- Equation audit covers forward tangents for \(H_d,G_s,S_s,R_s,J_s,A_s,B_s,
+  Q_s,T_s,C,w\).
+- Reverse audit covers product, inverse, Hermitian projection, ordinary
+  transpose, Hermitian transpose, Sylvester, and raw-sector adjoints.
+- The report records exact-vs-approximate security error propagation and
+  full-Z branch nonsmoothness.
+- git diff --check passed after the artifact was created.
+
+### Consequences
+
+Keep the classification
+AP_CUSTOM_BACKWARD_NOT_VALIDATED and lifecycle
+NOT_READY_FOR_ADAPTIVE_TRAINING. The next permitted numerical task is the
+isolated exact forward tangent and three-way PS diagnostic at an adaptive
+precision ladder. Do not begin adaptive training, full-Z backward, or
+publication-scale evaluation.
+
+## EVID-0070 - Exact C4 constrained-solve forward tangent
+
+Date: 2026-09-11
+
+Status: CURRENTLY_VERIFIED_PASS; DIAGNOSTIC_ONLY
+
+### Claim
+
+An isolated arbitrary-precision C4 forward tangent for the exact full-support
+source moments is implemented and validated for the prior Case-A PS direction.
+The implementation returns C, w, dC, and dw and differentiates the full
+support construction through dH, dG, the square-root Sylvester equation, the
+constrained B/A solves, Q/T/u/E, and the C/w product rules. It does not import
+or call the old custom reverse and is not connected to autograd or training.
+
+The constrained equations are
+
+    B_s S_(s-1) = S_s D,
+    A_s G_(s-1) = G_s D,
+
+with tangents
+
+    dB_s S_(s-1) = dS_s D + S_s dD - B_s dS_(s-1),
+    dA_s G_(s-1) = dG_s D + G_s dD - A_s dG_(s-1),
+
+and S_s dS_s + dS_s S_s = dG_s. No clipping, jitter, epsilon identity,
+pseudoinverse, rank reduction, or support truncation was used.
+
+### Machine-readable artifact and provenance
+
+- Artifact:
+  `results/c4_constrained_forward_tangent_20260911.json`
+- Artifact SHA-256:
+  `023fb41db59a079314f639ff47513890445c7a7b885c17273a5f3df52b71ddcb`
+- Diagnostic module:
+  `src/cvqkd/c4_constrained_tangent.py`
+- Module SHA-256:
+  `a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258`
+- Runner:
+  `scripts/validate_c4_constrained_tangent.py`
+- Runner SHA-256:
+  `de7f5e9c6ec9060c5135092aba89864b46bcd019884f10c34514af86405b6c70`
+- Focused tests:
+  `tests/test_c4_constrained_tangent.py`
+- Focused-test SHA-256:
+  `6763a7c82c74929a4e4ba3b06df4376fbf027abc417d3dc69a2a4fe711f59c09`
+- Prior corrected PS target artifact SHA-256:
+  `3c8b87793b76abc82e0ecc89a5e33fb9c513dec749cdbbd2e4e2f5b4f3856d2a`
+- Corrected worker SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- Exact ensemble SHA-256:
+  `c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`
+- Recovered prior Case-A PS direction SHA-256:
+  `e274073c5038308b521bd1a348c932a4a249cd5fc59a006b7611911e2be6dd87`
+
+### Cheap fixtures
+
+Uniform, nonuniform-positive, perturbed-real, and perturbed-imaginary
+four-prototype fixtures all passed. Direct explicit R/J products and the
+constrained products agree below 1e-40 relative; solve and Sylvester residuals
+are below 1e-45 relative. At h=1e-5, the largest central-difference relative
+errors were 6.53e-12 for dC, 6.73e-11 for dw, and 8.95e-12 for combined
+dJ. The corrected AP forward C/w values also agree below 2e-50 relative.
+
+### Recovered target direction and precision ladder
+
+The deterministic direction reproduces the prior failed-PS artifact: 64
+positive prototype probabilities, sum 1.0, 256 unique states, directional
+z-norm 0.15669108927249908, and the direction hash above. The bounded target
+ladder recorded the following:
+
+| AP digits | resolved modes | minimum eigenvalue | runtime (s) | result |
+|---:|---:|---:|---:|---|
+| 200 | 184/256 | -9.3548858387e-203 | 38.5077 | fail closed |
+| 400 | 227/256 | -8.0583390027e-403 | 64.8990 | fail closed |
+| 600 | 254/256 | -9.1586922129e-604 | 113.5961 | fail closed |
+| 800 | 256/256 | 3.9730108272e-618 | 1181.1304 | resolved |
+
+At 800 digits, the constrained tangent produced
+
+    C   = 0.85985110654649868138037962728289179096834048571987
+    w   = 0.018327610474963502048823295065766568532781601388489
+    dC  = 0.00050092422832962377222627091862944921206718683231693
+    dw  = -0.0011532623534953207533476618573511008283277382475422
+    dJ  = 0.0017741810709566170444324223035415062817078761571016
+
+Relative to the prior corrected AP central difference at h=1e-4, the errors
+are 2.70e-51 for C, 1.88e-51 for w, 1.35e-9 for dC, 5.55e-10 for dw, and
+9.37e-10 for dJ. All are below the 1e-8 directional target. The largest
+800-digit constrained solve/Sylvester relative residual was below 8e-735;
+the B/dB residuals were below 9e-800.
+
+### Conditioning and runtime boundary
+
+The target constrained path's largest materialized A and dA magnitudes were
+approximately 9.83e68 and 7.13e68. On the uniform cheap fixture, the old
+explicit path materialized R, J, dR, and dJ at approximately 2.27e2,
+5.45e4, 4.58e2, and 2.10e5 respectively. The target explicit-intermediate
+comparison was attempted but terminated after an approximately 16-minute
+runtime window without a completed row. The target constrained-only row took
+1181.1304 s, far above the proposed one-minute practicality gate.
+
+### Verification and consequences
+
+- `tests.test_c4_constrained_tangent` and the existing corrected AP regression:
+  5/5 passed.
+- `py_compile` for module, runner, and tests passed.
+- `git diff --check` passed.
+- No reverse VJP, GS-real, GS-imaginary, V_A, full-Z backward, optimizer step,
+  training, final-test access, publication-scale evaluation, or security-model
+  change occurred.
+
+Classify the bounded forward tangent as
+`CONSTRAINED_TANGENT_VALIDATED`. This is a local Case-A PS source-moment
+diagnostic, not a claim that an adaptive-training gradient is practical or
+that the old reverse is repaired. Adaptive readiness remains
+`NOT_READY_FOR_ADAPTIVE_TRAINING`. The next permitted derivative task is to
+validate the remaining source directions and then separately design a
+practical exact reverse boundary; do not start training or full-Z backward.

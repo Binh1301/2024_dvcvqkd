@@ -7,73 +7,64 @@ Date: 2026-09-11
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
 
 Adaptive-training status: `NOT_READY_FOR_ADAPTIVE_TRAINING`.
-No training, optimizer step, final-test access, certification, or publication-
-scale evaluation occurred.
+No training, optimizer step, final-test access, certification, or
+publication-scale evaluation occurred.
 
-## Corrected AP worker
+## Completed this session
 
-The AP worker fix was one line:
+- Read the full-support differentiable source-moments research report and
+  bounded Superpowers plan before implementation.
+- Added the isolated `EXPERIMENTAL_DIAGNOSTIC_ONLY` arbitrary-precision C4
+  forward tangent in `src/cvqkd/c4_constrained_tangent.py`.
+- Implemented exact full-support raw/sector tangents, Sylvester square-root
+  tangents, constrained right solves for B/A and dB/dA, and C/w propagation.
+  The module does not import or call the old custom reverse.
+- Added fast focused tests in `tests/test_c4_constrained_tangent.py` and the
+  manual runner `scripts/validate_c4_constrained_tangent.py`.
+- Cheap uniform, nonuniform-positive, perturbed-real, and
+  perturbed-imaginary fixtures passed direct/constrained, residual, forward,
+  and central-difference checks.
+- Recovered the exact prior Case-A PS direction by hash and ran the bounded
+  200/400/600/800 AP ladder. The 800-digit constrained row resolved 256/256
+  modes and passed the 1e-8 dC/dw/dJ comparison to the prior corrected AP
+  finite difference.
 
-    aa = sr * x2.T  ->  aa = x2.T
+## Target result boundary
 
-Algebra: `b=sr*m*sp^(-1)` is the eigenbasis form of
-`a_tau=S*a*R`; the second solve yields
-`x2.T=sr^2*m*sp^(-2)=G_s*D*G_(s-1)^(-1)`, already equal to the production
-`A_s`. The old left `sr` changed w.
+Artifact:
+`results/c4_constrained_forward_tangent_20260911.json`
 
-Worker SHA-256:
-`2cd1feeeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`.
+The target 800-digit row reports:
 
-## Corrected evidence
+- `C=0.85985110654649868138037962728289179096834048571987`;
+- `w=0.018327610474963502048823295065766568532781601388489`;
+- `dC=0.00050092422832962377222627091862944921206718683231693`;
+- `dw=-0.0011532623534953207533476618573511008283277382475422`;
+- `dJ=0.0017741810709566170444324223035415062817078761571016`;
+- relative errors to prior AP: `1.35e-9` for dC, `5.55e-10` for dw,
+  `9.37e-10` for dJ;
+- runtime: `1181.1304 s`.
 
-- Three explicit 20-digit fixture equivalence checks passed in 751.396 s.
-- Exact Case A hash:
-  `c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3`.
-- Corrected 800 digits: 256/256, C and w stable, runtime 367.3323453 s.
-- Corrected 900 digits: 256/256, C and w stable, runtime 416.6573139 s.
-- Corrected C:
-  `0.85985110654649868138037962728289179096834048571987`.
-- Corrected w:
-  `0.018327610474963502048823295065766568532781601388489`.
-- Corrected AP artifact:
-  `results/ap_worker_corrected_case_A_20260911.json`, SHA-256
-  `f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44`.
-- Corrected Case A full-Z artifact:
-  `results/exploratory_case_A_full_security_corrected_20260911.json`, SHA-256
-  `a3b7aaa23635ac5e01e08f3486d4131fe9d17580c51b32ef9b498324fa5723fa`.
-
-Corrected Case A full-Z:
-
-- `[Z_L,Z_U]=[0.2914192733053753, 0.2934784546975139]`;
-- `Z_star=0.2914192733053753`;
-- `chi_BE_ub=0.01518919002933572`;
-- `raw K=0.004757635492383283`.
-
-## Superseded evidence
-
-Old worker-backed Case A, B-D, baseline cached, full-support fallback, and
-custom-backward-reference artifacts are retained but marked
-`SUPERSEDED_WRONG_AP_W`. Do not use their old w, Z, Holevo, or K values as
-current evidence. B-D were not recomputed.
-
-## Custom backward
-
-The experimental AP custom backward remains isolated and
-`PENDING_CORRECTED_AP_DIRECTIONAL_VALIDATION`. No Case A directional VJP or
-full-Z backward was run after the correction.
+Classification: `CONSTRAINED_TANGENT_VALIDATED`, diagnostic-only. The lower
+precision rows fail closed before resolving all modes. The target explicit
+R/J comparison was attempted but not completed within an approximately
+16-minute window; cheap-fixture explicit/constrained evidence passed.
 
 ## Verification
 
-- `tests.test_ap_worker_equivalence` plus baseline tests: 10 tests pass, 1
-  explicit slow test skipped; the slow run separately passed all three
-  fixtures in 751.396 s.
-- `tests.test_ap_custom_backward`: 2/2 pass; prototype remains isolated.
-- `tests.test_full_support_c4_gram_backend`: 6 pass and one pre-existing
-  `NameError` in the repeated-spectrum test.
-- Corrected AP 800/900 forward smoke completed.
-- `py_compile`: pass; `git diff --check`: pass with CRLF warnings only.
+- `tests.test_c4_constrained_tangent` plus the existing corrected AP
+  regression: 5/5 passed.
+- `py_compile` for module, runner, and tests passed.
+- `git diff --check` passed after the implementation checks; rerun after any
+  subsequent evidence edit.
 
-## Exact next task
+## Open blockers and next action
 
-Recompute bounded B-D exploratory subsets with corrected C,w and full-Z path.
-Do not execute without separate authorization.
+1. The exact tangent is too slow for the proposed adaptive runtime gate and
+   does not repair the custom reverse.
+2. Validate remaining GS-real, GS-imaginary, and V_A forward directions only
+   as bounded diagnostics if continuing this line.
+3. Keep reverse repair, full-Z backward, adaptive training, final-test access,
+   baseline selection, threshold approval, and publication-scale work closed.
+4. Preserve the frozen full-support C4 model: no clipping, jitter, epsilon
+   identity, pseudoinverse rank reduction, support truncation, or model change.

@@ -8,10 +8,9 @@ The documentation and source alignment audit is complete. No training, threshold
 baseline selection, final-test access, or publication-scale evaluation is
 authorized.
 
-Cases A--D have now completed as EXPLORATORY_ONLY channel/MI preflights at
-N=1000 per case. Full-Z Holevo/K was intentionally not completed after the
-complex128 fast gate failed; the arbitrary-precision fallback remains
-evaluation-only.
+Cases A--D now have corrected bounded exploratory evidence at N=1000 channel
+samples per case. Case A and the new B-D source-moment/full-Z result remain
+evaluation-only; no publication or certification claim follows.
 
 The Gram root-cause audit found floating-point roundoff plus severe numerical
 ill-conditioning, not duplicate states or probability support loss. The old AP
@@ -22,19 +21,32 @@ The corrected Case A AP/source-moment/full-Z result is recorded in EVID-0066.
 EVID-0062, EVID-0063, and all old worker-backed w-dependent artifacts are
 marked SUPERSEDED_WRONG_AP_W.
 
-The old B-D subset is not current evidence. B-D must be recomputed only after
-the corrected Case A source moments are accepted in a separate bounded task.
+The old B-D subset is not current evidence. The corrected B-D rebind is
+recorded in EVID-0067; its exact historical indices were unavailable, so the
+artifact records a deterministic reconstructed active roster.
 
 The short differentiable investigation classified the current exact complex128
 path as EXACT_FULL_SUPPORT_NOT_PRACTICAL_IN_COMPLEX128. The isolated AP
-implicit-adjoint prototype remains PENDING_CORRECTED_AP_DIRECTIONAL_VALIDATION.
-Do not train.
+implicit-adjoint prototype passes cheap fixtures but failed one bounded
+  corrected 800-digit PS target VJP by many orders of magnitude; EVID-0068
+  classifies it AP_CUSTOM_BACKWARD_NOT_VALIDATED. GS-real, GS-imag, V_A, and
+  full-Z backward were not started. Do not train.
+- The full-support differentiable source-moment research audit is recorded in
+  FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md and EVID-0069. It
+  recommends an exact C4 constrained-solve forward tangent before reverse
+  repair; this recommendation does not authorize training.
+- EVID-0070 records the isolated exact C4 constrained-solve tangent. The
+  recovered Case-A PS direction passes at 800 digits, but 200/400/600 digits
+  fail closed and the resolved target row takes 1181.1304 seconds. The tangent
+  is diagnostic-only and not practical for adaptive training.
 
 ## Exact next numerical action
 
-Recompute the bounded B-D exploratory subsets using the corrected Case A C,w
-and full-Z path. Do not execute that task in the current lifecycle state
-without separate authorization.
+Run the same isolated forward-tangent diagnostic for GS-real, GS-imaginary,
+and V_A only if the bounded numerical study is continued. Do not repair the
+reverse VJP, run full-Z backward, execute adaptive training, select a
+baseline, or access final-test data until all required source directions pass
+and a practical exact gradient boundary is separately established.
 
 ## Priority order
 

@@ -1,6 +1,6 @@
 # Project State
 
-Last updated: 2026-09-11 (corrected AP worker and Case A rebind)
+Last updated: 2026-09-11 (corrected AP worker, bounded B-D rebind, AP custom-backward validation, source-moment research audit, and C4 tangent diagnostic)
 
 ## Terminal status
 
@@ -71,6 +71,10 @@ final-test access, held-out evaluation, or publication claim is authorized.
   regression passed 20 tests; worker-backed
   full-support/pointwise certification tests were not completed. No
   certification or publication-scale test was run.
+- The corrected B-D rebind focused suite passed 44/44 tests. The repository
+  AP-equivalence test is `BLOCKED_BY_ENVIRONMENT`: one test passed, one slow
+  test was skipped, and three tests errored because ignored historical or
+  corrected-A JSON fixtures are absent from this checkout.
 - The broader focused gradient/optimizer selection remains FAILED with four
   FULL_SUPPORT_FALLBACK_EVALUATION_ONLY errors; this pre-existing numerical
   boundary was not weakened.
@@ -88,11 +92,28 @@ final-test access, held-out evaluation, or publication claim is authorized.
   EXACT_FULL_SUPPORT_NOT_PRACTICAL_IN_COMPLEX128. No stable exact C/w gradient
   formulation was found; adaptive training remains blocked.
 - The previous B-D bounded full-Z subset is marked `SUPERSEDED_WRONG_AP_W` and
-  is not current evidence. It must be recomputed with corrected (C,w) in a
-  separate task; no B-D recomputation occurred here.
-- The isolated AP custom-backward prototype remains
-  `PENDING_CORRECTED_AP_DIRECTIONAL_VALIDATION`; no 256-state directional
-  gradient claim or adaptive-training authorization exists.
+  is not current evidence. EVID-0067 records the new bounded corrected B-D
+  rebind using reconstructed evenly-spaced active rosters, because the prior
+  ignored artifact and exact indices were unavailable in this checkout. The
+  new result remains exploratory and evaluation-only.
+- The isolated AP custom-backward prototype passes four cheap independent
+  fixtures and complex-alpha convention checks, but its bounded 800-digit PS
+  target VJP is materially wrong (`3.3995e+102` versus corrected AP
+  `0.001774...`). It is classified `AP_CUSTOM_BACKWARD_NOT_VALIDATED`; no
+  256-state directional gradient claim or adaptive-training authorization
+    exists. GS-real, GS-imag, V_A, and full-Z backward were not run.
+- The full-support differentiable source-moment research audit is recorded in
+  FULL_SUPPORT_DIFFERENTIABLE_SOURCE_MOMENTS_RESEARCH.md. It confirms the
+  forward tangent equations, quantifies the inverse-spectrum scales, and
+  recommends an exact C4 constrained-solve tangent before any reverse repair.
+  This is research-only evidence and does not change the security model or
+  lifecycle state.
+- The isolated C4 constrained-solve forward tangent is now validated for the
+  recovered Case-A PS direction at 800 AP digits: 256/256 modes resolve and
+  dC, dw, and combined dJ agree with the prior corrected AP finite difference
+  within 1e-8. The 200/400/600 ladder rows fail closed before full support;
+  the resolved row takes 1181.1304 seconds. This is diagnostic-only evidence;
+  no practical production gradient or adaptive-training authorization exists.
 
 ## Friday preliminary diagnostic posture
 
@@ -126,16 +147,19 @@ final-test access, held-out evaluation, or publication claim is authorized.
 
 ## Exploratory case outcome
 
-Cases A--D completed as EXPLORATORY_ONLY with \(N=1000\) channel samples each.
-The old worker-backed Case A/B-D security artifacts are superseded. Corrected
-Case A alone has a current bounded full-Z exploratory result; B-D remain
-pending corrected rebind. See EVID-0060, EVID-0066, and the superseded
-artifacts.
+Cases A--D are now bound to corrected exploratory evidence with \(N=1000\)
+channel samples per case. Corrected Case A and the bounded corrected B-D
+source-moment/full-Z subset remain evaluation-only; the old worker-backed
+Case A/B-D security artifacts are superseded. See EVID-0066, EVID-0067, and
+EVID-0068, and the superseded artifacts.
 
 ## Exact next permitted action
 
-Recompute the bounded B-D exploratory subsets using the corrected Case A
-source moments; do not execute that task in this lifecycle state.
+Extend the isolated exact C4 forward tangent diagnostic to the remaining
+GS-real, GS-imaginary, and V_A source directions only as a bounded numerical
+study. Keep reverse repair, full-Z backward, adaptive training, and
+publication-scale evaluation closed until all source directions are validated
+and a practical exact gradient boundary is separately established.
 
 ## Lifecycle restrictions
 
@@ -186,5 +210,21 @@ replace the target equations with the current implementation.
   Case A full-Z rebind.
 - DEC-0050: accept corrected AP forward/Case A exploratory evidence; defer B-D
   rebind and keep custom backward pending.
+- EVID-0067: corrected bounded B-D source-moment/full-Z exploratory rebind;
+  44-test focused suite passed, AP-equivalence fixture test blocked by missing
+  ignored artifacts.
+- DEC-0051: accept corrected bounded B-D rebind as exploratory evidence; keep
+  lifecycle and adaptive-training gates closed.
+- EVID-0068: cheap corrected AP custom-backward checks passed; bounded PS
+  target VJP failed materially and stopped the target suite.
+- DEC-0052: keep the custom backward unvalidated and stop before GS/VA/full-Z
+  after the bounded PS failure.
+- EVID-0069: full-support differentiable source-moment research audit;
+  constrained-solve forward tangent recommended; lifecycle unchanged.
+- DEC-0053: prefer the exact C4 tangent audit before reverse repair.
+- EVID-0070: exact C4 constrained-solve forward tangent; Case-A PS target
+  validated at 800 digits, with a 1181.1304-second diagnostic runtime.
+- DEC-0054: accept the bounded PS tangent as diagnostic evidence; retain
+  `NOT_READY_FOR_ADAPTIVE_TRAINING` and keep the reverse path closed.
 - Existing historical numerical evidence remains in EVIDENCE.md and
   DECISION_LOG.md under its original provenance.
