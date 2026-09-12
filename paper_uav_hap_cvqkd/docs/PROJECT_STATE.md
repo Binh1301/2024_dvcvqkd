@@ -1,6 +1,36 @@
 # Project State
 
-Last updated: 2026-09-11 (interval-preserving full-Z objective repair and bounded exact check; prior corrected AP/tangent/reverse evidence retained)
+Last updated: 2026-09-12 (EVID-0081 / DEC-0065; converged PS+V_A median source moments)
+
+## Latest completed numerical result (2026-09-12)
+
+EVID-0081 and DEC-0065 record completion of the authorized frozen
+PS+V_A median task. The existing repaired-objective checkpoint and exact
+binary64 candidate inputs were reverified. The 1050 diagnostic row and the
+1250/1450 acceptance pair each resolved all four 64x64 sectors with total
+support 256, and the acceptance pair passed the frozen C/w convergence rule.
+
+The authoritative median source moments are
+`C_PSVA=0.8610813007552428909072445071897962976560950806268` and
+`w_PSVA=0.0067220381757562110710871873472856506670610666856165`.
+
+The one exact median full-Z point returned
+`Z_L=0.25403343722167576`, `Z_U=0.258948630366243`,
+`Z_star=0.25403343722167576`, `I_AB=0.01569902141495305`,
+`chi_BE=0.014533912528089`, and raw `K=+0.0003801578161163992`; its
+interval check passed. Exact median ranking is `PS_VA_MEDIAN_BEST`, with
+PS+V_A > Full > MB. This is median-only evidence and does not establish the
+unrun poor/good ranking or a publication claim.
+
+The immutable machine-readable result is
+`results/PS_VA_SOURCE_MOMENTS_CONVERGED_20260912.json` (SHA-256
+`9b3b269c1c1ae81e027bb8864fb1ccf711551327a2497530602f37bf252f6115`), with
+the durable report at
+`docs/PS_VA_SOURCE_MOMENTS_CONVERGENCE_REPORT_20260912.md`.
+
+The next recommended task is separately authorized exact poor+good ranking
+only. Do not execute it from this state. Lifecycle and adaptive-training
+gates remain closed.
 
 ## Terminal status
 
@@ -9,7 +39,88 @@ NOT_READY_FOR_PUBLICATION_SCALE_RUNS
 No publication-scale training, baseline selection, optimized-MB search,
 final-test access, held-out evaluation, or publication claim is authorized.
 
-## Latest bounded analysis result
+## Historical numerical decision boundary before EVID-0081 (2026-09-12)
+
+EVID-0078 and DEC-0062 supersede the earlier worker-bug hypothesis for the
+current median-checkpoint interpretation. The unchanged worker resolves the
+median PS case at 800/900 and 1000/1200 digits and the matched Full case at
+800/900 digits, with stable C,w and 256/256 support in every sector. An
+independent direct 256-state weighted Gram at 100 digits reproduces the
+Fourier off-block and sector-match structure for both cases; its global
+spectrum was deliberately NOT_RUN.
+
+The current dense-check decision is exactly
+LOW_PRECISION_GLOBAL_PLUS_HIGH_PRECISION_SECTORS_SUFFICIENT. The immediate
+AP-blocker classification is exactly INSUFFICIENT_AP_PRECISION. The remaining
+analysis blocker is the incomplete three-state exact PS+V_A adaptive
+ranking, not a demonstrated worker or fail-gate defect.
+
+The bounded follow-up task specified by DEC-0062 was subsequently executed as
+EVID-0079; its partial result is recorded below. The 700--900-digit dense
+global target is STOPPED unless a surviving mismatch or explicit external
+audit requirement creates a new testable hypothesis. Lifecycle and
+adaptive-training gates remain closed.
+
+## Historical bounded audit result before EVID-0081 (2026-09-12)
+
+EVID-0079 and DEC-0063 record the authorized follow-up. The independent
+watchdog completed the frozen median PS+V_A global row at 80 digits, timed
+out the PS 120-digit row, and did not start PS 200 or any Full row. It
+finished in 899.0290027 of the 900-second budget with status
+`DENSE_LOW_PRECISION_COST_BOUNDED_SKIP`.
+
+The PS 80-digit row passed the direct global weighted-Gram invariants,
+Fourier off-block check, production-sector comparison, and resolved
+global-spectrum/sector-union comparison. It resolved 48 modes above the
+diagnostic 1e-60 threshold. This is structural diagnostic evidence only;
+the Full side was not globally completed and no support certificate follows.
+
+The dense decision remains exactly
+`LOW_PRECISION_GLOBAL_PLUS_HIGH_PRECISION_SECTORS_SUFFICIENT`, and the
+immediate AP diagnosis remains exactly `INSUFFICIENT_AP_PRECISION`. The low-
+precision global audit is now a bounded partial result, not the current next
+task. The next permitted numerical task is
+`DETERMINE_MINIMUM_SECTOR_AP_PRECISION_FOR_FROZEN_PS_VA`: determine the
+minimum reproducible sector AP precision, compute exact C,w, and then evaluate
+only the median full-Z security point. Do not execute that task from this
+state entry.
+
+No production code, model/security definition, or lifecycle gate changed.
+Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and adaptive-training
+readiness remains NOT_READY_FOR_ADAPTIVE_TRAINING.
+
+## Historical research-only precision decision before EVID-0081 (2026-09-12)
+
+EVID-0080 and DEC-0064 record the research-only numerical-analysis
+investigation of the remaining frozen PS+V_A source-moment blocker. The
+selected category is exactly
+`DIRECT_HIGHER_PRECISION_SECTOR_RUN`.
+
+The next source-moment computation should start the fixed ladder at 1050
+decimal digits and confirm the acceptance rows at 1250 and 1450 digits using
+the existing four 64-by-64 C4 sectors. The existing frozen
+`1050,1250,1450` ladder remains unchanged; 1250 is the first
+acceptance-grade row after the existing 800/900 and 1000/1200 diagnostic rows.
+After the source-moment ladder passes, evaluate only the median full-Z point.
+Do not run a dense high-precision
+global eigensolve, 1600/2000-digit escalation, outcome-driven mixed
+precision, a new Arb backend, a source-moment reformulation, training, or
+final-test work.
+
+The memo estimates the current PS minimum mode at approximately `5.52e-598`,
+proves the weighted-Gram `p_min` lower bound, and shows that the current
+probability minimum can account for only about 0.30 decimal orders relative
+to uniform at fixed geometry. Existing high-precision rows remain diagnostic
+until rebound under the frozen acceptance protocol. No numerical run or
+security result was executed by EVID-0080.
+
+At that historical decision boundary, the exact next numerical task was
+`DETERMINE_MINIMUM_SECTOR_AP_PRECISION_FOR_FROZEN_PS_VA`, now with the
+direct 1050/1250/1450 sector specification in EVID-0080. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive-training readiness remains
+`NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## Bounded analysis result before EVID-0078
 
 EVID-0074 and DEC-0058 record the completed analysis-figure workflow. The
 isolated `TRAINING_SURROGATE_ONLY` source-moment path passed Case-A
@@ -49,7 +160,32 @@ available states, but the optimized PS+V_A AP source rows failed closed at the
 full-support gate, so no complete adaptive ranking or novelty claim follows.
 The final classification is `FULL_Z_SEARCH_OBJECTIVE_REPAIRED`; novelty stays
 `CURRENT_NOVELTY_NOT_SUPPORTED` and the lifecycle stays
+
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+
+Historical EVID-0077 and DEC-0061 record the earlier root-cause audit for the remaining
+optimized PS+V_A exact source-moment blocker. The PS anchor has positive,
+moderately shaped probabilities (p_min approximately 0.00163--0.00228 and
+logit range below 1.51), and the weighted-Gram q_min scale check does not
+support probability concentration as the primary cause. The direct worker
+inputs use exact binary64 hex transfer. A 300-digit read-only probe resolves
+only 206 modes for both PS median and Full median, while Full resolves at
+800/900 digits and PS still fails closed at that ladder. This leaves
+precision/conditioning relevant but does not distinguish a PS-specific worker
+failure from genuine conditioning.
+
+The historical selected next category was
+INVESTIGATE_AP_WORKER_BUG; DEC-0062 supersedes it for the current median
+diagnosis. The next and only permitted numerical action for
+this blocker is a one-checkpoint median PS worker decomposition with direct
+hex replay, captured 300/400/600/800/1000/1200-digit rows, and an independent
+C4-sector or factorization cross-check using Full median as a positive control.
+No q floor, PS parameterization reduction, C/w reformulation, or precision-only
+change is selected. The lifecycle and adaptive-training status remain
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
+NOT_READY_FOR_ADAPTIVE_TRAINING.
+
 
 ## Current model status
 
@@ -214,15 +350,18 @@ source-moment/full-Z subset remain evaluation-only; the old worker-backed
 Case A/B-D security artifacts are superseded. See EVID-0066, EVID-0067, and
 EVID-0068, and the superseded artifacts.
 
-## Exact next permitted action
+## Historical exact next permitted action
 
 The repaired objective is accepted for bounded analysis only. The one
 remaining numerical blocker is the missing converged exact PS+`V_A` source-
-moment/ranking result. The next task is a full-support-preserving PS+`V_A`
-parameterization or conditioning guard followed by the same three-state exact
-AP/full-Z comparison. Keep complete reverse execution, full-Z backward,
-adaptive training, baseline selection, final-test access, and publication-
-scale evaluation closed.
+moment/ranking result. Under DEC-0061, the next task is a read-only
+median-checkpoint AP-worker decomposition with direct binary64 hex replay,
+captured 300/400/600/800/1000/1200-digit rows, and an independent C4-sector or
+factorization cross-check using Full median as a positive control. Do not add a
+q floor, change the PS parameterization, reformulate C,w, or increase precision
+as the sole change. Keep complete reverse execution, full-Z backward, adaptive
+training, baseline selection, final-test access, and publication-scale
+evaluation closed.
 
 ## Lifecycle restrictions
 
@@ -318,5 +457,21 @@ replace the target equations with the current implementation.
 - DEC-0060: accept `FULL_Z_SEARCH_OBJECTIVE_REPAIRED`, retain
   `CURRENT_NOVELTY_NOT_SUPPORTED`, and keep the publication/adaptive lifecycle
   gates closed.
+- EVID-0077: PS+`V_A` full-support blocker root-cause audit; PMF concentration
+  and serialization are not supported as primary causes, while precision,
+  conditioning, and a PS-specific worker issue remain unresolved.
+- DEC-0061: select `INVESTIGATE_AP_WORKER_BUG`; authorize only the bounded
+  one-checkpoint worker decomposition and retain all lifecycle gates.
+- EVID-0078: unchanged-worker PS and Full high-control sector convergence
+  plus an independent 100-digit direct global weighted-Gram/C4 structure
+  audit; dense global spectrum remains NOT_RUN.
+- DEC-0062: select LOW_PRECISION_GLOBAL_PLUS_HIGH_PRECISION_SECTORS_SUFFICIENT
+  and classify the immediate AP blocker as INSUFFICIENT_AP_PRECISION; retain
+  only the bounded low-precision global audit as the next numerical task.
+- EVID-0079: bounded independent global block audit; PS 80 digits completed,
+  PS 120 digits timed out, and the remaining requested rows were not started.
+- DEC-0063: accept the bounded partial audit, retain the dense/AP diagnoses,
+  and select minimum sector-level AP precision for frozen PS+V_A as the next
+  task while keeping lifecycle gates closed.
 - Existing historical numerical evidence remains in EVIDENCE.md and
   DECISION_LOG.md under its original provenance.

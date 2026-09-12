@@ -3477,3 +3477,379 @@ support in all three states, and the required 800/900-digit attempts returned
 `FAIL_CLOSED`. The remaining lifecycle status is
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; novelty remains
 `CURRENT_NOVELTY_NOT_SUPPORTED`.
+
+## EVID-0077 - PS+V_A full-support blocker root-cause audit
+
+Date: 2026-09-12
+
+Status: CURRENTLY_VERIFIED_PASS; DIAGNOSTIC_ONLY; BLOCKER_UNRESOLVED
+
+### Claim
+
+The focused research audit tests the remaining corrected-AP blocker without
+changing the model or opening a lifecycle-gated run. It records PMF, logit,
+scale, geometry, serialization, and precision observations for the optimized
+PS+V_A checkpoint and matched Full anchors. PS+V_A has positive probabilities
+with q_min between 0.00652427 and 0.00912075, p_min between 0.00163107 and
+0.00228019, q_max/q_min between 2.66088 and 4.4995, and observed logit ranges
+below 1.51. The repository MB reference at nu=0.1 has p_min
+0.003306576946... and q_min 0.01322630778....
+
+The weighted-Gram q_min bounds therefore do not support ordinary probability
+concentration as the primary explanation for the PS failure. PS and Full also
+have nearly equal V_A in the repaired step-50 comparison, and PS has the
+larger anchor physical scale and minimum pair separation. A small Full GS
+perturbation can still alter an extremely small Gram mode, but its causal
+effect is unmeasured.
+
+A read-only 300-digit probe resolved rank 206 for both PS median and Full
+median and failed closed at the expected near-zero eigensolver floor. Full
+then converged at 800/900 digits, while the PS high-ladder attempts at the same
+digits failed closed. This establishes a precision/conditioning contribution
+but does not distinguish a PS-specific worker/solver failure from genuinely
+worse conditioning. The selected next category is exactly
+INVESTIGATE_AP_WORKER_BUG.
+
+### Evidence and provenance
+
+- results/ps_va_full_support_blocker_diagnostic_20260912.json, SHA-256:
+  8a44ca9330cca61d8a15d2457b6c1d8445b560b5776935e184de15e550f5255d
+- docs/DEEP_RESEARCH_PS_VA_FULL_SUPPORT_BLOCKER_20260912.md, SHA-256:
+  c4031394281b6529887f86fa93d7516b6d7ab7c07ce3a5f55c402f3c0a866251
+- results/repaired_full_z_ps_va_exact_failure_20260911.json, SHA-256:
+  27b6474a67b26755f076d3ed7569fe5fe22b3f0758df0242e059ccf4333b997f
+- results/repaired_full_z_exact_jobs_20260911.json, SHA-256:
+  52eafe5ee42af34a53b2280ddf10639fe77d50f87702ddc754ababbb06b5ad5c
+- scripts/full_support_c4_worker.py, SHA-256:
+  2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1
+- scripts/run_analysis_figures.py, SHA-256:
+  9f9b085c2ddddb9acf484070e5b32eddf2d883d7dcd040416df506b048da549f
+- src/modulation/probabilistic_shaping.py, SHA-256:
+  89e60be5b7ce3de863918f03a6f036287aafc0688a8e24718869784c5b0832b7
+- src/modulation/joint_ps_gs.py, SHA-256:
+  3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f
+- src/modulation/normalization.py, SHA-256:
+  88dd777f6ce2f64117dc64cbcebc1335337aaa73f5b597410618d0581fd47ce2
+- src/modulation/qam256.py, SHA-256:
+  34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa
+- src/cvqkd/gram_moments.py, SHA-256:
+  bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551
+- docs/FINAL_MODEL_SPEC.md, SHA-256:
+  8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843
+
+### Interpretation
+
+The mathematical support of the current finite positive PS ensemble is not
+shown to be lost. The exact PS source moments are still unavailable, so the
+worker gate remains correctly fail-closed. The next permitted numerical task is
+one median-checkpoint worker decomposition with direct binary64 hex replay,
+captured 300/400/600/800/1000/1200-digit rows, and an independently implemented
+sector or factorization cross-check using Full median as a positive control.
+
+No training, final-test access, baseline selection, publication-scale evaluation,
+C/w equation change, channel change, or support-floor amendment is authorized.
+Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and adaptive readiness
+remains NOT_READY_FOR_ADAPTIVE_TRAINING.
+
+## EVID-0081 - Frozen PS+V_A source moments converged and median full-Z evaluated
+
+Date: 2026-09-12
+
+Status: CURRENTLY_VERIFIED_PASS; RESEARCH-ONLY; MEDIAN-ONLY
+
+### Claim
+
+The authorized `DIRECT_HIGHER_PRECISION_SECTOR_RUN` was completed for exactly
+one frozen repaired-objective optimized PS+V_A median candidate. The 1050
+decimal-digit diagnostic resolved all four 64x64 C4 sectors with total rank
+256 and well-behaved residuals. The 1250 and 1450 acceptance rows both
+resolved all 256 modes, passed the frozen C/w convergence criterion, and
+produced the authoritative source moments
+
+```text
+C_PSVA = 0.8610813007552428909072445071897962976560950806268
+w_PSVA = 0.0067220381757562110710871873472856506670610666856165
+```
+
+The exact single median full-Z evaluation used the existing 33-grid/12-
+refinement implementation, frozen `T`, `epsilon_base`, phase-disabled
+`epsilon_total=epsilon_base`, learned `V_A`, `beta=0.95`, and the converged
+AP C/w values. It passed `Z_L <= Z_star <= Z_U` and returned
+
+```text
+Z_L       = 0.25403343722167576
+Z_U       = 0.258948630366243
+Z_star    = 0.25403343722167576
+I_AB      = 0.01569902141495305
+beta I_AB = 0.014914070344205398
+chi_BE    = 0.014533912528089
+raw K     = 0.0003801578161163992
+```
+
+The resulting exact median classification is
+`PS_VA_MEDIAN_BEST`, with the existing exact median values ordered
+PS+V_A > Full > MB. This is a one-state analysis result, not a three-state
+adaptive or publication claim.
+
+### Candidate and numerical provenance
+
+- `results/PS_VA_SOURCE_MOMENTS_CONVERGED_20260912.json`, SHA-256:
+  `9b3b269c1c1ae81e027bb8864fb1ccf711551327a2497530602f37bf252f6115`
+- `docs/PS_VA_SOURCE_MOMENTS_CONVERGENCE_REPORT_20260912.md`, SHA-256:
+  `d1e39435c27063bae978348bedd733a28bc4eb32da86d79e5f1b6b2c3937714a`
+- `results/ps_va_source_moments_1050_20260912.json`, SHA-256:
+  `dd4d70a0483c8502ffefe1d81a6efa42a6b0adec64619da1d0c532cbc9720f97`
+- `results/ps_va_source_moments_1250_1450_20260912.json`, SHA-256:
+  `52f446062110e7a21e8138bcf7bfa8c3d11d94904bb80efde17ad43a4c5db474`
+- frozen checkpoint SHA-256:
+  `1c5d49d1a562c558a18a76994399b09c4bee88ddbebf35370ae9cb690e3ca8d`
+- direct input hash:
+  `4589747c3ae1cf3d8ce996d13f591a0e8f2aae7dd64df402a81507255dd43a99`
+- canonical q probability hash:
+  `cb54155a394cad8ce7c162fdfd43e620bf89e7da366a241bd2a6aa7574bee47b`
+- orbit constellation hash:
+  `3e56859fb805f8f445c6ec8c465fc435b1b5706a025e67f673c649f30498fcab`
+- full constellation hash:
+  `ee71ed4bbd636ac5418ded90f9762a1ef6f9c0b61a7954f4621ca59332b2ee96`
+- `scripts/full_support_c4_worker.py`, SHA-256:
+  `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+- `scripts/replay_instrumented_current_worker.py`, SHA-256:
+  `5dc9832511129dbcdd9a24468fd634924e8e9d6211e6fbe58e1a80a2b5514434`
+- `scripts/record_ps_va_median_authority.py`, SHA-256:
+  `cb4a387d533ae9b87d3460e3c70479550f66cf356956e37a40c08c7ad1c4ffd8`
+- existing exact MB/Full median reference
+  `results/repaired_full_z_objective_analysis_20260911.json`, SHA-256:
+  `aa94fc2032ab9d1421c3f4256cf3a7a4be6526c612797f4b162c1c8c85d98f23`
+- `docs/FINAL_MODEL_SPEC.md`, SHA-256:
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+
+### Interpretation
+
+EVID-0081 consumes the DEC-0064 execution authorization and supersedes the
+previous `INSUFFICIENT_AP_PRECISION` interpretation for this frozen median
+candidate. It does not authorize the unrun poor/good ranking, adaptive
+training, baseline selection, final-test access, publication-scale work, or a
+novelty claim. The next recommended numerical task is a separately authorized
+exact poor+good ranking only because the adaptive method beats MB at this
+median state.
+
+The 1050 row took `844.7600824` seconds. The 1250/1450 acceptance process
+took `2009.1630606` seconds combined; separate full-row wall times for those
+two rungs were not captured, while solve-only totals were `152.2347689` and
+`217.5061456` seconds respectively. The explicit corrected C/w fixture
+regression remains limited by the existing complex128 production gate on its
+perturbed-geometry fixture (`1.343480882098902e-12` versus the `1e-12` gate),
+and this is retained as a verification limitation rather than silently
+repaired.
+
+Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and adaptive readiness
+remains NOT_READY_FOR_ADAPTIVE_TRAINING.
+
+## EVID-0078 - Dense-global spectrum necessity decision audit
+
+Date: 2026-09-12
+
+Status: CURRENTLY_VERIFIED_PASS; DIAGNOSTIC_ONLY; RESEARCH-ONLY
+
+### Claim
+
+The research-only numerical-analysis memo determines that a dense
+256-by-256 arbitrary-precision eigensolve at the 700--900 digit support
+precision is not scientifically necessary for the current PS-versus-Full
+worker question. Exact weighted-Gram/source-spectrum equivalence and exact C4
+Fourier block diagonalization show that the global spectrum is the union of
+the four sector spectra. An independently constructed direct 256-state
+weighted Gram at 100 decimal digits has zero reported Hermiticity,
+Fourier-off-block, and sector-match residuals for both the median PS+V_A case
+and the matched Full control. The global spectrum field in that artifact is
+explicitly NOT_RUN.
+
+The unchanged current worker independently reaches rank 256 in every sector
+for PS at 800/900 and 1000/1200 digits and for Full at 800/900 digits. The
+successive rows have stable C,w and positive minimum resolved modes. This
+reclassifies the earlier PS fail-closed attempt as
+INSUFFICIENT_AP_PRECISION for the present blocker decision; it does not
+support AP_WORKER_PS_SPECIFIC_BUG or AP_FAIL_GATE_BUG. The three-state exact
+adaptive ranking remains incomplete.
+
+The dense-check decision is exactly
+LOW_PRECISION_GLOBAL_PLUS_HIGH_PRECISION_SECTORS_SUFFICIENT. A bounded
+independent low-precision global spectrum audit remains the next numerical
+task, but the expensive dense high-precision target is STOPPED.
+
+### Evidence and provenance
+
+- docs/DEEP_RESEARCH_DENSE_GLOBAL_SPECTRUM_DECISION_20260912.md,
+  SHA-256: a6fe26730bfdd874155264d6829674c4004e6007707d8ba0258f0f9e95c47e92
+- results/ps_va_ap_worker_localization_20260912.json,
+  SHA-256: b068f2fc5a83d9acf269cff532e1f3cf218c640319b3a26bd6c4cea5876e7908
+- results/ps_va_worker_instrumented_800_900_20260912.json,
+  SHA-256: 3d7dc1024f022a5a4b1121fc6ce98c5c618e6abe46c91b7adcf662c4a75e43a6
+- results/ps_va_worker_instrumented_1000_1200_20260912.json,
+  SHA-256: 649ff8f2a1a8022d4eef6afa1f6be2b003e34818291a89b1bde01c28a6c927dd
+- results/full_worker_instrumented_800_900_20260912.json,
+  SHA-256: 08510463a9a57c1e002129805e6f2f25c5dbf216258614623d7467650bb90bde
+- scripts/diagnose_ps_va_ap_worker.py,
+  SHA-256: dda92c7d9e5070eede104c229b04b1a776445280005d6aea6d9e8f397ac128d7
+- scripts/replay_instrumented_current_worker.py,
+  SHA-256: 49e78ba130c1ba6aa6de41275a417ed7102d9245a30f5954619cd92d9c39385294
+- scripts/full_support_c4_worker.py,
+  SHA-256: 2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1
+- scripts/run_analysis_figures.py,
+  SHA-256: 9f9b085c2ddddb9acf484070e5b32eddf2d883d7dcd040416df506b048da549f
+- results/repaired_full_z_checkpoint_ps_va_20260911_step_50.pt,
+  SHA-256: 1c5d49d1a562c558a18a76994399b09c4bee88ddbebf35370ae9cb690e3ca8d
+- results/repaired_full_z_checkpoint_full_20260911_step_50.pt,
+  SHA-256: 9e5bf3fb8534cbf2640ca0feb99810518c110c283931d701c44ee52e16622e51
+- docs/FINAL_MODEL_SPEC.md,
+  SHA-256: 8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843
+
+### Interpretation
+
+No production worker, C/w equation, model family, security definition, or
+lifecycle gate was changed. The 100-digit direct matrix audit is structural
+evidence only; its approximately 10^-102 negative tail is a numerical
+resolution floor. The 800--1200 digit sector rows are diagnostic source
+moment evidence only. The next permitted numerical task is
+RUN_INDEPENDENT_LOW_PRECISION_GLOBAL_BLOCK_AUDIT on the frozen median PS and
+Full inputs at 80/120/200 digits, with a 15-minute total budget. Do not run
+the dense high-precision target unless a surviving independent mismatch or
+explicit external audit requirement creates a new hypothesis.
+
+Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and adaptive readiness
+remains NOT_READY_FOR_ADAPTIVE_TRAINING. No security, novelty, publication,
+or adaptive-ranking claim follows.
+
+## EVID-0079 - Independent bounded low-precision global block audit
+
+Date: 2026-09-12
+
+Status: CURRENTLY_VERIFIED_PASS; DIAGNOSTIC_ONLY; BOUNDED_PARTIAL
+
+### Claim
+
+The authorized independent global weighted-Gram audit ran under the hard
+900-second total budget. It completed the frozen median PS+V_A row at 80
+decimal digits, timed out the PS 120-digit child at the remaining budget, and
+did not start PS 200 or any Full row. The watchdog finished in
+899.0290027 seconds with `budget_compliance=true` and status
+`DENSE_LOW_PRECISION_COST_BOUNDED_SKIP`.
+
+The completed PS 80-digit row independently formed the 256-state weighted
+Gram from serialized binary64 inputs, checked Hermiticity, trace,
+Frobenius, trace-square, Fourier off-block structure, and production-sector
+agreement, and then compared the dense eigenvalues with the Fourier-sector
+union. It resolved 48 modes above the diagnostic 1e-60 threshold; the
+maximum global/sector-union absolute discrepancy was approximately
+4.22e-81 and the eigendecomposition residual was approximately 1.89e-80.
+The result supports the existing C4 block reduction and provides no evidence
+for `AP_WORKER_PS_SPECIFIC_BUG` or `AP_FAIL_GATE_BUG`. It is not a support
+certificate and does not complete a PS-versus-Full six-row global audit.
+
+The audit helper's reported Fourier-unitarity field was corrected after the
+run: an mpmath callable matrix initializer had produced a zero reporting
+matrix, while the explicit W transform was unaffected. The corrected nested-
+list construction was checked by the focused Fourier test, and the artifact
+records the correction transparently in `posthoc_correction`.
+
+### Evidence and provenance
+
+- docs/INDEPENDENT_GLOBAL_BLOCK_AUDIT_REPORT_20260912.md,
+  SHA-256: bf2f0d9b8c2f6b98e50ea0ab90620bb05941475c3b2400be8bc54dda28029b7f
+- results/independent_global_block_audit_20260912.json,
+  SHA-256: 4adebde66edc194d1097c900f2cffffdb5302278f194c04fd8253fd2fddc292e
+- input results/ps_va_ap_worker_localization_20260912.json,
+  SHA-256: b068f2fc5a83d9acf269cff532e1f3cf218c640319b3a26bd6c4cea5876e7908
+- scripts/diagnose_ps_va_ap_worker.py,
+  SHA-256: f771d77ba42282820b2c240637c11563811c1e37b621745264b4d8d4fcb347ba
+- scripts/run_independent_global_block_audit.py,
+  SHA-256: 2936c65d885a9fce3505ef4235d1f9bbfec6debceecab03087f340fe334d183f
+- tests/test_ap_worker_equivalence.py,
+  SHA-256: f15d44737e672f4cffe89bd108b037c88b2c21b0dcd2b91a018aceae9fa4568e
+- scripts/full_support_c4_worker.py,
+  SHA-256: 2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1
+- scripts/run_analysis_figures.py,
+  SHA-256: 9f9b085c2ddddb9acf484070e5b32eddf2d883d7dcd040416df506b048da549f
+- docs/FINAL_MODEL_SPEC.md,
+  SHA-256: 8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843
+
+### Interpretation
+
+EVID-0079 accepts the bounded partial audit as structural diagnostic
+evidence. It does not reopen the stopped dense high-precision global target,
+does not change the model or security definitions, and does not authorize
+training, baseline selection, final-test access, or publication-scale work.
+The exact dense decision remains
+`LOW_PRECISION_GLOBAL_PLUS_HIGH_PRECISION_SECTORS_SUFFICIENT`; the immediate
+AP diagnosis remains `INSUFFICIENT_AP_PRECISION`.
+
+The next permitted numerical task is to determine the minimum sector-level AP
+precision for frozen PS+V_A, compute exact C,w, and then evaluate only the
+median full-Z security point. That task was not executed here.
+
+Lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS and adaptive readiness
+remains NOT_READY_FOR_ADAPTIVE_TRAINING.
+
+## EVID-0080 - Deep research decision for minimum PS+V_A sector precision
+
+Date: 2026-09-12
+
+Status: CURRENTLY_VERIFIED_PASS; RESEARCH-ONLY; DECISION-SUPPORT
+
+### Claim
+
+The research-only numerical-analysis investigation selects
+`DIRECT_HIGHER_PRECISION_SECTOR_RUN` as the cheapest defensible path for the
+remaining frozen optimized PS+V_A source-moment blocker. The next fixed
+source-moment ladder should start at 1050 decimal digits, with acceptance at
+1250 and confirmation at 1450 digits, followed by only the median full-Z
+point. The repository's frozen `1050,1250,1450` ladder and full-support
+acceptance rule remain unchanged.
+
+The current PS median has a high-precision diagnostic minimum eigenvalue of
+approximately `5.5183e-598` (`-log10` approximately `597.26`). Existing
+800/900 and 1000/1200 rows already show stable `C,w` and rank 256, so the
+1250/1450 recommendation is a provenance and protocol decision rather than a
+claim that 1250 digits are mathematically required for this particular
+printed eigenvalue. A mixed outcome-driven sector ladder is not selected
+because the frozen protocol forbids outcome-based precision changes and the
+cross-sector `w` residual needs a stated error budget.
+
+The investigation proves the weighted-Gram lower bound
+`lambda_min(P^(1/2) G P^(1/2)) >= p_min lambda_min(G)`, estimates the PS
+probability penalty at about 0.30 decimal orders relative to uniform for the
+same geometry, and derives first-order `C,w` to `Z` error propagation. It
+finds no evidence that a dense high-precision global eigensolve, an Arb
+backend, or a source-moment reformulation is needed for the current blocker.
+
+### Evidence and provenance
+
+- `docs/DEEP_RESEARCH_MINIMUM_PS_VA_SECTOR_PRECISION_20260912.md`,
+  SHA-256:
+  `5d9a58d8d437fe0f14756316c14a2128ce429c4d2b162204d4f7cfe3d1cc65d4`
+- `results/ps_va_worker_instrumented_800_900_20260912.json`,
+  SHA-256:
+  `3d7dc1024f022a5a4b1121fc6ce98c5c618e6abe46c91b7adcf662c4a75e43a6`
+- `results/ps_va_worker_instrumented_1000_1200_20260912.json`,
+  SHA-256:
+  `649ff8f2a1a8022d4eef6afa1f6be2b003e34818291a89b1bde01c28a6c927dd`
+- `results/full_worker_instrumented_800_900_20260912.json`,
+  SHA-256:
+  `08510463a9a57c1e002129805e6f2f25c5dbf216258614623d7467650bb90bde`
+- `results/ps_va_ap_worker_localization_20260912.json`,
+  SHA-256:
+  `b068f2fc5a83d9acf269cff532e1f3cf218c640319b3a26bd6c4cea5876e7908`
+- `docs/FULL_SUPPORT_C4_GRAM_BACKEND_PROTOCOL.md`
+- `docs/NUMERICAL_CONVERGENCE_PREREGISTRATION.md`
+- `docs/FINAL_MODEL_SPEC.md`, SHA-256:
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+
+### Interpretation
+
+EVID-0080 is a decision-support memo, not a numerical result. No AP run,
+dense eigensolve, source-moment rebind, full-Z evaluation, training, final
+test access, or lifecycle transition occurred. The exact next permitted task
+remains the bounded frozen PS+V_A 1050/1250/1450 sector ladder followed by one
+median full-Z diagnostic, subject to the existing fail-closed gates. Lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive readiness remains
+`NOT_READY_FOR_ADAPTIVE_TRAINING`.
