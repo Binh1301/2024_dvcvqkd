@@ -2,14 +2,138 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Iterable
 import math
 
 import numpy as np
+from scipy.integrate import quad
 
 
 class UnsupportedApertureAveragingError(ValueError):
     """Raised when ``sigma_R0^2`` cannot be resolved to ``v_sc``."""
+
+
+def hufnagel_valley_cn2(
+    height_m: float | np.ndarray,
+    wind_speed_m_per_s: float,
+    cn2_ground_m_minus_two_thirds: float,
+) -> float | np.ndarray:
+    """Return the manuscript's altitude-dependent Hufnagel--Valley profile."""
+
+    height = np.asarray(height_m, dtype=np.float64)
+    wind = float(wind_speed_m_per_s)
+    ground = float(cn2_ground_m_minus_two_thirds)
+    if not np.all(np.isfinite(height)):
+        raise ValueError("height_m must be finite.")
+    if not math.isfinite(wind) or wind < 0.0:
+        raise ValueError("wind_speed_m_per_s must be finite and nonnegative.")
+    if not math.isfinite(ground) or ground < 0.0:
+        raise ValueError("cn2_ground_m_minus_two_thirds must be finite and nonnegative.")
+    value = (
+        0.00594
+        * (wind / 27.0) ** 2
+        * (1.0e-5 * height) ** 10
+        * np.exp(-height / 1000.0)
+        + 2.7e-16 * np.exp(-height / 1500.0)
+        + ground * np.exp(-height / 100.0)
+    )
+    return float(value) if value.ndim == 0 else value
+
+
+@lru_cache(maxsize=32)
+def hufnagel_valley_scintillation(
+    h_uav_m: float,
+    h_hap_m: float,
+    wavelength_m: float,
+    zenith_angle_rad: float,
+    wind_speed_m_per_s: float,
+    cn2_ground_m_minus_two_thirds: float,
+    receiver_diameter_m: float,
+) -> dict[str, float]:
+    """Derive the manuscript's aperture-corrected log-intensity variance.
+
+    The cached scalar calculation keeps the production sampler cheap while
+    retaining the exact profile and aperture integrals used by Eqs. (3)--(8).
+    """
+
+    values = tuple(
+        float(value)
+        for value in (
+            h_uav_m,
+            h_hap_m,
+            wavelength_m,
+            zenith_angle_rad,
+            wind_speed_m_per_s,
+            cn2_ground_m_minus_two_thirds,
+            receiver_diameter_m,
+        )
+    )
+    h_uav, h_hap, wavelength, zenith, wind, ground, diameter = values
+    if h_hap <= h_uav:
+        raise ValueError("h_hap_m must exceed h_uav_m.")
+    if wavelength <= 0.0 or diameter <= 0.0:
+        raise ValueError("wavelength_m and receiver_diameter_m must be positive.")
+    if abs(zenith) >= math.pi / 2.0:
+        raise ValueError("zenith_angle_rad must lie strictly inside +/- pi/2.")
+    profile = lambda height: float(
+        hufnagel_valley_cn2(height, wind, ground)
+    )
+    secant = 1.0 / math.cos(zenith)
+    wave_number = 2.0 * math.pi / wavelength
+    rytov_integral, rytov_error = quad(
+        lambda height: profile(height) * (height - h_uav) ** (5.0 / 6.0),
+        h_uav,
+        h_hap,
+        epsabs=1.0e-24,
+        epsrel=2.0e-13,
+        limit=300,
+    )
+    aperture_numerator, numerator_error = quad(
+        lambda height: profile(height) * height**2,
+        h_uav,
+        h_hap,
+        epsabs=1.0e-18,
+        epsrel=2.0e-13,
+        limit=300,
+    )
+    aperture_denominator, denominator_error = quad(
+        lambda height: profile(height) * height ** (5.0 / 6.0),
+        h_uav,
+        h_hap,
+        epsabs=1.0e-24,
+        epsrel=2.0e-13,
+        limit=300,
+    )
+    sigma_R0_squared = (
+        2.25
+        * wave_number ** (7.0 / 6.0)
+        * secant ** (11.0 / 6.0)
+        * rytov_integral
+    )
+    Phi_m = (aperture_numerator / aperture_denominator) ** (6.0 / 7.0)
+    aperture_factor = (
+        1.0
+        + 1.11
+        * (diameter**2 / (wavelength * Phi_m) * secant) ** (7.0 / 6.0)
+    ) ** -1.0
+    return {
+        "sigma_R0_squared": float(sigma_R0_squared),
+        "Phi_m": float(Phi_m),
+        "A_ap": float(aperture_factor),
+        "v_sc": float(aperture_factor * sigma_R0_squared),
+        "rytov_integral": float(rytov_integral),
+        "rytov_integral_quad_error": float(rytov_error),
+        "aperture_numerator": float(aperture_numerator),
+        "aperture_numerator_quad_error": float(numerator_error),
+        "aperture_denominator": float(aperture_denominator),
+        "aperture_denominator_quad_error": float(denominator_error),
+        "model": "hufnagel_valley_finite_aperture_weak_turbulence",
+        "profile_formula": (
+            "0.00594*(v_wind/27)^2*(1e-5*h)^10*exp(-h/1000) + "
+            "2.7e-16*exp(-h/1500) + Cn2_ground*exp(-h/100)"
+        ),
+    }
 
 
 def _finite_nonnegative(value: float, name: str) -> float:
@@ -113,10 +237,11 @@ def scintillation_provenance(
     v_sc: float,
     resolution_status: str,
     profile_model: str,
+    derivation: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Return the physical/scintillation resolution record."""
 
-    return {
+    record = {
         "profile_model": str(profile_model),
         "sigma_R0_squared": None if sigma_R0_squared is None else float(sigma_R0_squared),
         "v_sc": float(v_sc),
@@ -124,10 +249,15 @@ def scintillation_provenance(
         "lognormal_parameterization": "ln(H_sc) ~ Normal(-v_sc/2, v_sc)",
         "mean_H_sc": 1.0,
     }
+    if derivation is not None:
+        record["derivation"] = dict(derivation)
+    return record
 
 
 __all__ = [
     "UnsupportedApertureAveragingError",
+    "hufnagel_valley_cn2",
+    "hufnagel_valley_scintillation",
     "normalized_lognormal_samples",
     "resolve_scintillation_variance",
     "rytov_variance_from_profile",

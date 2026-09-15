@@ -1,6 +1,16 @@
 # Project State
 
-Last updated: 2026-09-12 (EVID-0081 / DEC-0065; converged PS+V_A median source moments)
+Last updated: 2026-09-16 (EVID-0082 / DEC-0066; manuscript channel PDF audit)
+
+## Latest channel-model audit (2026-09-16)
+
+EVID-0082/DEC-0066 bind the attached manuscript channel scenario for
+channel-only diagnostics. The active sampler now derives the Hufnagel–Valley
+finite-aperture scintillation variance (`v_sc=0.01434494998119213`), uses the
+manuscript pointing/AoA values, preserves the exact outage atom, and keeps
+phase noise outside (p_T). The PDF/moment artifact and focused 63-test suite
+pass. This does not change the frozen security scope or authorize training,
+baseline selection, final-test access, or publication-scale work.
 
 ## Latest completed numerical result (2026-09-12)
 

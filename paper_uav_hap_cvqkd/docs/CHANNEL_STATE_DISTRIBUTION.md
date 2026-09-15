@@ -2,8 +2,9 @@
 
 Status: the pre-action contract, composite-channel architecture, physical-domain
 admission, and post-action phase-noise transformation are implemented in
-source. Target runs remain parameter-blocked until the unresolved profile,
-aperture, AoA, and common-turbulence phase mappings are frozen.
+source. The attached manuscript Hufnagel–Valley/finite-aperture scenario is
+resolved for channel-only (T) diagnostics; common-turbulence phase mapping and
+security runs remain blocked.
 
 ## Pre-action state
 
@@ -95,3 +96,11 @@ identical realization hashes, and exact paired-state overlap.
 
 Do not pass received-power SNR, detector-output noise, or epsilon_total as a
 policy input.
+## 2026-09-16 channel-model audit addendum
+
+
+The attached manuscript scenario is now wired into the active default channel
+configuration: Hufnagel–Valley profile, finite-aperture (v_{\rm sc}) mapping,
+5-microradian HAP jitter, and the explicit zero-turbulence AoA FOV fixture.
+The common-turbulence phase mapping and all security/publication workflows
+remain blocked.

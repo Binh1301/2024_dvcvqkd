@@ -12,27 +12,25 @@ channel:
   # Retained scalar for legacy diagnostics; it is not an active beam-wander input.
   cn2_m_minus_two_thirds: 1.0e-16
   turbulence_profile:
-    # No supported altitude-profile parameters are frozen in this repository.
-    model: null
+    model: hufnagel_valley
+    wind_speed_m_per_s: 21.0
+    cn2_ground_m_minus_two_thirds: 5.0e-14
     heights_m: null
     cn2_m_minus_two_thirds: null
   scintillation:
-    # sigma_R0^2 is not silently identified with v_sc. No aperture mapping is frozen.
-    aperture_averaging_model: null
+    aperture_averaging_model: hufnagel_valley_finite_aperture
     v_sc_override: null
     sigma_R0_squared: null
   pointing:
     boresight_x_m: 0.0
     boresight_y_m: 0.0
-    # Explicit zero is a declared no-HAP-jitter fixture approximation.
-    sigma_hap_ang_rad: 0.0
+    sigma_hap_ang_rad: 5.0e-6
     hap_angular_jitter_convention: per_axis
   aoa:
-    # Turbulence-induced AoA is explicitly disabled until a mapping is validated.
-    model: disabled
+    model: external_validated
     sigma_turb_AoA2_rad2: 0.0
-    provenance: "explicit disabled approximation; no validated C_n^2(h)->AoA mapping"
-    theta_fov_rad: null
+    provenance: "manuscript scenario: zero turbulence-induced AoA variance"
+    theta_fov_rad: 0.0038910862871962886
   raw_transmittance:
     active_treatment: truncated_renormalized_active_law
   # Effective scalar representation of the same physical turbulence scenario.

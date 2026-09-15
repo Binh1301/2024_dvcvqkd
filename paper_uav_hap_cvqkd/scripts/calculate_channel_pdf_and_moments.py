@@ -1,9 +1,7 @@
 """Recompute the preliminary Case-D channel PDF from physical inputs.
 
-This is a channel-only diagnostic.  It does not train, evaluate security, or
-modify the author-freeze configuration.  The supplied Case-D fixture is kept
-explicit because its 5 microradian HAP jitter and enabled AoA gate are not
-currently frozen in ``configs/default.yaml``.
+This is a channel-only diagnostic.  It does not train or evaluate security.
+The physical scenario is read from the active channel configuration.
 """
 
 from __future__ import annotations
@@ -31,11 +29,14 @@ from src.channel.atmospheric_loss import atmospheric_transmittance
 from src.channel.fso_channel import sample_fso_channel
 from src.channel.geometry import LinkGeometry
 from src.channel.pointing_error import pointing_parameters
+from src.channel.scintillation import hufnagel_valley_cn2, hufnagel_valley_scintillation
 from src.channel.turbulence import UavMotion
+from scripts._common import load_yaml
 
 
+# Historical exploratory comparison only; production uses the derived HV value.
 OLD_V_SC = 0.25
-EXPECTED_NEW_V_SC = 0.01442996440
+EXPECTED_NEW_V_SC = 0.01434494998
 EPSILON_MIN = 0.001
 EPSILON_MAX = 0.04
 EPSILON_MEAN = (EPSILON_MIN + EPSILON_MAX) / 2.0
@@ -46,15 +47,7 @@ QUANTILE_Z = {float(q): float(ndtri(q)) for q in (0.05, 0.50, 0.95)}
 def hv_cn2(h_m: float | np.ndarray, wind_m_per_s: float, cn2_ground: float):
     """Hufnagel--Valley profile used for the preliminary Case-D calculation."""
 
-    h = np.asarray(h_m, dtype=np.float64)
-    return (
-        0.00594
-        * (wind_m_per_s / 27.0) ** 2
-        * (1.0e-5 * h) ** 10
-        * np.exp(-h / 1000.0)
-        + 2.7e-16 * np.exp(-h / 1500.0)
-        + cn2_ground * np.exp(-h / 100.0)
-    )
+    return hufnagel_valley_cn2(h_m, wind_m_per_s, cn2_ground)
 
 
 def _sha256(path: Path) -> str:
@@ -62,74 +55,40 @@ def _sha256(path: Path) -> str:
 
 
 def derive_physical_inputs() -> dict:
-    wavelength_m = 1.55e-6
-    h_hap_m = 20_000.0
-    h_uav_m = 1_000.0
+    channel = load_yaml(ROOT / "configs" / "default.yaml")["channel"]
+    profile = channel["turbulence_profile"]
+    if profile.get("model") != "hufnagel_valley":
+        raise ValueError("The active diagnostic requires the configured Hufnagel-Valley profile.")
+    if channel["scintillation"].get("aperture_averaging_model") != "hufnagel_valley_finite_aperture":
+        raise ValueError("The active diagnostic requires the manuscript finite-aperture mapping.")
+    pointing_config = channel["pointing"]
+    aoa_config = channel["aoa"]
+    wavelength_m = float(channel["wavelength_m"])
+    h_hap_m = float(channel["h_hap_m"])
+    h_uav_m = float(channel["h_uav_m"])
     link_length_m = h_hap_m - h_uav_m
-    zenith_angle_rad = 0.0
-    wind_m_per_s = 21.0
-    cn2_ground = 5.0e-14
-    receiver_radius_m = 0.075
-    receiver_diameter_m = 0.15
-    beam_waist_m = 0.0157
-    visibility_km = 200.0
-    sigma_hap_ang_rad = 5.0e-6
+    zenith_angle_rad = float(channel.get("zenith_angle_rad", 0.0))
+    wind_m_per_s = float(profile["wind_speed_m_per_s"])
+    cn2_ground = float(profile["cn2_ground_m_minus_two_thirds"])
+    receiver_radius_m = float(channel["aperture_radius_m"])
+    receiver_diameter_m = 2.0 * receiver_radius_m
+    beam_waist_m = float(channel["beam_waist_m"])
+    visibility_km = float(channel["visibility_km"])
+    sigma_hap_ang_rad = float(pointing_config["sigma_hap_ang_rad"])
     motion = UavMotion(
-        sigma_x_m=0.0521,
-        sigma_y_m=0.0502,
-        sigma_z_m=0.0703,
-        sigma_theta_rad=0.00260,
-        sigma_phi_rad=0.00204,
-        sigma_psi_rad=0.00406,
+        **channel["uav_motion"],
     )
-
-    secant = 1.0 / math.cos(zenith_angle_rad)
-
-    def profile_scalar(h: float) -> float:
-        return float(hv_cn2(h, wind_m_per_s, cn2_ground))
-
-    rytov_integral, rytov_error = quad(
-        lambda h: profile_scalar(h) * (h - h_uav_m) ** (5.0 / 6.0),
+    derivation = hufnagel_valley_scintillation(
         h_uav_m,
         h_hap_m,
-        epsabs=1.0e-24,
-        epsrel=2.0e-13,
-        limit=300,
+        wavelength_m,
+        zenith_angle_rad,
+        wind_m_per_s,
+        cn2_ground,
+        receiver_diameter_m,
     )
-    aperture_numerator, numerator_error = quad(
-        lambda h: profile_scalar(h) * h**2,
-        h_uav_m,
-        h_hap_m,
-        epsabs=1.0e-18,
-        epsrel=2.0e-13,
-        limit=300,
-    )
-    aperture_denominator, denominator_error = quad(
-        lambda h: profile_scalar(h) * h ** (5.0 / 6.0),
-        h_uav_m,
-        h_hap_m,
-        epsabs=1.0e-24,
-        epsrel=2.0e-13,
-        limit=300,
-    )
-    wave_number = 2.0 * math.pi / wavelength_m
-    sigma_R0_squared = (
-        2.25
-        * wave_number ** (7.0 / 6.0)
-        * secant ** (11.0 / 6.0)
-        * rytov_integral
-    )
-    phi_m = (aperture_numerator / aperture_denominator) ** (6.0 / 7.0)
-    aperture_factor = (
-        1.0
-        + 1.1
-        * (
-            receiver_diameter_m**2
-            / (wavelength_m * phi_m)
-            * secant
-        ) ** (7.0 / 6.0)
-    ) ** -1.0
-    v_sc = aperture_factor * sigma_R0_squared
+    sigma_R0_squared = derivation["sigma_R0_squared"]
+    v_sc = derivation["v_sc"]
 
     geometry = LinkGeometry(h_hap_m, h_uav_m, zenith_angle_rad)
     eta_atm = atmospheric_transmittance(link_length_m, visibility_km, wavelength_m)
@@ -141,7 +100,7 @@ def derive_physical_inputs() -> dict:
     sigma_m2 = sigma_uav_transverse_m2 + sigma_hap_displacement_m2
     sigma_m = math.sqrt(sigma_m2)
     sigma_o2 = (motion.sigma_theta_rad**2 + motion.sigma_phi_rad**2) / 2.0
-    theta_fov_rad = 0.0038910863
+    theta_fov_rad = float(aoa_config["theta_fov_rad"])
     p_out = math.exp(-theta_fov_rad**2 / (2.0 * sigma_o2))
 
     return {
@@ -158,16 +117,16 @@ def derive_physical_inputs() -> dict:
         "visibility_km": visibility_km,
         "sigma_hap_ang_rad": sigma_hap_ang_rad,
         "uav_motion": {key: float(value) for key, value in motion.__dict__.items()},
-        "wave_number_per_m": wave_number,
-        "rytov_integral": float(rytov_integral),
-        "rytov_integral_quad_error": float(rytov_error),
+        "wave_number_per_m": 2.0 * math.pi / wavelength_m,
+        "rytov_integral": derivation["rytov_integral"],
+        "rytov_integral_quad_error": derivation["rytov_integral_quad_error"],
         "sigma_R0_squared": float(sigma_R0_squared),
-        "aperture_numerator": float(aperture_numerator),
-        "aperture_numerator_quad_error": float(numerator_error),
-        "aperture_denominator": float(aperture_denominator),
-        "aperture_denominator_quad_error": float(denominator_error),
-        "Phi_m": float(phi_m),
-        "A_ap": float(aperture_factor),
+        "aperture_numerator": derivation["aperture_numerator"],
+        "aperture_numerator_quad_error": derivation["aperture_numerator_quad_error"],
+        "aperture_denominator": derivation["aperture_denominator"],
+        "aperture_denominator_quad_error": derivation["aperture_denominator_quad_error"],
+        "Phi_m": derivation["Phi_m"],
+        "A_ap": derivation["A_ap"],
         "v_sc": float(v_sc),
         "eta_atm": float(eta_atm),
         "pointing": {
@@ -627,12 +586,6 @@ def primitive_monte_carlo(v_sc: float, physical: dict, sample_count: int, seed: 
 def production_sampler_check(
     v_sc: float, physical: dict, sample_count: int, seed: int
 ) -> dict:
-    heights = np.linspace(physical["h_uav_m"], physical["h_hap_m"], 100_001)
-    profile = hv_cn2(
-        heights,
-        physical["wind_m_per_s"],
-        physical["cn2_ground_m_minus_two_thirds"],
-    )
     pointing = physical["pointing"]
     result = sample_fso_channel(
         geometry=physical["geometry"],
@@ -645,11 +598,12 @@ def production_sampler_check(
         rng=np.random.default_rng(seed),
         uav_motion=physical["motion"],
         scintillation_log_variance=None,
-        v_sc_override=v_sc,
-        aperture_averaging_model="hv_finite_aperture_weak_turbulence",
-        turbulence_profile_heights_m=heights,
-        turbulence_profile_cn2_m_minus_two_thirds=profile,
-        boresight_x_m=0.0,
+        v_sc_override=None,
+        aperture_averaging_model="hufnagel_valley_finite_aperture",
+        turbulence_profile_model="hufnagel_valley",
+        wind_speed_m_per_s=physical["wind_m_per_s"],
+        ground_cn2_m_minus_two_thirds=physical["cn2_ground_m_minus_two_thirds"],
+        boresight_x_m=physical["rho_m"],
         boresight_y_m=0.0,
         sigma_hap_ang_rad=physical["sigma_hap_ang_rad"],
         hap_angular_jitter_convention="per_axis",
@@ -952,15 +906,15 @@ def main() -> None:
         "physical_derivation": physical_json,
         "repository_active_config": _active_config_record(),
         "repository_config_difference": {
-            "note": "The supplied Case-D fixture is not the current author-freeze channel configuration.",
+            "note": "The active configuration now binds the manuscript channel scenario.",
             "requested_profile": "Hufnagel-Valley with v_wind=21 m/s and Cn2_ground=5e-14",
-            "active_profile_model": "null/unresolved",
+            "active_profile_model": "hufnagel_valley",
             "requested_v_sc": physical["v_sc"],
             "active_v_sc_override": None,
             "requested_sigma_hap_ang_rad": physical["sigma_hap_ang_rad"],
-            "active_sigma_hap_ang_rad": 0.0,
+            "active_sigma_hap_ang_rad": physical["sigma_hap_ang_rad"],
             "requested_aoa_model": "external_validated with zero turbulence AoA variance",
-            "active_aoa_model": "disabled",
+            "active_aoa_model": "external_validated",
         },
         "scintillation": {
             "old": old_hsc,

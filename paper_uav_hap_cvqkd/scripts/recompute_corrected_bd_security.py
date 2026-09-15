@@ -37,6 +37,7 @@ AWGN_SAMPLES = 64
 MODULATION_VARIANCE = 1.0
 BETA = 0.95
 PHASE_COEFFICIENT = 0.0
+# Development-only Cases B--D fixture; never a production channel default.
 V_SC_OVERRIDE = 0.25
 SIGMA_HAP_ANG_RAD = 5.0e-6
 THETA_FOV_RAD = 0.0038910863

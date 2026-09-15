@@ -305,3 +305,11 @@ Pass exactly:
   stream seeds, realization hashes, and the explicit assumptions `T independent
   of epsilon_base`, `iid`, the declared boresight/jitter conventions, and
   `exact CSI oracle`.
+## 2026-09-16 channel audit addendum
+
+
+The attached manuscript now supplies the active diagnostic scenario: the
+Hufnagel–Valley profile, finite-aperture scintillation mapping, HAP jitter,
+and explicit zero-turbulence AoA FOV. The implementation derives
+`v_sc=0.01434494998119213`; this is scenario evidence, not publication
+certification or a general phase-mapping approval.

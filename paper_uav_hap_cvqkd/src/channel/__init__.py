@@ -28,6 +28,8 @@ from .phase_noise import (
 from .pointing_error import PointingParameters
 from .scintillation import (
     UnsupportedApertureAveragingError,
+    hufnagel_valley_cn2,
+    hufnagel_valley_scintillation,
     normalized_lognormal_samples,
     resolve_scintillation_variance,
     rytov_variance_from_profile,
@@ -56,6 +58,8 @@ __all__ = [
     "compose_raw_transmittance",
     "composite_transmittance_diagnostics",
     "normalized_lognormal_samples",
+    "hufnagel_valley_cn2",
+    "hufnagel_valley_scintillation",
     "phase_coefficient_from_parameters",
     "phase_distortion_variance",
     "phase_excess_noise",

@@ -1,6 +1,16 @@
 # Session Handoff
 
-Date: 2026-09-12
+## Latest completed channel task: EVID-0082 / DEC-0066
+
+The attached manuscript PDF was audited and the HAP-UAV optical channel path
+was corrected. Production configuration now derives the Hufnagel–Valley
+finite-aperture `v_sc=0.01434494998119213`; the exact AoA outage atom and
+truncated active law are preserved, and phase noise remains outside (p_T).
+Artifact: `results/channel_pdf_and_moments.json`. Focused channel/PDF/pipeline/phase
+suite: 63 tests passed. No training, security evaluation, final-test access,
+or publication-scale work was performed.
+
+Date: 2026-09-16
 
 ## Latest completed task: EVID-0081 / DEC-0065
 

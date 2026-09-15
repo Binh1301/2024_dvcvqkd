@@ -3853,3 +3853,46 @@ remains the bounded frozen PS+V_A 1050/1250/1450 sector ladder followed by one
 median full-Z diagnostic, subject to the existing fail-closed gates. Lifecycle
 remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive readiness remains
 `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## EVID-0082 - Manuscript HAP-UAV channel PDF implementation audit
+
+Date: 2026-09-16
+
+Status: CURRENTLY_VERIFIED_PASS; CHANNEL-ONLY DIAGNOSTIC; NOT PUBLICATION CERTIFIED
+
+### Claim
+
+The attached manuscript channel was implemented and audited without changing
+the security model or running training. The active default configuration now
+derives the scintillation variance from the Hufnagel–Valley profile and the
+finite-aperture mapping, uses the generalized pointing law, preserves the
+exact AoA outage atom at (T=0), and admits active (T_{raw}\le1) states by
+rejection/resampling rather than clipping.
+
+The derived values are
+`sigma_R0^2=0.04145444025152738`, `A_A=0.3460413382535926`, and
+`v_sc=0.01434494998119213`. The channel PDF diagnostic reports
+`<T>=0.019220202427078496`, `<sqrt(T)>=0.1196294585088479`, and
+`<T xi>=0.0003940141497551092`, with `P(X>1)=6.269417070431365e-195`.
+
+### Evidence and provenance
+
+- `scripts/calculate_channel_pdf_and_moments.py`, SHA-256:
+  `3a448d85147a1f7596d9d2b0e62f405c208432f9244725e72325ca23b5409b03`
+- `results/channel_pdf_and_moments.json`, SHA-256:
+  `9d791747510e6d2d662492b69d947943a0d096d24d0bc3a0dc1c68dbb5310d76`
+- `results/figures_preliminary/channel_transmittance_pdf.png`
+- `results/figures_preliminary/channel_transmittance_pdf.pdf`
+- `tests/test_channel_pdf_and_moments.py`
+- Focused channel/PDF/pipeline/phase suite: 63 tests passed.
+
+### Scope and limitations
+
+The attached PDF is external manuscript input, not a repository security
+specification. The Hufnagel–Valley and zero-turbulence AoA values are
+scenario-level channel inputs; common-turbulence phase mapping remains null in
+the production phase configuration. No training, SKR/security evaluation,
+baseline selection, final-test access, or publication-scale run occurred.
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; adaptive training
+remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.

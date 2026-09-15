@@ -24,6 +24,7 @@ from .pointing_error import (
     pointing_power_transmittance,
 )
 from .scintillation import (
+    hufnagel_valley_scintillation,
     normalized_lognormal_samples,
     resolve_scintillation_variance,
     rytov_variance_from_profile,
@@ -131,7 +132,36 @@ def _resolve_scintillation(
     profile_heights_m: np.ndarray | None,
     profile_cn2: np.ndarray | None,
     sigma_R0_squared: float | None,
-) -> tuple[float, float | None, str, str]:
+    turbulence_profile_model: str | None,
+    wind_speed_m_per_s: float | None,
+    ground_cn2_m_minus_two_thirds: float | None,
+    receiver_diameter_m: float,
+) -> tuple[float, float | None, str, str, dict[str, object] | None]:
+    derivation = None
+    if turbulence_profile_model in {"hufnagel_valley", "Hufnagel-Valley"}:
+        if aperture_averaging_model != "hufnagel_valley_finite_aperture":
+            raise ValueError(
+                "Hufnagel-Valley scintillation requires the manuscript finite-aperture mapping."
+            )
+        if profile_heights_m is not None or profile_cn2 is not None or sigma_R0_squared is not None:
+            raise ValueError("Hufnagel-Valley resolution does not accept a second profile input.")
+        if wind_speed_m_per_s is None or ground_cn2_m_minus_two_thirds is None:
+            raise ValueError(
+                "Hufnagel-Valley resolution requires wind speed and ground C_n^2."
+            )
+        derivation = hufnagel_valley_scintillation(
+            geometry.h_uav_m,
+            geometry.h_hap_m,
+            wavelength_m,
+            geometry.zenith_angle_rad,
+            wind_speed_m_per_s,
+            ground_cn2_m_minus_two_thirds,
+            receiver_diameter_m,
+        )
+        sigma_R0 = derivation["sigma_R0_squared"]
+        profile_model = "hufnagel_valley"
+    elif turbulence_profile_model not in {None, "external_altitude_profile"}:
+        raise ValueError(f"Unsupported turbulence_profile_model={turbulence_profile_model!r}.")
     if profile_heights_m is not None or profile_cn2 is not None:
         if profile_heights_m is None or profile_cn2 is None:
             raise ValueError("Both turbulence profile heights and C_n^2 values are required.")
@@ -147,7 +177,7 @@ def _resolve_scintillation(
     elif sigma_R0_squared is not None:
         sigma_R0 = _finite_nonnegative(sigma_R0_squared, "sigma_R0_squared")
         profile_model = "externally_resolved_sigma_R0"
-    else:
+    elif derivation is None:
         sigma_R0 = None
         profile_model = "profile_unresolved"
 
@@ -157,6 +187,9 @@ def _resolve_scintillation(
     elif v_sc_override is not None:
         v_sc = _finite_nonnegative(v_sc_override, "v_sc_override")
         status = "explicit_v_sc_override"
+    elif derivation is not None:
+        v_sc = float(derivation["v_sc"])
+        status = "hufnagel_valley_finite_aperture"
     else:
         if sigma_R0 is None:
             raise ValueError(
@@ -170,7 +203,7 @@ def _resolve_scintillation(
     if v_sc_override is not None:
         v_sc = _finite_nonnegative(v_sc_override, "v_sc_override")
         status = "explicit_v_sc_override"
-    return float(v_sc), sigma_R0, status, profile_model
+    return float(v_sc), sigma_R0, status, profile_model, derivation
 
 
 def sample_fso_channel(
@@ -184,12 +217,15 @@ def sample_fso_channel(
     sample_count: int,
     rng: np.random.Generator,
     uav_motion: UavMotion | None = None,
-    scintillation_log_variance: float | None = 0.0,
+    scintillation_log_variance: float | None = None,
     v_sc_override: float | None = None,
     aperture_averaging_model: str | None = "disabled",
     turbulence_profile_heights_m: np.ndarray | None = None,
     turbulence_profile_cn2_m_minus_two_thirds: np.ndarray | None = None,
     sigma_R0_squared: float | None = None,
+    turbulence_profile_model: str | None = None,
+    wind_speed_m_per_s: float | None = None,
+    ground_cn2_m_minus_two_thirds: float | None = None,
     boresight_x_m: float = 0.0,
     boresight_y_m: float = 0.0,
     sigma_hap_ang_rad: float = 0.0,
@@ -201,9 +237,8 @@ def sample_fso_channel(
 ) -> ChannelSamples:
     """Draw physical composite channel states.
 
-    The default zero-scintillation/disabled-AoA values are explicit software
-    fixture choices.  Production configuration resolution is stricter and
-    requires its unresolved physical mappings to be settled first.
+    A production call must resolve scintillation from a profile or an explicit
+    variance; zero scintillation remains available only as an explicit fixture.
     """
 
     geometry.validate()
@@ -219,7 +254,7 @@ def sample_fso_channel(
     boresight_y_m = float(boresight_y_m)
     if not math.isfinite(boresight_x_m) or not math.isfinite(boresight_y_m):
         raise ValueError("Boresight offsets must be finite.")
-    v_sc, sigma_R0, scintillation_status, profile_model = _resolve_scintillation(
+    v_sc, sigma_R0, scintillation_status, profile_model, scintillation_derivation = _resolve_scintillation(
         geometry=geometry,
         wavelength_m=wavelength_m,
         scintillation_log_variance=scintillation_log_variance,
@@ -228,6 +263,10 @@ def sample_fso_channel(
         profile_heights_m=turbulence_profile_heights_m,
         profile_cn2=turbulence_profile_cn2_m_minus_two_thirds,
         sigma_R0_squared=sigma_R0_squared,
+        turbulence_profile_model=turbulence_profile_model,
+        wind_speed_m_per_s=wind_speed_m_per_s,
+        ground_cn2_m_minus_two_thirds=ground_cn2_m_minus_two_thirds,
+        receiver_diameter_m=2.0 * float(aperture_radius_m),
     )
     eta_atm = atmospheric_transmittance(geometry.link_length_m, visibility_km, wavelength_m)
     pointing = pointing_parameters(
@@ -381,6 +420,7 @@ def sample_fso_channel(
         v_sc=v_sc,
         resolution_status=scintillation_status,
         profile_model=profile_model,
+        derivation=scintillation_derivation,
     )
     provenance = {
         "geometry": {

@@ -1,6 +1,6 @@
 # Current paper/code alignment audit
 
-Audit date: 2026-09-10. This is the primary current matrix. The intended
+Audit date: 2026-09-16. This is the primary current matrix. The intended
 mathematical model is in FINAL_MODEL_SPEC.md; PAPER_TO_CODE.md is structural
 only.
 
@@ -8,10 +8,10 @@ Statuses: ALIGNED, PARTIAL, MISMATCH, NOT VERIFIED, NOT IMPLEMENTED.
 
 | Item | Paper | Intended model | Code | Status | Evidence |
 |---|---|---|---|---|---|
-| Physical channel | \(T_{\rm raw}=\eta_{\rm atm}H_{\rm sc}H_{\rm p}B_{\rm AoA}\) | Power \(T\), active \(0<T\le1\), outage \(K=0\) | Composite factors, raw diagnostics, physical admission, and outage metadata are implemented; production mapping fields remain unresolved | PARTIAL | src/channel/fso_channel.py, state_distribution.py |
-| Scintillation | \(H_{\rm sc}\) | \(\ln H_{\rm sc}\sim N(-v_{\rm sc}/2,v_{\rm sc})\), mean one | Profile Rytov integral and normalized lognormal sampler exist; explicit \(v_{\rm sc}\) override is supported, aperture mapping is fail-closed | PARTIAL | src/channel/scintillation.py |
+| Physical channel | \(T_{\rm raw}=\eta_{\rm atm}H_{\rm sc}H_{\rm p}B_{\rm AoA}\) | Power \(T\), active \(0<T\le1\), outage \(K=0\) | Composite factors, raw diagnostics, physical admission, and outage metadata are implemented; the attached manuscript scenario is bound in the active config | ALIGNED | src/channel/fso_channel.py, state_distribution.py, configs/default.yaml |
+| Scintillation | \(H_{\rm sc}\) | \(\ln H_{\rm sc}\sim N(-v_{\rm sc}/2,v_{\rm sc})\), mean one | Cached Hufnagel–Valley profile, Rytov integral, finite-aperture factor, and normalized lognormal sampler derive \(v_{\rm sc}\) without an override | ALIGNED | src/channel/scintillation.py, configs/default.yaml |
 | Pointing | \(H_{\rm p}\) | Generalized Gaussian-beam loss with Rician displacement | Existing \(W_L,z_R,\eta_{p0},\Gamma,R\) law is active with generalized Rician jitter and explicit HAP convention | ALIGNED | src/channel/pointing_error.py, fso_channel.py |
-| AoA | \(B_{\rm AoA}\) | Zero factor is an outage; Rayleigh FOV gate | Orientation/outage primitives and hard gate exist; turbulence-AoA is disabled or requires validated external provenance | PARTIAL | src/channel/aoa.py, fso_channel.py |
+| AoA | \(B_{\rm AoA}\) | Zero factor is an outage; Rayleigh FOV gate | Orientation/outage primitives and hard gate exist; the attached scenario uses the explicit zero-turbulence AoA fixture and FOV | ALIGNED | src/channel/aoa.py, fso_channel.py, configs/default.yaml |
 | Physical-domain \(T\) | No silent min(T_raw,1); report \(p_{>1}\) | Restrict/renormalize active states | Rejection/resampling admits the truncated active law; no floor or clipping | ALIGNED | src/channel/fso_channel.py, diagnostics.py |
 | Wavelength SI | Extinction may use nm; propagation uses m | \(\lambda_m=10^{-9}\lambda_{nm}\) | Channel functions and phase module use wavelength_m; extinction converts to nm | ALIGNED | src/channel/atmospheric_loss.py, pointing_error.py, phase_noise.py |
 | Phase variance | Effective \(C_{n,\phi}^2\), tau_phi2, \(c_\phi\) | Same physical turbulence source; validated profile-to-scalar mapping required | Canonical phase module records common-turbulence semantics and derives tau/c; production mapping/value remains unresolved and fails closed | PARTIAL | src/channel/phase_noise.py, scripts/_train.py |
@@ -34,14 +34,14 @@ Statuses: ALIGNED, PARTIAL, MISMATCH, NOT VERIFIED, NOT IMPLEMENTED.
 
 The transmitter and raw-SKR plumbing are aligned with the intended C4 design,
 and the causal phase/post-action epsilon chain and full-interval Holevo
-implementation are present. The composite channel architecture and diagnostics
-are now present, but the altitude-profile, aperture-averaging, turbulence-AoA,
-and common-turbulence phase mappings are not frozen for production. Target
-security/SKR/channel plots remain blocked and numerical evidence must be
-rebound to the moving-interval functional. Deterministic constellation/PMF/
-orbit plots do not depend on those blockers.
+implementation are present. The attached manuscript's Hufnagel–Valley,
+finite-aperture scintillation, pointing, AoA, and mixed physical-(T) law are
+implemented and verified as a channel-only diagnostic. The common-turbulence
+phase mapping remains unresolved; target security/SKR plots and publication
+claims remain blocked.
 
-No manuscript source is present in the repository. The referenced
-C:\Users\HP\Downloads\2026__Binh_s_work (8).pdf is unavailable; the only
-local PDF is an unrelated 2024 satellite-to-ground reference and its text stream
-is corrupted, so manuscript claims are NOT VERIFIED.
+The manuscript source is external. The attached local PDF
+`C:\Users\admin\Downloads\2026__Binh_s_work__Copy_ (1).pdf` was read for this
+channel audit; it is used as the source for the Hufnagel–Valley and
+transmittance-distribution equations only. It does not authorize security or
+publication claims.

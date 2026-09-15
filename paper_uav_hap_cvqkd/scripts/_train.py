@@ -46,6 +46,8 @@ TRAIN_REQUIRED = [
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
     "channel.turbulence_profile.model",
+    "channel.turbulence_profile.wind_speed_m_per_s",
+    "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
@@ -109,16 +111,23 @@ def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
             "no aperture/scintillation mapping is inferred."
         )
     if profile_model in {"hufnagel_valley", "Hufnagel-Valley"}:
-        raise ValueError(
-            "Hufnagel-Valley parameters are not frozen in this repository; profile resolution fails closed."
-        )
+        wind_speed = profile.get("wind_speed_m_per_s")
+        ground_cn2 = profile.get("cn2_ground_m_minus_two_thirds")
+        if wind_speed is None or ground_cn2 is None:
+            raise ValueError(
+                "Hufnagel-Valley requires wind_speed_m_per_s and "
+                "cn2_ground_m_minus_two_thirds."
+            )
+    else:
+        wind_speed = None
+        ground_cn2 = None
     profile_heights = profile.get("heights_m")
     profile_cn2 = profile.get("cn2_m_minus_two_thirds")
     if profile_model == "external_altitude_profile" and (
         not isinstance(profile_heights, list) or not isinstance(profile_cn2, list)
     ):
         raise ValueError("An external altitude profile requires explicit height and C_n^2 arrays.")
-    if profile_model not in {None, "external_altitude_profile"}:
+    if profile_model not in {None, "external_altitude_profile", "hufnagel_valley", "Hufnagel-Valley"}:
         raise ValueError(f"Unsupported turbulence_profile.model={profile_model!r}.")
     sigma_hap = pointing.get("sigma_hap_ang_rad")
     if sigma_hap is None:
@@ -140,6 +149,9 @@ def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
             None if profile_cn2 is None else profile_cn2
         ),
         "sigma_R0_squared": sigma_R0_squared,
+        "turbulence_profile_model": profile_model,
+        "wind_speed_m_per_s": wind_speed,
+        "ground_cn2_m_minus_two_thirds": ground_cn2,
         "boresight_x_m": pointing.get("boresight_x_m", 0.0),
         "boresight_y_m": pointing.get("boresight_y_m", 0.0),
         "sigma_hap_ang_rad": sigma_hap,

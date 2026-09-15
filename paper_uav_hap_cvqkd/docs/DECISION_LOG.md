@@ -2335,3 +2335,33 @@ training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
   `52f446062110e7a21e8138bcf7bfa8c3d11d94904bb80efde17ad43a4c5db474`
 - `scripts/full_support_c4_worker.py`, SHA-256:
   `2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1`
+
+## DEC-0066 - Bind the attached manuscript channel scenario for T diagnostics
+
+Date: 2026-09-16
+
+Status: ACTIVE CHANNEL-ONLY IMPLEMENTATION DECISION; SECURITY GATES UNCHANGED
+
+### Decision
+
+Use the attached manuscript's Hufnagel–Valley profile, finite-aperture
+scintillation mapping, generalized pointing parameters, and explicit
+zero-turbulence AoA FOV scenario in the active channel configuration. Derive
+`v_sc` in the production sampler; do not use the exploratory `v_sc=0.25` as a
+production value. Preserve the mixed (T=0) outage law and truncated active
+domain, with no clipping or phase-noise term in (p_T).
+
+### Consequences
+
+The channel-only PDF/moment diagnostic is reproducible and verified. Explicit
+`v_sc_override` paths remain development fixtures. This decision does not
+authorize training, security/SKR evaluation, baseline selection, final-test
+access, or publication claims; the phase (C_{n,\phi}^2) mapping remains
+unresolved.
+
+### Evidence
+
+- EVID-0082
+- `configs/default.yaml`
+- `src/channel/scintillation.py`
+- `src/channel/fso_channel.py`

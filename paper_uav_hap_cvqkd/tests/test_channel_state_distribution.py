@@ -23,6 +23,7 @@ class ChannelStateDistributionTests(unittest.TestCase):
             excess_noise=IndependentUniformExcessNoise(5e-4, 5e-3),
             sample_count=count,
             seed=seed,
+            scintillation_log_variance=0.0,
         )
 
     def test_physical_support_and_both_coordinates_vary(self):

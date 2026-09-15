@@ -1,5 +1,13 @@
 # Next Actions
 
+## Latest completed channel task: EVID-0082 / DEC-0066
+
+The attached manuscript HAP-UAV channel audit is complete for the optical
+transmittance law only. The active configuration derives Hufnagel–Valley
+finite-aperture `v_sc`, retains the AoA atom at (T=0), and excludes phase
+noise from (p_T). Results are in `results/channel_pdf_and_moments.json` and
+the preliminary channel figure files. This is diagnostic evidence only.
+
 ## Current gate
 
 NOT_READY_FOR_PUBLICATION_SCALE_RUNS

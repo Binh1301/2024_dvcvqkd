@@ -20,6 +20,7 @@ class ChannelTests(unittest.TestCase):
             cn2_m_minus_two_thirds=1e-15,
             sample_count=count,
             rng=np.random.default_rng(2026),
+            scintillation_log_variance=0.0,
         )
 
     def test_transmittance_support(self):

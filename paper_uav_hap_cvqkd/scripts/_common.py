@@ -79,6 +79,8 @@ REPRODUCTION_REQUIRED = [
     "channel.cn_phi2_mapping_status",
     "channel.cn_phi2_author_approved",
     "channel.turbulence_profile.model",
+    "channel.turbulence_profile.wind_speed_m_per_s",
+    "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",

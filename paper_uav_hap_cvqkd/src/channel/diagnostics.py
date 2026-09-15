@@ -174,6 +174,7 @@ def frozen_channel_diagnostics(
         sample_count=sample_count,
         seed=seed,
         uav_motion=motion,
+        scintillation_log_variance=0.0,
     )
     fso = states.fso
     pointing = fso.pointing

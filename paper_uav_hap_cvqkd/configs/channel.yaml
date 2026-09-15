@@ -16,23 +16,25 @@ phase:
   cn_phi2_mapping_status: unresolved
   cn_phi2_author_approved: false
 turbulence_profile:
-  model: null
+  model: hufnagel_valley
+  wind_speed_m_per_s: 21.0
+  cn2_ground_m_minus_two_thirds: 5.0e-14
   heights_m: null
   cn2_m_minus_two_thirds: null
 scintillation:
-  aperture_averaging_model: null
+  aperture_averaging_model: hufnagel_valley_finite_aperture
   v_sc_override: null
   sigma_R0_squared: null
 pointing:
   boresight_x_m: 0.0
   boresight_y_m: 0.0
-  sigma_hap_ang_rad: 0.0
+  sigma_hap_ang_rad: 5.0e-6
   hap_angular_jitter_convention: per_axis
 aoa:
-  model: disabled
+  model: external_validated
   sigma_turb_AoA2_rad2: 0.0
-  provenance: "explicit disabled approximation; no validated mapping"
-  theta_fov_rad: null
+  provenance: "manuscript scenario: zero turbulence-induced AoA variance"
+  theta_fov_rad: 0.0038910862871962886
 raw_transmittance:
   active_treatment: truncated_renormalized_active_law
 scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
