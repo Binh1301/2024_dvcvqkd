@@ -68,13 +68,17 @@ an independent coordinate and must be used consistently in MI and security.
 ## Current code boundary
 
 The active implementation composes eta_atm, normalized lognormal
-\(H_{\mathrm{sc}}\), generalized Rician \(H_{\mathrm p}\), and a hard AoA
+\(H_{\mathrm{sc}}\), exact PDF5 Rician-derived \(H_{\mathrm p}\), and a hard AoA
 gate, then admits only physical \(T\). The scalar
 cn2_m_minus_two_thirds is not used as active beam-wander input. The canonical
 phase API is present, but the production common-turbulence mapping/value is
 unresolved and target entry points fail closed. An explicit v_sc_override is
 available for non-publication fixtures; no aperture law is inferred. The
 policy receives only positive-\(T\) states and never evaluates log10(0).
+
+The pointing description in this historical boundary paragraph is superseded
+by the PDF5 exact Gaussian-beam path below; current code uses Eq. (36) and the
+Rician-derived Eq. (37) PDF, not the former generalized-Gamma law.
 
 ## Split generation and reproduction
 
@@ -101,6 +105,21 @@ policy input.
 
 The attached manuscript scenario is now wired into the active default channel
 configuration: Hufnagel–Valley profile, finite-aperture (v_{\rm sc}) mapping,
-5-microradian HAP jitter, and the explicit zero-turbulence AoA FOV fixture.
+PDF5 Table-I Gaussian-beam pointing, and the explicit zero-turbulence AoA FOV
+fixture.
 The common-turbulence phase mapping and all security/publication workflows
 remain blocked.
+
+## 2026-09-18 PDF5 implementation update
+
+The active default now uses the attached PDF Table-I values: `D_r=0.08 m`,
+`sigma_h=1 m`, `theta_jt=15.61e-6 rad`, `sigma_o=1.5e-3 rad`, and
+`theta_FOV=6.25e-3 rad`. The pointing path derives `omega_L`, `G_d`,
+`omega_L_e`, `nu`, `A0`, and `omega_L_eq` from Eqs. (27)--(35), uses Eq. (36)
+for `H_p`, and exposes Eq. (37) for the analytical pointing PDF. Eq. (49)
+and Eq. (50) active-link PDFs are available as diagnostic utilities.
+
+The exact 10,000-sample channel-only diagnostic is recorded in
+`results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json`. This update does
+not alter the policy input, post-action epsilon chain, security equations,
+training code, or lifecycle authorization.

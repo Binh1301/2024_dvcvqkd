@@ -1,91 +1,53 @@
 # Session Handoff
 
-## Latest completed channel task: EVID-0082 / DEC-0066
+## Latest completed task: EVID-0083 / DEC-0067
 
-The attached manuscript PDF was audited and the HAP-UAV optical channel path
-was corrected. Production configuration now derives the Hufnagel–Valley
-finite-aperture `v_sc=0.01434494998119213`; the exact AoA outage atom and
-truncated active law are preserved, and phase noise remains outside (p_T).
-Artifact: `results/channel_pdf_and_moments.json`. Focused channel/PDF/pipeline/phase
-suite: 63 tests passed. No training, security evaluation, final-test access,
-or publication-scale work was performed.
+The attached PDF5 Table-I HAP--UAV FSO channel is implemented as the active
+channel-only path. The Hufnagel--Valley profile and finite-aperture equations
+derive `v_sc=0.02886934966162772`. Exact PDF Gaussian-beam pointing derives
+`omega_L=2.118504621202276 m`, `G_d=0.00024089665983497693`,
+`A0=0.0007127365410377602`, and `omega_L_eq=2.1191553233134117 m`.
+The active sampler uses Rician displacement, Eq. (36) `H_p`, Eq. (1)
+composition, exact AoA outage `T=0`, and rejection-based active-domain
+admission without clipping or a positive floor.
 
-Date: 2026-09-16
+Analytical utilities implement Eqs. (12), (37), (49), and (50). The bounded
+diagnostic `scripts/run_hap_uav_fso_pdf_diagnostic.py` ran with `N=10000`,
+seed `42`; the artifact is
+`results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json` and includes four
+Monte Carlo/analytical-PDF figures plus saved arrays.
 
-## Latest completed task: EVID-0081 / DEC-0065
+Focused channel/PDF/state/outage/pipeline/phase tests: 56 passed. The broader
+energy/physical-peak test selection still has three pre-existing
+`FULL_SUPPORT_FALLBACK_EVALUATION_ONLY` errors; no security or trainer code
+was changed to bypass them.
 
-The authorized frozen PS+V_A median source-moment task is complete. The
-existing repaired-objective checkpoint and direct binary64 candidate inputs
-were reverified. The 1050 diagnostic and 1250/1450 acceptance pair resolved
-all 256 support modes and passed the frozen C/w convergence rule.
+## Changed project surface
 
-Authoritative values:
+- `src/channel/pointing_error.py`, `src/channel/scintillation.py`,
+  `src/channel/fso_channel.py`, `src/channel/state_distribution.py`, and
+  `src/channel/diagnostics.py`: exact PDF5 primitives, active PDFs, moments,
+  configuration overrides, provenance, and compatibility aliases.
+- `configs/default.yaml` and `configs/channel.yaml`: PDF5 Table-I baseline
+  inputs; phase `C_n,phi^2` remains null.
+- `scripts/_train.py`, `_common.py`, `_numerical_validation.py`, baseline
+  selectors, freeze wrapper, and the channel diagnostic: central wiring and
+  explicit provenance.
+- `tests/test_pdf_channel_model.py` plus focused expectation updates.
+- `docs/` current alignment/evidence/decision/state/next-action records.
 
-```text
-C_PSVA = 0.8610813007552428909072445071897962976560950806268
-w_PSVA = 0.0067220381757562110710871873472856506670610666856165
-```
+The old EVID-0082 generalized-pointing/old-aperture artifact is retained as
+historical superseded evidence. The frozen model specification, CV-QKD,
+Holevo, optimizer, PS/GS/V_A, training, final-test, and publication lifecycle
+were not changed or authorized.
 
-The one exact median full-Z point passed `Z_L <= Z_star <= Z_U` and returned
-raw `K=+0.0003801578161163992`. Exact median ranking is
-`PS_VA_MEDIAN_BEST`, with PS+V_A > Full > MB. This is median-only evidence,
-not a three-state or publication claim.
+Branch: `feat/step-one`
+HEAD: `62f8d390095e4e6ef3721789e9658b4015090ea9`
+Lifecycle: `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
+Adaptive training: `NOT_READY_FOR_ADAPTIVE_TRAINING`
 
-Artifact:
-`results/PS_VA_SOURCE_MOMENTS_CONVERGED_20260912.json`, SHA-256
-`9b3b269c1c1ae81e027bb8864fb1ccf711551327a2497530602f37bf252f6115`.
-Report:
-`docs/PS_VA_SOURCE_MOMENTS_CONVERGENCE_REPORT_20260912.md`.
+## Exactly one next action
 
-Recommended next task, requiring separate authorization: exact poor + good
-ranking only. Do not execute it from this handoff.
-
-## Historical decision
-
-EVID-0080 and DEC-0064 select exactly
-`DIRECT_HIGHER_PRECISION_SECTOR_RUN` for the remaining frozen PS+V_A
-source-moment blocker.
-
-The next source-moment ladder starts at 1050 decimal digits, with acceptance
-at 1250 and confirmation at 1450 digits using the existing four 64-by-64 C4
-sectors and exact serialized binary64 inputs. The repository's frozen
-`1050,1250,1450` ladder remains unchanged; existing 800/900 and 1000/1200
-rows are diagnostic evidence and are not silently promoted to the selected
-protocol row.
-
-After source-moment convergence, evaluate only the median full-Z point. Do
-not run a dense high-precision global eigensolve, 1600/2000-digit escalation,
-outcome-driven mixed-precision aggregation, an Arb migration, a
-source-moment reformulation, training, baseline selection, final-test work,
-or publication-scale evaluation.
-
-## Historical exact next task
-
-`DETERMINE_MINIMUM_SECTOR_AP_PRECISION_FOR_FROZEN_PS_VA` is complete under
-EVID-0081/DEC-0065. Do not rerun the ladder or execute any dense global
-high-precision alternative.
-
-## Reports and evidence
-
-- `docs/DEEP_RESEARCH_MINIMUM_PS_VA_SECTOR_PRECISION_20260912.md`
-- `docs/INDEPENDENT_GLOBAL_BLOCK_AUDIT_REPORT_20260912.md`
-- `results/independent_global_block_audit_20260912.json`
-- `results/ps_va_worker_instrumented_800_900_20260912.json`
-- `results/ps_va_worker_instrumented_1000_1200_20260912.json`
-- `results/full_worker_instrumented_800_900_20260912.json`
-
-Research memo SHA-256:
-`5d9a58d8d437fe0f14756316c14a2128ce429c4d2b162204d4f7cfe3d1cc65d4`
-
-Frozen model-spec SHA-256:
-`8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
-
-## Lifecycle
-
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
-
-Adaptive training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`. Keep reverse
-VJP/full-Z backward, adaptive or production training, baseline selection,
-threshold approval, final-test access, publication-scale evaluation, and new
-security or novelty claims closed. No production security equations or
-lifecycle gate was changed.
+Do not run training or security evaluation. If separately authorized, rebind
+the target numerical/security evidence to this new channel configuration before
+any learned or publication claim.

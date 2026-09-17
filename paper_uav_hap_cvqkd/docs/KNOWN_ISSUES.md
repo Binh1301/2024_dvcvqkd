@@ -25,3 +25,13 @@ The deterministic 256-QAM, PMF, orbit, and current transmitter-geometry
 diagnostics do not require training or security certification. Current physical
 channel diagnostics can describe only the implemented atmospheric/pointing path;
 they must not be labeled as the target scintillation/AoA model.
+
+## 2026-09-18 current channel status
+
+The PDF5 channel-only model is now implemented for the supplied Table-I
+scenario: Hufnagel--Valley finite-aperture scintillation, exact Gaussian-beam
+pointing, Rician displacement, Eq. (37), Eq. (49)/(50), explicit AoA total
+variance/FOV, and no-floor physical admission. The older KI-003, KI-011, and
+KI-013 rows describe the superseded unresolved state; they do not authorize
+security, training, or publication work. The common phase `C_n,phi^2` mapping
+and independent numerical/security gates remain blockers.

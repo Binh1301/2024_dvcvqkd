@@ -2340,7 +2340,7 @@ training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
 
 Date: 2026-09-16
 
-Status: ACTIVE CHANNEL-ONLY IMPLEMENTATION DECISION; SECURITY GATES UNCHANGED
+Status: SUPERSEDED HISTORICAL CHANNEL-ONLY DECISION; SECURITY GATES UNCHANGED
 
 ### Decision
 
@@ -2365,3 +2365,39 @@ unresolved.
 - `configs/default.yaml`
 - `src/channel/scintillation.py`
 - `src/channel/fso_channel.py`
+
+## DEC-0067 - Bind PDF5 exact HAP-UAV channel implementation
+
+Date: 2026-09-18
+
+Status: ACTIVE CHANNEL-ONLY IMPLEMENTATION DECISION; SECURITY GATES UNCHANGED
+
+### Decision
+
+Use the attached PDF5 Table-I parameters as the active channel-only baseline.
+The sampler derives the Hufnagel--Valley finite-aperture `v_sc`, computes the
+Gaussian-beam quantities and Eq. (36) pointing transform, samples Rician
+displacement, and exposes analytical Eqs. (12), (37), (49), and (50). Preserve
+`T_raw=eta_atm*H_sc*H_p*B_AoA`, exact AoA outage `T=0`, and rejection-based
+active-domain admission with no floor or clipping. The old generalized-Gamma
+pointing fields remain compatibility aliases only.
+
+### Consequences
+
+This decision updates the channel-only default configuration and supersedes
+DEC-0066's generalized-pointing/old-aperture diagnostic binding. It does not
+change the frozen CV-QKD/security equations, policy inputs, phase mapping,
+training authorization, final-test access, or publication lifecycle.
+
+### Evidence
+
+- EVID-0083
+- `results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json`
+- `configs/default.yaml`
+- `scripts/run_hap_uav_fso_pdf_diagnostic.py`
+- `src/channel/pointing_error.py`
+- `src/channel/scintillation.py`
+- `src/channel/diagnostics.py`
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive training
+remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.

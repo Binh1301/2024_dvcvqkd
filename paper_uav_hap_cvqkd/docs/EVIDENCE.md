@@ -3858,7 +3858,7 @@ remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive readiness remains
 
 Date: 2026-09-16
 
-Status: CURRENTLY_VERIFIED_PASS; CHANNEL-ONLY DIAGNOSTIC; NOT PUBLICATION CERTIFIED
+Status: HISTORICAL SUPERSEDED; CHANNEL-ONLY DIAGNOSTIC; NOT PUBLICATION CERTIFIED
 
 ### Claim
 
@@ -3893,6 +3893,72 @@ specification. The Hufnagel–Valley and zero-turbulence AoA values are
 scenario-level channel inputs; common-turbulence phase mapping remains null in
 the production phase configuration. No training, SKR/security evaluation,
 baseline selection, final-test access, or publication-scale run occurred.
+
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; adaptive training
+remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## EVID-0083 - PDF5 exact HAP-UAV channel implementation and diagnostic
+
+Date: 2026-09-18
+
+Status: CURRENTLY_VERIFIED_PASS; CHANNEL-ONLY DIAGNOSTIC; NOT PUBLICATION CERTIFIED
+
+### Claim
+
+The attached PDF5 HAP-UAV FSO channel is implemented for the Table-I baseline
+without changing the CV-QKD/security model or running training. The active
+sampler derives Hufnagel--Valley finite-aperture scintillation, uses the exact
+Gaussian-beam Eqs. (27)--(39) pointing path, samples Rician displacement, and
+preserves `T_raw=eta_atm*H_sc*H_p*B_AoA`, exact outage `T=0`, and
+rejection-based active-domain admission without clipping or a positive floor.
+Analytical Eq. (12), Eq. (37), Eq. (49), and Eq. (50) utilities are included.
+
+### Numerical validation
+
+```text
+sigma_R0^2       = 0.04145444025152738
+AA                = 0.6964115179570911
+v_sc              = 0.02886934966162772
+sigma_H,theta     = 0.29659 m
+sigma_jt          = 1.0430559084248552 m
+omega_L           = 2.118504621202276 m
+G_d               = 0.00024089665983497693
+omega_L_e         = 2.1187597761802524 m
+nu                = 0.023664128456877848
+A0                = 0.0007127365410377602
+omega_L_eq        = 2.1191553233134117 m
+analytic E[H_sc]  = 1.0
+analytic p_out    = 0.00016985667656141038
+MC p_out (N=10000)= 0.0001
+MC P(X>1)         = 0.0
+```
+
+The fixed-seed diagnostic used `N=10000`, seed `42`. Its empirical means were
+`E[H_sc]=0.996391554642031`, `E[r_mis]=1.3092582975879434 m`,
+`E[H_p]=0.0003620909704196082`, and
+`E[X_active]=0.0003362866679559824`. Analytical normalization was
+`1.0000000000000002` for Eq. (12), `0.9999999999999992` for Eq. (37), and
+`0.9999999144824118` for Eq. (50) over the recorded log-t integration range.
+
+### Evidence and provenance
+
+- Source PDF SHA-256:
+  `2bb15c9a2d67eac5eeef46c18e64eca6acdc09e033fed3e81ebf55a155aa0461`
+- `configs/default.yaml`, SHA-256:
+  `18a449a73590ae3f70e3665cfdaf5742f094cbf0860de82eb50e96d013973f37`
+- `scripts/run_hap_uav_fso_pdf_diagnostic.py`, SHA-256:
+  `f968a5c1e3ab16d7d4b18ea4d20482eea2faa1e26ff8eac2a45890365827efb2`
+- `results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json`, SHA-256:
+  `3c2d0f9ec42b1ce9f0895561ebfc16638f428ac6e7b26b5bbf1e98ce4cf4e68f`
+- `results/hap_uav_fso_pdf_diagnostic/samples.npz`, SHA-256:
+  `f17963de44ff777547199d95003672c4cd4a71d3585b76c3e17acfd235d9d648`
+- `tests/test_pdf_channel_model.py`
+- Focused channel/PDF/state/outage/pipeline/phase suite: 56 tests passed.
+
+The source PDF and channel artifact are external/scenario inputs, not security
+certification. The common-turbulence phase mapping remains null; no security,
+baseline-selection, final-test, training, or publication-scale authorization
+follows from this evidence.
 
 Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; adaptive training
 remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.

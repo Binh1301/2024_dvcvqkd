@@ -1,6 +1,20 @@
 # Next Actions
 
-## Latest completed channel task: EVID-0082 / DEC-0066
+## Latest completed channel task: EVID-0083 / DEC-0067
+
+The attached PDF5 Table-I channel is now the active channel-only path. The
+default configuration derives `v_sc=0.02886934966162772`, uses exact PDF
+Gaussian-beam pointing and analytical PDFs (12), (37), (49), and (50), and
+preserves the outage atom and no-clipping active-domain rule. The fixed-seed
+10,000-sample artifact is
+`results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json`.
+
+This is diagnostic evidence only. No phase mapping, security/SKR evaluation,
+training, baseline selection, final-test access, or publication-scale run is
+authorized. The previous EVID-0082 channel artifact remains retained as
+historical superseded evidence.
+
+## Historical channel task: EVID-0082 / DEC-0066 (superseded)
 
 The attached manuscript HAP-UAV channel audit is complete for the optical
 transmittance law only. The active configuration derives Hufnagel–Valley
@@ -172,6 +186,10 @@ objective blocker.
 ## Priority order
 
 ### P0 — resolve target-model blockers
+
+The PDF5 channel/profile/aperture/pointing/AoA portion is complete under
+EVID-0083. The remaining P0 blocker is the author-approved common-turbulence
+phase mapping and any later security numerical rebinding.
 
 1. Freeze one author-approved, source-supported common-turbulence scenario,
    including the altitude profile, aperture-averaging rule, AoA status/mapping,

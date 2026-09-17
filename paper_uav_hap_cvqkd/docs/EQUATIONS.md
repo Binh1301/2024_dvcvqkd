@@ -228,3 +228,18 @@ g_B=\operatorname{mean}(V_A/2)-\bar n_{\mathrm{budget}}.
 
 Code symbols: fading_secret_key_rate, train_step,
 EnergyBudgetController, and enforce_peak_photon_constraint.
+
+## Attached PDF5 channel equations (2026-09-18)
+
+The active channel-only path binds the attached PDF Table-I scenario. It
+implements the Hufnagel--Valley profile and Eqs. (5)--(10), then samples
+`ln(H_sc) ~ Normal(-v_sc/2, v_sc)` from Eq. (11). `lognormal_pdf` in
+`src/channel/scintillation.py` implements Eq. (12).
+
+The exact pointing path evaluates Eqs. (27)--(35), maps displacement with Eq.
+(36), and evaluates the Rician-derived Eq. (37) PDF through `pointing_pdf` in
+`src/channel/pointing_error.py`. `active_transmittance_pdf_eq49` and
+`active_transmittance_pdf_eq50` in `src/channel/diagnostics.py` implement the
+active product density. The Table-I derivation gives
+`v_sc=0.02886934966162772`, `A0=0.0007127365410377602`, and
+`omega_L_eq=2.1191553233134117 m`.

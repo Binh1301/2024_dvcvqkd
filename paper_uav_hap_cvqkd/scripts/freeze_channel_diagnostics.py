@@ -33,6 +33,8 @@ def main() -> None:
     if not isinstance(channel, dict):
         raise ValueError("config.channel must be a mapping.")
     motion_config = _required(channel, "uav_motion")
+    pointing_config = _required(channel, "pointing")
+    aoa_config = _required(channel, "aoa")
     epsilon_config = _required(channel, "excess_noise_distribution")
     diagnostics_config = _required(channel, "diagnostics")
     if diagnostics_config.get("classification") != "SOFTWARE_PREREGISTERED":
@@ -58,6 +60,16 @@ def main() -> None:
         beam_waist_m=float(_required(channel, "beam_waist_m")),
         aperture_radius_m=float(_required(channel, "aperture_radius_m")),
         cn2_m_minus_two_thirds=float(_required(channel, "cn2_m_minus_two_thirds")),
+        eta_atm=float(_required(channel, "eta_atm")),
+        theta_div_rad=float(_required(channel, "theta_div_rad")),
+        f0_m=float(_required(channel, "f0_m")),
+        sigma_h_m=float(_required(pointing_config, "sigma_h_m")),
+        sigma_hap_ang_rad=float(_required(pointing_config, "sigma_hap_ang_rad")),
+        sigma_o_rad=float(_required(aoa_config, "sigma_o_rad")),
+        aoa_model=str(_required(aoa_config, "model")),
+        sigma_turb_AoA2=float(_required(aoa_config, "sigma_turb_AoA2_rad2")),
+        turbulence_aoa_provenance=str(_required(aoa_config, "provenance")),
+        theta_fov_rad=float(_required(aoa_config, "theta_fov_rad")),
         motion=UavMotion(
             sigma_x_m=float(_required(motion_config, "sigma_x_m")),
             sigma_y_m=float(_required(motion_config, "sigma_y_m")),

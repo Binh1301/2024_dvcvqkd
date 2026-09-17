@@ -118,13 +118,14 @@ class CompositeChannelTests(unittest.TestCase):
         self.assertEqual(first.metadata["displacement_law"], "Rician")
         self.assertEqual(first.metadata["sigma_z_included"], False)
 
-    def test_generalized_pointing_support_and_boresight(self):
+    def test_pdf_pointing_support_and_boresight(self):
         kwargs = self._kwargs()
         kwargs["boresight_x_m"] = 0.3
         result = sample_fso_channel(**kwargs)
         self.assertGreater(result.radial_displacement_m.mean(), result.sigma_axis_m)
         self.assertTrue(np.all(result.pointing.t0_power >= result.transmittance / result.atmospheric_transmittance))
-        self.assertEqual(result.metadata["pointing_model"], "generalized_gaussian_beam")
+        self.assertEqual(result.metadata["pointing_model"], "pdf_gaussian_beam_eq27_39")
+        self.assertAlmostEqual(result.pointing.gamma, 2.0)
 
     def test_aoa_variance_excludes_yaw_and_outage_matches_rayleigh(self):
         motion = UavMotion(

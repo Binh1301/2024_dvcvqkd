@@ -39,7 +39,8 @@ from src.utils.random import derive_seed, seed_process, torch_generator
 
 TRAIN_REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m", "channel.visibility_km",
-    "channel.beam_waist_m", "channel.aperture_radius_m", "channel.cn2_m_minus_two_thirds",
+    "channel.eta_atm", "channel.beam_waist_m", "channel.theta_div_rad", "channel.f0_m",
+    "channel.aperture_radius_m", "channel.cn2_m_minus_two_thirds",
     "channel.cn_phi2_m_minus_two_thirds",
     "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
@@ -51,8 +52,10 @@ TRAIN_REQUIRED = [
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
+    "channel.pointing.theta_jt_rad", "channel.pointing.sigma_h_m",
     "channel.pointing.hap_angular_jitter_convention",
     "channel.aoa.model",
+    "channel.aoa.sigma_o_rad", "channel.aoa.theta_fov_rad",
     "channel.raw_transmittance.active_treatment",
     "channel.excess_noise_distribution.kind",
     "channel.excess_noise_distribution.minimum_snu",
@@ -132,10 +135,22 @@ def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
     sigma_hap = pointing.get("sigma_hap_ang_rad")
     if sigma_hap is None:
         raise ValueError("channel.pointing.sigma_hap_ang_rad must be explicitly resolved.")
+    if pointing.get("theta_jt_rad") != sigma_hap:
+        raise ValueError("channel.pointing.theta_jt_rad must match sigma_hap_ang_rad.")
+    sigma_h = pointing.get("sigma_h_m")
+    if sigma_h is None:
+        raise ValueError("channel.pointing.sigma_h_m must be explicitly resolved.")
+    eta_atm = values.get("eta_atm")
+    theta_div = values.get("theta_div_rad")
+    if eta_atm is None or theta_div is None or values.get("f0_m") is None:
+        raise ValueError("eta_atm, theta_div_rad, and f0_m must be explicitly resolved.")
     aoa_model = aoa.get("model")
     if aoa_model not in {"disabled", "external_validated"}:
         raise ValueError(f"Unsupported channel.aoa.model={aoa_model!r}.")
     sigma_turb_aoa = aoa.get("sigma_turb_AoA2_rad2")
+    sigma_o = aoa.get("sigma_o_rad")
+    if sigma_o is None:
+        raise ValueError("channel.aoa.sigma_o_rad must be explicitly resolved.")
     if aoa_model == "external_validated" and not aoa.get("provenance"):
         raise ValueError("External turbulence-AoA variance requires provenance.")
     return {
@@ -152,6 +167,10 @@ def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
         "turbulence_profile_model": profile_model,
         "wind_speed_m_per_s": wind_speed,
         "ground_cn2_m_minus_two_thirds": ground_cn2,
+        "eta_atm": eta_atm,
+        "theta_div_rad": theta_div,
+        "f0_m": values.get("f0_m"),
+        "sigma_h_m": sigma_h,
         "boresight_x_m": pointing.get("boresight_x_m", 0.0),
         "boresight_y_m": pointing.get("boresight_y_m", 0.0),
         "sigma_hap_ang_rad": sigma_hap,
@@ -161,6 +180,7 @@ def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
         "aoa_model": aoa_model,
         "sigma_turb_AoA2": sigma_turb_aoa,
         "turbulence_aoa_provenance": aoa.get("provenance"),
+        "sigma_o_rad": sigma_o,
         "theta_fov_rad": aoa.get("theta_fov_rad"),
     }
 

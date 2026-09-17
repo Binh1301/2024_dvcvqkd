@@ -21,6 +21,17 @@ diagnostics and data generation; it is not a scientific parameter. Any
 remaining `null / unresolved` value must fail closed and may not inherit a test,
 smoke, or library default.
 
+## 2026-09-18 channel-only update
+
+The PDF5 Table-I HAP--UAV channel diagnostic is bound separately from the
+security convergence grids. It uses `N=10000`, seed `42`, and the exact channel
+parameters recorded in `configs/default.yaml`; its artifact is
+`results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json`. This diagnostic
+does not select MI/Fock settings, approve thresholds, or authorize training,
+baseline selection, final-test access, or publication-scale evaluation.
+The older channel parameter rows below are historical and are superseded for
+channel-only work by EVID-0083/DEC-0067.
+
 ## 2026-08-27 engineering freeze and execution result
 
 | Area | Frozen value/classification | Execution result |

@@ -24,6 +24,7 @@ from .pointing_error import (
     pointing_power_transmittance,
 )
 from .scintillation import (
+    hufnagel_valley_beam_spreading,
     hufnagel_valley_scintillation,
     normalized_lognormal_samples,
     resolve_scintillation_variance,
@@ -119,6 +120,13 @@ def _finite_nonnegative(value: float, name: str) -> float:
     value = float(value)
     if not math.isfinite(value) or value < 0.0:
         raise ValueError(f"{name} must be finite and nonnegative.")
+    return value
+
+
+def _finite_unit_interval(value: float, name: str) -> float:
+    value = float(value)
+    if not math.isfinite(value) or not 0.0 < value <= 1.0:
+        raise ValueError(f"{name} must be finite and lie in (0,1].")
     return value
 
 
@@ -226,6 +234,10 @@ def sample_fso_channel(
     turbulence_profile_model: str | None = None,
     wind_speed_m_per_s: float | None = None,
     ground_cn2_m_minus_two_thirds: float | None = None,
+    eta_atm: float | None = None,
+    theta_div_rad: float | None = None,
+    f0_m: float = math.inf,
+    sigma_h_m: float | None = None,
     boresight_x_m: float = 0.0,
     boresight_y_m: float = 0.0,
     sigma_hap_ang_rad: float = 0.0,
@@ -233,6 +245,7 @@ def sample_fso_channel(
     aoa_model: str = "disabled",
     sigma_turb_AoA2: float | None = None,
     turbulence_aoa_provenance: str | None = None,
+    sigma_o_rad: float | None = None,
     theta_fov_rad: float | None = None,
 ) -> ChannelSamples:
     """Draw physical composite channel states.
@@ -268,11 +281,44 @@ def sample_fso_channel(
         ground_cn2_m_minus_two_thirds=ground_cn2_m_minus_two_thirds,
         receiver_diameter_m=2.0 * float(aperture_radius_m),
     )
-    eta_atm = atmospheric_transmittance(geometry.link_length_m, visibility_km, wavelength_m)
-    pointing = pointing_parameters(
-        aperture_radius_m, beam_waist_m, wavelength_m, geometry.link_length_m
+    beam_spreading = None
+    beam_spreading_factor = 0.0
+    if (
+        turbulence_profile_model in {"hufnagel_valley", "Hufnagel-Valley"}
+        and theta_div_rad is not None
+    ):
+        beam_spreading = hufnagel_valley_beam_spreading(
+            geometry.h_uav_m,
+            geometry.h_hap_m,
+            wavelength_m,
+            geometry.zenith_angle_rad,
+            float(wind_speed_m_per_s),
+            float(ground_cn2_m_minus_two_thirds),
+            float(theta_div_rad),
+            float(f0_m),
+        )
+        beam_spreading_factor = float(beam_spreading["G_d"])
+    eta_atm_value = (
+        atmospheric_transmittance(geometry.link_length_m, visibility_km, wavelength_m)
+        if eta_atm is None
+        else _finite_unit_interval(eta_atm, "eta_atm")
     )
-    sigma2_uav = uav_translational_variance_m2(motion)
+    pointing = pointing_parameters(
+        aperture_radius_m,
+        beam_waist_m,
+        wavelength_m,
+        geometry.link_length_m,
+        theta_div_rad=theta_div_rad,
+        f0_m=f0_m,
+        zenith_angle_rad=geometry.zenith_angle_rad,
+        beam_spreading_factor=beam_spreading_factor,
+    )
+    sigma_h_m = None if sigma_h_m is None else _finite_nonnegative(sigma_h_m, "sigma_h_m")
+    sigma2_uav = (
+        uav_translational_variance_m2(motion)
+        if sigma_h_m is None
+        else float(sigma_h_m**2)
+    )
     sigma2_hap = pointing_displacement_variance_m2(
         motion=UavMotion(
             sigma_x_m=0.0,
@@ -289,22 +335,34 @@ def sample_fso_channel(
     sigma2_axis = sigma2_uav + sigma2_hap
     sigma_axis_m = math.sqrt(sigma2_axis)
 
+    sigma_o_rad = None if sigma_o_rad is None else _finite_nonnegative(sigma_o_rad, "sigma_o_rad")
     if aoa_model == "disabled":
         if sigma_turb_AoA2 not in (None, 0.0):
             raise ValueError("Disabled AoA requires sigma_turb_AoA2=0 or null.")
-        aoa_sigma2 = aoa_variance_rad2(motion, model="disabled")
+        aoa_sigma2 = (
+            float(sigma_o_rad**2)
+            if sigma_o_rad is not None
+            else aoa_variance_rad2(motion, model="disabled")
+        )
         aoa_gate_default = True
         theta_fov = None
     else:
         if theta_fov_rad is None:
             raise ValueError("theta_fov_rad is required when AoA gating is enabled.")
         theta_fov = float(theta_fov_rad)
-        aoa_sigma2 = aoa_variance_rad2(
-            motion,
-            sigma_turb_AoA2=sigma_turb_AoA2,
-            model=aoa_model,
-            provenance=turbulence_aoa_provenance,
-        )
+        if sigma_o_rad is not None:
+            if sigma_turb_AoA2 not in (None, 0.0):
+                raise ValueError(
+                    "Explicit sigma_o_rad is total AoA variance; nonzero turbulence AoA cannot be added."
+                )
+            aoa_sigma2 = float(sigma_o_rad**2)
+        else:
+            aoa_sigma2 = aoa_variance_rad2(
+                motion,
+                sigma_turb_AoA2=sigma_turb_AoA2,
+                model=aoa_model,
+                provenance=turbulence_aoa_provenance,
+            )
         aoa_gate_default = False
 
     if aoa_gate_default:
@@ -328,9 +386,9 @@ def sample_fso_channel(
         h_sc = normalized_lognormal_samples(v_sc, rng, batch_size)
         h_p = np.asarray(pointing_power_transmittance(radial, pointing), dtype=np.float64)
         if np.any(~np.isfinite(h_p)) or np.any(h_p <= 0.0) or np.any(h_p > pointing.t0_power):
-            raise FloatingPointError("Generalized pointing loss left its physical support.")
+            raise FloatingPointError("PDF pointing loss left its physical support.")
         raw = compose_raw_transmittance(
-            eta_atm=eta_atm,
+            eta_atm=eta_atm_value,
             scintillation=h_sc,
             pointing=h_p,
             aoa_gate=np.ones(batch_size, dtype=np.int8),
@@ -402,7 +460,7 @@ def sample_fso_channel(
     candidate_hp_mean = (
         0.0 if candidate_count == 0 else candidate_hp_sum / candidate_count
     )
-    raw_identity_mean = float(p_in * eta_atm * candidate_hp_mean)
+    raw_identity_mean = float(p_in * eta_atm_value * candidate_hp_mean)
     profile_hashes = None
     if turbulence_profile_heights_m is not None:
         profile_hashes = {
@@ -431,7 +489,12 @@ def sample_fso_channel(
         },
         "wavelength_m": float(wavelength_m),
         "visibility_km": float(visibility_km),
-        "atmospheric_model": "Kruse extinction with Beer-Lambert eta_atm",
+        "atmospheric_model": (
+            "direct Table-I eta_atm"
+            if eta_atm is not None
+            else "Kruse extinction with Beer-Lambert eta_atm"
+        ),
+        "eta_atm_source": "explicit_eta_atm" if eta_atm is not None else "kruse_visibility",
         "turbulence_source": "one shared C_n^2(h) scenario; scalar cn2 retained only as legacy input",
         "legacy_scalar_cn2_m_minus_two_thirds": (
             None
@@ -446,20 +509,36 @@ def sample_fso_channel(
         "aperture_averaging_model": aperture_averaging_model,
         "aperture_averaging_status": scintillation_status,
         "beam_waist_m": float(beam_waist_m),
+        "theta_div_rad": None if theta_div_rad is None else float(theta_div_rad),
+        "f0_m": float(f0_m) if math.isfinite(float(f0_m)) else "inf",
+        "beam_spreading": beam_spreading,
+        "omega_0_m": float(pointing.omega_0_m),
+        "omega_L_m": float(pointing.beam_radius_receiver_m),
+        "omega_L_e_m": float(pointing.omega_L_e_m),
+        "nu": float(pointing.nu),
+        "A0": float(pointing.t0_power),
+        "omega_L_eq_m": float(pointing.omega_L_eq_m),
         "aperture_radius_m": float(aperture_radius_m),
-        "pointing_model": "generalized_gaussian_beam",
+        "pointing_model": "pdf_gaussian_beam_eq27_39",
         "pointing_parameters": {
             "beam_radius_receiver_m": float(pointing.beam_radius_receiver_m),
             "rayleigh_range_m": float(pointing.rayleigh_range_m),
             "t0_power": float(pointing.t0_power),
             "gamma": float(pointing.gamma),
             "scale_radius_m": float(pointing.scale_radius_m),
+            "omega_0_m": float(pointing.omega_0_m),
+            "omega_L_e_m": float(pointing.omega_L_e_m),
+            "G_d": float(pointing.g_d),
+            "nu": float(pointing.nu),
+            "A0": float(pointing.t0_power),
+            "omega_L_eq_m": float(pointing.omega_L_eq_m),
         },
         "boresight_m": [boresight_x_m, boresight_y_m],
         "uav_motion": {
             name: float(value) for name, value in motion.__dict__.items()
         },
         "sigma_hap_ang_rad": float(sigma_hap_ang_rad),
+        "sigma_h_m": None if sigma_h_m is None else float(sigma_h_m),
         "sigma_uav_trans_m2": float(sigma2_uav),
         "sigma_hap_disp_m2": float(sigma2_hap),
         "sigma_axis_m2": float(sigma2_axis),
@@ -474,6 +553,7 @@ def sample_fso_channel(
         ),
         "turbulence_aoa_provenance": turbulence_aoa_provenance,
         "aoa_sigma_o2_rad2": float(aoa_sigma2),
+        "sigma_o_rad": None if sigma_o_rad is None else float(sigma_o_rad),
         "theta_fov_rad": theta_fov,
         "physical_domain_rule": "truncated_renormalized_active_law",
     }
@@ -486,7 +566,7 @@ def sample_fso_channel(
         "sigma2_axis_m2": float(sigma2_axis),
         "rayleigh_scale_convention": "legacy name; sigma_axis is each Rician Cartesian component",
         "displacement_law": "Rician",
-        "pointing_model": "generalized_gaussian_beam",
+        "pointing_model": "pdf_gaussian_beam_eq27_39",
         "sigma_z_included": False,
         "beam_wander_status": "LEGACY_NOT_USED",
         "csi_assumption": "exact instantaneous physical T and epsilon_base oracle; no estimator model",
@@ -497,7 +577,7 @@ def sample_fso_channel(
         ),
         "raw_mean_scope": "unconditioned proposal before active-domain rejection",
         "physical_support_upper": float(
-            eta_atm * pointing.t0_power if v_sc == 0.0 else 1.0
+            eta_atm_value * pointing.t0_power if v_sc == 0.0 else 1.0
         ),
         "p_out": p_out,
         "p_in": p_in,
@@ -527,7 +607,7 @@ def sample_fso_channel(
     return ChannelSamples(
         transmittance=np.asarray(transmittance, dtype=np.float64),
         radial_displacement_m=np.asarray(radial, dtype=np.float64),
-        atmospheric_transmittance=float(eta_atm),
+        atmospheric_transmittance=float(eta_atm_value),
         pointing=pointing,
         sigma_axis_m=float(sigma_axis_m),
         exact_csi_oracle=True,

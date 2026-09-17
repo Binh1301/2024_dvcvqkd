@@ -136,6 +136,106 @@ def hufnagel_valley_scintillation(
     }
 
 
+@lru_cache(maxsize=32)
+def hufnagel_valley_beam_spreading(
+    h_uav_m: float,
+    h_hap_m: float,
+    wavelength_m: float,
+    zenith_angle_rad: float,
+    wind_speed_m_per_s: float,
+    cn2_ground_m_minus_two_thirds: float,
+    theta_div_rad: float,
+    f0_m: float = math.inf,
+) -> dict[str, float]:
+    """Derive the PDF Eq. (32) downlink beam-spreading factor."""
+
+    values = tuple(
+        float(value)
+        for value in (
+            h_uav_m,
+            h_hap_m,
+            wavelength_m,
+            zenith_angle_rad,
+            wind_speed_m_per_s,
+            cn2_ground_m_minus_two_thirds,
+            theta_div_rad,
+            f0_m,
+        )
+    )
+    h_uav, h_hap, wavelength, zenith, wind, ground, theta_div, f0 = values
+    if h_hap <= h_uav:
+        raise ValueError("h_hap_m must exceed h_uav_m.")
+    if wavelength <= 0.0 or theta_div <= 0.0:
+        raise ValueError("wavelength_m and theta_div_rad must be positive.")
+    if abs(zenith) >= math.pi / 2.0:
+        raise ValueError("zenith_angle_rad must lie strictly inside +/- pi/2.")
+    if not math.isinf(f0) and f0 == 0.0:
+        raise ValueError("f0_m must be nonzero or infinity.")
+    if not math.isinf(f0) and not math.isfinite(f0):
+        raise ValueError("f0_m must be finite or infinity.")
+
+    secant = 1.0 / math.cos(zenith)
+    path_height_m = h_hap - h_uav
+    link_length_m = path_height_m * secant
+    wave_number = 2.0 * math.pi / wavelength
+    # PDF Eq. (29), used by Eqs. (27) and (32).
+    omega_0_m = 2.0 * wavelength / (math.pi * theta_div)
+    # PDF Eq. (27).
+    curvature_term = 1.0 if math.isinf(f0) else 1.0 - link_length_m / f0
+    omega_L_m = omega_0_m * math.sqrt(
+        curvature_term**2
+        + (2.0 * link_length_m / (wave_number * omega_0_m**2)) ** 2
+    )
+    # PDF Eq. (32), with Lambda defined immediately below that equation.
+    lambda_beam = 2.0 * link_length_m / (wave_number * omega_L_m**2)
+    spreading_integral, quad_error = quad(
+        lambda height: float(
+            hufnagel_valley_cn2(height, wind, ground)
+            * ((height - h_uav) / path_height_m) ** (5.0 / 3.0)
+        ),
+        h_uav,
+        h_hap,
+        epsabs=1.0e-24,
+        epsrel=2.0e-13,
+        limit=300,
+    )
+    g_d = (
+        4.35
+        * lambda_beam ** (5.0 / 6.0)
+        * wave_number ** (7.0 / 6.0)
+        * path_height_m ** (5.0 / 6.0)
+        * secant ** (11.0 / 6.0)
+        * spreading_integral
+    )
+    return {
+        "omega_0_m": float(omega_0_m),
+        "omega_L_m": float(omega_L_m),
+        "Lambda": float(lambda_beam),
+        "beam_spreading_integral": float(spreading_integral),
+        "beam_spreading_quad_error": float(quad_error),
+        "G_d": float(g_d),
+    }
+
+
+def lognormal_pdf(values: float | np.ndarray, v_sc: float) -> np.ndarray:
+    """Evaluate the manuscript's log-normal scintillation PDF, Eq. (12)."""
+
+    v_sc = _finite_nonnegative(v_sc, "v_sc")
+    if v_sc == 0.0:
+        raise ValueError("Eq. (12) is nondegenerate only for v_sc > 0.")
+    values = np.asarray(values, dtype=np.float64)
+    result = np.zeros_like(values)
+    positive = values > 0.0
+    with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
+        log_values = np.log(values[positive])
+        result[positive] = np.exp(
+            -log_values
+            - 0.5 * math.log(2.0 * math.pi * v_sc)
+            - (log_values + v_sc / 2.0) ** 2 / (2.0 * v_sc)
+        )
+    return result
+
+
 def _finite_nonnegative(value: float, name: str) -> float:
     value = float(value)
     if not math.isfinite(value) or value < 0.0:
@@ -257,7 +357,9 @@ def scintillation_provenance(
 __all__ = [
     "UnsupportedApertureAveragingError",
     "hufnagel_valley_cn2",
+    "hufnagel_valley_beam_spreading",
     "hufnagel_valley_scintillation",
+    "lognormal_pdf",
     "normalized_lognormal_samples",
     "resolve_scintillation_variance",
     "rytov_variance_from_profile",

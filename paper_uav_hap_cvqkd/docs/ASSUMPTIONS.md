@@ -75,4 +75,19 @@
 - Training uses raw statewise \(K\), with no statewise positive-part clipping.
 - Finite-size and operational fading-block aggregation are out of scope.
 - Numerical tolerances, MI convergence, source-moment support, and the moving
-  full-interval \(Z\) maximization must be verified before security/SKR claims.
+full-interval \(Z\) maximization must be verified before security/SKR claims.
+
+## Current attached PDF5 channel scenario
+
+For channel-only diagnostics, the active default uses the attached Table-I
+values: `eta_atm=0.9316271221`, `lambda=1.55e-6 m`, `H_HAP=20000 m`,
+`h_UAV=1000 m`, `D_r=0.08 m`, `theta_div=223e-6 rad`, `sigma_h=1 m`,
+`theta_jt=15.61e-6 rad`, `rho=0`, `sigma_o=1.5e-3 rad`, and
+`theta_FOV=6.25e-3 rad`. `v_sc` is derived from the Hufnagel--Valley
+profile and finite-aperture Eqs. (5)--(10); visibility remains only as a
+compatibility fallback for the atmospheric API.
+
+The active pointing law is Eq. (36), with `r_mis` Rician and `H_p` its
+deterministic transformation. The analytical Eq. (12), Eq. (37), Eq. (49),
+and Eq. (50) implementations are channel diagnostics. The unresolved common
+phase `C_n,phi^2` mapping still blocks security/SKR and training workflows.

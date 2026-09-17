@@ -25,18 +25,22 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.channel.atmospheric_loss import atmospheric_transmittance
 from src.channel.fso_channel import sample_fso_channel
 from src.channel.geometry import LinkGeometry
-from src.channel.pointing_error import pointing_parameters
-from src.channel.scintillation import hufnagel_valley_cn2, hufnagel_valley_scintillation
+from src.channel.pointing_error import pointing_parameters, pointing_pdf as exact_pointing_pdf
+from src.channel.scintillation import (
+    hufnagel_valley_beam_spreading,
+    hufnagel_valley_cn2,
+    hufnagel_valley_scintillation,
+    lognormal_pdf,
+)
 from src.channel.turbulence import UavMotion
 from scripts._common import load_yaml
 
 
 # Historical exploratory comparison only; production uses the derived HV value.
 OLD_V_SC = 0.25
-EXPECTED_NEW_V_SC = 0.01434494998
+EXPECTED_NEW_V_SC = 0.02886934966
 EPSILON_MIN = 0.001
 EPSILON_MAX = 0.04
 EPSILON_MEAN = (EPSILON_MIN + EPSILON_MAX) / 2.0
@@ -66,7 +70,6 @@ def derive_physical_inputs() -> dict:
     wavelength_m = float(channel["wavelength_m"])
     h_hap_m = float(channel["h_hap_m"])
     h_uav_m = float(channel["h_uav_m"])
-    link_length_m = h_hap_m - h_uav_m
     zenith_angle_rad = float(channel.get("zenith_angle_rad", 0.0))
     wind_m_per_s = float(profile["wind_speed_m_per_s"])
     cn2_ground = float(profile["cn2_ground_m_minus_two_thirds"])
@@ -74,7 +77,11 @@ def derive_physical_inputs() -> dict:
     receiver_diameter_m = 2.0 * receiver_radius_m
     beam_waist_m = float(channel["beam_waist_m"])
     visibility_km = float(channel["visibility_km"])
+    eta_atm = float(channel["eta_atm"])
+    theta_div_rad = float(channel["theta_div_rad"])
+    f0_m = float(channel["f0_m"])
     sigma_hap_ang_rad = float(pointing_config["sigma_hap_ang_rad"])
+    sigma_h_m = float(pointing_config["sigma_h_m"])
     motion = UavMotion(
         **channel["uav_motion"],
     )
@@ -91,15 +98,32 @@ def derive_physical_inputs() -> dict:
     v_sc = derivation["v_sc"]
 
     geometry = LinkGeometry(h_hap_m, h_uav_m, zenith_angle_rad)
-    eta_atm = atmospheric_transmittance(link_length_m, visibility_km, wavelength_m)
-    pointing = pointing_parameters(
-        receiver_radius_m, beam_waist_m, wavelength_m, link_length_m
+    link_length_m = geometry.link_length_m
+    beam_spreading = hufnagel_valley_beam_spreading(
+        h_uav_m,
+        h_hap_m,
+        wavelength_m,
+        zenith_angle_rad,
+        wind_m_per_s,
+        cn2_ground,
+        theta_div_rad,
+        f0_m,
     )
-    sigma_uav_transverse_m2 = (motion.sigma_x_m**2 + motion.sigma_y_m**2) / 2.0
+    pointing = pointing_parameters(
+        receiver_radius_m,
+        beam_waist_m,
+        wavelength_m,
+        link_length_m,
+        theta_div_rad=theta_div_rad,
+        f0_m=f0_m,
+        zenith_angle_rad=zenith_angle_rad,
+        beam_spreading_factor=beam_spreading["G_d"],
+    )
+    sigma_uav_transverse_m2 = sigma_h_m**2
     sigma_hap_displacement_m2 = link_length_m**2 * sigma_hap_ang_rad**2
     sigma_m2 = sigma_uav_transverse_m2 + sigma_hap_displacement_m2
     sigma_m = math.sqrt(sigma_m2)
-    sigma_o2 = (motion.sigma_theta_rad**2 + motion.sigma_phi_rad**2) / 2.0
+    sigma_o2 = float(aoa_config["sigma_o_rad"]) ** 2
     theta_fov_rad = float(aoa_config["theta_fov_rad"])
     p_out = math.exp(-theta_fov_rad**2 / (2.0 * sigma_o2))
 
@@ -114,8 +138,12 @@ def derive_physical_inputs() -> dict:
         "receiver_radius_m": receiver_radius_m,
         "receiver_diameter_m": receiver_diameter_m,
         "beam_waist_m": beam_waist_m,
+        "theta_div_rad": theta_div_rad,
+        "f0_m": f0_m,
         "visibility_km": visibility_km,
+        "eta_atm_source": "direct_table_i_eta_atm",
         "sigma_hap_ang_rad": sigma_hap_ang_rad,
+        "sigma_h_m": sigma_h_m,
         "uav_motion": {key: float(value) for key, value in motion.__dict__.items()},
         "wave_number_per_m": 2.0 * math.pi / wavelength_m,
         "rytov_integral": derivation["rytov_integral"],
@@ -135,7 +163,13 @@ def derive_physical_inputs() -> dict:
             "rayleigh_range_m": float(pointing.rayleigh_range_m),
             "R_m": float(pointing.scale_radius_m),
             "Gamma": float(pointing.gamma),
+            "omega_0_m": float(pointing.omega_0_m),
+            "omega_L_e_m": float(pointing.omega_L_e_m),
+            "G_d": float(pointing.g_d),
+            "nu": float(pointing.nu),
+            "omega_L_eq_m": float(pointing.omega_L_eq_m),
         },
+        "pointing_object": pointing,
         "sigma_uav_transverse_m2": float(sigma_uav_transverse_m2),
         "sigma_hap_displacement_m2": float(sigma_hap_displacement_m2),
         "sigma_m2": float(sigma_m2),
@@ -202,38 +236,18 @@ def hsc_statistics(v_sc: float) -> dict:
 
 
 def hsc_pdf(values: np.ndarray, v_sc: float) -> np.ndarray:
-    values = np.asarray(values, dtype=np.float64)
-    result = np.zeros_like(values)
-    positive = values > 0.0
-    with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
-        log_h = np.log(values[positive])
-        result[positive] = np.exp(
-            -log_h
-            - 0.5 * math.log(2.0 * math.pi * v_sc)
-            - (log_h + v_sc / 2.0) ** 2 / (2.0 * v_sc)
-        )
-    return result
+    return lognormal_pdf(values, v_sc)
 
 
 def pointing_pdf(values, physical: dict):
-    """Evaluate the independently transformed zero-boresight pointing PDF."""
+    """Evaluate the manuscript's Eq. (37) through the shared primitive."""
 
-    values = np.asarray(values, dtype=np.float64)
-    result = np.zeros_like(values)
-    eta_p0 = physical["pointing"]["eta_p0"]
-    radius = physical["pointing"]["R_m"]
-    gamma = physical["pointing"]["Gamma"]
-    sigma_m = physical["sigma_m"]
-    valid = (values > 0.0) & (values < eta_p0)
-    with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
-        z = -np.log(values[valid] / eta_p0)
-        result[valid] = (
-            radius**2
-            / (gamma * sigma_m**2 * values[valid])
-            * z ** (2.0 / gamma - 1.0)
-            * np.exp(-radius**2 * z ** (2.0 / gamma) / (2.0 * sigma_m**2))
-        )
-    return result
+    return exact_pointing_pdf(
+        values,
+        physical["pointing_object"],
+        physical["sigma_m"],
+        physical["rho_m"],
+    )
 
 
 def _product_kernel(v_sc: float, physical: dict, order: int = LAGUERRE_ORDER):
@@ -419,26 +433,14 @@ def _mixed_quantiles(analysis: dict, physical: dict) -> dict:
 
 
 def _pointing_pdf_normalization(physical: dict) -> float:
-    radius = physical["pointing"]["R_m"]
-    gamma = physical["pointing"]["Gamma"]
-    sigma_m = physical["sigma_m"]
-    exponent = 2.0 / gamma
-
-    def integrand(s: float) -> float:
-        if s <= 0.0:
-            return 0.0
-        return (
-            radius**2
-            / (gamma * sigma_m**2)
-            * s ** (exponent - 1.0)
-            * math.exp(-radius**2 * s**exponent / (2.0 * sigma_m**2))
-        )
+    def integrand(h_p: float) -> float:
+        return float(pointing_pdf(np.asarray([h_p]), physical)[0])
 
     return float(
         quad(
             integrand,
             0.0,
-            math.inf,
+            physical["pointing"]["eta_p0"],
             epsabs=2.0e-11,
             epsrel=2.0e-10,
             limit=300,
@@ -594,6 +596,10 @@ def production_sampler_check(
         beam_waist_m=physical["beam_waist_m"],
         aperture_radius_m=physical["receiver_radius_m"],
         cn2_m_minus_two_thirds=1.0e-16,
+        eta_atm=physical["eta_atm"],
+        theta_div_rad=physical["theta_div_rad"],
+        f0_m=physical["f0_m"],
+        sigma_h_m=physical["sigma_h_m"],
         sample_count=sample_count,
         rng=np.random.default_rng(seed),
         uav_motion=physical["motion"],
@@ -610,6 +616,7 @@ def production_sampler_check(
         aoa_model="external_validated",
         sigma_turb_AoA2=0.0,
         turbulence_aoa_provenance="preliminary Case-D zero turbulence-induced AoA fixture",
+        sigma_o_rad=physical["sigma_o_rad"],
         theta_fov_rad=physical["theta_fov_rad"],
     )
     t = result.transmittance
@@ -667,6 +674,10 @@ def _active_config_record() -> dict:
             "h_hap_m": channel.get("h_hap_m"),
             "h_uav_m": channel.get("h_uav_m"),
             "wavelength_m": channel.get("wavelength_m"),
+            "eta_atm": channel.get("eta_atm"),
+            "theta_div_rad": channel.get("theta_div_rad"),
+            "f0_m": channel.get("f0_m"),
+            "aperture_radius_m": channel.get("aperture_radius_m"),
             "scalar_cn2": channel.get("cn2_m_minus_two_thirds"),
             "turbulence_profile_model": channel.get("turbulence_profile", {}).get("model"),
             "aperture_averaging_model": channel.get("scintillation", {}).get(
@@ -674,7 +685,11 @@ def _active_config_record() -> dict:
             ),
             "v_sc_override": channel.get("scintillation", {}).get("v_sc_override"),
             "sigma_hap_ang_rad": channel.get("pointing", {}).get("sigma_hap_ang_rad"),
+            "theta_jt_rad": channel.get("pointing", {}).get("theta_jt_rad"),
+            "sigma_h_m": channel.get("pointing", {}).get("sigma_h_m"),
             "aoa_model": channel.get("aoa", {}).get("model"),
+            "sigma_o_rad": channel.get("aoa", {}).get("sigma_o_rad"),
+            "theta_fov_rad": channel.get("aoa", {}).get("theta_fov_rad"),
         }
     except Exception as exc:  # pragma: no cover - provenance should not hide PDF output
         return {"path": str(config_path.relative_to(ROOT)), "read_error": str(exc)}
@@ -884,7 +899,7 @@ def main() -> None:
     physical_json = {
         key: value
         for key, value in physical.items()
-        if key not in {"geometry", "motion"}
+        if key not in {"geometry", "motion", "pointing_object"}
     }
     physical_json["profile"] = {
         "model": "Hufnagel-Valley",
@@ -924,7 +939,7 @@ def main() -> None:
             "new_pdf": hsc_pdf(hsc_grid, physical["v_sc"]).tolist(),
         },
         "pointing": {
-            "formula": "H_p(r)=eta_p0*exp(-(r/R)^Gamma)",
+            "formula": "H_p(r)=A0*exp(-2*r^2/omega_L_eq^2), PDF Eq. (36)",
             "rho_m": physical["rho_m"],
             "parameters": physical["pointing"],
             "pdf_normalization": pointing_pdf_normalization,

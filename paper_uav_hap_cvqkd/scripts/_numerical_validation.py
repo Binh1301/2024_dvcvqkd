@@ -27,7 +27,9 @@ from src.utils.random import derive_seed
 
 COMMON_REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m",
+    "channel.eta_atm",
     "channel.visibility_km", "channel.beam_waist_m", "channel.aperture_radius_m",
+    "channel.theta_div_rad", "channel.f0_m",
     "channel.cn2_m_minus_two_thirds", "channel.excess_noise_distribution.kind",
     "channel.cn_phi2_m_minus_two_thirds",
     "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
@@ -37,8 +39,10 @@ COMMON_REQUIRED = [
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
+    "channel.pointing.theta_jt_rad", "channel.pointing.sigma_h_m",
     "channel.pointing.hap_angular_jitter_convention",
-    "channel.aoa.model", "channel.raw_transmittance.active_treatment",
+    "channel.aoa.model", "channel.aoa.sigma_o_rad", "channel.aoa.theta_fov_rad",
+    "channel.raw_transmittance.active_treatment",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",

@@ -6,9 +6,13 @@ import math
 from typing import Any, Iterable
 
 import numpy as np
+from scipy.integrate import quad
+from scipy.special import i0
 
 from .atmospheric_loss import extinction_coefficient_per_km
 from .geometry import LinkGeometry
+from .pointing_error import PointingParameters, pointing_pdf
+from .scintillation import lognormal_pdf
 from .state_distribution import (
     IndependentUniformExcessNoise,
     sample_channel_state_distribution,
@@ -53,6 +57,183 @@ def composite_transmittance_diagnostics(
             if physical_mean == 0.0
             else float(abs(raw_mean - physical_mean) / physical_mean)
         ),
+    }
+
+
+def active_transmittance_pdf_eq49(
+    t: float,
+    *,
+    eta_atm: float,
+    v_sc: float,
+    pointing: PointingParameters,
+    sigma_jt_m: float,
+    rho_m: float = 0.0,
+) -> float:
+    """Evaluate the active-link PDF by directly integrating PDF Eq. (49)."""
+
+    t = _positive_finite("t", t)
+    eta_atm = _positive_finite("eta_atm", eta_atm)
+    v_sc = _positive_finite("v_sc", v_sc)
+    sigma_jt_m = _positive_finite("sigma_jt_m", sigma_jt_m)
+    rho_m = float(rho_m)
+    if not math.isfinite(rho_m) or rho_m < 0.0:
+        raise ValueError("rho_m must be finite and nonnegative.")
+
+    # Eq. (49) is evaluated with h_p=A0*exp(-s), retaining its Jacobian:
+    # du=-h_p ds, so [f_Hsc/(eta_atm*h_p)]*f_Hp*du=f_Hsc*f_Hp/eta_atm ds.
+    log_eta_a0 = math.log(eta_atm * pointing.t0_power)
+    chi_squared = (pointing.omega_L_eq_m / (2.0 * sigma_jt_m)) ** 2
+    s_peak = max(0.0, -math.log(t) + log_eta_a0 - v_sc / 2.0)
+
+    def integrand(s: float) -> float:
+        h_p = pointing.t0_power * math.exp(-s)
+        f_hsc = float(lognormal_pdf(np.asarray([t / (eta_atm * h_p)]), v_sc)[0])
+        f_hp = float(pointing_pdf(np.asarray([h_p]), pointing, sigma_jt_m, rho_m)[0])
+        return f_hsc / eta_atm * f_hp
+
+    integral, _ = quad(
+        integrand,
+        0.0,
+        max(80.0, s_peak + 20.0 * math.sqrt(v_sc) + 5.0),
+        points=[s_peak] if s_peak > 0.0 else None,
+        epsabs=1.0e-12,
+        epsrel=1.0e-9,
+        limit=300,
+    )
+    return float(integral)
+
+
+def active_transmittance_pdf_eq50(
+    t: float,
+    *,
+    eta_atm: float,
+    v_sc: float,
+    pointing: PointingParameters,
+    sigma_jt_m: float,
+    rho_m: float = 0.0,
+) -> float:
+    """Evaluate the explicit analytical active-link PDF from PDF Eq. (50)."""
+
+    t = _positive_finite("t", t)
+    eta_atm = _positive_finite("eta_atm", eta_atm)
+    v_sc = _positive_finite("v_sc", v_sc)
+    sigma_jt_m = _positive_finite("sigma_jt_m", sigma_jt_m)
+    rho_m = float(rho_m)
+    if not math.isfinite(rho_m) or rho_m < 0.0:
+        raise ValueError("rho_m must be finite and nonnegative.")
+    sigma_squared = sigma_jt_m**2
+    a0 = float(pointing.t0_power)
+    chi_squared = (pointing.omega_L_eq_m / (2.0 * sigma_jt_m)) ** 2
+
+    def log_integrand(h_p: float) -> float:
+        if h_p <= 0.0:
+            return -math.inf
+        radial_squared = -0.5 * pointing.omega_L_eq_m**2 * math.log(h_p / a0)
+        bessel_argument = rho_m * math.sqrt(radial_squared) / sigma_squared
+        return (
+            (chi_squared - 1.0) * math.log(h_p)
+            - (
+                math.log(t / (eta_atm * h_p)) + v_sc / 2.0
+            )
+            ** 2
+            / (2.0 * v_sc)
+            + math.log(float(i0(bessel_argument)))
+        )
+
+    # For the baseline rho=0 case, split at the exact peak of the Eq. (50)
+    # integrand so small-t log-normal mass is not missed by quad.
+    h_p_peak = t * math.exp(v_sc * (chi_squared - 0.5)) / eta_atm
+    h_p_scale = min(a0, max(np.nextafter(0.0, 1.0), h_p_peak))
+    log_scale = log_integrand(h_p_scale)
+    integration_points = sorted(
+        {
+            point
+            for point in (h_p_peak / 2.0, h_p_peak, 2.0 * h_p_peak)
+            if 0.0 < point < a0
+        }
+    )
+
+    def integrand(h_p: float) -> float:
+        return math.exp(log_integrand(h_p) - log_scale)
+
+    integral, _ = quad(
+        integrand,
+        0.0,
+        a0,
+        points=integration_points or None,
+        epsabs=1.0e-14,
+        epsrel=1.0e-10,
+        limit=300,
+    )
+    prefactor = (
+        chi_squared
+        * math.exp(-rho_m**2 / (2.0 * sigma_squared))
+        / (a0**chi_squared * t * math.sqrt(2.0 * math.pi * v_sc))
+    )
+    return float(math.exp(math.log(prefactor) + log_scale) * integral)
+
+
+def active_channel_moments(
+    *,
+    eta_atm: float,
+    v_sc: float,
+    pointing: PointingParameters,
+    sigma_jt_m: float,
+    p_in: float = 1.0,
+    rho_m: float = 0.0,
+) -> dict[str, float]:
+    """Numerically evaluate PDF Eqs. (53), (56), and (57)."""
+
+    p_in = float(p_in)
+    if not math.isfinite(p_in) or not 0.0 <= p_in <= 1.0:
+        raise ValueError("p_in must lie in [0,1].")
+    pdf = lambda t: active_transmittance_pdf_eq49(
+        t,
+        eta_atm=eta_atm,
+        v_sc=v_sc,
+        pointing=pointing,
+        sigma_jt_m=sigma_jt_m,
+        rho_m=rho_m,
+    )
+    # Integrate in log(t) so the narrow low-transmittance density is not
+    # skipped by the outer adaptive quadrature.
+    log_lower = -40.0
+    log_upper = 0.0
+    log_center = math.log(eta_atm * pointing.t0_power)
+    log_points = sorted(
+        {
+            point
+            for point in (
+                log_center - 4.0 * math.sqrt(v_sc),
+                log_center - 2.0 * math.sqrt(v_sc),
+                log_center,
+                log_center + 2.0 * math.sqrt(v_sc),
+                log_center + 4.0 * math.sqrt(v_sc),
+            )
+            if log_lower < point < log_upper
+        }
+    )
+
+    def integrate_power(power: float) -> float:
+        return float(
+            quad(
+                lambda log_t: math.exp((power + 1.0) * log_t) * pdf(math.exp(log_t)),
+                log_lower,
+                log_upper,
+                points=log_points or None,
+                epsabs=1.0e-9,
+                epsrel=1.0e-7,
+                limit=300,
+            )[0]
+        )
+
+    f_x_1 = integrate_power(0.0)
+    mean_t = integrate_power(1.0)
+    mean_sqrt_t = integrate_power(0.5)
+    return {
+        "F_X_1": float(f_x_1),
+        "mean_T": float(p_in * mean_t / f_x_1),
+        "mean_sqrt_T": float(p_in * mean_sqrt_t / f_x_1),
     }
 
 
@@ -133,6 +314,12 @@ def frozen_channel_diagnostics(
     beam_waist_m: float,
     aperture_radius_m: float,
     cn2_m_minus_two_thirds: float,
+    eta_atm: float | None = None,
+    theta_div_rad: float | None = None,
+    f0_m: float = math.inf,
+    sigma_h_m: float | None = None,
+    sigma_hap_ang_rad: float = 0.0,
+    sigma_o_rad: float | None = None,
     motion: UavMotion,
     epsilon_minimum_snu: float,
     epsilon_maximum_snu: float,
@@ -175,6 +362,12 @@ def frozen_channel_diagnostics(
         seed=seed,
         uav_motion=motion,
         scintillation_log_variance=0.0,
+        eta_atm=eta_atm,
+        theta_div_rad=theta_div_rad,
+        f0_m=f0_m,
+        sigma_h_m=sigma_h_m,
+        sigma_hap_ang_rad=sigma_hap_ang_rad,
+        sigma_o_rad=sigma_o_rad,
     )
     fso = states.fso
     pointing = fso.pointing

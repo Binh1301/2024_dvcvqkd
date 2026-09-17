@@ -1,0 +1,43 @@
+{
+  "status": "BASELINE_ANALYTICAL_PDF_DIAGNOSTIC_ONLY",
+  "source_pdf": "C:\\Users\\admin\\Downloads\\2026__Binh_s_work__Copy___Copy_ (4).pdf",
+  "source_pdf_sha256": "2bb15c9a2d67eac5eeef46c18e64eca6acdc09e033fed3e81ebf55a155aa0461",
+  "monte_carlo_used": false,
+  "parameter_sweep": false,
+  "equations": {
+    "H_p": "Eq. (37)",
+    "X": "Eq. (50)"
+  },
+  "baseline": {
+    "eta_atm": 0.9316271221,
+    "v_sc": 0.02886934966162772,
+    "sigma_jt_m": 1.0430559084248552,
+    "rho_m": 0.0,
+    "A0": 0.0007127365410377602,
+    "omega_L_eq_m": 2.1191553233134117,
+    "chi": 1.0158397580593743,
+    "chi_squared": 1.031930414054128
+  },
+  "grids": {
+    "H_p": {
+      "count": 500,
+      "lower": 7.127365410377602e-16,
+      "upper": 0.0007127365410377602
+    },
+    "X": {
+      "count": 500,
+      "lower": 1e-08,
+      "upper": 0.0015
+    }
+  },
+  "normalization": {
+    "H_p_integral": 0.9999999999999992,
+    "X_integral_log_t_minus_40_to_0": 0.9997380640361455
+  },
+  "figures": [
+    "hp_pdf_baseline.png",
+    "x_pdf_baseline.png",
+    "x_active_combined.png"
+  ],
+  "combined_plot_uses_saved_samples": true
+}

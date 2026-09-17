@@ -56,9 +56,9 @@ class ChannelPdfAndMomentsTests(unittest.TestCase):
         moments = self.analysis["moments"]
         self.assertAlmostEqual(quadrature["f_X_normalization"], 1.0, places=8)
         self.assertAlmostEqual(quadrature["active_pdf_normalization"], 1.0, places=8)
-        self.assertAlmostEqual(moments["active_mean_eta"], 0.02562693657, places=9)
-        self.assertAlmostEqual(moments["mean_eta"], 0.01922020243, places=9)
-        self.assertAlmostEqual(moments["mean_sqrt_eta"], 0.1196294585, places=9)
+        self.assertAlmostEqual(moments["active_mean_eta"], 0.0003372195389, places=12)
+        self.assertAlmostEqual(moments["mean_eta"], 0.0003371622599, places=12)
+        self.assertAlmostEqual(moments["mean_sqrt_eta"], 0.01729242694, places=10)
         self.assertLessEqual(moments["mean_sqrt_eta"], moments["sqrt_mean_eta"])
         self.assertAlmostEqual(self.physical["p_out"] + self.physical["p_in"], 1.0)
 

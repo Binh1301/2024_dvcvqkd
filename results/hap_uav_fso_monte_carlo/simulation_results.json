@@ -1,0 +1,137 @@
+{
+  "status": "EXPLORATORY_PDF_TABLE_I_RAW_CHANNEL_DIAGNOSTIC",
+  "source_pdf": "C:\\Users\\admin\\Downloads\\2026__Binh_s_work__Copy___Copy_ (3).pdf",
+  "source_pdf_sha256": "cc9e14f71bf05326f827e504b314a06a655cada3ad614f1928269ed1ea063c24",
+  "seed": 42,
+  "N_MC": 10000,
+  "draw_order": [
+    "H_sc",
+    "X",
+    "Y"
+  ],
+  "aoa": {
+    "included": false,
+    "B_AoA": 1.0
+  },
+  "parameters": {
+    "lambda_m": 1.55e-06,
+    "h_hap_m": 20000.0,
+    "h_uav_m": 1000.0,
+    "zenith_angle_rad": 0.0,
+    "link_length_m": 19000.0,
+    "path_height_m": 19000.0,
+    "wind_speed_m_per_s": 21.0,
+    "cn2_ground_m_minus_two_thirds": 5e-14,
+    "receiver_diameter_m": 0.08,
+    "theta_div_rad": 0.000223,
+    "omega_0_table_m": 0.004425,
+    "omega_0_from_eq29_m": 0.004424935637532516,
+    "f_0_m": null,
+    "f_0_is_infinite": true,
+    "eta_atm": 0.9316271221,
+    "sigma_h_m": 1.0,
+    "theta_jt_rad": 1.561e-05,
+    "rho_x_m": 0.0,
+    "rho_y_m": 0.0,
+    "rho_m": 0.0,
+    "wave_number_per_m": 4053667.940115862,
+    "rytov_integral": 3.599418452040883e-10,
+    "rytov_quad_error": 3.1019272970738538e-24,
+    "sigma_R0_squared": 0.04145444025152738,
+    "aperture_numerator": 1.830805558339988e-05,
+    "aperture_numerator_quad_error": 3.4100823112391687e-18,
+    "aperture_denominator": 4.347593529712465e-10,
+    "aperture_denominator_quad_error": 4.826872988408982e-24,
+    "Phi_m": 9199.530760245305,
+    "AA": 0.6964115179570911,
+    "sigma_RD_squared": 0.02886934966162772,
+    "v_sc": 0.02886934966162772,
+    "omega_L_m": 2.118504621202276,
+    "Lambda": 0.002088702540891003,
+    "beam_spreading_integral": 5.0349306469520784e-14,
+    "beam_spreading_quad_error": 9.984202269711631e-25,
+    "G_d": 0.00024089665983497693,
+    "omega_L_e_m": 2.1187597761802524,
+    "nu": 0.023664128456877848,
+    "A0": 0.0007127365410377602,
+    "omega_L_eq_squared_m2": 4.4908192843275705,
+    "omega_L_eq_m": 2.1191553233134117,
+    "sigma_H_theta_m": 0.29659,
+    "sigma_jt_m": 1.0430559084248552
+  },
+  "statistics": {
+    "H_sc": {
+      "mean": 0.9984407557977182,
+      "variance": 0.02958131788490283,
+      "standard_deviation": 0.1719922029770618,
+      "min": 0.4675783367010672,
+      "max": 1.9534409279132512,
+      "percentiles": {
+        "1%": 0.6585146401426655,
+        "5%": 0.7416486903247348,
+        "50%": 0.9834662450156562,
+        "95%": 1.3030178474879863,
+        "99%": 1.470857934273997
+      }
+    },
+    "r_mis": {
+      "mean": 1.3102364635142953,
+      "variance": 0.47290066954214227,
+      "standard_deviation": 0.6876777366922259,
+      "min": 0.012556899514260481,
+      "max": 4.584617924136701,
+      "percentiles": {
+        "1%": 0.15124785018802428,
+        "5%": 0.3362527951979905,
+        "50%": 1.2239820137179902,
+        "95%": 2.5692544776412127,
+        "99%": 3.1450399486129594
+      }
+    },
+    "H_p": {
+      "mean": 0.00036148631548704724,
+      "variance": 4.23313811090061e-08,
+      "standard_deviation": 0.00020574591395458163,
+      "min": 6.13205913260098e-08,
+      "max": 0.0007126864934636628,
+      "percentiles": {
+        "1%": 8.705909952240764e-06,
+        "5%": 3.7686649954136015e-05,
+        "50%": 0.00036573690084559535,
+        "95%": 0.0006777358320807316,
+        "99%": 0.0007055121429846442
+      }
+    },
+    "X_active": {
+      "mean": 0.0003358934113165999,
+      "variance": 4.0787944168824046e-08,
+      "standard_deviation": 0.00020196025393335205,
+      "min": 7.304843266769381e-08,
+      "max": 0.0011848992389454213,
+      "percentiles": {
+        "1%": 7.678363792675724e-06,
+        "5%": 3.4453273373479585e-05,
+        "50%": 0.00032758544346005235,
+        "95%": 0.0006690201942003244,
+        "99%": 0.0007978162537587964
+      }
+    }
+  },
+  "validation": {
+    "mean_H_sc_target": 1.0,
+    "theoretical_rician_mean_r_mis": 1.3072767160393326,
+    "simulated_mean_r_mis": 1.3102364635142953,
+    "relative_r_mis_mean_error": 0.0022640558335116075,
+    "H_p_support_verified": true,
+    "n_X_active_gt_1": 0,
+    "P_X_active_gt_1": 0.0
+  },
+  "arrays_file": "samples.npz",
+  "script": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\pdf1.py",
+  "figures": [
+    "H_sc_histogram.png",
+    "r_mis_histogram.png",
+    "H_p_histogram.png",
+    "X_active_histogram.png"
+  ]
+}

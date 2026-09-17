@@ -1,8 +1,26 @@
 # Project State
 
-Last updated: 2026-09-16 (EVID-0082 / DEC-0066; manuscript channel PDF audit)
+## Latest channel-model implementation (2026-09-18; PDF5)
 
-## Latest channel-model audit (2026-09-16)
+The attached PDF5 Table-I HAP--UAV FSO channel is now the active channel-only
+implementation. The sampler derives `v_sc=0.02886934966162772` from the
+Hufnagel--Valley profile and finite-aperture Eqs. (5)--(10), uses the exact
+Gaussian-beam pointing path from Eqs. (27)--(39), and preserves
+`T_raw=eta_atm*H_sc*H_p*B_AoA`, exact outage `T=0`, and rejection-based
+active-domain admission without clipping. Analytical Eq. (12), Eq. (37),
+Eq. (49), and Eq. (50) utilities and a fixed-seed 10,000-sample diagnostic
+are available.
+
+Current artifact:
+`results/hap_uav_fso_pdf_diagnostic/diagnostic_results.json` (channel-only,
+not publication certified). The previous EVID-0082 generalized-pointing/
+0.15 m-aperture artifact remains retained as historical superseded evidence.
+No security equation, policy input, training workflow, final-test access, or
+lifecycle gate changed.
+
+Last updated: 2026-09-18 (EVID-0083 / DEC-0067; PDF5 exact channel update)
+
+## Historical channel-model audit (2026-09-16; superseded by EVID-0083)
 
 EVID-0082/DEC-0066 bind the attached manuscript channel scenario for
 channel-only diagnostics. The active sampler now derives the Hufnagel–Valley
@@ -214,9 +232,9 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
   dual, and finite-realization hard peak guard remain present in source.
 - The causal phase/post-action epsilon chain and canonical scenario-level phase
   provenance are aligned in source and active evaluation plumbing, but its
-  C_n_phi2 value remains null. The composite channel architecture and raw-T
-  diagnostics are implemented, while production scintillation/AoA mappings
-  remain unresolved. The
+  C_n_phi2 value remains null. The composite channel architecture, exact PDF5
+  scintillation/pointing/AoA mappings, and raw-T diagnostics are implemented.
+  The
   full physical Z interval, structured empty-domain failure, and deterministic
   bounded Holevo maximization are now implemented and focused-tested. The
   repaired objective audit is analysis-only and does not rebind publication
@@ -231,16 +249,16 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 
 ## Current PRE-Numerical channel alignment
 
-- The active sampler now composes eta_atm, normalized lognormal H_sc,
-  generalized Rician H_p, and optional hard AoA B_AoA, with raw/physical
+- The active sampler now composes eta_atm, normalized lognormal H_sc, exact
+  PDF5 Rician-derived H_p, and optional hard AoA B_AoA, with raw/physical
   diagnostics and no clipping or floor.
 - The legacy constant-C_n^2 beam-wander equation is not used by the active
   sampler. sigma_z is excluded from pointing variance and yaw from AoA
   orientation variance.
-- Explicit profile Rytov support, v_sc overrides, AoA gating, and channel
-  provenance are implemented for resolved inputs. No production profile,
-  aperture-averaging, turbulence-AoA, or profile-to-effective-phase mapping
-  is frozen; unresolved choices fail closed.
+- Explicit PDF5 Hufnagel--Valley profile, finite-aperture mapping, exact
+  pointing, AoA gating, and channel provenance are implemented for the active
+  channel-only baseline. The profile-to-effective-phase mapping remains
+  unresolved and fails closed for phase/security entry points.
 - Full-Z resolution diagnostics now cover 17/33/65/129 candidate grids.
   They are numerical validation evidence only, not certification.
 
@@ -327,8 +345,8 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 | Class | Status | Scope |
 |---|---|---|
 | Regular 256-QAM, fixed PMFs, C4 orbit geometry | READY_NOW | Deterministic, data-free transmitter diagnostics |
-| Current composite-channel T diagnostics | ALIGNED_API_ONLY | Resolved inputs are supported; production profile/aperture/AoA choices remain blocked |
-| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Composite architecture exists, but profile/aperture/AoA/common-phase mappings remain unresolved |
+| Current composite-channel T diagnostics | CURRENTLY_VERIFIED_PASS | PDF5 Table-I channel-only diagnostic is hash-bound; no security/publication claim |
+| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Channel-only PDF5 mappings are resolved; common phase mapping remains unresolved |
 | Target epsilon_total and full-interval chi_BE/SKR | ALIGNED_API_ONLY | Epsilon chain and interval implementation exist; target C_n_phi2, channel paths, and numerical evidence rebinding remain unresolved |
 | Learned PS/GS/V_A outputs | BLOCKED | Training is closed and target security is not aligned |
 
@@ -341,12 +359,12 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 | Fourfold orbit visualization | READY NOW | Exact C4 index and expansion functions exist |
 | Phase-noise curve xi_phase(V_A) | BLOCKED | c_phi API exists, but no author-approved C_n_phi2 is configured |
 | epsilon_total(V_A) | ALIGNED_API_ONLY | Post-action chain is implemented; target plotting remains parameter-blocked |
-| H_sc Monte Carlo | ALIGNED_API_ONLY | Positive unit-mean lognormal sampler exists; production v_sc mapping is unresolved |
-| H_p Monte Carlo | SAFE AFTER SMALL FIX | Pointing sampler exists; a raw-data/plot wrapper is missing |
-| AoA outage Monte Carlo | ALIGNED_API_ONLY | Hard B_AoA gate exists; turbulence-AoA mapping/FOV remains unresolved |
-| T_raw histogram | ALIGNED_API_ONLY | Raw product/admission path exists; target parameters remain unresolved |
-| Physical T histogram | ALIGNED_API_ONLY | Composite physical sampler exists; target parameters remain unresolved |
-| p_gt_1 diagnostic | ALIGNED_API_ONLY | p_above_one is recorded by the sampler; target parameterization remains unresolved |
+| H_sc Monte Carlo | CURRENTLY_VERIFIED_PASS | Eq. (12) overlay and derived PDF5 v_sc in channel-only artifact |
+| H_p Monte Carlo | CURRENTLY_VERIFIED_PASS | Eq. (37) overlay and support check in channel-only artifact |
+| AoA outage Monte Carlo | CURRENTLY_VERIFIED_PASS | PDF5 total sigma_o/FOV gate checked separately; no turbulence-AoA mapping inferred |
+| T_raw histogram | CURRENTLY_VERIFIED_PASS | Eq. (1) raw product diagnostic; no clipping and no AoA in conditional X plot |
+| Physical T histogram | ALIGNED_API_ONLY | Physical admission is implemented; security/publication target remains closed |
+| p_gt_1 diagnostic | CURRENTLY_VERIFIED_PASS | Raw p_above_one is recorded in the PDF5 channel-only artifact |
 | chi_BE(Z) interval diagnostic | ALIGNED_API_ONLY | Full physical intersection and deterministic max diagnostics exist; target parameter and numerical gates remain blocked |
 | Baseline K versus T | BLOCKED | Full-interval security and numerical gate are unresolved |
 | Baseline K versus V_A | BLOCKED | Full-interval security and numerical gate are unresolved |

@@ -17,6 +17,7 @@ from src.validation.physical_domain import (
 
 REQUIRED = [
     "channel.cn_phi2_m_minus_two_thirds",
+    "channel.eta_atm", "channel.theta_div_rad", "channel.f0_m",
     "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
     "channel.turbulence_profile.model",
     "channel.turbulence_profile.wind_speed_m_per_s",
@@ -24,8 +25,10 @@ REQUIRED = [
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
+    "channel.pointing.theta_jt_rad", "channel.pointing.sigma_h_m",
     "channel.pointing.hap_angular_jitter_convention",
-    "channel.aoa.model", "channel.raw_transmittance.active_treatment",
+    "channel.aoa.model", "channel.aoa.sigma_o_rad", "channel.aoa.theta_fov_rad",
+    "channel.raw_transmittance.active_treatment",
     "cvqkd.v_min_snu", "cvqkd.v_max_snu", "cvqkd.v_a_budget_snu",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
     "baseline_search.va_grid_snu", "training.independent_training_initialization_seeds",

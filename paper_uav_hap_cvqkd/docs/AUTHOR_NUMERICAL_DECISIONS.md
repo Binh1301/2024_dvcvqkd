@@ -20,6 +20,19 @@ convergence tests. Diagnostic RNG settings are separately marked
 the value. `NO` means the rule is already fixed by the immutable model or by a
 reproducibility contract; it is still reported in every artifact.
 
+## 2026-09-18 channel addendum
+
+The attached PDF5 Table-I channel scenario supersedes the older generalized
+pointing parameter rows for channel-only diagnostics. Its active inputs are
+`eta_atm=0.9316271221`, `lambda=1.55e-6 m`, `H_HAP=20000 m`, `h_UAV=1000 m`,
+`theta_div=223e-6 rad`, `D_r=0.08 m`, `sigma_h=1 m`,
+`theta_jt=15.61e-6 rad`, `rho=0`, `sigma_o=1.5e-3 rad`, and
+`theta_FOV=6.25e-3 rad`; `v_sc`, `omega_L`, `G_d`, `A0`, and `omega_L_eq`
+are derived. This addendum is channel-only and does not authorize security,
+training, final-test, or publication-scale execution.
+The older channel rows below are retained as historical decisions and are not
+the active PDF5 baseline.
+
 Model-alignment note (2026-09-10): the epsilon endpoints below describe the
 pre-action base-noise operating domain. The target post-action epsilon_total and
 phase/scintillation/AoA parameters are not frozen by this historical ledger.

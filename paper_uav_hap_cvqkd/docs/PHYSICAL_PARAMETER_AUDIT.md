@@ -313,3 +313,26 @@ Hufnagel–Valley profile, finite-aperture scintillation mapping, HAP jitter,
 and explicit zero-turbulence AoA FOV. The implementation derives
 `v_sc=0.01434494998119213`; this is scenario evidence, not publication
 certification or a general phase-mapping approval.
+
+## 2026-09-18 PDF5 exact-channel update
+
+The attached PDF5 Table-I values are now the active channel-only baseline. The
+previous addendum's `v_sc=0.01434494998119213` used the former 0.15 m aperture
+diameter diagnostic and is historical/superseded for the current Table-I path.
+The current derived values are:
+
+```text
+sigma_R0^2   = 0.04145444025152738
+AA           = 0.6964115179570911
+v_sc         = 0.02886934966162772
+sigma_Htheta = 0.29659 m
+sigma_jt     = 1.0430559084248552 m
+G_d          = 0.00024089665983497693
+A0           = 0.0007127365410377602
+omega_L_eq   = 2.1191553233134117 m
+```
+
+`pointing_parameters` and `pointing_power_transmittance` implement the PDF
+Gaussian-beam Eqs. (27)--(36), and `pointing_pdf` implements Eq. (37). The
+former generalized-Gamma representation remains only as compatibility fields
+(`gamma=2`, `R=omega_L_eq/sqrt(2)`), not as a separate physical component.

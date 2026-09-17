@@ -34,7 +34,7 @@ class FrozenChannelDiagnosticsTests(unittest.TestCase):
         self.assertAlmostEqual(derived["atmospheric_power_transmittance"], 0.9316271221108952)
         self.assertAlmostEqual(derived["beam_radius_receiver_m"], 0.5972908436983067)
         self.assertAlmostEqual(
-            derived["centered_aperture_power_coupling_t0_squared"], 0.031042111435033548
+            derived["centered_aperture_power_coupling_t0_squared"], 0.031019422929938534
         )
         self.assertAlmostEqual(derived["sigma_turbulence_m"], 0.0)
         self.assertAlmostEqual(

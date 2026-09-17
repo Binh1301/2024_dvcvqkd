@@ -118,6 +118,10 @@ def sample_channel_state_distribution(
     turbulence_profile_model: str | None = None,
     wind_speed_m_per_s: float | None = None,
     ground_cn2_m_minus_two_thirds: float | None = None,
+    eta_atm: float | None = None,
+    theta_div_rad: float | None = None,
+    f0_m: float = float("inf"),
+    sigma_h_m: float | None = None,
     boresight_x_m: float = 0.0,
     boresight_y_m: float = 0.0,
     sigma_hap_ang_rad: float = 0.0,
@@ -125,6 +129,7 @@ def sample_channel_state_distribution(
     aoa_model: str = "disabled",
     sigma_turb_AoA2: float | None = None,
     turbulence_aoa_provenance: str | None = None,
+    sigma_o_rad: float | None = None,
     theta_fov_rad: float | None = None,
 ) -> ChannelStateSamples:
     """Draw iid states from ``p_composite(T) p_epsilon_base(epsilon_base)``.
@@ -164,6 +169,10 @@ def sample_channel_state_distribution(
         turbulence_profile_model=turbulence_profile_model,
         wind_speed_m_per_s=wind_speed_m_per_s,
         ground_cn2_m_minus_two_thirds=ground_cn2_m_minus_two_thirds,
+        eta_atm=eta_atm,
+        theta_div_rad=theta_div_rad,
+        f0_m=f0_m,
+        sigma_h_m=sigma_h_m,
         boresight_x_m=boresight_x_m,
         boresight_y_m=boresight_y_m,
         sigma_hap_ang_rad=sigma_hap_ang_rad,
@@ -171,6 +180,7 @@ def sample_channel_state_distribution(
         aoa_model=aoa_model,
         sigma_turb_AoA2=sigma_turb_AoA2,
         turbulence_aoa_provenance=turbulence_aoa_provenance,
+        sigma_o_rad=sigma_o_rad,
         theta_fov_rad=theta_fov_rad,
     )
     epsilon_base = np.random.default_rng(excess_noise_seed).uniform(
