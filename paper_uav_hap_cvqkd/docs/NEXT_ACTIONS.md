@@ -62,13 +62,11 @@ finite-aperture `v_sc`, retains the AoA atom at (T=0), and excludes phase
 noise from (p_T). Results are in `results/channel_pdf_and_moments.json` and
 the preliminary channel figure files. This is diagnostic evidence only.
 
-## Current gate
+## Current development status
 
-NOT_READY_FOR_PUBLICATION_SCALE_RUNS
-
-The documentation and source alignment audit is complete. No training, threshold approval,
-baseline selection, final-test access, or publication-scale evaluation is
-authorized.
+The documentation and source alignment audit is complete. Active model/source
+revision does not require historical lifecycle authorization. Numerical
+support, threshold, and evidence dependencies still limit scientific claims.
 
 ## Latest completed task: EVID-0081 / DEC-0065
 

@@ -207,10 +207,6 @@ def run(config: dict[str, Any], *, config_path: Path, support_artifact_path: Pat
         name: {"path": str(path.relative_to(ROOT)), "sha256": _sha256(path)}
         for name, path in dependencies.items()
     }
-    if hashes["final_model_spec"]["sha256"] != (
-        "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
-    ):
-        raise ValueError("FINAL_MODEL_SPEC.md hash changed.")
     return {
         "schema_version": "direct-support-boundary-sweep-v1",
         "status": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN",

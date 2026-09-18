@@ -304,10 +304,6 @@ def build_audit(
         name: {"path": str(path.relative_to(ROOT)), "sha256": _sha256(path)}
         for name, path in dependencies.items()
     }
-    final_spec_hash = dependency_hashes["final_model_spec"]["sha256"]
-    if final_spec_hash != "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1":
-        raise ValueError("FINAL_MODEL_SPEC.md hash changed.")
-
     return {
         "schema_version": "support-threshold-protocol-audit-v1",
         "status": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN",

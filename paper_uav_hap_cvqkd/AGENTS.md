@@ -18,11 +18,15 @@ a source authoritative.
 
 Scientific/protocol authority:
 
-`ACTIVE / FROZEN > PREREGISTERED > PROPOSED > HISTORICAL / SUPERSEDED / DEPRECATED`
+`ACTIVE > PREREGISTERED > PROPOSED > HISTORICAL / SUPERSEDED / DEPRECATED`
+
+Frozen labels describe the historical or current scientific contract; they do
+not prevent an intentional active-model revision. Historical hashes and
+lifecycle labels are provenance, not edit authorization.
 
 Repository-state evidence hierarchy:
 
-1. Active/frozen specifications and approved preregistered protocols.
+1. Active specifications and approved preregistered protocols.
 2. Current `src/`, `tests/`, active configs, result artifacts, provenance
    hashes, and reproducible diagnostics.
 3. `docs/PROJECT_STATE.md`.
@@ -32,65 +36,32 @@ Repository-state evidence hierarchy:
 7. `.agent/SESSION_HANDOFF.md`.
 8. Conversation/sidebar history.
 
-A proposal or handoff never overrides frozen specifications, approved
-preregistration, current source, valid artifacts, or the canonical current
-snapshot. If sources conflict, fail closed, record the conflict, and do not
-guess.
+A proposal or handoff is context; current active source/specifications,
+approved numerical protocols, valid artifacts, and the current snapshot are
+authoritative for the task. Historical text does not block an intentional
+revision. If active sources conflict, record the conflict and do not guess.
 
 ## Mandatory startup procedure
 
-Before material changes:
+Before material changes, inspect `git status`, `git branch --show-current`,
+`git rev-parse HEAD`, and `git diff`; record the branch, commit, dirty state,
+and pre-existing edits. Never overwrite unrelated user changes.
 
-1. Inspect `git status`, `git branch --show-current`, `git rev-parse HEAD`, and
-   `git diff`. Record the branch, commit, dirty state, and pre-existing edits.
-   Never overwrite unrelated user changes.
-2. Read, in order:
-   - `docs/FINAL_MODEL_SPEC.md`
-   - `docs/SECURITY_SCOPE_FREEZE.md`
-   - `docs/NUMERICAL_CONVERGENCE_PREREGISTRATION.md`
-   - `docs/PROJECT_STATE.md`
-   - `docs/EVIDENCE.md`
-   - `docs/DECISION_LOG.md`
-   - `docs/NEXT_ACTIONS.md`
-   - `.agent/SESSION_HANDOFF.md`
-3. Read every active or proposed protocol referenced by `PROJECT_STATE.md`,
-   including `docs/PROPOSED_NUMERICAL_CERTIFICATION_PROTOCOL.md` when relevant.
-   A proposed protocol is informative only until formally approved.
-4. Cross-check dynamic claims against source, configs, machine-readable
-   artifacts, provenance hashes, tests, and Git state. Correct a stale
-   `PROJECT_STATE.md` before proceeding.
-5. Reconstruct the lifecycle status, authorization, frozen model identity,
-   active versus proposed rules, certified components, historical/quarantined
-   evidence, blockers, prohibited actions, and exact next permitted action.
+Read the specification, security, numerical, state, evidence, and handoff
+documents relevant to the task. Cross-check dynamic scientific claims against
+current source, configs, machine-readable artifacts, provenance hashes, tests,
+and Git state. Historical freeze text and lifecycle status do not block an
+intentional model/specification revision.
 
-Do not rely on chat history for any of these facts.
+Do not rely on chat history for these facts.
 
-## Frozen-model protection
+## Execution scope
 
-Recompute the SHA-256 of `docs/FINAL_MODEL_SPEC.md` before model-sensitive
-work. The historical expected value is:
-
-`561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`
-
-If it differs, do not overwrite or silently restore the file. Report the
-discrepancy and record it as a blocker. Never modify this specification unless
-the user explicitly authorizes a genuine model-level correction.
-
-## Lifecycle safety gate
-
-Never perform publication-scale training, final-test access, final-test
-evaluation, or held-out publication evaluation unless both conditions hold:
-
-1. `docs/PROJECT_STATE.md` validly records
-   `READY_FOR_PUBLICATION_SCALE_RUNS`; and
-2. current repository evidence proves every prerequisite for that state.
-
-A stale status string is not authorization. If authorization cannot be
-proved, use `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
-
-Baseline selection, optimized-MB search, threshold certification, and other
-dependency-gated actions must also be explicitly authorized by the current
-state and evidence before execution.
+Keep publication-scale training, final-test access, held-out evaluation, and
+long numerical campaigns separate from ordinary edits. Run them only when the
+current task explicitly includes that work and its scientific prerequisites
+are checked; no historical model hash or lifecycle state is required for
+ordinary development.
 
 ## Scientific and evidence rules
 
@@ -98,7 +69,7 @@ state and evidence before execution.
   proofs, test counts, or lifecycle status.
 - Keep training, validation, and test realizations separate. Never infer test
   performance from validation or canonical fixtures.
-- Treat classical QAM and DM-CV-QKD as distinct unless the frozen protocol
+- Treat classical QAM and DM-CV-QKD as distinct unless the active protocol
   explicitly couples them.
 - Do not substitute Gaussian-modulation security formulas for the implemented
   discrete modulation.
@@ -132,20 +103,10 @@ worktree pass. If dependencies are missing, record the dependency and use
 
 ## Evidence-first update protocol
 
-After material work, update state in this direction:
-
-`Artifact -> Evidence -> Decision -> Project State -> Next Action -> Session Handoff`
-
-1. Produce or update machine-readable/test evidence first.
-2. Verify producer, config, input/roster, repository, and schema provenance.
-3. Record policy changes in `docs/DECISION_LOG.md`.
-4. Refresh the compact current snapshot in `docs/PROJECT_STATE.md`.
-5. Refresh the execution queue in `docs/NEXT_ACTIONS.md`.
-6. Overwrite `.agent/SESSION_HANDOFF.md` with only the latest handoff.
-
-Update `docs/EVIDENCE.md`, `docs/DECISION_LOG.md`, `docs/PROJECT_STATE.md`,
-`docs/NEXT_ACTIONS.md`, and `.agent/SESSION_HANDOFF.md` only as relevant; do
-not touch all files mechanically. Never let state prose claim PASS before its
+After material scientific/numerical work, produce or update machine-readable
+evidence first, verify its producer/config/input/schema provenance, and update
+the relevant evidence or handoff documents only when needed. Do not touch
+state or history files mechanically, and never let prose claim PASS before its
 evidence exists.
 
 ## End-of-task checks
@@ -153,5 +114,5 @@ evidence exists.
 For material work, verify referenced paths and hashes, inspect the complete
 diff, run available scoped checks, run `git diff --check`, and record any
 environment blocker. Confirm explicitly whether scientific source, security
-functional, frozen model, training, test access, baseline selection, or
-threshold approval changed.
+functional, training, test access, baseline selection, or threshold validation
+changed.

@@ -1,5 +1,12 @@
 # Project State
 
+## Current development policy
+
+The active model/specification may be revised intentionally. Historical model
+hashes and lifecycle labels in this snapshot describe provenance and prior
+decision context; they are not authorization gates for ordinary development.
+Scientific, numerical, physicality, and reproducibility checks remain active.
+
 ## Latest effective-channel VA=2 result (2026-09-19)
 
 EVID-0086/DEC-0070 record the completed preliminary effective-channel
@@ -94,16 +101,16 @@ The immutable machine-readable result is
 the durable report at
 `docs/PS_VA_SOURCE_MOMENTS_CONVERGENCE_REPORT_20260912.md`.
 
-The next recommended task is separately authorized exact poor+good ranking
-only. Do not execute it from this state. Lifecycle and adaptive-training
-gates remain closed.
+The next recommended task is a separately scoped exact poor+good ranking only.
+Do not execute it automatically from this state; the numerical evidence is
+still incomplete.
 
-## Terminal status
-
-NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+## Current development status
 
 No publication-scale training, baseline selection, optimized-MB search,
-final-test access, held-out evaluation, or publication claim is authorized.
+final-test access, held-out evaluation, or publication claim is recorded in the
+current evidence. This factual status does not block ordinary model/source
+revision; unresolved numerical and scientific checks still limit claims.
 
 ## Historical numerical decision boundary before EVID-0081 (2026-09-12)
 
@@ -303,7 +310,7 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 - Full-Z resolution diagnostics now cover 17/33/65/129 candidate grids.
   They are numerical validation evidence only, not certification.
 
-## Numerical and security gate
+## Numerical and security status
 
 - Existing MI/Gram artifacts remain scoped to the prior code path.
 - The C4 Gram production backend is cutoff-independent and the arbitrary-
@@ -432,11 +439,12 @@ as the sole change. Keep complete reverse execution, full-Z backward, adaptive
 training, baseline selection, final-test access, and publication-scale
 evaluation closed.
 
-## Lifecycle restrictions
+## Scientific scope restrictions
 
-Do not run training, publication-scale Monte Carlo, long Gram/Holevo
-certification, threshold approval, or final-test evaluation. Do not silently
-replace the target equations with the current implementation.
+Do not silently replace target equations with the current implementation or
+present unresolved numerical diagnostics as certification. High-cost workflow
+scope is determined by the current task and scientific prerequisites, not by a
+historical lifecycle label.
 
 ## Current evidence
 

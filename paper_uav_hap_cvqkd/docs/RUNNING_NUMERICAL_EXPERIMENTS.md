@@ -38,8 +38,8 @@ point currently exists.
 
 ## Certification
 
-Potentially expensive and lifecycle-gated. Do not run while preparing Friday
-figures:
+Potentially expensive. Do not run while preparing Friday figures; inspect the
+current numerical inputs and provenance before starting:
 
 - run_full_support_c4_gram_evaluation_validation.py
 - validate_mi_convergence.py
@@ -55,7 +55,8 @@ numerical rebinding required for the full-interval security solver.
 
 ## Publication-scale
 
-Do not run without explicit lifecycle approval:
+These entry points are separate, high-cost workflows. Run them only when the
+current task explicitly includes them and the scientific inputs are ready:
 
 - train_ps.py
 - train_gs.py

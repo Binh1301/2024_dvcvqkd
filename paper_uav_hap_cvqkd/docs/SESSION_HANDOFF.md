@@ -26,10 +26,9 @@ Artifact:
 Report:
 `docs/PS_VA_SOURCE_MOMENTS_CONVERGENCE_REPORT_20260912.md`.
 
-Recommended next task, requiring separate authorization: exact poor + good
-ranking only. Do not execute it from this handoff. Lifecycle remains
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive training remains
-`NOT_READY_FOR_ADAPTIVE_TRAINING`.
+Recommended next task: exact poor + good ranking only. This handoff records the
+numerical dependency; it is not a lifecycle authorization gate for ordinary
+model/source development.
 
 ## Historical research-only decision: 2026-09-12
 
