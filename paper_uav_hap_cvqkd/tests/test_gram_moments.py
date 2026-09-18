@@ -24,6 +24,7 @@ class GramMomentTests(unittest.TestCase):
                 ensemble, t, epsilon, backend="fock_diagnostic", fock_cutoff=72,
                 density_trace_tolerance=1e-10,
                 density_eigenvalue_tolerance=1e-12,
+                maximize_full_interval=False,
             )
             torch.testing.assert_close(
                 gram.coherent_correlation, dense.coherent_correlation,

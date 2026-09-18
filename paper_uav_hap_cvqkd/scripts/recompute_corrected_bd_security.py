@@ -255,6 +255,7 @@ def _evaluate_case(
         },
         z_grid_size=DEFAULT_Z_GRID_SIZE,
         z_refinement_steps=DEFAULT_Z_REFINEMENT_STEPS,
+        maximize_full_interval=True,
     )
     rate = fading_secret_key_rate(mi, holevo.chi_be, BETA)
     lambdas = torch.stack(

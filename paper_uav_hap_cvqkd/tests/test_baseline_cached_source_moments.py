@@ -131,6 +131,7 @@ class CachedBaselineSourceMomentTests(unittest.TestCase):
             epsilon,
             backend="c4_gram",
             density_eigenvalue_tolerance=1e-13,
+            maximize_full_interval=False,
         )
         torch.testing.assert_close(
             cached["chi_be"],

@@ -126,6 +126,7 @@ def evaluate_fixed_ensemble(
         require_supported_symmetry=True,
         symmetry_tolerance=symmetry_tolerance,
         physicality_tolerance=physicality_tolerance,
+        maximize_full_interval=False,
         diagnostics={
             "backend": "c4_gram_full_support_cached_source",
             "density_trace_tolerance": density_trace_tolerance,

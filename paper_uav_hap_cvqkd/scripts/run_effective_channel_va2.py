@@ -230,6 +230,7 @@ def _evaluate_scheme(
         require_supported_symmetry=True,
         symmetry_tolerance=numerical["symmetry_tolerance"],
         physicality_tolerance=numerical["physicality_tolerance"],
+        maximize_full_interval=False,
         diagnostics={
             "backend": "effective_channel_va2",
             "source_moment_route": source["route"],
@@ -254,21 +255,16 @@ def _evaluate_scheme(
         "I_AB": mi_mean,
         "I_AB_stderr": mi_stderr,
         "I_AB_replications": mi_values,
-        "chi_BE_ub": chi,
-        "raw_K": raw_k,
-        "Z_L": float(holevo.diagnostics["Z_L"][0]),
-        "Z_U": float(holevo.diagnostics["Z_U"][0]),
+        "chi_BE_bound": chi,
+        "K_raw": raw_k,
         "Z_star": float(holevo.z[0]),
-        "maximizing_location": holevo.diagnostics["maximizing_location"][0],
         "source_moment_route": source["route"],
     }
 
 
 def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     fields = [
-        "scheme", "VA", "T_eff", "epsilon_eff", "beta_rec",
-        "I_AB", "I_AB_stderr", "chi_BE_ub", "raw_K",
-        "Z_L", "Z_U", "Z_star", "maximizing_location",
+        "scheme", "C", "w", "I_AB", "Z_star", "chi_BE_bound", "K_raw",
     ]
     with path.open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=fields)
@@ -280,7 +276,7 @@ def _plot(path: Path, rows: list[dict[str, Any]]) -> None:
     import matplotlib.pyplot as plt
 
     labels = ["Uniform", "Binomial", "Fixed MB"]
-    values = [next(row["raw_K"] for row in rows if row["scheme"] == key)
+    values = [next(row["K_raw"] for row in rows if row["scheme"] == key)
               for key in SCHEMES]
     fig, ax = plt.subplots(figsize=(7, 4.5))
     ax.bar(labels, values, color=("#4C78A8", "#F58518", "#54A24B"))
@@ -449,12 +445,12 @@ def main() -> int:
     _write_csv(output_dir / "effective_channel_skr_va2.csv", rows)
     _plot(output_dir / "effective_channel_skr_va2.png", rows)
 
-    print("Scheme       VA    T_eff        eps_eff       I_AB       chi_BE_ub   K_raw")
+    print("Scheme      C          w          I_AB       Z_star     chi_BE_bound K_raw")
     for row in rows:
         print(
-            f"{row['scheme']:<11} {row['VA']:.1f} "
-            f"{row['T_eff']:.9e} {row['epsilon_eff']:.9f} "
-            f"{row['I_AB']:.9e} {row['chi_BE_ub']:.9e} {row['raw_K']:.9e}"
+            f"{row['scheme']:<10} {row['C']:.9e} {row['w']:.9e} "
+            f"{row['I_AB']:.9e} {row['Z_star']:.9e} "
+            f"{row['chi_BE_bound']:.9e} {row['K_raw']:.9e}"
         )
     return 0
 

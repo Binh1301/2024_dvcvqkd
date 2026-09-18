@@ -70,6 +70,7 @@ class FullZResolutionTests(unittest.TestCase):
                 symmetry_tolerance=1e-8,
                 physicality_tolerance=1e-10,
                 diagnostics={},
+                maximize_full_interval=True,
                 z_grid_size=grid_size,
                 z_refinement_steps=16,
             )

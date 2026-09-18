@@ -29,7 +29,7 @@ def main() -> int:
     for hp in oracle["oracle_fixture_rows"]:
         name=hp["fixture"]; ensemble=ensembles[name]
         if ensemble_sha256(ensemble)!=config["fixture_roster"][name]: raise ValueError(f"fixture hash mismatch: {name}")
-        result=holevo_information(ensemble,t,e,backend="c4_gram",fock_cutoff=None,require_supported_symmetry=True,symmetry_tolerance=1e-8,density_trace_tolerance=1e-10,physicality_tolerance=1e-10,density_eigenvalue_tolerance=float.fromhex(config["candidate_threshold_float64_hex"]))
+        result=holevo_information(ensemble,t,e,backend="c4_gram",fock_cutoff=None,require_supported_symmetry=True,symmetry_tolerance=1e-8,density_trace_tolerance=1e-10,physicality_tolerance=1e-10,density_eigenvalue_tolerance=float.fromhex(config["candidate_threshold_float64_hex"]),maximize_full_interval=True)
         final=hp["precision_rows"][-1]; mi=torch.tensor(hp["mi_bits"],dtype=torch.float64); beta=float(default["cvqkd"]["beta_reconciliation"])
         reference={"C":torch.full((3,),float(final["C"])),"w":torch.full((3,),float(final["w"]))}
         reference.update({k:torch.tensor([float(s[k]) for s in final["states"]]) for k in ("Z","lambda1","lambda2","lambda3","chi_BE","raw_K")})

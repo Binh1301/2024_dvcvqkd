@@ -138,7 +138,7 @@ def run() -> dict[str, Any]:
     def downstream_raw_key(variable):
         downstream_c = source("C", variable)
         downstream_w = source("w", variable)
-        downstream = _holevo_from_source_moments(ensemble, torch.tensor([0.02]), torch.tensor([0.01]), coherent_correlation=downstream_c.reshape(1), w_raw=downstream_w.reshape(1), tau=None, tau_trace=torch.ones(1), require_supported_symmetry=True, symmetry_tolerance=1e-8, physicality_tolerance=1e-10, diagnostics={})
+        downstream = _holevo_from_source_moments(ensemble, torch.tensor([0.02]), torch.tensor([0.01]), coherent_correlation=downstream_c.reshape(1), w_raw=downstream_w.reshape(1), tau=None, tau_trace=torch.ones(1), require_supported_symmetry=True, symmetry_tolerance=1e-8, physicality_tolerance=1e-10, diagnostics={}, maximize_full_interval=True)
         return 0.95 * torch.tensor(0.03, dtype=torch.float64) - downstream.chi_be.mean()
     rows.append(_row("downstream_raw_K", _scalar_directional(downstream_raw_key, matrix, direction, step), config))
     return {"schema_version": "synthetic-fast-route-vjp-validation-v2", "status": _status(rows), "fixture": {"identity": fixture["identity"], "dimension": 64, "sector_count": 4}, "gate": gate, "rows": rows, "runtime": {"validation_execution_attempted": True}, "lifecycle_guards": config["lifecycle_guards"], "provenance": {"execution_manifest_sha256": _sha256(MANIFEST), "amendment_sha256": _sha256(ROOT / "configs/fast_route_gradient_vjp_feasibility_amendment_v1.yaml"), "frozen_model_sha256": _sha256(ROOT / "docs/FINAL_MODEL_SPEC.md")}}

@@ -67,6 +67,7 @@ def main() -> int:
     started = time.perf_counter()
     shared_fixed_ensemble_holevo_chi(
         ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
+        maximize_full_interval=False,
         **holevo_numerical_kwargs(config)
     )
     holevo_seconds = time.perf_counter() - started

@@ -166,10 +166,12 @@ class NumericalConvergenceTests(unittest.TestCase):
             holevo_information(
                 vmax, t, epsilon, backend="fock_diagnostic", fock_cutoff=64,
                 density_trace_tolerance=1e-10, density_eigenvalue_tolerance=1e-12,
+                maximize_full_interval=True,
             )
         passed = holevo_information(
             vmax, t, epsilon, backend="fock_diagnostic", fock_cutoff=72,
             density_trace_tolerance=1e-10, density_eigenvalue_tolerance=1e-12,
+            maximize_full_interval=True,
         )
         self.assertLess(float((passed.tau_trace - 1.0).abs().max()), 1e-10)
         for name in (

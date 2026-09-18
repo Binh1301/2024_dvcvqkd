@@ -221,6 +221,7 @@ def _holevo_from_moments(
         z_refinement_steps=(
             ANALYSIS_Z_REFINEMENT_STEPS if analysis_grid else SECURITY_Z_REFINEMENT_STEPS
         ),
+        maximize_full_interval=True,
     )
 
 
@@ -510,6 +511,7 @@ def _nearby_calibration() -> dict[str, Any]:
                 diagnostics={"artifact_class": "EXACT_AP_SECURITY_ANCHOR"},
                 z_grid_size=SECURITY_Z_GRID_SIZE,
                 z_refinement_steps=SECURITY_Z_REFINEMENT_STEPS,
+                maximize_full_interval=True,
             )
         except Exception as error:  # local gate is deliberately fail-closed
             local_domain = f"FAIL:{type(error).__name__}"

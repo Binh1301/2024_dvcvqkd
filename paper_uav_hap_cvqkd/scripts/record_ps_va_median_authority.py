@@ -127,6 +127,7 @@ def _security_row(
             },
             z_grid_size=runner.SECURITY_Z_GRID_SIZE,
             z_refinement_steps=runner.SECURITY_Z_REFINEMENT_STEPS,
+            maximize_full_interval=True,
         )
         raw_key = runner.BETA * mutual_information - holevo.chi_be
 

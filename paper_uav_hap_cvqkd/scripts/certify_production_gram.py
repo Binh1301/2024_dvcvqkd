@@ -140,6 +140,7 @@ def _forward_replay(
         "symmetry_tolerance": float(config["cvqkd"]["holevo_numerics"]["symmetry_tolerance"]),
         "density_trace_tolerance": float(config["cvqkd"]["holevo_numerics"]["density_trace_tolerance"]),
         "physicality_tolerance": float(config["cvqkd"]["holevo_numerics"]["physicality_tolerance"]),
+        "maximize_full_interval": True,
     }
     rows = []
     all_observable = True
@@ -286,6 +287,7 @@ def _gradient_components(
         density_trace_tolerance=1e-10,
         density_eigenvalue_tolerance=threshold,
         physicality_tolerance=1e-10,
+        maximize_full_interval=True,
     )
     return {
         "MI": mi.mean(),

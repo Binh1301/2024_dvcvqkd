@@ -273,6 +273,7 @@ def fock_convergence_trace(
                 symmetry_tolerance=symmetry_tolerance,
                 density_eigenvalue_tolerance=density_eigenvalue_tolerance,
                 physicality_tolerance=physicality_tolerance,
+                maximize_full_interval=True,
             )
         except (ValueError, RuntimeError) as error:
             failures.append({"fock_cutoff": cutoff, "error": str(error)})
@@ -405,6 +406,7 @@ def holevo_threshold_sensitivity_trace(
             density_trace_tolerance=density_trace_tolerance,
             density_eigenvalue_tolerance=value,
             physicality_tolerance=physicality_tolerance,
+            maximize_full_interval=True,
         )
         results.append(result)
     reference = results[0]
