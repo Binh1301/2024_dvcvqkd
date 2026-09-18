@@ -61,7 +61,7 @@ def _sectors(p, z):
     return answer
 
 
-def _row(p, z, digits):
+def _row(p, z, digits, diagnostic_thresholds):
     with mp.workdps(digits):
         values = []
         vectors = []
@@ -87,6 +87,13 @@ def _row(p, z, digits):
         )
 
         minimum_eigenvalue = min(all_eigenvalues)
+        diagnostic_counts = {
+            threshold_label: sum(
+                eigenvalue <= threshold
+                for eigenvalue in all_eigenvalues
+            )
+            for threshold_label, threshold in diagnostic_thresholds
+        }
 
         # IMPORTANT:
         # Even unresolved rows must provide minimum_eigenvalue because
@@ -100,6 +107,7 @@ def _row(p, z, digits):
                     minimum_eigenvalue,
                     50,
                 ),
+                "eigenvalues_at_or_below_diagnostic_threshold": diagnostic_counts,
             }
 
         a = []
@@ -200,6 +208,7 @@ def _row(p, z, digits):
                 minimum_eigenvalue,
                 50,
             ),
+            "eigenvalues_at_or_below_diagnostic_threshold": diagnostic_counts,
             "C": mp.nstr(c, 50),
             "w": mp.nstr(w, 50),
         }
@@ -221,8 +230,13 @@ def main():
         for x, y in request["prototypes_float64_hex"]
     ]
 
+    diagnostic_thresholds = [
+        (value, mp.mpf(float.fromhex(value)))
+        for value in request.get("diagnostic_eigenvalue_thresholds", [])
+    ]
+
     rows = [
-        _row(p, z, int(digits))
+        _row(p, z, int(digits), diagnostic_thresholds)
         for digits in request[
             "precision_ladder_decimal_digits"
         ]

@@ -47,8 +47,7 @@ class FullSupportC4GramTests(unittest.TestCase):
             return [identity + delta * direction for _ in range(4)]
 
         with patch.object(gm, "_sectors", side_effect=repeated_sectors):
-
-            
+            result, _ = gm._fast(p, z)
             self.assertIsNotNone(result)
             gradient, = torch.autograd.grad(result["C"] + result["w"], z)
         self.assertTrue(torch.isfinite(gradient).all())
@@ -64,8 +63,21 @@ class FullSupportC4GramTests(unittest.TestCase):
             result, gate = gm._fast(p, z)
         self.assertIsNotNone(result)
         self.assertTrue(gate["all_sectors_positive"])
+        self.assertEqual(gate["numerical_positive_eigenvalues"], 256)
+        self.assertEqual(
+            gate["eigenvalues_at_or_below_diagnostic_threshold"],
+            {"1e-10": 0, "1e-12": 0, "1e-14": 0, "1e-16": 0},
+        )
         self.assertEqual(result["C"].item(), 0.0)
         self.assertEqual(result["w"].item(), 0.0)
+
+    def test_fast_preflight_never_calls_arbitrary_precision(self):
+        ensemble = reference_ensemble("uniform", batch_size=1, modulation_variance=0.1)
+        with patch.object(gm, "_fallback") as fallback:
+            diagnostics = gm.c4_gram_fast_preflight(ensemble)
+        fallback.assert_not_called()
+        self.assertEqual(len(diagnostics), 1)
+        self.assertIn("fast_path_passed", diagnostics[0])
 
     def test_fallback_is_deterministic_and_threshold_is_diagnostic_only(self):
         ensemble = reference_ensemble("uniform", batch_size=1, modulation_variance=0.1)

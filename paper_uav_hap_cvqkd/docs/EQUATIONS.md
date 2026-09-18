@@ -91,22 +91,23 @@ propagation formula may use an ambiguous wavelength unit.
 ## Phase distortion
 
 \[
+C_{n,\mathrm{eff}}^2=\frac{2.25}{1.23}
+\frac{\int C_n^2(h)(h-h_{\mathrm{UAV}})^{5/6}\,dh}{L^{11/6}},
+\qquad
 \tau_{\phi2}
-=2.46\,C_{n,\phi}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6},
+=2.46\,C_{n,\mathrm{eff}}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6},
 \qquad
 c_\phi=\tau_{\phi2}+\frac14\tau_{\phi2}^{\,2}.
 \]
 
-Here \(\kappa=2\pi/\lambda_m\).  With \(C_{n,\phi}^2\) in
+Here \(\kappa=2\pi/\lambda_m\).  With \(C_{n,\mathrm{eff}}^2\) in
 \(\mathrm{m}^{-2/3}\), \(\kappa\) in \(\mathrm{m}^{-1}\), and
 \(L_{\mathrm{link}}\) in \(\mathrm{m}\), the dimensional product is
 \(\mathrm{m}^{-2/3}\mathrm{m}^{-7/6}\mathrm{m}^{11/6}=\mathrm{m}^0\).
 Thus \(\tau_{\phi2}\) and \(c_\phi\) are dimensionless.  The active
-`phase_parameter_provenance` record stores the SI inputs, resolved link length,
-both derived values, their units, the scenario-level scope, and the explicit
-common-turbulence semantics rather than independence from an altitude-dependent
-\(C_n^2(h)\) profile. The validated profile-to-effective-scalar mapping remains
-unresolved.
+`rytov_equivalent_phase_provenance` record stores the common HV integral,
+resolved link length, both derived values, units, and the consistency identity
+\(\tau_{\phi2}=2\sigma_{R,0}^2\).
 
 \[
 \xi_{\mathrm{phase}}=c_\phi V_A,\qquad
@@ -114,13 +115,12 @@ unresolved.
 =\epsilon_{\mathrm{base}}+c_\phi V_A.
 \]
 
-Units: \(C_{n,\phi}^2\) is \(\mathrm{m}^{-2/3}\); tau_phi2 means
+Units: \(C_{n,\mathrm{eff}}^2\) is \(\mathrm{m}^{-2/3}\); tau_phi2 means
 \(\tau_\phi^2\); \(c_\phi,\xi_{\mathrm{phase}}\), and epsilon are dimensionless
 under the SNU convention. Scope: scenario-level phase coefficient followed by
 state/action-dependent post-action noise. Code status: implemented in
-src/channel/phase_noise.py and wired through the trainer; `c_phi` is derived,
-not independently configured, and the author-approved scenario value remains
-unresolved in config.
+src/channel/phase_noise.py and wired through the trainer; `c_phi` and
+`C_n,eff^2` are derived and neither has a free production override.
 
 ## C4 transmitter
 

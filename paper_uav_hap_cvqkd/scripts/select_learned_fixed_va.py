@@ -16,9 +16,8 @@ from src.validation.physical_domain import (
 
 
 REQUIRED = [
-    "channel.cn_phi2_m_minus_two_thirds",
+    "channel.phase_model",
     "channel.eta_atm", "channel.theta_div_rad", "channel.f0_m",
-    "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
     "channel.turbulence_profile.model",
     "channel.turbulence_profile.wind_speed_m_per_s",
     "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",

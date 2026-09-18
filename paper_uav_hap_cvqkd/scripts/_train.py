@@ -15,7 +15,8 @@ from _common import (
     require_holevo_pseudoinverse_approval,
 )
 from src.channel.geometry import LinkGeometry
-from src.channel.phase_noise import phase_parameter_provenance
+from src.channel.phase_noise import rytov_equivalent_phase_provenance
+from src.channel.scintillation import hufnagel_valley_scintillation
 from src.channel.state_distribution import (
     IndependentUniformExcessNoise,
     assert_disjoint_state_realizations,
@@ -41,8 +42,7 @@ TRAIN_REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m", "channel.visibility_km",
     "channel.eta_atm", "channel.beam_waist_m", "channel.theta_div_rad", "channel.f0_m",
     "channel.aperture_radius_m", "channel.cn2_m_minus_two_thirds",
-    "channel.cn_phi2_m_minus_two_thirds",
-    "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
+    "channel.phase_model",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
     "channel.uav_motion.sigma_z_m", "channel.uav_motion.sigma_theta_rad",
     "channel.uav_motion.sigma_phi_rad", "channel.uav_motion.sigma_psi_rad",
@@ -217,30 +217,32 @@ def _channel(config: dict[str, Any], count: int, seed: int):
 
 def _phase_provenance(config: dict[str, Any]) -> dict[str, Any]:
     values = config["channel"]
-    cn_phi2 = values.get("cn_phi2_m_minus_two_thirds")
-    if cn_phi2 is None:
+    if values.get("phase_model") != "rytov_equivalent_hufnagel_valley":
         raise ValueError(
-            "channel.cn_phi2_m_minus_two_thirds must be an explicit author-approved "
-            "effective same-turbulence value; no production default is assumed."
+            "channel.phase_model must be rytov_equivalent_hufnagel_valley."
         )
-    if values.get("cn_phi2_mapping_status") != "validated" or values.get(
-        "cn_phi2_author_approved"
-    ) is not True:
-        raise ValueError(
-            "Production phase requires a validated, author-approved mapping from "
-            "the common C_n^2(h) turbulence scenario to C_n,phi^2."
-        )
+    profile = values.get("turbulence_profile", {})
+    if profile.get("model") not in {"hufnagel_valley", "Hufnagel-Valley"}:
+        raise ValueError("Rytov-equivalent phase requires the Hufnagel-Valley profile.")
     geometry = LinkGeometry(
         values["h_hap_m"],
         values["h_uav_m"],
         values.get("zenith_angle_rad", 0.0),
     )
-    return phase_parameter_provenance(
-        cn_phi2,
+    scintillation = hufnagel_valley_scintillation(
+        values["h_uav_m"],
+        values["h_hap_m"],
+        values["wavelength_m"],
+        values.get("zenith_angle_rad", 0.0),
+        profile["wind_speed_m_per_s"],
+        profile["cn2_ground_m_minus_two_thirds"],
+        2.0 * values["aperture_radius_m"],
+    )
+    return rytov_equivalent_phase_provenance(
+        scintillation["rytov_integral"],
+        scintillation["sigma_R0_squared"],
         values["wavelength_m"],
         geometry.link_length_m,
-        mapping_status=values["cn_phi2_mapping_status"],
-        author_approved=values["cn_phi2_author_approved"],
     )
 
 

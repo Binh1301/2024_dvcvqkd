@@ -13,6 +13,7 @@ from .spectral_frechet import hermitian_inverse_sqrt, hermitian_sqrt
 FAST_MAX_CONDITION = 1.0e6
 FAST_MAX_RESIDUAL = 1.0e-12
 PRECISION_LADDER = (1050, 1250, 1450)
+DIAGNOSTIC_EIGENVALUE_THRESHOLDS = (1e-10, 1e-12, 1e-14, 1e-16)
 
 class FullSupportGradientUnavailable(RuntimeError):
     """The arbitrary-precision fallback is evaluation-only."""
@@ -63,6 +64,11 @@ def _fast_from_sectors(
     gate = {
     "all_sectors_positive": minimum > 0,
     "minimum_eigenvalue": minimum,
+    "numerical_positive_eigenvalues": sum(int((value > 0.0).sum()) for value in values),
+    "eigenvalues_at_or_below_diagnostic_threshold": {
+        f"{threshold:.0e}": sum(int((value <= threshold).sum()) for value in values)
+        for threshold in DIAGNOSTIC_EIGENVALUE_THRESHOLDS
+    },
     "sector_condition_number": (
         math.inf if minimum <= 0 else maximum / minimum
     ),
@@ -123,10 +129,15 @@ def _fast_from_sectors(
         return None, gate
     return {"C": correlation, "w": residual}, gate
 
-def _fallback(p: torch.Tensor,z: torch.Tensor) -> dict[str,Any]:
+def _fallback(
+    p: torch.Tensor,
+    z: torch.Tensor,
+    *,
+    timeout_seconds: float | None = 3600.0,
+) -> dict[str,Any]:
     worker=Path(__file__).parents[2]/"scripts"/"full_support_c4_worker.py"
-    request={"probabilities_float64_hex":[_hex(x) for x in p.detach().tolist()],"prototypes_float64_hex":[[_hex(complex(x).real),_hex(complex(x).imag)] for x in z.detach().tolist()],"precision_ladder_decimal_digits":list(PRECISION_LADDER)}
-    try: done=subprocess.run([sys.executable,str(worker)],input=json.dumps(request,sort_keys=True),text=True,capture_output=True,timeout=3600,check=False)
+    request={"probabilities_float64_hex":[_hex(x) for x in p.detach().tolist()],"prototypes_float64_hex":[[_hex(complex(x).real),_hex(complex(x).imag)] for x in z.detach().tolist()],"precision_ladder_decimal_digits":list(PRECISION_LADDER),"diagnostic_eigenvalue_thresholds":[_hex(x) for x in DIAGNOSTIC_EIGENVALUE_THRESHOLDS]}
+    try: done=subprocess.run([sys.executable,str(worker)],input=json.dumps(request,sort_keys=True),text=True,capture_output=True,timeout=timeout_seconds,check=False)
     except subprocess.TimeoutExpired: return {"status":"FAIL_CLOSED","reason":"fallback timeout"}
     if done.returncode: return {"status":"FAIL_CLOSED","reason":done.stderr[-2000:] or f"worker exit {done.returncode}"}
     try: return json.loads(done.stdout)
@@ -137,6 +148,7 @@ def c4_gram_source_moments(
     *,
     density_eigenvalue_tolerance: float,
     physicality_tolerance: float = 1e-10,
+    fallback_timeout_seconds: float | None = 3600.0,
 ) -> GramMomentResult:
     """Full mathematical support; threshold is diagnostic metadata only."""
 
@@ -158,6 +170,10 @@ def c4_gram_source_moments(
         raise ValueError(
             "diagnostic threshold must be finite and positive."
         )
+    if fallback_timeout_seconds is not None and (
+        not math.isfinite(fallback_timeout_seconds) or fallback_timeout_seconds <= 0.0
+    ):
+        raise ValueError("fallback_timeout_seconds must be positive or None.")
 
     indices = c4_orbit_indices(
         device=ensemble.probabilities.device
@@ -179,7 +195,7 @@ def c4_gram_source_moments(
                     "FULL_SUPPORT_FALLBACK_EVALUATION_ONLY"
                 )
 
-            fallback = _fallback(p, z)
+            fallback = _fallback(p, z, timeout_seconds=fallback_timeout_seconds)
 
             if fallback.get("status") != "FULL_SUPPORT_CONVERGED":
                 raise FloatingPointError(
@@ -255,3 +271,19 @@ def c4_gram_source_moments(
         torch.stack(ws),
         tuple(diagnostics),
     )
+
+
+def c4_gram_fast_preflight(ensemble: Ensemble) -> tuple[dict[str, Any], ...]:
+    """Inspect the complex128 gate without starting the AP fallback."""
+
+    ensemble.validate()
+    if not ensemble.c4_symmetric:
+        raise ValueError("C4 fast preflight requires a C4-symmetric ensemble.")
+    indices = c4_orbit_indices(device=ensemble.probabilities.device)
+    diagnostics = []
+    for row in range(ensemble.probabilities.shape[0]):
+        p = ensemble.probabilities[row, indices[:, 0]]
+        z = ensemble.amplitudes[row, indices[:, 0]]
+        result, gate = _fast(p, z)
+        diagnostics.append({**gate, "fast_path_passed": result is not None})
+    return tuple(diagnostics)

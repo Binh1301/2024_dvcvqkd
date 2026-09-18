@@ -235,10 +235,11 @@ uses the same structural expressions implemented here:
 - `a=V_A+1`, `b=1+T V_A+T epsilon`, `c=Z_lower`, ideal-heterodyne conditional
   eigenvalue `lambda_3=a-c^2/(b+1)`, and the three-entropy Holevo expression.
 
-The active code matches this structural chain. Its different density-matrix
-pseudoinverse threshold is a numerical truncation choice that must be covered
-by the already required Fock-cutoff convergence study, not presented as a new
-security theorem.
+The active C4-Gram code matches this structural chain and retains all 256
+mathematical support modes. Its configured eigenvalue threshold is diagnostic
+metadata only on that backend. The historical dense-Fock diagnostic still has
+a thresholded pseudoinverse and is not a production fallback or security
+result.
 
 ### Existing manuscript references
 

@@ -8,11 +8,25 @@ from src.channel.phase_noise import (
     phase_distortion_variance,
     phase_excess_noise,
     phase_noise_coefficient,
+    rytov_equivalent_phase_provenance,
     total_excess_noise,
 )
 
 
 class PhaseNoiseTests(unittest.TestCase):
+    def test_rytov_equivalent_mapping_and_identity(self):
+        record = rytov_equivalent_phase_provenance(
+            3.599418452040883e-10,
+            0.04145444025152738,
+            1.55e-6,
+            19000.0,
+        )
+        self.assertAlmostEqual(record["cn_eff2_m_minus_two_thirds"], 9.421675529626135e-18)
+        self.assertAlmostEqual(record["tau_phi2"], 0.08290888050305477)
+        self.assertAlmostEqual(record["c_phi"], 0.08462735111962222)
+        self.assertAlmostEqual(record["tau_phi2"], 2.0 * record["sigma_R0_squared"])
+        self.assertLess(abs(record["tau_phi2_identity_residual"]), 1e-15)
+
     def test_phase_variance_uses_si_wavelength_and_link_distance(self):
         value = phase_distortion_variance(2.0e-16, 1.55e-6, 19_000.0)
         expected = (

@@ -1,5 +1,45 @@
 # Next Actions
 
+## Latest completed task: EVID-0086 / DEC-0070
+
+The VA=2 effective-channel diagnostic is complete for Uniform, Binomial, and
+Fixed MB. Source moments converged at full support; MI, full-(Z) Holevo, raw
+SKR, CSV, and PNG outputs are present under
+`results/effective_channel_va2/`.
+
+Interpret the result only as a preliminary covariance-matched comparison. The
+statewise fading-SKR implementation remains the primary future path. Do not
+infer fading-channel ranking from this effective-channel table.
+
+## Latest effective-channel task: EVID-0085 / DEC-0069
+
+The VA=2 effective-channel moments and formula checks passed. Uniform source
+moments converged at rank 256. The Binomial AP job exceeded the bounded
+worker/cleanup window and was interrupted before a durable convergence row;
+Fixed MB was not started. The preliminary SKR artifact is `FAIL_CLOSED` with
+blocker `AP_SOURCE_INTERRUPTED_BINOMIAL`; no MI/Holevo/SKR/plot result exists.
+
+Resume only from the hash-matched Uniform source checkpoint, then run and
+checkpoint Binomial and Fixed MB independently. Do not evaluate SKR until both
+remaining sources converge at the fixed AP ladder. Do not train, select a
+baseline, access final-test data, or launch publication-scale work.
+
+## Latest bounded benchmark task: EVID-0084 / DEC-0068
+
+The derived phase mapping and direct-index fixed-MB PMF are implemented and
+focused-tested. The shared 15-point `V_A` grid produces 45 corrected source
+ensembles; all 45 fail the complex128 full-support gate. One bounded Uniform
+`V_A=0.1` AP witness converged at rank 256 in 1384.7087388 s, but the other 44
+remain unresolved. Therefore the paired SKR sweep and plot are `NOT_RUN`.
+
+Current status: `READY_FOR_IMPLEMENTATION: NO`.
+Current blocker: `NUMERICAL_SUPPORT_AMBIGUITY`.
+
+Do not launch the remaining AP campaign automatically. A separately approved,
+checkpointed source-moment campaign would be required before any three-scheme
+SKR comparison. Training, optimized-MB selection, final-test access, and
+publication-scale evaluation remain closed.
+
 ## Latest completed channel task: EVID-0083 / DEC-0067
 
 The attached PDF5 Table-I channel is now the active channel-only path. The
@@ -188,14 +228,13 @@ objective blocker.
 ### P0 — resolve target-model blockers
 
 The PDF5 channel/profile/aperture/pointing/AoA portion is complete under
-EVID-0083. The remaining P0 blocker is the author-approved common-turbulence
-phase mapping and any later security numerical rebinding.
+EVID-0083, and the common-turbulence phase mapping is derived under EVID-0084.
+The remaining P0 blocker is full-support numerical resolution for the corrected
+benchmark ensembles and later security numerical rebinding.
 
-1. Freeze one author-approved, source-supported common-turbulence scenario,
-   including the altitude profile, aperture-averaging rule, AoA status/mapping,
-   and effective C_n,phi^2 phase mapping/value.
-2. Rebind numerical/provenance evidence after that complete physical scenario
-   is frozen and the full \(Z\)-interval target path is hash-bound.
+1. Preserve the fixed PDF5/HV scenario and derived phase identity.
+2. Resolve all required fixed-ensemble source moments under a separately
+   approved bounded campaign, then rebind full-\(Z\) numerical evidence.
 
 ### P1 — deterministic Friday diagnostics
 

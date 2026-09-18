@@ -2401,3 +2401,104 @@ training authorization, final-test access, or publication lifecycle.
 
 Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and adaptive training
 remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## DEC-0068 - Accept model corrections and stop paired SKR at support preflight
+
+Date: 2026-09-18
+
+Status: ACTIVE FAIL-CLOSED DIAGNOSTIC DECISION
+
+### Decision
+
+Accept EVID-0084's author-directed model corrections: derive the phase scalar
+from the common PDF5 Hufnagel--Valley Rytov integral and define fixed MB
+`nu=0.1` on the unscaled 16-by-16 index offsets before exact common energy
+normalization. Keep the production C4 source functional on all 256
+mathematical support modes; configured eigenvalue thresholds remain diagnostic
+metadata and are not approved support cutoffs.
+
+Accept the 45-row complex128 preflight and the single Uniform `V_A=0.1` AP
+witness. Stop before SKR because 44 required source ensembles remain
+unresolved. Use exactly `READY_FOR_IMPLEMENTATION: NO` and blocker
+`NUMERICAL_SUPPORT_AMBIGUITY`. Do not infer any Uniform/Binomial/MB ranking and
+do not create the requested SKR plot without complete source evidence.
+
+### Consequences
+
+The remaining AP campaign requires separate authorization and checkpointed
+execution. This decision does not authorize training, baseline selection,
+optimized-MB search, final-test access, held-out evaluation, or publication-
+scale work. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` and
+adaptive training remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+### Evidence
+
+- EVID-0084
+- `results/fixed_benchmark_diagnostic/paired_fixed_benchmark_results.json`
+- Current FINAL_MODEL_SPEC SHA-256:
+  `3da71edf4531c4cb793ec82d4b7998ef661b7765e50b120208ec23830b6a356e`
+
+## DEC-0069 - Stop VA=2 effective-channel SKR at Binomial AP interruption
+
+Date: 2026-09-19
+
+Status: ACTIVE FAIL-CLOSED DIAGNOSTIC DECISION
+
+### Decision
+
+Accept the effective-channel moment construction and (V_A=2) ensemble
+normalization checks. Preserve the separate preliminary-diagnostic scope and
+do not alter the statewise fading-SKR implementation.
+
+Accept Uniform's VA=2 full-support AP result as a source-only diagnostic. Do
+not promote it to an SKR result. The Binomial AP source job was interrupted
+after the configured worker/cleanup boundary, and Fixed MB was not started.
+Keep the effective-channel comparison `FAIL_CLOSED` with blocker
+`AP_SOURCE_INTERRUPTED_BINOMIAL`.
+
+### Consequences
+
+No MI, Holevo, raw SKR, CSV comparison, or plot is accepted. Resume only from
+the hash-matched Uniform source checkpoint, then complete Binomial and Fixed
+MB independently before evaluating the common effective channel. Do not infer
+a scheme ranking from the partial source evidence.
+
+Training, baseline selection, optimized-MB search, final-test access, and
+publication-scale evaluation remain closed.
+
+### Evidence
+
+- EVID-0085
+- `results/effective_channel_va2/source_moments_va2.json`
+- `results/effective_channel_va2/effective_channel_skr_va2.json`
+
+## DEC-0070 - Accept preliminary effective-channel VA=2 numerical comparison
+
+Date: 2026-09-19
+
+Status: ACTIVE PRELIMINARY DIAGNOSTIC DECISION
+
+### Decision
+
+Accept EVID-0086 as the completed preliminary effective-channel comparison.
+The simplified runner uses the existing effective channel, full mathematical
+support, fixed AP convergence ladder, common deterministic (T_{m eff}) and
+(epsilon_{m eff}), common MI settings, and full-(Z) Holevo evaluation.
+
+The reported raw-(K) values are numerical diagnostics only. They do not
+replace the statewise fading-SKR implementation and do not justify a final
+scheme ranking for the fading channel.
+
+### Consequences
+
+The VA=2 effective-channel JSON, CSV, and plot are accepted as preliminary
+diagnostic outputs. No positive-part clipping is used. Training, adaptive
+shaping, VA sweeps, distance sweeps, baseline selection, final-test access,
+and publication-scale evaluation remain closed.
+
+### Evidence
+
+- EVID-0086
+- `results/effective_channel_va2/effective_channel_skr_va2.json`
+- `results/effective_channel_va2/effective_channel_skr_va2.csv`
+- `results/effective_channel_va2/effective_channel_skr_va2.png`

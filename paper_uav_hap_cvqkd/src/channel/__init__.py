@@ -22,6 +22,7 @@ from .phase_noise import (
     phase_distortion_variance,
     phase_excess_noise,
     phase_parameter_provenance,
+    rytov_equivalent_phase_provenance,
     phase_noise_coefficient,
     total_excess_noise,
 )
@@ -64,6 +65,7 @@ __all__ = [
     "phase_distortion_variance",
     "phase_excess_noise",
     "phase_parameter_provenance",
+    "rytov_equivalent_phase_provenance",
     "phase_noise_coefficient",
     "physicalize_raw_transmittance",
     "resolve_scintillation_variance",

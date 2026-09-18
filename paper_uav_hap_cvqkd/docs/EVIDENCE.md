@@ -3962,3 +3962,172 @@ follows from this evidence.
 
 Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; adaptive training
 remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## EVID-0084 - Derived phase, corrected fixed-MB, and paired support preflight
+
+Date: 2026-09-18
+
+Status: CURRENTLY_VERIFIED_PASS FOR IMPLEMENTATION/PREFLIGHT; SKR NOT_RUN
+
+### Claim
+
+The active phase coefficient is now derived from the same PDF5 Hufnagel--Valley
+Rytov integral as scintillation. The baseline values are
+`C_n,eff^2=9.421675529626135e-18`, `tau_phi2=0.08290888050305477`, and
+`c_phi=0.08462735111962222`; the residual in
+`tau_phi2=2*sigma_R0^2` is `1.3877787807814457e-17`. The fixed-MB PMF now uses
+the unscaled index offsets, giving
+`V_A/alpha0^2=0.6637540564063298` at `nu=0.1` before exact common energy
+normalization.
+
+The paired runner constructed all 45 combinations of Uniform, Binomial, and
+fixed MB over `V_A=0.1,...,1.5`. All 45 require the AP fallback under the
+unchanged complex128 gate. No SKR, Holevo sweep, channel-state evaluation, or
+plot was produced. Exactly one bounded witness, Uniform at `V_A=0.1`, resolved
+rank 256 at 1050, 1250, and 1450 decimal digits with
+`C=0.2288447295734444`, `w=0.002567267208730281`, and runtime
+`1384.7087388 s`. The remaining 44 source ensembles are unresolved.
+
+Classification: `READY_FOR_IMPLEMENTATION: NO`.
+Blocker: `NUMERICAL_SUPPORT_AMBIGUITY`.
+
+### Evidence and provenance
+
+- `results/fixed_benchmark_diagnostic/paired_fixed_benchmark_results.json`,
+  SHA-256 `e4ca4faa5c09ae17aefb23f94f108278cb5704e15b7b8721ab91c75b1ad87f77`.
+- Current FINAL_MODEL_SPEC SHA-256:
+  `3da71edf4531c4cb793ec82d4b7998ef661b7765e50b120208ec23830b6a356e`.
+- Source PDF SHA-256:
+  `2bb15c9a2d67eac5eeef46c18e64eca6acdc09e033fed3e81ebf55a155aa0461`.
+- The artifact records config, producer, phase, QAM, Gram, worker, repository,
+  channel/AWGN seeds, support thresholds, and the hash of the original AP
+  witness artifact reused during the documentation-only model rebind.
+- Focused implementation/channel/security suite: 60/60 passed.
+- Additional numerical/frozen-transmitter/energy/peak suite: 33 passed and
+  three pre-existing `FULL_SUPPORT_FALLBACK_EVALUATION_ONLY` errors; no gate
+  was weakened.
+
+### Limitations
+
+The source PDF contains channel Eqs. (1)--(60), not the Section-III security
+equations. Phase, MB, and benchmark rules are author-directed model amendments
+and existing security-code requirements. The one AP witness cannot be
+generalized to Binomial, corrected MB, or other `V_A` values. Thresholds are
+diagnostic metadata only in the production C4 backend; the historical
+dense-Fock thresholded path was not used. Training, baseline selection,
+optimized-MB search, final-test access, and publication-scale evaluation were
+not run.
+
+## EVID-0085 - Preliminary effective-channel VA=2 diagnostic stopped fail-closed
+
+Date: 2026-09-19
+
+Status: CURRENTLY_VERIFIED_PASS FOR MOMENTS/PREFLIGHT; SKR FAIL_CLOSED
+
+### Claim
+
+The new `PRELIMINARY EFFECTIVE-CHANNEL COMPARISON` runner computed the current
+physical-channel moments and covariance-matched deterministic channel at
+`V_A=2.0`:
+
+```text
+mean_eta       = 3.371622599123430e-4
+mean_sqrt_eta  = 1.729242693684099e-2
+mean_eta_xi    = 6.397812423597738e-5
+T_eff          = 2.990280293659837e-4
+epsilon_eff    = 4.690081582855452e-1
+```
+
+The direct 10,000-sample joint check agreed with the factorized
+`<eta*xi_eta>` value within the declared standard-error gate. All three
+ensembles satisfy the common `V_A=2` normalization and 256-state requirement.
+
+Uniform completed independent full-support AP convergence at 1050/1250/1450
+digits with rank 256, `C=1.4019995788968012`, `w=0.026543338228713933`, and
+runtime `1427.9281333 s`. The Binomial AP job was interrupted after exceeding
+the one-hour worker/cleanup window before a durable convergence row was
+written. Fixed MB was not started. No MI, Holevo, raw-SKR, CSV result, or plot
+was produced.
+
+Classification: `PRELIMINARY EFFECTIVE-CHANNEL COMPARISON`.
+Final status: `FAIL_CLOSED`.
+Blocker: `AP_SOURCE_INTERRUPTED_BINOMIAL`.
+
+### Evidence and provenance
+
+- `results/effective_channel_va2/channel_moments.json`, SHA-256:
+  `c4d9600affe6c321d8140b06cc7ba2514b886f0805a3e8b71dcf59319f15ae41`.
+- `results/effective_channel_va2/effective_channel.json`.
+- `results/effective_channel_va2/source_moments_va2.json`, SHA-256:
+  `8e557869ba9e974931779ae50eaf65fb1d2cb4423202284ec98d88f208736012`.
+- `results/effective_channel_va2/effective_channel_skr_va2.json`, SHA-256:
+  `1e72f71d863c2f30035310b4e24b120ee6ad3d533a482de1f77eaf7b47d3c753`.
+- Runner SHA-256:
+  `11e19748b1343f889e83b284540b316ed02636a2d21f413e2d1f2d6d2274c4fc`.
+- Focused effective-channel, phase, QAM, Gram, Holevo, and pipeline suite:
+  44/44 passed after the implementation.
+- No training, baseline selection, final-test access, or publication-scale
+  evaluation was performed.
+
+### Limitations
+
+This is not a statewise fading-SKR result. The effective channel is a
+covariance-matched preliminary comparison and is not equivalent to
+`E[K(T,epsilon)]`. Because Binomial and MB source moments were not both
+completed, no three-scheme SKR ranking or plot may be inferred.
+
+## EVID-0086 - Completed VA=2 effective-channel SKR comparison
+
+Date: 2026-09-19
+
+Status: CURRENTLY_VERIFIED_PASS; PRELIMINARY DIAGNOSTIC ONLY
+
+### Claim
+
+The simplified runner completed the requested common-energy comparison for
+Uniform, Binomial, and Fixed MB (`nu_MB=0.1`) at `V_A=2.0`. All three source
+ensembles converged with mathematical rank 256 at the fixed 1050/1250/1450 AP
+ladder. The runner no longer applies an artificial per-source timeout and
+reuses the completed Uniform checkpoint by PMF/amplitude hash.
+
+The effective deterministic channel is:
+
+```text
+T_eff       = 2.990280293659837e-4
+epsilon_eff = 0.4690081582855452
+beta_rec    = 0.95
+```
+
+Final numerical comparison:
+
+| Scheme | C | w | I_AB | chi_BE_ub | raw K |
+|---|---:|---:|---:|---:|---:|
+| Uniform | 1.4019995788968012 | 0.026543338228713933 | 4.527299509245353e-4 | 1.832964072539189e-3 | -1.402870619160881e-3 |
+| Binomial | 1.4141475013110645 | 1.1333136696344303e-4 | 5.007278773794255e-4 | 1.396077349224090e-3 | -9.203858657136355e-4 |
+| Fixed MB | 1.4141975446461088 | 3.538218842527370e-5 | 4.971860398264027e-4 | 1.383562118429937e-3 | -9.112353805948547e-4 |
+
+No positive-part clipping was applied. All three full-(Z) maximizers selected
+the lower boundary for this effective channel, but the full interval was
+evaluated.
+
+### Evidence and provenance
+
+- `results/effective_channel_va2/channel_moments.json`.
+- `results/effective_channel_va2/effective_channel.json`.
+- `results/effective_channel_va2/source_moments_va2.json`, SHA-256:
+  `692633467bab0f3cd89e4db4a845ecb9aa6750db486c89d3eda6df1deba67003`.
+- `results/effective_channel_va2/effective_channel_skr_va2.json`, SHA-256:
+  `7f69bfa7270b9a387579f682eb84202734c6b23a997766f50f0bce9e059d9552`.
+- `results/effective_channel_va2/effective_channel_skr_va2.csv`.
+- `results/effective_channel_va2/effective_channel_skr_va2.png`.
+- Runner SHA-256:
+  `5a7012bb2e760e08c7e44fd4af7875ede762d1a70933c396b6b97d2e6b58b7f2c`.
+- Focused effective-channel/security suite: 44/44 passed.
+
+### Scope
+
+This is a covariance-matched effective-channel diagnostic and is not equal to
+the statewise fading average (E[K(T,\epsilon)]). It does not replace the
+statewise fading implementation. No training, adaptive shaping, VA sweep,
+distance sweep, baseline selection, final-test access, or publication-scale
+experiment was run.

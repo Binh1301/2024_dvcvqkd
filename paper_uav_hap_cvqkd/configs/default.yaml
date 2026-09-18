@@ -42,11 +42,8 @@ channel:
     theta_fov_rad: 6.25e-3
   raw_transmittance:
     active_treatment: truncated_renormalized_active_law
-  # Effective scalar representation of the same physical turbulence scenario.
-  # No validated C_n^2(h)->C_n,phi^2 mapping or author-approved value exists.
-  cn_phi2_m_minus_two_thirds: null
-  cn_phi2_mapping_status: unresolved
-  cn_phi2_author_approved: false
+  # Derived from the same HV Rytov integral; no free C_n,phi^2 input.
+  phase_model: rytov_equivalent_hufnagel_valley
   scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
   uav_motion:
     # Table I supplies aggregate sigma_h and sigma_o; these component fields

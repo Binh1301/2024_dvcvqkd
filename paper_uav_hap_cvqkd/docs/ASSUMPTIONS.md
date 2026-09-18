@@ -57,14 +57,15 @@
 
 ## Phase-noise modeling assumptions
 
-- \(\tau_{\phi2}=2.46C_{n,\phi}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6}\).
+- \(C_{n,\mathrm{eff}}^2\) is derived from the same HV Rytov integral as
+  scintillation, and
+  \(\tau_{\phi2}=2.46C_{n,\mathrm{eff}}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6}\).
 - \(c_\phi=\tau_{\phi2}+\tau_{\phi2}^2/4\).
 - \(\xi_{\mathrm{phase}}=c_\phi V_A\) and
   \(\epsilon_{\mathrm{total}}=\epsilon_{\mathrm{base}}+\xi_{\mathrm{phase}}\).
-- The source implements the two-stage phase equations and records their resolved
-  SI inputs/derived values in `phase_parameter_provenance`; production
-  configuration remains null until an author-approved scenario value exists.
-  Target entry points therefore fail closed rather than infer a value.
+- The source records the common HV integral and all derived phase quantities in
+  `rytov_equivalent_phase_provenance`; no separate free phase-strength input is
+  active.
 
 ## Numerical assumptions
 
@@ -89,5 +90,6 @@ compatibility fallback for the atmospheric API.
 
 The active pointing law is Eq. (36), with `r_mis` Rician and `H_p` its
 deterministic transformation. The analytical Eq. (12), Eq. (37), Eq. (49),
-and Eq. (50) implementations are channel diagnostics. The unresolved common
-phase `C_n,phi^2` mapping still blocks security/SKR and training workflows.
+and Eq. (50) implementations are channel diagnostics. Fixed-benchmark SKR
+remains blocked by unresolved full-support numerical evidence, not by a free
+phase parameter.

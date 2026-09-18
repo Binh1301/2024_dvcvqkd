@@ -134,8 +134,9 @@ def maxwell_boltzmann_pmf(
 ) -> torch.Tensor:
     if not math.isfinite(nu_mb) or nu_mb < 0.0:
         raise ValueError("nu_mb must be finite and nonnegative.")
-    points = canonical_square_qam256(dtype=torch.complex128, device=device)
-    energy = points.abs().square().to(dtype=dtype)
+    levels = torch.arange(GRID_SIDE, dtype=dtype, device=device) - 7.5
+    i_grid, q_grid = torch.meshgrid(levels, levels, indexing="ij")
+    energy = (i_grid.square() + q_grid.square()).reshape(-1)
     pmf = torch.exp(-float(nu_mb) * energy)
     return pmf / pmf.sum()
 

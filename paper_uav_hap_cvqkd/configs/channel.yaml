@@ -13,11 +13,8 @@ optics:
   aperture_radius_m: 0.04
   cn2_m_minus_two_thirds: 1.0e-16
 phase:
-  # Effective scalar representation of the same physical C_n^2(h) turbulence.
-  # No validated mapping or author-approved value exists; target paths fail closed.
-  cn_phi2_m_minus_two_thirds: null
-  cn_phi2_mapping_status: unresolved
-  cn_phi2_author_approved: false
+  model: rytov_equivalent_hufnagel_valley
+  source: same_hufnagel_valley_rytov_integral
 turbulence_profile:
   model: hufnagel_valley
   wind_speed_m_per_s: 21.0

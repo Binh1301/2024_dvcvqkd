@@ -86,6 +86,57 @@ def phase_parameter_provenance(
     }
 
 
+def rytov_equivalent_phase_provenance(
+    rytov_integral: float,
+    sigma_R0_squared: float,
+    wavelength_m: float,
+    link_distance_m: float,
+) -> dict[str, Any]:
+    """Derive the manuscript phase scalar from the common HV Rytov integral."""
+
+    integral = _finite_float(rytov_integral, "rytov_integral", nonnegative=True)
+    sigma_r0_squared = _finite_float(
+        sigma_R0_squared, "sigma_R0_squared", nonnegative=True
+    )
+    wavelength = _finite_float(wavelength_m, "wavelength_m")
+    link_distance = _finite_float(link_distance_m, "link_distance_m")
+    if wavelength <= 0.0 or link_distance <= 0.0:
+        raise ValueError("wavelength_m and link_distance_m must be positive.")
+    kappa = 2.0 * math.pi / wavelength
+    cn_eff2 = (2.25 / 1.23) * integral / link_distance ** (11.0 / 6.0)
+    tau_phi2 = (
+        2.46
+        * cn_eff2
+        * kappa ** (7.0 / 6.0)
+        * link_distance ** (11.0 / 6.0)
+    )
+    expected_tau_phi2 = 2.0 * sigma_r0_squared
+    c_phi = phase_noise_coefficient(tau_phi2)
+    return {
+        "parameterization": "rytov_equivalent_hufnagel_valley",
+        "cn_eff2_m_minus_two_thirds": cn_eff2,
+        "rytov_integral": integral,
+        "sigma_R0_squared": sigma_r0_squared,
+        "wavelength_m": wavelength,
+        "link_distance_m": link_distance,
+        "tau_phi2": tau_phi2,
+        "c_phi": c_phi,
+        "tau_phi2_expected_from_identity": expected_tau_phi2,
+        "tau_phi2_identity_residual": tau_phi2 - expected_tau_phi2,
+        "units": {
+            "cn_eff2_m_minus_two_thirds": "m^(-2/3)",
+            "rytov_integral": "m^(7/6-2/3)",
+            "sigma_R0_squared": "dimensionless",
+            "wavelength_m": "m",
+            "link_distance_m": "m",
+            "tau_phi2": "dimensionless",
+            "c_phi": "dimensionless",
+        },
+        "cn_eff2_is_derived": True,
+        "c_phi_is_derived": True,
+    }
+
+
 def _float64_tensor(value: torch.Tensor | float, *, device: torch.device | None = None) -> torch.Tensor:
     if isinstance(value, torch.Tensor):
         return value.to(dtype=torch.float64, device=device)
@@ -140,6 +191,7 @@ __all__ = [
     "phase_distortion_variance",
     "phase_excess_noise",
     "phase_parameter_provenance",
+    "rytov_equivalent_phase_provenance",
     "phase_noise_coefficient",
     "total_excess_noise",
 ]

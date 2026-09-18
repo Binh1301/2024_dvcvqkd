@@ -41,15 +41,20 @@ class Qam256Tests(unittest.TestCase):
             self.assertTrue(bool(torch.all(pmf > 0.0)))
         self.assertTrue(torch.allclose(maxwell_boltzmann_pmf(0.0), uniform_pmf()))
 
-    def test_mb_uses_canonical_unit_rms_square_energy(self):
+    def test_mb_uses_unscaled_square_grid_indices(self):
         nu = 0.37
-        points = canonical_square_qam256()
-        self.assertAlmostEqual(float(points.abs().square().mean()), 1.0, places=14)
-        expected = torch.exp(-nu * points.abs().square())
+        levels = torch.arange(16, dtype=torch.float64) - 7.5
+        i_grid, q_grid = torch.meshgrid(levels, levels, indexing="ij")
+        expected = torch.exp(-nu * (i_grid.square() + q_grid.square())).reshape(-1)
         expected = expected / expected.sum()
         self.assertTrue(
             torch.allclose(maxwell_boltzmann_pmf(nu), expected, atol=1e-15, rtol=0.0)
         )
+
+    def test_fixed_mb_nu_point_one_energy_coefficient(self):
+        probabilities = maxwell_boltzmann_pmf(0.1)
+        coefficient = 2.0 * torch.sum(probabilities * square_qam256().abs().square())
+        self.assertAlmostEqual(float(coefficient), 0.6637540564063298, places=14)
 
     def test_c4_mapping_preserves_row_major_labels(self):
         indices = c4_orbit_indices()

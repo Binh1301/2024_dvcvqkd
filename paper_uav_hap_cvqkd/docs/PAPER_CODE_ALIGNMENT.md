@@ -53,8 +53,9 @@ and the causal phase/post-action epsilon chain and full-interval Holevo
 implementation are present. The attached manuscript's Hufnagel–Valley,
 finite-aperture scintillation, pointing, AoA, and mixed physical-(T) law are
 implemented and verified as a channel-only diagnostic. The common-turbulence
-phase mapping remains unresolved; target security/SKR plots and publication
-claims remain blocked.
+phase mapping is now derived from the common HV Rytov integral. Target
+security/SKR plots and publication claims remain blocked by full-support
+numerical evidence for the corrected benchmark ensembles.
 
 The manuscript source is external. The attached local PDF
 `C:\Users\admin\Downloads\2026__Binh_s_work__Copy___Copy_ (5).pdf` was read for this

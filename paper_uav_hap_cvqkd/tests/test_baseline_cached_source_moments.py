@@ -79,9 +79,9 @@ class CachedBaselineSourceMomentTests(unittest.TestCase):
             source_moment_evaluator=source_once,
         )
         self.assertEqual(calls, 1)
-        self.assertEqual(result["source_moments"]["call_count"], 1)
-        self.assertEqual(len(result["per_state"]), 2)
-        self.assertTrue(result["all_finite"])
+        self.assertEqual(result["source_moments"]["route"], "TEST")
+        self.assertEqual(result["raw_k"].numel(), 2)
+        self.assertTrue(bool(torch.all(torch.isfinite(result["raw_k"]))))
 
     def test_changed_physical_ensemble_requires_another_source_evaluation(self):
         runner = load_runner()
@@ -133,13 +133,26 @@ class CachedBaselineSourceMomentTests(unittest.TestCase):
             density_eigenvalue_tolerance=1e-13,
         )
         torch.testing.assert_close(
-            torch.tensor(
-                [row["chi_BE"] for row in cached["per_state"]], dtype=torch.float64
-            ),
+            cached["chi_be"],
             generic.chi_be,
             rtol=1e-12,
             atol=1e-12,
         )
+
+    def test_outage_is_rejected_before_mi_and_holevo(self):
+        runner = load_runner()
+        source = reference_ensemble("uniform", batch_size=1, modulation_variance=1.0)
+        with self.assertRaisesRegex(ValueError, "positive"):
+            runner.evaluate_fixed_ensemble(
+                source,
+                torch.tensor([0.0, 0.02], dtype=torch.float64),
+                torch.tensor([0.01, 0.01], dtype=torch.float64),
+                density_eigenvalue_tolerance=1e-12,
+                phase_coefficient=0.0,
+                beta_reconciliation=0.95,
+                awgn_samples=2,
+                awgn_generator=torch.Generator().manual_seed(7),
+            )
 
     def test_checkpoint_serializes_cli_path(self):
         runner = load_runner()

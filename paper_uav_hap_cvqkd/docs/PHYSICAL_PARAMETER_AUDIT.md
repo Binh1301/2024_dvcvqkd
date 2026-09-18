@@ -11,10 +11,12 @@ source caveats remain active. This audit is read against the immutable
 `AMPLITUDE_DOMAIN_DECISION.md`. It does not assign missing values, change the
 channel model, or authorize publication-scale training.
 
-Current target boundary (2026-09-10): this historical audit covers the existing
-atmospheric/pointing parameterization. It does not freeze the target
-scintillation, AoA, raw-T admission, or phase-noise parameters; those remain
-open in KNOWN_ISSUES.md.
+Current target boundary (2026-09-18): PDF5 fixes the Hufnagel--Valley,
+finite-aperture, pointing, AoA, and conditioned active-domain scenario. The
+phase scalar is now derived from the same HV Rytov integral as
+`C_n,eff^2=(2.25/1.23)*integral/L^(11/6)`; no free `C_n,phi^2` production
+field remains. The historical free-parameter audit below is retained only as
+superseded provenance.
 
 The active propagation path is
 `src/channel/state_distribution.py -> src/channel/fso_channel.py`, using

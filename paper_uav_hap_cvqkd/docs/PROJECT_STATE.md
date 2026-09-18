@@ -1,5 +1,43 @@
 # Project State
 
+## Latest effective-channel VA=2 result (2026-09-19)
+
+EVID-0086/DEC-0070 record the completed preliminary effective-channel
+comparison for Uniform, Binomial, and Fixed MB at `V_A=2.0`. All three
+full-support AP source calculations converged, and the common effective
+channel MI/full-(Z)/raw-SKR table, CSV, and plot were produced.
+
+This is a preliminary covariance-matched diagnostic, not the primary statewise
+fading-SKR result. No training, final-test, baseline-selection, or
+publication-scale run was performed.
+
+## Latest effective-channel VA=2 diagnostic gate (2026-09-19)
+
+EVID-0085/DEC-0069 record the covariance-matched effective-channel moment
+construction at `V_A=2.0`. The analytical/direct moment cross-check passed.
+Uniform source moments converged at full support, but the Binomial AP job was
+interrupted after the worker/cleanup boundary and Fixed MB was not started.
+No MI, Holevo, or SKR result exists.
+
+Current diagnostic status: `FAIL_CLOSED`.
+Current blocker: `AP_SOURCE_INTERRUPTED_BINOMIAL`.
+No training, baseline selection, final-test access, or publication-scale run
+was performed.
+
+## Latest fixed-benchmark diagnostic gate (2026-09-18)
+
+EVID-0084/DEC-0068 implement the author-directed Rytov-equivalent phase
+mapping and direct-index fixed-MB PMF, then run the bounded paired-benchmark
+support preflight. All 45 scheme/`V_A` ensembles require the arbitrary-
+precision route, so the SKR sweep remains `NOT_RUN`. Exactly one Uniform,
+`V_A=0.1` AP witness converged with rank 256 at 1050/1250/1450 digits in
+1384.7087388 s. The remaining 44 ensembles are unresolved.
+
+Current blocker: `NUMERICAL_SUPPORT_AMBIGUITY`.
+Current diagnostic readiness: `READY_FOR_IMPLEMENTATION: NO`.
+No training, baseline selection, final-test access, or publication-scale run
+was performed.
+
 ## Latest channel-model implementation (2026-09-18; PDF5)
 
 The attached PDF5 Table-I HAP--UAV FSO channel is now the active channel-only
@@ -223,16 +261,19 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
   \(\epsilon_{\mathrm{total}}\), phase surrogate, physical fading target, and
   full \(Z\)-interval security definition.
 - Current FINAL_MODEL_SPEC SHA-256:
-  8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843.
-- This replaces the historical implementation-spec hash
-  561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1;
-  old artifacts bound to that hash are historical evidence for the former
-  scalar-epsilon/lower-endpoint path, not certification of the new target.
+  3da71edf4531c4cb793ec82d4b7998ef661b7765e50b120208ec23830b6a356e.
+- This author-directed revision supersedes the prior target hash
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+  and the historical implementation hash
+  `561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1`.
+  Artifacts bound only to either old hash are historical evidence, not
+  certification of the corrected target.
 - The transmitter architecture, C4 invariants, raw-SKR loss, average-energy
   dual, and finite-realization hard peak guard remain present in source.
-- The causal phase/post-action epsilon chain and canonical scenario-level phase
-  provenance are aligned in source and active evaluation plumbing, but its
-  C_n_phi2 value remains null. The composite channel architecture, exact PDF5
+- The causal phase/post-action epsilon chain and Rytov-equivalent phase
+  provenance are aligned in source and active evaluation plumbing. The phase
+  scalar is derived from the common HV integral; no free C_n_phi2 remains. The
+  composite channel architecture, exact PDF5
   scintillation/pointing/AoA mappings, and raw-T diagnostics are implemented.
   The
   full physical Z interval, structured empty-domain failure, and deterministic
@@ -257,8 +298,8 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
   orientation variance.
 - Explicit PDF5 Hufnagel--Valley profile, finite-aperture mapping, exact
   pointing, AoA gating, and channel provenance are implemented for the active
-  channel-only baseline. The profile-to-effective-phase mapping remains
-  unresolved and fails closed for phase/security entry points.
+  channel-only baseline. The profile-to-effective-phase mapping is derived;
+  security remains fail-closed at the full-support numerical gate.
 - Full-Z resolution diagnostics now cover 17/33/65/129 candidate grids.
   They are numerical validation evidence only, not certification.
 
@@ -346,8 +387,8 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 |---|---|---|
 | Regular 256-QAM, fixed PMFs, C4 orbit geometry | READY_NOW | Deterministic, data-free transmitter diagnostics |
 | Current composite-channel T diagnostics | CURRENTLY_VERIFIED_PASS | PDF5 Table-I channel-only diagnostic is hash-bound; no security/publication claim |
-| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Channel-only PDF5 mappings are resolved; common phase mapping remains unresolved |
-| Target epsilon_total and full-interval chi_BE/SKR | ALIGNED_API_ONLY | Epsilon chain and interval implementation exist; target C_n_phi2, channel paths, and numerical evidence rebinding remain unresolved |
+| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | CURRENTLY_VERIFIED_PASS | PDF5 channel plus derived Rytov-equivalent phase provenance; diagnostic only |
+| Target epsilon_total and full-interval chi_BE/SKR | BLOCKED | APIs are aligned; 45/45 corrected fixed ensembles require AP and only one witness is resolved |
 | Learned PS/GS/V_A outputs | BLOCKED | Training is closed and target security is not aligned |
 
 ## Preliminary figure readiness audit
@@ -357,8 +398,8 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 | Regular 256-QAM | READY NOW | Deterministic construction exists in qam256.py |
 | Uniform / Binomial / MB PMF | READY NOW | Deterministic PMF constructors exist |
 | Fourfold orbit visualization | READY NOW | Exact C4 index and expansion functions exist |
-| Phase-noise curve xi_phase(V_A) | BLOCKED | c_phi API exists, but no author-approved C_n_phi2 is configured |
-| epsilon_total(V_A) | ALIGNED_API_ONLY | Post-action chain is implemented; target plotting remains parameter-blocked |
+| Phase-noise curve xi_phase(V_A) | READY NOW | c_phi=0.08462735111962222 is derived from the common HV integral; no security claim |
+| epsilon_total(V_A) | READY NOW | Post-action chain and derived c_phi are implemented; security remains support-gated |
 | H_sc Monte Carlo | CURRENTLY_VERIFIED_PASS | Eq. (12) overlay and derived PDF5 v_sc in channel-only artifact |
 | H_p Monte Carlo | CURRENTLY_VERIFIED_PASS | Eq. (37) overlay and support check in channel-only artifact |
 | AoA outage Monte Carlo | CURRENTLY_VERIFIED_PASS | PDF5 total sigma_o/FOV gate checked separately; no turbulence-AoA mapping inferred |

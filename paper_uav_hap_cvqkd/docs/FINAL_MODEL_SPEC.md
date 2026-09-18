@@ -49,15 +49,23 @@ replace \(T_{\mathrm{raw}}>1\) by \(\min(T_{\mathrm{raw}},1)\). The diagnostic
 p_{>1}=P(T_{\mathrm{raw}}>1)
 \]
 
-is reported separately. The current repository sampler still implements only its
-homogeneous atmospheric/pointing/beam-wander path; that code-state mismatch is
-not resolved by this specification.
+is reported separately. The active PDF5 sampler implements the altitude-dependent
+Hufnagel--Valley, finite-aperture, Rician pointing, hard-AoA, and conditioned
+active-domain law.
 
 ## Phase-distortion and post-action excess noise
 
-The scenario-level \(C_{n,\phi}^2\) is externally prescribed, fixed within a
-turbulence scenario, and has units \(\mathrm{m}^{-2/3}\). It is not derived from
-an altitude-dependent \(C_n^2(h)\). With
+For the vertical PDF5 scenario, define the Rytov-equivalent scalar from the
+same altitude-dependent Hufnagel--Valley profile used by scintillation,
+
+\[
+C_{n,\mathrm{eff}}^2=
+\frac{2.25}{1.23}\,
+\frac{\int_{h_{\mathrm{UAV}}}^{h_{\mathrm{HAP}}}
+C_n^2(h)(h-h_{\mathrm{UAV}})^{5/6}\,dh}{L^{11/6}}.
+\]
+
+It is derived, not an independently selected phase parameter. With
 
 \[
 \lambda_m=10^{-9}\lambda_{nm},\qquad
@@ -67,7 +75,7 @@ an altitude-dependent \(C_n^2(h)\). With
 define
 
 \[
-\tau_{\phi2}=2.46\,C_{n,\phi}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6},
+\tau_{\phi2}=2.46\,C_{n,\mathrm{eff}}^2\kappa^{7/6}L_{\mathrm{link}}^{11/6},
 \qquad
 c_\phi=\tau_{\phi2}+\frac14\tau_{\phi2}^{\,2}.
 \]
@@ -82,10 +90,10 @@ Here tau_phi2 denotes \(\tau_\phi^2\), so the squared term is
 =\epsilon_{\mathrm{base},n}+c_\phi V_{A,n}.
 \]
 
-This is a two-stage literature-based surrogate: a Rytov-based phase-distortion
-approximation followed by the CV-QKD phase-noise mapping. It is not an exact
-unified derivation. The current code has no C_n_phi2, tau_phi2, c_phi, or
-post-action epsilon stage.
+For the adopted vertical matching, the implementation verifies
+\(\tau_{\phi2}=2\sigma_{R,0}^2\) within integration tolerance. This remains a
+two-stage Rytov-equivalent surrogate followed by the CV-QKD phase-noise
+mapping, not a new unified propagation/security theorem.
 
 ## 1. Scientific objective and common ensemble
 
@@ -263,7 +271,10 @@ For square-QAM indices \(a,b\in\{0,\ldots,15\}\), let \(x_{ab}^{\rm sq}\) denote
 
 - Uniform: \(p_{ab}=1/256\).
 - Binomial: \(p_{ab}=b_a b_b\), where \(b_a={15\choose a}/2^{15}\).
-- Maxwell--Boltzmann: \(p_{ab}(\nu)=\exp[-\nu|x_{ab}^{\rm sq}|^2]/Z(\nu)\), \(\nu\ge0\).
+- Maxwell--Boltzmann:
+  \(p_{ab}(\nu)=\exp[-\nu(a-7.5)^2]\exp[-\nu(b-7.5)^2]/Z(\nu)\),
+  \(\nu\ge0\). The exponent uses the unscaled integer-grid offsets; physical
+  amplitudes are subsequently rescaled by the common exact energy rule.
 
 All three are fourfold symmetric and are compatible with the normalization above. A **fixed MB** baseline uses a preregistered \(\nu\). A **globally optimized MB** baseline selects one channel-independent \(\nu\), and its one fixed \(V_A\), using validation data only and then freezes both for testing.
 
@@ -492,11 +503,11 @@ The work does not claim that PS, GS, 256-QAM, CV-QKD, or adaptive \(V_A\) is ind
 
 ## 11. Remaining numerical and implementation decisions
 
-The mathematical target is frozen, but the repository is not yet implementation-
-aligned. Before any security/SKR preliminary figure or publication-scale training,
-the code/configuration must implement and verify the post-action
-\(\epsilon_{\mathrm{total}}\) chain, the full admissible \(Z\) interval and inner
-maximization, and the declared \(T_{\rm raw}\)/scintillation/AoA model. The
+The channel, derived post-action \(\epsilon_{\mathrm{total}}\) chain, and full
+admissible \(Z\)-interval implementation are present. Before any security/SKR
+preliminary figure or publication-scale training, the corrected fixed ensembles
+must pass the full-support numerical gate and the numerical evidence must be
+rebound to this model revision. The
 experiment configuration must also declare \(V_{\min}\), \(V_{\max}\),
 \(V_{A,\rm budget}\), \(\beta\), the joint train/validation/test distributions of
 \((T,\epsilon_{\rm base})\), numerical tolerances, MI sample budgets,
