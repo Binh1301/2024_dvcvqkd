@@ -39,8 +39,8 @@ def main() -> None:
     diagnostics_config = _required(channel, "diagnostics")
     if diagnostics_config.get("classification") != "SOFTWARE_PREREGISTERED":
         raise ValueError("Channel diagnostic seed/count must be SOFTWARE_PREREGISTERED.")
-    if epsilon_config.get("kind") != "independent_uniform":
-        raise ValueError("The approved channel freeze requires independent_uniform epsilon.")
+    if epsilon_config.get("kind") != "fixed":
+        raise ValueError("The active channel freeze requires fixed epsilon_base.")
     if epsilon_config.get("dependence_on_transmittance") != "independent":
         raise ValueError("The approved freeze forbids an invented T-epsilon coupling.")
     geometry = LinkGeometry(
@@ -78,8 +78,8 @@ def main() -> None:
             sigma_phi_rad=float(_required(motion_config, "sigma_phi_rad")),
             sigma_psi_rad=float(_required(motion_config, "sigma_psi_rad")),
         ),
-        epsilon_minimum_snu=float(_required(epsilon_config, "minimum_snu")),
-        epsilon_maximum_snu=float(_required(epsilon_config, "maximum_snu")),
+        epsilon_minimum_snu=float(_required(epsilon_config, "value_snu")),
+        epsilon_maximum_snu=float(_required(epsilon_config, "value_snu")),
         sample_count=int(_required(diagnostics_config, "sample_count")),
         seed=int(_required(diagnostics_config, "seed")),
         quantile_probabilities=_required(diagnostics_config, "quantile_probabilities"),

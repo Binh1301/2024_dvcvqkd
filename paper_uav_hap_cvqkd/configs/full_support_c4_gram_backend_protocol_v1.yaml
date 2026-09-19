@@ -6,8 +6,12 @@ fixture_roster: configs/threshold_validation_v1.yaml
 full_support_oracle:
   ensemble_serialization: exact_binary64_float_hex
   c4_sectors: 4
-  precision_ladder_decimal_digits: [1050, 1250, 1450]
-  convergence_rows: [1250, 1450]
+  precision_policy:
+    initial_precision_digits: 256
+    minimum_precision_step: 128
+    condition_guard_digits: 64
+    max_precision_digits: 2400
+    acceptance_rows: 2
   required_rank: 256
   convergence: existing_C_w_Z_lambda_chi_BE_raw_K_tolerances
 fast_path:

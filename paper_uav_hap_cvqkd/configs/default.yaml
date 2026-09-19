@@ -42,8 +42,13 @@ channel:
     theta_fov_rad: 6.25e-3
   raw_transmittance:
     active_treatment: truncated_renormalized_active_law
-  # Derived from the same HV Rytov integral; no free C_n,phi^2 input.
-  phase_model: rytov_equivalent_hufnagel_valley
+  phase_model: configured_phase_noise
+  phase_noise:
+    # Separate from turbulence_profile.cn2_ground_m_minus_two_thirds.
+    cn2_phase_m_minus_two_thirds: 1.0e-16
+    l_phase_m: 1000.0
+    mapping_status: configured
+    author_approved: true
   scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
   uav_motion:
     # Table I supplies aggregate sigma_h and sigma_o; these component fields
@@ -55,11 +60,10 @@ channel:
     sigma_phi_rad: 0.0
     sigma_psi_rad: 0.0
   excess_noise_distribution:
-    kind: independent_uniform
-    minimum_snu: 0.001
-    maximum_snu: 0.04
+    kind: fixed
+    value_snu: 0.0186
     dependence_on_transmittance: independent
-    interpretation: "author-approved assumed operating-domain distribution; not a measured HAP-UAV joint law"
+    interpretation: "fixed selected physical base-noise components; input-referred SNU"
   diagnostics:
     sample_count: 1000000
     seed: 202612

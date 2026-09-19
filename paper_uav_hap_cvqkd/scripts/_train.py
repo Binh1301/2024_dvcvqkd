@@ -15,10 +15,9 @@ from _common import (
     require_holevo_pseudoinverse_approval,
 )
 from src.channel.geometry import LinkGeometry
-from src.channel.phase_noise import rytov_equivalent_phase_provenance
-from src.channel.scintillation import hufnagel_valley_scintillation
+from src.channel.phase_noise import phase_parameter_provenance
 from src.channel.state_distribution import (
-    IndependentUniformExcessNoise,
+    FixedExcessNoise,
     assert_disjoint_state_realizations,
     sample_channel_state_distribution,
 )
@@ -49,6 +48,8 @@ TRAIN_REQUIRED = [
     "channel.turbulence_profile.model",
     "channel.turbulence_profile.wind_speed_m_per_s",
     "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",
+    "channel.phase_noise.cn2_phase_m_minus_two_thirds",
+    "channel.phase_noise.l_phase_m",
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
@@ -58,8 +59,7 @@ TRAIN_REQUIRED = [
     "channel.aoa.sigma_o_rad", "channel.aoa.theta_fov_rad",
     "channel.raw_transmittance.active_treatment",
     "channel.excess_noise_distribution.kind",
-    "channel.excess_noise_distribution.minimum_snu",
-    "channel.excess_noise_distribution.maximum_snu", "cvqkd.beta_reconciliation",
+    "channel.excess_noise_distribution.value_snu", "cvqkd.beta_reconciliation",
     "cvqkd.v_a_budget_snu", "cvqkd.v_min_snu",
     "cvqkd.v_max_snu", "training.epochs",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
@@ -192,11 +192,11 @@ def _channel(config: dict[str, Any], count: int, seed: int):
     motion_values = values.get("uav_motion")
     if not isinstance(motion_values, dict):
         raise ValueError("channel.uav_motion must explicitly resolve all six jitter values.")
-    if epsilon_values.get("kind") != "independent_uniform":
+    if epsilon_values.get("kind") != "fixed":
         raise ValueError(
-            "The frozen numerical protocol requires channel.excess_noise_distribution.kind "
-            "to be 'independent_uniform'."
+            "The production channel requires fixed channel.excess_noise_distribution."
         )
+    excess_noise = FixedExcessNoise(float(epsilon_values["value_snu"]))
     return sample_channel_state_distribution(
         geometry=geometry,
         wavelength_m=values["wavelength_m"],
@@ -204,10 +204,7 @@ def _channel(config: dict[str, Any], count: int, seed: int):
         beam_waist_m=values["beam_waist_m"],
         aperture_radius_m=values["aperture_radius_m"],
         cn2_m_minus_two_thirds=values["cn2_m_minus_two_thirds"],
-        excess_noise=IndependentUniformExcessNoise(
-            minimum_snu=epsilon_values["minimum_snu"],
-            maximum_snu=epsilon_values["maximum_snu"],
-        ),
+        excess_noise=excess_noise,
         sample_count=int(count),
         seed=seed,
         uav_motion=UavMotion(**motion_values),
@@ -217,32 +214,19 @@ def _channel(config: dict[str, Any], count: int, seed: int):
 
 def _phase_provenance(config: dict[str, Any]) -> dict[str, Any]:
     values = config["channel"]
-    if values.get("phase_model") != "rytov_equivalent_hufnagel_valley":
+    if values.get("phase_model") != "configured_phase_noise":
         raise ValueError(
-            "channel.phase_model must be rytov_equivalent_hufnagel_valley."
+            "channel.phase_model must be configured_phase_noise."
         )
-    profile = values.get("turbulence_profile", {})
-    if profile.get("model") not in {"hufnagel_valley", "Hufnagel-Valley"}:
-        raise ValueError("Rytov-equivalent phase requires the Hufnagel-Valley profile.")
-    geometry = LinkGeometry(
-        values["h_hap_m"],
-        values["h_uav_m"],
-        values.get("zenith_angle_rad", 0.0),
-    )
-    scintillation = hufnagel_valley_scintillation(
-        values["h_uav_m"],
-        values["h_hap_m"],
+    phase_noise = values.get("phase_noise")
+    if not isinstance(phase_noise, dict):
+        raise ValueError("channel.phase_noise must explicitly resolve phase parameters.")
+    return phase_parameter_provenance(
+        phase_noise["cn2_phase_m_minus_two_thirds"],
         values["wavelength_m"],
-        values.get("zenith_angle_rad", 0.0),
-        profile["wind_speed_m_per_s"],
-        profile["cn2_ground_m_minus_two_thirds"],
-        2.0 * values["aperture_radius_m"],
-    )
-    return rytov_equivalent_phase_provenance(
-        scintillation["rytov_integral"],
-        scintillation["sigma_R0_squared"],
-        values["wavelength_m"],
-        geometry.link_length_m,
+        phase_noise["l_phase_m"],
+        mapping_status=phase_noise.get("mapping_status", "configured"),
+        author_approved=phase_noise.get("author_approved", False),
     )
 
 

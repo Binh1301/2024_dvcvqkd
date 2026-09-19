@@ -21,21 +21,25 @@ def _finite_float(value: Any, name: str, *, nonnegative: bool = False) -> float:
 
 
 def phase_distortion_variance(
-    Cn_phi2: float,
+    cn2_phase_m_minus_two_thirds: float,
     wavelength_m: float,
-    link_distance_m: float,
+    l_phase_m: float,
 ) -> float:
-    """Return the scenario-level tau_phi2 value, meaning tau_phi**2."""
+    """Return tau_phi2 from the separately configured phase-noise parameters."""
 
-    cn_phi2 = _finite_float(Cn_phi2, "Cn_phi2", nonnegative=True)
+    cn2_phase = _finite_float(
+        cn2_phase_m_minus_two_thirds,
+        "cn2_phase_m_minus_two_thirds",
+        nonnegative=True,
+    )
     wavelength = _finite_float(wavelength_m, "wavelength_m")
-    link_distance = _finite_float(link_distance_m, "link_distance_m")
+    l_phase = _finite_float(l_phase_m, "l_phase_m")
     if wavelength <= 0.0:
         raise ValueError("wavelength_m must be positive.")
-    if link_distance <= 0.0:
-        raise ValueError("link_distance_m must be positive.")
+    if l_phase <= 0.0:
+        raise ValueError("l_phase_m must be positive.")
     kappa = 2.0 * math.pi / wavelength
-    return 2.46 * cn_phi2 * kappa ** (7.0 / 6.0) * link_distance ** (11.0 / 6.0)
+    return 2.46 * cn2_phase * kappa ** (7.0 / 6.0) * l_phase ** (11.0 / 6.0)
 
 
 def phase_noise_coefficient(tau_phi2: float) -> float:
@@ -46,42 +50,42 @@ def phase_noise_coefficient(tau_phi2: float) -> float:
 
 
 def phase_parameter_provenance(
-    Cn_phi2: float,
+    cn2_phase_m_minus_two_thirds: float,
     wavelength_m: float,
-    link_distance_m: float,
+    l_phase_m: float,
     *,
     mapping_status: str = "unresolved",
     author_approved: bool = False,
 ) -> dict[str, Any]:
-    """Return phase inputs as an effective scalar of the common atmosphere."""
+    """Return provenance for the fixed, independent phase-noise parameter set."""
 
-    cn_phi2 = _finite_float(Cn_phi2, "Cn_phi2", nonnegative=True)
+    cn2_phase = _finite_float(
+        cn2_phase_m_minus_two_thirds,
+        "cn2_phase_m_minus_two_thirds",
+        nonnegative=True,
+    )
     wavelength = _finite_float(wavelength_m, "wavelength_m")
-    link_distance = _finite_float(link_distance_m, "link_distance_m")
-    tau_phi2 = phase_distortion_variance(cn_phi2, wavelength, link_distance)
+    l_phase = _finite_float(l_phase_m, "l_phase_m")
+    tau_phi2 = phase_distortion_variance(cn2_phase, wavelength, l_phase)
     c_phi = phase_noise_coefficient(tau_phi2)
     return {
-        "parameterization": "scenario_level_effective_Cn_phi2",
-        "cn_phi2_m_minus_two_thirds": cn_phi2,
+        "parameterization": "configured_phase_noise",
+        "cn2_phase_m_minus_two_thirds": cn2_phase,
         "wavelength_m": wavelength,
-        "link_distance_m": link_distance,
+        "l_phase_m": l_phase,
         "tau_phi2": tau_phi2,
         "c_phi": c_phi,
         "units": {
-            "cn_phi2_m_minus_two_thirds": "m^(-2/3)",
+            "cn2_phase_m_minus_two_thirds": "m^(-2/3)",
             "wavelength_m": "m",
-            "link_distance_m": "m",
+            "l_phase_m": "m",
             "tau_phi2": "dimensionless",
             "c_phi": "dimensionless",
         },
-        "cn_phi2_scope": "fixed_within_scenario",
-        "cn_phi2_mapping_status": str(mapping_status),
-        "cn_phi2_author_approved": bool(author_approved),
-        "common_turbulence_source": "same altitude-dependent C_n^2(h) scenario as scintillation/AoA",
-        "cn_phi2_relation_to_cn2_profile": (
-            "effective scalar representation of the same physical turbulence; "
-            "validated C_n^2(h)->C_n,phi^2 mapping remains unresolved"
-        ),
+        "cn2_phase_scope": "fixed_and_independent_of_scintillation_profile",
+        "cn2_phase_mapping_status": str(mapping_status),
+        "cn2_phase_author_approved": bool(author_approved),
+        "l_phase_role": "fixed_phase_noise_propagation_range; not the HAP-UAV optical link length",
         "c_phi_is_derived": True,
     }
 
@@ -168,7 +172,7 @@ def total_excess_noise(
     modulation_variance: torch.Tensor | float,
     c_phi: torch.Tensor | float,
 ) -> torch.Tensor:
-    """Return epsilon_base + c_phi * V_A without breaking autograd."""
+    """Return epsilon_ch = epsilon_base + c_phi * V_A without breaking autograd."""
 
     va = _float64_tensor(modulation_variance)
     base = _float64_tensor(epsilon_base, device=va.device)
@@ -177,13 +181,15 @@ def total_excess_noise(
 
 
 def phase_coefficient_from_parameters(
-    Cn_phi2: float,
+    cn2_phase_m_minus_two_thirds: float,
     wavelength_m: float,
-    link_distance_m: float,
+    l_phase_m: float,
 ) -> float:
-    """Compute c_phi from the declared scenario-level parameters."""
+    """Compute c_phi from the declared phase-noise parameters."""
 
-    return phase_parameter_provenance(Cn_phi2, wavelength_m, link_distance_m)["c_phi"]
+    return phase_parameter_provenance(
+        cn2_phase_m_minus_two_thirds, wavelength_m, l_phase_m
+    )["c_phi"]
 
 
 __all__ = [

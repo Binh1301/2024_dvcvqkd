@@ -15,7 +15,7 @@ from src.channel.phase_noise import (
     total_excess_noise,
 )
 from src.channel.state_distribution import (
-    IndependentUniformExcessNoise,
+    FixedExcessNoise,
     sample_channel_state_distribution,
 )
 from src.cvqkd.holevo import holevo_information
@@ -30,7 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in (
         "h-hap-m", "h-uav-m", "wavelength-m", "visibility-km", "beam-waist-m",
-        "aperture-radius-m", "cn2", "cn-phi2", "epsilon-min", "epsilon-max", "va", "v-min", "v-max",
+        "aperture-radius-m", "cn2", "va", "v-min", "v-max",
         "va-budget", "n-peak-photons", "beta",
     ):
         parser.add_argument(f"--{name}", type=float, required=True)
@@ -66,7 +66,9 @@ def main() -> int:
         beam_waist_m=args.beam_waist_m,
         aperture_radius_m=args.aperture_radius_m,
         cn2_m_minus_two_thirds=args.cn2,
-        excess_noise=IndependentUniformExcessNoise(args.epsilon_min, args.epsilon_max),
+        excess_noise=FixedExcessNoise(
+            float(config["channel"]["excess_noise_distribution"]["value_snu"])
+        ),
         sample_count=args.fading_samples,
         seed=args.channel_seed,
         scintillation_log_variance=None,
@@ -74,10 +76,11 @@ def main() -> int:
         aperture_averaging_model="explicit_v_sc_override",
         aoa_model="disabled",
     )
+    phase_config = config["channel"]["phase_noise"]
     phase_provenance = phase_parameter_provenance(
-        args.cn_phi2,
+        phase_config["cn2_phase_m_minus_two_thirds"],
         args.wavelength_m,
-        geometry.link_length_m,
+        phase_config["l_phase_m"],
     )
     phase_coefficient = phase_provenance["c_phi"]
     t = torch.as_tensor(channel.transmittance, dtype=torch.float64)

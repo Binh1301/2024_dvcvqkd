@@ -8,7 +8,10 @@
     "beam_waist_m": 0.0157,
     "aperture_radius_m": 0.075,
     "cn2": 1e-16,
-    "cn_phi2": null,
+    "phase_noise": {
+      "cn2_phase_m_minus_two_thirds": 1e-16,
+      "l_phase_m": 1000.0
+    },
     "turbulence_profile": {
       "model": null,
       "heights_m": null,
@@ -26,8 +29,7 @@
       "theta_fov_rad": null
     },
     "raw_transmittance_treatment": "truncated_renormalized_active_law",
-    "epsilon_min": 0.001,
-    "epsilon_max": 0.04
+    "epsilon_base": 0.0186
   },
   "modulation": {
     "va": 1.0,

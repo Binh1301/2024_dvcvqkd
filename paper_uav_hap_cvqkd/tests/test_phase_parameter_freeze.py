@@ -12,37 +12,32 @@ from _train import _phase_coefficient, _phase_provenance
 def config():
     return {
         "channel": {
-            "phase_model": "rytov_equivalent_hufnagel_valley",
+            "phase_model": "configured_phase_noise",
             "h_hap_m": 20000.0,
             "h_uav_m": 1000.0,
             "zenith_angle_rad": 0.0,
             "wavelength_m": 1.55e-6,
-            "aperture_radius_m": 0.04,
-            "turbulence_profile": {
-                "model": "hufnagel_valley",
-                "wind_speed_m_per_s": 21.0,
-                "cn2_ground_m_minus_two_thirds": 5e-14,
+            "phase_noise": {
+                "cn2_phase_m_minus_two_thirds": 1.0e-16,
+                "l_phase_m": 1000.0,
             },
         }
     }
 
 
 class PhaseParameterFreezeTests(unittest.TestCase):
-    def test_phase_is_derived_from_the_common_hv_integral(self):
+    def test_phase_uses_separate_fixed_parameters(self):
         record = _phase_provenance(config())
-        self.assertEqual(record["parameterization"], "rytov_equivalent_hufnagel_valley")
-        self.assertEqual(record["link_distance_m"], 19000.0)
-        self.assertAlmostEqual(record["tau_phi2"], 2.0 * record["sigma_R0_squared"])
+        self.assertEqual(record["parameterization"], "configured_phase_noise")
+        self.assertEqual(record["cn2_phase_m_minus_two_thirds"], 1.0e-16)
+        self.assertEqual(record["l_phase_m"], 1000.0)
+        self.assertAlmostEqual(record["tau_phi2"], 3.981908770225408e-3)
         self.assertEqual(_phase_coefficient(config()), record["c_phi"])
 
-    def test_old_free_phase_fields_do_not_override_the_derived_value(self):
+    def test_main_link_distance_does_not_change_l_phase(self):
         first = config()
         second = copy.deepcopy(first)
-        second["channel"].update({
-            "cn_phi2_m_minus_two_thirds": 999.0,
-            "cn_phi2_mapping_status": "validated",
-            "cn_phi2_author_approved": True,
-        })
+        second["channel"]["h_hap_m"] = 24000.0
         self.assertEqual(_phase_provenance(first), _phase_provenance(second))
 
     def test_wrong_or_missing_phase_model_fails_closed(self):
@@ -51,14 +46,14 @@ class PhaseParameterFreezeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "phase_model"):
             _phase_provenance(missing)
         wrong = config()
-        wrong["channel"]["phase_model"] = "free_cn_phi2"
+        wrong["channel"]["phase_model"] = "rytov_equivalent_hufnagel_valley"
         with self.assertRaisesRegex(ValueError, "phase_model"):
             _phase_provenance(wrong)
 
-    def test_non_hv_profile_fails_closed(self):
+    def test_missing_phase_parameters_fail_closed(self):
         wrong = config()
-        wrong["channel"]["turbulence_profile"]["model"] = "external_altitude_profile"
-        with self.assertRaisesRegex(ValueError, "Hufnagel-Valley"):
+        del wrong["channel"]["phase_noise"]
+        with self.assertRaisesRegex(ValueError, "phase_noise"):
             _phase_provenance(wrong)
 
 

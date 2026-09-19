@@ -14,6 +14,7 @@ from .geometry import LinkGeometry
 from .pointing_error import PointingParameters, pointing_pdf
 from .scintillation import lognormal_pdf
 from .state_distribution import (
+    FixedExcessNoise,
     IndependentUniformExcessNoise,
     sample_channel_state_distribution,
 )
@@ -348,6 +349,13 @@ def frozen_channel_diagnostics(
     )
     geometry.validate()
     motion.validate()
+    excess_noise = (
+        FixedExcessNoise(epsilon_minimum_snu)
+        if epsilon_minimum_snu == epsilon_maximum_snu
+        else IndependentUniformExcessNoise(
+            epsilon_minimum_snu, epsilon_maximum_snu
+        )
+    )
     states = sample_channel_state_distribution(
         geometry=geometry,
         wavelength_m=wavelength_m,
@@ -355,9 +363,7 @@ def frozen_channel_diagnostics(
         beam_waist_m=beam_waist_m,
         aperture_radius_m=aperture_radius_m,
         cn2_m_minus_two_thirds=cn2_m_minus_two_thirds,
-        excess_noise=IndependentUniformExcessNoise(
-            epsilon_minimum_snu, epsilon_maximum_snu
-        ),
+        excess_noise=excess_noise,
         sample_count=sample_count,
         seed=seed,
         uav_motion=motion,
@@ -473,7 +479,9 @@ def frozen_channel_diagnostics(
             "epsilon_minimum_snu": float(epsilon_minimum_snu),
             "epsilon_maximum_snu": float(epsilon_maximum_snu),
             "epsilon_distribution": (
-                f"independent Uniform[{float(epsilon_minimum_snu):g},"
+                f"fixed {float(epsilon_minimum_snu):g} input-referred SNU"
+                if epsilon_minimum_snu == epsilon_maximum_snu
+                else f"independent Uniform[{float(epsilon_minimum_snu):g},"
                 f"{float(epsilon_maximum_snu):g}] input-referred SNU"
             ),
             "beam_wander_status": metadata["beam_wander_status"],

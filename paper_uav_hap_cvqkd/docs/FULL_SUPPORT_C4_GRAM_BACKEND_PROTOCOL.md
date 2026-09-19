@@ -40,10 +40,12 @@ when every sector has positive computed spectrum, condition number at most
 and the two `w` identities agree to relative error at most `1e-12`.
 
 Otherwise it serializes the exact binary64 PMF and amplitudes with `float.hex`
-to the arbitrary-precision worker. The worker uses the fixed 1050, 1250, 1450
-decimal-digit ladder. It accepts only rank 256 at 1250 and 1450 and successive
-agreement of `C,w,Z,lambda1,lambda2,lambda3,chi_BE,raw_K` under the existing
-frozen tolerances. Any failure is fail-closed.
+to the arbitrary-precision worker. The worker starts at 256 decimal digits,
+increases by at least 128 digits, and adds a 64-digit condition-number guard
+after full support is reached. It accepts only rank 256 at two consecutive
+rows with successive agreement of `C,w,Z,lambda1,lambda2,lambda3,chi_BE,raw_K`
+under the existing tolerances. Any unresolved numerical issue is reported as
+a convergence error.
 
 `tau` remains unchanged but is absent from full-support source-moment routing.
 It is historical/diagnostic only. Eigenvalue floors, `epsilon I`, threshold

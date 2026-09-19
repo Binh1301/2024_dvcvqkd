@@ -12,9 +12,10 @@ optics:
   f0_m: .inf
   aperture_radius_m: 0.04
   cn2_m_minus_two_thirds: 1.0e-16
-phase:
-  model: rytov_equivalent_hufnagel_valley
-  source: same_hufnagel_valley_rytov_integral
+phase_model: configured_phase_noise
+phase_noise:
+  cn2_phase_m_minus_two_thirds: 1.0e-16
+  l_phase_m: 1000.0
 turbulence_profile:
   model: hufnagel_valley
   wind_speed_m_per_s: 21.0
@@ -50,12 +51,11 @@ uav_motion_from_paper_table_i:
   sigma_psi_rad: 0.0
 variance_convention: "sigma_axis^2=sigma_turb^2+sigma_uav^2; r~Rayleigh(sigma_axis)"
 excess_noise_distribution:
-  kind: independent_uniform
-  minimum_snu: 0.001
-  maximum_snu: 0.04
+  kind: fixed
+  value_snu: 0.0186
   units: input_referred_snu
   dependence_on_transmittance: independent
-  justification: "Author-approved assumed operating-domain distribution; it is not a measured HAP-UAV joint law, and no empirical or mechanistic T-epsilon coupling is supplied."
+  justification: "Selected physical base-noise components; fixed input-referred value with no T-epsilon coupling."
 diagnostics:
   sample_count: 1000000
   seed: 202612

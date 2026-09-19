@@ -1,6 +1,7 @@
 """Support-free C4 coherent-state Gram source moments."""
 from __future__ import annotations
 from dataclasses import dataclass
+import hashlib
 import json, math
 from pathlib import Path
 import subprocess, sys
@@ -8,11 +9,14 @@ from typing import Any
 import torch
 from src.modulation.joint_ps_gs import Ensemble
 from src.modulation.qam256 import c4_orbit_indices
-from .spectral_frechet import hermitian_inverse_sqrt, hermitian_sqrt
+from .spectral_frechet import hermitian_sqrt
 
 FAST_MAX_CONDITION = 1.0e6
 FAST_MAX_RESIDUAL = 1.0e-12
-PRECISION_LADDER = (1050, 1250, 1450)
+DEFAULT_INITIAL_PRECISION_DIGITS = 256
+DEFAULT_PRECISION_STEP = 128
+DEFAULT_CONDITION_GUARD_DIGITS = 64
+DEFAULT_MAX_PRECISION_DIGITS = 2400
 DIAGNOSTIC_EIGENVALUE_THRESHOLDS = (1e-10, 1e-12, 1e-14, 1e-16)
 
 class FullSupportGradientUnavailable(RuntimeError):
@@ -25,6 +29,11 @@ class GramMomentResult:
     diagnostics: tuple[dict[str, Any], ...]
 
 def _hex(value: float) -> str: return float(value).hex()
+
+
+def _hash_payload(value: Any) -> str:
+    encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(encoded).hexdigest()
 
 def _sectors(p: torch.Tensor, z: torch.Tensor) -> list[torch.Tensor]:
     rotations = torch.tensor([1, 1j, -1, -1j], dtype=torch.complex128)
@@ -39,6 +48,33 @@ def _sectors(p: torch.Tensor, z: torch.Tensor) -> list[torch.Tensor]:
 
 def _fast(p: torch.Tensor, z: torch.Tensor) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     return _fast_from_sectors(p, z, _sectors(p, z))
+
+
+def _right_solve(matrix: torch.Tensor, rhs: torch.Tensor) -> torch.Tensor:
+    """Solve ``X @ matrix = rhs`` without materializing an inverse."""
+
+    return torch.linalg.solve(matrix.mH, rhs.mH).mH
+
+
+def _positive_powers(matrix: torch.Tensor) -> tuple[torch.Tensor, ...]:
+    half = hermitian_sqrt(matrix)
+    quarter = hermitian_sqrt(half)
+    return quarter, half, half @ quarter
+
+
+def _relative_residual(actual: torch.Tensor, expected: torch.Tensor) -> float:
+    scale = max(1.0, float(expected.detach().norm()))
+    return float((actual.detach() - expected.detach()).norm()) / scale
+
+
+def _diagnostic_value(value: Any) -> Any:
+    if isinstance(value, torch.Tensor):
+        return float(value.detach())
+    if isinstance(value, tuple):
+        return tuple(_diagnostic_value(item) for item in value)
+    if isinstance(value, list):
+        return [_diagnostic_value(item) for item in value]
+    return value
 
 
 def _fast_from_sectors(
@@ -73,27 +109,57 @@ def _fast_from_sectors(
         math.inf if minimum <= 0 else maximum / minimum
     ),
     "sector_reconstruction_residual": reconstruction,}
+    gate["sector_diagnostics"] = tuple(
+        {
+            "lambda_min": float(value.min()),
+            "lambda_max": float(value.max()),
+            "rank": int((value > 0.0).sum()),
+            "kappa": math.inf if float(value.min()) <= 0.0 else float(value.max() / value.min()),
+            "log10_kappa": (
+                None
+                if float(value.min()) <= 0.0
+                else math.log10(float(value.max() / value.min()))
+            ),
+        }
+        for value in values
+    )
     if not gate["all_sectors_positive"] or gate["sector_condition_number"] > FAST_MAX_CONDITION or reconstruction > FAST_MAX_RESIDUAL:
         return None, gate
 
-    square = [hermitian_sqrt(matrix) for matrix in sectors]
-    inverse_square = [hermitian_inverse_sqrt(matrix) for matrix in sectors]
+    quarter = []
+    square = []
+    threequarter = []
+    for matrix in sectors:
+        matrix_quarter, matrix_square, matrix_threequarter = _positive_powers(matrix)
+        quarter.append(matrix_quarter)
+        square.append(matrix_square)
+        threequarter.append(matrix_threequarter)
     diagonal_z = torch.diag(z)
     diagonal_weight = torch.diag(1.0 / (2.0 * torch.sqrt(p))).to(torch.complex128)
     b_blocks = []
     a_blocks = []
     coefficients = []
-    correlation = torch.zeros((), dtype=torch.float64, device=z.device)
+    c_positive = torch.zeros((), dtype=torch.float64, device=z.device)
+    c_trace = torch.zeros_like(c_positive)
+    right_solve_residuals: list[float] = []
     for sector in range(4):
         previous = (sector - 1) % 4
-        b = square[sector] @ diagonal_z @ inverse_square[previous]
-        left = sectors[sector] @ diagonal_z
-        a = torch.linalg.solve(sectors[previous], left.mH).mH
+        b_rhs = square[sector] @ diagonal_z
+        b = _right_solve(square[previous], b_rhs)
+        a_rhs = sectors[sector] @ diagonal_z
+        a = _right_solve(sectors[previous], a_rhs)
         b_blocks.append(b)
         a_blocks.append(a)
-        correlation = correlation + torch.trace(
+        right_solve_residuals.extend((
+            _relative_residual(b @ square[previous], b_rhs),
+            _relative_residual(a @ sectors[previous], a_rhs),
+        ))
+        c_trace = c_trace + torch.trace(
             square[sector] @ b @ square[previous] @ b.mH
         ).real
+        c_positive = c_positive + torch.linalg.matrix_norm(
+            _right_solve(quarter[previous], threequarter[sector] @ diagonal_z)
+        ).square()
         coefficients.append(square[sector] @ diagonal_weight)
 
     transformed = [
@@ -104,12 +170,13 @@ def _fast_from_sectors(
         torch.sum(coefficients[sector].conj() * transformed[sector], dim=0)
         for sector in range(4)
     )
-    first = sum(
+    a_w = sum(
         torch.sum((a_blocks[sector] @ square[(sector - 1) % 4]).abs().square()).real
         for sector in range(4)
     )
-    subtraction = first - torch.sum(4.0 * p * inner.abs().square()).real
-    residual = sum(
+    b_w = torch.sum(4.0 * p * inner.abs().square()).real
+    w_diff = a_w - b_w
+    residual_contributions = [
         torch.sum(
             4.0 * p
             * torch.sum(
@@ -118,37 +185,109 @@ def _fast_from_sectors(
             )
         ).real
         for sector in range(4)
+    ]
+    w_residual = sum(residual_contributions)
+    c_relative_error = abs(float((c_positive - c_trace).detach())) / max(
+        1.0, abs(float(c_trace.detach()))
     )
-    gate["residual_identity_relative_error"] = abs(float((subtraction - residual).detach())) / max(
-        1.0, abs(float(subtraction.detach()))
+    w_relative_error = abs(float((w_diff - w_residual).detach())) / max(
+        1.0, abs(float(w_diff.detach()))
     )
+    gate.update({
+        "right_solve_residual_max": max(right_solve_residuals),
+        "C_positive": c_positive,
+        "C_trace": c_trace,
+        "C_difference": c_positive - c_trace,
+        "C_positive_trace_relative_error": c_relative_error,
+        "A_w": a_w,
+        "B_w": b_w,
+        "w_diff": w_diff,
+        "w_residual": w_residual,
+        "w_difference_residual_relative_error": w_relative_error,
+        "residual_contributions": tuple(float(value.detach()) for value in residual_contributions),
+        "orbit_sector_residual": tuple(float(value.detach()) for value in residual_contributions),
+        "cancellation_digits": (
+            -math.log10(abs(float((w_residual / a_w).detach())))
+            if bool(a_w > 0.0) and bool(w_residual > 0.0)
+            else None
+        ),
+        "matrix_function_residual_max": max(
+            _relative_residual(square[index] @ square[index], sectors[index])
+            for index in range(4)
+        ),
+    })
+    gate["residual_identity_relative_error"] = w_relative_error
     gate["spectral_backward"] = "CUSTOM_LOEWNER_FRECHET"
-    if gate["residual_identity_relative_error"] > FAST_MAX_RESIDUAL or not bool(
-        torch.isfinite(correlation)
-    ) or not bool(torch.isfinite(residual)):
+    if (
+        c_relative_error > FAST_MAX_RESIDUAL
+        or w_relative_error > FAST_MAX_RESIDUAL
+        or gate["right_solve_residual_max"] > FAST_MAX_RESIDUAL
+        or bool(torch.any(torch.stack(residual_contributions) < -FAST_MAX_RESIDUAL))
+        or not bool(torch.isfinite(c_positive))
+        or not bool(torch.isfinite(w_residual))
+    ):
         return None, gate
-    return {"C": correlation, "w": residual}, gate
+    return {
+        "C": c_positive,
+        "w": w_residual,
+        "C_positive": c_positive,
+        "C_trace": c_trace,
+        "w_residual": w_residual,
+        "w_diff": w_diff,
+        "A_w": a_w,
+        "B_w": b_w,
+        "cancellation_digits": gate["cancellation_digits"],
+        "residual_contributions": tuple(residual_contributions),
+        "orbit_sector_residual": tuple(residual_contributions),
+    }, gate
 
 def _fallback(
     p: torch.Tensor,
     z: torch.Tensor,
     *,
-    timeout_seconds: float | None = 3600.0,
+    timeout_seconds: float | None = None,
+    max_precision_digits: int | None = DEFAULT_MAX_PRECISION_DIGITS,
+    checkpoint_path: str | Path | None = None,
+    scheme_config_hash: str | None = None,
 ) -> dict[str,Any]:
     worker=Path(__file__).parents[2]/"scripts"/"full_support_c4_worker.py"
-    request={"probabilities_float64_hex":[_hex(x) for x in p.detach().tolist()],"prototypes_float64_hex":[[_hex(complex(x).real),_hex(complex(x).imag)] for x in z.detach().tolist()],"precision_ladder_decimal_digits":list(PRECISION_LADDER),"diagnostic_eigenvalue_thresholds":[_hex(x) for x in DIAGNOSTIC_EIGENVALUE_THRESHOLDS]}
+    probabilities_hex = [_hex(x) for x in p.detach().tolist()]
+    amplitudes_hex = [[_hex(complex(x).real), _hex(complex(x).imag)] for x in z.detach().tolist()]
+    input_hashes = {
+        "pmf_sha256": _hash_payload(probabilities_hex),
+        "amplitude_sha256": _hash_payload(amplitudes_hex),
+    }
+    input_hashes["scheme_config_sha256"] = scheme_config_hash or _hash_payload(input_hashes)
+    precision_policy = {
+        "initial_precision_digits": DEFAULT_INITIAL_PRECISION_DIGITS,
+        "minimum_precision_step": DEFAULT_PRECISION_STEP,
+        "condition_guard_digits": DEFAULT_CONDITION_GUARD_DIGITS,
+        "max_precision_digits": max_precision_digits,
+    }
+    request={
+        "probabilities_float64_hex": probabilities_hex,
+        "prototypes_float64_hex": amplitudes_hex,
+        **precision_policy,
+        "diagnostic_eigenvalue_thresholds":[_hex(x) for x in DIAGNOSTIC_EIGENVALUE_THRESHOLDS],
+        "input_hashes": input_hashes,
+        "precision_policy_sha256": _hash_payload(precision_policy),
+        "checkpoint_path": None if checkpoint_path is None else str(checkpoint_path),
+    }
     try: done=subprocess.run([sys.executable,str(worker)],input=json.dumps(request,sort_keys=True),text=True,capture_output=True,timeout=timeout_seconds,check=False)
-    except subprocess.TimeoutExpired: return {"status":"FAIL_CLOSED","reason":"fallback timeout"}
-    if done.returncode: return {"status":"FAIL_CLOSED","reason":done.stderr[-2000:] or f"worker exit {done.returncode}"}
+    except subprocess.TimeoutExpired: return {"status":"NUMERICAL_CONVERGENCE_ERROR","reason":"fallback timeout"}
+    if done.returncode: return {"status":"NUMERICAL_CONVERGENCE_ERROR","reason":done.stderr[-2000:] or f"worker exit {done.returncode}"}
     try: return json.loads(done.stdout)
-    except json.JSONDecodeError as error: return {"status":"FAIL_CLOSED","reason":f"worker JSON failure: {error}"}
+    except json.JSONDecodeError as error: return {"status":"NUMERICAL_CONVERGENCE_ERROR","reason":f"worker JSON failure: {error}"}
 
 def c4_gram_source_moments(
     ensemble: Ensemble,
     *,
     density_eigenvalue_tolerance: float,
     physicality_tolerance: float = 1e-10,
-    fallback_timeout_seconds: float | None = 3600.0,
+    fallback_timeout_seconds: float | None = None,
+    max_precision_digits: int | None = DEFAULT_MAX_PRECISION_DIGITS,
+    fallback_checkpoint_path: str | Path | None = None,
+    scheme_config_hash: str | None = None,
 ) -> GramMomentResult:
     """Full mathematical support; threshold is diagnostic metadata only."""
 
@@ -174,6 +313,11 @@ def c4_gram_source_moments(
         not math.isfinite(fallback_timeout_seconds) or fallback_timeout_seconds <= 0.0
     ):
         raise ValueError("fallback_timeout_seconds must be positive or None.")
+    if max_precision_digits is not None and (
+        not isinstance(max_precision_digits, int)
+        or max_precision_digits < DEFAULT_INITIAL_PRECISION_DIGITS
+    ):
+        raise ValueError("max_precision_digits must be None or an integer >= 256.")
 
     indices = c4_orbit_indices(
         device=ensemble.probabilities.device
@@ -195,11 +339,18 @@ def c4_gram_source_moments(
                     "FULL_SUPPORT_FALLBACK_EVALUATION_ONLY"
                 )
 
-            fallback = _fallback(p, z, timeout_seconds=fallback_timeout_seconds)
+            fallback = _fallback(
+                p,
+                z,
+                timeout_seconds=fallback_timeout_seconds,
+                max_precision_digits=max_precision_digits,
+                checkpoint_path=fallback_checkpoint_path,
+                scheme_config_hash=scheme_config_hash,
+            )
 
             if fallback.get("status") != "FULL_SUPPORT_CONVERGED":
                 raise FloatingPointError(
-                    "full-support fallback failed closed: "
+                    "full-support AP convergence failed: "
                     f"{fallback.get('reason', 'unresolved')}"
                 )
 
@@ -215,6 +366,7 @@ def c4_gram_source_moments(
 
             route = "ARBITRARY_PRECISION_FALLBACK"
             rows = fallback["rows"]
+            diagnostic_values = fallback
 
             # The worker reports this for every precision row.
             minimum_eigenvalue = min(
@@ -232,6 +384,7 @@ def c4_gram_source_moments(
             minimum_eigenvalue = float(
                 gate["minimum_eigenvalue"]
             )
+            diagnostic_values = fast
 
         if (
             not bool(torch.isfinite(c))
@@ -249,12 +402,22 @@ def c4_gram_source_moments(
             {
                 "route": route,
                 "fast_path_gate": gate,
-                "fallback_precisions": (
-                    list(PRECISION_LADDER)
-                    if rows
-                    else []
-                ),
+                "fallback_precisions": [row["digits"] for row in rows],
                 "fallback_rows": rows,
+                "C_positive": _diagnostic_value(diagnostic_values.get("C_positive")),
+                "C_trace": _diagnostic_value(diagnostic_values.get("C_trace")),
+                "C_difference": _diagnostic_value(diagnostic_values.get("C_difference")),
+                "w_residual": _diagnostic_value(diagnostic_values.get("w_residual")),
+                "w_diff": _diagnostic_value(diagnostic_values.get("w_diff")),
+                "A_w": _diagnostic_value(diagnostic_values.get("A_w")),
+                "B_w": _diagnostic_value(diagnostic_values.get("B_w")),
+                "cancellation_digits": diagnostic_values.get("cancellation_digits"),
+                "residual_contributions": _diagnostic_value(
+                    diagnostic_values.get("residual_contributions")
+                ),
+                "orbit_sector_residual": _diagnostic_value(
+                    diagnostic_values.get("orbit_sector_residual")
+                ),
 
                 # REQUIRED BY holevo.py
                 "minimum_eigenvalue": minimum_eigenvalue,

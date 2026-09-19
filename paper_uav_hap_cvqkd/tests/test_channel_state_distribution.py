@@ -4,6 +4,7 @@ import numpy as np
 
 from src.channel.geometry import LinkGeometry
 from src.channel.state_distribution import (
+    FixedExcessNoise,
     IndependentUniformExcessNoise,
     assert_disjoint_state_realizations,
     sample_channel_state_distribution,
@@ -75,6 +76,23 @@ class ChannelStateDistributionTests(unittest.TestCase):
             IndependentUniformExcessNoise(1e-3, 1e-3).validate()
         with self.assertRaisesRegex(ValueError, "nonnegative"):
             IndependentUniformExcessNoise(-1e-3, 1e-3).validate()
+
+    def test_fixed_base_excess_noise_is_constant(self):
+        states = sample_channel_state_distribution(
+            geometry=LinkGeometry(20_000.0, 0.0, 0.0),
+            wavelength_m=1550e-9,
+            visibility_km=10.0,
+            beam_waist_m=0.0626,
+            aperture_radius_m=0.2,
+            cn2_m_minus_two_thirds=1e-15,
+            excess_noise=FixedExcessNoise(0.0186),
+            sample_count=32,
+            seed=4104,
+            scintillation_log_variance=0.0,
+        )
+        np.testing.assert_array_equal(states.epsilon_base_snu, 0.0186)
+        self.assertEqual(states.metadata["epsilon_base_value_snu"], 0.0186)
+        self.assertEqual(states.metadata["epsilon_base_theoretical_variance_snu2"], 0.0)
 
     def test_joint_realization_requires_at_least_two_states(self):
         with self.assertRaisesRegex(ValueError, "sample_count >= 2"):

@@ -37,6 +37,7 @@ from .scintillation import (
 )
 from .state_distribution import (
     ChannelStateSamples,
+    FixedExcessNoise,
     IndependentUniformExcessNoise,
     assert_disjoint_state_realizations,
     sample_channel_state_distribution,
@@ -45,6 +46,7 @@ from .state_distribution import (
 __all__ = [
     "ChannelSamples",
     "ChannelStateSamples",
+    "FixedExcessNoise",
     "IndependentUniformExcessNoise",
     "LinkGeometry",
     "PointingParameters",

@@ -13,7 +13,16 @@ class FullSupportProtocolTests(unittest.TestCase):
         config = yaml.safe_load((ROOT / "configs/full_support_c4_gram_backend_protocol_v1.yaml").read_text())
         json.loads((ROOT / "schemas/full_support_c4_gram_backend_protocol_v1.schema.json").read_text())
         self.assertEqual(config["source_support"], "mathematical_full_support_256")
-        self.assertEqual(config["full_support_oracle"]["precision_ladder_decimal_digits"], [1050, 1250, 1450])
+        self.assertEqual(
+            config["full_support_oracle"]["precision_policy"],
+            {
+                "initial_precision_digits": 256,
+                "minimum_precision_step": 128,
+                "condition_guard_digits": 64,
+                "max_precision_digits": 2400,
+                "acceptance_rows": 2,
+            },
+        )
         self.assertIn("lambda_threshold_support", config["forbidden"])
         self.assertEqual(config["gradient_mode"], "evaluation_only_fallback_until_analytic_vjp_is_certified")
         frozen = yaml.safe_load((ROOT / "configs/threshold_validation_v1.yaml").read_text())

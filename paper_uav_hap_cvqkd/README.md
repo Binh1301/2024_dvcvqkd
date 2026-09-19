@@ -102,7 +102,7 @@ python scripts\run_baselines.py `
   --h-hap-m 20000 --h-uav-m 0 `
   --wavelength-m 1.55e-6 --visibility-km 10 `
   --beam-waist-m 0.0626 --aperture-radius-m 0.2 --cn2 1e-15 `
-  --epsilon-min 0.0005 --epsilon-max 0.005 --va 2 --v-min 0.5 --v-max 3 `
+  --va 2 --v-min 0.5 --v-max 3 `
   --va-budget 2 --beta 0.95 --mb-nu 0.1 `
   --fading-samples 4 --awgn-samples 2 --fock-cutoff 40 `
   --channel-seed 4101 --awgn-seed 4102 `

@@ -19,13 +19,14 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import quad
-from scipy.special import log_ndtr, logsumexp, ndtri, roots_laguerre
+from scipy.special import i0e, log_ndtr, logsumexp, ndtri, roots_laguerre
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.channel.fso_channel import sample_fso_channel
+from src.channel.atmospheric_loss import atmospheric_transmittance
 from src.channel.geometry import LinkGeometry
 from src.channel.pointing_error import pointing_parameters, pointing_pdf as exact_pointing_pdf
 from src.channel.scintillation import (
@@ -41,9 +42,10 @@ from scripts._common import load_yaml
 # Historical exploratory comparison only; production uses the derived HV value.
 OLD_V_SC = 0.25
 EXPECTED_NEW_V_SC = 0.02886934966
-EPSILON_MIN = 0.001
-EPSILON_MAX = 0.04
-EPSILON_MEAN = (EPSILON_MIN + EPSILON_MAX) / 2.0
+EPSILON_BASE = 0.0186
+EPSILON_MIN = EPSILON_BASE
+EPSILON_MAX = EPSILON_BASE
+EPSILON_MEAN = EPSILON_BASE
 LAGUERRE_ORDER = 256
 QUANTILE_Z = {float(q): float(ndtri(q)) for q in (0.05, 0.50, 0.95)}
 
@@ -58,7 +60,20 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def derive_physical_inputs() -> dict:
+def derive_physical_inputs(
+    *,
+    h_hap_m_override: float | None = None,
+    h_uav_m_override: float | None = None,
+    zenith_angle_rad_override: float | None = None,
+    eta_atm_override: float | None = None,
+    beam_waist_m_override: float | None = None,
+    theta_div_rad_override: float | None = None,
+    aperture_radius_m_override: float | None = None,
+    sigma_h_m_override: float | None = None,
+    sigma_hap_ang_rad_override: float | None = None,
+    cn2_ground_m_minus_two_thirds_override: float | None = None,
+    rho_m_override: float | None = None,
+) -> dict:
     channel = load_yaml(ROOT / "configs" / "default.yaml")["channel"]
     profile = channel["turbulence_profile"]
     if profile.get("model") != "hufnagel_valley":
@@ -68,20 +83,52 @@ def derive_physical_inputs() -> dict:
     pointing_config = channel["pointing"]
     aoa_config = channel["aoa"]
     wavelength_m = float(channel["wavelength_m"])
-    h_hap_m = float(channel["h_hap_m"])
-    h_uav_m = float(channel["h_uav_m"])
-    zenith_angle_rad = float(channel.get("zenith_angle_rad", 0.0))
+    h_hap_m = float(channel["h_hap_m"] if h_hap_m_override is None else h_hap_m_override)
+    h_uav_m = float(channel["h_uav_m"] if h_uav_m_override is None else h_uav_m_override)
+    zenith_angle_rad = float(
+        channel.get("zenith_angle_rad", 0.0)
+        if zenith_angle_rad_override is None
+        else zenith_angle_rad_override
+    )
     wind_m_per_s = float(profile["wind_speed_m_per_s"])
-    cn2_ground = float(profile["cn2_ground_m_minus_two_thirds"])
-    receiver_radius_m = float(channel["aperture_radius_m"])
+    cn2_ground = float(
+        profile["cn2_ground_m_minus_two_thirds"]
+        if cn2_ground_m_minus_two_thirds_override is None
+        else cn2_ground_m_minus_two_thirds_override
+    )
+    receiver_radius_m = float(
+        channel["aperture_radius_m"]
+        if aperture_radius_m_override is None
+        else aperture_radius_m_override
+    )
     receiver_diameter_m = 2.0 * receiver_radius_m
-    beam_waist_m = float(channel["beam_waist_m"])
+    beam_waist_m = float(
+        channel["beam_waist_m"]
+        if beam_waist_m_override is None
+        else beam_waist_m_override
+    )
     visibility_km = float(channel["visibility_km"])
-    eta_atm = float(channel["eta_atm"])
-    theta_div_rad = float(channel["theta_div_rad"])
+    eta_atm = float(channel["eta_atm"] if eta_atm_override is None else eta_atm_override)
+    excess_noise = channel["excess_noise_distribution"]
+    if excess_noise.get("kind") != "fixed":
+        raise ValueError("The active diagnostic requires fixed channel base excess noise.")
+    epsilon_base_snu = float(excess_noise["value_snu"])
+    theta_div_rad = float(
+        channel["theta_div_rad"]
+        if theta_div_rad_override is None
+        else theta_div_rad_override
+    )
     f0_m = float(channel["f0_m"])
-    sigma_hap_ang_rad = float(pointing_config["sigma_hap_ang_rad"])
-    sigma_h_m = float(pointing_config["sigma_h_m"])
+    sigma_hap_ang_rad = float(
+        pointing_config["sigma_hap_ang_rad"]
+        if sigma_hap_ang_rad_override is None
+        else sigma_hap_ang_rad_override
+    )
+    sigma_h_m = float(
+        pointing_config["sigma_h_m"]
+        if sigma_h_m_override is None
+        else sigma_h_m_override
+    )
     motion = UavMotion(
         **channel["uav_motion"],
     )
@@ -123,6 +170,9 @@ def derive_physical_inputs() -> dict:
     sigma_hap_displacement_m2 = link_length_m**2 * sigma_hap_ang_rad**2
     sigma_m2 = sigma_uav_transverse_m2 + sigma_hap_displacement_m2
     sigma_m = math.sqrt(sigma_m2)
+    rho_m = float(0.0 if rho_m_override is None else rho_m_override)
+    if not math.isfinite(rho_m) or rho_m < 0.0:
+        raise ValueError("rho_m_override must be finite and nonnegative.")
     sigma_o2 = float(aoa_config["sigma_o_rad"]) ** 2
     theta_fov_rad = float(aoa_config["theta_fov_rad"])
     p_out = math.exp(-theta_fov_rad**2 / (2.0 * sigma_o2))
@@ -141,7 +191,11 @@ def derive_physical_inputs() -> dict:
         "theta_div_rad": theta_div_rad,
         "f0_m": f0_m,
         "visibility_km": visibility_km,
-        "eta_atm_source": "direct_table_i_eta_atm",
+        "eta_atm_source": (
+            "direct_table_i_eta_atm"
+            if eta_atm_override is None
+            else "kruse_beer_lambert_override"
+        ),
         "sigma_hap_ang_rad": sigma_hap_ang_rad,
         "sigma_h_m": sigma_h_m,
         "uav_motion": {key: float(value) for key, value in motion.__dict__.items()},
@@ -174,15 +228,16 @@ def derive_physical_inputs() -> dict:
         "sigma_hap_displacement_m2": float(sigma_hap_displacement_m2),
         "sigma_m2": float(sigma_m2),
         "sigma_m": float(sigma_m),
-        "rho_m": 0.0,
+        "rho_m": rho_m,
         "sigma_o2_rad2": float(sigma_o2),
         "sigma_o_rad": float(math.sqrt(sigma_o2)),
         "theta_fov_rad": theta_fov_rad,
         "p_out": float(p_out),
         "p_in": float(1.0 - p_out),
-        "epsilon_min_snu": EPSILON_MIN,
-        "epsilon_max_snu": EPSILON_MAX,
-        "epsilon_mean_snu": EPSILON_MEAN,
+        "epsilon_base_snu": epsilon_base_snu,
+        "epsilon_min_snu": epsilon_base_snu,
+        "epsilon_max_snu": epsilon_base_snu,
+        "epsilon_mean_snu": epsilon_base_snu,
         "c_phi": 0.0,
         "geometry": geometry,
         "motion": motion,
@@ -255,7 +310,7 @@ def _product_kernel(v_sc: float, physical: dict, order: int = LAGUERRE_ORDER):
     keep = weights > 0.0
     nodes = np.asarray(nodes[keep], dtype=np.float64)
     weights = np.asarray(weights[keep], dtype=np.float64)
-    log_weights = np.log(weights)
+    log_weights = np.log(weights) + _rician_log_weight(nodes, physical)
     pointing = physical["pointing"]
     beta = (
         2.0 * physical["sigma_m"] ** 2 / pointing["R_m"] ** 2
@@ -273,6 +328,22 @@ def _product_kernel(v_sc: float, physical: dict, order: int = LAGUERRE_ORDER):
         "component_means": component_means,
         "sigma_log": math.sqrt(v_sc),
     }
+
+
+def _rician_log_weight(values, physical: dict):
+    """Return the noncentral radial weight relative to Exp(1) Laguerre nodes."""
+
+    values = np.asarray(values, dtype=np.float64)
+    rho = float(physical["rho_m"])
+    sigma = float(physical["sigma_m"])
+    if rho == 0.0:
+        return np.zeros_like(values)
+    argument = rho * np.sqrt(2.0 * values) / sigma
+    return (
+        -rho**2 / (2.0 * sigma**2)
+        + argument
+        + np.log(i0e(argument))
+    )
 
 
 def _log_product_pdf_log_coordinate(log_t, kernel: dict):
@@ -317,7 +388,12 @@ def _tail_probability(v_sc: float, physical: dict) -> float:
 
     def scaled_integrand(x: float) -> float:
         z = (-log_c + beta * x**point_power - mu) / sigma
-        return math.exp(float(log_ndtr(-z)) - log_sf0 - x)
+        return math.exp(
+            float(log_ndtr(-z))
+            - log_sf0
+            - x
+            + float(_rician_log_weight(np.asarray(x), physical))
+        )
 
     scaled_integral = quad(
         scaled_integrand,
@@ -337,7 +413,11 @@ def _untruncated_moment(power: float, v_sc: float, physical: dict) -> float:
     ) ** (physical["pointing"]["Gamma"] / 2.0)
     point_power = physical["pointing"]["Gamma"] / 2.0
     pointing_moment = quad(
-        lambda x: math.exp(-x - power * beta * x**point_power),
+        lambda x: math.exp(
+            -x
+            - power * beta * x**point_power
+            + float(_rician_log_weight(np.asarray(x), physical))
+        ),
         0.0,
         math.inf,
         epsabs=2.0e-13,
@@ -370,6 +450,7 @@ def _truncated_moment(power: float, v_sc: float, physical: dict) -> float:
             + power * (log_c + log_hp)
             + power * mu
             + 0.5 * power**2 * v_sc
+            + float(_rician_log_weight(np.asarray(x), physical))
             + log_cdf
         )
 
@@ -550,9 +631,7 @@ def primitive_monte_carlo(v_sc: float, physical: dict, sample_count: int, seed: 
     valid_active = gate & ~above
     t = np.zeros(sample_count, dtype=np.float64)
     t[valid_active] = raw[valid_active]
-    epsilon = rng.uniform(
-        physical["epsilon_min_snu"], physical["epsilon_max_snu"], sample_count
-    )
+    epsilon = np.full(sample_count, physical["epsilon_base_snu"], dtype=np.float64)
     sqrt_t = np.sqrt(t)
     t_xi = t * epsilon
     active_raw = raw[valid_active]

@@ -35,6 +35,22 @@ class FullSupportC4GramTests(unittest.TestCase):
         self.assertIsNotNone(result, gate)
         torch.testing.assert_close(result["C"], reference_c, atol=1e-10, rtol=1e-10)
         torch.testing.assert_close(result["w"], reference_w, atol=1e-10, rtol=1e-10)
+        torch.testing.assert_close(result["C"], result["C_positive"], atol=1e-10, rtol=1e-10)
+        torch.testing.assert_close(result["C"], result["C_trace"], atol=1e-10, rtol=1e-10)
+        torch.testing.assert_close(result["w"], result["w_residual"], atol=1e-12, rtol=1e-10)
+        self.assertTrue(all(value >= 0.0 for value in result["residual_contributions"]))
+
+    def test_right_solve_matches_direct_multiplication_on_fixture(self):
+        matrix = torch.tensor(
+            [[2.0 + 0.0j, 0.2 - 0.1j], [0.2 + 0.1j, 1.5 + 0.0j]],
+            dtype=torch.complex128,
+        )
+        rhs = torch.tensor(
+            [[1.0 + 0.2j, -0.3 + 0.1j], [0.4 - 0.2j, 0.7 + 0.0j]],
+            dtype=torch.complex128,
+        )
+        solution = gm._right_solve(matrix, rhs)
+        torch.testing.assert_close(solution @ matrix, rhs, atol=1e-14, rtol=0.0)
 
     def test_fast_path_vjp_is_finite_at_repeated_sector_spectrum(self):
         p = torch.full((64,), 1 / 64, dtype=torch.float64)
@@ -125,6 +141,9 @@ class FullSupportC4GramTests(unittest.TestCase):
         self.assertIn("float.hex", source)
         self.assertNotIn("epsilon I", source)
         self.assertNotIn("lambda >", source)
+        self.assertNotIn("hermitian_inverse_sqrt", source)
+        self.assertNotIn("torch.linalg.inv", source)
+        self.assertNotIn("pinv", source)
 
 
 if __name__ == "__main__":

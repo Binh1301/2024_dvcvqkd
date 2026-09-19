@@ -1,8 +1,11 @@
 import inspect
+import io
 import json
 import os
 from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 import mpmath as mp
 import torch
@@ -129,6 +132,108 @@ class APWorkerEquivalenceTests(unittest.TestCase):
         self.assertEqual(artifact["provenance"]["corrected_expression"], "aa = x2.T")
         self.assertEqual(len(artifact["rows"]), 2)
 
+    def test_adaptive_precision_policy_is_deterministic(self):
+        self.assertEqual(worker.next_precision_digits(256, {"resolved": False}), 384)
+        self.assertEqual(
+            worker.next_precision_digits(
+                1000,
+                {
+                    "resolved": True,
+                    "sector_diagnostics": [{"kappa": "1e200"}],
+                },
+            ),
+            1128,
+        )
+
+    def test_two_level_convergence_requires_exact_support_and_diagnostics(self):
+        row = {
+            "resolved": True,
+            "rank": 256,
+            "C_consistent": True,
+            "w_consistent": True,
+            "C": "1.0",
+            "w": "2.0",
+        }
+        self.assertTrue(worker.rows_converged([{**row, "digits": 256}, {**row, "digits": 384}]))
+        self.assertFalse(worker.rows_converged([{**row, "digits": 256}, {**row, "rank": 255, "digits": 384}]))
+
+    def test_checkpoint_contains_input_and_precision_policy_bindings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "checkpoint.json"
+            worker._write_checkpoint(
+                path,
+                {"pmf_sha256": "p", "amplitude_sha256": "a", "scheme_config_sha256": "s"},
+                "policy",
+                [{"digits": 256, "rank": 256}],
+            )
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(payload["schema_version"], "c4-ap-source-moments-checkpoint-v1")
+        self.assertEqual(payload["input_hashes"]["pmf_sha256"], "p")
+        self.assertEqual(payload["precision_policy_sha256"], "policy")
+
+    def test_adaptive_worker_resumes_matching_checkpoint_without_recomputing(self):
+        policy = {
+            "initial_precision_digits": 256,
+            "minimum_precision_step": 128,
+            "condition_guard_digits": 64,
+            "max_precision_digits": 512,
+        }
+        input_hashes = {
+            "pmf_sha256": "p",
+            "amplitude_sha256": "a",
+            "scheme_config_sha256": "s",
+        }
+        request = {
+            "probabilities_float64_hex": ["0x1.0p-1"],
+            "prototypes_float64_hex": [["0x1.0p+0", "0x0.0p+0"]],
+            **policy,
+            "input_hashes": input_hashes,
+            "precision_policy_sha256": worker._json_sha256(policy),
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            checkpoint = Path(directory) / "resume.json"
+            request["checkpoint_path"] = str(checkpoint)
+
+            def fake_row(_p, _z, digits, _thresholds):
+                resolved = digits >= 384
+                row = {
+                    "digits": digits,
+                    "rank": 256 if resolved else 12,
+                    "resolved": resolved,
+                    "C": "1.0",
+                    "w": "2.0",
+                    "C_consistent": resolved,
+                    "w_consistent": resolved,
+                    "sector_diagnostics": [{"kappa": "1"}],
+                }
+                return row
+
+            with patch.object(worker, "_row", side_effect=fake_row), patch(
+                "sys.stdin", io.StringIO(json.dumps(request))
+            ), patch("sys.stdout", io.StringIO()) as output:
+                worker.main()
+                first = json.loads(output.getvalue())
+            self.assertEqual(first["status"], "FULL_SUPPORT_CONVERGED")
+            self.assertTrue(checkpoint.exists())
+
+            with patch.object(worker, "_row", side_effect=AssertionError("recomputed")), patch(
+                "sys.stdin", io.StringIO(json.dumps(request))
+            ), patch("sys.stdout", io.StringIO()) as output:
+                worker.main()
+                resumed = json.loads(output.getvalue())
+            self.assertEqual(resumed["status"], "FULL_SUPPORT_CONVERGED")
+
+            for field, value in (
+                ("input_hashes", {**input_hashes, "pmf_sha256": "mismatch"}),
+                ("precision_policy_sha256", "mismatch"),
+            ):
+                mismatched = dict(request)
+                mismatched[field] = value
+                with self.assertRaisesRegex(ValueError, "checkpoint hashes"):
+                    with patch("sys.stdin", io.StringIO(json.dumps(mismatched))), patch(
+                        "sys.stdout", io.StringIO()
+                    ):
+                        worker.main()
 
 class GlobalWeightedGramAuditTests(unittest.TestCase):
     def test_fourier_transform_is_unitary_on_cheap_fixture(self):

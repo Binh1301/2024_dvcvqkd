@@ -22,7 +22,9 @@ class BaselineDevelopmentWorkflowTests(unittest.TestCase):
         runner = load_runner()
         config = runner.load_yaml(ROOT / "configs" / "default.yaml")
         record = runner._phase_provenance(config)
-        self.assertEqual(record["parameterization"], "rytov_equivalent_hufnagel_valley")
+        self.assertEqual(record["parameterization"], "configured_phase_noise")
+        self.assertEqual(record["cn2_phase_m_minus_two_thirds"], 1.0e-16)
+        self.assertEqual(record["l_phase_m"], 1000.0)
         self.assertNotIn("cn_phi2_m_minus_two_thirds", config["channel"])
 
     def test_preflight_covers_same_three_schemes_at_all_va_points(self):

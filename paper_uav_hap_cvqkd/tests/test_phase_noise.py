@@ -27,15 +27,22 @@ class PhaseNoiseTests(unittest.TestCase):
         self.assertAlmostEqual(record["tau_phi2"], 2.0 * record["sigma_R0_squared"])
         self.assertLess(abs(record["tau_phi2_identity_residual"]), 1e-15)
 
-    def test_phase_variance_uses_si_wavelength_and_link_distance(self):
-        value = phase_distortion_variance(2.0e-16, 1.55e-6, 19_000.0)
+    def test_configured_phase_noise_checkpoint(self):
+        value = phase_distortion_variance(1.0e-16, 1.55e-6, 1_000.0)
         expected = (
             2.46
-            * 2.0e-16
+            * 1.0e-16
             * (2.0 * math.pi / 1.55e-6) ** (7.0 / 6.0)
-            * 19_000.0 ** (11.0 / 6.0)
+            * 1_000.0 ** (11.0 / 6.0)
         )
-        self.assertAlmostEqual(value, expected)
+        self.assertAlmostEqual(value, expected, places=15)
+        self.assertAlmostEqual(value, 3.981908770225408e-3, places=15)
+        self.assertAlmostEqual(2.0 * phase_noise_coefficient(value), 7.971745339178014e-3, places=15)
+        self.assertAlmostEqual(
+            float(total_excess_noise(0.0186, 2.0, phase_noise_coefficient(value))),
+            2.6571745339178013e-2,
+            places=15,
+        )
 
     def test_c_phi_squares_tau_phi_squared_once(self):
         self.assertEqual(phase_noise_coefficient(3.0), 3.0 + 0.25 * 3.0**2)

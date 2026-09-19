@@ -1,4 +1,4 @@
-"""Preliminary effective-channel SKR comparison at V_A=2 SNU."""
+"""Preliminary physical-noise SKR comparison at V_A=2 SNU."""
 
 from __future__ import annotations
 
@@ -17,6 +17,7 @@ import torch
 
 from _common import ROOT, holevo_numerical_kwargs, load_yaml
 from _train import _channel, _phase_provenance
+from src.channel.phase_noise import phase_excess_noise, total_excess_noise
 from src.cvqkd.gram_moments import (
     DIAGNOSTIC_EIGENVALUE_THRESHOLDS,
     c4_gram_fast_preflight,
@@ -80,6 +81,8 @@ def phase_augmented_eta_xi(
     )
 
 
+# Legacy covariance-matched diagnostic helper; the active path uses
+# physical_channel_parameters below and never calls this mapping.
 def effective_channel_parameters(
     mean_eta: float,
     mean_sqrt_eta: float,
@@ -112,6 +115,31 @@ def effective_channel_parameters(
         "snr": (t_eff * modulation_variance / 2.0) / sigma_c2,
         "fading_induced_noise": (mean_eta / t_eff - 1.0) * modulation_variance,
         "effective_physical_noise": mean_eta_xi / t_eff,
+    }
+
+
+def physical_channel_parameters(
+    mean_sqrt_eta: float,
+    epsilon_base: float,
+    c_phi: float,
+    modulation_variance: float = VA,
+) -> dict[str, float]:
+    """Return the active security pair ``(T, epsilon)`` without fading remapping."""
+
+    mean_sqrt_eta = float(mean_sqrt_eta)
+    epsilon_base = float(epsilon_base)
+    c_phi = float(c_phi)
+    modulation_variance = float(modulation_variance)
+    if mean_sqrt_eta <= 0.0 or epsilon_base < 0.0 or c_phi < 0.0:
+        raise ValueError("Physical channel parameters have invalid signs.")
+    t = mean_sqrt_eta**2
+    xi_phase = float(phase_excess_noise(modulation_variance, c_phi))
+    epsilon = float(total_excess_noise(epsilon_base, modulation_variance, c_phi))
+    return {
+        "T": t,
+        "epsilon": epsilon,
+        "epsilon_base": epsilon_base,
+        "xi_phase": xi_phase,
     }
 
 
@@ -192,12 +220,12 @@ def _evaluate_scheme(
     scheme: str,
     ensemble: Ensemble,
     source: dict[str, Any],
-    t_eff: float,
-    epsilon_eff: float,
+    transmittance: float,
+    epsilon: float,
     numerical: dict[str, float],
 ) -> dict[str, Any]:
-    transmittance = torch.tensor([t_eff], dtype=torch.float64)
-    epsilon = torch.tensor([epsilon_eff], dtype=torch.float64)
+    transmittance = torch.tensor([transmittance], dtype=torch.float64)
+    epsilon = torch.tensor([epsilon], dtype=torch.float64)
     c = torch.tensor([source["C"]], dtype=torch.float64)
     w = torch.tensor([source["w"]], dtype=torch.float64)
 
@@ -234,7 +262,7 @@ def _evaluate_scheme(
         diagnostics={
             "backend": "effective_channel_va2",
             "source_moment_route": source["route"],
-            "phase_noise_already_in_epsilon_eff": True,
+            "phase_noise_already_in_epsilon": True,
         },
     )
     chi = float(holevo.chi_be[0])
@@ -249,8 +277,8 @@ def _evaluate_scheme(
         "rank": int(source["rank"]),
         "C": source["C"],
         "w": source["w"],
-        "T_eff": t_eff,
-        "epsilon_eff": epsilon_eff,
+        "T": float(transmittance[0]),
+        "epsilon": float(epsilon[0]),
         "beta_rec": beta,
         "I_AB": mi_mean,
         "I_AB_stderr": mi_stderr,
@@ -281,7 +309,7 @@ def _plot(path: Path, rows: list[dict[str, Any]]) -> None:
     fig, ax = plt.subplots(figsize=(7, 4.5))
     ax.bar(labels, values, color=("#4C78A8", "#F58518", "#54A24B"))
     ax.axhline(0.0, color="black", linewidth=0.8)
-    ax.set_title("Preliminary Effective-Channel SKR at VA = 2 SNU")
+    ax.set_title("Preliminary Physical-Noise SKR at VA = 2 SNU")
     ax.set_ylabel("Raw SKR (bits/use)")
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
@@ -316,61 +344,38 @@ def main() -> int:
     moments = analysis["moments"]
     mean_eta = float(moments["mean_eta"])
     mean_sqrt_eta = float(moments["mean_sqrt_eta"])
-    mean_epsilon_base = (
-        float(physical["epsilon_min_snu"]) + float(physical["epsilon_max_snu"])
-    ) / 2.0
-    mean_eta_xi_factorized = phase_augmented_eta_xi(
-        mean_eta, mean_epsilon_base, phase["c_phi"], VA
-    )
-    effective = effective_channel_parameters(
-        mean_eta, mean_sqrt_eta, mean_eta_xi_factorized, VA
+    security = physical_channel_parameters(
+        mean_sqrt_eta,
+        float(physical["epsilon_base_snu"]),
+        phase["c_phi"],
+        VA,
     )
 
     states = _channel(config, args.joint_sample_count, JOINT_SAMPLE_SEED)
     eta_sample = np.asarray(states.transmittance, dtype=np.float64)
-    epsilon_sample = np.asarray(states.epsilon_base_snu, dtype=np.float64)
-    xi_sample = epsilon_sample + VA * float(phase["c_phi"])
-    direct_eta_xi = float(np.mean(eta_sample * xi_sample))
-    direct_eta_xi_stderr = float(
-        np.std(eta_sample * xi_sample, ddof=1) / math.sqrt(eta_sample.size)
-    )
-    crosscheck_error = abs(direct_eta_xi - mean_eta_xi_factorized)
-    if crosscheck_error > max(5.0 * direct_eta_xi_stderr, 1.0e-7 * abs(mean_eta_xi_factorized)):
-        raise RuntimeError(
-            "Direct and factorized <eta*xi_eta> disagree beyond the declared diagnostic uncertainty."
-        )
 
     channel_payload = {
-        "label": "Preliminary Effective-Channel SKR at VA = 2 SNU",
+        "label": "Preliminary Physical-Noise SKR at VA = 2 SNU",
         "phase_provenance": phase,
         "analytical_moments": {
             "mean_eta": mean_eta,
             "mean_sqrt_eta": mean_sqrt_eta,
-            "mean_eta_xi_eta_factorized": mean_eta_xi_factorized,
-            "mean_epsilon_base": mean_epsilon_base,
+            **security,
         },
         "direct_joint_sample": {
             "sample_count": int(args.joint_sample_count),
             "seed": JOINT_SAMPLE_SEED,
             "mean_eta": float(np.mean(eta_sample)),
             "mean_sqrt_eta": float(np.mean(np.sqrt(eta_sample))),
-            "mean_eta_xi_eta": direct_eta_xi,
-            "mean_eta_xi_eta_standard_error": direct_eta_xi_stderr,
-        },
-        "crosscheck": {
-            "absolute_difference": crosscheck_error,
-            "accepted": True,
         },
     }
     _write_json(output_dir / "channel_moments.json", channel_payload)
     _write_json(output_dir / "effective_channel.json", {
-        "label": "Preliminary Effective-Channel SKR at VA = 2 SNU",
+        "label": "Preliminary Physical-Noise SKR at VA = 2 SNU",
         "VA": VA,
         "mean_eta": mean_eta,
         "mean_sqrt_eta": mean_sqrt_eta,
-        "mean_eta_xi_eta": mean_eta_xi_factorized,
-        **effective,
-        "phase_noise_already_in_epsilon_eff": True,
+        **security,
     })
 
     ensembles = {scheme: _ensemble(config, scheme) for scheme in SCHEMES}
@@ -423,7 +428,7 @@ def main() -> int:
     rows = [
         _evaluate_scheme(
             config, scheme, ensembles[scheme], source_records[scheme],
-            effective["T_eff"], effective["epsilon_eff"], numerical,
+            security["T"], security["epsilon"], numerical,
         )
         for scheme in SCHEMES
     ]
@@ -433,10 +438,10 @@ def main() -> int:
         "final_model_spec_sha256": _sha256(ROOT / "docs" / "FINAL_MODEL_SPEC.md"),
         "source_pdf_sha256": _sha256(Path(r"C:\Users\admin\Downloads\2026__Binh_s_work__Copy___Copy_ (5).pdf")),
         "VA": VA,
-        "T_eff": effective["T_eff"],
-        "epsilon_eff": effective["epsilon_eff"],
+        "T": security["T"],
+        "epsilon": security["epsilon"],
         "beta_rec": float(config["cvqkd"]["beta_reconciliation"]),
-        "phase_noise_already_in_epsilon_eff": True,
+        "phase_noise_already_in_epsilon": True,
         "source_moments": source_records,
         "results": rows,
         "runtime_seconds": time.perf_counter() - started,

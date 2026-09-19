@@ -52,6 +52,23 @@ class IndependentUniformExcessNoise:
 
 
 @dataclass(frozen=True)
+class FixedExcessNoise:
+    """Fixed input-referred base excess noise in shot-noise units."""
+
+    value_snu: float
+
+    def validate(self) -> None:
+        value = float(self.value_snu)
+        if not np.isfinite(value) or value < 0.0:
+            raise ValueError("value_snu must be finite and nonnegative.")
+
+    @property
+    def theoretical_variance_snu2(self) -> float:
+        self.validate()
+        return 0.0
+
+
+@dataclass(frozen=True)
 class ChannelStateSamples:
     """One independently generated realization of the joint state law."""
 
@@ -105,7 +122,7 @@ def sample_channel_state_distribution(
     beam_waist_m: float,
     aperture_radius_m: float,
     cn2_m_minus_two_thirds: float,
-    excess_noise: IndependentUniformExcessNoise,
+    excess_noise: IndependentUniformExcessNoise | FixedExcessNoise,
     sample_count: int,
     seed: int,
     uav_motion: UavMotion | None = None,
@@ -134,11 +151,9 @@ def sample_channel_state_distribution(
 ) -> ChannelStateSamples:
     """Draw iid states from ``p_composite(T) p_epsilon_base(epsilon_base)``.
 
-    ``T`` follows the physical HAP--UAV composite sampler.  ``epsilon_base`` is sampled
-    independently from ``Uniform[minimum_snu, maximum_snu]`` because neither
-    the frozen equations nor the available measurements define a physical
-    coupling.  A coupling may only replace this model with documented data or
-    a separately justified physical noise mechanism.
+    ``T`` follows the physical HAP--UAV composite sampler.  The active fixed-noise
+    configuration uses a point mass for ``epsilon_base``; the legacy uniform
+    specification remains available to explicit diagnostics.
     """
 
     if not isinstance(sample_count, int) or sample_count < 2:
@@ -183,33 +198,58 @@ def sample_channel_state_distribution(
         sigma_o_rad=sigma_o_rad,
         theta_fov_rad=theta_fov_rad,
     )
-    epsilon_base = np.random.default_rng(excess_noise_seed).uniform(
-        excess_noise.minimum_snu,
-        excess_noise.maximum_snu,
-        size=sample_count,
-    ).astype(np.float64, copy=False)
+    if isinstance(excess_noise, IndependentUniformExcessNoise):
+        epsilon_base = np.random.default_rng(excess_noise_seed).uniform(
+            excess_noise.minimum_snu,
+            excess_noise.maximum_snu,
+            size=sample_count,
+        ).astype(np.float64, copy=False)
+        joint_distribution = "p_FSO(T) * Uniform(epsilon_base_min, epsilon_base_max)"
+        statistical_dependence = "T and epsilon_base independent by construction"
+        epsilon_minimum = float(excess_noise.minimum_snu)
+        epsilon_maximum = float(excess_noise.maximum_snu)
+    elif isinstance(excess_noise, FixedExcessNoise):
+        epsilon_base = np.full(
+            sample_count, float(excess_noise.value_snu), dtype=np.float64
+        )
+        joint_distribution = "p_FSO(T) * delta(epsilon_base - epsilon_base_value)"
+        statistical_dependence = "epsilon_base fixed independently of T"
+        epsilon_minimum = float(excess_noise.value_snu)
+        epsilon_maximum = float(excess_noise.value_snu)
+    else:
+        raise TypeError("excess_noise must be a supported base-noise specification.")
     transmittance = np.asarray(fso.transmittance, dtype=np.float64)
-    if not float(np.ptp(epsilon_base)) > 0.0:
+    if isinstance(excess_noise, IndependentUniformExcessNoise) and not float(np.ptp(epsilon_base)) > 0.0:
         raise FloatingPointError("This epsilon_base realization has zero variance.")
     pairs = np.column_stack((transmittance, epsilon_base))
+    t_epsilon_correlation = (
+        0.0
+        if float(np.ptp(epsilon_base)) == 0.0
+        else float(np.corrcoef(transmittance, epsilon_base)[0, 1])
+    )
     physical_upper = float(fso.metadata.get("physical_support_upper", 1.0))
     metadata = dict(fso.metadata)
     metadata.update(
         {
-            "joint_distribution": "p_FSO(T) * Uniform(epsilon_base_min, epsilon_base_max)",
-            "statistical_dependence": "T and epsilon_base independent by construction",
+            "joint_distribution": joint_distribution,
+            "statistical_dependence": statistical_dependence,
             "dependence_justification": (
                 "The frozen propagation model and available manuscript provide no "
                 "measured or mechanistic T-epsilon_base coupling."
             ),
             "temporal_model": "iid Monte Carlo states; no time correlation",
             "epsilon_base_units": "input-referred SNU",
-            "epsilon_base_minimum_snu": float(excess_noise.minimum_snu),
-            "epsilon_base_maximum_snu": float(excess_noise.maximum_snu),
+            "epsilon_base_minimum_snu": epsilon_minimum,
+            "epsilon_base_maximum_snu": epsilon_maximum,
             "epsilon_base_theoretical_variance_snu2": excess_noise.theoretical_variance_snu2,
+            "epsilon_base_value_snu": (
+                float(excess_noise.value_snu)
+                if isinstance(excess_noise, FixedExcessNoise)
+                else None
+            ),
             "epsilon_units": "input-referred SNU",
-            "epsilon_minimum_snu": float(excess_noise.minimum_snu),
-            "epsilon_maximum_snu": float(excess_noise.maximum_snu),
+            "epsilon_minimum_snu": epsilon_minimum,
+            "epsilon_maximum_snu": epsilon_maximum,
             "epsilon_theoretical_variance_snu2": excess_noise.theoretical_variance_snu2,
             "transmittance_physical_upper_bound": physical_upper,
             "raw_transmittance_sha256": (
@@ -237,9 +277,7 @@ def sample_channel_state_distribution(
             "empirical_transmittance_variance": float(np.var(transmittance)),
             "empirical_epsilon_base_variance_snu2": float(np.var(epsilon_base)),
             "empirical_epsilon_variance_snu2": float(np.var(epsilon_base)),
-            "empirical_t_epsilon_correlation": float(
-                np.corrcoef(transmittance, epsilon_base)[0, 1]
-            ),
+            "empirical_t_epsilon_correlation": t_epsilon_correlation,
             "base_seed": seed,
             "transmittance_seed": transmittance_seed,
             "epsilon_base_seed": excess_noise_seed,
