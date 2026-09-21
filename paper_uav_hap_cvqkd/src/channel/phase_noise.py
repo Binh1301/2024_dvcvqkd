@@ -23,9 +23,9 @@ def _finite_float(value: Any, name: str, *, nonnegative: bool = False) -> float:
 def phase_distortion_variance(
     cn2_phase_m_minus_two_thirds: float,
     wavelength_m: float,
-    l_phase_m: float,
+    link_distance_m: float,
 ) -> float:
-    """Return tau_phi2 from the separately configured phase-noise parameters."""
+    """Return tau_phi2 using the derived HAP-UAV link distance."""
 
     cn2_phase = _finite_float(
         cn2_phase_m_minus_two_thirds,
@@ -33,13 +33,13 @@ def phase_distortion_variance(
         nonnegative=True,
     )
     wavelength = _finite_float(wavelength_m, "wavelength_m")
-    l_phase = _finite_float(l_phase_m, "l_phase_m")
+    link_distance = _finite_float(link_distance_m, "link_distance_m")
     if wavelength <= 0.0:
         raise ValueError("wavelength_m must be positive.")
-    if l_phase <= 0.0:
-        raise ValueError("l_phase_m must be positive.")
+    if link_distance <= 0.0:
+        raise ValueError("link_distance_m must be positive.")
     kappa = 2.0 * math.pi / wavelength
-    return 2.46 * cn2_phase * kappa ** (7.0 / 6.0) * l_phase ** (11.0 / 6.0)
+    return 2.46 * cn2_phase * kappa ** (7.0 / 6.0) * link_distance ** (11.0 / 6.0)
 
 
 def phase_noise_coefficient(tau_phi2: float) -> float:
@@ -52,7 +52,7 @@ def phase_noise_coefficient(tau_phi2: float) -> float:
 def phase_parameter_provenance(
     cn2_phase_m_minus_two_thirds: float,
     wavelength_m: float,
-    l_phase_m: float,
+    link_distance_m: float,
     *,
     mapping_status: str = "unresolved",
     author_approved: bool = False,
@@ -65,27 +65,27 @@ def phase_parameter_provenance(
         nonnegative=True,
     )
     wavelength = _finite_float(wavelength_m, "wavelength_m")
-    l_phase = _finite_float(l_phase_m, "l_phase_m")
-    tau_phi2 = phase_distortion_variance(cn2_phase, wavelength, l_phase)
+    link_distance = _finite_float(link_distance_m, "link_distance_m")
+    tau_phi2 = phase_distortion_variance(cn2_phase, wavelength, link_distance)
     c_phi = phase_noise_coefficient(tau_phi2)
     return {
         "parameterization": "configured_phase_noise",
         "cn2_phase_m_minus_two_thirds": cn2_phase,
         "wavelength_m": wavelength,
-        "l_phase_m": l_phase,
+        "link_distance_m": link_distance,
         "tau_phi2": tau_phi2,
         "c_phi": c_phi,
         "units": {
             "cn2_phase_m_minus_two_thirds": "m^(-2/3)",
             "wavelength_m": "m",
-            "l_phase_m": "m",
+            "link_distance_m": "m",
             "tau_phi2": "dimensionless",
             "c_phi": "dimensionless",
         },
         "cn2_phase_scope": "fixed_and_independent_of_scintillation_profile",
         "cn2_phase_mapping_status": str(mapping_status),
         "cn2_phase_author_approved": bool(author_approved),
-        "l_phase_role": "fixed_phase_noise_propagation_range; not the HAP-UAV optical link length",
+        "link_distance_role": "derived HAP-UAV optical link length",
         "c_phi_is_derived": True,
     }
 
@@ -183,12 +183,12 @@ def total_excess_noise(
 def phase_coefficient_from_parameters(
     cn2_phase_m_minus_two_thirds: float,
     wavelength_m: float,
-    l_phase_m: float,
+    link_distance_m: float,
 ) -> float:
-    """Compute c_phi from the declared phase-noise parameters."""
+    """Compute c_phi from the declared phase-noise parameters and link length."""
 
     return phase_parameter_provenance(
-        cn2_phase_m_minus_two_thirds, wavelength_m, l_phase_m
+        cn2_phase_m_minus_two_thirds, wavelength_m, link_distance_m
     )["c_phi"]
 
 

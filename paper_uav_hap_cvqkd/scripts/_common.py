@@ -70,6 +70,7 @@ def require_holevo_pseudoinverse_approval(config: dict[str, Any]) -> None:
 REPRODUCTION_REQUIRED = [
     "channel.h_hap_m",
     "channel.h_uav_m",
+    "channel.zenith_angle_rad",
     "channel.wavelength_m",
     "channel.eta_atm",
     "channel.visibility_km",
@@ -83,7 +84,6 @@ REPRODUCTION_REQUIRED = [
     "channel.turbulence_profile.wind_speed_m_per_s",
     "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",
     "channel.phase_noise.cn2_phase_m_minus_two_thirds",
-    "channel.phase_noise.l_phase_m",
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",

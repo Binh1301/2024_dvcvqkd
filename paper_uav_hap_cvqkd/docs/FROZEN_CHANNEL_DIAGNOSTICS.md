@@ -85,7 +85,7 @@ The lower endpoint is open; the on-axis upper endpoint is included.
 
 | Quantity | Value | Unit/interpretation |
 |---|---:|---|
-| `L` | 19,000 | m, derived slant length for `zeta=0` |
+| `L` | 19,000 | m, derived as `(20000-h_UAV)/cos(zeta)` for the baseline `zeta=0` |
 | Kruse `xi` | 0.00372750673280696 | km^-1, Napier power extinction |
 | Equivalent attenuation | 0.0161883560531528 | dB/km |
 | `eta_atm` | 0.931627122110895 | atmospheric power transmittance |

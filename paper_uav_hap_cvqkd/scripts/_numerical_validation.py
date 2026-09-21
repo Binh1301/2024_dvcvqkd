@@ -26,7 +26,7 @@ from src.utils.random import derive_seed
 
 
 COMMON_REQUIRED = [
-    "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m",
+    "channel.h_hap_m", "channel.h_uav_m", "channel.zenith_angle_rad", "channel.wavelength_m",
     "channel.eta_atm",
     "channel.visibility_km", "channel.beam_waist_m", "channel.aperture_radius_m",
     "channel.theta_div_rad", "channel.f0_m",
@@ -36,7 +36,6 @@ COMMON_REQUIRED = [
     "channel.turbulence_profile.wind_speed_m_per_s",
     "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",
     "channel.phase_noise.cn2_phase_m_minus_two_thirds",
-    "channel.phase_noise.l_phase_m",
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",

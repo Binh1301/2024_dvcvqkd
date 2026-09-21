@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 
 from _common import ROOT, load_yaml
-from src.channel.geometry import LinkGeometry
+from src.channel.geometry import HAP_ALTITUDE_M, LinkGeometry
 from src.channel.phase_noise import (
     phase_parameter_provenance,
     total_excess_noise,
@@ -29,7 +29,7 @@ from src.utils.random import torch_generator
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     for name in (
-        "h-hap-m", "h-uav-m", "wavelength-m", "visibility-km", "beam-waist-m",
+        "h-uav-m", "wavelength-m", "visibility-km", "beam-waist-m",
         "aperture-radius-m", "cn2", "va", "v-min", "v-max",
         "va-budget", "n-peak-photons", "beta",
     ):
@@ -58,7 +58,13 @@ def main() -> int:
         raise ValueError("The fixed baseline V_A exceeds the declared common V_A budget.")
     if not 0.0 < args.v_min < args.v_max or not args.v_min <= args.va <= args.v_max:
         raise ValueError("Require V_A inside the declared common 0 < v_min < v_max box.")
-    geometry = LinkGeometry(args.h_hap_m, args.h_uav_m, 0.0)
+    if float(config["channel"].get("h_hap_m", HAP_ALTITUDE_M)) != HAP_ALTITUDE_M:
+        raise ValueError(f"channel.h_hap_m is fixed at {HAP_ALTITUDE_M:g} m.")
+    geometry = LinkGeometry(
+        HAP_ALTITUDE_M,
+        args.h_uav_m,
+        float(config["channel"].get("zenith_angle_rad", 0.0)),
+    )
     channel = sample_channel_state_distribution(
         geometry=geometry,
         wavelength_m=args.wavelength_m,
@@ -80,7 +86,7 @@ def main() -> int:
     phase_provenance = phase_parameter_provenance(
         phase_config["cn2_phase_m_minus_two_thirds"],
         args.wavelength_m,
-        phase_config["l_phase_m"],
+        geometry.link_length_m,
     )
     phase_coefficient = phase_provenance["c_phi"]
     t = torch.as_tensor(channel.transmittance, dtype=torch.float64)

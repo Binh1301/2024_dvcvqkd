@@ -27,7 +27,7 @@ if str(ROOT) not in sys.path:
 
 from src.channel.fso_channel import sample_fso_channel
 from src.channel.atmospheric_loss import atmospheric_transmittance
-from src.channel.geometry import LinkGeometry
+from src.channel.geometry import HAP_ALTITUDE_M, LinkGeometry
 from src.channel.pointing_error import pointing_parameters, pointing_pdf as exact_pointing_pdf
 from src.channel.scintillation import (
     hufnagel_valley_beam_spreading,
@@ -62,7 +62,6 @@ def _sha256(path: Path) -> str:
 
 def derive_physical_inputs(
     *,
-    h_hap_m_override: float | None = None,
     h_uav_m_override: float | None = None,
     zenith_angle_rad_override: float | None = None,
     eta_atm_override: float | None = None,
@@ -83,7 +82,9 @@ def derive_physical_inputs(
     pointing_config = channel["pointing"]
     aoa_config = channel["aoa"]
     wavelength_m = float(channel["wavelength_m"])
-    h_hap_m = float(channel["h_hap_m"] if h_hap_m_override is None else h_hap_m_override)
+    h_hap_m = float(channel["h_hap_m"])
+    if h_hap_m != HAP_ALTITUDE_M:
+        raise ValueError(f"channel.h_hap_m must remain {HAP_ALTITUDE_M:g} m.")
     h_uav_m = float(channel["h_uav_m"] if h_uav_m_override is None else h_uav_m_override)
     zenith_angle_rad = float(
         channel.get("zenith_angle_rad", 0.0)

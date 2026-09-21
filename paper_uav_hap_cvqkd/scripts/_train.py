@@ -38,7 +38,8 @@ from src.utils.random import derive_seed, seed_process, torch_generator
 
 
 TRAIN_REQUIRED = [
-    "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m", "channel.visibility_km",
+    "channel.h_hap_m", "channel.h_uav_m", "channel.zenith_angle_rad",
+    "channel.wavelength_m", "channel.visibility_km",
     "channel.eta_atm", "channel.beam_waist_m", "channel.theta_div_rad", "channel.f0_m",
     "channel.aperture_radius_m", "channel.cn2_m_minus_two_thirds",
     "channel.phase_model",
@@ -49,7 +50,6 @@ TRAIN_REQUIRED = [
     "channel.turbulence_profile.wind_speed_m_per_s",
     "channel.turbulence_profile.cn2_ground_m_minus_two_thirds",
     "channel.phase_noise.cn2_phase_m_minus_two_thirds",
-    "channel.phase_noise.l_phase_m",
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
@@ -221,10 +221,13 @@ def _phase_provenance(config: dict[str, Any]) -> dict[str, Any]:
     phase_noise = values.get("phase_noise")
     if not isinstance(phase_noise, dict):
         raise ValueError("channel.phase_noise must explicitly resolve phase parameters.")
+    geometry = LinkGeometry(
+        values["h_hap_m"], values["h_uav_m"], values["zenith_angle_rad"]
+    )
     return phase_parameter_provenance(
         phase_noise["cn2_phase_m_minus_two_thirds"],
         values["wavelength_m"],
-        phase_noise["l_phase_m"],
+        geometry.link_length_m,
         mapping_status=phase_noise.get("mapping_status", "configured"),
         author_approved=phase_noise.get("author_approved", False),
     )

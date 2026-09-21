@@ -99,7 +99,7 @@ The following is an example software smoke configuration, **not a paper result**
 
 ```powershell
 python scripts\run_baselines.py `
-  --h-hap-m 20000 --h-uav-m 0 `
+  --h-uav-m 0 `
   --wavelength-m 1.55e-6 --visibility-km 10 `
   --beam-waist-m 0.0626 --aperture-radius-m 0.2 --cn2 1e-15 `
   --va 2 --v-min 0.5 --v-max 3 `

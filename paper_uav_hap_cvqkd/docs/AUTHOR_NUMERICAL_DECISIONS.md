@@ -60,9 +60,9 @@ genuinely unresolved rather than inheriting defaults.
 
 | Area | Symbol/config name | Meaning and experimental role | Frozen constraints | Literature/config bound or candidate | AUTHOR_APPROVAL_REQUIRED |
 |---|---|---|---|---|---|
-| Physical | `h_HAP`, `channel.h_hap_m` | HAP altitude used to derive link length | `h_HAP>h_UAV`; vertical primary scenario | **AUTHOR_APPROVED:** `20000 m` | **NO** |
+| Physical | `h_HAP`, `channel.h_hap_m` | Fixed HAP altitude used to derive link length | exactly `20000 m`; never varied to sweep distance | **AUTHOR_APPROVED:** `20000 m` | **NO** |
 | Physical | `h_UAV`, `channel.h_uav_m` | UAV altitude | `0<=h_UAV<h_HAP` | **AUTHOR_APPROVED:** `1000 m` on the same altitude datum | **NO** |
-| Physical | `L_link` | Vertical optical path length; never an independent propagation input | `h_HAP-h_UAV` at `zeta=0` | **DERIVED:** `19000 m` | **NO** |
+| Physical | `L_link` | Slant optical path length; never an independent propagation input | `(20000-h_UAV)/cos(zeta)` | **DERIVED:** `19000 m` at `h_UAV=1000 m,zeta=0` | **NO** |
 | Physical | `lambda`, `channel.wavelength_m` | Optical wavelength | finite, positive; compatible with extinction model | **AUTHOR_APPROVED:** `1.55e-6 m` (`1550 nm`) | **NO** |
 | Physical | `W0`, `channel.beam_waist_m` | Transmit 1/e2 intensity radius | finite, positive | **AUTHOR_APPROVED:** `0.0157 m` (`1.57 cm`) | **NO** |
 | Physical | `a_UAV`, `channel.aperture_radius_m` | Receive-aperture radius | finite, positive; radius, not diameter | **AUTHOR_APPROVED:** `0.075 m` (`7.5 cm`) | **NO** |

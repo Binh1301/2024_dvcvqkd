@@ -92,8 +92,8 @@ pre-certification were not run because the upstream Fock/threshold gates fail.
 | Optimization | Checkpoint selection | Highest validation raw average SKR among complete-validation-budget-feasible checkpoints | Implemented; test set inaccessible to selection |
 | Optimization | Gradient clipping | Global norm `1.0` | Existing frozen implementation; logged as a numerical safeguard |
 | Optimization | Independent initialization seeds | **SOFTWARE_PREREGISTERED:** `26082701`--`26082710` | Ten independent runs; CLI rejects unregistered seeds |
-| Channel | `h_HAP,h_UAV,zeta` | **AUTHOR_APPROVED:** `20000 m,1000 m,0 rad` | Vertical primary scenario on a common altitude datum |
-| Channel | `L_link` | **DERIVED:** `19000 m` | `h_HAP-h_UAV` for `zeta=0`; not an independently tunable input |
+| Channel | `h_HAP,h_UAV,zeta` | **AUTHOR_APPROVED:** `20000 m,1000 m,0 rad` primary case | HAP remains fixed; `zenith_angle_rad` generates slant-distance scenarios |
+| Channel | `L_link` | **DERIVED:** `19000 m` in the primary case | `(20000-h_UAV)/cos(zeta)`; not an independently tunable input |
 | Channel | Rytov-equivalent `C_n,eff^2` | **DERIVED** | Derived from the same PDF5 Hufnagel--Valley Rytov integral; `tau_phi2=2*sigma_R0^2` is checked numerically and no free phase-strength input remains. |
 | Channel | `lambda,W0,a_UAV,C_n^2` | **AUTHOR_APPROVED:** `1.55e-6 m,0.0157 m,0.075 m,1e-16 m^-2/3` | SI units; waist/aperture are radii |
 | Channel | Visibility/scenario | **AUTHOR_APPROVED:** `200 km`, nominal good-weather homogeneous Kruse sensitivity scenario | Must not be described as universal weather or a vertically resolved atmosphere |

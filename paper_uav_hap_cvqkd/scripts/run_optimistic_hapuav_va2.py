@@ -25,6 +25,7 @@ from scripts.calculate_channel_pdf_and_moments import (
 )
 from scripts.run_effective_channel_va2 import physical_channel_parameters
 from src.channel.atmospheric_loss import atmospheric_transmittance
+from src.channel.geometry import HAP_ALTITUDE_M, zenith_angle_rad_for_link_length_m
 from src.channel.phase_noise import phase_parameter_provenance
 import src.cvqkd.holevo as holevo_module
 from src.cvqkd.holevo import _holevo_from_source_moments
@@ -41,7 +42,7 @@ SIGMA_H = 0.10
 SIGMA_HAP_ANG = 1e-6
 MI_SEEDS = (202607, 202608, 202609, 202610, 202611)
 MI_SAMPLES_PER_SYMBOL = 2048
-L_KM = tuple(17.0 + 0.5 * index for index in range(15))
+L_KM = tuple(19.0 + 0.5 * index for index in range(11))
 SOURCE = {
     "uniform": (
         "1.4019995788968011700681192152159252514555640211395",
@@ -84,9 +85,11 @@ def _channel(config: dict, link_m: float) -> tuple[dict, dict, dict]:
     h_uav = float(config["channel"]["h_uav_m"])
     wavelength = float(config["channel"]["wavelength_m"])
     visibility = float(config["channel"]["visibility_km"])
+    zenith_angle_rad = zenith_angle_rad_for_link_length_m(link_m, h_uav)
     eta_atm = atmospheric_transmittance(link_m, visibility, wavelength)
     physical = derive_physical_inputs(
-        h_hap_m_override=h_uav + link_m,
+        h_uav_m_override=h_uav,
+        zenith_angle_rad_override=zenith_angle_rad,
         eta_atm_override=eta_atm,
         beam_waist_m_override=2.0 * wavelength / (math.pi * THETA_DIV),
         theta_div_rad_override=THETA_DIV,
@@ -99,7 +102,7 @@ def _channel(config: dict, link_m: float) -> tuple[dict, dict, dict]:
     phase = phase_parameter_provenance(
         phase_config["cn2_phase_m_minus_two_thirds"],
         physical["wavelength_m"],
-        phase_config["l_phase_m"],
+        physical["link_length_m"],
     )
     moments = analysis["moments"]
     security = physical_channel_parameters(
@@ -155,6 +158,7 @@ def main() -> int:
         hp_mean = _untruncated_moment(1.0, physical["v_sc"], physical) / physical["eta_atm"]
         channel_rows.append({
             "L_km": L_km,
+            "zenith_angle_rad": physical["zenith_angle_rad"],
             "h_HAP_m": physical["h_hap_m"],
             "eta_atm": physical["eta_atm"],
             "w0_m": physical["pointing"]["omega_0_m"],
@@ -237,7 +241,8 @@ def main() -> int:
             "beta_rec": BETA,
             "VA": VA,
             "h_UAV_m": float(config["channel"]["h_uav_m"]),
-            "zenith_angle_rad": 0.0,
+            "h_HAP_m": HAP_ALTITUDE_M,
+            "geometry_rule": "L_m = (20000 - h_UAV_m) / cos(zenith_angle_rad)",
         },
         "source_moment_recomputed": False,
         "ap_worker_invoked": False,

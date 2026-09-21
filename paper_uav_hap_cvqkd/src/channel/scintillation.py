@@ -9,6 +9,8 @@ import math
 import numpy as np
 from scipy.integrate import quad
 
+from .geometry import derive_link_length_m
+
 
 class UnsupportedApertureAveragingError(ValueError):
     """Raised when ``sigma_R0^2`` cannot be resolved to ``v_sc``."""
@@ -70,8 +72,8 @@ def hufnagel_valley_scintillation(
         )
     )
     h_uav, h_hap, wavelength, zenith, wind, ground, diameter = values
-    if h_hap <= h_uav:
-        raise ValueError("h_hap_m must exceed h_uav_m.")
+    link_length_m = derive_link_length_m(h_hap, h_uav, zenith)
+    path_height_m = h_hap - h_uav
     if wavelength <= 0.0 or diameter <= 0.0:
         raise ValueError("wavelength_m and receiver_diameter_m must be positive.")
     if abs(zenith) >= math.pi / 2.0:
@@ -79,7 +81,7 @@ def hufnagel_valley_scintillation(
     profile = lambda height: float(
         hufnagel_valley_cn2(height, wind, ground)
     )
-    secant = 1.0 / math.cos(zenith)
+    secant = link_length_m / path_height_m
     wave_number = 2.0 * math.pi / wavelength
     rytov_integral, rytov_error = quad(
         lambda height: profile(height) * (height - h_uav) ** (5.0 / 6.0),
@@ -163,8 +165,8 @@ def hufnagel_valley_beam_spreading(
         )
     )
     h_uav, h_hap, wavelength, zenith, wind, ground, theta_div, f0 = values
-    if h_hap <= h_uav:
-        raise ValueError("h_hap_m must exceed h_uav_m.")
+    link_length_m = derive_link_length_m(h_hap, h_uav, zenith)
+    path_height_m = h_hap - h_uav
     if wavelength <= 0.0 or theta_div <= 0.0:
         raise ValueError("wavelength_m and theta_div_rad must be positive.")
     if abs(zenith) >= math.pi / 2.0:
@@ -174,9 +176,7 @@ def hufnagel_valley_beam_spreading(
     if not math.isinf(f0) and not math.isfinite(f0):
         raise ValueError("f0_m must be finite or infinity.")
 
-    secant = 1.0 / math.cos(zenith)
-    path_height_m = h_hap - h_uav
-    link_length_m = path_height_m * secant
+    secant = link_length_m / path_height_m
     wave_number = 2.0 * math.pi / wavelength
     # PDF Eq. (29), used by Eqs. (27) and (32).
     omega_0_m = 2.0 * wavelength / (math.pi * theta_div)

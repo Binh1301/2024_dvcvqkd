@@ -42,10 +42,10 @@ and root-level HTML visualizations remain non-publication configuration.
 
 | Quantity | Class | Current authoritative status | Active equation/use | Units and dimensional check | Source and direct-reuse assessment | Exact author action |
 |---|---|---|---|---|---|---|
-| HAP altitude, `h_HAP` | **C — AUTHOR_VALUE_REQUIRED** | `null`; the manuscript only states that the HAP is above sea level. `LinkGeometry.h_hap_m=20000` is a convenience default and README/tests also use 20 km, but none is an approved experiment value. | Enters vertical separation and hence every deterministic and random loss term. Must satisfy finite `h_HAP > h_UAV`. | m; consistent. The datum must be stated (e.g. altitude above mean sea level), not only “20 km link.” | No existing cited paper directly supplies the intended HAP altitude. The Ismail UAV paper studies a ground-to-UAV range of 100--2000 m, not a HAP downlink. | Select the HAP altitude and its datum without using test performance. |
+| HAP altitude, `h_HAP` | **A — ALREADY_DEFINED_AND_SUPPORTED** | Fixed at `20000 m` in the active channel model and enforced by `LinkGeometry`. | Enters vertical separation and hence every deterministic and random loss term. Must remain above `h_UAV`. | m; use the same altitude datum as `h_UAV`. | This task fixes the channel-model altitude at 20 km. | Do not vary `h_HAP` to sweep link distance. |
 | UAV altitude, `h_UAV` | **C — AUTHOR_VALUE_REQUIRED** | `null`; `LinkGeometry.h_uav_m=0` and test value 0 m are convenience values inconsistent with an airborne receiver unless explicitly interpreted as a limiting ground-receiver case. | Enters vertical separation. Must be finite and lower than `h_HAP`. | m; consistent; use the same altitude datum as `h_HAP`. | The cited Ismail altitude/range is a ground-to-UAV scenario and is not a direct value for this HAP-to-UAV geometry. | Select the UAV hover altitude and common datum. |
-| Zenith angle, `zeta` | **A — ALREADY_DEFINED_AND_SUPPORTED** | Frozen primary case `zeta=0` rad (vertical) in manuscript Eq. (20) and configs. Nonzero-angle support is explicitly non-primary. | `cos(zeta)=1` in the publication case. | rad (dimensionless); valid code domain `|zeta|<pi/2`. | This is a declared geometry assumption, not an imported atmospheric constant. | Confirm that the publication experiment remains vertical; otherwise a separate slant-path model audit is required. |
-| Slant/link length, `L_link` | **D — DERIVED_FROM_OTHER_PARAMETERS** | Not independently selectable. | Vertical manuscript Eq. (1): `L_link=h_HAP-h_UAV`. Code extension: `L_link=(h_HAP-h_UAV)/cos(zeta)`, which reduces exactly to Eq. (1) at the frozen `zeta=0`. | m. Division by dimensionless cosine preserves m. | No external numerical reuse is needed. | Record the derived value and equation in every run artifact; do not enter a conflicting independent length. |
+| Zenith angle, `zeta` | **A — ALREADY_DEFINED_AND_SUPPORTED** | Configurable in `zenith_angle_rad`; primary case is `zeta=0` rad (vertical). | `L=(20000-h_UAV)/cos(zeta)`; degree inputs are converted before `cos`. | rad (dimensionless); valid code domain `|zeta|<pi/2`. | This is a declared geometry/scenario parameter, not an imported atmospheric constant. | Keep `h_HAP=20000 m`; vary `zeta` for slant-distance scenarios. |
+| Slant/link length, `L_link` | **D — DERIVED_FROM_OTHER_PARAMETERS** | Not independently selectable. | `L_link=(20000-h_UAV)/cos(zeta)`; `zeta=0` is vertical. | m. Division by dimensionless cosine preserves m. | No external numerical reuse is needed. | Record the derived value and equation in every run artifact; do not enter a conflicting independent length. |
 | Wavelength, `lambda` | **C — AUTHOR_VALUE_REQUIRED** | `null`. Tests/smoke and legacy HTML use 1550 nm only as examples. | Enters Kruse extinction and `z_R=pi W0^2/lambda`. | Code input m; converted exactly to nm for Kruse. Must be finite and positive. | The cited Ismail paper reports 1550 nm, a standard telecom candidate, but its link is ground-to-UAV, GMCS, 100--2000 m, and includes other receiver assumptions. Reuse is plausible only as an explicit author choice, not automatic evidence for the complete HAP scenario. | Approve the wavelength and ensure the visibility/extinction source is valid at that wavelength. |
 | Transmitter beam-waist radius, `W0` | **C — AUTHOR_VALUE_REQUIRED** | `null`. README/tests use 0.0626 m; legacy HTML uses 6.26 cm. These are unreferenced examples. | `z_R=pi W0^2/lambda`; `W_L=W0 sqrt(1+(L_link/z_R)^2)`; also enters beam-wander variance. | m; both derived radii are m. Must be positive. `W0` is a radius, not diameter. | Ismail reports `w0=1.57 cm` for a much shorter ground-to-UAV link. Direct reuse at a HAP slant range is not defensible without a transmitter/telescope design rationale. | Approve a transmitter-side 1/e2 intensity radius and document the transmitter optics that support it. |
 | UAV receive-aperture radius, `a_UAV` | **C — AUTHOR_VALUE_REQUIRED** | `null`. README/tests use 0.2 m while legacy HTML and Ismail use 0.075 m; the repository therefore contains conflicting non-authoritative examples. | Sets centered aperture collection `T0^2`, pointing shape/scale, and (under the frozen motion equation) the orientation contribution to `sigma_UAV^2`. | m; must be positive. It is a radius, not diameter. | Ismail reports 7.5 cm in a ground-to-UAV model. It may be a hardware candidate but is not directly transferable without an airborne receiver/telescope rationale. | Approve the aperture radius and verify that the same physical aperture is intended in both collection and motion equations. |
@@ -72,7 +72,7 @@ and root-level HTML visualizations remain non-publication configuration.
 For the frozen vertical scenario,
 
 \[
-L=h_{\rm HAP}-h_{\rm UAV},\quad
+ L=\frac{20000-h_{\rm UAV}}{\cos(\zeta)},\quad
 \eta_{\rm atm}=\exp[-\xi(\lambda,V)L_{\rm km}],
 \]
 
@@ -252,10 +252,9 @@ moments `E[r]=sigma_axis sqrt(pi/2)` and `E[r^2]=2 sigma_axis^2`.
    generator feature: downstream receives exact instantaneous oracle
    `(T,epsilon)` from iid samples, without estimation error, delay, or temporal
    correlation.
-7. Nonvertical operation is not publication-audited. The code replaces the
-   vertical Eq. (1) length by a slant length and also retains Eq. (19)'s
-   `cos(zeta)^-4` factor. No cited derivation establishes that combined
-   extension, so only the frozen `zeta=0` case is supported.
+7. Nonvertical scenarios keep `h_HAP=20000 m` fixed and vary the configurable
+   zenith angle. The atmospheric-model validity of the retained slant-path
+   factors remains a separate source/audit limitation.
 
 ## Current PRE-Numerical composite-channel audit
 

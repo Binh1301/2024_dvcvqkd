@@ -4,7 +4,7 @@ import unittest
 import numpy as np
 
 from src.channel.fso_channel import sample_fso_channel
-from src.channel.geometry import LinkGeometry
+from src.channel.geometry import HAP_ALTITUDE_M, LinkGeometry
 from src.channel.pointing_error import pointing_parameters, pointing_power_transmittance
 from src.channel.turbulence import turbulence_beam_wander_variance_m2
 
@@ -48,6 +48,19 @@ class ChannelTests(unittest.TestCase):
         angle = math.radians(30.0)
         tilted = turbulence_beam_wander_variance_m2(1e-15, 20_000.0, 0.0626, angle)
         self.assertAlmostEqual(tilted / vertical, math.cos(angle) ** -4, places=12)
+
+    def test_link_length_uses_fixed_hap_altitude_and_zenith_angle(self):
+        vertical = LinkGeometry(HAP_ALTITUDE_M, 1_000.0, 0.0)
+        tilted = LinkGeometry(HAP_ALTITUDE_M, 1_000.0, math.radians(60.0))
+        self.assertEqual(vertical.h_hap_m, 20_000.0)
+        self.assertEqual(vertical.link_length_m, 19_000.0)
+        self.assertEqual(tilted.h_hap_m, 20_000.0)
+        self.assertAlmostEqual(tilted.link_length_m, 38_000.0, places=9)
+        self.assertNotEqual(vertical.link_length_m, tilted.link_length_m)
+
+    def test_hap_altitude_cannot_be_overridden(self):
+        with self.assertRaisesRegex(ValueError, "fixed at 20000"):
+            LinkGeometry(21_000.0, 1_000.0, 0.0)
 
 
 if __name__ == "__main__":

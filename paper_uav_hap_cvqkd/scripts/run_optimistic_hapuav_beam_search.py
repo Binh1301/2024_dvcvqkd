@@ -25,6 +25,7 @@ from scripts.calculate_channel_pdf_and_moments import (
 )
 from scripts.run_effective_channel_va2 import physical_channel_parameters
 from src.channel.atmospheric_loss import atmospheric_transmittance
+from src.channel.geometry import HAP_ALTITUDE_M, zenith_angle_rad_for_link_length_m
 from src.channel.phase_noise import phase_parameter_provenance
 import src.cvqkd.holevo as holevo_module
 from src.cvqkd.holevo import _holevo_from_source_moments
@@ -40,7 +41,7 @@ VA = 2.0
 BETA = 0.95
 NU_MB = 0.20
 THETA_DIV_FULL_URAD = (50, 75, 100, 125, 150, 175, 200, 223, 250, 300, 350, 400)
-L_KM = tuple(17.0 + 0.5 * index for index in range(15))
+L_KM = tuple(19.0 + 0.5 * index for index in range(11))
 H_UAV_M = 1000.0
 RHO_M = math.hypot(0.30, 0.20)
 SIGMA_H_M = 0.20
@@ -116,11 +117,11 @@ def _channel(
     wavelength = float(config["channel"]["wavelength_m"])
     visibility = float(config["channel"]["visibility_km"])
     theta_div = theta_div_full_urad * 1.0e-6
+    zenith_angle_rad = zenith_angle_rad_for_link_length_m(link_m, H_UAV_M)
     eta_atm = atmospheric_transmittance(link_m, visibility, wavelength)
     physical = derive_physical_inputs(
-        h_hap_m_override=H_UAV_M + link_m,
         h_uav_m_override=H_UAV_M,
-        zenith_angle_rad_override=0.0,
+        zenith_angle_rad_override=zenith_angle_rad,
         eta_atm_override=eta_atm,
         beam_waist_m_override=2.0 * wavelength / (math.pi * theta_div),
         theta_div_rad_override=theta_div,
@@ -135,7 +136,7 @@ def _channel(
     phase = phase_parameter_provenance(
         phase_config["cn2_phase_m_minus_two_thirds"],
         physical["wavelength_m"],
-        phase_config["l_phase_m"],
+        physical["link_length_m"],
     )
     moments = analysis["moments"]
     security = physical_channel_parameters(
@@ -172,6 +173,7 @@ def _channel_row(theta_div_full_urad: float, L_km: float, physical: dict, phase:
         "theta_div_full_urad": theta_div_full_urad,
         "theta_div_full_rad": theta_div_full_urad * 1.0e-6,
         "L_km": L_km,
+        "zenith_angle_rad": physical["zenith_angle_rad"],
         "h_HAP_m": physical["h_hap_m"],
         "h_UAV_m": physical["h_uav_m"],
         "eta_atm": physical["eta_atm"],
@@ -388,10 +390,8 @@ def main() -> int:
             "min_K_raw": min(row["K_raw"] for row in security),
             "positive_rows": sum(row["K_raw"] > 0.0 for row in security),
             "positive_rows_total": len(security),
-            "T_17_km": next(row["T"] for row in channels if row["L_km"] == 17.0),
             "T_19_km": next(row["T"] for row in channels if row["L_km"] == 19.0),
             "T_24_km": next(row["T"] for row in channels if row["L_km"] == 24.0),
-            "epsilon_17_km": next(row["epsilon"] for row in channels if row["L_km"] == 17.0),
             "epsilon_19_km": next(row["epsilon"] for row in channels if row["L_km"] == 19.0),
             "epsilon_24_km": next(row["epsilon"] for row in channels if row["L_km"] == 24.0),
         })
@@ -441,8 +441,8 @@ def main() -> int:
             "beta_rec": BETA,
             "nu_MB": NU_MB,
             "h_UAV_m": H_UAV_M,
-            "h_HAP_rule": "h_UAV + L",
-            "zenith_angle_rad": 0.0,
+            "h_HAP_m": HAP_ALTITUDE_M,
+            "geometry_rule": "L_m = (20000 - h_UAV_m) / cos(zenith_angle_rad)",
             "wavelength_nm": 1550,
             "visibility_km": 200.0,
             "kruse_beer_lambert": True,

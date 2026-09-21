@@ -48,11 +48,6 @@ def main() -> None:
             float(_required(channel, "h_uav_m")),
             float(_required(channel, "zenith_angle_rad")),
         )
-    expected_length = float(_required(channel, "expected_derived_link_length_m"))
-    if not abs(geometry.link_length_m - expected_length) <= 1.0e-9:
-        raise ValueError(
-            "Derived geometry link length disagrees with the author-approved 19 km record."
-        )
     payload = frozen_channel_diagnostics(
         geometry=geometry,
         wavelength_m=float(_required(channel, "wavelength_m")),

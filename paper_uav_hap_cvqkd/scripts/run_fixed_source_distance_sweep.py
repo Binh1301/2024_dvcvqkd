@@ -29,6 +29,7 @@ from src.channel.atmospheric_loss import (
 from scripts.run_effective_channel_va2 import (
     physical_channel_parameters,
 )
+from src.channel.geometry import zenith_angle_rad_for_link_length_m
 from src.channel.phase_noise import phase_parameter_provenance
 import src.cvqkd.holevo as holevo_module
 from src.cvqkd.holevo import _holevo_from_source_moments
@@ -42,7 +43,7 @@ BETA = 0.95
 MB_NU = 0.1
 MI_SEEDS = (202607, 202608, 202609, 202610, 202611)
 MI_SAMPLES_PER_SYMBOL = 2048
-L_KM = tuple(17.0 + 0.5 * index for index in range(15))
+L_KM = tuple(19.0 + 0.5 * index for index in range(11))
 SOURCE = {
     "uniform": (
         "1.4019995788968011700681192152159252514555640211395",
@@ -77,19 +78,21 @@ def _channel_at_distance(config: dict, link_m: float) -> tuple[dict, dict, dict]
     h_uav = float(config["channel"]["h_uav_m"])
     wavelength_m = float(config["channel"]["wavelength_m"])
     visibility_km = float(config["channel"]["visibility_km"])
+    zenith_angle_rad = zenith_angle_rad_for_link_length_m(link_m, h_uav)
     eta_atm = atmospheric_transmittance(link_m, visibility_km, wavelength_m)
     physical = derive_physical_inputs(
-        h_hap_m_override=h_uav + link_m,
+        h_uav_m_override=h_uav,
+        zenith_angle_rad_override=zenith_angle_rad,
         eta_atm_override=eta_atm,
     )
     if not math.isclose(physical["link_length_m"], link_m, rel_tol=0.0, abs_tol=1e-9):
-        raise RuntimeError("Distance override did not produce the requested vertical link length.")
+        raise RuntimeError("Derived geometry did not produce the requested link length.")
     analysis = analyze_product(physical["v_sc"], physical)
     phase_config = config["channel"]["phase_noise"]
     phase = phase_parameter_provenance(
         phase_config["cn2_phase_m_minus_two_thirds"],
         physical["wavelength_m"],
-        phase_config["l_phase_m"],
+        physical["link_length_m"],
     )
     moments = analysis["moments"]
     security = physical_channel_parameters(
@@ -229,6 +232,7 @@ def main() -> int:
                 "L_km": L_km,
                 "h_UAV_m": physical["h_uav_m"],
                 "h_HAP_m": physical["h_hap_m"],
+                "zenith_angle_rad": physical["zenith_angle_rad"],
                 "link_length_m": physical["link_length_m"],
                 "scheme": scheme,
                 "C": c_text,
@@ -268,7 +272,7 @@ def main() -> int:
     metadata = {
         "artifact": "FIXED_SOURCE_DISTANCE_SWEEP_VA2",
         "distance_grid_km": list(L_KM),
-        "geometry_rule": "h_HAP_m = h_UAV_m + L_m; zenith_angle_rad = 0",
+        "geometry_rule": "L_m = (20000 - h_UAV_m) / cos(zenith_angle_rad)",
         "atmospheric_model": {
             "source": "src.channel.atmospheric_loss.atmospheric_transmittance",
             "visibility_km": float(config["channel"]["visibility_km"]),

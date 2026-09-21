@@ -192,8 +192,8 @@ def _evaluate_nu(nu: float, ensemble, source: dict, distance_rows: list[dict], n
             "holevo_mode": holevo.diagnostics["mode"],
             "physicality_pass": min(float(holevo.covariance.lambda1[0]), float(holevo.covariance.lambda2[0]), float(holevo.covariance.lambda3[0])) >= 1.0 - 1e-10,
         })
-    if len(output) != 15:
-        raise RuntimeError(f"nu={nu} produced {len(output)} distance rows, expected 15.")
+    if len(output) != 11:
+        raise RuntimeError(f"nu={nu} produced {len(output)} distance rows, expected 11.")
     return output
 
 
@@ -214,12 +214,11 @@ def _write_plot(path: Path, rows: list[dict]) -> None:
     import matplotlib.pyplot as plt
 
     styles = {
-        17.0: ("black", "-", "o"),
         19.0: ("0.30", "--", "s"),
         24.0: ("0.55", "-.", "^") ,
     }
     fig, ax = plt.subplots(figsize=(6.2, 4.0))
-    for L_km in (17.0, 19.0, 24.0):
+    for L_km in (19.0, 24.0):
         selected = [row for row in rows if row["L_km"] == L_km]
         color, linestyle, marker = styles[L_km]
         ax.plot(
@@ -247,15 +246,15 @@ def main() -> int:
     started = time.perf_counter()
     config = load_yaml(ROOT / "configs" / "default.yaml")
     channel_payload, distance_rows = _load_distance_rows()
-    if len(distance_rows) != 45 or sorted({row["scheme"] for row in distance_rows}) != ["binomial", "mb", "uniform"]:
-        raise RuntimeError("The Kruse distance artifact does not contain the expected 45 rows.")
+    if len(distance_rows) != 33 or sorted({row["scheme"] for row in distance_rows}) != ["binomial", "mb", "uniform"]:
+        raise RuntimeError("The Kruse distance artifact does not contain the expected 33 rows.")
     binomial_rows = {
         float(row["L_km"]): row
         for row in distance_rows
         if row["scheme"] == "binomial"
     }
-    if len(binomial_rows) != 15:
-        raise RuntimeError("The Kruse Binomial comparator does not contain 15 distances.")
+    if len(binomial_rows) != 11:
+        raise RuntimeError("The Kruse Binomial comparator does not contain 11 distances.")
 
     source_rows = []
     performance_rows = []
@@ -285,7 +284,7 @@ def main() -> int:
         evaluation = _evaluate_nu(nu, ensemble, source, distance_rows, noises, binomial_rows)
         evaluation_rows.extend(evaluation)
         performance_rows.append(_performance(nu, evaluation))
-        representative_rows.extend(row for row in evaluation if row["L_km"] in (17.0, 19.0, 24.0))
+        representative_rows.extend(row for row in evaluation if row["L_km"] in (19.0, 24.0))
 
     # Install the final guard only after all source rows are complete, so any
     # accidental optimization/source path during channel evaluation fails.

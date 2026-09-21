@@ -38,6 +38,22 @@ normalized \(B_{\mathrm{AoA}}=1\) law and retains the \(B_{\mathrm{AoA}}=0\)
 outage atom. Composite factors and raw/physical diagnostics are implemented;
 production profile, aperture, and AoA mappings remain fail-closed.
 
+## Link geometry
+
+The HAP altitude is fixed at \(h_{\rm HAP}=20000\,\mathrm{m}\). With
+\(\zeta=0\) for the vertical link, the derived propagation distance is
+
+\[
+L=\frac{h_{\rm HAP}-h_{\rm UAV}}{\cos(\zeta)}
+ =\frac{20000-h_{\rm UAV}}{\cos(\zeta)}.
+\]
+
+The configuration field `zenith_angle_rad` is in radians; degree-valued
+scenarios are converted with `math.radians` before evaluating the cosine. For
+`h_UAV=1000 m`, this gives `L=19000 m` at `zeta=0 deg` and `L=38000 m` at
+`zeta=60 deg`. The derived `L` is forwarded to atmospheric loss, pointing,
+beam propagation, turbulence, Rytov, and phase-noise calculations.
+
 For an explicit altitude profile,
 
 \[
