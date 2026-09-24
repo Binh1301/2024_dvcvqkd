@@ -11,15 +11,16 @@ Seconds to a few minutes, development-only, not a paper result:
 python scripts\smoke_validate_frozen.py --steps 3 --awgn-samples 2 --fock-cutoff 40 --va-budget 1.5 --dual-learning-rate 0.1 --seed 260826 --output results\frozen_transmitter_smoke.json
 ~~~
 
-The fixed-baseline smoke entry point is:
+The historical uniform-noise smoke entry point is:
 
 ~~~powershell
 python scripts\run_baselines_cached_source_moments.py --config configs\baseline_smoke.json
 ~~~
 
-It evaluates the current C4 Gram/full-interval path, but must not be used as a
-target security or publication result until the phase/channel parameters and
-target numerical evidence are rebound.
+It evaluates the current C4 Gram/full-interval path with the explicitly named
+legacy fixture in `configs/baseline_smoke.json`; it is not the canonical final
+HAP--UAV baseline and must not be used as a target security or publication
+result.
 
 ## Preliminary diagnostic
 

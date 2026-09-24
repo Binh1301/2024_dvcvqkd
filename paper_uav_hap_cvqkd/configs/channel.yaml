@@ -1,14 +1,15 @@
 geometry:
   h_hap_m: 20000.0
   h_uav_m: 1000.0
-  zenith_angle_rad: 0.0
-  expected_derived_link_length_m: 19000.0
+  zenith_angle_rad: 0.5235987755982988  # 30 deg
 optics:
   wavelength_m: 1.55e-6
-  visibility_km: 200.0
-  beam_waist_m: 0.0157
-  aperture_radius_m: 0.075
-  cn2_m_minus_two_thirds: 1.0e-16
+  visibility_km: 20.0
+  theta_div_rad: 223.0e-6
+  radius_of_curvature_m: .inf
+  # Derived from theta_div_rad; not an independent baseline input.
+  beam_waist_m: 0.004424935637532516
+  aperture_radius_m: 0.04
 phase:
   # Effective scalar representation of the same physical C_n^2(h) turbulence.
   # No validated mapping or author-approved value exists; target paths fail closed.
@@ -28,31 +29,26 @@ scintillation:
 pointing:
   boresight_x_m: 0.0
   boresight_y_m: 0.0
-  sigma_hap_ang_rad: 5.0e-6
+  sigma_h_m: 1.0
+  theta_jt_rad: 15.61e-6
+  # Compatibility alias for consumers that still accept the old field name.
+  sigma_hap_ang_rad: 15.61e-6
   hap_angular_jitter_convention: per_axis
 aoa:
   model: external_validated
   sigma_turb_AoA2_rad2: 0.0
+  sigma_o_rad: 1.5e-3
   provenance: "manuscript scenario: zero turbulence-induced AoA variance"
-  theta_fov_rad: 0.0038910862871962886
+  theta_fov_rad: 6.25e-3
 raw_transmittance:
   active_treatment: truncated_renormalized_active_law
-scenario_label: "nominal_good_weather_homogeneous_kruse_sensitivity_scenario"
-uav_motion_from_paper_table_i:
-  sigma_x_m: 0.0521
-  sigma_y_m: 0.0502
-  sigma_z_m: 0.0703
-  sigma_theta_rad: 0.00260
-  sigma_phi_rad: 0.00204
-  sigma_psi_rad: 0.00406
-variance_convention: "sigma_axis^2=sigma_turb^2+sigma_uav^2; r~Rayleigh(sigma_axis)"
+scenario_label: "final_hap_uav_baseline"
 excess_noise_distribution:
-  kind: independent_uniform
-  minimum_snu: 0.001
-  maximum_snu: 0.04
+  kind: fixed
+  epsilon_ch_snu: 0.0186
   units: input_referred_snu
-  dependence_on_transmittance: independent
-  justification: "Author-approved assumed operating-domain distribution; it is not a measured HAP-UAV joint law, and no empirical or mechanistic T-epsilon coupling is supplied."
+  dependence_on_transmittance: deterministic
+  justification: "Author-approved deterministic baseline channel excess noise."
 diagnostics:
   sample_count: 1000000
   seed: 202612

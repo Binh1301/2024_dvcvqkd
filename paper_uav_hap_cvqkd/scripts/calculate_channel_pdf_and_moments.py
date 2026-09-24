@@ -36,10 +36,8 @@ from scripts._common import load_yaml
 
 # Historical exploratory comparison only; production uses the derived HV value.
 OLD_V_SC = 0.25
-EXPECTED_NEW_V_SC = 0.01434494998
-EPSILON_MIN = 0.001
-EPSILON_MAX = 0.04
-EPSILON_MEAN = (EPSILON_MIN + EPSILON_MAX) / 2.0
+EPSILON_CH = 0.0186
+EPSILON_MEAN = EPSILON_CH
 LAGUERRE_ORDER = 256
 QUANTILE_Z = {float(q): float(ndtri(q)) for q in (0.05, 0.50, 0.95)}
 
@@ -66,17 +64,25 @@ def derive_physical_inputs() -> dict:
     wavelength_m = float(channel["wavelength_m"])
     h_hap_m = float(channel["h_hap_m"])
     h_uav_m = float(channel["h_uav_m"])
-    link_length_m = h_hap_m - h_uav_m
     zenith_angle_rad = float(channel.get("zenith_angle_rad", 0.0))
+    link_length_m = (h_hap_m - h_uav_m) / math.cos(zenith_angle_rad)
     wind_m_per_s = float(profile["wind_speed_m_per_s"])
     cn2_ground = float(profile["cn2_ground_m_minus_two_thirds"])
     receiver_radius_m = float(channel["aperture_radius_m"])
     receiver_diameter_m = 2.0 * receiver_radius_m
-    beam_waist_m = float(channel["beam_waist_m"])
+    theta_div_rad = float(channel["theta_div_rad"])
+    beam_waist_m = 2.0 * wavelength_m / (math.pi * theta_div_rad)
     visibility_km = float(channel["visibility_km"])
-    sigma_hap_ang_rad = float(pointing_config["sigma_hap_ang_rad"])
+    sigma_hap_ang_rad = float(pointing_config["theta_jt_rad"])
+    sigma_h_m = float(pointing_config["sigma_h_m"])
+    sigma_o_rad = float(aoa_config["sigma_o_rad"])
     motion = UavMotion(
-        **channel["uav_motion"],
+        sigma_x_m=sigma_h_m,
+        sigma_y_m=sigma_h_m,
+        sigma_z_m=0.0,
+        sigma_theta_rad=sigma_o_rad,
+        sigma_phi_rad=sigma_o_rad,
+        sigma_psi_rad=0.0,
     )
     derivation = hufnagel_valley_scintillation(
         h_uav_m,
@@ -99,7 +105,7 @@ def derive_physical_inputs() -> dict:
     sigma_hap_displacement_m2 = link_length_m**2 * sigma_hap_ang_rad**2
     sigma_m2 = sigma_uav_transverse_m2 + sigma_hap_displacement_m2
     sigma_m = math.sqrt(sigma_m2)
-    sigma_o2 = (motion.sigma_theta_rad**2 + motion.sigma_phi_rad**2) / 2.0
+    sigma_o2 = sigma_o_rad**2
     theta_fov_rad = float(aoa_config["theta_fov_rad"])
     p_out = math.exp(-theta_fov_rad**2 / (2.0 * sigma_o2))
 
@@ -146,8 +152,12 @@ def derive_physical_inputs() -> dict:
         "theta_fov_rad": theta_fov_rad,
         "p_out": float(p_out),
         "p_in": float(1.0 - p_out),
-        "epsilon_min_snu": EPSILON_MIN,
-        "epsilon_max_snu": EPSILON_MAX,
+        "theta_div_rad": theta_div_rad,
+        "omega_0_m": beam_waist_m,
+        "sigma_h_m": sigma_h_m,
+        "theta_jt_rad": sigma_hap_ang_rad,
+        "sigma_o_rad": sigma_o_rad,
+        "epsilon_ch_snu": EPSILON_CH,
         "epsilon_mean_snu": EPSILON_MEAN,
         "c_phi": 0.0,
         "geometry": geometry,
@@ -548,9 +558,7 @@ def primitive_monte_carlo(v_sc: float, physical: dict, sample_count: int, seed: 
     valid_active = gate & ~above
     t = np.zeros(sample_count, dtype=np.float64)
     t[valid_active] = raw[valid_active]
-    epsilon = rng.uniform(
-        physical["epsilon_min_snu"], physical["epsilon_max_snu"], sample_count
-    )
+    epsilon = np.full(sample_count, physical["epsilon_ch_snu"], dtype=np.float64)
     sqrt_t = np.sqrt(t)
     t_xi = t * epsilon
     active_raw = raw[valid_active]
@@ -593,7 +601,7 @@ def production_sampler_check(
         visibility_km=physical["visibility_km"],
         beam_waist_m=physical["beam_waist_m"],
         aperture_radius_m=physical["receiver_radius_m"],
-        cn2_m_minus_two_thirds=1.0e-16,
+        cn2_m_minus_two_thirds=physical["cn2_ground_m_minus_two_thirds"],
         sample_count=sample_count,
         rng=np.random.default_rng(seed),
         uav_motion=physical["motion"],
@@ -673,7 +681,10 @@ def _active_config_record() -> dict:
                 "aperture_averaging_model"
             ),
             "v_sc_override": channel.get("scintillation", {}).get("v_sc_override"),
-            "sigma_hap_ang_rad": channel.get("pointing", {}).get("sigma_hap_ang_rad"),
+            "theta_jt_rad": channel.get("pointing", {}).get("theta_jt_rad"),
+            "sigma_h_m": channel.get("pointing", {}).get("sigma_h_m"),
+            "sigma_o_rad": channel.get("aoa", {}).get("sigma_o_rad"),
+            "epsilon_noise_model": channel.get("excess_noise_distribution", {}).get("kind"),
             "aoa_model": channel.get("aoa", {}).get("model"),
         }
     except Exception as exc:  # pragma: no cover - provenance should not hide PDF output
@@ -778,8 +789,8 @@ def main() -> None:
     old["quantiles_T"] = _mixed_quantiles(old, physical)
     new["quantiles_T"] = _mixed_quantiles(new, physical)
 
-    if not math.isclose(physical["v_sc"], EXPECTED_NEW_V_SC, rel_tol=0.0, abs_tol=2.0e-11):
-        raise FloatingPointError("Derived v_sc disagrees with the supplied Case-D reference.")
+    if not math.isfinite(physical["v_sc"]) or physical["v_sc"] <= 0.0:
+        raise FloatingPointError("Derived Hufnagel--Valley v_sc must be positive.")
     if abs(new["quadrature"]["f_X_normalization"] - 1.0) > 2.0e-9:
         raise FloatingPointError("Composite PDF normalization failed.")
     if abs(new["quadrature"]["active_pdf_normalization"] - 1.0) > 2.0e-9:

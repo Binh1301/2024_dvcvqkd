@@ -1,9 +1,15 @@
-"""Generate the preregistered frozen-channel diagnostic artifact; no training."""
+"""Generate the historical frozen-channel diagnostic artifact; no training.
+
+The wrapper preserves the old homogeneous/uniform fixture contract.  The
+canonical final HAP--UAV baseline is validated by the channel-PDF diagnostic,
+not by this historical artifact producer.
+"""
 
 from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 
 from _common import ROOT, load_yaml
@@ -38,7 +44,11 @@ def main() -> None:
     if diagnostics_config.get("classification") != "SOFTWARE_PREREGISTERED":
         raise ValueError("Channel diagnostic seed/count must be SOFTWARE_PREREGISTERED.")
     if epsilon_config.get("kind") != "independent_uniform":
-        raise ValueError("The approved channel freeze requires independent_uniform epsilon.")
+        raise ValueError(
+            "This historical channel freeze requires an explicitly named "
+            "legacy independent_uniform fixture; use the final HAP--UAV "
+            "channel-PDF diagnostic for the canonical baseline."
+        )
     if epsilon_config.get("dependence_on_transmittance") != "independent":
         raise ValueError("The approved freeze forbids an invented T-epsilon coupling.")
     geometry = LinkGeometry(
@@ -46,10 +56,13 @@ def main() -> None:
             float(_required(channel, "h_uav_m")),
             float(_required(channel, "zenith_angle_rad")),
         )
-    expected_length = float(_required(channel, "expected_derived_link_length_m"))
+    expected_length = (
+        float(_required(channel, "h_hap_m"))
+        - float(_required(channel, "h_uav_m"))
+    ) / math.cos(float(_required(channel, "zenith_angle_rad")))
     if not abs(geometry.link_length_m - expected_length) <= 1.0e-9:
         raise ValueError(
-            "Derived geometry link length disagrees with the author-approved 19 km record."
+            "Derived geometry link length disagrees with the configured slant geometry."
         )
     payload = frozen_channel_diagnostics(
         geometry=geometry,

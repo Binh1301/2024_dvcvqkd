@@ -1,4 +1,7 @@
-"""Run a fully explicit smoke evaluation of Uniform/Binomial/MB baselines."""
+"""Run the legacy explicit Uniform/Binomial/MB development smoke baselines.
+
+This CLI is not the canonical final HAP--UAV baseline entry point.
+"""
 
 from __future__ import annotations
 

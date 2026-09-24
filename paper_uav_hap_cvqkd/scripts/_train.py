@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,7 @@ from _common import (
 from src.channel.geometry import LinkGeometry
 from src.channel.phase_noise import phase_parameter_provenance
 from src.channel.state_distribution import (
+    FixedExcessNoise,
     IndependentUniformExcessNoise,
     assert_disjoint_state_realizations,
     sample_channel_state_distribution,
@@ -55,8 +57,7 @@ TRAIN_REQUIRED = [
     "channel.aoa.model",
     "channel.raw_transmittance.active_treatment",
     "channel.excess_noise_distribution.kind",
-    "channel.excess_noise_distribution.minimum_snu",
-    "channel.excess_noise_distribution.maximum_snu", "cvqkd.beta_reconciliation",
+    "channel.excess_noise_distribution.epsilon_ch_snu", "cvqkd.beta_reconciliation",
     "cvqkd.v_a_budget_snu", "cvqkd.v_min_snu",
     "cvqkd.v_max_snu", "training.epochs",
     "cvqkd.n_peak_photons", "cvqkd.peak_domain_scope",
@@ -129,7 +130,7 @@ def _channel_model_kwargs(values: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("An external altitude profile requires explicit height and C_n^2 arrays.")
     if profile_model not in {None, "external_altitude_profile", "hufnagel_valley", "Hufnagel-Valley"}:
         raise ValueError(f"Unsupported turbulence_profile.model={profile_model!r}.")
-    sigma_hap = pointing.get("sigma_hap_ang_rad")
+    sigma_hap = pointing.get("theta_jt_rad", pointing.get("sigma_hap_ang_rad"))
     if sigma_hap is None:
         raise ValueError("channel.pointing.sigma_hap_ang_rad must be explicitly resolved.")
     aoa_model = aoa.get("model")
@@ -169,28 +170,52 @@ def _channel(config: dict[str, Any], count: int, seed: int):
     values = config["channel"]
     geometry = LinkGeometry(values["h_hap_m"], values["h_uav_m"], values.get("zenith_angle_rad", 0.0))
     epsilon_values = values["excess_noise_distribution"]
-    motion_values = values.get("uav_motion")
-    if not isinstance(motion_values, dict):
-        raise ValueError("channel.uav_motion must explicitly resolve all six jitter values.")
-    if epsilon_values.get("kind") != "independent_uniform":
-        raise ValueError(
-            "The frozen numerical protocol requires channel.excess_noise_distribution.kind "
-            "to be 'independent_uniform'."
+    pointing = values.get("pointing", {})
+    aoa = values.get("aoa", {})
+    sigma_h = pointing.get("sigma_h_m")
+    sigma_o = aoa.get("sigma_o_rad")
+    if sigma_h is not None and sigma_o is not None:
+        motion = UavMotion(
+            sigma_x_m=float(sigma_h),
+            sigma_y_m=float(sigma_h),
+            sigma_z_m=0.0,
+            sigma_theta_rad=float(sigma_o),
+            sigma_phi_rad=float(sigma_o),
+            sigma_psi_rad=0.0,
         )
-    return sample_channel_state_distribution(
-        geometry=geometry,
-        wavelength_m=values["wavelength_m"],
-        visibility_km=values["visibility_km"],
-        beam_waist_m=values["beam_waist_m"],
-        aperture_radius_m=values["aperture_radius_m"],
-        cn2_m_minus_two_thirds=values["cn2_m_minus_two_thirds"],
-        excess_noise=IndependentUniformExcessNoise(
+    else:
+        motion_values = values.get("uav_motion")
+        if not isinstance(motion_values, dict):
+            raise ValueError("channel.uav_motion must explicitly resolve all six jitter values.")
+        motion = UavMotion(**motion_values)
+    epsilon_kind = epsilon_values.get("kind")
+    if epsilon_kind == "fixed":
+        excess_noise = FixedExcessNoise(float(epsilon_values["epsilon_ch_snu"]))
+    elif epsilon_kind == "independent_uniform":
+        excess_noise = IndependentUniformExcessNoise(
             minimum_snu=epsilon_values["minimum_snu"],
             maximum_snu=epsilon_values["maximum_snu"],
-        ),
+        )
+    else:
+        raise ValueError(f"Unsupported excess-noise model: {epsilon_kind!r}.")
+    wavelength_m = float(values["wavelength_m"])
+    theta_div_rad = values.get("theta_div_rad")
+    beam_waist_m = (
+        2.0 * wavelength_m / (math.pi * float(theta_div_rad))
+        if theta_div_rad is not None
+        else float(values["beam_waist_m"])
+    )
+    return sample_channel_state_distribution(
+        geometry=geometry,
+        wavelength_m=wavelength_m,
+        visibility_km=values["visibility_km"],
+        beam_waist_m=beam_waist_m,
+        aperture_radius_m=values["aperture_radius_m"],
+        cn2_m_minus_two_thirds=values["cn2_m_minus_two_thirds"],
+        excess_noise=excess_noise,
         sample_count=int(count),
         seed=seed,
-        uav_motion=UavMotion(**motion_values),
+        uav_motion=motion,
         **_channel_model_kwargs(values),
     )
 

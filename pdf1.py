@@ -246,10 +246,8 @@ ax.plot(
     eta,
     p_cont,
     linewidth=2.0,
-    label=(
-        r"$p_{\rm in}"
-        r"p_{\rm active}(\eta)$"
-    ),
+    color="tab:blue",
+    label="pin",
 )
 
 # Outage-inclusive mean physical transmittance
@@ -257,45 +255,12 @@ ax.axvline(
     mean_eta,
     linestyle=":",
     linewidth=1.5,
-    label=(
-        rf"Outage-inclusive mean "
-        rf"$\langle\eta\rangle="
-        rf"{mean_eta:.4f}$"
-    ),
-)
-
-ax.set_xlabel(
-    r"Channel transmittance $\eta=T$"
+    label="_nolegend_",
 )
 
 # Show the full physically admissible transmittance domain.
 ax.set_xlim(0.0, 1.0)
 ax.set_xticks(np.linspace(0.0, 1.0, 11))
-
-ax.set_ylabel(
-    "Probability density"
-)
-
-# The AoA outage is a probability mass at eta = 0.
-# It must NOT be plotted as an ordinary PDF height.
-ax.text(
-    0.04,
-    0.94,
-    (
-        rf"Mixed law: $p_T=p_{{out}}\delta_0"
-        rf"+p_{{in}}p_{{active}}$"
-        "\n"
-        rf"$P(T=0)={p_out:.2f}$: Dirac mass"
-        "\n"
-        rf"continuous mass $p_{{in}}={p_in:.2f}$"
-    ),
-    transform=ax.transAxes,
-    va="top",
-    bbox=dict(
-        boxstyle="round",
-        alpha=0.15,
-    ),
-)
 
 # Visual marker for the discrete outage mass at T=0.
 # Use p_out = 1 - p_in; the blue PDF peak is not a probability mass.
@@ -306,15 +271,10 @@ ax_mass.vlines(
     p_out,
     color="tab:red",
     linewidth=3.0,
-    label=rf"$P(T=0)={p_out:.2f}$",
+    label="pout",
 )
 ax_mass.scatter([0.0], [p_out], color="tab:red", s=45)
 ax_mass.set_ylim(0.0, 1.0)
-ax_mass.set_ylabel("Discrete probability mass")
-
-ax.set_title(
-    "HAP--UAV Channel Transmittance Distribution"
-)
 
 ax.grid(alpha=0.25)
 

@@ -1,4 +1,8 @@
-"""Smoke fixed baselines with one full-support source-moment evaluation each."""
+"""Legacy uniform-noise smoke baselines with source-moment evaluation.
+
+This development fixture is separate from the canonical final HAP--UAV
+baseline in ``configs/default.yaml``.
+"""
 
 from __future__ import annotations
 
