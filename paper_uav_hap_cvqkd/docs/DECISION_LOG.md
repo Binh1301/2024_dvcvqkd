@@ -2365,3 +2365,237 @@ unresolved.
 - `configs/default.yaml`
 - `src/channel/scintillation.py`
 - `src/channel/fso_channel.py`
+
+## DEC-0068 - Apply supplied historical MB C,w rows to conditional new-channel diagnostic
+
+Date: 2026-09-25
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO BASELINE SELECTION
+
+### Decision
+
+Use the user-supplied ten `C,w` pairs at
+`nu_MB={0.02,0.05,0.075,0.0875,0.090625,0.09375,0.10,0.125,0.15,0.20}`
+for a fixed `V_A=2`, `zeta=30 deg`, `tau_zen=0.92`, and legacy diagnostic
+`eta_AO=0.95` sweep. Evaluate with the current discrete-modulation MI,
+Holevo, covariance, and raw-SKR pipeline. Report the maximum only as a
+numerical grid diagnostic; do not select a production MB baseline.
+
+### Consequences
+
+The sweep completed all 10 points and found the least-negative raw SKR at
+`nu_MB=0.20`, `K=-0.00018194195597724065`. No security equation, channel
+implementation, training path, baseline-selection gate, or lifecycle status
+changed. The supplied historical C,w provenance remains a limitation.
+
+### Evidence
+
+- EVID-0084
+- `results/mb_sweep_fixed_zeta30_VA2.csv`
+- `figures/skr_vs_mb_fixed_zeta30_VA2.pdf`
+
+## DEC-0069 - Rebind cached MB C,w diagnostic to C_n,phase^2=9.4e-18
+
+Date: 2026-09-25
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO BASELINE SELECTION
+
+### Decision
+
+Replace the AO=0.95 diagnostic phase fixture `C_n,phase^2=1e-16` with the
+user-selected `9.4e-18 m^-2/3` and rerun the same supplied-C,w MB sweep. Keep
+all channel, PMF, `V_A`, beta, AO, MI, Holevo, and raw-SKR semantics unchanged.
+
+### Consequences
+
+The ten-point grid now has positive raw SKR values. The numerical maximum is
+at `nu_MB=0.20`, `K=0.00004194428949251256` bits/symbol. This remains a
+conditional diagnostic using historical supplied C,w rows; it does not select
+a production MB baseline or authorize publication-scale work.
+
+### Evidence
+
+- EVID-0085
+- `results/mb_sweep_fixed_zeta30_VA2.csv`
+- `figures/skr_vs_mb_fixed_zeta30_VA2.pdf`
+
+## DEC-0067 - Apply latest manuscript channel formulas and retain atmospheric fail-closed gate
+
+Date: 2026-09-25
+
+Status: ACTIVE CHANNEL-ONLY IMPLEMENTATION DECISION; ATMOSPHERIC SCENARIO UNSELECTED
+
+### Decision
+
+Update the channel interface and conditional PDF path to use direct
+`tau_zen**sec(zeta)` atmospheric attenuation, `C_n^2(0)=1e-14`, the
+finite-aperture denominator `lambda*Phi*sec(zeta)`, explicit `F0`, and the
+manuscript beam-spread/equivalent-pointing quantities. Keep Kruse/visibility
+and the old homogeneous/generalized fixtures callable only through explicitly
+legacy paths. Leave production `tau_zen` null and require an author-approved
+selection before configuration-driven channel generation.
+
+### Consequences
+
+The latest conditional channel/PDF diagnostic is reproducible, but no unique
+atmospheric baseline exists yet. No SKR equation, Holevo implementation,
+PS/GS/`V_A` optimization, phase-noise semantics, numerical security gate, or
+lifecycle authorization changed. The project remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0083
+- `configs/default.yaml`
+- `configs/channel.yaml`
+- `src/channel/atmospheric_loss.py`
+- `src/channel/scintillation.py`
+- `src/channel/pointing_error.py`
+- `src/channel/fso_channel.py`
+
+## DEC-0070 - Accept synthetic Adam diagnostic; keep physical optimizer unverified
+
+Date: 2026-09-26
+
+Status: ACTIVE DIAGNOSTIC DECISION; PHYSICAL TEST NOT RUN
+
+### Decision
+
+Accept TEST 1 as evidence that central finite differences, sigmoid chain rule,
+Adam sign/moments, parameter updates, and rollback plumbing function on the
+known synthetic objective with `V_A` range `(0.1,4.0)`. Do not run or claim
+physical TEST 2 until exact ensemble-matched C,w exist for every FD and dense
+grid point. Consequently keep joint TEST 3 `NOT RUN`.
+
+### Consequences
+
+The optimizer implementation is synthetically functional, but physical SKR
+optimization is unverified. Do not interpolate C,w, call the tabulated maximum
+a continuous optimum, select a baseline, or change lifecycle authorization.
+
+### Evidence
+
+- EVID-0086
+- `results/diagnostic_mb_va_adam/diagnostic_report.json`
+
+## DEC-0071 - Accept exact common-ensemble evaluator; stop TEST2 at FD readiness
+
+Date: 2026-09-27
+
+Status: ACTIVE DIAGNOSTIC DECISION; TEST2 ADAM NOT RUN
+
+### Decision
+
+Use `nu_mb_repo=42.5*nu_mb_raw` and require one exact binary64 ensemble hash
+across MI, C4-Gram source moments, Holevo, and SKR. Permit source-moment cache
+reuse only when the exact ensemble identity, convention, implementation
+fingerprints, numerical settings, and precision ladder match. Preserve the
+historical cached artifacts but classify their SKRs as
+`SUPERSEDED_INVALID_COMMON_ENSEMBLE`.
+
+Accept the bounded seven-point exact landscape as diagnostic evidence only.
+Do not run nu-only Adam because both exact FD rows around the coarse best are
+unresolved against paired CRN uncertainty and fail stability. Keep TEST3
+`NOT RUN`.
+
+### Consequences
+
+The repository no longer needs a sparse C,w table to evaluate an arbitrary MB
+ensemble, but the current `N_MC=2048` physical derivative is not ready for
+Adam. A further run requires a prospectively fixed MI-noise reduction plan;
+tightening h or weakening the readiness gate is not accepted.
+
+### Evidence
+
+- EVID-0087
+- `results/exact_mb_test2/run_report.json`
+- `results/exact_mb_test2/coarse_landscape.csv`
+- `results/exact_mb_test2/finite_difference.json`
+
+## DEC-0072 - Accept deterministic MI certification; keep full-SKR search closed
+
+Date: 2026-09-27
+
+Status: ACTIVE NUMERICAL DIAGNOSTIC DECISION; NO OPTIMIZED-MB SEARCH
+
+### Decision
+
+Accept the deterministic Gauss-Hermite MI path and its raw-`nu` autodiff
+certification. Use the exact product acceleration only because the repository
+PMF and 256-QAM geometry factorization were independently checked. Retain the
+Monte-Carlo evaluator only as an independent validation path.
+
+Do not run the full exact-SKR bounded search or Adam in this task. The current
+project lifecycle does not authorize optimized-MB search/baseline selection,
+and deterministic MI alone does not differentiate the expensive AP Holevo
+source-moment fallback.
+
+### Consequences
+
+The noisy-MI finite-difference blocker is removed for `I_AB`; it is not removed
+for the full `K=beta I_AB-chi_BE` objective. The next optimization task must
+preserve exact C,w cache identity and separately address the Holevo derivative
+cost/readiness.
+
+### Evidence
+
+- EVID-0088
+- `results/exact_mb_test2a/run_report.json`
+- `results/exact_mb_test2a/autodiff_vs_fd.csv`
+- `results/exact_mb_test2a/mc_vs_gh.csv`
+
+## DEC-0073 - Classify old MI trend as stochastic and block unauthorized SKR search
+
+Date: 2026-09-27
+
+Status: ACTIVE NUMERICAL DIAGNOSTIC DECISION; BOUNDED SEARCH NOT RUN
+
+### Decision
+
+Classify the old coarse MI variation as `STOCHASTIC_COARSE_ONLY`: its largest
+reconstructed deviation from deterministic GH was `2.742` standard errors,
+while the 65536-sample MC/GH cross-check had maximum z-score `0.3857`.
+
+The fixed-V_A low-SNR deterministic MI is effectively invariant over the
+tested MB range, so the old apparent MI trend must not be used as a physical
+deterministic trend. Replace old MC MI with GH MI for any future deterministic
+SKR comparison.
+
+The exact arbitrary point evaluator is ready, and Holevo autodiff is not
+required for a derivative-free scalar search. Do not execute that search now:
+the current lifecycle does not authorize optimized-MB search or baseline
+selection. Keep TEST2 Adam and TEST3 `NOT RUN`.
+
+### Evidence
+
+- EVID-0089
+- `results/exact_mb_reconciliation/run_report.json`
+- `results/exact_mb_reconciliation/same_point_reconciliation.csv`
+
+## DEC-0074 - Record authorized MB boundary and stop at hard physical domain
+
+Date: 2026-09-27
+
+Status: ACTIVE AUTHORIZED EXACT-MB SUB-STAGE; FINITE OPTIMUM UNRESOLVED
+
+### Decision
+
+Recognize the author authorization for the restricted exact-MB optimization and
+asymptotic-certification sub-stage without changing the global publication
+lifecycle. Evaluate finite positive-PMF points until the existing hard
+peak-photon domain rejects the normalized ensemble.
+
+The exact landscape increases from `nu_raw=0.20` to `.25`; `.30` and above
+fail closed on `n_peak_photons=30`. No interior turnover or valid bounded-search
+bracket exists before that boundary. Do not run a scalar optimizer or call the
+boundary point an optimum.
+
+Keep the four-symbol QPSK-like calculation quarantined as an asymptotic
+reduced-support diagnostic; it does not replace finite-positive-PMF production
+source moments.
+
+### Evidence
+
+- EVID-0090
+- `results/exact_mb_asymptotic/extended_landscape.json`
+- `results/exact_mb_asymptotic/asymptotic_four_state_diagnostic.json`

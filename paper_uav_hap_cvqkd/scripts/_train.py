@@ -40,8 +40,9 @@ from src.utils.random import derive_seed, seed_process, torch_generator
 
 
 TRAIN_REQUIRED = [
-    "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m", "channel.visibility_km",
-    "channel.beam_waist_m", "channel.aperture_radius_m", "channel.cn2_m_minus_two_thirds",
+    "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m", "channel.tau_zen",
+    "channel.theta_div_rad", "channel.radius_of_curvature_m", "channel.aperture_radius_m",
+    "channel.cn2_m_minus_two_thirds",
     "channel.cn_phi2_m_minus_two_thirds",
     "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",
     "channel.uav_motion.sigma_x_m", "channel.uav_motion.sigma_y_m",
@@ -53,6 +54,7 @@ TRAIN_REQUIRED = [
     "channel.scintillation.aperture_averaging_model",
     "channel.scintillation.v_sc_override",
     "channel.pointing.sigma_hap_ang_rad",
+    "channel.pointing.model",
     "channel.pointing.hap_angular_jitter_convention",
     "channel.aoa.model",
     "channel.raw_transmittance.active_treatment",
@@ -208,7 +210,7 @@ def _channel(config: dict[str, Any], count: int, seed: int):
     return sample_channel_state_distribution(
         geometry=geometry,
         wavelength_m=wavelength_m,
-        visibility_km=values["visibility_km"],
+        tau_zen=values.get("tau_zen"),
         beam_waist_m=beam_waist_m,
         aperture_radius_m=values["aperture_radius_m"],
         cn2_m_minus_two_thirds=values["cn2_m_minus_two_thirds"],
@@ -216,6 +218,9 @@ def _channel(config: dict[str, Any], count: int, seed: int):
         sample_count=int(count),
         seed=seed,
         uav_motion=motion,
+        radius_of_curvature_m=float(values["radius_of_curvature_m"]),
+        theta_div_rad=float(theta_div_rad) if theta_div_rad is not None else None,
+        pointing_model=pointing.get("model", "generalized_gaussian"),
         **_channel_model_kwargs(values),
     )
 

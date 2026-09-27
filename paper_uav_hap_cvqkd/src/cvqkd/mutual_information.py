@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 
+import numpy as np
 import torch
 
 from src.modulation.joint_ps_gs import Ensemble
@@ -231,3 +232,192 @@ def discrete_mutual_information(
     if not bool(torch.all(torch.isfinite(value))):
         raise FloatingPointError("Mutual-information estimator returned NaN or Inf.")
     return value
+
+
+def _gauss_hermite_noise(
+    order: int, *, device: torch.device
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    if not isinstance(order, int) or order < 2:
+        raise ValueError("quadrature_order must be an integer >= 2.")
+    nodes, weights = np.polynomial.hermite.hermgauss(order)
+    # Hermite roots with weights/sqrt(pi) already have variance 1/2, matching
+    # each real component of CN(0,1); the 2-D normalized weights are w_i w_j/pi.
+    real = torch.as_tensor(nodes, dtype=torch.float64, device=device)
+    weights = torch.as_tensor(weights, dtype=torch.float64, device=device)
+    grid_real = real[:, None].expand(order, order).reshape(-1)
+    grid_imag = real[None, :].expand(order, order).reshape(-1)
+    noise = torch.complex(grid_real, grid_imag)
+    grid_weights = (weights[:, None] * weights[None, :] / math.pi).reshape(-1)
+    return noise, grid_weights, real
+
+
+def _deterministic_real_mi(
+    probabilities: torch.Tensor,
+    levels: torch.Tensor,
+    sigma2_complex: torch.Tensor,
+    nodes: torch.Tensor,
+    weights: torch.Tensor,
+) -> torch.Tensor:
+    """Deterministic 1-D real Gaussian-channel MI in float64."""
+
+    log_p = torch.where(
+        probabilities > 0.0,
+        torch.log(probabilities),
+        torch.full_like(probabilities, -torch.inf),
+    )
+    received = (
+        levels[:, :, None]
+        + torch.sqrt(sigma2_complex)[:, None, None]
+        * nodes[None, None, :]
+    )
+    distances = (
+        received[:, :, :, None] - levels[:, None, None, :]
+    ).square()
+    denominator = torch.logsumexp(
+        log_p[:, None, None, :] - distances / sigma2_complex[:, None, None, None],
+        dim=-1,
+    )
+    posterior_log = (
+        log_p[:, :, None]
+        - (received - levels[:, :, None]).square() / sigma2_complex[:, None, None]
+        - denominator
+    )
+    conditional = torch.sum(
+        probabilities[:, :, None] * posterior_log * weights[None, None, :],
+        dim=(-2, -1),
+    ) / math.log(2.0)
+    entropy = -torch.sum(torch.special.xlogy(probabilities, probabilities), dim=-1) / math.log(2.0)
+    value = entropy + conditional
+    if not bool(torch.all(torch.isfinite(value))):
+        raise FloatingPointError("Deterministic real MI returned NaN or Inf.")
+    return value
+
+
+def _deterministic_full_mi(
+    probabilities: torch.Tensor,
+    means: torch.Tensor,
+    sigma2_complex: torch.Tensor,
+    noise: torch.Tensor,
+    weights: torch.Tensor,
+    *,
+    candidate_chunk_size: int,
+    noise_chunk_size: int,
+) -> torch.Tensor:
+    batch_size, symbol_count = probabilities.shape
+    log_probabilities = torch.where(
+        probabilities > 0.0,
+        torch.log(probabilities),
+        torch.full_like(probabilities, -torch.inf),
+    )
+    conditional_sum = torch.zeros(batch_size, dtype=torch.float64, device=means.device)
+    for noise_start in range(0, noise.numel(), noise_chunk_size):
+        noise_stop = min(noise_start + noise_chunk_size, noise.numel())
+        received = (
+            means[:, :, None]
+            + torch.sqrt(sigma2_complex)[:, None, None]
+            * noise[None, None, noise_start:noise_stop]
+        )
+        observations = received.reshape(batch_size, -1)
+        observation_coordinates = torch.stack((observations.real, observations.imag), dim=-1)
+        log_denominator = torch.full(
+            (batch_size, symbol_count, noise_stop - noise_start),
+            -torch.inf,
+            dtype=torch.float64,
+            device=means.device,
+        )
+        for start in range(0, symbol_count, candidate_chunk_size):
+            stop = min(start + candidate_chunk_size, symbol_count)
+            candidates = means[:, start:stop]
+            candidate_coordinates = torch.stack(
+                (candidates.real, candidates.imag), dim=-1
+            )
+            dot = observation_coordinates @ candidate_coordinates.transpose(-2, -1)
+            distances = (
+                observations.abs().square().unsqueeze(-1)
+                + candidates.abs().square().unsqueeze(-2)
+                - 2.0 * dot
+            ).reshape(batch_size, symbol_count, noise_stop - noise_start, -1)
+            distances = torch.clamp_min(distances, 0.0)
+            chunk = torch.logsumexp(
+                log_probabilities[:, None, None, start:stop]
+                - distances / sigma2_complex[:, None, None, None],
+                dim=-1,
+            )
+            log_denominator = torch.logaddexp(log_denominator, chunk)
+        true_distance = (received - means[:, :, None]).abs().square()
+        posterior_log = (
+            log_probabilities[:, :, None]
+            - true_distance / sigma2_complex[:, None, None]
+            - log_denominator
+        )
+        conditional_sum = conditional_sum + torch.sum(
+            probabilities[:, :, None]
+            * posterior_log
+            * weights[None, None, noise_start:noise_stop],
+            dim=(-2, -1),
+        )
+    entropy = -torch.sum(torch.special.xlogy(probabilities, probabilities), dim=-1)
+    value = (entropy + conditional_sum) / math.log(2.0)
+    if not bool(torch.all(torch.isfinite(value))):
+        raise FloatingPointError("Deterministic MI returned NaN or Inf.")
+    return value
+
+
+def deterministic_mutual_information(
+    ensemble: Ensemble,
+    transmittance: torch.Tensor,
+    epsilon: torch.Tensor,
+    *,
+    quadrature_order: int = 32,
+    implementation: str = "full",
+    candidate_chunk_size: int = 64,
+    noise_chunk_size: int = 256,
+) -> torch.Tensor:
+    """Deterministic Gauss--Hermite MI with the existing channel likelihood.
+
+    ``implementation='full'`` evaluates the 256-state complex mixture.  The
+    ``'product'`` route is permitted only after the existing exact Cartesian
+    and PMF factorization guard passes, and evaluates the equivalent two 1-D
+    real channels.  No random samples are drawn.
+    """
+
+    if implementation not in {"full", "product"}:
+        raise ValueError("implementation must be 'full' or 'product'.")
+    if not isinstance(candidate_chunk_size, int) or candidate_chunk_size <= 0:
+        raise ValueError("candidate_chunk_size must be a positive integer.")
+    if not isinstance(noise_chunk_size, int) or noise_chunk_size <= 0:
+        raise ValueError("noise_chunk_size must be a positive integer.")
+    ensemble.validate()
+    transmittance, epsilon = validate_channel_state(transmittance, epsilon)
+    transmittance = transmittance.to(device=ensemble.probabilities.device)
+    epsilon = epsilon.to(device=ensemble.probabilities.device)
+    if transmittance.shape[0] != ensemble.probabilities.shape[0]:
+        raise ValueError("Channel-state count must match ensemble batch size.")
+    sigma2_complex = 1.0 + transmittance * epsilon / 2.0
+    means = torch.sqrt(transmittance).unsqueeze(-1) * ensemble.amplitudes
+    noise, weights, real_nodes = _gauss_hermite_noise(
+        quadrature_order, device=ensemble.probabilities.device
+    )
+    if implementation == "product":
+        real_p, imag_p, real_levels, imag_levels = _product_qam_factors(
+            ensemble.probabilities, means
+        )
+        real_weights = torch.as_tensor(
+            np.polynomial.hermite.hermgauss(quadrature_order)[1],
+            dtype=torch.float64,
+            device=ensemble.probabilities.device,
+        ) / math.sqrt(math.pi)
+        return _deterministic_real_mi(
+            real_p, real_levels, sigma2_complex, real_nodes, real_weights
+        ) + _deterministic_real_mi(
+            imag_p, imag_levels, sigma2_complex, real_nodes, real_weights
+        )
+    return _deterministic_full_mi(
+        ensemble.probabilities,
+        means,
+        sigma2_complex,
+        noise,
+        weights,
+        candidate_chunk_size=candidate_chunk_size,
+        noise_chunk_size=noise_chunk_size,
+    )

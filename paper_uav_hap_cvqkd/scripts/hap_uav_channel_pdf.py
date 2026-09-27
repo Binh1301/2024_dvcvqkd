@@ -38,8 +38,6 @@ ROOT = SCRIPT_DIR.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.channel.atmospheric_loss import atmospheric_transmittance
-
 try:
     import scipy as _scipy
     from scipy.integrate import quad as _scipy_quad
@@ -61,8 +59,8 @@ class Scenario:
     h_uav_m: float = 1.0e3
     zeta_rad: float = math.pi / 6.0
     wind_m_per_s: float = 21.0
-    cn2_ground_m_minus_two_thirds: float = 5.0e-14
-    visibility_km: float = 20.0
+    cn2_ground_m_minus_two_thirds: float = 1.0e-14
+    tau_zen: float | None = None
     aperture_radius_m: float = 0.04
     theta_div_rad: float = 223e-6
     sigma_h_m: float = 1.0
@@ -86,9 +84,11 @@ class Scenario:
 
     @property
     def eta_atm(self) -> float:
-        return atmospheric_transmittance(
-            self.link_length_m, self.visibility_km, self.lambda_m
-        )
+        if self.tau_zen is None:
+            raise ValueError(
+                "Atmospheric scenario must be selected: provide an author-approved tau_zen."
+            )
+        return float(self.tau_zen ** (1.0 / math.cos(self.zeta_rad)))
 
 
 SCENARIO = Scenario()

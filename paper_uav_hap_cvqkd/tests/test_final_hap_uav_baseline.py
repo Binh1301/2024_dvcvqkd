@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import yaml
 
-from src.channel.atmospheric_loss import atmospheric_transmittance
+from src.channel.atmospheric_loss import atmospheric_transmittance_from_tau_zen
 from src.channel.aoa import aoa_outage_probability
 from src.channel.geometry import LinkGeometry
 from src.channel.state_distribution import (
@@ -32,7 +32,8 @@ class FinalHapUavBaselineTests(unittest.TestCase):
     def test_canonical_inputs_and_derived_optics(self):
         channel, default = self._configs()
         self.assertAlmostEqual(channel["geometry"]["zenith_angle_rad"], math.pi / 6.0)
-        self.assertEqual(channel["optics"]["visibility_km"], 20.0)
+        self.assertIsNone(channel["optics"]["tau_zen"])
+        self.assertIsNone(channel["optics"]["visibility_km"])
         self.assertEqual(channel["optics"]["aperture_radius_m"], 0.04)
         self.assertAlmostEqual(channel["optics"]["theta_div_rad"], 223.0e-6)
         self.assertEqual(channel["pointing"]["sigma_h_m"], 1.0)
@@ -54,17 +55,19 @@ class FinalHapUavBaselineTests(unittest.TestCase):
             math.pi * channel["optics"]["theta_div_rad"]
         )
         self.assertAlmostEqual(omega_0, 0.004424935637532516)
+        self.assertIsNone(channel["optics"]["tau_zen"])
         self.assertAlmostEqual(
-            atmospheric_transmittance(
-                geometry.link_length_m,
-                channel["optics"]["visibility_km"],
-                channel["optics"]["wavelength_m"],
+            atmospheric_transmittance_from_tau_zen(
+                geometry.link_length_m, 0.92, channel["geometry"]["zenith_angle_rad"]
             ),
-            0.3276145376743964,
+            0.9082089654181442,
         )
 
         # The train/evaluation config resolves the same baseline values.
-        self.assertEqual(default["visibility_km"], 20.0)
+        self.assertIsNone(default["tau_zen"])
+        self.assertEqual(
+            default["turbulence_profile"]["cn2_ground_m_minus_two_thirds"], 1.0e-14
+        )
         self.assertEqual(default["aperture_radius_m"], 0.04)
         self.assertEqual(default["excess_noise_distribution"]["kind"], "fixed")
 
@@ -78,7 +81,7 @@ class FinalHapUavBaselineTests(unittest.TestCase):
         states = sample_channel_state_distribution(
             geometry=geometry,
             wavelength_m=values["wavelength_m"],
-            visibility_km=values["visibility_km"],
+            tau_zen=0.92,
             beam_waist_m=2.0 * values["wavelength_m"] / (
                 math.pi * values["theta_div_rad"]
             ),
@@ -97,6 +100,9 @@ class FinalHapUavBaselineTests(unittest.TestCase):
                 sigma_phi_rad=sigma_o,
                 sigma_psi_rad=0.0,
             ),
+            radius_of_curvature_m=values["radius_of_curvature_m"],
+            theta_div_rad=values["theta_div_rad"],
+            pointing_model=values["pointing"]["model"],
             aperture_averaging_model=values["scintillation"][
                 "aperture_averaging_model"
             ],
@@ -116,6 +122,15 @@ class FinalHapUavBaselineTests(unittest.TestCase):
         )
         np.testing.assert_allclose(states.excess_noise_snu, 0.0186)
         self.assertEqual(states.metadata["epsilon_model"], "fixed")
+        self.assertEqual(
+            states.metadata["provenance"]["atmospheric_model"],
+            "modtran_tau_zen_secant",
+        )
+        self.assertEqual(
+            states.metadata["provenance"]["pointing_model"],
+            "manuscript_gaussian_equivalent",
+        )
+        self.assertGreater(states.metadata["provenance"]["pointing_parameters"]["G_d"], 0.0)
         self.assertLess(states.metadata["empirical_epsilon_base_variance_snu2"], 1.0e-30)
         sigma_o2 = sigma_o**2
         p_out = aoa_outage_probability(values["aoa"]["theta_fov_rad"], sigma_o2)

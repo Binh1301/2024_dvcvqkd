@@ -138,6 +138,15 @@ class NumericalConvergenceTests(unittest.TestCase):
     def test_certification_fixture_and_exact_duplicate_reduction_are_deterministic(self):
         root = Path(__file__).parents[1]
         config = load_yaml(root / "configs" / "default.yaml")
+        # Explicit conditional diagnostic scenario; the repository baseline
+        # remains fail-closed with channel.tau_zen=null.
+        config["channel"]["tau_zen"] = 0.92
+        config["channel"]["excess_noise_distribution"] = {
+            "kind": "independent_uniform",
+            "minimum_snu": 0.001,
+            "maximum_snu": 0.04,
+            "dependence_on_transmittance": "independent",
+        }
         _, _, t, epsilon = validation_representative_states(config)
         first = representative_ensembles(config, t, epsilon)
         torch.manual_seed(999999)

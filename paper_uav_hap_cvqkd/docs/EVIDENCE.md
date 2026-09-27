@@ -3896,3 +3896,434 @@ baseline selection, final-test access, or publication-scale run occurred.
 
 Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; adaptive training
 remains `NOT_READY_FOR_ADAPTIVE_TRAINING`.
+
+## EVID-0083 - Latest manuscript channel consistency correction
+
+Date: 2026-09-25
+
+Status: CURRENTLY_VERIFIED_PASS; CONDITIONAL CHANNEL-ONLY DIAGNOSTIC;
+ATMOSPHERIC SCENARIO UNSELECTED
+
+### Claim
+
+The active channel/PDF implementation now uses direct MODTRAN zero-zenith
+transmittance `eta_atm=tau_zen**sec(zeta)`, the Table-III Hufnagel--Valley
+ground value `C_n^2(0)=1e-14`, the receiver diameter `D_r=0.08 m` derived
+once from the configured radius `0.04 m`, the manuscript finite-aperture
+factor with `lambda*Phi*sec(zeta)` in its denominator, finite-curvature beam
+propagation, and the manuscript `G_d`, `A0`, and equivalent-beam-width
+pointing path. Legacy Kruse/visibility and generalized-pointing calls remain
+explicit compatibility fixtures only.
+
+The production configuration deliberately leaves `tau_zen: null`; no one of
+the manuscript's `0.92`, `0.89`, or `0.75` scenarios was selected. Active
+configuration-driven paths fail closed with an atmospheric-scenario decision
+error. The explicit conditional diagnostic used `tau_zen=0.92` only as a
+reproducible formula/PDF check.
+
+### Evidence and provenance
+
+- `results/channel_pdf_and_moments_20260925.json` (local ignored artifact)
+- Artifact SHA-256: `8abeac6c5713a2459b80e279055831d22855db0302be6440383f73828757fa2e`
+- `results/channel_pdf_validation_20260925_v2/` (local ignored figures)
+- `tests/test_composite_channel.py`
+- `tests/test_final_hap_uav_baseline.py`
+- `tests/test_channel_pdf_and_moments.py`
+- Focused channel/state/PDF/phase/pipeline/numerical-freeze suite: 84 tests
+  passed.
+- `docs/FINAL_MODEL_SPEC.md` SHA-256 remains
+  `8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`.
+
+### Conditional diagnostic values
+
+For explicit `tau_zen=0.92`: `L=21939.310229205777 m`,
+`eta_atm=0.9082089654181442`, `sigma_R0^2=0.053962077796191735`,
+`Phi=9200.562528132386 m`, `AA=0.7307070923781438`,
+`sigma_R,D^2=0.039430472965138456`, `sigma_X^2=0.009857618241284614`,
+`G_d=0.0002781635150138471`, `A0=0.0005346028752556014`, and
+`omega_L,eq=2.446919845177366 m`. The closed-form and independent integral
+PDFs differed by at most about `8.7e-12` on the meaningful density region;
+the reported normalizations were `1.000000000000008` for both closed/product
+active integrals, and the conditional Monte Carlo comparison passed.
+
+### Limitations
+
+This is channel-only conditional diagnostic evidence. It does not select the
+atmospheric baseline, certify the security/SKR path, authorize training,
+baseline selection, final-test access, or publication-scale work. Existing
+historical Kruse/homogeneous artifacts remain legacy evidence and are not
+rebound to this target.
+
+## EVID-0084 - Supplied MB C,w applied to the new conditional channel
+
+Date: 2026-09-25
+
+Status: SUPERSEDED_INVALID_COMMON_ENSEMBLE; DIAGNOSTIC_ONLY
+
+### Claim
+
+The supplied ten historical Maxwell--Boltzmann source-moment pairs were
+applied unchanged to the new conditional channel with `tau_zen=0.92`,
+`zeta=30 deg`, `V_A=2`, and the legacy AO diagnostic `eta_AO=0.95`.
+The current channel moments give
+`T_eff=0.0002548668306761576` and
+`epsilon_eff=0.13479156643649148`. The existing DM-CV-QKD MI/Holevo/SKR
+pipeline was used; no Gaussian security approximation or optimizer was added.
+
+All ten rows passed PMF normalization, `V_A=2`, covariance physicality, and
+finite MI/Holevo/SKR checks. All raw SKRs were negative. The numerical maximum
+of this supplied grid is at `nu_MB=0.20` with
+`K=-0.00018194195597724065` bits/symbol.
+
+### Evidence and provenance
+
+- `results/mb_sweep_fixed_zeta30_VA2.csv`, SHA-256:
+  `aadf089c6050c89c0671b7fa7f8e16ad41fa28c8e165ee3a3503f6f07e6e56dd`
+- `figures/skr_vs_mb_fixed_zeta30_VA2.pdf`, SHA-256:
+  `563119f3560fd5d740362caf2f803c76a2aa82bef3a05f48f0a3c40fce7bb732`
+- `figures/skr_vs_mb_fixed_zeta30_VA2.png`, SHA-256:
+  `f9a9657a0bd650fe707f12ef5b0a50bbc1701e791437f2aae1fed768f0e7a874`
+- Producer: `scripts/run_cached_mb_cw_new_channel.py`, SHA-256:
+  `45941de275d26bff57f21968964ffcc471f14dc3eda3b936fbf5bf9d1585e76d`
+- Supplied C,w table: `results/mb_nu_threshold_va2/mb_nu_threshold_va2_refined.json`.
+
+### Scope limitations
+
+The supplied C,w rows are historical source-moment evidence under the prior
+MB convention and precision policy; they were not recomputed for the new raw
+channel realization. This result is therefore a conditional diagnostic, not
+a newly certified baseline selection or publication result. The fixed AO phase
+fixture uses `C_n,phase^2=1e-16`; production `tau_zen` remains unresolved in
+configuration and the lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0085 - MB C,w sweep rebound with reduced phase turbulence strength
+
+Date: 2026-09-25
+
+Status: SUPERSEDED_INVALID_COMMON_ENSEMBLE; DIAGNOSTIC_ONLY
+
+### Claim
+
+EVID-0084 was rebound with the user-selected diagnostic phase turbulence
+strength `C_n,phase^2=9.4e-18 m^-2/3`. The channel, supplied ten C,w rows,
+`tau_zen=0.92`, `zeta=30 deg`, `V_A=2`, AO `0.95`, and beta `0.95` were held
+fixed. All ten rows passed the same PMF, VA, covariance, MI, and Holevo checks.
+
+The resulting `epsilon_eff` is `0.029382316951626387`. All SKRs are positive;
+the maximum is at `nu_MB=0.20` with
+`K=0.00004194428949251256` bits/symbol.
+
+### Evidence and provenance
+
+- `results/mb_sweep_fixed_zeta30_VA2.csv`, SHA-256:
+  `95df645156d14cc3beadd1c63b0b9a6b533fbb3ac1dc05a9819cdbccc0bdfaa1`
+- `figures/skr_vs_mb_fixed_zeta30_VA2.pdf`, SHA-256:
+  `27a5a574799887adcb1e5942956067f79835d41883688f303d7b2a878870aed5`
+- `figures/skr_vs_mb_fixed_zeta30_VA2.png`, SHA-256:
+  `fb96d5324633bfa31a4ff3a5d36916cf941dd946c63ba3fee8f49266f559f001`
+- Producer SHA-256:
+  `4df50ac8a154bc7a8e89753ca9c66c2c606a065e6988c5ca836d2e68e616ca54`
+
+### Limitations
+
+The C,w rows remain supplied historical source moments and were not recomputed
+under the new phase value. This remains a conditional diagnostic, not a
+production MB baseline selection or publication result. Production phase
+configuration remains null/unresolved.
+
+## EVID-0086 - Adam plus central finite-difference diagnostic
+
+Date: 2026-09-26
+
+Status: CURRENTLY_VERIFIED_PASS FOR SYNTHETIC TEST; PHYSICAL TEST NOT RUN
+
+### Claim
+
+A new diagnostic runner exercised the same central finite-difference, sigmoid
+chain rule, minimize-`-K` sign, Adam update, and rollback implementation on the
+known synthetic objective. From `(nu,V_A)=(0.10,2.0)`, it reached
+`(0.1702060383,2.201044144)` after 80 iterations, increasing the objective
+from `-0.0249` to `-5.8757e-7`. The `dK/dnu` check at `(0.15,2.0)` was stable
+at approximately `0.04` for `h={0.01,0.005,0.001,0.0005}`.
+
+Physical Test 2 was not run: the requested 59-point dense grid and FD stencils
+lack exact ensemble-matched C,w at 52 grid points and all requested stencil
+neighbors. Interpolation/substitution was deliberately rejected. Therefore
+joint physical Test 3 was also not run.
+
+### Evidence and provenance
+
+- `scripts/diagnose_mb_va_adam.py`, SHA-256:
+  `4518377caf2ef5d56d93d01f972956752629f1d2a15f40b1bc71150772925788`
+- `results/diagnostic_mb_va_adam/synthetic_adam_trace.csv`, SHA-256:
+  `1caba1175922d6c7a98c59fa6a5d7e51f61aaadf91379b3e10ef4d780cc4d62b`
+- `results/diagnostic_mb_va_adam/diagnostic_report.json`, SHA-256:
+  `94977f115c65d4a867d1c397452630b74aceca0c07142511b49fa3fd375fdc3f`
+- Focused diagnostic regression: 1 test passed.
+
+### Interpretation
+
+The optimizer machinery appears functional on the synthetic objective. No
+claim is made that it optimizes the physical SKR, and no physical optimum,
+baseline selection, training authorization, or publication result follows.
+
+## EVID-0087 - Exact common-ensemble MB evaluator and bounded TEST2 readiness
+
+Date: 2026-09-27
+
+Status: CURRENTLY_VERIFIED_PASS FOR EVALUATOR/COARSE LANDSCAPE; FD FAILED; TEST2 NOT RUN
+
+### Claim
+
+`scripts/run_exact_mb_test2.py` now evaluates one physical MB ensemble through
+MI, exact C4-Gram source moments, full-interval Holevo, and raw SKR. It enforces
+`nu_mb_repo=42.5*nu_mb_raw`, hashes exact binary64 probabilities, amplitudes,
+and declared `V_A`, and asserts that the MI, source-moment, and Holevo hashes
+are identical. Exact-source cache keys additionally bind the convention,
+source implementation hashes, numerical settings, and precision ladder. No
+C,w interpolation or nearest-nu lookup is present.
+
+At `V_A=2`, `tau_zen=0.92`, `zeta=30 deg`, `eta_AO=0.95`, and
+`C_n,phase^2=9.4e-18 m^-2/3`, the seven-point exact coarse landscape is:
+
+| nu_raw | I_AB | C | w | chi_BE | raw SKR |
+|---:|---:|---:|---:|---:|---:|
+| 0.10 | 0.00042842019939310917 | 1.4141975446461088 | 3.538218842527366e-05 | 0.0003322232140663406 | 7.477597535711312e-05 |
+| 0.13 | 0.00043072331515805475 | 1.4142120065471502 | 3.6250314541869922e-06 | 0.0003291386390917861 | 8.004851030836592e-05 |
+| 0.14 | 0.0004309175142386934 | 1.414212851188367 | 1.6856391238553004e-06 | 0.00032868367480354266 | 8.068796372321605e-05 |
+| 0.15 | 0.000430916803569481 | 1.414213237782491 | 7.818684597230892e-07 | 0.00032837360185977715 | 8.099736153122978e-05 |
+| 0.16 | 0.00043076173163427713 | 1.4142134144018956 | 3.618335204129278e-07 | 0.00032816236469268567 | 8.106128035987757e-05 |
+| 0.17 | 0.000430485164097405 | 1.4142134949830283 | 1.6709139201083476e-07 | 0.00032801854487995996 | 8.094236101257479e-05 |
+| 0.20 | 0.000429166963560057 | 1.4142135560377151 | 1.62655009052083e-08 | 0.00032780900654927336 | 7.989960883278077e-05 |
+
+The coarse numerical maximum is `nu_raw=0.16`; it is not a continuous optimum
+or baseline selection. Known exact rows at 0.10, 0.15, and 0.20 matched. The
+prior 0.173421 terminal audit was not imported because it had no hash-bound
+cache artifact.
+
+The exact FD check around 0.16 failed readiness. For `h=0.01`,
+`dK/dnu=-2.7500259327498024e-06` with paired CRN stderr
+`2.3106529029621325e-04`. For `h=0.005`,
+`dK/dnu=-3.42140000064565e-06` with stderr
+`2.313213344921552e-04`. Both derivatives are unresolved and the two rows do
+not meet the frozen local stability tolerance. Adam TEST2 therefore remained
+`NOT RUN`; TEST3 remained `NOT RUN`.
+
+### Historical correction
+
+EVID-0084/EVID-0085 used raw-grid C,w rows but passed raw `nu` directly to the
+repository canonical PMF. Their MI and source moments came from different
+ensembles. Those cached-sweep SKRs are now
+`SUPERSEDED_INVALID_COMMON_ENSEMBLE` and cannot support comparison or baseline
+selection. The historical artifacts are preserved.
+
+### Evidence and provenance
+
+- `scripts/run_exact_mb_test2.py`, SHA-256:
+  `645b2792b0d9eb38609d4e94a165f94b8a927f3d18997671099c4057bc21b2d4`
+- `tests/test_exact_mb_test2.py`, SHA-256:
+  `6cf5077f53e623f026f7c7fb7f18887c03ade1e63dd418dc66c2df13163fc775`
+- `results/exact_mb_test2/run_report.json`, SHA-256:
+  `48878f3e9783c465e3001ede06070a7a44e1d8910e06ecbe28434c4e26caadd7`
+- `results/exact_mb_test2/coarse_landscape.csv`, SHA-256:
+  `07b4c26636344fa5482a6e7dcb41c93ef9f7a89d92c28f2a9a0d70f12f841370`
+- `results/exact_mb_test2/finite_difference.json`, SHA-256:
+  `e0afe0a3735ce77fc5d440daa6b0b223a3808967871b8e7e0b936128a023dc38`
+- Focused verification: 5 tests passed; `py_compile` passed.
+
+### Scope
+
+This is a bounded diagnostic under a conditional channel fixture. It changes
+no source-moment mathematics, Adam implementation, security functional,
+physical channel model, lifecycle gate, or baseline selection.
+
+## EVID-0090 - Authorized exact-MB boundary/asymptotic landscape
+
+Date: 2026-09-27
+
+Status: CURRENTLY_VERIFIED_PASS FOR AUTHORIZED SUB-STAGE; FINITE OPTIMUM UNRESOLVED
+
+### Authorization
+
+The author explicitly authorized `EXACT MB OPTIMIZATION AND ASYMPTOTIC
+CERTIFICATION` only. Publication-scale runs, physical/security model changes,
+Adam, interpolation, surrogates, and broader optimization remain excluded.
+The authorization is recorded in
+`results/exact_mb_asymptotic/author_authorization.json`; the global lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Extended finite-positive-PMF landscape
+
+Exact hash-matched source moments and deterministic GH MI were evaluated at
+`nu_raw={0.20,0.22,0.25}`. SKR continued increasing:
+
+| nu_raw | C | w | Z_star | chi_BE | SKR | H_X | N_eff |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0.20 | 1.4142135560 | 1.62655e-08 | 0.0451540702 | 3.278090e-04 | 2.145554e-05 | 5.4161 | 42.70 |
+| 0.22 | 1.4142135610 | 3.46869e-09 | 0.0451543360 | 3.277579e-04 | 2.150663e-05 | 5.2786 | 38.82 |
+| 0.25 | 1.4142135618 | 1.60865e-09 | 0.0451544087 | 3.277439e-04 | 2.152061e-05 | 5.0942 | 34.16 |
+
+At `nu_raw=0.30`, the unchanged hard peak constraint rejects the normalized
+ensemble because `max|alpha|^2=33.75000034 > n_peak=30`. The same fail-closed
+physical boundary rejects `.35`, `.40`, and `.50`; the raw-to-repo helper was
+expanded to accept those finite nonnegative parameters so this is not an
+artificial parameter-range stop.
+
+No turnover was found before the physical boundary. A finite interior bracket
+was not established; no bounded scalar optimizer was run.
+
+### Asymptotic reduced-support diagnostic
+
+The actual minimum-energy shell contains four points with raw coordinates
+`(+-0.5,+-0.5)`. Under fixed `V_A=2`, the reduced-support diagnostic becomes
+the QPSK-like physical geometry `(+-1/sqrt(2),+-1/sqrt(2))` with scale
+`sqrt(85)`. A separate dense-Fock cutoff-64 diagnostic returned
+`C=1.25985255`, `w=0.11873224`, `Z_star=0.03889244`,
+`chi_BE=0.00124983`, and `SKR=-9.00561e-4`.
+
+This is explicitly an `ASYMPTOTIC_DIAGNOSTIC_NOT_PRODUCTION_FINITE_NU` result.
+It is not substituted for the strictly positive-PMF production C4/AP path.
+The discrepancy from the finite-positive-PMF trend is retained as a support-
+boundary discontinuity question; no asymptotic K-infinity claim is made.
+
+### Evidence and provenance
+
+- `scripts/run_exact_mb_asymptotic.py`, SHA-256:
+  `d7993edb8f91db94ebe3222e76cb026ee85e9d954f5f153850e10d35713dae1c`
+- `results/exact_mb_asymptotic/author_authorization.json`, SHA-256:
+  `6a69ed33ec08fb02ac4dea99f25c9ddbd067bf886dac0e5ca30bdebca69b5be6`
+- `results/exact_mb_asymptotic/extended_landscape.json`, SHA-256:
+  `9f04348f55b3b7752f03da3c586a34baa89c65d76afba5ab3782ce4e71911442`
+- `results/exact_mb_asymptotic/extended_landscape.csv`, SHA-256:
+  `2302ae130efcd1ab2fb37947168b045c164671335531f7891c7c93e546d3d3c6`
+- `results/exact_mb_asymptotic/asymptotic_four_state_diagnostic.json`, SHA-256:
+  `d8e18dd368b9b597866805453599eedbd067bf886dac0e5ca30bdebca69b5be6`
+
+## EVID-0089 - Same-point MI reconciliation and deterministic-SKR coarse correction
+
+Date: 2026-09-27
+
+Status: CURRENTLY_VERIFIED_PASS; RECONCILIATION_DIAGNOSTIC_ONLY
+
+### MI reconciliation
+
+The old seven-point coarse MI values were recomputed using the same physical
+ensemble hashes, PMF, amplitudes, `T`, `epsilon_total`, `sigma_c2`, and
+heterodyne convention as the deterministic GH evaluator. The old 2048-sample
+means reproduced to floating-point precision. The old coarse MI variation was
+not statistically resolvable: the maximum reconstructed deviation was
+`2.742` standard errors, so the historical MI column is classified
+`STOCHASTIC_COARSE_ONLY`.
+
+The independent 65536-sample MC cross-check agrees with GH; the maximum
+`(I_MC-I_GH)/stderr` magnitude is `0.3857`. The fixed-V_A low-SNR leading
+term is nearly invariant across MB shaping: `I_AB_GH` stays approximately
+`0.0003676468876` while entropy, fourth moment, C,w, and Holevo vary.
+
+### Corrected deterministic-SKR coarse values
+
+Replacing old stochastic MI with deterministic GH MI while retaining only
+hash-matched C,w/Holevo rows gives:
+
+| nu_raw | old SKR | deterministic SKR |
+|---:|---:|---:|
+| 0.10 | 7.4775975e-05 | 1.7041329e-05 |
+| 0.13 | 8.0048510e-05 | 2.0125904e-05 |
+| 0.14 | 8.0687964e-05 | 2.0580868e-05 |
+| 0.15 | 8.0997362e-05 | 2.0890941e-05 |
+| 0.16 | 8.1061280e-05 | 2.1102179e-05 |
+| 0.17 | 8.0942361e-05 | 2.1245998e-05 |
+| 0.20 | 7.9899609e-05 | 2.1455537e-05 |
+
+The deterministic coarse maximum moves to `nu_raw=0.20`; this remains a grid
+diagnostic, not a continuous optimum.
+
+### Point-evaluator readiness and lifecycle boundary
+
+The existing common evaluator can create arbitrary exact MB ensembles and
+compute C,w,Z*,chi_BE through the exact cache/AP path, so
+`FULL EXACT SKR POINT EVALUATION: READY`. A Holevo derivative is not required
+for a derivative-free bounded scalar search. That search was nevertheless not
+run because optimized-MB search/baseline selection is not authorized by the
+current lifecycle state `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence and provenance
+
+- `scripts/run_exact_mb_reconciliation.py`, SHA-256:
+  `cfde6563ba9aeb61a2d445e13a368ce87982697ca5c74dabc5213e6f3952365a`
+- `tests/test_exact_mb_reconciliation.py`, SHA-256:
+  `3eaa8e2601fb52be127b87cf71147298179ba4a4a313ead0ff26fe98d3bac1be`
+- `results/exact_mb_reconciliation/run_report.json`, SHA-256:
+  `834a100f547e091800b96763fb97a236a67dc1ff6e719ac639ff511a32bd6e2f`
+- `results/exact_mb_reconciliation/same_point_reconciliation.csv`, SHA-256:
+  `74d9837cfae3c3ac1a13d635fd39a9045b179d512d8b08a3222e76ce6f31388b`
+- `results/exact_mb_reconciliation/low_snr_diagnostics.json`, SHA-256:
+  `5374c34a88b0842b1432ac8e995cca84656fa8b50bb8e369b239d2dc4d6a9376`
+- `results/exact_mb_reconciliation/wide_gradient.json`, SHA-256:
+  `94187fa17cef4c53727f73b6be286ca06ed5bbf4889bce6d39452148801a8cad`
+- Focused verification: 15 tests passed; `py_compile` passed.
+
+## EVID-0088 - Deterministic Gauss-Hermite MI and raw-nu autodiff certification
+
+Date: 2026-09-27
+
+Status: CURRENTLY_VERIFIED_PASS; DETERMINISTIC_MI_CERTIFIED; DIAGNOSTIC_ONLY
+
+### Claim
+
+The repository now has a deterministic float64 mutual-information evaluator in
+`src/cvqkd/mutual_information.py`. It uses the existing conditional complex
+Gaussian likelihood and Gauss-Hermite quadrature, with no random channel-noise
+samples. The existing Monte-Carlo evaluator remains unchanged for independent
+cross-checking.
+
+The certified chain is
+
+```text
+nu_raw -> nu_repo=42.5*nu_raw -> canonical MB PMF
+-> probability-dependent physical amplitude normalization
+-> deterministic I_AB -> dI_AB/dnu_raw
+```
+
+The actual 256-state ensemble is exactly Cartesian 16-PAM x 16-PAM and its MB
+PMF factorizes. Full 2-D deterministic MI and the exact 2x1-D product path
+agreed at all tested `nu_raw={0.10,0.15,0.16,0.17,0.20}`; the largest absolute
+difference was `2.702211284594247e-15`. The selected smallest converged
+quadrature order was `N_GH=8` over tested orders `8,16,24,32,48,64`.
+
+Autodiff derivatives at `nu_raw={0.15,0.16,0.17}` agreed with central
+differences through `h=1e-4` under absolute tolerance `1e-9`; the derivative
+is numerically near zero in this very-low-transmittance fixture, so relative
+error is not used at the near-zero rows. The analytical PMF derivative and the
+raw-to-repo factor `42.5` also passed.
+
+The independent MC cross-check used the existing evaluator, the same five CRN
+seeds, and `65536` samples per symbol only for validation. The largest
+absolute GH/MC difference in standard-error units was `0.3857`.
+
+### Required boundary
+
+No C,w interpolation was added. No Holevo/security equation, phase model,
+channel model, Adam implementation, or common-ensemble contract was changed.
+The full-SKR bounded search and Adam remain `NOT RUN`; optimized-MB search is
+still lifecycle-gated and this result does not select a baseline or continuous
+optimum.
+
+### Evidence and provenance
+
+- `src/cvqkd/mutual_information.py`, SHA-256:
+  `4c7d38d7f796dde0e24155117d17ca5758e9561527f4acb29fc24d9bb7e947b4`
+- `scripts/run_exact_mb_test2a.py`, SHA-256:
+  `946311e82e79a08803307b270b4de2df83ef026f4d27a713e96e6da868cbafd2`
+- `tests/test_exact_mb_test2a.py`, SHA-256:
+  `5049a2c2ec5f5a9b423e2ab41cc395cefb6a86765f6d929530714da5fcdc1c57`
+- `results/exact_mb_test2a/run_report.json`, SHA-256:
+  `abebb82fcf3090d8cac32f7d2fed13d370465972a4e4250238b728f12e2fba3a`
+- `results/exact_mb_test2a/gh_convergence.csv`, SHA-256:
+  `f96e8da220e5486b6e1f0f9763919aec0f4ae38cfc0d5e4d495d36c55ae18997`
+- `results/exact_mb_test2a/autodiff_vs_fd.csv`, SHA-256:
+  `63bcf5a42a2ff99b7b60352acf8f81a7e9de40c94b82f7d8f26cc233bde5c7e7`
+- `results/exact_mb_test2a/mc_vs_gh.csv`, SHA-256:
+  `4ebda74fb20b3386d26142dfa303aee6691f272eafb0ff0f197aa4ee4c7f98a4`
+- Focused verification: 13 deterministic-MI/mutual-information tests passed;
+  `py_compile` passed.

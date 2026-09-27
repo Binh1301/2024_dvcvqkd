@@ -1,8 +1,98 @@
 # Project State
 
-Last updated: 2026-09-16 (EVID-0082 / DEC-0066; manuscript channel PDF audit)
+## Latest authorized exact-MB boundary stage (2026-09-27)
 
-## Latest channel-model audit (2026-09-16)
+EVID-0090/DEC-0074 recognize the narrow author authorization for exact-MB
+optimization/asymptotic certification while preserving the global publication
+lifecycle. Exact finite-positive-PMF points `.20,.22,.25` pass and SKR rises to
+`2.152060894113902e-05` at `.25`. At `.30` and above, the unchanged hard peak
+constraint rejects the normalized ensemble; no finite turnover or valid scalar
+search bracket exists before that physical boundary.
+
+A separate four-symbol QPSK-like reduced-support diagnostic is recorded but is
+not production finite-`nu` evidence. The MB limit classification remains
+`UNRESOLVED`; no bounded optimizer or baseline selection ran.
+
+## Latest MI reconciliation (2026-09-27)
+
+EVID-0089/DEC-0073 reconciles the old stochastic coarse MI against the new
+deterministic GH evaluator using identical ensemble/channel inputs. The old MI
+trend is `STOCHASTIC_COARSE_ONLY` (maximum reconstructed z `2.742`); the
+65536-sample MC/GH cross-check has maximum z `0.3857`.
+
+The deterministic low-SNR coarse SKR grid has its largest tested value at
+`nu_raw=0.20`, `K=2.145553668606579e-05`, after replacing old MC MI. This is
+not a continuous optimum. Exact arbitrary SKR point evaluation is ready by
+the existing common evaluator, but bounded optimized-MB search remains blocked
+by lifecycle authorization.
+
+## Latest deterministic MI certification (2026-09-27)
+
+EVID-0088/DEC-0072 certify deterministic float64 Gauss-Hermite MI for the
+existing common MB ensemble. The exact raw-to-repo factor `42.5`, PMF-dependent
+`V_A` normalization, PMF/geometry factorization, quadrature convergence, and
+autodiff-vs-central-difference derivatives passed. The selected GH order is 8;
+the existing MC evaluator agrees within the 65536-sample validation error.
+
+This removes the MI-only noise blocker, not the full-SKR derivative blocker:
+AP C,w/Holevo remains evaluation-only. Full-SKR bounded search and Adam remain
+`NOT RUN` under lifecycle gating; no continuous optimum or baseline was selected.
+
+## Latest exact common-ensemble TEST2 diagnostic (2026-09-27)
+
+EVID-0087/DEC-0071 implement the exact MB evaluator with the mandatory
+`nu_repo=42.5*nu_raw` conversion, exact ensemble hashes shared across MI,
+source moments, and Holevo, and implementation/config-bound source caching.
+The seven-point `V_A=2` coarse landscape peaks numerically at `nu_raw=0.16`,
+`K=8.106128035987757e-05`; this is not a continuous optimum.
+
+FD readiness around 0.16 failed: gradients at `h=0.01` and `0.005` are
+unresolved relative to paired CRN stderr and do not meet stability tolerance.
+Physical TEST2 Adam therefore remains `NOT RUN`; TEST3 remains `NOT RUN`.
+EVID-0084/EVID-0085 cached-sweep SKRs are
+`SUPERSEDED_INVALID_COMMON_ENSEMBLE` because MI and C,w used different MB
+parameter conventions.
+
+## Latest optimizer diagnostic (2026-09-26)
+
+EVID-0086/DEC-0070 verify that Adam plus central finite differences works on
+the known synthetic objective: final `(nu,V_A)=(0.170206,2.201044)` versus the
+known `(0.17,2.2)` maximum, with stable FD derivatives. Its source-availability
+blocker is superseded by EVID-0087. Physical nu-only and joint optimization
+remain `NOT RUN` because the exact common-ensemble FD readiness gate failed.
+No interpolation or physical-optimum claim was made.
+
+## Latest MB phase-strength rebound (2026-09-25)
+
+EVID-0085/DEC-0069 rebound the supplied MB C,w diagnostic with
+`C_n,phase^2=9.4e-18 m^-2/3` instead of `1e-16`. The same conditional channel
+and AO=0.95 settings were used. All ten rows are positive; the numerical grid
+maximum is `nu_MB=0.20`, `K=0.00004194428949251256`. This remains diagnostic
+only and does not select a production baseline.
+
+## Latest MB channel diagnostic (2026-09-25)
+
+EVID-0084/DEC-0068 applied the supplied historical MB `C,w` rows to the
+conditional new-channel effective evaluation at `tau_zen=0.92`,
+`zeta=30 deg`, `V_A=2`, and `eta_AO=0.95`. All ten rows passed finite/physical
+checks; all raw SKRs were negative, with the least-negative grid value at
+`nu_MB=0.20`, `K=-0.00018194195597724065`. This is diagnostic-only and does
+not select a baseline or change lifecycle authorization.
+
+## Latest channel consistency correction (2026-09-25)
+
+EVID-0083/DEC-0067 apply the latest manuscript channel formulas to the active
+interface and conditional PDF diagnostic. Direct `tau_zen` attenuation,
+`C_n^2(0)=1e-14`, the slant finite-aperture denominator, explicit `F0`, and
+the manuscript beam-spread/equivalent-pointing path are implemented. Kruse and
+older homogeneous/generalized paths remain explicitly legacy. Production
+`tau_zen` is intentionally `null`; configuration-driven generation fails
+closed until the author selects one of the manuscript MODTRAN scenarios.
+This is channel-only work and does not alter security or lifecycle gates.
+
+Last updated: 2026-09-25 (EVID-0083 / DEC-0067; latest manuscript channel correction)
+
+## Previous channel-model audit (2026-09-16)
 
 EVID-0082/DEC-0066 bind the attached manuscript channel scenario for
 channel-only diagnostics. The active sampler now derives the Hufnagel–Valley
@@ -231,16 +321,17 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 
 ## Current PRE-Numerical channel alignment
 
-- The active sampler now composes eta_atm, normalized lognormal H_sc,
-  generalized Rician H_p, and optional hard AoA B_AoA, with raw/physical
-  diagnostics and no clipping or floor.
+- The active sampler now composes direct-tau eta_atm, normalized lognormal
+  H_sc, the manuscript Gaussian-equivalent H_p path, and optional hard AoA
+  B_AoA, with raw/physical diagnostics and no clipping or floor. Explicit
+  legacy calls retain the generalized Rician path.
 - The legacy constant-C_n^2 beam-wander equation is not used by the active
   sampler. sigma_z is excluded from pointing variance and yaw from AoA
   orientation variance.
-- Explicit profile Rytov support, v_sc overrides, AoA gating, and channel
-  provenance are implemented for resolved inputs. No production profile,
-  aperture-averaging, turbulence-AoA, or profile-to-effective-phase mapping
-  is frozen; unresolved choices fail closed.
+- Explicit HV profile Rytov support, the corrected finite-aperture mapping,
+  AoA gating, and channel provenance are implemented for resolved inputs. The
+  atmospheric `tau_zen` scenario and profile-to-effective-phase mapping remain
+  unresolved; unresolved choices fail closed.
 - Full-Z resolution diagnostics now cover 17/33/65/129 candidate grids.
   They are numerical validation evidence only, not certification.
 
@@ -327,8 +418,8 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 | Class | Status | Scope |
 |---|---|---|
 | Regular 256-QAM, fixed PMFs, C4 orbit geometry | READY_NOW | Deterministic, data-free transmitter diagnostics |
-| Current composite-channel T diagnostics | ALIGNED_API_ONLY | Resolved inputs are supported; production profile/aperture/AoA choices remain blocked |
-| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Composite architecture exists, but profile/aperture/AoA/common-phase mappings remain unresolved |
+| Current composite-channel T diagnostics | ALIGNED_API_ONLY | Explicit conditional tau/profile inputs are supported; production tau selection and common-phase mapping remain blocked |
+| Target phase parameterized run, scintillation, AoA, raw-T, p_gt_1 | BLOCKED | Production tau selection and common-phase mapping remain unresolved |
 | Target epsilon_total and full-interval chi_BE/SKR | ALIGNED_API_ONLY | Epsilon chain and interval implementation exist; target C_n_phi2, channel paths, and numerical evidence rebinding remain unresolved |
 | Learned PS/GS/V_A outputs | BLOCKED | Training is closed and target security is not aligned |
 
@@ -341,8 +432,8 @@ NOT_READY_FOR_ADAPTIVE_TRAINING.
 | Fourfold orbit visualization | READY NOW | Exact C4 index and expansion functions exist |
 | Phase-noise curve xi_phase(V_A) | BLOCKED | c_phi API exists, but no author-approved C_n_phi2 is configured |
 | epsilon_total(V_A) | ALIGNED_API_ONLY | Post-action chain is implemented; target plotting remains parameter-blocked |
-| H_sc Monte Carlo | ALIGNED_API_ONLY | Positive unit-mean lognormal sampler exists; production v_sc mapping is unresolved |
-| H_p Monte Carlo | SAFE AFTER SMALL FIX | Pointing sampler exists; a raw-data/plot wrapper is missing |
+| H_sc Monte Carlo | ALIGNED_API_ONLY | HV finite-aperture v_sc mapping is implemented; production tau selection remains unresolved |
+| H_p Monte Carlo | ALIGNED_API_ONLY | Manuscript Gaussian-equivalent pointing and PDF diagnostics are implemented conditionally |
 | AoA outage Monte Carlo | ALIGNED_API_ONLY | Hard B_AoA gate exists; turbulence-AoA mapping/FOV remains unresolved |
 | T_raw histogram | ALIGNED_API_ONLY | Raw product/admission path exists; target parameters remain unresolved |
 | Physical T histogram | ALIGNED_API_ONLY | Composite physical sampler exists; target parameters remain unresolved |

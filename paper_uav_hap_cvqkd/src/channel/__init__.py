@@ -15,6 +15,7 @@ from .fso_channel import (
     physicalize_raw_transmittance,
     sample_fso_channel,
 )
+from .atmospheric_loss import atmospheric_transmittance_from_tau_zen
 from .diagnostics import composite_transmittance_diagnostics
 from .geometry import LinkGeometry
 from .phase_noise import (
@@ -25,7 +26,7 @@ from .phase_noise import (
     phase_noise_coefficient,
     total_excess_noise,
 )
-from .pointing_error import PointingParameters
+from .pointing_error import PointingParameters, manuscript_pointing_parameters
 from .scintillation import (
     UnsupportedApertureAveragingError,
     hufnagel_valley_cn2,
@@ -49,6 +50,7 @@ __all__ = [
     "IndependentUniformExcessNoise",
     "LinkGeometry",
     "PointingParameters",
+    "manuscript_pointing_parameters",
     "TransmittanceDomainError",
     "UnsupportedApertureAveragingError",
     "UnsupportedTurbulenceAoAError",
@@ -56,6 +58,7 @@ __all__ = [
     "aoa_orientation_variance_rad2",
     "aoa_outage_probability",
     "aoa_variance_rad2",
+    "atmospheric_transmittance_from_tau_zen",
     "assert_disjoint_state_realizations",
     "compose_raw_transmittance",
     "composite_transmittance_diagnostics",

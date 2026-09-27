@@ -97,15 +97,10 @@ def _local_link_length(h_hap_m: float, h_uav_m: float, zenith_angle_rad: float) 
     return (h_hap_m - h_uav_m) / math.cos(zenith_angle_rad)
 
 
-def _local_atmospheric_transmittance(link_length_m: float, visibility_km: float, wavelength_m: float) -> float:
-    if visibility_km > 50.0:
-        q = 1.6
-    elif visibility_km > 6.0:
-        q = 1.3
-    else:
-        q = 0.585 * visibility_km ** (1.0 / 3.0)
-    xi = (3.912 / visibility_km) * ((wavelength_m * 1.0e9) / 550.0) ** (-q)
-    return math.exp(-xi * link_length_m / 1000.0)
+def _local_atmospheric_transmittance(
+    link_length_m: float, tau_zen: float, zenith_angle_rad: float
+) -> float:
+    return float(tau_zen ** (1.0 / math.cos(zenith_angle_rad)))
 
 
 def _local_uav_translational_variance(motion: LocalMotion) -> float:
@@ -124,10 +119,25 @@ def _local_outage_probability(theta_fov_rad: float, sigma_o2: float) -> float:
     return math.exp(-theta_fov_rad**2 / (2.0 * sigma_o2)) if sigma_o2 else 0.0
 
 
-def _local_beam_radius(beam_waist_m: float, wavelength_m: float, link_length_m: float) -> tuple[float, float]:
+def _local_beam_radius(
+    beam_waist_m: float,
+    wavelength_m: float,
+    link_length_m: float,
+    radius_of_curvature_m: float = math.inf,
+) -> tuple[float, float]:
     rayleigh_range_m = math.pi * beam_waist_m**2 / wavelength_m
+    wave_number = 2.0 * math.pi / wavelength_m
+    focusing = (
+        1.0
+        if math.isinf(radius_of_curvature_m)
+        else 1.0 - link_length_m / radius_of_curvature_m
+    )
     return (
-        beam_waist_m * math.sqrt(1.0 + (link_length_m / rayleigh_range_m) ** 2),
+        beam_waist_m
+        * math.sqrt(
+            focusing**2
+            + (2.0 * link_length_m / (wave_number * beam_waist_m**2)) ** 2
+        ),
         rayleigh_range_m,
     )
 
@@ -173,7 +183,9 @@ def _local_scintillation(
     sigma_r0_squared = 2.25 * wave_number ** (7.0 / 6.0) * secant ** (11.0 / 6.0) * rytov
     phi_m = (numerator / denominator) ** (6.0 / 7.0)
     aperture_factor = (
-        1.0 + 1.11 * (receiver_diameter_m**2 / (wavelength_m * phi_m) * secant) ** (7.0 / 6.0)
+        1.0
+        + 1.11
+        * (receiver_diameter_m**2 / (wavelength_m * phi_m * secant)) ** (7.0 / 6.0)
     ) ** -1.0
     return {
         "sigma_R0_squared": sigma_r0_squared,
@@ -183,7 +195,9 @@ def _local_scintillation(
     }
 
 
-def _derive(config: dict) -> tuple[dict[str, float], dict[str, object]]:
+def _derive(
+    config: dict, tau_zen_override: float | None = None
+) -> tuple[dict[str, float], dict[str, object]]:
     geometry_cfg = config["geometry"]
     optics = config["optics"]
     turbulence = config["turbulence_profile"]
@@ -206,11 +220,22 @@ def _derive(config: dict) -> tuple[dict[str, float], dict[str, object]]:
     if not math.isclose(link_length_m, expected_length, rel_tol=0.0, abs_tol=1.0e-9):
         raise ValueError(f"Derived L={link_length_m} disagrees with expected {expected_length}.")
 
+    tau_zen = optics.get("tau_zen") if tau_zen_override is None else tau_zen_override
+    if tau_zen is None:
+        raise ValueError(
+            "Atmospheric scenario must be selected: provide --tau-zen explicitly "
+            "or set an author-approved optics.tau_zen."
+        )
     atmospheric, atmospheric_repo = _repo_or_local(
-        "atmospheric_loss:atmospheric_transmittance", _local_atmospheric_transmittance
+        "atmospheric_loss:atmospheric_transmittance_from_tau_zen",
+        _local_atmospheric_transmittance,
     )
     eta_atm = float(
-        atmospheric(link_length_m, float(optics["visibility_km"]), float(optics["wavelength_m"]))
+        atmospheric(
+            link_length_m,
+            float(tau_zen),
+            float(geometry_cfg["zenith_angle_rad"]),
+        )
     )
 
     wavelength_m = float(optics["wavelength_m"])
@@ -246,7 +271,10 @@ def _derive(config: dict) -> tuple[dict[str, float], dict[str, object]]:
     beam_radius, rayleigh_range = _repo_or_local(
         "pointing_error:gaussian_beam_radius", _local_beam_radius
     )[0](
-        beam_waist_m, wavelength_m, link_length_m
+        beam_waist_m,
+        wavelength_m,
+        link_length_m,
+        float(optics["radius_of_curvature_m"]),
     )
     beam_repo = _REPOSITORY.get("pointing_error") is not None
 
@@ -349,11 +377,28 @@ def _derive(config: dict) -> tuple[dict[str, float], dict[str, object]]:
     scale = a0 * eta_atm
 
     params = {
+        "h_HAP_m": float(geometry_cfg["h_hap_m"]),
+        "h_UAV_m": float(geometry_cfg["h_uav_m"]),
+        "zeta_rad": float(geometry_cfg["zenith_angle_rad"]),
+        "lambda_m": wavelength_m,
+        "F0_m": float(optics["radius_of_curvature_m"]),
+        "v_wind_m_per_s": float(turbulence["wind_speed_m_per_s"]),
+        "cn2_ground_m_minus_two_thirds": float(
+            turbulence["cn2_ground_m_minus_two_thirds"]
+        ),
+        "sigma_h_m": sigma_h_m,
+        "theta_jt_rad": float(pointing_cfg["theta_jt_rad"]),
+        "rho_m": rho,
+        "epsilon_ch_snu": float(
+            config.get("excess_noise_distribution", {}).get("epsilon_ch_snu", 0.0186)
+        ),
         "L": link_length_m,
         "D_r": receiver_diameter_m,
         "theta_div_rad": theta_div_rad,
         "omega_0": beam_waist_m,
         "eta_atm": eta_atm,
+        "tau_zen": float(tau_zen),
+        "radius_of_curvature_m": float(optics["radius_of_curvature_m"]),
         "sigma_R0_squared": float(scintillation["sigma_R0_squared"]),
         "AA": float(scintillation["A_ap"]),
         "sigma_R_squared": float(scintillation["v_sc"]),
@@ -522,10 +567,11 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DEFAULT)
     parser.add_argument("--sample-count", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--tau-zen", type=float, default=None)
     args = parser.parse_args()
 
     config = load_yaml(args.config)
-    params, backends = _derive(config)
+    params, backends = _derive(config, args.tau_zen)
     _print_table(params)
     print("\nRepository helper reuse")
     for name, reused in backends.items():

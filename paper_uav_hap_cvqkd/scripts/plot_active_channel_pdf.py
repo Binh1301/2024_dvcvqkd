@@ -263,13 +263,14 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DEFAULT)
     parser.add_argument("--sample-count", type=int, default=DEFAULT_SAMPLE_COUNT)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    parser.add_argument("--tau-zen", type=float, default=None)
     args = parser.parse_args()
 
     config = load_yaml(args.config.resolve())
     radius_of_curvature = float(config["optics"]["radius_of_curvature_m"])
     if not math.isinf(radius_of_curvature):
         raise ValueError("The final baseline requires F0=infinity.")
-    params, backends = _derive(config)
+    params, backends = _derive(config, args.tau_zen)
     _sanity_checks(params)
     _print_table(params)
     print("F0                 = infinity  [m]")

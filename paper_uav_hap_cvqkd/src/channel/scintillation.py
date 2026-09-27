@@ -115,7 +115,7 @@ def hufnagel_valley_scintillation(
     aperture_factor = (
         1.0
         + 1.11
-        * (diameter**2 / (wavelength * Phi_m) * secant) ** (7.0 / 6.0)
+        * (diameter**2 / (wavelength * Phi_m * secant)) ** (7.0 / 6.0)
     ) ** -1.0
     return {
         "sigma_R0_squared": float(sigma_R0_squared),

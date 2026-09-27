@@ -1,5 +1,93 @@
 # Next Actions
 
+## Latest authorized MB boundary result: EVID-0090 / DEC-0074
+
+The authorized exact-MB stage reached the hard peak-photon boundary at
+`nu_raw=0.30`; `.20,.22,.25` are exact and increasing, but no valid interior
+turnover is bracketed. The reduced-support QPSK-like limit is diagnostic only
+and does not define production `K_infinity`.
+
+Do not run Brent/golden-section without an interior bracket. Do not weaken the
+peak constraint or production positive-PMF invariant. The next numerical task,
+if needed, is a separately scoped boundary analysis or author decision about
+the physical peak domain—not Adam.
+
+## Latest reconciliation result: EVID-0089 / DEC-0073
+
+Old coarse MI is now classified `STOCHASTIC_COARSE_ONLY`. Deterministic GH MI
+is nearly invariant across the low-SNR MB range, while the deterministic coarse
+SKR maximum on the tested grid is `nu_raw=0.20`.
+
+The exact full-SKR point evaluator is ready, and Holevo derivatives are not
+needed for a bounded scalar method. Do not launch that method from this state:
+optimized-MB search/baseline selection remains lifecycle-gated. A separately
+authorized search must use deterministic GH MI and exact hash-matched C,w.
+
+## Latest deterministic MI result: EVID-0088 / DEC-0072
+
+Deterministic GH MI and `dI_AB/dnu_raw` are verified. The exact 16-PAM product
+acceleration is valid, and the five-point MC cross-check passes with 65536
+samples/symbol. This does not make the full SKR differentiable because AP C,w
+and Holevo remain evaluation-only.
+
+Do not start full-SKR scalar search or Adam from this state: optimized-MB search
+and baseline selection remain lifecycle-gated. The next task must explicitly
+address the full-K derivative/Holevo cost while retaining exact source-cache
+identity.
+
+## Latest exact TEST2 readiness result: EVID-0087 / DEC-0071
+
+The exact common-ensemble evaluator and safe exact-hash source cache pass. The
+bounded seven-point coarse landscape has its numerical maximum at
+`nu_raw=0.16`, but both FD rows are unresolved against paired CRN uncertainty.
+TEST2 Adam and TEST3 remain `NOT RUN`.
+
+Do not tighten h, weaken the readiness threshold, reuse the invalid historical
+cached sweep, or call 0.16 a continuous optimum. The next defensible optimizer
+task requires a prospectively fixed MI-noise reduction plan using the existing
+exact source cache and the same common-ensemble evaluator; do not start it from
+this state without separate authorization.
+
+## Latest completed optimizer diagnostic: EVID-0086 / DEC-0070
+
+Synthetic Adam/FD TEST 1 passed. Its old source-availability blocker is
+superseded by EVID-0087; the active blocker is unresolved physical FD relative
+to MI Monte Carlo uncertainty.
+
+## Latest completed MB phase rebound: EVID-0085 / DEC-0069
+
+The supplied MB C,w sweep was rerun with the diagnostic phase strength
+`C_n,phase^2=9.4e-18 m^-2/3`. All ten rows passed and became positive; the
+least/maximum grid value is at `nu_MB=0.20`,
+`K=0.00004194428949251256` bits/symbol.
+
+This remains a conditional diagnostic using historical supplied C,w rows.
+Do not promote the grid maximum to production baseline selection.
+
+## Latest completed MB diagnostic: EVID-0084 / DEC-0068
+
+The supplied ten MB `C,w` rows were applied to the conditional new channel
+with `tau_zen=0.92`, `zeta=30 deg`, `V_A=2`, and legacy diagnostic
+`eta_AO=0.95`. All rows passed; all raw SKRs were negative. The least-negative
+grid point was `nu_MB=0.20`, `K=-0.00018194195597724065`.
+
+This is not baseline selection. Do not promote the grid maximum to a
+production MB choice; the C,w source rows retain historical provenance.
+
+## Latest completed channel consistency task: EVID-0083 / DEC-0067
+
+The active channel and conditional PDF path now use direct `tau_zen` atmospheric
+attenuation, the latest HV ground value `1e-14`, the corrected slant
+finite-aperture factor, explicit `F0`, and manuscript beam-spread/equivalent
+pointing. Production `tau_zen` remains `null` by design; no `0.92`, `0.89`, or
+`0.75` scenario was silently selected. Explicit conditional diagnostics used
+`tau_zen=0.92` only for formula/PDF validation.
+
+The next required author decision is to select and approve one atmospheric
+`tau_zen` scenario. Until then, do not run configuration-driven channel
+generation, security/SKR evaluation, baseline selection, training, final-test
+access, or publication-scale work.
+
 ## Latest completed channel task: EVID-0082 / DEC-0066
 
 The attached manuscript HAP-UAV channel audit is complete for the optical

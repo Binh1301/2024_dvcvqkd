@@ -16,10 +16,14 @@ import numpy as np
 from src.utils.random import array_sha256
 
 from .aoa import aoa_outage_probability, aoa_variance_rad2, sample_aoa_gate
-from .atmospheric_loss import atmospheric_transmittance
+from .atmospheric_loss import (
+    atmospheric_transmittance,
+    atmospheric_transmittance_from_tau_zen,
+)
 from .geometry import LinkGeometry
 from .pointing_error import (
     PointingParameters,
+    manuscript_pointing_parameters,
     pointing_parameters,
     pointing_power_transmittance,
 )
@@ -210,8 +214,12 @@ def sample_fso_channel(
     *,
     geometry: LinkGeometry,
     wavelength_m: float,
-    visibility_km: float,
+    visibility_km: float | None = None,
+    tau_zen: float | None = None,
     beam_waist_m: float,
+    radius_of_curvature_m: float = math.inf,
+    theta_div_rad: float | None = None,
+    pointing_model: str = "generalized_gaussian",
     aperture_radius_m: float,
     cn2_m_minus_two_thirds: float | None,
     sample_count: int,
@@ -268,10 +276,63 @@ def sample_fso_channel(
         ground_cn2_m_minus_two_thirds=ground_cn2_m_minus_two_thirds,
         receiver_diameter_m=2.0 * float(aperture_radius_m),
     )
-    eta_atm = atmospheric_transmittance(geometry.link_length_m, visibility_km, wavelength_m)
-    pointing = pointing_parameters(
-        aperture_radius_m, beam_waist_m, wavelength_m, geometry.link_length_m
-    )
+    if tau_zen is not None and visibility_km is not None:
+        raise ValueError("Specify either tau_zen or legacy visibility_km, not both.")
+    if theta_div_rad is not None:
+        theta_div_rad = float(theta_div_rad)
+        if not math.isfinite(theta_div_rad) or theta_div_rad <= 0.0:
+            raise ValueError("theta_div_rad must be finite and positive.")
+        expected_beam_waist = 2.0 * float(wavelength_m) / (math.pi * theta_div_rad)
+        if not math.isclose(
+            float(beam_waist_m), expected_beam_waist, rel_tol=1.0e-12, abs_tol=1.0e-15
+        ):
+            raise ValueError("beam_waist_m must be derived from theta_div_rad.")
+    if tau_zen is not None:
+        eta_atm = atmospheric_transmittance_from_tau_zen(
+            geometry.link_length_m, tau_zen, geometry.zenith_angle_rad
+        )
+        atmospheric_model = "modtran_tau_zen_secant"
+    elif visibility_km is not None:
+        eta_atm = atmospheric_transmittance(
+            geometry.link_length_m, visibility_km, wavelength_m
+        )
+        atmospheric_model = "legacy_kruse_beer_lambert"
+    else:
+        raise ValueError(
+            "Atmospheric scenario must be selected: provide tau_zen; "
+            "legacy visibility_km is accepted only for explicit legacy fixtures."
+        )
+    if pointing_model == "manuscript_gaussian_equivalent":
+        if turbulence_profile_model not in {"hufnagel_valley", "Hufnagel-Valley"}:
+            raise ValueError(
+                "The manuscript pointing model requires the Hufnagel-Valley profile."
+            )
+        if wind_speed_m_per_s is None or ground_cn2_m_minus_two_thirds is None:
+            raise ValueError(
+                "The manuscript pointing model requires wind speed and ground C_n^2."
+            )
+        pointing = manuscript_pointing_parameters(
+            aperture_radius_m,
+            beam_waist_m,
+            wavelength_m,
+            geometry.link_length_m,
+            radius_of_curvature_m,
+            geometry.h_uav_m,
+            geometry.h_hap_m,
+            geometry.zenith_angle_rad,
+            wind_speed_m_per_s,
+            ground_cn2_m_minus_two_thirds,
+        )
+    elif pointing_model == "generalized_gaussian":
+        pointing = pointing_parameters(
+            aperture_radius_m,
+            beam_waist_m,
+            wavelength_m,
+            geometry.link_length_m,
+            radius_of_curvature_m,
+        )
+    else:
+        raise ValueError(f"Unsupported pointing_model={pointing_model!r}.")
     sigma2_uav = uav_translational_variance_m2(motion)
     sigma2_hap = pointing_displacement_variance_m2(
         motion=UavMotion(
@@ -430,8 +491,11 @@ def sample_fso_channel(
             "link_length_m": float(geometry.link_length_m),
         },
         "wavelength_m": float(wavelength_m),
-        "visibility_km": float(visibility_km),
-        "atmospheric_model": "Kruse extinction with Beer-Lambert eta_atm",
+        "theta_div_rad": None if theta_div_rad is None else float(theta_div_rad),
+        "radius_of_curvature_m": float(radius_of_curvature_m),
+        "tau_zen": None if tau_zen is None else float(tau_zen),
+        "visibility_km": None if visibility_km is None else float(visibility_km),
+        "atmospheric_model": atmospheric_model,
         "turbulence_source": "one shared C_n^2(h) scenario; scalar cn2 retained only as legacy input",
         "legacy_scalar_cn2_m_minus_two_thirds": (
             None
@@ -447,13 +511,20 @@ def sample_fso_channel(
         "aperture_averaging_status": scintillation_status,
         "beam_waist_m": float(beam_waist_m),
         "aperture_radius_m": float(aperture_radius_m),
-        "pointing_model": "generalized_gaussian_beam",
+        "receiver_diameter_m": float(2.0 * aperture_radius_m),
+        "pointing_model": pointing_model,
+        "pointing_model_requested": pointing_model,
         "pointing_parameters": {
             "beam_radius_receiver_m": float(pointing.beam_radius_receiver_m),
             "rayleigh_range_m": float(pointing.rayleigh_range_m),
             "t0_power": float(pointing.t0_power),
             "gamma": float(pointing.gamma),
             "scale_radius_m": float(pointing.scale_radius_m),
+            "omega_L_m": pointing.omega_l_m,
+            "G_d": pointing.g_d,
+            "omega_L_eq_m": pointing.omega_l_eq_m,
+            "nu": pointing.nu,
+            "A0": pointing.a0,
         },
         "boresight_m": [boresight_x_m, boresight_y_m],
         "uav_motion": {
@@ -486,7 +557,7 @@ def sample_fso_channel(
         "sigma2_axis_m2": float(sigma2_axis),
         "rayleigh_scale_convention": "legacy name; sigma_axis is each Rician Cartesian component",
         "displacement_law": "Rician",
-        "pointing_model": "generalized_gaussian_beam",
+        "pointing_model": pointing_model,
         "sigma_z_included": False,
         "beam_wander_status": "LEGACY_NOT_USED",
         "csi_assumption": "exact instantaneous physical T and epsilon_base oracle; no estimator model",

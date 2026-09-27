@@ -50,12 +50,24 @@ class CompositeChannelTests(unittest.TestCase):
 
     def test_manuscript_hufnagel_valley_scintillation_derivation(self):
         derived = hufnagel_valley_scintillation(
-            1_000.0, 20_000.0, 1.55e-6, 0.0, 21.0, 5.0e-14, 0.15
+            1_000.0, 20_000.0, 1.55e-6, 0.0, 21.0, 1.0e-14, 0.15
         )
-        self.assertAlmostEqual(derived["sigma_R0_squared"], 0.04145444025, places=10)
-        self.assertAlmostEqual(derived["Phi_m"], 9199.530760, places=5)
-        self.assertAlmostEqual(derived["A_ap"], 0.3460413382, delta=1e-10)
-        self.assertAlmostEqual(derived["v_sc"], 0.01434494998, places=10)
+        self.assertAlmostEqual(derived["sigma_R0_squared"], 0.04145352708, places=10)
+        self.assertAlmostEqual(derived["Phi_m"], 9200.562528, places=5)
+        self.assertAlmostEqual(derived["A_ap"], 0.3460709474, delta=1e-10)
+        self.assertAlmostEqual(derived["v_sc"], 0.01434586139, places=10)
+
+    def test_slant_aperture_average_uses_secant_in_denominator(self):
+        derived = hufnagel_valley_scintillation(
+            1_000.0, 20_000.0, 1.55e-6, math.pi / 6.0, 21.0, 1.0e-14, 0.08
+        )
+        secant = 1.0 / math.cos(math.pi / 6.0)
+        expected = (
+            1.0
+            + 1.11
+            * (0.08**2 / (1.55e-6 * derived["Phi_m"] * secant)) ** (7.0 / 6.0)
+        ) ** -1.0
+        self.assertAlmostEqual(derived["A_ap"], expected, places=14)
 
     def test_hufnagel_valley_sampler_uses_derived_variance(self):
         kwargs = self._kwargs()
@@ -67,11 +79,11 @@ class CompositeChannelTests(unittest.TestCase):
             **kwargs,
             turbulence_profile_model="hufnagel_valley",
             wind_speed_m_per_s=21.0,
-            ground_cn2_m_minus_two_thirds=5.0e-14,
+            ground_cn2_m_minus_two_thirds=1.0e-14,
         )
         record = result.metadata["provenance"]["scintillation_model"]
         self.assertEqual(record["profile_model"], "hufnagel_valley")
-        self.assertAlmostEqual(record["v_sc"], 0.01434494998, places=10)
+        self.assertAlmostEqual(record["v_sc"], 0.01434586139, places=10)
         self.assertEqual(record["aperture_averaging_status"], "hufnagel_valley_finite_aperture")
 
     def test_rytov_profile_integral_uses_si_wavelength_and_path_weight(self):
@@ -124,7 +136,7 @@ class CompositeChannelTests(unittest.TestCase):
         result = sample_fso_channel(**kwargs)
         self.assertGreater(result.radial_displacement_m.mean(), result.sigma_axis_m)
         self.assertTrue(np.all(result.pointing.t0_power >= result.transmittance / result.atmospheric_transmittance))
-        self.assertEqual(result.metadata["pointing_model"], "generalized_gaussian_beam")
+        self.assertEqual(result.metadata["pointing_model"], "generalized_gaussian")
 
     def test_aoa_variance_excludes_yaw_and_outage_matches_rayleigh(self):
         motion = UavMotion(

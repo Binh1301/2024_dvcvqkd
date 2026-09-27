@@ -190,11 +190,12 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DEFAULT)
     parser.add_argument("--sample-count", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--tau-zen", type=float, default=None)
     parser.add_argument("--grid-size", type=int, default=600)
     args = parser.parse_args()
 
     config = load_yaml(args.config)
-    params, _ = _derive(config)
+    params, _ = _derive(config, args.tau_zen)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     _print_derived(params)
     if args.grid_size < 200:
@@ -265,6 +266,16 @@ def main() -> None:
     expected_x_mean = params["eta_atm"] * hp_mean
     mean_relative_error = abs(x_mean_mc - expected_x_mean) / expected_x_mean
     method3_agrees = bool(mean_relative_error < 5.0e-3 and histogram_l1 < 0.12)
+    if abs(hsc_normalization - 1.0) > 2.0e-8:
+        raise AssertionError(f"f_Hsc normalization failed: {hsc_normalization}")
+    if abs(hp_normalization - 1.0) > 2.0e-8:
+        raise AssertionError(f"f_Hp normalization failed: {hp_normalization}")
+    if abs(closed_normalization - 1.0) > 2.0e-8:
+        raise AssertionError(f"closed-form f_X normalization failed: {closed_normalization}")
+    if abs(integral_normalization - 1.0) > 5.0e-5:
+        raise AssertionError(f"integral f_X normalization failed: {integral_normalization}")
+    if not method3_agrees:
+        raise AssertionError("Monte Carlo PDF does not agree with the analytical methods.")
 
     print("\nNormalization / consistency checks")
     print(f"sample count / seed             = {sample_count} / {seed}")

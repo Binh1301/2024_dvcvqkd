@@ -27,7 +27,8 @@ from src.utils.random import derive_seed
 
 COMMON_REQUIRED = [
     "channel.h_hap_m", "channel.h_uav_m", "channel.wavelength_m",
-    "channel.visibility_km", "channel.beam_waist_m", "channel.aperture_radius_m",
+    "channel.tau_zen", "channel.theta_div_rad", "channel.radius_of_curvature_m",
+    "channel.aperture_radius_m",
     "channel.cn2_m_minus_two_thirds", "channel.excess_noise_distribution.kind",
     "channel.cn_phi2_m_minus_two_thirds",
     "channel.cn_phi2_mapping_status", "channel.cn_phi2_author_approved",

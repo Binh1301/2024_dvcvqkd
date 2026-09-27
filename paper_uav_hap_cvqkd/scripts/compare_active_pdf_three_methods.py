@@ -226,6 +226,23 @@ def _hp_moment(params: dict[str, float], power: int) -> float:
 
 
 def _print_derived(params: dict[str, float]) -> None:
+    inputs = (
+        ("h_HAP", params["h_HAP_m"], "m"),
+        ("h_UAV", params["h_UAV_m"], "m"),
+        ("zeta", params["zeta_rad"], "rad"),
+        ("lambda", params["lambda_m"], "m"),
+        ("tau_zen", params["tau_zen"], "dimensionless"),
+        ("F0", params["F0_m"], "m"),
+        ("D_r", params["D_r"], "m"),
+        ("v_wind", params["v_wind_m_per_s"], "m/s"),
+        ("C_n^2(0)", params["cn2_ground_m_minus_two_thirds"], "m^-2/3"),
+        ("sigma_h", params["sigma_h_m"], "m"),
+        ("theta_jt", params["theta_jt_rad"], "rad"),
+        ("rho", params["rho_m"], "m"),
+        ("sigma_o", params["sigma_o"], "rad"),
+        ("theta_FOV", params["theta_FOV"], "rad"),
+        ("epsilon_ch", params["epsilon_ch_snu"], "SNU"),
+    )
     rows = (
         ("L", params["L"], "m"),
         ("D_r", params["D_r"], "m"),
@@ -240,10 +257,17 @@ def _print_derived(params: dict[str, float]) -> None:
         ("omega_L,e", params["omega_L_e"], "m"),
         ("A0", params["A0"], "dimensionless"),
         ("omega_L,eq", params["omega_L_eq"], "m"),
+        ("L theta_jt", params["L_sigma_hap"], "m"),
         ("sigma_jt", params["sigma_jt"], "m"),
         ("chi", params["chi"], "dimensionless"),
+        ("p_out", params["p_out"], "dimensionless"),
+        ("p_in", params["p_in"], "dimensionless"),
+        ("A0 eta_atm", params["A0_eta_atm"], "dimensionless"),
     )
-    print("\nCommon derived channel parameters (one set for all methods)")
+    print("\nINPUT (explicit diagnostic scenario)")
+    for name, value, unit in inputs:
+        print(f"{name:16s} = {value:.16g}  [{unit}]")
+    print("\nDERIVED channel parameters (one set for all methods)")
     for name, value, unit in rows:
         print(f"{name:16s} = {value:.16g} [{unit}]")
 
@@ -359,11 +383,12 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DEFAULT)
     parser.add_argument("--sample-count", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--tau-zen", type=float, default=None)
     parser.add_argument("--grid-size", type=int, default=220)
     args = parser.parse_args()
 
     config = load_yaml(args.config)
-    params, _ = _derive(config)
+    params, _ = _derive(config, args.tau_zen)
     _print_derived(params)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     if args.grid_size < 80:

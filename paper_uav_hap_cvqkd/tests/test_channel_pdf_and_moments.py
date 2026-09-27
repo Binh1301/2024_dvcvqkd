@@ -15,9 +15,13 @@ from scripts.calculate_channel_pdf_and_moments import (
 
 
 class ChannelPdfAndMomentsTests(unittest.TestCase):
+    def test_missing_tau_zen_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, "Atmospheric scenario must be selected"):
+            derive_physical_inputs()
+
     @classmethod
     def setUpClass(cls):
-        cls.physical = derive_physical_inputs()
+        cls.physical = derive_physical_inputs(0.92)
         cls.v_sc = cls.physical["v_sc"]
         cls.analysis = analyze_product(cls.v_sc, cls.physical)
 
@@ -56,9 +60,9 @@ class ChannelPdfAndMomentsTests(unittest.TestCase):
         moments = self.analysis["moments"]
         self.assertAlmostEqual(quadrature["f_X_normalization"], 1.0, places=8)
         self.assertAlmostEqual(quadrature["active_pdf_normalization"], 1.0, places=8)
-        self.assertAlmostEqual(moments["active_mean_eta"], 0.00010027584629909815, places=15)
-        self.assertAlmostEqual(moments["mean_eta"], 0.0001002588137771064, places=15)
-        self.assertAlmostEqual(moments["mean_sqrt_eta"], 0.009592270350126142, places=15)
+        self.assertAlmostEqual(moments["active_mean_eta"], 0.0002780145000214046, places=15)
+        self.assertAlmostEqual(moments["mean_eta"], 0.00027796727740239506, places=15)
+        self.assertAlmostEqual(moments["mean_sqrt_eta"], 0.01596454918487076, places=15)
         self.assertLessEqual(moments["mean_sqrt_eta"], moments["sqrt_mean_eta"])
         self.assertAlmostEqual(self.physical["p_out"] + self.physical["p_in"], 1.0)
 

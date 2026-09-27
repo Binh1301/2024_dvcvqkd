@@ -25,10 +25,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.channel.atmospheric_loss import atmospheric_transmittance
+from src.channel.atmospheric_loss import atmospheric_transmittance_from_tau_zen
 from src.channel.fso_channel import sample_fso_channel
 from src.channel.geometry import LinkGeometry
-from src.channel.pointing_error import pointing_parameters
+from src.channel.pointing_error import manuscript_pointing_parameters
 from src.channel.scintillation import hufnagel_valley_cn2, hufnagel_valley_scintillation
 from src.channel.turbulence import UavMotion
 from scripts._common import load_yaml
@@ -52,7 +52,7 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def derive_physical_inputs() -> dict:
+def derive_physical_inputs(tau_zen_override: float | None = None) -> dict:
     channel = load_yaml(ROOT / "configs" / "default.yaml")["channel"]
     profile = channel["turbulence_profile"]
     if profile.get("model") != "hufnagel_valley":
@@ -72,7 +72,12 @@ def derive_physical_inputs() -> dict:
     receiver_diameter_m = 2.0 * receiver_radius_m
     theta_div_rad = float(channel["theta_div_rad"])
     beam_waist_m = 2.0 * wavelength_m / (math.pi * theta_div_rad)
-    visibility_km = float(channel["visibility_km"])
+    tau_zen = channel.get("tau_zen") if tau_zen_override is None else tau_zen_override
+    if tau_zen is None:
+        raise ValueError(
+            "Atmospheric scenario must be selected: provide an author-approved tau_zen."
+        )
+    tau_zen = float(tau_zen)
     sigma_hap_ang_rad = float(pointing_config["theta_jt_rad"])
     sigma_h_m = float(pointing_config["sigma_h_m"])
     sigma_o_rad = float(aoa_config["sigma_o_rad"])
@@ -97,9 +102,20 @@ def derive_physical_inputs() -> dict:
     v_sc = derivation["v_sc"]
 
     geometry = LinkGeometry(h_hap_m, h_uav_m, zenith_angle_rad)
-    eta_atm = atmospheric_transmittance(link_length_m, visibility_km, wavelength_m)
-    pointing = pointing_parameters(
-        receiver_radius_m, beam_waist_m, wavelength_m, link_length_m
+    eta_atm = atmospheric_transmittance_from_tau_zen(
+        link_length_m, tau_zen, zenith_angle_rad
+    )
+    pointing = manuscript_pointing_parameters(
+        receiver_radius_m,
+        beam_waist_m,
+        wavelength_m,
+        link_length_m,
+        float(channel["radius_of_curvature_m"]),
+        h_uav_m,
+        h_hap_m,
+        zenith_angle_rad,
+        wind_m_per_s,
+        cn2_ground,
     )
     sigma_uav_transverse_m2 = (motion.sigma_x_m**2 + motion.sigma_y_m**2) / 2.0
     sigma_hap_displacement_m2 = link_length_m**2 * sigma_hap_ang_rad**2
@@ -120,7 +136,8 @@ def derive_physical_inputs() -> dict:
         "receiver_radius_m": receiver_radius_m,
         "receiver_diameter_m": receiver_diameter_m,
         "beam_waist_m": beam_waist_m,
-        "visibility_km": visibility_km,
+        "tau_zen": tau_zen,
+        "radius_of_curvature_m": float(channel["radius_of_curvature_m"]),
         "sigma_hap_ang_rad": sigma_hap_ang_rad,
         "uav_motion": {key: float(value) for key, value in motion.__dict__.items()},
         "wave_number_per_m": 2.0 * math.pi / wavelength_m,
@@ -141,6 +158,11 @@ def derive_physical_inputs() -> dict:
             "rayleigh_range_m": float(pointing.rayleigh_range_m),
             "R_m": float(pointing.scale_radius_m),
             "Gamma": float(pointing.gamma),
+            "omega_L_m": float(pointing.omega_l_m),
+            "G_d": float(pointing.g_d),
+            "omega_L_eq_m": float(pointing.omega_l_eq_m),
+            "nu": float(pointing.nu),
+            "A0": float(pointing.a0),
         },
         "sigma_uav_transverse_m2": float(sigma_uav_transverse_m2),
         "sigma_hap_displacement_m2": float(sigma_hap_displacement_m2),
@@ -598,8 +620,11 @@ def production_sampler_check(
     result = sample_fso_channel(
         geometry=physical["geometry"],
         wavelength_m=physical["wavelength_m"],
-        visibility_km=physical["visibility_km"],
+        tau_zen=physical["tau_zen"],
         beam_waist_m=physical["beam_waist_m"],
+        radius_of_curvature_m=physical["radius_of_curvature_m"],
+        theta_div_rad=physical["theta_div_rad"],
+        pointing_model="manuscript_gaussian_equivalent",
         aperture_radius_m=physical["receiver_radius_m"],
         cn2_m_minus_two_thirds=physical["cn2_ground_m_minus_two_thirds"],
         sample_count=sample_count,
@@ -676,6 +701,7 @@ def _active_config_record() -> dict:
             "h_uav_m": channel.get("h_uav_m"),
             "wavelength_m": channel.get("wavelength_m"),
             "scalar_cn2": channel.get("cn2_m_minus_two_thirds"),
+            "tau_zen": channel.get("tau_zen"),
             "turbulence_profile_model": channel.get("turbulence_profile", {}).get("model"),
             "aperture_averaging_model": channel.get("scintillation", {}).get(
                 "aperture_averaging_model"
@@ -772,6 +798,12 @@ def main() -> None:
     parser.add_argument("--sample-count", type=int, default=1_000_000)
     parser.add_argument("--seed", type=int, default=20260916)
     parser.add_argument(
+        "--tau-zen",
+        type=float,
+        default=None,
+        help="Explicit atmospheric scenario for diagnostics; never selected implicitly.",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=ROOT / "results" / "channel_pdf_and_moments.json",
@@ -780,7 +812,7 @@ def main() -> None:
     if args.sample_count < 100_000:
         raise ValueError("Use at least 100,000 Monte Carlo samples for this diagnostic.")
 
-    physical = derive_physical_inputs()
+    physical = derive_physical_inputs(args.tau_zen)
     old_hsc = hsc_statistics(OLD_V_SC)
     new_hsc = hsc_statistics(physical["v_sc"])
     old = analyze_product(OLD_V_SC, physical)
@@ -897,6 +929,8 @@ def main() -> None:
         for key, value in physical.items()
         if key not in {"geometry", "motion"}
     }
+    if math.isinf(float(physical_json["radius_of_curvature_m"])):
+        physical_json["radius_of_curvature_m"] = "inf"
     physical_json["profile"] = {
         "model": "Hufnagel-Valley",
         "height_interval_m": [physical["h_uav_m"], physical["h_hap_m"]],
@@ -917,8 +951,8 @@ def main() -> None:
         "physical_derivation": physical_json,
         "repository_active_config": _active_config_record(),
         "repository_config_difference": {
-            "note": "The active configuration now binds the manuscript channel scenario.",
-            "requested_profile": "Hufnagel-Valley with v_wind=21 m/s and Cn2_ground=5e-14",
+            "note": "The physical configuration is manuscript-aligned; tau_zen remains author-unselected.",
+            "requested_profile": "Hufnagel-Valley with v_wind=21 m/s and Cn2_ground=1e-14",
             "active_profile_model": "hufnagel_valley",
             "requested_v_sc": physical["v_sc"],
             "active_v_sc_override": None,
