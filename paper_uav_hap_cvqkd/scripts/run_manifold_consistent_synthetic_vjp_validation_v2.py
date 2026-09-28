@@ -177,7 +177,7 @@ def _manifold_rows(fixture: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[
     w_row["name"] = "w_manifold"
     ensemble = reference_ensemble("uniform", batch_size=1, modulation_variance=1.0)
     def raw_key(value):
-        downstream = _holevo_from_source_moments(ensemble, torch.tensor([0.02]), torch.tensor([0.01]), coherent_correlation=source("C", value).reshape(1), w_raw=source("w", value).reshape(1), tau=None, tau_trace=torch.ones(1), require_supported_symmetry=True, symmetry_tolerance=1e-8, physicality_tolerance=1e-10, diagnostics={})
+        downstream = _holevo_from_source_moments(ensemble, torch.tensor([0.02]), torch.tensor([0.01]), coherent_correlation=source("C", value).reshape(1), w_raw=source("w", value).reshape(1), tau=None, tau_trace=torch.ones(1), require_supported_symmetry=True, symmetry_tolerance=1e-8, physicality_tolerance=1e-10, diagnostics={}, maximize_full_interval=True)
         return 0.95 * torch.tensor(0.03, dtype=torch.float64) - downstream.chi_be.mean()
     downstream_row = _scalar_directional(raw_key, z, fixture["direction"], fixture["step"])
     downstream_row["name"] = "downstream_raw_K_manifold"

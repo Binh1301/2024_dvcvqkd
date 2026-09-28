@@ -59,7 +59,7 @@ class GradientVjpPreflightTests(unittest.TestCase):
                 coherent_correlation=inputs[:1], w_raw=inputs[1:2],
                 tau=None, tau_trace=torch.ones(1, dtype=torch.float64),
                 require_supported_symmetry=True, symmetry_tolerance=1e-8,
-                physicality_tolerance=1e-10, diagnostics={},
+                physicality_tolerance=1e-10, diagnostics={}, maximize_full_interval=True,
             )
             return 0.95 * inputs[2] - result.chi_be.mean()
 

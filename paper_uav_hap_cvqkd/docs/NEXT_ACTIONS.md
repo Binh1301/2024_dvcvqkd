@@ -1,5 +1,35 @@
 # Next Actions
 
+## Latest phase-noise result: EVID-0097 / DEC-0081
+
+The authorized phase-only sweep at the original `D_r=0.08 m` aperture did
+not produce an all-positive starting region. At `C_n,phi^2=1e-18`, Uniform
+remains negative while both MB curves are positive. Do not change another
+parameter or run the full distance sweep without explicit authorization.
+
+## Latest aperture sensitivity result: EVID-0096 / DEC-0080
+
+The tested receiver diameters `0.08, 0.10, 0.12, 0.14, 0.16 m` did not make
+all three historical exact envelopes positive at `L=19 km`; Uniform and
+MB-without-AO remained negative. The aperture diagnostic therefore stopped
+before the full distance sweep. Do not widen the aperture or change another
+parameter without explicit authorization; no new C,w was computed.
+
+## Latest historical exact distance result: EVID-0095 / DEC-0079
+
+The historical-only distance envelope is complete. Do not treat 31.4099 km as
+a final operation distance; it is a linear estimate from the [31,33] km grid
+bracket. Before a final figure, resolve Uniform V_A coverage, PCS beyond MB,
+Binomial exact C,w, and the authorized AP/source-moment coverage.
+
+## Latest historical C,w audit: EVID-0094 / DEC-0078
+
+The read-only inventory is complete. It recovered 7 safe exact matches out of
+162 planned distance candidates; 139 feasible candidates still have no safe
+match. Do not compute or migrate C,w in this audit state. The next action
+requires author review of the match CSV and an explicit migration/validation
+decision.
+
 ## Latest AP coverage result: EVID-0093 / DEC-0077
 
 The priority AP batch is restartable but blocked by the existing one-hour

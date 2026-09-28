@@ -100,6 +100,7 @@ def _components(model, transmittance, epsilon, noise, default):
         ),
         density_trace_tolerance=float(default["cvqkd"]["holevo_numerics"]["density_trace_tolerance"]),
         physicality_tolerance=float(default["cvqkd"]["holevo_numerics"]["physicality_tolerance"]),
+        maximize_full_interval=True,
     )
     _require_fast(holevo.diagnostics["source_moment_diagnostics"])
     beta = float(default["cvqkd"]["beta_reconciliation"])

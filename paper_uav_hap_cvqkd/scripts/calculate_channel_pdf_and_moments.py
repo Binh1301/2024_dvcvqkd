@@ -52,7 +52,12 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def derive_physical_inputs(tau_zen_override: float | None = None) -> dict:
+def derive_physical_inputs(
+    tau_zen_override: float | None = None,
+    *,
+    zenith_angle_rad_override: float | None = None,
+    aperture_radius_m_override: float | None = None,
+) -> dict:
     channel = load_yaml(ROOT / "configs" / "default.yaml")["channel"]
     profile = channel["turbulence_profile"]
     if profile.get("model") != "hufnagel_valley":
@@ -64,11 +69,19 @@ def derive_physical_inputs(tau_zen_override: float | None = None) -> dict:
     wavelength_m = float(channel["wavelength_m"])
     h_hap_m = float(channel["h_hap_m"])
     h_uav_m = float(channel["h_uav_m"])
-    zenith_angle_rad = float(channel.get("zenith_angle_rad", 0.0))
+    zenith_angle_rad = float(
+        channel.get("zenith_angle_rad", 0.0)
+        if zenith_angle_rad_override is None
+        else zenith_angle_rad_override
+    )
     link_length_m = (h_hap_m - h_uav_m) / math.cos(zenith_angle_rad)
     wind_m_per_s = float(profile["wind_speed_m_per_s"])
     cn2_ground = float(profile["cn2_ground_m_minus_two_thirds"])
-    receiver_radius_m = float(channel["aperture_radius_m"])
+    receiver_radius_m = float(
+        channel["aperture_radius_m"]
+        if aperture_radius_m_override is None
+        else aperture_radius_m_override
+    )
     receiver_diameter_m = 2.0 * receiver_radius_m
     theta_div_rad = float(channel["theta_div_rad"])
     beam_waist_m = 2.0 * wavelength_m / (math.pi * theta_div_rad)
@@ -401,6 +414,76 @@ def _truncated_moment(power: float, v_sc: float, physical: dict) -> float:
             limit=300,
         )[0]
     )
+
+
+def closed_form_channel_moments(
+    physical: dict,
+    *,
+    epsilon_total: float | None = None,
+    rho_m: float | None = None,
+) -> dict[str, float]:
+    """Return the manuscript closed-form raw-channel moments.
+
+    The active scintillation parameter is ``v_sc`` in
+    ``ln(H_sc) ~ Normal(-v_sc/2, v_sc)``.  The manuscript's ``sigma_X^2``
+    therefore maps to ``v_sc/4`` in the square-root moment exponent.
+    ``sigma_jt`` is the existing combined transverse jitter ``sigma_m``.
+    """
+
+    def finite(value: float, name: str, *, positive: bool = False) -> float:
+        value = float(value)
+        if not math.isfinite(value) or (value <= 0.0 if positive else value < 0.0):
+            relation = "positive" if positive else "nonnegative"
+            raise ValueError(f"{name} must be finite and {relation}.")
+        return value
+
+    p_in = finite(physical["p_in"], "p_in")
+    p_out = finite(physical["p_out"], "p_out")
+    eta_atm = finite(physical["eta_atm"], "eta_atm", positive=True)
+    a0 = finite(physical["pointing"]["A0"], "A0", positive=True)
+    sigma_jt = finite(physical["sigma_m"], "sigma_jt", positive=True)
+    omega_l_eq = finite(physical["pointing"]["omega_L_eq_m"], "omega_L_eq", positive=True)
+    v_sc = finite(physical["v_sc"], "v_sc")
+    rho = finite(physical.get("rho_m", 0.0), "rho_m") if rho_m is None else finite(rho_m, "rho_m")
+    sigma_x2 = v_sc / 4.0
+    chi = omega_l_eq / (2.0 * sigma_jt)
+    chi2 = chi**2
+    sigma_jt2 = sigma_jt**2
+    chi4 = chi2**2
+    rho2 = rho**2
+    mean_t_raw = (
+        p_in * a0 * eta_atm * chi2 / (chi2 + 1.0)
+        * math.exp(rho2 * (1.0 - chi2) / (2.0 * sigma_jt2 * chi4))
+    )
+    mean_sqrt_t_raw = (
+        p_in * math.sqrt(a0 * eta_atm) * chi2 / (chi2 + 0.5)
+        * math.exp(
+            -sigma_x2 / 2.0
+            + rho2 * (1.0 - 2.0 * chi2) / (8.0 * sigma_jt2 * chi4)
+        )
+    )
+    if epsilon_total is None:
+        epsilon_total = float(physical["epsilon_ch_snu"])
+    epsilon_total = finite(epsilon_total, "epsilon_total")
+    values = {
+        "mean_T_raw": mean_t_raw,
+        "mean_sqrt_T_raw": mean_sqrt_t_raw,
+        "T_eff": mean_sqrt_t_raw**2,
+        "mean_T_epsilon": epsilon_total * mean_t_raw,
+        "epsilon_total": epsilon_total,
+        "p_in": p_in,
+        "p_out": p_out,
+        "eta_atm": eta_atm,
+        "A0": a0,
+        "sigma_X2": sigma_x2,
+        "sigma_jt": sigma_jt,
+        "omega_L_eq": omega_l_eq,
+        "chi": chi,
+        "rho_m": rho,
+    }
+    if not all(math.isfinite(float(value)) for value in values.values()):
+        raise FloatingPointError("Closed-form channel moments returned a nonfinite value.")
+    return values
 
 
 def _pdf_log_integral(power: float, kernel: dict, upper_log: float) -> float:

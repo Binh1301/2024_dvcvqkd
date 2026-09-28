@@ -2,9 +2,61 @@
 
 ## Latest completed task
 
-Date: 2026-09-28
+Date: 2026-09-29
 
-EVID-0093 / DEC-0077 completed the authorized AP coverage attempt. It is
+EVID-0097 / DEC-0081 completed the phase-noise-only sensitivity diagnostic at
+the original `D_r=0.08 m` aperture. The sweep `9.4e-18` through `1e-18` did
+not make all three schemes positive at 19 km: Uniform remains negative at
+`K=-4.975513931165798e-05` at `1e-18`.
+
+- 8 historical exact Uniform candidates and 30 historical exact MB candidates.
+- No new C,w/AP/Fock/Gram moments; no aperture, epsilon, beta, AO, or security formula changed.
+- Full distance sweep intentionally not run.
+- Artifacts: `results/skr_vs_link_distance/phase_noise_sensitivity/`.
+
+## Previous completed task
+
+Date: 2026-09-29
+
+EVID-0096 / DEC-0080 completed the bounded historical-exact aperture
+sensitivity diagnostic. Diameters `0.08--0.16 m` were tested at `L=19 km`;
+Uniform and MB-without-AO stayed negative, so no all-positive aperture was
+found and the full distance sweep was intentionally not run.
+
+- 8 historical exact Uniform candidates and 30 historical exact MB candidates.
+- `tau_zen=0.92`, `C_n,phi^2=9.4e-18`, `eta_AO=0.95`,
+  `T_eff=<sqrt(T_raw)>^2`, direct-Z, and `maximize_full_interval=False`.
+- No new C,w/AP/Fock/Gram source moments; no physics/security parameter changed.
+- Artifacts: `results/skr_vs_link_distance/aperture_all_positive_diagnostic/`.
+
+## Previous completed task
+
+Date: 2026-09-29
+
+EVID-0095 / DEC-0079 completed the historical exact distance envelope using
+only audit-approved C,w; no new C,w was computed.
+
+- Curves: Uniform, MB with AO, MB without AO.
+- MB-AO bracket: [31,33] km; historical-exact estimate 31.409924920888173 km.
+- Uniform and MB-noAO: no sign change over 19--100 km.
+- Figure/artifacts: `results/skr_vs_link_distance/historical_exact_*`.
+- This is diagnostic only; no final publication operation-distance claim.
+
+The earlier EVID-0094 / DEC-0078 read-only repository-wide C,w audit remains
+recorded below. No new C,w was computed and no active cache was modified.
+
+- Indexed 6,876 C,w records and 77 hash-identifiable ensembles.
+- Found 75 duplicate hash groups; duplicate C,w deltas were zero.
+- Found 148 superseded/wrong-AP-w records.
+- Matched 7 of 162 planned distance candidates safely: 3 Uniform and 4 MB;
+  no Binomial match.
+- Remaining feasible candidates: 139 without safe historical reuse.
+- Artifacts are under `results/skr_vs_link_distance/`.
+- MB pair-level report: `historical_mb_exact_pairs.csv` (71 records, 69 unique
+  pairs, 4 safe current-distance matches).
+- Classification: `AUDIT_COMPLETE_NO_NEW_SOURCE_MOMENTS`.
+
+The earlier AP coverage attempt EVID-0093 / DEC-0077 is recorded below. It is
 restartable but blocked by the existing one-hour AP subprocess timeout.
 
 - Global exact coverage: 19/143.

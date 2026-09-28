@@ -2600,6 +2600,56 @@ source moments.
 - `results/exact_mb_asymptotic/extended_landscape.json`
 - `results/exact_mb_asymptotic/asymptotic_four_state_diagnostic.json`
 
+## DEC-0079 - Accept historical exact distance envelope as diagnostic only
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC; NOT PUBLICATION FIGURE
+
+### Decision
+
+Accept the three-curve historical exact distance envelope under EVID-0095.
+The MB-AO curve has only a historical-exact operation-distance estimate at
+31.409924920888173 km from the [31,33] km bracket. Uniform and MB-noAO have
+no sign change on the evaluated grid. Do not call the estimate a final
+publication operation distance, and do not promote the envelope to a global
+baseline/PCS result.
+
+No new C,w was computed; no historical C,w was migrated.
+
+### Evidence
+
+- EVID-0095
+- `results/skr_vs_link_distance/historical_exact_distance_plot.png`
+- `results/skr_vs_link_distance/historical_exact_distance_plot.pdf`
+- `results/skr_vs_link_distance/historical_exact_operation_distance_summary.csv`
+
+## DEC-0078 - Accept historical C,w audit; do not migrate records yet
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR READ-ONLY AUDIT; MIGRATION NOT AUTHORIZED
+
+### Decision
+
+Accept EVID-0094 as the repository-wide C,w inventory. Do not compute new
+source moments and do not copy historical rows into the active exact cache.
+Only seven current distance-roster combinations have a safe current
+hash-bound exact match; 139 feasible roster combinations remain unmatched.
+
+The large historical inventory contains downstream copies, unhashable records,
+and 148 explicitly superseded/wrong-AP-w records. Their presence is evidence
+for provenance reconstruction, not permission to reuse. A later author review
+must approve any `NEEDS_ONE_POINT_VALIDATION` or migration action.
+
+### Evidence
+
+- EVID-0094
+- `results/skr_vs_link_distance/historical_source_moment_audit.csv`
+- `results/skr_vs_link_distance/historical_source_moment_matches_current.csv`
+- `results/skr_vs_link_distance/historical_source_moment_duplicates.csv`
+- `results/skr_vs_link_distance/historical_mb_exact_pairs.csv`
+
 ## DEC-0077 - Record AP timeout blocker and preserve fail-closed coverage
 
 Date: 2026-09-28
@@ -2682,3 +2732,48 @@ used.
 - EVID-0091
 - `results/joint_mb_va/joint_landscape.csv`
 - `results/joint_mb_va/local_refinement.csv`
+## DEC-0080 - Stop aperture search after tested range remains non-positive
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC STOP; NO APERTURE SELECTED
+
+Accept EVID-0096 as the bounded receiver-aperture sensitivity diagnostic.
+At the minimum physical distance, the tested diameter range `0.08--0.16 m`
+did not make all three historical exact envelopes positive: Uniform and MB
+without AO remained negative at every tested diameter. Stop as requested.
+
+Do not launch the full distance sweep, change phase/noise/channel/security
+parameters, widen the aperture range, migrate historical C,w, or compute new
+C,w under this decision. A continuation requires an explicit author-approved
+aperture range or a separate parameter decision. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0096
+- `results/skr_vs_link_distance/aperture_all_positive_diagnostic/aperture_sensitivity.csv`
+- `results/skr_vs_link_distance/aperture_all_positive_diagnostic/selected_aperture_metadata.json`
+## DEC-0081 - Stop phase-noise-only search when Uniform remains negative
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC STOP; ALL-POSITIVE THRESHOLD UNRESOLVED
+
+Accept EVID-0097 as a phase-noise sensitivity diagnostic at the original
+`D_r=0.08 m` aperture. Lowering `C_n,phi^2` from `9.4e-18` to `1e-18`
+makes MB-with-AO and MB-without-AO positive at 19 km, but Uniform remains
+negative. The all-positive threshold is therefore not found in the authorized
+sweep.
+
+Do not change `epsilon_ch`, beta, aperture, `eta_AO`, detector parameters, or
+security formulas, and do not launch the full distance sweep. Any continuation
+requires an explicit author decision about another parameter or a wider phase
+range. No new C,w was computed. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0097
+- `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity.csv`
+- `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity_report.json`

@@ -104,6 +104,7 @@ def _evaluate(ensemble, c_value, w_value, t_eff, epsilon_eff, numerical, config)
         require_supported_symmetry=True,
         symmetry_tolerance=numerical["symmetry_tolerance"],
         physicality_tolerance=numerical["physicality_tolerance"],
+        maximize_full_interval=False,
         diagnostics={
             "backend": "supplied_cached_mb_cw",
             "source_table": "mb_nu_threshold_va2_refined",

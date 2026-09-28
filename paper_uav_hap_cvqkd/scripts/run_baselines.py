@@ -114,6 +114,7 @@ def main() -> int:
             epsilon_total,
             backend="c4_gram",
             density_eigenvalue_tolerance=active_threshold,
+            maximize_full_interval=False,
         )
         rate = fading_secret_key_rate(mi, holevo.chi_be, args.beta)
         diagnostics = ensemble_state_diagnostics(ensemble)

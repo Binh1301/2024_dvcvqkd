@@ -27,6 +27,7 @@ class HolevoTests(unittest.TestCase):
                 ensemble, t, epsilon, backend="fock_diagnostic", fock_cutoff=48,
                 density_trace_tolerance=1e-10,
                 density_eigenvalue_tolerance=1e-12,
+                maximize_full_interval=False,
             )
             tau, fock = density_operator(ensemble, 48)
             correlation, penalty, diagnostics = support_restricted_source_moments(
@@ -52,11 +53,13 @@ class HolevoTests(unittest.TestCase):
                 ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
                 density_eigenvalue_tolerance=1e-13,
                 density_trace_tolerance=1e-10,
+                maximize_full_interval=False,
             ).chi_be
             cached = shared_fixed_ensemble_holevo_chi(
                 ensemble, t, epsilon, backend="c4_gram", fock_cutoff=None,
                 density_eigenvalue_tolerance=1e-13,
                 density_trace_tolerance=1e-10,
+                maximize_full_interval=False,
             )
             torch.testing.assert_close(cached, generic, rtol=0.0, atol=0.0)
 
@@ -80,6 +83,7 @@ class HolevoTests(unittest.TestCase):
             backend="c4_gram",
             fock_cutoff=None,
             density_eigenvalue_tolerance=1e-13,
+            maximize_full_interval=False,
         )
         self.assertTrue(bool(torch.all(torch.isfinite(result.chi_be))))
         self.assertTrue(result.covariance.symmetry.standard_form_supported)

@@ -50,7 +50,10 @@ class BoundedZMaximizationTests(unittest.TestCase):
 
 
 class HolevoIntervalTests(unittest.TestCase):
-    def _synthetic_source_result(self, *, coherent_correlation, w, transmittance=0.1, epsilon=0.1):
+    def _synthetic_source_result(
+        self, *, coherent_correlation, w, transmittance=0.1, epsilon=0.1,
+        maximize_full_interval=True,
+    ):
         ensemble = JointTransmitter("uniform", fixed_va=2.0)(
             torch.tensor([1.0], dtype=DTYPE), torch.tensor([0.0], dtype=DTYPE)
         )
@@ -66,6 +69,7 @@ class HolevoIntervalTests(unittest.TestCase):
             symmetry_tolerance=1e-8,
             physicality_tolerance=1e-10,
             diagnostics={},
+            maximize_full_interval=maximize_full_interval,
         )
 
     def test_holevo_interior_maximum_is_not_replaced_by_lower_endpoint(self):
@@ -133,6 +137,52 @@ class HolevoIntervalTests(unittest.TestCase):
         self.assertEqual(diagnostics["failure_reason"], "CANDIDATE_PHYSICALITY_FAILURE")
         self.assertIn("candidate_Z", diagnostics)
 
+    def test_primary_uses_exact_zstar_without_interval_maximization(self):
+        coherent_correlation = 0.4
+        w = 0.2
+        transmittance = 0.1
+        epsilon = 0.1
+        expected = (
+            2.0 * torch.sqrt(torch.tensor([transmittance], dtype=DTYPE))
+            * coherent_correlation
+            - torch.sqrt(torch.tensor([2.0 * transmittance * epsilon * w], dtype=DTYPE))
+        )
+        with patch(
+            "src.cvqkd.holevo._maximize_bounded_scalar",
+            side_effect=AssertionError("primary mode must not maximize an interval"),
+        ):
+            result = self._synthetic_source_result(
+                coherent_correlation=coherent_correlation,
+                w=w,
+                transmittance=transmittance,
+                epsilon=epsilon,
+                maximize_full_interval=False,
+            )
+        torch.testing.assert_close(result.z, expected, atol=0.0, rtol=0.0)
+        self.assertEqual(result.diagnostics["mode"], "zstar")
+        torch.testing.assert_close(result.diagnostics["z_used"], expected)
+        torch.testing.assert_close(result.diagnostics["chi_BE_bound"], result.chi_be)
+        self.assertNotIn("Z_L", result.diagnostics)
+        self.assertNotIn("Z_U", result.diagnostics)
+
+    def test_full_z_diagnostic_is_explicit_opt_in(self):
+        primary = self._synthetic_source_result(
+            coherent_correlation=0.0,
+            w=0.2,
+            maximize_full_interval=False,
+        )
+        diagnostic = self._synthetic_source_result(
+            coherent_correlation=0.0,
+            w=0.2,
+            maximize_full_interval=True,
+        )
+        self.assertEqual(primary.diagnostics["mode"], "zstar")
+        self.assertEqual(diagnostic.diagnostics["mode"], "full_z_diagnostic")
+        torch.testing.assert_close(
+            diagnostic.chi_be, diagnostic.diagnostics["chi_BE_full_z_max"]
+        )
+        self.assertNotAlmostEqual(float(primary.z.item()), float(diagnostic.z.item()))
+
     def test_phase_noise_va_gradient_reaches_conservative_holevo_value(self):
         probabilities = uniform_pmf().unsqueeze(0)
         relative = square_qam256().unsqueeze(0)
@@ -158,6 +208,7 @@ class HolevoIntervalTests(unittest.TestCase):
             symmetry_tolerance=1e-8,
             physicality_tolerance=1e-10,
             diagnostics={},
+            maximize_full_interval=True,
         )
         result.chi_be.sum().backward()
         self.assertIsNotNone(modulation_variance.grad)
@@ -197,6 +248,7 @@ class HolevoIntervalTests(unittest.TestCase):
                         torch.tensor([0.001], dtype=DTYPE),
                         backend="c4_gram",
                         density_eigenvalue_tolerance=1e-13,
+                        maximize_full_interval=True,
                     )
                 result.chi_be.sum().backward()
                 gradients = [

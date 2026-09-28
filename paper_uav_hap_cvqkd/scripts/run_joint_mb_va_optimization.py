@@ -94,6 +94,7 @@ def evaluate(
         require_supported_symmetry=True,
         symmetry_tolerance=n["symmetry_tolerance"],
         physicality_tolerance=n["physicality_tolerance"],
+        maximize_full_interval=False,
         diagnostics={"backend": "joint_mb_va_exact", "ensemble_hash": ensemble_hash(ensemble)},
     )
     beta = float(config["cvqkd"]["beta_reconciliation"])

@@ -115,6 +115,7 @@ def main() -> int:
             dense = holevo_information(
                 ensemble, t, epsilon, backend="fock_diagnostic", fock_cutoff=128,
                 density_eigenvalue_tolerance=threshold,
+                maximize_full_interval=True,
                 **{key: value for key, value in holevo_kwargs.items()
                    if key != "density_eigenvalue_tolerance"},
             )

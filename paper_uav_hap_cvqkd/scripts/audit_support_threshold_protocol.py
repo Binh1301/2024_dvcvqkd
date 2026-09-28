@@ -188,6 +188,7 @@ def build_audit(
         "physicality_tolerance": float(
             config["cvqkd"]["holevo_numerics"]["physicality_tolerance"]
         ),
+        "maximize_full_interval": True,
     }
     changed_rows = []
     all_rows = []

@@ -1,5 +1,42 @@
 # Project State
 
+## Latest phase-noise sensitivity diagnostic (2026-09-29)
+
+EVID-0097/DEC-0081 restored the original `D_r=0.08 m` aperture and swept only
+`C_n,phi^2` at 19 km. MB-with-AO and MB-without-AO become positive at
+`1e-18`, but Uniform remains negative (`K=-4.975513931165798e-05`). No
+all-positive phase threshold was found; the full distance sweep was not run
+and no new C,w was computed.
+
+## Latest aperture sensitivity diagnostic (2026-09-29)
+
+EVID-0096/DEC-0080 tested receiver diameters `0.08--0.16 m` at `L=19 km`
+using 8 historical exact Uniform and 30 historical exact MB candidates.
+Uniform and MB-without-AO remained negative at every tested diameter, so no
+diameter satisfied the all-positive gate. The requested full distance sweep
+was not run; no aperture was selected and no new C,w was computed.
+
+## Latest historical exact distance diagnostic (2026-09-29)
+
+EVID-0095/DEC-0079 produced the three-curve Uniform/MB-AO/MB-noAO envelope
+using only audit-approved historical C,w. The MB-AO sign bracket is 31--33 km
+with historical-exact linear estimate 31.409924920888173 km; Uniform and
+MB-noAO remain negative over 19--100 km. This is not a final publication
+figure and does not resolve sparse Uniform optimization or Binomial absence.
+
+## Latest historical C,w audit (2026-09-29)
+
+EVID-0094/DEC-0078 completed a read-only repository-wide C,w inventory. It
+found 6,876 indexed records, 77 hash-identifiable ensembles, 75 duplicate
+groups, and 148 superseded/wrong-AP-w records. Only 7 of the 162 planned
+distance-experiment combinations have safe current hash-bound exact matches;
+no Binomial combination is safe. No historical C,w was migrated and no new
+source moment was computed.
+
+The next distance experiment must use only the seven safe matches or remain
+pending for the other candidates. Historical records marked validation-needed,
+unknown, or superseded cannot silently enter the active cache.
+
 ## Latest exact AP coverage batch (2026-09-28)
 
 EVID-0093/DEC-0077 record the restartable exact AP batch. Successful coverage

@@ -65,6 +65,7 @@ def evaluate_point(config, channel, evaluator: ExactMBEvaluator, nu_raw: float) 
         require_supported_symmetry=True,
         symmetry_tolerance=numerical["symmetry_tolerance"],
         physicality_tolerance=numerical["physicality_tolerance"],
+        maximize_full_interval=False,
         diagnostics={
             "backend": "authorized_exact_mb_asymptotic",
             "ensemble_hash": ensemble_hash(ensemble),

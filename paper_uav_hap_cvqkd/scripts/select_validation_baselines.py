@@ -180,6 +180,7 @@ def main() -> int:
         )
         full_chi = shared_fixed_ensemble_holevo_chi(
             full_ensemble, t, epsilon_total, backend="c4_gram", fock_cutoff=None,
+            maximize_full_interval=False,
             **holevo_numerical_kwargs(config),
         )
         for batch_index, start in enumerate(range(0, t.numel(), state_batch_size)):

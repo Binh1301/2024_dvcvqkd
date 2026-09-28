@@ -180,6 +180,7 @@ def evaluate_fixed_ensemble(
         require_supported_symmetry=True,
         symmetry_tolerance=1e-8,
         physicality_tolerance=1e-10,
+        maximize_full_interval=False,
         diagnostics={
             "backend": "c4_gram_cached_source_moments",
             "source_moment_diagnostics": moments.diagnostics,

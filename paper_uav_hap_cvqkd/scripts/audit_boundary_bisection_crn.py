@@ -119,6 +119,7 @@ def _metrics(
         ensemble, transmittance.reshape(1), epsilon.reshape(1),
         backend="c4_gram", fock_cutoff=None, density_trace_tolerance=1e-10,
         density_eigenvalue_tolerance=THRESHOLD, physicality_tolerance=1e-10,
+        maximize_full_interval=True,
     )
     chi = holevo.chi_be[0]
     return {"MI": mi, "chi_BE": chi, "raw_K": beta * mi - chi}

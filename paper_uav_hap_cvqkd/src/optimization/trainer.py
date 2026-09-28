@@ -179,6 +179,7 @@ def evaluate_transmitter(
         density_trace_tolerance=density_trace_tolerance,
         density_eigenvalue_tolerance=density_eigenvalue_tolerance,
         physicality_tolerance=physicality_tolerance,
+        maximize_full_interval=False,
     )
     key_rate = fading_secret_key_rate(mutual_information, holevo.chi_be, beta_reconciliation)
     constraints = ensemble_constraint_metrics(ensemble)

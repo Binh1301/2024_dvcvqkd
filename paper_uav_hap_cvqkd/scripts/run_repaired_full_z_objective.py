@@ -195,6 +195,7 @@ def _full_z_holevo(
         },
         z_grid_size=grid_size,
         z_refinement_steps=refinement_steps,
+        maximize_full_interval=True,
     )
 
 

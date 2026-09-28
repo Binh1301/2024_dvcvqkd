@@ -4137,6 +4137,123 @@ This is a bounded diagnostic under a conditional channel fixture. It changes
 no source-moment mathematics, Adam implementation, security functional,
 physical channel model, lifecycle gate, or baseline selection.
 
+## EVID-0095 - Historical exact C,w distance envelope diagnostic
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR HISTORICAL-EXACT DIAGNOSTIC; NOT FINAL FIGURE
+
+Using only current-compatible exact C,w rows from EVID-0094, the distance
+diagnostic evaluated 8 Uniform candidates and 30 MB pairs with
+`0.05 <= nu_raw <= 0.20`. No new C,w/AP/Fock/Gram calculation was run.
+
+The channel/phase fixture was explicit and recorded in the report:
+`tau_zen=0.92`, `C_n,phi^2=9.4e-18`, `eta_AO=0.95`, and
+`T_eff=<sqrt(T_raw)>^2`; primary Holevo used `maximize_full_interval=False`.
+
+Results:
+
+```text
+Uniform:       no sign change over 19--100 km; SKR remains negative
+MB with AO:    bracket [31,33] km; linear estimate 31.409924920888173 km
+MB without AO: no sign change over 19--100 km; SKR remains negative
+```
+
+The MB AO winner changes V_A with distance (for example, `V_A=2.15` at
+19 km, `V_A=1.3833230303` near the zero crossing, and
+`V_A=0.7416615151` from 37 km onward), while `nu_raw=0.20` remains the
+winning historical MB parameter on the evaluated envelope.
+
+This remains a diagnostic precursor: Uniform V_A coverage is sparse and not
+globally optimized, PCS is represented by MB only, and Binomial has no safe
+current-compatible exact C,w.
+
+### Evidence and provenance
+
+- `scripts/run_historical_exact_skr_vs_link_distance.py`, SHA-256:
+  `aebcf0e39a285dc2c999fdced5fa7eba8028cba0c3611301b5c6b3c511880d94`
+- `results/skr_vs_link_distance/historical_exact_distance_plot.png`, SHA-256:
+  `0cc2e5b62bd64a7944a28316e1466c0fdf315f44f42dbba27651f2974e5011bf`
+- `results/skr_vs_link_distance/historical_exact_distance_plot.pdf`, SHA-256:
+  `9b9f05a5bf85613bfcbdeb176f6d603ba53803d6c67b1da11db5d0d17e92ada0`
+- `results/skr_vs_link_distance/historical_exact_operation_distance_summary.csv`, SHA-256:
+  `1bb3df27ee3f2040dd626180448a2dadba6d4601a249fb8346f3d5837bf51474`
+- `results/skr_vs_link_distance/historical_exact_distance_report.json`, SHA-256:
+  `0f421a9b75a027c61d2938039f7e2742bf1420fc124a2ae2bd54ab4e6ee1d1e6`
+
+## EVID-0094 - Historical C,w source-moment inventory and reuse audit
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR READ-ONLY AUDIT; NO NEW SOURCE MOMENTS
+
+The repository-wide audit searched structured text artifacts, CSV/JSON/YAML
+records, source/cache directories, historical summaries, checkpoints, and
+binary metadata without invoking the AP/Fock/Gram evaluator. It found:
+
+```text
+C,w records indexed:                 6876
+hash-identifiable unique hashes:       77
+unhashable C,w records:              6547
+duplicate hash groups:                 75
+current source-semantics exact rows:   79 (71 MB, 8 Uniform)
+known superseded/wrong-AP-w rows:     148
+```
+
+The current `run_skr_vs_link_distance.py` roster contains 162 planned
+family/parameter/V_A combinations; 146 are feasible ensembles under the
+current peak constraint. Seven have safe current hash-bound source matches:
+three Uniform rows and four MB rows. There are no safe Binomial matches. Thus
+historical recovery covers `7/162 = 4.32098765%` of the planned combinations
+(`7/146 = 4.79452055%` of feasible combinations) without new C,w work.
+
+The seven current distance-roster matches are:
+
+```text
+Uniform: V_A = 0.1, 0.6, 4.0
+MB:      (nu_raw,V_A) = (0.10,0.1), (0.10,4.0), (0.20,0.1), (0.20,2.1)
+Binomial: none
+```
+
+Seventy-five duplicate groups show repeated source-only C,w copies across
+summaries/distance-or-optimization artifacts; every audited duplicate group
+has one unique C and one unique w (`max abs delta C = 0`, `max abs delta w = 0`).
+This supports treating C,w as ensemble-bound rather than distance-bound, but
+does not authorize migration of any historical row with missing or superseded
+semantics.
+
+### Reuse boundary
+
+- `SAFE_EXACT_REUSE`: only the seven current hash-bound roster matches.
+- `SAFE_AFTER_HASH_RECONSTRUCTION`: none.
+- `NEEDS_ONE_POINT_VALIDATION`: historical records with partial metadata; not
+  imported into the active cache.
+- `UNSAFE_SEMANTICS_MISMATCH`: 148 rows carrying superseded/wrong-AP-w status,
+  including the old cached Uniform/Binomial/MB smoke artifacts.
+- `NO_MATCH`: the remaining current candidates.
+
+### Evidence and provenance
+
+- `scripts/audit_historical_source_moments.py`, SHA-256:
+  `21f7eafbf4603f163773a97b28a4f89c09e4492c292e3a1c68a0893c76f89d82`
+- `results/skr_vs_link_distance/historical_source_moment_audit.csv`, SHA-256:
+  `a135056fdd33439911a490b617b5f4ba9d70ac423af1bb93e4052a8aa2e04269`
+- `results/skr_vs_link_distance/historical_source_moment_matches_current.csv`, SHA-256:
+  `17ad3e71d2d70c65e2bea672c29bb5a4cb7aaa7442d033d8ec1a4b9234a3b6a7`
+- `results/skr_vs_link_distance/historical_source_moment_duplicates.csv`, SHA-256:
+  `079cd22c72794bc402c437c0d6637ba36eaa41328f4448c3123d32a922ef3edd`
+- `results/skr_vs_link_distance/historical_source_moment_audit.json`, SHA-256:
+  `d2d9bad14f933b15ddbb60d5d9fd6a701c9d2102190f5dfa9e6dbf987aaa7d06`
+- `scripts/report_historical_mb_exact_pairs.py`, SHA-256:
+  `e06a0647776873fd62ca2b23646bc883ef5caac9f19811e1bda57b02a480ea36`
+- `results/skr_vs_link_distance/historical_mb_exact_pairs.csv`, SHA-256:
+  `e87e7f5a3c278f2a2a73bddc3c1a3a5e6ccbcb2e856aeb9c3d14d8d9cfd31e7e`
+- `results/skr_vs_link_distance/historical_mb_exact_nu_summary.csv`, SHA-256:
+  `51a50140da44ac48ceaf29560f6cfc2fad07019ff5da58e5bb0b8e3522b43b55`
+
+No active exact cache was modified. No new C,w, AP/Fock/Gram evaluation,
+training, baseline selection, or publication-scale run occurred.
+
 ## EVID-0093 - Exact AP coverage batch with fail-closed timeout ledger
 
 Date: 2026-09-28
@@ -4549,3 +4666,100 @@ optimum.
   `4ebda74fb20b3386d26142dfa303aee6691f272eafb0ff0f197aa4ee4c7f98a4`
 - Focused verification: 13 deterministic-MI/mutual-information tests passed;
   `py_compile` passed.
+## EVID-0096 - Historical exact receiver-aperture sensitivity stop diagnostic
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR APERTURE STOP DIAGNOSTIC; FULL SWEEP NOT RUN
+
+Using only the audit-approved historical exact source moments, the diagnostic
+tested receiver diameters `0.08, 0.10, 0.12, 0.14, 0.16 m` at the minimum
+physical distance `L=19 km`. It evaluated 8 Uniform candidates and 30 MB
+candidates with `0.05 <= nu_raw <= 0.20`; no new C,w/AP/Fock/Gram calculation
+was run and no candidate evaluation failed.
+
+The active fixture remained `tau_zen=0.92`,
+`C_n,phi^2=9.4e-18`, `eta_AO=0.95`, `beta=0.95`,
+`epsilon_ch=0.0186`, `T_eff=<sqrt(T_raw)>^2`, and
+`maximize_full_interval=False`. The repository convention was preserved:
+`aperture_radius_m` is the receiver radius and finite-aperture scintillation
+receives diameter `D_r=2r`.
+
+At `L=19 km`, no tested diameter made all three envelope SKRs positive:
+
+```text
+D_r (m)   Uniform SKR       MB with AO SKR       MB without AO SKR
+0.08     -5.08556989e-05    3.26201781e-05      -6.03780295e-05
+0.10     -7.60479161e-05    5.51461198e-05      -9.04189521e-05
+0.12     -1.05488559e-04    8.43472085e-05      -1.25585354e-04
+0.14     -1.38940590e-04    1.20500632e-04      -1.65604585e-04
+0.16     -1.76201031e-04    1.63837593e-04      -2.10242997e-04
+```
+
+Consequently the requested full distance sweep was not launched, and no
+selected aperture or operation-distance estimate was produced. The raw-tail
+audit returned `P(T_raw>1)=0` for all five tested apertures at this distance.
+
+### Evidence and provenance
+
+- `scripts/run_historical_exact_aperture_diagnostic.py`, SHA-256:
+  `cf1d5899436b9abd64f8b2926525cca7ebca7fc82ad4057767198935241b1423`
+- `results/skr_vs_link_distance/aperture_all_positive_diagnostic/aperture_sensitivity.csv`, SHA-256:
+  `0d4415e394c266badf6738b8a434e68dec1f7092a718b519a4555ce9be064bb4`
+- `results/skr_vs_link_distance/aperture_all_positive_diagnostic/selected_aperture_metadata.json`, SHA-256:
+  `7d17e443222385e1a32f859ac872de5f5f9a975224322a2e9a687ca3fb06c699`
+- Verification: runner exit code 0; `py_compile` and `git diff --check` passed.
+## EVID-0097 - Historical exact phase-noise sensitivity and stop diagnostic
+
+Date: 2026-09-29
+
+Status: CURRENTLY_VERIFIED_PASS FOR PHASE SENSITIVITY; ALL-POSITIVE THRESHOLD NOT FOUND
+
+The receiver aperture was returned to the original baseline
+`r_ap=0.04 m`, `D_r=0.08 m`. Using the same 8 historical exact Uniform and
+30 historical exact MB candidates, the diagnostic changed only
+`C_n,phi^2` and evaluated the 19-km point. No new C,w/AP/Fock/Gram source
+moment was computed.
+
+The fixed fixture was `tau_zen=0.92`, `epsilon_ch=0.0186`, `beta=0.95`,
+`eta_AO=0.95`, `T_eff=<sqrt(T_raw)>^2`, and direct-Z
+`maximize_full_interval=False`. The channel value was
+`T_eff=2.9529598841299403e-4` and `P(T_raw>1)=0` at 19 km for every phase
+value because the current channel path does not make attenuation depend on
+`C_n,phi^2`.
+
+At the current `C_n,phi^2=9.4e-18`, the winning rows were:
+
+```text
+Uniform      AO on   nu=0,   V_A=0.10  beta I_AB=2.02358416e-05  chi_BE=7.10915405e-05  K=-5.08556989e-05
+MB with AO   AO on   nu=.20, V_A=2.15  beta I_AB=4.35004220e-04  chi_BE=4.02384041e-04  K= 3.26201781e-05
+MB no AO     AO off  nu=.20, V_A=.10  beta I_AB=2.02358176e-05  chi_BE=8.06138471e-05  K=-6.03780295e-05
+```
+
+The phase-only sweep was:
+
+```text
+C_n,phi^2       Uniform K       MB+AO K        MB-noAO K
+9.4e-18        -5.08557e-05    3.26202e-05   -6.03780e-05
+7.0e-18        -5.05413e-05    3.88918e-05   -5.45644e-05
+5.0e-18        -5.02793e-05    4.51464e-05   -4.97341e-05
+3.0e-18        -5.00172e-05    5.16788e-05   -3.33088e-05
+2.0e-18        -4.98862e-05    5.53004e-05   -1.61936e-05
+1.0e-18        -4.97551e-05    5.89395e-05    1.03169e-05
+```
+
+Thus `C_nphi2_all_positive_threshold` was not found. At `1e-18`, Uniform
+remains negative with `beta I_AB=2.0235842663529624e-05`,
+`chi_BE=6.99909819751876e-05`, and
+`K=-4.975513931165798e-05`; MB-with-AO and MB-without-AO are positive. The
+requested full distance sweep was not run.
+
+### Evidence and provenance
+
+- `scripts/run_historical_exact_phase_sensitivity.py`, SHA-256:
+  `84cbaa5a254cfecd79750b982491766d73673429c1c6411ee2a1c92c1cc6c4f2`
+- `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity.csv`, SHA-256:
+  `0094339caa4a8f9ae0c21dfab2526207a2940ab705f8923c4a774cd6a6da5715`
+- `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity_report.json`, SHA-256:
+  `c2348287a820005670da79fee4e4451f158c649bb358120665c29ee830898481`
+- Verification: phase runner exit code 0; artifact assertions and `py_compile` passed.

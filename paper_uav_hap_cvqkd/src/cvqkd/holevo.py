@@ -374,6 +374,7 @@ def _holevo_from_source_moments(
     symmetry_tolerance: float,
     physicality_tolerance: float,
     diagnostics: dict[str, Any],
+    maximize_full_interval: bool = False,
     z_grid_size: int = DEFAULT_Z_GRID_SIZE,
     z_refinement_steps: int = DEFAULT_Z_REFINEMENT_STEPS,
 ) -> HolevoResult:
@@ -397,6 +398,43 @@ def _holevo_from_source_moments(
         == ensemble.declared_va.reshape(-1).shape
     ):
         raise ValueError("Holevo source moments and channel batches must have equal length.")
+
+    radicand = 2.0 * transmittance * epsilon * w
+    z_minus = 2.0 * torch.sqrt(transmittance) * coherent_correlation - torch.sqrt(radicand)
+    if not maximize_full_interval:
+        chi_be, covariance, selected_repairs = _evaluate_holevo_for_correlations(
+            ensemble,
+            transmittance,
+            epsilon,
+            z_minus,
+            require_supported_symmetry=require_supported_symmetry,
+            symmetry_tolerance=symmetry_tolerance,
+            physicality_tolerance=physicality_tolerance,
+            return_covariance=True,
+        )
+        if covariance is None:
+            raise RuntimeError("Primary Holevo covariance was not returned.")
+        return HolevoResult(
+            chi_be=chi_be,
+            tau=tau,
+            tau_trace=tau_trace,
+            w=w,
+            coherent_correlation=coherent_correlation,
+            z=z_minus,
+            covariance=covariance,
+            diagnostics={
+                **diagnostics,
+                "mode": "zstar",
+                "z_used": z_minus,
+                "chi_BE_bound": chi_be,
+                "numerical_repairs": tuple(repairs) + tuple(selected_repairs),
+                "standard_form_supported": covariance.symmetry.standard_form_supported,
+                "standard_form_override": not require_supported_symmetry,
+                "symmetry_tolerance": symmetry_tolerance,
+                "physicality_tolerance": physicality_tolerance,
+            },
+        )
+
     va = ensemble.computed_va()
     a = va + 1.0
     b = 1.0 + transmittance * va + transmittance * epsilon
@@ -414,8 +452,6 @@ def _holevo_from_source_moments(
     if bool(torch.any(physical_radicand < 0.0)):
         repairs.append("clamped tiny negative Z_phys radicand to zero")
     z_phys = torch.sqrt(torch.clamp_min(physical_radicand, 0.0))
-    radicand = 2.0 * transmittance * epsilon * w
-    z_minus = 2.0 * torch.sqrt(transmittance) * coherent_correlation - torch.sqrt(radicand)
     z_plus = 2.0 * torch.sqrt(transmittance) * coherent_correlation + torch.sqrt(radicand)
     z_lower = torch.maximum(z_minus, -z_phys)
     z_upper = torch.minimum(z_plus, z_phys)
@@ -473,7 +509,7 @@ def _holevo_from_source_moments(
         candidate_repairs.update(candidate_numerical_repairs)
         return values
 
-    chi_be, z_star = _maximize_bounded_scalar(
+    chi_be, z_argmax = _maximize_bounded_scalar(
         z_lower,
         z_upper,
         evaluate_candidates,
@@ -485,7 +521,7 @@ def _holevo_from_source_moments(
             ensemble,
             transmittance,
             epsilon,
-            z_star,
+            z_argmax,
             require_supported_symmetry=require_supported_symmetry,
             symmetry_tolerance=symmetry_tolerance,
             physicality_tolerance=physicality_tolerance,
@@ -497,7 +533,7 @@ def _holevo_from_source_moments(
             diagnostics={
                 **interval_diagnostics,
                 "failure_reason": "SELECTED_CANDIDATE_PHYSICALITY_FAILURE",
-                "candidate_Z": z_star.detach(),
+                "candidate_Z": z_argmax.detach(),
             },
         ) from error
     if covariance is None:
@@ -505,18 +541,18 @@ def _holevo_from_source_moments(
     if not bool(torch.allclose(selected_chi, chi_be, atol=1e-12, rtol=1e-10)):
         raise FloatingPointError("Selected Holevo candidate was not reproduced consistently.")
     scale = torch.maximum(
-        torch.ones_like(z_star),
+        torch.ones_like(z_argmax),
         torch.maximum(torch.abs(z_lower), torch.abs(z_upper)),
     )
     location_tolerance = torch.maximum(
         torch.full_like(scale, physicality_tolerance), 1e-12 * scale
     )
     maximizing_location: list[str] = []
-    for index in range(z_star.shape[0]):
+    for index in range(z_argmax.shape[0]):
         tolerance = float(location_tolerance[index].detach())
-        if abs(float((z_star[index] - z_lower[index]).detach())) <= tolerance:
+        if abs(float((z_argmax[index] - z_lower[index]).detach())) <= tolerance:
             maximizing_location.append("lower_boundary")
-        elif abs(float((z_star[index] - z_upper[index]).detach())) <= tolerance:
+        elif abs(float((z_argmax[index] - z_upper[index]).detach())) <= tolerance:
             maximizing_location.append("upper_boundary")
         else:
             maximizing_location.append("interior")
@@ -526,13 +562,16 @@ def _holevo_from_source_moments(
         tau_trace=tau_trace,
         w=w,
         coherent_correlation=coherent_correlation,
-        z=z_star,
+        z=z_argmax,
         covariance=covariance,
         diagnostics={
             **interval_diagnostics,
-            "Z_star": z_star,
+            "mode": "full_z_diagnostic",
+            "z_used": z_argmax,
+            "chi_BE_full_z_max": chi_be,
+            "Z_star": z_argmax,
             "chi_BE_ub": chi_be,
-            "z_star": z_star,
+            "z_star": z_argmax,
             "maximizing_location": tuple(maximizing_location),
             "numerical_repairs": tuple(repairs)
             + tuple(sorted(candidate_repairs))
@@ -559,6 +598,7 @@ def dense_fock_holevo_information(
     density_trace_tolerance: float = 1e-8,
     density_eigenvalue_tolerance: float = 1e-12,
     physicality_tolerance: float = 1e-10,
+    maximize_full_interval: bool = False,
     z_grid_size: int = DEFAULT_Z_GRID_SIZE,
     z_refinement_steps: int = DEFAULT_Z_REFINEMENT_STEPS,
 ) -> HolevoResult:
@@ -611,6 +651,7 @@ def dense_fock_holevo_information(
         require_supported_symmetry=require_supported_symmetry,
         symmetry_tolerance=symmetry_tolerance,
         physicality_tolerance=physicality_tolerance,
+        maximize_full_interval=maximize_full_interval,
         z_grid_size=z_grid_size,
         z_refinement_steps=z_refinement_steps,
         diagnostics={
@@ -635,6 +676,7 @@ def c4_gram_holevo_information(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-10,
     physicality_tolerance: float = 1e-10,
+    maximize_full_interval: bool = False,
     z_grid_size: int = DEFAULT_Z_GRID_SIZE,
     z_refinement_steps: int = DEFAULT_Z_REFINEMENT_STEPS,
 ) -> HolevoResult:
@@ -676,6 +718,7 @@ def c4_gram_holevo_information(
         require_supported_symmetry=True,
         symmetry_tolerance=symmetry_tolerance,
         physicality_tolerance=physicality_tolerance,
+        maximize_full_interval=maximize_full_interval,
         z_grid_size=z_grid_size,
         z_refinement_steps=z_refinement_steps,
         diagnostics={
@@ -707,6 +750,7 @@ def holevo_information(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    maximize_full_interval: bool = False,
     z_grid_size: int = DEFAULT_Z_GRID_SIZE,
     z_refinement_steps: int = DEFAULT_Z_REFINEMENT_STEPS,
 ) -> HolevoResult:
@@ -724,6 +768,7 @@ def holevo_information(
             density_trace_tolerance=density_trace_tolerance,
             density_eigenvalue_tolerance=density_eigenvalue_tolerance,
             physicality_tolerance=physicality_tolerance,
+            maximize_full_interval=maximize_full_interval,
             z_grid_size=z_grid_size,
             z_refinement_steps=z_refinement_steps,
         )
@@ -740,6 +785,7 @@ def holevo_information(
             density_trace_tolerance=density_trace_tolerance,
             density_eigenvalue_tolerance=density_eigenvalue_tolerance,
             physicality_tolerance=physicality_tolerance,
+            maximize_full_interval=maximize_full_interval,
             z_grid_size=z_grid_size,
             z_refinement_steps=z_refinement_steps,
         )
@@ -758,6 +804,7 @@ def shared_fixed_ensemble_holevo_chi(
     symmetry_tolerance: float = 1e-8,
     density_trace_tolerance: float = 1e-8,
     physicality_tolerance: float = 1e-10,
+    maximize_full_interval: bool = False,
     z_grid_size: int = DEFAULT_Z_GRID_SIZE,
     z_refinement_steps: int = DEFAULT_Z_REFINEMENT_STEPS,
 ) -> torch.Tensor:
@@ -790,6 +837,7 @@ def shared_fixed_ensemble_holevo_chi(
         symmetry_tolerance=symmetry_tolerance,
         density_trace_tolerance=density_trace_tolerance,
         physicality_tolerance=physicality_tolerance,
+        maximize_full_interval=maximize_full_interval,
         z_grid_size=z_grid_size,
         z_refinement_steps=z_refinement_steps,
     ).chi_be

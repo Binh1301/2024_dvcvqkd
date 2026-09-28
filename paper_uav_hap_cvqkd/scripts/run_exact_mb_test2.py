@@ -322,6 +322,7 @@ class ExactMBEvaluator:
             require_supported_symmetry=True,
             symmetry_tolerance=self.numerical["symmetry_tolerance"],
             physicality_tolerance=self.numerical["physicality_tolerance"],
+            maximize_full_interval=False,
             diagnostics={
                 "backend": "exact_common_ensemble_mb_test2",
                 "ensemble_hash": common_hash,

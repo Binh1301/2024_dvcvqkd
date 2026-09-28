@@ -24,7 +24,7 @@ def main():
         noise=standard_complex_noise((3,256,2048),generator=torch_generator(int(roster["oracle"]["mi_seed"]),"cpu"),device="cpu")
         with torch.no_grad():
             mi=discrete_mutual_information(ensemble,t,e,noise_samples_per_symbol=2048,standard_noise_samples=noise,noise_sample_chunk_size=64)
-            result=holevo_information(ensemble,t,e,backend="c4_gram",fock_cutoff=None,density_eigenvalue_tolerance=float.fromhex(roster["candidate_threshold_float64_hex"]),density_trace_tolerance=1e-10)
+            result=holevo_information(ensemble,t,e,backend="c4_gram",fock_cutoff=None,density_eigenvalue_tolerance=float.fromhex(roster["candidate_threshold_float64_hex"]),density_trace_tolerance=1e-10,maximize_full_interval=True)
         source=result.diagnostics["source_moment_diagnostics"]
         rows.append({"fixture":name,"ensemble_sha256":expected,"route":[x["route"] for x in source],"source":list(source),"C":result.coherent_correlation.tolist(),"w":result.w.tolist(),"Z":result.z.tolist(),"lambda1":result.covariance.lambda1.tolist(),"lambda2":result.covariance.lambda2.tolist(),"lambda3":result.covariance.lambda3.tolist(),"chi_BE":result.chi_be.tolist(),"raw_K":(beta*mi-result.chi_be).tolist()})
     passed=all(all(x["support_size"]==256 for x in row["source"]) for row in rows)
