@@ -140,11 +140,12 @@ class ExactMBEvaluator:
         mi_samples: int = MI_SAMPLES_PER_SYMBOL,
         source_evaluator: Callable[..., GramMomentResult] = c4_gram_source_moments,
         allow_legacy_exact_import: bool = True,
+        source_cache_dir: Path | None = None,
     ) -> None:
         self.config = config
         self.channel = channel
         self.output = Path(output)
-        self.cache_dir = self.output / "exact_source_cache"
+        self.cache_dir = Path(source_cache_dir) if source_cache_dir is not None else self.output / "exact_source_cache"
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.numerical = holevo_numerical_kwargs(config)
         self.crn_seeds = tuple(int(seed) for seed in crn_seeds)

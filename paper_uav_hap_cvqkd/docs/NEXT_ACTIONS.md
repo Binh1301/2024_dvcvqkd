@@ -1,5 +1,40 @@
 # Next Actions
 
+## Latest AP coverage result: EVID-0093 / DEC-0077
+
+The priority AP batch is restartable but blocked by the existing one-hour
+arbitrary-precision subprocess timeout. Exact coverage is `19/143` global,
+`26/59` local, `9/18` boundary, and `8/43` uniform. Failure ledgers record
+the unresolved points; no C,w interpolation or numerical weakening is allowed.
+
+Do not run Brent/golden-section, choose a uniform baseline, or claim a global
+optimum. The next permitted step is an explicit runtime decision for resuming
+the same cache (or a separately authorized environment with the same precision
+ladder). Preserve all successful JSON source files and failed-point ledgers.
+
+## Latest global joint MB/V_A coverage result: EVID-0092 / DEC-0076
+
+The cache-bound global diagnostic is complete but fail-closed. It produced all
+required artifacts, with exact coverage `15/143` for the interior grid,
+`5/18` for the boundary grid, and `5/43` for the uniform scan. The best
+tested exact point remains `(nu_raw,V_A)=(.24,1.95)`, not a global optimum.
+
+Do not select a baseline or run Brent/golden-section yet. The next numerical
+step, if authorized and computationally budgeted, is a fresh exact AP source
+batch covering the missing boundary, uniform coarse/refinement, and global
+grid points. Preserve cache identity and report the fresh-point budget. Do not
+run Adam or use interpolation.
+
+## Latest joint MB/V_A result: EVID-0091 / DEC-0075
+
+The exact joint landscape and local stencil are complete. Best tested local
+point: `(nu_raw,V_A)=(.24,1.95)`, `SKR=2.1544608008872113e-05`. It is not a
+global optimum certificate.
+
+Do not run Adam. A separately authorized next task may perform a deterministic
+global/boundary search using exact cache-bound evaluations, but it must certify
+the full domain and uniform optimized baseline before claiming a joint optimum.
+
 ## Latest authorized MB boundary result: EVID-0090 / DEC-0074
 
 The authorized exact-MB stage reached the hard peak-photon boundary at

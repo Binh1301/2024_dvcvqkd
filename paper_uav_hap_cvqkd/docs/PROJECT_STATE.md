@@ -1,5 +1,46 @@
 # Project State
 
+## Latest exact AP coverage batch (2026-09-28)
+
+EVID-0093/DEC-0077 record the restartable exact AP batch. Successful coverage
+is `19/143` global, `26/59` local high-priority mesh, `9/18` boundary, and
+`8/43` uniform. Remaining points are explicitly incomplete or failed closed
+after the existing one-hour AP subprocess timeout; no interpolation or
+surrogate was used. The best exact interior remains `(0.24,1.95)` with
+`SKR=2.1544608008872113e-05`; the best tested boundary is `.275` with
+`SKR=2.1507318654867557e-05`.
+
+Classification remains `GLOBAL_OPTIMUM_UNRESOLVED`. Do not run boundary scalar
+refinement, select the uniform baseline, claim gain decomposition, training,
+or publication-scale evaluation. Resume only with the same exact cache and an
+explicit runtime decision for the AP timeout.
+
+## Latest global joint MB/V_A coverage diagnostic (2026-09-27)
+
+EVID-0092 records the authorized cache-bound global follow-up. The requested
+143-point feasible grid, 18-point boundary grid, and 43-point uniform scan
+were emitted with exact-cache status per row, but only 15, 5, and 5 rows had
+hash-matched exact source moments available. The result is therefore
+`GLOBAL_OPTIMUM_UNRESOLVED`: no Brent/golden search, continuous derivative-free
+search, global optimum claim, or optimized uniform baseline selection.
+
+The best exact point currently tested remains `(nu_raw,V_A)=(.24,1.95)` with
+`SKR=2.1544608008872113e-05`; the best tested boundary row is `.25` at
+`V_A=2.133332719960486` with `SKR=2.1311057548123425e-05`. All model,
+security, phase-noise, peak, PMF, and lifecycle rules remain unchanged.
+
+## Latest joint MB/V_A exact landscape (2026-09-27)
+
+EVID-0091/DEC-0075 complete the authorized joint diagnostic over the curved
+peak-feasible region. The sparse exact grid and local stencil identify
+`(nu_raw,V_A)=(.24,1.95)` with `SKR=2.1544608008872113e-05` as the best tested
+local point. This is not a global optimum certificate: no global scalar/2D
+optimizer ran, and the wider domain remains only sparsely sampled.
+
+The fixed-V_A=2 MB result is therefore only a diagnostic slice; modulation
+variance materially changes MI and phase noise. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`, with no baseline selected.
+
 ## Latest authorized exact-MB boundary stage (2026-09-27)
 
 EVID-0090/DEC-0074 recognize the narrow author authorization for exact-MB

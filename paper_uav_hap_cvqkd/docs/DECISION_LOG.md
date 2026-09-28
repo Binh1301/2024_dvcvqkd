@@ -2599,3 +2599,86 @@ source moments.
 - EVID-0090
 - `results/exact_mb_asymptotic/extended_landscape.json`
 - `results/exact_mb_asymptotic/asymptotic_four_state_diagnostic.json`
+
+## DEC-0077 - Record AP timeout blocker and preserve fail-closed coverage
+
+Date: 2026-09-28
+
+Status: BLOCKED_BY_ENVIRONMENT; GLOBAL OPTIMUM UNRESOLVED
+
+### Decision
+
+Accept the completed AP rows as exact evaluation evidence only. The priority
+batch improved coverage to `19/143` global, `26/59` local, `9/18` boundary,
+and `8/43` uniform, but the remaining arbitrary-precision jobs hit the
+existing one-hour subprocess timeout or remain uncomputed. Keep all missing
+points explicitly failed/incomplete; do not infer their C,w, do not run
+boundary refinement, do not select the uniform baseline, and do not claim a
+global optimum.
+
+The timeout is an environment/runtime blocker in the existing AP route, not a
+license to weaken precision, support, residual gates, or the source cache
+identity. A future continuation may resume the same cache with a separately
+authorized runtime decision; the current mathematical protocol is unchanged.
+
+### Evidence
+
+- EVID-0093
+- `results/joint_mb_va_global/ap_coverage/local_failed_or_incomplete.csv`
+- `results/joint_mb_va_global/ap_coverage/ap_batch_timeout_summary.json`
+- `results/joint_mb_va_global/ap_coverage_boundary/boundary_failed_or_incomplete.csv`
+- `results/joint_mb_va_global/ap_coverage_uniform/uniform_failed_or_incomplete.csv`
+
+## DEC-0076 - Record fail-closed global joint coverage; keep optimum unresolved
+
+Date: 2026-09-27
+
+Status: ACTIVE AUTHORIZED DIAGNOSTIC; GLOBAL OPTIMUM UNRESOLVED
+
+### Decision
+
+Accept the cache-bound global joint diagnostic as evidence of coverage and
+integrity only. The 143-point feasible grid, 18-point boundary grid, and
+43-point uniform scan are not fully exact because the shared AP source cache
+contains only 15, 5, and 5 corresponding rows. Keep the classification
+`GLOBAL_OPTIMUM_UNRESOLVED`; do not call `(0.24,1.95)` a global optimum, do
+not select the uniform baseline, and do not convert the sparse comparator
+decomposition into a gain claim.
+
+The runner is cache-only by default and reports missing exact source moments
+instead of using interpolation or a surrogate. Brent/golden-section and any
+continuous derivative-free search remain `NOT RUN` until the exact boundary
+coverage is complete. Adam remains prohibited for this stage.
+
+### Evidence
+
+- EVID-0092
+- `results/joint_mb_va_global/run_report.json`
+- `results/joint_mb_va_global/global_landscape.csv`
+- `results/joint_mb_va_global/boundary_search.csv`
+- `results/joint_mb_va_global/uniform_optimized_baseline.csv`
+
+## DEC-0075 - Accept joint MB/V_A exact landscape; do not claim global optimum
+
+Date: 2026-09-27
+
+Status: ACTIVE AUTHORIZED JOINT DIAGNOSTIC; GLOBAL OPTIMUM UNRESOLVED
+
+### Decision
+
+Accept the exact feasible-domain and sparse joint MB/V_A landscape under the
+author's restricted authorization. Preserve the curved peak-feasible domain,
+recompute phase noise for every V_A, and use exact common-ensemble C,w/Holevo.
+
+The local exact stencil identifies `(nu_raw,V_A)=(.24,1.95)` as the best tested
+local point with `SKR=2.1544608008872113e-05`, but the global search is not
+complete. Do not call this pair the global optimum or select a baseline.
+
+No Adam, interpolation, surrogate, or physical/security equation change was
+used.
+
+### Evidence
+
+- EVID-0091
+- `results/joint_mb_va/joint_landscape.csv`
+- `results/joint_mb_va/local_refinement.csv`

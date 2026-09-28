@@ -4137,6 +4137,228 @@ This is a bounded diagnostic under a conditional channel fixture. It changes
 no source-moment mathematics, Adam implementation, security functional,
 physical channel model, lifecycle gate, or baseline selection.
 
+## EVID-0093 - Exact AP coverage batch with fail-closed timeout ledger
+
+Date: 2026-09-28
+
+Status: BLOCKED_BY_ENVIRONMENT; GLOBAL OPTIMUM UNRESOLVED
+
+The authorized exact AP coverage runner processed the high-priority local,
+boundary, and uniform rosters using the shared hash-bound source cache. It
+preserved the frozen channel, positive-PMF MB convention, V_A-dependent noise,
+deterministic GH MI, exact C4/AP source moments, full Holevo, and common
+ensemble identity. No interpolation, surrogate, Monte Carlo production MI,
+Adam, or model/security change was used.
+
+The completed exact coverage after the batch is:
+
+```text
+global grid:   19 / 143 exact
+local mesh:    26 / 59 exact
+boundary:       9 / 18 exact
+uniform:        8 / 43 exact
+cache files:   76 exact source JSON files
+```
+
+The remaining AP jobs failed closed or remain absent. The source path has a
+fixed one-hour subprocess timeout (`timeout=3600` in
+`src/cvqkd/gram_moments.py`); completed failures report
+`full-support fallback failed closed: fallback timeout`. The runner now emits
+per-stage `*_failed_or_incomplete.csv` ledgers and keeps all successful source
+files restartable in the shared cache.
+
+The best exact interior point remains:
+
+```text
+(nu_raw,V_A) = (0.24,1.95)
+SKR          = 2.1544608008872113e-05
+P_peak       = 26.325014686064186
+```
+
+The best exact boundary point currently available is:
+
+```text
+nu_raw       = 0.275
+V_A          = 1.939393833980765
+SKR          = 2.1507318654867557e-05
+P_peak       = 30.0
+```
+
+The best exact uniform point currently available remains `V_A=0.1` with
+`SKR=-4.485409326324686e-05`; it is not an optimized uniform baseline.
+Therefore the classification remains `GLOBAL_OPTIMUM_UNRESOLVED` and no
+boundary scalar refinement or baseline gain claim is valid.
+
+### Evidence and provenance
+
+- `scripts/run_joint_mb_va_ap_coverage.py`, SHA-256:
+  `bae177f79fdb5790f3cb4b0b354edb53eb74eace10e9086cce7d82e507ff733c`
+- `results/joint_mb_va_global/run_report.json`, SHA-256:
+  `38c803ce37174de555f604d2eec38b48a4f3cd068f6ae41b3c0023c13e9cf227`
+- `results/joint_mb_va_global/global_landscape.csv`, SHA-256:
+  `d184d35f96bf3739d9e04b95dedc08d686bf149752d0a55ea2a17efa761767b4`
+- `results/joint_mb_va_global/boundary_search.csv`, SHA-256:
+  `077e4d79ffc15f2c82a29638678eef43364c580991e6b722430fc697b226ae02`
+- `results/joint_mb_va_global/uniform_optimized_baseline.csv`, SHA-256:
+  `bf59204a7bbeb4d1e27a3b4d60d868d2e3c511f370413cb78d13b6a2b62bb464`
+- `results/joint_mb_va_global/ap_coverage/local_report.json`, SHA-256:
+  `bb69aed93bc94f78b7272110de5afd30e132e0ae23764b12f461238d90f5c031`
+- `results/joint_mb_va_global/ap_coverage/local.csv`, SHA-256:
+  `af291a9f83410d8f0b1dcad834a39a1e3915052a1d1031c4de7f21282f47808c`
+- `results/joint_mb_va_global/ap_coverage/local_failed_or_incomplete.csv`, SHA-256:
+  `003d75de01f2e21a72fb6f0f5331a98a3768d0f269b70448f2fe6c9b5663144c`
+- `results/joint_mb_va_global/ap_coverage/ap_batch_timeout_summary.json`, SHA-256:
+  `6b67d48013bbeb36b78316a7e9c9f45e1d60842fc197dc434e41c4b4a8e68d66`
+- `results/joint_mb_va_global/ap_coverage_boundary/boundary_report.json`, SHA-256:
+  `277b01f6577632d214db7c9f33e4838e374d40721c2200a5f6edd8c4a6b5e50b`
+- `results/joint_mb_va_global/ap_coverage_boundary/boundary.csv`, SHA-256:
+  `ced0f31666f0f49a443d78f15c4244beca9c569705ad9b6a32ce188f1eb70f9f`
+- `results/joint_mb_va_global/ap_coverage_boundary/boundary_failed_or_incomplete.csv`, SHA-256:
+  `943080f16165f80a761ad2cdc29d489803e9515682364daa833bfdd71a004733`
+- `results/joint_mb_va_global/ap_coverage_uniform/uniform_report.json`, SHA-256:
+  `7d92d8bd1d47264e50a2535e8bd8155ee543643206e1b4a7ec7561332022e2b0`
+- `results/joint_mb_va_global/ap_coverage_uniform/uniform.csv`, SHA-256:
+  `b8ae1a66220747a92b824398ed73d28280fac017a9e54cb84ee7dfe74eeee388`
+- `results/joint_mb_va_global/ap_coverage_uniform/uniform_failed_or_incomplete.csv`, SHA-256:
+  `04e839f9f0a547ab9748c118b4e6b53c4512dc2db40a46421ec4b15fbf903776`
+
+15 focused tests passed (9 exact-MB/reconciliation and 6 global-joint), and
+the AP coverage runner compiled. No physical/security equation, precision
+ladder, peak limit, PMF positivity rule, or lifecycle state changed.
+
+## EVID-0092 - Fail-closed global joint MB/V_A coverage diagnostic
+
+Date: 2026-09-27
+
+Status: CURRENTLY_VERIFIED_PASS FOR CACHE-BOUND DIAGNOSTIC; GLOBAL OPTIMUM UNRESOLVED
+
+The authorized follow-up ran a deterministic feasible-domain cache-bound scan
+for the exact joint objective. It retained the frozen `nu_repo=42.5*nu_raw`
+MB convention, recomputed `epsilon_total=epsilon_base+c_phi*V_A`, used
+deterministic GH MI and exact hash-bound C4/AP source moments, and preserved
+the common MI/source/Holevo ensemble. No interpolation, surrogate, Gaussian
+capacity, or Adam was used.
+
+The runner emitted the required global artifacts, but deliberately stayed
+cache-only because an exact source-moment miss is not silently substituted.
+Coverage is:
+
+```text
+global feasible grid: 143 requested / 15 exact
+boundary grid:        18 requested / 5 exact
+uniform scan:         43 requested / 5 exact
+fresh AP points:       0
+classification:        GLOBAL_OPTIMUM_UNRESOLVED
+```
+
+The best exact point available across the prior joint landscape/local
+refinement and this diagnostic remains:
+
+```text
+(nu_raw,V_A) = (0.24,1.95)
+SKR          = 2.1544608008872113e-05
+I_AB_GH      = 3.5845686947766353e-4
+chi_BE       = 3.189894179949082e-4
+P_peak       = 26.325014686064186
+```
+
+The best exact boundary point currently available is `(0.25,2.133332719960486)`
+with `SKR=2.1311057548123425e-05`; the best exact uniform point currently
+available is `(nu_raw,V_A)=(0,0.1)` with negative `SKR=-4.485409326324686e-05`.
+Neither is a certified global boundary or optimized uniform baseline because
+the requested surrounding exact points are missing.
+
+Gauss-Hermite orders 8, 16, 32, and 64 agree at the retained targets to
+absolute differences no larger than `1.7763568394002505e-15` in the emitted
+convergence artifact. The 6 focused tests pass; compilation and
+`git diff --check` pass.
+
+### Evidence and provenance
+
+- `scripts/run_joint_mb_va_global_certification.py`, SHA-256:
+  `4d73d6cf62c3a159b9be86193c9f42460fcbb9a71a6a2ff27e8fbb8823111778`
+- `scripts/run_joint_mb_va_optimization.py`, SHA-256:
+  `50a3e2b2d29c6bffb6b7ca95fd6a06e76e36675a0cfc7a4843ca184b58118f06`
+- `tests/test_joint_mb_va_global_certification.py`, SHA-256:
+  `707e9ff7d906f6adc5bcb087c72a644fe85fc265293f286e152dcfb196a6e316`
+- `results/joint_mb_va_global/run_report.json`, SHA-256:
+  `d2b5fb0f1eb7c8ae98b5ca386a883b9c1bff0c7aa8ab070435b9598e7045d7a7`
+- `results/joint_mb_va_global/global_landscape.csv`, SHA-256:
+  `a31007ffa9dd16c86f4a8434513dcc8470495abec3583a50abc4da2a243bc7b3`
+- `results/joint_mb_va_global/feasible_boundary.csv`, SHA-256:
+  `e755f0ce697e496daa65c943a73949007db568dad4581de2dee0ad228c7fe96c`
+- `results/joint_mb_va_global/boundary_search.csv`, SHA-256:
+  `0f30db2964fec0eed13e36e8430b6a78d7932607ab4162001ba2eea416bed75c`
+- `results/joint_mb_va_global/interior_search_log.csv`, SHA-256:
+  `fea7714606a7011436dd44fd00d567f48a43e63cbc22b6400661a856febd3001`
+- `results/joint_mb_va_global/uniform_optimized_baseline.csv`, SHA-256:
+  `a9c7a93c6c45518e90034d1094a37577c1238edfd7a8da1d85c8d1b935bf210`
+- `results/joint_mb_va_global/local_refinement.csv`, SHA-256:
+  `65474704c8f529801669cc7697d84297fb1858b7420c0383cd20937369e1edc8`
+- `results/joint_mb_va_global/optimum_certification.csv`, SHA-256:
+  `b3e0945c012b366775bd7f0845a214ed760fa5bf71ade1c4118f306891ffa35`
+- `results/joint_mb_va_global/objective_decomposition.csv`, SHA-256:
+  `ce5dbac070860cea2298b910a58d18d68d72e915a9aa6c2ca33095d06bb937fa`
+- `results/joint_mb_va_global/gh_convergence.csv`, SHA-256:
+  `054d224259ae0493498dfca5cee2ac37521665f5d06b4216595a3bd38142c0a6`
+
+No physical/security equation, peak limit, PMF positivity rule, lifecycle
+state, or baseline-selection claim changed.
+
+## EVID-0091 - Authorized exact joint MB/V_A landscape and local refinement
+
+Date: 2026-09-27
+
+Status: CURRENTLY_VERIFIED_PASS FOR JOINT LANDSCAPE; GLOBAL OPTIMUM UNRESOLVED
+
+The authorized joint stage evaluated the curved feasible region
+`V_A,max(nu)=min(V_A_config_max, 2*n_peak*m2(nu)/|x_max|^2)` with deterministic
+GH MI, V_A-dependent post-action noise, exact hash-bound C4/AP source moments,
+and full-Z Holevo. No interpolation, surrogate, or Adam was used.
+
+The sparse 25-point grid's best row was near `(nu_raw,V_A)=(.20,2.025)` with
+`SKR=2.14336794e-05`. Exact local refinement found
+
+```text
+(nu_raw,V_A) = (0.24,1.95)
+SKR          = 2.1544608008872113e-05
+I_AB_GH      = 3.5845686947766353e-4
+C            = 1.3876689082607805
+w            = 1.0292981533840356e-9
+Z_star       = 0.04430689348631826
+chi_BE      = 0.0003189894179949082
+epsilon_total=0.02911275902783573
+peak_photon  = 26.325014686064186
+```
+
+The local stencil has lower SKR at `nu=.23,.25` with `V_A=1.95` and at
+`V_A=1.925,1.975` with `nu=.24`. This supports a local interior candidate,
+not a global optimum. The sparse global domain and uniform optimized baseline
+are not fully certified.
+
+The fixed-V_A=2 MB sweep is only a diagnostic slice: changing V_A materially
+changes MI, phase noise, peak feasibility, C,w, and Holevo.
+
+The author authorization is recorded in
+`results/exact_mb_asymptotic/author_authorization.json`; global publication
+lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence and provenance
+
+- `scripts/run_joint_mb_va_optimization.py`, SHA-256:
+  `7589d10311f62e10d2065f00f0a9643860c4b021dde162cdc50748c4708a100f`
+- `scripts/run_joint_mb_va_local_refinement.py`, SHA-256:
+  `8f01b4362f688d7c170dd4c6110824dfcb1829a48ae308b9d396aba894fea997`
+- `results/joint_mb_va/run_report.json`, SHA-256:
+  `d1bb963343216014a47fb3c949ae0228815668c885a2875941a6d5bfebfa7cad`
+- `results/joint_mb_va/feasible_boundary.csv`, SHA-256:
+  `47b88082288f58a6fdd4f23b7b3189b2c55b0582f49b98b56e82442689c1c67b`
+- `results/joint_mb_va/joint_landscape.csv`, SHA-256:
+  `4998143831eb0a10625c41dd619c7e4ead6c3aace6e875e4219e7905a3c7365a`
+- `results/joint_mb_va/local_refinement.json`, SHA-256:
+  `d3742a4bf340d52899139acc9e107c6920c155214ca2eaaa96c4a3882a0f7d65`
+- Focused joint verification passed; no physical/security equations changed.
+
 ## EVID-0090 - Authorized exact-MB boundary/asymptotic landscape
 
 Date: 2026-09-27
