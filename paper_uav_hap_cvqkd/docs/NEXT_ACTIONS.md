@@ -1,5 +1,13 @@
 # Next Actions
 
+## Latest forensic result: EVID-0098 / DEC-0082
+
+The low-SKR cause is diagnosed without new C,w: optical coupling and excess
+noise dominate, while the Sayat comparison uses much larger apertures and
+shaped QAM. Do not call `V_A=0.1` the Uniform optimum; it is only the best of
+8 exact historical points. A definitive Uniform `[0.01,5]` answer requires an
+explicit domain/model decision and an authorized exact C,w campaign.
+
 ## Latest phase-noise result: EVID-0097 / DEC-0081
 
 The authorized phase-only sweep at the original `D_r=0.08 m` aperture did

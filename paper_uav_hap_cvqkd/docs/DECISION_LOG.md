@@ -2777,3 +2777,29 @@ range. No new C,w was computed. Lifecycle remains
 - EVID-0097
 - `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity.csv`
 - `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity_report.json`
+## DEC-0082 - Accept forensic diagnosis; do not claim Uniform optimum
+
+Date: 2026-09-30
+
+Status: ACTIVE DIAGNOSTIC DECISION; GLOBAL UNIFORM OPTIMUM UNRESOLVED
+
+Accept EVID-0098 as a read-only diagnosis of the current low SKR. The primary
+bottleneck is total optical loss, especially the small receiver/large beam
+coupling, followed by excess noise relative to the Uniform security bound.
+Physical distance alone is not the relevant comparison with Sayat 2024.
+
+Do not claim that no continuous `V_A` can make Uniform positive: only eight
+exact Uniform points exist. Do not interpolate C,w, extend the V_A domain,
+select a baseline, or launch a new AP campaign from this decision. Detector
+efficiency/noise remains absent from the ideal-heterodyne repository model and
+must not be inserted as an ad hoc correction.
+
+No channel/security equation, source moment, training state, final-test state,
+or lifecycle gate changed. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0098
+- `results/hap_uav_sayat_forensics/FORENSIC_DIAGNOSIS.md`
+- `results/hap_uav_sayat_forensics/forensic_report.json`

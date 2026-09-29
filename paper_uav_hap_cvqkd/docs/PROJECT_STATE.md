@@ -1,5 +1,18 @@
 # Project State
 
+## Latest HAP-UAV/Sayat forensic diagnostic (2026-09-30)
+
+EVID-0098/DEC-0082 identify `35.9369 dB` current effective loss, dominated by
+`32.7197 dB` finite-aperture/beam coupling and `2.7548 dB` pointing jitter.
+All 8 available exact Uniform points are negative with phase/AO off; the best
+tested value is `K=-4.3454249141616776e-5` at `V_A=0.1`. The exact continuous
+Uniform optimum is unresolved because most V_A points lack exact C,w.
+
+Sparse-exact diagnostics place the tested-candidate thresholds at
+`T_eff≈0.0898275`, `epsilon≈0.00540667`, and receiver diameter `≈1.52931 m`.
+No new source moment, model change, baseline selection, or publication-scale
+run occurred.
+
 ## Latest phase-noise sensitivity diagnostic (2026-09-29)
 
 EVID-0097/DEC-0081 restored the original `D_r=0.08 m` aperture and swept only

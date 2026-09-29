@@ -2,6 +2,26 @@
 
 ## Latest completed task
 
+Date: 2026-09-30
+
+EVID-0098 / DEC-0082 completed the phase-off, no-AO HAP-UAV/Sayat forensic
+diagnostic using only existing exact historical C,w.
+
+- Current `T_eff=2.548668306761574e-4` (`35.9369 dB` loss).
+- Dominant loss: `A0` (`32.7197 dB`), then pointing jitter (`2.7548 dB`).
+- Best tested Uniform: `V_A=0.1`, `K=-4.3454249141616776e-5`.
+- Best unconstrained diagnostic MB: `(nu_raw,V_A)=(0.15,3.5548673904962893)`,
+  `K=5.389031300306879e-5`; it exceeds the current `V_A<=1.5` budget.
+- Best tested budget-feasible MB: `(0.20,1.3833230302980657)`,
+  `K=3.6522672467498285e-5`.
+- Sparse-exact thresholds: `T_eff≈0.0898275`, `epsilon≈0.00540667`,
+  receiver diameter `≈1.52931 m`.
+- Exact continuous Uniform optimum remains unresolved; no new C,w or baseline
+  selection was authorized.
+- Artifacts: `results/hap_uav_sayat_forensics/`.
+
+## Previous completed task
+
 Date: 2026-09-29
 
 EVID-0097 / DEC-0081 completed the phase-noise-only sensitivity diagnostic at

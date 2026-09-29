@@ -4763,3 +4763,62 @@ requested full distance sweep was not run.
 - `results/skr_vs_link_distance/phase_noise_sensitivity/phase_sensitivity_report.json`, SHA-256:
   `c2348287a820005670da79fee4e4451f158c649bb358120665c29ee830898481`
 - Verification: phase runner exit code 0; artifact assertions and `py_compile` passed.
+## EVID-0098 - HAP-UAV versus Sayat 2024 forensic diagnostic
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR FORENSIC DIAGNOSTIC; GLOBAL UNIFORM OPTIMUM UNRESOLVED
+
+The phase-off, no-AO diagnostic reused 8 exact historical Uniform source
+ensembles and 30 exact historical MB ensembles. No C,w/AP/Fock/Gram source
+moment was computed. The current 30-degree channel has
+`T_eff=2.548668306761574e-4`, or `35.936866815634886 dB` loss. Its dominant
+terms are finite-aperture/beam coupling (`32.71968709806411 dB`) and
+pointing jitter (`2.754750991241439 dB`).
+
+Every available exact Uniform point is negative. The best tested point is
+`V_A=0.1`, with `I_AB=1.8384594915765717e-5`,
+`beta*I_AB=1.746536516997743e-5`,
+`chi_BE=6.0919614311594206e-5`, and
+`K=-4.3454249141616776e-5`. Direct-Z and full-interval evaluation agree at
+all eight tested Uniform points.
+
+Sparse-exact counterfactual thresholds are:
+
+```text
+T_eff threshold:        0.089827455162545 (10.4659090383 dB)
+epsilon threshold:      0.005406665159761906 SNU
+receiver diameter:      1.529311716556549 m
+```
+
+The existing historical MB set has a positive unconstrained diagnostic point at
+`(nu_raw,V_A)=(0.15,3.5548673904962893)`, with
+`K=5.389031300306879e-5` under the identical channel/security fixture. It
+exceeds the current `V_A<=1.5` budget. The best tested budget-feasible MB row
+is `(0.20,1.3833230302980657)` with `K=3.6522672467498285e-5`.
+
+Sayat et al. Eqs. 29--33 were independently evaluated at zenith for the good
+atmosphere. For `D_r=1 m`, total losses are approximately `3.874`, `7.396`,
+`11.833`, and `17.854 dB` at 200, 300, 500, and 1000 km. Thus the current
+22-km HAP-UAV channel is about 18.08 dB worse than the paper's 1000-km
+1-m-receiver channel. The paper uses binomial/discrete-Gaussian QAM, not
+Uniform QAM.
+
+The requested exact `[0.01,5]` Uniform sweep is not complete: the active
+domain is `[0.1,4]`, most points lack exact C,w, and baseline selection/AP
+expansion remains lifecycle-gated. No C,w interpolation was used.
+
+### Evidence and provenance
+
+- `scripts/run_hap_uav_sayat_forensic_diagnostic.py`, SHA-256:
+  `f0cb73f362fe377e9133247cad38c6c6f36a43dd6561a6cb4e9738a0e0f854ec`
+- `results/hap_uav_sayat_forensics/forensic_report.json`, SHA-256:
+  `d0234e715add6e2695a0b74710f935cb99115596c9e152d1baf7b7146f9850d0`
+- `results/hap_uav_sayat_forensics/FORENSIC_DIAGNOSIS.md`, SHA-256:
+  `fd4d412047abb859761a5210116142b25d188c2d1a486bec888f9a17aca7daa3`
+- Sayat et al. preprint: `https://arxiv.org/html/2211.16862v3`
+- Artifact assertions and `py_compile`: CURRENTLY_VERIFIED_PASS.
+- Focused channel/normalization/MI suite: 17 tests passed.
+- Focused Holevo-interval suite: 13 tests and 2 subtests passed.
+- A broader legacy Holevo test selection was stopped as runtime-limited and is
+  not used as pass evidence.

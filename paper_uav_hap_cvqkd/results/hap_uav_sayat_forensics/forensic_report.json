@@ -1,0 +1,153 @@
+{
+  "status": "FORENSIC_DIAGNOSTIC_COMPLETE_WITH_EXACT_CW_COVERAGE_LIMIT",
+  "new_source_moments_computed": false,
+  "primary_fixture": {
+    "phase_noise": "OFF",
+    "AO": "OFF / not used to rescue result",
+    "tau_zen": 0.92,
+    "epsilon": 0.0186,
+    "beta": 0.95,
+    "T_eff": 0.0002548668306761574,
+    "loss_dB": 35.936866815634886
+  },
+  "coverage": {
+    "uniform_exact_V_A": [
+      0.1,
+      0.6,
+      0.7,
+      0.8,
+      1.075,
+      2.05,
+      3.025,
+      4.0
+    ],
+    "mb_exact_pair_count": 30,
+    "skipped_candidate_count": 0,
+    "requested_uniform_0p01_to_5_exact_sweep": "NOT_RUN_MISSING_EXACT_CW_AND_OUTSIDE_FROZEN_VA_DOMAIN"
+  },
+  "uniform_best_tested": {
+    "family": "Uniform",
+    "nu_raw": 0.0,
+    "V_A": 0.1,
+    "C": 0.2288447295734444,
+    "w": 0.002567267208730281,
+    "ensemble_hash": "ccd5dfd54a3405070ab3f519d65c8e6cbbff0a9de45e95dd5b7924a86f233ff4",
+    "T_eff": 0.0002548668306761574,
+    "epsilon": 0.0186,
+    "I_AB": 1.8384594915765717e-05,
+    "beta_I_AB": 1.746536516997743e-05,
+    "Z_direct": 0.0071507918480916265,
+    "chi_BE_direct": 6.0919614311594206e-05,
+    "SKR_direct": -4.3454249141616776e-05,
+    "Z_full_interval": 0.0071507918480916265,
+    "chi_BE_full_interval": 6.0919614311594206e-05,
+    "SKR_full_interval": -4.3454249141616776e-05
+  },
+  "uniform_any_positive_tested": false,
+  "uniform_full_interval_equals_direct_at_tested_points": true,
+  "mb_best_tested": {
+    "family": "MB",
+    "nu_raw": 0.15,
+    "V_A": 3.5548673904962893,
+    "C": 2.221868916147515,
+    "w": 1.2741577947753198e-06,
+    "ensemble_hash": "c3603a3ba5d2867c2db311e6a4a2424f291813088f72a1888c2a4a95e7a77cc7",
+    "T_eff": 0.0002548668306761574,
+    "epsilon": 0.0186,
+    "I_AB": 0.0006534041463823748,
+    "beta_I_AB": 0.000620733939063256,
+    "Z_direct": 0.07093879550872903,
+    "chi_BE_direct": 0.0005668436260601872,
+    "SKR_direct": 5.389031300306879e-05
+  },
+  "mb_best_tested_within_V_A_budget": {
+    "family": "MB",
+    "nu_raw": 0.2,
+    "V_A": 1.3833230302980657,
+    "C": 1.0816918044493284,
+    "w": 9.186004803174064e-09,
+    "ensemble_hash": "7bf538e0940210768570095ee6e31a0c0d6fc0b7a051354d24912fdaa12b9838",
+    "T_eff": 0.0002548668306761574,
+    "epsilon": 0.0186,
+    "I_AB": 0.0002542975426846894,
+    "beta_I_AB": 0.00024158266555045492,
+    "Z_direct": 0.03453714891488415,
+    "chi_BE_direct": 0.00020505999308295664,
+    "SKR_direct": 3.6522672467498285e-05
+  },
+  "transmittance_threshold": {
+    "status": "SPARSE_EXACT_CANDIDATE_THRESHOLD",
+    "T_eff_threshold": 0.089827455162545,
+    "loss_threshold_dB": 10.465909038313699,
+    "bracket": [
+      0.0861398172804789,
+      0.11703168364236959
+    ],
+    "winner_V_A": 0.8,
+    "winner_SKR": 4.372856243772816e-12
+  },
+  "epsilon_zero_counterfactual": {
+    "family": "Uniform",
+    "nu_raw": 0.0,
+    "V_A": 0.7,
+    "C": 0.683366367105727,
+    "w": 0.014131776195457127,
+    "ensemble_hash": "e885de080da68cc4d58adeb2546ab89d23025db3bbc82f634ae2acca32c1f22b",
+    "T_eff": 0.0002548668306761574,
+    "epsilon": 0.0,
+    "I_AB": 0.00012868754984740605,
+    "beta_I_AB": 0.00012225317235503574,
+    "Z_direct": 0.021819271957891642,
+    "chi_BE_direct": 8.226230567687232e-05,
+    "SKR_direct": 3.999086667816343e-05
+  },
+  "epsilon_threshold": {
+    "status": "SPARSE_EXACT_CANDIDATE_EPSILON_THRESHOLD",
+    "epsilon_threshold": 0.005406665159761906,
+    "winner_V_A": 0.6,
+    "winner_SKR": 2.6898482627466663e-13
+  },
+  "aperture_threshold": {
+    "status": "SPARSE_EXACT_CANDIDATE_APERTURE_THRESHOLD",
+    "diameter_m": 1.529311716556549,
+    "T_eff": 0.08982745641751909,
+    "loss_dB": 10.465908977638671,
+    "winner_V_A": 0.8
+  },
+  "distance_summary": [
+    {
+      "curve": "Uniform",
+      "status": "NO_POSITIVE_TO_NONPOSITIVE_CROSSING"
+    },
+    {
+      "curve": "MB historical exact",
+      "status": "NO_POSITIVE_TO_NONPOSITIVE_CROSSING"
+    }
+  ],
+  "invalid_requested_distance_range": "5-18 km is shorter than the fixed 19 km HAP-UAV vertical separation",
+  "convention_audit": {
+    "T": "power transmittance; signal amplitude uses sqrt(T)",
+    "effective_fading_T": "<sqrt(T_raw)>^2 in the current scalar experiment",
+    "detector": "ideal heterodyne; eta_det and epsilon_det are absent",
+    "epsilon": "input-referred channel excess noise in the current ideal-detector model",
+    "V_A": "2*sum_i p_i*|alpha_i|^2",
+    "same_ensemble": "enforced by reconstructed ensemble hash for historical C,w reuse",
+    "beta": "multiplies I_AB only",
+    "security_authority_conflict": "frozen spec requests full-Z interval; distance runner uses direct Z_minus; tested Uniform rows select the same lower endpoint numerically"
+  },
+  "sayat_reproduction": {
+    "source": "https://arxiv.org/html/2211.16862v3",
+    "scope": "Eqs. 29-33 at zenith, good atmosphere, constant Cn2, positive scintillation fading margin",
+    "warning": "Sayat M-QAM uses binomial/discrete-Gaussian PMFs, not Uniform 256-QAM"
+  },
+  "optics": {
+    "current_receiver_diameter_m": 0.08,
+    "current_beam_radius_receiver_m": 2.4462370926361023,
+    "current_beam_waist_m": 0.004424935637532516,
+    "current_divergence_rad": 0.000223,
+    "receiver_1m_area_gain_dB_small_aperture": 21.93820026016113,
+    "receiver_2m_area_gain_dB_small_aperture": 27.958800173440753,
+    "paper_diffraction_scale_rad_lambda_over_Dt": 5.166666666666667e-06,
+    "current_to_paper_divergence_ratio_dB": 32.70188839195063
+  }
+}
