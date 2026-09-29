@@ -1,0 +1,86 @@
+{
+  "C_w_interpolation": false,
+  "channel_fixture": {
+    "T_eff": 0.0002548668306761576,
+    "c_phi": 0.005391158475813195,
+    "cn2_phase": 9.4e-18,
+    "epsilon_base": 0.0186,
+    "eta_AO": 0.95,
+    "link_length_m": 21939.310229205777,
+    "tau_zen": 0.92,
+    "zeta_deg": 30.0
+  },
+  "coarse_best": {
+    "SKR": 8.106128035987757e-05,
+    "nu_raw": 0.16
+  },
+  "common_ensemble_hashes_identical": true,
+  "crn_seeds": [
+    202607,
+    202608,
+    202609,
+    202610,
+    202611
+  ],
+  "finite_difference": {
+    "absolute_tolerance": 1e-07,
+    "center_nu_raw": 0.16,
+    "chosen_h": null,
+    "relative_tolerance": 0.05,
+    "rows": [
+      {
+        "center_nu_raw": 0.16,
+        "dK_dnu": -2.7500259327498024e-06,
+        "h": 0.01,
+        "minus_SKR": 8.099736153122978e-05,
+        "minus_nu_raw": 0.15,
+        "paired_stderr": 0.00023106529029621325,
+        "plus_SKR": 8.094236101257479e-05,
+        "plus_nu_raw": 0.17,
+        "resolved": false
+      },
+      {
+        "center_nu_raw": 0.16,
+        "dK_dnu": -3.42140000064565e-06,
+        "h": 0.005,
+        "minus_SKR": 8.105565590329708e-05,
+        "minus_nu_raw": 0.155,
+        "paired_stderr": 0.0002313213344921552,
+        "plus_SKR": 8.102144190329062e-05,
+        "plus_nu_raw": 0.165,
+        "resolved": false
+      }
+    ],
+    "stable": false,
+    "status": "FAIL"
+  },
+  "known_exact_source_checks": {
+    "0.1": {
+      "C_abs_diff": 0.0,
+      "status": "PASS",
+      "w_abs_diff": 4.0657581468206416e-20
+    },
+    "0.15": {
+      "C_abs_diff": 0.0,
+      "status": "PASS",
+      "w_abs_diff": 2.117582368135751e-22
+    },
+    "0.173421": {
+      "reason": "Prior terminal audit had no hash-bound cache artifact; unsafe import refused.",
+      "status": "NOT RUN"
+    },
+    "0.2": {
+      "C_abs_diff": 0.0,
+      "status": "PASS",
+      "w_abs_diff": 2.0183206946293875e-22
+    }
+  },
+  "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+  "mi_samples_per_symbol": 2048,
+  "status": "TEST2_NOT_RUN_FD",
+  "test2_adam": {
+    "reason": "FD readiness failed",
+    "status": "NOT RUN"
+  },
+  "test3": "NOT RUN"
+}

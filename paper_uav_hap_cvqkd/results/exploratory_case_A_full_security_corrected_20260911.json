@@ -1,0 +1,71 @@
+{
+  "schema": "exploratory-case-a-full-security-corrected-v1",
+  "status": "CURRENTLY_VERIFIED_PASS; EXPLORATORY_EVALUATION_ONLY; NO_TRAINING",
+  "case": "A",
+  "channel": {
+    "T": 0.028919672940466015,
+    "epsilon_base": 0.001,
+    "phase_coefficient": 0.0,
+    "epsilon_total": 0.001,
+    "V_A": 1.0,
+    "beta_reconciliation": 0.95,
+    "phase_status": "DISABLED_EXPLICIT_ZERO; NOT_PUBLICATION_APPROVED"
+  },
+  "ensemble": {
+    "symbols": 256,
+    "positive_probabilities": 256,
+    "unique_coherent_states": 256,
+    "row_sha256": "c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3"
+  },
+  "source_moments": {
+    "C": "0.85985110654649868138037962728289179096834048571987",
+    "w": "0.018327610474963502048823295065766568532781601388489",
+    "support_digits": [800, 900],
+    "resolved_positive_modes": 256,
+    "minimum_positive_eigenvalue": "3.9730108272405810054111598760366776739567198706419e-618",
+    "artifact": "results/ap_worker_corrected_case_A_20260911.json",
+    "artifact_sha256": "f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44"
+  },
+  "mutual_information": {
+    "I_AB": 0.02099665844391474,
+    "beta_I_AB": 0.019946825521719003,
+    "samples_per_symbol": 64
+  },
+  "security": {
+    "Z_minus": 0.2914192733053753,
+    "Z_plus": 0.2934784546975139,
+    "Z_phys": 0.2946960770696121,
+    "Z_L": 0.2914192733053753,
+    "Z_U": 0.2934784546975139,
+    "interval_width": 0.002059181392138565,
+    "Z_star": 0.2914192733053753,
+    "maximizing_location": "lower_boundary",
+    "chi_BE_ub": 0.01518919002933572,
+    "raw_K": 0.004757635492383283,
+    "security_domain_valid": true,
+    "z_grid_size": 33,
+    "z_refinement_steps": 12,
+    "maximization_method": "fixed_grid_all_cells_golden_section"
+  },
+  "superseded_old_result": {
+    "artifact": "results/exploratory_case_A_full_security_20260910.json",
+    "artifact_sha256": "4e12de13919931a0f54ec9dbc895be5249f1194c408bfe3c322239089031dfad",
+    "status": "SUPERSEDED_WRONG_AP_W",
+    "old_w": 0.03610054261387003,
+    "old_Z_minus": 0.29100386165863235,
+    "old_Z_plus": 0.29389386634425685,
+    "old_Z_phys": 0.2946960770696121,
+    "old_Z_L": 0.29100386165863235,
+    "old_Z_U": 0.29389386634425685,
+    "old_interval_width": 0.002890004685624503,
+    "old_Z_star": 0.29100386165863235,
+    "old_chi_BE_ub": 0.015626243490112435,
+    "old_raw_K": 0.004320582031606568,
+    "root_cause": "scripts/full_support_c4_worker.py used aa=sr*x2.T instead of aa=x2.T"
+  },
+  "limitations": [
+    "The corrected result is bounded to one exact Case A state and remains exploratory only.",
+    "The MI value is reused from the prior deterministic Case A evaluation; only corrected AP source moments and downstream full-Z quantities were recomputed.",
+    "No Cases B-D, training, certification, final-test, or publication-scale workflow was run."
+  ]
+}

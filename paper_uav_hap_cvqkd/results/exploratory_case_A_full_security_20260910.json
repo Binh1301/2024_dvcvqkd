@@ -1,0 +1,64 @@
+{
+  "schema": "exploratory-case-a-full-security-v1",
+  "status": "SUPERSEDED_WRONG_AP_W",
+  "source_moment_status": "SUPERSEDED_WRONG_AP_W",
+  "supersession": {
+    "old_w": 0.03610054261387003,
+    "corrected_w": 0.018327610474963502,
+    "corrected_artifact": "results/exploratory_case_A_full_security_corrected_20260911.json",
+    "affected_downstream": ["Z_minus", "Z_plus", "Z_L", "Z_U", "Z_star", "chi_BE_ub", "raw_K"],
+    "root_cause": "scripts/full_support_c4_worker.py used aa=sr*x2.T instead of aa=x2.T"
+  },
+  "case": "A",
+  "channel": {
+    "T": 0.028919672940466015,
+    "epsilon_base": 0.001,
+    "phase_coefficient": 0.0,
+    "epsilon_total": 0.001,
+    "V_A": 1.0,
+    "phase_status": "DISABLED_EXPLICIT_ZERO; NOT_PUBLICATION_APPROVED"
+  },
+  "ensemble": {
+    "symbols": 256,
+    "positive_probabilities": 256,
+    "min_probability": 0.00390625,
+    "min_pairwise_distance": 0.10846522890932797,
+    "max_abs_alpha": 1.1504474832710556,
+    "mean_abs_alpha_sq": 0.4999999999999999
+  },
+  "arbitrary_precision": {
+    "decimal_digits": 800,
+    "resolved_positive_modes": 256,
+    "minimum_positive_eigenvalue": "3.9730108272405810054111598760366776739567198706419e-618",
+    "runtime_seconds": 290.9291875362396,
+    "path": "existing full_support_c4_worker.py; evaluation-only"
+  },
+  "security": {
+    "I_AB": 0.02099665844391474,
+    "C": 0.8598511065464987,
+    "w": 0.03610054261387003,
+    "Z_minus": 0.29100386165863235,
+    "Z_plus": 0.29389386634425685,
+    "Z_phys": 0.2946960770696121,
+    "Z_L": 0.29100386165863235,
+    "Z_U": 0.29389386634425685,
+    "Z_star": 0.29100386165863235,
+    "chi_BE_ub": 0.015626243490112435,
+    "beta_reconciliation": 0.95,
+    "beta_I_AB": 0.019946825521719003,
+    "raw_K": 0.004320582031606568,
+    "optimum_location": "lower_boundary",
+    "lambda1": 1.9717790961783892,
+    "lambda2": 1.000727688791796,
+    "lambda3": 1.9582624972320468,
+    "security_domain_valid": true,
+    "z_grid_size": 33,
+    "z_refinement_steps": 12,
+    "maximization_method": "fixed_grid_all_cells_golden_section"
+  },
+  "limitations": [
+    "C and w were obtained at 800 decimal digits and converted to float64 for the existing covariance/full-Z evaluator.",
+    "No gradient claim is made.",
+    "No Cases B-D, training, certification, final-test, or publication-scale workflow was run in this task."
+  ]
+}

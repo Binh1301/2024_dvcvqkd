@@ -1,0 +1,113 @@
+{
+  "artifact": "EFFECTIVE_CHANNEL_VA2_ZSTAR_SOURCE_REFERENCE_COMPARISON",
+  "scope": "Validated source moments to primary Z_star Holevo and signed raw SKR only",
+  "source_moments_recomputed": false,
+  "ap_source_worker_invoked": false,
+  "full_z_optimizer_invoked": false,
+  "VA": 2.0,
+  "effective_channel": {
+    "T_eff": 0.0002990280293659837,
+    "epsilon_eff": 0.4690081582855452,
+    "beta_rec": 0.95,
+    "phase_noise_already_in_epsilon_eff": true
+  },
+  "source_references": {
+    "uniform": {
+      "C": "1.4019995788968011700681192152159252514555640211395",
+      "w": "0.026543338228713932540445642845440478987301227896247"
+    },
+    "binomial": {
+      "C": "1.41414750131106445213245972871615156498",
+      "w": "1.13331366963443032864740272931418486e-4"
+    },
+    "mb": {
+      "nu_MB": 0.1,
+      "C": "1.4141975446461088728099397679159500271185396830827",
+      "w": "3.5382188425273695384131484143796774042381888693943e-5"
+    }
+  },
+  "mi": {
+    "seeds": [202607, 202608, 202609, 202610, 202611],
+    "samples_per_symbol": 2048
+  },
+  "results": [
+    {
+      "scheme": "uniform",
+      "PMF_sha256": "62fd56f6dba82940fef0d2e81f7ee6eb90b9a1966386285b96b358940370ef9c",
+      "amplitude_sha256": "6ce1fd76acbd7820f5f3120be9a19f146952861c0bf2db8636adae099582330d",
+      "I_AB": 0.00045272995092453526,
+      "I_AB_stderr": 1.789984288877704e-05,
+      "Z_signal": 0.04848795056710953,
+      "Z_penalty": 0.002728593978517788,
+      "Z_star": 0.04575935658859174,
+      "chi_BE_bound": 0.0018329640725391894,
+      "beta_I_AB": 0.00043009345337830846,
+      "K_raw": -0.0014028706191608808,
+      "mode": "zstar",
+      "physicality_min_lambda": 1.0002148510812436,
+      "symmetry_supported": true,
+      "numerical_repairs": []
+    },
+    {
+      "scheme": "binomial",
+      "PMF_sha256": "60acf7b14936e1ac48e8b3fce4bda4edd46b2b2c120ef32f7435824076750db9",
+      "amplitude_sha256": "4da0d68db1dc3b574f9a1245180a6eb5367711e3fd3061232ffcc2254a3e3c73",
+      "I_AB": 0.0005007278773794255,
+      "I_AB_stderr": 2.8663633916609648e-05,
+      "Z_signal": 0.04890808468867565,
+      "Z_penalty": 0.00017829378692066792,
+      "Z_star": 0.04872979090175498,
+      "chi_BE_bound": 0.0013960773492240897,
+      "beta_I_AB": 0.0004756914835104542,
+      "K_raw": -0.0009203858657136355,
+      "mode": "zstar",
+      "physicality_min_lambda": 1.0001446759846089,
+      "symmetry_supported": true,
+      "numerical_repairs": []
+    },
+    {
+      "scheme": "mb",
+      "nu_MB": 0.1,
+      "PMF_sha256": "7a9fb6442541cfd8d6a31207b640f266ea9e5202dccd636d6b283e3df4ef0a40",
+      "amplitude_sha256": "c4a8526f95f9efc6e63deae950cc4441d6f70c91c20cad2bc58e19c9d3ba0937",
+      "I_AB": 0.0004971860398264027,
+      "I_AB_stderr": 2.4023767903728188e-05,
+      "Z_signal": 0.04890981543010551,
+      "Z_penalty": 9.962159512978244e-05,
+      "Z_star": 0.04881019383497573,
+      "chi_BE_bound": 0.0013835621184299374,
+      "beta_I_AB": 0.0004723267378350826,
+      "K_raw": -0.0009112353805948547,
+      "mode": "zstar",
+      "physicality_min_lambda": 1.0001427151383468,
+      "symmetry_supported": true,
+      "numerical_repairs": []
+    }
+  ],
+  "deltas_vs_uniform": {
+    "binomial": {
+      "Delta_I_AB": 0.00004799792645489024,
+      "Delta_Z_star": 0.00297043431316324,
+      "Delta_chi_BE": -0.0004368867233150997,
+      "Delta_K_raw": 0.0004824847534472453
+    },
+    "mb": {
+      "Delta_I_AB": 0.00004445608890186744,
+      "Delta_Z_star": 0.00305083724638399,
+      "Delta_chi_BE": -0.000449401954109252,
+      "Delta_K_raw": 0.0004916352385660261
+    }
+  },
+  "checks": {
+    "z_formula_error_all_schemes": 0.0,
+    "primary_z_used_matches_result_z": true,
+    "all_covariance_physicality_checks_passed": true,
+    "all_raw_rates_unclipped": true,
+    "mi_regression_differences": {
+      "uniform": -7.546474e-14,
+      "binomial": 3.794255e-13,
+      "mb": -1.735973e-13
+    }
+  },
+  "runtime_seconds": 15.556514900003094
+}

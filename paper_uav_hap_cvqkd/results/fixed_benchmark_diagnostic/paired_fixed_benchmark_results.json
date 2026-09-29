@@ -1,0 +1,884 @@
+{
+  "schema_version": "paired-fixed-benchmark-diagnostic-v1",
+  "status": "READY_FOR_IMPLEMENTATION: NO",
+  "classification": "EXPLORATORY_NON_PUBLICATION_DIAGNOSTIC",
+  "blocker": "NUMERICAL_SUPPORT_AMBIGUITY",
+  "provenance": {
+    "timestamp_utc": "2026-09-18T09:32:39.451197+00:00",
+    "git_commit": "951045ae0c126608eb62d3b4ff97945ccad8778e",
+    "git_dirty": true,
+    "config": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\configs\\default.yaml",
+    "config_sha256": "deafd070bb2407126ba66879bd89efd9391ca3f0120a4aa8f4754142884fb635",
+    "final_model_spec_sha256": "3da71edf4531c4cb793ec82d4b7998ef661b7765e50b120208ec23830b6a356e",
+    "source_pdf": "C:\\Users\\admin\\Downloads\\2026__Binh_s_work__Copy___Copy_ (5).pdf",
+    "source_pdf_sha256": "2bb15c9a2d67eac5eeef46c18e64eca6acdc09e033fed3e81ebf55a155aa0461",
+    "producer_sha256": "992fc5ee53b6802b4cdca7046412801b07ccee1c444b4f0d99749162d66bedbf",
+    "phase_source_sha256": "d700862b4c455344e0217ddd7fa70656063f45f825cdab2c132678882ec48306",
+    "qam_source_sha256": "f4cbb98cde6ae655c180a292395dd49f251c23e4be3ea7e4e1106044a9ad7636",
+    "gram_source_sha256": "bd506852dee1010d4ac5c73295d90e09cfdd69429bfed31ab85c9881acf7d784",
+    "ap_worker_sha256": "1732ff806ec8f4089d693a1d3e5a4faba72019eaedc0777c6913911a20b70a29"
+  },
+  "run_config": {
+    "schemes": [
+      "uniform",
+      "binomial",
+      "mb"
+    ],
+    "va_grid_snu": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5
+    ],
+    "mb_nu": 0.1,
+    "fading_samples": 16,
+    "awgn_samples_per_symbol": 64,
+    "channel_seed": 202613,
+    "awgn_seed": 202615,
+    "diagnostic_eigenvalue_thresholds": [
+      1e-10,
+      1e-12,
+      1e-14,
+      1e-16
+    ],
+    "pseudoinverse_threshold_approved": false,
+    "source_support_definition": "strict_positive_full_mathematical_support_256"
+  },
+  "phase_provenance": {
+    "parameterization": "rytov_equivalent_hufnagel_valley",
+    "cn_eff2_m_minus_two_thirds": 9.421675529626135e-18,
+    "rytov_integral": 3.599418452040883e-10,
+    "sigma_R0_squared": 0.04145444025152738,
+    "wavelength_m": 1.55e-06,
+    "link_distance_m": 19000.0,
+    "tau_phi2": 0.08290888050305477,
+    "c_phi": 0.08462735111962222,
+    "tau_phi2_expected_from_identity": 0.08290888050305475,
+    "tau_phi2_identity_residual": 1.3877787807814457e-17,
+    "units": {
+      "cn_eff2_m_minus_two_thirds": "m^(-2/3)",
+      "rytov_integral": "m^(7/6-2/3)",
+      "sigma_R0_squared": "dimensionless",
+      "wavelength_m": "m",
+      "link_distance_m": "m",
+      "tau_phi2": "dimensionless",
+      "c_phi": "dimensionless"
+    },
+    "cn_eff2_is_derived": true,
+    "c_phi_is_derived": true
+  },
+  "support_preflight": [
+    {
+      "scheme": "uniform",
+      "target_VA": 0.1,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.5758062294859275e-16,
+      "numerical_positive_eigenvalues": 126,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 249,
+        "1e-12": 248,
+        "1e-14": 247,
+        "1e-16": 245
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 5.674635514341264e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.1,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.779594474668245e-17,
+      "numerical_positive_eigenvalues": 127,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 248,
+        "1e-12": 247,
+        "1e-14": 245,
+        "1e-16": 242
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.049402739113941e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.1,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -7.251420282957164e-17,
+      "numerical_positive_eigenvalues": 132,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 248,
+        "1e-12": 247,
+        "1e-14": 245,
+        "1e-16": 243
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.6783879426365914e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.2,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.253863890745613e-16,
+      "numerical_positive_eigenvalues": 127,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 248,
+        "1e-12": 247,
+        "1e-14": 246,
+        "1e-16": 244
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 5.149691381693834e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.2,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.4725669782132521e-16,
+      "numerical_positive_eigenvalues": 130,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 246,
+        "1e-12": 245,
+        "1e-14": 243,
+        "1e-16": 241
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.724400500682598e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.2,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.5877253727304464e-16,
+      "numerical_positive_eigenvalues": 131,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 246,
+        "1e-12": 245,
+        "1e-14": 243,
+        "1e-16": 240
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.946069467010804e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.3,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.1266861861439318e-16,
+      "numerical_positive_eigenvalues": 128,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 247,
+        "1e-12": 246,
+        "1e-14": 245,
+        "1e-16": 243
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 5.87934773931095e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.3,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.4075537204319997e-16,
+      "numerical_positive_eigenvalues": 135,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 245,
+        "1e-12": 243,
+        "1e-14": 241,
+        "1e-16": 239
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.3120315464897406e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.3,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -6.975880124968923e-17,
+      "numerical_positive_eigenvalues": 131,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 245,
+        "1e-12": 243,
+        "1e-14": 241,
+        "1e-16": 238
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.0548824888331607e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.4,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.5448839240238849e-16,
+      "numerical_positive_eigenvalues": 126,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 247,
+        "1e-12": 245,
+        "1e-14": 244,
+        "1e-16": 243
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 4.5618416907173346e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.4,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.8447701404735845e-17,
+      "numerical_positive_eigenvalues": 135,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 244,
+        "1e-12": 241,
+        "1e-14": 239,
+        "1e-16": 236
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.5048555498862407e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.4,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.3065810128558922e-16,
+      "numerical_positive_eigenvalues": 132,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 244,
+        "1e-12": 242,
+        "1e-14": 240,
+        "1e-16": 237
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 2.039641450746013e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.5,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.5091835186282913e-16,
+      "numerical_positive_eigenvalues": 131,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 246,
+        "1e-12": 245,
+        "1e-14": 243,
+        "1e-16": 241
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 3.076838733448657e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.5,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -2.1599263654520563e-16,
+      "numerical_positive_eigenvalues": 135,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 242,
+        "1e-12": 240,
+        "1e-14": 238,
+        "1e-16": 236
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.618846591611761e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.5,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -2.3749279163075725e-16,
+      "numerical_positive_eigenvalues": 132,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 242,
+        "1e-12": 240,
+        "1e-14": 238,
+        "1e-16": 236
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3647008359928928e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.6,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -5.66278423572274e-17,
+      "numerical_positive_eigenvalues": 126,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 245,
+        "1e-12": 244,
+        "1e-14": 242,
+        "1e-16": 240
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.8442614522905376e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.6,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -5.440107233292751e-17,
+      "numerical_positive_eigenvalues": 132,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 241,
+        "1e-12": 239,
+        "1e-14": 236,
+        "1e-16": 233
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.0118611553625078e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.6,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -5.719695644501888e-17,
+      "numerical_positive_eigenvalues": 136,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 241,
+        "1e-12": 239,
+        "1e-14": 237,
+        "1e-16": 234
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.8884636621784607e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.7,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -8.458058189581792e-17,
+      "numerical_positive_eigenvalues": 130,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 245,
+        "1e-12": 243,
+        "1e-14": 242,
+        "1e-16": 239
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.5566694406753829e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.7,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.8345876975248829e-16,
+      "numerical_positive_eigenvalues": 137,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 240,
+        "1e-12": 238,
+        "1e-14": 235,
+        "1e-16": 233
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 9.046292517514282e-16,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.7,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -8.413743729989833e-17,
+      "numerical_positive_eigenvalues": 136,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 240,
+        "1e-12": 238,
+        "1e-14": 236,
+        "1e-16": 232
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3162537865025467e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.8,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -4.369490361401187e-17,
+      "numerical_positive_eigenvalues": 130,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 244,
+        "1e-12": 243,
+        "1e-14": 241,
+        "1e-16": 239
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3305193594583792e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.8,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -9.153902027197608e-17,
+      "numerical_positive_eigenvalues": 137,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 239,
+        "1e-12": 236,
+        "1e-14": 234,
+        "1e-16": 231
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.5325679840310845e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.8,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.7913947204815061e-16,
+      "numerical_positive_eigenvalues": 136,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 239,
+        "1e-12": 237,
+        "1e-14": 234,
+        "1e-16": 231
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3238789886933307e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 0.9,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -6.578267712332857e-17,
+      "numerical_positive_eigenvalues": 127,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 244,
+        "1e-12": 242,
+        "1e-14": 241,
+        "1e-16": 239
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3458939057609462e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 0.9,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.0689238658605076e-16,
+      "numerical_positive_eigenvalues": 138,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 238,
+        "1e-12": 235,
+        "1e-14": 232,
+        "1e-16": 230
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.1418637064249446e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 0.9,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.1617251762143297e-16,
+      "numerical_positive_eigenvalues": 135,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 238,
+        "1e-12": 236,
+        "1e-14": 233,
+        "1e-16": 231
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.2299252214693656e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 1.0,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.5734861430943337e-16,
+      "numerical_positive_eigenvalues": 127,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 244,
+        "1e-12": 242,
+        "1e-14": 240,
+        "1e-16": 238
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 6.368164010883907e-16,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 1.0,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -8.820464136479413e-17,
+      "numerical_positive_eigenvalues": 141,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 237,
+        "1e-12": 234,
+        "1e-14": 231,
+        "1e-16": 228
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.308717300988537e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 1.0,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -2.9381320289817863e-16,
+      "numerical_positive_eigenvalues": 136,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 238,
+        "1e-12": 235,
+        "1e-14": 232,
+        "1e-16": 230
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3502796526316307e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 1.1,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -5.0511411030072407e-17,
+      "numerical_positive_eigenvalues": 132,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 243,
+        "1e-12": 241,
+        "1e-14": 240,
+        "1e-16": 238
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 6.176240773043083e-16,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 1.1,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.0165668575869707e-16,
+      "numerical_positive_eigenvalues": 140,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 236,
+        "1e-12": 233,
+        "1e-14": 230,
+        "1e-16": 226
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 2.8277444332725205e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 1.1,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.0725005085591043e-16,
+      "numerical_positive_eigenvalues": 141,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 237,
+        "1e-12": 234,
+        "1e-14": 231,
+        "1e-16": 228
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.0106059461738907e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 1.2,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.517756768518946e-16,
+      "numerical_positive_eigenvalues": 136,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 243,
+        "1e-12": 241,
+        "1e-14": 239,
+        "1e-16": 238
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.2558474775745852e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 1.2,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.9321864814823408e-16,
+      "numerical_positive_eigenvalues": 133,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 235,
+        "1e-12": 232,
+        "1e-14": 229,
+        "1e-16": 226
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.1351127912756337e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 1.2,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.2809546501534603e-17,
+      "numerical_positive_eigenvalues": 134,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 236,
+        "1e-12": 233,
+        "1e-14": 230,
+        "1e-16": 226
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.8630428075537245e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 1.3,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.6328814221220456e-16,
+      "numerical_positive_eigenvalues": 133,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 242,
+        "1e-12": 241,
+        "1e-14": 239,
+        "1e-16": 237
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.008887216948723e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 1.3,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -2.989242658144841e-17,
+      "numerical_positive_eigenvalues": 140,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 235,
+        "1e-12": 231,
+        "1e-14": 228,
+        "1e-16": 224
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.694461019726918e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 1.3,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -6.826782290698784e-17,
+      "numerical_positive_eigenvalues": 137,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 235,
+        "1e-12": 232,
+        "1e-14": 229,
+        "1e-16": 225
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 7.853951356932203e-16,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 1.4,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -5.105902328899722e-17,
+      "numerical_positive_eigenvalues": 134,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 242,
+        "1e-12": 240,
+        "1e-14": 238,
+        "1e-16": 236
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.0634840706496979e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 1.4,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -6.577665941773538e-17,
+      "numerical_positive_eigenvalues": 145,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 234,
+        "1e-12": 230,
+        "1e-14": 227,
+        "1e-16": 223
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.1905377747855227e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 1.4,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -9.754334915447803e-17,
+      "numerical_positive_eigenvalues": 142,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 234,
+        "1e-12": 231,
+        "1e-14": 228,
+        "1e-16": 224
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.616187757342485e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "uniform",
+      "target_VA": 1.5,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.0590691441247121e-16,
+      "numerical_positive_eigenvalues": 133,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 242,
+        "1e-12": 240,
+        "1e-14": 238,
+        "1e-16": 236
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.3102745812619462e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "binomial",
+      "target_VA": 1.5,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.342377179794575e-16,
+      "numerical_positive_eigenvalues": 140,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 233,
+        "1e-12": 229,
+        "1e-14": 226,
+        "1e-16": 221
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.8793250089208488e-15,
+      "fast_path_passed": false
+    },
+    {
+      "scheme": "mb",
+      "target_VA": 1.5,
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -1.2367646953242842e-16,
+      "numerical_positive_eigenvalues": 144,
+      "eigenvalues_at_or_below_diagnostic_threshold": {
+        "1e-10": 233,
+        "1e-12": 230,
+        "1e-14": 227,
+        "1e-16": 223
+      },
+      "sector_condition_number": Infinity,
+      "sector_reconstruction_residual": 1.1194509741827118e-15,
+      "fast_path_passed": false
+    }
+  ],
+  "ap_witness": {
+    "scheme": "uniform",
+    "target_VA": 0.1,
+    "status": "FULL_SUPPORT_CONVERGED",
+    "C": 0.2288447295734444,
+    "w": 0.002567267208730281,
+    "diagnostics": {
+      "route": "ARBITRARY_PRECISION_FALLBACK",
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -1.5758062294859275e-16,
+        "numerical_positive_eigenvalues": 126,
+        "eigenvalues_at_or_below_diagnostic_threshold": {
+          "1e-10": 249,
+          "1e-12": 248,
+          "1e-14": 247,
+          "1e-16": 245
+        },
+        "sector_condition_number": Infinity,
+        "sector_reconstruction_residual": 5.674635514341264e-15
+      },
+      "fallback_precisions": [
+        1050,
+        1250,
+        1450
+      ],
+      "fallback_rows": [
+        {
+          "C": "0.22884472957344438869167394100710021227025790773101",
+          "digits": 1050,
+          "eigenvalues_at_or_below_diagnostic_threshold": {
+            "0x1.19799812dea11p-40": 248,
+            "0x1.6849b86a12b9bp-47": 247,
+            "0x1.b7cdfd9d7bdbbp-34": 249,
+            "0x1.cd2b297d889bcp-54": 246
+          },
+          "minimum_eigenvalue": "3.9944180094554898892660854061659722083265152521916e-873",
+          "rank": 256,
+          "resolved": true,
+          "w": "0.0025672672087302810310549004494870986445771359283124"
+        },
+        {
+          "C": "0.22884472957344438869167394100710021227025790773101",
+          "digits": 1250,
+          "eigenvalues_at_or_below_diagnostic_threshold": {
+            "0x1.19799812dea11p-40": 248,
+            "0x1.6849b86a12b9bp-47": 247,
+            "0x1.b7cdfd9d7bdbbp-34": 249,
+            "0x1.cd2b297d889bcp-54": 246
+          },
+          "minimum_eigenvalue": "3.9944180094554898892660854061659722083265152521916e-873",
+          "rank": 256,
+          "resolved": true,
+          "w": "0.0025672672087302810310549004494870986445771359283124"
+        },
+        {
+          "C": "0.22884472957344438869167394100710021227025790773101",
+          "digits": 1450,
+          "eigenvalues_at_or_below_diagnostic_threshold": {
+            "0x1.19799812dea11p-40": 248,
+            "0x1.6849b86a12b9bp-47": 247,
+            "0x1.b7cdfd9d7bdbbp-34": 249,
+            "0x1.cd2b297d889bcp-54": 246
+          },
+          "minimum_eigenvalue": "3.9944180094554898892660854061659722083265152521916e-873",
+          "rank": 256,
+          "resolved": true,
+          "w": "0.0025672672087302810310549004494870986445771359283124"
+        }
+      ],
+      "minimum_eigenvalue": 0.0,
+      "support_size": 256,
+      "numerical_retained_rank": 256,
+      "tau_diagnostic": 1e-12,
+      "exact_input_provenance": "float.hex binary64"
+    },
+    "runtime_seconds": 1384.7087388
+  },
+  "ap_witness_reused_from_artifact_sha256": "ab7b46b96115140824228f25ff57a65174180397f1b30f1ca31af1573166b5d5",
+  "results": [],
+  "runtime_seconds": 0.4251259000011487
+}

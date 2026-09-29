@@ -1,0 +1,17 @@
+{
+  "schema": "joint-mb-va-ap-coverage-timeout-v1",
+  "date": "2026-09-28",
+  "source_route": "ARBITRARY_PRECISION_FALLBACK",
+  "timeout_seconds": 3600,
+  "failure_class": "BLOCKED_BY_ENVIRONMENT",
+  "observed_error": "FloatingPointError: full-support fallback failed closed: fallback timeout",
+  "precision_ladder_decimal_digits": [1050, 1250, 1450],
+  "coverage_after_batch": {
+    "global": "19/143",
+    "local": "26/59",
+    "boundary": "9/18",
+    "uniform": "8/43"
+  },
+  "policy": "Keep successful source JSON files; leave failed or unattempted points incomplete; do not interpolate or weaken exactness.",
+  "classification": "GLOBAL_OPTIMUM_UNRESOLVED"
+}

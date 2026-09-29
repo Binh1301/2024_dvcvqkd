@@ -234,7 +234,7 @@ def plot(path: Path, envelopes: dict[str, list[dict]], summaries: list[dict]) ->
     ax.axhline(0.0, color="#111827", linewidth=0.9, linestyle=(0, (4, 3)))
     ax.set_xlabel("Link distance L (km)")
     ax.set_ylabel("SKR (bits/use)")
-    ax.set_title("Historical exact C,w diagnostic: SKR vs link distance", weight="bold")
+    ax.set_title("SKR vs link distance", weight="bold")
     ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0), useMathText=True)
     ax.grid(axis="both", color="#cbd5e1", linewidth=0.6, alpha=0.7)
     ax.set_axisbelow(True)

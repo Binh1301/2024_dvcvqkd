@@ -1,0 +1,55 @@
+{
+  "schema": "ap-custom-backward-case-a-v1",
+  "status": "SUPERSEDED_WRONG_AP_W; AP_CUSTOM_BACKWARD_NOT_VALIDATED",
+  "reference_status": "SUPERSEDED_WRONG_AP_W",
+  "scope": "FEASIBILITY_ONLY; EXPERIMENTAL_AP_CUSTOM_BACKWARD; NO_TRAINING",
+  "ensemble": {
+    "symbols": 256,
+    "positive_probabilities": 256,
+    "unique_coherent_states": 256,
+    "row_sha256": "c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3",
+    "case": "A",
+    "modulation_variance": 1.0
+  },
+  "backend": {
+    "module": "src/cvqkd/ap_custom_backward.py",
+    "decimal_digits": 800,
+    "runtime_seconds": 1364.634083500001,
+    "reference_forward_seconds": 290.9291875362396,
+    "estimated_reverse_seconds": 1073.7048959637614,
+    "batch_linear_estimate_seconds": {
+      "1": 1364.634083500001,
+      "8": 10917.072668000008,
+      "32": 43668.29067200003
+    },
+    "minimum_positive_eigenvalue": "3.9730108272405810054111598760366776739567198706418520770853e-618",
+    "resolved_positive_modes": 256,
+    "upstream": {
+      "C": 1,
+      "w": 1
+    }
+  },
+  "custom_forward": {
+    "C": "0.859851106546498681380379627282891790968340485719872325869582",
+    "w_current_fast_formula": "0.0183276104749635020488232950657665685327816013884889656089007",
+    "gradient_p0": "-4.972608404659979669256643403474671950341e+105",
+    "gradient_alpha0": "-2.189658833264213545612074422844243723079e+104 - 2.070830402805282741226306192133400739232e+105j"
+  },
+  "stored_ap_reference": {
+    "source": "scripts/full_support_c4_worker.py",
+    "decimal_digits": 800,
+    "C": "0.859851106546498681380379627282891790968340485719872325869582",
+    "w": "0.036100542613870033351915810541870256323207487096757"
+  },
+  "mismatch": {
+    "w_absolute_difference": "0.01777293213890653130309251548",
+    "w_relative_to_stored_reference": "0.4923175900430391289869628607",
+    "root_cause": "full_support_c4_worker.py multiplies the second solve result by sr once more: aa=sr*x2.T; the current _fast/reference construction requires aa=x2.T",
+    "validation_blocked": true
+  },
+  "limitations": [
+    "No AP central-difference directional validation was run after the forward-definition mismatch was found.",
+    "No torch PS/GS/V_A chain or full-Z backward was run.",
+    "No optimizer step, training, final-test, certification, or publication-scale evaluation was run."
+  ]
+}

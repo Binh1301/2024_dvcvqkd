@@ -1,0 +1,51 @@
+{
+  "schema": "corrected-ap-worker-case-a-v1",
+  "status": "CURRENTLY_VERIFIED_PASS; CORRECTED_AP_FORWARD_VALIDATED",
+  "scope": "BOUNDED_CASE_A_EXPLORATORY_FORWARD_ONLY; NO_TRAINING; NO_B-D",
+  "ensemble": {
+    "case": "A",
+    "symbols": 256,
+    "positive_probabilities": 256,
+    "unique_coherent_states": 256,
+    "row_sha256": "c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3",
+    "modulation_variance": 1.0
+  },
+  "provenance": {
+    "worker": "scripts/full_support_c4_worker.py",
+    "worker_sha256": "2cd1feeeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+    "production_gram_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+    "corrected_expression": "aa = x2.T",
+    "old_expression": "aa = sr * x2.T"
+  },
+  "rows": [
+    {
+      "digits": 800,
+      "runtime_seconds": 367.3323453000012,
+      "resolved_positive_modes": 256,
+      "minimum_positive_eigenvalue": "3.9730108272405810054111598760366776739567198706419e-618",
+      "C": "0.85985110654649868138037962728289179096834048571987",
+      "w": "0.018327610474963502048823295065766568532781601388489"
+    },
+    {
+      "digits": 900,
+      "runtime_seconds": 416.6573138999993,
+      "resolved_positive_modes": 256,
+      "minimum_positive_eigenvalue": "3.9730108272405810054111598760366776739567198706419e-618",
+      "C": "0.85985110654649868138037962728289179096834048571987",
+      "w": "0.018327610474963502048823295065766568532781601388489"
+    }
+  ],
+  "stability": {
+    "reported_digits": 50,
+    "C_absolute_difference_at_reported_precision": "0",
+    "w_absolute_difference_at_reported_precision": "0",
+    "difference_upper_bound_from_serialization": "<1e-49",
+    "C_relative_difference": "<1e-49",
+    "w_relative_difference": "<1e-49"
+  },
+  "superseded_reference": {
+    "old_w": "0.036100542613870033351915810541870256323207487096757",
+    "corrected_w": "0.018327610474963502048823295065766568532781601388489",
+    "root_cause": "old worker multiplied the production A_s block by sr once more"
+  }
+}

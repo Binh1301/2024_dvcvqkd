@@ -1,0 +1,88 @@
+{
+  "schema": "skr-vs-link-distance-v1",
+  "created_utc": "2026-09-28T16:25:25.219058+00:00",
+  "git_commit": "63785457566da7169bba0e9fe301a926f858db89",
+  "git_dirty": true,
+  "config_path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\configs\\default.yaml",
+  "config_sha256": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+  "primary_holevo_mode": "zstar",
+  "maximize_full_interval": false,
+  "mi_function": "src.cvqkd.mutual_information.deterministic_mutual_information",
+  "holevo_function": "src.cvqkd.holevo._holevo_from_source_moments",
+  "channel_constructor": "scripts.calculate_channel_pdf_and_moments.derive_physical_inputs + analyze_product",
+  "channel_convention": "T_eff=<sqrt(T)>^2 from current closed-form truncated fading moments",
+  "tau_zen": 0.92,
+  "cn2_phase_m_minus_two_thirds": 1e-16,
+  "ao_definition": "tau_phi_AO^2=(1-eta_AO)*tau_phi_raw^2; AO does not rescale T",
+  "no_ao_definition": "uncorrected tau_phi_raw^2 in the existing diagnostic phase model",
+  "eta_ao": 0.95,
+  "beta_reconciliation": 0.95,
+  "v_a_bounds_snu": [
+    0.1,
+    4.0
+  ],
+  "n_peak_photons": 30.0,
+  "mb_nu_raw_grid": [
+    0.05,
+    0.1,
+    0.15,
+    0.2
+  ],
+  "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+  "binomial_parameterization": "fixed product-binomial PMF; no free binomial parameter in current implementation",
+  "va_search": {
+    "coarse_step": 0.5,
+    "refine_step": 0.1,
+    "refine_half_width": 0.5
+  },
+  "distance_search": {
+    "start_km": 19.0,
+    "stop_km": 100.0,
+    "coarse_step_km": 2.0,
+    "refine_step_km": 0.25,
+    "smoke": true
+  },
+  "channel_samples_per_distance": 8192,
+  "build_missing_source_moments": false,
+  "max_new_source_moments": 0,
+  "source_cache_policy": "exact ensemble hash and source implementation hash required",
+  "source_budget": {
+    "max_new": 0,
+    "attempted": 0,
+    "built": 0,
+    "completed": [],
+    "failures": []
+  },
+  "channel_moment_audit_path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_vs_link_distance_smoke\\channel_moment_audit_30deg.json",
+  "channel_seed_base": 202612,
+  "mi_quadrature_order": 8,
+  "warnings": [
+    "tau_zen is null in production config; this run used an explicit conditional diagnostic override.",
+    "cn_phi2 is null in production config; this run used an explicit conditional phase fixture.",
+    "Some shaping/VA candidates failed or violated the peak domain; excluded from the envelope."
+  ],
+  "operation_distance_summary": [
+    {
+      "scheme": "Uniform",
+      "operation_distance_km": null,
+      "last_positive_sample_km": null,
+      "first_nonpositive_sample_km": null,
+      "interpolation_or_refinement_method": "NO_CROSSING_WITHIN_SWEEP"
+    },
+    {
+      "scheme": "PCS with AO",
+      "operation_distance_km": null,
+      "last_positive_sample_km": null,
+      "first_nonpositive_sample_km": null,
+      "interpolation_or_refinement_method": "NO_CROSSING_WITHIN_SWEEP"
+    },
+    {
+      "scheme": "PCS without AO",
+      "operation_distance_km": null,
+      "last_positive_sample_km": null,
+      "first_nonpositive_sample_km": null,
+      "interpolation_or_refinement_method": "NO_CROSSING_WITHIN_SWEEP"
+    }
+  ],
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

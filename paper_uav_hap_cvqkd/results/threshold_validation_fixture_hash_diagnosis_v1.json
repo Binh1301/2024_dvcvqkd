@@ -1,0 +1,19 @@
+{
+  "schema_version": "threshold-validation-fixture-hash-diagnosis-v1",
+  "status": "HARNESS_PROVENANCE_FAILURE_CORRECTED_VALIDATION_NOT_RERUN",
+  "fixture": "untrained_full_initialization",
+  "expected_frozen_hash": "f7128dc210719de3942c4af8e2a47811d6994b746b06c1001dea542b39fbe8c4",
+  "reconstructed_hash": "f7128dc210719de3942c4af8e2a47811d6994b746b06c1001dea542b39fbe8c4",
+  "incorrect_independent_roster_hash": "55126c105b839e4ec6a13737abdc1886b128ba7d56958bbcd32cb6dbf984ce88",
+  "cause": "frozen-runner wiring bug: the production fixture reconstruction used the threshold config's production seed and representative states while the reusable oracle harness checked the independent-confirmation roster hash",
+  "reconstruction_inputs": {
+    "default_config": "configs/default.yaml",
+    "fixture_initialization_seed": 202613,
+    "representative_states": [[0.019578268889726566, 0.03867731384331396], [0.024818627441116906, 0.022774224302158367], [0.028033551713780087, 0.00711953053971582]],
+    "fixture_name": "untrained_full_initialization",
+    "canonicalization": "existing ensemble_sha256"
+  },
+  "scientific_fixture_changed": false,
+  "validation_rerun_performed": false,
+  "lifecycle_guards": {"threshold_approved": false, "publication_training_performed": false, "final_test_accessed": false, "optimized_mb_grid_performed": false, "baseline_selection_performed": false}
+}

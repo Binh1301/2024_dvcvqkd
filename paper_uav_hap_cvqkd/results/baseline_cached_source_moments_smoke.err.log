@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_baselines_cached_source_moments.py", line 243, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_baselines_cached_source_moments.py", line 209, in main
+    _write_json(args.output_dir / f"baseline_cached_{kind}.json", {
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "status": "smoke evaluation; not a paper result",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+        "result": row,
+        ^^^^^^^^^^^^^^
+    })
+    ^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_baselines_cached_source_moments.py", line 157, in _write_json
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+                    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "E:\Python3.13\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "E:\Python3.13\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "E:\Python3.13\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "E:\Python3.13\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type WindowsPath is not JSON serializable

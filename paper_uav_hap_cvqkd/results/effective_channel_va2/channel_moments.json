@@ -1,0 +1,44 @@
+{
+  "label": "Preliminary Effective-Channel SKR at VA = 2 SNU",
+  "phase_provenance": {
+    "parameterization": "rytov_equivalent_hufnagel_valley",
+    "cn_eff2_m_minus_two_thirds": 9.421675529626135e-18,
+    "rytov_integral": 3.599418452040883e-10,
+    "sigma_R0_squared": 0.04145444025152738,
+    "wavelength_m": 1.55e-06,
+    "link_distance_m": 19000.0,
+    "tau_phi2": 0.08290888050305477,
+    "c_phi": 0.08462735111962222,
+    "tau_phi2_expected_from_identity": 0.08290888050305475,
+    "tau_phi2_identity_residual": 1.3877787807814457e-17,
+    "units": {
+      "cn_eff2_m_minus_two_thirds": "m^(-2/3)",
+      "rytov_integral": "m^(7/6-2/3)",
+      "sigma_R0_squared": "dimensionless",
+      "wavelength_m": "m",
+      "link_distance_m": "m",
+      "tau_phi2": "dimensionless",
+      "c_phi": "dimensionless"
+    },
+    "cn_eff2_is_derived": true,
+    "c_phi_is_derived": true
+  },
+  "analytical_moments": {
+    "mean_eta": 0.000337162259912343,
+    "mean_sqrt_eta": 0.017292426936840986,
+    "mean_eta_xi_eta_factorized": 6.397812423597738e-05,
+    "mean_epsilon_base": 0.0205
+  },
+  "direct_joint_sample": {
+    "sample_count": 10000,
+    "seed": 42,
+    "mean_eta": 0.0003374125523252177,
+    "mean_sqrt_eta": 0.01730788301939145,
+    "mean_eta_xi_eta": 6.404123313707291e-05,
+    "mean_eta_xi_eta_standard_error": 3.8346419156993086e-07
+  },
+  "crosscheck": {
+    "absolute_difference": 6.310890109552782e-08,
+    "accepted": true
+  }
+}

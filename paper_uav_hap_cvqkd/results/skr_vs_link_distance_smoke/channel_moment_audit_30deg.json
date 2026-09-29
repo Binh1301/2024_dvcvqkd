@@ -1,0 +1,55 @@
+{
+  "status": "CURRENT_ANALYTIC_MOMENTS",
+  "current": {
+    "config": {
+      "h_hap_m": 20000.0,
+      "h_uav_m": 1000.0,
+      "wavelength_m": 1.55e-06,
+      "tau_zen": 0.92,
+      "aperture_radius_m": 0.04,
+      "theta_div_rad": 0.000223,
+      "wind_m_per_s": 21.0,
+      "cn2_ground_m_minus_two_thirds": 1e-14,
+      "sigma_h_m": 1.0,
+      "theta_jt_rad": 1.561e-05,
+      "sigma_o_rad": 0.0015,
+      "theta_fov_rad": 0.00625,
+      "epsilon_base_snu": 0.0186
+    },
+    "derived": {
+      "link_length_m": 21939.310229205777,
+      "eta_atm": 0.9082089654181442,
+      "sigma_R0_squared": 0.053962077796191735,
+      "v_sc": 0.039430472965138456,
+      "aperture_averaging_factor_A_ap": 0.7307070923781438,
+      "sigma_R_D_squared": 0.039430472965138456,
+      "sigma_X_squared": 0.009857618241284614,
+      "A0": 0.0005346028752556014,
+      "omega_L_eq_m": 2.446919845177366,
+      "sigma_jt_m": 1.057018213718824,
+      "pointing_nu": 0.020493747578079764,
+      "p_in": 0.9998301433234386,
+      "p_out": 0.00016985667656141038,
+      "mean_T_raw": 0.00027801450002140464,
+      "mean_sqrt_T_raw": 0.015967261330814195,
+      "T_eff_raw": 0.0002549534344065143,
+      "mean_T_physical": 0.00027796727740239506,
+      "mean_sqrt_T_physical": 0.01596454918487076,
+      "T_eff_physical": 0.0002548668306761576
+    },
+    "method": "scripts.calculate_channel_pdf_and_moments.analyze_product"
+  },
+  "previous_reference": {
+    "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\monte_carlo_closed_form_check.json",
+    "tau_zen": 0.92,
+    "mean_T": 0.00027796727740239506,
+    "mean_sqrt_T": 0.01596454918487076,
+    "T_eff": 0.0002548668306761576
+  },
+  "differences": {
+    "mean_T": 0.0,
+    "mean_sqrt_T": 0.0,
+    "T_eff": 0.0
+  },
+  "diagnosis": "The current analytic moment path reproduces the reference T_eff; the earlier 0.37% difference was finite-sample Monte-Carlo noise from the experiment runner."
+}

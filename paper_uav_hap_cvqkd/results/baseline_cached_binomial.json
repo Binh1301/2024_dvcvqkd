@@ -1,0 +1,150 @@
+{
+  "status": "SUPERSEDED_WRONG_AP_W",
+  "historical_status": "smoke evaluation; not a paper result",
+  "supersession": {
+    "old_w": "see source_moments rows",
+    "corrected_w": "NOT_RECOMPUTED_IN_THIS_TASK",
+    "affected_downstream": ["raw_K", "mean_raw_skr", "min_raw_skr", "max_raw_skr"],
+    "root_cause": "old AP worker extra sr factor"
+  },
+  "parameters": {
+    "h_hap_m": 20000.0,
+    "h_uav_m": 1000.0,
+    "wavelength_m": 1.55e-06,
+    "visibility_km": 200.0,
+    "beam_waist_m": 0.0157,
+    "aperture_radius_m": 0.075,
+    "cn2": 1e-16,
+    "epsilon_min": 0.001,
+    "epsilon_max": 0.04,
+    "va": 1.0,
+    "v_min": 0.1,
+    "v_max": 4.0,
+    "va_budget": 1.5,
+    "n_peak_photons": 30.0,
+    "beta": 0.95,
+    "mb_nu": 0.1,
+    "fading_samples": 2,
+    "awgn_samples": 64,
+    "config": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\configs\\default.yaml",
+    "channel_seed": 202613,
+    "awgn_seed": 202615,
+    "output_dir": "results"
+  },
+  "channel_metadata": {
+    "link_length_m": 19000.0,
+    "zenith_angle_rad": 0.0,
+    "sigma2_uav_m2": 0.010176694154250002,
+    "sigma2_turbulence_m2": 0.004172143411207854,
+    "sigma2_axis_m2": 0.014348837565457856,
+    "rayleigh_scale_convention": "sigma_axis from paper Eqs. (21)-(24)",
+    "csi_assumption": "exact instantaneous T and epsilon oracle; no estimator model",
+    "joint_distribution": "p_FSO(T) * Uniform(epsilon_min, epsilon_max)",
+    "statistical_dependence": "T and epsilon independent by construction",
+    "dependence_justification": "The frozen propagation model and available manuscript provide no measured or mechanistic T-epsilon coupling.",
+    "temporal_model": "iid Monte Carlo states; no time correlation",
+    "epsilon_units": "input-referred SNU",
+    "epsilon_minimum_snu": 0.001,
+    "epsilon_maximum_snu": 0.04,
+    "epsilon_theoretical_variance_snu2": 0.00012675,
+    "transmittance_physical_upper_bound": 0.028919672940466015,
+    "empirical_transmittance_variance": 1.2814610531014645e-08,
+    "empirical_epsilon_variance_snu2": 0.00021959343826836599,
+    "empirical_t_epsilon_correlation": 1.0,
+    "base_seed": 202613,
+    "transmittance_seed": 881355188646306018,
+    "excess_noise_seed": 3597502743028942855,
+    "transmittance_sha256": "a3ffc8b43eae6929f446be68618a148bcad24a50a47fd053f688812744aeac71",
+    "excess_noise_sha256": "7731c08673d87845bad5013b9d2319a2131e0ed2bdda7f2d93e436e6dc46582a",
+    "realization_sha256": "06b49889be2bd78e576267c448282b749d49655db91a0a68b816547a1dcfdde5"
+  },
+  "channel": {
+    "sample_count": 2,
+    "mean_T": 0.020118764336610404,
+    "min_T": 0.020005562700001145,
+    "max_T": 0.020231965973219662,
+    "mean_epsilon": 0.015927506774006818,
+    "min_epsilon": 0.0011088213306766298,
+    "max_epsilon": 0.030746192217337005
+  },
+  "result": {
+    "source_moments": {
+      "call_count": 1,
+      "C": 0.8659826659233694,
+      "w": 0.06626009926476414,
+      "route": "ARBITRARY_PRECISION_FALLBACK",
+      "elapsed_seconds": 2103.797718599999,
+      "diagnostics": {
+        "route": "ARBITRARY_PRECISION_FALLBACK",
+        "fast_path_gate": {
+          "all_sectors_positive": false,
+          "minimum_eigenvalue": -8.820464136479413e-17,
+          "sector_condition_number": Infinity,
+          "sector_reconstruction_residual": 1.308717300988537e-15
+        },
+        "fallback_precisions": [
+          1050,
+          1250,
+          1450
+        ],
+        "fallback_rows": [
+          {
+            "C": "0.8659826659233694198899861491303742315356567203969",
+            "digits": 1050,
+            "minimum_eigenvalue": "4.7804913704403224877289160544930249722890993377882e-425",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.066260099264764147399536967348331196559653441212349"
+          },
+          {
+            "C": "0.8659826659233694198899861491303742315356567203969",
+            "digits": 1250,
+            "minimum_eigenvalue": "4.7804913704403224877289160544930249722890993377882e-425",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.066260099264764147399536967348331196559653441212349"
+          },
+          {
+            "C": "0.8659826659233694198899861491303742315356567203969",
+            "digits": 1450,
+            "minimum_eigenvalue": "4.7804913704403224877289160544930249722890993377882e-425",
+            "rank": 256,
+            "resolved": true,
+            "w": "0.066260099264764147399536967348331196559653441212349"
+          }
+        ],
+        "minimum_eigenvalue": 0.0,
+        "support_size": 256,
+        "numerical_retained_rank": 256,
+        "tau_diagnostic": 1e-12,
+        "exact_input_provenance": "float.hex binary64"
+      }
+    },
+    "downstream_elapsed_seconds": 0.09504789999846253,
+    "mean_i_ab": 0.017254177496452083,
+    "mean_chi_be": 0.014542093815131163,
+    "mean_raw_skr": 0.001849374806498317,
+    "min_raw_skr": -0.0025221418106946107,
+    "max_raw_skr": 0.0062208914236912445,
+    "average_photon_number": 0.5,
+    "peak_photon_number": 7.499999999999997,
+    "per_state": [
+      {
+        "T": 0.020231965973219662,
+        "epsilon": 0.030746192217337005,
+        "I_AB": 0.017587129545567848,
+        "chi_BE": 0.019229914878984067,
+        "raw_K": -0.0025221418106946107
+      },
+      {
+        "T": 0.020005562700001145,
+        "epsilon": 0.0011088213306766298,
+        "I_AB": 0.01692122544733632,
+        "chi_BE": 0.009854272751278259,
+        "raw_K": 0.0062208914236912445
+      }
+    ],
+    "all_finite": true,
+    "scheme": "binomial"
+  }
+}
