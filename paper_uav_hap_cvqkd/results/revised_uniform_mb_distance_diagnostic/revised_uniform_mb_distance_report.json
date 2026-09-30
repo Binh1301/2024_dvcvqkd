@@ -1,0 +1,254 @@
+{
+  "status": "REVISED_UNIFORM_MB_DISTANCE_DIAGNOSTIC_COMPLETE_CACHE_ONLY",
+  "scope": "DIAGNOSTIC_ONLY",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "baseline": {
+    "w0_m": 0.1,
+    "receiver_diameter_m": 0.55,
+    "tau_zen": 0.92,
+    "epsilon_ch_snu": 0.0186,
+    "beta": 0.95,
+    "AO": "OFF",
+    "phase_noise": "OFF"
+  },
+  "distances_km": [
+    19.0,
+    20.0,
+    21.0,
+    21.939310229205777,
+    22.0,
+    23.0,
+    24.0,
+    25.0,
+    26.0,
+    27.0,
+    28.0,
+    30.0
+  ],
+  "channel_recomputed_at_each_distance": true,
+  "candidate_counts": {
+    "Uniform": 8,
+    "MB": 30,
+    "Binomial": 0
+  },
+  "skipped_historical_rows": [],
+  "source_policy": "historical_exact_audit_only",
+  "new_source_moments_computed": false,
+  "interpolation_used": false,
+  "fixed_T_eff_reused": false,
+  "optimization_status": "BEST_EXACT_TESTED_CANDIDATE_ONLY; NO_CONTINUOUS_SEARCH",
+  "security_evaluator": "historical_exact_cw_direct_Z",
+  "protocol_summaries": [
+    {
+      "protocol": "Uniform 256-QAM",
+      "exact_candidate_count": 8,
+      "distance_count": 12,
+      "last_exact_positive": {
+        "distance_km": 25.0,
+        "SKR": 0.0005911191379269071,
+        "V_A": 0.8,
+        "nu": null
+      },
+      "first_exact_negative": {
+        "distance_km": 26.0,
+        "SKR": -0.00029334046616371484,
+        "V_A": 0.8,
+        "nu": null
+      },
+      "zero_crossing_report": "LAST_EXACT_POSITIVE_AND_FIRST_EXACT_NEGATIVE_ONLY_NO_INTERPOLATION",
+      "at_22km": {
+        "distance_km": 22.0,
+        "protocol": "Uniform 256-QAM",
+        "V_A": 1.075,
+        "nu": null,
+        "I_AB": 0.14742158413035344,
+        "beta_I_AB": 0.14005050492383578,
+        "chi_BE": 0.13177120503797957,
+        "SKR": 0.008279299885856212,
+        "T_eff": 0.20054882963800688,
+        "loss_dB": 6.977798681287993,
+        "source_cache_identifier": "58ceb118407aefed1b68f45de5422e33943f4e26dd5b37251c4f99329e7f2589",
+        "exact_status": "SAFE_CURRENT_HASH_MATCHED_EXACT_CW"
+      },
+      "at_25km": {
+        "distance_km": 25.0,
+        "protocol": "Uniform 256-QAM",
+        "V_A": 0.8,
+        "nu": null,
+        "I_AB": 0.05809549856754437,
+        "beta_I_AB": 0.05519072363916715,
+        "chi_BE": 0.05459960450124024,
+        "SKR": 0.0005911191379269071,
+        "T_eff": 0.10282489564405262,
+        "loss_dB": 9.879017225796442,
+        "source_cache_identifier": "51cbbae1c5cf8cc864749f63d879ce4e1f8a28a4f6e22c863ee22510bc091308",
+        "exact_status": "SAFE_CURRENT_HASH_MATCHED_EXACT_CW"
+      },
+      "source_policy": "historical_exact_audit_only",
+      "optimization_status": "BEST_EXACT_TESTED_CANDIDATE_ONLY"
+    },
+    {
+      "protocol": "MB-shaped 256-QAM",
+      "exact_candidate_count": 30,
+      "distance_count": 12,
+      "last_exact_positive": {
+        "distance_km": 30.0,
+        "SKR": 0.010681535109752088,
+        "V_A": 3.5548673904962893,
+        "nu": 0.15
+      },
+      "first_exact_negative": null,
+      "zero_crossing_report": "LAST_EXACT_POSITIVE_AND_FIRST_EXACT_NEGATIVE_ONLY_NO_INTERPOLATION",
+      "at_22km": {
+        "distance_km": 22.0,
+        "protocol": "MB-shaped 256-QAM",
+        "V_A": 3.5548673904962893,
+        "nu": 0.15,
+        "I_AB": 0.43914293054300657,
+        "beta_I_AB": 0.4171857840158562,
+        "chi_BE": 0.3427631297731506,
+        "SKR": 0.07442265424270561,
+        "T_eff": 0.20054882963800688,
+        "loss_dB": 6.977798681287993,
+        "source_cache_identifier": "c3603a3ba5d2867c2db311e6a4a2424f291813088f72a1888c2a4a95e7a77cc7",
+        "exact_status": "SAFE_CURRENT_HASH_MATCHED_EXACT_CW"
+      },
+      "at_25km": {
+        "distance_km": 25.0,
+        "protocol": "MB-shaped 256-QAM",
+        "V_A": 3.5548673904962893,
+        "nu": 0.15,
+        "I_AB": 0.241949773503761,
+        "beta_I_AB": 0.22985228482857295,
+        "chi_BE": 0.19619886549314502,
+        "SKR": 0.033653419335427925,
+        "T_eff": 0.10282489564405262,
+        "loss_dB": 9.879017225796442,
+        "source_cache_identifier": "c3603a3ba5d2867c2db311e6a4a2424f291813088f72a1888c2a4a95e7a77cc7",
+        "exact_status": "SAFE_CURRENT_HASH_MATCHED_EXACT_CW"
+      },
+      "source_policy": "historical_exact_audit_only",
+      "optimization_status": "BEST_EXACT_TESTED_CANDIDATE_ONLY"
+    }
+  ],
+  "qualitative_comparison": {
+    "basis": "best exact-tested candidate at each distance",
+    "assessment": "MB envelope above Uniform at every tested distance",
+    "mb_above_uniform_distances_km": [
+      19.0,
+      20.0,
+      21.0,
+      21.939310229205777,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      30.0
+    ],
+    "uniform_above_mb_distances_km": [],
+    "tie_distances_km": [],
+    "differences": [
+      {
+        "distance_km": 19.0,
+        "MB_minus_Uniform_SKR": 0.13377374273316822
+      },
+      {
+        "distance_km": 20.0,
+        "MB_minus_Uniform_SKR": 0.10713249798232394
+      },
+      {
+        "distance_km": 21.0,
+        "MB_minus_Uniform_SKR": 0.08395559211940737
+      },
+      {
+        "distance_km": 21.939310229205777,
+        "MB_minus_Uniform_SKR": 0.06710272962836
+      },
+      {
+        "distance_km": 22.0,
+        "MB_minus_Uniform_SKR": 0.0661433543568494
+      },
+      {
+        "distance_km": 23.0,
+        "MB_minus_Uniform_SKR": 0.05227439057414242
+      },
+      {
+        "distance_km": 24.0,
+        "MB_minus_Uniform_SKR": 0.04152603905330467
+      },
+      {
+        "distance_km": 25.0,
+        "MB_minus_Uniform_SKR": 0.03306230019750102
+      },
+      {
+        "distance_km": 26.0,
+        "MB_minus_Uniform_SKR": 0.026492128962271287
+      },
+      {
+        "distance_km": 27.0,
+        "MB_minus_Uniform_SKR": 0.021424348309008127
+      },
+      {
+        "distance_km": 28.0,
+        "MB_minus_Uniform_SKR": 0.01747926233036768
+      },
+      {
+        "distance_km": 30.0,
+        "MB_minus_Uniform_SKR": 0.01196591389857193
+      }
+    ]
+  },
+  "availability": [
+    {
+      "family": "Uniform",
+      "protocol": "Uniform 256-QAM",
+      "available_exact_candidate_count": 8,
+      "included": true,
+      "safe_current_hash_match": true,
+      "reason": "Current-compatible exact historical C,w rows evaluated."
+    },
+    {
+      "family": "MB",
+      "protocol": "MB-shaped 256-QAM",
+      "available_exact_candidate_count": 30,
+      "included": true,
+      "safe_current_hash_match": true,
+      "reason": "Current-compatible exact historical C,w rows evaluated."
+    },
+    {
+      "family": "Binomial",
+      "protocol": "Binomial 256-QAM",
+      "available_exact_candidate_count": 0,
+      "included": false,
+      "safe_current_hash_match": false,
+      "reason": "No safe current-compatible exact C,w dataset; excluded from this diagnostic."
+    }
+  ],
+  "blockers": [
+    "tau_zen authorization remains unresolved for publication use",
+    "cn_phi2_m_minus_two_thirds authorization remains unresolved",
+    "revised optical baseline approval is not recorded",
+    "FINAL_MODEL_SPEC hash differs from the historical expected hash",
+    "Uniform exact C,w coverage is incomplete for the requested V_A domain",
+    "optimized-MB search is not authorized and was not run",
+    "Binomial has no safe current-compatible exact C,w dataset",
+    "a common feasible grid across all protocols is not established"
+  ],
+  "provenance": {
+    "producer_sha256": "dfe2c6be25f79d9cf8ac9f893750726e952de928b90bdcee2b6894cc11bcd0e3",
+    "historical_runner_sha256": "3519f8f92f3bb2fb59f7bde4f2904615e52004f9ef011a5f5b6fb24d19b8eb49",
+    "channel_helper_sha256": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+    "final_model_spec_sha256": "8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843",
+    "historical_expected_final_model_spec_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "final_model_spec_status": "BLOCKED_BY_HASH_MISMATCH"
+  },
+  "plot_title_phrase": "Diagnostic-only, exact-available candidates",
+  "limitations": [
+    "All reported envelopes are maxima over the available exact-tested cache rows only.",
+    "The zero-crossing report contains only the last exact positive and first exact negative points; no interpolation was used.",
+    "This result does not select a baseline or authorize publication-scale evaluation."
+  ]
+}

@@ -1,5 +1,122 @@
 # Next Actions
 
+## Latest clean redraw: EVID-0108 / DEC-0092
+
+The clean two-curve positive-SKR figure is complete from the existing table
+and report. It is the preferred minimal visual asset when annotations and
+configuration text are not wanted. It remains a display-only artifact and
+must not be used to infer a continuous crossing or publication result.
+
+## Latest positive-only redraw: EVID-0107 / DEC-0091
+## Latest positive-only redraw: EVID-0107 / DEC-0091
+
+The positive-SKR-only log-scale view is complete from the existing extended
+exact table/report. It contains only the 71 positive exact-tested rows; the
+first-negative distances are text annotations, not plotted data or inferred
+crossings.
+
+Use this only as a diagnostic visualization. Do not promote it to publication
+evidence or infer a continuous operating distance; resolve the existing
+frozen-spec/hash and authorization blockers before broader experiments.
+
+## Latest symlog redraw: EVID-0106 / DEC-0090
+
+The clean symlog figure is complete from the existing 83-distance/166-row
+extended exact table and report. Use it only for visualizing exact-tested
+positive/negative signs; the connecting lines are not interpolated data and
+the 800/810-km MB values are near-zero diagnostic observations.
+
+Do not promote this redraw to publication evidence or infer a continuous
+crossing. Resolve the existing frozen-spec/hash and authorization blockers
+before any broader experiment.
+
+## Latest extended MB sign-bracket diagnostic: EVID-0105 / DEC-0089
+
+The extended exact grid found Uniform's 25/26-km sign bracket and MB's
+800/810-km sign bracket. Use these only as exact-tested endpoint observations;
+do not interpolate either crossing or turn 800 km into an operating-distance
+claim. The MB values are near-zero and require numerical caution.
+
+No broader experiment is authorized until the frozen-spec/hash and other
+lifecycle blockers are resolved. The new figure is diagnostic-only.
+
+## Latest visualization redraw: EVID-0104 / DEC-0088
+
+The requested line-style SKR redraw is complete without rerunning evaluation.
+Use it only to visually communicate the existing exact-grid signs. The
+connecting segments are not interpolated data and must not be used to report
+a precise L_max or new intermediate SKR values.
+
+Do not promote the redraw to publication evidence; resolve the existing
+frozen-spec/hash and authorization blockers before any broader experiment.
+
+## Latest named figure export: EVID-0103 / DEC-0087
+
+The requested diagnostic-only named figures and table are complete under
+`results/revised_hap_uav_optical_baseline_figure/`. They are rendered from
+the verified common-feasible exact envelope and introduce no new moments or
+interpolation. Keep the exact-grid interpretation and the explicit Binomial
+omission annotation.
+
+Do not promote these assets to publication evidence. The remaining next
+actions are unchanged: resolve the frozen-spec/hash and authorization
+blockers before any broader or lifecycle-gated experiment.
+
+## Latest common-feasible Uniform/MB result: EVID-0102 / DEC-0086
+
+The exact-cache comparison with the mandatory common budget `V_A <= 1.5 SNU`
+still shows MB above Uniform at all tested distances. Uniform changes sign
+between exact points 25 and 26 km; MB remains positive at 30 km. The best
+feasible exact MB row at 22 and 25 km is `nu=0.2`, `V_A=1.3833230303`.
+
+The gain is driven mainly by larger `beta I_AB`; lower `chi_BE` contributes at
+22 km but is unfavorable to MB at 25 km. Do not generalize this to a global
+optimum or publication result: only 5 exact feasible rows per protocol were
+available, no common exact-VA grid is established, and Binomial remains
+without safe exact C,w. Resolve the frozen-spec and authorization blockers
+before any broader experiment.
+
+## Latest revised Uniform/MB distance result: EVID-0101 / DEC-0085
+
+The revised optical fixture shows MB above Uniform at all 12 tested distances
+when each protocol is represented by its best available exact historical C,w
+row. Uniform's exact sign bracket is 25 km positive to 26 km negative; MB is
+still positive at 30 km. Treat these only as cache-envelope observations.
+
+Do not interpolate the Uniform sign bracket, call MB globally optimized, add
+Binomial numbers, or promote this diagnostic to a publication comparison. The
+run used 8 Uniform and 30 MB exact rows, no new source moments, and no fixed
+`T_eff` reuse. The next prerequisite remains resolution of the
+`FINAL_MODEL_SPEC.md` hash mismatch and an explicit source-moment domain,
+budget, and common-grid decision before any broader experiment.
+
+## Latest revised optical baseline result: EVID-0100 / DEC-0084
+
+The cache-only test of `w0=0.10 m`, `D_r=0.55 m` is positive on the available
+exact Uniform rows, with best tested `V_A=1.075` and
+`SKR=0.00855162790745`. The receiver aperture is the main recovery mechanism
+because `w0=0.10 m` with the old `D_r=0.08 m` remains negative.
+
+Do not call this a selected baseline or continuous optimum. Eleven of the 15
+requested V_A values have no exact C,w, and no interpolation or new source
+moment was used. The sparse exact diagnostics `D_r≈0.5113500300 m` and
+`L≈25.6127085762 km` must not be promoted to hardware or publication claims.
+Before a complete answer, resolve the current `FINAL_MODEL_SPEC.md` hash
+mismatch and obtain an explicit exact source-moment domain/budget decision.
+
+## Latest beam-waist result: EVID-0099 / DEC-0083
+
+The current `D_r=0.08 m` receiver remains negative for every tested beam waist
+in the cache-only exact-candidate sweep. Do not call any tested `w0` a critical
+or physically selected transmitter value. The positive 2D rows require a much
+larger receiver; `(w0=30 mm,D_r=1 m)` is only a coarse diagnostic control and
+has an estimated positive operation distance near `23.6922 km`.
+
+Before any stronger answer, obtain an explicit domain/source-moment decision
+for Uniform C,w over the intended V_A interval. Do not interpolate C,w, extend
+the V_A domain, select hardware, or run baseline/publication workflows from
+this cache-only result.
+
 ## Latest forensic result: EVID-0098 / DEC-0082
 
 The low-SKR cause is diagnosed without new C,w: optical coupling and excess

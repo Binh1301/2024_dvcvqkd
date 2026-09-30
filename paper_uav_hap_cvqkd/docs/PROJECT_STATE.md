@@ -1,5 +1,177 @@
 # Project State
 
+## Latest clean positive-SKR visualization (2026-09-30)
+
+EVID-0108/DEC-0092 added
+`results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_clean.{png,pdf}`.
+It uses only the existing positive exact-tested rows, a standard log y-axis,
+white background, simple line/marker styling, and the two requested legend
+entries. No annotations, negative values, Binomial, or explanatory figure
+text are included.
+
+No data, source moments, candidates, channel/security evaluation, or
+interpolation was added. This remains presentation-only and the lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest positive-SKR-only visualization redraw (2026-09-30)
+
+EVID-0107/DEC-0091 added
+`results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_positive_only.{png,pdf}`.
+It reads only the existing extended table/report, plots 8 positive Uniform
+rows and 63 positive MB rows on a standard logarithmic y-axis, and plots no
+negative SKR values. The 25/26-km and 800/810-km sign information is retained
+as short annotations only.
+
+No new data, source moments, candidates, channel/security evaluation, or
+interpolation was added. This remains diagnostic-only and the lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest symlog visualization redraw (2026-09-30)
+
+EVID-0106/DEC-0090 added
+`results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog.{png,pdf}`.
+The renderer reads only the existing extended exact table and its redraw
+report. It uses a symlog SKR axis with `linthresh=1e-11`, exact-tested line
+connections and markers, the zero line, short endpoint annotations, and a
+minimal 790--820-km MB sign-bracket inset.
+
+No data, source moments, candidates, channel/security evaluation, or
+interpolation was added. The 800/810-km MB bracket remains a low-rate
+diagnostic observation, and the lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest extended common-feasible distance diagnostic (2026-09-30)
+
+EVID-0105/DEC-0089 extended the unchanged common-feasible exact diagnostic to
+83 distances through 1000 km. Uniform remains positive at 25 km and negative
+at 26 km. MB is positive at 800 km and negative at 810 km, giving an
+exact-tested bracket only. The final MB bracket values are O(1e-11) bits/use
+and must be treated as low-rate diagnostic observations, not convergence or
+operational evidence.
+
+The extended redraw and table are complete. No source moments, candidate
+generation, C,w interpolation, security-formula change, or publication-scale
+workflow occurred. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest exact-point SKR visualization redraw (2026-09-30)
+
+EVID-0104/DEC-0088 added
+`results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw.{png,pdf}`.
+The redraw reads only the existing 26-row common-feasible exact table and
+cross-checks it against the diagnostic envelope and protocol summary. It
+uses straight visual connections between exact-tested points, circular
+markers, and a zero line; it does not add or estimate values.
+
+The annotations show Uniform's last exact-positive point at 25 km and first
+exact-negative point at 26 km, while MB remains positive at the largest
+exact-tested point, 30 km. Binomial is omitted with the no-safe-exact-dataset
+note. This is visualization-only; the EVID-0102 conclusions, blockers, and
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS` lifecycle are unchanged.
+
+## Latest named common-feasible figure export (2026-09-30)
+
+EVID-0103/DEC-0087 exported the requested `skr_vs_distance` PNG/PDF,
+`skr_distance_table.csv`, and optional `betaIAB`/`chiBE` figures from the
+EVID-0102 exact envelope. The export retained 13 exact-tested distances for
+Uniform and MB, including the 21.9393102292-km fixture, and did not add
+source moments or interpolation. All rows remained inside `0 < V_A <= 1.5`
+with the `n_peak_photons=30.0` guard. Binomial is explicitly omitted for
+lack of a safe current-compatible exact C,w dataset.
+
+This is a named diagnostic asset export, not a new evaluation or a
+publication-quality result. The exact-grid conclusions and lifecycle state
+from EVID-0102 remain unchanged: MB is above Uniform at all tested points,
+Uniform changes sign between 25 and 26 km, and MB remains positive through
+30 km. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest common-feasible Uniform/MB diagnostic (2026-09-30)
+
+EVID-0102/DEC-0086 enforced the same `0 < V_A <= 1.5 SNU` budget for both
+protocols under the revised `w0=0.10 m`, `D_r=0.55 m` baseline. It evaluated
+5 of 8 safe exact Uniform candidates and 5 of 30 safe exact MB candidates;
+the remaining rows were excluded by the common budget. Peak feasibility was
+checked identically with `n_peak_photons=30.0`. No source moments or C,w
+interpolation were used.
+
+MB is above Uniform at all 13 exact-tested distances. Uniform's last exact
+positive is 25 km and first exact negative is 26 km. MB remains positive
+through the largest exact-tested distance, 30 km. The gains are
+`0.0442303289` bits/use at 22 km and `0.0238529688` bits/use at 25 km.
+The best feasible exact MB parameters at both distances are
+`nu=0.2`, `V_A=1.3833230303`.
+
+The observed advantage is primarily larger `beta I_AB`: at 22 km lower
+`chi_BE` also helps, while at 25 km MB `chi_BE` is higher than Uniform and
+partly offsets the larger classical term. This remains a diagnostic-only
+cache-envelope result, not a continuous optimum, common exact-VA grid,
+baseline selection, or publication result. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest revised Uniform/MB distance diagnostic (2026-09-30)
+
+EVID-0101/DEC-0085 compared the revised `w0=0.10 m`, `D_r=0.55 m` optical
+fixture with `tau_zen=0.92`, `epsilon_ch=0.0186`, `beta=0.95`, AO OFF, and
+phase noise OFF. It recomputed the channel at 12 exact-tested distances from
+19 to 30 km. The run evaluated all 8 current-compatible exact Uniform rows
+and all 30 current-compatible exact MB rows at every distance; no source
+moments or interpolation were used, and Binomial was excluded for lack of a
+safe exact C,w dataset.
+
+The MB best-exact-tested envelope is above Uniform at every tested distance.
+Uniform's last exact positive is 25 km (`SKR=5.9111913793e-4`, `V_A=0.8`)
+and its first exact negative is 26 km (`SKR=-2.9334046616e-4`, `V_A=0.8`).
+MB remains positive at 30 km (`SKR=1.0681535110e-2`, `nu=0.15`,
+`V_A=3.5548673905`). At 22 km the SKRs are `0.0082792999` (Uniform) and
+`0.0744226542` (MB); at 25 km they are `0.0005911191` and `0.0336534193`.
+
+This is a diagnostic-only exact-cache comparison, not a continuous optimum,
+common feasible grid, operation-distance estimate, baseline selection, or
+publication result. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest revised Uniform optical baseline diagnostic (2026-09-30)
+
+EVID-0100/DEC-0084 tested the requested `w0=0.10 m`, `D_r=0.55 m` geometry
+with `tau_zen=0.92`, `epsilon_ch=0.0186`, `beta=0.95`, AO OFF, and phase
+noise OFF. Recomputed primary-channel values are
+`omega_L,eq=1.4180699494 m`, `A0=0.9981187282`, `T_eff=0.2032273703`, and
+`6.9201780236 dB` total loss. On the 8 available exact Uniform C,w rows, the
+best tested row is `V_A=1.075`, `SKR=0.00855162790745` bits/use; the exact
+requested positive rows available in the cache are `V_A=0.6,0.7,0.8,1.075`.
+
+The old receiver with the new `w0` remains negative, so the recovery is
+primarily due to the larger receiver aperture in this diagnostic. Sparse exact
+candidate bisection gives `D_r≈0.5113500300 m` and a revised-baseline
+distance crossing near `25.6127085762 km`; neither is a continuous optimum or
+selected design. `w0=0.10 m` is physically consistent with `D_t=0.25--0.30 m`
+at truncation ratios `2.5--3.0`.
+
+The requested V_A sweep is incomplete: 11 of 15 requested values lack exact
+C,w, so no interpolation, source-moment generation, adaptive V_A refinement,
+baseline selection, or publication-scale distance claim is allowed. The
+current `FINAL_MODEL_SPEC.md` hash also differs from the historical expected
+hash and remains an explicit blocker. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest Uniform beam-waist/receiver diagnostic (2026-09-30)
+
+EVID-0099/DEC-0083 completed a cache-only optical sweep with AO and phase
+noise OFF, `epsilon_ch=0.0186`, and `tau_zen=0.92`. At fixed `D_r=0.08 m`,
+no tested `w0` from `4.4--150 mm` produced positive SKR on the 8 available
+exact Uniform C,w candidates. The best tested row over the sweep was still
+negative (`K≈-3.069622e-6` at `w0≈105.397 mm`, `V_A=0.1`).
+
+The 2D coarse control found positive rows only at `D_r=1 m`; the first coarse
+positive pair was `w0=30 mm,D_r=1 m`, with `K≈1.69054475e-3` at 21.94 km.
+Sparse exact receiver thresholds range from about `0.511 m` to `0.953 m` for
+the tested positive-waist rows. That pair's cache-only operation-distance
+estimate is `23.6922059451 km`.
+
+This does not determine a continuous `w0_crit` or a Uniform optimum: most
+requested V_A points lack exact C,w and the requested `[0.01,5]` domain is
+outside the current frozen `[0.1,4.0]` domain. No source moments were created,
+no interpolation was used, and no transmitter/receiver baseline was selected.
+
 ## Latest HAP-UAV/Sayat forensic diagnostic (2026-09-30)
 
 EVID-0098/DEC-0082 identify `35.9369 dB` current effective loss, dominated by
@@ -181,7 +353,7 @@ older homogeneous/generalized paths remain explicitly legacy. Production
 closed until the author selects one of the manuscript MODTRAN scenarios.
 This is channel-only work and does not alter security or lifecycle gates.
 
-Last updated: 2026-09-25 (EVID-0083 / DEC-0067; latest manuscript channel correction)
+Last updated: 2026-09-30 (EVID-0106 / DEC-0090; latest visualization-only redraw)
 
 ## Previous channel-model audit (2026-09-16)
 

@@ -1,0 +1,54 @@
+{
+  "status": "AP_CUSTOM_BACKWARD_NOT_VALIDATED",
+  "scope": "bounded corrected full-support Case A PS target attempt",
+  "failure_class": "custom reverse result materially disagreed with corrected AP at declared precision",
+  "family": "ps",
+  "digits": 800,
+  "selected_h": "0.00010000000000000000479",
+  "structure": {
+    "prototype_count": 64,
+    "positive_probabilities": true,
+    "probability_sum": 1.0,
+    "unique_state_count": 256,
+    "directional_probability_sum": 2.2768245622195593e-18,
+    "directional_z_norm": 0.15669108927249908,
+    "direction_sha256": "e274073c5038308b521bd1a348c932a4a249cd5fc59a006b7611911e2be6dd87"
+  },
+  "support": {
+    "plus_rank": 256,
+    "minus_rank": 256,
+    "plus_minimum_eigenvalue": "3.9787561820408098444092627051170989040668420823957e-618",
+    "minus_minimum_eigenvalue": "3.9672737490254553739186611026510713696646445481209e-618"
+  },
+  "reference": {
+    "AP_dC": "0.0005009242276532432924796012230217456817626953125",
+    "AP_dw": "-0.0011532623528549834635015258754719980061054229736328",
+    "AP_dJ": "0.0017741810692945003680165427795145660638809204101563",
+    "combined_coefficients": {"a": "1.7", "b": "-0.8"}
+  },
+  "custom": {
+    "custom_forward_C": "0.85985110654649868138037962728289179096834048571987",
+    "custom_forward_w": "0.018327610474963502048823295065766568532781601388489",
+    "custom_dJ": "3.3995565604790260969816270046235758825055738035132e+102",
+    "absolute_error": "3.399556560479026096981627004623575882506e+102",
+    "relative_error": "1.916127175131483631439672499914578815862e+105"
+  },
+  "runtime_seconds": {
+    "custom_vjp": 25653.389861799995,
+    "plus_ap_forward": 392.6064219000109,
+    "minus_ap_forward": 297.1369369000022,
+    "total_target_attempt": 26348.348043299993
+  },
+  "provenance": {
+    "corrected_C": "0.85985110654649868138037962728289179096834048571987",
+    "corrected_w": "0.018327610474963502048823295065766568532781601388489",
+    "corrected_ap_artifact_sha256": "f81dfd9c713a796b3314268a1e1897ec35ff63e390810df015d4cdd943f69d44",
+    "corrected_worker_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+    "custom_backward_sha256": "f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92",
+    "exact_ensemble_sha256": "c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3",
+    "custom_forward_reference": "corrected",
+    "training_ran": false,
+    "optimizer_step": false,
+    "final_test_accessed": false
+  }
+}

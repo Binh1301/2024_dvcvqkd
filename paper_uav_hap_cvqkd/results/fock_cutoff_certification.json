@@ -1,0 +1,64 @@
+{
+  "schema_version": "fock-cutoff-feasibility-v1",
+  "status": "DEPRECATED_SUPERSEDED_NONCERTIFYING",
+  "superseded_by": [
+    "results/fock_convergence.json",
+    "results/near_coincident_fock_diagnostic.json"
+  ],
+  "deprecation_note": "Historical bounded probe only. It predates successful MI convergence and must not be used as current lifecycle evidence.",
+  "is_fock_cutoff_certification": false,
+  "publication_training_performed": false,
+  "test_set_used": false,
+  "minimum_common_fock_cutoff": null,
+  "convergence_selected_fock_cutoff": null,
+  "preregistration": {
+    "cutoffs": [48, 56, 64, 72, 80, 96, 112, 128],
+    "reference_cutoff": 128,
+    "reference_is_selectable": false,
+    "density_trace_tolerance": 1e-10,
+    "moment_absolute_tolerance": 1e-7,
+    "moment_relative_tolerance": 1e-6,
+    "symplectic_absolute_tolerance": 1e-7,
+    "symplectic_relative_tolerance": 1e-6,
+    "information_absolute_tolerance_bits": 1e-6,
+    "information_relative_tolerance": 1e-5,
+    "grid_or_tolerance_changed_after_probe": false
+  },
+  "bounded_resource_probe": {
+    "fixture": "hard_peak_boundary_at_vmin",
+    "states": ["bad", "medium", "good"],
+    "cutoff": 128,
+    "elapsed_seconds": 0.088559,
+    "maximum_density_trace_error": 2.9976021664879227e-15,
+    "probe_passed_density_trace_tolerance": true,
+    "metrics_compared_across_cutoffs": false,
+    "final_skr_sensitivity_evaluated": false,
+    "may_be_interpreted_as_certification": false
+  },
+  "dependency": {
+    "mi_evidence_path": "results/mi_convergence.json",
+    "mi_evidence_sha256": "14ae56de1440e12ab88d5fac5a299fa868566a152e9ea7a1b6bd49ec3146a0a9",
+    "mi_status": "FAILED_RESOURCE_LIMIT",
+    "reason": "Preregistered MI reference values are unavailable, so raw K cannot be evaluated and cutoff sensitivity cannot satisfy the frozen rule."
+  },
+  "probe_command": "C:\\Users\\HP\\vqv\\Scripts\\python.exe -c <hard_peak_boundary cutoff-128 timing probe>",
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.13.0+cpu",
+    "cuda_available": false,
+    "torch_threads": 10,
+    "precision": "torch.float64 / torch.complex128 on CPU"
+  },
+  "provenance_sha256": {
+    "configs/default.yaml": "48019b65376607341fd2f3c90c64f1c63bec96ad56125d3a54968f882d35bc1f",
+    "scripts/validate_fock_convergence.py": "55d09765d5aafaf5f13de171c6983d37766b44083fb813d6459a4104202e09d6",
+    "src/cvqkd/holevo.py": "783bd5641f77a0287d32bca6b6d5f821b982ac3b663c0a05f66c53bedb4db54a",
+    "src/cvqkd/covariance.py": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f"
+  },
+  "blockers": [
+    "No Fock cutoff is CONVERGENCE_SELECTED.",
+    "C, w, Z, symplectic eigenvalues, chi_BE, and raw K were not compared over the complete grid and roster.",
+    "The pseudoinverse sensitivity gate remains unexecuted.",
+    "The cutoff-128 trace probe is a resource check only and cannot be cited as convergence evidence."
+  ]
+}

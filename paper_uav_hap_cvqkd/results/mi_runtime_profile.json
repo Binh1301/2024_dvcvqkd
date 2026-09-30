@@ -1,0 +1,95 @@
+{
+  "schema_version": "mi-runtime-profile-v1",
+  "status": "validation-only runtime profile; not convergence certification",
+  "test_set_used": false,
+  "estimator": "exact discrete 256-state continuous-output Monte Carlo mixture",
+  "precision": "torch.float64 / torch.complex128",
+  "profile_fixture": "uniform_low_va_0.1_on_validation_bad_medium_good",
+  "state_labels": [
+    "bad",
+    "medium",
+    "good"
+  ],
+  "noise_samples_per_symbol": 256,
+  "candidate_chunk_size": 64,
+  "noise_sample_chunk_size": 64,
+  "tensor_shapes": {
+    "probabilities": [
+      3,
+      256
+    ],
+    "amplitudes": [
+      3,
+      256
+    ],
+    "standard_complex_noise": [
+      3,
+      256,
+      256
+    ],
+    "received": [
+      3,
+      256,
+      256
+    ],
+    "distance_chunk": [
+      3,
+      256,
+      256,
+      64
+    ],
+    "full_logical_distance_tensor": [
+      3,
+      256,
+      256,
+      256
+    ]
+  },
+  "logical_pairwise_distances": 50331648,
+  "timings_seconds": {
+    "constellation_construction": 0.0031775999814271927,
+    "gaussian_noise_generation": 0.00826729997061193,
+    "host_device_and_dtype_preparation": 0.0002197998110204935,
+    "distance_matrix_reference_broadcast": 0.10351679986342788,
+    "distance_matrix_optimized_gemm": 0.08362819999456406,
+    "mixture_likelihood_logits": 0.05148170003667474,
+    "logsumexp": 0.043193900026381016,
+    "complete_reference_estimator": 0.7412157000508159,
+    "complete_optimized_estimator": 0.6267748000100255
+  },
+  "dominant_complexity": "O(B * M_source * N_MC * M_mixture), M_source=M_mixture=256",
+  "optimized_over_reference_speedup": 1.1825869515477647,
+  "numerical_equivalence": {
+    "maximum_absolute_difference_bits": 0.0,
+    "strict_atol_bits": 1e-12,
+    "strict_rtol": 1e-12,
+    "passes": true,
+    "maximum_distance_chunk_difference": 5.329070518200751e-15
+  },
+  "repeated_work_audit": {
+    "reused_within_replication": [
+      "explicit maximum-length CRN tensor",
+      "prefix segment arithmetic means"
+    ],
+    "recomputed_by_fixture": [
+      "channel-scaled constellation means",
+      "mixture pairwise distances",
+      "log mixture likelihood"
+    ],
+    "cannot_be_reused_across_replications": [
+      "independent preregistered CRN tensor"
+    ],
+    "state_independent_cached_inputs": [
+      "ensemble probabilities",
+      "ensemble amplitudes",
+      "candidate log probabilities"
+    ]
+  },
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.13.0+cpu",
+    "cuda_available": false,
+    "torch_threads": 10,
+    "platform": "Windows-11-10.0.26200-SP0"
+  }
+}

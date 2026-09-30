@@ -1,0 +1,57 @@
+{
+  "runner": "scripts/validate_c4_constrained_tangent.py",
+  "instrument_explicit": true,
+  "target": {
+    "status": "CONSTRAINED_TANGENT_INCONCLUSIVE",
+    "classification": "CONSTRAINED_TANGENT_INCONCLUSIVE",
+    "adaptive_readiness": "NOT_READY_FOR_ADAPTIVE_TRAINING",
+    "scope": "one exact full-support C4 constrained-solve forward tangent; Case-A PS only",
+    "prior_target_artifact": "results\\ap_custom_backward_ps_target_attempt_20260911.json",
+    "prior_target_artifact_sha256": "3c8b87793b76abc82e0ecc89a5e33fb9c513dec749cdbbd2e4e2f5b4f3856d2a",
+    "corrected_worker_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+    "exact_ensemble_sha256": "c0e576b1ad55ddd6b5167b3011a5ace9104e2b8d81821b8c0d43b0844a581ab3",
+    "direction": {
+      "family": "ps",
+      "prototype_count": 64,
+      "positive_probabilities": true,
+      "probability_sum": 1.0,
+      "unique_state_count": 256,
+      "directional_probability_sum": 2.2768245622195593e-18,
+      "directional_z_norm": 0.15669108927249908,
+      "direction_sha256": "e274073c5038308b521bd1a348c932a4a249cd5fc59a006b7611911e2be6dd87"
+    },
+    "reference": {
+      "source": "prior corrected AP central-difference artifact",
+      "selected_h": "0.00010000000000000000479",
+      "C": "0.85985110654649868138037962728289179096834048571987",
+      "w": "0.018327610474963502048823295065766568532781601388489",
+      "dC": "0.0005009242276532432924796012230217456817626953125",
+      "dw": "-0.0011532623528549834635015258754719980061054229736328",
+      "dJ": "0.0017741810692945003680165427795145660638809204101563"
+    },
+    "prior_case_a_comparison": {
+      "prior_custom_dJ": "3.3995565604790260969816270046235758825055738035132e+102",
+      "prior_AP_dJ": "0.0017741810692945003680165427795145660638809204101563",
+      "prior_custom_relative_error": "1.916127175131483631439672499914578815862e+105",
+      "prior_custom_runtime_seconds": 25653.389861799995
+    },
+    "precision_rows": [
+      {
+        "digits": 600,
+        "resolved": false,
+        "rank": 254,
+        "minimum_eigenvalue": "-9.1586922128963475205754760843433968332351896125158e-604",
+        "runtime_seconds": 113.59613290001289,
+        "passes": false
+      }
+    ],
+    "target_passes": false,
+    "reverse_or_training": {
+      "custom_reverse_called": false,
+      "optimizer_step": false,
+      "training_ran": false,
+      "full_z_backward": false
+    },
+    "next_task": "Do not implement reverse yet; if tangent is validated, benchmark a compiled multiprecision forward/reverse boundary separately."
+  }
+}

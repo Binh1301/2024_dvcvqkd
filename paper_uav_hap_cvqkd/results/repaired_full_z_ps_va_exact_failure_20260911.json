@@ -1,0 +1,74 @@
+{
+  "artifact_class": "EXACT_AP_SECURITY_ANCHOR_DIAGNOSTIC",
+  "status": "FAIL_CLOSED",
+  "method": "ps_va",
+  "checkpoint": "results/repaired_full_z_checkpoint_ps_va_20260911_step_50.pt",
+  "checkpoint_sha256": "1c5d49d1a562c558a18a76994399b09c4bee88ddbebf35370ae9cb690e3ca8d1",
+  "state_labels": [
+    "poor",
+    "median",
+    "good"
+  ],
+  "high_precision_attempt": {
+    "precision_ladder_decimal_digits": [
+      800,
+      900
+    ],
+    "status_by_state": {
+      "poor": "FAIL_CLOSED",
+      "median": "FAIL_CLOSED",
+      "good": "FAIL_CLOSED"
+    },
+    "runtime_seconds_by_state": {
+      "poor": 3204.9,
+      "median": 3206.4,
+      "good": 3204.7
+    },
+    "reason": "corrected AP worker returned FAIL_CLOSED; no converged C/w source moments were available"
+  },
+  "lower_precision_diagnostic": {
+    "diagnostic_only": true,
+    "precision_ladder_decimal_digits": [
+      100,
+      150,
+      200
+    ],
+    "rank_by_state_and_digits": {
+      "poor": [
+        162,
+        174,
+        188
+      ],
+      "median": [
+        162,
+        176,
+        188
+      ],
+      "good": [
+        165,
+        176,
+        187
+      ]
+    },
+    "required_full_support_rank": 256,
+    "resolved_by_state_and_digits": {
+      "poor": [
+        false,
+        false,
+        false
+      ],
+      "median": [
+        false,
+        false,
+        false
+      ],
+      "good": [
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "not_used_as_security_result": true,
+  "recording_note": "The lower-precision rows explain the fail-closed path; no PS+V_A exact K is inferred from them."
+}

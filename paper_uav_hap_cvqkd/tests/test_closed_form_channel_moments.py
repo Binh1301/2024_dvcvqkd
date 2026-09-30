@@ -23,6 +23,23 @@ class ClosedFormChannelMomentTests(unittest.TestCase):
         self.assertAlmostEqual(values["T_eff"], 2.548668306761576e-4, places=15)
         self.assertEqual(values["T_eff"], values["mean_sqrt_T_raw"] ** 2)
 
+    def test_beam_waist_override_preserves_default_and_updates_divergence(self):
+        default = self._physical()
+        overridden = derive_physical_inputs(
+            0.92,
+            zenith_angle_rad_override=math.radians(30.0),
+            beam_waist_m_override=0.010,
+        )
+        self.assertAlmostEqual(default["beam_waist_m"], 0.004424935637532516)
+        self.assertAlmostEqual(
+            overridden["theta_div_rad"],
+            2.0 * overridden["wavelength_m"] / (math.pi * 0.010),
+        )
+        self.assertNotEqual(
+            overridden["pointing"]["omega_L_m"],
+            default["pointing"]["omega_L_m"],
+        )
+
     def test_zero_boresight_reduces_exactly_to_zero_rho_forms(self):
         physical = self._physical()
         values = closed_form_channel_moments(physical, epsilon_total=0.2, rho_m=0.0)

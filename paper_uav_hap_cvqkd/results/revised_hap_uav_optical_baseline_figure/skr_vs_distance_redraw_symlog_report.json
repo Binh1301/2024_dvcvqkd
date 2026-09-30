@@ -1,0 +1,50 @@
+{
+  "status": "DIAGNOSTIC_ONLY_SYMLOG_REDRAW_COMPLETE",
+  "figure_title": "Positive-SKR vs Link Distance",
+  "figure_subtitle": "Diagnostic-only, exact-tested, V_A <= 1.5, AO OFF, phase noise OFF",
+  "source_table": {
+    "path": "paper_uav_hap_cvqkd\\results\\revised_hap_uav_optical_baseline_figure\\skr_distance_table_extended.csv",
+    "sha256": "2ab2c66d1db367a08ef3fe23c975d7b492a12479ab80b6b5a13ef4fc8a1a11d1",
+    "row_count": 166
+  },
+  "source_report": {
+    "path": "paper_uav_hap_cvqkd\\results\\revised_hap_uav_optical_baseline_figure\\skr_vs_distance_redraw_extended_report.json",
+    "sha256": "b83c0a4cade1b1c2188615d63421b37f1655db3aea07b8fe17850bb4e406479d",
+    "status": "DIAGNOSTIC_ONLY_EXTENDED_EXACT_POINT_LINE_REDRAW_COMPLETE"
+  },
+  "source_distance_count": 83,
+  "source_largest_tested_distance_km": 1000.0,
+  "y_scale": {
+    "type": "symlog",
+    "base": 10,
+    "linthresh": 1e-11
+  },
+  "line_semantics": "connect existing exact-tested points in tested distance order",
+  "annotations": {
+    "uniform": {
+      "last_exact_positive_km": 25.0,
+      "first_exact_negative_km": 26.0
+    },
+    "mb": {
+      "last_exact_positive_km": 800.0,
+      "first_exact_negative_km": 810.0
+    }
+  },
+  "inset": {
+    "title": "MB sign bracket",
+    "distance_range_km": [
+      790.0,
+      820.0
+    ]
+  },
+  "new_source_moments_computed": false,
+  "new_candidates_created": false,
+  "channel_or_security_rerun": false,
+  "interpolation_or_extrapolation": false,
+  "binomial_note": "Binomial omitted.",
+  "near_zero_numerical_caveat": "The MB 800/810-km values are O(1e-11) bits/use and remain low-rate diagnostic observations, not convergence or publication evidence.",
+  "output_sha256": {
+    "skr_vs_distance_redraw_symlog.png": "5601fb40b63a672817f8f831abc75d018f92e37d43d824d58f70c8285c0046e0",
+    "skr_vs_distance_redraw_symlog.pdf": "b55c64a139bcee3d430b631c945f9b0cc16ba903882cc8aeaee27da5bc43fe36"
+  }
+}

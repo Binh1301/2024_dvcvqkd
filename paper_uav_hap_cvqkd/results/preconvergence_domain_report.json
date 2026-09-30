@@ -1,0 +1,224 @@
+{
+  "schema_version": "preconvergence-domain-report-v1",
+  "status": "READY_FOR_CONVERGENCE_EXECUTION",
+  "is_fock_cutoff_certification": false,
+  "test_set_used": false,
+  "physical_rule": "max_i |alpha_i(T,epsilon)|^2 <= n_peak",
+  "n_peak_photons": 30.0,
+  "n_peak_author_approved": true,
+  "peak_domain_scope": "complete_preregistered_realizations",
+  "maximum_permitted_amplitude_abs": 5.477225575051661,
+  "maximum_permitted_photon_number": 30.0,
+  "maximum_permitted_papr_over_va_box": 600.0,
+  "worst_case_domain_statement": "The hard rule directly bounds every final physical symbol by sqrt(n_peak); the worst PAPR occurs at V_A=V_min and is at most 2*n_peak/V_min. No separate q or z bound is used, and no post-hoc clipping is allowed.",
+  "reference_baseline_domain_audit": {
+    "uniform": {
+      "papr": 2.6470588235294112,
+      "minimum_peak_photons_at_v_min": 0.13235294117647056,
+      "v_min_feasible_under_proposed_peak": true,
+      "peak_feasible_va_candidates": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ]
+    },
+    "binomial": {
+      "papr": 14.999999999999995,
+      "minimum_peak_photons_at_v_min": 0.7499999999999998,
+      "v_min_feasible_under_proposed_peak": true,
+      "peak_feasible_va_candidates": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ]
+    },
+    "fixed_mb": {
+      "nu": 0.1,
+      "papr": 2.754443493980498,
+      "minimum_peak_photons_at_v_min": 0.1377221746990249,
+      "v_min_feasible_under_proposed_peak": true,
+      "peak_feasible_va_candidates": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ]
+    },
+    "optimized_mb": {
+      "nu_grid": [
+        0.0,
+        0.01,
+        0.02,
+        0.03,
+        0.04,
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.11,
+        0.12,
+        0.13,
+        0.14,
+        0.15,
+        0.16,
+        0.17,
+        0.18,
+        0.19,
+        0.2,
+        0.21,
+        0.22,
+        0.23,
+        0.24,
+        0.25,
+        0.26,
+        0.27,
+        0.28,
+        0.29,
+        0.3
+      ],
+      "minimum_papr_on_grid": 2.6470588235294112,
+      "maximum_papr_on_grid": 2.9859985682982044,
+      "minimum_peak_photons_at_v_min": 0.14929992841491022,
+      "v_min_feasible_under_proposed_peak": true,
+      "peak_feasible_va_candidates": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5
+      ]
+    }
+  },
+  "scheme_fairness_audit": {
+    "uniform": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": false
+    },
+    "binomial": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": false
+    },
+    "fixed_mb": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": false
+    },
+    "optimized_mb": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": false
+    },
+    "ps": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    },
+    "gs": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    },
+    "va": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    },
+    "ps_gs": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    },
+    "ps_va": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    },
+    "gs_va": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    },
+    "full": {
+      "same_va_box": true,
+      "same_average_photon_budget": true,
+      "same_hard_peak_photon_rule": true,
+      "mandatory_benchmark_excluded": null
+    }
+  },
+  "all_eleven_schemes": [
+    "uniform",
+    "binomial",
+    "fixed_mb",
+    "optimized_mb",
+    "ps",
+    "gs",
+    "va",
+    "ps_gs",
+    "ps_va",
+    "gs_va",
+    "full"
+  ],
+  "common_rule_applies_to_all_eleven": true,
+  "mandatory_fixed_benchmarks_feasible": true,
+  "physical_domain_configuration_complete": true,
+  "blockers": []
+}

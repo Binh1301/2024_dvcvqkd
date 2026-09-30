@@ -1,0 +1,217 @@
+{
+  "schema_version": "support-boundary-bisection-crn-v1",
+  "status": "PROPOSED_DIAGNOSTIC_ONLY_NOT_FROZEN",
+  "preregistered_design": {
+    "threshold": 1e-13,
+    "bisection_max_iterations": 60,
+    "bisection_stop_width": 1e-12,
+    "crn_seed": 202615,
+    "mutual_information_sample_count": 2048,
+    "noise_chunk_size": 64,
+    "va_rhos": [
+      0.0001,
+      1e-05,
+      1e-06,
+      1e-07,
+      1e-08
+    ],
+    "ps_rhos": [
+      0.0001,
+      1e-06,
+      1e-07
+    ],
+    "gs_rhos": [
+      0.0001,
+      1e-06
+    ],
+    "one_sided_center_rule": "b-rho and b+rho; central FD h=rho/4 on each side",
+    "rollback_rule": "start b-offset; propose fixed outward +1e-4 for 50 segments; accept only when the exact support mask equals current, otherwise retain current"
+  },
+  "lifecycle_guards": {
+    "publication_training_performed": false,
+    "test_set_accessed": false,
+    "optimized_mb_grid_performed": false,
+    "baseline_selection_performed": false,
+    "active_config_changed": false,
+    "physical_or_security_functional_changed": false
+  },
+  "validation_state_realization_sha256": "247b428bb5dcbaf5e532ecd15a3b46efdf07bdcc47759348a8625576c2c4c500",
+  "bisections": {
+    "deformed_full_logva_bad": {
+      "state": "bad",
+      "lower": 0.0028891689016018064,
+      "upper": 0.0028891689023002984,
+      "center": 0.002889168901951052,
+      "width": 6.984920454533583e-13,
+      "iterations": 32,
+      "rank_lower": 14,
+      "rank_upper": 15,
+      "nearest_eigenvalue_lower": 9.999945732396019e-14,
+      "nearest_eigenvalue_upper": 1.000007889490115e-13
+    },
+    "deformed_full_logva_medium": {
+      "state": "medium",
+      "lower": 0.012225494781159795,
+      "upper": 0.01222549478203291,
+      "center": 0.012225494781596354,
+      "width": 8.731158157582186e-13,
+      "iterations": 35,
+      "rank_lower": 14,
+      "rank_upper": 15,
+      "nearest_eigenvalue_lower": 9.999968173732637e-14,
+      "nearest_eigenvalue_upper": 1.000013803368809e-13
+    },
+    "deformed_full_logva_good": {
+      "state": "good",
+      "lower": 0.01629789083031937,
+      "upper": 0.016297890831192485,
+      "center": 0.016297890830755928,
+      "width": 8.731140810347426e-13,
+      "iterations": 35,
+      "rank_lower": 14,
+      "rank_upper": 15,
+      "nearest_eigenvalue_lower": 9.999894660092872e-14,
+      "nearest_eigenvalue_upper": 1.0000017105563723e-13
+    },
+    "binomial_high_ps_bad": {
+      "state": "bad",
+      "lower": 0.10452738017538649,
+      "upper": 0.10452738017593217,
+      "center": 0.10452738017565932,
+      "width": 5.456884943910723e-13,
+      "iterations": 39,
+      "rank_lower": 29,
+      "rank_upper": 28,
+      "nearest_eigenvalue_lower": 1.0000000100488108e-13,
+      "nearest_eigenvalue_upper": 9.999999606049666e-14
+    },
+    "binomial_high_gs_bad": {
+      "state": "bad",
+      "lower": 0.07027708893874662,
+      "upper": 0.07027708893947422,
+      "center": 0.07027708893911042,
+      "width": 7.275985369759042e-13,
+      "iterations": 37,
+      "rank_lower": 29,
+      "rank_upper": 28,
+      "nearest_eigenvalue_lower": 1.0000000048695102e-13,
+      "nearest_eigenvalue_upper": 9.999999784896247e-14
+    },
+    "binomial_high_logva_negative_bad": {
+      "state": "bad",
+      "lower": 0.013647080087685027,
+      "upper": 0.013647080088558142,
+      "center": 0.013647080088121585,
+      "width": 8.731158157582186e-13,
+      "iterations": 35,
+      "rank_lower": 29,
+      "rank_upper": 28,
+      "nearest_eigenvalue_lower": 1.0000000213526443e-13,
+      "nearest_eigenvalue_upper": 9.999999904110909e-14
+    }
+  },
+  "cross_run_reproducibility": {
+    "fixture_sha256": "9c7cc47a202f6fbbd6f08db19cd3c09df4dd74cf8653d28388b88ebf8a070362",
+    "same_canonical_fixture_and_path_confirmed": true,
+    "native_centers": {
+      "deformed_full_logva_bad": 0.002889168901951052,
+      "deformed_full_logva_medium": 0.012225494781596354,
+      "deformed_full_logva_good": 0.016297890830755928,
+      "binomial_high_ps_bad": 0.10452738017565932,
+      "binomial_high_gs_bad": 0.07027708893911042,
+      "binomial_high_logva_negative_bad": 0.013647080088121585
+    },
+    "independently_reported_qam_centers": {
+      "deformed_full_logva_bad": 0.0028899078522808853,
+      "deformed_full_logva_medium": 0.01222509015497053,
+      "deformed_full_logva_good": 0.01629776752815814,
+      "binomial_high_ps_bad": 0.10452738018102539,
+      "binomial_high_gs_bad": 0.07027708466852345,
+      "binomial_high_logva_negative_bad": 0.013647079930233303
+    },
+    "independently_reported_single_thread_bad_center": 0.002889923634,
+    "bad_boundary_reproducibility_interval": [
+      0.002889168901951052,
+      0.002889923634
+    ],
+    "bad_boundary_cross_run_width": 7.547320489478815e-07,
+    "transition_eigenvalue_scale_of_disagreement": "order 1e-18 around threshold 1e-13",
+    "native_outward_accepted_counts": [
+      0,
+      5,
+      50
+    ],
+    "independently_reported_qam_outward_accepted_counts": [
+      0,
+      4,
+      49
+    ],
+    "interpretation": "the nominal 1e-12 bisection width is not cross-run reproducible at this eigenvalue gap; use a numerical guard band rather than an exact scalar boundary"
+  },
+  "one_sided_crn": null,
+  "outward_rollback": [
+    {
+      "starting_offset_below_boundary": 5e-05,
+      "proposal_increment": 0.0001,
+      "horizon": 50,
+      "accepted": 0,
+      "rejected": 50,
+      "maximum_consecutive_rejections": 50,
+      "final_u": 0.002839168901951052
+    },
+    {
+      "starting_offset_below_boundary": 0.0005,
+      "proposal_increment": 0.0001,
+      "horizon": 50,
+      "accepted": 5,
+      "rejected": 45,
+      "maximum_consecutive_rejections": 45,
+      "final_u": 0.0028891689019510513
+    },
+    {
+      "starting_offset_below_boundary": 0.005,
+      "proposal_increment": 0.0001,
+      "horizon": 50,
+      "accepted": 50,
+      "rejected": 0,
+      "maximum_consecutive_rejections": 0,
+      "final_u": 0.0028891689019510517
+    }
+  ],
+  "interpretation": "naive exact-mask rollback can trap outward motion near a boundary; any proposed protocol needs an enhanced segment guard/backtracking rule and prospective review",
+  "runtime_seconds": 2.2195607000030577,
+  "provenance": {
+    "input_and_source_hashes": {
+      "config": {
+        "path": "configs\\default.yaml",
+        "sha256": "dc2a9a5af8028c0f22cb6e8600a12a60f023ccc7d274f95c7557c134802ab015"
+      },
+      "final_model_spec": {
+        "path": "docs\\FINAL_MODEL_SPEC.md",
+        "sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+      },
+      "holevo": {
+        "path": "src\\cvqkd\\holevo.py",
+        "sha256": "06c38b43d6ee30d39857b57868adcfcf15a90188e60cd2ef24af38d9e4fa7679"
+      },
+      "gram": {
+        "path": "src\\cvqkd\\gram_moments.py",
+        "sha256": "f13e256887476eb67762be410ed77219b837c7b07367622899260115ce7358a3"
+      },
+      "mutual_information": {
+        "path": "src\\cvqkd\\mutual_information.py",
+        "sha256": "91a4fd9b1fd55c46682c2256914c369ecbe9dfeb25b4667ccc11d608cff33cad"
+      },
+      "script": {
+        "path": "scripts\\audit_boundary_bisection_crn.py",
+        "sha256": "ea6d112dd7762364c105938bf0dcc8f8c7b0b8553525db49b1ee65f3a1c8159f"
+      }
+    },
+    "output_path": "results\\boundary_bisection_benchmark.json",
+    "runtime_environment": {
+      "torch_version": "2.13.0+cpu",
+      "torch_num_threads": 10,
+      "torch_num_interop_threads": 10
+    }
+  }
+}

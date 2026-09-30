@@ -1,0 +1,59 @@
+{
+  "schema_version": "fock-poisson-prescreen-v1",
+  "status": "NONCERTIFYING_PRESCREEN_ONLY",
+  "is_fock_cutoff_certification": false,
+  "test_set_used": false,
+  "mean_photon_number": 30.0,
+  "hard_peak_domain_photons": 30.0,
+  "rows": [
+    {
+      "fock_cutoff": 48,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 0.0014883025723802501,
+      "retained_probability": 0.9985116974276198
+    },
+    {
+      "fock_cutoff": 56,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 1.4266858742237332e-05,
+      "retained_probability": 0.9999857331412577
+    },
+    {
+      "fock_cutoff": 64,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 4.654311049149686e-08,
+      "retained_probability": 0.9999999534568895
+    },
+    {
+      "fock_cutoff": 72,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 5.808148394120436e-11,
+      "retained_probability": 0.9999999999419186
+    },
+    {
+      "fock_cutoff": 80,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 3.0569410549680293e-14,
+      "retained_probability": 0.9999999999999695
+    },
+    {
+      "fock_cutoff": 96,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 8.674882013064818e-22,
+      "retained_probability": 1.0
+    },
+    {
+      "fock_cutoff": 112,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 1.7652147631640085e-30,
+      "retained_probability": 1.0
+    },
+    {
+      "fock_cutoff": 128,
+      "tail_definition": "P(N_photon >= fock_cutoff | Poisson(mean=30))",
+      "tail_probability": 3.7254360462850965e-40,
+      "retained_probability": 1.0
+    }
+  ],
+  "explicit_limitation": "Poisson tails prioritize staged cutoffs only; they do not certify C, w, Z, symplectic eigenvalues, chi_BE, or raw K."
+}

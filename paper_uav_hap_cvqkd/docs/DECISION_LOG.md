@@ -1,5 +1,304 @@
 # Decision Log
 
+## DEC-0092 - Accept clean positive-SKR redraw; no scope expansion
+
+Date: 2026-09-30
+
+Status: ACTIVE VISUALIZATION-ONLY DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0108 as a clean display of the existing positive exact-tested
+rows. The figure intentionally contains only the two requested protocols and
+essential plot elements. Removing crossing annotations and explanatory text
+does not remove or replace any data; the negative rows remain unplotted.
+
+This decision does not authorize source moments, candidate generation,
+channel/security evaluation, interpolation, optimization, baseline selection,
+or publication-scale evaluation. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0108
+- `scripts/render_skr_vs_distance_clean.py`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_clean.png`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_clean.pdf`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_clean_report.json`
+
+## DEC-0091 - Accept positive-SKR-only redraw; no scope expansion
+
+Date: 2026-09-30
+
+Status: ACTIVE VISUALIZATION-ONLY DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0107 as a display-only view of the existing exact-tested rows.
+Filtering to `SKR > 0` and using a logarithmic y-axis improves readability of
+the useful positive-rate region. The 26-km and 810-km first-negative labels
+are annotations only; they do not add or plot negative values and do not
+estimate either crossing.
+
+This decision does not authorize source moments, candidate generation,
+channel/security evaluation, interpolation, optimization, baseline selection,
+or publication-scale evaluation. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0107
+- `scripts/render_skr_vs_distance_positive_only.py`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_positive_only.png`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_positive_only.pdf`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_positive_only_report.json`
+
+## DEC-0090 - Accept clean symlog redraw; no scope expansion
+
+Date: 2026-09-30
+
+Status: ACTIVE VISUALIZATION-ONLY DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0106 as a display-only redraw of the existing extended exact
+table. The symlog transform makes the mixed-sign low-rate region readable;
+it does not create values, change signs, or estimate a crossing. Lines remain
+visual connections between exact-tested points only, and the endpoint labels
+remain exact-positive/exact-negative observations rather than a continuous
+`L_max`.
+
+This decision does not authorize source moments, candidate generation,
+channel/security evaluation, interpolation, optimized-MB search, baseline
+selection, or publication-scale evaluation. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0106
+- `scripts/render_skr_vs_distance_redraw_symlog.py`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog.png`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog.pdf`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog_report.json`
+
+## DEC-0089 - Accept extended exact-grid MB sign bracket; diagnostic-only
+
+Date: 2026-09-30
+
+Status: ACTIVE CACHE-ONLY EXTENSION DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0105 as an extension of the common-feasible diagnostic using the
+same exact/hash-matched candidate sets and unchanged baseline. Record the MB
+last-positive/first-negative pair as the exact-tested bracket `800 km` to
+`810 km` only. The difference from Uniform is an exact-grid endpoint
+comparison (`800 - 25 = 775 km`), not a continuous maximum-distance claim.
+
+The new line plot is a visualization of exact rows. Its connecting segments
+are not interpolated data, and the near-zero MB endpoint values are not
+numerical-convergence evidence. This decision does not authorize source
+moments, new C,w candidates, optimized-MB search, security-formula changes,
+baseline selection, or publication-scale evaluation. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0105
+- `scripts/run_revised_uniform_mb_common_feasible_extension.py`
+- `scripts/render_skr_vs_distance_redraw_extended.py`
+- `results/revised_uniform_mb_common_feasible_extended_diagnostic/revised_uniform_mb_common_feasible_report.json`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_extended.png`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_extended.pdf`
+- `results/revised_hap_uav_optical_baseline_figure/skr_distance_table_extended.csv`
+
+## DEC-0088 - Accept exact-point SKR visualization redraw; no scope expansion
+
+Date: 2026-09-30
+
+Status: ACTIVE VISUALIZATION-ONLY DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0104 as a redraw of the existing EVID-0102/EVID-0103 exact
+common-feasible artifacts. Straight line segments are permitted only as a
+visual connection between existing exact-tested points in distance order;
+they must not be interpreted as interpolated SKR values or a precise
+zero-crossing estimate. The redraw adds no data, source moments, C,w values,
+channel/security evaluation, optimization, or protocol claim. Lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0104
+- `scripts/render_skr_vs_distance_redraw.py`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw.png`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw.pdf`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_report.json`
+
+## DEC-0087 - Accept named diagnostic figure export; no scope expansion
+
+Date: 2026-09-30
+
+Status: ACTIVE DIAGNOSTIC EXPORT DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0103 as the named-asset export of EVID-0102. The renderer may
+reuse the already verified common-feasible exact envelope for the requested
+main SKR figure, security-term figures, and per-distance table, provided it
+keeps exact markers only and preserves the fail-closed feasibility checks.
+This export does not constitute a new channel/security evaluation and does
+not authorize source-moment generation, C,w interpolation, optimized-MB
+search, publication-scale evaluation, baseline selection, or a precise
+zero-crossing estimate. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0103
+- `scripts/render_revised_hap_uav_optical_baseline_figure.py`
+- `results/revised_hap_uav_optical_baseline_figure/figure_report.json`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance.png`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance.pdf`
+- `results/revised_hap_uav_optical_baseline_figure/skr_distance_table.csv`
+
+## DEC-0086 - Accept common-budget Uniform/MB diagnostic; no publication claim
+
+Date: 2026-09-30
+
+Status: ACTIVE CACHE-ONLY DIAGNOSTIC DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0102 as a fair common-budget comparison using only exact,
+current-hash-matched C,w rows with the same `0 < V_A <= 1.5 SNU` budget for
+Uniform and MB. Existing peak-energy feasibility checks with
+`n_peak_photons=30.0` passed for all included rows. The channel was recomputed
+at every tested distance and the figures contain exact markers only.
+
+Under this bounded cache envelope MB is above Uniform at all 13 tested
+distances. Uniform's last exact positive is 25 km and first exact negative is
+26 km. MB remains positive through the largest exact-tested distance, 30 km.
+The best feasible exact MB row at 22 and 25 km is `nu=0.2`,
+`V_A=1.3833230303`. The SKR gain is `0.0442303289` bits/use at 22 km and
+`0.0238529688` bits/use at 25 km.
+
+The decomposition shows the primary observed advantage is larger `beta I_AB`.
+Lower `chi_BE` helps at 22 km, but at 25 km MB has higher `chi_BE` and the
+larger classical term still dominates. This result does not authorize source
+moment generation, C,w interpolation, optimized-MB search, common exact-VA
+grid claims, baseline selection, or publication-scale evaluation. Lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0102
+- `results/revised_uniform_mb_common_feasible_diagnostic/revised_uniform_mb_common_feasible_report.json`
+- `results/revised_uniform_mb_common_feasible_diagnostic/diagnostic_distance_envelope.csv`
+- `results/revised_uniform_mb_common_feasible_diagnostic/security_term_attribution.csv`
+- `results/revised_uniform_mb_common_feasible_diagnostic/excluded_candidates.csv`
+- `results/revised_uniform_mb_common_feasible_diagnostic/diagnostic_skr_vs_distance.png`
+
+## DEC-0085 - Accept revised Uniform/MB distance comparison as diagnostic-only
+
+Date: 2026-09-30
+
+Status: ACTIVE CACHE-ONLY DIAGNOSTIC DECISION; NO BASELINE OR LIFECYCLE CHANGE
+
+Accept EVID-0101 as a bounded comparison of the existing exact-cache Uniform
+and MB rows under `w0=0.10 m`, `D_r=0.55 m`, `tau_zen=0.92`,
+`epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, and phase noise OFF. The channel
+was recomputed at every tested distance from 19 to 30 km, including the
+existing 21.9393102292-km geometry fixture.
+
+The best exact-tested MB envelope is above the best exact-tested Uniform
+envelope at all 12 tested distances. Uniform has the last exact positive at
+25 km and the first exact negative at 26 km. MB remains positive at the last
+tested point, 30 km. These are exact-grid sign observations only; no zero
+crossing was interpolated.
+
+This decision does not authorize optimized-MB search, new source moments,
+interpolation, Binomial evaluation, common-grid claims, baseline selection,
+publication figures, or publication-scale evaluation. The available rows are
+8 Uniform and 30 MB current hash-matched historical C,w candidates; Binomial
+has no safe current-compatible exact C,w dataset. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0101
+- `results/revised_uniform_mb_distance_diagnostic/revised_uniform_mb_distance_report.json`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_candidate_details.csv`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_distance_envelope.csv`
+- `results/revised_uniform_mb_distance_diagnostic/protocol_summary.csv`
+- `results/revised_uniform_mb_distance_diagnostic/availability.csv`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_skr_vs_distance.png`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_beta_iab_vs_distance.png`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_chi_be_vs_distance.png`
+
+## DEC-0084 - Accept revised optical baseline as cache-only diagnostic; do not select baseline
+
+Date: 2026-09-30
+
+Status: ACTIVE CACHE-ONLY DIAGNOSTIC DECISION; FULL UNIFORM V_A SWEEP UNRESOLVED
+
+Accept EVID-0100 as a bounded test of the requested `w0=0.10 m`,
+`D_r=0.55 m` optical geometry with the existing channel, security evaluator,
+`epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, and phase noise OFF. On the
+8 current hash-matched exact Uniform candidates, this geometry is positive at
+the best-tested row `V_A=1.075` with `SKR=0.00855162790745` bits/use. The
+controlled cases show that the receiver aperture is the dominant recovery
+mechanism in this fixture: new `w0` alone remains negative at the old
+`D_r=0.08 m`, while the combined new geometry is positive.
+
+The exact requested V_A list is not fully covered: only `0.6,0.7,0.8,1.075`
+are both requested and available in the current Uniform C,w cache. Missing
+values remain missing; no C,w, Z, or Holevo result was interpolated or
+generated. Therefore no continuous optimum, final positive interval, selected
+hardware baseline, or publication-quality `L_max` is approved. The reported
+`D_r≈0.5113500300 m` and `L≈25.6127085762 km` are sparse exact-candidate
+bisection diagnostics only.
+
+The `FINAL_MODEL_SPEC.md` SHA-256 currently differs from the historical hash
+required by `AGENTS.md`; this is recorded as a blocker and the specification
+was not changed. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0100
+- `results/revised_uniform_baseline_diagnostic/revised_uniform_baseline_report.json`
+- `results/revised_uniform_baseline_diagnostic/table1_revised_channel.csv`
+- `results/revised_uniform_baseline_diagnostic/table2_uniform_va_sweep_exact_available.csv`
+- `results/revised_uniform_baseline_diagnostic/table2_requested_va_status.csv`
+- `results/revised_uniform_baseline_diagnostic/table3_nearby_receiver_aperture.csv`
+- `results/revised_uniform_baseline_diagnostic/table4_nearby_beam_waist.csv`
+- `results/revised_uniform_baseline_diagnostic/distance_sweep.csv`
+- `results/revised_uniform_baseline_diagnostic/receiver_crossing.csv`
+- `results/revised_uniform_baseline_diagnostic/distance_crossing.csv`
+
+## DEC-0083 - Accept beam-waist diagnostic; do not select transmitter or receiver
+
+Date: 2026-09-30
+
+Status: ACTIVE CACHE-ONLY DIAGNOSTIC DECISION; CONTINUOUS UNIFORM OPTIMUM UNRESOLVED
+
+Accept EVID-0099 as a bounded optical beam-waist/receiver-aperture diagnostic.
+At the current `D_r=0.08 m`, changing `w0` from `4.4 mm` through `150 mm`
+did not produce a positive SKR on the available exact Uniform candidates.
+The result is non-monotone because reduced diffraction coupling competes with
+the narrower far-field beam and the existing pointing jitter.
+
+The 2D control shows that the receiver aperture, not beam waist alone, is the
+decisive missing scale: the first positive coarse row is `(w0=30 mm,D_r=1 m)`
+and its sparse exact receiver threshold is about `0.953 m`. This is a
+diagnostic combination only. The continuous Uniform `V_A` domain remains
+unresolved because only eight exact C,w rows exist, so no `w0_crit`, selected
+hardware design, or Uniform optimum may be claimed.
+
+Do not interpolate C,w, extend the frozen `[0.1,4.0]` V_A domain to the
+requested `[0.01,5]`, alter `epsilon_ch`, add AO/phase-noise suppression,
+change beta, alter the security formula, or select a baseline. Any exact
+continuation requires an explicit source-moment budget and domain decision.
+No model/security equation, source moment, training state, final-test state, or
+lifecycle gate changed. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0099
+- `results/beam_waist_diagnostic/beam_waist_report.json`
+- `results/beam_waist_diagnostic/beam_waist_sweep.csv`
+- `results/beam_waist_diagnostic/beam_waist_receiver_heatmap.csv`
+- `results/beam_waist_diagnostic/beam_waist_receiver_thresholds.csv`
+- `results/beam_waist_diagnostic/beam_waist_distance_crossing.csv`
+
 ## DEC-0001 — Freeze C4 transmitter representation
 
 Date: 2026-08-26

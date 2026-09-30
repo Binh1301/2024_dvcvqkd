@@ -57,6 +57,7 @@ def derive_physical_inputs(
     *,
     zenith_angle_rad_override: float | None = None,
     aperture_radius_m_override: float | None = None,
+    beam_waist_m_override: float | None = None,
 ) -> dict:
     channel = load_yaml(ROOT / "configs" / "default.yaml")["channel"]
     profile = channel["turbulence_profile"]
@@ -83,8 +84,14 @@ def derive_physical_inputs(
         else aperture_radius_m_override
     )
     receiver_diameter_m = 2.0 * receiver_radius_m
-    theta_div_rad = float(channel["theta_div_rad"])
-    beam_waist_m = 2.0 * wavelength_m / (math.pi * theta_div_rad)
+    if beam_waist_m_override is None:
+        theta_div_rad = float(channel["theta_div_rad"])
+        beam_waist_m = 2.0 * wavelength_m / (math.pi * theta_div_rad)
+    else:
+        beam_waist_m = float(beam_waist_m_override)
+        if not math.isfinite(beam_waist_m) or beam_waist_m <= 0.0:
+            raise ValueError("beam_waist_m_override must be finite and positive.")
+        theta_div_rad = 2.0 * wavelength_m / (math.pi * beam_waist_m)
     tau_zen = channel.get("tau_zen") if tau_zen_override is None else tau_zen_override
     if tau_zen is None:
         raise ValueError(

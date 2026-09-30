@@ -4,156 +4,179 @@
 
 Date: 2026-09-30
 
-EVID-0098 / DEC-0082 completed the phase-off, no-AO HAP-UAV/Sayat forensic
-diagnostic using only existing exact historical C,w.
+EVID-0108 / DEC-0092 created the clean positive-SKR figure from the existing
+extended table/report only.
 
-- Current `T_eff=2.548668306761574e-4` (`35.9369 dB` loss).
-- Dominant loss: `A0` (`32.7197 dB`), then pointing jitter (`2.7548 dB`).
-- Best tested Uniform: `V_A=0.1`, `K=-4.3454249141616776e-5`.
-- Best unconstrained diagnostic MB: `(nu_raw,V_A)=(0.15,3.5548673904962893)`,
-  `K=5.389031300306879e-5`; it exceeds the current `V_A<=1.5` budget.
-- Best tested budget-feasible MB: `(0.20,1.3833230302980657)`,
-  `K=3.6522672467498285e-5`.
-- Sparse-exact thresholds: `T_eff≈0.0898275`, `epsilon≈0.00540667`,
-  receiver diameter `≈1.52931 m`.
-- Exact continuous Uniform optimum remains unresolved; no new C,w or baseline
-  selection was authorized.
-- Artifacts: `results/hap_uav_sayat_forensics/`.
+- New assets: `skr_vs_distance_clean.{png,pdf}` and
+  `skr_vs_distance_clean_report.json`.
+- The figure contains only the two protocol curves, positive exact-tested
+  markers, a standard log y-axis, a white background, clean labels, and a
+  compact legend. It has no crossing annotations, arrows, footer, inset,
+  zero-line, negative branch, or configuration text.
+- 8 Uniform and 63 MB positive rows were plotted. No evaluation, source
+  moment, candidate, new distance, or interpolation occurred.
 
-## Previous completed task
+This remains presentation-only and the lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-Date: 2026-09-29
+## Prior positive-only redraw
 
-EVID-0097 / DEC-0081 completed the phase-noise-only sensitivity diagnostic at
-the original `D_r=0.08 m` aperture. The sweep `9.4e-18` through `1e-18` did
-not make all three schemes positive at 19 km: Uniform remains negative at
-`K=-4.975513931165798e-05` at `1e-18`.
+Date: 2026-09-30
 
-- 8 historical exact Uniform candidates and 30 historical exact MB candidates.
-- No new C,w/AP/Fock/Gram moments; no aperture, epsilon, beta, AO, or security formula changed.
-- Full distance sweep intentionally not run.
-- Artifacts: `results/skr_vs_link_distance/phase_noise_sensitivity/`.
+EVID-0107 / DEC-0091 created the positive-SKR-only logarithmic redraw from
+the existing extended exact table/report.
 
-## Previous completed task
+- New assets: `skr_vs_distance_positive_only.{png,pdf}` and
+  `skr_vs_distance_positive_only_report.json`.
+- Only `SKR > 0` rows are plotted: 8 Uniform and 63 MB; no negative row or
+  zero line is shown.
+- The first-negative distances 26 km and 810 km remain short annotations;
+  no crossing is interpolated. No channel/security rerun, source moment, or
+  candidate was created.
 
-Date: 2026-09-29
+This remains diagnostic-only and the lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-EVID-0096 / DEC-0080 completed the bounded historical-exact aperture
-sensitivity diagnostic. Diameters `0.08--0.16 m` were tested at `L=19 km`;
-Uniform and MB-without-AO stayed negative, so no all-positive aperture was
-found and the full distance sweep was intentionally not run.
+## Prior symlog redraw
 
-- 8 historical exact Uniform candidates and 30 historical exact MB candidates.
-- `tau_zen=0.92`, `C_n,phi^2=9.4e-18`, `eta_AO=0.95`,
-  `T_eff=<sqrt(T_raw)>^2`, direct-Z, and `maximize_full_interval=False`.
-- No new C,w/AP/Fock/Gram source moments; no physics/security parameter changed.
-- Artifacts: `results/skr_vs_link_distance/aperture_all_positive_diagnostic/`.
+Date: 2026-09-30
 
-## Previous completed task
+EVID-0106 / DEC-0090 created the clean symlog redraw from the existing
+extended exact table/report only.
 
-Date: 2026-09-29
+- New assets: `skr_vs_distance_redraw_symlog.{png,pdf}` and
+  `skr_vs_distance_redraw_symlog_report.json`.
+- The figure uses the exact requested title/subtitle, `symlog` with
+  `linthresh=1e-11`, exact-tested markers/line connections, a zero line, short
+  25/26-km and 800/810-km annotations, and a 790--820-km `MB sign bracket`
+  inset.
+- The renderer validated 83 distances / 166 rows from the existing table and
+  report. No channel/security rerun, source moment, candidate, or
+  interpolation occurred; the original extended assets were preserved.
 
-EVID-0095 / DEC-0079 completed the historical exact distance envelope using
-only audit-approved C,w; no new C,w was computed.
+This remains diagnostic-only and the lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-- Curves: Uniform, MB with AO, MB without AO.
-- MB-AO bracket: [31,33] km; historical-exact estimate 31.409924920888173 km.
-- Uniform and MB-noAO: no sign change over 19--100 km.
-- Figure/artifacts: `results/skr_vs_link_distance/historical_exact_*`.
-- This is diagnostic only; no final publication operation-distance claim.
+## Extended exact-grid diagnostic
 
-The earlier EVID-0094 / DEC-0078 read-only repository-wide C,w audit remains
-recorded below. No new C,w was computed and no active cache was modified.
+Date: 2026-09-30
 
-- Indexed 6,876 C,w records and 77 hash-identifiable ensembles.
-- Found 75 duplicate hash groups; duplicate C,w deltas were zero.
-- Found 148 superseded/wrong-AP-w records.
-- Matched 7 of 162 planned distance candidates safely: 3 Uniform and 4 MB;
-  no Binomial match.
-- Remaining feasible candidates: 139 without safe historical reuse.
-- Artifacts are under `results/skr_vs_link_distance/`.
-- MB pair-level report: `historical_mb_exact_pairs.csv` (71 records, 69 unique
-  pairs, 4 safe current-distance matches).
-- Classification: `AUDIT_COMPLETE_NO_NEW_SOURCE_MOMENTS`.
+EVID-0105 / DEC-0089 extended the common-feasible exact diagnostic and
+redrew the figure through 1000 km.
 
-The earlier AP coverage attempt EVID-0093 / DEC-0077 is recorded below. It is
-restartable but blocked by the existing one-hour AP subprocess timeout.
+- The same 5 feasible Uniform and 5 feasible MB exact/hash rows were used;
+  baseline, budget, peak guard, AO, phase noise, beta, and security path were
+  unchanged.
+- 83 distances / 166 envelope rows were evaluated with channel recomputation
+  at every distance; no source moments or candidate generation occurred.
+- Uniform: last exact-positive 25 km, first exact-negative 26 km.
+- MB: last exact-positive 800 km, first exact-negative 810 km; the values are
+  O(1e-11) bits/use and are low-rate diagnostic observations.
+- New assets: `skr_vs_distance_redraw_extended.{png,pdf}`,
+  `skr_distance_table_extended.csv`, and the redraw report under
+  `results/revised_hap_uav_optical_baseline_figure/`.
+- The redraw uses exact-point line connections plus an inset for the
+  750--1000-km MB sign bracket; no interpolation is claimed.
 
-- Global exact coverage: 19/143.
-- Local high-priority mesh: 26/59.
-- Boundary: 9/18.
-- Uniform baseline roster: 8/43.
-- Best exact interior remains `(nu_raw,V_A)=(.24,1.95)` with
-  `SKR=2.1544608008872113e-05`.
-- Best tested boundary is `nu_raw=.275`, `V_A=1.939393833980765`, with
-  `SKR=2.1507318654867557e-05`.
-- Timeout failures and incomplete points are recorded in the three
-  `*_failed_or_incomplete.csv` ledgers.
-- No interpolation, surrogate, Adam, boundary refinement, baseline selection,
-  training, or publication-scale run occurred.
-- Classification remains `GLOBAL_OPTIMUM_UNRESOLVED`.
+This remains diagnostic-only and the lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-The earlier global diagnostic remains recorded below.
+## Prior exact-point redraw
 
-EVID-0092 / DEC-0076 completed the authorized cache-bound global joint MB/V_A
-coverage diagnostic. It is fail-closed; global certification is unresolved.
+EVID-0104 / DEC-0088 created the requested exact-point line redraw from the
+existing common-feasible diagnostic artifacts.
 
-- Requested global grid: 143 rows, 15 exact cache evaluations.
-- Requested boundary grid: 18 rows, 5 exact cache evaluations.
-- Requested uniform scan: 43 rows, 5 exact cache evaluations.
-- No fresh AP source point, interpolation, surrogate, Brent/golden search, or
-  Adam ran.
-- Best exact point currently tested remains `(nu_raw,V_A)=(.24,1.95)`.
-- Classification: `GLOBAL_OPTIMUM_UNRESOLVED`.
+- New outputs: `results/revised_hap_uav_optical_baseline_figure/`
+  `skr_vs_distance_redraw.png`, `skr_vs_distance_redraw.pdf`, and
+  `skr_vs_distance_redraw_report.json`.
+- Only the existing 26 Uniform/MB rows were used; no Binomial data, new
+  points, source moments, C,w interpolation, or channel/security rerun.
+- Lines connect existing exact-tested points in distance order; circular
+  markers and the `SKR = 0` line are shown.
+- Endpoint annotations mark Uniform 25 km positive / 26 km negative and MB
+  positive through 30 km.
+- Renderer validation cross-checked `skr_distance_table.csv` against the
+  diagnostic envelope and `protocol_summary.csv`.
 
-The earlier exact joint MB/V_A diagnostic remains recorded below.
+This remains a visualization-only diagnostic asset. The
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS` lifecycle state and prior conclusions
+are unchanged.
 
-EVID-0091 / DEC-0075 completed the authorized exact joint MB/V_A diagnostic.
+## Prior named figure export
 
-- Feasible curved region mapped with hard peak and V_A config bounds.
-- 25-point exact feasible landscape completed.
-- Local exact refinement completed.
-- Best tested local point: `(nu_raw,V_A)=(.24,1.95)`.
-- SKR: `2.1544608008872113e-05`.
-- Local stencil supports a local interior candidate, not global optimality.
-- No global optimizer, baseline selection, or Adam ran.
-- Common ensemble/hash, positive-PMF, peak, phase-noise, and exact C,w rules
-  remained unchanged.
+EVID-0103 / DEC-0087 exported the requested named diagnostic-only figures
+and table from the verified EVID-0102 common-feasible exact envelope.
 
-Artifacts:
+- Main outputs: `results/revised_hap_uav_optical_baseline_figure/`
+  `skr_vs_distance.png`, `skr_vs_distance.pdf`, and
+  `skr_distance_table.csv`.
+- Optional outputs: `betaIAB_vs_distance.{png,pdf}` and
+  `chiBE_vs_distance.{png,pdf}`.
+- The renderer rechecked exact/hash status, `V_A <= 1.5`, peak feasibility,
+  required distances, and the no-new-moments/no-interpolation provenance.
+- No channel/security evaluation was rerun; the source run had already
+  recomputed the channel at every exact-tested distance.
+- Binomial remains omitted with the explicit no-safe-exact-dataset note.
 
-- `results/joint_mb_va/feasible_boundary.csv`
-- `results/joint_mb_va/joint_landscape.csv`
-- `results/joint_mb_va/local_refinement.csv`
-- `results/joint_mb_va/local_refinement.json`
-- `results/joint_mb_va/run_report.json`
+This is an asset export only. The common-feasible exact-grid conclusions and
+the `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` lifecycle state are unchanged.
 
-Global diagnostic artifacts:
+## Prior completed diagnostic
 
-- `results/joint_mb_va_global/run_report.json`
-- `results/joint_mb_va_global/global_landscape.csv`
-- `results/joint_mb_va_global/feasible_boundary.csv`
-- `results/joint_mb_va_global/boundary_search.csv`
-- `results/joint_mb_va_global/interior_search_log.csv`
-- `results/joint_mb_va_global/uniform_optimized_baseline.csv`
-- `results/joint_mb_va_global/local_refinement.csv`
-- `results/joint_mb_va_global/optimum_certification.csv`
-- `results/joint_mb_va_global/objective_decomposition.csv`
-- `results/joint_mb_va_global/gh_convergence.csv`
-- `results/joint_mb_va_global/ap_coverage/local_report.json`
-- `results/joint_mb_va_global/ap_coverage/local_failed_or_incomplete.csv`
-- `results/joint_mb_va_global/ap_coverage/ap_batch_timeout_summary.json`
-- `results/joint_mb_va_global/ap_coverage_boundary/boundary_report.json`
-- `results/joint_mb_va_global/ap_coverage_boundary/boundary_failed_or_incomplete.csv`
-- `results/joint_mb_va_global/ap_coverage_uniform/uniform_report.json`
-- `results/joint_mb_va_global/ap_coverage_uniform/uniform_failed_or_incomplete.csv`
+EVID-0102 / DEC-0086 completed the requested fair common-feasible diagnostic.
 
-## Verification
+- Fixture: `w0=0.10 m`, `D_r=0.55 m`, `tau_zen=0.92`,
+  `epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, heterodyne, reverse
+  reconciliation.
+- Common budget: `0 < V_A <= 1.5 SNU` for both protocols.
+- Exact rows retained: 5 Uniform and 5 MB; peak constraint
+  `n_peak_photons=30.0` passed for every retained row.
+- The prior MB row `V_A=3.5548673905` and every other over-budget row were
+  excluded; no source moments or C,w interpolation was used.
+- Distances: `19,20,21,21.9393102292,22,23,24,25,26,27,28,29,30 km`.
+- Channel quantities were recomputed at every distance; plots use markers only.
+- MB exceeds Uniform at every exact-tested distance.
+- Uniform: last exact positive at 25 km (`SKR=5.9111913793e-4`), first exact
+  negative at 26 km (`SKR=-2.9334046616e-4`).
+- MB: positive through the largest exact-tested distance, 30 km
+  (`SKR=7.8782598116e-3`), with `nu=0.2`, `V_A=1.3833230303`.
+- SKR gains: `0.0442303289` bits/use at 22 km and `0.0238529688` bits/use at
+  25 km.
+- Primary driver: larger `beta I_AB`; lower `chi_BE` helps at 22 km but MB
+  has higher `chi_BE` at 25 km.
 
-The current focused run passed 15 tests (9 exact-MB/reconciliation and 6
-global-joint tests); joint/AP scripts were compiled and exact source/cache
-jobs were run. AP timeout failures are recorded. No physical/security
-equations changed.
+## Exact-cache boundary
+
+The result is the best exact-tested feasible candidate envelope only. It is
+not a continuous or global optimization, not a common exact-VA grid, and not
+a publication comparison. Binomial remains excluded because no safe current-
+compatible exact C,w dataset exists.
+
+## Artifacts
+
+All artifacts are under `results/revised_uniform_mb_common_feasible_diagnostic/`:
+
+- `revised_uniform_mb_common_feasible_report.json`
+- `diagnostic_candidate_details.csv`
+- `diagnostic_distance_envelope.csv`
+- `protocol_summary.csv`
+- `security_term_attribution.csv`
+- `availability.csv`
+- `excluded_candidates.csv`
+- `channel_by_distance.csv`
+- `diagnostic_skr_vs_distance.{png,pdf}`
+- `diagnostic_beta_iab_vs_distance.{png,pdf}`
+- `diagnostic_chi_be_vs_distance.{png,pdf}`
+
+## Verification and blockers
+
+- Runner exit code 0; `py_compile`, JSON/CSV inspection, and visual inspection
+  of all three marker-only plots passed.
+- `FINAL_MODEL_SPEC.md` remains unmodified and hash-mismatched against the
+  historical expected value.
+- Remaining blockers include unresolved `tau_zen` and `cn_phi2` authorization,
+  sparse exact C,w coverage, unauthorized optimized-MB search, missing
+  Binomial exact C,w, and no common exact-VA grid.
 
 ## Lifecycle
 
@@ -161,11 +184,6 @@ equations changed.
 
 ## Next action
 
-Only a separately budgeted exact-source continuation with an explicit timeout
-decision remains; certify the full domain and uniform optimized baseline before
-claiming a joint optimum. Do not run Adam automatically.
-
-## Worktree caution
-
-The worktree contains prior user/channel/MB changes and untracked scripts.
-Preserve unrelated files.
+Resolve the frozen-spec and authorization blockers before any broader or
+publication-scale comparison. Preserve the existing exact cache and all
+unrelated worktree edits.

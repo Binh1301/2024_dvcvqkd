@@ -1,0 +1,128 @@
+{
+  "classifications": {
+    "convergence_selected_values": [],
+    "derived_channel_quantities": "DERIVED",
+    "diagnostic_seed_and_count": "SOFTWARE_PREREGISTERED",
+    "physical_inputs": "AUTHOR_APPROVED"
+  },
+  "derived": {
+    "analytic_mean_transmittance": 0.024966083876368256,
+    "atmospheric_power_transmittance": 0.9316271221108952,
+    "beam_radius_receiver_m": 0.5972908436983067,
+    "centered_aperture_power_coupling_t0_squared": 0.031042111435033548,
+    "extinction_coefficient_per_km_napier": 0.0037275067328069573,
+    "extinction_db_per_km": 0.016188356053152803,
+    "link_length_m": 19000.0,
+    "plane_wave_rytov_variance_diagnostic": 0.439990107079949,
+    "pointing_scale_radius_m": 0.4256987375105642,
+    "pointing_shape_gamma": 2.0000026122267047,
+    "radial_rms_displacement_m": 0.16940388168786366,
+    "rayleigh_range_m": 499.5943052795794,
+    "sigma_r_rayleigh_scale_m": 0.11978663350081199,
+    "sigma_turbulence_m": 0.06459213118645223,
+    "sigma_uav_m": 0.10087960227047885,
+    "transmittance_support": {
+      "lower": 0.0,
+      "lower_inclusive": false,
+      "upper": 0.028919672940466015,
+      "upper_inclusive": true
+    },
+    "vertical_separation_m": 19000.0
+  },
+  "downstream_channel_outputs": {
+    "cvqkd": [
+      "the identical instantaneous power transmittance T",
+      "the identical input-referred epsilon in SNU"
+    ],
+    "do_not_substitute": [
+      "field amplitude sqrt(T)",
+      "received-power SNR",
+      "detector-output noise"
+    ],
+    "qam_adaptation": [
+      "instantaneous power transmittance T",
+      "input-referred epsilon in SNU"
+    ]
+  },
+  "monte_carlo_diagnostic": {
+    "analytic_mean_difference_in_standard_errors": 0.7059744917007069,
+    "base_seed": 202612,
+    "empirical_epsilon_mean_snu": 0.02050666180438046,
+    "empirical_epsilon_variance_snu2": 0.00012698239326815547,
+    "empirical_mean_transmittance": 0.024968513650040654,
+    "empirical_t_epsilon_correlation": -0.0007490689897735909,
+    "empirical_transmittance_variance": 1.1845494376925684e-05,
+    "excess_noise_seed": 6937075169153544860,
+    "excess_noise_sha256": "970883c130eebb0daf8d0d3b17d3a4d2f46a14604435bdebc59f03946708e1f8",
+    "joint_realization_sha256": "f3f087a456a6d24f169854a7de538da53993085b77a326d5a8536f476699ede5",
+    "mean_standard_error": 3.44173012051089e-06,
+    "quantiles": {
+      "p01": {
+        "analytic_transmittance": 0.013946847816295812,
+        "empirical_transmittance": 0.013978586901366651,
+        "probability": 0.01
+      },
+      "p10": {
+        "analytic_transmittance": 0.020083290161048067,
+        "empirical_transmittance": 0.02008931223687165,
+        "probability": 0.1
+      },
+      "p50": {
+        "analytic_transmittance": 0.02591330394408097,
+        "empirical_transmittance": 0.025913602570412766,
+        "probability": 0.5
+      },
+      "p90": {
+        "analytic_transmittance": 0.028441160821717916,
+        "empirical_transmittance": 0.02844328679100964,
+        "probability": 0.9
+      },
+      "p99": {
+        "analytic_transmittance": 0.028873682588422146,
+        "empirical_transmittance": 0.028874398479495723,
+        "probability": 0.99
+      }
+    },
+    "sample_count": 1000000,
+    "transmittance_seed": 2859137353400682658,
+    "transmittance_sha256": "2a4f703ee1718704b2041b56348bddeac0d9cd5c02a1806d459364e9fd84f531"
+  },
+  "physical_inputs": {
+    "aperture_radius_m": 0.075,
+    "beam_waist_m": 0.0157,
+    "cn2_m_minus_two_thirds": 1e-16,
+    "epsilon_distribution": "independent Uniform[0.001,0.04] input-referred SNU",
+    "epsilon_maximum_snu": 0.04,
+    "epsilon_minimum_snu": 0.001,
+    "h_hap_m": 20000.0,
+    "h_uav_m": 1000.0,
+    "uav_motion_standard_deviations": {
+      "sigma_phi_rad": 0.00204,
+      "sigma_psi_rad": 0.00406,
+      "sigma_theta_rad": 0.0026,
+      "sigma_x_m": 0.0521,
+      "sigma_y_m": 0.0502,
+      "sigma_z_m": 0.0703
+    },
+    "visibility_km": 200.0,
+    "wavelength_m": 1.55e-06,
+    "zenith_angle_rad": 0.0
+  },
+  "scenario": {
+    "boresight_model": "zero deterministic boresight; centered Rayleigh jitter",
+    "interpretation": "Author-approved nominal good-weather sensitivity scenario; not a universal atmosphere or measured HAP-UAV joint distribution.",
+    "name": "nominal_good_weather_homogeneous_kruse_sensitivity_scenario",
+    "temporal_model": "iid Monte Carlo states; no time correlation"
+  },
+  "schema": "frozen-channel-diagnostics-v1",
+  "status": "PASS",
+  "validity_and_limitations": [
+    "Vertical 19 km path with homogeneous 200 km Kruse visibility.",
+    "Constant Cn2 beam-wander model; no altitude profile, scintillation, or turbulence-induced beam spread.",
+    "Plane-wave Rytov variance is an applicability diagnostic only and is not an added fading term.",
+    "Independent zero-mean Gaussian UAV components and zero boresight produce Rayleigh radial jitter.",
+    "States are iid, not a time-correlated UAV trajectory.",
+    "No additional optical-throughput or detector-efficiency loss is included in T.",
+    "Epsilon is an assumed independent operating-domain distribution, not measured atmospheric coupling."
+  ]
+}

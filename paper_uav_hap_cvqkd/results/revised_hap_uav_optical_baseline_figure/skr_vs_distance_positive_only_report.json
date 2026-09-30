@@ -1,0 +1,43 @@
+{
+  "status": "DIAGNOSTIC_ONLY_POSITIVE_ONLY_REDRAW_COMPLETE",
+  "figure_title": "Positive-SKR vs Link Distance",
+  "figure_subtitle": "Diagnostic-only, exact-tested, V_A <= 1.5, AO OFF, phase noise OFF",
+  "source_table": {
+    "path": "paper_uav_hap_cvqkd\\results\\revised_hap_uav_optical_baseline_figure\\skr_distance_table_extended.csv",
+    "sha256": "2ab2c66d1db367a08ef3fe23c975d7b492a12479ab80b6b5a13ef4fc8a1a11d1",
+    "row_count": 166
+  },
+  "source_report": {
+    "path": "paper_uav_hap_cvqkd\\results\\revised_hap_uav_optical_baseline_figure\\skr_vs_distance_redraw_extended_report.json",
+    "sha256": "b83c0a4cade1b1c2188615d63421b37f1655db3aea07b8fe17850bb4e406479d",
+    "status": "DIAGNOSTIC_ONLY_EXTENDED_EXACT_POINT_LINE_REDRAW_COMPLETE"
+  },
+  "protocols": [
+    "Uniform 256-QAM",
+    "MB-shaped 256-QAM"
+  ],
+  "positive_rows_plotted": {
+    "Uniform 256-QAM": 8,
+    "MB-shaped 256-QAM": 63
+  },
+  "negative_rows_plotted": 0,
+  "positive_distance_endpoints_km": {
+    "uniform_last_positive": 25.0,
+    "mb_last_positive": 800.0
+  },
+  "sign_annotations": {
+    "uniform_first_negative": 26.0,
+    "mb_first_negative": 810.0
+  },
+  "y_scale": "log",
+  "line_semantics": "connect positive exact-tested points in tested distance order",
+  "new_source_moments_computed": false,
+  "new_candidates_created": false,
+  "channel_or_security_rerun": false,
+  "interpolation_or_extrapolation": false,
+  "binomial_note": "Binomial omitted.",
+  "output_sha256": {
+    "skr_vs_distance_positive_only.png": "239592be235d21a1c63477bc6e8a0f2e671fc6b729d33b232168d24e5442ab05",
+    "skr_vs_distance_positive_only.pdf": "a68e518b391879fbde7275b7dfb0708823725a615fd3670478be78779d29a094"
+  }
+}

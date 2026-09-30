@@ -1,5 +1,609 @@
 # Evidence Register
 
+## EVID-0108 - Clean positive-SKR figure redraw
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR VISUALIZATION-ONLY REDRAW; NO NEW EVALUATION
+
+A minimal clean figure was rendered from only the existing extended table and
+redraw report. It contains Uniform 256-QAM and MB-shaped 256-QAM, positive
+SKR rows only, circular exact-tested markers connected in tested order, a
+standard logarithmic y-axis, a white background, a short title, and a clean
+two-entry legend. It deliberately contains no diagnostic subtitle, budget or
+configuration text, crossing labels, arrows, footer, inset, zero line, or
+negative branch.
+
+The renderer validated the unchanged 166-row source table and plotted 8
+positive Uniform rows plus 63 positive MB rows. No channel/security rerun,
+source moment, candidate, new distance, or interpolation occurred.
+
+Hashes are:
+
+```text
+renderer:      13dae4eea621ed3b40b9ad57444b206a66cc9a01f0d3051202468c796d6824e6
+clean PNG:     f16d70babb140e2cab906718ab39103e8ec28378be80fe459ce87ffa27594aca
+clean PDF:     cd5e2775b89aaab583ffc270303db13d9a16a0dfcfca268d701980cb4a77ed42
+clean report:  c6d3553c68f7dbba34f40be5f3b22401a5df023dc86a5c986001af764f55046e
+```
+
+This is a presentation-only diagnostic asset; the lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0107 - Positive-SKR-only logarithmic redraw
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR VISUALIZATION-ONLY REDRAW; NO NEW EVALUATION
+
+The current diagnostic figure was redrawn from only the existing
+`skr_distance_table_extended.csv` and
+`skr_vs_distance_redraw_extended_report.json`. The new figure retains only
+rows with `SKR > 0`, uses a standard logarithmic y-axis, and contains only
+Uniform 256-QAM and MB-shaped 256-QAM. It plots 8 positive Uniform rows and
+63 positive MB rows; zero negative rows are plotted.
+
+The useful exact-tested endpoints remain Uniform through 25 km and MB through
+800 km. The first-negative distances 26 km and 810 km appear only as short
+text annotations; no negative point, zero line, crossing interpolation, new
+distance, channel/security rerun, source moment, or candidate was added. The
+figure spans 18--820 km so the positive MB endpoint and both crossing labels
+remain visible.
+
+Hashes are:
+
+```text
+renderer:       bcc7d347698de6ae390e03379633fea3301e326427d32afa8bf737cb00d62ae7
+positive PNG:   239592be235d21a1c63477bc6e8a0f2e671fc6b729d33b232168d24e5442ab05
+positive PDF:   a68e518b391879fbde7275b7dfb0708823725a615fd3670478be78779d29a094
+positive report:9217ba67a2de8373a3228741743b212c461512f963d54a6d9ed258fe5b22f956
+```
+
+The MB 800-km point remains a very-low-rate diagnostic value, not convergence,
+operational, or publication evidence. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0106 - Clean symlog redraw from the existing extended exact table
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR VISUALIZATION-ONLY REDRAW; NO NEW EVALUATION
+
+The extended SKR figure was redrawn using only the existing
+`skr_distance_table_extended.csv` and
+`skr_vs_distance_redraw_extended_report.json`. The new figure has the exact
+title `Positive-SKR vs Link Distance`, the requested diagnostic subtitle, a
+symlog SKR axis with `linthresh=1e-11`, exact-tested markers connected in
+distance order, a `SKR = 0` line, short 25/26-km and 800/810-km endpoint
+annotations, and a minimal `MB sign bracket` inset covering 790--820 km.
+
+The renderer validated 83 distances and 166 rows, the common `0 < V_A <= 1.5`
+budget, exact/hash identifiers, and the existing report's no-interpolation and
+no-new-moments provenance. It did not rewrite the source table and did not
+recompute a channel, security term, source moment, or candidate.
+
+Input and output hashes are:
+
+```text
+renderer:       da207f0cfbefe8d37a3a900c902eec797ee10e72e4dbc1754bbd9adddeead9e8
+source table:   2ab2c66d1db367a08ef3fe23c975d7b492a12479ab80b6b5a13ef4fc8a1a11d1
+source report:  b83c0a4cade1b1c2188615d63421b37f1655db3aea07b8fe17850bb4e406479d
+symlog PNG:     5601fb40b63a672817f8f831abc75d018f92e37d43d824d58f70c8285c0046e0
+symlog PDF:     b55c64a139bcee3d430b631c945f9b0cc16ba903882cc8aeaee27da5bc43fe36
+symlog report:  4558d3971c8b1fc34ee9c59cc18d1473cbe3edde898b3b30c7d365280b674a18
+```
+
+The 800/810-km MB values remain O(1e-11) bits/use and are low-rate
+diagnostic observations, not convergence, operational, or publication
+evidence. The lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0105 - Extended common-feasible distance diagnostic and redraw
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC-ONLY EXTENSION; LOW-RATE ENDPOINTS REQUIRE NUMERICAL CAUTION
+
+The common-feasible exact-cache diagnostic was extended without changing the
+baseline or candidate set. It retained `w0=0.10 m`, `D_r=0.55 m`,
+`epsilon_ch=0.0186 SNU`, `beta=0.95`, heterodyne reverse reconciliation, AO
+OFF, phase noise OFF, `0 < V_A <= 1.5 SNU`, and `n_peak=30`. The same 5
+feasible Uniform and 5 feasible MB exact/hash-matched candidates were used;
+Binomial remained absent. The channel was recomputed at every one of 83
+tested distances, producing 166 Uniform/MB envelope rows.
+
+The exact-tested endpoint results are:
+
+```text
+Uniform: last exact-positive = 25 km; first exact-negative = 26 km
+MB:      last exact-positive = 800 km; first exact-negative = 810 km
+```
+
+Thus the MB exact-tested positivity-loss bracket is 800--810 km, and its
+last positive tested endpoint is 775 km farther than Uniform's 25-km endpoint.
+No crossing was interpolated. The MB bracket is a very-low-rate numerical
+diagnostic: `SKR(800 km)=3.19264614745e-12` and
+`SKR(810 km)=-1.30785160479e-11` bits/use. It is not convergence evidence,
+an operational range, or a publication claim.
+
+The new redraw assets are `skr_vs_distance_redraw_extended.png`,
+`skr_vs_distance_redraw_extended.pdf`, `skr_distance_table_extended.csv`,
+and `skr_vs_distance_redraw_extended_report.json`. The line plot connects
+only existing exact-tested points; an inset shows the 750--1000-km sign
+bracket. The extension report and source runner hashes are:
+
+```text
+extension runner: 114a1f43bede7076203f0713a137245e771d1d4c02854a05c9be08fd462f4249
+renderer:         0a51eaba948d31a3c3a1d09569253fabdef1828cb9a2fdb897087ae9e4c49b6c
+source report:    b44cb570a8dfe80f31aab604715b6046f2bcc1e86e1e3256f11e9519f1db1cc1
+redraw PNG:       c83e0da4e0a1c2ae2287c6ff908e08f52f1d0e14436a0b6edc1f62c88b8eaa61
+redraw PDF:       39b2606386981f34a16cd61ad967006a8bcad425eadde24888a25df56e01897a
+extended table:   2ab2c66d1db367a08ef3fe23c975d7b492a12479ab80b6b5a13ef4fc8a1a11d1
+redraw report:    b83c0a4cade1b1c2188615d63421b37f1655db3aea07b8fe17850bb4e406479d
+```
+
+No source moments, candidate generation, C,w interpolation, security-formula
+change, or publication-scale workflow was performed. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0104 - Exact-point line redraw of common-feasible SKR figure
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC-ONLY VISUALIZATION REDRAW; NO NEW EVALUATION
+
+The SKR figure was redrawn using only the existing
+`results/revised_hap_uav_optical_baseline_figure/skr_distance_table.csv`,
+the common-feasible `diagnostic_distance_envelope.csv`, and
+`protocol_summary.csv`. The redraw contains only Uniform 256-QAM and
+MB-shaped 256-QAM. It connects adjacent exact-tested points in distance order
+with straight visual segments and circular markers; no intermediate points,
+smooth fit, extrapolation, channel evaluation, security evaluation, source
+moments, or C,w interpolation were added.
+
+The new outputs are `skr_vs_distance_redraw.png` and
+`skr_vs_distance_redraw.pdf`. The figure includes the exact endpoint
+annotations: Uniform last exact-positive at 25 km, Uniform first
+exact-negative at 26 km, and MB positive through the largest exact-tested
+distance at 30 km. It also displays the 22-km and 25-km SKR/gain values, the
+common-feasible baseline note, and
+`Binomial omitted: no safe current-compatible exact C,w dataset.`
+
+The redraw script rechecked the source report lifecycle, required distances,
+26-row table/envelope identity, exact/hash identifiers, `V_A <= 1.5`, and the
+protocol-summary endpoint records. Script, PNG, PDF, and redraw-report hashes
+are respectively:
+
+```text
+52b9be5d7937568b418c13a11b37dc95522282410761a59614d86443d0820c69
+6d659f7f304ae6e2e5a5be8cd46b814285c793c7ef074450f2ece0c2d5c5218f
+b4a1c99822d52535ab47673befb8042cc5f0ebca494743b7f52786763cd51ca6
+6ba677379a1e680f5e0cc9f9d6dd97ccec7b8d504c5978e203caf36a87e788e1
+```
+
+This is a visualization-only diagnostic redraw and remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0103 - Revised-baseline diagnostic figure export
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC-ONLY FIGURE EXPORT; NO NEW EVALUATION
+
+The requested named figures and table were rendered from the verified
+EVID-0102 common-feasible exact envelope. The renderer first checked the
+diagnostic-only lifecycle, channel recomputation flag, no-new-moments flag,
+no-interpolation flag, exact/hash status, common `0 < V_A <= 1.5 SNU`
+budget, and the `n_peak_photons=30.0` feasibility flag for every retained
+row. It then wrote 26 rows covering Uniform and MB at the 13 exact-tested
+distances; Binomial remains omitted because no safe current-compatible exact
+`C,w` dataset exists.
+
+The main outputs are `results/revised_hap_uav_optical_baseline_figure/`
+`skr_vs_distance.png`, `skr_vs_distance.pdf`, and
+`skr_distance_table.csv`. The optional security-term outputs are
+`betaIAB_vs_distance.{png,pdf}` and `chiBE_vs_distance.{png,pdf}`. The main
+figure contains the exact requested title and common-budget note, exact
+markers only, the `SKR = 0` line, and the annotation
+`Binomial omitted: no safe current-compatible exact C,w dataset`.
+
+No source moments, C,w interpolation, channel/security rerun, continuous
+optimization, or precise zero-crossing interpolation was performed in this
+export. The renderer hash is
+`b6e8fc15335d849e3941ac7a10f982f7854fa2dd070a350879a4acd919615452`.
+The main PNG/PDF/table hashes are respectively
+`c46ac929e9138cd1eb9570408f8a27cdd080ae4754a8053605adbb5d028a1b41`,
+`18d94eda755c0a1809010d2a8f31863d83c5abbd848c4e6aeaaf5272248b2dd8`, and
+`556456536b3a9676e98c3d4b55b70956ffa7a749d58d4756079093d515f5db62`.
+Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0102 - Common-feasible Uniform/MB distance diagnostic
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC-ONLY COMMON-BUDGET COMPARISON; NO PUBLICATION CLAIM
+
+The diagnostic enforced the same common modulation-variance budget
+`0 < V_A <= 1.5 SNU` for Uniform 256-QAM and MB-shaped 256-QAM under the
+revised optical fixture `w0=0.10 m`, `D_r=0.55 m`, `tau_zen=0.92`,
+`epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, heterodyne detection, and
+reverse reconciliation. The previous MB row at `V_A=3.5548673905` was
+excluded. Existing `n_peak_photons=30.0` ensemble validation and the explicit
+peak guard were applied identically to both protocols; all included rows
+passed.
+
+The run used only current hash-matched exact C,w rows: 8 safe Uniform rows
+were available and 5 remained within the budget; 30 safe MB rows were
+available and 5 remained within the budget. The 3 over-budget Uniform rows and
+25 over-budget MB rows were recorded in `excluded_candidates.csv`. Binomial
+was not evaluated because no safe current-compatible exact C,w dataset exists.
+No source moments were generated, C,w values were interpolated, or global
+optimization was run.
+
+The channel was recomputed at every exact-tested distance
+`{19,20,21,21.9393102292,22,23,24,25,26,27,28,29,30} km`; the 21.9393102292-km
+point is the existing 30-degree fixture. The SKR figure uses exact markers
+only, a zero line, and no connecting curve or zero-crossing interpolation.
+
+The common-budget results are:
+
+```text
+Uniform: last exact positive = 25 km, SKR= 5.9111913793e-4, V_A=0.8
+         first exact negative = 26 km, SKR=-2.9334046616e-4, V_A=0.8
+MB:      last exact positive = 30 km, SKR= 7.8782598116e-3,
+         V_A=1.3833230303, nu=0.2
+         first exact negative = none in the tested distance set
+```
+
+MB has higher SKR than Uniform at all 13 exact-tested distances. The gains
+are `0.0442303289` bits/use at 22 km and `0.0238529688` bits/use at 25 km.
+The best feasible exact MB row at both distances is
+`nu=0.2`, `V_A=1.3833230303`, with source hashes recorded in the CSV and
+report.
+
+At 22 km:
+
+```text
+Uniform: I_AB=0.1474215841, beta I_AB=0.1400505049,
+         chi_BE=0.1317712050, SKR=0.0082792999
+MB:      I_AB=0.1870755901, beta I_AB=0.1777218106,
+         chi_BE=0.1252121817, SKR=0.0525096288
+```
+
+At 25 km:
+
+```text
+Uniform: I_AB=0.0580954986, beta I_AB=0.0551907236,
+         chi_BE=0.0545996045, SKR=0.0005911191
+MB:      I_AB=0.0990286303, beta I_AB=0.0940771988,
+         chi_BE=0.0696331108, SKR=0.0244440880
+```
+
+The exact decomposition is
+`delta_SKR = delta_(beta I_AB) - delta_chi_BE`. At 22 km the MB advantage
+contains a larger-`beta I_AB` contribution of `0.0376713056` and a lower-
+`chi_BE` contribution of `0.0065590233`. At 25 km the larger-`beta I_AB`
+contribution is `0.0388864752`, while MB has *higher* `chi_BE` by
+`0.0150335063`, which offsets part of the gain. Across the tested distances,
+the summed positive contributions are `0.4530127708` from larger `beta I_AB`
+versus `0.0604597970` from lower `chi_BE`; the primary observed driver is
+larger `beta I_AB`, with lower `chi_BE` helping only at shorter distances.
+
+### Evidence and provenance
+
+- `scripts/run_revised_uniform_mb_common_feasible_diagnostic.py`, SHA-256:
+  `44D17F7D10921E18F5F66D3363C7F9DF0700AACD275201A38CE5F4D88CAF3367`
+- `results/revised_uniform_mb_common_feasible_diagnostic/revised_uniform_mb_common_feasible_report.json`, SHA-256:
+  `08F20FC2605F586A583E2D45CC91980DAA77E9E063168BADC30805DAAB3CD621`
+- `results/revised_uniform_mb_common_feasible_diagnostic/diagnostic_candidate_details.csv`, SHA-256:
+  `458B7B9CC9FF137BE723129EB11A2E3880DFB91EDE032C7CB3C4B8DE4B3BAD36`
+- `results/revised_uniform_mb_common_feasible_diagnostic/diagnostic_distance_envelope.csv`, SHA-256:
+  `112A1000BDF705E37DB5C44EEBD63BDA717CBAA576EA6AAE7DE937F501A0E363`
+- `results/revised_uniform_mb_common_feasible_diagnostic/protocol_summary.csv`, SHA-256:
+  `455A02D447AE5A7830C5A9C489399C5D117AC775DD52C99E838D54BDCB4DBD63`
+- `results/revised_uniform_mb_common_feasible_diagnostic/security_term_attribution.csv`, SHA-256:
+  `C89786BFAF706D947E5320ABB348F8A90CEDD968E788F3B793A64C7365BEBF34`
+- `results/revised_uniform_mb_common_feasible_diagnostic/availability.csv`, SHA-256:
+  `B0CDC7CB706A7C3715F8D13282D65307F94E16368E1B36656EAE2BD6897B9CF7`
+- `results/revised_uniform_mb_common_feasible_diagnostic/excluded_candidates.csv`, SHA-256:
+  `714B961A114AF2FEA813198E6C02FCC55CF77D4FA4E985504B3EDEC8EC08D722`
+- `diagnostic_skr_vs_distance.{png,pdf}`, SHA-256:
+  `9E2984119FC139615426B69F3FA47D438D994B8DDC4AC79E21309309F6EFAA26`,
+  `4D0715D81F63212DA16CB9D3501886880D49620E5CB134C5FDA1CAB2EAA7043D`
+- `diagnostic_beta_iab_vs_distance.{png,pdf}`, SHA-256:
+  `009B07D049A0F4CB039ABCF03A94C93A35C4661232AB5B1D190913424455707A`,
+  `EF2D0A82586BC2884692894EF5C3C43D00EC1F22D7E996DAE8DCF4826FD0C626`
+- `diagnostic_chi_be_vs_distance.{png,pdf}`, SHA-256:
+  `B6024E895303321F327BAB6DF8D29F268A67505D9CCE66F96AF46E9F27B8B3D4`,
+  `8C09CC883F10C369C80B8E53F1058126B87AB7FEC3BC13B37570696EA7D8A926`
+- Verification: runner exit code 0, `py_compile`, JSON/CSV inspection, and
+  visual inspection of all three marker-only plots passed. Lifecycle remains
+  `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; `FINAL_MODEL_SPEC.md` remains
+  unmodified and hash-mismatched against the historical expected hash.
+
+## EVID-0101 - Revised Uniform/MB distance diagnostic
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC-ONLY EXACT-CACHE COMPARISON; NOT PUBLICATION EVIDENCE
+
+The diagnostic compared Uniform 256-QAM and MB-shaped 256-QAM under the
+revised optical fixture `w0=0.10 m`, `D_r=0.55 m`, `tau_zen=0.92`,
+`epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, and phase noise OFF. The channel
+was recomputed at each of the exact-tested distances
+`{19,20,21,21.9393102292,22,23,24,25,26,27,28,30} km`; no fixed `T_eff` was
+reused. The 21.9393102292-km point is the existing 30-degree geometry
+fixture.
+
+Security evaluation used all 8 current hash-matched historical Uniform C,w
+rows and all 30 current hash-matched historical MB C,w rows at every distance.
+Each envelope point is therefore the best exact-tested available candidate,
+not a continuous optimization result. No source moment was generated,
+interpolated, or migrated. Binomial was excluded because no safe
+current-compatible exact C,w dataset is available.
+
+The exact sign endpoints are:
+
+```text
+Uniform: last exact positive  = 25 km, SKR= 5.9111913793e-4, V_A=0.8
+         first exact negative  = 26 km, SKR=-2.9334046616e-4, V_A=0.8
+MB:      last exact positive  = 30 km, SKR= 1.0681535110e-2, V_A=3.5548673905, nu=0.15
+         first exact negative  = none in the tested distance set
+```
+
+At 22 km, the best exact-tested rows are Uniform
+`(V_A=1.075, I_AB=0.1474215841, beta I_AB=0.1400505049,
+chi_BE=0.1317712050, SKR=0.0082792999)` and MB
+`(nu=0.15, V_A=3.5548673905, I_AB=0.4391429305,
+beta I_AB=0.4171857840, chi_BE=0.3427631298, SKR=0.0744226542)`.
+At 25 km they are Uniform
+`(V_A=0.8, I_AB=0.0580954986, beta I_AB=0.0551907236,
+chi_BE=0.0545996045, SKR=0.0005911191)` and MB
+`(nu=0.15, V_A=3.5548673905, I_AB=0.2419497735,
+beta I_AB=0.2298522848, chi_BE=0.1961988655, SKR=0.0336534193)`.
+
+Within this exact-tested cache envelope, MB is above Uniform at all 12 tested
+distances. The SKR gap is `0.0661433544` bits/use at 22 km and
+`0.0330623002` bits/use at 25 km. This is a qualitative diagnostic result
+only; it does not establish an optimized-MB result, a common feasible grid, a
+continuous Uniform optimum, or an operation-distance interpolation.
+
+### Evidence and provenance
+
+- `scripts/run_revised_uniform_mb_distance_diagnostic.py`, SHA-256:
+  `DFE2C6BE25F79D9CF8AC9F893750726E952DE928B90BDCEE2B6894CC11BCD0E3`
+- `results/revised_uniform_mb_distance_diagnostic/revised_uniform_mb_distance_report.json`, SHA-256:
+  `569A2137FACA704C751F867E2C75CC63FEF9DA0B63BEC466BF0FA14A1C39B9DA`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_candidate_details.csv`, SHA-256:
+  `D6FDBE452BB2A8EBF018E043EBA3BBFDD4E446D7628AE7A06B520F9EAEB9B8E5`
+- `results/revised_uniform_mb_distance_diagnostic/diagnostic_distance_envelope.csv`, SHA-256:
+  `A530D6DC0439C113266B0EFD4AB8EFA3350A0C90CCE2179DF30E606E8501FF03`
+- `results/revised_uniform_mb_distance_diagnostic/protocol_summary.csv`, SHA-256:
+  `94168B3E6CF797B6F86EDAFC3C475D8DBCDF46003D7229D20641E976DFAF5D06`
+- `results/revised_uniform_mb_distance_diagnostic/availability.csv`, SHA-256:
+  `B55D6B62B13ED86F8F278ED81BEAC55A99E0E4C43CBE9089407E6D9F9BDB30DD`
+- `results/revised_uniform_mb_distance_diagnostic/channel_by_distance.csv`, SHA-256:
+  `1D195BFE128E46DFF6FF7EA9BC1646AB6404C8452199460C4C3CBCBFF7907EF0`
+- `diagnostic_skr_vs_distance.{png,pdf}`, SHA-256:
+  `36F8F98814B96D5111C4B2A28C11A693D91F8DD992F9342CC4409BAC48E42C11`,
+  `00EAB80EC7014C1FE6651301E837BF3A848A5F09C4E6BBC3B9591F5121933F02`
+- `diagnostic_beta_iab_vs_distance.{png,pdf}`, SHA-256:
+  `7CA9C715485923BCE6D2CAFAAB5CF8916F1E0C08EB531EE024AF5141EDBE82B0`,
+  `01FFD2DDF7F0D3938006EE08C14F6E9E6128A299055FC21BF4DF13493A1F3195`
+- `diagnostic_chi_be_vs_distance.{png,pdf}`, SHA-256:
+  `7EF44EBF4A7F9657CC8D929D4C94F8233CB66566A84BBFA39D1BB9192F7D7CF0`,
+  `CBAED752A80FB0D87E7708C810F3ADE0A863870D112D0B48779A8095A3C7F7D7`
+- The SKR figure contains exact markers, a zero line, and the title phrase
+  `Diagnostic-only, exact-available candidates`; all three figures were
+  visually inspected.
+- Verification: runner exit code 0, `py_compile`, JSON/CSV inspection, plot
+  inspection, and final `git diff --check` passed.
+
+The current `FINAL_MODEL_SPEC.md` hash remains
+`8EC018616B27C41104B8BD6D1B5025C2DB99D09A14F64409F43DFC60EFA01843`, which
+differs from the historical expected hash in `AGENTS.md`. The diagnostic is
+conditional/cache-only, does not select a baseline, and leaves lifecycle at
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0100 - Revised Uniform optical baseline diagnostic
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR CACHE-ONLY OPTICAL DIAGNOSTIC; FULL REQUESTED V_A SWEEP UNRESOLVED
+
+The diagnostic recomputed the active optical channel for the requested
+`w0=0.10 m`, `D_r=0.55 m` baseline and all controlled geometry rows, while
+keeping `tau_zen=0.92`, `epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, and phase
+noise OFF. It used the existing HAP-UAV channel model, including the unchanged
+pointing, turbulence, scintillation, AoA, and outage treatment. Security used
+only the 8 current hash-matched historical Uniform C,w rows; no source moment
+was generated, interpolated, or migrated.
+
+The requested Uniform V_A list has exact coverage only at
+`{0.6,0.7,0.8,1.075}`. The other requested values
+`{0.4,0.5,0.9,1.0,1.2,1.4,1.6,1.8,2.0,2.5,3.0}` are explicitly recorded as
+`MISSING_EXACT_CW`. The extra exact cache rows are `V_A=0.1,2.05,3.025,4.0`.
+No adaptive V_A refinement was run because its new points would also require
+exact C,w source moments.
+
+For the primary revised baseline at 30 degrees, the independently recomputed
+channel is:
+
+```text
+z_R                   20268.3397006 m
+omega_L               0.1473662629 m
+omega_L,eq            1.4180699494 m
+A0                    0.9981187282
+chi                   0.6707878497
+<T_raw>               0.2812610962
+<sqrt(T_raw)>         0.4508074648
+T_eff                 0.2032273703
+total loss            6.9201780236 dB
+atmospheric loss      0.4181421526 dB
+finite-aperture loss  0.0081779543 dB
+pointing loss         6.4906654078 dB
+scintillation loss    0.0017170273 dB
+AoA/outage loss       0.0014754817 dB
+```
+
+On the 8 exact Uniform candidates, the new baseline has best tested
+`V_A=1.075`, `I_AB=0.1492882582`, `beta I_AB=0.1418238453`,
+`chi_BE=0.1332722174`, and `SKR=0.0085516279` bits/use. The positive
+requested exact rows are `V_A=0.6,0.7,0.8,1.075`; this is not a statement
+about the missing requested V_A points or a continuous optimum.
+
+The controlled cases show the receiver aperture is decisive in this fixture:
+
+```text
+case A old w0, old D_r: SKR=-4.3454249142e-5, V_A=0.1
+case B new w0, old D_r: SKR=-3.0763786627e-6, V_A=0.1
+case C new w0, new D_r: SKR= 8.5516279075e-3, V_A=1.075
+```
+
+Relative to the old baseline, the new channel has `T_eff` ratio
+`797.3865010110`, recovers `29.0166887920 dB`, and changes the best-tested
+Uniform SKR by `0.0085950821566` bits/use. The nearby aperture rows first become
+positive at the tested `D_r=0.525 m`; sparse exact bisection estimates the
+zero crossing at `D_r=0.5113500300 m`, with `T_eff=0.0898274551` and
+`V_A=0.8` at the crossing. The nearby waist rows peak among the tested
+values at `w0=0.10 m`; `0.075 m` is slightly negative and `0.15 m` is
+negative again.
+
+For the revised baseline distance diagnostic, the exact-candidate SKR is
+positive at 19, 20, 22, and 24 km, then negative at 26 km and above. Direct
+sparse-candidate bisection estimates the zero crossing at
+`25.6127085762 km`, with `V_A=0.8` at the crossing. The distance sweep
+recomputes zenith angle from the fixed 19-km vertical separation; it does not
+extend geometry below 19 km.
+
+The truncation audit gives `D_t/w0=2.5` for `D_t=0.25 m` and `D_t/w0=3.0`
+for `D_t=0.30 m`, enclosing about 95.6% and 98.9% of Gaussian power in the
+corresponding aperture-radius convention. Thus `w0=0.10 m` is a physically
+reasonable 0.25--0.30 m-class Gaussian transmitter geometry, subject to the
+separate pointing/aperture engineering assumptions.
+
+### Evidence and provenance
+
+- `scripts/run_revised_uniform_baseline_diagnostic.py`, SHA-256:
+  `36BB459B56FF3309696E42992F7EA4367D93135934EFCAFB85967BAF37099459`
+- `results/revised_uniform_baseline_diagnostic/revised_uniform_baseline_report.json`, SHA-256:
+  `D1C5E32CE9C3E8458D84CC98575F6075AA48C5D8A0CA0AD3D9B88E142FAE5AEB`
+- `results/revised_uniform_baseline_diagnostic/table1_revised_channel.csv`, SHA-256:
+  `49619723695D473EE73A2517E9C55F8760E42D88FE87B9627CF1A825815429CF`
+- `results/revised_uniform_baseline_diagnostic/table2_uniform_va_sweep_exact_available.csv`, SHA-256:
+  `AF9B154F986AB82452B3D472BB2F14BC7A14CFA540071A0F240BF1498652DED9`
+- `results/revised_uniform_baseline_diagnostic/table2_requested_va_status.csv`, SHA-256:
+  `27E72D40F65AD5D41CB730515758F36D27DD132597CEF3EFD92B3C073D125BDC`
+- `results/revised_uniform_baseline_diagnostic/table3_nearby_receiver_aperture.csv`, SHA-256:
+  `C8C4D1091B82493306236694CD7C66CB9AF1A945709E1259F8BF49D61A0756BB`
+- `results/revised_uniform_baseline_diagnostic/table4_nearby_beam_waist.csv`, SHA-256:
+  `16FD32961294A37C5331DDF2A1A80C6870A2E6958673F92D4C56186BB0A3E78C`
+- `results/revised_uniform_baseline_diagnostic/distance_sweep.csv`, SHA-256:
+  `3669B741CE0248DB57348A0B23585C74519356F33E727D46C76C9F092E731CC8`
+- `results/revised_uniform_baseline_diagnostic/receiver_crossing.csv`, SHA-256:
+  `8F8C2071D7F7BCB6C3E86995CA261E2631DB61613078C72D324AEEDF9FE4D761`
+- `results/revised_uniform_baseline_diagnostic/distance_crossing.csv`, SHA-256:
+  `81845F66A7050EA7693C04E333ACB8DB500D7CE72183F5DB17BC40456A706CB1`
+- Verification: runner exit code 0; `py_compile`, JSON inspection, visual plot
+  inspection, and `git diff --check` passed.
+
+The current `FINAL_MODEL_SPEC.md` hash is
+`8EC018616B27C41104B8BD6D1B5025C2DB99D09A14F64409F43DFC60EFA01843`, which
+differs from the historical expected hash in `AGENTS.md`; the diagnostic
+records this as `BLOCKED_BY_HASH_MISMATCH` and does not modify the file.
+This evidence is conditional/cache-only and does not select a baseline,
+certify a continuous optimum, authorize source-moment generation, or support
+publication-scale evaluation. Lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0099 - Uniform transmitter beam-waist and receiver-aperture diagnostic
+
+Date: 2026-09-30
+
+Status: CURRENTLY_VERIFIED_PASS FOR CACHE-ONLY OPTICAL DIAGNOSTIC; CONTINUOUS UNIFORM OPTIMUM UNRESOLVED
+
+The diagnostic recomputed the active HAP-UAV optical channel for every tested
+transmitter beam waist and receiver diameter, with `tau_zen=0.92`, `zeta=30
+deg`, `D_r=0.08 m` for the primary sweep, `epsilon_ch=0.0186 SNU`,
+`beta=0.95`, AO OFF, and phase noise OFF. It changed neither the security
+formula nor the channel baseline default. It used only the 8 current
+hash-matched historical Uniform C,w rows at
+`V_A={0.1,0.6,0.7,0.8,1.075,2.05,3.025,4.0}`; no new C,w/AP/Fock/Gram
+source moment was computed, interpolated, or migrated.
+
+At the current `w0=0.00442493563753 m`, the independent optical recomputation
+returned:
+
+```text
+z_R                   39.6855214128 m
+theta_G (half angle)  111.500 microrad
+theta_div (full)      223.000 microrad
+omega_L               2.44623709264 m
+omega_L,eq            2.44691984518 m
+A0                    5.34602875255e-4
+chi                   1.15746342562
+<T_raw>               2.77967277202e-4
+<sqrt(T_raw)>         1.59645491849e-2
+T_eff                 2.54866830676e-4
+loss                  35.9368668156 dB
+```
+
+The fixed `D_r=0.08 m` beam-waist sweep found no positive best-tested exact
+Uniform SKR from `4.4 mm` through `150 mm`, including the requested points and
+adaptive log-grid refinement. The best tested row over that sweep was still
+negative, approximately `K=-3.069622e-6` at `w0=105.3968 mm`, `V_A=0.1`.
+The channel transmittance is non-monotone in `w0`: the requested `7.5 mm`
+row has lower optical loss than the current row, but its pointing penalty and
+security result remain unfavorable. Increasing `w0` alone therefore does not
+rescue Uniform at the existing receiver.
+
+The coarse `(w0,D_r)` control had positive rows only at `D_r=1.0 m` for the
+tested grid. The first positive coarse combination was
+`w0=30 mm, D_r=1.0 m`, with `T_eff=0.1230022139`, loss `9.1008707 dB`,
+`V_A=1.075`, and `K=0.00169054475` at the 21.94-km fixture. Receiver
+threshold bisections using the same sparse exact candidates gave approximate
+thresholds `D_r=0.952970 m` at `w0=30 mm`, `0.693360 m` at `50 mm`,
+`0.551410 m` at `75 mm`, `0.511350 m` at `100 mm`, and `0.561141 m` at
+`150 mm`. These are sparse-candidate diagnostic thresholds, not a continuous
+optimization or selected receiver design.
+
+For the coarse-positive pair `(w0=30 mm,D_r=1 m)`, the requested distance
+rows are positive at 19 and 22 km and negative at 25 km and above. Direct
+cache-only bisection gives the historical-candidate operation-distance
+estimate `23.6922059451 km`, with `V_A=0.8` on both sides of the bracket.
+
+The Gaussian truncation audit uses `D_t=2 m_trunc w0` with
+`m_trunc={1,1.25,1.5}`, corresponding to 86.5%, 95.6%, and 98.9% enclosed
+power. A `D_t=0.3 m` transmitter corresponds to approximately `w0=0.12 m`
+at `2.5 w0` or `w0=0.10 m` at `3 w0`. The current full-angle divergence is
+`43.1613` times `lambda/0.3 m`; this comparison is optical context only and
+does not change the active transmitter configuration.
+
+### Evidence and provenance
+
+- `scripts/run_uniform_beam_waist_diagnostic.py`, SHA-256:
+  `002683AA00530FAD0A118F2137EAF13BE94743765867EDB5D4549FDF08C86A49`
+- `scripts/calculate_channel_pdf_and_moments.py`, SHA-256:
+  `D504F531EB92C20A9D1A1CDD63B80DC4FFC636977EB808B6416CE129690F4E41`
+- `tests/test_closed_form_channel_moments.py`, SHA-256:
+  `E94B937D3EA831C4836D30D78A8CFADE1FADB5B78279FAF170C4DFC8F5C95461`
+- `results/beam_waist_diagnostic/beam_waist_report.json`, SHA-256:
+  `6484062AF148E376F832CD009FA37E6E1F70DFBB04F6A36282D846FE8E658FE1`
+- `results/beam_waist_diagnostic/beam_waist_sweep.csv`, SHA-256:
+  `D49F461C91751158B816FB126B5B56884C25200EFEB4C066DCF3B8296ECE8FCD`
+- `results/beam_waist_diagnostic/beam_waist_receiver_heatmap.csv`, SHA-256:
+  `93D2919A2FFD2F862A91A0F40D81851618ABE0B2817BCF8023464CFF660C7ED3`
+- `results/beam_waist_diagnostic/beam_waist_receiver_thresholds.csv`, SHA-256:
+  `2F2909D7E1E449998E46D77FC34E3F0D8401306AD5660F98270EFB71380F6B81`
+- `results/beam_waist_diagnostic/beam_waist_distance_skr.csv`, SHA-256:
+  `A775508F8CAFEC411271141812F969A6517904BC5E0B124EED506580AB17C389`
+- `results/beam_waist_diagnostic/beam_waist_distance_crossing.csv`, SHA-256:
+  `50510A01A2F0DCF7A63C86599E3D8716B809B91093CB8B326AE19E696F0FFA85`
+- Verification: runner exit code 0; 11 focused channel tests passed; `py_compile`, JSON validation, and `git diff --check` passed.
+
+No continuous Uniform optimum, production `w0`, receiver selection, baseline
+selection, training, final-test access, or publication-scale evaluation is
+claimed. Lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
 This register is mostly append-only. Evidence status describes the evidence,
 not lifecycle authorization. `QUARANTINED` evidence must not support approval.
 Machine-readable JSON artifacts currently exist locally under `results/` but

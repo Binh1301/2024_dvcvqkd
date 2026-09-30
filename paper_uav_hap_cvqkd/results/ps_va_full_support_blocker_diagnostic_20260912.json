@@ -1,0 +1,175 @@
+{
+  "artifact_class": "PS_VA_FULL_SUPPORT_BLOCKER_ROOT_CAUSE_DIAGNOSTIC",
+  "status": "DIAGNOSTIC_ONLY",
+  "date": "2026-09-12",
+  "scope": "Read-only audit of the optimized PS+V_A checkpoint and matched Full anchors; no training, baseline selection, final-test access, held-out evaluation, or security certification.",
+  "input_artifacts": {
+    "ps_va_checkpoint": "results/repaired_full_z_checkpoint_ps_va_20260911_step_50.pt",
+    "ps_va_checkpoint_sha256": "1c5d49d1a562c558a18a76994399b09c4bee88ddbebf35370ae9cb690e3ca8d1",
+    "full_exact_jobs": "results/repaired_full_z_exact_jobs_20260911.json",
+    "full_exact_jobs_sha256": "52eafe5ee42af34a53b2280ddf10639fe77d50f87702ddc754ababbb06b5ad5c",
+    "ps_va_failure_diagnostic": "results/repaired_full_z_ps_va_exact_failure_20260911.json",
+    "ps_va_failure_diagnostic_sha256": "27b6474a67b26755f076d3ed7569fe5fe22b3f0758df0242e059ccf4333b997f"
+  },
+  "source_provenance": {
+    "probabilistic_shaping_sha256": "89e60be5b7ce3de863918f03a6f036287aafc0688a8e24718869784c5b0832b7",
+    "joint_ps_gs_sha256": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f",
+    "normalization_sha256": "88dd777f6ce2f64117dc64cbcebc1335337aaa73f5b597410618d0581fd47ce2",
+    "qam256_sha256": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa",
+    "full_support_worker_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+    "gram_moments_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+    "final_model_spec_sha256": "8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843"
+  },
+  "pmf_geometry_audit": [
+    {
+      "method": "ps_va",
+      "state": "poor",
+      "q_min": 0.00652427,
+      "q_max": 0.02935582,
+      "q_max_over_q_min": 4.4995,
+      "p_min": 0.00163107,
+      "entropy_q_nats": 3.96345,
+      "logit_range": 1.50396,
+      "relative_energy": 0.79937,
+      "physical_scale": 0.78905,
+      "physical_abs_min": 0.08558,
+      "physical_abs_max": 1.28376,
+      "minimum_pair_distance": 0.12103
+    },
+    {
+      "method": "ps_va",
+      "state": "median",
+      "q_min": 0.00789890,
+      "q_max": 0.02686411,
+      "q_max_over_q_min": 3.40099,
+      "p_min": 0.00197472,
+      "entropy_q_nats": 4.02241,
+      "logit_range": 1.22407,
+      "relative_energy": 0.83151,
+      "physical_scale": 0.77365,
+      "physical_abs_min": 0.08391,
+      "physical_abs_max": 1.25871,
+      "minimum_pair_distance": 0.11867
+    },
+    {
+      "method": "ps_va",
+      "state": "good",
+      "q_min": 0.00912075,
+      "q_max": 0.02426922,
+      "q_max_over_q_min": 2.66088,
+      "p_min": 0.00228019,
+      "logit_range": 0.97866,
+      "relative_energy": 0.86208,
+      "physical_scale": 0.75981,
+      "physical_abs_min": null,
+      "physical_abs_max": null,
+      "minimum_pair_distance": 0.11655
+    },
+    {
+      "method": "full",
+      "state": "poor",
+      "q_min": 0.0122264,
+      "q_max": 0.0194378,
+      "q_max_over_q_min": 1.5898,
+      "p_min": 0.00305660,
+      "logit_range": 0.46362,
+      "relative_energy": 0.92878,
+      "physical_scale": 0.73234,
+      "physical_abs_min": null,
+      "physical_abs_max": 1.19696,
+      "minimum_pair_distance": 0.10619,
+      "gs_rms_displacement": 0.0058345
+    },
+    {
+      "method": "full",
+      "state": "median",
+      "q_min": 0.01284053,
+      "q_max": 0.01872467,
+      "q_max_over_q_min": 1.45825,
+      "p_min": 0.00321013,
+      "logit_range": 0.37724,
+      "relative_energy": 0.94161,
+      "physical_scale": 0.72734,
+      "physical_abs_min": null,
+      "physical_abs_max": 1.18878,
+      "minimum_pair_distance": 0.10547,
+      "gs_rms_displacement": 0.0058345
+    },
+    {
+      "method": "full",
+      "state": "good",
+      "q_min": 0.01336257,
+      "q_max": 0.01809034,
+      "q_max_over_q_min": 1.35381,
+      "p_min": 0.00334064,
+      "logit_range": 0.30292,
+      "physical_scale": 0.72302,
+      "physical_abs_min": null,
+      "physical_abs_max": null,
+      "minimum_pair_distance": 0.10484
+    }
+  ],
+  "reference_mb_pmf": [
+    {
+      "nu": 0.0,
+      "p_min": 0.00390625,
+      "q_min": 0.015625,
+      "q_max_over_q_min": 1.0,
+      "entropy_q_nats": 4.1588830833596715
+    },
+    {
+      "nu": 0.1,
+      "p_min": 0.0033065769461339874,
+      "q_min": 0.01322630778453595,
+      "q_max_over_q_min": 1.3015155742485409,
+      "entropy_q_nats": 4.1569429387835415
+    },
+    {
+      "nu": 0.3,
+      "p_min": 0.0023423929722417034,
+      "q_min": 0.0093695718889668135,
+      "q_max_over_q_min": 2.2046929230860046,
+      "entropy_q_nats": 4.142117321980019
+    }
+  ],
+  "precision_probe": [
+    {
+      "method": "ps_va",
+      "state": "median",
+      "decimal_digits": 300,
+      "rank": 206,
+      "required_rank": 256,
+      "resolved": false,
+      "status": "FAIL_CLOSED",
+      "runtime_seconds_approx": 33.2
+    },
+    {
+      "method": "full",
+      "state": "median",
+      "decimal_digits": 300,
+      "rank": 206,
+      "required_rank": 256,
+      "resolved": false,
+      "status": "FAIL_CLOSED",
+      "runtime_seconds_approx": 33.5
+    }
+  ],
+  "interpretation": {
+    "probability_concentration": "NOT_SUPPORTED_AS_PRIMARY_CAUSE",
+    "serialization": "NOT_SUPPORTED_AS_PRIMARY_CAUSE_BY_CURRENT_HEX_TRANSFER_PATH",
+    "true_support_loss": "NOT_SUPPORTED_ANALYTICALLY; AN EXACT_PS_AP_SUPPORT_PASS IS STILL MISSING",
+    "va_scale": "NOT_SUPPORTED_AS_PRIMARY_CAUSE_BY_MATCHED_ANCHOR_VALUES",
+    "precision_or_solver_conditioning": "LIKELY_CONTRIBUTOR; 300-digit probe fails for both PS and Full while Full resolves at 800/900",
+    "worker_specific_failure": "UNRESOLVED_AND_REQUIRES_INDEPENDENT_CROSS_CHECK",
+    "full_gs_effect": "PLAUSIBLE_CONDITIONING_EFFECT; CAUSAL ABLATION NOT YET RUN"
+  },
+  "limitations": [
+    "Float64 eigenvalues and singular values are diagnostics only and are not an arbitrary-precision support oracle.",
+    "The 300-digit probes show the eigensolver precision floor, not the exact PS rank.",
+    "The stored 800/900-digit PS attempts contain no converged C,w rows; no PS exact K is inferred.",
+    "The diagnostic was read-only and no independent replacement worker was implemented in this artifact."
+  ],
+  "decision_candidate": "INVESTIGATE_AP_WORKER_BUG",
+  "publication_status": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "adaptive_training_status": "NOT_READY_FOR_ADAPTIVE_TRAINING"
+}

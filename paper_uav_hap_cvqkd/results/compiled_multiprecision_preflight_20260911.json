@@ -1,0 +1,68 @@
+{
+  "status": "COMPILED_BACKEND_ENVIRONMENT_BLOCKED",
+  "date": "2026-09-11",
+  "platform": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "powershell": "5.1.26100.9444",
+    "architecture": "AMD64"
+  },
+  "repository": {
+    "branch": "fix/gradient-uncontrol",
+    "head": "5e521024192482bf87bf34d52abab5eeeefffe92",
+    "dirty": true,
+    "final_model_spec_sha256": "8ec01861627c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843"
+  },
+  "command_preflight": {
+    "cl": "MISSING",
+    "g++": "MISSING",
+    "clang++": "MISSING",
+    "cmake": "MISSING",
+    "ninja": "MISSING",
+    "pkg-config": "MISSING",
+    "vcpkg": "MISSING",
+    "bash": "MISSING",
+    "pacman": "MISSING",
+    "msys2_shell": "MISSING",
+    "winget": "AVAILABLE",
+    "choco": "AVAILABLE"
+  },
+  "library_preflight": {
+    "gmp_headers_and_library": "NOT_DISCOVERABLE",
+    "mpfr_headers_and_library": "NOT_DISCOVERABLE",
+    "mpc_headers_and_library": "NOT_DISCOVERABLE",
+    "flint_and_arb": "NOT_DISCOVERABLE"
+  },
+  "required_backend": [
+    "C++17 compiler",
+    "GMP development headers and library",
+    "MPFR development headers and library",
+    "MPC development headers and library"
+  ],
+  "forbidden_fallbacks": [
+    "long double",
+    "boost float128",
+    "double",
+    "complex128",
+    "substitute arithmetic"
+  ],
+  "benchmark": {
+    "started": false,
+    "reason": "required C++17 MPFR/MPC development environment is not discoverable"
+  },
+  "recommended_setup": {
+    "distribution": "MSYS2 UCRT64",
+    "commands_from_powershell": [
+      "winget install --id MSYS2.MSYS2 --exact",
+      "C:\\msys64\\usr\\bin\\bash.exe -lc 'pacman -Syu'",
+      "C:\\msys64\\usr\\bin\\bash.exe -lc 'pacman -S --needed mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-gmp mingw-w64-ucrt-x86_64-mpfr mingw-w64-ucrt-x86_64-mpc mingw-w64-ucrt-x86_64-flint'"
+    ],
+    "verification_from_ucrt64_shell": [
+      "g++ --version",
+      "cmake --version",
+      "pkg-config --modversion gmp",
+      "pkg-config --modversion mpfr",
+      "pkg-config --modversion mpc",
+      "pkg-config --modversion flint"
+    ]
+  }
+}
