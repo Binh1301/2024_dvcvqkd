@@ -1,0 +1,99 @@
+{
+  "status": "TRANSITION_THETA_DR_FRONTIER_COMPLETE",
+  "scope": "DIAGNOSTIC_ONLY",
+  "model_composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58",
+  "config_sha256": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+  "experiment_hash": "dbd7fbb38e4b832f7d767ef2621fb5dcc5338ea47a110a6d4e24955f77672536",
+  "theta_div_urad": [
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50
+  ],
+  "receiver_diameter_m": [
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8
+  ],
+  "screen_distances_km": [
+    20.0,
+    25.0
+  ],
+  "uniform_exact_VA_bank": [
+    0.05,
+    0.08,
+    0.1,
+    0.11,
+    0.12,
+    0.13,
+    0.14,
+    0.15,
+    0.18,
+    0.2,
+    0.6,
+    0.7,
+    0.8,
+    1.075,
+    2.05,
+    3.025,
+    4.0
+  ],
+  "missing_uniform_VA_source_points": [],
+  "new_source_points_built": [],
+  "classification_counts": {
+    "FAIL_20": 79,
+    "POSITIVE_20_ONLY": 4,
+    "POSITIVE_THROUGH_25": 5
+  },
+  "positive_theta_values": [
+    15,
+    20,
+    25
+  ],
+  "frontier_count": 3,
+  "selected_refinement_count": 4,
+  "selected_refinement_specs": [
+    [
+      15,
+      0.6
+    ],
+    [
+      15,
+      0.65
+    ],
+    [
+      15,
+      0.7
+    ],
+    [
+      20,
+      0.8
+    ]
+  ],
+  "critical_Teff_reference": 0.08982746,
+  "follow_up_status": "NO_FRONTIER_IF_ZERO; MB_NOT_RUN_UNTIL_UNIFORM_FRONTIER_EXISTS",
+  "artifacts": {
+    "screen_rows": "transition_screen_exact.csv",
+    "screen_summary": "transition_screen_summary.csv",
+    "bisection": "transition_aperture_bisection_exact.csv",
+    "frontier": "transition_pareto_frontier.csv",
+    "refined_rows": "transition_refined_distance_exact.csv",
+    "refined_summary": "transition_refined_summary.csv"
+  },
+  "provenance": {
+    "runner_sha256": "237f9cfdadecc5dee72b7761b6f9d0451fc5bf2c5bd3cab49fb61dcaf33aba94",
+    "source_cache": "results/exact_mb_test2/exact_source_cache"
+  }
+}

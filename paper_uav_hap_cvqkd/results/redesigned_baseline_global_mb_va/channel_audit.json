@@ -1,0 +1,76 @@
+{
+  "tau_zen": 0.92,
+  "w0_m": 0.1,
+  "D_r_m": 0.55,
+  "r_ap_m": 0.275,
+  "omega_L_eq_m": 1.4180699494088576,
+  "A0": 0.9981187282426919,
+  "T_eff": 0.20322737033662663,
+  "loss_dB": 6.9201780236409185,
+  "epsilon_total_snu": 0.0186,
+  "beta_reconciliation": 0.95,
+  "AO": "OFF",
+  "phase_noise": "OFF",
+  "peak_constraint": "OFF",
+  "budget_constraint": "OFF",
+  "holevo": "DIRECT_Z_MINUS",
+  "channel_regression": {
+    "omega_L_eq_m": {
+      "actual": 1.4180699494088576,
+      "expected": 1.41806995,
+      "absolute_error": 5.911424683091582e-10,
+      "relative_error": 4.1686411048281375e-10,
+      "pass": true
+    },
+    "A0": {
+      "actual": 0.9981187282426919,
+      "expected": 0.998118728,
+      "absolute_error": 2.426918666031952e-10,
+      "relative_error": 2.431492965666457e-10,
+      "pass": true
+    },
+    "T_eff": {
+      "actual": 0.20322737033662663,
+      "expected": 0.20322737,
+      "absolute_error": 3.366266432269782e-10,
+      "relative_error": 1.656404072084278e-09,
+      "pass": true
+    },
+    "loss_dB": {
+      "actual": 6.9201780236409185,
+      "expected": 6.920178,
+      "absolute_error": 2.36409185561115e-08,
+      "relative_error": 3.4162298363006705e-09,
+      "pass": true
+    }
+  },
+  "epsilon_by_V_A": {
+    "0.05": 0.0186,
+    "1.0": 0.0186,
+    "3.0": 0.0186,
+    "12.0": 0.0186
+  },
+  "ao_effect_on_channel": "NONE_BY_CONSTRUCTION",
+  "phase_coefficient": 0.0,
+  "unconstrained_candidate_checks": [
+    {
+      "nu_raw": 0.0,
+      "V_A": 0.05,
+      "accepted": true,
+      "peak_photon_diagnostic_only": 0.06617647058823528
+    },
+    {
+      "nu_raw": 0.4,
+      "V_A": 3.0,
+      "accepted": true,
+      "peak_photon_diagnostic_only": 67.49999987259096
+    },
+    {
+      "nu_raw": 1.6,
+      "V_A": 12.0,
+      "accepted": true,
+      "peak_photon_diagnostic_only": 1026.719556285192
+    }
+  ],
+  "audit_status": "CURRENTLY_VERIFIED_PASS"
+}

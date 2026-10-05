@@ -1,0 +1,31 @@
+schema: redesigned-baseline-global-mb-va-v1
+status: ACTIVE_FROZEN_AUTHOR_AUTHORIZED
+base_config: configs/default.yaml
+channel:
+  tau_zen: 0.92
+  beam_waist_m: 0.10
+  receiver_diameter_m: 0.55
+  aperture_radius_m: 0.275
+  adaptive_optics_enabled: false
+  phase_noise_enabled: false
+  epsilon_total_snu: 0.0186
+cvqkd:
+  beta_reconciliation: 0.95
+  v_min_snu: null
+  v_max_snu: null
+  v_a_budget_snu: null
+  n_peak_photons: null
+  peak_constraint_enabled: false
+  budget_constraint_enabled: false
+  holevo_mode: direct_z_minus
+optimization:
+  method: adaptive_coarse_to_fine_exact_grid
+  nu_min: 0.0
+  initial_nu_max: 0.4
+  initial_va_min: 0.05
+  initial_va_max: 3.0
+  expansion_factor: 2.0
+  boundary_min_exact_points: 3
+  boundary_closure_absolute_margin: 1.0e-6
+  boundary_closure_relative_margin: 1.0e-3
+  global_status_on_incomplete_boundary: GLOBAL_OPTIMUM_UNRESOLVED

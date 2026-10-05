@@ -1,5 +1,494 @@
 # Evidence Register
 
+## EVID-0119 - Theta10/D55 three-scheme exact distance comparison
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC FIGURE; PUBLICATION LIFECYCLE UNCHANGED
+
+The exact validated theta10/D55 configuration was rerun over the requested
+20--40 km grid plus exact points at 25.5, 26.5, 27.5, 28.5, and 29.5 km. The
+three curves use the same recomputed channel and direct-`Z_minus` evaluator:
+optimized Uniform over the exact VA bank, fixed MB `nu=.2,
+V_A=1.3833230303`, and best feasible exact candidate from the 145-point MB
+bank. Uniform source moments `.02,.04,.06,.30,.50` were added by the exact
+arbitrary-precision worker; all requested coarse VA source rows are now
+available.
+
+Uniform selects `V_A=1.5` at 20 km, `1.075` at 22 km, `.8` at 25 km, `.7` at
+30 km, and `.5` at 35--40 km. Its exact sign bracket is `25 km` positive and
+`25.5 km` non-positive. Fixed and optimized MB remain positive through the
+largest exact-tested distance, 40 km. Optimized MB selects `(nu=.1,V_A=4.0)`
+at 20/21 km and `(nu=.15,V_A=3.5548673905)` from 21.939 km onward.
+
+At 20/22/25/30/35/40 km, optimized MB exceeds optimized Uniform by
+`0.106027, 0.065380, 0.032224, 0.011539, 0.005265, 0.002956` bits/use;
+fixed MB gains are `0.065215, 0.043788, 0.023295, 0.008849, 0.004135,
+0.002348`. The decomposition is beta-I_AB dominated except at 20 km for
+fixed MB, where its lower chi_BE is the main contribution.
+
+Artifacts:
+
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/skr_vs_distance_three_scheme.png`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/skr_vs_distance_three_scheme.pdf`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/skr_vs_distance_three_scheme.csv`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/skr_vs_distance_three_scheme_report.json`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/uniform_optimized_candidates.csv`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/mb_fixed_results.csv`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/mb_optimized_candidates.csv`
+- `scripts/run_theta10_D55_three_scheme.py`
+
+No baseline selection, training, final-test access, or publication claim follows.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0118 - Transition-region theta/D_r Uniform frontier
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR TRANSITION DIAGNOSTIC; NO 30--40 KM SOLUTION
+
+The continuation searched only `theta_div={15,20,25,30,35,40,45,50} urad`
+and `D_r=.30--.80 m`, with exact screening at 20 and 25 km. All physical and
+security parameters remained frozen, and the exact Uniform VA bank was expanded
+with fresh arbitrary-precision source moments at `.14,.18,.20`.
+
+Positive transition branches are:
+
+| theta | Dcrit(20) | Dcrit(25) | interpretation |
+|---:|---:|---:|---|
+| 15 urad | 0.553045 m | 0.642847 m | needs very-large aperture for 25 km |
+| 20 urad | 0.654944 m | 0.766989 m | needs very-large aperture |
+| 25 urad | 0.756441 m | no positive point at 25 km below 0.80 m | boundary-limited |
+| 30--50 urad | no positive point at 20 km below 0.80 m | unresolved | no transition candidate |
+
+At every exact bisection boundary, `T_eff` is
+`0.0898274551` (variation below 1e-9), confirming the previous critical-
+transmittance behavior. Full-distance refinement of four representative
+frontier candidates found no target 30--40-km crossing: theta15 with `.60 m`
+is positive only at 20 km; theta15 with `.65/.70 m` and theta20 with `.80 m`
+are positive through 25 km but non-positive at 30 km.
+
+All transition candidates require `D_r>0.55 m` for positivity at 25 km and
+therefore belong to the very-large airborne-terminal tier. No category-C/D
+candidate exists; MB was not run because the Uniform optical frontier does not
+contain a 30--40-km candidate.
+
+Artifacts:
+
+- `results/transition_theta_dr_frontier/transition_theta_dr_frontier_report.json`
+- `results/transition_theta_dr_frontier/transition_screen_summary.csv`
+- `results/transition_theta_dr_frontier/transition_aperture_bisection_exact.csv`
+- `results/transition_theta_dr_frontier/transition_pareto_frontier.csv`
+- `results/transition_theta_dr_frontier/transition_refined_distance_exact.csv`
+- `results/transition_theta_dr_frontier/transition_refined_summary.csv`
+- `scripts/run_transition_theta_dr_frontier.py`
+
+No publication figure, baseline selection, or MB evaluation occurred.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0117 - Joint theta-divergence/receiver-aperture coarse search
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR COARSE DIAGNOSTIC; NO PRIMARY-DOMAIN SOLUTION
+
+The joint diagnostic searched the full-angle divergence set
+`{50,75,100,125,150,175,200,223,250} urad` and receiver diameters
+`{.10,.15,.20,.25,.30,.35,.40,.45,.50,.55} m` at exact distances
+`{20,25,30,35,40} km`. For every pair it derived
+`w0=2 lambda/(pi theta_div)`, recomputed the full channel, and evaluated the
+Uniform exact direct-`Z_minus` path. The search kept epsilon `.0186`, beta `.95`,
+AO/phase OFF, peak 30 photons, and no artificial `V_A<=1.5` budget.
+
+All 90 optical pairs were `NONPOSITIVE_AT_20`; no `CROSSING_20_30`,
+`TARGET_CROSSING_30_40`, or `POSITIVE_THROUGH_40` candidate exists in the
+primary domain. The best exact-tested K at 20 km is `-3.3000236312e-5`
+(`theta=50 urad`, `D_r=.10 m`); the best at 30/40 km is
+`theta=250 urad`, `D_r=.10 m`, with `K(30)=-3.7407493759e-5` and
+`K(40)=-2.3503457542e-5`. The largest coarse `T_eff` is only about
+`0.01577`, below the previous theta10 aperture critical-transmittance region.
+
+Exact source moments `.14,.18,.20` were generated with the arbitrary-precision
+fallback and retained with support 256. The resulting Uniform bank has 17
+exact VA rows; no source interpolation was used. Continuous VA closure remains
+unresolved for the remaining missing rows, but it cannot change the stated
+cache-bound “no solution” result without additional exact source generation.
+
+Because no Uniform crossing candidate exists, MB evaluation, local optical
+refinement, and full-distance refinement were not run; this is the prescribed
+fail-closed stop condition, not a missing result.
+
+Artifacts:
+
+- `results/joint_theta_dr_optical_search/joint_theta_dr_uniform_report.json`
+- `results/joint_theta_dr_optical_search/uniform_coarse_exact.csv`
+- `results/joint_theta_dr_optical_search/uniform_coarse_summary.csv`
+- `results/joint_theta_dr_optical_search/uniform_coarse_top_candidates.csv`
+- `scripts/run_joint_theta_dr_optical_search.py`
+
+No model/security/noise/divergence parameter outside the declared search was
+changed. No publication figure, baseline selection, training, or final-test
+evaluation occurred. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0116 - Theta10 receiver-aperture Uniform diagnostic
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR CACHE-BOUND DIAGNOSTIC; CONTINUOUS VA UNRESOLVED
+
+The controlled aperture run changed only receiver diameter for the current
+full-angle `theta_div=10e-6 rad` baseline. It kept `w0=0.0986760647169751 m`,
+fixed altitudes, `tau_zen=.92`, `epsilon=.0186`, beta `.95`, AO/phase OFF,
+direct `Z_minus`, peak 30 photons, and the common `0<V_A<=1.5` budget. The
+channel was recomputed for every `(D_r,L)` pair; no `T_eff` reuse or SKR
+interpolation occurred.
+
+The first exact diameter sweep covered 11 diameters and 5 distances, with 11
+current exact Uniform source rows in the allowed VA budget. The best exact
+tested candidate remains cache-bound because requested VA source moments
+`{.02,.04,.06,.20,.30,.50,.75,1.0,1.25,1.5}` are missing.
+
+Exact channel bisection brackets for `K_max=0` over the available exact VA
+bank are:
+
+| distance | lower nonpositive D_r | upper positive D_r | V_A* |
+|---:|---:|---:|---:|
+| 20 km | 0.4918111434 m | 0.4918111435 m | 0.8 |
+| 22 km | 0.5124720303 m | 0.5124720304 m | 0.8 |
+| 25 km | 0.5446439748 m | 0.5446439749 m | 0.8 |
+
+The sweep is not monotone at small apertures: `D_r=.12--.45 m` remains
+negative and can be more negative than `D_r=.10 m`, even though `T_eff`
+increases, because the direct security term changes with the channel. Positive
+exact-tested points first appear at `D_r=.50 m` for 20 km and at `D_r=.55 m`
+for 22 and 25 km. At `D_r=.55 m`, the current theta10 run reproduces the old
+positive-Uniform sign pattern at 19, 20, 22, and 25 km; differences in values
+are due to the old `w0=.10 m` versus current theta10-derived waist.
+
+Representative exact-grid operational endpoints are: no positive point for
+`D_r=.10,.15,.20,.30 m`; `D_r=.50 m` remains positive only through 20 km;
+`D_r=.55 m` remains positive through 25 km and is negative at 26 km.
+
+Artifacts:
+
+- `results/theta10_receiver_aperture_uniform_diagnostic/theta10_receiver_aperture_uniform_report.json`
+- `results/theta10_receiver_aperture_uniform_diagnostic/aperture_sweep_exact.csv`
+- `results/theta10_receiver_aperture_uniform_diagnostic/threshold_bisection_exact.csv`
+- `results/theta10_receiver_aperture_uniform_diagnostic/representative_aperture_distance_exact.csv`
+- `results/theta10_receiver_aperture_uniform_diagnostic/diameter_055_vs_old_provenance.csv`
+- `scripts/run_theta10_receiver_aperture_uniform_diagnostic.py`
+
+No security evaluator, divergence, noise, AO, phase, or pointing parameter was
+changed. No publication figure, baseline selection, training, or final-test
+evaluation occurred. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0115 - Provenance audit of the historical positive-Uniform figure
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR PROVENANCE DIAGNOSTIC; NO REPLACEMENT FIGURE
+
+The historical figure is
+`results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog.png`,
+rendered by `scripts/render_skr_vs_distance_redraw_symlog.py` from the exact
+table `skr_distance_table_extended.csv`. Its source contains 83 distances and
+166 rows, with a symlog axis, Uniform last exact positive at 25 km, first exact
+negative at 26 km, and MB last exact positive at 800 km/first negative at 810 km.
+
+The recovered physical baseline is `h_HAP=20 km`, `h_UAV=1 km`,
+distance-dependent `zeta=acos(19000/L)`, `w0=0.10 m`, full divergence
+`9.867606471697512 urad`, receiver diameter `0.55 m` (radius `0.275 m`),
+`tau_zen=0.92`, `epsilon_ch=0.0186`, beta `.95`, AO OFF, phase noise OFF,
+and peak guard 30 photons. It additionally enforced the common diagnostic
+`V_A<=1.5` SNU budget. The Uniform curve is not one fixed VA: its sparse exact
+envelope uses `1.075` through 24 km, `.8` at 25--27 km, `.7` at 28--30 km,
+`.6` through 75 km, and `.1` from 80 km onward. MB uses the fixed exact row
+`nu_raw=.2`, `V_A=1.3833230302980657` in the common-feasible envelope.
+
+Every distance-dependent channel quantity in the source was recomputed; the
+source report records `channel_recomputed_at_each_distance=true`,
+`fixed_T_eff_reused=false`, and no interpolation or new source moments. The
+current exact evaluator uses deterministic heterodyne MI and direct `Z_minus`
+with the same hash-matched C,w rows. Ten short-distance reproductions pass with
+maximum absolute SKR difference `0.0`.
+
+The old positive points therefore come from the old optical baseline and its
+sparse per-distance VA envelope, not from an obsolete security model. Relative
+to the current theta10urad/D10cm run, the old `T_eff` is larger by about
+`8.7e3`--`1.38e4` at 20--22 km (39--41 dB), primarily from the `0.55 m`
+receiver aperture. Exact VA sensitivity at the old physical baseline was also
+recorded for `.08,.10,.12,.13,.15`; all five are negative at 20, 22, 25, and
+30 km, so the old positivity is not caused by `V_A=0.1`.
+
+The source report's final-model hash is the pre-re-freeze `8ec018...01843`,
+while the current model is `df83ea...78c15`; this is provenance context, not a
+security-model substitution. The table hash matches the render report after
+LF normalization; the working copy stores the CSV with CRLF line endings.
+
+Artifacts:
+
+- `results/positive_uniform_provenance_audit/positive_uniform_provenance_audit.json`
+- `results/positive_uniform_provenance_audit/old_uniform_points.csv`
+- `results/positive_uniform_provenance_audit/direct_reproduction_comparison.csv`
+- `results/positive_uniform_provenance_audit/va_sensitivity_old_physical.csv`
+- `results/positive_uniform_provenance_audit/migration_stage_summary.csv`
+- `results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog.png`
+- `results/revised_uniform_mb_common_feasible_extended_diagnostic/revised_uniform_mb_common_feasible_report.json`
+
+No new parameter search, source-moment generation, MB rerun, or replacement
+figure was performed. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0114 - Uniform modulation-variance verification at theta10urad/D10cm
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC; CONTINUOUS VA OPTIMUM UNRESOLVED
+
+The Uniform-only diagnostic kept the theta10urad/D10cm physical and security
+configuration unchanged: `theta_div=1e-5 rad`, derived
+`w0=0.0986760647169751 m`, `D_r=0.10 m`, `epsilon_total=0.0186`, beta `.95`,
+AO/phase noise OFF, direct `Z_minus`, and the 30-photon peak constraint with
+no artificial `V_A<=1.5` budget. The implementation-derived peak domain is
+`0 < V_A <= 22.666666666666668`, from
+`max |alpha|^2=1.3235294117647058` at `V_A=1`.
+
+The exact cache now covers 14 Uniform variances over all 23 requested
+distances, for 322 exact rows:
+`{0.05,0.08,0.10,0.11,0.12,0.13,0.15,0.60,0.70,0.80,1.075,2.05,3.025,4.0}`.
+The requested values without exact source moments remain explicitly listed in
+`uniform_va_missing_source_points.csv`; no `C,w` interpolation was used.
+The best exact-tested envelope selects `V_A=0.12` through 31 km and
+`V_A=0.13` from 31.5--40 km. Every selected exact SKR is negative; the least
+negative value is `-4.655082460069959e-6` at 20 km. Hence there is no exact
+positive point or exact sign crossing in 20--40 km.
+
+The current distance curve's `V_A=1.075` is a fixed reference-bank row, not a
+per-distance optimization (`source_cache_key=37ee8d498878bf3a4f2f351298ab603116798215645716cdcf2a66069fe8f52b`,
+`ensemble_hash=58ceb118407aefed1b68f45de5422e33943f4e26dd5b37251c4f99329e7f2589`).
+The exact `V_A=0.1` source is present
+(`source_cache_key=ad776e1215e444b17184488853caf44339b37cd407b90a42579e650603780b9f`,
+`ensemble_hash=ccd5dfd54a3405070ab3f519d65c8e6cbbff0a9de45e95dd5b7924a86f233ff4`).
+At 30 km, the prior `-1.0552627311444242e-5` is exactly the `V_A=1.075`
+row, while the prior `-5.64e-6` sensitivity value is the `V_A=0.1` row
+`-5.644144701089094e-6`; the new best exact-tested row is `V_A=0.12`,
+`-5.6363414056015415e-6`.
+
+Strictly, `V_A=0.1` is not the best exact-tested variance, but its largest
+gain to the exact-tested envelope is only `1.220287529912716e-8` bits/use,
+below the frozen `1e-6` absolute SKR tolerance. The requested classification
+is therefore `VA=0.1 NEAR-OPTIMAL WITHIN NUMERICAL TOLERANCE`, not a claim of
+continuous global optimality. Optimizing `V_A` alone is insufficient to
+produce positive Uniform SKR under theta_div = 10 µrad, D_r = 0.10 m.
+
+Artifacts:
+
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_verification_summary.json`
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_evaluated_points.csv`
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_selected_by_distance.csv`
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_landscapes_20_30_35_40.csv`
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_missing_source_points.csv`
+- `scripts/run_uniform_va_optimization_theta10.py`
+
+No MB was rerun and no publication figure was redrawn. Publication lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## EVID-0113 - Divergence-angle sensitivity search: no Uniform 30--40 km crossing
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC SEARCH; NO TARGET DIVERGENCE SELECTED
+
+The theta-divergence sensitivity runner evaluated the requested coarse range
+`10--200 urad` and expanded probes at `5,250,300 urad`. It recomputed the
+complete channel for each `(theta_div,L)` pair with `D_r=0.10 m`, derived
+`w0=2 lambda/(pi theta_div)`, reused only peak-feasible exact source rows, and
+optimized Uniform over the available exact bank without a `V_A<=1.5` cap.
+
+Every tested divergence was `TOO_NARROW_RANGE` for the requested criterion:
+Uniform was already non-positive at 30 km. No physically evaluated candidate
+satisfied `K_Uni(30)>0` and `K_Uni(40)<0`; no theta was selected and no final
+three-curve publication-style figure was generated by the sensitivity runner.
+
+Artifacts:
+
+- `results/skr_vs_distance_theta_sensitivity_D10cm/theta_sensitivity_table.csv`
+- `results/skr_vs_distance_theta_sensitivity_D10cm/theta_sensitivity_exact_rows.csv`
+- `results/skr_vs_distance_theta_sensitivity_D10cm/theta_sensitivity_report.json`
+- `scripts/search_theta_div_uniform_crossing.py`
+
+This is a diagnostic parameter search only. It does not alter the frozen model,
+select a baseline, authorize training, or change publication lifecycle.
+
+## EVID-0112 - Theta10urad/D10cm SKR-versus-distance rerun
+
+Date: 2026-10-02
+
+Status: CURRENTLY_VERIFIED_PASS FOR DIAGNOSTIC RERUN; PUBLICATION LIFECYCLE UNCHANGED
+
+The new distance experiment changes only the full-angle divergence to
+`theta_div=10e-6 rad`, derives `w0=0.0986760647169751 m`, and keeps
+`D_r=0.10 m`, `r_r=0.05 m`, fixed altitudes, AO OFF, phase noise OFF,
+`epsilon_total=0.0186`, beta `.95`, and the 30-photon peak guard. The former
+`V_A<=1.5` guard was not used.
+
+The runner recomputed channel moments at all 23 requested distances and loaded
+the full 145-row resolved bank, retaining 84 peak-feasible exact ensembles
+(9 Uniform, 75 MB). The output contains three curves: fixed Uniform
+(`V_A=1.075`), fixed MB (`nu_raw=.2`, `V_A=1.3833230302980657`), and MB
+optimized by exact-bank selection per distance. The figure is linear-y because
+Uniform is negative over the tested range; no positive data were hidden.
+
+Artifacts:
+
+- `results/skr_vs_distance_theta10urad_D10cm/skr_vs_distance_clean.{png,pdf}`
+- `results/skr_vs_distance_theta10urad_D10cm/skr_vs_distance_results.csv`
+- `results/skr_vs_distance_theta10urad_D10cm/previous_200urad_comparison.csv`
+- `results/skr_vs_distance_theta10urad_D10cm/skr_vs_distance_report.json`
+- `results/skr_vs_distance_theta10urad_D10cm/validation.json`
+- `scripts/run_skr_vs_link_distance_theta10urad.py`
+
+At 10urad/D10cm, Uniform is non-positive from 20 km onward; fixed MB and MB
+optimized remain positive through 40 km. This is a diagnostic exact-bank
+comparison, not continuous re-optimization or a publication claim.
+
+## EVID-0111 - Final local stability and exact high-nu closure
+
+Date: 2026-10-01
+
+Status: CURRENTLY_VERIFIED_PASS; GLOBAL_OPTIMUM_RESOLVED FOR THE FROZEN NUMERICAL REGION
+
+The final continuation added 26 exact points: a local refinement around
+`(nu_raw,V_A)=(0.165,5.5)` and low/intermediate/moderate VA probes for
+`nu_raw={0.5,0.6,0.8}`, plus the missing `.4,3.0` slice point. Total exact
+coverage is now 145 rows. The best exact candidate remains
+`(0.165,5.5)` with `K=0.07904194520968355`.
+
+The top-two exact gap is `3.1826895463e-7 bits/use`. GH orders 8/16/32/64
+changed MI by at most `1.498e-10` across the top ten, so the ranking is stable.
+The exact high-nu slice maxima are:
+
+| nu_raw | best tested V_A | max exact SKR |
+|---:|---:|---:|
+| 0.4 | 3.0 | 0.0700162812 |
+| 0.5 | 3.0 | 0.0638542433 |
+| 0.6 | 3.0 | 0.0538106806 |
+| 0.8 | 1.5 | 0.0465739506 |
+
+The lower-VA and upper-VA boundaries remain closed, and the high-nu sequence
+is decreasing through `nu_raw=0.8`. All lifecycle criteria in the user protocol
+are satisfied. No model/hash/Holevo/constraint change, interpolation, training,
+final-test access, or baseline selection occurred.
+
+Final status: `GLOBAL_OPTIMUM_RESOLVED`.
+
+Artifacts:
+
+- `results/redesigned_baseline_global_mb_va/continuation_final_summary.json`
+- `results/redesigned_baseline_global_mb_va/continuation_final_report.md`
+- `results/redesigned_baseline_global_mb_va/evaluated_points.csv`
+- `results/redesigned_baseline_global_mb_va/adaptive_domain_history.csv`
+
+## EVID-0110 - Targeted upper-VA ridge continuation and sparse boundary closure
+
+Date: 2026-10-01
+
+Status: CURRENTLY_VERIFIED_PASS FOR 42 CONTINUATION POINTS; GLOBAL OPTIMUM UNRESOLVED
+
+The continuation reused the frozen redesigned model/configuration and exact
+cache. It added 42 exact rows without restarting a rectangular grid. Stage 1
+evaluated all six requested `(nu_raw,V_A)` points at `nu={0.10,0.15}` and
+`V_A={4.5,5,6}`. Stage 2 evaluated the `nu={0.05,0.075,0.10,0.125,0.15,
+0.175,0.20}` ridge at `V_A=6` plus the `V_A=8` anchors. Stages 3/5/6/7
+performed local exact refinement; Stage 4 evaluated seven sparse boundary
+points.
+
+The best exact candidate moved from `(0.15,6)` to
+`(nu_raw,V_A)=(0.165,5.5)`:
+`I_AB=0.639529447234013`, `beta I_AB=0.6075529748723123`,
+`chi_BE(Z-)=0.5285110296626288`, `SKR=0.07904194520968355`.
+The observed ridge moved toward both higher `nu_raw` and lower `V_A` relative
+to the prior `(0.15,6)` point. The exact midpoint `(0.165,5.55)` was also
+evaluated and did not exceed the winner.
+
+Boundary evidence: `V_A=0.025` has three negative exact rows near `-0.01657`;
+`V_A=8` has three exact rows below the winner; high-`nu` rows at
+`nu={0.25,0.30,0.40}`, `V_A=5.5` decrease from `0.07604` to `0.05314`.
+The expanded `nu_max=0.8` boundary has no exact point, so the final status
+remains `GLOBAL_OPTIMUM_UNRESOLVED`.
+
+Artifacts:
+
+- `results/redesigned_baseline_global_mb_va/continuation_final_summary.json`
+- `results/redesigned_baseline_global_mb_va/continuation_final_report.md`
+- `results/redesigned_baseline_global_mb_va/evaluated_points.csv`
+- `results/redesigned_baseline_global_mb_va/adaptive_domain_history.csv`
+- `results/redesigned_baseline_global_mb_va/continuation_stage_*_new_points.csv`
+
+Continuation hashes:
+
+```text
+continuation runner: 5430c888dc6f9741e64a0b5066d809aaceba930e65dcca21a96d52e2c7c48851
+final summary:       22eed5995afef0ca23d1e7b985963995d0f81c014a3e1e00b7924ef97457ebd5
+final report:        d3e4277d6a1e2bc66617b385169c7ac232b54dc3a602524de8693659b7003367
+evaluated CSV:       08ef2c68447d1b9f08aab09d22710a5311856af6aab6066e0c00b6930b8627a7
+domain history:      2665aa0bd75e26ea11286cd2f1b0f1f14adc8ee9b114559ea41c2fb42259fffc
+```
+
+No physical-model change, interpolation, full-Z evaluation, Adam, training,
+final-test access, baseline selection, or publication-scale claim occurred.
+
+## EVID-0109 - Redesigned-baseline re-freeze and cache-bound global MB/V_A search
+
+Date: 2026-10-01
+
+Status: CURRENTLY_VERIFIED_PASS FOR MODEL/CHANNEL AUDIT AND 77 EXACT POINTS;
+GLOBAL_OPTIMUM_UNRESOLVED
+
+The author-authorized experiment re-freezes `tau_zen=0.92`, `w0=0.10 m`,
+`D_r=0.55 m`, AO OFF, phase noise OFF, constant
+`epsilon_total=0.0186 SNU`, `beta=0.95`, no peak/budget constraint, no fixed
+upper bound on `nu_raw` or `V_A`, and direct `Z_minus` Holevo. The dedicated
+overlay is `configs/redesigned_baseline_global_mb_va.yaml`; historical configs
+and results were not overwritten.
+
+The canonical channel recomputation passed all regression checks:
+`omega_L_eq=1.4180699494088576 m`, `A0=0.9981187282426919`,
+`T_eff=0.20322737033662663`, and loss `6.9201780236409185 dB`. Constant
+epsilon was checked at `V_A={0.05,1,3,12}`. Candidate construction accepted a
+diagnostic peak above 30 photons, proving the old peak guard is inactive.
+
+The exact cache-bound run recomputed deterministic GH MI and direct-Z-minus
+Holevo/SKR for 77 exact ensemble/source-moment points under composite model
+hash `a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58`.
+One new full-support AP point, `(nu_raw,V_A)=(0,0.05)`, completed in 1406 s;
+all other rows reused only exact ensemble/source-implementation-matched C,w
+and recomputed the new-channel SKR.
+
+Best exact-tested rows are Uniform `(0,1.075)` with
+`K=0.008551627907451953` and MB `(0.15,3.5548673904962893)` with
+`I_AB=0.4441812201448716`, `beta I_AB=0.421972159137628`,
+`chi_BE=0.346317801601816`, and `K=0.07565435753581196`. These are not global
+optima. The expanded working domain `[0,0.8] x [0.025,6]` has no exact rows on
+the upper-nu or upper-VA boundaries and insufficient global lower-VA coverage.
+Only the `nu=0` boundary is closed. Final status is
+`GLOBAL_OPTIMUM_UNRESOLVED`.
+
+Primary hashes:
+
+```text
+runner:           28d38444990b210278eefad21971fe851a5f8098ab78ff13a870409698525763
+freeze config:    8deb1aa04e4a64aa22cacce6ac8d3945231881ba5dc7ac435f2657aa8fc942aa
+summary:          bbcafeb58b059758bfcbe3304e63c1cdd389ca9b30df1a4e7fed8fffdd3f1869
+evaluated points: 31e7fa672d28c962dd4ec51407fa28520c4829a56fe72f5ea72e9f44ded9fe79
+channel audit:    901185545b73abf52b9f3308f6c920b3dd2bdcfbea4cc525f992aceaa4267a6c
+```
+
+No Adam/SGD, interpolation, full-Z result, old-channel SKR, training,
+final-test access, baseline selection, or publication-scale claim was used.
+
 ## EVID-0108 - Clean positive-SKR figure redraw
 
 Date: 2026-09-30

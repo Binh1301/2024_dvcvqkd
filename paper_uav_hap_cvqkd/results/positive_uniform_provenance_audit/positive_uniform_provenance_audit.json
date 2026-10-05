@@ -1,0 +1,118 @@
+{
+  "status": "POSITIVE_UNIFORM_PROVENANCE_AUDIT_COMPLETE",
+  "classification": "POSITIVE_UNIFORM_FROM_OLD_PHYSICAL_BASELINE",
+  "source_figure": {
+    "figure": "results/revised_hap_uav_optical_baseline_figure/skr_vs_distance_redraw_symlog.png",
+    "render_script": "scripts/render_skr_vs_distance_redraw_symlog.py",
+    "source_table": "results/revised_hap_uav_optical_baseline_figure/skr_distance_table_extended.csv",
+    "source_report": "results/revised_uniform_mb_common_feasible_extended_diagnostic/revised_uniform_mb_common_feasible_report.json",
+    "source_rows": 166,
+    "source_distances": 83,
+    "title": "Positive-SKR vs Link Distance",
+    "legend": [
+      "Uniform 256-QAM",
+      "MB-shaped 256-QAM"
+    ],
+    "scale": "symlog, base=10, linthresh=1e-11"
+  },
+  "old_configuration": {
+    "h_HAP_m": 20000.0,
+    "h_UAV_m": 1000.0,
+    "distance_definition": "L=(h_HAP-h_UAV) sec(zeta), zeta=acos(19000/L)",
+    "zeta_policy": "distance-dependent, recomputed at every distance",
+    "lambda_m": 1.55e-06,
+    "theta_div_full_rad": 9.867606471697512e-06,
+    "theta_div_full_urad": 9.867606471697512,
+    "angle_convention": "full-angle",
+    "w0_m": 0.1,
+    "D_r_m": 0.55,
+    "receiver_radius_m": 0.275,
+    "tau_zen": 0.92,
+    "sigma_h_m": 1.0,
+    "theta_jt_rad": 1.561e-05,
+    "pointing_convention": "per_axis",
+    "rho": "not an independent configured parameter",
+    "sigma_o_rad": 0.0015,
+    "theta_FOV_rad": 0.00625,
+    "epsilon_ch_snu": 0.0186,
+    "phase_noise": "OFF",
+    "AO": "OFF",
+    "eta_AO": "N/A",
+    "beta_rec": 0.95,
+    "Uniform_VA": "distance-dependent sparse exact envelope: 1.075, 0.8, 0.7, 0.6, then 0.1",
+    "MB_nu_raw": 0.2,
+    "MB_VA": 1.3833230302980657,
+    "MB_selection": "fixed common-feasible exact reference row",
+    "peak_constraint_photons": 30.0,
+    "average_energy_constraint": "V_A <= 1.5 SNU common-feasible diagnostic budget",
+    "VA_MAX": 1.5,
+    "T_eff_definition": "<sqrt(T_raw)>^2 from closed-form channel moments",
+    "I_AB_evaluator": "deterministic Gauss-Hermite heterodyne MI, product rule, order 8",
+    "Holevo_evaluator": "current exact C,w path, direct Z_minus",
+    "Z_convention": "Z_minus; maximize_full_interval=False",
+    "source_moments": "historical exact hash-matched C,w; no interpolation or new source moments"
+  },
+  "hashes": {
+    "config_sha256": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+    "source_table_sha256": "fed3c793ac7ccf02a5d7933274b7933df83c14162e26120f49d4000a78f68de0",
+    "source_table_sha256_lf_normalized": "2ab2c66d1db367a08ef3fe23c975d7b492a12479ab80b6b5a13ef4fc8a1a11d1",
+    "source_table_report_hash": "2ab2c66d1db367a08ef3fe23c975d7b492a12479ab80b6b5a13ef4fc8a1a11d1",
+    "source_table_report_hash_match_after_lf_normalization": true,
+    "source_report_sha256": "b44cb570a8dfe80f31aab604715b6046f2bcc1e86e1e3256f11e9519f1db1cc1",
+    "source_producer_sha256": "44d17f7d10921e18f5f66d3363c7f9df0700aacd275201a38ce5f4d88caf3367",
+    "historical_runner_sha256": "3519f8f92f3bb2fb59f7bde4f2904615e52004f9ef011a5f5b6fb24d19b8eb49",
+    "channel_helper_sha256": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+    "final_model_spec_sha256": "8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843",
+    "experiment_hash": "not recorded in the source artifact"
+  },
+  "physical_recompute_checks": {
+    "zeta_recomputed": true,
+    "eta_atm_recomputed": true,
+    "rytov_and_aperture_terms_recomputed": true,
+    "sigma_X2_recomputed": true,
+    "beam_radius_and_Gd_recomputed": true,
+    "A0_and_w_L_eq_recomputed": true,
+    "sigma_jt_and_pointing_recomputed": true,
+    "AoA_quantities_recomputed": true,
+    "T_eff_recomputed": true,
+    "phase_distance_term": "not active; phase noise OFF",
+    "held_fixed_incorrectly": []
+  },
+  "direct_reproduction": {
+    "rows": 10,
+    "all_pass": true,
+    "max_abs_diff_K": 0.0
+  },
+  "positive_endpoints": {
+    "uniform_last_positive_km": 25.0,
+    "uniform_first_negative_km": 26.0,
+    "uniform_best_K": 0.030574120626684076,
+    "uniform_smallest_positive_K": 0.0005911191379269071,
+    "uniform_best_distance_km": 19.0,
+    "mb_last_positive_km": 800.0,
+    "mb_first_negative_km": 810.0
+  },
+  "security_comparison": {
+    "same_I_AB_formula": true,
+    "same_heterodyne_normalization": true,
+    "same_epsilon_convention": true,
+    "same_beta": true,
+    "same_chi_BE_implementation": true,
+    "same_direct_Z_minus": true,
+    "same_Cw_source_rows": true,
+    "same_ensemble_normalization": true,
+    "obsolete_security_model_found": false
+  },
+  "artifacts": {
+    "old_uniform_points": "results/positive_uniform_provenance_audit/old_uniform_points.csv",
+    "direct_reproduction": "results/positive_uniform_provenance_audit/direct_reproduction_comparison.csv",
+    "va_sensitivity": "results/positive_uniform_provenance_audit/va_sensitivity_old_physical.csv",
+    "migration_stages": "results/positive_uniform_provenance_audit/migration_stage_summary.csv"
+  },
+  "limitations": [
+    "The old evaluator implementation is not separately recorded; the source report identifies the current exact direct-Z-minus evaluator.",
+    "The historical envelope is best exact-tested over a sparse common-feasible cache, not a continuous Uniform optimization.",
+    "The 800/810-km MB endpoint is an O(1e-11) low-rate diagnostic bracket.",
+    "No replacement figure was generated."
+  ]
+}

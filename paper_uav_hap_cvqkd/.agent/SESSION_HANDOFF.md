@@ -1,189 +1,160 @@
 # Session Handoff
 
-## Latest completed task
+## Latest completed task: theta10/D55 three-scheme comparison
 
-Date: 2026-09-30
+Date: 2026-10-02
 
-EVID-0108 / DEC-0092 created the clean positive-SKR figure from the existing
-extended table/report only.
+EVID-0119 / DEC-0103 completed the exact D55 three-curve diagnostic. Uniform
+was independently VA-optimized, fixed MB used `(nu=.2,VA=1.3833230303)`, and
+optimized MB used the exact 145-point bank.
 
-- New assets: `skr_vs_distance_clean.{png,pdf}` and
-  `skr_vs_distance_clean_report.json`.
-- The figure contains only the two protocol curves, positive exact-tested
-  markers, a standard log y-axis, a white background, clean labels, and a
-  compact legend. It has no crossing annotations, arrows, footer, inset,
-  zero-line, negative branch, or configuration text.
-- 8 Uniform and 63 MB positive rows were plotted. No evaluation, source
-  moment, candidate, new distance, or interpolation occurred.
+- Uniform VA sequence moves from `1.5` at 20 km to `.5` at 35--40 km.
+- Uniform exact sign bracket: 25 km positive, 25.5 km non-positive.
+- Fixed and optimized MB remain positive through 40 km.
+- Optimized MB is beta-I_AB dominated in the gain decomposition except fixed
+  MB at 20 km, where lower chi_BE dominates.
+- Experiment hash: `eb9ac8410ce48a982b6c06ac2534b6f3e69818bf9a61aec57a73532250efdc89`.
 
-This remains presentation-only and the lifecycle remains
+Artifacts: `results/skr_vs_distance_theta10urad_D55cm_three_scheme/`.
+
+## Current gate
+
+Preserve the diagnostic figure/table. Do not select D55 as a publication
+baseline, infer 40 km as a maximum distance, train, or access final-test data.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Previous handoff
+
+## Latest completed task: transition theta/D_r Uniform frontier
+
+Date: 2026-10-02
+
+EVID-0118 / DEC-0102 searched only theta15--50 urad and D_r=.30--.80 m.
+Positive branches require very-large apertures:
+
+- theta15: Dcrit20≈.553045 m, Dcrit25≈.642847 m.
+- theta20: Dcrit20≈.654944 m, Dcrit25≈.766989 m.
+- theta25: Dcrit20≈.756441 m; no positive 25-km point below .80 m.
+- theta30--50: no positive 20-km point below .80 m.
+
+Exact boundary `T_eff≈.089827455` persists. Four refined candidates are
+positive only through 20 or 25 km and fail at 30 km. No 30--40-km Uniform
+candidate exists; MB was not run.
+
+Artifacts: `results/transition_theta_dr_frontier/`.
+
+## Current gate
+
+Do not extend optical ranges, run MB, select a baseline, generate a publication
+figure, train, or access final-test data. Publication lifecycle remains
 `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-## Prior positive-only redraw
+## Previous handoff
 
-Date: 2026-09-30
+## Latest completed task: joint theta/D_r optical search
 
-EVID-0107 / DEC-0091 created the positive-SKR-only logarithmic redraw from
-the existing extended exact table/report.
+Date: 2026-10-02
 
-- New assets: `skr_vs_distance_positive_only.{png,pdf}` and
-  `skr_vs_distance_positive_only_report.json`.
-- Only `SKR > 0` rows are plotted: 8 Uniform and 63 MB; no negative row or
-  zero line is shown.
-- The first-negative distances 26 km and 810 km remain short annotations;
-  no crossing is interpolated. No channel/security rerun, source moment, or
-  candidate was created.
+EVID-0117 / DEC-0101 completed the primary full-angle divergence/receiver
+coarse search: 9 theta values × 10 diameters × 5 distances = 90 exact
+Uniform optical pairs. Every pair is `NONPOSITIVE_AT_20`; no 30--40-km
+Uniform crossing exists in the declared domain.
 
-This remains diagnostic-only and the lifecycle remains
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+- Best K(20): `-3.3000236312e-5` at `theta=50 urad,D_r=.10 m`.
+- Best K(30)/K(40): `theta=250 urad,D_r=.10 m`, still negative.
+- Exact source moments `.14,.18,.20` were generated with support 256.
+- MB, local refinement, and full-distance refinement were not run because no
+  Uniform crossing candidate exists; this is fail-closed by protocol.
+- Classification: no solution in primary joint optical domain.
 
-## Prior symlog redraw
+Artifacts: `results/joint_theta_dr_optical_search/`.
 
-Date: 2026-09-30
+## Current gate
 
-EVID-0106 / DEC-0090 created the clean symlog redraw from the existing
-extended exact table/report only.
+Do not extend the optical domain, alter security/noise/pointing, select a
+baseline, generate a publication figure, train, or access final-test data.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-- New assets: `skr_vs_distance_redraw_symlog.{png,pdf}` and
-  `skr_vs_distance_redraw_symlog_report.json`.
-- The figure uses the exact requested title/subtitle, `symlog` with
-  `linthresh=1e-11`, exact-tested markers/line connections, a zero line, short
-  25/26-km and 800/810-km annotations, and a 790--820-km `MB sign bracket`
-  inset.
-- The renderer validated 83 distances / 166 rows from the existing table and
-  report. No channel/security rerun, source moment, candidate, or
-  interpolation occurred; the original extended assets were preserved.
+## Previous handoff
 
-This remains diagnostic-only and the lifecycle remains
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+## Latest completed task: theta10 receiver-aperture Uniform diagnostic
 
-## Extended exact-grid diagnostic
+Date: 2026-10-02
 
-Date: 2026-09-30
+EVID-0116 / DEC-0100 completed the exact-cache receiver-diameter sweep for
+the current theta10 baseline with all other physical/security parameters
+frozen. The available Uniform VA bank contains 11 exact rows; 10 requested
+VA source moments in `0<V_A<=1.5` remain missing.
 
-EVID-0105 / DEC-0089 extended the common-feasible exact diagnostic and
-redrew the figure through 1000 km.
+- Exact threshold bracket at 20 km: `D_r≈0.491811 m`, `V_A*=.8`.
+- Exact threshold bracket at 22 km: `D_r≈0.512472 m`, `V_A*=.8`.
+- Exact threshold bracket at 25 km: `D_r≈0.544644 m`, `V_A*=.8`.
+- First tested positive diameters: `.50 m` at 20 km; `.55 m` at 22/25 km.
+- `D_r=.55 m` matches the old positive-Uniform sign pattern.
+- Classification is cache-bound; no continuous-VA threshold is claimed.
 
-- The same 5 feasible Uniform and 5 feasible MB exact/hash rows were used;
-  baseline, budget, peak guard, AO, phase noise, beta, and security path were
-  unchanged.
-- 83 distances / 166 envelope rows were evaluated with channel recomputation
-  at every distance; no source moments or candidate generation occurred.
-- Uniform: last exact-positive 25 km, first exact-negative 26 km.
-- MB: last exact-positive 800 km, first exact-negative 810 km; the values are
-  O(1e-11) bits/use and are low-rate diagnostic observations.
-- New assets: `skr_vs_distance_redraw_extended.{png,pdf}`,
-  `skr_distance_table_extended.csv`, and the redraw report under
-  `results/revised_hap_uav_optical_baseline_figure/`.
-- The redraw uses exact-point line connections plus an inset for the
-  750--1000-km MB sign bracket; no interpolation is claimed.
+Artifacts: `results/theta10_receiver_aperture_uniform_diagnostic/`.
 
-This remains diagnostic-only and the lifecycle remains
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+## Current gate
 
-## Prior exact-point redraw
+No model/security change, divergence/noise/AO/phase change, publication figure,
+baseline selection, training, or final-test access. Publication lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-EVID-0104 / DEC-0088 created the requested exact-point line redraw from the
-existing common-feasible diagnostic artifacts.
+## Previous handoff
 
-- New outputs: `results/revised_hap_uav_optical_baseline_figure/`
-  `skr_vs_distance_redraw.png`, `skr_vs_distance_redraw.pdf`, and
-  `skr_vs_distance_redraw_report.json`.
-- Only the existing 26 Uniform/MB rows were used; no Binomial data, new
-  points, source moments, C,w interpolation, or channel/security rerun.
-- Lines connect existing exact-tested points in distance order; circular
-  markers and the `SKR = 0` line are shown.
-- Endpoint annotations mark Uniform 25 km positive / 26 km negative and MB
-  positive through 30 km.
-- Renderer validation cross-checked `skr_distance_table.csv` against the
-  diagnostic envelope and `protocol_summary.csv`.
+## Latest completed task: positive-Uniform provenance audit
 
-This remains a visualization-only diagnostic asset. The
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS` lifecycle state and prior conclusions
-are unchanged.
+Date: 2026-10-02
 
-## Prior named figure export
+EVID-0115 / DEC-0099 traced the historical symlog figure to the exact
+common-feasible table under the old physical baseline `w0=.10 m`,
+`D_r=.55 m`, `tau_zen=.92`, epsilon `.0186`, beta `.95`, AO/phase OFF, and
+direct `Z_minus`. The old distance sweep recomputed channel quantities at all
+83 distances; no interpolation or new source moments occurred.
 
-EVID-0103 / DEC-0087 exported the requested named diagnostic-only figures
-and table from the verified EVID-0102 common-feasible exact envelope.
+- Uniform exact envelope: positive through 25 km, negative at 26 km.
+- MB exact envelope: positive at 800 km, negative at 810 km (O(1e-11)
+  diagnostic bracket).
+- Ten original short-distance rows reproduced with max `abs(diff K)=0.0`.
+- Old physical VA `.08,.10,.12,.13,.15` is negative at 20/22/25/30 km.
+- Classification: `POSITIVE_UNIFORM_FROM_OLD_PHYSICAL_BASELINE`.
 
-- Main outputs: `results/revised_hap_uav_optical_baseline_figure/`
-  `skr_vs_distance.png`, `skr_vs_distance.pdf`, and
-  `skr_distance_table.csv`.
-- Optional outputs: `betaIAB_vs_distance.{png,pdf}` and
-  `chiBE_vs_distance.{png,pdf}`.
-- The renderer rechecked exact/hash status, `V_A <= 1.5`, peak feasibility,
-  required distances, and the no-new-moments/no-interpolation provenance.
-- No channel/security evaluation was rerun; the source run had already
-  recomputed the channel at every exact-tested distance.
-- Binomial remains omitted with the explicit no-safe-exact-dataset note.
+Artifacts: `results/positive_uniform_provenance_audit/`.
 
-This is an asset export only. The common-feasible exact-grid conclusions and
-the `NOT_READY_FOR_PUBLICATION_SCALE_RUNS` lifecycle state are unchanged.
+## Current gate
 
-## Prior completed diagnostic
+No replacement figure, new parameter search, source-moment generation, MB
+rerun, baseline selection, training, or final-test access. Publication
+lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
 
-EVID-0102 / DEC-0086 completed the requested fair common-feasible diagnostic.
+## Previous handoff
 
-- Fixture: `w0=0.10 m`, `D_r=0.55 m`, `tau_zen=0.92`,
-  `epsilon_ch=0.0186 SNU`, `beta=0.95`, AO OFF, heterodyne, reverse
-  reconciliation.
-- Common budget: `0 < V_A <= 1.5 SNU` for both protocols.
-- Exact rows retained: 5 Uniform and 5 MB; peak constraint
-  `n_peak_photons=30.0` passed for every retained row.
-- The prior MB row `V_A=3.5548673905` and every other over-budget row were
-  excluded; no source moments or C,w interpolation was used.
-- Distances: `19,20,21,21.9393102292,22,23,24,25,26,27,28,29,30 km`.
-- Channel quantities were recomputed at every distance; plots use markers only.
-- MB exceeds Uniform at every exact-tested distance.
-- Uniform: last exact positive at 25 km (`SKR=5.9111913793e-4`), first exact
-  negative at 26 km (`SKR=-2.9334046616e-4`).
-- MB: positive through the largest exact-tested distance, 30 km
-  (`SKR=7.8782598116e-3`), with `nu=0.2`, `V_A=1.3833230303`.
-- SKR gains: `0.0442303289` bits/use at 22 km and `0.0238529688` bits/use at
-  25 km.
-- Primary driver: larger `beta I_AB`; lower `chi_BE` helps at 22 km but MB
-  has higher `chi_BE` at 25 km.
+## Latest completed task: Uniform VA verification at theta10urad/D10cm
 
-## Exact-cache boundary
+Date: 2026-10-02
 
-The result is the best exact-tested feasible candidate envelope only. It is
-not a continuous or global optimization, not a common exact-VA grid, and not
-a publication comparison. Binomial remains excluded because no safe current-
-compatible exact C,w dataset exists.
+EVID-0114 / DEC-0098 completed the Uniform-only exact diagnostic without
+changing the frozen physical/security configuration. The implementation-derived
+peak domain is `0 < V_A <= 22.666666666666668`.
 
-## Artifacts
+- Exact coverage: 322 rows, 14 VA values × 23 distances.
+- Exact tested envelope: `V_A=0.12` through 31 km and `V_A=0.13` from
+  31.5--40 km.
+- Every selected Uniform SKR is negative; no exact positive point or sign
+  crossing exists.
+- `V_A=1.075` is a fixed reference-bank row, not a per-distance optimum.
+- `V_A=0.1` is strictly below the exact-tested envelope but within the frozen
+  `1e-6` absolute SKR tolerance: classify
+  `VA=0.1 NEAR-OPTIMAL WITHIN NUMERICAL TOLERANCE`.
+- 13 requested VA source moments remain missing; no continuous optimum is
+  claimed and no interpolation was used.
 
-All artifacts are under `results/revised_uniform_mb_common_feasible_diagnostic/`:
+Artifacts: `results/uniform_va_optimization_theta10_D10cm/`.
 
-- `revised_uniform_mb_common_feasible_report.json`
-- `diagnostic_candidate_details.csv`
-- `diagnostic_distance_envelope.csv`
-- `protocol_summary.csv`
-- `security_term_attribution.csv`
-- `availability.csv`
-- `excluded_candidates.csv`
-- `channel_by_distance.csv`
-- `diagnostic_skr_vs_distance.{png,pdf}`
-- `diagnostic_beta_iab_vs_distance.{png,pdf}`
-- `diagnostic_chi_be_vs_distance.{png,pdf}`
+## Current gate
 
-## Verification and blockers
-
-- Runner exit code 0; `py_compile`, JSON/CSV inspection, and visual inspection
-  of all three marker-only plots passed.
-- `FINAL_MODEL_SPEC.md` remains unmodified and hash-mismatched against the
-  historical expected value.
-- Remaining blockers include unresolved `tau_zen` and `cn_phi2` authorization,
-  sparse exact C,w coverage, unauthorized optimized-MB search, missing
-  Binomial exact C,w, and no common exact-VA grid.
-
-## Lifecycle
-
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
-
-## Next action
-
-Resolve the frozen-spec and authorization blockers before any broader or
-publication-scale comparison. Preserve the existing exact cache and all
-unrelated worktree edits.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. Do not
+rerun MB, redraw the final figure, select a baseline, train, access final-test
+data, or promote the Uniform envelope to a continuous/global optimum. Any
+follow-up must use the same exact cache and an explicit source-point budget.

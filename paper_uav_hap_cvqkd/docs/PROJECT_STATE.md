@@ -1,5 +1,164 @@
 # Project State
 
+## Latest theta10/D55 three-scheme diagnostic (2026-10-02)
+
+EVID-0119/DEC-0103 completed the exact D55 comparison with optimized Uniform,
+fixed MB, and exact-bank optimized MB. Uniform selects VA from 1.5 at 20 km
+down to .5 at 35--40 km, is positive at 25 km, and is non-positive at 25.5
+km. Both MB curves remain positive through 40 km. No publication baseline or
+maximum-distance claim follows; lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest transition theta/D_r frontier (2026-10-02)
+
+EVID-0118/DEC-0102 continued only the 15--50 urad transition region. Positive
+Uniform requires very-large receiver apertures: theta15 has exact thresholds
+`.553045 m` at 20 km and `.642847 m` at 25 km; theta20 has `.654944 m` and
+`.766989 m`; theta25 has no positive 25-km point below `.80 m`. Theta30--50
+have no positive 20-km point below `.80 m`.
+
+All refined candidates fail by 30 km, while exact bisection boundaries retain
+`T_eff≈.089827455`. No 30--40-km candidate exists, so MB was not run and no
+optical baseline was selected. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest joint theta/D_r optical search (2026-10-02)
+
+EVID-0117/DEC-0101 searched 90 primary full-angle divergence/receiver pairs at
+20/25/30/35/40 km with exact channel recomputation. Every pair is
+`NONPOSITIVE_AT_20`; no category B/C/D or 30--40-km Uniform crossing exists.
+The best cache-bound K(20) is `-3.3000236312e-5` at
+`theta=50 urad,D_r=.10 m`; the best K(30)/K(40) is at
+`theta=250 urad,D_r=.10 m`, still negative.
+
+Exact `.14,.18,.20` Uniform source moments were generated; the current exact
+bank has 17 VA rows, with remaining missing rows explicitly fail-closed. MB
+and local refinement were not run because no Uniform crossing candidate exists.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest theta10 receiver-aperture diagnostic (2026-10-02)
+
+EVID-0116/DEC-0100 ran the controlled `D_r=.10--.55 m` sweep with the current
+theta10-derived waist and direct `Z_minus` evaluator. Exact channel bisection
+over the available Uniform VA cache gives positive thresholds near `.491811 m`
+at 20 km, `.512472 m` at 22 km, and `.544644 m` at 25 km; `V_A*=.8` at each
+bracket. The first tested positive diameters are `.50 m` at 20 km and `.55 m`
+at 22/25 km.
+
+This is cache-bound: 10 requested VA source moments within the common budget
+remain missing, so no continuous-VA threshold is claimed. The current result
+supports receiver aperture as the dominant physical cause of the old positive
+curve, with no security/divergence/noise change. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest positive-Uniform provenance audit (2026-10-02)
+
+EVID-0115/DEC-0099 identified the exact source of the historical positive
+Uniform figure: the 83-distance common-feasible exact envelope under
+`w0=.10 m`, `D_r=.55 m`, `tau_zen=.92`, fixed epsilon `.0186`, beta `.95`,
+AO/phase OFF, direct `Z_minus`, and sparse per-distance Uniform VA selection.
+The current exact evaluator reproduced ten original short-distance rows with
+maximum absolute SKR difference `0.0`. Uniform is positive through exact 25 km
+and negative at 26 km; MB is positive at 800 km and negative at 810 km.
+
+The old source recomputed distance-dependent channel quantities and did not
+reuse fixed `T_eff` or interpolate. The current theta10urad/D10cm result is
+negative because it uses a materially smaller `D_r=.10 m` aperture (and a
+slightly different derived full divergence), not because the old figure used a
+superseded security evaluator. Old-physical VA `.08--.15` sensitivity is
+negative at 20/22/25/30 km; the old positive curve used larger VA values at
+short distances.
+
+Classification: `POSITIVE_UNIFORM_FROM_OLD_PHYSICAL_BASELINE`.
+No replacement figure or new parameter search was run. Publication lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest Uniform VA diagnostic (2026-10-02)
+
+EVID-0114/DEC-0098 verified the Uniform 256-QAM modulation-variance choice
+for `theta_div=10e-6 rad`, `D_r=0.10 m` without changing the frozen model.
+The implementation-derived peak-only domain is
+`0 < V_A <= 22.666666666666668`. Exact coverage is 322 rows (14 VA values ×
+23 distances); 13 requested VA source moments remain missing and are recorded
+explicitly, so no continuous optimum is claimed.
+
+The best exact-tested envelope uses `V_A=0.12` through 31 km and `V_A=0.13`
+from 31.5--40 km. All selected SKRs are negative; there is no exact positive
+point or sign crossing. `V_A=1.075` is a fixed reference-bank row, while
+`V_A=0.1` is strictly below the exact-tested envelope by at most
+`1.220287529912716e-8` bits/use, below the frozen `1e-6` SKR tolerance.
+Classification: `VA=0.1 NEAR-OPTIMAL WITHIN NUMERICAL TOLERANCE`.
+
+Artifacts are under `results/uniform_va_optimization_theta10_D10cm/`.
+No MB rerun or final figure redraw occurred. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest divergence sensitivity search (2026-10-02)
+
+EVID-0113/DEC-0097 tested `theta_div=5--300 urad` for the D10cm receiver
+diagnostic. No candidate produced Uniform positive at 30 km and non-positive
+by 40 km; all candidates are classified `TOO_NARROW_RANGE`. No theta was
+selected and no final sensitivity figure was generated. Publication lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest theta10urad distance diagnostic (2026-10-02)
+
+EVID-0112/DEC-0096 reran the 23-point 20--40 km distance experiment at
+`theta_div=10e-6 rad`, `D_r=0.10 m`, with derived `w0=0.0986760647169751 m`.
+It plots fixed Uniform, fixed MB, and exact-bank MB optimized curves. The
+Uniform curve is non-positive at all tested distances; both MB curves remain
+positive through 40 km. This is diagnostic-only; the resolved numerical MB
+search status remains separate and publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Redesigned global MB/V_A numerical result resolved (2026-10-01)
+
+EVID-0111/DEC-0095 resolve the frozen redesigned numerical search. Exact
+coverage is 145 points. The best exact candidate is
+`(nu_raw,V_A)=(0.165,5.5)` with `K=0.07904194520968355`; top-ten ranking is
+stable under GH-order checks, and exact high-nu slice maxima decrease through
+`nu_raw=0.8`.
+
+Numerical experiment status: `GLOBAL_OPTIMUM_RESOLVED`.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`; no
+training, final-test access, baseline selection, or publication claim follows.
+
+## Latest targeted ridge continuation (2026-10-01)
+
+EVID-0110/DEC-0094 continued the redesigned exact search without a rectangular
+restart. Total coverage is now 119 exact rows, including 42 continuation
+rows. The best exact candidate is `(nu_raw,V_A)=(0.165,5.5)` with
+`SKR=0.07904194520968355`; the ridge moved toward higher `nu_raw` and lower
+`V_A` from the prior `(0.15,6)` row.
+
+The lower-VA boundary at `0.025` and upper-VA boundary at `8` are numerically
+closed by sparse exact rows. High-`nu` exact rows at `.25/.30/.40` decrease,
+but no exact point exists at the expanded `nu_max=0.8` boundary. Status remains
+`GLOBAL_OPTIMUM_UNRESOLVED`; publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Redesigned-baseline global MB/V_A experiment (2026-10-01)
+
+EVID-0109/DEC-0093 record the author-authorized experiment-specific re-freeze:
+`tau_zen=0.92`, `w0=0.10 m`, `D_r=0.55 m`, AO/phase noise/peak/budget OFF,
+constant `epsilon_total=0.0186 SNU`, `beta=0.95`, no fixed upper bounds, and
+direct `Z_minus` Holevo. The new final-model hash is
+`df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15`;
+the composite experiment hash is
+`a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58`.
+
+Channel/model audit passed and the new-channel evaluator processed 77 exact
+points. The best exact-tested rows are Uniform `V_A=1.075`,
+`K=0.008551627907451953`, and MB `(nu_raw,V_A)=(0.15,3.5548673904962893)`,
+`K=0.07565435753581196`. Neither is a global optimum or selected baseline.
+The upper-nu, upper-VA, and global lower-VA boundaries are unresolved; status
+is `GLOBAL_OPTIMUM_UNRESOLVED`.
+
+The optimized-MB search is authorized only within this frozen experiment, but
+publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. No
+training, final-test access, held-out evaluation, or publication-scale claim is
+authorized.
+
 ## Latest clean positive-SKR visualization (2026-09-30)
 
 EVID-0108/DEC-0092 added

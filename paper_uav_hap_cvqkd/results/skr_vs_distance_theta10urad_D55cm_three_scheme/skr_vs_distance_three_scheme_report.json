@@ -1,0 +1,131 @@
+{
+  "status": "THETA10_D55_THREE_SCHEME_DIAGNOSTIC_COMPLETE",
+  "scope": "DIAGNOSTIC_ONLY",
+  "model_composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58",
+  "config_sha256": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+  "experiment_hash": "eb9ac8410ce48a982b6c06ac2534b6f3e69818bf9a61aec57a73532250efdc89",
+  "configuration": {
+    "h_HAP_m": 20000.0,
+    "h_UAV_m": 1000.0,
+    "lambda_m": 1.55e-06,
+    "theta_div_full_rad": 1e-05,
+    "w0_m": 0.0986760647169751,
+    "D_r_m": 0.55,
+    "receiver_radius_m": 0.275,
+    "tau_zen": 0.92,
+    "epsilon_ch": 0.0186,
+    "beta": 0.95,
+    "AO": "OFF",
+    "phase_noise": "OFF",
+    "peak_photons": 30.0,
+    "VA_budget": "OFF"
+  },
+  "uniform_exact_VA_bank": [
+    0.02,
+    0.04,
+    0.05,
+    0.06,
+    0.08,
+    0.1,
+    0.11,
+    0.12,
+    0.13,
+    0.14,
+    0.15,
+    0.18,
+    0.2,
+    0.3,
+    0.5,
+    0.6,
+    0.7,
+    0.75,
+    0.8,
+    1.0,
+    1.075,
+    1.25,
+    1.5,
+    2.0,
+    2.05,
+    3.0,
+    3.025,
+    4.0,
+    5.0
+  ],
+  "uniform_missing_VA": [],
+  "uniform_new_sources_built": [
+    {
+      "V_A": 0.02,
+      "cache_key": "ae91d8752102f188d7e4fdc85019eadd7a8ad554205aa3d7786d1bc37757081e",
+      "ensemble_hash": "a7968c2ea75fbfa39f8785dfb488ae1720423fabde15d04cd898f4310fd7b3dd",
+      "C": 0.10047199168016903,
+      "w": 0.0005365362448969152,
+      "support_size": 256,
+      "route": "ARBITRARY_PRECISION_FALLBACK"
+    },
+    {
+      "V_A": 0.04,
+      "cache_key": "92ce3f66a2cb7374163dedb299d84e1cf5d995b73dbdbb464a8ea566ab146e0d",
+      "ensemble_hash": "f02d2484c1b9244cd6633b3f3196bc3b9bfe2d50ad9dee1541d2a864d33707d6",
+      "C": 0.1427538887863968,
+      "w": 0.0010609186177420605,
+      "support_size": 256,
+      "route": "ARBITRARY_PRECISION_FALLBACK"
+    },
+    {
+      "V_A": 0.06,
+      "cache_key": "ac8638f5ebb324e53bfaca6a096deefde866abba6cbb076ab8d0cad737296b3b",
+      "ensemble_hash": "9d90d825de1266050f27136524206ae9048a70390ed683cdeffac9fa4750ee5a",
+      "C": 0.17564856162324285,
+      "w": 0.0015737785509387719,
+      "support_size": 256,
+      "route": "ARBITRARY_PRECISION_FALLBACK"
+    },
+    {
+      "V_A": 0.3,
+      "cache_key": "6bccbe1ca81b71ff168ec859f10ad240d31bad8e2139e6dac1e76914ee6e1b70",
+      "ensemble_hash": "329752ea8ea32cbf60b6bf51574ea69398bf284c6ee0e1808f4a36ee6899cb1e",
+      "C": 0.4140058746615128,
+      "w": 0.007011402617647217,
+      "support_size": 256,
+      "route": "ARBITRARY_PRECISION_FALLBACK"
+    },
+    {
+      "V_A": 0.5,
+      "cache_key": "9b437b9a11a228ae4f8149c079f6bb9694ebd4b652f7d9546269547cdab7aeef",
+      "ensemble_hash": "cb00a1943d58ac9154b62e30482acb3a774c8d97e5d527666a76df9407aa6328",
+      "C": 0.5564007390556778,
+      "w": 0.010812116896250426,
+      "support_size": 256,
+      "route": "ARBITRARY_PRECISION_FALLBACK"
+    }
+  ],
+  "MB_bank_count": 76,
+  "operational_endpoints": {
+    "Uniform optimized": [
+      25.0,
+      25.5
+    ],
+    "MB fixed": [
+      40.0,
+      null
+    ],
+    "MB optimized": [
+      40.0,
+      null
+    ]
+  },
+  "artifacts": {
+    "table": "skr_vs_distance_three_scheme.csv",
+    "figure_png": "skr_vs_distance_three_scheme.png",
+    "figure_pdf": "skr_vs_distance_three_scheme.pdf",
+    "uniform": "uniform_optimized_candidates.csv",
+    "mb_fixed": "mb_fixed_results.csv",
+    "mb_optimized": "mb_optimized_candidates.csv"
+  },
+  "source_policy": "exact hash-matched C,w; no interpolation; direct Z_minus",
+  "limitations": [
+    "Uniform continuous VA optimum remains unresolved where requested source moments are missing.",
+    "MB optimized is the best exact 145-point bank candidate per distance; no local continuation was required.",
+    "No publication claim or baseline selection."
+  ]
+}

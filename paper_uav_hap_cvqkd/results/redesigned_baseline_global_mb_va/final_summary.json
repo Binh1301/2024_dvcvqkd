@@ -1,0 +1,116 @@
+{
+  "status": "GLOBAL_OPTIMUM_UNRESOLVED",
+  "audit_status": "CURRENTLY_VERIFIED_PASS",
+  "model_identity": {
+    "schema": "redesigned-baseline-model-identity-v1",
+    "files": {
+      "docs/FINAL_MODEL_SPEC.md": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+      "docs/SECURITY_SCOPE_FREEZE.md": "bb2b8aa4a9ada5ebd65284c98c0f66d5e7987e410466ed3f45156e17af475c37",
+      "configs/default.yaml": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+      "configs/redesigned_baseline_global_mb_va.yaml": "8deb1aa04e4a64aa22cacce6ac8d3945231881ba5dc7ac435f2657aa8fc942aa",
+      "scripts/run_redesigned_global_mb_va_optimization.py": "28d38444990b210278eefad21971fe851a5f8098ab78ff13a870409698525763",
+      "scripts/run_exact_mb_test2.py": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf",
+      "src/cvqkd/holevo.py": "1e12cf39387d8796121a6bfc2654f72afc282f71cc59b42af70ae26d9c814265",
+      "src/cvqkd/mutual_information.py": "4c7d38d7f796dde0e24155117d17ca5758e9561527f4acb29fc24d9bb7e947b4",
+      "src/cvqkd/gram_moments.py": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48"
+    },
+    "composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58",
+    "previous_final_model_spec_sha256": "8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843",
+    "new_final_model_spec_sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15"
+  },
+  "authorization": "AUTHOR_MODEL_LEVEL_RE_FREEZE_AND_GLOBAL_OPTIMIZATION",
+  "evaluated_exact_points": 77,
+  "fresh_source_points_requested": 1,
+  "best_uniform_exact": {
+    "nu_raw": 0.0,
+    "nu_repo": 0.0,
+    "VA": 1.075,
+    "epsilon_total": 0.0186,
+    "peak_photon": 1.4227941176470589,
+    "P_peak": 1.4227941176470589,
+    "m2": 1.0000000000000004,
+    "x_max2": 2.6470588235294126,
+    "physical_scale": 0.7331439149307588,
+    "feasible": true,
+    "H_X": 8.0,
+    "N_eff": 255.99999999999994,
+    "max_p": 0.00390625,
+    "I_AB_GH": 0.14928825824043734,
+    "I_AB": 0.14928825824043734,
+    "C": 0.9023656334351718,
+    "w": 0.019236986168069774,
+    "Z_star": 0.8015267775798166,
+    "chi_BE": 0.1332722174209635,
+    "beta_IAB": 0.14182384532841547,
+    "SKR": 0.008551627907451953,
+    "ensemble_hash": "58ceb118407aefed1b68f45de5422e33943f4e26dd5b37251c4f99329e7f2589",
+    "source_cache_key": "37ee8d498878bf3a4f2f351298ab603116798215645716cdcf2a66069fe8f52b",
+    "fresh_or_cache": "FRESH_EXACT_EVALUATION",
+    "cache_hit": true,
+    "VA_actual": 1.0749999999999997,
+    "fourth_moment": 0.4031091911764706,
+    "GH_order": 8,
+    "holevo_mode": "DIRECT_Z_MINUS",
+    "peak_constraint_active": false,
+    "budget_constraint_active": false,
+    "model_composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58"
+  },
+  "best_mb_exact": {
+    "nu_raw": 0.15,
+    "nu_repo": 6.375,
+    "VA": 3.5548673904962893,
+    "epsilon_total": 0.0186,
+    "peak_photon": 29.99999999999999,
+    "P_peak": 29.99999999999999,
+    "m2": 0.15683238487483636,
+    "x_max2": 2.6470588235294126,
+    "physical_scale": 3.366501646120692,
+    "feasible": true,
+    "H_X": 5.8308510083515195,
+    "N_eff": 56.919497027635835,
+    "max_p": 0.044297303045121986,
+    "I_AB_GH": 0.4441812201448716,
+    "I_AB": 0.4441812201448716,
+    "C": 2.221868916147515,
+    "w": 1.2741577947753198e-06,
+    "Z_star": 2.003172040142379,
+    "chi_BE": 0.346317801601816,
+    "beta_IAB": 0.421972159137628,
+    "SKR": 0.07565435753581196,
+    "ensemble_hash": "c3603a3ba5d2867c2db311e6a4a2424f291813088f72a1888c2a4a95e7a77cc7",
+    "source_cache_key": "f46625bb2b1d5afb75f92d2c9c8759ccf4cbf6304a09f1bbb572a99ac0393e1f",
+    "fresh_or_cache": "FRESH_EXACT_EVALUATION",
+    "cache_hit": true,
+    "VA_actual": 3.5548673904962897,
+    "fourth_moment": 6.31332366535799,
+    "GH_order": 8,
+    "holevo_mode": "DIRECT_Z_MINUS",
+    "peak_constraint_active": false,
+    "budget_constraint_active": false,
+    "model_composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58"
+  },
+  "delta_K_mb_minus_uniform": 0.06710272962836,
+  "boundary_diagnostics": {
+    "nu_min": {
+      "status": "CLOSED",
+      "exact_points": 9
+    },
+    "nu_max": {
+      "status": "UNRESOLVED",
+      "exact_points": 0
+    },
+    "va_min": {
+      "status": "UNRESOLVED",
+      "exact_points": 0
+    },
+    "va_max": {
+      "status": "UNRESOLVED",
+      "exact_points": 0
+    }
+  },
+  "limitations": [
+    "A boundary is unresolved unless at least three exact points exist on it and a numerical closure rule is certified.",
+    "Missing source moments are never interpolated or replaced by historical SKR values.",
+    "Exact source C,w cache reuse is allowed only by exact ensemble and implementation identity; SKR is recomputed under the new model hash."
+  ]
+}

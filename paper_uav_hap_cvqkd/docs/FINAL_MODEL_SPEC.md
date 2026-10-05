@@ -5,6 +5,43 @@ the intended scientific model for the manuscript. Code conformance is audited in
 PAPER_CODE_ALIGNMENT.md; a target equation must not be described as implemented
 until that audit records ALIGNED.
 
+## Author-authorized redesigned-baseline optimization re-freeze (2026-09-30)
+
+For the dedicated global Maxwell--Boltzmann/modulation-variance experiment,
+this section supersedes conflicting phase, energy-domain, and Holevo-target
+statements below. Historical experiments remain governed by their recorded
+snapshots and are not rewritten.
+
+The frozen experiment configuration is
+
+\[
+\tau_{\rm zen}=0.92,\quad w_0=0.10\ {\rm m},\quad D_r=0.55\ {\rm m},
+\quad r_{\rm ap}=0.275\ {\rm m},\quad \beta_{\rm rec}=0.95.
+\]
+
+AO and phase noise are off. For every evaluated candidate,
+
+\[
+\epsilon_{\rm total}=\epsilon_{\rm ch}=0.0186\ {\rm SNU},
+\]
+
+with no active \(c_\phi V_A\) contribution. The optimization domain is
+\(\nu_{\rm raw}\ge0\), \(V_A>0\), with no peak-photon constraint, average-energy
+budget, or fixed upper bound on either variable. Finite boxes are numerical
+working domains only and must expand when a boundary is unresolved.
+
+The authorized security target for this experiment is direct \(Z_-\):
+
+\[
+\chi_{BE}=\chi_{BE}(Z_-),\qquad
+Z_-=2\sqrt{T}C-\sqrt{2T\epsilon_{\rm total}w}.
+\]
+
+Full-interval maximization is not part of this experiment and historical
+full-interval results must not be mixed into its ranking. The dedicated frozen
+configuration is `configs/redesigned_baseline_global_mb_va.yaml`; the global
+search is authorized only after its channel/model audit passes.
+
 No finite-size or composable-security claim is made. The security calculation is the author's accepted asymptotic reverse-reconciliation, ideal-heterodyne DM-CV-QKD chain
 
 \[

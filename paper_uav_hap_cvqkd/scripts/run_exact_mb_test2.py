@@ -92,14 +92,17 @@ def ensemble_hash(ensemble: Ensemble) -> str:
 
 def build_mb_ensemble(config: dict, nu_mb_raw: float, va: float) -> Ensemble:
     repo_value = nu_mb_repo(nu_mb_raw)
+    v_min = config["cvqkd"].get("v_min_snu")
+    v_max = config["cvqkd"].get("v_max_snu")
+    n_peak = config["cvqkd"].get("n_peak_photons")
     ensemble = reference_ensemble(
         "mb",
         batch_size=1,
         modulation_variance=float(va),
         nu_mb=repo_value,
-        v_min=float(config["cvqkd"]["v_min_snu"]),
-        v_max=float(config["cvqkd"]["v_max_snu"]),
-        n_peak_photons=float(config["cvqkd"]["n_peak_photons"]),
+        v_min=None if v_min is None else float(v_min),
+        v_max=None if v_max is None else float(v_max),
+        n_peak_photons=None if n_peak is None else float(n_peak),
     )
     raw = square_qam256(alpha0=math.sqrt(30.0))
     expected = torch.exp(-float(nu_mb_raw) * raw.abs().square())

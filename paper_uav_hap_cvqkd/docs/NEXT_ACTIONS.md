@@ -1,5 +1,116 @@
 # Next Actions
 
+## Theta10/D55 three-scheme diagnostic: EVID-0119 / DEC-0103
+
+Preserve the exact three-curve table and linear figure. Uniform's exact bracket
+is 25--25.5 km; fixed and optimized MB remain positive through 40 km. Do not
+promote D55 to a baseline or infer a continuous maximum distance. Resolve
+remaining lifecycle/model-authority blockers before any publication-scale use.
+
+## Transition theta/D_r frontier: EVID-0118 / DEC-0102
+
+The transition region confirms that positive Uniform requires very-large
+apertures: theta15 needs about `.643 m` for 25 km, theta20 about `.767 m`,
+and theta25 exceeds the `.80 m` screen for 25 km. No candidate survives to
+30 km. Preserve the frontier and stop before MB; any further work requires an
+explicit decision to study very-large airborne terminals or to extend theta.
+
+## Joint theta/D_r search: EVID-0117 / DEC-0101
+
+The primary joint optical domain has no Uniform-positive candidate: all 90
+pairs are `NONPOSITIVE_AT_20`. Preserve the coarse exact table and stop
+fail-closed. Do not run MB, local refinement, or extend theta/aperture ranges
+without a separate physical-design authorization.
+
+## Receiver-aperture diagnostic: EVID-0116 / DEC-0100
+
+Preserve the exact-cache theta10 aperture sweep and threshold brackets. The
+current result is cache-bound to 11 Uniform VA source rows; do not promote the
+diameter thresholds to continuous-VA claims. If further closure is authorized,
+build only explicitly budgeted missing Uniform source moments in the current
+exact cache, then rerun the same aperture rows.
+
+Do not change divergence, security, noise, AO, phase, pointing, or turbulence;
+do not redraw the publication figure or select a baseline.
+
+## Positive-Uniform provenance audit: EVID-0115 / DEC-0099
+
+The historical positive figure is explained by the old optical baseline
+(`w0=.10 m`, `D_r=.55 m`) and its sparse distance-dependent exact VA envelope;
+the current direct-`Z_minus` evaluator reproduces it exactly. Preserve the
+audit tables and do not treat the old 25/26-km or 800/810-km brackets as
+continuous operation distances.
+
+No parameter search, source-moment generation, MB rerun, baseline selection,
+or replacement figure is authorized. Any migration to the old physical
+baseline requires a separate author-approved physical decision and a new
+hash-bound experiment.
+
+## Uniform VA diagnostic: EVID-0114 / DEC-0098
+
+The exact Uniform envelope is negative at every tested distance. Preserve the
+322 exact rows and the implementation-derived domain `0 < V_A <=
+22.666666666666668`; do not call `V_A=0.12/0.13` a continuous optimum while
+the listed requested source moments remain missing. The historical `V_A=0.1`
+choice is near-optimal within the frozen SKR tolerance but is not the strict
+best exact-tested row.
+
+No MB rerun, final figure redraw, baseline selection, training, final-test
+access, or publication-scale evaluation is authorized by this diagnostic.
+Any follow-up should build only explicitly budgeted exact Uniform source
+moments around the `.12--.15` ridge and must preserve the current cache.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Divergence sensitivity result: EVID-0113 / DEC-0097
+
+No tested theta-divergence produced the requested Uniform 30--40 km sign
+bracket. Preserve the sensitivity table/report as a negative diagnostic result;
+do not select a theta or force a final figure. Any follow-up requires an
+explicit physical decision (for example receiver/aperture redesign), not an
+unrequested security or noise change.
+
+## Distance diagnostic complete: EVID-0112 / DEC-0096
+
+Preserve `results/skr_vs_distance_theta10urad_D10cm/` as the theta10urad
+diagnostic artifact. Do not redraw it from old data, change the frozen model,
+or interpret 40 km as a maximum operational distance. Publication lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Numerical search complete: EVID-0111 / DEC-0095
+
+The frozen redesigned MB/V_A numerical search is resolved at the exact point
+`(nu_raw,V_A)=(0.165,5.5)`. Preserve the 171-row artifact and compatible AP
+cache. Do not restart the search or promote this numerical result into
+publication-scale training, final-test evaluation, or baseline selection.
+
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Remaining global-search blocker: EVID-0110 / DEC-0094
+
+The targeted continuation found the best exact point at
+`(nu_raw,V_A)=(0.165,5.5)` and closed sparse `V_A` boundaries. The only
+remaining numerical closure item is an exact point or sparse exact band at the
+expanded `nu_max=0.8` boundary. Do not restart a rectangular grid; if resumed,
+evaluate only compatible high-`nu` boundary points and retain fail-closed
+support/provenance gates.
+
+Do not promote `(0.165,5.5)` to a continuous/global optimum or baseline while
+the `nu_max=0.8` boundary remains unresolved.
+
+## Redesigned global-search continuation: EVID-0109 / DEC-0093
+
+Resume exact AP coverage from
+`results/exact_mb_test2/exact_source_cache/` without changing the frozen model
+or closure tolerances. Prioritize the unresolved expanded boundaries
+`nu_raw=0.8`, `V_A=0.025`, and `V_A=6`, then refine the competitive high-VA
+region around the best exact-tested MB rows. One fresh Uniform boundary point
+required 1406 s, so keep runs resumable and record every incomplete point.
+
+Do not interpolate C,w, use full-Z values, restore peak/budget guards, call the
+current best row a global optimum, select a baseline, train, or access final
+test data. The next run must retain `GLOBAL_OPTIMUM_UNRESOLVED` unless every
+frozen closure condition passes.
+
 ## Latest clean redraw: EVID-0108 / DEC-0092
 
 The clean two-curve positive-SKR figure is complete from the existing table

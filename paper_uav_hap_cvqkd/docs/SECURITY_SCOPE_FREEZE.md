@@ -1,5 +1,16 @@
 # Security-scope freeze
 
+## Redesigned-baseline direct-Z-minus experiment (author-authorized 2026-09-30)
+
+For the dedicated experiment bound to
+`configs/redesigned_baseline_global_mb_va.yaml`, the frozen Holevo target is
+`chi_BE(Z_minus)` with `maximize_full_interval=False`. AO and phase noise are
+off and `epsilon_total=0.0186 SNU` is constant for every `V_A`. This narrowly
+scoped authorization supersedes the full-interval and post-action phase-noise
+requirements below only for this experiment. It does not broaden the attack
+class, finite-size, composable-security, fading-protocol, or publication
+claims allowed by this document.
+
 Status: **current target security scope is full-interval, asymptotic, oracle-CSI
 DM-CV-QKD**. The active code computes the physical correlation interval and
 bounded maximum, but target numerical evidence remains unbound to that path.

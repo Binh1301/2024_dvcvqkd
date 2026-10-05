@@ -1,0 +1,110 @@
+{
+  "schema": "uniform-va-verification-summary-v1",
+  "status": "DIAGNOSTIC_COMPLETE_BEST_EXACT_TESTED_CONTINUOUS_UNRESOLVED",
+  "model_composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58",
+  "final_model_spec_sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+  "configuration": {
+    "h_HAP_m": 20000.0,
+    "h_UAV_m": 1000.0,
+    "theta_div_full_rad": 1.0e-05,
+    "w0_m": 0.0986760647169751,
+    "D_r_m": 0.1,
+    "r_r_m": 0.05,
+    "epsilon_total_snu": 0.0186,
+    "beta_rec": 0.95,
+    "AO": "OFF",
+    "phase_noise": "OFF",
+    "peak_photons": 30.0,
+    "VA_budget": "OFF",
+    "holevo_mode": "Z_MINUS"
+  },
+  "implementation_derived_peak_domain": {
+    "max_alpha2_at_VA_1": 1.3235294117647058,
+    "VA_min_exclusive": 0.0,
+    "VA_max_inclusive": 22.666666666666668,
+    "peak_check": "max_i |alpha_i|^2 <= 30"
+  },
+  "fixed_reference": {
+    "VA": 1.075,
+    "optimized": false,
+    "selection_origin": "fixed_reference_bank",
+    "source_cache_key": "37ee8d498878bf3a4f2f351298ab603116798215645716cdcf2a66069fe8f52b",
+    "ensemble_hash": "58ceb118407aefed1b68f45de5422e33943f4e26dd5b37251c4f99329e7f2589"
+  },
+  "uniform_VA_0_1_source": {
+    "source_cache_key": "ad776e1215e444b17184488853caf44339b37cd407b90a42579e650603780b9f",
+    "ensemble_hash": "ccd5dfd54a3405070ab3f519d65c8e6cbbff0a9de45e95dd5b7924a86f233ff4"
+  },
+  "exact_uniform_VA_coverage": [
+    0.05,
+    0.08,
+    0.1,
+    0.11,
+    0.12,
+    0.13,
+    0.15,
+    0.6,
+    0.7,
+    0.8,
+    1.075,
+    2.05,
+    3.025,
+    4.0
+  ],
+  "requested_VA_without_exact_source": [
+    0.02,
+    0.04,
+    0.06,
+    0.2,
+    0.3,
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5,
+    2.0,
+    3.0,
+    5.0
+  ],
+  "direct_comparison_K": [
+    {"L_km": 20.0, "K_VA_0_1": -4.65844714653274e-06, "K_VA_1_075": -8.784153784624493e-06},
+    {"L_km": 22.0, "K_VA_0_1": -4.865734820158618e-06, "K_VA_1_075": -9.157620767608067e-06},
+    {"L_km": 25.0, "K_VA_0_1": -5.172884849513615e-06, "K_VA_1_075": -9.709437492100294e-06},
+    {"L_km": 30.0, "K_VA_0_1": -5.644144701089094e-06, "K_VA_1_075": -1.0552627311444242e-05},
+    {"L_km": 35.0, "K_VA_0_1": -6.028708524885573e-06, "K_VA_1_075": -1.1237766008154183e-05},
+    {"L_km": 40.0, "K_VA_0_1": -6.303716470223985e-06, "K_VA_1_075": -1.1726186573879362e-05}
+  ],
+  "best_exact_tested_selected_VA": {
+    "20": 0.12,
+    "22": 0.12,
+    "25": 0.12,
+    "30": 0.12,
+    "35": 0.13,
+    "40": 0.13
+  },
+  "best_exact_tested_K": {
+    "20": -4.655082460069959e-06,
+    "22": -4.861501388764289e-06,
+    "25": -5.167299230202094e-06,
+    "30": -5.6363414056015415e-06,
+    "35": -6.018455901612984e-06,
+    "40": -6.291513594924858e-06
+  },
+  "conclusion": {
+    "VA_0_1_category": "VA=0.1 NEAR-OPTIMAL WITHIN NUMERICAL TOLERANCE",
+    "strict_exact_tested_ordering": "VA=0.1 is not the best exact-tested point; 0.12/0.13 are slightly less negative",
+    "largest_best_exact_gain_over_VA_0_1_bits_per_use": 1.220287529912716e-08,
+    "frozen_SKR_absolute_tolerance_bits_per_use": 1.0e-06,
+    "uniform_positive_anywhere": false,
+    "last_exact_positive_distance_km": null,
+    "first_exact_nonpositive_distance_km": 20.0,
+    "statement": "Optimizing VA alone is insufficient to produce positive Uniform SKR under theta_div = 10 µrad, D_r = 0.10 m."
+  },
+  "artifacts": {
+    "all_exact_rows": "results/uniform_va_optimization_theta10_D10cm/uniform_va_evaluated_points.csv",
+    "selected_by_distance": "results/uniform_va_optimization_theta10_D10cm/uniform_va_selected_by_distance.csv",
+    "landscapes": "results/uniform_va_optimization_theta10_D10cm/uniform_va_landscapes_20_30_35_40.csv",
+    "missing_source_points": "results/uniform_va_optimization_theta10_D10cm/uniform_va_missing_source_points.csv",
+    "runner": "scripts/run_uniform_va_optimization_theta10.py"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "status": "JOINT_THETA_DR_UNIFORM_COARSE_COMPLETE",
+  "scope": "DIAGNOSTIC_ONLY",
+  "fixed": {
+    "h_HAP_m": 20000.0,
+    "h_UAV_m": 1000.0,
+    "wavelength_m": 1.55e-06,
+    "tau_zen": 0.92,
+    "epsilon_ch": 0.0186,
+    "beta": 0.95,
+    "AO": "OFF",
+    "phase_noise": "OFF",
+    "holevo": "direct Z_minus",
+    "peak_photons": 30.0
+  },
+  "model_composite_sha256": "a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58",
+  "config_sha256": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+  "experiment_hash": "935d97f47cd3e7a6d6a77f9da2f78503d820d5ece732803aa6c743b830be70c7",
+  "theta_div_urad": [
+    50,
+    75,
+    100,
+    125,
+    150,
+    175,
+    200,
+    223,
+    250
+  ],
+  "receiver_diameter_m": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55
+  ],
+  "coarse_distances_km": [
+    20.0,
+    25.0,
+    30.0,
+    35.0,
+    40.0
+  ],
+  "uniform_exact_VA_bank": [
+    0.05,
+    0.08,
+    0.1,
+    0.11,
+    0.12,
+    0.13,
+    0.14,
+    0.15,
+    0.18,
+    0.2,
+    0.6,
+    0.7,
+    0.8,
+    1.075,
+    2.05,
+    3.025,
+    4.0
+  ],
+  "missing_uniform_VA_source_points": [],
+  "new_source_points_built": [],
+  "channel_recomputed_for_every_pair": true,
+  "T_eff_reused": false,
+  "interpolation_used": false,
+  "uniform_optimization_scope": "best exact-tested Uniform cache candidate; continuous VA unresolved if source missing",
+  "follow_up_status": {
+    "uniform_local_refinement": "NOT_RUN_NO_CROSSING_CANDIDATE",
+    "full_distance_refinement": "NOT_RUN_NO_CROSSING_CANDIDATE",
+    "MB_fixed_and_optimized": "NOT_RUN_NO_CROSSING_CANDIDATE"
+  },
+  "artifacts": {
+    "rows": "uniform_coarse_exact.csv",
+    "summary": "uniform_coarse_summary.csv",
+    "top": "uniform_coarse_top_candidates.csv"
+  },
+  "provenance": {
+    "config_sha256": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+    "runner_sha256": "2cf66abdd5a71e94a3de68c359e5415fe2238e97216a138c0a3c2bf6c1660818",
+    "source_cache": "results/exact_mb_test2/exact_source_cache"
+  }
+}

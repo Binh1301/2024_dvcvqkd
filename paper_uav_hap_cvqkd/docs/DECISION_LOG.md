@@ -1,5 +1,287 @@
 # Decision Log
 
+## DEC-0103 - Accept theta10/D55 three-scheme diagnostic
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO LIFECYCLE PROMOTION
+
+Accept EVID-0119. The D55 exact comparison confirms optimized Uniform is
+positive through 25 km and becomes non-positive at 25.5 km, while both fixed
+and optimized MB remain positive through 40 km. The optimized MB advantage is
+quantified in the exact table and is generally beta-I_AB driven; fixed MB at
+20 km is the exception where lower chi_BE dominates.
+
+Retain the linear three-curve figure as diagnostic-only. No obsolete evaluator,
+VA<=1.5 artificial budget, C,w interpolation, or channel reuse was used. Do not
+select D55 as a baseline or call 40 km a maximum operating distance.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0119
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/skr_vs_distance_three_scheme_report.json`
+- `results/skr_vs_distance_theta10urad_D55cm_three_scheme/skr_vs_distance_three_scheme.png`
+
+## DEC-0102 - Accept transition frontier; stop before MB
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO OPTICAL CANDIDATE SELECTED
+
+Accept EVID-0118. The transition search establishes a physical tradeoff:
+increasing divergence from 15 to 20 urad raises the required receiver diameter
+for Uniform positivity from approximately `.553 m`/`.643 m` (20/25 km) to
+`.655 m`/`.767 m`. At 25 urad the 25-km threshold is above `.75 m` and no
+positive point appears below `.80 m`; 30--50 urad have no positive 20-km point
+below `.80 m`.
+
+The common exact boundary `T_eff≈.089827455` persists. The four refined
+candidates are positive only through 20 or 25 km and all fail at 30 km. Do not
+run MB, extend the optical domain, or force a 30--40-km crossing from this
+result. Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0118
+- `results/transition_theta_dr_frontier/transition_pareto_frontier.csv`
+- `results/transition_theta_dr_frontier/transition_refined_summary.csv`
+
+## DEC-0101 - Retain no-solution result in primary theta/D_r domain
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO OPTICAL CANDIDATE SELECTED
+
+Accept EVID-0117. All 90 primary ((theta_{m div},D_r)) pairs are already
+non-positive at 20 km. Therefore no candidate satisfies the requested
+30--40-km Uniform crossing target, and no category-C/D design exists in the
+declared physically reasonable domain.
+
+Retain the Pareto-like negative alternatives in the coarse summary, but do not
+extend the domain, run MB, refine locally, or manufacture a crossing. The
+result supports the conclusion that the useful old positive curve requires a
+design outside this primary divergence range and/or the previously identified
+large-aperture/narrow-divergence regime. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0117
+- `results/joint_theta_dr_optical_search/uniform_coarse_summary.csv`
+- `results/joint_theta_dr_optical_search/joint_theta_dr_uniform_report.json`
+
+## DEC-0100 - Accept cache-bound receiver-aperture diagnostic
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; CONTINUOUS VA THRESHOLD UNRESOLVED
+
+Accept EVID-0116. With the current theta10 physical/security model unchanged,
+the exact-cache Uniform threshold brackets are approximately `0.491811 m` at
+20 km, `0.512472 m` at 22 km, and `0.544644 m` at 25 km. The first tested
+positive sweep diameter is `.50 m` at 20 km and `.55 m` at 22/25 km. The
+`D_r=.55 m` sanity rows agree in sign with the recovered old positive-Uniform
+artifact.
+
+Interpret these as exact-channel bisection brackets over the 11 available
+Uniform VA source rows only. Do not call them continuous-VA thresholds while
+the missing requested source moments remain unresolved. The result supports
+receiver aperture, rather than divergence or security-evaluator changes, as
+the dominant explanation for the old positive curve, subject to this cache
+scope.
+
+No model/security change, parameter search, baseline selection, publication
+figure, training, or final-test access is authorized. Publication lifecycle
+remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0116
+- `results/theta10_receiver_aperture_uniform_diagnostic/theta10_receiver_aperture_uniform_report.json`
+- `results/theta10_receiver_aperture_uniform_diagnostic/threshold_bisection_exact.csv`
+
+## DEC-0099 - Accept positive-Uniform provenance classification
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO BASELINE PROMOTION
+
+Accept EVID-0115. The positive-Uniform figure is reproduced from the old
+physical baseline with the current exact direct-`Z_minus` evaluator. The old
+baseline recomputes distance-dependent geometry and uses `w0=0.10 m`,
+`D_r=0.55 m`, `tau_zen=.92`, `epsilon=.0186`, beta `.95`, AO/phase OFF, and a
+common `V_A<=1.5` sparse exact envelope. Uniform positivity ends at the exact
+25/26-km bracket; MB's 800/810-km bracket is a low-rate diagnostic.
+
+The 10-point short-distance reproduction has maximum absolute SKR difference
+`0.0`. VA `.08,.10,.12,.13,.15` on the old physical channel is negative at
+20/22/25/30 km, so `V_A=.1` is not the source of the old positive curve. The
+dominant change to the current negative result is the old optical baseline,
+especially the much larger receiver aperture; no superseded security evaluator
+was identified.
+
+Do not select the old baseline, change the current model, search new
+parameters, or redraw the figure until a separate physical-baseline decision
+is authorized. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0115
+- `results/positive_uniform_provenance_audit/positive_uniform_provenance_audit.json`
+- `results/positive_uniform_provenance_audit/direct_reproduction_comparison.csv`
+
+## DEC-0098 - Accept Uniform VA diagnostic; retain continuous optimum unresolved
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO BASELINE OR LIFECYCLE PROMOTION
+
+Accept EVID-0114 as the exact Uniform variance diagnostic for the frozen
+theta10urad/D10cm channel. The old `V_A=1.075` curve is confirmed as a fixed
+reference-bank row; direct exact comparison shows `V_A=0.1` is less negative
+at all six requested distances. The expanded exact bank finds `V_A=0.12`
+best through 31 km and `V_A=0.13` best from 31.5--40 km, with all 23
+selected SKRs still negative.
+
+Classify the requested historical value as
+`VA=0.1 NEAR-OPTIMAL WITHIN NUMERICAL TOLERANCE`: it is not the strict
+best exact-tested row, but the maximum exact envelope improvement is only
+`1.220287529912716e-8` bits/use versus the frozen `1e-6` absolute SKR
+tolerance. Keep the continuous optimum unresolved because 13 requested VA
+source moments remain missing; do not interpolate or promote the envelope to
+a continuous optimum.
+
+Do not change the physical/security model, rerun MB, select a baseline, or
+redraw the final publication figure. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0114
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_verification_summary.json`
+- `results/uniform_va_optimization_theta10_D10cm/uniform_va_selected_by_distance.csv`
+
+## DEC-0097 - Do not select divergence without a valid Uniform crossing
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO THETA SELECTED
+
+Accept EVID-0113. The tested divergence interval and expanded probes contain
+no physically evaluated candidate with Uniform positive at 30 km and
+non-positive by 40 km. Do not force the requested visual behavior by changing
+another parameter, selecting a bad Uniform VA, or discarding valid rows.
+
+No final sensitivity-selected baseline is authorized by this result. Preserve
+the theta10 distance rerun separately; publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0113
+- `results/skr_vs_distance_theta_sensitivity_D10cm/theta_sensitivity_report.json`
+
+## DEC-0096 - Accept theta10urad distance diagnostic
+
+Date: 2026-10-02
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO LIFECYCLE PROMOTION
+
+Accept EVID-0112 as the recomputed narrow-divergence distance diagnostic. It
+uses the frozen model/direct-Z-minus path and exact bank, with three displayed
+curves: Uniform, fixed MB, and MB optimized. It does not alter the physical
+model, select a baseline, authorize training, or authorize final-test access.
+
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0112
+- `results/skr_vs_distance_theta10urad_D10cm/skr_vs_distance_report.json`
+- `results/skr_vs_distance_theta10urad_D10cm/validation.json`
+
+## DEC-0095 - Resolve redesigned numerical lifecycle status
+
+Date: 2026-10-01
+
+Status: ACTIVE RESOLVED NUMERICAL EXPERIMENT; PUBLICATION LIFECYCLE UNCHANGED
+
+Accept EVID-0111. The final exact local refinement is bracketed around
+`(nu_raw,V_A)=(0.165,5.5)`, top-ten ranking is stable under GH-order checks,
+and exact VA slices close the high-nu branch through `nu_raw=0.8`.
+
+Set the redesigned numerical experiment status to
+`GLOBAL_OPTIMUM_RESOLVED`. This resolves only the frozen finite numerical
+search protocol; it does not authorize publication-scale training,
+final-test access, baseline selection, or broader security claims.
+
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0111
+- `results/redesigned_baseline_global_mb_va/continuation_final_summary.json`
+- `results/redesigned_baseline_global_mb_va/continuation_final_report.md`
+
+## DEC-0094 - Accept targeted ridge continuation; keep nu_max unresolved
+
+Date: 2026-10-01
+
+Status: ACTIVE CONTINUATION DECISION; GLOBAL OPTIMUM UNRESOLVED
+
+Accept EVID-0110 as the targeted continuation of the redesigned-baseline
+search. The exact ridge moved toward higher `nu_raw` and lower `V_A`, with
+best exact candidate `(0.165,5.5)`, `K=0.07904194520968355`.
+
+Accept the sparse `V_A` boundary evidence and the decreasing high-`nu`
+branch through `nu_raw=0.40` as diagnostics. Do not call the candidate a
+continuous/global optimum because the expanded `nu_max=0.8` boundary has not
+been exact-evaluated. Retain `GLOBAL_OPTIMUM_UNRESOLVED` and resume only with
+compatible exact AP points if further closure is desired.
+
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0110
+- `results/redesigned_baseline_global_mb_va/continuation_final_summary.json`
+- `results/redesigned_baseline_global_mb_va/continuation_final_report.md`
+
+## DEC-0093 - Activate redesigned experiment; keep global optimum unresolved
+
+Date: 2026-10-01
+
+Status: ACTIVE AUTHOR-AUTHORIZED EXPERIMENT DECISION; GLOBAL OPTIMUM UNRESOLVED
+
+Accept EVID-0109 as the controlled experiment-specific re-freeze and exact
+cache-bound search. The previous final-model hash
+`8ec018616b27c41104b8bd6d1b5025c2db99d09a14f64409f43dfc60efa01843`
+is superseded only for this experiment by final-model hash
+`df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15`
+and composite model/config hash
+`a85cc9bd8f321b93f407eaf7e1c3589e71ed6df3fb036c7178a56a602eb7fd58`.
+
+Authorize the dedicated runner to use adaptive finite numerical domains,
+constant noise, no peak/budget guard, and direct Z-minus exactly as frozen.
+Do not promote `(0.15,3.5548673904962893)` or the Uniform `V_A=1.075` row to a
+selected or global baseline. Upper-nu, upper-VA, and global lower-VA boundaries
+remain unresolved. Additional AP coverage may resume the same exact source
+cache, but every new point must retain full-support/provenance gates.
+
+The publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+This decision changes the experiment's physical baseline, energy-domain rules,
+phase model, and Holevo target; it does not authorize training, final-test
+access, held-out evaluation, or a publication claim.
+
+### Evidence
+
+- EVID-0109
+- `results/redesigned_baseline_global_mb_va/final_summary.json`
+- `results/redesigned_baseline_global_mb_va/evaluated_points.csv`
+- `results/redesigned_baseline_global_mb_va/adaptive_domain_history.csv`
+
 ## DEC-0092 - Accept clean positive-SKR redraw; no scope expansion
 
 Date: 2026-09-30
