@@ -1,0 +1,114 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS_DOCUMENTATION_ONLY",
+  "verified_utc": "2026-10-11T04:17:27.264647+00:00",
+  "checks": {
+    "snapshot_inputs_unchanged": {
+      "count": 239,
+      "drift": []
+    },
+    "fixed_checkpoint_contexts_and_metrics": {
+      "contexts": 26,
+      "sources": 151,
+      "saved_objectives_checked": 3926,
+      "model_GH8_direct_Z_minus": true,
+      "arithmetic_checked": true,
+      "source_provenance_checked": true,
+      "ensemble_reconstruction": "NOT_RUN"
+    },
+    "saved_export_and_original_AO_comparison": {
+      "export_rows": 3926,
+      "original_matches": 25,
+      "difference_at22km": {
+        "L_km": "22.0",
+        "original_AO_nu_raw": "0.165",
+        "original_AO_V_A": "5.5",
+        "original_AO_SKR": "0.07661685601911128",
+        "catalog151_nu_raw": "0.165",
+        "catalog151_V_A": "5.475",
+        "catalog151_SKR": "0.07661740491526092",
+        "delta_SKR_catalog_minus_AO": "5.488961496435962e-07"
+      },
+      "new_objectives_generated": 0
+    },
+    "traceability": {
+      "stages": 51,
+      "paths_and_line_ranges": "CURRENTLY_VERIFIED_PASS",
+      "classifications": "CURRENTLY_VERIFIED_PASS"
+    },
+    "latex_static_structure": {
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "brace_and_environment_balance": true,
+      "math_delimiters_and_text_underscores": true,
+      "source_paths_lines": true
+    },
+    "latex_compilation": {
+      "status": "BLOCKED_BY_ENVIRONMENT",
+      "reason": "No pdflatex, xelatex, lualatex or tectonic on PATH; no installation attempted."
+    },
+    "mermaid": {
+      "status": "NOT_RUN",
+      "manual_dependency_and_syntax_review": "performed",
+      "reason": "No browser or Mermaid renderer invoked; no visual rendering pass claimed."
+    },
+    "deliverables": {
+      "requested_files": 7,
+      "all_present": true
+    },
+    "git_diff_check": {
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "output": ""
+    },
+    "documentation_local_links": {
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "links": 7
+    },
+    "write_scope": {
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "new_git_status_entries": [
+        "?? paper_uav_hap_cvqkd/results/skr_pipeline_documentation/"
+      ],
+      "preexisting_entries_removed": [],
+      "snapshot_inputs_unchanged": 239
+    },
+    "scientific_repository_tests": {
+      "status": "NOT_RUN",
+      "reason": "User required documentation-only inspection while long-running batch remains protected."
+    }
+  },
+  "scientific_execution": {
+    "AP": "NOT_RUN",
+    "channel_MI_Holevo_SKR": "NOT_RUN",
+    "AO": "NOT_RUN",
+    "training": "NOT_RUN",
+    "final_test": "NOT_RUN",
+    "regression_tests": "NOT_RUN"
+  },
+  "scientific_code_security_frozen_model_config_changed": false,
+  "active_cache_ledger_checkpoint_controller_power_job_changes": false,
+  "manuscript_baseline_threshold_changes": false,
+  "total_K_error_bound_certified": false,
+  "continuous_global_optimum_certified": false,
+  "output_sha256": {
+    "code_equation_traceability.csv": "22d6bcd7612275468ce7a5f0efae64faa620234505b2523311d502737aab925a",
+    "complete_skr_pipeline_en.tex": "e2e3e7ee93e4801adfe8af3504c1033841d2644ba90a1d2bf781037b9fb56a94",
+    "complete_skr_pipeline_vi.md": "094f67af2ff92fcabdad553f2b914a774430061cf6f8e4bcbd3dd4f0bf6a7bbb",
+    "documentation_snapshot.json": "d92b59ec4c3129ec62fe79c80b9a33908cf360573dfa4231c241915197f58b4f",
+    "pipeline_consistency_audit.md": "c8a055eb4c4a1a10c6493d2defe90b496fd868bc28fa6584abf769e3056d99dd",
+    "reference_numerical_walkthrough.md": "18bccf2e6a1e56025aada3b370ee99a928c3d230e5e19a4fa7e4990fffd70b7d",
+    "saved_AO_vs_catalog151.csv": "03ba0fb075f1a5b92f77d248ff2f20467f8f0b47bc1087b28a67127006e04d8e",
+    "skr_evaluation_pseudocode.md": "5c19d2f2c188e2aa72f5f53daa56d3905f92a10a5917aed9d5cc1808d42fa07d",
+    "skr_pipeline_flowchart.md": "f84f5bd9ab794f180722922f3ec1871f65ef762b17e3253adea4f5e28feb8bfe"
+  },
+  "git_commit_preparation": {
+    "checked_utc": "2026-10-11T04:27:38.772968+00:00",
+    "line_endings": "LF",
+    "files_normalized": [
+      "complete_skr_pipeline_en.tex",
+      "documentation_snapshot.json",
+      "documentation_verification.json",
+      "reference_numerical_walkthrough.md",
+      "saved_AO_vs_catalog151.csv"
+    ],
+    "content_change": "LINE_ENDINGS_ONLY_NO_MATHEMATICAL_OR_NUMERICAL_CHANGE"
+  }
+}

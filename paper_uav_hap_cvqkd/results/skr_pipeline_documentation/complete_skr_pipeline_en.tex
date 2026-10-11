@@ -1,0 +1,627 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,booktabs,longtable,array}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\newcommand{\src}[2]{\texttt{\detokenize{#1}}:#2}
+\newcommand{\DI}{\textsc{Directly implemented}}
+\newcommand{\DE}{\textsc{Derived from implemented equations}}
+\newcommand{\DM}{\textsc{Documented in the manuscript}}
+\newcommand{\AV}{\textsc{Assumed but not verified}}
+\newcommand{\NR}{\texttt{NOT RECORDED}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\LSE}{\operatorname{LSE}}
+\title{End-to-End Secret-Key-Rate Calculation for the Maintained HAP--UAV 256-QAM Experiment}
+\author{Implementation and saved-artifact documentation}
+\date{11 October 2026}
+\begin{document}
+\maketitle
+
+\section{Scope and reproducibility}
+This document reconstructs the actual theta10/D55 experiment using deterministic
+heterodyne mutual information (MI), direct-$Z_-$ Holevo information, and
+unrestricted positive modulation-variance and MB search variables.
+The fixed completed snapshot contains 151 MB sources, 26 distances, and
+3926 objectives, from
+\src{results/theta10_D55_objective_B_numerical_skr_optimization/b2_P1_lower_refinement/minimal_run/objective_checkpoint.json}{1}.
+It was captured at 2026-10-11T03:51:11.024455+00:00 (10:51:11 UTC+7),
+branch \texttt{10-5-2026}, commit
+\texttt{eec4dd114d9f3ab128f82c37be520dafd197caaa}.
+The independent \texttt{documentation\_snapshot.json} lists inspected input
+hashes. No live 51-grid completion checkpoint or newly generated source is
+merged into this version. No AP, SKR, AO, training, final-test, or scientific
+regression run was performed.
+
+Paths below are relative to \texttt{paper\_uav\_hap\_cvqkd/}; line references
+are snapshot-specific. Statements carry \DI, \DE, \DM, or \AV\ labels.
+The first two distinguish actual operations from algebraic interpretation,
+without implying a numerical/security certificate.
+Historical convergence/test evidence is not a current test run.
+The lifecycle remains \texttt{NOT\_READY\_FOR\_PUBLICATION\_SCALE\_RUNS}.
+The current model-specification digest
+\texttt{df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15}
+differs from the historical required digest
+\texttt{561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1}.
+This pre-existing discrepancy is retained, not repaired or used as run authority.
+
+\section{Execution path and symbols}
+The physical path is
+\src{scripts/run_theta10_D55_unconstrained_three_scheme.py}{99,262}
+$\to$ \src{scripts/run_uniform_beam_waist_diagnostic.py}{76}
+$\to$ \src{scripts/calculate_channel_pdf_and_moments.py}{55,426}.
+The ensemble/source service is
+\src{scripts/run_exact_mb_test2.py}{93,228}
+$\to$ \src{src/cvqkd/gram_moments.py}{135}
+$\to$ \src{scripts/full_support_c4_worker.py}{64}, when its fast gate fails.
+The point evaluator,
+\src{scripts/run_skr_vs_link_distance_theta10urad.py}{153},
+calls deterministic MI with order8/product and the source-moment Holevo
+chain with \texttt{maximize\_full\_interval=False}.
+AO uses \src{scripts/run_theta10_D55_alt_opt.py}{97,238,464}
+and \src{scripts/run_theta10_D55_alt_opt_distance_sweep.py}{128,422}.
+The Monte Carlo \texttt{ExactMBEvaluator.\_\_call\_\_} is a different
+downstream path; only its source service is reused here.
+
+Define altitudes $h_H,h_U$, distance $L$, wavelength $\lambda$, waist $w_0$,
+spot widths $w_L,w_{L,\rm eq}$, and aperture diameter/radius $D,r_{\rm ap}$
+in metres; $\zeta$ is the zenith angle in radians and $k=2\pi/\lambda$.
+The power factors $\eta,H_{\rm sc},H_p,B$ are dimensionless.
+Write $v=\operatorname{Var}(\ln H_{\rm sc})$, $\sigma_X^2=v/4$,
+per-axis jitter standard deviation $\sigma_{\rm jt}$,
+pointing $\chi_p=w_{L,\rm eq}/(2\sigma_{\rm jt})$, and $a_p=\chi_p^2$.
+The effective scalar power transmittance is $t=T_{\rm eff}$.
+The ensemble $\mathcal E=\{p_i,\alpha_i\}_{i=1}^{M}$ has $M=256$,
+probabilities $p_i$, coherent amplitudes $\alpha_i$, modulation variance
+$V_A$ in SNU, and mean photons $\bar n=V_A/2$.
+Source density $\tau$, source correlation $C$, non-Gaussian penalty $w$,
+annihilation operator $\hat a$, input-referred noise $\epsilon$,
+reconciliation efficiency $\beta$, and information quantities $I_{AB},\chi_{BE},K$
+are defined below. Information is in bits/use.
+Pointing $\chi_p$ differs from $\chi_{BE}$; $C,w$ differ from channel-PDF
+coefficients; atmospheric $\tau_{\rm zen}$ differs from density $\tau$ and
+phase variance $\tau_\phi^2$. Adaptive Optics is physical; Alternating
+Optimization is algorithmic.
+
+\section{Configuration and geometry}
+\DI: $h_H=20000$ m, $h_U=1000$ m, $\lambda=1.55\,10^{-6}$ m,
+full divergence $\theta_{\rm div}=10^{-5}$ rad,
+$w_0=2\lambda/(\pi\theta_{\rm div})=0.0986760647169751$ m,
+$D=0.55$ m, $r_{\rm ap}=0.275$ m, curvature $R_c=\infty$,
+and $\tau_{\rm zen}=0.92$.
+HV wind is 21 m/s, ground coefficient $C_g=10^{-14}\mathrm{m}^{-2/3}$,
+UAV jitter $\sigma_h=1$ m, HAP angular jitter
+$\theta_{\rm jt}=15.61\,10^{-6}$ rad per axis, and boresight $\rho=0$.
+AoA scale $\sigma_o=1.5\,10^{-3}$ rad, FOV $\theta_{\rm FOV}=6.25\,10^{-3}$
+rad, and turbulence AoA variance zero are used.
+Physical Adaptive Optics and phase noise are OFF;
+$\epsilon=0.0186$ SNU and $\beta=0.95$.
+The D55 runner sets variance bounds, energy budget, and peak limit to
+\texttt{None}, overriding the generic default.
+
+\DI\ (\src{scripts/run_uniform_beam_waist_diagnostic.py}{83}):
+\begin{equation}
+L=\frac{h_H-h_U}{\cos\zeta},\qquad
+\zeta(L_{\rm km})=\arccos\frac{19000}{1000L_{\rm km}}.
+\end{equation}
+Distances shorter than 19 km are rejected. The sweep changes zenith and all
+distance-dependent attenuation/spot/turbulence/jitter moments, holding
+altitudes/hardware fixed. No Earth curvature or temporal motion trajectory is
+integrated. Reference angle is stored as $29.99999999997386^\circ$.
+The legacy smoke, exact-tau threshold oracle, and separate global-MB
+$w_0=0.10$ m experiment do not define this configuration.
+
+\section{Atmosphere and Hufnagel--Valley scintillation}
+\DI\ (\src{src/channel/atmospheric_loss.py}{48}):
+\begin{equation}\eta=\tau_{\rm zen}^{\sec\zeta}.\end{equation}
+The zero-zenith MODTRAN value is an input; no MODTRAN/weather calculation is
+executed. Kruse/visibility is a separate legacy law.
+\DI\ (\src{src/channel/scintillation.py}{17,45}), with altitude h in metres:
+\begin{align}
+C_n^2(h)&=0.00594(v_w/27)^2(10^{-5}h)^{10}e^{-h/1000}
++2.7\,10^{-16}e^{-h/1500}+C_ge^{-h/100},\\
+J_R&=\int_{h_U}^{h_H}C_n^2(h)(h-h_U)^{5/6}dh,\\
+\sigma_{R0}^2&=2.25k^{7/6}\sec^{11/6}\zeta\,J_R,\\
+\Phi_m&=\left[\frac{\int_{h_U}^{h_H}C_n^2(h)h^2dh}
+{\int_{h_U}^{h_H}C_n^2(h)h^{5/6}dh}\right]^{6/7},\\
+A_{\rm ap}&=\left[1+1.11\left(\frac{D^2}{\lambda\Phi_m\sec\zeta}\right)^{7/6}
+\right]^{-1},\qquad v=A_{\rm ap}\sigma_{R0}^2.
+\end{align}
+The aperture integrals use h, whereas Rytov uses h minus UAV altitude.
+All altitude bounds are finite [1000,20000]m.
+SciPy quad uses epsrel=$2\,10^{-13}$, limit 300; epsabs=$10^{-24}$ for
+Rytov/denominator, $10^{-18}$ for numerator. Physical dictionaries return
+quad-error fields not all retained in optical rows.
+\DI\ (\src{scripts/calculate_channel_pdf_and_moments.py}{210,256}):
+\begin{equation}
+\ln H_{\rm sc}\sim\mathcal N(-v/2,v),\qquad
+f_{\rm sc}(s)=\frac{e^{-(\ln s+v/2)^2/(2v)}}{s\sqrt{2\pi v}},\quad s>0.
+\end{equation}
+\DE: $E[H_{\rm sc}^q]=e^{(q^2-q)v/2}$, hence mean one and square-root
+moment $e^{-v/8}$. Aperture averaging affects this variance independently
+of aperture coupling.
+
+\section{Pointing and AoA}
+\DI\ (\src{src/channel/pointing_error.py}{28,96}):
+define $z_R=\pi w_0^2/\lambda$, $d_h=h_H-h_U$:
+\begin{align}
+w_L&=w_0\sqrt{(1-L/R_c)^2+(L/z_R)^2},\\
+\mu_2&=\int_{h_U}^{h_H}C_n^2(h)((h-h_U)/d_h)^{5/3}dh,\qquad
+\Lambda_b=2L/(kw_L^2),\\
+G_d&=4.35\Lambda_b^{5/6}k^{7/6}d_h^{5/6}\sec^{11/6}\zeta\,\mu_2,\\
+w_{L,e}&=w_L\sqrt{1+G_d},\qquad
+u_{\rm ap}=\sqrt\pi D/(2\sqrt2w_L),\quad A_0=\operatorname{erf}(u_{\rm ap})^2,\\
+w_{L,\rm eq}^2&=\frac{w_{L,e}^2\sqrt\pi\operatorname{erf}(u_{\rm ap})}
+{2u_{\rm ap}e^{-u_{\rm ap}^2}},\\
+\sigma_{\rm jt}^2&=\sigma_h^2+L^2\theta_{\rm jt}^2,\quad
+a_p=(w_{L,\rm eq}/(2\sigma_{\rm jt}))^2.
+\end{align}
+The infinity-curvature branch uses focusing factor one; mu2 uses finite altitude quad
+epsabs=$10^{-18}$, epsrel=$2\,10^{-13}$, limit 300.
+The code uses unexpanded $w_L$ for $A_0$, expanded width for equivalent width.
+Aperture helper variable $\nu$ means $u_{\rm ap}$, not MB shaping.
+With zero boresight the radius is Rayleigh:
+\begin{equation}
+f_r(r)=r e^{-r^2/(2\sigma_{\rm jt}^2)}/\sigma_{\rm jt}^2,\quad r\ge0,\qquad
+H_p=A_0e^{-2r^2/w_{L,\rm eq}^2}.
+\end{equation}
+\DE: $U=r^2/(2\sigma_{\rm jt}^2)\sim{\rm Exp}(1)$ and $H_p=A_0e^{-U/a_p}$,
+so
+\begin{equation}
+f_p(u)=a_pu^{a_p-1}/A_0^{a_p},\quad0<u\le A_0,\qquad
+E[H_p^q]=A_0^q a_p/(a_p+q).
+\end{equation}
+The generalized helper reduces to this for $\Gamma=2$ and $R=w_{L,\rm eq}/\sqrt2$.
+Nonzero-boresight Rician diagnostics do not supply these results.
+\DI\ (\src{scripts/calculate_channel_pdf_and_moments.py}{144}):
+\begin{equation}
+B=\mathbf1_{\Theta\le\theta_{\rm FOV}},\quad
+p_{\rm out}=e^{-\theta_{\rm FOV}^2/(2\sigma_o^2)},\quad
+p_{\rm in}=1-p_{\rm out},\quad T_{\rm raw}=\eta H_{\rm sc}H_pB.
+\end{equation}
+Theta is Rayleigh on [0,infinity). Independent factors underlie the moment
+factorization; independence in a measured link is \AV.
+Outage is atom $p_{\rm out}\delta_0$, contributing zero to every positive
+power moment, not a finite PDF ordinate.
+
+\section{PDF and finite retained moments versus actual D55 moments}
+Define $X=\eta H_{\rm sc}H_p$, $c_0=\eta A_0$, $m=\ln c_0-v/2$ and $y=\ln x$.
+\DE:
+\begin{align}
+\ln X&=m+\sqrt v Z-U/a_p,\quad Z\sim\mathcal N(0,1),\\
+f_X(x)&=\int_0^{A_0}\frac{f_{\rm sc}(x/(\eta u))}{\eta u}f_p(u)du\\
+&=\frac1{x\sqrt{2\pi v}}\int_0^\infty
+e^{-U-(\ln x-m+U/a_p)^2/(2v)}dU.
+\end{align}
+The infinite variable is displacement, not retained transmittance.
+Completing the Gaussian square with $S=U/a_p\sim{\rm Exp}(a_p)$ gives
+\begin{equation}
+f_Y(y)=a_pe^{a_p(y-m)+a_p^2v/2}
+\Phi((m-y)/\sqrt v-a_p\sqrt v),\qquad f_X(x)=f_Y(\ln x)/x.
+\end{equation}
+Here $\Phi(z)=\tfrac12\operatorname{erfc}(-z/\sqrt2)$ and
+$\operatorname{erfc}(z)=2\int_z^\infty e^{-u^2}du/\sqrt\pi$.
+This is \DI\ in \src{scripts/hap_uav_channel_pdf.py}{457,487},
+using stable \texttt{log\_ndtr}; that independent diagnostic has a separate numerical
+scenario. Generic product quadrature at
+\src{scripts/calculate_channel_pdf_and_moments.py}{291,329}
+uses Gauss--Laguerre order256 with positive weights.
+
+The configured retained active law, with $F_1=P(X\le1)$, is
+\begin{equation}
+dP_T(t)=p_{\rm out}\delta_0(dt)+p_{\rm in}f_X(t)\mathbf1_{0<t\le1}dt/F_1.
+\label{eq:retained}
+\end{equation}
+It is implemented by \texttt{analyze\_product} and the admitted sampler, without
+clipping to one or adding an atom there.
+For q>0 its moments are
+\begin{equation}
+\mu_q^{[0,1]}=\frac{p_{\rm in}}{F_1}\int_0^1t^qf_X(t)dt,\qquad
+\mu_{T\epsilon}^{[0,1]}=\epsilon\mu_1^{[0,1]}\quad(\epsilon\ {\rm fixed}).
+\end{equation}
+The substitution y=ln t leaves upper bound0.
+With $J_q=E[X^q\mathbf1_{X\le1}]$, the truncated routine reduces to
+\begin{equation}
+J_q=c_0^qe^{(q^2-q)v/2}\int_0^\infty e^{-(1+q/a_p)U}
+\Phi\left(\frac{-\ln c_0+U/a_p+v/2-qv}{\sqrt v}\right)dU.
+\end{equation}
+The CDF retains X<=1. quad epsabs/epsrel=$2\,10^{-13},2\,10^{-12}$,
+limit 300, with log-CDF below-745 returning zero, is used at
+\src{scripts/calculate_channel_pdf_and_moments.py}{389}.
+\texttt{analyze\_product} obtains F1 from the tail integral.
+Exponential tilting in the independent closed-PDF diagnostic gives
+\begin{align}
+J_q&=c_0^qe^{(q^2-q)v/2}\frac{a_p}{a_p+q}F_{Y'}(0),\\
+Y'&=m+qv+\sqrt vZ-S',\quad S'\sim{\rm Exp}(a_p+q),\\
+F_Y(y)&=\Phi((y-m)/\sqrt v)
++e^{a_p(y-m)+a_p^2v/2}\Phi((m-y)/\sqrt v-a_p\sqrt v).
+\end{align}
+The CDF is \DE\ from \src{scripts/hap_uav_channel_pdf.py}{470,525}.
+Retained first/sqrt/noise moments are $p_{\rm in}J_1/F_1$,
+$p_{\rm in}J_{1/2}/F_1$, and $\epsilon p_{\rm in}J_1/F_1$.
+
+\paragraph{Actual result-producing helper.}
+\DI\ (\src{scripts/calculate_channel_pdf_and_moments.py}{461}):
+\begin{align}
+\mu_1&=p_{\rm in}c_0a_p/(a_p+1),\\
+\mu_{1/2}&=p_{\rm in}\sqrt{c_0}a_p/(a_p+1/2)e^{-v/8},\\
+\mu_{T\epsilon}&=\epsilon\mu_1,\quad t=\mu_{1/2}^2.
+\end{align}
+\DE: these are untruncated moments
+$p_{\rm in}\int_0^\infty x^qf_X(x)dx
+=p_{\rm in}c_0^qe^{(q^2-q)v/2}a_p/(a_p+q)$.
+The helper omits the retained factor $F_{Y'}(0)/F_1$ and does not call
+the truncated routine. This is an explicit discrepancy, not silent replacement
+of [0,1] integrals. A positive above-one lognormal tail exists for v>0;
+its magnitude and SKR effect at the D55 reference are \NR.
+The helper implements rho corrections
+$e^{\rho^2(1-a_p)/(2\sigma_{\rm jt}^2a_p^2)}$ and
+$e^{\rho^2(1-2a_p)/(8\sigma_{\rm jt}^2a_p^2)}$; rho is zero here.
+General Rician exactness is not asserted.
+
+\section{Effective noise actually consumed}
+\DI:
+\begin{equation}t=\mu_{1/2}^2,\quad\epsilon=0.0186,\quad\sigma_c^2=1+t\epsilon/2.\end{equation}
+MI and Holevo receive the same scalar t and fixed epsilon.
+No fading-noise correction is added; $\mu_{T\epsilon}$ is not consumed downstream.
+For comparison only, \DE: a moment-preserving fixed-source fading covariance
+would have $b_{\rm fade}=1+\mu_1V_A+\mu_{T\epsilon}$, whereas code uses
+$b_{\rm code}=1+tV_A+t\epsilon$. Equality would require
+\begin{equation}\epsilon_{\rm match}=[(\mu_1-t)V_A+\mu_{T\epsilon}]/t.\end{equation}
+This correction is not implemented or numerically evaluated here.
+The current functional is a scalar surrogate, not a demonstrated complete
+fading-covariance reduction; its MI is neither fading-average nor fading-mixture
+MI. Outage is already inside moments; no extra $p_{\rm in}K_{\rm active}$ is applied.
+
+Ideal heterodyne has complex baseline variance one and real-component variance
+$\sigma_c^2/2$; optical vacuum variance is one SNU, and conditioning adds one
+in $b+1$. No electronic/trusted-detector noise or nonunit efficiency is used.
+If $b=t(a+\chi_{\rm line})$, then $\chi_{\rm line}=1/t-1+\epsilon$ is
+an algebraic representation, not a stored adaptation variable.
+Phase is OFF, $c_\phi=0$, so $\epsilon_{\rm total}$ does not vary with $V_A$.
+
+\section{QAM, MB probabilities, and physical normalization}
+Let $q_j=j-7.5$, j=0,...,15, and $r_{jk}=q_j+\mathrm iq_k$.
+\DI\ (\src{src/modulation/qam256.py}{84}):
+\begin{equation}\operatorname{square\_qam256}(\alpha_0)=\alpha_0r_{jk}/\sqrt{30},\quad i=16j+k.\end{equation}
+The raw parameter $\alpha_0=\sqrt{30}$ gives $r$. \DE: mean uniform raw energy 42.5, peak 112.5;
+canonical $x_i=r_i/\sqrt{42.5}$ has unit RMS.
+The choice $\alpha_0=\sqrt{30}$ is not a 30-photon physical peak constraint.
+\DI\ (\src{src/modulation/qam256.py}{129};
+\src{scripts/run_exact_mb_test2.py}{57,93}):
+\begin{align}
+p_i&=e^{-\nu_{\rm repo}|x_i|^2}/Z_x
+=e^{-\nu_{\rm raw}|r_i|^2}/Z_r,\quad \nu_{\rm repo}=42.5\nu_{\rm raw},\\
+Z_r&=\sum_i e^{-\nu_{\rm raw}|r_i|^2}
+=\left(\sum_{j=0}^{15}e^{-\nu_{\rm raw}q_j^2}\right)^2,\\
+p_{jk}&=u_ju_k,\quad u_j=e^{-\nu_{\rm raw}q_j^2}/\sum_\ell e^{-\nu_{\rm raw}q_\ell^2}.
+\end{align}
+Product factorization is \DE; conversion is checked against the raw PMF.
+Zero shaping gives Uniform; positive shaping favors inner levels.
+The saved manuscript $\nu_{\rm MB}$ means $\nu_{\rm raw}$; the primitive receives $\nu_{\rm repo}$.
+Define $E_x=\sum p_i|x_i|^2$. \DI\
+(\src{src/modulation/normalization.py}{22}):
+\begin{equation}
+\alpha_i=\sqrt{V_A/(2E_x)}x_i,\quad
+2\sum_i p_i|\alpha_i|^2=V_A,\quad \bar n=V_A/2.
+\end{equation}
+C4 symmetry gives zero mean and pseudomoment, hence equal quadrature variance
+and zero cross covariance; guards verify tied probabilities and rotations.
+$V_A$ scales amplitudes as $\sqrt{V_A}$ at fixed shaping. Shaping changes PMF
+and normalization at fixed variance. No weighted centering/GS deformation occurs.
+The reference has $\nu_{\rm repo}=7.0125$ and mean photons 2.75 by identity, observed saved
+peak 51.05066856827034 with peak guard disabled.
+The source (0.165,5.496875) has the same PMF but different amplitudes/moments.
+AO searches $\nu_{\rm raw}>0,V_A>0$, with Uniform handled separately; the intended
+MB family includes $\nu_{\rm raw}=0$. Sparse catalog ranges [0.05,0.8] and [0.025,8]
+are coverage, not physical caps or a complete Cartesian domain.
+
+\section{Source moments: definitions, finite matrices, and AP}
+On the source span define
+\begin{align}
+\tau&=\sum_i p_i|\alpha_i\rangle\langle\alpha_i|,\quad
+C=\Tr(\sqrt\tau\,\hat a\sqrt\tau\,\hat a^\dagger),\\
+\hat a_\tau&=\sqrt\tau\,\hat a\tau^{-1/2},\\
+w&=\sum_i p_i\{\langle\alpha_i|\hat a_\tau^\dagger\hat a_\tau|\alpha_i\rangle
+-|\langle\alpha_i|\hat a_\tau|\alpha_i\rangle|^2\}.
+\end{align}
+The Gram operations implement these definitions recorded in the security
+specification. C is a source correlation kernel and w a non-Gaussian variance
+penalty, depending on the complete ensemble, not distance.
+\DI\ (\src{src/cvqkd/gram_moments.py}{28}):
+\begin{equation}
+G_{ij}=\sqrt{p_ip_j}e^{-(|\alpha_i|^2+|\alpha_j|^2)/2+\alpha_i^*\alpha_j}.
+\end{equation}
+With columns $A_i=\sqrt{p_i}|\alpha_i\rangle$, $G=A^\dagger A,\tau=AA^\dagger$
+share positive spectra. Positive weights/distinct coherent states give a source span of dimension 256;
+threshold-retained float64 rank is not mathematical rank. No Fock cutoff is used.
+For 64 prototypes $(p_k,z_k)$, $p_k$ is a single-symbol probability, orbit mass $4p_k$:
+\begin{align}
+(B_d)_{k\ell}&=\sqrt{p_kp_\ell}e^{-(|z_k|^2+|z_\ell|^2)/2+z_k^*\mathrm i^dz_\ell},\\
+G_s&=\operatorname{Herm}\left(\sum_{d=0}^3\mathrm i^{sd}B_d\right),\quad
+\operatorname{Herm}(A)=(A+A^\dagger)/2.
+\end{align}
+These are four 64-by-64 sectors. Write $s^-=(s-1)\bmod4$,
+$D_z=\operatorname{diag}(z_k)$, $D_p=\operatorname{diag}(1/(2\sqrt{p_k}))$,
+$S_s=\sqrt{G_s}$. \DI\ in the fast path:
+\begin{align}
+B_s^{op}&=S_sD_zS_{s^-}^{-1},&A_s^{op}&=G_sD_zG_{s^-}^{-1},\\
+Q_s&=S_sD_p,&T_s&=A_s^{op}Q_{s^-},\\
+C&=\sum_s\operatorname{ReTr}(S_sB_s^{op}S_{s^-}(B_s^{op})^\dagger),\\
+d_k&=\sum_{s,j}\overline{(Q_s)_{jk}}(T_s)_{jk},\\
+w&=\sum_k4p_k\sum_{s,j}|(T_s)_{jk}-(Q_s)_{jk}d_k|^2.
+\end{align}
+The nonnegative residual is checked against
+$\sum_s\|A_s^{op}S_{s^-}\|_F^2-\sum_k4p_k|d_k|^2$.
+This is finite matrix algebra, not source-moment quadrature.
+The fast gate requires all sector eigenvalues positive, max/min ratio $\le10^6$,
+reconstruction and residual-identity discrepancies $\le10^{-12}$, and finite moments.
+Detached eigensystems are gate-only; whole-matrix Frechet functions/solves do
+the calculation. Failure invokes AP, without threshold-truncating modes.
+
+\DI\ (\src{scripts/full_support_c4_worker.py}{64,208}):
+input binary64 $p,z$ hexadecimal values are replayed at 1050, 1250, and 1450 decimal digits;
+sector overlaps and four mp.eighe eigensystems are calculated.
+Unresolved rows return before moments. In eigenbasis
+$G_s=U_s\Lambda_sU_s^\dagger$ let
+$R_s=\operatorname{diag}(\sqrt{\lambda_{s,j}})$ and
+$M_s=U_s^\dagger D_zU_{s^-}$. Columnwise LU solves form
+\begin{align}
+R_{s^-}X&=M_s^{\mathsf T},&B_s^{op}&=R_sX^{\mathsf T},\\
+R_{s^-}X_2&=(R_sB_s^{op})^{\mathsf T},&A_s^{op}&=X_2^{\mathsf T},\\
+Q_s&=R_sU_s^\dagger D_p.
+\end{align}
+There is no extra $R_s$ multiplying X2-transpose.
+The traces/residual use mp.fsum. Both last precision rows must resolve 256
+positive modes and, separately for x=C,w, pass
+\begin{equation}
+|x_{1250}-x_{1450}|\le10^{-7}+10^{-6}\max(|x_{1250}|,|x_{1450}|).
+\end{equation}
+The 1050 row may be unresolved. Worker output contains 50 significant digits,
+then converted to float64 downstream/cache. The internal timeout is 3600 s;
+failure is fail-closed; AP fallback is evaluation-only without gradients.
+
+Cost comes from ill-conditioned inverse-square-root/solve operations and
+high-precision exponentials/eigenanalysis/multiple RHS.
+\emph{Exact} means the matching binary64 ensemble and full support via the
+accepted route, not symbolic exactness, zero error, or interval enclosure.
+It does not recover ideal infinite-precision inputs.
+The reference compact payload records AP route,support256,precision ladder,
+and final C,w; per-rung eigenvalues/residuals/repair history are \NR.
+The old full-support evaluation-validation v1 artifact is
+\texttt{SUPERSEDED\_WRONG\_AP\_W}. Corrected Case-A 800/900-digit evidence
+with aa=x2.T has a different source/producer; it does not certify D55.
+
+\section{Identity and reuse}
+\DI\ (\src{scripts/run_exact_mb_test2.py}{82,183};
+\src{scripts/exact_cache_provenance.py}{42,76}):
+ensemble hashes include dtype,shape,order and exact hex probabilities,
+amplitudes,declared variance. Source identity adds parameter hex/convention,
+producer hashes,numerical settings,precision ladder. Proven LF/CRLF aliases
+are permitted; logic normalization, approximate matching and interpolation
+are not. Objective identity additionally binds full channel/config,
+direct-Z target,GH order,beta,epsilon and transitive scientific code.
+C,w may be reused across distances; objective values require matching
+distance/context. Runtime settings/source mutation invalidates objective reuse.
+
+\section{Discrete-input continuous-output MI}
+Let $X_A=i$, $m_i=\sqrt t\alpha_i$, $Y=m_i+N$, $N\sim\mathcal{CN}(0,\sigma_c^2)$.
+\DI:
+\begin{equation}
+f_i(y)=e^{-|y-m_i|^2/\sigma_c^2}/(\pi\sigma_c^2),\quad
+f_Y(y)=\sum_jp_jf_j(y),\quad \sigma_c^2=1+t\epsilon/2.
+\end{equation}
+\DE:
+\begin{equation}
+I_{AB}=\sum_i p_i\int_{\mathbb R^2}f_i(y)\log_2[f_i(y)/f_Y(y)]d^2y
+=H(p)+\sum_i p_iE_{Y|i}\log_2P(i|Y).
+\end{equation}
+Integration covers the full measurement plane, not [0,1] channel support.
+Normalizers cancel; natural logits are divided by ln2 for bits/use.
+$H(p)$ is not set to eight for shaped inputs.
+Product guard \src{src/cvqkd/mutual_information.py}{14}
+checks Cartesian $16\times16$ means and an outer-product PMF with
+absolute and relative tolerances $10^{-12}$.
+Independent real/imaginary noise gives $I_{AB}=I_R+I_Q$ algebraically.
+Hermite nodes $z_\ell$ and weights $w_\ell$ represent integrals weighted by $e^{-z^2}$;
+$\omega_\ell=w_\ell/\sqrt\pi$ represents noise variance $1/2$.
+For real levels $a_i$, probabilities $u_i$, and
+$y_{i\ell}=a_i+\sqrt{\sigma_c^2}z_\ell$, \DI\ (:254,366):
+\begin{equation}
+I_R^{(n)}=\frac{-\sum_i u_i\ln u_i+
+\sum_{i,\ell}u_i\omega_\ell[\ln u_i-z_\ell^2-
+\LSE_j(\ln u_j-(y_{i\ell}-a_j)^2/\sigma_c^2)]}{\ln2}.
+\end{equation}
+Add imaginary counterpart; LSE=ln(sum exp) is evaluated stably.
+The caller uses $n=8$, overriding the primitive's default order 32.
+Full-route complex nodes $z_\ell+\mathrm iz_m$ and weights $w_\ell w_m/\pi$ exist but are
+not the selected D55 product path. No Monte Carlo draws enter these values.
+Finite GH approximates an exact discrete-mixture integral; it does not create
+a Gaussian-input approximation.
+The older TEST2A GH orders 8,16,24,32,48,64 were evaluated for a different
+source/channel, with MI near $3.6765\times10^{-4}$ bits/use.
+They do not bound error at the D55 reference MI of 0.6341892631163653 bits/use.
+The MC convergence roster is likewise a different scope.
+
+\section{Direct-Z-minus Holevo under reverse reconciliation}
+Reverse reconciliation uses Bob's variable, so leakage is $\chi_{BE}$, rather than $\chi_{AE}$.
+The asymptotic covariance functional provides no finite-key, composable, or
+operational fading-aggregation proof.
+\DI\ (\src{src/cvqkd/holevo.py}{364}; \src{src/cvqkd/covariance.py}{72}):
+\begin{align}
+Z_-&=2\sqrt tC-\sqrt{2t\epsilon w},\quad a=1+V_A,\quad b=1+tV_A+t\epsilon,\\
+\Gamma_{AB}&=\begin{pmatrix}a&0&c&0\\0&a&0&-c\\c&0&b&0\\0&-c&0&b\end{pmatrix},
+\quad c=Z_-.
+\end{align}
+The order is $(q_A,p_A,q_B,p_B)$; $V_A$ is computed from the validated ensemble.
+Discrete C,w determine correlation, not a substituted Gaussian-modulation Z.
+With $\Delta=a^2+b^2-2c^2$, $D_\Gamma=(ab-c^2)^2$:
+\begin{equation}
+\lambda_{1,2}=\sqrt{(\Delta\pm\sqrt{\Delta^2-4D_\Gamma})/2},\qquad
+\lambda_3=a-c^2/(b+1).
+\end{equation}
+The Schur complement gives conditional covariance $\lambda_3 I_2$ (\DE);
++1 is ideal heterodyne, not an electronic noise mode.
+\DI:
+\begin{align}
+g(n)&=(n+1)\log_2(n+1)-n\log_2n,\quad g(0)=0,\\
+\chi_{BE}&=g((\lambda_1-1)/2)+g((\lambda_2-1)/2)-g((\lambda_3-1)/2).
+\end{align}
+The adopted $S(AB)-S(A|Y)$ Gaussian covariance entropy calculation uses
+invariants, roots, and three entropies.
+The symmetry tolerance is $10^{-8}$, physicality tolerance is $10^{-10}$,
+and relative-scale floor is $10^{-15}$.
+Materially negative $w$, discriminants, or squared eigenvalues fail.
+An uncertainty violation $\lambda<1-10^{-10}$, nonfinite values, or
+Holevo information below $-10^{-10}$ also fails.
+Tiny negative $w$ and discriminants are clamped to zero with repair records.
+Clamping squared eigenvalues to zero before their square roots does not remove
+the uncertainty check. Within-tolerance eigenvalues below one are raised to
+one for entropy evaluation, with a record.
+The zero-occupation branch avoids $0\log0$; tiny negative Holevo values
+are clamped to zero and recorded.
+No such guard clips K.
+
+Diagnostic mode=zstar in the direct branch means $Z_-$, not an argmax.
+The caller verifies that mode. Full-interval $Z_+$/physical intersection/
+maximizer exists at holevo.py:438 but is disabled for the catalog.
+The general equation reference describes that different target; the available
+D55 manuscript section describes direct-$Z_-$. $Z_-$ is not asserted to be a
+proven worst-case Holevo maximizer, and the direct branch does not clip
+correlation to repair an unphysical covariance.
+
+\section{SKR and recomputation}
+\DI: $K^{raw}=\beta I_{AB}-\chi_{BE}$ with $\beta=0.95$.
+Reconciliation efficiency multiplies MI only. Source
+$(\nu_{\rm raw},V_A)\to\mathcal E\to(C,w)$ and physical $L\to\text{moments}\to t$ branches merge at
+MI/Holevo; no artificial sequential dependency is imposed.
+
+\begin{center}\begin{tabular}{p{.1\linewidth}p{.48\linewidth}p{.3\linewidth}}
+\toprule Change&Recomputed&Reusable\\\midrule
+L&Geometry,channel,moments,t,MI,Z,b,lambdas,Holevo,K&Ensemble,C,w,a;fixed AoA\\
+V\_A&Amplitudes/hash,C,w,MI,a,b,Z,lambdas,Holevo,K&Channel,epsilon,PMF at fixed nu\\
+nu&PMF,energy,scale/hash,C,w,MI,Z,lambdas,Holevo,K&Channel,epsilon,a,b at fixed VA\\
+Settings&Identity/compatibility&Only matching records\\\bottomrule
+\end{tabular}\end{center}
+Raw CSVs preserve negative SKR; positive-part operational diagnostic
+$[K^{\rm raw}]_+$ is not the objective. The log10 renderer uses finite positive points
+and breaks at nonpositive points, without editing the CSV.
+Linear/symlog renderers have separate display rules; no render was run here.
+
+\section{Saved numerical example}
+At $L=21.9393102292$ km, $\nu_{\rm raw}=0.165$, and $V_A=5.5$:
+\begin{center}\begin{tabular}{ll}
+\toprule Quantity&Saved value\\\midrule
+Atmosphere eta&0.9082089654181673\\
+$p_{\rm in},p_{\rm out}$&0.9998301433234386,\quad0.00016985667656141038\\
+$A_0,\sigma_X^2$&0.9980912504070394,\quad0.00039536014503027954\\
+$\sigma_{\rm jt},\chi_p$&1.0570182137187947,\quad0.6675016137780883\\
+$w_L,w_{L,\rm eq}$ (m)&0.1475476163187859,\quad1.4111227269002553\\
+$\mu_1,\mu_{1/2}$&0.2793516597874326,\quad0.4484713170554535\\
+$t,\epsilon$&0.2011265222214531,\quad0.0186\\
+$C,w$&3.2113076519605626,\quad$1.0248765983174194\,10^{-6}$\\
+$I_{AB}$&0.6341892631163653\\
+$\beta I_{AB}$&0.602479799960547\\
+$\chi_{BE}$&0.5244988060866094\\
+$K$&0.07798099387393764 bits/use\\\bottomrule
+\end{tabular}\end{center}
+Saved binary64 arithmetic verifies
+$0.95(0.6341892631163653)-0.5244988060866094
+=0.07798099387393764$.
+Serialized decimal-operand subtraction gives 0.0779809938739376; last digits
+reflect serialization, not a separate estimate or certified accuracy.
+Retained F1/tail/moments, saved $\mu_{T\epsilon}$ reference field, covariance/
+eigenvalues,and per-rung source residuals are \NR; none were regenerated.
+
+\section{Alternating optimization}
+\DI\ updates approximate the intended continuous coordinate problems:
+\begin{equation}
+\mathcal P_1:\max_{V_A>0}K_L(\nu^{(r-1)},V_A),\qquad
+\mathcal P_2:\max_{\nu>0}K_L(\nu,V_A^{(r)}).
+\end{equation}
+Defaults are $R_{\max}=6$, $\epsilon_{\rm opt}=10^{-8}$ bits/use, and parameter tolerance $10^{-6}$,
+four refinement stages, and three boundary expansions.
+The raw starts are 0.10, 0.15, 0.30, and 0.80.
+Each start uses the smallest available positive $V_A$ on its slice, or a supplied
+warm variance with an exact hexadecimal match.
+After the first distance, the preceding winner is appended as a warm start.
+The original final selection uses the highest valid terminal $K$, keeping
+start order on ties; independent catalog ranking breaks ties by lower $V_A$
+and then lower $\nu$.
+
+Every one-dimensional search evaluates all compatible exact slice points.
+Endpoint winners request half/double-value probes, at most 3;
+a singleton decreasing on one side does not close both directions.
+For an interior winner $z$ with neighbors $z_-<z<z_+$, the search checks
+$\max(z-z_-,z_+-z)\le10^{-6}$ at loop entry.
+Otherwise it requests $(z_-+z)/2$ and then $(z+z_+)/2$, for at most four paired stages.
+No extra tolerance check occurs after stage 4.
+Missing sources/failures remain explicit; no source/objective interpolation.
+The outer change $\Delta K$ is the objective after P2 minus the preceding objective.
+Nonfinite/decreasing/warning/numerical-failure states fail.
+Absolute changes greater than $10^{-8}$ continue within six cycles.
+Small change plus open boundary yields UNRESOLVED\_BOUNDARY;
+incomplete coordinates/history yields STAGNATED\_IN\_EXACT\_CATALOG.
+Only closed local brackets, no missing/failure/open-boundary history, and the objective
+tolerance yield CONVERGED\_NUMERICALLY.
+Unresolved history accumulates; immobile parameters do not erase it.
+Stagnation/local closure are not global certificates; stopping tolerance is
+not total numerical error.
+
+\section{Near-optimality, sweep, and results}
+\DI: for the finite compatible catalog $\mathcal C_{\rm exact}$,
+\begin{equation}
+K_{best}(L)=\max_{(\nu,V_A)\in\mathcal C_{exact}}K(L,\nu,V_A),\qquad
+\delta_K^{rel}=(K_{best}-K)/K_{best},\quad K_{best}>0.
+\end{equation}
+Accept saved candidates with relative loss $\le10^{-5}$, i.e. a maximum loss of 0.001\%.
+CSV delta\_K is absolute gap; relative\_loss\_fraction is the fraction.
+For $K_{\rm best}\le0$ the relative criterion is undefined, not division by a negative best.
+It can avoid AP refinement sought only for parameter decimals, but does not
+replace original AO stopping or bound unknown continuous-global gap.
+Reference thresholds 0.0001\%, 0.001\%, and 0.01\% contain 4, 9, and 17 candidates,
+including incumbent, nested not additive; 39 near rows span 26 distances.
+The second reference candidate $(0.165,5.496875)$ has
+$K=0.07798099350667076$ bits/use, with gap
+$3.6726688357191506\times10^{-10}$ bits/use.
+Ordering is NUMERICALLY\_UNCERTIFIED without a total-error enclosure small
+enough to resolve that gap or establish a continuous plateau.
+
+The distance grid (km) is 20,21,21.9393102292,22,23,24,25,25.5,26,26.5,27,27.5,
+28,29,30,30.5,31,31.5,32,32.5,33,34,35,36,38,40.
+Uniform selects the best evaluated Uniform $V_A$ at each distance; fixed MB holds
+$(0.2,1.3833230302980657)$, a distinct binary64 value from the requested 1.3833230303.
+Optimized MB can mean AO terminal or expanded-catalog maximum; they differ.
+The original strict AO at 22 km chose $(0.165,5.5)$,
+$K=0.07661685601911128$ bits/use.
+Catalog151 chose $(0.165,5.475)$, $K=0.07661740491526092$ bits/use,
+a gain of $5.488961496435962\times10^{-7}$ bits/use.
+The other 25 distances agree. Later saved AO checkpoints match catalog151 at 26/26;
+that is a different version. The comparison is in saved\_AO\_vs\_catalog151.csv.
+
+The two-level parameter grid contains $30+25-4=51$ unique pairs. The completed pre-batch
+export has 20 cached and 31 missing; 131 catalog sources are off-grid.
+Scatter plots use actual coordinates and saved values, with missing crosses or blank cells,
+without interpolation. Running completion results are excluded from this document.
+
+\section{Traceability and limits}
+The accompanying code\_equation\_traceability.csv gives every stage's formula,
+full path, function, line, inputs, outputs, consumer, classification, and validation.
+The Mermaid flowchart contains both connected computational branches;
+separate pseudocode covers one point and the AO/sweep workflow.
+Available provenance, support, $151\times26$ coverage, context identity, and
+arithmetic $K=\beta I_{AB}-\chi_{BE}$ support literal reproducibility.
+No total-error enclosure combines channel quadrature, scalar fading,
+AP, GH8, and covariance/entropy roundoff.
+The retained-domain inconsistency, absent fading-noise correction, disabled peak,
+direct/full-$Z$ scopes, superseded AP evidence, missing precision rows,
+historical manuscript147 versus catalog151, and frozen-hash drift remain explicit.
+The external original manuscript PDF cited by the historical audit is
+unavailable; original equation-number correspondence is not newly verified.
+Existing manuscript files are not overwritten.
+The supported conclusion remains BEST\_CURRENT\_EXACT\_TESTED\_CANDIDATE\_ONLY,
+finite-catalog performance, with NUMERICALLY\_UNCERTIFIED ordering.
+No continuous/global optimum, finite-key/composable/fading-protocol proof, or
+publication-readiness certificate is supplied.
+\end{document}
