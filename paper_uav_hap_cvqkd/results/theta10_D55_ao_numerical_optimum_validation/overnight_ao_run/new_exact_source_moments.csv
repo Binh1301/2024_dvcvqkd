@@ -1,0 +1,24 @@
+batch,nu_raw,V_A,cache_key,status,C,w,source_path,wall_seconds,cpu_seconds,timeout_seconds,source_payload_verified,error
+1,0.165,5.49375,db17b04f09fb7555f681236d204ce658a95c1f413a3ab1b48cc2fefae322ae59,NUMERICAL_FAILURE,,,,3.437999999994645,3.234375,4500.0,,"FloatingPointError: full-support fallback failed closed: Traceback (most recent call last):
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\overnight_source_observer.py"", line 168, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\overnight_source_observer.py"", line 162, in main
+    with observer.stage('original_worker_main'):worker.main()
+                                                ^^^^^^^^^^^^^
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\full_support_c4_worker.py"", line 225, in main
+    _row(p, z, int(digits))
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\overnight_source_observer.py"", line 109, in observed
+    with self.stage(name,digits):return function(*args,**kwargs)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\full_support_c4_worker.py"", line 69, in _row
+    for g in _sectors(p, z):
+             ^^^^^^^^^^^^^^
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\overnight_source_observer.py"", line 108, in observed
+    digits=digits_getter(args,kwargs) if digits_getter else None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\overnight_source_observer.py"", line 158, in <lambda>
+    worker._sectors=observer.wrap(originals['_sectors'],'Gram_sector_construction',lambda a,k:worker.mp.dps)
+                                                                                              ^^^^^^^^^^^^^
+AttributeError: module 'mpmath' has no attribute 'dps'. Did you mean: 'eps'?
+"

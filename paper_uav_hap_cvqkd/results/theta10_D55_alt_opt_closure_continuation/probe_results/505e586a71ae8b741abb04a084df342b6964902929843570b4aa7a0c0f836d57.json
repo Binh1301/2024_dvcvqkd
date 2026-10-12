@@ -1,0 +1,90 @@
+{
+  "nu_raw": 0.16625,
+  "V_A": 5.5,
+  "cache_key": "505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57",
+  "status": "COMPLETED_EXACT",
+  "elapsed_seconds": 2603.296000000002,
+  "fast_path_gate": {
+    "all_sectors_positive": false,
+    "minimum_eigenvalue": -3.4547741062300546e-17,
+    "sector_condition_number": Infinity,
+    "sector_reconstruction_residual": 1.9550916825893303e-15
+  },
+  "precision_ladder": [
+    1050,
+    1250,
+    1450
+  ],
+  "profile_path": "results\\theta10_D55_alt_opt_closure_continuation\\probe_results\\505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57.prof",
+  "C": 3.2113076530275717,
+  "w": 1.0341737056380513e-06,
+  "source_path": "results\\theta10_D55_alt_opt_closure_continuation\\exact_source_cache\\505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57.json",
+  "provenance": {
+    "status": "VERIFIED",
+    "policy": "LF_ONLY_WITH_PROVEN_HISTORICAL_RAW_ALIAS_V1",
+    "historical_cache_key": "505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57",
+    "canonical_source_cache_key": "505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57",
+    "source_settings_sha256": "a924b9dc4e67beadf59f2e46440cd0698c92ac0ecb48d140ac28e87432768292",
+    "implementation": {
+      "src/cvqkd/gram_moments.py": {
+        "historical_raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "canonical_lf_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "crlf_sha256": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+        "verification": "RAW_BYTE_MATCH"
+      },
+      "src/cvqkd/spectral_frechet.py": {
+        "historical_raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "canonical_lf_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "crlf_sha256": "8e6bdd05543fd1e5815ddf348d3fbe9e88cdd156c4c80c3266c8886140a96e1d",
+        "verification": "RAW_BYTE_MATCH"
+      },
+      "scripts/full_support_c4_worker.py": {
+        "historical_raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "canonical_lf_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "crlf_sha256": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+        "verification": "RAW_BYTE_MATCH"
+      }
+    },
+    "canonical_source_identity": {
+      "schema": "exact-mb-source-cache-v1",
+      "ensemble_hash": "0d32d588b93eaabb7e5629b22c249ecc7bf7bb30924fc2e618ca0db13240da28",
+      "nu_mb_raw_hex": "0x1.547ae147ae148p-3",
+      "nu_mb_repo_hex": "0x1.c433333333334p+2",
+      "V_A_hex": "0x1.6000000000000p+2",
+      "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+      "source_implementation": {
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+      },
+      "source_settings": {
+        "density_eigenvalue_tolerance": 1e-12,
+        "physicality_tolerance": 1e-10,
+        "precision_ladder": [
+          1050,
+          1250,
+          1450
+        ]
+      }
+    }
+  },
+  "batch": 5,
+  "wall_seconds": 2606.5780000000013,
+  "supervision": {
+    "returncode": 0,
+    "deadline_exceeded": false,
+    "elapsed_seconds": 2606.5780000000013,
+    "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+    "user_cpu_seconds": 2397.859375,
+    "kernel_cpu_seconds": 20.84375,
+    "aggregate_cpu_seconds": 2418.703125,
+    "accounted_processes": 5,
+    "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+  },
+  "cpu_seconds": 2418.703125,
+  "timeout_seconds": 2654.2180000000008,
+  "source_payload_verified": true
+}

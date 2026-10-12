@@ -1,0 +1,248 @@
+{
+  "status": "VALIDATED_SUCCESS",
+  "controller_pid": 0,
+  "queue": [
+    {
+      "index": 1,
+      "group": "A",
+      "nu_raw": 0.25,
+      "V_A": 3.5,
+      "nu_raw_hex": "0x1.0000000000000p-2",
+      "V_A_hex": "0x1.c000000000000p+1",
+      "original_source_identity": {
+        "schema": "exact-mb-source-cache-v1",
+        "ensemble_hash": "f26d801a6cbab368998b3b918f2fbeca6019e08d0cfaee599f3e2bf5a2cc063c",
+        "nu_mb_raw_hex": "0x1.0000000000000p-2",
+        "nu_mb_repo_hex": "0x1.5400000000000p+3",
+        "V_A_hex": "0x1.c000000000000p+1",
+        "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+        "source_implementation": {
+          "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+          "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+          "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+        },
+        "source_settings": {
+          "density_eigenvalue_tolerance": 1e-12,
+          "physicality_tolerance": 1e-10,
+          "precision_ladder": [
+            1050,
+            1250,
+            1450
+          ]
+        }
+      },
+      "source_cache_key": "3b32f0756a22ddd4178afc72324bdfc0c33d84523a1c7d811baa84c7d27cd303",
+      "attempt_number": 1,
+      "status": "VALIDATED_SUCCESS",
+      "started_UTC": "2026-10-11T13:01:23.378075+00:00",
+      "finished_UTC": "2026-10-11T13:40:51.022609+00:00",
+      "wall_seconds": 3606.3589999999967,
+      "CPU_seconds": 2321.125,
+      "C": 2.1937405622248556,
+      "w": 1.340293816933285e-06,
+      "source_validation": "VERIFIED",
+      "source_path": "results/theta10_D55_objective_B_numerical_skr_optimization/grid_timeout_retry_1/exact_source_cache/3b32f0756a22ddd4178afc72324bdfc0c33d84523a1c7d811baa84c7d27cd303.json",
+      "SKR_status": "VALIDATED_26_DISTANCES",
+      "worker_cleanup": "VERIFIED_EMPTY_CLOSED",
+      "skip_AP_existing": false,
+      "error": "",
+      "AC_samples": [
+        {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 95,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        },
+        {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 95,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        },
+        {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 95,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        }
+      ],
+      "supervision_receipts": [
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "elapsed_seconds": 2342.625,
+          "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+          "user_cpu_seconds": 2284.015625,
+          "kernel_cpu_seconds": 14.703125,
+          "aggregate_cpu_seconds": 2298.71875,
+          "accounted_processes": 5,
+          "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+          "sleep_prevention": {
+            "active_verified": true,
+            "released_verified": true,
+            "power_before": {
+              "ac": 1,
+              "battery_flag": 1,
+              "battery_percent": 95,
+              "system_status": 0,
+              "life_seconds": 4294967295,
+              "full_life_seconds": 4294967295
+            },
+            "requested_flags": 2147483649,
+            "previous_state": 2147483649,
+            "owner_thread": 20764,
+            "restored_state": 2147483649
+          },
+          "power_watch": {
+            "abort_reason": null,
+            "poll_gaps": [],
+            "last_power": {
+              "ac": 1,
+              "battery_flag": 1,
+              "battery_percent": 95,
+              "system_status": 0,
+              "life_seconds": 4294967295,
+              "full_life_seconds": 4294967295
+            }
+          },
+          "approved_wall_limit_seconds": 3720.0,
+          "operational_shutdown_margin_seconds": 5.0,
+          "measured_wall_seconds_including_cleanup": 2342.625,
+          "wall_limit_respected": true,
+          "no_watchdog_thread_remaining": true,
+          "actual_job_cleanup": [
+            {
+              "verified": true,
+              "active_processes_remaining": 0,
+              "handle_closed": true,
+              "wait_seconds": 0.0
+            }
+          ]
+        },
+        {
+          "returncode": 0,
+          "deadline_exceeded": false,
+          "elapsed_seconds": 23.21899999998277,
+          "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+          "user_cpu_seconds": 19.578125,
+          "kernel_cpu_seconds": 2.828125,
+          "aggregate_cpu_seconds": 22.40625,
+          "accounted_processes": 3,
+          "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+          "sleep_prevention": {
+            "active_verified": true,
+            "released_verified": true,
+            "power_before": {
+              "ac": 1,
+              "battery_flag": 1,
+              "battery_percent": 95,
+              "system_status": 0,
+              "life_seconds": 4294967295,
+              "full_life_seconds": 4294967295
+            },
+            "requested_flags": 2147483649,
+            "previous_state": 2147483649,
+            "owner_thread": 20764,
+            "restored_state": 2147483649
+          },
+          "power_watch": {
+            "abort_reason": null,
+            "poll_gaps": [],
+            "last_power": {
+              "ac": 1,
+              "battery_flag": 1,
+              "battery_percent": 95,
+              "system_status": 0,
+              "life_seconds": 4294967295,
+              "full_life_seconds": 4294967295
+            }
+          },
+          "approved_wall_limit_seconds": 600.0,
+          "operational_shutdown_margin_seconds": 5.0,
+          "measured_wall_seconds_including_cleanup": 23.21899999998277,
+          "wall_limit_respected": true,
+          "no_watchdog_thread_remaining": true,
+          "actual_job_cleanup": [
+            {
+              "verified": true,
+              "active_processes_remaining": 0,
+              "handle_closed": true,
+              "wait_seconds": 0.0
+            }
+          ]
+        }
+      ],
+      "previous_batch_index": 28,
+      "previous_attempt_number": 1,
+      "resolved_source_cache_key": "3b32f0756a22ddd4178afc72324bdfc0c33d84523a1c7d811baa84c7d27cd303"
+    }
+  ],
+  "AP_attempts": 1,
+  "authorization": {
+    "user_request": "chay lai not cai time out",
+    "maximum_attempts": 1,
+    "original_internal_timeout_seconds": 3600,
+    "total_wall_cap_seconds": 7200.0,
+    "reserve_seconds": 1800.0,
+    "no_further_retry": true,
+    "previous_batch": "results/theta10_D55_objective_B_numerical_skr_optimization/full_51_grid_exact_completion",
+    "deadline_UTC": "2026-10-11T15:01:12.222459+00:00"
+  },
+  "updated_UTC": "2026-10-11T13:40:51.023613+00:00",
+  "AC_samples": [
+    {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 95,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    },
+    {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 95,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    },
+    {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 95,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    }
+  ],
+  "source_catalog_size": 182,
+  "grid_complete_points": 51,
+  "improved_distances": [],
+  "AO_runs": 0,
+  "protected_files": 2374,
+  "outer_Sleep_lease": {
+    "active_verified": true,
+    "released_verified": true,
+    "power_before": {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 95,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    },
+    "requested_flags": 2147483649,
+    "previous_state": 2147483648,
+    "owner_thread": 20764,
+    "restored_state": 2147483648
+  },
+  "wall_seconds": 2375.5939999999828,
+  "scientific_methods_changed": false,
+  "continuous_optimum_certified": false
+}

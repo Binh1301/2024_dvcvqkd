@@ -1,0 +1,9 @@
+test,expected,actual,PASS,dummy_only,wall_seconds,Job_CPU_seconds,worker_returncode,worker_tree_cleanup,Sleep_restored,watchdog_remaining,injection,source_moment_computations,worker_result,snapshot_count,coverage,NOT_REAL_AP_FULL_RUN_PROFILE_VALID
+a,SUCCESS,SUCCESS,True,True,1.2349999999860302,1.140625,0,True,True,False,,0,a_worker_result.json,5,DUMMY_INTERVAL_VALID,True
+normal,SUCCESS,SUCCESS,True,True,0.8280000000086147,0.765625,0,True,True,False,,0,normal_worker_result.json,4,DUMMY_INTERVAL_VALID,True
+disabled,SUCCESS,SUCCESS,True,True,0.9210000000020955,0.890625,0,True,True,False,,0,disabled_worker_result.json,0,NO_SNAPSHOT,True
+instrumentation_failure,INSTRUMENTATION_FAILURE,INSTRUMENTATION_FAILURE,True,True,0.3279999999795109,0.296875,70,True,True,False,,0,instrumentation_failure_worker_result.json,0,NO_SNAPSHOT,True
+numerical_failure,NUMERICAL_FAILURE,NUMERICAL_FAILURE,True,True,0.7339999999967404,0.65625,71,True,True,False,,0,numerical_failure_worker_result.json,4,PARTIAL_DUMMY_INTERVAL,True
+deadline,TIMEOUT,TIMEOUT,True,True,2.25,2.171875,124,True,True,False,TIMEOUT,0,NOT_RECORDED_DUE_TO_FORCED_STOP,7,PARTIAL_DUMMY_INTERVAL,True
+ac_loss,AC_SAFETY_ABORT,AC_SAFETY_ABORT,True,True,0.9220000000204891,0.828125,125,True,True,False,AC,0,NOT_RECORDED_DUE_TO_FORCED_STOP,3,PARTIAL_DUMMY_INTERVAL,True
+watchdog_gap,WATCHDOG_ABORT,WATCHDOG_ABORT,True,True,0.9220000000204891,0.796875,125,True,True,False,WATCHDOG,0,NOT_RECORDED_DUE_TO_FORCED_STOP,3,PARTIAL_DUMMY_INTERVAL,True

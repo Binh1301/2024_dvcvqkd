@@ -1,0 +1,44 @@
+% Same implementation as the previous Algorithm 1; notation aligned with P1/P2.
+\begin{algorithm}[t]
+\caption{Exact-source alternating optimization with explicit search status}
+\label{alg:ao}
+\small
+\begin{algorithmic}[1]
+\Require Frozen channel and distance $L$; compatible caches; optional previous-distance pair;
+$R_{\max}=6$, $\epsilon=10^{-8}$, $\epsilon_p=10^{-6}$, $J=4$, $B=3$
+\Ensure Best recorded terminal pair/SKR and diagnostic status
+\State Form starts $\nu_0\in\{0.1,0.15,0.3,0.8\}$; append the previous-distance pair if available
+\For{each start in the original order}
+ \State Choose an available supplied $V_{A,0}$ or the smallest available positive slice value
+ \State Initialize $x^{(0)}=(\nu_0,V_{A,0})$, $K^{(0)}=K(L,x^{(0)})$; record failure and skip invalid initialization
+ \State $u\gets\mathrm{false}$; $s\gets\texttt{MAX\_ITERATIONS\_REACHED}$
+ \For{$r=1,\ldots,R_{\max}$}
+  \State Snapshot the last complete $x^{(r-1)}=(\nu_{\rm MB}^{(r-1)},V_A^{(r-1)})$ and $K^{(r-1)}$
+  \State $q_1\gets\Call{CoordinateSearch}{V_A,\nu_{\rm MB}^{(r-1)},\epsilon,\epsilon_p,J,B}$
+  \State If $q_1$ has no valid best point, record its failure status and stop this start
+  \State $\widetilde V_A\gets q_1.\mathrm{best}.V_A$ \Comment{P1, Eq.~\eqref{eq:p1}}
+  \State $q_2\gets\Call{CoordinateSearch}{\nu_{\rm MB},\widetilde V_A,\epsilon,\epsilon_p,J,B}$
+  \State If $q_2$ has no valid best point, record its failure status and stop this start
+  \State Commit $x^{(r)}=(q_2.\mathrm{best}.\nu_{\rm MB},\widetilde V_A)$ and $K^{(r)}=q_2.\mathrm{best}.K$
+  \State Record both phase updates and coordinate statuses
+  \State $u\gets u\lor\neg(\Call{Closed}{q_1}\land\Call{Closed}{q_2})$
+  \State $\delta K\gets K^{(r)}-K^{(r-1)}$
+  \If{nonfinite $\delta K$, $\delta K<-\epsilon$, a monotonicity warning or recorded numerical failures}
+   \State $s\gets\texttt{NUMERICAL\_FAILURE}$; \textbf{break}
+  \ElsIf{$|\delta K|\le\epsilon$} \Comment{Eq.~\eqref{eq:ao-stopping}}
+   \If{either coordinate has an unclosed boundary}
+    \State $s\gets\texttt{UNRESOLVED\_BOUNDARY}$
+   \ElsIf{$u$ or either coordinate is incomplete}
+    \State $s\gets\texttt{STAGNATED\_IN\_EXACT\_CATALOG}$
+   \Else
+    \State $s\gets\texttt{CONVERGED\_NUMERICALLY}$
+   \EndIf
+   \State \textbf{break}
+  \EndIf
+ \EndFor
+ \State Retain the last complete P1--P2 update and status $s$
+\EndFor
+\State Select the valid terminal result with largest recorded $K$; retain original order for ties
+\State Independently compare with the compatible catalog maximum and report unresolved scope
+\end{algorithmic}
+\end{algorithm}

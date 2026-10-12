@@ -1,0 +1,72 @@
+{
+  "nu_raw": 0.165,
+  "V_A": 5.49375,
+  "cache_key": "db17b04f09fb7555f681236d204ce658a95c1f413a3ab1b48cc2fefae322ae59",
+  "status": "NUMERICAL_FAILURE",
+  "elapsed_seconds": 0.17100000000209548,
+  "fast_path_gate": {
+    "all_sectors_positive": false,
+    "minimum_eigenvalue": -4.561305636850636e-17,
+    "sector_condition_number": Infinity,
+    "sector_reconstruction_residual": 1.7113423928420054e-15
+  },
+  "precision_ladder": [
+    1050,
+    1250,
+    1450
+  ],
+  "profile_path": "results\\theta10_D55_ao_numerical_optimum_validation\\overnight_ao_run\\probe_results\\db17b04f09fb7555f681236d204ce658a95c1f413a3ab1b48cc2fefae322ae59.prof",
+  "error": "FloatingPointError: full-support fallback failed closed: Traceback (most recent call last):\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\overnight_source_observer.py\", line 168, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\overnight_source_observer.py\", line 162, in main\n    with observer.stage('original_worker_main'):worker.main()\n                                                ^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\full_support_c4_worker.py\", line 225, in main\n    _row(p, z, int(digits))\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\overnight_source_observer.py\", line 109, in observed\n    with self.stage(name,digits):return function(*args,**kwargs)\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\full_support_c4_worker.py\", line 69, in _row\n    for g in _sectors(p, z):\n             ^^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\overnight_source_observer.py\", line 108, in observed\n    digits=digits_getter(args,kwargs) if digits_getter else None\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\scripts\\overnight_source_observer.py\", line 158, in <lambda>\n    worker._sectors=observer.wrap(originals['_sectors'],'Gram_sector_construction',lambda a,k:worker.mp.dps)\n                                                                                              ^^^^^^^^^^^^^\nAttributeError: module 'mpmath' has no attribute 'dps'. Did you mean: 'eps'?\n",
+  "observer_mode": "LIGHTWEIGHT_EXECUTION_STAGE_TIMING",
+  "stage_snapshot": "results\\theta10_D55_ao_numerical_optimum_validation\\overnight_ao_run\\probe_results\\db17b04f09fb7555f681236d204ce658a95c1f413a3ab1b48cc2fefae322ae59_stage_snapshot.json",
+  "full_detailed_cProfile_used": false,
+  "ended_utc": "2026-10-09T15:56:07.012058+00:00",
+  "batch": 1,
+  "wall_seconds": 3.437999999994645,
+  "supervision": {
+    "returncode": 0,
+    "deadline_exceeded": false,
+    "elapsed_seconds": 3.4219999999913853,
+    "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+    "user_cpu_seconds": 2.5,
+    "kernel_cpu_seconds": 0.734375,
+    "aggregate_cpu_seconds": 3.234375,
+    "accounted_processes": 5,
+    "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+    "sleep_prevention": {
+      "active_verified": true,
+      "released_verified": true,
+      "power_before": {
+        "ac": 1,
+        "battery_flag": 1,
+        "battery_percent": 96,
+        "system_status": 0,
+        "life_seconds": 4294967295,
+        "full_life_seconds": 4294967295
+      },
+      "requested_flags": 2147483649,
+      "previous_state": 2147483649,
+      "owner_thread": 9836,
+      "restored_state": 2147483649
+    },
+    "power_watch": {
+      "abort_reason": null,
+      "poll_gaps": [],
+      "last_power": {
+        "ac": 1,
+        "battery_flag": 1,
+        "battery_percent": 96,
+        "system_status": 0,
+        "life_seconds": 4294967295,
+        "full_life_seconds": 4294967295
+      }
+    },
+    "approved_wall_limit_seconds": 4500.0,
+    "operational_shutdown_margin_seconds": 5.0,
+    "measured_wall_seconds_including_cleanup": 3.4219999999913853,
+    "wall_limit_respected": true,
+    "no_watchdog_thread_remaining": true
+  },
+  "cpu_seconds": 3.234375,
+  "timeout_seconds": 4500.0
+}

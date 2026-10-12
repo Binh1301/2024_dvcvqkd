@@ -1,0 +1,93 @@
+{
+  "status": "SELECTION_COMPLETE_AWAITING_EXPLICIT_BATCH3_BUDGET_APPROVAL",
+  "fresh_budget_confirmed": false,
+  "proposed_total_wall_seconds": 10800,
+  "proposed_per_probe_wall_seconds": 3600,
+  "max_unique_new_sources": 3,
+  "AP_probes_started": 0,
+  "new_source_moments": 0,
+  "new_SKR_evaluations": 0,
+  "baseline_MB_count": 145,
+  "baseline_objectives_verified": 3770,
+  "stored_ALT_OPT_matches_catalog_verified": 26,
+  "full_ALT_OPT_revalidation": "NOT_RUN",
+  "cache_only_coordinate_calls_for_selection": 3,
+  "final_selected_probes": [
+    {
+      "priority": 1,
+      "nu_raw": 0.165,
+      "V_A": 5.4625,
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "V_A_hex": "0x1.5d9999999999ap+2",
+      "source_cache_key": "9370909afa84938f06ee8107e6c90bd302c5f2dbd9c3d04f2050393b1ec266f0",
+      "ensemble_hash": "7d15a23cee46608e4a1bec2f86c0e637e401b354ca86790aa75247655e675918",
+      "reason": "Lower VA midpoint of the sampled22km maximum; tests the5.45/5.475 shoulder.",
+      "source_availability": "EXACT_SOURCE_MISSING",
+      "status": "NOT_RUN_AWAITING_EXPLICIT_BATCH3_BUDGET_APPROVAL"
+    },
+    {
+      "priority": 2,
+      "nu_raw": 0.165,
+      "V_A": 5.4875,
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "V_A_hex": "0x1.5f33333333333p+2",
+      "source_cache_key": "e0b4f67abe7e7514f95471b59f034e9e8e7eab34a8d29a4fc0824c1ade393c45",
+      "ensemble_hash": "e19c9d4a622b09afff3f337be9e7e83c42a35a0b11e12857eb094b841a0ead3a",
+      "reason": "Upper VA midpoint; shared22km/reference shoulder distinguishes the distance-dependent ordering.",
+      "source_availability": "EXACT_SOURCE_MISSING",
+      "status": "NOT_RUN_AWAITING_EXPLICIT_BATCH3_BUDGET_APPROVAL"
+    },
+    {
+      "priority": 3,
+      "nu_raw": 0.16531250000000003,
+      "V_A": 5.5,
+      "nu_raw_hex": "0x1.528f5c28f5c2ap-3",
+      "V_A_hex": "0x1.6000000000000p+2",
+      "source_cache_key": "166137fde3766af677d0741fa2457da169a9f4ecfc38f53197856835a01a26e0",
+      "ensemble_hash": "ca83fd3a328f7b1b13d2def631c6c59fb4a882c5372399a8c7cb77de4f3a29fa",
+      "reason": "Retain original nu midpoint atVA5.5: VA5.475 has onlynu=.165. Original generator requests missing lower OUTERnu=.0825, then stops before refinement; no appropriate nu midpoint atVA5.475 exists. Do not invent a midpoint or replace it with the far outer point. This probe does not close theVA5.475 nu slice.",
+      "source_availability": "EXACT_SOURCE_MISSING",
+      "status": "NOT_RUN_AWAITING_EXPLICIT_BATCH3_BUDGET_APPROVAL"
+    }
+  ],
+  "probe3_nu_slice_5p475": {
+    "values": [
+      0.165
+    ],
+    "bracket": [
+      null,
+      null
+    ],
+    "missing_outer_value": 0.0825,
+    "missing_midpoint": null,
+    "still_unchecked_opposite_outer": 0.33
+  },
+  "safety_preflight": {
+    "active_verified": true,
+    "released_verified": true,
+    "power_before": {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 100,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    },
+    "requested_flags": 2147483649,
+    "previous_state": 2147483648,
+    "owner_thread": 24944,
+    "restored_state": 2147483648
+  },
+  "sleep_lease_active_after_preflight": false,
+  "execution_safety_supervisor_preflight": "REQUIRED_AGAIN_AFTER_APPROVAL_BEFORE_AP",
+  "protected_files_verified": 876,
+  "protected_files_unchanged": true,
+  "regression_tests_pass": true,
+  "git_diff_check_pass": true,
+  "scientific_implementation_changed": false,
+  "no_interpolation": true,
+  "frozen_spec_discrepancy": "PREEXISTING_UNCHANGED",
+  "publication": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "producer_sha256": "0e1f6c7bbe83b6f5a50a142931f502794c4c898c157bb83e5c907937e1e37a65",
+  "selection_wall_seconds": 15.047000000005937
+}

@@ -1,0 +1,57 @@
+% Requires \usepackage{algorithm,algpseudocode,amsmath}.
+% LaTeX-ready description of existing code; not a newly implemented optimizer.
+\begin{algorithm}[t]
+\caption{Exact-evaluation alternating search with explicit incomplete status}
+\label{alg:exact-ao}
+\begin{algorithmic}[1]
+\Require Distance $L$, frozen channel/source/security settings, $\beta=0.95$,
+verified source/objective caches, $\varepsilon_K=10^{-8}$,
+$\varepsilon_p=10^{-6}$, outer cap $6$, inner cap $4$, expansion cap $3$.
+\State $\mathcal S\gets\{0.1,0.15,0.3,0.8\}$ plus previous-distance selected warm pair if available.
+\For{each initialization $s\in\mathcal S$}
+  \State Set $\nu^{(0)}$ from $s$; choose the smallest available exact $V_A$ on its slice, or exact-matching warm $V_A$.
+  \State Validate/evaluate the initial pair; on missing source or numerical failure, record incomplete/failed start and continue.
+  \State $u\gets\mathrm{false}$; status $\gets$ outer iteration limit.
+  \For{$r=1,\ldots,6$}
+    \State $K_{\rm before}\gets K(L,\nu^{(r-1)},V_A^{(r-1)})$.
+    \State $(V_A^{(r)},S_1)\gets\Call{InnerExactSearch}{V_A;\nu^{(r-1)}}$ \Comment{P1}
+    \State If no valid best is returned, record failure and terminate this start.
+    \State $(\nu^{(r)},S_2)\gets\Call{InnerExactSearch}{\nu;V_A^{(r)}}$ \Comment{P2 uses NEW $V_A$}
+    \State If no valid best is returned, record failure and terminate this start.
+    \State Record actual P1/P2 metrics, candidates, source dependencies, brackets, counters and statuses.
+    \State $u\gets u\lor\neg(\Call{Complete}{S_1}\land\Call{Complete}{S_2})$.
+    \State $\Delta K\gets K(L,\nu^{(r)},V_A^{(r)})-K_{\rm before}$.
+    \If{nonfinite metrics, recorded numerical failure, or decrease beyond $\varepsilon_K$}
+      \State status $\gets$ numerical failure; \textbf{break}.
+    \ElsIf{$|\Delta K|\le\varepsilon_K$}
+      \State status $\gets$ unresolved boundary if a current boundary is open;
+      otherwise catalog stagnation if $u$ or either search is incomplete;
+      otherwise numerical convergence. \textbf{break}.
+    \EndIf
+  \EndFor
+\EndFor
+\State Select the largest final $K$ among starts with a valid final pair.
+\State Run both original coordinate postchecks at that pair; never retain a convergence label if either is incomplete or improves beyond tolerance.
+\State Carry selected $(\nu,V_A)$ as the next distance's warm pair.
+\Ensure Best observed multi-start final $(\widehat\nu,\widehat V_A,\widehat K)$, inner/outer status and unresolved dependencies.
+\Function{InnerExactSearch}{$x;f$}
+  \State Search $x>0$: evaluate all available exact slice candidates at fixed $f$ using compatible cache or unchanged evaluator.
+  \State An endpoint winner requests half/double outside, up to3 expansions; missing sources or failure remain unresolved.
+  \State For an interior winner, set nearest evaluated lower/upper neighbors $(a,b)$.
+  \State At each of at most4 stages, first check $\max(x-a,b-x)\le\varepsilon_p$.
+  \State Otherwise request both arithmetic midpoints $(a+x)/2,(x+b)/2$; count one stage; stop incomplete if either is missing.
+  \State Return the largest valid exact-tested $K$ and actual status; cap exhaustion is not convergence.
+\EndFunction
+\Function{Complete}{$S$}
+  \State \Return numerically closed local bracket, no source/numerical failure, and no unresolved boundary.
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+The ideal P1/P2 argmax equations are continuous-domain targets, not claims about
+the returned exact-tested inner maximizers. The implementation uses $\nu>0$,
+whereas the scientific target includes $\nu=0$; stored Uniform comparisons do
+not close that boundary. Local bracket closure or multi-start agreement does
+not certify a global optimum of a non-monotone unbounded objective. In the
+present run, all selected coordinate searches remain incomplete, so outputs
+are finite-catalog best candidates rather than certified $K^*(L)$.

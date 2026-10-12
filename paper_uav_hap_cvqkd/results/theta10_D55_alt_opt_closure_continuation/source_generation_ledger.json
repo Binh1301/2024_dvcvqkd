@@ -1,0 +1,393 @@
+{
+  "status": "STOPPED_AT_HARD_BUDGET",
+  "attempts": [
+    {
+      "status": "TIMEOUT",
+      "cache_key": "55a3b3cb0cfbef586b200f96a48469305795f2f793397a4579e0ce37de04e46c",
+      "nu_raw": 0.15,
+      "V_A": 4.75,
+      "started_utc": "2026-10-08T08:39:19Z",
+      "timeout_seconds": 3600.0,
+      "batch": 1,
+      "wall_seconds": 3600.0,
+      "supervision": {
+        "returncode": 124,
+        "deadline_exceeded": true,
+        "elapsed_seconds": 3600.0,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 3286.921875,
+        "kernel_cpu_seconds": 53.203125,
+        "aggregate_cpu_seconds": 3340.125,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+      },
+      "cpu_seconds": 3340.125
+    },
+    {
+      "nu_raw": 0.1625,
+      "V_A": 5.5,
+      "cache_key": "0bca602d6c87801f49e22c35144a6f5ba0a5dcd60ae8b05964bdae0aaa18b49b",
+      "status": "COMPLETED_EXACT",
+      "elapsed_seconds": 2394.046999999995,
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -4.221192995752364e-17,
+        "sector_condition_number": Infinity,
+        "sector_reconstruction_residual": 1.5987258327149788e-15
+      },
+      "precision_ladder": [
+        1050,
+        1250,
+        1450
+      ],
+      "profile_path": "results\\theta10_D55_alt_opt_closure_continuation\\probe_results\\0bca602d6c87801f49e22c35144a6f5ba0a5dcd60ae8b05964bdae0aaa18b49b.prof",
+      "C": 3.211307634834993,
+      "w": 1.0375259069953088e-06,
+      "source_path": "results\\theta10_D55_alt_opt_closure_continuation\\exact_source_cache\\0bca602d6c87801f49e22c35144a6f5ba0a5dcd60ae8b05964bdae0aaa18b49b.json",
+      "provenance": {
+        "status": "VERIFIED",
+        "policy": "LF_ONLY_WITH_PROVEN_HISTORICAL_RAW_ALIAS_V1",
+        "historical_cache_key": "0bca602d6c87801f49e22c35144a6f5ba0a5dcd60ae8b05964bdae0aaa18b49b",
+        "canonical_source_cache_key": "0bca602d6c87801f49e22c35144a6f5ba0a5dcd60ae8b05964bdae0aaa18b49b",
+        "source_settings_sha256": "a924b9dc4e67beadf59f2e46440cd0698c92ac0ecb48d140ac28e87432768292",
+        "implementation": {
+          "src/cvqkd/gram_moments.py": {
+            "historical_raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "canonical_lf_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "crlf_sha256": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+            "verification": "RAW_BYTE_MATCH"
+          },
+          "src/cvqkd/spectral_frechet.py": {
+            "historical_raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "canonical_lf_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "crlf_sha256": "8e6bdd05543fd1e5815ddf348d3fbe9e88cdd156c4c80c3266c8886140a96e1d",
+            "verification": "RAW_BYTE_MATCH"
+          },
+          "scripts/full_support_c4_worker.py": {
+            "historical_raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "canonical_lf_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "crlf_sha256": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+            "verification": "RAW_BYTE_MATCH"
+          }
+        },
+        "canonical_source_identity": {
+          "schema": "exact-mb-source-cache-v1",
+          "ensemble_hash": "cbfc4633311427f6f5435b2d2e13280dc8f3903356127e6b3f0211733a2c0d94",
+          "nu_mb_raw_hex": "0x1.4cccccccccccdp-3",
+          "nu_mb_repo_hex": "0x1.ba00000000000p+2",
+          "V_A_hex": "0x1.6000000000000p+2",
+          "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+          "source_implementation": {
+            "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+          },
+          "source_settings": {
+            "density_eigenvalue_tolerance": 1e-12,
+            "physicality_tolerance": 1e-10,
+            "precision_ladder": [
+              1050,
+              1250,
+              1450
+            ]
+          }
+        }
+      },
+      "batch": 2,
+      "wall_seconds": 2397.3590000000004,
+      "supervision": {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "elapsed_seconds": 2397.3590000000004,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 2313.59375,
+        "kernel_cpu_seconds": 18.125,
+        "aggregate_cpu_seconds": 2331.71875,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+      },
+      "cpu_seconds": 2331.71875,
+      "timeout_seconds": 3600.0,
+      "source_payload_verified": true
+    },
+    {
+      "nu_raw": 0.16375,
+      "V_A": 5.5,
+      "cache_key": "8d182a0798cf2fa106d2e89e8a2043aeea7f5f682cb3429cb7557b26584563fe",
+      "status": "TIMEOUT",
+      "elapsed_seconds": 3592.063000000002,
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -3.4261882991104384e-17,
+        "sector_condition_number": Infinity,
+        "sector_reconstruction_residual": 1.7557414730126731e-15
+      },
+      "precision_ladder": [
+        1050,
+        1250,
+        1450
+      ],
+      "profile_path": "results\\theta10_D55_alt_opt_closure_continuation\\probe_results\\8d182a0798cf2fa106d2e89e8a2043aeea7f5f682cb3429cb7557b26584563fe.prof",
+      "error": "FloatingPointError: full-support fallback failed closed: fallback timeout",
+      "batch": 3,
+      "wall_seconds": 3595.75,
+      "supervision": {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "elapsed_seconds": 3595.75,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 3448.734375,
+        "kernel_cpu_seconds": 21.234375,
+        "aggregate_cpu_seconds": 3469.96875,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+      },
+      "cpu_seconds": 3469.96875,
+      "timeout_seconds": 3600.0
+    },
+    {
+      "nu_raw": 0.1675,
+      "V_A": 5.5,
+      "cache_key": "1246a31d68dc47dad272ad0a065a33f7ec02e45f8bc8e3126c44c59f511da66b",
+      "status": "COMPLETED_EXACT",
+      "elapsed_seconds": 2110.25,
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -3.498276556734586e-17,
+        "sector_condition_number": Infinity,
+        "sector_reconstruction_residual": 2.5926699198512977e-15
+      },
+      "precision_ladder": [
+        1050,
+        1250,
+        1450
+      ],
+      "profile_path": "results\\theta10_D55_alt_opt_closure_continuation\\probe_results\\1246a31d68dc47dad272ad0a065a33f7ec02e45f8bc8e3126c44c59f511da66b.prof",
+      "C": 3.211307649058992,
+      "w": 1.054129745791073e-06,
+      "source_path": "results\\theta10_D55_alt_opt_closure_continuation\\exact_source_cache\\1246a31d68dc47dad272ad0a065a33f7ec02e45f8bc8e3126c44c59f511da66b.json",
+      "provenance": {
+        "status": "VERIFIED",
+        "policy": "LF_ONLY_WITH_PROVEN_HISTORICAL_RAW_ALIAS_V1",
+        "historical_cache_key": "1246a31d68dc47dad272ad0a065a33f7ec02e45f8bc8e3126c44c59f511da66b",
+        "canonical_source_cache_key": "1246a31d68dc47dad272ad0a065a33f7ec02e45f8bc8e3126c44c59f511da66b",
+        "source_settings_sha256": "a924b9dc4e67beadf59f2e46440cd0698c92ac0ecb48d140ac28e87432768292",
+        "implementation": {
+          "src/cvqkd/gram_moments.py": {
+            "historical_raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "canonical_lf_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "crlf_sha256": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+            "verification": "RAW_BYTE_MATCH"
+          },
+          "src/cvqkd/spectral_frechet.py": {
+            "historical_raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "canonical_lf_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "crlf_sha256": "8e6bdd05543fd1e5815ddf348d3fbe9e88cdd156c4c80c3266c8886140a96e1d",
+            "verification": "RAW_BYTE_MATCH"
+          },
+          "scripts/full_support_c4_worker.py": {
+            "historical_raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "canonical_lf_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "crlf_sha256": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+            "verification": "RAW_BYTE_MATCH"
+          }
+        },
+        "canonical_source_identity": {
+          "schema": "exact-mb-source-cache-v1",
+          "ensemble_hash": "015c997d3ebf3247d75e336b7ca67943340efb9b1d238c81325e2ede9b114a5e",
+          "nu_mb_raw_hex": "0x1.570a3d70a3d71p-3",
+          "nu_mb_repo_hex": "0x1.c79999999999ap+2",
+          "V_A_hex": "0x1.6000000000000p+2",
+          "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+          "source_implementation": {
+            "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+          },
+          "source_settings": {
+            "density_eigenvalue_tolerance": 1e-12,
+            "physicality_tolerance": 1e-10,
+            "precision_ladder": [
+              1050,
+              1250,
+              1450
+            ]
+          }
+        }
+      },
+      "batch": 4,
+      "wall_seconds": 2113.5,
+      "supervision": {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "elapsed_seconds": 2113.5,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 2047.84375,
+        "kernel_cpu_seconds": 14.4375,
+        "aggregate_cpu_seconds": 2062.28125,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+      },
+      "cpu_seconds": 2062.28125,
+      "timeout_seconds": 3600.0,
+      "source_payload_verified": true
+    },
+    {
+      "nu_raw": 0.16625,
+      "V_A": 5.5,
+      "cache_key": "505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57",
+      "status": "COMPLETED_EXACT",
+      "elapsed_seconds": 2603.296000000002,
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -3.4547741062300546e-17,
+        "sector_condition_number": Infinity,
+        "sector_reconstruction_residual": 1.9550916825893303e-15
+      },
+      "precision_ladder": [
+        1050,
+        1250,
+        1450
+      ],
+      "profile_path": "results\\theta10_D55_alt_opt_closure_continuation\\probe_results\\505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57.prof",
+      "C": 3.2113076530275717,
+      "w": 1.0341737056380513e-06,
+      "source_path": "results\\theta10_D55_alt_opt_closure_continuation\\exact_source_cache\\505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57.json",
+      "provenance": {
+        "status": "VERIFIED",
+        "policy": "LF_ONLY_WITH_PROVEN_HISTORICAL_RAW_ALIAS_V1",
+        "historical_cache_key": "505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57",
+        "canonical_source_cache_key": "505e586a71ae8b741abb04a084df342b6964902929843570b4aa7a0c0f836d57",
+        "source_settings_sha256": "a924b9dc4e67beadf59f2e46440cd0698c92ac0ecb48d140ac28e87432768292",
+        "implementation": {
+          "src/cvqkd/gram_moments.py": {
+            "historical_raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "canonical_lf_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "crlf_sha256": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+            "verification": "RAW_BYTE_MATCH"
+          },
+          "src/cvqkd/spectral_frechet.py": {
+            "historical_raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "canonical_lf_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "crlf_sha256": "8e6bdd05543fd1e5815ddf348d3fbe9e88cdd156c4c80c3266c8886140a96e1d",
+            "verification": "RAW_BYTE_MATCH"
+          },
+          "scripts/full_support_c4_worker.py": {
+            "historical_raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "canonical_lf_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+            "crlf_sha256": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+            "verification": "RAW_BYTE_MATCH"
+          }
+        },
+        "canonical_source_identity": {
+          "schema": "exact-mb-source-cache-v1",
+          "ensemble_hash": "0d32d588b93eaabb7e5629b22c249ecc7bf7bb30924fc2e618ca0db13240da28",
+          "nu_mb_raw_hex": "0x1.547ae147ae148p-3",
+          "nu_mb_repo_hex": "0x1.c433333333334p+2",
+          "V_A_hex": "0x1.6000000000000p+2",
+          "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+          "source_implementation": {
+            "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+            "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+            "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+          },
+          "source_settings": {
+            "density_eigenvalue_tolerance": 1e-12,
+            "physicality_tolerance": 1e-10,
+            "precision_ladder": [
+              1050,
+              1250,
+              1450
+            ]
+          }
+        }
+      },
+      "batch": 5,
+      "wall_seconds": 2606.5780000000013,
+      "supervision": {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "elapsed_seconds": 2606.5780000000013,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 2397.859375,
+        "kernel_cpu_seconds": 20.84375,
+        "aggregate_cpu_seconds": 2418.703125,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+      },
+      "cpu_seconds": 2418.703125,
+      "timeout_seconds": 2654.2180000000008,
+      "source_payload_verified": true
+    },
+    {
+      "nu_raw": 0.16562500000000002,
+      "V_A": 5.5,
+      "cache_key": "895ca9698202b9c580025ea2b221983eb9a0bf5253711638f45b103d86468aa6",
+      "status": "TIMEOUT",
+      "elapsed_seconds": 25.827999999994063,
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -1.0593915521296406e-16,
+        "sector_condition_number": Infinity,
+        "sector_reconstruction_residual": 1.619012007779009e-15
+      },
+      "precision_ladder": [
+        1050,
+        1250,
+        1450
+      ],
+      "profile_path": "results\\theta10_D55_alt_opt_closure_continuation\\probe_results\\895ca9698202b9c580025ea2b221983eb9a0bf5253711638f45b103d86468aa6.prof",
+      "error": "FloatingPointError: full-support fallback failed closed: fallback timeout",
+      "batch": 6,
+      "wall_seconds": 29.125,
+      "supervision": {
+        "returncode": 0,
+        "deadline_exceeded": false,
+        "elapsed_seconds": 29.125,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 27.09375,
+        "kernel_cpu_seconds": 1.265625,
+        "aggregate_cpu_seconds": 28.359375,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING"
+      },
+      "cpu_seconds": 28.359375,
+      "timeout_seconds": 33.78100000000268
+    }
+  ],
+  "completed_unique_ensembles": 3,
+  "used_wall_seconds": 14342.312000000002,
+  "total_compute_budget_seconds": 14400.0,
+  "per_probe_timeout_seconds": 3600.0,
+  "prior_pilot": {
+    "path": "C:\\Users\\HP\\Documents\\GitHub\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\theta10_D55_alt_opt_convergence_validation",
+    "measured_wall_seconds": 860.3129999999983,
+    "retry_requires_explicit_new_budget": true
+  },
+  "original_evaluator": "scripts/run_exact_mb_test2.py:ExactMBEvaluator.source_moments",
+  "supervisor": "scripts/run_theta10_D55_alt_opt_convergence_validation.py:bounded_process",
+  "batch_size": 1,
+  "source_precision_ladder": [
+    1050,
+    1250,
+    1450
+  ],
+  "checkpoint_input_manifest": "protected_input_manifest.json",
+  "controller_pid": 10392,
+  "producer_sha256": "508563f231e3a81f8d062edb3f7137a64393978843d23466e243b4c52a02ea87",
+  "coordinate_checkpoints": [
+    "coordinate_batches\\batch_2",
+    "coordinate_batches\\batch_4",
+    "coordinate_batches\\batch_5"
+  ],
+  "controller_finished_utc": "2026-10-08T12:39:16Z"
+}

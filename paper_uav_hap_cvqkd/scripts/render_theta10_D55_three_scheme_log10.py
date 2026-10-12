@@ -13,6 +13,8 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import sys
+import types
 
 import matplotlib
 
@@ -25,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = (
     ROOT
     / "results"
-    / "skr_vs_distance_theta10urad_D55cm_three_scheme"
+    / "skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme"
     / "skr_vs_distance_three_scheme.csv"
 )
 DEFAULT_OUTPUT_DIR = DEFAULT_INPUT.parent
@@ -34,16 +36,20 @@ CAPTION = (
     "Optimized Uniform becomes non-positive between 25 and 25.5 km."
 )
 
-SCHEMES = ("Uniform optimized", "MB fixed", "MB optimized")
+SCHEMES = (
+    "Optimized Uniform 256-QAM",
+    "Fixed MB-shaped 256-QAM",
+    "Optimized MB-shaped 256-QAM",
+)
 COLORS = {
-    "Uniform optimized": "#2563eb",
-    "MB fixed": "#f28e2b",
-    "MB optimized": "#d62728",
+    "Optimized Uniform 256-QAM": "#2563eb",
+    "Fixed MB-shaped 256-QAM": "#f28e2b",
+    "Optimized MB-shaped 256-QAM": "#d62728",
 }
 LABELS = {
-    "Uniform optimized": "Optimized Uniform 256-QAM",
-    "MB fixed": "Fixed MB-shaped 256-QAM",
-    "MB optimized": "Optimized MB-shaped 256-QAM",
+    "Optimized Uniform 256-QAM": "Optimized Uniform 256-QAM",
+    "Fixed MB-shaped 256-QAM": "Fixed MB-shaped 256-QAM",
+    "Optimized MB-shaped 256-QAM": "Optimized MB-shaped 256-QAM",
 }
 
 
@@ -126,11 +132,18 @@ def render(input_csv: Path, output_dir: Path) -> tuple[Path, Path, Path]:
     png = output_dir / "skr_vs_distance_three_scheme_log10.png"
     pdf = output_dir / "skr_vs_distance_three_scheme_log10.pdf"
     fig.savefig(png, dpi=300, facecolor="white")
+    # The local Application Control policy blocks fontTools' iup extension.
+    # Core PDF fonts keep this renderer-only export independent of that DLL.
+    sys.modules.setdefault(
+        "fontTools.varLib.iup",
+        types.ModuleType("fontTools.varLib.iup"),
+    ).iup_delta_optimize = lambda *args, **kwargs: None
+    matplotlib.rcParams["pdf.use14corefonts"] = True
     fig.savefig(pdf, facecolor="white")
     plt.close(fig)
 
     uniform = sorted(
-        (row for row in rows if row["scheme"] == "Uniform optimized"),
+        (row for row in rows if row["scheme"] == SCHEMES[0]),
         key=lambda row: float(row["distance_km"]),
     )
     positive_uniform = [row for row in uniform if float(row["K"]) > 0.0]
@@ -148,6 +161,11 @@ def render(input_csv: Path, output_dir: Path) -> tuple[Path, Path, Path]:
                 "yscale": "log",
                 "base": 10,
                 "omission_rule": "plot only exact K > 0; source CSV is unchanged",
+                "renderer_only": True,
+                "new_source_moments_computed": False,
+                "new_candidates_created": False,
+                "channel_or_security_rerun": False,
+                "interpolation_or_extrapolation": False,
                 "figure_caption": CAPTION,
                 "uniform_last_positive_distance_km": (
                     float(positive_uniform[-1]["distance_km"])

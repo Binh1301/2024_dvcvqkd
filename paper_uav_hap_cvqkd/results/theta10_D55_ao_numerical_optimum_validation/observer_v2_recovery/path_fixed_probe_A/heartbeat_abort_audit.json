@@ -1,0 +1,36 @@
+{
+  "status": "WATCHDOG_ABORT_FROM_STALE_OBSERVER_SNAPSHOT",
+  "last_committed_snapshot": 31,
+  "heartbeat_lines": 31,
+  "fully_written_uncommitted_temporary_snapshot": 32,
+  "committed_wall_seconds": 305.375,
+  "temporary_wall_seconds_UNCOMMITTED": 315.5309999999881,
+  "last_committed_UTC": "2026-10-10T01:25:38.149298+00:00",
+  "temporary_UTC_UNCOMMITTED": "2026-10-10T01:25:48.308560+00:00",
+  "max_successive_heartbeat_gap_seconds": 10.23399999999674,
+  "published_snapshot_error": null,
+  "production_error_type_or_holder_identity": "NOT_CAPTURED",
+  "known_failure_interval": "Snapshot32 temporary write completed but atomic publication/heartbeat did not; observer watch catches error only in memory, subsequently killed before shutdown persistence",
+  "dummy_reader_held_atomic_replace": {
+    "status": "FAILED",
+    "error": "PermissionError(13, 'Access is denied')",
+    "errno": 13,
+    "winerror": 5
+  },
+  "dummy_old_snapshot_after_failed_replace": {
+    "dummy_only": true,
+    "counter": 1
+  },
+  "dummy_temp_after_failed_replace": {
+    "dummy_only": true,
+    "counter": 2
+  },
+  "dummy_reader_released_atomic_write": "PASS",
+  "production_cause_inference": "File-open/replace contention is reproduced and matches saved old/temp/heartbeat pattern; production exception and lock holder unrecorded, so exact causal attribution is not proven",
+  "original_long_path_overflow": "RESOLVED_FOR_THIS_RUN_GENERATED_PATHS",
+  "monitoring_persistence_robustness": "NOT_RESOLVED_END_TO_END",
+  "physical_AC_loss_or_scheduler_gap": false,
+  "source_moment_computations_in_dummy": 0,
+  "AP_retry": false,
+  "original_observer_v2_bytes_changed_after_execution": false
+}

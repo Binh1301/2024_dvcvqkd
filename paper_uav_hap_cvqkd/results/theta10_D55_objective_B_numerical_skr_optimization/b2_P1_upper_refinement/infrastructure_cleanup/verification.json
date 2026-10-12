@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-10",
+  "status": "CURRENTLY_VERIFIED_PASS_SCOPED_INFRASTRUCTURE_TESTS_AP_NOT_RUN",
+  "removed": ["prelaunch dummy-child function and process spawning", "dummy CLI entry", "12-second dummy gate", "immediate dummy PID assertion", "dummy phase receipt dependencies"],
+  "retained": ["original stable-AC preflight and watchdog", "same-thread Sleep prevention and restoration", "original internal evaluator timeout of 3600 seconds", "original absolute deadline and Windows Job supervisor", "KILL_ON_JOB_CLOSE and whole-Job termination", "protected scientific input hashes", "original source and AO methods"],
+  "actual_worker_cleanup": {
+    "method": "QueryInformationJobObject BASIC_ACCOUNTING ActiveProcesses == 0 before CloseHandle",
+    "remaining_descendants": "TerminateJobObject then bounded accounting poll within existing supervisor wall allowance",
+    "verification_failure": "Close Job fail-safe, persist receipt, fail closed; no next phase",
+    "no_observer_profiler_heartbeat_redesign": true
+  },
+  "tests": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "count": 64,
+    "runner_seconds": 15.943,
+    "including_suite_loading_seconds": 16.031,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "modules": ["tests.test_alt_opt_provenance_and_stopping", "tests.test_ao_numerical_optimum_audit", "tests.test_ao_scientific_export", "tests.test_ao_stopping_sensitivity", "tests.test_ao_manuscript_finalization", "tests.test_windows_sleep_safe_supervision", "tests.test_objective_B_preparation", "tests.test_objective_B_pilot", "tests.test_P1_upper_refinement_preparation", "tests.test_P1_upper_refinement_execution", "tests.test_observer_short_paths", "tests.test_observer_v2_recovery"]
+  },
+  "native_integration_receipts": [
+    {"case": "normal root exit with live descendant", "returncode": 0, "deadline_exceeded": false, "wall_seconds_including_cleanup": 0.641, "wall_limit_seconds": 6.0, "aggregate_CPU_seconds": 0.109375, "accounted_processes": 5, "cleanup_wait_seconds": 0.031, "active_processes_remaining": 0, "job_handle_closed": true, "Sleep_active_verified": true, "Sleep_released_verified": true, "no_watchdog_thread_remaining": true, "AC": 1, "power_abort_reason": null},
+    {"case": "whole Job timeout", "returncode": 124, "deadline_exceeded": true, "wall_seconds_including_cleanup": 4.516, "wall_limit_seconds": 6.0, "aggregate_CPU_seconds": 0.078125, "accounted_processes": 5, "cleanup_wait_seconds": 0.0, "active_processes_remaining": 0, "job_handle_closed": true, "Sleep_active_verified": true, "Sleep_released_verified": true, "no_watchdog_thread_remaining": true, "AC": 1, "power_abort_reason": null}
+  ],
+  "protected_count": 1809,
+  "protected_drift": [],
+  "failed_run_manifest_count": 1825,
+  "failed_run_current_path_changes": ["scripts/run_theta10_D55_P1_upper_refinement.py", "tests/test_P1_upper_refinement_execution.py"],
+  "other_failed_run_manifest_hashes_unchanged": 1823,
+  "archived_failed_producers": {
+    "failed_run_producer/run_theta10_D55_P1_upper_refinement.py": "13b1bf25a23c0f69aa42a8a7cb723c478e9365c1a9ebef7a94d740f2e10c07f0",
+    "failed_run_producer/test_P1_upper_refinement_execution.py": "9c163a3e68dff72cbe6dc3e71131100f43ecf3ef060e5b4c5c7af683ae6c2bc6"
+  },
+  "archived_producers_match_original_manifest": true,
+  "current_producers": {
+    "scripts/run_theta10_D55_P1_upper_refinement.py": "fac9f16d61db892424d807be02006f2125eef7b08db40101d583d5442e0a0c68",
+    "tests/test_P1_upper_refinement_execution.py": "25622cb2fcf91b1ef78c592d5f074de9a2c1e5649658f3ea3b831622f8b0a116"
+  },
+  "unchanged_scientific_function_AST": {"source_child": true, "postprocess_child": true, "probe_limit": true},
+  "available_MB_sources": 149,
+  "reference_best": {"nu_raw": 0.165, "V_A": 5.5, "K": 0.07798099387393764},
+  "P1_bracket": [5.49375, 5.5125],
+  "next_requested_candidate": {"nu_raw": 0.165, "V_A": 5.50625, "nu_raw_hex": "0x1.51eb851eb851fp-3", "V_A_hex": "0x1.6066666666666p+2", "cache_key": "dbb7a2a7024f84f97c455b0b3b564e9a307f369b362f80e055dfbf1e5d49497f"},
+  "paired_lower_request_also_missing": 5.496875,
+  "AP_attempts": 0,
+  "new_source_moments": 0,
+  "new_SKR_evaluations": 0,
+  "fresh_AO_runs": 0,
+  "new_execution_output_exists": false,
+  "candidate_cache_exists": false,
+  "active_scoped_scientific_workers": [],
+  "next_P1_readiness": "TESTED_EXECUTION_PATH_READY_CONDITIONAL_ON_FRESH_APPROVAL_AND_RUNTIME_AC_SLEEP_JOB_CHECKS",
+  "next_AP_execution_authorized": false,
+  "original_internal_timeout_seconds": 3600,
+  "supervisor_ceiling_seconds": 5400,
+  "total_ceiling_seconds": 7200,
+  "reserve_seconds": 1800,
+  "original_failed_gate_retrospectively_promoted_to_PASS": false,
+  "continuous_or_global_optimum_certified": false,
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

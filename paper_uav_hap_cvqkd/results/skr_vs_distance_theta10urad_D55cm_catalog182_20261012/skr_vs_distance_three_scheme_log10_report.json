@@ -1,0 +1,49 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "source_csv": "skr_vs_distance_three_scheme.csv",
+  "source_csv_sha256": "e92d3bb0c2f62c2a04b733727d7784e6ee74b90ffba2191a4a87f6dd011b1071",
+  "yscale": "log",
+  "base": 10,
+  "omission_rule": "plot only exact K > 0; source CSV is unchanged",
+  "renderer_only": true,
+  "new_source_moments_computed": false,
+  "new_candidates_created": false,
+  "channel_or_security_rerun": false,
+  "interpolation_or_extrapolation": false,
+  "figure_caption": "Only positive SKR values are shown on the logarithmic scale. Optimized Uniform becomes non-positive between 25 and 25.5 km.",
+  "uniform_last_positive_distance_km": 25.0,
+  "uniform_first_nonpositive_distance_km": 25.5,
+  "plotted_positive_rows": {
+    "Optimized Uniform 256-QAM": 7,
+    "Fixed MB-shaped 256-QAM": 26,
+    "Optimized MB-shaped 256-QAM": 26
+  },
+  "artifacts": {
+    "png": "skr_vs_distance_three_scheme_log10.png",
+    "pdf": "skr_vs_distance_three_scheme_log10.pdf",
+    "renderer": "render_theta10_D55_three_scheme_log10.py"
+  },
+  "MB_sources": 182,
+  "Uniform_sources": 29,
+  "stored_MB_SKR_rows_checked": 4732,
+  "distances": 26,
+  "protected_hashes_verified": 2398,
+  "Objective_C_status": "USER_STOPPED",
+  "optimized_scope": "BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY",
+  "updated_MB_distances_vs_original_plot": 23,
+  "input_hashes": {
+    "results\\theta10_D55_objective_B_numerical_skr_optimization\\grid_timeout_retry_1\\objective_checkpoint.json": "8ac8d859e9abdfcc2c8c9444e51789262f741982ee952e48d67aee65d03b7ec6",
+    "results\\exact_source_moments_catalog_20261012\\all_182_MB_exact_source_moments.csv": "6bdc3d2cfbb8ae39ce1f124b62bbb1037246f38ec2284f84fb4a3b3197686603",
+    "results\\skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme\\skr_vs_distance_three_scheme.csv": "aea32f53b7258ad45214893f8901cbaf50160253721079e2ec62aca25334fccc",
+    "results\\skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme\\candidate_evaluations.csv": "6c2a906e4c0ca86a1e57b74b559e97bafd2df91a2fb322f7b7c88e4f67496088"
+  },
+  "renderer_sha256": "1c982e343d6560b0d83b0c4e8a520020af74be3666ad3c8ec59768f525539e63",
+  "reused_renderer_sha256": "229dfbdd5e3c12e73abeb1c739074f91a0d036f373068ca75a8b100e30887217",
+  "scientific_model_changed": false,
+  "AP": "NOT_RUN",
+  "AO": "NOT_RUN",
+  "new_SKR": "NOT_RUN",
+  "png_dpi": 300,
+  "PDF": "vector",
+  "frozen_spec_hash_discrepancy": "Pre-existing; renderer-only task does not amend or certify model"
+}

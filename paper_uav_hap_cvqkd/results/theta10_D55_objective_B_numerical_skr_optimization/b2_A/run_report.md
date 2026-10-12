@@ -1,0 +1,123 @@
+# One-attempt Objective B2 pilot
+
+{
+  "status": "ABORTED_UNSAFE_OR_NUMERICAL_FAILURE",
+  "error": "AssertionError: ",
+  "attempts": 1,
+  "retry": false,
+  "total_wall_seconds": 3064.4370000000054,
+  "controller_CPU_seconds": 11.875,
+  "source_supervision": {
+    "returncode": 0,
+    "deadline_exceeded": false,
+    "elapsed_seconds": 3039.0629999999946,
+    "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+    "user_cpu_seconds": 2920.109375,
+    "kernel_cpu_seconds": 17.984375,
+    "aggregate_cpu_seconds": 2938.09375,
+    "accounted_processes": 5,
+    "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+    "sleep_prevention": {
+      "active_verified": true,
+      "released_verified": true,
+      "power_before": {
+        "ac": 1,
+        "battery_flag": 1,
+        "battery_percent": 96,
+        "system_status": 0,
+        "life_seconds": 4294967295,
+        "full_life_seconds": 4294967295
+      },
+      "requested_flags": 2147483649,
+      "previous_state": 2147483649,
+      "owner_thread": 24808,
+      "restored_state": 2147483649
+    },
+    "power_watch": {
+      "abort_reason": null,
+      "poll_gaps": [],
+      "last_power": {
+        "ac": 1,
+        "battery_flag": 1,
+        "battery_percent": 96,
+        "system_status": 0,
+        "life_seconds": 4294967295,
+        "full_life_seconds": 4294967295
+      }
+    },
+    "approved_wall_limit_seconds": 3584.610000000015,
+    "operational_shutdown_margin_seconds": 5.0,
+    "measured_wall_seconds_including_cleanup": 3039.0629999999946,
+    "wall_limit_respected": true,
+    "no_watchdog_thread_remaining": true
+  },
+  "postprocess_supervision": {
+    "returncode": 1,
+    "deadline_exceeded": false,
+    "elapsed_seconds": 6.5310000000172295,
+    "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+    "user_cpu_seconds": 3.78125,
+    "kernel_cpu_seconds": 2.03125,
+    "aggregate_cpu_seconds": 5.8125,
+    "accounted_processes": 3,
+    "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+    "sleep_prevention": {
+      "active_verified": true,
+      "released_verified": true,
+      "power_before": {
+        "ac": 1,
+        "battery_flag": 1,
+        "battery_percent": 96,
+        "system_status": 0,
+        "life_seconds": 4294967295,
+        "full_life_seconds": 4294967295
+      },
+      "requested_flags": 2147483649,
+      "previous_state": 2147483649,
+      "owner_thread": 24808,
+      "restored_state": 2147483649
+    },
+    "power_watch": {
+      "abort_reason": null,
+      "poll_gaps": [],
+      "last_power": {
+        "ac": 1,
+        "battery_flag": 1,
+        "battery_percent": 96,
+        "system_status": 0,
+        "life_seconds": 4294967295,
+        "full_life_seconds": 4294967295
+      }
+    },
+    "approved_wall_limit_seconds": 1413.5940000000119,
+    "operational_shutdown_margin_seconds": 5.0,
+    "measured_wall_seconds_including_cleanup": 6.5310000000172295,
+    "wall_limit_respected": true,
+    "no_watchdog_thread_remaining": true
+  },
+  "outer_sleep_lease": {
+    "active_verified": true,
+    "released_verified": true,
+    "power_before": {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 96,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    },
+    "requested_flags": 2147483649,
+    "previous_state": 2147483648,
+    "owner_thread": 24808,
+    "restored_state": 2147483648
+  },
+  "protected_count": 1767,
+  "within_total_budget": true,
+  "profiler_or_observer_used": false,
+  "frozen_historical_discrepancy": "PREEXISTING_UNCHANGED",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "continuous_or_global_optimum_certified": false,
+  "no_additional_AP_attempts": true
+}
+
+No continuous/global certificate. Old outputs and Objective A remain untouched. If postprocessing succeeded, read postprocess_report.json for original26-distance AO and actual remaining coordinate requests.

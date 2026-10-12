@@ -1,0 +1,274 @@
+{
+  "status": "STOPPED_FAILED_SAFETY_PROVENANCE_OR_BUDGET",
+  "controller_pid": 6380,
+  "attempts": [
+    {
+      "status": "PROCESS_FAILURE",
+      "cache_key": "db17b04f09fb7555f681236d204ce658a95c1f413a3ab1b48cc2fefae322ae59",
+      "nu_raw": 0.165,
+      "V_A": 5.49375,
+      "started_utc": "2026-10-09T11:53:58Z",
+      "timeout_seconds": 3600.0,
+      "batch": 1,
+      "wall_seconds": 1799.0310000000027,
+      "supervision": {
+        "returncode": 125,
+        "deadline_exceeded": false,
+        "elapsed_seconds": 1798.9689999999973,
+        "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+        "user_cpu_seconds": 1721.265625,
+        "kernel_cpu_seconds": 12.59375,
+        "aggregate_cpu_seconds": 1733.859375,
+        "accounted_processes": 5,
+        "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+        "sleep_prevention": {
+          "active_verified": true,
+          "released_verified": true,
+          "power_before": {
+            "ac": 1,
+            "battery_flag": 1,
+            "battery_percent": 100,
+            "system_status": 0,
+            "life_seconds": 4294967295,
+            "full_life_seconds": 4294967295
+          },
+          "requested_flags": 2147483649,
+          "previous_state": 2147483649,
+          "owner_thread": 26400,
+          "restored_state": 2147483649
+        },
+        "power_watch": {
+          "abort_reason": "UNEXPECTED_SUSPEND_OR_SCHEDULER_GAP",
+          "poll_gaps": [
+            {
+              "gap_seconds": 15.578000000008615,
+              "possible_suspend_or_scheduler_gap": true
+            }
+          ],
+          "last_power": {
+            "ac": 0,
+            "battery_flag": 1,
+            "battery_percent": 100,
+            "system_status": 0,
+            "life_seconds": 4294967295,
+            "full_life_seconds": 4294967295
+          },
+          "termination_request_succeeded": true
+        },
+        "approved_wall_limit_seconds": 3600.0,
+        "operational_shutdown_margin_seconds": 5.0,
+        "measured_wall_seconds_including_cleanup": 1799.0310000000027,
+        "wall_limit_respected": true,
+        "no_watchdog_thread_remaining": true
+      },
+      "cpu_seconds": 1733.859375
+    }
+  ],
+  "used_wall_seconds": 1799.0310000000027,
+  "completed_unique_ensembles": 0,
+  "authorization": {
+    "status": "EXPLICITLY_APPROVED_PHASE2A",
+    "origin_utc": "2026-10-09T11:46:13.577171+00:00",
+    "origin_monotonic": 126545.75,
+    "deadline_monotonic": 137345.75,
+    "total_wall_seconds": 10800,
+    "per_probe_seconds": 3600,
+    "final_processing_cleanup_reserve_seconds": 480,
+    "max_probes": 3,
+    "sequential_only": true,
+    "retry_timeout_or_AC_abort": false,
+    "pairs": [
+      [
+        0.165,
+        5.49375
+      ],
+      [
+        0.165,
+        5.5125
+      ],
+      [
+        0.16531250000000003,
+        5.5
+      ]
+    ],
+    "excluded_phase2B_pair": [
+      0.16375,
+      5.5
+    ],
+    "old_budget_reused": false,
+    "setup_preflight_processing_cleanup_counted": true
+  },
+  "budget_reset": false,
+  "authorization_session_origin_utc": "2026-10-09T11:46:13.577171+00:00",
+  "absolute_deadline_monotonic": 137345.75,
+  "started_utc": "2026-10-09T11:53:52.315383+00:00",
+  "supervision_receipts": [
+    {
+      "returncode": 124,
+      "deadline_exceeded": true,
+      "elapsed_seconds": 1.514999999999418,
+      "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+      "user_cpu_seconds": 1.421875,
+      "kernel_cpu_seconds": 0.046875,
+      "aggregate_cpu_seconds": 1.46875,
+      "accounted_processes": 3,
+      "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+      "sleep_prevention": {
+        "active_verified": true,
+        "released_verified": true,
+        "power_before": {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 100,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        },
+        "requested_flags": 2147483649,
+        "previous_state": 2147483649,
+        "owner_thread": 26400,
+        "restored_state": 2147483649
+      },
+      "power_watch": {
+        "abort_reason": null,
+        "poll_gaps": [],
+        "last_power": {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 100,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        }
+      },
+      "approved_wall_limit_seconds": 2.0,
+      "operational_shutdown_margin_seconds": 0.5,
+      "measured_wall_seconds_including_cleanup": 1.514999999999418,
+      "wall_limit_respected": true,
+      "no_watchdog_thread_remaining": true,
+      "dummy_log": "",
+      "worker_cleanup_verified": true,
+      "dummy_child_role": "NO_DESCENDANT"
+    },
+    {
+      "returncode": 124,
+      "deadline_exceeded": true,
+      "elapsed_seconds": 3.0,
+      "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+      "user_cpu_seconds": 2.875,
+      "kernel_cpu_seconds": 0.078125,
+      "aggregate_cpu_seconds": 2.953125,
+      "accounted_processes": 5,
+      "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+      "sleep_prevention": {
+        "active_verified": true,
+        "released_verified": true,
+        "power_before": {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 100,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        },
+        "requested_flags": 2147483649,
+        "previous_state": 2147483649,
+        "owner_thread": 26400,
+        "restored_state": 2147483649
+      },
+      "power_watch": {
+        "abort_reason": null,
+        "poll_gaps": [],
+        "last_power": {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 100,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        }
+      },
+      "approved_wall_limit_seconds": 4.0,
+      "operational_shutdown_margin_seconds": 1.0,
+      "measured_wall_seconds_including_cleanup": 3.0,
+      "wall_limit_respected": true,
+      "no_watchdog_thread_remaining": true,
+      "dummy_log": "CHILD_PID=24720\n",
+      "worker_cleanup_verified": true,
+      "dummy_child_role": "ALIVE_IDLE_DESCENDANT"
+    },
+    {
+      "returncode": 125,
+      "deadline_exceeded": false,
+      "elapsed_seconds": 1798.9689999999973,
+      "supervision": "ABSOLUTE_DEADLINE_AND_WINDOWS_JOB",
+      "user_cpu_seconds": 1721.265625,
+      "kernel_cpu_seconds": 12.59375,
+      "aggregate_cpu_seconds": 1733.859375,
+      "accounted_processes": 5,
+      "cpu_measurement": "WINDOWS_JOB_BASIC_ACCOUNTING",
+      "sleep_prevention": {
+        "active_verified": true,
+        "released_verified": true,
+        "power_before": {
+          "ac": 1,
+          "battery_flag": 1,
+          "battery_percent": 100,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        },
+        "requested_flags": 2147483649,
+        "previous_state": 2147483649,
+        "owner_thread": 26400,
+        "restored_state": 2147483649
+      },
+      "power_watch": {
+        "abort_reason": "UNEXPECTED_SUSPEND_OR_SCHEDULER_GAP",
+        "poll_gaps": [
+          {
+            "gap_seconds": 15.578000000008615,
+            "possible_suspend_or_scheduler_gap": true
+          }
+        ],
+        "last_power": {
+          "ac": 0,
+          "battery_flag": 1,
+          "battery_percent": 100,
+          "system_status": 0,
+          "life_seconds": 4294967295,
+          "full_life_seconds": 4294967295
+        },
+        "termination_request_succeeded": true
+      },
+      "approved_wall_limit_seconds": 3600.0,
+      "operational_shutdown_margin_seconds": 5.0,
+      "measured_wall_seconds_including_cleanup": 1799.0310000000027,
+      "wall_limit_respected": true,
+      "no_watchdog_thread_remaining": true
+    }
+  ],
+  "error": "RuntimeError('Unsafe power/deadline/worker cleanup: stop all, no auto retry')",
+  "sleep_prevention": {
+    "active_verified": true,
+    "released_verified": true,
+    "power_before": {
+      "ac": 1,
+      "battery_flag": 1,
+      "battery_percent": 100,
+      "system_status": 0,
+      "life_seconds": 4294967295,
+      "full_life_seconds": 4294967295
+    },
+    "requested_flags": 2147483649,
+    "previous_state": 2147483648,
+    "owner_thread": 26400,
+    "restored_state": 2147483648
+  },
+  "budget_session_wall_seconds": 2266.7810000000027,
+  "controller_cpu_seconds": 3.53125,
+  "total_job_cpu_seconds": 1738.28125,
+  "worker_cleanup_verified": true,
+  "wall_budget_respected": true,
+  "total_CPU_seconds": 1741.8125
+}

@@ -1,5 +1,1031 @@
 # Project State
 
+## Current: Objective C USER_STOPPED; zero workers, catalog182 preserved
+
+2026-10-11 EVID-0178/DEC-0161 explicituserstop,21:59:57UTC+7. Verifiedcontroller
+and fulltree terminated; repeatedCIMworkerabsence checksPASS. CheckpointPID0,
+USER_STOPPED;2395protectedhashesunchanged,catalog182/AP1interrupted/nonewCwSKR.
+Stage1cache5start results preserved/unresolved;Stage2NOT_RUN. No restart/retry or
+unusedbudgetreuse. FinalSleepfinally/Jobreceipt notrun on forcedexit; native
+powercfgverification requiresadministrator,notclaimedPASS. Lifecycleunchanged.
+
+
+## Current: Objective C multi-start ALT_OPT preflight PASS
+
+Runtime21:49UTC+7: controller16960/session5456,harddeadline13Oct09:49:30UTC+7.
+Original5starts epoch0allreachincumbent,iterations1/2/2/2/3,allunresolved;
+AP1(.16375,5.5)P2started,originalworker26500live,Cw/SKR/cleanupPENDING.
+2395protectedhashesverified unchanged;no convergence claim.
+
+
+2026-10-11 EVID-0177/DEC-0160. ObjectiveBcomplete182sources/4732SKRs/51grid,
+lasttimeoutretryvalid26SKR/no gain,Jobempty/Sleeprestored/no oldworker. Stage1
+referencefivepairedstarts thenStage2all26. Originalsource/science/AO unchanged;
+neworchestrator run_theta10_D55_objective_c.py --approved-objective-c, output
+results/theta10_D55_objective_C_multistart_alt_opt/. Fresh36h/36AP,Stage1up12,
+internal3600s/reserve1800s,sequential,no retry.19tests/ACSleep/provenancePASS.
+Readobjective_c_checkpoint.json forruntimePID/deadline/stage/requestledger.
+Nu0excludedbyoriginalAO,unknown totalerror;two-closed-iteration mesh convergence
+conditional only. NOT_READY/frozenhistorical discrepancy unchanged.
+
+
+## Current: explicitly authorized ONE retry of grid timeout (.25,3.5) RUNNING
+
+ControllerPID12972/session57841, startUTC2026-10-11T13:01:23.378075Z; new total
+deadline15:01:12.222459Z (22:01:12UTC+7). Original APworker25592 verified live.
+Source moments/26newSKRs/final actualJobempty verification PENDING. Do not duplicate.
+
+2026-10-11 EVID-0176/DEC-0159. Completed full31 batch has30 successful sources,
+one TIMEOUT(.25,3.5),181catalog/50of51grid/780newSKRs; all actual Jobs empty,
+Sleep restored, no remaining controller. Original batch results remain unchanged.
+User now explicitly requests that ONE timed-out point again, superseding no-retry
+only for this new attempt. Entry scripts/retry_theta10_D55_grid_timeout.py reuses
+unchanged original source/objective children and verified Job supervisor. Separate
+output grid_timeout_retry_1/; original internal3600s, sourceouter3720s, totalcap7200s,
+reserve1800s, also bounded by original absolute batch deadline. No second retry,
+extra points, AO, profiler, dummy gate or scientific changes. Prelaunch17testsPASS,
+1953protected hashes unchanged,181compatible keys,3stableACsamples/SleepPASS.
+Read the new checkpoint for runtime state; actual worker cleanup PENDING until end.
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS; historical frozen hash discrepancy unchanged.
+
+## Historical: full31 missing-source batch launch and preflight
+
+2026-10-10 EVID-0175/DEC-0158. full_51_grid_exact_completion/preflight.json
+verifies151sources,20/51grid,31missing,1953protected hashes,AC/Sleep controls.
+Original exact source child/Job watchdog retained;18 scoped tests PASS.
+AP0 at preparation; now controllerPID7536/session23677,probe3(.16,6.5)RUNNING.
+Probes1-2 validated Cw+26SKRs each,Jobempty/closed;catalog153/grid22of51.
+Refincumbent unchanged;maxima improved at10 distances23-29km (finite catalog).
+OriginUTC2026-10-10T15:07:32.751912+00:00;harddeadline2026-10-12T03:07:32.751912+00:00.
+Authority36h total,31 sequential distinct attempts,
+internal3600s unchanged,reserve1800s,no retry/no AO refinement. Consult current
+batch_checkpoint.json for live status,absolute deadline,PID and source ledger;
+never duplicate live controller. Scientific defaults/frozen discrepancy unchanged;
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS remains.
+
+## Historical: two-level51-pair grid COMPLETE(cache-only);20cached/31missing;STOP
+
+2026-10-10 EVID-0174/DEC-0157. two_level_2d_skr_grid/ savedall51binary64
+specification/coverage,20reference and520distance grid SKRs,131off-gridpairs/
+3406records,missingpriorities/exactmatrix and3scatterPNG400dpi/PDFpairs.
+A11/30(36.6667%),B12/25(48%),union20/51(39.2157%),invalid0. Refbestgrid
+(.165,5.5),K.07798099387393764 matchesfullcatalog,gap0;neargrid1/offgrid8.
+All151source/3926originalobjectives unchanged,806missinggridcombinations not
+invented.13testsPASS2.379s/1929inputhashesunchanged/19outputhashesverified;
+visual/PNG/PDFstructurechecksPASS,fullPDFparserunavailable(pypdf),notclaimed.
+Complete51coverage/31prioritylist printedterminal. Cost14successfultimings
+mean41.6868min ->31source scenario21.5382h,notbounds/successguarantee.
+Suggestonly(.15,3.5),(.165,6.) forcoverage,NOAPauthority. Allcachedata/no
+AP/newCw/SKR/AO/fit/interpolation/oldscientific change. Orderinguncertified,
+NOT_READY/frozenhash unchanged. Taskcomplete,STOP.
+
+## Historical: ALL151 exact points listed;3926-row cache-only export COMPLETE;STOP
+
+2026-10-10 EVID-0173/DEC-0156. all_exact_skr_points/ contains all151reference
+rows/all3926source-distance rows/relative-nearsets/report/provenance. Source
+identities uniquecompatible151,missingcombinations0. Refbest(.165,5.5),
+K.07798099387393764 unchanged. Relativethreshold0.0001%/0.001%/0.01% counts
+4/9/17,includebest;39nearrows across26distances eachcomparedwithownbest.
+Acceptedref deltaNuMax.0006250000000000144,deltaVAMax.025000000000000355.
+Complete151terminal ranksverified;9testsPASS2.656s/independent3926-row equality
+andderivedarithmeticPASS/1921inputhashesunchanged. AP/newCw/newSKR/AO0;
+no scientific/config changes. Relativeperformanceonly,NUMERICALLY_UNCERTIFIED,
+notcontinuous/globaloptimum or errorbound. PriorP1/P2/catalog/science unchanged.
+Requestedlisting COMPLETE;STOP. NOT_READY/frozenhistoricalhash unchanged.
+
+## Historical: cache-only near-optimal SKR analysis COMPLETE;151 sources unchanged;STOP
+
+2026-10-10 EVID-0172/DEC-0155. near_optimal_skr_analysis/ reads3926 stored
+objectives,151 compatible binary64 pairs/26 distances;73 tables/53444 compatible
+repeated rows agree,1906 protected/input hashes unchanged. Refbest(.165,5.5),
+K.07798099387393764;second(.165,5.496875),K.07798099350667076;
+gap3.6726688357191506e-10,deltaNu0,deltaVA.0031249999999998224.
+Inclusive nearthreshold1e-6/1e-7/1e-8/1e-9/1e-10 counts9/5/2/2/1.
+Two closest share nu.165; near evaluated VA values do not prove a continuous
+plateau. Allrankings NUMERICALLY_UNCERTIFIED,no certifiedtotalKerrorbound.
+Top20/exactneighbors/all20nusamples/missingrequests/bestvssecond26dist saved,
+terminalTop20 printed;4testsPASS2.563s/independentCSV checksPASS. AP/newCw/
+newSKR/AOruns0;source/model/defaults/science unchanged. SavedAOmax26/26 verified,
+not rerun;no newcoordinateclosure/refinement. LowerP1 result/brackets below
+remainvalid. Analysiscomplete,STOP; NOT_READY/frozenhistoricalhash unchanged.
+
+## Historical: ONE lower P1 COMPLETE; catalog151 no SKR gain, bracket25% narrower; STOP
+
+2026-10-10 EVID-0171/DEC-0154. b2_P1_lower_refinement/minimal_run/ succeeds
+ONE(.165,5.496875),C3.209726318326182,w1.0213661080792113e-6,support256/
+provenancePASS,no timeout/retry/otherP1/P2. OriginalsourceAPI2536.594s/internal
+3600unchanged,controller2659.453s<7200,Jobs+controllerCPU2566.703125s excluding
+audit/tests. ActualJobs0active/closed,Sleep restored/no watchdog/ACgap/worker,
+1870 protectedhashes unchanged.3900 oldrows/26 channelidentities unchanged,
+26 newSKR,catalog151,original129starts/283cycles/618coords,max26of26/gains0/
+closures0. RefnewK.07798099350667076 vsinc(.165,5.5),K.07798099387393764 unchanged,
+delta-3.6726688357191506e-10,totalKdiscrimination uncertified. P1[5.496875,5.50625],
+width.009375(25%narrower),maxradius.00625unchanged;newpairedlevels0. NextFIRST
+(.165,5.4984375),SECOND(.165,5.503125),not authorized;P2 remains missing.
+Conditional13balancedlevels/14loopvisits estimate,notguarantee/capchange.
+8prelaunch/67postrun testsPASS;one noautoAP test fixture corrected with historical
+bytes archived. Originalscience/defaults/numericalproducers/rootpreflight/oldreports
+preserved. BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY,not numerical/global certificate.
+Final_cleanup records actual reportingclock;budgetclosed,STOP. NOT_READY unchanged.
+
+## Historical: freshly approved ONE lower P1 running; source/result/cleanup pending
+
+2026-10-10 EVID-0170/DEC-0153. Original source/controller/supervisor reused by
+scientific binding entry forONE(.165,5.496875),minimal_run/. Runtime origin
+09:56:43.362245Z->11:56:43.362245Z/controller20712; source1 starts09:56:49.308926Z,
+outer5394.047s/internal3600 unchanged/reserve1800s.8prelaunch tests/1856 protected
+hashes/AC/Sleep PASS. Actual original C4worker26280 running; sourceCw/26SKR/
+cache-onlyAO/finalactualJobempty/Sleep restoration PENDING. Previous150source/
+P1bracket/incumbent unchanged until valid new evidence. No retry/otherP1/P2,
+dummy/observer/profiler or numerical/default redesign; NOT_READY unchanged.
+
+## Historical: lower P1 preflight COMPLETE; fresh execution confirmation pending; AP NOT_RUN
+
+2026-10-10 EVID-0169/DEC-0152. b2_P1_lower_refinement/ contains scientific
+preflight/reconciliation/live original P1P2/provenance/conditional refinement
+estimate and regression evidence.150 MBsources/3900 savedmetrics/26 ranked
+maxima/129 savedstarts verified; two live cache-only coordinate histories match.
+FIRST(.165,5.496875) confirmed original dependency and absent; SECOND5.503125
+not authorized/P2 missing/0closures. P1[5.49375,5.50625],savedbest(.165,5.5),
+K.07798099387393764 unchanged.65tests PASS22.326s/1856 protectedhashes unchanged;
+AC/Sleep/restorationPASS, no AP worker. AP/newCw/SKR/fullAO0; fresh confirmation
+requested as attachment requires, not received. Previous budget closed; proposed
+120total/90outer/internal60unchanged/30reserve ONE attempt only. No dummy gate,
+observer/profiler infrastructure or science/default/AO/model change. Conditional
+13 balancedlevels/14 loopvisits estimate is not convergence or cap-change authority.
+STOP beforeAP pending confirmation; historicalfreeze/NOT_READY unchanged.
+
+## Historical: ONE upper P1 COMPLETE; catalog150, no SKR gain; STOP
+
+2026-10-10 EVID-0168/DEC-0151. minimal_run/ succeeds ONE(.165,5.50625),
+C3.214470263936996,w1.0319626288646324e-6/provenance256PASS, no timeout/retry/
+otherAP/P2. Original sourceAPI3090.110s (<3600),controller3146.937s (<7200),
+Job+controllerCPU3049.1875s excluding audit/tests. Actual source/postprocess
+Jobs0active/closed/no watcher or ACgap; Sleep restored, no scoped worker.
+1825 protected hashes/3874 oldrows/26 channel identities unchanged;26 newSKR.
+Catalog150, original129starts/283cycles/618coords, selected max26/26, gains0/
+closures0. Refbest(.165,5.5),K.07798099387393764 unchanged; newprobeK
+.07798095622951573. P1[5.49375,5.50625] 1/3 narrower but zero completed paired
+levels; next FIRST(.165,5.496875),SECOND(.165,5.503125), not authorized. P2
+unchanged.10 prelaunch/63 post-run testsPASS; final_cleanup records finalclock.
+BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY; no totalK discrimination/outer/local
+numeric/global certificate. Source/AO/precision/defaults/oldscience unchanged;
+frozen historical discrepancy/NOT_READY lifecycle unchanged. Budget closed;
+STOP, no automatic retry/probe/P2 even with time remaining.
+
+## Historical: approved ONE upper P1 running; result and final cleanup pending
+
+2026-10-10 EVID-0167/DEC-0150. Fresh ONE(.165,5.50625) via unchanged validated
+entry/no dummy gate, minimal_run/ origin08:25:01.613412Z,totaldeadline10:25:01.613412Z.
+10 scoped tests/prelaunch provenance/stableAC/Sleep PASS;1809 protected hashes
+unchanged. Source attempt1 starts08:25:10.905624Z, outer5390.703s/internal3600s
+unchanged, reserve1800s. SourceCw/26-distanceSKR/cache-onlyAO/finalactualJobempty
+and Sleep restoration are PENDING. No retry/additional AP/P2. Old149/refbest/
+P1 bracket unchanged until valid evidence. Original science/defaults/frozen
+historical discrepancy/NOT_READY lifecycle unchanged. STOP after this attempt.
+
+## Historical: redundant dummy gate removed; actual Job cleanup tested; AP NOT_RUN
+
+2026-10-10 EVID-0166/DEC-0149. Upper P1 entry no longer runs a synthetic
+prelaunch tree/PID gate. Actual Job ActiveProcesses=0 is mandatory before close,
+with bounded termination/polling within original wall allowance; failure blocks
+continuation. Original shared AC/Sleep/Job/watchdog/internal60min timeout intact;
+no observer/profiler/scientific/AO redesign.64 scoped tests PASS15.943s, including
+native root-exit/descendant and timeout cleanup, restored Sleep/no watchdog.
+1809 protected inputs unchanged; failed producer/test archived byte-identical,
+other1823 failed-manifest paths unchanged; raw failure stays FAILED.
+AP/newCw/SKR/fullAO0, no active scientific worker; minimal_run/ not created.
+Upper(.165,5.50625) execution path ready conditional on fresh approval and live
+safeguards. No current AP authority. Catalog149/ref(.165,5.5),K.07798099387393764,
+P1[5.49375,5.5125]/lower5.496875 also missing/0closures unchanged. Return to
+Objective B; no unnecessary diagnostics project, AP/P2 or lifecycle promotion.
+Frozen historical discrepancy/NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Historical: upper controller STOPPED at native gate; AP NOT_RUN;no retry
+
+2026-10-10 EVID-0165/DEC-0148. approved_run/final_report status
+STOPPED_PREFLIGHT_FAILURE_NO_AP, origin07:31:20.756551Z, controller16.172s wall/
+6.3125sCPU. Dummydeadline9s/2.578125sCPU/6 processes, but immediate descendant
+handle check asserts Dummy tree escaped. Source never started: AP0/no timeout/
+sourcecache/Cw/SKR/AO/progress. User orders stop on safety failure; no relaunch.
+Native recordedPIDs/scoped workers subsequently absent, all Sleep/watchdogs clean,
+AC/no gaps/deadline receipts valid;1825 protected hashes unchanged/52 moduletests
+PASS9.550s/diffPASS, NOT a nativegatePASS. Teardown race plausible but unproved:
+new check omits prior0.2s delay, supervisor waits root only. Preserve failed
+producer, propose bounded descendant wait/native verification only with further
+direction; no runtime edit/retry/AP/P2/observer. Catalog149/refbest(.165,5.5),
+K.07798099387393764/P1[5.49375,5.5125]/P2 unchanged/0closures. Upper stillneeded
+with lower5.496875; no unknownCw/K interpolation. Old outputs/ObjectiveA/science/
+defaults/frozen historical discrepancy/NOT_READY lifecycle unchanged. STOP.
+
+## Current P1 upper preflight COMPLETE; awaiting ONE fresh compute approval
+
+2026-10-10 EVID-0163/DEC-0146. Output b2_P1_upper_refinement/ under
+results/theta10_D55_objective_B_numerical_skr_optimization/.149 unique identities
+independently reconciled from180 cachefiles,2 identicalMB filecopies counted once,
+29Uniform excluded/0 incompatible counted.147+PREEXISTING(.25,2)+NEW_B2_A(.165,5.49375).
+All3874 metrics/26 channels/actual savedAO maxima26/26 verified, not freshAO.
+Two live cache-only reference calls reproduce histories. P1 stage1 requests
+lower5.496875 thenupper5.50625; upper is genuine proposed dependency, absent
+source/keydbb7a2a7024f84f97c455b0b3b564e9a307f369b362f80e055dfbf1e5d49497f.
+Best(.165,5.5),K.07798099387393764; bracket[5.49375,5.5125],0closures/P2 unchanged.
+No new AP/moments/SKR/channel/fullAO/formula/default change.50tests/diffPASS,
+1809 protected hashes unchanged, native temporarySleep restored/ACsamplesPASS,
+no worker. Actual AP Job readiness must be rechecked AFTER fresh approval.
+120min total/90min outer source/30min reserve is PROPOSAL_ONLY; original internal
+3600s cap remains and cannot be extended by supervisor alone. No timeout override/
+APretry/other source/P2/cap16/observer/old-budget reuse. Frozen discrepancy and
+NOT_READY lifecycle unchanged. STOP and request approval once, not AP execution.
+
+## Current Objective B2 COMPLETE: one exact source; original catalog149 AO; STOP
+
+2026-10-10 EVID-0162/DEC-0145. Output objective_B_numerical_skr_optimization/b2_A/.
+Original(.165,5.49375) AP succeeds C3.2081449662247756,w1.017877140191374e-06,
+one attempt/no timeout/retry/other AP. Job3039.063s wall/2938.09375s CPU.
+Original JSON radius_of_curvature_m=Infinity I/O failure preserved; separate
+postprocess_recovery/ fixes storage only and reuses original evaluator/AO with
+AP forbidden under SAME05:44:15.276385Z->06:59:15.276385Z totalclock.
+Catalog149=147baseline+1preexisting+1new,3874 metrics/26 distances; actual129
+starts/283cycles/618coordinates,26/26 ranked maxima,59/129 individualmatches,
+zero terminal changes/SKR gains/closures. Reference(.165,5.5),K.07798099387393764;
+22km(.165,5.475),K.07661740491526092. P1 lower-neighbor advance/bracket
+[5.49375,5.5125]25% narrower, not a completed paired-refinement level; next
+actual(.165,5.496875) unapproved. P2 unchanged/missing. Recovery ends3310.265s;
+finalverification3762.837s (<4500s), measured jobs/controllersCPU2999.9375s
+(not all tests/toolingCPU).48 tests/diffPASS/1767 protected hashes unchanged.
+No matching worker/lease/watchdog remains; AC/Job receipts PASS. Originalscience/
+precision/quadrature/AO/caps/ObjectiveA/old artifacts unchanged; no new figure for
+unchanged curves. Level1 finite-catalog only; totalK discrimination/continuous/
+global/outer closure unresolved. Frozen historical discrepancy/NOT_READY unchanged.
+STOP; no additional AP authority.
+Final cleanup06:52:19.4821017Z, overall4084.206s (68m04s)<4500s; all protected/
+output/producer hashes rechecked unchanged, no worker. See final_cleanup.json.
+
+## Historical Objective B1 preparation; superseded by completed B2 above
+
+2026-10-10 EVID-0160/DEC-0143:7 focused outputs plus verification/regression JSONs
+in results/theta10_D55_objective_B_numerical_skr_optimization/. Original live P1/P2
+reference reconstruction matches saved147-source histories/brackets, four midpoints
+missing and0closures.179 payloads globally scanned/148 positive compatible sources;
+extra PREEXISTING(.25,2) gets one fresh reference SKR check using existing Cw,
+K.06321019816401585<incumbent. Reference remains(.165,5.5),K.07798099387393764;
+other25 distances explicitly preserve147-source baseline. No AP/new Cw/AO sweep/
+physics/defaults/precision/profiling/observer change. Strongest Level1 finite-catalog
+claim; gap discrimination/wholeK/continuous/global unresolved.44 tests/diffPASS/
+1757 protected hashes+2 receipts unchanged; ObjectiveA retained. Proposal only:
+one P1(.165,5.49375),75min total/60min source/15min reserve and minimal original
+AC/Sleep/Job preflight; no AP-ready/current stable-AC claim, no later probes/retry.
+Frozen historical discrepancy and lifecycle NOT_READY unchanged. STOP before B2.
+
+## Current Objective A manuscript package COMPLETE; compile/full-paper unverified
+
+2026-10-10 EVID-0159/DEC-0142: all8 requested files plus19-file Overleaf ZIP saved
+results/theta10_D55_ao_manuscript_finalization/. New jointsection/Algorithm1/
+stopping sensitivity/compacttable/article master/two appendices integrate existing
+147-source results and verified16-setting evidence. Raw-nu convention, indexing,
+defaults, persistent unresolved search statuses, Uniform endpoint coverage and
+finite-catalog-only claims explicit. Prior .tex/data/science untouched; no AP/
+channel/MI/Holevo/SKR/AO/observer execution.35 tests/diffPASS/1733 hashes unchanged.
+Five PDFs and two CSVs copied byte-identically; standalone ZIP graph validated
+after extraction. No full original paper master found; standalone offset previews
+equations5/6/7 only. No LaTeX engine on PATH, local/remote compileNOT_VERIFIED and
+no compiled manuscript PDF. External instructions provided. No publication-scale/
+security/numerical/global promotion; frozen historical discrepancy unchanged.
+Objective B NOT_RUN, STOP scope enforced.
+
+## Current AO stopping sensitivity COMPLETE; baseline defaults unchanged
+
+2026-10-10 EVID-0158/DEC-0141: all14 requested outputs plus genuine per-setting
+records saved results/theta10_D55_ao_stopping_parameter_sensitivity/. Original
+AO baseline exactly reproduced129 starts/283 iterations/26 maxima before16
+temporary Rmax/epsilon settings.147 sources/3822 stored metrics unchanged.
+All settings preserve selected and individual terminal pairs/K; maximum26/26,
+0/9856 coordinate completions. Eps1e-6 uses279 cycles vs283 for1e-7/8/9;
+all caps stop by4, zero cap terminations;129 missing-blocked starts/configuration,
+same55 distinct missing sources.20 stagnation/109 unresolved states per setting.
+Conclusion BASELINE_PARAMETERS_ONLY_COMPUTATIONAL_SAFEGUARDS. No AP/channel/
+security rerun/fresh objective evaluation; original science/AO source/defaults
+untouched, inner cap4/parameter1e-6 fixed.30 tests/diffPASS/1591 hashes unchanged;
+PNG400dpi/vector PDFs/log10epsilon checked; LaTeX141/296 words/staticPASS,
+compile no engine. AO322.892s wall/308.156s CPU excluding unrecorded setup;
+report-only reader repair/finalization11.834s, no AO retry. Frozen discrepancy,
+continuous/wholeK/global/lifecycle gates unchanged; no new AP authority.
+
+## Current focused AO scientific results COMPLETE; no new AP or engineering
+
+2026-10-10 EVID-0157/DEC-0140: all13mainresults plusOverleafentry/localcoordinate
+plots saved results/theta10_D55_ao_final_scientific_results/. Verified147MB/
+3822metrics/129genuinestarts/283outerupdates/618searchcalls;selectedmaximum26/26,
+59/129individualmatches/0unanimousdistances/0closures. Ref(.165,5.5)
+K.07798099387393764;22km(.165,5.475)K.07661740491526092. Alltablemetrics/
+candidatekeys/channelidentities/currentcodeprovenance independently checked.
+Algorithm1/Englishsection accuratelydescribecaps/domain/stopping/latch and
+finitecatalogclaims;actualtrajectory figures+positive-onlylog10distancecurve
+vectorPDF/400dpiPNG,Uniformends25/bothMB40.27tests/diffPASS/1561hashesunchanged;
+LaTeXstaticchecksPASS,compileblocked(noengine);Overleafmainprovided. No newAP/
+source/channel/security/objective/AO orobserverinvocation/modification. Proposed
+minimalP1/P2 requestsconditional/no executionauthority. Scientific/frozen/
+wholeKerror/numericalconvergence/global/lifecycle gatesunchanged.
+
+## Current path-fixed A STOPPED on heartbeat loss; no worker or retry
+
+2026-10-10 EVID-0156/DEC-0139 supersede active snapshot below. Longpathfix/
+134actualpath tests/max247chars/8nativev2cases PASS;53finalregressions/diffPASS,
+1561hashes unchanged. ActualA ran339.265s/JobCPU329.828125s then watchdog
+detected staleobserver>30s and killedwhole5processJob. AC1/no schedulergap/
+no deadlineexceeded.31publishedsnapshots/1050digits/305.375wall,297.203125CPU;
+uncommitted32temp saved, no1250/1450/fullprofile/Cw. Reader-held dummyrepro
+atomicreplace PermissionError; exact productionexception/holder notrecorded.
+Not end-to-end instrumentationREADY; no AP retry/newsource allowed under
+remainingbudget. Controllerfinish705.179007s/finalaudit995.36s from persistent
+01:14:24.465780Z, within9000s. All29stagefiles archivedhashverified then
+per-filetemporarycopiesremoved; Sleep restored/watchdoggone/no worker.
+All15outputs+final_answers.md/final_saved_verification.json saved in
+observer_v2_recovery/path_fixed_probe_A/. Catalog147/3822/no gains/0newsteps/
+closures; freshAO NOT_RUN,26savedmatches baseline only. P1/P2/error/boundary/
+stopping gaps unchanged; no numerical/global/lifecycle/scientific promotion.
+
+## Current path-fixed single-A pilot RUNNING under fresh150min budget
+
+2026-10-10 EVID-0155/DEC-0138 supersede stopped/no-new-authority snapshot below
+for exactly the new user-authorized path repair/oneA scope. Generated production
+paths actual atomic/file/hash/transfer operations PASS,53 regressions/diffPASS,
+8 mapped-v2 native dummy cases PASS,147 source provenance intact/candidateA absent.
+Staging C:/aoobs/p3c613a8ebe/obs/a writes first real APsnapshot; original scientific
+cache remains repository/fullkey. Originalv2/source/science/precision/quadrature/
+AO unchanged, no registry/permanentpower change. Output observer_v2_recovery/
+path_fixed_probe_A/. Persistent origin01:14:24.465780Z, totaldeadline03:44:24.465780Z;
+sourceA deadline02:35:27.896676Z,4500s ceiling,>=1800s reserve. One attempt active,
+no retry/B/P2; on unsafe monitoring/AC/deadline stop wholeJob. Live budget/auth/
+executionstatus/snapshots authoritative. No newCw/K/AO/closure/profile validity
+yet; no numerical/global/lifecycle promotion. Frozen historicalhash discrepancy
+PREEXISTING_UNCHANGED; NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Current controlled observer-v2 A pilot STOPPED; no retry authorized
+
+2026-10-10 EVID-0154/DEC-0137 supersede pending readiness/approval below.
+Fresh90min/A75min/reserve15min pilot consumed one A(.165,5.49375) attempt.
+Guarded v2 only, original scientific/AP/AO methods unchanged. Native AC/Sleep/
+Job preflight PASS, but actual production snapshot/result path265/264chars
+fails with Windows LongPathsEnabled0. Confirmed persistence-only dummy controls;
+no original AP main/stage observations/C,w/new SKR/newAO. SourceJob4.234s,
+controller19.687s; recorded controller+sourceJobCPU8.375s is scoped, not total
+test/audit CPU.49 final regressions/diffPASS/1523hashes unchanged; saved audit
+179.285406s since origin, inside original90min deadline. Worker/watchdog gone,
+Sleep restored, no retry/B/P2. Catalog147/3822 and saved26/26 unchanged;
+P1 bracket/missing pair/P2/0closures/error/boundary gaps unchanged. Current
+production persistence readiness is FAILED for this path, not AP-ready evidence.
+Results observer_v2_recovery/controlled_probe_A_20261010/final_conclusions.md
+and final_validation.json. Further AP requires new explicit scope and path-safe
+validation; no scientific/frozen/training/test/baseline/threshold/lifecycle change.
+
+## Current observer v2 recovery READY for separately approved controlled pilot
+
+2026-10-10 EVID-0153/DEC-0136: all12observer_v2_recovery artifacts complete.
+Active metadata/workerJSON/dummy integration/context/repeatedprofiling/typedstatus/
+nativeJob/deadline/AC+gapinjection/Sleepcleanup PASS;46 regressions/diffPASS,
+1442 protected hashes unchanged,147 source provenance/3822savedobjective rows
+independently verified. Dummy overheadwall2.545%,realAP overhead/coverage NOT_RUN.
+No AP/source/SKR/newAO invocation; oldovernight budget NOTreused. Readiness
+only new preparedentry, oldv1producer/redirect remain forensic/NOTFORREUSE.
+Proposed fresh90min total/A<=75min/15minreserve/1attempt requires explicitapproval.
+Baseline147/3822/26catalogmatches/P1P2incomplete/55missing/0closures unchanged.
+Scientific/precision/quadrature/AO settings/wholeKerror/frozenhistoricalhash/
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged. No worker or Sleeplease remains.
+
+## Current overnight stopped: instrumentation failed; cache-only handoff complete
+
+2026-10-09 EVID-0152/DEC-0135 supersede preflight/running snapshot below.
+Observerv1 module.dps getter AttributeError before original AP Gram; A3.438s/
+JobCPU3.234375s,1 instrumentation failure,0 success/timeout/ACabort,3 NOT_RUN.
+No retry or subsequentAP; allworkers/Sleep gone. Versionedv2 module.mp.dps
+fix verified on dummy operations at original3 precisions, realAP NOT_RUN.
+41 final tests/diffPASS/1361 protected hashes unchanged. Actual original AO
+129starts/283iterations/catalog147/3822 match26/26;0 newmoments/metrics/gains/
+closures,55 missingpairs. P1/P2 unchanged, no convergence/error bound/global
+certificate. All17overnight artifacts/four baseline genuine plot pairs saved.
+Originaldeadline23:44:48.165007Z retained; finalaudit1041.657s inside28800.
+No new production authority in failedobserver batch. Model/settings and frozen
+historical-hash/NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Current overnight batch approved/preflight PASS (2026-10-09)
+
+EVID-0151/DEC-0134 supersede pending diagnostic gate for exactly overnight scope.
+Origin15:44:48.165007Z/deadline23:44:48.165007Z,28800s including repair,
+900s reserve. A75min/Bconditional60/C120/Dconditional120, once each, max4;
+no extraAP/automaticretry/resume after safetyabort. Native39tests/Jobwall/tree/
+simulatedAC-loss/Sleep cleanup/provenance PASS,AC1/battery96/no worker.
+Instrumentation isolated/new stage timing; frozen math/precision/quadrature/AO
+unchanged. Baseline147/3822/ref/22km verified,0newC,w/K yet. Liveovernight
+ledger/probe/stage snapshot governs next execution; no convergence assumed.
+WholeK error/unbounded/nuzero/frozen historicalhash and publication gates unchanged.
+
+## Current exact-source diagnostic complete; no AP authorized (2026-10-09)
+
+EVID-0150/DEC-0133: all13 requested source_bottleneck_diagnostic artifacts
+produced,36 current tests/diffPASS,1340 scientific/prior artifact hashes intact.
+0 AP/source/SKR/channel/AO executions and0 operational/scientific fixes.
+Verified collector dump_stats disables profiling at first~10s, reproduced on
+dummy work; full computation BOTTLENECK_NOT_LOCALIZED. P2 JobCPU ratios high
+but later precision/resource progress unknown; A remains safety-abort/ACgap.
+P1/P2 unchanged-best halving counts14/12 versus4-stage cap, no closure implied.
+Existing partial AP numerical resume unsupported. Plan A lowerVA5.49375 then
+conditional5.50625 (60min ceilings), Plan B dedicated upper/lowernu larger
+budget conditional; both require separate explicit scope/budget/observer approval.
+Baseline147/3822/26 finite maxima unchanged; all previous Phase1/2A files kept.
+No currently active worker. Ordering error-unbounded/nu0 domain boundary/global
+and frozen historical-hash blockers, NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Current Phase2A finished; authority exhausted (2026-10-09)
+
+EVID-0149/DEC-0132 supersede the running/stopped/preparation snapshots below.
+1 success(.165,5.5125),1 timeout(.16531250000000003,5.5),1 safety-abort
+(.165,5.49375); no retries/Phase2B.147 exact MB sources/3822 saved objectives,
+26 new rows; maxima unchanged26/26 and original AO independently matches26/26.
+Reference(.165,5.5),K=.07798099387393764;22km(.165,5.475),K=.07661740491526092.
+P1 bracket narrows[5.4875,5.525]->[5.4875,5.5125], one-sided coverage only;
+P2 unchanged. Zero new closed directions/paired stages,55 missing pairs.
+ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED; no continuous/global optimum.
+Authoritative phase_2A/objective_checkpoint.json and phase_2A_final_conclusions.md,
+execution_ledger.csv, completion_read_only_verification.json. Preparation CSV and
+earlier stop audit are historical, not current outcomes. No workers remain;
+controller22548/session90612 exited0, Sleep state restored. Production/32 tests/
+cleanup finished before original14:46:13.577171Z deadline:10090.781s wall,
+recorded Job+controllerCPU8088.203125s;1243 protected hashes unchanged.
+Later handoff documentation/read-only checks after expiry, no fresh science.
+No additional AP authorized; Phase2B/retries require explicit fresh authority.
+Scientific/settings/frozen-spec blocker and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Historical Phase2A execution snapshots (superseded by EVID-0149)
+
+## Current Phase2A resuming unattempted probes after AC restoration (2026-10-09)
+
+EVID-0148/DEC-0131: usercontinue/liveAC1/pin96,no workers, oldcontrollerdead.
+12:42:48Z7405.391s originalremainingbudget; origin/deadline unchanged14:46:13Z.
+Onlyprobe2(.165,5.5125) then3(.16531250000000003,5.5), no abortedprobe1retry.
+Newcontinuationhelper delegates unchangedmath/Job/Sleep/AO, freshnative safety
+preflight;480s reserve. Archive stopfiles/receiptprovenance first.0newCw/K yet;
+146catalog and finite/errorunbounded classification until actualnewvalidation.
+No extraAP/Phase2B/newbudget/settings/lifecycle change. Frozen-spec blocker remains.
+Nowcontroller22548/session90612/probe2(.165,5.5125) started12:46:11Z,3600s
+limit; nativeJob/Sleep/ACpreflightPASS/leaseactive.0newC,w/objectives yet.
+Currentstopped audit/report are archived/historical; liveledger/probe2 governs.
+
+## Current Phase2A safely stopped; AC disconnected (2026-10-09)
+
+EVID-0147/DEC-0130: onlyprobe1(.165,5.49375) attempted; sourceJob125 at
+1799.031s/1733.859375sCPU on15.578s pollgap andlastAC0. ActualSleep versus
+scheduler delay uncertain; safetyabort NOTtimeout/numericalfailure.0success/
+0timeout/1safetyabort/2notrun. NoC,w/newSKR/AO/reffinement; catalog146 unchanged.
+Controller6380/session54545 exited1, allworkersgone, finalSleep state restored.
+Audit12:27:13Z currentAC0/pin100,8339.938s originalbudgetleft. Origin11:46:13Z/
+deadline14:46:13.577171Z unchanged, notpaused/reset. Executionwall2266.781s,
+measuredJob/controllerCPU1741.8125s (scopeexcluded audit/test/setupCPU).
+Output phase_2A/phase_2A_report andsafety_stop_audit containactual9answers/raw
+receipt snapshots.32 currenttests/diffPASS,1202 protectedhashes unchanged.
+Stop onbattery; stableAC/freshnativepreflight before onlyunattemptedprobes2/3
+within originaldeadline. No automaticretryprobe1/extraAP/Phase2B/budgetreset.
+Storedreference(.165,5.5),K=.07798099387393764 and22km(.165,5.475),
+K=.07661740491526092 remainfinitebaseline only. Model/evaluator/settings and
+frozen-spec discrepancy/NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Current explicitly approved Phase2A running (2026-10-09)
+
+EVID-0146/DEC-0129 supersede pending-budget gate. New10800s total/3600s probe/
+max3 serial/480s reserve approved for(.165,5.49375),(.165,5.5125),
+(.16531250000000003,5.5). Origin11:46:13.577171Z, absolute14:46:13.577171Z
+deadline, setup/preflight/verification/cleanup included; no resets. AC1/pin100/
+no source worker currentlychecked. New run_theta10_D55_ao_phase2a wrapper reuses
+originalAP/Job/Sleep/evaluator/AO and old146 checkpoint. Current liveledger/
+probe JSON authoritative; preparation snapshots/old results protected. No new
+C,w/SKR/convergence yet. No autoretry/Phase2B/extraAP, unchanged math/settings/
+frozen-spec blocker/NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+Controller6380/session54545; probe1AP24332 started11:53:58Z,3600s limit.
+NativeJob/Sleep/AC preflightPASS, no newsource/objective yet. Do not launch
+duplicate or modify executed producer51c0ee8b...; live probe/ledger authoritative.
+
+## Current Phase2A prepared; fresh execution authorization pending (2026-10-09)
+
+EVID-0145/DEC-0128: attachment explicitly separates Stage1 from fresh AP approval.
+Stage1 complete:146 sources/3796 saved objectives/26 maxima verified,178 compatible
+cachefiles scanned, exactly3 missing original dependency keys prepared:
+(.165,5.49375),(.165,5.5125),(.16531250000000003,5.5). Hard(.16375,5.5)
+excluded Phase2B. Output ao_numerical_optimum_validation/phase_2A/ all14 paths;
+no newC,w/K/AO, pending/baseline fields explicitly labeled. AC1/pin99 before/
+after; native Sleep/Job wall/livechild cleanup/exception tests PASS/restored,
+0worker.31 currenttests/diffPASS,1173 protected hashes unchanged. Proposed
+10800s total/3600s source/max3 serial with480s processing reserve awaiting explicit
+user approval; older Batch3 expired, no automatic retry/Phase2B. Recheck/reacquire
+safety gates before any authorized AP. Original physics/evaluator/precision/
+quadrature/AO unchanged; finite-catalog-only/wholeK error-unbounded classification,
+frozen-spec discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Current Phase1 AO numerical-optimum audit complete (2026-10-09)
+
+EVID-0144/DEC-0127: saved146 sources/3796 objectives/maxima26/26 verified;
+129 starts/283 real iterations/618 search indexing/event alignments PASS.
+0 monotonicity violations under existing tolerance,0 closed final directions,
+55 missing pairs. Reference/22km4/5 starts agree; nu0=.8 lower(.4,3.0).
+Reference best(.165,5.5),K=.07798099387393764;22km(.165,5.475),
+K=.07661740491526092, finite-catalog ONLY. Both primary coordinates missing
+midpoints; secondary nu slice singleton/open. Strictnu>0 implementation does
+not cover mathematicalnu=0 target. No continuous/global/wholeK error certificate.
+Output theta10_D55_ao_numerical_optimum_validation/:12 requested artifacts,
+8 PNG/PDF pairs, full history/diagnostics/source priorities/Algorithm1/26table.
+38 scoped tests/diff PASS,1126 protected hashes unchanged; no AP/channel/objective/
+optimizer rerun, no Python worker. TeX compilation NOT_RUN. Ponytail reused
+existing provenance/cache/renderer helpers without changing scientific code.
+STOP before Phase2; no new budget request or reuse of expired Batch3 authority.
+Further targeted evidence needs separate explicit scope/budget/safety gates.
+Frozen-spec discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## Current completed Batch3:146 MB sources, maxima unchanged (2026-10-09)
+
+EVID-0143/DEC-0126:1 source success(.165,5.4875),C3.204982206511816,
+w1.0109632916527298e-6,wall2177.703s/CPU2117.703125s. Source1 AC-aborted
+not retried; source3 not run because remaining time inside480s reserve;0timeouts.
+145->146,26 new objectives,3796 verified rows. All26 maxima unchanged;22km
+(.165,5.475),K=.07661740491526092; reference(.165,5.5),K=.07798099387393764.
+New runner-up gaps1.733217454003011e-7/7.834476867252249e-8 respectively.
+Original129-start/283-iteration AO matches expanded maximum26/26.618 calls
+remain312 boundary/306 bracket-missing,55 missing pairs,0 closed directions.
+Nu atVA5.475 still singleton; no continuous/global certificate. Six new-source
+metric repeats bit-exact, ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED; no error bound.
+Output targeted_expansion/batch_3/ all13 requested paths and independent audit.
+36 tests/diff PASS;929 protected hashes unchanged;0 workers, Sleep restored.
+Controller/independent numeric checks completed10:49:22Z/10:51:15Z within original
+10:56:11Z deadline. Final narrative handoff afterdeadline disclosed. Controller
+authorization elapsed10391.192873s including idle/stop, measuredCPU4149.515625s
+(scope exclusions inreport), resume2267.656s. No budget reset/extraAP authorized.
+All scientific/precision/quadrature/AO unchanged; frozen-spec/publication gates
+persist. Older running statements below historical; session50362 exited0.
+
+## Current Batch3 resume running, original deadline retained (2026-10-09)
+
+EVID-0142/DEC-0125:AC restored1,charging. Usercontinue resumes only unattempted
+2/3; source1 powerabort never retried. Controller26208/session50362, probe2
+(.165,5.4875) AP23844 started10:11:40Z, limit2190.664953s. Originaldeadline
+10:56:11Z unchanged,480s final AO/cleanup reserve; source3 conditional on time.
+No new C,w/source completion/SKR/AO result yet; baseline145 unchanged.
+Native unchanged supervisor wall/idle-descendant cleanup/Sleep/AC tests PASS;
+earlier two-busy dummy hit JobCPU guard, failed resume preserved. Scientific/
+precision/quadrature/provenance/AO unchanged. Live source_generation_ledger.json
+and probe_results/e0b4f67a...json authoritative for current execution; root
+run_report.json's stopped checkpoint is historical until final rewrite.
+Frozen-spec discrepancy/NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain unchanged.
+
+## Current approved Batch3 halted on AC loss (2026-10-09)
+
+EVID-0141/DEC-0124 supersede earlier pending-approval states. New10800s/3600s/
+max3 serial approval received; only probe1(.165,5.4625) attempted. Source Job
+aborted1952.719s/CPU1926.453125s onAC0,returncode125, not timeout or numerical
+failure.0 success/0 timeout/1 powerabort; no C,w, no newSKR/fullAO. Catalog145
+and old22km best(.165,5.475),K=.07661740491526092 remain unchanged.
+Controller16568/session17086 exited1; no Python worker. Original Sleep state
+restored and885 protected hashes unchanged. Native Job/Sleep preflight PASS;
+early no-AP preflight failures archived, original session deadline retained.
+Active-stop wall2162.932809s, measured current-controller/JobCPU1937.28125s
+(earlier failed-preflight JobCPU not fully captured). Absolute origin07:56:11Z,
+deadline10:56:11Z; no pause/reset. Audit09:59:11Z:AC0,battery48,3419.817s left.
+Output targeted_expansion/batch_3/safety_stop_audit.md/json and raw execution
+ledger/report preserve evidence. Probe2/3 NOT_RUN; original 'continue' cannot
+bypass AC requirement. Reconnect stable AC before further AP; never restart
+old main/automatically repeat aborted source. Preserve deadline/attempts in any
+explicit continuation; expired budget requires fresh approval. No scientific,
+precision/quadrature/MI/Holevo/AO/lifecycle changes; frozen-spec blocker persists.
+
+## Current Batch3 execution selection ready; approval pending (2026-10-09)
+
+EVID-0140/DEC-0123: current execution attachment requires separate fresh
+runtime approval. Stage1 complete; all3 missing original points retained:
+(.165,5.4625),(.165,5.4875),(.16531250000000003,5.5). No nu midpoint generated
+atVA5.475 singleton slice; original lowerouter.0825 missing, opposite.33
+unchecked. Third follows otherwise branch, not aVA5.475 closure claim.
+145 compatible sources/3770 objectives and stored AO26/26 currently verified.
+Output targeted_expansion/batch_3/batch_3_final_selected_probes.csv and pending
+run_report.md/json.0 AP/newC,w/newSKR/full AO.876 protected hashes unchanged;
+33 current scoped tests/diff PASS. AC/Sleep lease transient preflight PASS and
+released; recheck/reacquire/native Job deadline cleanup preflight before AP.
+No worker. Fresh proposed10800s/3600s/max3 sequential requires explicit user
+confirmation; old budgets not reused. Earlier no-budget-request instructions
+apply to completed cache-only task, not this new attachment's approval stage.
+Science/model/settings/lifecycle unchanged; frozen-spec discrepancy persists.
+
+## Current cache-only Batch3 preparation complete (2026-10-09)
+
+EVID-0139/DEC-0122:145 compatible MB pairs,3770 objectives independently
+verified; stored original AO maximum matches26/26.24 unchanged GH8/direct-Z
+reevaluations reproduce metrics bit-exactly; no missing K needed and no AP.
+Accuracy ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED: no total objective bound.
+22km sampled VA maximum(.165,5.475),K=.07661740491526092, neighbors5.45/5.5;
+reference best remains5.5. Original channel replay/ordering confirms the
+distance-dependent distinction. AtVA5.475 onlynu=.165 exists; not bracketed.
+All54 missing pairs verified/ranked from618 existing calls. Proposed NOT_RUN
+Batch3: (.165,5.4625),(.165,5.4875),(.16531250000000003,5.5), original binary64
+midpoints. Alternative20/23/24 coverage assessed; known timeouts deferred.
+Output targeted_expansion/batch_3_preparation/ includes10 requested artifacts,
+full matrix/provenance/repeats/local logs/final verifier.856 protected hashes,
+35 scoped tests and diff PASS; no worker. Stop: current task forbids new AP.
+No continuous convergence/global optimum/physical significance claim. Science,
+precision/quadrature/ALT_OPT settings and145 sources unchanged. Frozen-spec
+discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain unchanged.
+
+## Current completed batch2:145 MB exact candidates (2026-10-09)
+
+EVID-0138/DEC-0121:3/3 successful sources,0 timeout,142->145 exact MB pairs;
+78 new original-evaluator objectives atall26 distances. Only22km max changes
+(.165,5.45)->(.165,5.475),K=.07661740491526092,delta2.626161285101958e-07
+vs142. Other25 maxima unchanged;20km new runner-up(.15,6.25). Tiny numeric gain
+not certified meaningful without total objective error bound.
+Original129-start cache-only AO matches145-catalog max26/26, but618 calls
+remain unresolved:312 open-boundary/306 bracket-source-missing,54 distinct
+missing pairs,4 selected stagnated/22 unresolved. No new full coordinate
+closure, numerical convergence or global optimality.
+Output targeted_expansion/batch_2/run_report.md has moments/runtime and full
+historical136/previous142/current comparison tables, with exact CSVs/histories.
+Wall6935.906s/10800s, measured Job+controller CPU6744.1875s; all probes<3600s.
+Verified AC/sleep prevention, original state restored,0 worker/controller.
+796 protected hashes unchanged;32 tests and diff PASS. Earlier artifacts and
+preparation snapshots intact. Science/source formulas/precision/quadrature/MI/
+Holevo/ALT_OPT/provenance unchanged; no interpolation. Completed3-point approval
+does not authorize extra AP from unused time. Future targeted coverage requires
+new explicit scope/runtime approval; no promised gain/closure. Frozen-spec
+discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged. Older running
+statements below are historical; session37875/controller12356 exited0.
+
+## Current approved batch2 execution (2026-10-09)
+
+EVID-0137/DEC-0120: user approves fresh10800s/3600s/max3 sequential batch2,
+timeout continuation and post-success reassessment, no automatic retry.
+Controller12356, session37875, started05:06:20Z. Probe1(.165,5.475) AP20204
+running. active_power_preflight.json confirms AC1/pin100/lease active. Output
+targeted_expansion/batch_2/, preparation files preserved in preparation_snapshot/.
+Baseline142 sources/current22km reference.07661714229913241; only new successful
+objectives evaluated atall26, then original129-start cache-only AO. Original
+methods/settings/provenance/precision/physics frozen. No new source completion,
+improvement or convergence inferred yet. Keep360s final AO/cleanup reserve.
+Old pending-budget statements below are historical/superseded for this batch.
+Checkpoint1: valid C=3.1986564642787387,w=9.973886145561931e-07;
+wall2159.172s/CPU2101.03125s; MB143/all26 new objectives.22km new finite
+max(.165,5.475),K=.07661740491526092,delta2.626161285101958e-07 vs142,
+other25 unchanged. Numeric ordering only, error bound absent. Remaining
+midpoints reassessed/retained using measured neighbors. Probe2 started05:42:49Z,
+AP18092; probe1 tree gone. Final AO pending; no convergence claim.
+Frozen-spec discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+Checkpoint2: valid source(.165,5.425000000000001),C=3.1733504920888835,
+w=9.46327534412786e-07,wall2444.406s/CPU2368.921875s. MB144/52 new
+objectives; no additional maximum change. Source3(.15,6.25) retained after
+measured reassessment, started06:24:16Z/AP8420; earlier trees gone. Final AO
+pending. No timeouts so far; no numeric/global convergence claim.
+
+## Current batch2 preparation; fresh compute approval pending (2026-10-09)
+
+EVID-0136/DEC-0119: verified142 compatible MB pairs and3692 saved objectives
+without scientific rerun. Current22km reference.07661714229913241. All52 actual
+missing pairs inspected; provisional probes(.165,5.475),(.165,5.425000000000001),
+(.15,6.25). Second is actual original midpoint1ULP above proposed5.425; cache
+keys/ensembles checked. Priorities2/3 adapt to measured results if later approved.
+No AP/new moments/new SKR/AO started. Output targeted_expansion/batch_2/ holds
+selected identities, exact neighbor gaps, baseline snapshots and pending report.
+780 protected hashes unchanged;30 scoped tests/diff PASS. AC1/pin100 and temporary
+sleep request verified/released in short preflight; recheck/reacquire before AP.
+Attachment's proposed fresh3h total/60min per source/max3 batch requires explicit
+confirmation; old unused time not carried over. No running worker. Frozen-spec
+discrepancy/publication restrictions unchanged. Previous completed142 batch below
+remains numerical baseline; its618 unresolved searches were NOT rerun here.
+
+## Current completed sleep-safe three-point campaign (2026-10-09)
+
+EVID-0135/DEC-0118:3/3 valid exact source probes,0 timeout, MB139->142.
+78 new original-evaluator objectives atall26distances. Only22km finite max
+changes to(nu,VA)=(.165,5.45),K=.07661714229913241,delta2.8628002113340045e-07;
+other25 unchanged. Original129-start cache-only AO matches142-catalog max26/26.
+Not converged:618 coordinate calls unresolved (310 open boundary/308 missing
+source),52 distinct missing pairs; selected4 stagnated/22 unresolved. Zero new
+fully closed searches or continuous/global optimum claims.
+
+Output: results/theta10_D55_mb_exact_targeted_expansion/resumed_sleep_safe_run/.
+run_report.md contains verified C,w/runtime and full26distance parameter/SKR
+tables; CSVs and full histories preserved. Wall7732.75s/10800s; measured Job+
+controller CPU7515.03125s; all probes<3600s. AC/sleep prevention verified through
+run, original request restored,0 workers.725 protected hashes,30 scoped tests
+and diff check PASS. Original scientific files/model/precision/quadrature/MI/
+Holevo/AO unchanged. Prior artifacts intact, preflight snapshots retained.
+Total objective error bound absent: small22km gain is finite numeric ordering
+only. Completed authorization covers exactly3 specified points; no automatic
+extra AP under unused budget. Frozen-spec discrepancy and publication lifecycle
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS persist. Older running states below are
+historical; no controller is currently active.
+
+## Current authorized three-probe sleep-safe execution (2026-10-09)
+
+EVID-0134/DEC-0117: fresh explicit approval all3 ordered probes,10800s total,
+3600s each, serial, automatic continuation even after timeout, no retries.
+Controller2080 started2026-10-09T02:16:30Z; probe1 running in unified session39160.
+Live active_power_preflight.json verifies AC1,battery100, sleep lease active.
+Output: targeted_expansion/resumed_sleep_safe_run/. Preflight files preserved
+in preflight_snapshot/, prior failed run untouched. All science unchanged.
+Reserve360s for final26distance cache-only original AO/cleanup; third probe
+may receive a shorter deadline. Check live source_generation_ledger.json,
+probe_results/, and final run_report.json. No new C,w/SKR/convergence yet.
+Checkpoint: probe1 valid C=3.211307653120286,w=1.0282071401398513e-06;
+wall3203.765s/CPU3093.28125s, all26 exact objectives saved, MB140 and all
+catalog maxima unchanged. Probe2(.165,5.45) started03:10:38Z; only its worker
+tree remains. Final cache-only AO still pending; no convergence established.
+Checkpoint2: probe2 valid C=3.186004082405213,w=9.712251500409402e-07;
+wall2199.937s/CPU2143.671875s. MB141,52 new objective rows.22km catalog
+max(.165,5.45),K=.07661714229913241,delta2.8628002113340045e-07;
+other25 maxima unchanged. Total objective error bound not established; no
+meaningful/global gain claim. Probe3(.165,5.525) started03:47:59Z; only its
+tree active (AP17496). Final cache-only AO pending. No source timeout yet.
+Original4+24 scoped tests pass independently at start. Frozen-spec discrepancy
+and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain. Older awaiting-approval/stop
+conditions below are historical and superseded for this new campaign only.
+
+## Current sleep-safe preflight ready (2026-10-09)
+
+EVID-0133/DEC-0116: AC connected, battery100%; transient automatic-sleep request
+verified and restored during short native tests. Busy worker/descendant deadlines
+and cleanup pass; simulated AC-loss termination125 passes. Four operational
+tests plus24 provenance/stopping regressions and git diff --check pass. 709
+protected hashes unchanged. New helper adds only power/sleep supervision around
+the existing Job supervisor; no scientific calculation/settings changed.
+
+resumed_sleep_safe_run/ has requested preflight/report/current-catalog and
+NOT_RUN result paths. MB139 unchanged, three missing pairs preserved. No AP,
+new SKR or AO started. NEW3h total/60min probe budget proposed but requires
+explicit confirmation; old failed authorization not reused. Request currently
+released; recheck AC/reacquire before actual computation. No permanent power
+change. Manual shutdown/sleep/critical-power cannot be prevented by this API;
+actual overruns remain FAILED. Frozen-spec/lifecycle gates remain unchanged.
+
+## Current probe1 outcome and wall-budget failure (2026-10-09)
+
+EVID-0132/DEC-0115: first pair(.16562500000000002,5.5) TIMEOUT; no C,w/source
+completed, MB count139 unchanged. No SKR26distance/AO revalidation or probe2/3.
+No Python worker remains. Raw probe/session wall30405.938/30410.828s exceeded
+approved3600/10800s; wall compliance FAILED despite Job CPU1771.3125s.
+Windows events confirm battery sleep22:52:50 Oct08 and wake06:47:41 Oct09
+(Bangkok). Supervisor killed the Job after resume, not at the real deadline.
+Do not label awake self-check/regression PASS as real-time-budget PASS.
+
+Raw results and separate deadline_compliance_audit.json/probe_1_outcome.md
+under targeted_expansion/probe_1_authorized_3h/ preserve actual timings.
+694 protected hashes/executed producer preserved;24 scoped tests and diff
+check pass, distinct from FAILED wall compliance. Original scientific/source/
+precision/quadrature/AO/frozen files untouched. Stop; no further AP under the
+exhausted wall session. Any new attempt needs fresh runtime approval and agreed
+stable-power/no-suspend conditions. No power settings changed. Frozen-spec
+discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS persist.
+
+## Current authorized probe1 (2026-10-08)
+
+EVID-0131/DEC-0114: user newly authorizes10800s total/3600s per source probe.
+Probe1(.16562500000000002,5.5) running under original worker/Job supervisor;
+started2026-10-08T15:20:54Z, controller17208. Separate execution output at
+results/theta10_D55_mb_exact_targeted_expansion/probe_1_authorized_3h/.
+No completion/source/SKR/convergence is established yet; inspect live ledger.
+Original plan/cache/results preserved. Only probe1 is scheduled, then result
+report/user review before probe2. Timeout does not authorize automatic retry
+or another probe. Runtime/precision/quadrature/formulas/AO/lifecycle unchanged;
+supervisor self-check passes. Frozen-spec discrepancy remains open.
+
+## Current targeted MB expansion plan (2026-10-08)
+
+EVID-0130/DEC-0113: STAGE_1 plan prepared and verified; current139 positive-nu
+MB pairs unchanged. Pilot candidates: (.16562500000000002,5.5), (.165,5.45),
+(.165,5.525), derived from original missing midpoint requests. Deferred
+(.16375,5.5) previously timed out at3600s. No new AP/SKR/AO execution or new
+source pair. No new hard runtime budget is approved; old14400s ledger exhausted.
+
+Artifacts: results/theta10_D55_mb_exact_targeted_expansion/; all11 paths saved
+with explicit plan/current-catalog/LAST_KNOWN/NOT_RUN scopes. No after expansion
+or convergence claims. 680 protected hashes unchanged;24 regressions and git
+diff --check pass. Require fresh total/per-probe runtime approval, then start
+one serial probe and reassess benefit before further work. Original equations,
+methods, precision, quadrature, epsilon/tolerances, inner/outer caps and starts
+unchanged. Frozen-spec discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+persist; no training/test/baseline/threshold approval changes.
+
+## Current finite-catalog maximum assessment (2026-10-08)
+
+EVID-0129/DEC-0112: all 26 ALT_OPT pairs attain the numerical maximum over
+C_reference (136 historical MB pairs, full 3536-row coverage), C_available_MB
+(139 positive-nu MB), and C_available_all (168 sources including 29 Uniform).
+Finite-set labels are justified; continuous convergence/global optimality
+remain NOT_PROVEN. No new AP: only 63 missing exact objectives from existing
+sources, 3551 MB objective cache hits. All 661 protected hashes unchanged.
+
+Raw strict logs verify 129 starts/279 total iterations/57 selected iterations.
+No starts skipped or capped at 6. All recorded coordinate searches stop at
+0/1 refinement stages; none hits cap 4. Offline caps 4/8/12/16/20 hit the
+same UNKNOWN_SOURCE; increasing cap alone closes zero directions. The 17/12
+conditional midpoint levels are parameter-radius counts; loop-entry checking
+would require 18/13 allowed stages for the completion verdict in that idealization.
+
+Artifacts: results/theta10_D55_alt_opt_catalog_certification/; 12 required
+outputs, independent verifier and 24 scoped regression tests pass. Stop AP
+planning here; finite-catalog manuscript wording only. Further continuous
+closure needs an explicitly authorized prospective plan/budget. No numerical,
+security or publication promotion. Frozen-spec discrepancy remains open;
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS remains unchanged.
+
+## Current cache-only closure diagnosis (2026-10-08)
+
+EVID-0128/DEC-0111: diagnostic audit CURRENTLY_VERIFIED_PASS. All 3 new sources
+were consumed at all 5 representative distances; no verified caching/status
+bug. Cache-only replay restored 367 rows, performed 25 starts/60 iterations,
+and added zero objective evaluations, zero AP sources and zero closures.
+All 5 selected parameters/K/statuses remain unchanged; other 21 LAST_KNOWN.
+218 identities (168 available/50 missing), 26 stored selected landscapes and
+1314 candidate-history consistency checks are recorded under
+results/theta10_D55_alt_opt_closure_diagnostic/.
+
+Main local blockers: missing two-sided midpoint coverage, broad brackets versus
+1e-6 and four refinement stages, plus earlier/multistart unresolved searches.
+At fixed baseline best, VA/nu require 17/12 halvings, not achievable by four
+stages from the current brackets; this is conditional, not an algorithm change.
+Offline epsilon 1e-7/1e-8/1e-9 changes no recorded scalar stopping decisions.
+Top 3 probes: (.16562500000000002,5.5), (.16375,5.5), (.165,5.45), planning only.
+They cannot guarantee closure. All 633 protected hashes and 24 scoped tests
+pass. No source AP is authorized; old budget exhausted. Frozen-spec discrepancy
+and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain unchanged.
+
+## Current budget-complete closure assessment (2026-10-08)
+
+EVID-0127/DEC-0110: the 4-hour continuation is stopped safely, no worker active.
+Session wall=14397.36s (<14400s); source wall=14342.312000000002s and aggregate
+Job CPU=13651.15625s. Six probes: 3 exact completions, 3 timeouts. 2/50
+original missing ensembles completed, plus one new midpoint; 48 original
+ensembles remain. Historical unavailable dependency requests: 836 -> 786.
+Original 165 sources and all 567 protected files are unchanged; overlay 3
+rows are validated (combined source count=168).
+
+Five stagnated distances actually continued after each successful batch,
+75 multi-start trajectories / 180 iterations / 390 coordinate/postcheck calls.
+Their exact selected parameters/security metrics are unchanged, with final
+delta K=0 and STAGNATED_IN_EXACT_CATALOG. Same-slice coordinate/boundary
+closures added: 0/0; newly converged distances: 0. The other 21 are explicitly
+LAST_KNOWN, not reoptimized, because representative closure failed.
+
+Artifacts: results/theta10_D55_alt_opt_closure_continuation/. All requested
+tables/reports and checkpointed caches are present. All-26 fresh after-counts
+are NOT_RUN; do not compare cumulative subgroup 390/105 invocations to old
+558/280. Epsilon=1e-8, parameter tolerance=1e-6, outer cap=6, source methods,
+physical/security model, precision and quadrature remain unchanged. 24 scoped
+regressions, source provenance, artifact audit and git diff --check pass.
+
+The reusable runner now rejects an active owner or exhausted budget; its
+executed pre-guard snapshot is hash-bound separately. Further AP needs a new
+explicit budget, not blind retry of failed probes. No unbounded-global
+certificate is supplied. Frozen-spec hash discrepancy remains open and
+lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## Historical active closure snapshot (2026-10-08; superseded by EVID-0127)
+
+## Current closure continuation (2026-10-08)
+
+EVID-0126/DEC-0109: Stage-1 inventory verified: 836 missing requests map to
+50 exact source ensembles, 558 coordinate invocations and 280 open boundaries.
+Current provenance accepts 165 unchanged source rows; 567 protected files
+retain hashes. User authorizes a new 4-hour total / 60-minute per-probe hard
+budget, batch size 1. Original equations, methods, precision, GH8, epsilon
+and max outer iterations remain frozen.
+
+Runner scripts/run_theta10_D55_alt_opt_closure_continuation.py is executing
+batch 2 (.1625,5.5) using the original probe worker and Job deadline supervisor.
+Batch 1 (.15,4.75) timed out at wall=3600.0s / aggregate CPU=3340.125s, with
+zero new rows and no deadline overrun. CPU accounting self-check passes. Refer to live
+source_generation_ledger.json and probe_results/ under
+results/theta10_D55_alt_opt_closure_continuation/ for subsequent status.
+No new source completion or numerical convergence is yet recorded in this
+snapshot. The latest saved-batch report distinguishes LAST_KNOWN rows and
+NOT_RUN all-26 after metrics; an active later batch may not yet appear there.
+Do not launch a duplicate controller or call a RUNNING probe completed.
+
+The 5 stagnated/21 open-boundary/0 converged classification remains the last
+verified optimization state. The other 21 are gated on representative
+validation. Frozen-spec hash discrepancy remains open; lifecycle remains
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## Current strict 26-distance reproducibility snapshot (2026-10-08)
+
+EVID-0125/DEC-0108: EXACT_TESTED_ALT_OPT_REPRODUCIBILITY_PASS. All 26 distances
+actually reran the existing corrected driver, with 129 starts, 279 iterations
+and 1357 fresh exact objective evaluations. All six per-distance metrics match
+the old ALT_OPT table exactly; max |delta K|=0. Actual counters equal the prior
+4147/1357/1954/836/558/280 reference. The 541 protected files and 165 exact
+source rows are unchanged; no new source generation or interpolation occurred.
+
+Epsilon_opt=1e-8, parameter tolerance=1e-6, outer cap=6 are frozen. Selected
+statuses: 5 STAGNATED_IN_EXACT_CATALOG (20, 21.9393102292, 22, 23, 24 km) and
+21 UNRESOLVED_BOUNDARY. All terminal delta K=0, but none is numerically
+converged. The remaining 50 missing source ensembles still block closure.
+
+Current artifacts: results/theta10_D55_alt_opt_26distance_strict_rerun/.
+Figure is positive-only standard log10; Uniform ends at 25 km, both MB curves
+at 40 km. Exact fixed MB VA=1.3833230302980657 is preserved. 24 current scoped
+regression tests pass. The orchestration-only wrapper changed no scientific
+or optimization implementation. Frozen-spec hash discrepancy remains open;
+lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## Historical provenance/stopping repair and bounded validation (2026-10-08)
+
+EVID-0124/DEC-0107 records PROVENANCE_VERIFICATION_PASS for all 165 original
+source rows under the explicit newline-equivalence policy and separate
+objective-identity validation. Historical bytes/hashes remain intact. The
+corrected stopping logic retains epsilon_opt=1e-8, parameter tolerance=1e-6
+and max outer iterations=6; 24 current regression tests pass.
+
+The 836 missing requests represent 50 unique exact source ensembles. One
+prioritized pilot timed out and added zero moments. Its measured 860.313-second
+elapsed time exceeded the configured 90/270-second probe/total budgets; this
+is recorded, and the supervisor has been repaired and tested. No further
+source generation ran after budget exhaustion.
+
+Five representative distances were replayed from compatible exact caches.
+Their parameters/SKR are unchanged, but all remain unresolved. The 26-row
+table explicitly retains LAST_KNOWN values at the other 21 distances, whose
+optimization was NOT_RUN because representative closure failed. No numerical
+convergence or global optimum is established. Scientific models/source
+mathematics and old artifacts are unchanged. Publication lifecycle remains
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## Historical independent ALT_OPT audit (2026-10-08)
+
+EVID-0123 verifies real sequential coordinate updates and independent terminal
+selection from all stored histories. Controlled replay at 21.9393102292 and
+25 km blocked previous final-result inputs and source generation; forward/
+reverse start orders and cold/compatible objective caches selected the same
+best exact-tested pairs. All 26 original rows legitimately match numerical
+search on the shared available catalog. Continuous convergence remains
+INCONCLUSIVE because exact source coverage and boundaries are unresolved.
+
+At the EVID-0123 snapshot source provenance needed qualification: implementation
+hashes differ from current bytes for 136/136 registered MB sources, but their
+stored hashes are exactly reproduced by CRLF versions of current LF files.
+Thus newline-equivalent source content is verified while strict current-byte
+identity was FAILED. That snapshot's loader checked ensemble identity but not
+implementation/settings; EVID-0124 subsequently corrected the loader and
+EVID-0125 reverified it. No C,w, model, evaluator or previous result was changed.
+Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest full-distance ALT_OPT continuation (2026-10-07)
+
+EVID-0122/DEC-0106 records the cache-only ALT_OPT continuation over all 26
+distances from 20 to 40 km. The same validated theta10/D55 physical/security
+model and exact direct-`Z_minus` evaluator were used. Four base starts plus a
+previous-distance warm start were attempted at each distance; Uniform and
+fixed-MB rows were copied from the existing exact CSV, and only optimized-MB
+rows were replaced in a new output table.
+
+The baseline row at `21.9393102292 km` passes exact six-field validation. The
+selected MB pair and `K` match the prior optimized-MB curve at all 26 points,
+with zero maximum absolute `K` difference. The source CSV hash and 165-row
+source cache are unchanged. The run is still
+`FULL_DISTANCE_ALT_OPT_COMPLETE_WITH_UNRESOLVED_SEARCH`: missing exact source
+moments leave inner and boundary closure unresolved, so the rows are
+best-exact-tested candidates rather than a continuous/global optimum.
+
+The selected `nu_raw` ridge is non-monotone and `V_A` is non-increasing with
+catalog jumps. The new renderer uses base-10 logarithmic scale and displays
+only positive exact rows: Uniform ends at 25 km; both MB curves extend to 40
+km. Previous artifacts were not overwritten. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest ALT_OPT optimization-layer diagnostic (2026-10-07)
+
+EVID-0121/DEC-0105 records the new `ALT_OPT` driver at the theta10/D55
+diagnostic distance `21.9393102292 km`. The physical/security evaluator,
+source-moment implementation, and channel assumptions were unchanged. The
+best exact-tested pair is `(.165,5.5)` with `K=.07798099387393764`; the first
+three starts reach it and the `.8` start ends at `(.4,3.0)`. This is not a
+converged or global optimum claim: 34 exact source probes were missing, 20
+inner directions remained unresolved, and 6 boundary directions were open.
+The source cache was unchanged at 165 rows; no numerical or monotonicity
+failure occurred. The open-source fallback was stopped after one probe became
+CPU-bound for about 23 minutes.
+
+The run is diagnostic-only and `BLOCKED_BY_ENVIRONMENT` for continuous AO
+closure. Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+## Latest theta10/D55 unconstrained three-scheme diagnostic (2026-10-07)
+
+EVID-0120/DEC-0104 completed the user-authorized diagnostic with peak and
+common-VA constraints disabled in a separate runtime experiment. It evaluated
+4,290 exact candidate rows and selected 78 exact rows over the 26-distance
+grid. Uniform is positive through 25 km and non-positive at 25.5 km; fixed and
+optimized MB are positive through 40 km. Optimized MB uses higher VA at short
+distance, peaking at `VA=6.5`, then declines toward `VA=3.5548673904962893`.
+
+The requested binary64 source at `VA=1.3833230303` timed out in the AP
+fallback. The fixed curve uses the existing exact row
+`VA=1.3833230302980657`, equal at ten displayed decimals; no interpolation was
+used. Strict binary64 fixed-reference provenance remains unresolved. The new
+figure is symlog (`base=10`, `linthresh=1e-4`) and retains negative Uniform
+rows. Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
 ## Latest theta10/D55 three-scheme diagnostic (2026-10-02)
 
 EVID-0119/DEC-0103 completed the exact D55 comparison with optimized Uniform,

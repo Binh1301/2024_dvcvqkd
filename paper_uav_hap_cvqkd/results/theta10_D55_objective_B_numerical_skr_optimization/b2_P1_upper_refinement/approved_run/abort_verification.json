@@ -1,0 +1,71 @@
+{
+  "verified_UTC": "2026-10-10T07:35:15.5582249+00:00",
+  "protected_count": 1825,
+  "protected_drift": [],
+  "active_scoped_workers": [],
+  "recorded_PID_processes_now": [],
+  "AP_attempts": 0,
+  "source_attempt_record_exists": false,
+  "new_source_cache_exists": false,
+  "output_hashes": {
+    "execution_ledger.csv": "f465f605254791979bacd865ab34af183f901004223de789cfb979dbbe5d2cc1",
+    "dummy_pids.json": "c243974787669ec5db7dc40ac0362a656f9481aa4dd0e65210a845b80cd9ee36",
+    "protected_input_manifest.json": "9ab37cee956a965dd178defe22855b67ae266da49e79801c18270f3189135036",
+    "execution_authorization.json": "6ab12ed9e593aea3f034de1429a60cccae9ed7bfd64005a42a534585cfe8afea",
+    "final_report.json": "a051ef17d2fc72678458635df496b2bfed03472e09af40544c8a0a9cf6f564ab",
+    "dummy_supervision.json": "1f50579f89a082218d1606314c863c5d0c906d133c61d3505f231469e6ba6b96",
+    "dummy.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "status": "NATIVE_PREFLIGHT_FAILED_AP_NOT_RUN_POST_ABORT_CLEANUP_VERIFIED",
+  "native_gate_status": "FAILED",
+  "post_abort_cleanup_status": "CURRENTLY_VERIFIED_PASS",
+  "tests": {
+    "status": "CURRENTLY_VERIFIED_PASS_MODULE_AND_ARTIFACT_CHECKS_ONLY",
+    "count": 52,
+    "seconds": 9.55,
+    "command": "python -B -X utf8 -m unittest tests.test_alt_opt_provenance_and_stopping tests.test_ao_numerical_optimum_audit tests.test_ao_scientific_export tests.test_ao_stopping_sensitivity tests.test_ao_manuscript_finalization tests.test_windows_sleep_safe_supervision tests.test_objective_B_preparation tests.test_objective_B_pilot tests.test_P1_upper_refinement_preparation tests.test_P1_upper_refinement_execution"
+  },
+  "git_diff_check": "CURRENTLY_VERIFIED_PASS",
+  "AP_successes": 0,
+  "AP_timeouts": 0,
+  "AP_retries": 0,
+  "controller_retries": 0,
+  "new_source_moments": 0,
+  "new_SKR_evaluations": 0,
+  "fresh_AO_runs": 0,
+  "scientific_progress_new_exact_sides": 0,
+  "available_MB_sources": 149,
+  "reference_best": {
+    "nu_raw": 0.165,
+    "V_A": 5.5,
+    "K": 0.07798099387393764
+  },
+  "P1_bracket": [
+    5.49375,
+    5.5125
+  ],
+  "required_P1_pairs": [
+    [
+      0.165,
+      5.496875
+    ],
+    [
+      0.165,
+      5.50625
+    ]
+  ],
+  "next_AP_execution_authorized": false,
+  "controller_wall_seconds": 16.172,
+  "controller_CPU_seconds": 6.3125,
+  "dummy_Job_wall_seconds": 9,
+  "dummy_Job_CPU_seconds": 2.578125,
+  "all_Sleep_leases_restored": true,
+  "old_results_preserved": true,
+  "scientific_methods_or_defaults_changed": false,
+  "no_interpolation": true,
+  "persistent_Job_escape_proven": false,
+  "probable_teardown_race_status": "PLAUSIBLE_INFERENCE_NOT_PROVEN",
+  "difference_from_successful_prior_entry": "NO_0_2_SECOND_DELAY_BEFORE_NATIVE_PID_ASSERTION",
+  "continuous_or_global_optimum_certified": false,
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

@@ -1,0 +1,49 @@
+{
+  "coverage": "PARTIAL_AP_STAGE_INTERVAL",
+  "snapshot_count": 31,
+  "covered_wall_seconds": 305.375,
+  "covered_process_CPU_seconds": 297.203125,
+  "open_stages": [
+    {
+      "name": "original_worker_main",
+      "digits": null,
+      "wall_start": 0.0,
+      "cpu_start": 0.0
+    },
+    {
+      "name": "precision_row",
+      "digits": 1050,
+      "wall_start": 0.0,
+      "cpu_start": 0.0
+    },
+    {
+      "name": "multi_RHS_LU",
+      "digits": 1050,
+      "wall_start": 293.5,
+      "cpu_start": 285.5625
+    }
+  ],
+  "full_run_profile": false,
+  "completed_stage_groups": {
+    "Gram_sector_construction": {
+      "calls": 1,
+      "wall_exclusive": 24.530999999988126,
+      "CPU_exclusive": 23.890625
+    },
+    "Hermitian_eigensystem": {
+      "calls": 4,
+      "wall_exclusive": 174.39100000000326,
+      "CPU_exclusive": 169.390625
+    },
+    "multi_RHS_LU": {
+      "calls": 2,
+      "wall_exclusive": 51.687000000005355,
+      "CPU_exclusive": 50.34375
+    }
+  },
+  "collector_thread_CPU_seconds_partial": 0.078125,
+  "collector_wall_seconds_partial": 4.657999999908498,
+  "independent_total_observer_overhead": "NOT_MEASURED",
+  "bottleneck": "BOTTLENECK_NOT_LOCALIZED",
+  "limits": "Stage coverage only AP main; no full detailed call profile. Cumulative snapshots not summed; collector last write/hook overhead excluded. Open stages are unfinished lower bounds."
+}

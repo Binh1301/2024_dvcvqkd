@@ -1,5 +1,1095 @@
 # Decision Log
 
+## DEC-0161 - User stop supersedes remaining Objective C execution authority
+
+2026-10-11 explicit "dung": STOP entirecontroller/workertree now. AcceptEVID0178,
+retaincatalog182 and five initialcacheAO runs; AP1partialsourceinvalid,Stage2NOT_RUN.
+Do not reuse remaining36hbudget for any AP/optimizer/restart. Freshuserresume
+direction required; never automatically retry interruptedpoint. No sciencechange.
+
+
+## DEC-0160 - Authorize Objective C sequential adaptive original ALT_OPT
+
+2026-10-11 userattachment86b46cab-e98a-4f86-8fbf-f327238b7c60: Stage1reference
+five paired starts,thenStage2all26. Fresh36h/maximum36AP,Stage1up12/Stage2remaining
+(24plusunusedStage1),reserve1800s,originalinternal3600s,sequential,no retry.
+Exact requests from originalAO,skipfailedmissingkeys/reusevalidsources;eachnewsource
+26originalSKRs. AC/Sleep/watchdog/Jobempty/provenance failclosed unchanged.
+Preserveoldresults/science;no manuscript/publication/modelchange. Supplementary
+userconvergence assessment doesnot changeoriginalstop rule or prove globaloptimum.
+Missingmoments/openboundaries/nu0 exclusion/totalerror unavailable stayexplicit.
+Accept EVID-0177 readiness.
+
+
+## DEC-0159 - Execute only explicitly requested grid timeout retry
+
+2026-10-11. User says "chay lai not cai time out" after closed full31batch.
+Authorize ONE new attempt for(.25,3.5), not automatic retry of the whole batch.
+Retain original internal3600s timeout/precision/scientific defaults; reuse existing
+AC/Sleep/watchdog/Job actualtreecleanup. Conservative operational caps7200s total,
+3720s sourceouter includingcleanup,1800s finalreserve, no extension beyond previous
+absolute deadline. Separate directory; preserve all earlier reports/CSV/cache.
+On success validateCw/evaluate26originalSKRs/comparewith181catalog and save expanded
+checkpoint; on timeout/safetyfailure STOP, no further retry/otherAP/AO. No continuous
+optimum, publication or model-level authorization follows. Accept EVID-0176 readiness.
+
+## DEC-0158 - Approve only fixed31-source sequential batch
+
+Date: 2026-10-10. Accept EVID-0175. Current user attachment7723d6dd-dbdb-413c-ad2d-03cf9990e614
+supersedes prior cache-only STOP for this narrow task: B12 then A19,maximum31
+distinct attempts,36h wall deadline including final processing,1800s reserve,
+original3600s evaluator timeout unchanged. No retry,parallel AP,additional
+points,AO refinement,interpolation,scientific changes or publication promotion.
+Timeout may continue only after verified actual Job cleanup and safe AC;
+mandatory safety/provenance failure stops entire batch. Preserve prior results.
+
+
+## DEC-0157 - Accept incomplete exact-data grid;propose coverage-only next batch,not AP
+
+Date: 2026-10-10
+
+Status: TWO_LEVEL_GRID_CACHE_ONLY_COMPLETE_STOP
+
+Accept EVID-0174. Fixed51-pair specification remains20evaluated/31missing;
+do not substitute nearbyparameters,fill matrices/interpolate,or narrowcatalog
+comparison togridonly. Preserve131off-grid sources andseparate8reference near
+points. PriorityA/B identifiescoverage roles,notpredictedSKR;Crefinementdeferred.
+Proposeonly(.15,3.5),(.165,6.) asminimal complementary nextbatch;freshuser
+authority/budget/runtime safety required before execution. Historicalruntime
+scenario is uncertain/biased,not uniformtiming or guaranteedcompletion.
+NoAP/Cw/SKR/AO/scientificdefault change/lifecyclepromotion;deliverCSV/figures/
+all51coverage/missinglist andSTOP. Finitecatalogranking remainsuncertified.
+
+## DEC-0156 - Deliver all151 evaluated points;relative near-optimality is finite-catalog only
+
+Date: 2026-10-10
+
+Status: FULL_CATALOG_CACHE_ONLY_EXPORT_COMPLETE_STOP
+
+Accept EVID-0173. List every validated point,including negativeSKR;classify
+relative loss using eachdistance's ownbest. YES means<=1e-5 fraction=0.001%,
+not a totalnumerical-errorbound or continuous-optimum guarantee. Preserve
+NUMERICALLY_UNCERTIFIED ranking,prior151-source scientific results/brackets/
+method/defaults/lifecycle. NoAP/Cw/SKR/AO or furtherrefinement authority.
+Deliver complete151terminaltable,all9nearpoints/counts/deviations/3926CSV
+andreport;STOP without additional computation.
+
+## DEC-0155 - Accept cache-only landscape analysis; no optimization authority
+
+Date: 2026-10-10
+
+Status: CACHE_ONLY_ANALYSIS_COMPLETE_STOP
+
+Accept EVID-0172. Interpret151-pair numerical ranking and9/5/2/2/1 near-point
+counts as literal stored-objective observations only. Closest competitor differs
+only inVA; sparse/anisotropic discrete coverage is not a continuous plateau or
+global/numerically certified optimum. No totalK errorbound resolves the smallest
+gap; preserve NUMERICALLY_UNCERTIFIED and BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY.
+All saved science preserved; do not rerunAP/Cw/SKR/AO or change method/defaults.
+No refinement progress/coordinate closure or lifecycle promotion in this task.
+Deliver actualTop20,26-distance comparison and exactCSV/report;STOP.
+
+## DEC-0154 - Accept valid ONE lower P1 source, report original refinement and STOP
+
+Date: 2026-10-10
+
+Status: SINGLE_APPROVED_LOWER_ATTEMPT_COMPLETE_BUDGET_CLOSED
+
+Accept EVID-0171. Exact source valid/original26 SKR and cache-onlyAO complete,
+catalog151/max26of26/no incumbentgain. Lowerprobe computed K is smaller by
+3.6726688357191506e-10,not a rigorously discriminated ordering without total-K
+errorbound. OriginalP1 bracket25%narrower,zero additional completedpairedlevels/
+coordinateclosures. Next FIRST(.165,5.4984375),SECOND(.165,5.503125); record only,
+do not execute either or P2/retry or reuse remaining approvedbudget. Conditional
+13levels/14visits estimate does not authorize changing cap4/tolerances/algorithm.
+Actual Jobs/Sleep/watchdog cleanup verified, oldscience/rootpreflight preserved.
+No scientific method/default/model/lifecycle promotion; STOP after this attempt.
+
+## DEC-0153 - Execute freshly approved ONE lower P1 and stop after result/timeout
+
+Date: 2026-10-10
+
+Status: ONE_LOWER_P1_EXPLICITLY_APPROVED_AND_STARTED
+
+User confirms DEC-0152's pending authority ONLY for(.165,5.496875),120total/
+90outer/original60internal/30reserve,ONE/no retry/otherP1/P2. Accept EVID-0170
+prelaunch readiness; same source/controller/nativeJob safety path reused without
+dummy gate or method/default change. On valid source evaluate26 saved channels,
+original P1/cache-only multi-start/warm AO and independent catalog comparison.
+Record true bracket/requests/conditional estimates, not forced closure/global
+optimum. On timeout/safety failure stop safely. No additional AP or budget reuse.
+
+## DEC-0152 - Complete lower P1 preflight; require the requested fresh AP confirmation
+
+Date: 2026-10-10
+
+Status: PREFLIGHT_COMPLETE_ONE_LOWER_AP_PENDING_FRESH_CONFIRMATION
+
+Accept EVID-0169. Attached task scopes ONE lower(.165,5.496875) but explicitly
+conditions AP on fresh execution authorization. Confirm this once after scientific
+preflight; do not reuse completed upper budget or silently infer confirmation.
+Proposed120min total/90min outer/original60min internal/30min reserve, no retry/
+secondpair/P2. Original minimal Job/AC/Sleep/watchdog/actualcleanup path retained,
+no dummy/observer/profiler diagnostics. No source/SKR/fullAO generated during
+preflight. Live original requests and incumbent verified, not assumed optimal.
+Conditional13levels estimate does not authorize changing cap4/tolerances or a
+convergence/global claim. Preserve existing code/results/ObjectiveA and STOP
+before AP until confirmation; after valid approved source use original26-distance
+SKR/P1/cache-onlyAO, then STOP after the single attempt.
+
+## DEC-0151 - Accept completed ONE upper P1 result; stop, no further AP/P2
+
+Date: 2026-10-10
+
+Status: APPROVED_SINGLE_ATTEMPT_COMPLETED_BUDGET_CLOSED
+
+Accept EVID-0168. New source valid, original26-distance evaluation and genuine
+cache-onlyAO complete within fresh budget. Incumbents unchanged, catalog150/
+26of26 matches do not certify continuous/global optimum or totalK discrimination.
+P1 exact-neighbor bracket one-third narrower, zero additional completed paired
+levels/coordinate searches; next actual request(.165,5.496875),then(.165,5.503125).
+Record these only, do not execute them/P2 or reuse remaining120min budget.
+Preserve exact cache/checkpoints/raw receipts/oldscience. Actual native Jobempty/
+Sleep/watchdog cleanup verified. No numerical method/default/evaluator/AO/model
+change, optional Windows diagnostic redesign, forced gain or lifecycle promotion.
+Return scientific results and STOP after this single attempt as user required.
+
+## DEC-0150 - Execute ONE freshly approved upper P1; stop after result or timeout
+
+Date: 2026-10-10
+
+Status: ONE_UPPER_P1_ATTEMPT_APPROVED_AND_STARTED
+
+User's fresh approval supersedes DEC-0149 AP-not-authorized state ONLY for
+(.165,5.50625). Total120min/outer90min/internal60min unchanged/reserve30min,
+no retry/other probes/P2. Use validated current entry without dummy gate;
+original AC/Sleep/watchdog/Job containment/actual-tree cleanup required.
+Accept EVID-0167 prelaunch evidence. On valid moments evaluate26 original saved
+channels/SKR and unchanged cache-only AO, independently compare catalog and
+report true bracket/missing requests. On timeout or safety failure stop safely;
+no evaluator/default/formula redesign, unknown-moment interpolation or promotion
+of finite-catalog agreement to numerical/global convergence. STOP after attempt.
+
+## DEC-0149 - Remove optional dummy gate; retain fail-closed actual worker cleanup
+
+Date: 2026-10-10
+
+Status: APPROVED_SCOPED_INFRASTRUCTURE_REMOVAL_ONLY_AP_NOT_RUN
+
+Current user explicitly authorizes removal of redundant diagnostics, not AP.
+Accept EVID-0166: remove embedded prelaunch dummy harness/PID gate from active
+upper P1 entry, retain original Job/AC/Sleep/deadline/internal60min safeguards
+and verify actual Job empty within existing wall allowance. Do not bypass a
+genuine cleanup failure. Preserve byte-identical historical failed producers
+and all scientific artifacts; no observer/profiler/heartbeat redesign or model/
+precision/evaluator/AO change. No automatic AP/retry/P2 or old-budget reuse.
+Next(.165,5.50625) is technically ready conditional on fresh execution approval
+and runtime safeguards; paired lower5.496875 also missing. No numerical optimum
+or coordinate closure/lifecycle promotion. Return to scientific Objective B.
+
+## DEC-0148 - Stop approved upper run on native failure;no automatic retry
+
+Date: 2026-10-10
+
+Status: STOPPED_NATIVE_PREFLIGHT_FAILED_AP_NOT_RUN
+
+Accept EVID-0165. User's explicit STOP-on-safety-failure controls: do not restart
+dummy/controller or invoke AP even though APcount0 and budget remains. Preserve
+failed producer bytes/receipts. Eventual no-worker/Sleep cleanup PASS does not
+retroactively certify original native gate. A teardown timing race is plausible,
+not proved; require focused bounded cleanup verification/further direction before
+any retry/new AP, no broad instrumentation development. No scientific change,
+source generation, new numerical-optimality/physical/global claim or extra P2.
+
+## DEC-0147 - Fresh approval for ONE original upper P1 source attempt
+
+Date: 2026-10-10
+
+Status: ONE_UPPER_ATTEMPT_APPROVED; NATIVE_PREFLIGHT_MUST_PASS
+
+New explicit user approval supersedes DEC-0146's pending permission ONLY for
+raw(.165,5.50625), one new attempt/no retry/otherAP/P2. Total120min fromcontroller
+origin including imports/preflight/processing/cleanup, supervisor<=90min shortened
+to preserve>=30min reserve. Original fallback timeout60min UNCHANGED; supervisor
+never extends it. Keep all source/science/precision/quadrature/AO/defaults; use
+minimal original worker+existing stableAC/Sleep/Job deadline/tree supervisor.
+Fail closed at native gate. On source success only, original26-distance objective/
+cache-only AO and genuine bracket/catalog recheck allowed. Stop after attempt
+and validation; no extra candidates from unused time, global/continuous/accuracy
+promotion, cap16 or observer development. Old results/ObjectiveA preserved.
+
+## DEC-0146 - Confirm original upper P1 dependency; require fresh AP approval
+
+Date: 2026-10-10
+
+Status: SCIENTIFIC_PREFLIGHT_COMPLETE; ONE_UPPER_SOURCE_PROPOSAL_ONLY
+
+Accept EVID-0163 reconciliation/live original paired requests. User's proposed
+upper(.165,5.50625) is the actual second stage1 dependency and may be separately
+scheduled without changing AO request order. Do not replace it with the lower
+request or execute either without fresh approval. Current attached120/90/30min
+budget is explicitly proposed/conditional, not a continuation of closed B2_A.
+Request ONE fresh upper attempt; preserve internal3600s timeout/scientific APIs.
+An outer90min budget cannot extend that internal cap; any execution-policy
+timeout change needs separate explicit authority. No AP now, no retry/other source/
+P2/cap16/profiler/observer work, no publication/model/security promotion.
+After actual fresh approval, repeat native AC/Sleep/Job containment/deadline/
+cleanup checks for the execution entry; then compute only approved source and
+original26-distance/AO results if valid. Reconstruct actual next requests after
+new data, do not guarantee gain/paired completion. Old artifacts unchanged.
+
+## DEC-0145 - Close B2 after one exact success and cache-only I/O recovery
+
+Date: 2026-10-10
+
+Status: ONE_APPROVED_SOURCE_COMPLETE; FINITE_CATALOG_ONLY; STOP_NO_MORE_AP
+
+Accept EVID-0162: original source(.165,5.49375) succeeds; recovered original
+26-distance evaluator/AO on149 pairs matches maximum26/26, no selected gain,
+one P1 lower-neighbor advance/0 closures. Preserve original JSON metadata failure
+and raw broad abort receipt; not AP timeout or unsafe power abort. Separate
+cache-only storage repair keeps +Infinity radius metadata, rejects nonfinite
+scientific values, leaves all original producer/science/default hashes unchanged,
+and stays within SAME75min deadline. No duplicated AP or model change.
+
+All workers stopped/Sleep restored. Keep old artifacts/ObjectiveA/unchanged plots.
+No remaining budget authorizes more AP, retry, cap16, observer development or
+publication-scale task. Next actual P1(.165,5.496875) requires separate fresh
+approval; upperP1/P2 requests conditional/unapproved. No continuous/numerically
+converged/global claim or totalK accuracy certificate. Historical frozen discrepancy
+and lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+## DEC-0144 - Authorize exactly one original-API B2 attempt under fresh75min budget
+
+Date: 2026-10-10
+
+Status: ONE_ATTEMPT_APPROVED_PREFLIGHT_PASSED_RUNNING
+
+User "chạy" accepts B1's specific proposal. This supersedes DEC-0143's waiting
+restriction only for exactly(.165,5.49375), total4500s including imports/preflight/
+processing/cleanup, source<=3600s with900s reserve and no retry/additional AP.
+Use original unprofiled source API plus existing AC/Sleep/Job supervision; native
+preflight passes EVID-0161. No original formula/precision/quadrature/default/cap/
+search changes or observer/profiler development. Valid source permits original
+26-distance evaluation/multistart/warm AO and independent finite-catalog check;
+otherwise stop after timeout/failure/unsafe abort and retain baseline. Exactness
+of formulas or new moments does not imply totalK accuracy or global convergence.
+
+## DEC-0143 - Complete Objective B1 only; request one bounded original-method B2 pilot
+
+Date: 2026-10-10
+
+Status: B1_COMPLETE; B2_FRESH_BUDGET_REQUIRED
+
+New user scope supersedes ObjectiveA STOP only for B1 preparation; continue does
+not authorize AP. Accept EVID-0160's original cache-only coordinate reconstruction,
+one additional reference check using preexisting source and focused14-answer plan.
+Maintain original147-source26-distance curve, explicitly distinguish148-source
+reference-only inventory/check; no new optimality promotion or sweep before P1/P2
+progress. Request ONE(.165,5.49375)75min total/60min source/15min reserve, shortened
+by actual remaining time, only after fresh approval and minimal native readiness.
+No profiler/observer controller, timeout/AC retry or later3 AP included. All model/
+AP policy/AO defaults fixed; proposedJ16 refinement-budget experiment requires
+separate scope and is not part of pilot. WholeK accuracy/multi-start/domain/boundary/
+inner completion limitations remain; preserve ObjectiveA. Stop at B1 approval request.
+
+## DEC-0142 - Deliver Objective A writing package, not verified full-paper build
+
+Date: 2026-10-10
+
+Status: OBJECTIVE_A_STANDALONE_PACKAGE_COMPLETE; COMPILATION_NOT_VERIFIED
+
+Accept EVID-0159's scientifically qualified joint section/Algorithm1/stopping
+evidence/tables/figures/Overleaf ZIP. Preserve the available article template
+and prior files. Since the full-paper master is unavailable, do not claim it
+has been integrated or its numbering verified; wrapper offset2 is preview only.
+Require an actual external build to validate macro/package/layout/reference
+behavior. No compiled manuscript PDF exists and no Overleaf remote build was
+performed. Describe6/1e-8 as conservative safeguards, not accuracy/continuous
+convergence/global-optimum guarantees; document positive-nu AO versus sampled
+Uniform endpoint. No scientific/default/domain/code change or lifecycle/security
+promotion. STOP after this Objective A package; Objective B and further AP/AO/
+observer work remain unauthorized in this task.
+
+## DEC-0141 - Stopping sensitivity supports safeguards, not convergence certification
+
+Date: 2026-10-10
+
+Status: CACHE_ONLY_SENSITIVITY_COMPLETE; NO_NEW_AP_AUTHORITY
+
+Accept EVID-0158's sixteen temporary original-AO replays and manuscript assets.
+The new user authorization supersedes the prior no-AO-rerun restriction only
+for cache-only Rmax/epsilon sensitivity. Original algorithm/science/baseline
+configuration and inner caps remain unchanged. Larger caps and1e-9 do not improve
+any selected or individual terminal solution; all starts still request missing
+sources and0/9856 calls close. Rmax6 is not an active cap bottleneck and even4
+reproduces this incomplete replay. Eps1e-6 saves4 cycles with unchanged solutions;
+this does not establish an optimal production threshold or certified SKR error.
+Keep baseline6/1e-8 unchanged, describe as computational safeguards with observed
+finite-catalog invariance, not guaranteed numerical convergence. Classification:
+BASELINE_PARAMETERS_ONLY_COMPUTATIONAL_SAFEGUARDS. No AP/observer repair/retry,
+publication-scale lifecycle promotion or new source-run authority follows.
+
+## DEC-0140 - Accept focused best-found AO manuscript deliverables, not convergence certification
+
+Date: 2026-10-10
+
+Status: SCIENTIFIC_DELIVERABLES_COMPLETE_FROM_SAVED_DATA_NO_AP_AUTHORITY
+
+Accept EVID-0157's Algorithm1/manuscript/table/genuinehistories/figures and
+independent147-source ranking.26/26selectedmax agreement is finitecatalog
+evidence, not universalstartstability:59/129individualmatches,0unanimousdistances,
+0closedcoordinatecalls. Flat histories must remain stagnation/openboundary;
+theoreticalnu0endpoint/limits/wholeKerror/remotedomain remainunresolved.
+Manuscript-ready formatting does not promote publication-scale lifecycle or
+securityclaims. Freezeoriginalscience/AO/settings;nonewAP/observerengineering,
+no implicit execution from targeted-probe planning. LocalLaTeXcompile unavailable;
+Overleafentryprovided without fabricatedcompilePASS. Future exact scientific
+probes require separately approved scope/budget andexistingminimal safe
+supervision, not recently failingobserverroute. No methodology change authorized.
+
+## DEC-0139 - Stop after heartbeat-loss A; no further AP in consumed scope
+
+Date: 2026-10-10
+
+Status: ONE_ATTEMPT_CONSUMED_STOPPED_NO_RETRY_NOT_READY_FOR_FURTHER_AP
+
+Accept EVID-0156 stopped/fulltree/Sleep cleanup and preserved partial AP evidence.
+Longpath overflow fixed for this run, not proof of complete telemetry reliability.
+Actual snapshot publication failed after31valid records; persistedtemp32 and
+read-held dummy contention support a replacement-race hypothesis only, since
+production exception/holder unrecorded. Do not claim source numerical failure,
+full profiling, identified fullrunbottleneck, newSKR gain or AO convergence.
+Do not retry/continueanotherAP with unused150min budget or alter executed
+producers. Future separately authorized preparation should stress real concurrent
+readers/atomic publication and durable typederror/heartbeat reporting on the
+same shortproduction paths without science/context/precision/AO changes.
+Baseline147/3822/saved26matches/P1P2/0closures remain. No lifecycle/global/
+continuousoptimum/threshold/training/finaltest or model promotion.
+
+## DEC-0138 - Execute separately approved path-fixed A after actual production gates PASS
+
+Date: 2026-10-10
+
+Status: ACTIVE_BOUNDED_SINGLE_A_ATTEMPT_NO_RETRY
+
+Accept EVID-0155's actual path operations/production wrapper dummy/native safety/
+provenance/regression evidence for this new bounded pilot only. User explicitly
+authorizes path repair and conditional automatic A; pending gate superseded,
+but old failedattempt/budget/controller never resumed. Same persistent150min
+origin, prep45/AP75/finalreserve30, one attempt only. Stage path mapping affects
+instrumentation only; original cache identities, source/numerical/evaluator/AO
+algorithms/settings remain frozen. No global registry/permanent power change.
+On AC/observer/watchdog/Job/deadline failure kill fulltree and stop AP; no retry/
+other source. On validCw use original26objectives/cache-onlymultistart/warmAO,
+independent maxima/P1P2/coverage checks. Stage/profile/finitecatalog evidence
+must not be promoted to full-run profiling/continuous convergence/global optimum.
+Final reports/provenance/verified archive/cleanup before originaldeadline.
+
+## DEC-0137 - Accept stopped controlled-A attempt; require path-safe evidence before any new attempt
+
+Date: 2026-10-10
+
+Status: ONE_APPROVED_ATTEMPT_CONSUMED_STOPPED_NO_RETRY
+
+Fresh user90min/A75min/reserve15min authority superseded the pending gate for
+one guarded observer-v2 A attempt only. EVID-0154 records production startup
+path persistence failure, safe shutdown, unchanged science/catalog and no valid
+new source. Do not retry using remaining90min budget, run B/P2, reset output,
+or route to overnight-v1. No numerical/source-bottleneck conclusion from this
+operational error. DummyREADY/49 unit regressions do not certify production
+path persistence or full AP coverage. Saved26/26 is unchanged baseline evidence,
+not fresh AO convergence. Zero new refinement/closed searches.
+
+Before any future separately approved AP attempt: validate actual Windows
+path lengths for initial/periodic/final snapshot, heartbeat, typed sidecar,
+profiler and exact cache, including failure reporting when sidecar itself
+cannot persist. Prefer scoped path handling/staging over machine-wide changes;
+do not alter registry, evaluator, precision, quadrature, MI/security or AO.
+No repair/new AP authority is inferred here. Preserve executed producers and
+all prior results; no continuous/global optimality or lifecycle promotion.
+
+## DEC-0136 - Accept observer recovery readiness; stop before controlled AP pilot
+
+Date: 2026-10-10
+
+Status: READY_FOR_CONTROLLED_AP_PILOT_NOT_EXECUTION_APPROVAL
+
+Accept EVID-0153's activev2 integration/context/profile/typedfailure/native safety/
+provenance evidence. DummyREADY is not proof of actual longAP behavior, scientific
+convergence or publication readiness. Original scientific/evaluator/AO settings
+remain unchanged; preserve failedv1/oldcontroller/old artifacts rather than silently
+repairing their historical hashes. New prepared entry only; NEVER oldv1redirect.
+No AP/sourceA retry/B/P2 authorized; oldovernight budget not reused. Propose fresh
+90min total with sourceA<=75min and15min reserve,1 attempt, after explicit user
+approval. Parent controller must use guarded v2 entry and typed result sidecar,
+original Job/AC/Sleep, absolute deadlines/provenance/noorphan; shorten AP for
+remainingreserve. Stop safely on any failure, no automatic retries or numerical
+method/cap changes. Report finitecatalog/errorunbounded/domain limitations.
+
+## DEC-0135 - Stop overnight AP on observability failure; preserve and report actual defect
+
+Date: 2026-10-09
+
+Status: STOPPED_PRODUCTION_OBSERVER_FAILED; NO_AUTOMATIC_RETRY_OR_CONTINUATION
+
+Accept EVID-0152's actual instrumentation AttributeError, not a mathematical
+source failure/timeout/AC safety-abort. User expressly requires cache-only failure
+report if profiler validation/repair fails; therefore no retryA or launchB/C/D
+after discovering this defect. Preserve executedv1/failed receipt/raw reports,
+dummy-test versioned observer correction only. v2's dummy PASS is not actual
+AP equivalence/full-run coverage. Do not infer a completed75min attempt, new
+moments, betterK, numerical/global convergence or source bottleneck location.
+Scope now cache-only handoff complete, no activeworker/Sleep request. Future
+production must explicitly adopt corrected integration and authorize exact scope/
+retry; do not reset28800s deadline or reuse failed controller/old ledger silently.
+Scientific/AO/precision/settings and lifecycle/frozen-hash limitations unchanged.
+
+## DEC-0134 - Execute bounded overnight scope after verified observer/safety preflight
+
+Date: 2026-10-09
+
+Status: EXPLICITLY_APPROVED_OVERNIGHT_TARGETED_EXECUTION
+
+EVID-0151 and the user's new attachment supersede DEC-0133's pending gate only
+for this run. Authorize A(.165,5.49375)75min; B(.165,5.50625)60min only after
+A success and actual activeP1 request; C(.16531250000000003,5.5)120min;
+D(.16375,5.5)120min only if still required with remaining reserve. Maximum4
+attempts once each, no substitute pairs/automatic retries. Absolute deadline
+23:44:48.165007Z with900s reserve, including repair; no reset/resume on unsafe
+AC/gap/containment/provenance. Safe Job/Sleep/provenance before every AP.
+Instrumentation wrappers/timeouts only repaired, original scientific functions/
+precision/AO settings/provenance exact. Use stage coverage honestly, not first10s
+as whole-run profiling. Each valid source original26-distance objectives and
+genuine original cache-only AO/independent ranking; implicit AP forbidden.
+Do not assume gain/closure/error bounds or promote numerical/global/lifecycle
+claims. Stop safely without asking intermediate approval if authority insufficient.
+
+## DEC-0133 - Accept cache-only bottleneck diagnosis; stop before fixes or AP
+
+Date: 2026-10-09
+
+Status: DIAGNOSTIC_COMPLETE; CONTINUATION_PLANS_PROPOSED_NOT_AUTHORIZED
+
+Accept EVID-0150's profiler-observability defect and explicit full-stage unknown.
+Do not attribute timeouts to eighe/condition/resource failure from a10s startup
+profile, or relabel A as numerical timeout. Keep original scientific evaluator/
+precision/provenance/MI/Holevo/AO untouched. No fix to collector/supervisor/
+checkpoint or settings implemented without separate user approval.
+Recommend Plan A as the first cost-controlled coordinate step after approval
+for minimal observation and fresh probe budget; Plan B remains conditional.
+Original paired source requests, numerical accuracy/boundaries/multistart
+evidence govern progress, not catalog size. Fourteen/twelve halving arithmetic
+is conditional, not a guarantee; cap/latch limits do not authorize algorithm
+changes. Resume incomplete sources only by explicitly approved original-input
+restart, never unproven partial numerical state. All AP/plans NOT_RUN this task.
+No numerical/global/lifecycle promotion, old Phase2A budget remains expired.
+
+## DEC-0132 - Close Phase2A execution authority; retain finite-catalog-only results
+
+Date: 2026-10-09
+
+Status: COMPLETED_APPROVED_ATTEMPT_SCOPE; BUDGET_EXPIRED; NUMERICAL_OPTIMUM_UNRESOLVED
+
+Accept EVID-0149's actual1 success/1 timeout/1 safety-abort,147-candidate
+catalog, unchanged maxima and genuine AO agreement26/26. One-sided P1 bracket
+progress is not completed paired refinement or convergence. P2 and boundary/
+accuracy dependencies remain open; no global or continuous-optimum claim.
+Hard(.16375,5.5) is still needed for the current reference P2 lower side, but
+not sufficient to resolve all optimum blockers. Phase2B or any retry/additional
+AP needs separate explicit scope and fresh runtime authorization. Do not infer
+authority from later continue or reuse/reset the expired Phase2A budget.
+Preserve failed receipts, preparation/stop snapshots and original science.
+All numerical processing/cleanup finished within the original deadline;
+later documentation/read-only verification does not imply a new compute budget.
+No frozen model, evaluator, precision, quadrature, MI/Holevo, AO settings,
+training/test/baseline/threshold or lifecycle promotion. Existing frozen-hash
+blocker and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain.
+
+## DEC-0131 - Resume original Phase2A authority only after verified AC1
+
+Date: 2026-10-09
+
+Status: RESUMING_UNATTEMPTED_PROBES_WITH_ORIGINAL_DEADLINE
+
+EVID-0148 verifiesACrestoration/usercontinue and retainedunexpired budget.
+Resume onlyprobe2(.165,5.5125), then3(.16531250000000003,5.5) underoriginal
+14:46:13Z deadline/480s reserve, no probe1/hardPhase2B/timeout/AC retry orreset.
+Keep stoppedreceipts/producers/snapshots and allscientificsettings intact;
+freshAC/Sleep/nativeJob provenance/cleanup gatesmandatory. CSVnumericcast is
+renderer-only, not a new calculation. Report actualCw/SKR/AO/closures/gaps,
+not assumedsuccess/convergence. No numerical/global/lifecycle authority change.
+
+## DEC-0130 - Stop Phase2A on native unsafe gap/AC0; no aborted-source retry
+
+Date: 2026-10-09
+
+Status: STOPPED_BLOCKED_BY_ENVIRONMENT_AC_REQUIRED
+
+Accept EVID-0147: nativeJob125 kills allprobe1 workers on15.578s monitoringgap
+andAC0. No validC,w;0newobjective/source/AO/coordinate completion. Rawgeneric
+PROCESS_FAILURE is interpreted as safetyabort, nottimeout or numericalfailure.
+Keep actualreceipt and allpreparation/stop snapshots, original10800s deadline
+and attemptedsource inventory. RestoreSleep and verify no workers, then stop
+all computation on battery. Never retryabortedprobe1 automatically. StableAC
+is needed before considering only unattemptedprobe2/3 within originalbudget;
+no reset/extraAP/Phase2B. Further work after expiry needs freshauthority.
+Report finitebaseline/errorunbounded scope, no fakeoptimization improvement.
+No scientificalgorithm/settings or lifecycle authorization changed.
+
+## DEC-0129 - Execute only newly approved Phase2A under single absolute budget
+
+Date: 2026-10-09
+
+Status: EXPLICITLY_APPROVED_PHASE2A_EXECUTION
+
+User approval supersedes DEC-0128's pending gate for exactly3 ordered original
+probes. EVID-0146/auth JSON bind10800s total/3600s source/max3 sequential with
+480s processing reserve from new unreset origin. Native AC/Sleep/Job safety and
+strict provenance must pass; terminate fulltree on failure. Timeout may advance
+to next independent source if safe/time permit; no retry/Phase2B/extraAP.
+Use unchanged scientific evaluator/settings/methods and genuine originalAO,
+not a catalog-winner copy. Save all26 new objectives per valid source, original
+histories/coordinates and independent maximum comparison. Preserve pending
+snapshots/old artifacts. Catalog growth alone is not convergence; no lifecycle,
+global, threshold, training or test-access promotion.
+
+## DEC-0128 - Prepare three Phase2A dependencies; require new budget approval
+
+Date: 2026-10-09
+
+Status: STAGE1_COMPLETE_AWAITING_EXPLICIT_NEW_PHASE2A_AUTHORIZATION
+
+Current Phase2 attachment supersedes Phase1's no-budget-request end-of-task rule
+only by opening preparation/preflight and a new proposed budget confirmation.
+EVID-0145 verifies original146 baseline and three specific missing midpoint
+dependencies, native AC/Sleep/Job readiness/cleanup and protected artifacts.
+Do not compute AP before fresh explicit approval. Proposed10800s/3600s/max3
+serial includes processing/cleanup;480s reserve can shorten later deadlines.
+After approval no intermediate approval pause is required; timeout continuation
+only with remaining budget and safe power/provenance. No automatic retries,
+model/settings/method changes, old budget reuse or Phase2B. Preserve lowernu
+timeout dependency as excluded and reconsider necessity from actual Stage2
+results before any separately approved hard probe. Pending tables/figures cannot
+be presented as newly computed results. No numerical/global/lifecycle promotion.
+
+## DEC-0127 - Accept Phase1 AO audit; stop before new AP
+
+Date: 2026-10-09
+
+Status: PHASE1_COMPLETE_STOP_BEFORE_NEW_AP; NO NUMERICAL/GLOBAL APPROVAL
+
+Accept EVID-0144's independently verified146-catalog/26-distance data and real
+AO histories. Algorithm P1/P2 indexing is consistent; inner returns are only
+exact-tested approximate maximizers. Strictpositive nu differs from nu>=0 target;
+do not silently change it.0 closed selected directions;4/5 start agreement at
+priority distances is partial evidence, not continuous/global convergence.
+Prepare manuscript Algorithm1 and diagnostic figures with incomplete status.
+Prioritize actual reference dependencies, then22km, then gate other24; do not
+run all55 missing sources for catalog growth. Four primary pairs complete at
+most one paired step per selected coordinate, not full convergence. Prior timeout
+and AC abort require separate decisions, never automatic retry. Keep original
+epsilon/parameter/outer/inner caps; diagnose their limits without modifying them.
+Total objective accuracy remains error-unbounded despite repeated ordering.
+Preserve all old science/artifacts, baseline curves and binary64 keys. This task
+authorizes cache-only Phase1 and ends here; no AP budget ask, reuse, or execution.
+Any Phase2 needs separate explicit scope/fresh budget and original safety gates.
+No lifecycle/model/security/threshold/training/test/baseline authority changed.
+
+## DEC-0126 - Close Batch3 with146 finite candidates; retain incomplete directions
+
+Date: 2026-10-09
+
+Status: COMPLETE_WITH_POWER_ABORT_AND_BUDGET_SKIP; NO NUMERICAL/GLOBAL APPROVAL
+
+Accept EVID-0143's1 valid new source/26 objectives,146 catalog and independently
+verified26/26 original ALT_OPT matches.0 maximum gains atall26; source2 is new
+runner-up at22/reference.0 closed directions,55 missing dependencies. Nu slice
+atVA5.475 remains singleton. Tiny runner-up gaps and bit-exact repeats do not
+establish total numerical accuracy/continuous convergence/global optimality.
+Source1 stopped on AC loss, never retried; source3 skipped to preserve480s
+processing/cleanup reserve under original deadline, not marked timeout.
+Production computation and independent audit completed before deadline; final
+narrative handoff after deadline is disclosed. Preserve all old snapshots,
+raw moments/ledgers/histories; no worker/Sleep lease remains. Approval is closed,
+not authority for extra AP; further coverage requires new explicit scope/budget.
+Scientific formulas/precision/quadrature/MI/Holevo/ALT_OPT and lifecycle unchanged.
+
+## DEC-0125 - Resume only unattempted Batch3 sources after live AC restoration
+
+Date: 2026-10-09
+
+Status: RESUMED_WITH_ORIGINAL_AUTHORIZATION_DEADLINE
+
+EVID-0142 records liveAC1 and user's continue request. Resume approved source2,
+then3 only if time/safety permits; never retry aborted source1 or timed-out
+source. Origin07:56:11Z/deadline10:56:11Z unchanged. Max3600s probe,480s reserve
+and no extra source during original cache-only129-start AO. Preserve prior
+attempts and all stopped/resume snapshots; old protected producers unchanged.
+Native preflight isolates wall deadline with live idle child to avoid treating
+the earlier two-busy-process JobCPU guard as a wall-time assertion failure.
+Original supervisor/CPU/safety guards and all scientific methods unchanged.
+Report actual outcomes and any catalog/AO mismatch, not presumed completion/gain.
+
+## DEC-0124 - Accept approved Batch3 scope; stop on verified AC loss
+
+Date: 2026-10-09
+
+Status: EXECUTION_STOPPED_BLOCKED_BY_ENVIRONMENT_AC_REQUIRED
+
+Current explicit approval superseded DEC-0123's pending budget. Execute atmost3
+specified sequential points, new10800s total/3600s source, no timeout retry.
+EVID-0141 verifies actual native preflight and first source attempt, but AC0
+caused Job125 termination after1952.719s. Enforce the user's safety-stop rule:
+no probe2/3 on battery. Do not relabel power abort as timeout or numerical failure.
+No source/objective completed; catalog145 and old maxima unchanged. All885
+protected hashes/worker cleanup/Sleep restoration verified. Previous preflight
+failures preserved and budget NOT reset (origin07:56:11Z, deadline10:56:11Z).
+Current 'continue' triggers safe inspection, not permission to bypass AC.
+Require stable AC before any further AP. Do not automatically rerun aborted
+probe1 or erase prior attempts. Any authorized continuation must preserve the
+original deadline and skip earlier attempts; once expired a new runtime scope
+needs explicit approval. No scientific/lifecycle change or convergence claim.
+
+## DEC-0123 - Finalize Batch3 points; require explicit new runtime approval
+
+Date: 2026-10-09
+
+Status: SELECTION_COMPLETE_AWAITING_EXPLICIT_BATCH3_BUDGET_APPROVAL
+
+Current attachment opens Stage1 and proposes a new10800s/3600s/max3 sequential
+execution, but explicitly requires separate user budget approval before AP.
+EVID-0140 verifies the145 baseline and retains all3 original points. There is
+no generated nu midpoint atVA5.475: only an outer half-value. Do not invent a
+rounded local point or silently substitute the farouter(.0825,5.475).
+Keep third(.16531250000000003,5.5) under the attachment's otherwise branch,
+with explicit note it does not bracket the current22kmVA5.475 nu slice.
+Stop before AP; request explicit budget confirmation. After confirmation run
+sequentially using original evaluator and live AC/Sleep/Job preflight, preserve
+prepared files, checkpoint each outcome, no timeout retry or budget overrun.
+No source/scientific/provenance/optimization policy or lifecycle change.
+
+## DEC-0122 - Accept cache-only145-catalog diagnostic; stop before Batch3 AP
+
+Date: 2026-10-09
+
+Status: DIAGNOSTIC/PLANNING COMPLETE; NEW AP NOT AUTHORIZED
+
+Accept EVID-0139's145 compatible sources,3770 objectives,26/26 existing AO
+matches and24 bit-exact unchanged-evaluator repeats. Accuracy classification is
+ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED; neither deterministic repetition nor
+the final subtraction ULP scale certifies total numerical error or physical gain.
+5.475 is the sampled22km VA maximum, not a continuous/global certificate;
+itsnu slice is singleton and both outer directions are not closed.
+Select exactly(.165,5.4625),(.165,5.4875),(.16531250000000003,5.5) for future
+coverage, with exact original midpoint keys. These give complementary VA/nu
+information, not guaranteed gain/convergence; all54 missing dependencies ranked.
+Stop now. No new AP budget is requested or inferred, and old unused time is
+not authorization. An expensive future expansion is conditional on a scientific
+coverage objective and new explicit runtime/power approval. No formulas, source
+method, precision, quadrature, ALT_OPT settings/multistarts or lifecycle changed.
+
+## DEC-0121 - Close successful batch2; retain finite-catalog scope and open directions
+
+Date: 2026-10-09
+
+Status: COMPLETED DIAGNOSTIC COMPUTE; NO CONVERGENCE/GLOBAL OPTIMALITY APPROVAL
+
+Accept EVID-0138's3/3 sources,0 timeouts,145 MB pairs,78 exact new objectives and
+26/26 original cache-only AO/catalog matches. Only22km improves relative142,
+at(.165,5.475),delta2.626161285101958e-07; do not compare only to obsolete139
+or call tiny numeric gain scientifically significant without error bound.
+Runner-up/neighbor coverage strengthens but no search closes:54 missing pairs,
+312 open-boundary and306 bracket/missing calls among618 actually rerun.
+No numeric/global convergence; selected4 stagnated/22 unresolved.
+Actual wall6935.906s/CPU6744.1875s, deadline/power/lease cleanup PASS,0 workers,
+796 protected hashes and32 scoped tests/diff PASS. Preserve all outputs/source
+moment caches and old artifacts; do not consume leftover time for extra probes.
+Further targeted ridge expansion could provide coverage only after new explicit
+scope/runtime authorization; no guaranteed physical gain or global closure.
+Scientific/numerical formulas/settings/AO and frozen model unchanged; no new
+publication/training/test/baseline/threshold approval.
+
+## DEC-0120 - Execute approved batch2 with exact identities and fresh wall limits
+
+Date: 2026-10-09
+
+Status: ACTIVE DIAGNOSTIC COMPUTE AUTHORIZATION
+
+Current user approval supersedes DEC-0119's pending confirmation. Execute max3
+unique points in stated order(.165,5.475),(.165,5.425000000000001),(.15,6.25),
+new10800s total/max3600s each, serial. Reassess remaining need from measured
+data after every valid source; retain original order absent demonstrated
+redundancy. Continue after timeout if safe/in budget, never retry timeout.
+Use EVID-0137's actual active AC/sleep guard and original Windows Job worker.
+Reserve360s for final original cache-only AO and cleanup, never extend deadline.
+Compare against142 exact baseline, not139; max145 unique MB sources. Preserve
+preparation and prior batch bytes. No science/formula/precision/quadrature/MI/
+Holevo/AO/provenance or lifecycle change; no forced matching or global convergence.
+
+## DEC-0119 - Prepare adaptive batch2; confirm proposed fresh limits before AP
+
+Date: 2026-10-09
+
+Status: PREPARATION ONLY; NEW COMPUTE AUTHORIZATION PENDING
+
+Accept EVID-0136's142 baseline, binary64 identities, cached local gaps and full
+52-missing-pair inspection. First proposed source(.165,5.475) serves measured
+ridge switch at21.939/22km. Correct proposed5.425 to actual original search
+midpoint5.425000000000001 (1ULP), not a scientific or algorithm modification.
+Keep(.15,6.25) provisional for20/21km coverage; reassess priorities2/3 after
+valid exact results, rather than predict unknown K. Avoid known long timeouts.
+Baseline22 reference remains.07661714229913241 from142, not the old139 curve.
+
+The attachment explicitly describes a proposed fresh10800s/3600s/max3 serial
+batch and execution once authorized. Ask for confirmation before expensive AP;
+prior completed approval/leftover time is not reused. After approval recheck
+AC/reacquire verified sleep prevention, use original Job/source evaluator,
+checkpoint each outcome, evaluate only newly available26distance objectives
+and run original cache-only AO. Continue independent probes after timeout only
+within approved limits/safety; never retry automatically or force convergence.
+No scientific/model/publication/training/test/baseline/threshold approval changed.
+
+## DEC-0118 - Close the completed three-point campaign, retain unresolved scope
+
+Date: 2026-10-09
+
+Status: COMPLETED DIAGNOSTIC EXECUTION; NO CONTINUOUS/GLOBAL CONVERGENCE APPROVAL
+
+Accept EVID-0135: three valid sources, zero timeout,142 finite MB candidates,
+78 exact26distance objectives and original129-start cache-only AO. AO matches
+catalog maximum26/26; only22km has a small numerical increase at(.165,5.45).
+Do not elevate finite numeric ordering to meaningful physical gain without a
+total objective error bound. No coordinate search completed:52 missing pairs
+and open boundaries remain; selected4 stagnated/22 unresolved, no convergence.
+Actual wall7732.75s within10800s, all per-probe deadlines pass; temporary sleep
+request restored and no workers remain. Preserve all old results and the new
+source/checkpoint/catalog artifacts. Authorization is complete after these
+three specified probes; unused time does not authorize other points or retries.
+Any later exact-source expansion needs a new explicit scope/runtime decision.
+Scientific methods/settings, model, publication/training/test/baseline/threshold
+approvals unchanged; frozen-spec discrepancy remains recorded.
+
+## DEC-0117 - Fresh approval executes all three probes, including after timeout
+
+Date: 2026-10-09
+
+Status: ACTIVE DIAGNOSTIC COMPUTE AUTHORIZATION
+
+The user's current explicit approval supersedes DEC-0116's pending-budget and
+stop-after-timeout conditions for this NEW execution only. Run ordered pairs
+(.16562500000000002,5.5),(.165,5.45),(.165,5.525) sequentially with10800s total
+and3600s maximum per probe. Continue automatically after timeout; never retry
+a timed-out point within this run. Stop for unsafe power/provenance/numerical
+failure or exhausted total budget. Keep original science and preserve history.
+Accept EVID-0134's live AC/active temporary lease before original worker start.
+Reserve360s for final26distance original cache-only AO and cleanup; no extension
+of total budget. Expanded catalog remains a finite exact-tested ranking, not
+continuous convergence. No publication/training/test/threshold approval changes.
+
+## DEC-0116 - Temporary sleep/AC guard accepted; new AP budget still pending
+
+Date: 2026-10-09
+
+Status: OPERATIONAL PREFLIGHT ONLY; NO AP BUDGET CONFIRMATION
+
+User requests transient thread-scoped automatic-sleep prevention and native
+power checks without changing power plans or scientific calculations. Accept
+EVID-0133's temporary request/release, Job timeout/cleanup and simulated-power
+abort evidence. Operational wrapper does not amend source methods, precision,
+quadrature, AO or lifecycle. Recheck AC and verify/reacquire the request before
+any future AP; unexpected suspend still cannot be treated as wall-time PASS.
+The proposed NEW10800s total/3600s per probe requires explicit confirmation;
+do not reuse prior expired approvals. Stop after preflight. Candidate order
+remains(.16562500000000002,5.5),(.165,5.45),(.165,5.525); exclude(.16375,5.5).
+After fresh approval, use original evaluator sequentially and stop/report on
+timeout or unsafe power rather than automatically launching another probe.
+
+## DEC-0115 - Stop after sleep-related deadline failure; no further AP
+
+Date: 2026-10-09
+
+Status: WALL-BUDGET COMPLIANCE FAILED; CONTINUATION NOT AUTHORIZED
+
+Accept EVID-0132's raw timeout/CPU/wall evidence and confirmed Windows battery
+sleep/hibernate/resume events. Do not classify the10800s/3600s real-time budget
+as PASS merely because CPU use was1771s. The polling supervisor terminated
+after recovery rather than at the real-time deadline. Preserve original ledgers,
+profiling artifacts and separate compliance audit. No C,w completed; SKR/AO and
+probes2/3 remain NOT_RUN. All workers stopped; MB count unchanged139.
+Treat this wall-time session as exhausted and stop. A new attempt needs fresh
+explicit runtime authorization plus separately agreed stable-power/no-suspend
+conditions. Do not alter source formulas, precision/quadrature or AO, invent
+moments, silently reuse CPU-based remaining budget or infer ensemble invalidity.
+No power settings, scientific or lifecycle approvals were changed here.
+
+## DEC-0114 - New three-hour budget; probe1 result before continuation
+
+Date: 2026-10-08
+
+Status: ACTIVE USER AUTHORIZATION; NO NUMERICAL/MODEL/LIFECYCLE CHANGE
+
+User grants maximum10800s total and3600s per exact-source probe for the new
+targeted pilot. This is separate from the exhausted old14400s session.
+Execute only (.16562500000000002,5.5) first with unchanged original exact
+method and corrected supervisor. Validate/checkpoint/time and, if successful,
+evaluate26 exact objectives and affected cache-only AO searches. Report the
+result before deciding probe2. Do not automatically continue on timeout or
+invalidity; no probe2/3 is launched by the current one-probe driver.
+Preserve all old artifacts. No cap/tolerance/precision/quadrature/formula
+change, manufactured convergence, publication or test access is authorized.
+
+## DEC-0113 - Prepare targeted three-candidate pilot; require fresh budget
+
+Date: 2026-10-08
+
+Status: PLANNING ONLY; NO NEW AP EXECUTION BUDGET APPROVED
+
+User requests targeted near-ridge expansion subject to a separately approved
+computational budget. EVID-0130 accepts the three actual midpoint candidates
+(.16562500000000002,5.5), (.165,5.45), (.165,5.525) as a pilot plan, not fixed
+optima or required successes. Defer the prior3600s timeout (.16375,5.5) rather
+than automatically repeating it; retain its unresolved dependency.
+The old four-hour authorization remains exhausted. Do not start AP/SKR/AO
+expansion until fresh total/per-probe hard runtime is explicitly supplied.
+After authorization, start one serial probe and review validated result, actual
+timing and newly enabled objective evidence before another. Mathematical and
+numerical methods, all AO settings and lifecycle remain frozen. No assurance
+of three completions, improved SKR, continuous convergence or global optimality.
+
+## DEC-0112 - Accept explicit finite-set maxima; defer further AP
+
+Date: 2026-10-08
+
+Status: FINITE-CATALOG DIAGNOSTIC DISPOSITION; NO CONTINUOUS/LIFECYCLE PROMOTION
+
+Accept EVID-0129's exhaustive 136-reference-pair and 139-current-MB-pair
+comparisons at 26 distances, with 168-all-source set explicitly distinguished.
+ALT_OPT attains these finite-set numerical maxima; it is not continuously
+converged or globally certified. The 4-step cap is a prospective ceiling, not
+the observed blocker: missing sources/open boundaries stop earlier. Do not
+raise it, relax epsilon/tolerance or compute further AP from this decision.
+
+Do not spend another AP batch merely to reproduce the catalog maximum. If
+continuous-coordinate closure is scientifically necessary, first authorize a
+prospective coverage/closure plan and separate hard compute budget, retaining
+all original methods unless a separately approved change is explicitly made.
+Use scope-limited finite-catalog manuscript wording only; publication/numerical
+security certification and frozen-spec provenance gates remain open. Prior
+top-three source proposals remain unexecuted planning, not compute permission.
+
+## DEC-0111 - Preserve cache-only diagnosis; three probes remain planning only
+
+Date: 2026-10-08
+
+Status: DIAGNOSTIC COMPLETE; NO AP AUTHORIZATION OR LIFECYCLE PROMOTION
+
+Accept EVID-0128's verified cache consumption, unchanged five-distance replay,
+source dependency ranking and conditional refinement-depth assessment. No
+scientific or optimizer fault is established, so do not modify the frozen
+algorithm, caps, epsilon, source identity, mathematics or numerical method.
+Do not interpret 3 source completions or zero delta K as coordinate closure.
+Prioritize (.16562500000000002,5.5), (.16375,5.5), (.165,5.45) only after
+explicit approval and separately supplied total/per-probe hard runtime limits.
+The old 4-hour budget remains exhausted. Three successful probes would not
+guarantee convergence; unchanged four-stage searches and earlier/multistart
+coverage need independent resolution. Keep the other 21 distances LAST_KNOWN.
+Do not conflate local numerical blockers with the missing analytic certificate
+for the unbounded global domain. Publication status remains unchanged.
+
+## DEC-0110 - Preserve partial closure evidence after hard-budget completion
+
+Date: 2026-10-08
+
+Status: ACTIVE DIAGNOSTIC DISPOSITION; NO CONVERGENCE OR LIFECYCLE PROMOTION
+
+Accept EVID-0127's 3 exact sources (2 original missing keys plus one adaptive
+midpoint), measured timings and unchanged five-distance candidate results.
+Do not turn source availability, a smaller local bracket, zero delta K or
+unchanged parameters into numerical convergence. Zero identical-slice
+coordinate/boundary invocations closed; all 26 global claims remain unproved.
+
+Stop after the authorized 4-hour budget; all source workers are stopped.
+Preserve original 165-row cache, overlay 3 rows, objective checkpoints,
+timeouts and executed producer snapshot. The other 21 values are LAST_KNOWN,
+not a fresh full-grid optimization. Require separate explicit authorization
+and adequate runtime for further AP work. Do not silently retry failed keys,
+resume an exhausted budget, accelerate, change precision, raise iteration
+caps or invent a tail bound. Operational duplicate-owner/budget guards are
+accepted without mathematical changes. Publication state remains
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## DEC-0109 - Budget-bound exact-source closure continuation
+
+Date: 2026-10-08
+
+Status: ACTIVE DIAGNOSTIC EXECUTION AUTHORIZATION; NO MATHEMATICAL CHANGE
+
+The user authorizes continuation using the unchanged original evaluator,
+with total hard budget 14400s, maximum 3600s per probe and batch size 1.
+This is a new budget, not reuse/extension of the earlier exhausted pilot.
+Deduplicate exact ensembles, prioritize the five stagnated distances and
+shared competitive dependencies, save each batch before continuing, and
+reuse only provenance-compatible source/objective checkpoints.
+
+Keep epsilon_opt=1e-8, parameter tolerance=1e-6, outer cap=6 and the original
+coordinate-update/search, quadrature and precision policies. Operational
+resume, atomic ledgers and native Job CPU accounting are permitted; no
+source-method acceleration, approximation, new bounds or forced convergence
+label is permitted. Verify source rows and representatives before updating
+the remaining 21 distances. A timeout is not an invalid ensemble/low SKR.
+
+Evidence: EVID-0126, missing_source_dependency_map.csv,
+unresolved_search_inventory.csv and source_generation_ledger.json in
+results/theta10_D55_alt_opt_closure_continuation/. No publication or frozen
+spec promotion, baseline selection, threshold approval or final-test access.
+
+## DEC-0108 - Accept strict exact-tested reproducibility without closure promotion
+
+Date: 2026-10-08
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO SCIENTIFIC/POLICY CHANGE
+
+The explicit user request authorizes a cache-only reproducibility rerun at
+all 26 distances even though the separately gated source-completion workflow
+has not closed representative directions. This authorization does not permit
+AP generation, acceleration, evaluator changes, continuous convergence or
+publication promotion. Existing corrected provenance/stopping and numerical
+methods were frozen unchanged.
+
+Accept EVID-0125 as successful reproduction of the exact-tested ALT_OPT sweep:
+26/26 six-field exact matches and all six diagnostic totals unchanged.
+Retain 5 STAGNATED_IN_EXACT_CATALOG and 21 UNRESOLVED_BOUNDARY statuses, not
+CONVERGED_NUMERICALLY. Keep original aggregate statuses and historical reports
+separately. Future source completion still requires its own explicit budget
+and authorization; the 165-row source cache must remain protected.
+
+Evidence: results/theta10_D55_alt_opt_26distance_strict_rerun/run_report.json,
+previous_vs_rerun_comparison.csv, input_manifest_before.json/after.json and
+post_run_checks.txt. No model, training/test access, baseline selection,
+threshold approval or publication lifecycle changed.
+
+## DEC-0107 - Explicit canonical provenance and conservative ALT_OPT stopping
+
+Date: 2026-10-08
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO LIFECYCLE PROMOTION
+
+Accept EVID-0124's newline-only canonical verification policy. Preserve all
+historical raw hashes and source files; only proven current-byte/LF/CRLF
+equivalence is compatible. Scientific code, settings or unknown identity
+changes invalidate reuse. Objective compatibility is distinct from source
+compatibility and includes scientific code/configuration/channel identity.
+
+Retain epsilon_opt=1e-8 and the six-iteration default. Neither an unchanged
+pair nor a bracket over a sparse catalog is sufficient for numerical
+convergence. Both final-coordinate searches and stopping prerequisites must
+pass; local numerical closure does not certify an unbounded global optimum.
+
+Preserve the bounded pilot's timeout and measured budget overrun honestly.
+The repaired process supervisor does not retroactively make the initial
+timeout meet its budget. No source moment was added, so representative closure
+remains unresolved and the remaining 21-distance optimization is NOT_RUN.
+The publication lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+Evidence: EVID-0124 and
+`results/theta10_D55_alt_opt_convergence_validation/validation_report.json`.
+
+## DEC-0106 - Retain full-distance ALT_OPT as unresolved diagnostic
+
+Date: 2026-10-07
+
+Status: ACTIVE DIAGNOSTIC DECISION; BLOCKED_BY_ENVIRONMENT; NO LIFECYCLE PROMOTION
+
+Accept EVID-0122 as the full-distance continuation of the validated theta10/D55
+ALT_OPT diagnostic. It preserves the physical/security model and exact direct-
+`Z_minus` evaluator, uses cache-only exact source moments, and writes a new
+distance table and figure. Uniform and fixed-MB rows were not reevaluated; the
+existing source CSV and source cache were hash-checked unchanged. The selected
+optimized-MB row reproduces the prior pair and SKR at all 26 distances.
+
+Do not call these rows converged or global optima. Missing exact source moments
+leave inner and outer boundary directions unresolved at every distance, and
+multi-start terminal pairs remain initialization-dependent. If closure is
+authorized later, run the existing source worker in an environment that can
+complete the missing exact probes, explicitly supplying `--allow-new-source`,
+while preserving this cache-only diagnostic and its hashes.
+
+The separate renderer is accepted as a positive-only display: standard base-10
+log scale, Uniform through 25 km only, and both MB curves through 40 km. No
+zero line or interpolation is used. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0122
+- `results/theta10_D55_alt_opt_distance_sweep/run_report.json`
+- `results/theta10_D55_alt_opt_distance_sweep/mb_alt_opt_distance_summary.csv`
+- `results/theta10_D55_alt_opt_distance_sweep/skr_vs_distance_three_scheme_log10_report.json`
+
+## DEC-0105 - Retain ALT_OPT as blocked diagnostic; no optimum promotion
+
+Date: 2026-10-07
+
+Status: ACTIVE DIAGNOSTIC DECISION; `BLOCKED_BY_ENVIRONMENT`; NO LIFECYCLE PROMOTION
+
+Accept the new optimization-layer implementation as a separate diagnostic
+driver only. It reuses the existing exact direct-`Z_minus` evaluator and
+source moments, adds adaptive `V_A|nu` and `nu|V_A` searches, context-bound
+exact caching, multi-start logs, monotonicity checks, and convergence/
+trajectory artifacts. It does not alter the physical model or the previous
+joint-search artifacts.
+
+The cache-only validation found the best exact-tested pair `.165,5.5` at the
+theta10/D55 baseline distance, but exact source coverage did not close all
+adaptive midpoint/outer probes. The open-source fallback was stopped after a
+single probe remained CPU-bound for about 23 minutes; no source cache row was
+added. Therefore the result must remain `BEST_AO_EXACT_TESTED_CANDIDATE_ONLY`
+and must not be called a converged AO solution, stationary/global optimum, or
+publication baseline.
+
+### Evidence
+
+- EVID-0121
+- `results/theta10_D55_alt_opt/ao_report.json`
+- `results/theta10_D55_alt_opt/ao_summary.csv`
+- `results/theta10_D55_alt_opt/ao_iterations.csv`
+
+## DEC-0104 - Accept theta10/D55 unconstrained exact diagnostic with fixed-pair caveat
+
+Date: 2026-10-07
+
+Status: ACTIVE DIAGNOSTIC DECISION; NO LIFECYCLE PROMOTION; STRICT FIXED-BINARY64 SOURCE UNRESOLVED
+
+Accept EVID-0120 as a separate exact-tested adaptive diagnostic. It removes
+the peak-photon and common-VA constraints only in the new runtime experiment,
+keeps the physical/security parameters and direct-`Z_minus` evaluator fixed,
+and does not overwrite the constrained D55 artifacts.
+
+The result retains the exact Uniform sign bracket `25 km` positive to `25.5
+km` non-positive. Both MB curves are positive through 40 km. The optimized MB
+ridge moves toward higher VA at short distance and then declines with distance;
+the exact VA=8 upper probes, nu=.05 lower probes, and nu=.8 upper probes are
+below the selected envelope. This is an exact-tested adaptive envelope, not a
+continuous optimum proof over all positive VA and nu.
+
+The requested fixed decimal `V_A=1.3833230303` source calculation timed out
+in the existing AP fallback. The accepted diagnostic fixed curve uses the
+existing exact hash-matched binary64 row `1.3833230302980657`, equal at the
+reported ten-decimal precision, with no moment interpolation. A strict rerun
+at the requested binary64 value requires a source-worker environment that
+completes the fallback.
+
+Do not promote this run to a publication baseline, continuous global optimum,
+or final-test/publication evidence. Publication lifecycle remains
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+
+### Evidence
+
+- EVID-0120
+- `results/skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme/run_report.json`
+- `results/skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme/skr_vs_distance_three_scheme.csv`
+
 ## DEC-0103 - Accept theta10/D55 three-scheme diagnostic
 
 Date: 2026-10-02

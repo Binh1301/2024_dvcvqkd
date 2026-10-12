@@ -1,0 +1,113 @@
+{
+  "mode": "LIGHTWEIGHT_EXECUTION_STAGE_TIMING",
+  "utc": "2026-10-10T01:25:38.149298+00:00",
+  "pid": 17332,
+  "owner_thread": 22672,
+  "wall_seconds": 305.375,
+  "process_cpu_seconds": 297.203125,
+  "snapshot_count": 31,
+  "finished": false,
+  "open_stages": [
+    {
+      "name": "original_worker_main",
+      "digits": null,
+      "wall_start": 0.0,
+      "cpu_start": 0.0
+    },
+    {
+      "name": "precision_row",
+      "digits": 1050,
+      "wall_start": 0.0,
+      "cpu_start": 0.0
+    },
+    {
+      "name": "multi_RHS_LU",
+      "digits": 1050,
+      "wall_start": 293.5,
+      "cpu_start": 285.5625
+    }
+  ],
+  "completed_stages": [
+    {
+      "name": "Gram_sector_construction",
+      "digits": 1050,
+      "wall_start": 0.0,
+      "cpu_start": 0.0,
+      "wall_seconds_inclusive": 24.530999999988126,
+      "CPU_seconds_inclusive": 23.890625,
+      "wall_seconds_exclusive": 24.530999999988126,
+      "CPU_seconds_exclusive": 23.890625,
+      "completed_normally": true
+    },
+    {
+      "name": "Hermitian_eigensystem",
+      "digits": 1050,
+      "wall_start": 24.530999999988126,
+      "cpu_start": 23.890625,
+      "wall_seconds_inclusive": 43.437000000005355,
+      "CPU_seconds_inclusive": 42.125,
+      "wall_seconds_exclusive": 43.437000000005355,
+      "CPU_seconds_exclusive": 42.125,
+      "completed_normally": true
+    },
+    {
+      "name": "Hermitian_eigensystem",
+      "digits": 1050,
+      "wall_start": 67.96799999999348,
+      "cpu_start": 66.015625,
+      "wall_seconds_inclusive": 44.03200000000652,
+      "CPU_seconds_inclusive": 42.421875,
+      "wall_seconds_exclusive": 44.03200000000652,
+      "CPU_seconds_exclusive": 42.421875,
+      "completed_normally": true
+    },
+    {
+      "name": "Hermitian_eigensystem",
+      "digits": 1050,
+      "wall_start": 112.0,
+      "cpu_start": 108.4375,
+      "wall_seconds_inclusive": 43.875,
+      "CPU_seconds_inclusive": 42.828125,
+      "wall_seconds_exclusive": 43.875,
+      "CPU_seconds_exclusive": 42.828125,
+      "completed_normally": true
+    },
+    {
+      "name": "Hermitian_eigensystem",
+      "digits": 1050,
+      "wall_start": 155.875,
+      "cpu_start": 151.265625,
+      "wall_seconds_inclusive": 43.046999999991385,
+      "CPU_seconds_inclusive": 42.015625,
+      "wall_seconds_exclusive": 43.046999999991385,
+      "CPU_seconds_exclusive": 42.015625,
+      "completed_normally": true
+    },
+    {
+      "name": "multi_RHS_LU",
+      "digits": 1050,
+      "wall_start": 212.15599999998813,
+      "cpu_start": 206.203125,
+      "wall_seconds_inclusive": 25.812000000005355,
+      "CPU_seconds_inclusive": 25.0625,
+      "wall_seconds_exclusive": 25.812000000005355,
+      "CPU_seconds_exclusive": 25.0625,
+      "completed_normally": true
+    },
+    {
+      "name": "multi_RHS_LU",
+      "digits": 1050,
+      "wall_start": 238.85899999999674,
+      "cpu_start": 232.15625,
+      "wall_seconds_inclusive": 25.875,
+      "CPU_seconds_inclusive": 25.28125,
+      "wall_seconds_exclusive": 25.875,
+      "CPU_seconds_exclusive": 25.28125,
+      "completed_normally": true
+    }
+  ],
+  "observer_error": null,
+  "snapshot_CPU_seconds_measured": 0.078125,
+  "snapshot_wall_seconds_measured": 4.657999999908498,
+  "scope": "AP process CPU includes its observer; completed stage exclusive times exclude nested stage times; snapshots cumulative, not added"
+}

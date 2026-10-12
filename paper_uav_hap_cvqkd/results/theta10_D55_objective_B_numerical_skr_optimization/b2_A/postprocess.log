@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_theta10_D55_objective_B_pilot.py", line 343, in <module>
+    raise SystemExit({'source': source_child, 'postprocess': postprocess_child, 'dummy': dummy_child}[args.child]() if args.child else main())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_theta10_D55_objective_B_pilot.py", line 190, in postprocess_child
+    save('objective_checkpoint.json', catalogs)
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_theta10_D55_objective_B_pilot.py", line 36, in save
+    (OUT / name).write_text(json.dumps(data, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 430, in _iterencode
+    yield from _iterencode_list(o, _current_indent_level)
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  [Previous line repeated 1 more time]
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 398, in _iterencode_dict
+    yield _floatstr(value)
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.12-64\Lib\json\encoder.py", line 240, in floatstr
+    raise ValueError(
+ValueError: Out of range float values are not JSON compliant: inf

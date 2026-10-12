@@ -1,0 +1,11 @@
+# Objective A manuscript finalization
+
+Scientific writing/integration: CURRENTLY_VERIFIED_PASS. Local compilation status: NOT_VERIFIED.
+
+All eight requested deliverables and an Overleaf-ready ZIP are present. Newly added manuscript files: joint_optimization_final.tex, algorithm1_ao_final.tex, stopping_parameter_sensitivity_final.tex, sensitivity_table_final.tex, overleaf_main.tex; supplementary generated files appendix_sensitivity_table.tex and optimized_parameters_table.tex. Reports: manuscript_consistency_audit.md, latex_compile_report.md and this report. No previous manuscript or numerical artifact was overwritten.
+
+The available standalone article master has been extended with the finalized joint section, Algorithm1, actual stopping sensitivity and two appendices. The complete original paper was not supplied/discovered, so integration into that absent master is NOT_VERIFIED. Preview numbering5/6/7 is deliberately documented, not invented original-paper evidence. No unrelated physics/security section is rewritten. Required figures and two small exact-source-result CSVs are copied unchanged, without duplicating the research cache.
+
+Best selected AO terminals match finite-catalog maxima26/26, and all16 sensitivity settings preserve selected pairs/K. Rmax6 and epsilon1e-8 are computational safeguards only; tighter thresholds/larger caps do not remove source missingness or certify accuracy. No new optimizer/physics/AP execution. Uniform boundary is sampled independently, not fully optimized; continuous/global convergence is not certified. Stop after Objective A; Objective B is NOT_RUN and no source-run authority is implied.
+
+Machine evidence: manuscript_validation.json, package_manifest.json and protected_input_manifest.json. Applicable current regression results are recorded in verification_results.json after tests; do not substitute historical test counts. Git state remains dirty from preserved preexisting changes on branch10-5-2026/HEAD eec4dd114d9f3ab128f82c37be520dafd197caaa. Only new deliverables/writing checker/tests and relevant lifecycle records are changed by this task. Frozen historical-hash discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain unchanged.

@@ -1,160 +1,114 @@
 # Session Handoff
 
-## Latest completed task: theta10/D55 three-scheme comparison
+## CURRENT: USER_STOPPED Objective C, no remaining scientific worker
 
-Date: 2026-10-02
+2026-10-11 user"dung" ->21:59:57UTC+7 verifiedPID7132wrapper/controller16960/
+fullscientifictree terminated/taskkill/T/F. TwoCIMchecks zero scopedworkers.
+EVID-0178/DEC-0161; objective_c_checkpoint.json nowUSER_STOPPED/PID0;
+user_stop_receipt.json records2395hashesunchanged/catalog182/no validnewCw/SKR.
+AP1(.16375,5.5) USER_STOPPED/sourcevalidationNOT_RUN,partialnotaccepted.
+Stage1initialfivecachedAOresults remainunresolved,Stage2NOT_RUN. No autoresume,
+retry,newAP/optimization or reuse remainingbudget;freshuserdirection required.
+Forcedexit bypassedouterSleepfinally/finalJobreceipt; Windows threadscopedSleep
+requests disappearwithownertermination, independentpowercfgcheck BLOCKED requires
+admin; do notclaimnativeSleepverification or finalJobqueryPASS. Oldscienceintact.
 
-EVID-0119 / DEC-0103 completed the exact D55 three-curve diagnostic. Uniform
-was independently VA-optimized, fixed MB used `(nu=.2,VA=1.3833230303)`, and
-optimized MB used the exact 145-point bank.
 
-- Uniform VA sequence moves from `1.5` at 20 km to `.5` at 35--40 km.
-- Uniform exact sign bracket: 25 km positive, 25.5 km non-positive.
-- Fixed and optimized MB remain positive through 40 km.
-- Optimized MB is beta-I_AB dominated in the gain decomposition except fixed
-  MB at 20 km, where lower chi_BE dominates.
-- Experiment hash: `eb9ac8410ce48a982b6c06ac2534b6f3e69818bf9a61aec57a73532250efdc89`.
+## Current: Objective C original ALT_OPT Stage1 thenStage2
 
-Artifacts: `results/skr_vs_distance_theta10urad_D55cm_three_scheme/`.
+LAUNCHEDcontroller16960/session5456; originUTC2026-10-11T14:49:33.355738Z,
+harddeadline2026-10-13T02:49:30.558738Z (13Oct09:49:30UTC+7). Stage1epoch0
+original5starts allreach(.165,5.5),K.07798099387393764,iterations1/2/2/2/3;
+allSTAGNATED_IN_EXACT_CATALOG/APPARENTLY_STABLE_BUT_UNRESOLVED.40missingrequests
+count repeats acrossstarts,not40unique sources. AP1/36(.16375,5.5),P2,
+started14:49:41.097352Z;actualoriginalAPworker26500 verifiedlive. Noresultyet.
+2395protectedhashesverifiedPASS. Readcheckpoint/sourcejob insteadofoldsidebar.
+Do notmodifyprotectedrunner orduplicate/restart. Autonomouscontroller continues
+stage1up12thenstage2all26 withinabsolute36hbudget;source60min/noautomaticretry.
 
-## Current gate
 
-Preserve the diagnostic figure/table. Do not select D55 as a publication
-baseline, infer 40 km as a maximum distance, train, or access final-test data.
-Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
+2026-10-11 EVID-0177/DEC-0160 userattachment86b46cab-e98a-4f86-8fbf-f327238b7c60.
+Fresh36h/36AP,Stage1up12reference5pairedstarts(.165,5.5),(.16,6),(.17,5),
+(.15,6.5),(.175,4.5),thenStage2all26remainingAP. No retry/parallel;internal3600s/
+sourceouter3720s/reserve1800s/originalJobACSleepwatchdog unchanged.
+ObjectiveBcomplete182sources/4732storedSKRs/51grid;lastretry26SKRno gain,clean.
+Entry scripts/run_theta10_D55_objective_c.py --approved-objective-c; output
+results/theta10_D55_objective_C_multistart_alt_opt/.19testsPASS5.232s/diffcheck,
+preflight182identities/26contexts/5starts/ACSleepPASS. OriginaldistanceAO and
+sourcechild/evaluator reused,cacheAOpass->only actualmissingrequests supervisedAP.
+Supplementarytwo-closed-iterations assessment conditionalunknown totalerror;
+no nu0/globalclosureclaim. Checkobjective_c_checkpoint.json actualPID/deadline/
+stage/epoch/sources before anyaction;neverduplicateorautoresume. Scientificdefaults/
+oldartifacts/frozenhash/NOT_READY unchanged. Branchstep-final-optimiz,
+HEAD471f82be8cb07199ba3b4380d963aa92d54a4e73;preexistingdirtypreserved.
 
-## Previous handoff
 
-## Latest completed task: transition theta/D_r Uniform frontier
+## Current: explicit ONE timeout retry (.25,3.5), RUNNING
 
-Date: 2026-10-02
+Runtime: controllerPID12972, execsession57841; startUTC2026-10-11T13:01:23.378075Z
+(20:01:23UTC+7), totaldeadline2026-10-11T15:01:12.222459Z(22:01:12UTC+7).
+Actual original APworker25592 verified live; source_child through existing Job
+supervisor. Do not modify protected runner while running or launch twice.
+Read newcheckpoint status/started_UTC, not copied row.wall_seconds inherited from
+prior timeout (historical3606.359s); final state.wall_seconds is new-run measurement.
+No Cw/SKR/actualJobcleanup result yet. Original full31batch artifacts protected.
 
-EVID-0118 / DEC-0102 searched only theta15--50 urad and D_r=.30--.80 m.
-Positive branches require very-large apertures:
+2026-10-11 EVID-0176/DEC-0159. Original full31batch CLOSED31attempts/30success/
+1timeout(.25,3.5),181catalog/50of51grid/780newSKRs; no worker remains.
+User explicitly requests that point again. Entry retry_theta10_D55_grid_timeout.py
+--approved-one-retry binds original fullgrid source/objective children, no new math.
+Output results/theta10_D55_objective_B_numerical_skr_optimization/grid_timeout_retry_1/.
+ONEattempt only, internal3600s/sourceouter3720s/total7200s/reserve1800s; bounded also
+by old12Oct03:07:32UTC deadline. No further retry/extraAP/AO/newprecision/profiler.
+17testsPASS5.271s,1953protectedhashesPASS,181keys,ACthree samples/Sleep restorePASS.
+Check new batch_checkpoint.json and actual processes before launching; do not duplicate.
+Source and26SKRs/currentJobcleanup PENDING until runtime completion. Preserve closed
+batch and all science. Incumbent(.165,5.5),K.07798099387393764; no certifiedcontinuous
+optimum. Historicalfrozenhash/NOT_READY unchanged. Currentbranchstep-final-optimiz,
+HEAD471f82be8cb07199ba3b4380d963aa92d54a4e73; all prior dirty edits preserved.
 
-- theta15: Dcrit20≈.553045 m, Dcrit25≈.642847 m.
-- theta20: Dcrit20≈.654944 m, Dcrit25≈.766989 m.
-- theta25: Dcrit20≈.756441 m; no positive 25-km point below .80 m.
-- theta30--50: no positive 20-km point below .80 m.
+## Historical: full31 missing-source exact batch launch
 
-Exact boundary `T_eff≈.089827455` persists. Four refined candidates are
-positive only through 20 or 25 km and fail at 30 km. No 30--40-km Uniform
-candidate exists; MB was not run.
+2026-10-10 EVID-0175/DEC-0158. User attachment7723d6dd-dbdb-413c-ad2d-03cf9990e614
+authorizes B12 then A19 from fixed51-grid,31 sequential distinct AP attempts,
+36h wall total,reserve1800s,original3600s evaluator timeout,no retry/no extra
+points/no AO refinement/observer/profiler/dummy gate or scientific changes.
+Output results/theta10_D55_objective_B_numerical_skr_optimization/
+full_51_grid_exact_completion/. Runner scripts/run_theta10_D55_full_51_grid.py;
+new tests/test_full_51_grid_execution.py. Reuses original upper P1 source
+child and Windows Job supervisor with AC/Sleep/watchdog/actual Jobempty checks.
 
-Artifacts: `results/transition_theta_dr_frontier/`.
+Live controller PID7536, unified exec session23677. Launch --approved-batch
+already occurred. DO NOT launch again or run --preflight-only. OriginUTC
+2026-10-10T15:07:32.751912+00:00,harddeadline2026-10-12T03:07:32.751912+00:00
+(UTC+7:12Oct10:07:32). Monotonicorigin225024.921,deadline354624.921.
+Latest checkpoint RUNNING_SEQUENTIAL_BATCH,APattempts3,probe3/31(.16,6.5)
+startedUTC2026-10-10T16:29:42.666817+00:00,
+sourcekey4aa10342475c7101722eafafc4f98bedf3ce6ce0b059cd47e0583f9294f946e8.
+Probe2(.16,5.) VALIDATED_SUCCESS,C2.958039459769374,w8.496348575771721e-07,
+wall2146.282s,JobCPU2087.59375s,actualJobemptyclosed and26SKRsPASS.
+RefK.07777958771339188 below incumbent;improves L23km K.05746334980050577.
+Catalog153/grid22of51/572gridrows;10distances23-29km improved versus151baseline.
+Probe1(.16,4.5) VALIDATED_SUCCESS,C2.704163082248768,w7.435643469462286e-07,
+wall2772.328s,JobCPU2688.671875s,source/objectiveJobs emptyclosed/Sleeprestore
+PASS,no power/watchdog abort. p01/source_checkpoint.json/validated_objectives.json
+contain source provenance+26exactSKRs. Catalog152/grid21of51/546gridrows.
+RefK.07722185905848489 noincumbentgain;catalog maxima improve at24,25,25.5,
+26,26.5,27,27.5,28,29km. Poll same session/checkpoint;continue allapproved31.
 
-## Current gate
-
-Do not extend optical ranges, run MB, select a baseline, generate a publication
-figure, train, or access final-test data. Publication lifecycle remains
-`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
-
-## Previous handoff
-
-## Latest completed task: joint theta/D_r optical search
-
-Date: 2026-10-02
-
-EVID-0117 / DEC-0101 completed the primary full-angle divergence/receiver
-coarse search: 9 theta values × 10 diameters × 5 distances = 90 exact
-Uniform optical pairs. Every pair is `NONPOSITIVE_AT_20`; no 30--40-km
-Uniform crossing exists in the declared domain.
-
-- Best K(20): `-3.3000236312e-5` at `theta=50 urad,D_r=.10 m`.
-- Best K(30)/K(40): `theta=250 urad,D_r=.10 m`, still negative.
-- Exact source moments `.14,.18,.20` were generated with support 256.
-- MB, local refinement, and full-distance refinement were not run because no
-  Uniform crossing candidate exists; this is fail-closed by protocol.
-- Classification: no solution in primary joint optical domain.
-
-Artifacts: `results/joint_theta_dr_optical_search/`.
-
-## Current gate
-
-Do not extend the optical domain, alter security/noise/pointing, select a
-baseline, generate a publication figure, train, or access final-test data.
-Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
-
-## Previous handoff
-
-## Latest completed task: theta10 receiver-aperture Uniform diagnostic
-
-Date: 2026-10-02
-
-EVID-0116 / DEC-0100 completed the exact-cache receiver-diameter sweep for
-the current theta10 baseline with all other physical/security parameters
-frozen. The available Uniform VA bank contains 11 exact rows; 10 requested
-VA source moments in `0<V_A<=1.5` remain missing.
-
-- Exact threshold bracket at 20 km: `D_r≈0.491811 m`, `V_A*=.8`.
-- Exact threshold bracket at 22 km: `D_r≈0.512472 m`, `V_A*=.8`.
-- Exact threshold bracket at 25 km: `D_r≈0.544644 m`, `V_A*=.8`.
-- First tested positive diameters: `.50 m` at 20 km; `.55 m` at 22/25 km.
-- `D_r=.55 m` matches the old positive-Uniform sign pattern.
-- Classification is cache-bound; no continuous-VA threshold is claimed.
-
-Artifacts: `results/theta10_receiver_aperture_uniform_diagnostic/`.
-
-## Current gate
-
-No model/security change, divergence/noise/AO/phase change, publication figure,
-baseline selection, training, or final-test access. Publication lifecycle
-remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
-
-## Previous handoff
-
-## Latest completed task: positive-Uniform provenance audit
-
-Date: 2026-10-02
-
-EVID-0115 / DEC-0099 traced the historical symlog figure to the exact
-common-feasible table under the old physical baseline `w0=.10 m`,
-`D_r=.55 m`, `tau_zen=.92`, epsilon `.0186`, beta `.95`, AO/phase OFF, and
-direct `Z_minus`. The old distance sweep recomputed channel quantities at all
-83 distances; no interpolation or new source moments occurred.
-
-- Uniform exact envelope: positive through 25 km, negative at 26 km.
-- MB exact envelope: positive at 800 km, negative at 810 km (O(1e-11)
-  diagnostic bracket).
-- Ten original short-distance rows reproduced with max `abs(diff K)=0.0`.
-- Old physical VA `.08,.10,.12,.13,.15` is negative at 20/22/25/30 km.
-- Classification: `POSITIVE_UNIFORM_FROM_OLD_PHYSICAL_BASELINE`.
-
-Artifacts: `results/positive_uniform_provenance_audit/`.
-
-## Current gate
-
-No replacement figure, new parameter search, source-moment generation, MB
-rerun, baseline selection, training, or final-test access. Publication
-lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`.
-
-## Previous handoff
-
-## Latest completed task: Uniform VA verification at theta10urad/D10cm
-
-Date: 2026-10-02
-
-EVID-0114 / DEC-0098 completed the Uniform-only exact diagnostic without
-changing the frozen physical/security configuration. The implementation-derived
-peak domain is `0 < V_A <= 22.666666666666668`.
-
-- Exact coverage: 322 rows, 14 VA values × 23 distances.
-- Exact tested envelope: `V_A=0.12` through 31 km and `V_A=0.13` from
-  31.5--40 km.
-- Every selected Uniform SKR is negative; no exact positive point or sign
-  crossing exists.
-- `V_A=1.075` is a fixed reference-bank row, not a per-distance optimum.
-- `V_A=0.1` is strictly below the exact-tested envelope but within the frozen
-  `1e-6` absolute SKR tolerance: classify
-  `VA=0.1 NEAR-OPTIMAL WITHIN NUMERICAL TOLERANCE`.
-- 13 requested VA source moments remain missing; no continuous optimum is
-  claimed and no interpolation was used.
-
-Artifacts: `results/uniform_va_optimization_theta10_D10cm/`.
-
-## Current gate
-
-Publication lifecycle remains `NOT_READY_FOR_PUBLICATION_SCALE_RUNS`. Do not
-rerun MB, redraw the final figure, select a baseline, train, access final-test
-data, or promote the Uniform envelope to a continuous/global optimum. Any
-follow-up must use the same exact cache and an explicit source-point budget.
+Preflight151catalog/20of51grid/31missing/1953protectedhashesPASS;3safe AC
+samples/Sleep activation+restorePASS;18 scoped testsPASS5.344s;diffcheckPASS.
+Scientific defaults/code unchanged. Actual scientific Jobcleanup not claimed
+before worker ends. Source supervisor3720s includes wrapper/cleanup; doesnot
+extend internal3600s timeout. PostprocessingJob600s. Globalreserve1800s.
+Atomic ledger/checkpoint after each attempt;successful source gets26 exact
+distance evaluations through original saved contexts/deterministicMI/Zminus.
+Preserve validCw on objective failure;neverAPretry. Timeout maycontinue only
+afterverifiedactualJobempty+safeAC. Mandatory safety/provenance stops entire
+batch. Never stop merely for noSKRgain or after8-12h. Explicit futureauthorized
+resume onlyPENDING;no startup task/automatic reboot restart. Finalize actual
+counts/coverage/remainingpairs/maxima/nearsets/3PNG400dpi+PDFpairs/Sleeprestore.
+Initial151sources/3926objectives/131offgridpairs protected. Referencebest
+(.165,5.5),K.07798099387393764;no continuous/global optimum/errorbound claim.
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS;historical frozenhash discrepancy unchanged.
+Branch10-5-2026 HEAD eec4dd114d9f3ab128f82c37be520dafd197caaa;preserve unrelateddirtywork.

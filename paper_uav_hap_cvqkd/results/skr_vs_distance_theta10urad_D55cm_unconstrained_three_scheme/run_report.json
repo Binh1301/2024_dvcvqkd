@@ -1,0 +1,317 @@
+{
+  "status": "THETA10_D55_UNCONSTRAINED_THREE_SCHEME_DIAGNOSTIC_COMPLETE",
+  "scope": "DIAGNOSTIC_ONLY",
+  "experiment_hash": "bac18c1750267dc8eea16a29d1d7974b1ece7d1c0dfc9d9634ef21986ef9a4aa",
+  "configuration": {
+    "h_HAP_m": 20000.0,
+    "h_UAV_m": 1000.0,
+    "wavelength_m": 1.55e-06,
+    "tau_zen": 0.92,
+    "theta_div_full_rad": 1e-05,
+    "w0_m": 0.0986760647169751,
+    "receiver_diameter_m": 0.55,
+    "epsilon_ch": 0.0186,
+    "beta": 0.95,
+    "AO": "OFF",
+    "phase_noise": "OFF",
+    "holevo": "direct_Z_minus",
+    "mi": "deterministic_heterodyne_product_GH8"
+  },
+  "optimization_domain": {
+    "V_A": "strictly_positive_unbounded; adaptive exact probes",
+    "nu_raw": "strictly_positive_unbounded; adaptive exact probes",
+    "peak_constraint": "OFF",
+    "budget_constraint": "OFF"
+  },
+  "fixed_mb": {
+    "nu_raw": 0.2,
+    "V_A_requested": 1.3833230303,
+    "V_A_exact_source_row": 1.3833230302980657,
+    "rounded_decimal_match": true,
+    "absolute_difference": 1.9342305535019477e-12,
+    "requested_binary64_source_status": "FAILED_CLOSED_TIMEOUT",
+    "strict_binary64_request_completed": false
+  },
+  "distances_km": [
+    20.0,
+    21.0,
+    21.9393102292,
+    22.0,
+    23.0,
+    24.0,
+    25.0,
+    25.5,
+    26.0,
+    26.5,
+    27.0,
+    27.5,
+    28.0,
+    29.0,
+    30.0,
+    30.5,
+    31.0,
+    31.5,
+    32.0,
+    32.5,
+    33.0,
+    34.0,
+    35.0,
+    36.0,
+    38.0,
+    40.0
+  ],
+  "candidate_count": 165,
+  "source_cache_count": 165,
+  "source_failures": [],
+  "source_provenance_notes": [
+    "The exact binary64 source request for V_A=1.3833230303 timed out in the existing 3600 s AP fallback.",
+    "The fixed curve therefore uses the pre-existing hash-matched exact row V_A=1.3833230302980657, which matches the requested decimal at 10 places; no C,w interpolation was used."
+  ],
+  "evaluation_failures": [],
+  "adaptive_closure": {
+    "uniform_upper_V_A": {
+      "tested_values": [
+        5.0
+      ],
+      "max_K_at_probe": 0.008587981476989248,
+      "below_selected_best": true
+    },
+    "uniform_lower_V_A": {
+      "tested_values": [
+        0.02
+      ],
+      "max_K_at_probe": -0.001145543456260087,
+      "below_selected_best": true
+    },
+    "mb_upper_V_A": {
+      "tested_values": [
+        8.0
+      ],
+      "max_K_at_probe": 0.1372966251516714,
+      "below_selected_best": true
+    },
+    "mb_upper_nu_raw": {
+      "tested_values": [
+        0.8
+      ],
+      "max_K_at_probe": 0.07784029225132338,
+      "below_selected_best": true
+    },
+    "mb_lower_nu_raw": {
+      "tested_values": [
+        0.05
+      ],
+      "max_K_at_probe": 0.11569413449633414,
+      "below_selected_best": true
+    }
+  },
+  "operational_endpoints": {
+    "Optimized Uniform 256-QAM": {
+      "last_exact_positive_km": 25.0,
+      "first_exact_nonpositive_km": 25.5
+    },
+    "Fixed MB-shaped 256-QAM": {
+      "last_exact_positive_km": 40.0,
+      "first_exact_nonpositive_km": null
+    },
+    "Optimized MB-shaped 256-QAM": {
+      "last_exact_positive_km": 40.0,
+      "first_exact_nonpositive_km": null
+    }
+  },
+  "ridge_summary": {
+    "mb_optimized_parameters_by_distance": [
+      {
+        "distance_km": 20.0,
+        "nu_raw": 0.15,
+        "V_A": 6.5,
+        "K": 0.1380135312811619
+      },
+      {
+        "distance_km": 21.0,
+        "nu_raw": 0.16,
+        "V_A": 6.0,
+        "K": 0.1027071638150534
+      },
+      {
+        "distance_km": 21.9393102292,
+        "nu_raw": 0.165,
+        "V_A": 5.5,
+        "K": 0.07798099387393764
+      },
+      {
+        "distance_km": 22.0,
+        "nu_raw": 0.165,
+        "V_A": 5.5,
+        "K": 0.07661685601911128
+      },
+      {
+        "distance_km": 23.0,
+        "nu_raw": 0.165,
+        "V_A": 5.3,
+        "K": 0.05745739941473693
+      },
+      {
+        "distance_km": 24.0,
+        "nu_raw": 0.15,
+        "V_A": 5.0,
+        "K": 0.04337158782779649
+      },
+      {
+        "distance_km": 25.0,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.033155735581557266
+      },
+      {
+        "distance_km": 25.5,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.029094514576219477
+      },
+      {
+        "distance_km": 26.0,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.02559880329969072
+      },
+      {
+        "distance_km": 26.5,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.02258632178693923
+      },
+      {
+        "distance_km": 27.0,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.019986441582292652
+      },
+      {
+        "distance_km": 27.5,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.01773877780029154
+      },
+      {
+        "distance_km": 28.0,
+        "nu_raw": 0.15,
+        "V_A": 4.5,
+        "K": 0.015791856791609243
+      },
+      {
+        "distance_km": 29.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.012633752605448606
+      },
+      {
+        "distance_km": 30.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.010253503998581354
+      },
+      {
+        "distance_km": 30.5,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.009278128392001553
+      },
+      {
+        "distance_km": 31.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.008419975631179313
+      },
+      {
+        "distance_km": 31.5,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.007663135177788452
+      },
+      {
+        "distance_km": 32.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.006994021456280031
+      },
+      {
+        "distance_km": 32.5,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.006401020851147396
+      },
+      {
+        "distance_km": 33.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.005874192306253717
+      },
+      {
+        "distance_km": 34.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.004986168363777209
+      },
+      {
+        "distance_km": 35.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.004275173307058823
+      },
+      {
+        "distance_km": 36.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.0037005544396879267
+      },
+      {
+        "distance_km": 38.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.0028463445249044643
+      },
+      {
+        "distance_km": 40.0,
+        "nu_raw": 0.15,
+        "V_A": 3.5548673904962893,
+        "K": 0.00225888275226813
+      }
+    ],
+    "large_V_A_push": false
+  },
+  "render": {
+    "y_scale": "symlog",
+    "symlog_linthresh": 0.0001,
+    "negative_values_retained": true
+  },
+  "artifacts": {
+    "figure_png": "skr_vs_distance_three_scheme.png",
+    "figure_pdf": "skr_vs_distance_three_scheme.pdf",
+    "exact_csv": "skr_vs_distance_three_scheme.csv",
+    "candidate_csv": "candidate_evaluations.csv",
+    "report": "run_report.json",
+    "renderer_script": "results/skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme/run_theta10_D55_unconstrained_three_scheme.py"
+  },
+  "validation": {
+    "PASS_physical_model_only_constraint_removal": true,
+    "PASS_no_skr_interpolation": true,
+    "PASS_no_source_moment_interpolation": true,
+    "PASS_uniform_independent_per_distance": true,
+    "PASS_fixed_mb_single_pair_at_reported_decimal_precision": true,
+    "BLOCKED_fixed_mb_exact_binary64_requested_value": true,
+    "PASS_mb_independent_per_distance": true,
+    "PASS_outer_probe_rows_recorded": true,
+    "PASS_base10_log_or_symlog": true,
+    "PASS_previous_artifacts_not_overwritten": true,
+    "PASS_direct_Z_minus": true,
+    "PASS_exact_support_256_for_selected": true
+  },
+  "limitations": [
+    "This is an exact-tested adaptive numerical envelope, not a continuous proof over every positive V_A and nu_raw.",
+    "All source moments are hash-matched exact cache rows or fresh exact evaluations; no C,w interpolation was used.",
+    "The requested binary64 fixed V_A=1.3833230303 source timed out; the fixed curve uses the existing exact V_A=1.3833230302980657 row, equal at the displayed ten-decimal precision.",
+    "Current repository lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS."
+  ],
+  "runner_sha256": "3560ee6b6db7916579e9209e87a53c9132c923addb989f46347ff80c48a9f4f3"
+}

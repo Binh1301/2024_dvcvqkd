@@ -1,0 +1,121 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS_SAVED_DATA_EXPORT",
+  "MB_sources": 147,
+  "stored_metrics": 3822,
+  "starts": 129,
+  "outer_iterations": 283,
+  "catalog_matches": 26,
+  "coordinate_closures": 0,
+  "all_recorded_coordinate_searches": 618,
+  "all_recorded_coordinate_search_closures": 0,
+  "individual_multistart_terminals_matching_catalog": 59,
+  "distances_with_unanimous_multistart_agreement": 0,
+  "run_terminal_status_counts": {"STAGNATED_IN_EXACT_CATALOG": 20, "UNRESOLVED_BOUNDARY": 109},
+  "required_deliverables_present": 13,
+  "vector_PDFs_parsed_with_system_pypdf": 7,
+  "pages_per_figure_PDF": 1,
+  "raster_images_in_figure_PDFs": 0,
+  "PNG_resolution_dpi": 400,
+  "figure_visual_review": "PASS",
+  "latex_compile_status": "BLOCKED_BY_ENVIRONMENT_NO_LOCAL_LATEX_ENGINE",
+  "protected_hashes_unchanged": 1561,
+  "protected_manifest": "results\\theta10_D55_ao_numerical_optimum_validation\\observer_v2_recovery\\path_fixed_probe_A\\protected_input_manifest.json",
+  "protected_manifest_sha256": "21f33122fbd3d4eb48c1b0e97dce1e23cb1dd6d7dc16f4b852ade1bf894f631e",
+  "input_hashes": {
+    "results\\theta10_D55_ao_numerical_optimum_validation\\overnight_ao_run\\objective_checkpoint.json": "4ea75713a675a8da0613fccc2da1700f5cf032f402aada17885c728366b419c4",
+    "results\\theta10_D55_ao_numerical_optimum_validation\\overnight_ao_run\\cache_only_runs.json": "499a7456a64ded4ef19959c9031600e93c89643fbd85aca2a33160973b046df4",
+    "results\\theta10_D55_ao_numerical_optimum_validation\\overnight_ao_run\\cache_only_searches.json": "dc90dd25c9b00f69fd1773676c410641b88a51ebb81e325266bf5d9d7e5d4076",
+    "results\\theta10_D55_ao_numerical_optimum_validation\\overnight_ao_run\\reference_targeted_coordinate_searches.json": "5e4d6debdb06236d4c5c7f5949969f9b907d93091a2906073a8ecdfde8c5e554",
+    "results\\skr_vs_distance_theta10urad_D55cm_unconstrained_three_scheme\\skr_vs_distance_three_scheme.csv": "aea32f53b7258ad45214893f8901cbaf50160253721079e2ec62aca25334fccc"
+  },
+  "producer_sha256": "05bd1171ed9a2314e1e124d77fa1dc4bac6cf850552dabda84e71587b550189c",
+  "tests": [
+    {
+      "pattern": "test_ao_scientific_export.py",
+      "count": 2,
+      "returncode": 0,
+      "output": "test_positive_plot_filter_keeps_exact_values_and_breaks (test_ao_scientific_export.ScientificExport.test_positive_plot_filter_keeps_exact_values_and_breaks) ... ok\ntest_saved_data_counts_maxima_and_genuine_history (test_ao_scientific_export.ScientificExport.test_saved_data_counts_maxima_and_genuine_history) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.415s\n\nOK\n"
+    },
+    {
+      "pattern": "test_alt_opt_provenance_and_stopping.py",
+      "count": 24,
+      "returncode": 0,
+      "output": "test_probe_retry_preserves_previous_failure (test_alt_opt_provenance_and_stopping.BudgetTests.test_probe_retry_preserves_previous_failure) ... ok\ntest_source_supervisor_enforces_absolute_deadline (test_alt_opt_provenance_and_stopping.BudgetTests.test_source_supervisor_enforces_absolute_deadline) ... ok\ntest_actual_source_change_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_actual_source_change_rejected) ... ok\ntest_cache_hit_rejects_changed_runtime_precision (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_cache_hit_rejects_changed_runtime_precision) ... ok\ntest_cache_hit_rejects_changed_runtime_quadrature (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_cache_hit_rejects_changed_runtime_quadrature) ... ok\ntest_cache_hit_rejects_mutated_channel_or_settings (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_cache_hit_rejects_mutated_channel_or_settings) ... ok\ntest_corrupted_historical_key_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_corrupted_historical_key_rejected) ... ok\ntest_lf_crlf_share_canonical_identity_preserve_raw (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_lf_crlf_share_canonical_identity_preserve_raw) ... ok\ntest_missing_identity_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_missing_identity_rejected) ... ok\ntest_nonfinite_parameter_identity_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_nonfinite_parameter_identity_rejected) ... ok\ntest_objective_security_channel_or_code_change_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_objective_security_channel_or_code_change_rejected) ... ok\ntest_restore_rejects_unattested_objective_cache (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_restore_rejects_unattested_objective_cache) ... ok\ntest_settings_change_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_settings_change_rejected) ... ok\ntest_unknown_raw_hash_rejected (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_unknown_raw_hash_rejected) ... ok\ntest_whitespace_not_normalized (test_alt_opt_provenance_and_stopping.ProvenanceTests.test_whitespace_not_normalized) ... ok\ntest_all_numerical_failures_are_not_missing_source (test_alt_opt_provenance_and_stopping.StoppingTests.test_all_numerical_failures_are_not_missing_source) ... ok\ntest_earlier_unresolved_search_blocks_convergence (test_alt_opt_provenance_and_stopping.StoppingTests.test_earlier_unresolved_search_blocks_convergence) ... ok\ntest_epsilon_value_and_completed_search (test_alt_opt_provenance_and_stopping.StoppingTests.test_epsilon_value_and_completed_search) ... ok\ntest_failure_or_monotonicity_drop (test_alt_opt_provenance_and_stopping.StoppingTests.test_failure_or_monotonicity_drop) ... ok\ntest_missing_initial_catalog_probe_never_closes_search (test_alt_opt_provenance_and_stopping.StoppingTests.test_missing_initial_catalog_probe_never_closes_search) ... ok\ntest_missing_probes_are_catalog_stagnation (test_alt_opt_provenance_and_stopping.StoppingTests.test_missing_probes_are_catalog_stagnation) ... ok\ntest_nonfinite_improvement_cannot_converge (test_alt_opt_provenance_and_stopping.StoppingTests.test_nonfinite_improvement_cannot_converge) ... ok\ntest_open_boundary_is_distinct (test_alt_opt_provenance_and_stopping.StoppingTests.test_open_boundary_is_distinct) ... ok\ntest_singleton_search_checks_both_outer_sides (test_alt_opt_provenance_and_stopping.StoppingTests.test_singleton_search_checks_both_outer_sides) ... ok\n\n----------------------------------------------------------------------\nRan 24 tests in 0.485s\n\nOK\n"
+    },
+    {
+      "pattern": "test_ao_numerical_optimum_audit.py",
+      "count": 1,
+      "returncode": 0,
+      "output": "test_real_search_alignment_and_binary64_midpoints (test_ao_numerical_optimum_audit.SavedAOAudit.test_real_search_alignment_and_binary64_midpoints) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.041s\n\nOK\n"
+    }
+  ],
+  "test_count": 27,
+  "new_AP_source_channel_security_objective_AO_calls": 0,
+  "observer_modified_or_invoked": false,
+  "no_interpolation": true,
+  "ordinary_log_base": 10,
+  "Uniform_last_positive_km": 25,
+  "displayed_positive_samples": {
+    "Optimized Uniform 256-QAM": 7,
+    "Fixed MB-shaped 256-QAM": 26,
+    "AO-optimized MB-shaped 256-QAM": 26
+  },
+  "latex_compilation": "NOT_RUN_NO_LOCAL_LATEX_ENGINE",
+  "classification": "FINITE_CATALOG_MAXIMUM;COORDINATE_SEARCH_INCOMPLETE;GLOBAL_OPTIMUM_NOT_CERTIFIED",
+  "historical_frozen_hash_discrepancy": "PREEXISTING_UNCHANGED",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "proposed_probes_not_executed": [
+    {
+      "priority": 1,
+      "nu_raw": 0.165,
+      "V_A": 5.49375,
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "V_A_hex": "0x1.5f9999999999ap+2",
+      "coordinate": "P1",
+      "bracket": [
+        5.4875,
+        5.5125
+      ],
+      "condition": "Only if still requested by unchanged AO after preceding valid result"
+    },
+    {
+      "priority": 2,
+      "nu_raw": 0.165,
+      "V_A": 5.50625,
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "V_A_hex": "0x1.6066666666666p+2",
+      "coordinate": "P1",
+      "bracket": [
+        5.4875,
+        5.5125
+      ],
+      "condition": "Only if still requested by unchanged AO after preceding valid result"
+    },
+    {
+      "priority": 3,
+      "nu_raw": 0.16375,
+      "V_A": 5.5,
+      "nu_raw_hex": "0x1.4f5c28f5c28f6p-3",
+      "V_A_hex": "0x1.6000000000000p+2",
+      "coordinate": "P2",
+      "bracket": [
+        0.1625,
+        0.16562500000000002
+      ],
+      "condition": "Only if still requested by unchanged AO after preceding valid result"
+    },
+    {
+      "priority": 4,
+      "nu_raw": 0.16531250000000003,
+      "V_A": 5.5,
+      "nu_raw_hex": "0x1.528f5c28f5c2ap-3",
+      "V_A_hex": "0x1.6000000000000p+2",
+      "coordinate": "P2",
+      "bracket": [
+        0.1625,
+        0.16562500000000002
+      ],
+      "condition": "Only if still requested by unchanged AO after preceding valid result"
+    }
+  ]
+}

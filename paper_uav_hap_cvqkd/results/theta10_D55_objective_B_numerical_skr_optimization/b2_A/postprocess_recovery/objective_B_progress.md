@@ -1,0 +1,5 @@
+# B2 terminal progress
+
+One original exact source succeeded: raw(.165,5.49375), C3.2081449662247756, w1.017877140191374e-06. No AP timeout/retry/additional candidate. All26 distances evaluated,149-source catalog independently ranked; original129-start/283-cycle AO selected maximum26/26, no best-pair/SKR improvement,0/618 coordinate closures. P1 gains one exact lower neighbor and25%-narrower bracket, not a complete paired refinement level; P2 unchanged. Next P1 raw(.165,5.496875) is NOT_AUTHORIZED and was NOT_RUN.
+
+See ../objective_B_summary.md for all14 scientific answers, runtime, precision/error limitations and preserved original JSON I/O failure. Recovery changes output storage only and retains original totaldeadline; source/MI/Holevo/AO/caps/frozen model and old scientific/manuscript artifacts unchanged. Strongest supported level remains finite-catalog maximum, not numerical/continuous/global convergence. All final output/protected hashes and48 scoped tests are recorded in final_verification.json. STOP.

@@ -1,0 +1,73 @@
+% Preamble: \usepackage{algorithm,algpseudocode,amsmath,amssymb}
+% nu_MB denotes nu_raw; these are approximate finite coordinate searches.
+\begin{algorithm}[t]
+\caption{Exact-source alternating optimization with explicit search status}
+\label{alg:ao}
+\small
+\begin{algorithmic}[1]
+\Require Frozen channel configuration $\mathcal C$, distance $L$, compatible
+source/objective cache; starts $(\nu_0,V_{A,0})$; optional previous-distance
+solution; $\epsilon_K=10^{-8}$, $\epsilon_p=10^{-6}$,
+$R=6$, $J=4$, $B=3$
+\Ensure Best recorded $(\nu_{\rm MB}^{\rm best},V_A^{\rm best},K_{\rm best})$
+and termination/validation status
+\State Form starts $\nu_0\in\{0.1,0.15,0.3,0.8\}$; append the previous-distance pair when available
+\For{each start $(\nu_0,V_{A,0})$}
+  \State Use $V_{A,0}$ if it is an available exact value on this slice; otherwise use the smallest available positive $V_A$
+  \State Initialize $x=(\nu_0,V_A)$ and $K(x)$; skip the start if initialization is unavailable or invalid
+  \State $u\gets\mathrm{false}$; $s\gets\texttt{MAX\_ITERATIONS\_REACHED}$
+  \For{$r=1,\ldots,R$}
+    \State $x_{\rm old}\gets x$, $K_{\rm old}\gets K(x)$
+    \State $q_1\gets\Call{CoordinateSearch}{V_A,\nu_{\rm old},\epsilon_K,\epsilon_p,J,B}$
+    \State Stop this start with the corresponding failure status if $q_1$ has no valid best point
+    \State $\widetilde V_A\gets q_1.\mathrm{best}.V_A$ \Comment{P1 update}
+    \State $q_2\gets\Call{CoordinateSearch}{\nu_{\rm MB},\widetilde V_A,\epsilon_K,\epsilon_p,J,B}$
+    \State Stop this start with the corresponding failure status if $q_2$ has no valid best point
+    \State $x\gets(q_2.\mathrm{best}.\nu_{\rm MB},\widetilde V_A)$; $K(x)\gets q_2.\mathrm{best}.K$
+    \State Record P1/P2 parameters, objective values, candidate events and search statuses
+    \State $u\gets u\lor\neg(\Call{Closed}{q_1}\land\Call{Closed}{q_2})$
+    \State $\Delta K\gets K(x)-K_{\rm old}$
+    \If{nonfinite $\Delta K$, $\Delta K<-\epsilon_K$, a monotonicity warning, or recorded numerical failures}
+      \State $s\gets\texttt{NUMERICAL\_FAILURE}$; \textbf{break}
+    \ElsIf{$|\Delta K|\le\epsilon_K$}
+      \If{either coordinate has an unclosed boundary}
+        \State $s\gets\texttt{UNRESOLVED\_BOUNDARY}$
+      \ElsIf{$u$ or either coordinate is incomplete}
+        \State $s\gets\texttt{STAGNATED\_IN\_EXACT\_CATALOG}$
+      \Else
+        \State $s\gets\texttt{CONVERGED\_NUMERICALLY}$
+      \EndIf
+      \State \textbf{break}
+    \EndIf
+  \EndFor
+  \State Retain the last complete P1--P2 update and its status $s$
+\EndFor
+\State Select the valid terminal result with largest recorded $K$; break ties by existing start order
+\State Independently compare with the largest compatible catalog value and report coordinate/global-optimality limitations
+\end{algorithmic}
+\end{algorithm}
+
+\noindent\textbf{Implemented coordinate search.}
+\textsc{CoordinateSearch} first evaluates every available positive value on the
+fixed-coordinate slice, without interpolation, and selects the largest valid
+objective. If the winner is an endpoint, it tests half or twice that parameter,
+respectively, with at most three expansion attempts. Missing or invalid points
+remain explicit events. A successful outer test must leave the winner between
+evaluated neighbors; one tested side of a singleton does not close both sides.
+For an interior winner $z$ with nearest evaluated neighbors $z_-<z<z_+$,
+the routine checks
+$\max(z-z_-,z_+-z)\le10^{-6}$ at loop entry. Otherwise it requests
+$(z_-+z)/2$ and $(z+z_+)/2$, in that order, and selects the best of all valid
+points. A stage is counted as attempted even when a midpoint is unavailable;
+at most four stages are attempted. Reaching the cap is not closure. In
+particular, the code does not perform an additional tolerance check after the
+fourth stage. \textsc{Closed} requires
+\texttt{NUMERICALLY\_CLOSED\_LOCAL\_BRACKET}, no missing source moments,
+no numerical failures, and no open boundary. The unresolved flag is persistent
+within a start, so an earlier incomplete search prevents a later flat objective
+from being labeled numerical convergence.
+
+\noindent\textbf{Scope.} The implementation searches $\nu_{\rm MB}>0$,
+$V_A>0$. The theoretical MB family also includes $\nu_{\rm MB}=0$; that
+endpoint is not added silently. These finite approximate coordinate searches
+are not exact continuous argmax operations or a global-optimality certificate.

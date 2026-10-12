@@ -1,0 +1,17 @@
+% Standalone section build preserving the available article template.
+% The full-paper master and its preceding equations were not supplied.
+\documentclass[10pt]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,graphicx,algorithm,algpseudocode}
+\begin{document}
+% Preview numbering: objective(3), problem(4), P1(5), P2(6), stopping(7).
+% Do NOT copy this counter adjustment into the full paper: use its real counters.
+\setcounter{equation}{2}
+\input{joint_optimization_final.tex}
+\clearpage
+\appendix
+\section{Detailed Stopping-Parameter Sensitivity}
+\input{appendix_sensitivity_table.tex}
+\section{Best-Found Parameters on the Established Distance Grid}
+\input{optimized_parameters_table.tex}
+\end{document}

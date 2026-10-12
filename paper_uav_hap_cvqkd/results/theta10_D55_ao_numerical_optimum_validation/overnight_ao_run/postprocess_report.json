@@ -1,0 +1,785 @@
+{
+  "MB_count": 147,
+  "new_source_count": 0,
+  "new_metric_rows": 0,
+  "reference": {
+    "L_km": 21.9393102292,
+    "old_nu": "0.165",
+    "old_V_A": "5.5",
+    "old_K": "0.07798099387393764",
+    "new_nu": 0.165,
+    "new_V_A": 5.5,
+    "new_K": 0.07798099387393764,
+    "delta_K": 0.0,
+    "AO_matches_catalog": true,
+    "runner_up_K": 0.07798091552916897,
+    "top_two_gap": 7.834476867252249e-08,
+    "accuracy": "ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED"
+  },
+  "at22km": {
+    "L_km": 22.0,
+    "old_nu": "0.165",
+    "old_V_A": "5.475",
+    "old_K": "0.07661740491526092",
+    "new_nu": 0.165,
+    "new_V_A": 5.475,
+    "new_K": 0.07661740491526092,
+    "delta_K": 0.0,
+    "AO_matches_catalog": true,
+    "runner_up_K": 0.07661723159351552,
+    "top_two_gap": 1.733217454003011e-07,
+    "accuracy": "ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED"
+  },
+  "improved_distances": [],
+  "AO_catalog_matches": 26,
+  "AO_starts": 129,
+  "AO_iterations": 283,
+  "coordinate_status_counts": {
+    "BOUNDARY_NOT_CLOSED": 312,
+    "BRACKETED_EXACT_CATALOG_SOURCE_MISSING": 306
+  },
+  "closed_selected_directions": 0,
+  "remaining_missing_pairs": 55,
+  "reference_progress": [
+    {
+      "coordinate": "P1",
+      "old_bracket": [
+        5.4875,
+        5.5125
+      ],
+      "new_bracket": [
+        5.4875,
+        5.5125
+      ],
+      "old_best_value": 5.5,
+      "new_best_value": 5.5,
+      "old_status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+      "new_status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+      "prior_missing_now_measured": [],
+      "prior_pair_covered": false,
+      "current_call_refinement_stages_attempted": 1,
+      "fully_valid_midpoint_pairs_this_call": 0,
+      "current_call_status": "SOURCE_MISSING_REFINEMENT",
+      "next_missing": [
+        {
+          "value": 5.49375,
+          "status": "EXACT_SOURCE_MISSING",
+          "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4937500000000004"
+        },
+        {
+          "value": 5.50625,
+          "status": "EXACT_SOURCE_MISSING",
+          "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.5062499999999996"
+        }
+      ]
+    },
+    {
+      "coordinate": "P2",
+      "old_bracket": [
+        0.1625,
+        0.16562500000000002
+      ],
+      "new_bracket": [
+        0.1625,
+        0.16562500000000002
+      ],
+      "old_best_value": 0.165,
+      "new_best_value": 0.165,
+      "old_status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+      "new_status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+      "prior_missing_now_measured": [],
+      "prior_pair_covered": false,
+      "current_call_refinement_stages_attempted": 1,
+      "fully_valid_midpoint_pairs_this_call": 0,
+      "current_call_status": "SOURCE_MISSING_REFINEMENT",
+      "next_missing": [
+        {
+          "value": 0.16375,
+          "status": "EXACT_SOURCE_MISSING",
+          "error": "No hash-matched exact source row for nu_raw=0.16375000000000001, V_A=5.5"
+        },
+        {
+          "value": 0.16531250000000003,
+          "status": "EXACT_SOURCE_MISSING",
+          "error": "No hash-matched exact source row for nu_raw=0.16531250000000003, V_A=5.5"
+        }
+      ]
+    }
+  ],
+  "AO_rechecked": true,
+  "selected_final_searches": {
+    "21.9393102292": [
+      {
+        "L_km": 21.9393102292,
+        "variable": "V_A",
+        "fixed": 0.165,
+        "status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+        "best": {
+          "C": "",
+          "D_r_m": "0.55",
+          "I_AB": 0.6341892631163653,
+          "L_km": 21.9393102292,
+          "SKR": 0.07798099387393764,
+          "T_eff": "0.2011265222214531",
+          "V_A": 5.5,
+          "beta_I_AB": 0.602479799960547,
+          "channel_hash": "1a744fc47721ab8d8e9f2117255402793ec6555d84914aa577d6eeda245056c1",
+          "chi_BE": 0.5244988060866094,
+          "distance_km": "21.9393102292",
+          "ensemble_hash": "430914e792382cce5d92b0ff5ba4e8a641e912bce78c8565dbc18540b92b2faa",
+          "family": "MB",
+          "nu_raw": 0.165,
+          "peak_photon": "51.05066856827034",
+          "peak_photon_observed": "",
+          "scheme": "",
+          "security_evaluator": "current_exact_direct_Z_minus",
+          "selection_origin": "resolved_145_point_bank",
+          "source_cache_key": "77fc4a06afc0dba6d2e357db36dc216d34677f30d69fdf1f78781b105af39f1c",
+          "source_cache_origin": "",
+          "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+          "source_path": "results/exact_mb_test2/exact_source_cache/77fc4a06afc0dba6d2e357db36dc216d34677f30d69fdf1f78781b105af39f1c.json",
+          "source_support_size": "256",
+          "status": "PASS",
+          "theta_div_full_rad": "1e-05",
+          "w": "",
+          "w0_m": "0.0986760647169751",
+          "zeta_deg": "29.99999999997386",
+          "evaluation_origin": "COMPATIBLE_OBJECTIVE_CACHE"
+        },
+        "best_value": 5.5,
+        "best_K": 0.07798099387393764,
+        "evaluated": 15,
+        "boundary_expansions": 0,
+        "refinement_stages": 1,
+        "boundary_status": "INTERIOR",
+        "refinement_status": "SOURCE_MISSING_REFINEMENT",
+        "source_missing": [
+          {
+            "value": 5.49375,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4937500000000004"
+          },
+          {
+            "value": 5.50625,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.5062499999999996"
+          }
+        ],
+        "numerical_failures": [],
+        "history": [
+          {
+            "value": 0.025,
+            "status": "EXACT_EVALUATED",
+            "K": -0.016426587350059852,
+            "nu_raw": 0.165,
+            "V_A": 0.025
+          },
+          {
+            "value": 2.0,
+            "status": "EXACT_EVALUATED",
+            "K": 0.06309753809460306,
+            "nu_raw": 0.165,
+            "V_A": 2.0
+          },
+          {
+            "value": 5.3,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07795473107720619,
+            "nu_raw": 0.165,
+            "V_A": 5.3
+          },
+          {
+            "value": 5.4,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797458088717046,
+            "nu_raw": 0.165,
+            "V_A": 5.4
+          },
+          {
+            "value": 5.425000000000001,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797743049647754,
+            "nu_raw": 0.165,
+            "V_A": 5.425000000000001
+          },
+          {
+            "value": 5.45,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797944573315274,
+            "nu_raw": 0.165,
+            "V_A": 5.45
+          },
+          {
+            "value": 5.475,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0779806318144487,
+            "nu_raw": 0.165,
+            "V_A": 5.475
+          },
+          {
+            "value": 5.4875,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07798091552916897,
+            "nu_raw": 0.165,
+            "V_A": 5.4875
+          },
+          {
+            "value": 5.5,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07798099387393764,
+            "nu_raw": 0.165,
+            "V_A": 5.5
+          },
+          {
+            "value": 5.5125,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07798086747835642,
+            "nu_raw": 0.165,
+            "V_A": 5.5125
+          },
+          {
+            "value": 5.525,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07798053696750062,
+            "nu_raw": 0.165,
+            "V_A": 5.525
+          },
+          {
+            "value": 5.55,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797926607881778,
+            "nu_raw": 0.165,
+            "V_A": 5.55
+          },
+          {
+            "value": 5.6,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797430195807054,
+            "nu_raw": 0.165,
+            "V_A": 5.6
+          },
+          {
+            "value": 5.7,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07795481827188011,
+            "nu_raw": 0.165,
+            "V_A": 5.7
+          },
+          {
+            "value": 8.0,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07451015168057418,
+            "nu_raw": 0.165,
+            "V_A": 8.0
+          },
+          {
+            "value": 5.49375,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4937500000000004"
+          },
+          {
+            "value": 5.50625,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.5062499999999996"
+          }
+        ],
+        "range": [
+          0.025,
+          8.0
+        ],
+        "bracket": [
+          5.4875,
+          5.5125
+        ],
+        "catalog_coordinate_optimum": true,
+        "continuous_global_optimum": false,
+        "search_index": 78,
+        "start_id": "nu_0.1",
+        "iteration": "FINAL_POSTCHECK",
+        "role": "SELECTED_FINAL"
+      },
+      {
+        "L_km": 21.9393102292,
+        "variable": "nu_raw",
+        "fixed": 5.5,
+        "status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+        "best": {
+          "C": "",
+          "D_r_m": "0.55",
+          "I_AB": 0.6341892631163653,
+          "L_km": 21.9393102292,
+          "SKR": 0.07798099387393764,
+          "T_eff": "0.2011265222214531",
+          "V_A": 5.5,
+          "beta_I_AB": 0.602479799960547,
+          "channel_hash": "1a744fc47721ab8d8e9f2117255402793ec6555d84914aa577d6eeda245056c1",
+          "chi_BE": 0.5244988060866094,
+          "distance_km": "21.9393102292",
+          "ensemble_hash": "430914e792382cce5d92b0ff5ba4e8a641e912bce78c8565dbc18540b92b2faa",
+          "family": "MB",
+          "nu_raw": 0.165,
+          "peak_photon": "51.05066856827034",
+          "peak_photon_observed": "",
+          "scheme": "",
+          "security_evaluator": "current_exact_direct_Z_minus",
+          "selection_origin": "resolved_145_point_bank",
+          "source_cache_key": "77fc4a06afc0dba6d2e357db36dc216d34677f30d69fdf1f78781b105af39f1c",
+          "source_cache_origin": "",
+          "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+          "source_path": "results/exact_mb_test2/exact_source_cache/77fc4a06afc0dba6d2e357db36dc216d34677f30d69fdf1f78781b105af39f1c.json",
+          "source_support_size": "256",
+          "status": "PASS",
+          "theta_div_full_rad": "1e-05",
+          "w": "",
+          "w0_m": "0.0986760647169751",
+          "zeta_deg": "29.99999999997386",
+          "evaluation_origin": "COMPATIBLE_OBJECTIVE_CACHE"
+        },
+        "best_value": 0.165,
+        "best_K": 0.07798099387393764,
+        "evaluated": 20,
+        "boundary_expansions": 0,
+        "refinement_stages": 1,
+        "boundary_status": "INTERIOR",
+        "refinement_status": "SOURCE_MISSING_REFINEMENT",
+        "source_missing": [
+          {
+            "value": 0.16375,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16375000000000001, V_A=5.5"
+          },
+          {
+            "value": 0.16531250000000003,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16531250000000003, V_A=5.5"
+          }
+        ],
+        "numerical_failures": [],
+        "history": [
+          {
+            "value": 0.125,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07734269952629402,
+            "nu_raw": 0.125,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.145,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0778159593828448,
+            "nu_raw": 0.145,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.15,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07788595478575067,
+            "nu_raw": 0.15,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.16,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797104999097981,
+            "nu_raw": 0.16,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.1625,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797905612029876,
+            "nu_raw": 0.1625,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.165,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07798099387393764,
+            "nu_raw": 0.165,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.16562500000000002,
+            "status": "EXACT_EVALUATED",
+            "K": 0.077980500856345,
+            "nu_raw": 0.16562500000000002,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.16625,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797961263356556,
+            "nu_raw": 0.16625,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.1675,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07797664855298636,
+            "nu_raw": 0.1675,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.17,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07796600001405829,
+            "nu_raw": 0.17,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.175,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07792659631833587,
+            "nu_raw": 0.175,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.18,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0778652633151109,
+            "nu_raw": 0.18,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.185,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07778451363492767,
+            "nu_raw": 0.185,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.19,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07768590618436944,
+            "nu_raw": 0.19,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.25,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0750110497905323,
+            "nu_raw": 0.25,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.3,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07016273265342177,
+            "nu_raw": 0.3,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.4,
+            "status": "EXACT_EVALUATED",
+            "K": 0.05233916194180466,
+            "nu_raw": 0.4,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.5,
+            "status": "EXACT_EVALUATED",
+            "K": 0.025287297963043076,
+            "nu_raw": 0.5,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.6,
+            "status": "EXACT_EVALUATED",
+            "K": -0.008302907786974623,
+            "nu_raw": 0.6,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.8,
+            "status": "EXACT_EVALUATED",
+            "K": -0.09635845576048219,
+            "nu_raw": 0.8,
+            "V_A": 5.5
+          },
+          {
+            "value": 0.16375,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16375000000000001, V_A=5.5"
+          },
+          {
+            "value": 0.16531250000000003,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16531250000000003, V_A=5.5"
+          }
+        ],
+        "range": [
+          0.125,
+          0.8
+        ],
+        "bracket": [
+          0.1625,
+          0.16562500000000002
+        ],
+        "catalog_coordinate_optimum": true,
+        "continuous_global_optimum": false,
+        "search_index": 79,
+        "start_id": "nu_0.1",
+        "iteration": "FINAL_POSTCHECK",
+        "role": "SELECTED_FINAL"
+      }
+    ],
+    "22.0": [
+      {
+        "L_km": 22.0,
+        "variable": "V_A",
+        "fixed": 0.165,
+        "status": "BRACKETED_EXACT_CATALOG_SOURCE_MISSING",
+        "best": {
+          "L_km": 22.0,
+          "zeta_deg": 30.27264131890952,
+          "theta_div_full_rad": 1e-05,
+          "w0_m": 0.0986760647169751,
+          "D_r_m": 0.55,
+          "T_eff": 0.19841067967448092,
+          "V_A": 5.475,
+          "nu_raw": 0.165,
+          "family": "MB",
+          "I_AB": 0.6249420205417184,
+          "beta_I_AB": 0.5936949195146325,
+          "chi_BE": 0.5170775145993716,
+          "SKR": 0.07661740491526092,
+          "ensemble_hash": "a5d615b5c8c3462013117a29d17fa1edee8632a49de0dac23318b504ad059f82",
+          "source_cache_key": "4ff64d8ff1b9cb558e7feab44d02d62b15f2c430a0440ccb9af74b0e42e31a5d",
+          "source_path": "results/theta10_D55_mb_exact_targeted_expansion/batch_2/exact_source_cache/4ff64d8ff1b9cb558e7feab44d02d62b15f2c430a0440ccb9af74b0e42e31a5d.json",
+          "channel_hash": "9bc4afba0360187bc0fddf8688645ba01c95e00adcd95be6051698e356f21cfa",
+          "peak_photon": 50.818620074778224,
+          "selection_origin": "resolved_145_point_bank",
+          "status": "PASS",
+          "security_evaluator": "current_exact_direct_Z_minus",
+          "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+          "source_support_size": 256
+        },
+        "best_value": 5.475,
+        "best_K": 0.07661740491526092,
+        "evaluated": 15,
+        "boundary_expansions": 0,
+        "refinement_stages": 1,
+        "boundary_status": "INTERIOR",
+        "refinement_status": "SOURCE_MISSING_REFINEMENT",
+        "source_missing": [
+          {
+            "value": 5.4625,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4625000000000004"
+          },
+          {
+            "value": 5.481249999999999,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4812499999999993"
+          }
+        ],
+        "numerical_failures": [],
+        "history": [
+          {
+            "value": 0.025,
+            "status": "EXACT_EVALUATED",
+            "K": -0.016240770772452885,
+            "nu_raw": 0.165,
+            "V_A": 0.025
+          },
+          {
+            "value": 2.0,
+            "status": "EXACT_EVALUATED",
+            "K": 0.06208477343903204,
+            "nu_raw": 0.165,
+            "V_A": 2.0
+          },
+          {
+            "value": 5.3,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07659823579177938,
+            "nu_raw": 0.165,
+            "V_A": 5.3
+          },
+          {
+            "value": 5.4,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661416223906092,
+            "nu_raw": 0.165,
+            "V_A": 5.4
+          },
+          {
+            "value": 5.425000000000001,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661606311857316,
+            "nu_raw": 0.165,
+            "V_A": 5.425000000000001
+          },
+          {
+            "value": 5.45,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661714229913241,
+            "nu_raw": 0.165,
+            "V_A": 5.45
+          },
+          {
+            "value": 5.475,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661740491526092,
+            "nu_raw": 0.165,
+            "V_A": 5.475
+          },
+          {
+            "value": 5.4875,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661723159351552,
+            "nu_raw": 0.165,
+            "V_A": 5.4875
+          },
+          {
+            "value": 5.5,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661685601911128,
+            "nu_raw": 0.165,
+            "V_A": 5.5
+          },
+          {
+            "value": 5.5125,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661627881168132,
+            "nu_raw": 0.165,
+            "V_A": 5.5125
+          },
+          {
+            "value": 5.525,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0766155005864031,
+            "nu_raw": 0.165,
+            "V_A": 5.525
+          },
+          {
+            "value": 5.55,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661334352182514,
+            "nu_raw": 0.165,
+            "V_A": 5.55
+          },
+          {
+            "value": 5.6,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07660664378990845,
+            "nu_raw": 0.165,
+            "V_A": 5.6
+          },
+          {
+            "value": 5.7,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0765838337251391,
+            "nu_raw": 0.165,
+            "V_A": 5.7
+          },
+          {
+            "value": 8.0,
+            "status": "EXACT_EVALUATED",
+            "K": 0.0731078045080048,
+            "nu_raw": 0.165,
+            "V_A": 8.0
+          },
+          {
+            "value": 5.4625,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4625000000000004"
+          },
+          {
+            "value": 5.481249999999999,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.16500000000000001, V_A=5.4812499999999993"
+          }
+        ],
+        "range": [
+          0.025,
+          8.0
+        ],
+        "bracket": [
+          5.45,
+          5.4875
+        ],
+        "catalog_coordinate_optimum": true,
+        "continuous_global_optimum": false,
+        "search_index": 110,
+        "start_id": "nu_0.1",
+        "iteration": "FINAL_POSTCHECK",
+        "role": "SELECTED_FINAL"
+      },
+      {
+        "L_km": 22.0,
+        "variable": "nu_raw",
+        "fixed": 5.475,
+        "status": "BOUNDARY_NOT_CLOSED",
+        "best": {
+          "L_km": 22.0,
+          "zeta_deg": 30.27264131890952,
+          "theta_div_full_rad": 1e-05,
+          "w0_m": 0.0986760647169751,
+          "D_r_m": 0.55,
+          "T_eff": 0.19841067967448092,
+          "V_A": 5.475,
+          "nu_raw": 0.165,
+          "family": "MB",
+          "I_AB": 0.6249420205417184,
+          "beta_I_AB": 0.5936949195146325,
+          "chi_BE": 0.5170775145993716,
+          "SKR": 0.07661740491526092,
+          "ensemble_hash": "a5d615b5c8c3462013117a29d17fa1edee8632a49de0dac23318b504ad059f82",
+          "source_cache_key": "4ff64d8ff1b9cb558e7feab44d02d62b15f2c430a0440ccb9af74b0e42e31a5d",
+          "source_path": "results/theta10_D55_mb_exact_targeted_expansion/batch_2/exact_source_cache/4ff64d8ff1b9cb558e7feab44d02d62b15f2c430a0440ccb9af74b0e42e31a5d.json",
+          "channel_hash": "9bc4afba0360187bc0fddf8688645ba01c95e00adcd95be6051698e356f21cfa",
+          "peak_photon": 50.818620074778224,
+          "selection_origin": "resolved_145_point_bank",
+          "status": "PASS",
+          "security_evaluator": "current_exact_direct_Z_minus",
+          "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+          "source_support_size": 256
+        },
+        "best_value": 0.165,
+        "best_K": 0.07661740491526092,
+        "evaluated": 1,
+        "boundary_expansions": 1,
+        "refinement_stages": 0,
+        "boundary_status": "BOUNDARY_NOT_CLOSED",
+        "refinement_status": "NOT_NEEDED",
+        "source_missing": [
+          {
+            "value": 0.0825,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.082500000000000004, V_A=5.4749999999999996"
+          }
+        ],
+        "numerical_failures": [],
+        "history": [
+          {
+            "value": 0.165,
+            "status": "EXACT_EVALUATED",
+            "K": 0.07661740491526092,
+            "nu_raw": 0.165,
+            "V_A": 5.475
+          },
+          {
+            "value": 0.0825,
+            "status": "EXACT_SOURCE_MISSING",
+            "error": "No hash-matched exact source row for nu_raw=0.082500000000000004, V_A=5.4749999999999996"
+          }
+        ],
+        "range": [
+          0.165,
+          0.165
+        ],
+        "bracket": [
+          null,
+          null
+        ],
+        "catalog_coordinate_optimum": true,
+        "continuous_global_optimum": false,
+        "search_index": 111,
+        "start_id": "nu_0.1",
+        "iteration": "FINAL_POSTCHECK",
+        "role": "SELECTED_FINAL"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+% Actual original AO, not a convergence certificate
+\begin{enumerate}
+\item Use the unchanged exact source cache and common physical ensemble; evaluate $K=0.95I_{AB}-\chi_{BE}(Z_-)$.
+\item Start at $\nu_0\in\{0.1,0.15,0.3,0.8\}$ and previous-distance warm start; repeat at most six outer iterations.
+\item P1 fixes the previous $\nu$ and runs the original adaptive exact $V_A$ search.
+\item P2 fixes the newly selected $V_A$ and runs the original adaptive exact $\nu>0$ search.
+\item Exact endpoint expansion and paired midpoint refinement retain caps three/four and parameter tolerance $10^{-6}$.
+\item Missing moments, failed evaluations and unresolved boundaries remain explicitly incomplete; no interpolation.
+\item Stop numerically only when both searches are complete, no earlier unresolved or numerical warning remains, and $|\Delta K|\le10^{-8}$.
+\item Select the best actually obtained start and independently compare against the finite exact catalog. Local numerical closure does not certify a global maximum.
+\end{enumerate}

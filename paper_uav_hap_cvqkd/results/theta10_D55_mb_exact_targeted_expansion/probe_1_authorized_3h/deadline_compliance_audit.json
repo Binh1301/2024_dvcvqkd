@@ -1,0 +1,51 @@
+{
+  "source_outcome": "TIMEOUT_NO_COMPLETED_SOURCE",
+  "deadline_compliance": "FAILED",
+  "probe_wall_limit_seconds": 3600.0,
+  "probe_wall_measured_seconds": 30405.938000000002,
+  "probe_wall_overrun_seconds": 26805.938000000002,
+  "total_wall_limit_seconds": 10800.0,
+  "total_wall_measured_seconds": 30410.82800000001,
+  "total_wall_overrun_seconds": 19610.82800000001,
+  "aggregate_job_cpu_seconds": 1771.3125,
+  "cpu_within_probe_limit": true,
+  "cpu_within_probe_limit_is_NOT_wall_time_compliance": true,
+  "supervisor_returncode": 124,
+  "supervisor_detected_overdue_deadline_after_resume": true,
+  "verified_power_events": [
+    {
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "id": 42,
+      "event_utc": "2026-10-08T15:52:53.7469873Z",
+      "message": "The system is entering sleep. Sleep Reason: Battery"
+    },
+    {
+      "provider": "Microsoft-Windows-Power-Troubleshooter",
+      "id": 1,
+      "event_utc": "2026-10-08T23:47:43.8620479Z",
+      "sleep_utc": "2026-10-08T15:52:50.627478900Z",
+      "wake_utc": "2026-10-08T23:47:41.516142700Z",
+      "message": "The system has returned from a low power state. Wake Source: Unknown"
+    },
+    {
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "id": 507,
+      "event_utc": "2026-10-08T23:47:41.5626931Z",
+      "message": "Exiting Modern Standby: Resume from Hibernate"
+    }
+  ],
+  "cause": "Windows sleep/hibernate due to battery; supervisor polling could not execute during host suspension. It terminated the Job on resume, not at the real-time deadline.",
+  "limitations": "This is not a completed 60-minute active-compute feasibility test and does not prove the ensemble invalid or inferior.",
+  "new_exact_sources": 0,
+  "new_SKR_evaluations": 0,
+  "new_AO_runs": 0,
+  "compatible_MB_count_unchanged": 139,
+  "probes_2_and_3_started": false,
+  "scoped_worker_processes_remaining": 0,
+  "protected_file_hashes_unchanged": 694,
+  "regression_tests_pass": true,
+  "git_diff_check_pass": true,
+  "raw_ledgers_and_reports_preserved": true,
+  "budget_disposition": "Treat the wall-time authorization as exhausted; no further execution under this ledger",
+  "next_step": "Stop. Before any new computation, separately agree stable power/no-suspend operating conditions and fresh authorization. No power setting or source method changed here."
+}

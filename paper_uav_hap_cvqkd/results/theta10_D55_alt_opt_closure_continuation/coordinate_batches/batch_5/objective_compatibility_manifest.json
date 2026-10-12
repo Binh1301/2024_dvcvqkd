@@ -1,0 +1,1877 @@
+[
+  {
+    "L_km": 20.0,
+    "identity": {
+      "schema": "theta10-exact-objective-v2",
+      "config": {
+        "channel": {
+          "h_hap_m": 20000.0,
+          "h_uav_m": 1000.0,
+          "zenith_angle_rad": 0.5235987755982988,
+          "wavelength_m": 1.55e-06,
+          "tau_zen": 0.92,
+          "visibility_km": null,
+          "theta_div_rad": 0.000223,
+          "radius_of_curvature_m": Infinity,
+          "beam_waist_m": 0.004424935637532516,
+          "aperture_radius_m": 0.04,
+          "cn2_m_minus_two_thirds": 1e-14,
+          "turbulence_profile": {
+            "model": "hufnagel_valley",
+            "wind_speed_m_per_s": 21.0,
+            "cn2_ground_m_minus_two_thirds": 1e-14,
+            "heights_m": null,
+            "cn2_m_minus_two_thirds": null
+          },
+          "scintillation": {
+            "aperture_averaging_model": "hufnagel_valley_finite_aperture",
+            "v_sc_override": null,
+            "sigma_R0_squared": null
+          },
+          "pointing": {
+            "model": "manuscript_gaussian_equivalent",
+            "boresight_x_m": 0.0,
+            "boresight_y_m": 0.0,
+            "sigma_h_m": 1.0,
+            "theta_jt_rad": 1.561e-05,
+            "sigma_hap_ang_rad": 1.561e-05,
+            "hap_angular_jitter_convention": "per_axis"
+          },
+          "aoa": {
+            "model": "external_validated",
+            "sigma_turb_AoA2_rad2": 0.0,
+            "sigma_o_rad": 0.0015,
+            "provenance": "manuscript scenario: zero turbulence-induced AoA variance",
+            "theta_fov_rad": 0.00625
+          },
+          "raw_transmittance": {
+            "active_treatment": "truncated_renormalized_active_law"
+          },
+          "cn_phi2_m_minus_two_thirds": null,
+          "cn_phi2_mapping_status": "unresolved",
+          "cn_phi2_author_approved": false,
+          "scenario_label": "final_hap_uav_baseline",
+          "uav_motion": {
+            "sigma_x_m": 1.0,
+            "sigma_y_m": 1.0,
+            "sigma_z_m": 0.0,
+            "sigma_theta_rad": 0.0015,
+            "sigma_phi_rad": 0.0015,
+            "sigma_psi_rad": 0.0
+          },
+          "excess_noise_distribution": {
+            "kind": "fixed",
+            "epsilon_ch_snu": 0.0186,
+            "dependence_on_transmittance": "deterministic",
+            "interpretation": "author-approved deterministic baseline channel excess noise"
+          },
+          "diagnostics": {
+            "sample_count": 1000000,
+            "seed": 202612,
+            "quantile_probabilities": [
+              0.01,
+              0.1,
+              0.5,
+              0.9,
+              0.99
+            ],
+            "classification": "SOFTWARE_PREREGISTERED"
+          }
+        },
+        "cvqkd": {
+          "beta_reconciliation": 0.95,
+          "fixed_modulation_variance_snu": null,
+          "v_min_snu": null,
+          "v_max_snu": null,
+          "v_a_budget_snu": null,
+          "n_peak_photons": null,
+          "n_peak_author_approved": true,
+          "peak_domain_scope": "complete_preregistered_realizations",
+          "mb_nu": 0.1,
+          "fock_cutoff": null,
+          "holevo_numerics": {
+            "symmetry_tolerance": 1e-08,
+            "density_trace_tolerance": 1e-10,
+            "density_eigenvalue_pseudoinverse_tolerance": 1e-12,
+            "density_eigenvalue_pseudoinverse_author_approved": false,
+            "physicality_tolerance": 1e-10
+          }
+        },
+        "training": {
+          "optimizer": "adam",
+          "epochs": 2000,
+          "learning_rates": {
+            "ps": 0.0003,
+            "gs": 0.0001,
+            "va": 0.0001
+          },
+          "energy_dual_learning_rate": 0.01,
+          "batch_size": 16,
+          "validation_patience_epochs": 100,
+          "validation_min_delta_bits": 1e-05,
+          "validation_energy_budget_margin_snu": 0.1,
+          "gradient_clip_norm": 1.0,
+          "regularization": {
+            "separation_coefficient": 0.0,
+            "peak_coefficient": 0.0,
+            "drift_coefficient": 0.0
+          },
+          "train_fading_samples": 16,
+          "validation_fading_samples": 128,
+          "test_fading_samples": 4096,
+          "train_awgn_samples_per_symbol": 8,
+          "validation_awgn_samples_per_symbol": 2048,
+          "test_awgn_samples_per_symbol": 2048,
+          "seeds": {
+            "train_channel": 202601,
+            "train_awgn": 202602,
+            "validation_channel": 202603,
+            "validation_awgn": 202604,
+            "test_channel": 202605,
+            "test_awgn": 202606
+          },
+          "independent_training_initialization_seeds": [
+            26082701,
+            26082702,
+            26082703,
+            26082704,
+            26082705,
+            26082706,
+            26082707,
+            26082708,
+            26082709,
+            26082710
+          ]
+        },
+        "baseline_search": {
+          "va_grid_snu": [
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+            1.0,
+            1.1,
+            1.2,
+            1.3,
+            1.4,
+            1.5
+          ],
+          "optimized_mb_nu_grid": [
+            0.0,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.06,
+            0.07,
+            0.08,
+            0.09,
+            0.1,
+            0.11,
+            0.12,
+            0.13,
+            0.14,
+            0.15,
+            0.16,
+            0.17,
+            0.18,
+            0.19,
+            0.2,
+            0.21,
+            0.22,
+            0.23,
+            0.24,
+            0.25,
+            0.26,
+            0.27,
+            0.28,
+            0.29,
+            0.3
+          ],
+          "state_batch_size": 8,
+          "tie_breaking": "maximum validation raw SKR, then lower V_A, then lower nu"
+        },
+        "numerical_validation": {
+          "fixture_initialization_seed": 202613,
+          "mi": {
+            "sample_counts": [
+              256,
+              512,
+              1024,
+              2048,
+              4096,
+              8192
+            ],
+            "required_consecutive_refinement_passes": 2,
+            "absolute_tolerance_bits": 0.002,
+            "relative_tolerance": 0.001,
+            "noise_sample_chunk_size": 64,
+            "seeds": [
+              202607,
+              202608,
+              202609,
+              202610,
+              202611
+            ]
+          },
+          "fock": {
+            "cutoffs": [
+              48,
+              56,
+              64,
+              72,
+              80,
+              96,
+              112,
+              128
+            ],
+            "moment_absolute_tolerance": 1e-07,
+            "moment_relative_tolerance": 1e-06,
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06,
+            "symplectic_absolute_tolerance": 1e-07,
+            "symplectic_relative_tolerance": 1e-06,
+            "information_absolute_tolerance_bits": 1e-06,
+            "information_relative_tolerance": 1e-05,
+            "density_trace_tolerance": 1e-10
+          },
+          "holevo_threshold_sensitivity": {
+            "density_eigenvalue_pseudoinverse_tolerances": [
+              1e-14,
+              1e-13,
+              1e-12,
+              1e-11,
+              1e-10
+            ],
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06
+          },
+          "production_gram_candidate_diagnostic": {
+            "reference_density_eigenvalue_threshold": 1e-14,
+            "candidate_density_eigenvalue_threshold": 1e-13,
+            "support_identity_required_for_formal_threshold_certification": true,
+            "formal_threshold_certification": false,
+            "rule_status": "OUTCOME_INFORMED_DIAGNOSTIC_NOT_FROZEN",
+            "gradient_crn_seed": 202615,
+            "gradient_sample_count": 2048,
+            "finite_difference_steps": [
+              0.001,
+              0.0003,
+              0.0001,
+              3e-05,
+              1e-05,
+              3e-06
+            ],
+            "finite_difference_absolute_tolerance": 1e-07,
+            "finite_difference_relative_tolerance": 0.005,
+            "required_adjacent_stable_pairs": 3
+          }
+        },
+        "evaluation": {
+          "numerical_precision": "torch.float64 / torch.complex128",
+          "confidence_level": 0.95,
+          "confidence_interval_unit": "independent_training_seed"
+        },
+        "paper_results": {
+          "expected_figures": [],
+          "expected_tables": [
+            "Table I: UAV receiver motion and attitude-fluctuation parameters"
+          ]
+        },
+        "parameter_classification": {
+          "physical_channel": "AUTHOR_APPROVED",
+          "beta_and_energy_domain": "AUTHOR_APPROVED",
+          "baseline_search_grids": "SOFTWARE_PREREGISTERED",
+          "optimizer_and_statistical_protocol": "SOFTWARE_PREREGISTERED_SMOKE_VALIDATED",
+          "mi_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "fock_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "mi_sample_count": "CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER",
+          "fock_cutoff": "BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF",
+          "pseudoinverse_threshold": "BLOCKED_FOCK_DEPENDENCY",
+          "baseline_selections": "BLOCKED_NUMERICAL_DEPENDENCY"
+        }
+      },
+      "channel": {
+        "w0_m": 0.0986760647169751,
+        "w0_mm": 98.6760647169751,
+        "receiver_diameter_m": 0.55,
+        "distance_km": 20.0,
+        "zeta_deg": 18.194872338766785,
+        "rayleigh_range_m": 19735.212943395018,
+        "theta_G_half_angle_rad": 5.000000000000001e-06,
+        "theta_div_full_angle_rad": 1.0000000000000003e-05,
+        "omega_L_m": 0.14048831178439244,
+        "omega_L_eq_m": 1.733106484270023,
+        "G_d": 0.025422377216835247,
+        "nu_aperture": 2.4533100539403927,
+        "A0": 0.9989574326343389,
+        "chi": 0.8271783373058421,
+        "mean_T_raw": 0.3716666425277551,
+        "mean_sqrt_T_raw": 0.5525096792219515,
+        "T_eff": 0.30526694563394374,
+        "loss_dB": 5.153202186491008,
+        "atmosphere_loss_dB": 0.3811807647836284,
+        "finite_aperture_beam_loss_dB": 0.004530174455766681,
+        "pointing_jitter_loss_dB": 4.764711088968271,
+        "scintillation_loss_dB": 0.001304676622687058,
+        "aoa_active_probability_loss_dB": 0.001475481660654531,
+        "sigma_jt_m": 1.0476014700256964,
+        "eta_atm": 0.9159714209117958,
+        "p_in": 0.9998301433234386,
+        "p_out": 0.00016985667656141038,
+        "sigma_X2": 0.00030041289425774474,
+        "epsilon": 0.0186,
+        "AO": "OFF",
+        "phase_noise": "OFF",
+        "theta_div_full_rad": 1e-05,
+        "channel_hash": "de904291c87f0e153b986a3de68ca8137dfc2c5aea9871c55b712f5d617b5f23"
+      },
+      "security": "direct_Z_minus",
+      "MI": "deterministic_heterodyne_product",
+      "quadrature_order": 8,
+      "beta": 0.95,
+      "epsilon": 0.0186,
+      "scientific_implementation": {
+        "scripts/_common.py": "038fbb88a5db7f34cc34ca90086791c74a3b026a1327e9e92d97b96b985071e0",
+        "scripts/calculate_channel_pdf_and_moments.py": "d504f531eb92c20a9d1a1cdd63b80dc4ffc636977eb808b6416ce129690f4e41",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "scripts/run_skr_vs_link_distance_theta10urad.py": "c845f149b00c8a670f00e50b2a6efb5355277a52def0eb9c6347ba45f145ed26",
+        "scripts/run_uniform_beam_waist_diagnostic.py": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+        "src/channel/__init__.py": "59679e223f1adf816666456a3fd7594a0dd85fb32b584b2b016db8d694ee7e91",
+        "src/channel/aoa.py": "a7694d8033850c4704bae79a09869575512e84ba0f9478631036e4a3e6622a33",
+        "src/channel/atmospheric_loss.py": "af759f57191f54d2773ceec2da0c11ae3b501659ae74ba52fdb70d95cf9585b0",
+        "src/channel/diagnostics.py": "ecc59a72b2a1ae8369c43be4b7094b8e47523d27d18d024ea1aed350d2fa3718",
+        "src/channel/fso_channel.py": "9bed2b8a7cfd6cf2f82e2b97406ff1fb02aec63c08188347023a79c273a2c1b9",
+        "src/channel/geometry.py": "80d09bd2d389dbe405c2a6a67a5d337454ce09760967d7c123791be9707a8817",
+        "src/channel/phase_noise.py": "741081c8fe14c0f0c90df559266c33740d8f669ae436447ebe0cff6daab614b4",
+        "src/channel/pointing_error.py": "91d37e96981d2e8536dad27e4193cbc44891fd3607107ff2bea24e919b96954a",
+        "src/channel/scintillation.py": "e039fa852865ec59b66874e516a3c30b308cec25f36fb1cf2e9d8f2214c0df5b",
+        "src/channel/state_distribution.py": "b6367b65f20d7b9780982821c8ee9f083992896459a11ef8f170d296f9cd9030",
+        "src/channel/turbulence.py": "dd040b0f172900211c87198608eac13516881795b0c85d1184712b3a6d6b4114",
+        "src/cvqkd/__init__.py": "abefcea848ff860ad0e6cdf15b56315351d138c010d933d35a3da507fce708ca",
+        "src/cvqkd/ap_custom_backward.py": "f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92",
+        "src/cvqkd/c4_constrained_tangent.py": "a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258",
+        "src/cvqkd/covariance.py": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f",
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/holevo.py": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2",
+        "src/cvqkd/mutual_information.py": "d1d7085cc32084ceb1ae7453e4b5349e4d2352611f5c2010fb1baffca2b4b665",
+        "src/cvqkd/protocol.py": "0c750c823f9d08aff5eda058aa89d011f65940418386b9feb9ae996a128bbf63",
+        "src/cvqkd/secret_key_rate.py": "7571bb69b96ff03cbe8f5c68dd8a07e1ff49e178beaeb0cf4596534f2c76a5a8",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "src/cvqkd/training_surrogate.py": "266100eb00b8108e7b4738fc6489a697a09c099f76a147895df78579464819be",
+        "src/modulation/joint_ps_gs.py": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f",
+        "src/modulation/qam256.py": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+      }
+    },
+    "sha256": "c449d9121e2cbf8042321235dc92e372b8167d3bb235913fcc35ec197ab4bd5b",
+    "historical_attestation": "HASH_BOUND_PREVIOUS_INDEPENDENT_AUDIT",
+    "historical_audit_sha256": "d269bdef0f5799b79a2994bf13237e2237a8dd32a8df16cdf10cdac3cab920b3",
+    "restored_rows": 78
+  },
+  {
+    "L_km": 21.9393102292,
+    "identity": {
+      "schema": "theta10-exact-objective-v2",
+      "config": {
+        "channel": {
+          "h_hap_m": 20000.0,
+          "h_uav_m": 1000.0,
+          "zenith_angle_rad": 0.5235987755982988,
+          "wavelength_m": 1.55e-06,
+          "tau_zen": 0.92,
+          "visibility_km": null,
+          "theta_div_rad": 0.000223,
+          "radius_of_curvature_m": Infinity,
+          "beam_waist_m": 0.004424935637532516,
+          "aperture_radius_m": 0.04,
+          "cn2_m_minus_two_thirds": 1e-14,
+          "turbulence_profile": {
+            "model": "hufnagel_valley",
+            "wind_speed_m_per_s": 21.0,
+            "cn2_ground_m_minus_two_thirds": 1e-14,
+            "heights_m": null,
+            "cn2_m_minus_two_thirds": null
+          },
+          "scintillation": {
+            "aperture_averaging_model": "hufnagel_valley_finite_aperture",
+            "v_sc_override": null,
+            "sigma_R0_squared": null
+          },
+          "pointing": {
+            "model": "manuscript_gaussian_equivalent",
+            "boresight_x_m": 0.0,
+            "boresight_y_m": 0.0,
+            "sigma_h_m": 1.0,
+            "theta_jt_rad": 1.561e-05,
+            "sigma_hap_ang_rad": 1.561e-05,
+            "hap_angular_jitter_convention": "per_axis"
+          },
+          "aoa": {
+            "model": "external_validated",
+            "sigma_turb_AoA2_rad2": 0.0,
+            "sigma_o_rad": 0.0015,
+            "provenance": "manuscript scenario: zero turbulence-induced AoA variance",
+            "theta_fov_rad": 0.00625
+          },
+          "raw_transmittance": {
+            "active_treatment": "truncated_renormalized_active_law"
+          },
+          "cn_phi2_m_minus_two_thirds": null,
+          "cn_phi2_mapping_status": "unresolved",
+          "cn_phi2_author_approved": false,
+          "scenario_label": "final_hap_uav_baseline",
+          "uav_motion": {
+            "sigma_x_m": 1.0,
+            "sigma_y_m": 1.0,
+            "sigma_z_m": 0.0,
+            "sigma_theta_rad": 0.0015,
+            "sigma_phi_rad": 0.0015,
+            "sigma_psi_rad": 0.0
+          },
+          "excess_noise_distribution": {
+            "kind": "fixed",
+            "epsilon_ch_snu": 0.0186,
+            "dependence_on_transmittance": "deterministic",
+            "interpretation": "author-approved deterministic baseline channel excess noise"
+          },
+          "diagnostics": {
+            "sample_count": 1000000,
+            "seed": 202612,
+            "quantile_probabilities": [
+              0.01,
+              0.1,
+              0.5,
+              0.9,
+              0.99
+            ],
+            "classification": "SOFTWARE_PREREGISTERED"
+          }
+        },
+        "cvqkd": {
+          "beta_reconciliation": 0.95,
+          "fixed_modulation_variance_snu": null,
+          "v_min_snu": null,
+          "v_max_snu": null,
+          "v_a_budget_snu": null,
+          "n_peak_photons": null,
+          "n_peak_author_approved": true,
+          "peak_domain_scope": "complete_preregistered_realizations",
+          "mb_nu": 0.1,
+          "fock_cutoff": null,
+          "holevo_numerics": {
+            "symmetry_tolerance": 1e-08,
+            "density_trace_tolerance": 1e-10,
+            "density_eigenvalue_pseudoinverse_tolerance": 1e-12,
+            "density_eigenvalue_pseudoinverse_author_approved": false,
+            "physicality_tolerance": 1e-10
+          }
+        },
+        "training": {
+          "optimizer": "adam",
+          "epochs": 2000,
+          "learning_rates": {
+            "ps": 0.0003,
+            "gs": 0.0001,
+            "va": 0.0001
+          },
+          "energy_dual_learning_rate": 0.01,
+          "batch_size": 16,
+          "validation_patience_epochs": 100,
+          "validation_min_delta_bits": 1e-05,
+          "validation_energy_budget_margin_snu": 0.1,
+          "gradient_clip_norm": 1.0,
+          "regularization": {
+            "separation_coefficient": 0.0,
+            "peak_coefficient": 0.0,
+            "drift_coefficient": 0.0
+          },
+          "train_fading_samples": 16,
+          "validation_fading_samples": 128,
+          "test_fading_samples": 4096,
+          "train_awgn_samples_per_symbol": 8,
+          "validation_awgn_samples_per_symbol": 2048,
+          "test_awgn_samples_per_symbol": 2048,
+          "seeds": {
+            "train_channel": 202601,
+            "train_awgn": 202602,
+            "validation_channel": 202603,
+            "validation_awgn": 202604,
+            "test_channel": 202605,
+            "test_awgn": 202606
+          },
+          "independent_training_initialization_seeds": [
+            26082701,
+            26082702,
+            26082703,
+            26082704,
+            26082705,
+            26082706,
+            26082707,
+            26082708,
+            26082709,
+            26082710
+          ]
+        },
+        "baseline_search": {
+          "va_grid_snu": [
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+            1.0,
+            1.1,
+            1.2,
+            1.3,
+            1.4,
+            1.5
+          ],
+          "optimized_mb_nu_grid": [
+            0.0,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.06,
+            0.07,
+            0.08,
+            0.09,
+            0.1,
+            0.11,
+            0.12,
+            0.13,
+            0.14,
+            0.15,
+            0.16,
+            0.17,
+            0.18,
+            0.19,
+            0.2,
+            0.21,
+            0.22,
+            0.23,
+            0.24,
+            0.25,
+            0.26,
+            0.27,
+            0.28,
+            0.29,
+            0.3
+          ],
+          "state_batch_size": 8,
+          "tie_breaking": "maximum validation raw SKR, then lower V_A, then lower nu"
+        },
+        "numerical_validation": {
+          "fixture_initialization_seed": 202613,
+          "mi": {
+            "sample_counts": [
+              256,
+              512,
+              1024,
+              2048,
+              4096,
+              8192
+            ],
+            "required_consecutive_refinement_passes": 2,
+            "absolute_tolerance_bits": 0.002,
+            "relative_tolerance": 0.001,
+            "noise_sample_chunk_size": 64,
+            "seeds": [
+              202607,
+              202608,
+              202609,
+              202610,
+              202611
+            ]
+          },
+          "fock": {
+            "cutoffs": [
+              48,
+              56,
+              64,
+              72,
+              80,
+              96,
+              112,
+              128
+            ],
+            "moment_absolute_tolerance": 1e-07,
+            "moment_relative_tolerance": 1e-06,
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06,
+            "symplectic_absolute_tolerance": 1e-07,
+            "symplectic_relative_tolerance": 1e-06,
+            "information_absolute_tolerance_bits": 1e-06,
+            "information_relative_tolerance": 1e-05,
+            "density_trace_tolerance": 1e-10
+          },
+          "holevo_threshold_sensitivity": {
+            "density_eigenvalue_pseudoinverse_tolerances": [
+              1e-14,
+              1e-13,
+              1e-12,
+              1e-11,
+              1e-10
+            ],
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06
+          },
+          "production_gram_candidate_diagnostic": {
+            "reference_density_eigenvalue_threshold": 1e-14,
+            "candidate_density_eigenvalue_threshold": 1e-13,
+            "support_identity_required_for_formal_threshold_certification": true,
+            "formal_threshold_certification": false,
+            "rule_status": "OUTCOME_INFORMED_DIAGNOSTIC_NOT_FROZEN",
+            "gradient_crn_seed": 202615,
+            "gradient_sample_count": 2048,
+            "finite_difference_steps": [
+              0.001,
+              0.0003,
+              0.0001,
+              3e-05,
+              1e-05,
+              3e-06
+            ],
+            "finite_difference_absolute_tolerance": 1e-07,
+            "finite_difference_relative_tolerance": 0.005,
+            "required_adjacent_stable_pairs": 3
+          }
+        },
+        "evaluation": {
+          "numerical_precision": "torch.float64 / torch.complex128",
+          "confidence_level": 0.95,
+          "confidence_interval_unit": "independent_training_seed"
+        },
+        "paper_results": {
+          "expected_figures": [],
+          "expected_tables": [
+            "Table I: UAV receiver motion and attitude-fluctuation parameters"
+          ]
+        },
+        "parameter_classification": {
+          "physical_channel": "AUTHOR_APPROVED",
+          "beta_and_energy_domain": "AUTHOR_APPROVED",
+          "baseline_search_grids": "SOFTWARE_PREREGISTERED",
+          "optimizer_and_statistical_protocol": "SOFTWARE_PREREGISTERED_SMOKE_VALIDATED",
+          "mi_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "fock_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "mi_sample_count": "CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER",
+          "fock_cutoff": "BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF",
+          "pseudoinverse_threshold": "BLOCKED_FOCK_DEPENDENCY",
+          "baseline_selections": "BLOCKED_NUMERICAL_DEPENDENCY"
+        }
+      },
+      "channel": {
+        "w0_m": 0.0986760647169751,
+        "w0_mm": 98.6760647169751,
+        "receiver_diameter_m": 0.55,
+        "distance_km": 21.9393102292,
+        "zeta_deg": 29.99999999997386,
+        "rayleigh_range_m": 19735.212943395018,
+        "theta_G_half_angle_rad": 5.000000000000001e-06,
+        "theta_div_full_angle_rad": 1.0000000000000003e-05,
+        "omega_L_m": 0.1475476163187859,
+        "omega_L_eq_m": 1.4111227269002553,
+        "G_d": 0.029985462238893236,
+        "nu_aperture": 2.3359332828332513,
+        "A0": 0.9980912504070394,
+        "chi": 0.6675016137780883,
+        "mean_T_raw": 0.2793516597874326,
+        "mean_sqrt_T_raw": 0.4484713170554535,
+        "T_eff": 0.2011265222214531,
+        "loss_dB": 6.965306559326874,
+        "atmosphere_loss_dB": 0.41814215259958687,
+        "finite_aperture_beam_loss_dB": 0.008297515616976326,
+        "pointing_jitter_loss_dB": 6.535674382156146,
+        "scintillation_loss_dB": 0.001717027293511108,
+        "aoa_active_probability_loss_dB": 0.001475481660654531,
+        "sigma_jt_m": 1.0570182137187947,
+        "eta_atm": 0.9082089654181673,
+        "p_in": 0.9998301433234386,
+        "p_out": 0.00016985667656141038,
+        "sigma_X2": 0.00039536014503027954,
+        "epsilon": 0.0186,
+        "AO": "OFF",
+        "phase_noise": "OFF",
+        "theta_div_full_rad": 1e-05,
+        "channel_hash": "1a744fc47721ab8d8e9f2117255402793ec6555d84914aa577d6eeda245056c1"
+      },
+      "security": "direct_Z_minus",
+      "MI": "deterministic_heterodyne_product",
+      "quadrature_order": 8,
+      "beta": 0.95,
+      "epsilon": 0.0186,
+      "scientific_implementation": {
+        "scripts/_common.py": "038fbb88a5db7f34cc34ca90086791c74a3b026a1327e9e92d97b96b985071e0",
+        "scripts/calculate_channel_pdf_and_moments.py": "d504f531eb92c20a9d1a1cdd63b80dc4ffc636977eb808b6416ce129690f4e41",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "scripts/run_skr_vs_link_distance_theta10urad.py": "c845f149b00c8a670f00e50b2a6efb5355277a52def0eb9c6347ba45f145ed26",
+        "scripts/run_uniform_beam_waist_diagnostic.py": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+        "src/channel/__init__.py": "59679e223f1adf816666456a3fd7594a0dd85fb32b584b2b016db8d694ee7e91",
+        "src/channel/aoa.py": "a7694d8033850c4704bae79a09869575512e84ba0f9478631036e4a3e6622a33",
+        "src/channel/atmospheric_loss.py": "af759f57191f54d2773ceec2da0c11ae3b501659ae74ba52fdb70d95cf9585b0",
+        "src/channel/diagnostics.py": "ecc59a72b2a1ae8369c43be4b7094b8e47523d27d18d024ea1aed350d2fa3718",
+        "src/channel/fso_channel.py": "9bed2b8a7cfd6cf2f82e2b97406ff1fb02aec63c08188347023a79c273a2c1b9",
+        "src/channel/geometry.py": "80d09bd2d389dbe405c2a6a67a5d337454ce09760967d7c123791be9707a8817",
+        "src/channel/phase_noise.py": "741081c8fe14c0f0c90df559266c33740d8f669ae436447ebe0cff6daab614b4",
+        "src/channel/pointing_error.py": "91d37e96981d2e8536dad27e4193cbc44891fd3607107ff2bea24e919b96954a",
+        "src/channel/scintillation.py": "e039fa852865ec59b66874e516a3c30b308cec25f36fb1cf2e9d8f2214c0df5b",
+        "src/channel/state_distribution.py": "b6367b65f20d7b9780982821c8ee9f083992896459a11ef8f170d296f9cd9030",
+        "src/channel/turbulence.py": "dd040b0f172900211c87198608eac13516881795b0c85d1184712b3a6d6b4114",
+        "src/cvqkd/__init__.py": "abefcea848ff860ad0e6cdf15b56315351d138c010d933d35a3da507fce708ca",
+        "src/cvqkd/ap_custom_backward.py": "f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92",
+        "src/cvqkd/c4_constrained_tangent.py": "a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258",
+        "src/cvqkd/covariance.py": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f",
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/holevo.py": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2",
+        "src/cvqkd/mutual_information.py": "d1d7085cc32084ceb1ae7453e4b5349e4d2352611f5c2010fb1baffca2b4b665",
+        "src/cvqkd/protocol.py": "0c750c823f9d08aff5eda058aa89d011f65940418386b9feb9ae996a128bbf63",
+        "src/cvqkd/secret_key_rate.py": "7571bb69b96ff03cbe8f5c68dd8a07e1ff49e178beaeb0cf4596534f2c76a5a8",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "src/cvqkd/training_surrogate.py": "266100eb00b8108e7b4738fc6489a697a09c099f76a147895df78579464819be",
+        "src/modulation/joint_ps_gs.py": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f",
+        "src/modulation/qam256.py": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+      }
+    },
+    "sha256": "31a7c64c9e256b901009aa7e7fa92cc04e60031517c071bdc8129d358a2d540c",
+    "historical_attestation": "HASH_BOUND_PREVIOUS_INDEPENDENT_AUDIT",
+    "historical_audit_sha256": "d269bdef0f5799b79a2994bf13237e2237a8dd32a8df16cdf10cdac3cab920b3",
+    "restored_rows": 74
+  },
+  {
+    "L_km": 22.0,
+    "identity": {
+      "schema": "theta10-exact-objective-v2",
+      "config": {
+        "channel": {
+          "h_hap_m": 20000.0,
+          "h_uav_m": 1000.0,
+          "zenith_angle_rad": 0.5235987755982988,
+          "wavelength_m": 1.55e-06,
+          "tau_zen": 0.92,
+          "visibility_km": null,
+          "theta_div_rad": 0.000223,
+          "radius_of_curvature_m": Infinity,
+          "beam_waist_m": 0.004424935637532516,
+          "aperture_radius_m": 0.04,
+          "cn2_m_minus_two_thirds": 1e-14,
+          "turbulence_profile": {
+            "model": "hufnagel_valley",
+            "wind_speed_m_per_s": 21.0,
+            "cn2_ground_m_minus_two_thirds": 1e-14,
+            "heights_m": null,
+            "cn2_m_minus_two_thirds": null
+          },
+          "scintillation": {
+            "aperture_averaging_model": "hufnagel_valley_finite_aperture",
+            "v_sc_override": null,
+            "sigma_R0_squared": null
+          },
+          "pointing": {
+            "model": "manuscript_gaussian_equivalent",
+            "boresight_x_m": 0.0,
+            "boresight_y_m": 0.0,
+            "sigma_h_m": 1.0,
+            "theta_jt_rad": 1.561e-05,
+            "sigma_hap_ang_rad": 1.561e-05,
+            "hap_angular_jitter_convention": "per_axis"
+          },
+          "aoa": {
+            "model": "external_validated",
+            "sigma_turb_AoA2_rad2": 0.0,
+            "sigma_o_rad": 0.0015,
+            "provenance": "manuscript scenario: zero turbulence-induced AoA variance",
+            "theta_fov_rad": 0.00625
+          },
+          "raw_transmittance": {
+            "active_treatment": "truncated_renormalized_active_law"
+          },
+          "cn_phi2_m_minus_two_thirds": null,
+          "cn_phi2_mapping_status": "unresolved",
+          "cn_phi2_author_approved": false,
+          "scenario_label": "final_hap_uav_baseline",
+          "uav_motion": {
+            "sigma_x_m": 1.0,
+            "sigma_y_m": 1.0,
+            "sigma_z_m": 0.0,
+            "sigma_theta_rad": 0.0015,
+            "sigma_phi_rad": 0.0015,
+            "sigma_psi_rad": 0.0
+          },
+          "excess_noise_distribution": {
+            "kind": "fixed",
+            "epsilon_ch_snu": 0.0186,
+            "dependence_on_transmittance": "deterministic",
+            "interpretation": "author-approved deterministic baseline channel excess noise"
+          },
+          "diagnostics": {
+            "sample_count": 1000000,
+            "seed": 202612,
+            "quantile_probabilities": [
+              0.01,
+              0.1,
+              0.5,
+              0.9,
+              0.99
+            ],
+            "classification": "SOFTWARE_PREREGISTERED"
+          }
+        },
+        "cvqkd": {
+          "beta_reconciliation": 0.95,
+          "fixed_modulation_variance_snu": null,
+          "v_min_snu": null,
+          "v_max_snu": null,
+          "v_a_budget_snu": null,
+          "n_peak_photons": null,
+          "n_peak_author_approved": true,
+          "peak_domain_scope": "complete_preregistered_realizations",
+          "mb_nu": 0.1,
+          "fock_cutoff": null,
+          "holevo_numerics": {
+            "symmetry_tolerance": 1e-08,
+            "density_trace_tolerance": 1e-10,
+            "density_eigenvalue_pseudoinverse_tolerance": 1e-12,
+            "density_eigenvalue_pseudoinverse_author_approved": false,
+            "physicality_tolerance": 1e-10
+          }
+        },
+        "training": {
+          "optimizer": "adam",
+          "epochs": 2000,
+          "learning_rates": {
+            "ps": 0.0003,
+            "gs": 0.0001,
+            "va": 0.0001
+          },
+          "energy_dual_learning_rate": 0.01,
+          "batch_size": 16,
+          "validation_patience_epochs": 100,
+          "validation_min_delta_bits": 1e-05,
+          "validation_energy_budget_margin_snu": 0.1,
+          "gradient_clip_norm": 1.0,
+          "regularization": {
+            "separation_coefficient": 0.0,
+            "peak_coefficient": 0.0,
+            "drift_coefficient": 0.0
+          },
+          "train_fading_samples": 16,
+          "validation_fading_samples": 128,
+          "test_fading_samples": 4096,
+          "train_awgn_samples_per_symbol": 8,
+          "validation_awgn_samples_per_symbol": 2048,
+          "test_awgn_samples_per_symbol": 2048,
+          "seeds": {
+            "train_channel": 202601,
+            "train_awgn": 202602,
+            "validation_channel": 202603,
+            "validation_awgn": 202604,
+            "test_channel": 202605,
+            "test_awgn": 202606
+          },
+          "independent_training_initialization_seeds": [
+            26082701,
+            26082702,
+            26082703,
+            26082704,
+            26082705,
+            26082706,
+            26082707,
+            26082708,
+            26082709,
+            26082710
+          ]
+        },
+        "baseline_search": {
+          "va_grid_snu": [
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+            1.0,
+            1.1,
+            1.2,
+            1.3,
+            1.4,
+            1.5
+          ],
+          "optimized_mb_nu_grid": [
+            0.0,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.06,
+            0.07,
+            0.08,
+            0.09,
+            0.1,
+            0.11,
+            0.12,
+            0.13,
+            0.14,
+            0.15,
+            0.16,
+            0.17,
+            0.18,
+            0.19,
+            0.2,
+            0.21,
+            0.22,
+            0.23,
+            0.24,
+            0.25,
+            0.26,
+            0.27,
+            0.28,
+            0.29,
+            0.3
+          ],
+          "state_batch_size": 8,
+          "tie_breaking": "maximum validation raw SKR, then lower V_A, then lower nu"
+        },
+        "numerical_validation": {
+          "fixture_initialization_seed": 202613,
+          "mi": {
+            "sample_counts": [
+              256,
+              512,
+              1024,
+              2048,
+              4096,
+              8192
+            ],
+            "required_consecutive_refinement_passes": 2,
+            "absolute_tolerance_bits": 0.002,
+            "relative_tolerance": 0.001,
+            "noise_sample_chunk_size": 64,
+            "seeds": [
+              202607,
+              202608,
+              202609,
+              202610,
+              202611
+            ]
+          },
+          "fock": {
+            "cutoffs": [
+              48,
+              56,
+              64,
+              72,
+              80,
+              96,
+              112,
+              128
+            ],
+            "moment_absolute_tolerance": 1e-07,
+            "moment_relative_tolerance": 1e-06,
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06,
+            "symplectic_absolute_tolerance": 1e-07,
+            "symplectic_relative_tolerance": 1e-06,
+            "information_absolute_tolerance_bits": 1e-06,
+            "information_relative_tolerance": 1e-05,
+            "density_trace_tolerance": 1e-10
+          },
+          "holevo_threshold_sensitivity": {
+            "density_eigenvalue_pseudoinverse_tolerances": [
+              1e-14,
+              1e-13,
+              1e-12,
+              1e-11,
+              1e-10
+            ],
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06
+          },
+          "production_gram_candidate_diagnostic": {
+            "reference_density_eigenvalue_threshold": 1e-14,
+            "candidate_density_eigenvalue_threshold": 1e-13,
+            "support_identity_required_for_formal_threshold_certification": true,
+            "formal_threshold_certification": false,
+            "rule_status": "OUTCOME_INFORMED_DIAGNOSTIC_NOT_FROZEN",
+            "gradient_crn_seed": 202615,
+            "gradient_sample_count": 2048,
+            "finite_difference_steps": [
+              0.001,
+              0.0003,
+              0.0001,
+              3e-05,
+              1e-05,
+              3e-06
+            ],
+            "finite_difference_absolute_tolerance": 1e-07,
+            "finite_difference_relative_tolerance": 0.005,
+            "required_adjacent_stable_pairs": 3
+          }
+        },
+        "evaluation": {
+          "numerical_precision": "torch.float64 / torch.complex128",
+          "confidence_level": 0.95,
+          "confidence_interval_unit": "independent_training_seed"
+        },
+        "paper_results": {
+          "expected_figures": [],
+          "expected_tables": [
+            "Table I: UAV receiver motion and attitude-fluctuation parameters"
+          ]
+        },
+        "parameter_classification": {
+          "physical_channel": "AUTHOR_APPROVED",
+          "beta_and_energy_domain": "AUTHOR_APPROVED",
+          "baseline_search_grids": "SOFTWARE_PREREGISTERED",
+          "optimizer_and_statistical_protocol": "SOFTWARE_PREREGISTERED_SMOKE_VALIDATED",
+          "mi_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "fock_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "mi_sample_count": "CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER",
+          "fock_cutoff": "BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF",
+          "pseudoinverse_threshold": "BLOCKED_FOCK_DEPENDENCY",
+          "baseline_selections": "BLOCKED_NUMERICAL_DEPENDENCY"
+        }
+      },
+      "channel": {
+        "w0_m": 0.0986760647169751,
+        "w0_mm": 98.6760647169751,
+        "receiver_diameter_m": 0.55,
+        "distance_km": 22.0,
+        "zeta_deg": 30.27264131890952,
+        "rayleigh_range_m": 19735.212943395018,
+        "theta_G_half_angle_rad": 5.000000000000001e-06,
+        "theta_div_full_angle_rad": 1.0000000000000003e-05,
+        "omega_L_m": 0.1477733593988736,
+        "omega_L_eq_m": 1.4027171801069418,
+        "G_d": 0.030130295964445768,
+        "nu_aperture": 2.332364840075428,
+        "A0": 0.9980566242736908,
+        "chi": 0.6633326859861037,
+        "mean_T_raw": 0.2768526818754572,
+        "mean_sqrt_T_raw": 0.445433137153581,
+        "T_eff": 0.19841067967448092,
+        "loss_dB": 7.024349551714204,
+        "atmosphere_loss_dB": 0.41929884126199124,
+        "finite_aperture_beam_loss_dB": 0.008448185202483395,
+        "pointing_jitter_loss_dB": 6.593395891397524,
+        "scintillation_loss_dB": 0.0017311521915510557,
+        "aoa_active_probability_loss_dB": 0.001475481660654531,
+        "sigma_jt_m": 1.0573255394626577,
+        "eta_atm": 0.9079671076065077,
+        "p_in": 0.9998301433234386,
+        "p_out": 0.00016985667656141038,
+        "sigma_X2": 0.00039861252299692936,
+        "epsilon": 0.0186,
+        "AO": "OFF",
+        "phase_noise": "OFF",
+        "theta_div_full_rad": 1e-05,
+        "channel_hash": "9bc4afba0360187bc0fddf8688645ba01c95e00adcd95be6051698e356f21cfa"
+      },
+      "security": "direct_Z_minus",
+      "MI": "deterministic_heterodyne_product",
+      "quadrature_order": 8,
+      "beta": 0.95,
+      "epsilon": 0.0186,
+      "scientific_implementation": {
+        "scripts/_common.py": "038fbb88a5db7f34cc34ca90086791c74a3b026a1327e9e92d97b96b985071e0",
+        "scripts/calculate_channel_pdf_and_moments.py": "d504f531eb92c20a9d1a1cdd63b80dc4ffc636977eb808b6416ce129690f4e41",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "scripts/run_skr_vs_link_distance_theta10urad.py": "c845f149b00c8a670f00e50b2a6efb5355277a52def0eb9c6347ba45f145ed26",
+        "scripts/run_uniform_beam_waist_diagnostic.py": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+        "src/channel/__init__.py": "59679e223f1adf816666456a3fd7594a0dd85fb32b584b2b016db8d694ee7e91",
+        "src/channel/aoa.py": "a7694d8033850c4704bae79a09869575512e84ba0f9478631036e4a3e6622a33",
+        "src/channel/atmospheric_loss.py": "af759f57191f54d2773ceec2da0c11ae3b501659ae74ba52fdb70d95cf9585b0",
+        "src/channel/diagnostics.py": "ecc59a72b2a1ae8369c43be4b7094b8e47523d27d18d024ea1aed350d2fa3718",
+        "src/channel/fso_channel.py": "9bed2b8a7cfd6cf2f82e2b97406ff1fb02aec63c08188347023a79c273a2c1b9",
+        "src/channel/geometry.py": "80d09bd2d389dbe405c2a6a67a5d337454ce09760967d7c123791be9707a8817",
+        "src/channel/phase_noise.py": "741081c8fe14c0f0c90df559266c33740d8f669ae436447ebe0cff6daab614b4",
+        "src/channel/pointing_error.py": "91d37e96981d2e8536dad27e4193cbc44891fd3607107ff2bea24e919b96954a",
+        "src/channel/scintillation.py": "e039fa852865ec59b66874e516a3c30b308cec25f36fb1cf2e9d8f2214c0df5b",
+        "src/channel/state_distribution.py": "b6367b65f20d7b9780982821c8ee9f083992896459a11ef8f170d296f9cd9030",
+        "src/channel/turbulence.py": "dd040b0f172900211c87198608eac13516881795b0c85d1184712b3a6d6b4114",
+        "src/cvqkd/__init__.py": "abefcea848ff860ad0e6cdf15b56315351d138c010d933d35a3da507fce708ca",
+        "src/cvqkd/ap_custom_backward.py": "f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92",
+        "src/cvqkd/c4_constrained_tangent.py": "a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258",
+        "src/cvqkd/covariance.py": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f",
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/holevo.py": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2",
+        "src/cvqkd/mutual_information.py": "d1d7085cc32084ceb1ae7453e4b5349e4d2352611f5c2010fb1baffca2b4b665",
+        "src/cvqkd/protocol.py": "0c750c823f9d08aff5eda058aa89d011f65940418386b9feb9ae996a128bbf63",
+        "src/cvqkd/secret_key_rate.py": "7571bb69b96ff03cbe8f5c68dd8a07e1ff49e178beaeb0cf4596534f2c76a5a8",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "src/cvqkd/training_surrogate.py": "266100eb00b8108e7b4738fc6489a697a09c099f76a147895df78579464819be",
+        "src/modulation/joint_ps_gs.py": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f",
+        "src/modulation/qam256.py": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+      }
+    },
+    "sha256": "a9ab1937d450cef1f6c03a2be6ac4a9abc36f36131fa9dd590e9a1ef94f2c44b",
+    "historical_attestation": "HASH_BOUND_PREVIOUS_INDEPENDENT_AUDIT",
+    "historical_audit_sha256": "d269bdef0f5799b79a2994bf13237e2237a8dd32a8df16cdf10cdac3cab920b3",
+    "restored_rows": 74
+  },
+  {
+    "L_km": 23.0,
+    "identity": {
+      "schema": "theta10-exact-objective-v2",
+      "config": {
+        "channel": {
+          "h_hap_m": 20000.0,
+          "h_uav_m": 1000.0,
+          "zenith_angle_rad": 0.5235987755982988,
+          "wavelength_m": 1.55e-06,
+          "tau_zen": 0.92,
+          "visibility_km": null,
+          "theta_div_rad": 0.000223,
+          "radius_of_curvature_m": Infinity,
+          "beam_waist_m": 0.004424935637532516,
+          "aperture_radius_m": 0.04,
+          "cn2_m_minus_two_thirds": 1e-14,
+          "turbulence_profile": {
+            "model": "hufnagel_valley",
+            "wind_speed_m_per_s": 21.0,
+            "cn2_ground_m_minus_two_thirds": 1e-14,
+            "heights_m": null,
+            "cn2_m_minus_two_thirds": null
+          },
+          "scintillation": {
+            "aperture_averaging_model": "hufnagel_valley_finite_aperture",
+            "v_sc_override": null,
+            "sigma_R0_squared": null
+          },
+          "pointing": {
+            "model": "manuscript_gaussian_equivalent",
+            "boresight_x_m": 0.0,
+            "boresight_y_m": 0.0,
+            "sigma_h_m": 1.0,
+            "theta_jt_rad": 1.561e-05,
+            "sigma_hap_ang_rad": 1.561e-05,
+            "hap_angular_jitter_convention": "per_axis"
+          },
+          "aoa": {
+            "model": "external_validated",
+            "sigma_turb_AoA2_rad2": 0.0,
+            "sigma_o_rad": 0.0015,
+            "provenance": "manuscript scenario: zero turbulence-induced AoA variance",
+            "theta_fov_rad": 0.00625
+          },
+          "raw_transmittance": {
+            "active_treatment": "truncated_renormalized_active_law"
+          },
+          "cn_phi2_m_minus_two_thirds": null,
+          "cn_phi2_mapping_status": "unresolved",
+          "cn_phi2_author_approved": false,
+          "scenario_label": "final_hap_uav_baseline",
+          "uav_motion": {
+            "sigma_x_m": 1.0,
+            "sigma_y_m": 1.0,
+            "sigma_z_m": 0.0,
+            "sigma_theta_rad": 0.0015,
+            "sigma_phi_rad": 0.0015,
+            "sigma_psi_rad": 0.0
+          },
+          "excess_noise_distribution": {
+            "kind": "fixed",
+            "epsilon_ch_snu": 0.0186,
+            "dependence_on_transmittance": "deterministic",
+            "interpretation": "author-approved deterministic baseline channel excess noise"
+          },
+          "diagnostics": {
+            "sample_count": 1000000,
+            "seed": 202612,
+            "quantile_probabilities": [
+              0.01,
+              0.1,
+              0.5,
+              0.9,
+              0.99
+            ],
+            "classification": "SOFTWARE_PREREGISTERED"
+          }
+        },
+        "cvqkd": {
+          "beta_reconciliation": 0.95,
+          "fixed_modulation_variance_snu": null,
+          "v_min_snu": null,
+          "v_max_snu": null,
+          "v_a_budget_snu": null,
+          "n_peak_photons": null,
+          "n_peak_author_approved": true,
+          "peak_domain_scope": "complete_preregistered_realizations",
+          "mb_nu": 0.1,
+          "fock_cutoff": null,
+          "holevo_numerics": {
+            "symmetry_tolerance": 1e-08,
+            "density_trace_tolerance": 1e-10,
+            "density_eigenvalue_pseudoinverse_tolerance": 1e-12,
+            "density_eigenvalue_pseudoinverse_author_approved": false,
+            "physicality_tolerance": 1e-10
+          }
+        },
+        "training": {
+          "optimizer": "adam",
+          "epochs": 2000,
+          "learning_rates": {
+            "ps": 0.0003,
+            "gs": 0.0001,
+            "va": 0.0001
+          },
+          "energy_dual_learning_rate": 0.01,
+          "batch_size": 16,
+          "validation_patience_epochs": 100,
+          "validation_min_delta_bits": 1e-05,
+          "validation_energy_budget_margin_snu": 0.1,
+          "gradient_clip_norm": 1.0,
+          "regularization": {
+            "separation_coefficient": 0.0,
+            "peak_coefficient": 0.0,
+            "drift_coefficient": 0.0
+          },
+          "train_fading_samples": 16,
+          "validation_fading_samples": 128,
+          "test_fading_samples": 4096,
+          "train_awgn_samples_per_symbol": 8,
+          "validation_awgn_samples_per_symbol": 2048,
+          "test_awgn_samples_per_symbol": 2048,
+          "seeds": {
+            "train_channel": 202601,
+            "train_awgn": 202602,
+            "validation_channel": 202603,
+            "validation_awgn": 202604,
+            "test_channel": 202605,
+            "test_awgn": 202606
+          },
+          "independent_training_initialization_seeds": [
+            26082701,
+            26082702,
+            26082703,
+            26082704,
+            26082705,
+            26082706,
+            26082707,
+            26082708,
+            26082709,
+            26082710
+          ]
+        },
+        "baseline_search": {
+          "va_grid_snu": [
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+            1.0,
+            1.1,
+            1.2,
+            1.3,
+            1.4,
+            1.5
+          ],
+          "optimized_mb_nu_grid": [
+            0.0,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.06,
+            0.07,
+            0.08,
+            0.09,
+            0.1,
+            0.11,
+            0.12,
+            0.13,
+            0.14,
+            0.15,
+            0.16,
+            0.17,
+            0.18,
+            0.19,
+            0.2,
+            0.21,
+            0.22,
+            0.23,
+            0.24,
+            0.25,
+            0.26,
+            0.27,
+            0.28,
+            0.29,
+            0.3
+          ],
+          "state_batch_size": 8,
+          "tie_breaking": "maximum validation raw SKR, then lower V_A, then lower nu"
+        },
+        "numerical_validation": {
+          "fixture_initialization_seed": 202613,
+          "mi": {
+            "sample_counts": [
+              256,
+              512,
+              1024,
+              2048,
+              4096,
+              8192
+            ],
+            "required_consecutive_refinement_passes": 2,
+            "absolute_tolerance_bits": 0.002,
+            "relative_tolerance": 0.001,
+            "noise_sample_chunk_size": 64,
+            "seeds": [
+              202607,
+              202608,
+              202609,
+              202610,
+              202611
+            ]
+          },
+          "fock": {
+            "cutoffs": [
+              48,
+              56,
+              64,
+              72,
+              80,
+              96,
+              112,
+              128
+            ],
+            "moment_absolute_tolerance": 1e-07,
+            "moment_relative_tolerance": 1e-06,
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06,
+            "symplectic_absolute_tolerance": 1e-07,
+            "symplectic_relative_tolerance": 1e-06,
+            "information_absolute_tolerance_bits": 1e-06,
+            "information_relative_tolerance": 1e-05,
+            "density_trace_tolerance": 1e-10
+          },
+          "holevo_threshold_sensitivity": {
+            "density_eigenvalue_pseudoinverse_tolerances": [
+              1e-14,
+              1e-13,
+              1e-12,
+              1e-11,
+              1e-10
+            ],
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06
+          },
+          "production_gram_candidate_diagnostic": {
+            "reference_density_eigenvalue_threshold": 1e-14,
+            "candidate_density_eigenvalue_threshold": 1e-13,
+            "support_identity_required_for_formal_threshold_certification": true,
+            "formal_threshold_certification": false,
+            "rule_status": "OUTCOME_INFORMED_DIAGNOSTIC_NOT_FROZEN",
+            "gradient_crn_seed": 202615,
+            "gradient_sample_count": 2048,
+            "finite_difference_steps": [
+              0.001,
+              0.0003,
+              0.0001,
+              3e-05,
+              1e-05,
+              3e-06
+            ],
+            "finite_difference_absolute_tolerance": 1e-07,
+            "finite_difference_relative_tolerance": 0.005,
+            "required_adjacent_stable_pairs": 3
+          }
+        },
+        "evaluation": {
+          "numerical_precision": "torch.float64 / torch.complex128",
+          "confidence_level": 0.95,
+          "confidence_interval_unit": "independent_training_seed"
+        },
+        "paper_results": {
+          "expected_figures": [],
+          "expected_tables": [
+            "Table I: UAV receiver motion and attitude-fluctuation parameters"
+          ]
+        },
+        "parameter_classification": {
+          "physical_channel": "AUTHOR_APPROVED",
+          "beta_and_energy_domain": "AUTHOR_APPROVED",
+          "baseline_search_grids": "SOFTWARE_PREREGISTERED",
+          "optimizer_and_statistical_protocol": "SOFTWARE_PREREGISTERED_SMOKE_VALIDATED",
+          "mi_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "fock_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "mi_sample_count": "CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER",
+          "fock_cutoff": "BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF",
+          "pseudoinverse_threshold": "BLOCKED_FOCK_DEPENDENCY",
+          "baseline_selections": "BLOCKED_NUMERICAL_DEPENDENCY"
+        }
+      },
+      "channel": {
+        "w0_m": 0.0986760647169751,
+        "w0_mm": 98.6760647169751,
+        "receiver_diameter_m": 0.55,
+        "distance_km": 23.0,
+        "zeta_deg": 34.30115275679156,
+        "rayleigh_range_m": 19735.212943395018,
+        "theta_G_half_angle_rad": 5.000000000000001e-06,
+        "theta_div_full_angle_rad": 1.0000000000000003e-05,
+        "omega_L_m": 0.15153206178241177,
+        "omega_L_eq_m": 1.2761234045072165,
+        "G_d": 0.03253143105707394,
+        "nu_aperture": 2.274511306106753,
+        "A0": 0.9974077003049546,
+        "chi": 0.6005296474863446,
+        "mean_T_raw": 0.23894070932550257,
+        "mean_sqrt_T_raw": 0.3977364641402093,
+        "T_eff": 0.158194294906756,
+        "loss_dB": 8.008091828812727,
+        "atmosphere_loss_dB": 0.4383578795011727,
+        "finite_aperture_beam_loss_dB": 0.011272832130622568,
+        "pointing_jitter_loss_dB": 7.555010614840251,
+        "scintillation_loss_dB": 0.0019750206800243177,
+        "aoa_active_probability_loss_dB": 0.001475481660654531,
+        "sigma_jt_m": 1.0624982545397428,
+        "eta_atm": 0.9039912192342459,
+        "p_in": 0.9998301433234386,
+        "p_out": 0.00016985667656141038,
+        "sigma_X2": 0.00045476531761788787,
+        "epsilon": 0.0186,
+        "AO": "OFF",
+        "phase_noise": "OFF",
+        "theta_div_full_rad": 1e-05,
+        "channel_hash": "692359a0058e582b34f9603c2fa3dd7dc01d37b5648ba39da1a493f01e3a1fde"
+      },
+      "security": "direct_Z_minus",
+      "MI": "deterministic_heterodyne_product",
+      "quadrature_order": 8,
+      "beta": 0.95,
+      "epsilon": 0.0186,
+      "scientific_implementation": {
+        "scripts/_common.py": "038fbb88a5db7f34cc34ca90086791c74a3b026a1327e9e92d97b96b985071e0",
+        "scripts/calculate_channel_pdf_and_moments.py": "d504f531eb92c20a9d1a1cdd63b80dc4ffc636977eb808b6416ce129690f4e41",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "scripts/run_skr_vs_link_distance_theta10urad.py": "c845f149b00c8a670f00e50b2a6efb5355277a52def0eb9c6347ba45f145ed26",
+        "scripts/run_uniform_beam_waist_diagnostic.py": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+        "src/channel/__init__.py": "59679e223f1adf816666456a3fd7594a0dd85fb32b584b2b016db8d694ee7e91",
+        "src/channel/aoa.py": "a7694d8033850c4704bae79a09869575512e84ba0f9478631036e4a3e6622a33",
+        "src/channel/atmospheric_loss.py": "af759f57191f54d2773ceec2da0c11ae3b501659ae74ba52fdb70d95cf9585b0",
+        "src/channel/diagnostics.py": "ecc59a72b2a1ae8369c43be4b7094b8e47523d27d18d024ea1aed350d2fa3718",
+        "src/channel/fso_channel.py": "9bed2b8a7cfd6cf2f82e2b97406ff1fb02aec63c08188347023a79c273a2c1b9",
+        "src/channel/geometry.py": "80d09bd2d389dbe405c2a6a67a5d337454ce09760967d7c123791be9707a8817",
+        "src/channel/phase_noise.py": "741081c8fe14c0f0c90df559266c33740d8f669ae436447ebe0cff6daab614b4",
+        "src/channel/pointing_error.py": "91d37e96981d2e8536dad27e4193cbc44891fd3607107ff2bea24e919b96954a",
+        "src/channel/scintillation.py": "e039fa852865ec59b66874e516a3c30b308cec25f36fb1cf2e9d8f2214c0df5b",
+        "src/channel/state_distribution.py": "b6367b65f20d7b9780982821c8ee9f083992896459a11ef8f170d296f9cd9030",
+        "src/channel/turbulence.py": "dd040b0f172900211c87198608eac13516881795b0c85d1184712b3a6d6b4114",
+        "src/cvqkd/__init__.py": "abefcea848ff860ad0e6cdf15b56315351d138c010d933d35a3da507fce708ca",
+        "src/cvqkd/ap_custom_backward.py": "f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92",
+        "src/cvqkd/c4_constrained_tangent.py": "a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258",
+        "src/cvqkd/covariance.py": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f",
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/holevo.py": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2",
+        "src/cvqkd/mutual_information.py": "d1d7085cc32084ceb1ae7453e4b5349e4d2352611f5c2010fb1baffca2b4b665",
+        "src/cvqkd/protocol.py": "0c750c823f9d08aff5eda058aa89d011f65940418386b9feb9ae996a128bbf63",
+        "src/cvqkd/secret_key_rate.py": "7571bb69b96ff03cbe8f5c68dd8a07e1ff49e178beaeb0cf4596534f2c76a5a8",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "src/cvqkd/training_surrogate.py": "266100eb00b8108e7b4738fc6489a697a09c099f76a147895df78579464819be",
+        "src/modulation/joint_ps_gs.py": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f",
+        "src/modulation/qam256.py": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+      }
+    },
+    "sha256": "3821cd7641cdc086d8784c3b223945fc6eb27595fbc4da29759eb94e21e4321b",
+    "historical_attestation": "HASH_BOUND_PREVIOUS_INDEPENDENT_AUDIT",
+    "historical_audit_sha256": "d269bdef0f5799b79a2994bf13237e2237a8dd32a8df16cdf10cdac3cab920b3",
+    "restored_rows": 63
+  },
+  {
+    "L_km": 24.0,
+    "identity": {
+      "schema": "theta10-exact-objective-v2",
+      "config": {
+        "channel": {
+          "h_hap_m": 20000.0,
+          "h_uav_m": 1000.0,
+          "zenith_angle_rad": 0.5235987755982988,
+          "wavelength_m": 1.55e-06,
+          "tau_zen": 0.92,
+          "visibility_km": null,
+          "theta_div_rad": 0.000223,
+          "radius_of_curvature_m": Infinity,
+          "beam_waist_m": 0.004424935637532516,
+          "aperture_radius_m": 0.04,
+          "cn2_m_minus_two_thirds": 1e-14,
+          "turbulence_profile": {
+            "model": "hufnagel_valley",
+            "wind_speed_m_per_s": 21.0,
+            "cn2_ground_m_minus_two_thirds": 1e-14,
+            "heights_m": null,
+            "cn2_m_minus_two_thirds": null
+          },
+          "scintillation": {
+            "aperture_averaging_model": "hufnagel_valley_finite_aperture",
+            "v_sc_override": null,
+            "sigma_R0_squared": null
+          },
+          "pointing": {
+            "model": "manuscript_gaussian_equivalent",
+            "boresight_x_m": 0.0,
+            "boresight_y_m": 0.0,
+            "sigma_h_m": 1.0,
+            "theta_jt_rad": 1.561e-05,
+            "sigma_hap_ang_rad": 1.561e-05,
+            "hap_angular_jitter_convention": "per_axis"
+          },
+          "aoa": {
+            "model": "external_validated",
+            "sigma_turb_AoA2_rad2": 0.0,
+            "sigma_o_rad": 0.0015,
+            "provenance": "manuscript scenario: zero turbulence-induced AoA variance",
+            "theta_fov_rad": 0.00625
+          },
+          "raw_transmittance": {
+            "active_treatment": "truncated_renormalized_active_law"
+          },
+          "cn_phi2_m_minus_two_thirds": null,
+          "cn_phi2_mapping_status": "unresolved",
+          "cn_phi2_author_approved": false,
+          "scenario_label": "final_hap_uav_baseline",
+          "uav_motion": {
+            "sigma_x_m": 1.0,
+            "sigma_y_m": 1.0,
+            "sigma_z_m": 0.0,
+            "sigma_theta_rad": 0.0015,
+            "sigma_phi_rad": 0.0015,
+            "sigma_psi_rad": 0.0
+          },
+          "excess_noise_distribution": {
+            "kind": "fixed",
+            "epsilon_ch_snu": 0.0186,
+            "dependence_on_transmittance": "deterministic",
+            "interpretation": "author-approved deterministic baseline channel excess noise"
+          },
+          "diagnostics": {
+            "sample_count": 1000000,
+            "seed": 202612,
+            "quantile_probabilities": [
+              0.01,
+              0.1,
+              0.5,
+              0.9,
+              0.99
+            ],
+            "classification": "SOFTWARE_PREREGISTERED"
+          }
+        },
+        "cvqkd": {
+          "beta_reconciliation": 0.95,
+          "fixed_modulation_variance_snu": null,
+          "v_min_snu": null,
+          "v_max_snu": null,
+          "v_a_budget_snu": null,
+          "n_peak_photons": null,
+          "n_peak_author_approved": true,
+          "peak_domain_scope": "complete_preregistered_realizations",
+          "mb_nu": 0.1,
+          "fock_cutoff": null,
+          "holevo_numerics": {
+            "symmetry_tolerance": 1e-08,
+            "density_trace_tolerance": 1e-10,
+            "density_eigenvalue_pseudoinverse_tolerance": 1e-12,
+            "density_eigenvalue_pseudoinverse_author_approved": false,
+            "physicality_tolerance": 1e-10
+          }
+        },
+        "training": {
+          "optimizer": "adam",
+          "epochs": 2000,
+          "learning_rates": {
+            "ps": 0.0003,
+            "gs": 0.0001,
+            "va": 0.0001
+          },
+          "energy_dual_learning_rate": 0.01,
+          "batch_size": 16,
+          "validation_patience_epochs": 100,
+          "validation_min_delta_bits": 1e-05,
+          "validation_energy_budget_margin_snu": 0.1,
+          "gradient_clip_norm": 1.0,
+          "regularization": {
+            "separation_coefficient": 0.0,
+            "peak_coefficient": 0.0,
+            "drift_coefficient": 0.0
+          },
+          "train_fading_samples": 16,
+          "validation_fading_samples": 128,
+          "test_fading_samples": 4096,
+          "train_awgn_samples_per_symbol": 8,
+          "validation_awgn_samples_per_symbol": 2048,
+          "test_awgn_samples_per_symbol": 2048,
+          "seeds": {
+            "train_channel": 202601,
+            "train_awgn": 202602,
+            "validation_channel": 202603,
+            "validation_awgn": 202604,
+            "test_channel": 202605,
+            "test_awgn": 202606
+          },
+          "independent_training_initialization_seeds": [
+            26082701,
+            26082702,
+            26082703,
+            26082704,
+            26082705,
+            26082706,
+            26082707,
+            26082708,
+            26082709,
+            26082710
+          ]
+        },
+        "baseline_search": {
+          "va_grid_snu": [
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+            1.0,
+            1.1,
+            1.2,
+            1.3,
+            1.4,
+            1.5
+          ],
+          "optimized_mb_nu_grid": [
+            0.0,
+            0.01,
+            0.02,
+            0.03,
+            0.04,
+            0.05,
+            0.06,
+            0.07,
+            0.08,
+            0.09,
+            0.1,
+            0.11,
+            0.12,
+            0.13,
+            0.14,
+            0.15,
+            0.16,
+            0.17,
+            0.18,
+            0.19,
+            0.2,
+            0.21,
+            0.22,
+            0.23,
+            0.24,
+            0.25,
+            0.26,
+            0.27,
+            0.28,
+            0.29,
+            0.3
+          ],
+          "state_batch_size": 8,
+          "tie_breaking": "maximum validation raw SKR, then lower V_A, then lower nu"
+        },
+        "numerical_validation": {
+          "fixture_initialization_seed": 202613,
+          "mi": {
+            "sample_counts": [
+              256,
+              512,
+              1024,
+              2048,
+              4096,
+              8192
+            ],
+            "required_consecutive_refinement_passes": 2,
+            "absolute_tolerance_bits": 0.002,
+            "relative_tolerance": 0.001,
+            "noise_sample_chunk_size": 64,
+            "seeds": [
+              202607,
+              202608,
+              202609,
+              202610,
+              202611
+            ]
+          },
+          "fock": {
+            "cutoffs": [
+              48,
+              56,
+              64,
+              72,
+              80,
+              96,
+              112,
+              128
+            ],
+            "moment_absolute_tolerance": 1e-07,
+            "moment_relative_tolerance": 1e-06,
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06,
+            "symplectic_absolute_tolerance": 1e-07,
+            "symplectic_relative_tolerance": 1e-06,
+            "information_absolute_tolerance_bits": 1e-06,
+            "information_relative_tolerance": 1e-05,
+            "density_trace_tolerance": 1e-10
+          },
+          "holevo_threshold_sensitivity": {
+            "density_eigenvalue_pseudoinverse_tolerances": [
+              1e-14,
+              1e-13,
+              1e-12,
+              1e-11,
+              1e-10
+            ],
+            "absolute_tolerance": 1e-07,
+            "relative_tolerance": 1e-06
+          },
+          "production_gram_candidate_diagnostic": {
+            "reference_density_eigenvalue_threshold": 1e-14,
+            "candidate_density_eigenvalue_threshold": 1e-13,
+            "support_identity_required_for_formal_threshold_certification": true,
+            "formal_threshold_certification": false,
+            "rule_status": "OUTCOME_INFORMED_DIAGNOSTIC_NOT_FROZEN",
+            "gradient_crn_seed": 202615,
+            "gradient_sample_count": 2048,
+            "finite_difference_steps": [
+              0.001,
+              0.0003,
+              0.0001,
+              3e-05,
+              1e-05,
+              3e-06
+            ],
+            "finite_difference_absolute_tolerance": 1e-07,
+            "finite_difference_relative_tolerance": 0.005,
+            "required_adjacent_stable_pairs": 3
+          }
+        },
+        "evaluation": {
+          "numerical_precision": "torch.float64 / torch.complex128",
+          "confidence_level": 0.95,
+          "confidence_interval_unit": "independent_training_seed"
+        },
+        "paper_results": {
+          "expected_figures": [],
+          "expected_tables": [
+            "Table I: UAV receiver motion and attitude-fluctuation parameters"
+          ]
+        },
+        "parameter_classification": {
+          "physical_channel": "AUTHOR_APPROVED",
+          "beta_and_energy_domain": "AUTHOR_APPROVED",
+          "baseline_search_grids": "SOFTWARE_PREREGISTERED",
+          "optimizer_and_statistical_protocol": "SOFTWARE_PREREGISTERED_SMOKE_VALIDATED",
+          "mi_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "fock_grid_and_tolerances": "SOFTWARE_PREREGISTERED",
+          "mi_sample_count": "CONVERGENCE_SELECTED_2048_EXPANDED_ROSTER",
+          "fock_cutoff": "BLOCKED_STRESS_FIXTURE_NO_SELECTABLE_CUTOFF",
+          "pseudoinverse_threshold": "BLOCKED_FOCK_DEPENDENCY",
+          "baseline_selections": "BLOCKED_NUMERICAL_DEPENDENCY"
+        }
+      },
+      "channel": {
+        "w0_m": 0.0986760647169751,
+        "w0_mm": 98.6760647169751,
+        "receiver_diameter_m": 0.55,
+        "distance_km": 24.0,
+        "zeta_deg": 37.658462006207856,
+        "rayleigh_range_m": 19735.212943395018,
+        "theta_G_half_angle_rad": 5.000000000000001e-06,
+        "theta_div_full_angle_rad": 1.0000000000000003e-05,
+        "omega_L_m": 0.15536076000080798,
+        "omega_L_eq_m": 1.169180257880416,
+        "G_d": 0.034956738765441545,
+        "nu_aperture": 2.218458430300998,
+        "A0": 0.996593535426113,
+        "chi": 0.5474335595127475,
+        "mean_T_raw": 0.20678918850506692,
+        "mean_sqrt_T_raw": 0.3547701636153192,
+        "T_eff": 0.12586186899164037,
+        "loss_dB": 9.001058234646695,
+        "atmosphere_loss_dB": 0.45741691774035453,
+        "finite_aperture_beam_loss_dB": 0.014819342810292565,
+        "pointing_jitter_loss_dB": 8.525106023493061,
+        "scintillation_loss_dB": 0.002240468942332348,
+        "aoa_active_probability_loss_dB": 0.001475481660654531,
+        "sigma_jt_m": 1.0678741169257733,
+        "eta_atm": 0.9000327408410639,
+        "p_in": 0.9998301433234386,
+        "p_out": 0.00016985667656141038,
+        "sigma_X2": 0.0005158870387930093,
+        "epsilon": 0.0186,
+        "AO": "OFF",
+        "phase_noise": "OFF",
+        "theta_div_full_rad": 1e-05,
+        "channel_hash": "e55309cf03e2719d5f1524c9c2b1f940e1c7d94aca68705a2b816020c1f27b95"
+      },
+      "security": "direct_Z_minus",
+      "MI": "deterministic_heterodyne_product",
+      "quadrature_order": 8,
+      "beta": 0.95,
+      "epsilon": 0.0186,
+      "scientific_implementation": {
+        "scripts/_common.py": "038fbb88a5db7f34cc34ca90086791c74a3b026a1327e9e92d97b96b985071e0",
+        "scripts/calculate_channel_pdf_and_moments.py": "d504f531eb92c20a9d1a1cdd63b80dc4ffc636977eb808b6416ce129690f4e41",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "scripts/run_skr_vs_link_distance_theta10urad.py": "c845f149b00c8a670f00e50b2a6efb5355277a52def0eb9c6347ba45f145ed26",
+        "scripts/run_uniform_beam_waist_diagnostic.py": "002683aa00530fad0a118f2137eaf13be94743765867edb5d4549fdf08c86a49",
+        "src/channel/__init__.py": "59679e223f1adf816666456a3fd7594a0dd85fb32b584b2b016db8d694ee7e91",
+        "src/channel/aoa.py": "a7694d8033850c4704bae79a09869575512e84ba0f9478631036e4a3e6622a33",
+        "src/channel/atmospheric_loss.py": "af759f57191f54d2773ceec2da0c11ae3b501659ae74ba52fdb70d95cf9585b0",
+        "src/channel/diagnostics.py": "ecc59a72b2a1ae8369c43be4b7094b8e47523d27d18d024ea1aed350d2fa3718",
+        "src/channel/fso_channel.py": "9bed2b8a7cfd6cf2f82e2b97406ff1fb02aec63c08188347023a79c273a2c1b9",
+        "src/channel/geometry.py": "80d09bd2d389dbe405c2a6a67a5d337454ce09760967d7c123791be9707a8817",
+        "src/channel/phase_noise.py": "741081c8fe14c0f0c90df559266c33740d8f669ae436447ebe0cff6daab614b4",
+        "src/channel/pointing_error.py": "91d37e96981d2e8536dad27e4193cbc44891fd3607107ff2bea24e919b96954a",
+        "src/channel/scintillation.py": "e039fa852865ec59b66874e516a3c30b308cec25f36fb1cf2e9d8f2214c0df5b",
+        "src/channel/state_distribution.py": "b6367b65f20d7b9780982821c8ee9f083992896459a11ef8f170d296f9cd9030",
+        "src/channel/turbulence.py": "dd040b0f172900211c87198608eac13516881795b0c85d1184712b3a6d6b4114",
+        "src/cvqkd/__init__.py": "abefcea848ff860ad0e6cdf15b56315351d138c010d933d35a3da507fce708ca",
+        "src/cvqkd/ap_custom_backward.py": "f9b15ae2134fa8aa5137bd9ff298baac98a2a35148431636c644c25c28ae2b92",
+        "src/cvqkd/c4_constrained_tangent.py": "a42141951a0afec655398868c35f08cad0a6a69cf204f451d6495ebf144c6258",
+        "src/cvqkd/covariance.py": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f",
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/holevo.py": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2",
+        "src/cvqkd/mutual_information.py": "d1d7085cc32084ceb1ae7453e4b5349e4d2352611f5c2010fb1baffca2b4b665",
+        "src/cvqkd/protocol.py": "0c750c823f9d08aff5eda058aa89d011f65940418386b9feb9ae996a128bbf63",
+        "src/cvqkd/secret_key_rate.py": "7571bb69b96ff03cbe8f5c68dd8a07e1ff49e178beaeb0cf4596534f2c76a5a8",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "src/cvqkd/training_surrogate.py": "266100eb00b8108e7b4738fc6489a697a09c099f76a147895df78579464819be",
+        "src/modulation/joint_ps_gs.py": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f",
+        "src/modulation/qam256.py": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+      }
+    },
+    "sha256": "691dc14ba9bf9ec373b97b64428084213b5b3ba7cc185c54932d5f7fabd30e62",
+    "historical_attestation": "HASH_BOUND_PREVIOUS_INDEPENDENT_AUDIT",
+    "historical_audit_sha256": "d269bdef0f5799b79a2994bf13237e2237a8dd32a8df16cdf10cdac3cab920b3",
+    "restored_rows": 63
+  }
+]

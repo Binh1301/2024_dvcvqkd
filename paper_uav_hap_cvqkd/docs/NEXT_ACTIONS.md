@@ -1,5 +1,770 @@
 # Next Actions
 
+## Current: STOP after explicit user termination of Objective C
+
+EVID-0178/DEC-0161. No controller/worker remains. Readuser_stop_receipt.json and
+objective_c_checkpoint.json(USER_STOPPED),do not relaunch/continueAP/Stage2 or
+reuseoldbudget. Interrupted(.16375,5.5) notvalid;catalog182 preserved. Wait for
+freshuserdirection;currententryforbidsautomaticrestart. No science/formulachanges.
+
+
+## Current: Objective C Stage1 thenStage2 withinone36hbudget
+
+EVID-0177/DEC-0160. Checkobjective_c_checkpoint.json/PID beforelaunch; entry
+run_theta10_D55_objective_c.py --approved-objective-c,neverduplicate/restart.
+Reference5pairedstarts originalAOcachepass->actualmissingrequests only,Stage1up12,
+then26distanceStage2remainingAP;max36AP/36h,internal3600s/reserve1800s.
+Eachvalidsource26SKRs,checkpointsource/coordinate/iterations;no retries,
+interpolation/science/AOchanges/publication. Finalactualcomparisons/trajectories/
+convergencestatuses/3PNG400dpiPDFpairs/JobemptySleeprestore. Unresolved != optimum.
+
+
+## Current: ONE explicitly requested grid-timeout retry, then STOP
+
+EVID-0176/DEC-0159. Entry scripts/retry_theta10_D55_grid_timeout.py
+--approved-one-retry; output grid_timeout_retry_1/ under ObjectiveB.
+Only(.25,3.5), originalinternal3600s, sourceouter3720s, total7200s/reserve1800s,
+bounded by old absolute deadline. Check new checkpoint/PID before any action;
+never launch twice. Reuse source/objective children/AC/Sleep/watchdog/Jobcleanup.
+Success: validate source+26SKRs, comparewith181catalog; timeout/failure: preserve
+science and STOP without retry. NoAO/additional points/precision/formula changes.
+Closed original batch remains181sources/50gridpoints/one missing until valid result.
+
+## Historical: full31-source queue launch
+
+EVID-0175/DEC-0158. Monitor existing controllerPID7536/session23677;
+scripts/run_theta10_D55_full_51_grid.py --approved-batch already launched.
+Probes1-2 validated;probe3(.16,6.5) running. Never duplicate live PID. B12 then A19,
+maximum31,no retry;3600s internal timeout,36h absolute deadline,1800s reserve.
+Keep AC/Sleep/watchdog/Job empty cleanup. Valid sources get26 exact SKRs;no AO.
+Stop only queue completion,budget reserve,mandatory safety/provenance failure.
+Finalize actual coverage/maxima/near sets,three PNG400dpi/PDF pairs,remaining
+pairs and cleanup receipts. Preserve all previous artifacts.
+
+## Historical: deliver51-pair exact-data grid coverage/figures andSTOP
+
+EVID-0174/DEC-0157. Read two_level_2d_skr_grid/two_level_grid_report.md,
+grid_verification.json,final_verification.json andrequestedCSV/PNG/PDF.
+20cached/31missing,520gridSKRrows/3406offgridrows;refbestincluded/maxequal,
+neargrid1/offgrid8. Full51table/31prioritizedmissinglist printed. Explain
+uncertain21.538hcostscenario/PDFstructural-not-full-parserchecks. Proposed
+(.15,3.5),(.165,6.) NOT_AUTHORIZED;do notlaunchAP/AO/SKR/retry orchange
+method/defaults. Preserve151catalog/allpriorartifacts;STOP aftercacheanalysis.
+
+## Historical: deliver complete151-point listing and3926-row export;STOP
+
+EVID-0173/DEC-0156. Read all_exact_skr_points/full_catalog_analysis.md,
+catalog_verification.json,final_verification.json andfive requested outputs.
+Complete151terminaltable printed/verified;relativecounts4/9/17,nearreference9,
+26distance nearrows39,3926validatedcombinations/zero missing. Report maximum
+acceptedref parameterdeviations andfinite-catalog/NUMERICALLY_UNCERTIFIED scope.
+No newAP/Cw/SKR/AO,refinement,precisionchange,interpolation orobserver work.
+All previousscience/analysis artifacts preserved;completeanalysis andSTOP.
+
+## Historical: deliver near-optimal exact-data analysis and STOP
+
+EVID-0172/DEC-0155. Read near_optimal_skr_analysis/near_optimal_skr_report.md,
+analysis_verification.json,test_verification.json andexactCSVs. ActualTop20
+alreadyprinted;best/secondgap3.6726688357191506e-10,nearcounts9/5/2/2/1.
+Describe discrete near-flatVA observations with NUMERICALLY_UNCERTIFIED ordering,
+not a continuous plateau/rigorous/global optimum. No newAP/Cw/SKR/AO/profiler/
+observer/precisionchange authorized. Missing originalP1/P2 requests are recorded,
+not executed. Lowerbudgetclosed,151sources/26savedAOmaxima/brackets unchanged.
+Complete requested numerical-landscape report andSTOP.
+
+## Historical: deliver completed lower P1 results; STOP, no further AP/P2
+
+EVID-0171/DEC-0154. Read lower/minimal_run/objective_B_progress.md,
+P1_bracket_update.md,final_verification.json,final_cleanup.json and exact CSVs.
+Valid newsource/catalog151/max26of26/no selectedgain/zero closures. OriginalP1
+bracket[5.496875,5.50625]25%narrower,radius unchanged. Actual next FIRST
+(.165,5.4984375),SECOND(.165,5.503125),bothmissing;record only. Current ONE
+approvedattempt COMPLETE andbudget CLOSED,no retry/remainingbudgetreuse/P2.
+Fresh user direction/budget required before moreAP. Preserve originalevaluator/
+precision/quadrature/AO/cap4/tolerances/oldscience/ObjectiveA; no dummy/observer/
+profiler/infrastructure diagnostics. Do not call tiny literalKdifferences rigorous
+ordering,finitecatalog maximum a continuous/global optimum,or estimates closure.
+
+## Historical: monitor existing approved ONE lower P1; validate or stop, no new AP
+
+EVID-0170/DEC-0153. Existing controller20712/session7757/worker26280 owns
+09:56:43.362245Z->11:56:43.362245Z budget,minimal_run/. Source1(.165,5.496875),
+outer5394.047s/internal3600 unchanged. Do not relaunch/retry or run5.503125/P2.
+If valid source original controller handles26 exact SKR and genuine cache-only
+AO; independently verify provenance/oldhashes/true bracket/actualJobempty/Sleep,
+save scientific results/next requests/estimates then STOP. On timeout/safety
+failure STOP safely, no retries or observer/dummy/infrastructure diagnostics.
+
+## Historical: await fresh confirmation for ONE lower P1; AP NOT_RUN
+
+EVID-0169/DEC-0152. Read b2_P1_lower_refinement/scientific_preflight.md,
+objective_B_progress.md, confirmed_candidate.json, live_reference_searches.json
+and regression_verification.json.150source/3900metric preflightPASS, original
+FIRST(.165,5.496875) absent/confirmed. Obtain requested fresh AP confirmation,
+ONE120min total/90min outer/internal60min unchanged/30min reserve,no retry/P2/
+second5.503125; previous budget closed. Repeat runtime AC/Sleep/provenance and
+validated actualJob containment/cleanup, no dummy/observer/profiler redesign.
+Original evaluator and AO unchanged; if source valid evaluate26 old channels,
+compare exact four referenceVA values, feed original P1 and cache-only multistart/
+warm AO, independently rank expanded catalog, then STOP. Do not assume VA5.5,
+force bracket shrinkage, interpolate unknownCw/K, change cap4 or certify numerical/
+global convergence from catalog agreement or conditional halving estimates.
+
+## Historical: deliver completed upper P1 scientific report; STOP, no further AP
+
+EVID-0168/DEC-0151. Read minimal_run/scientific_report.md, final_verification.json,
+final_cleanup.json, new_exact_skr_26_distances.csv, optimized_skr_26_distances.csv,
+old_vs_new_skr.csv and reference_P1_refinement.csv. Valid source/catalog150/
+originalAO26of26 matches/no incumbentgain/zero closures. P1[5.49375,5.50625]
+narrower; actual next FIRST(.165,5.496875),SECOND(.165,5.503125), both missing.
+Record only; obtain fresh user direction/budget before any further AP. Current
+ONE attempt completed and budget closed; no retry/old-budget reuse/P2, optional
+Windows diagnostic infrastructure, source interpolation, forced improvement or
+convergence/global/lifecycle promotion. Preserve all original and new artifacts.
+
+## Historical: monitor approved ONE upper P1; validate or stop, no further AP
+
+EVID-0167/DEC-0150. Existing controller21580/minimal_run/ owns absolute clock
+08:25:01.613412Z->10:25:01.613412Z. Source1(.165,5.50625) running via original
+evaluator/internal3600s cap, outer5390.703s/no dummy. Monitor same execution;
+do not launch another controller/probe or reuse any old budget. If valid source,
+controller evaluates26 original channels/SKR, original cache-onlyAO and records
+actual brackets/catalog comparison. Verify provenance/actualJobempty/Sleep and
+old hashes; report next scientifically required point, not automatically run it.
+On timeout/safety failure STOP with preserved results, no retry/P2. No changes
+to evaluator, precision, quadrature or AO; no convergence/global/lifecycle claim.
+
+## Historical: return to Objective B; upper P1 execution needs fresh approval
+
+EVID-0166/DEC-0149. Read b2_P1_upper_refinement/infrastructure_cleanup/report.md
+and verification.json. Optional embedded dummy prelaunch harness/gate removed;
+actual worker Job must reach zero active processes within existing wall budget.
+64 tests PASS, original scientific inputs/evaluator/internal60min/AO unchanged.
+Do not launch AP in this infrastructure task. When freshly approved, use current
+scripts/run_theta10_D55_P1_upper_refinement.py --approved-ap, new minimal_run/
+only; repeat live stableAC/Sleep/provenance checks, preserve Job/deadline/actual
+cleanup verification, ONE(.165,5.50625) attempt/no retry/otherAP/P2. Existing
+120total/90outer/30reserve ceilings do not override original internal60min.
+Return to source calculation and original cache-only AO after valid source;
+lower5.496875 remains a paired missing request. No further optional Windows
+diagnostic infrastructure, fabricated closure, budget reuse or lifecycle claim.
+
+## Historical: deliver native-failure report; STOP,no controller/AP retry
+
+EVID-0165/DEC-0148. Read approved_run/objective_B_progress.md, final_report.json,
+dummy_supervision.json and abort_verification.json. Source was never invoked,
+AP0, no newCw/K/26-distance/AO. Immediate dummy child-handle gate FAIL; eventual
+no-worker/Sleep cleanup PASS, not retrospective AP-readiness. Respect STOP on
+safety failure, preserve failed producer/receipts/oldscience and close budget.
+If later directed to repair, use minimal bounded descendant-termination wait
+within existing cleanup allowance plus native validation; no profiling/observer
+project and no automatic relaunch. Original source methods/internal60min/AO
+defaults unchanged. Upper(.165,5.50625) remains required, lower5.496875 missing;
+recheck actual scientific requests/authorize before new AP. No P2/global claim.
+
+## Current: request one fresh upper P1 approval; AP NOT_RUN
+
+EVID-0163/DEC-0146: read b2_P1_upper_refinement/source_provenance_reconciliation.md,
+confirmed_P1_candidate.md, objective_B_progress.md, confirmed_candidate.json and
+regression_verification.json.149 sources/26 savedmaxima reconciled, actual original
+upper(.165,5.50625) confirmed as SECOND paired stage1 request, firstlower5.496875
+also missing. Fresh proposed120total/90outer/30reserve,ONE attempt only, no other
+AP/retry/P2. Clarify original fallback still3600s; preserving evaluator means
+actual fallback<=60min despite90min outer ceiling. Do not silently override this.
+Obtain new approval once before AP; previous budgets closed. No execution entry
+was launched/created; after approval repeat native AC/Sleep/Job/deadline/tree
+cleanup readiness with original worker/API. On valid Cw evaluate26 saved channels,
+original unchanged multi-start/warm AO and independently compare catalog, record
+real brackets/midpoints/statuses and STOP. No forced gain, completed paired stage,
+numerical/global claim, source interpolation, observer project or ObjectiveA rewrite.
+
+## Current: deliver completed single-source B2; STOP without another AP
+
+EVID-0162/DEC-0145: read b2_A/objective_B_summary.md and postprocess_recovery/
+final_verification.json, optimized_skr_26_distances.csv, old_vs_new_skr.csv,
+reference_ao_coordinate_search.csv and targeted_exact_probe_plan.csv. Source
+success and later strict-JSON I/O failure are separate: raw original broad abort
+label does not mean AP timeout/power failure. Recovery preserves originalclock,
+source/AO producers and no newAP.26/26 catalog matches,0 selected gains/closures,
+P1 bracket25% narrower. Next original(.165,5.496875), upper(.165,5.50625);
+P2 old two requests missing. A future ONE lowerP1 fresh75min/60min source/15min
+reserve is proposal only, runtime unknown; obtain new approval before AP. No
+unused-budget reuse/retry/cap16/observer/model promotion/ObjectiveA rewrite.
+No new plot for unchanged curve. Preserve numerical discrimination/outer/global
+limitations; no convergence certificate.
+
+## Historical: B1 preparation/approval request, superseded by completed B2
+
+EVID-0160/DEC-0143: read objective_B_progress.md and targeted_exact_probe_plan.csv
+in objective_B_numerical_skr_optimization/. Reference best unchanged; no required
+midpoint cached after global scan. Request ONE fresh(.165,5.49375) attempt75min
+total including preflight/processing/cleanup,<=60min source with>=15min reserve.
+No B2 execution until explicit budget approval; continue alone is insufficient.
+Use unprofiled original API/fallback3600s with existing AC/Sleep/Job controls,
+verify fresh stableAC/native containment/deadline/cleanup first, stop if unavailable
+without observer development. Other3 midpoint rows are inventory only; reevaluate
+current requests after any valid source, do not automatically run them. No J16
+experiment/global claim/new sweep or ObjectiveA rewrite implied by pilot planning.
+
+## Current: deliver Objective A ZIP; external build verification only
+
+EVID-0159/DEC-0142: use ao_manuscript_finalization/objective_A_overleaf.zip,
+README_OVERLEAF.md, manuscript_consistency_audit.md and latex_compile_report.md.
+Upload ZIP, choose overleaf_main.tex/pdfLaTeX, recompile and inspect actual logs,
+references, Algorithm1, tables/figures, overfull boxes and float layout. Compile
+is NOT_VERIFIED, not PASS. Standalone package is not the absent full original
+paper; when those sources are provided, insert section/appendices into its real
+master, keep template and remove preview counter offset2. No old manuscript
+was modified. STOP after package delivery: do not start ObjectiveB or new AP/AO/
+observer work. Existing incomplete-source/global/wholeK/lifecycle gates unchanged.
+
+## Current: deliver stopping sensitivity; stop without new AP or baseline changes
+
+EVID-0158/DEC-0141: read ao_stopping_parameter_sensitivity/sensitivity_report.md,
+sensitivity_grid_16_configs.csv, stopping_parameter_justification.tex and
+sensitivity_summary_table.tex. Choose VersionA orB, not both. Insert two tested-
+point sensitivity PDFs; epsilon x-axislog10, no fitted/interpolated points.
+Use finite-catalog invariance wording;6/1e-8 are safeguards, not accuracy or
+convergence guarantees. Rmax4 gives identical incomplete terminal solutions;
+epsilon1e-6 saves4 cycles without gains/losses. Missing-source requests and inner
+closure must be resolved with separately authorized scientific scope before
+continuous optimality claims. No AP/observer repair/permanent default change
+authorized here. All prior scientific packages preserved; local LaTeX compilation
+still NOT_RUN_NO_LOCAL_ENGINE and lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+## Current: deliver scientific AO package; stop without AP or instrumentation work
+
+EVID-0157/DEC-0140: read ao_final_scientific_results/final_scientific_summary.md,
+algorithm1_ao.tex, joint_optimization_section.tex andoptimized_skr_26_distances.csv.
+UploadfocusedfoldertoOverleaf,selectoverleaf_main.tex;localcompileNOT_RUN/noengine.
+Figures/histories areactualdata,selected26/26 finitecatalog—notcontinuous/global
+convergence orallstartagreement.27tests/1561hashes/diffPASS;0newAP/codechanges.
+targeted_next_exact_probes.md listsconditionalP1lower/upper thenP2lower/upper,
+binaryidentities/scientificbenefit/runtime-risk/90minproposalonly. Reassessactual
+AOrequestaftereachfuturevalidsource; noautomaticallfour/noexecutionauthority
+and noobserver/profiler investigation inthisscope. Originalcap/domain/error/
+boundary limitations remain; scientific results neednotwaitforcertification.
+
+## Current: deliver stopped path-fixed pilot; no further AP
+
+EVID-0156/DEC-0139: read path_fixed_probe_A/final_answers.md,
+final_saved_verification.json and heartbeat_abort_audit.json. One attempt
+WATCHDOG_ABORT/no retry; no Cw/newmetrics/AO; allworker/watchdog/Sleep clean.
+Longpathfix passes134paths/8nativecases, but productionpublication stalled
+after31snapshots withtemp32 uncommitted. Future separately authorized task
+must validate shared-file replacement under liveconcurrentreader timing and
+durabletypederror/heartbeat reporting; preserve executedproducerbytes, original
+source/precision/context/science/AO/settings. No newAP implied by unusedbudget.
+P1/P2 moments and wholeKaccuracy/stopping/boundary evidence still needed; do
+not treat saved147/26matches or partialprofile as convergence/fullbottleneck.
+
+## Current: monitor one active path-fixed A; finalize without other AP
+
+EVID-0155/DEC-0138: monitor live path_fixed_probe_A executionstatus/auth and
+C:/aoobs/p3c613a8ebe/obs/a_stage_snapshot.json. Do not relaunch/reset controller
+or consume remainingtime for additional probes. Source deadline02:35:27.896676Z;
+totaldeadline03:44:24.465780Z from same freshorigin; finalreserve>=1800s. Supervisor
+kills Job on unsafeAC/watchdog/observer/deadline; restoreSleep/noorphan. Validsource
+only -> original26exactmetrics/cache-onlyoriginalAO, independent catalog/P1P2/
+nextmissing/accuracy reporting. Otherwise no inventedCw/SKR/convergence. Preserve
+all staging telemetry with verified transfer then safe per-file cleanup; deliver
+all15 report artifacts, finaltests/diff/hash evidence. No further AP authorized.
+
+## Current: deliver stopped A pilot; no automatic repair or AP retry
+
+EVID-0154/DEC-0137: read controlled_probe_A_20261010/final_conclusions.md,
+final_validation.json and path_length_failure_audit.json. Approved one attempt
+ended INSTRUMENTATION_FAILURE before AP stage observations; noCw/newSKR/AO,
+147 baseline/P1/P2 unchanged. Workers/Job/watchdog/Sleep cleaned;49 tests/
+1523 hashes/diffPASS. Do not use remaining budget for retry/B/P2 or oldv1.
+Future separately authorized work must validate actual-length snapshot/heartbeat/
+typedsidecar/profiler/cache paths and fallback error reporting without changing
+science/precision/AO or machine registry. Readiness short dummy paths were
+insufficient. P1 still requires both(.165,5.49375),(.165,5.50625); P2 dependencies
+and algorithm stopping/error/boundary limitations remain. No new AP approved.
+
+## Current: deliver v2 readiness and await explicit controlled-A pilot approval
+
+EVID-0153/DEC-0136: read observer_v2_recovery/observer_v2_recovery_report.md/json,
+final_saved_artifact_verification.json and probe_A_execution_plan.md. System
+READY_FOR_CONTROLLED_AP_PILOT on dummy evidence only, not AP execution authority.
+Propose fresh90min TOTAL, A(.165,5.49375)<=75min,15minreserve,1 sequentialattempt,
+noB/P2/auto retry/unsafeAPresume. Do not reuse oldovernight ledger/budget/controller.
+On explicit approval bind guardednewentry/exacthex/cachekey/requesthash/fresh
+deadline and nativeJob/AC/Sleep/provenance/noorphan; consume typed sidecar statuses,
+not historicalgenericNUMERICAL_FAILURE. Revalidate beforeAP, original math/AO
+unchanged. Source success original26metrics/genuineAO then actualP1P2/brackets/
+selectedpair/missing/accuracy/independentmax checks. Partner5.50625 only if still
+originalactiveP1 request AND separately authorized. DifficultP2 budget waits for
+actual full-duration evidence. Stop here; no AP currently permitted.
+
+## Current: deliver stopped overnight failure audit; do not resume AP automatically
+
+EVID-0152/DEC-0135: read overnight_ao_run/ao_overnight_report.md/json,
+production_failure_audit.json, rawattemptA and profiling_fix_audit.md.
+Newobserver module.dps bug caused instrumentation failure before AP Gram.
+Do not retryA/launchB/C/D under this failed-observability batch; no controller
+or Sleep lease remains. User's failure branch requires cache-only final report.
+overnight_source_observer_v2.py + integration tests fix metadata getter only;
+realAP validation NOT_RUN. Any future continuation must explicitly adopt
+corrected observer and exactscope/retry authorization, retaining origin/deadline
+if resuming authorized budget; never reset/use oldexecute ledger automatically.
+147 finitecatalog/3822savedrows/26matches retained,0newCw/K/closures. Remaining
+currentA/B/C/D paired requests and numerical accuracy/boundary/cap constraints
+stillgovern trustworthy optimum. No lifecycle/scientific/AO promotion.
+
+## Current: execute/monitor approved overnight scope under one deadline
+
+EVID-0151/DEC-0134: no intermediate approval needed. Launch only overnight
+controller; never duplicate/reset it. Deadline23:44:48.165007Z/900s finalreserve,
+shorten each probe to remainingbudget. OrderA(.165,5.49375)75min,
+B(.165,5.50625)60min conditional on A success and actual activeP1 dependency,
+C(.16531250000000003,5.5)120min,D(.16375,5.5)120min if still necessary.
+BeforeeachACstable/Sleep/Job/provenance/noorphan; onunsafe stop entire campaign,
+no auto resume/retry. Aftereachvalidsource original26metrics/durablecheckpoint/
+originalmultistartAO, independentmax/P1P2/missing/accuracy; no implicitAP.
+RealAPstage timing records completed versus open intervals, cumulative not summed;
+dummy overhead not realAP timing. Final17artifacts/genuineplots/tests/hashes/
+cleanup/report beforedeadline. Never infer global/convergence or alter cap4/outer6.
+
+## Current: obtain direction on proposed source-observation and AO continuation
+
+EVID-0150/DEC-0133: deliver source_bottleneck_diagnostic/diagnostic_report.md/json,
+source_evaluator_stage_audit.md, conservative_continuation_plan.md and
+difficult_P2_continuation_plan.md. Stop; no AP or fixes approved this task.
+Before a real continuation, separately approve minimal full-duration observer/
+durable telemetry changes, validate only on dummy work, and approve fresh exact
+source scope/time budget. Preferred Plan A: (.165,5.49375), then only if still
+requested(.165,5.50625). P2 upper/lowernu require separate longer-runtime decision
+if still dependencies, not automatic retries. Preserve original math/precision/
+quadrature/AO/settings/identity; use original paired requests and actual brackets.
+Treat14/12 geometric refinements and inner4 cap/latch as planning limitations;
+do not silently change algorithm. Numerical error/boundary/multistart evidence
+needed alongside moments for credible optimum. No guarantee of SKR gain or
+closure;147 finite catalog remains authoritative, no lifecycle promotion.
+
+## Current: deliver completed Phase2A; no further computation authorized
+
+EVID-0149/DEC-0132: read phase_2A/phase_2A_final_conclusions.md,
+completion_read_only_verification.json, optimized_skr_26_distances.csv,
+new_exact_skr_26_distances.csv and original AO/refinement records.147 catalog,
+unchanged maxima/AO agreement26/26, zero new coordinate closures. Execution and
+validation complete, all workers gone/Sleep restored; original budget expired.
+Do not monitor dead controller22548, rerun AP/objectives/AO/tests, automatically
+retry failures, or silently reset the budget on continue. Any next computational
+phase needs explicit scope and fresh budget, preserving original method/keys.
+Current reference P1 needs(.165,5.49375)/(.165,5.50625); P2 needs
+(.16375,5.5)/(.16531250000000003,5.5). The hard Phase2B lower-nu source remains
+necessary for its current paired step, not sufficient for full convergence.
+Prepare any future plan from actual missing pairs/accuracy/boundaries, not only
+catalog growth or assumed improvement. No numerical/global/publication approval.
+
+## Historical execution queue (superseded by EVID-0149 / DEC-0132)
+
+## Monitor resumed Phase2A under original deadline: EVID-0148 / DEC-0131
+
+Usercontinue/liveAC1 authorizesonlyremaining2/3, neverretryprobe1/hardPhase2B.
+No newbudget/reset: deadline14:46:13Z,480s finalreserve,max3600s source shortened
+ifnecessary. Use liveledger/probeJSON ratherthanoldstoppedreport; nativeAC/Sleep/
+Job/cleanupbeforeeveryAP. All26 originalobjectives persuccess then genuine129-start
+AO/independentcatalog comparison/P1P2progress/accuracy/report/tests/cleanup.
+Maintain scientific/provenance/settings and priorstopfiles/receipts unchanged.
+
+## Restore stable AC after Phase2A safety stop: EVID-0147 / DEC-0130
+
+Read phase_2A/phase_2A_report.md/json/safety_stop_audit/rawprobe1receipt.0new
+sources/SKR/AO/closures,1 safetyabort NOTtimeout. Allworkers/Sleeplease gone.
+CurrentAC0, do not runAP onbattery. User must physicallyreconnect stableAC.
+Originaldeadline14:46:13.577171Z retained; canconsider onlyunattemptedprobe2
+(.165,5.5125) thenprobe3(.16531250000000003,5.5) after freshAC/Sleep/Job/
+provenance preflight with remainingbudget/480s reserve. No automaticprobe1
+retry, hardPhase2B or originalmain restart. Preserveattemptinventory, stopped
+snapshots and executedwrapper hashes; never silentlycreate another3h budget.
+Onceoriginaldeadline expires, require freshauthority. Scientificevidence still
+146 finitecatalog/errorunbounded; no currentnewAOmaxagreement claim.
+
+## Execute/monitor approved Phase2A only: EVID-0146 / DEC-0129
+
+Do not ask repeated approval or launch duplicatecontroller. Newdeadline
+14:46:13.577171Z(monotonic137345.75),480s finalreserve. Watchphase_2A live
+source_generation_ledger/probe JSON/logs; nativeAC/Sleep/Job beforeeveryAP.
+Three approved ordered pairs only, no hard(.16375,5.5)/retries/parallelAP.
+After every valid source checkpoint/new26 originalobjectives; finalgenuineAO
+and independentmax comparison, actualP1P2/bracket/deps/multistarts, tests/cleanup.
+Keep alloldscientificfiles/settings/artifacts and preparatorysnapshots unchanged;
+classification finite/error-unbounded unless stronger actualevidence exists.
+
+## Await fresh Phase2A execution approval: EVID-0145 / DEC-0128
+
+Read ao_numerical_optimum_validation/phase_2A/phase_2A_report.md/json and selected
+exactprobes CSV. Stage1/preflight PASS, Stage2 NOT_RUN. Ask fresh10800s total/
+3600s source/max3 serial approval; attachment's proposed budget is not execution
+approval and old Batch3 budget not reused. Order(.165,5.49375),(.165,5.5125),
+(.16531250000000003,5.5), exactfloathex/rawkeys. Never include/retry excluded
+(.16375,5.5) under Phase2A. After approval use original source worker/AP and
+validated AC/Sleep/WindowsJob supervisor; absolute total deadline including
+postprocessing/cleanup, proposed480s reserve. No parallel/AP intermediate approval
+pause, automatic retries or model/settings changes. Checkpoint successes/all26
+originalobjective evaluations, independent146-vs-new maxima and genuine original
+129-start/warm AO, actual P1/P2 brackets/missing/closures andnu0=.8 histories.
+No promises of gain/closure or global/numerical certification. Preflight readiness
+is transient; recheck/reacquire before every source and enforce fulltree cleanup.
+Current outputs are pending/baseline only; no worker/Sleep lease remains.
+
+## Stop after Phase1 AO audit: EVID-0144 / DEC-0127
+
+Read results/theta10_D55_ao_numerical_optimum_validation/ao_validation_report.md/json,
+targeted_exact_continuation_plan.md and55-entry missing_source_priority.csv.
+No AP authorized or budget ask this turn.146 baseline and all26 maxima retained;
+do not rerun Batch3, restore an old catalog, change settings or claim convergence.
+4 primary pairs advance a single paired step in both reference searches:
+(.165,5.49375),(.165,5.5125),(.16375,5.5),(.16531250000000003,5.5).
+Lowernu prior timeout, no automatic retry.22km subsequent P1 pair
+(.165,5.4625)/(.165,5.481249999999999), P2 originalouter(.0825,5.475);
+VA5.4625 AC-aborted, opposite nuouter not yet requested. Preserve float.hex keys.
+These7 actual dependencies do not guarantee coordinate closure or total accuracy.
+Other24 distances deferred until stronger local/numerical evidence. A new task
+may authorize chosen AP sources with fresh budget and AC/Sleep/Job supervision.
+Current cache-only work is complete, no worker; no training/test/lifecycle change.
+
+## Batch3 complete; preserve146-catalog result: EVID-0143 / DEC-0126
+
+Read targeted_expansion/batch_3/run_report.md/json and completed_independent_
+verification.json.1 completed source(.165,5.4875),1 prior powerabort,1budgetskip,
+0timeouts.146 sources/3796 exact objectives,26/26 AO matches,0 maximum gains.
+No closed directions;55 missing pairs. At22km5.475 stillbest, nearest exact
+neighbors5.45/5.4875; new midpoint5.481249999999999 missing, preserve binary64.
+Lower5.4625 remains missing duepowerabort. Atreference new5.49375 midpoint
+missing; nuVA5.475 remains singleton and originalsource3 not attempted.
+No workers/request remains. Originalbudget expired, do not rerun main/resume
+or infer permission for more AP. Any next targeted source task needs new
+explicit point/runtime approval and stableAC/Sleep/Job preflight; reuse latest
+146-source batch_3/objective_checkpoint.json. Do not promisegain/convergence.
+Finite-order numeric gaps lack total error bounds; no global/publication upgrade.
+
+## Monitor resumed Batch3 under original deadline: EVID-0142 / DEC-0125
+
+Controller26208/session50362; do not launch duplicate or repeat source1.
+Observe source2(.165,5.4875), then source3 only outside480s reserve. NativeAC/
+Sleep/Job supervision active; original absolute10:56:11Z deadline unchanged.
+After valid source checkpoint all26 exact original-evaluator objectives, compare
+145 baseline; final original129-start cache-only AO, independent maximum audit
+and cleanup. No new source outside approved3pairs/no timeout retry/newbudget.
+Current stopped run_report is historical; live ledger/probe record marks RUNNING.
+Stop on unsafe power/provenance or deadline, preserve actual outcomes/snapshots.
+
+## Reconnect stable AC after Batch3 safety stop: EVID-0141 / DEC-0124
+
+Read targeted_expansion/batch_3/safety_stop_audit.md/json and raw ledger/report.
+No worker remains. Probe1 was power-aborted (Job125,AC0), NOT timeout; no new
+exact moments/objectives.145 baseline unchanged. Probe2/3 still NOT_RUN.
+Do not launch AP on battery, restart original main or automatically repeat
+aborted source. Current 'continue' has been handled with safe read-only audit;
+AC0/battery48 remained at09:59:11Z. Ask user to reconnect stable AC.
+Original session deadline10:56:11Z (17:56:11 Bangkok) was not paused/reset;
+if continuing remaining2 within authorization, carry elapsed time and prior
+attempts, recheck/reacquire lease and verified Job supervision, no fresh3h
+inferred. If deadline expires before continuation, require new explicit scope/
+runtime authorization. Preserve all existing artifacts and scientific methods.
+
+## Await explicit Batch3 runtime approval: EVID-0140 / DEC-0123
+
+Current attachment requires separate approval of new10800s total/3600s per
+probe/max3 sequential. Ask confirmation; do not start AP under prior budgets.
+Read targeted_expansion/batch_3/run_report.md/json and final_selected CSV.
+Keep(.165,5.4625),(.165,5.4875),(.16531250000000003,5.5) with exacthex/cachekeys.
+Third retained because originalnu search atVA5.475 has singleton.165 and no
+midpoint; missing.0825 is an outer probe, not a replacement local midpoint.
+After approval implement minimal coordinator reusing original worker/Job/Sleep
+supervisor and145 checkpoint; preserve selection artifacts in a snapshot,
+recheck AC/reacquire temporary lease and verify native deadline/descendant cleanup.
+Run max3 serial, no timeout retry; reserve total budget for26distance objectives,
+original129-start cache-only AO, independent maxima/coverage validation and cleanup.
+No promised gain/closure; ORDERING_REPRODUCED_BUT_ERROR_UNBOUNDED remains.
+No full execution ledger/newsource/SKR/AO result exists yet. Old cache-only stop
+queue below is superseded for selection/approval only, not an AP authorization.
+
+## Stop after cache-only Batch3 preparation: EVID-0139 / DEC-0122
+
+Read targeted_expansion/batch_3_preparation/batch_3_preparation_report.md/json,
+numerical_accuracy_audit.md and final_preparation_verification.json.145-source
+catalog and26/26 existing AO matches verified; no total-error certification.
+Three NOT_RUN original midpoint pairs in batch_3_selected_probes.csv:
+(.165,5.4625),(.165,5.4875),(.16531250000000003,5.5). Preserve exact hex/key
+values. All54 missing pairs ranked, including alternatives20/23/24 and known
+timeout history. Nu slice atVA5.475 remains singleton/open, not fixed by these3.
+No AP authorized in the current task; do not execute, retry, ask for a budget
+or consume unused old budget. Future execution needs a new explicit request.
+Reuse145 checkpoint if later authorized; assess exact outcomes/no promised gain.
+Keep model/settings/precision/quadrature/multistarts and prior artifacts intact.
+
+## Batch2 complete; preserve145-catalog artifacts: EVID-0138 / DEC-0121
+
+Read batch_2/run_report.md and completed_verification.json.3 valid sources,
+0 timeout,145 MB pairs,78 new objectives; only22km finite max improves to
+(.165,5.475),K=.07661740491526092,delta2.626161285101958e-07 vs142.
+Original129-start cache-only AO matches26/26, no new closed search;618 calls
+unresolved(312 boundary/306 bracket-missing),54 missing pairs. Report finite
+ranking only; no significance/global-convergence claim without error bound.
+No active worker/request remains; all796 protected hashes and32 tests/diff PASS.
+Do not rerun or launch extra AP under completed max3 approval. New targeted
+batch can address actual ridge requests such as(.165,5.4625),(.165,5.4875)
+only after fresh explicit point scope/runtime approval and live AC/sleep
+preflight. Inspect exact binary64/cache IDs, measured neighbors and prior cost;
+reuse145 cache/objectives, no dense restart/interpolation. Old artifacts intact.
+
+## Monitor active batch2: EVID-0137 / DEC-0120
+
+Observe session37875/controller12356; no duplicate controller or parallel AP.
+Probe1(.165,5.475) running, followed by(.165,5.425000000000001),(.15,6.25)
+within fresh10800s total/3600s probe/max3; automatically continue independent
+points after timeout if safe, never retry. Review reassessment_after_probe_*.json
+after each valid source, exact26distance new rows and142-baseline comparisons.
+Keep guard active across campaign, final cache-only original129-start AO,
+actual CPU/wall receipts and worker/lease cleanup. Do not extend total limit
+or claim convergence/global optimum from finite matching. Old pending approval
+queue below is superseded; no new approval required within current scope.
+
+## Await fresh batch2 approval: EVID-0136 / DEC-0119
+
+Read batch_2/run_report.md and selected_probes.csv.142 current source pairs,
+3692 objective rows verified; source/SKR/AO generation NOT_RUN. First(.165,5.475),
+then provisional(.165,5.425000000000001),(.15,6.25). All52 missing candidates
+inspected; reconsider later priorities only from valid measured results/actual
+requests. Do not round second midpoint to5.425. Do not rerun expensive old
+timeouts or use obsolete139 baseline.22km reference.07661714229913241.
+Explicitly confirm proposed new10800s/3600s/max3 serial budget before AP. Recheck
+AC/reacquire verified transient sleep guard; original Job/evaluator and code
+settings unchanged. After authorization implement minimal adaptive coordinator
+reusing cached142 objective checkpoint, independent timeout continuation and
+final original cache-only129-start AO, with no interpolation/global claims.
+Old completed budgets/results preserved; no active worker/request remains.
+
+## Completed targeted expansion: EVID-0135 / DEC-0118
+
+Read resumed_sleep_safe_run/run_report.md, completed_run_verification.json and
+final_scope_audit.json. Three sources complete;142 MB candidates;78 new exact
+objectives; original129-start AO equals finite catalog max26/26. Only22km gains
+2.8628002113340045e-07 at(.165,5.45); no total objective error bound establishes
+physical significance.52 missing pairs and all618 unresolved searches remain;
+no numeric/global convergence and no newly fully closed coordinate searches.
+No active worker or sleep request remains. Do not start/retry more probes under
+the completed three-point authorization. Preserve old/new caches and receipts.
+Future refinement requires explicit new point scope/runtime approval and fresh
+AC/sleep checks; use the saved exact catalog/checkpoints, not a dense restart.
+No model/lifecycle approval changed.
+
+## Observe authorized all-three execution: EVID-0134 / DEC-0117
+
+Do not start a second controller. Active controller2080/session39160 runs the
+three approved pairs serially under live sleep/AC Job supervision. Automatically
+continue after timeout within budget; do not retry. Verify checkpoint after each
+probe, exact26distance objectives for completed sources, then original cache-only
+AO atall26 using original four starts/previous-distance warm continuation.
+Hard total10800s/per-probe3600s;360s final recheck/cleanup reserve. Stop on unsafe
+power, serious provenance/numerical failure or total deadline. Inspect live
+resumed_sleep_safe_run/ receipts; preserve history and never infer convergence.
+
+## Await explicit new budget after sleep-safe preflight: EVID-0133 / DEC-0116
+
+Read power_and_supervisor_preflight.json and simulated_power_loss_dummy.json
+under resumed_sleep_safe_run/. Short native sleep lease, timeout/descendant
+cleanup and power-loss abort tests pass. Request fresh explicit3h total/60min
+probe confirmation before AP. AC is currently connected, but recheck live
+power and reacquire/verify temporary thread-owned sleep prevention before run.
+The old failed3h budget remains expired. Do not run or retry probes from this
+preflight. After approval execute the original source method sequentially;
+start(.16562500000000002,5.5), conditionally5.45/5.525 atnu=.165; never.16375.
+Stop on timeout/unsafe power/supervisor failure, preserve actual wall receipts,
+and do not claim global convergence. No permanent power settings changed.
+
+## Stop after deadline-compliance failure: EVID-0132 / DEC-0115
+
+Probe1 TIMEOUT after Windows battery sleep/hibernate; no source completed and
+no Python worker remains. Read probe_1_outcome.md and deadline_compliance_audit.json
+under targeted_expansion/probe_1_authorized_3h/. Real probe/session wall exceeded
+3600/10800s, so budget compliance is FAILED; CPU1771s does not restore budget.
+Do not run probe2/3, repeat probe1 or modify old receipts. Before new computation,
+obtain fresh explicit runtime approval and separately agreed stable-power/
+no-suspend conditions. No power/evaluator/precision/quadrature/AO setting changes
+were made here. Preserve all caches/results; full SKR/AO revalidation NOT_RUN.
+
+## Observe authorized probe1: EVID-0131 / DEC-0114
+
+Controller17208 executes only the approved first pair; do not start duplicate
+controllers or probe2. Check live probe_results/ and source_generation_ledger.json
+under targeted_expansion/probe_1_authorized_3h/. New hard budget10800s total,
+3600s per source; old four-hour ledger remains exhausted. If successful,
+validate/source checkpoint,26 exact objectives and affected original cache-only
+AO searches, then report to user before continuation. If timeout/invalidity,
+stop and verify no worker remains. Do not alter original methods or settings.
+
+## Await new targeted-pilot budget: EVID-0130 / DEC-0113
+
+No AP is running. Read selected_mb_candidates.csv and run_report.json under
+theta10_D55_mb_exact_targeted_expansion/. Obtain fresh explicit total runtime
+and maximum per-probe timeout; do not reuse the exhausted four-hour budget.
+Proposed serial order: (.16562500000000002,5.5), (.165,5.45), (.165,5.525).
+Defer (.16375,5.5) unless its prior3600s timeout is explicitly reconsidered.
+After authorization start one probe only, validate/cache/checkpoint and measure
+CPU/wall, then evaluate newly enabled exact SKR at26 distances and assess benefit
+before another probe. Preserve original methods, source precision, quadrature,
+AO starts and caps. Tiny improvement without adequate reliability evidence is
+INCONCLUSIVE, not automatically significant. Remaining stages are NOT_RUN.
+
+## Finite-catalog assessment complete: EVID-0129 / DEC-0112
+
+Stop after the finite-set certificate. Read final_recommendation.md and
+catalog_maximum_certificate.csv in theta10_D55_alt_opt_catalog_certification/.
+No further AP is justified merely to reproduce the 136/139-pair maxima.
+Do not increase the four-stage cap: observed searches fail at 0/1 stages.
+If continuous closure is required, obtain a separate prospective coverage and
+boundary plan, any explicit policy-change approval, and new hard runtime budget.
+Prior top-three probes are still planning only and cannot guarantee convergence.
+Do not present finite-set results as continuous global or publication/security
+certification. All historical results/source caches must remain unchanged.
+
+## Diagnostic complete: EVID-0128 / DEC-0111
+
+Stop after the no-AP diagnostic. Read top_3_recommended_probes.csv and
+diagnostic_report.md under theta10_D55_alt_opt_closure_diagnostic/ before
+any further exact-source request. Proposed order: (.16562500000000002,5.5),
+(.16375,5.5), (.165,5.45). Obtain explicit approval and a separate total/per-probe
+hard budget; do not execute from this plan or reuse the exhausted four hours.
+Preserve original methods, tolerances, four refinement stages and all artifacts.
+Successful probes would still leave (.165,5.525), further midpoint coverage,
+other representative/competing trajectories and no global certificate.
+Do not change epsilon or label catalog stagnation numerical convergence.
+The other 21 distances remain LAST_KNOWN; no publication/test access enabled.
+
+## Budget complete: EVID-0127 / DEC-0110
+
+No source controller remains active. Preserve closure_continuation/ ledgers,
+3 validated overlay source rows, compatible objective checkpoints and executed
+producer snapshot. The 4-hour budget is exhausted; do not resume it. Read
+ao_26distance_results.csv with execution labels: only the 5 stagnated distances
+continued; the other 21 are LAST_KNOWN. No numerical/global convergence.
+
+Before any further AP, obtain explicit new runtime authorization and retain
+the original methods/precision. Current selected-neighbor dependencies include
+timed-out nu=.16375 and .16562500000000002 at VA=5.5 and missing VA probes
+(.165,5.45)/(.165,5.525). Use current_missing_source_priorities.csv and
+per-probe receipts, not the old 50-key list alone. Failures have no SKR.
+Do not blindly replay the remaining 21 before representative validation or
+substitute finite-sample downturns for an unbounded mathematical certificate.
+
+## Historical active execution queue (superseded by EVID-0127)
+
+## Active closure continuation: EVID-0126 / DEC-0109
+
+Monitor the existing source controller; do not launch a duplicate. Budget:
+14400s total, <=3600s/probe, batch size 1. Read current receipts/ledger under
+results/theta10_D55_alt_opt_closure_continuation/. Source completion must use
+the original evaluator/precision policy; preserve all historical artifacts.
+
+After each safely saved batch, verify overlay identity and CPU/wall/deadline
+measurements, continue the five stagnated distances with the unchanged
+multi-start algorithm and reuse compatible objectives. Re-rank newly observed
+missing probes from exact landscapes. Do not blindly replay the remaining 21
+before representative validation. Missing probes/timeout have no K value.
+Stop at the hard budget, persist unresolved blockers and distinguish local
+numeric closure from the unavailable unbounded continuous-global certificate.
+
+## Current strict rerun: EVID-0125 / DEC-0108
+
+The user-authorized cache-only 26-distance rerun is complete. Preserve
+results/theta10_D55_alt_opt_26distance_strict_rerun/ and all old artifacts.
+Use its summary and previous_vs_rerun_comparison.csv for current exact-tested
+results and actual corrected stopping statuses. Its verification script is
+read-only and may be rerun without any channel/security/source computation.
+
+No further computation is required for this reproducibility task. Source
+completion is separate: 50 missing exact ensembles and unresolved directions
+remain. Do not launch AP, change methods, rerun the timed-out pilot or claim
+continuous/global convergence without new explicit authorization and budget.
+The older convergence-validation artifact still contains 21 LAST_KNOWN rows;
+that historical limitation does not describe the new full-distance rerun.
+Keep the frozen-spec discrepancy and publication lifecycle gate open.
+
+## Exact-source continuation after provenance repair: EVID-0124 / DEC-0107
+
+Preserve `results/theta10_D55_alt_opt_convergence_validation/`. Provenance and
+stopping regressions pass, while all 50 missing source ensembles remain
+unavailable. The source pilot's elapsed budget is exhausted; do not silently
+restart it or call the five representative trajectories converged. The other
+21 rows in that older validation table remain LAST_KNOWN/NOT_RUN; all 26
+distances were later rerun separately for reproducibility under EVID-0125.
+
+Any further exact computation should use the ranked source ledger, persistent
+overlay cache, corrected absolute-deadline/Windows Job supervisor and an
+explicit adequate compute budget. Resume skips completed/failed attempts;
+`--retry-failures` is required to retry a timeout, preserving its history.
+The original precision ladder is unchanged. An acceleration of high-precision
+sector construction or diagonal solves needs independent accuracy validation
+and an appropriate new execution identity before adoption. Run the remaining
+distances only after representative closure succeeds; never infer a global
+certificate from a finite local bracket or agreeing starts.
+
+## Independent ALT_OPT audit: EVID-0123
+
+Use `results/alt_opt_vs_numerical_audit_20261008_verified/` for the audited
+26-distance comparison, candidate traces and two-distance independence test.
+Describe the method as alternating coordinate ascent on available exact
+source slices. Its agreement with enumeration is supported by execution;
+its continuous convergence/global optimum remains unproved.
+
+Before claiming strict current source provenance, explicitly reconcile the
+verified CRLF/LF hash difference with a hash-bound manifest and loader
+validation. Do not regenerate or alter C,w solely for newline differences.
+An implementation change is a separate task. A later convergence claim also
+requires prospectively declared exact probe completion and final coordinate/
+boundary closure; global claims require additional tail/enclosure evidence.
+
+## Full-distance ALT_OPT continuation: EVID-0122 / DEC-0106
+
+Preserve `results/theta10_D55_alt_opt_distance_sweep/` as the unresolved,
+cache-only diagnostic. Use `mb_alt_opt_distance_summary.csv` for the exact
+per-distance selected parameters and security quantities, and retain the
+multi-start, iteration, objective-evaluation, comparison, and renderer reports
+with it. The standard-log figure is display-only: it omits non-positive rows
+and does not alter the combined CSV.
+
+Do not call the selected rows converged or globally optimal. The full sweep
+still has missing exact source moments and unresolved inner/boundary directions
+at every distance. If closure is explicitly authorized, use the existing
+source worker with `--allow-new-source` in a capable environment; preserve the
+current 165-row cache and source/CSV hashes, and do not rerun Uniform or fixed
+MB unnecessarily. Do not interpolate source moments or SKR, access final-test
+data, select a publication baseline, or change the physical/security model.
+
+## ALT_OPT optimization-layer diagnostic: EVID-0121 / DEC-0105
+
+Preserve `results/theta10_D55_alt_opt/` as the cache-only exact diagnostic.
+Do not call `.165,5.5` a converged or global optimum: the adaptive source
+coverage is incomplete. If closure is explicitly authorized, run the existing
+arbitrary-precision source worker in an environment that can complete missing
+midpoint and endpoint probes, then rerun the same driver with
+`--allow-new-source`; preserve the current 165-row cache and record any added
+rows and hashes. Do not interpolate `C,w` or SKR and do not change the
+physical/security evaluator.
+
+## Theta10/D55 unconstrained three-scheme diagnostic: EVID-0120 / DEC-0104
+
+Preserve the new exact-tested adaptive envelope and symlog figure. Uniform's
+exact sign bracket is 25--25.5 km; both MB curves remain positive through
+40 km. The observed optimized-MB ridge does not reach the tested VA=8 or
+nu=.8 boundaries.
+
+The requested binary64 fixed source at `V_A=1.3833230303` timed out in the
+existing AP worker. Do not describe the existing exact
+`1.3833230302980657` row as identical binary64 data without the ten-decimal
+rounding caveat. If strict compliance is required, rerun only that source
+point in an environment that completes the existing precision ladder, then
+re-evaluate the fixed curve and update this diagnostic hash.
+
+Do not select a baseline, call the adaptive envelope a continuous/global
+optimum, access final-test data, or make a publication-scale claim.
+
 ## Theta10/D55 three-scheme diagnostic: EVID-0119 / DEC-0103
 
 Preserve the exact three-curve table and linear figure. Uniform's exact bracket
