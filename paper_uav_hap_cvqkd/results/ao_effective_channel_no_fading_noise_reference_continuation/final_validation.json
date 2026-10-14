@@ -1,0 +1,1858 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "AO_status": "AO_RESOURCE_LIMITED",
+  "protected_files": 3275,
+  "protected_changes": [],
+  "GH_order_winners": {
+    "8": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+    "16": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+    "32": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f"
+  },
+  "GH_winner_stable": true,
+  "final_accuracy_checks": [
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.046875,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.046875,
+      "b": 1.8151377109616496,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3885517238141117,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.2051214223052606,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.3922351535921544,
+      "Z_signal": 2.392296030890427,
+      "Z_penalty": 6.087729827242316e-05,
+      "Gamma_AB": [
+        [
+          6.046874999999998,
+          0.0,
+          2.3922351535921544,
+          0.0
+        ],
+        [
+          0.0,
+          6.046874999999998,
+          0.0,
+          -2.3922351535921544
+        ],
+        [
+          2.3922351535921544,
+          0.0,
+          1.8151377109616493,
+          0.0
+        ],
+        [
+          0.0,
+          -2.3922351535921544,
+          0.0,
+          1.8151377109616493
+        ]
+      ],
+      "lambda_1": 5.235166952912994,
+      "lambda_2": 1.003429663874646,
+      "lambda_3": 4.014012093223343,
+      "I_AB": 0.4910480331304301,
+      "chi_BE": 0.4077607715949032,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.4664956314739086,
+      "SKR": 0.0587348598790054,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.4910480331023219,
+          "SKR": 0.05873485985230259
+        },
+        {
+          "order": 16,
+          "I_AB": 0.49104803313042966,
+          "SKR": 0.05873485987900495
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4910480331304301,
+          "SKR": 0.0587348598790054
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+      "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.046875,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+      "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.0625,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.0625,
+      "b": 1.817652090508242,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3897546703274681,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.20883874836521,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.3985898549945124,
+      "Z_signal": 2.3986512549686436,
+      "Z_penalty": 6.13999741313565e-05,
+      "Gamma_AB": [
+        [
+          6.0625,
+          0.0,
+          2.3985898549945124,
+          0.0
+        ],
+        [
+          0.0,
+          6.0625,
+          0.0,
+          -2.3985898549945124
+        ],
+        [
+          2.3985898549945124,
+          0.0,
+          1.817652090508242,
+          0.0
+        ],
+        [
+          0.0,
+          -2.3985898549945124,
+          0.0,
+          1.817652090508242
+        ]
+      ],
+      "lambda_1": 5.248278389920805,
+      "lambda_2": 1.003430480429048,
+      "lambda_3": 4.020646319106118,
+      "I_AB": 0.4923360212305594,
+      "chi_BE": 0.4089843958099926,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.46771922016903145,
+      "SKR": 0.05873482435903887,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.49233602120220343,
+          "SKR": 0.058734824332100644
+        },
+        {
+          "order": 16,
+          "I_AB": 0.4923360212305594,
+          "SKR": 0.05873482435903887
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4923360212305594,
+          "SKR": 0.05873482435903887
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 2.9897282098657603,
+      "w": 6.297709551727822e-07,
+      "ensemble_hash": "43325172efd6dbce444a1fd62eb95ad9e62886523159194bd764fa6ffa1edd3c",
+      "source_cache_key": "dc34170a58ffdbf71838f5a5b64a781f80b2fb05339fdc9d7fc6bb34fb6da28a",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.0625,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/dc34170a58ffdbf71838f5a5b64a781f80b2fb05339fdc9d7fc6bb34fb6da28a.json",
+      "source_payload_sha256": "17aa2020d06bbb6ecfea303b9b4647e2042d43fb567b2c14c1adbbf32cfa61f3",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.03125,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.03125,
+      "b": 1.812623331415057,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3873487773007553,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.201404096245312,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.385879977281571,
+      "Z_signal": 2.3859403449258405,
+      "Z_penalty": 6.036764426948403e-05,
+      "Gamma_AB": [
+        [
+          6.031249999999998,
+          0.0,
+          2.385879977281571,
+          0.0
+        ],
+        [
+          0.0,
+          6.031249999999998,
+          0.0,
+          -2.385879977281571
+        ],
+        [
+          2.385879977281571,
+          0.0,
+          1.8126233314150568,
+          0.0
+        ],
+        [
+          0.0,
+          -2.385879977281571,
+          0.0,
+          1.8126233314150568
+        ]
+      ],
+      "lambda_1": 5.222055524681512,
+      "lambda_2": 1.0034288560965714,
+      "lambda_3": 4.007366032881942,
+      "I_AB": 0.48975889413154405,
+      "chi_BE": 0.4065363521494283,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.46527094942496683,
+      "SKR": 0.058734597275538536,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.48975889410368323,
+          "SKR": 0.058734597249070764
+        },
+        {
+          "order": 16,
+          "I_AB": 0.48975889413154405,
+          "SKR": 0.058734597275538536
+        },
+        {
+          "order": 32,
+          "I_AB": 0.48975889413154405,
+          "SKR": 0.058734597275538536
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 2.973885070414239,
+      "w": 6.087720548006772e-07,
+      "ensemble_hash": "d06dd7cc64532810314bc2ba06c12e0c77f1bb4ddce4e13307753771af0b28a2",
+      "source_cache_key": "c7adab6748e9f95b4c989d4339a7cc694e962cf2a1e0e4cfe9c225d6343a5fe7",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.03125,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/c7adab6748e9f95b4c989d4339a7cc694e962cf2a1e0e4cfe9c225d6343a5fe7.json",
+      "source_payload_sha256": "91abfbb5ea0308db9952486eb81c308a993fb55cbd8f689663a84dffa8170802",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.046875,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.046875,
+      "b": 1.8151377109616496,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3885517238141117,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.2051214223052606,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.392235038946868,
+      "Z_signal": 2.392296034870061,
+      "Z_penalty": 6.099592319319479e-05,
+      "Gamma_AB": [
+        [
+          6.046874999999998,
+          0.0,
+          2.392235038946868,
+          0.0
+        ],
+        [
+          0.0,
+          6.046874999999998,
+          0.0,
+          -2.392235038946868
+        ],
+        [
+          2.392235038946868,
+          0.0,
+          1.8151377109616493,
+          0.0
+        ],
+        [
+          0.0,
+          -2.392235038946868,
+          0.0,
+          1.8151377109616493
+        ]
+      ],
+      "lambda_1": 5.235167040836126,
+      "lambda_2": 1.0034297517977773,
+      "lambda_3": 4.014012288068858,
+      "I_AB": 0.4910480333251206,
+      "chi_BE": 0.40776112860454505,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.46649563165886454,
+      "SKR": 0.05873450305431949,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.49104803330383184,
+          "SKR": 0.058734503034095165
+        },
+        {
+          "order": 16,
+          "I_AB": 0.49104803332512104,
+          "SKR": 0.05873450305431993
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4910480333251206,
+          "SKR": 0.05873450305431949
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.1725,
+      "C": 2.981806932952628,
+      "w": 6.215096392386831e-07,
+      "ensemble_hash": "324f8a99934f71482adc9488241105ac37df92c97eb95b166915c5ed8aec2af2",
+      "source_cache_key": "1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.046875,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c.json",
+      "source_payload_sha256": "cc2f9d2c0d21c5fc8e532ab72a6f9664748fb11943691a4b209f1b766660f303",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.078125,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.078125,
+      "b": 1.8201664700548346,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3909576168408244,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.2125560744251587,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.404944084926872,
+      "Z_signal": 2.4050060208171296,
+      "Z_penalty": 6.193589025738868e-05,
+      "Gamma_AB": [
+        [
+          6.078124999999998,
+          0.0,
+          2.404944084926872,
+          0.0
+        ],
+        [
+          0.0,
+          6.078124999999998,
+          0.0,
+          -2.404944084926872
+        ],
+        [
+          2.404944084926872,
+          0.0,
+          1.8201664700548343,
+          0.0
+        ],
+        [
+          0.0,
+          -2.404944084926872,
+          0.0,
+          1.8201664700548343
+        ]
+      ],
+      "lambda_1": 5.261389835900423,
+      "lambda_2": 1.0034313059552593,
+      "lambda_3": 4.027268742740727,
+      "I_AB": 0.4936228604850643,
+      "chi_BE": 0.41020722535845566,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.4689417174608111,
+      "SKR": 0.05873449210235543,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.4936228604564601,
+          "SKR": 0.05873449207518139
+        },
+        {
+          "order": 16,
+          "I_AB": 0.49362286048506343,
+          "SKR": 0.058734492102354596
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4936228604850643,
+          "SKR": 0.05873449210235543
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 2.9976489205922383,
+      "w": 6.408125665665124e-07,
+      "ensemble_hash": "365a4ac167cfdf6c761b9ac0075187c8603bf510af040f5cbba625282e5cfafb",
+      "source_cache_key": "5f439f5fd35de5811cc41e0e1086abe820bd258b23036b4651a4172f47bbfbc5",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.078125,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/5f439f5fd35de5811cc41e0e1086abe820bd258b23036b4651a4172f47bbfbc5.json",
+      "source_payload_sha256": "04b38cb8f4564a583ff7d554824d3d64c6687229d7e0a04eb55bca44d5dbb549",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.046875,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.046875,
+      "b": 1.8151377109616496,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3885517238141117,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.2051214223052606,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.392234988243782,
+      "Z_signal": 2.392296028408705,
+      "Z_penalty": 6.104016492285784e-05,
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          2.392234988243782,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -2.392234988243782
+        ],
+        [
+          2.392234988243782,
+          0.0,
+          1.8151377109616496,
+          0.0
+        ],
+        [
+          0.0,
+          -2.392234988243782,
+          0.0,
+          1.8151377109616496
+        ]
+      ],
+      "lambda_1": 5.235167079721057,
+      "lambda_2": 1.003429790682706,
+      "lambda_3": 4.014012374241338,
+      "I_AB": 0.49104803307332734,
+      "chi_BE": 0.4077612864952922,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.46649563141966094,
+      "SKR": 0.05873434492436874,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.4910480330433997,
+          "SKR": 0.05873434489593754
+        },
+        {
+          "order": 16,
+          "I_AB": 0.4910480330733278,
+          "SKR": 0.058734344924369186
+        },
+        {
+          "order": 32,
+          "I_AB": 0.49104803307332734,
+          "SKR": 0.05873434492436874
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.169375,
+      "C": 2.9818069248990615,
+      "w": 6.22411556349827e-07,
+      "ensemble_hash": "8b8e078354f0a926f12916b4350971881a6827b635db1cd1e416b4c9a792d329",
+      "source_cache_key": "696113dfc51a70ea3fdee959d33c1b14831650676a1a293addd7950f7c68fb5f",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.046875,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/696113dfc51a70ea3fdee959d33c1b14831650676a1a293addd7950f7c68fb5f.json",
+      "source_payload_sha256": "c4ef9324762bf79c2a285fa589d5f40828d05fd6cfb1c9957e0ce09a8934d6f2",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.09375,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.09375,
+      "b": 1.822680849601427,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3921605633541808,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.2162734004851075,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.4112978467904065,
+      "Z_signal": 2.411360332053572,
+      "Z_penalty": 6.248526316534905e-05,
+      "Gamma_AB": [
+        [
+          6.09375,
+          0.0,
+          2.4112978467904065,
+          0.0
+        ],
+        [
+          0.0,
+          6.09375,
+          0.0,
+          -2.4112978467904065
+        ],
+        [
+          2.4112978467904065,
+          0.0,
+          1.822680849601427,
+          0.0
+        ],
+        [
+          0.0,
+          -2.4112978467904065,
+          0.0,
+          1.822680849601427
+        ]
+      ],
+      "lambda_1": 5.274501291046118,
+      "lambda_2": 1.0034321406475446,
+      "lambda_3": 4.033879396223785,
+      "I_AB": 0.4949085529415891,
+      "chi_BE": 0.41142926081482134,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.4701631252945096,
+      "SKR": 0.05873386447968826,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.4949085529127366,
+          "SKR": 0.058733864452278406
+        },
+        {
+          "order": 16,
+          "I_AB": 0.4949085529415891,
+          "SKR": 0.05873386447968826
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4949085529415891,
+          "SKR": 0.05873386447968826
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 3.005569064680924,
+      "w": 6.52231031239426e-07,
+      "ensemble_hash": "1ebd9c13c245a33ddf432e97848b90e6221fb3fb6343779a19579af14e177f56",
+      "source_cache_key": "7af29f9eca03de80440b1b5f2ea27d4be49b66c25976f7232d82477dbb2d11a8",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.09375,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/7af29f9eca03de80440b1b5f2ea27d4be49b66c25976f7232d82477dbb2d11a8.json",
+      "source_payload_sha256": "8f0e400f2dbfe8a25eb05bb0c691904836db802a0924df33f5e4f6e789adf781",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.046875,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.046875,
+      "b": 1.8151377109616496,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3885517238141117,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.2051214223052606,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.3922347466448124,
+      "Z_signal": 2.392296025329799,
+      "Z_penalty": 6.127868498652154e-05,
+      "Gamma_AB": [
+        [
+          6.046875000000001,
+          0.0,
+          2.3922347466448124,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875000000001,
+          0.0,
+          -2.3922347466448124
+        ],
+        [
+          2.3922347466448124,
+          0.0,
+          1.8151377109616498,
+          0.0
+        ],
+        [
+          0.0,
+          -2.3922347466448124,
+          0.0,
+          1.8151377109616498
+        ]
+      ],
+      "lambda_1": 5.235167265006781,
+      "lambda_2": 1.003429975968429,
+      "lambda_3": 4.014012784851078,
+      "I_AB": 0.49104803301240096,
+      "chi_BE": 0.40776203883644246,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.4664956313617809,
+      "SKR": 0.05873359252533844,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.49104803298060906,
+          "SKR": 0.0587335924951361
+        },
+        {
+          "order": 16,
+          "I_AB": 0.4910480330124005,
+          "SKR": 0.058733592525337996
+        },
+        {
+          "order": 32,
+          "I_AB": 0.49104803301240096,
+          "SKR": 0.05873359252533844
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.16875,
+      "C": 2.98180692106145,
+      "w": 6.272853210321136e-07,
+      "ensemble_hash": "c6d01df0b843d47c8b65427214bc298a4315862ae73ab4d931b1cee171618943",
+      "source_cache_key": "a88f47c3fbccd118d3755edc149cd78dd2e43172f7377435d85d49be5282999d",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.046875,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/a88f47c3fbccd118d3755edc149cd78dd2e43172f7377435d85d49be5282999d.json",
+      "source_payload_sha256": "cd3ff7e232c9c6afb5b20b2a63bf21ba474929f77fcba52bc6729ca843ede366",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.0,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.0,
+      "b": 1.807594572321872,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.38494288427404255,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.193969444125414,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.3731681859935847,
+      "Z_signal": 2.3732275725130694,
+      "Z_penalty": 5.938651948453324e-05,
+      "Gamma_AB": [
+        [
+          5.999999999999999,
+          0.0,
+          2.3731681859935847,
+          0.0
+        ],
+        [
+          0.0,
+          5.999999999999999,
+          0.0,
+          -2.3731681859935847
+        ],
+        [
+          2.3731681859935847,
+          0.0,
+          1.8075945723218718,
+          0.0
+        ],
+        [
+          0.0,
+          -2.3731681859935847,
+          0.0,
+          1.8075945723218718
+        ]
+      ],
+      "lambda_1": 5.19583269376012,
+      "lambda_2": 1.0034272660819916,
+      "lambda_3": 3.9940382794106566,
+      "I_AB": 0.4871771551974158,
+      "chi_BE": 0.4040851253699951,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.462818297437545,
+      "SKR": 0.05873317206754991,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.48717715517004745,
+          "SKR": 0.058733172041549986
+        },
+        {
+          "order": 16,
+          "I_AB": 0.48717715519741667,
+          "SKR": 0.05873317206755074
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4871771551974158,
+          "SKR": 0.05873317206754991
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 2.9580396096665234,
+      "w": 5.891447295112126e-07,
+      "ensemble_hash": "65a38efb871f9d600cd823a022c66593fbf22785998b8af5699a5c210e9525fa",
+      "source_cache_key": "05e00c51ba3999da4292776e9114536dc964997d61b4fc48719360c40eef635b",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.0,
+      "source_path": "results/theta10_D55_objective_B_numerical_skr_optimization/full_51_grid_exact_completion/exact_source_cache/05e00c51ba3999da4292776e9114536dc964997d61b4fc48719360c40eef635b.json",
+      "source_payload_sha256": "15060065c967a3b6aa93d903c7a54b082ef488caef403ab95f78ed3bd02b860e",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    },
+    {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+      "raw_probability_mass": 0.9841200272202841,
+      "physical_probability_mass": 0.9999999999999999,
+      "discarded_raw_mass": 0.015879972779715916,
+      "active_normalization": 0.9841173294426483,
+      "active_retained_mass": 0.9841173294426483,
+      "active_tail_probability": 0.015882670557351587,
+      "discarded_raw_mass_quadrature": 0.015879972779715795,
+      "raw_full_support_probability_mass": 0.9999999999999999,
+      "independent_active_retained_mass": 0.9841173294426482,
+      "independent_normalized_active_mass": 0.9999999999999999,
+      "quadrature_error_retained": 8.455676730578946e-12,
+      "quadrature_error_tail": 1.7908630047499441e-13,
+      "quadrature_error_full_support": 8.69067278097562e-12,
+      "normalization_status": "CURRENTLY_VERIFIED_PASS",
+      "normalization_tolerance": 1e-10,
+      "normalization_identity": "F_active(1)=C1*Q(chi2)",
+      "raw_equation_10_changed": false,
+      "conditioning_is_modeling_choice": true,
+      "outage_atom": 0.00016985667656141038,
+      "active_probability": 0.9998301433234386,
+      "validated_boresight_rho": 0.0,
+      "mean_eta": 0.23790886783673015,
+      "mean_sqrt_eta": 0.40114871429673266,
+      "mean_eta_xi_total": 1.7665162371050331,
+      "mean_eta_xi": 1.7665162371050331,
+      "chi_het": 1.0,
+      "R": 1.0,
+      "xi_det": 0.0,
+      "xi_ch": 0.0186,
+      "detector_efficiency": 1.0,
+      "detector_excess_noise": 0.0,
+      "channel_excess_noise": 0.0186,
+      "independent_mean_eta": 0.23790886783673013,
+      "independent_mean_sqrt_eta": 0.4011487142967326,
+      "independent_mean_eta_xi_total": 1.766516237105033,
+      "moment_quadrature_errors": {
+        "mean_eta": 9.794528902780623e-13,
+        "mean_sqrt_eta": 6.2794362296346946e-12,
+        "mean_eta_xi_total": 9.7103010822143e-12
+      },
+      "raw_mean_eta": 0.23413023966620677,
+      "raw_mean_sqrt_eta": 0.39477740142305245,
+      "raw_mean_eta_xi_total": 1.7384646372321528,
+      "third_moment_raw_to_physical_difference": 0.028051599872880306,
+      "third_moment_identity_residual": 0.0,
+      "outage_eta_xi_total_limit": 2.0,
+      "moments_status": "CURRENTLY_VERIFIED_PASS",
+      "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+      "VA": 5.125,
+      "T_eff": 0.16092029098192165,
+      "xi_eff": 0.0186,
+      "N_eff": 0.0029931174122637422,
+      "output_excess_noise": 0.0029931174122637422,
+      "a": 6.125,
+      "b": 1.827709608694612,
+      "sigma2_complex": 1.001496558706132,
+      "fading_noise_included": false,
+      "omitted_fading_noise_output": 0.3945664563808936,
+      "matches_full_fading_covariance": false,
+      "physical_Bob_variance_diagnostic": 2.223708052605005,
+      "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+      "Z_star": 2.4240039797341915,
+      "Z_signal": 2.424067604969377,
+      "Z_penalty": 6.362523518517532e-05,
+      "Gamma_AB": [
+        [
+          6.124999999999998,
+          0.0,
+          2.4240039797341915,
+          0.0
+        ],
+        [
+          0.0,
+          6.124999999999998,
+          0.0,
+          -2.4240039797341915
+        ],
+        [
+          2.4240039797341915,
+          0.0,
+          1.8277096086946119,
+          0.0
+        ],
+        [
+          0.0,
+          -2.4240039797341915,
+          0.0,
+          1.8277096086946119
+        ]
+      ],
+      "lambda_1": 5.300724229606108,
+      "lambda_2": 1.0034338383007222,
+      "lambda_3": 4.047065520554031,
+      "I_AB": 0.4974765056239354,
+      "chi_BE": 0.4138709517994372,
+      "beta_rec": 0.95,
+      "beta_I_AB": 0.4726026803427386,
+      "SKR": 0.05873172854330139,
+      "MI_method": "discrete_256_QAM_effective_Gaussian_GH_product",
+      "MI_computed_fresh": true,
+      "MI_orders": [
+        {
+          "order": 8,
+          "I_AB": 0.49747650559458645,
+          "SKR": 0.058731728515419857
+        },
+        {
+          "order": 16,
+          "I_AB": 0.4974765056239363,
+          "SKR": 0.05873172854330222
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4974765056239354,
+          "SKR": 0.05873172854330139
+        }
+      ],
+      "MI_last_refinement_difference": 8.881784197001252e-16,
+      "MI_refinement_tolerance": 1e-08,
+      "symbol_entropy_bits": 5.693536774554173,
+      "numerical_repairs": [],
+      "Holevo_target": "chi_BE_at_direct_Z_star",
+      "full_interval_security_claim": false,
+      "scientific_validation_status": "DIAGNOSTIC_GAUSSIAN_APPROXIMATION_ONLY",
+      "distance_km": 21.9393102292,
+      "nu_raw": 0.17,
+      "C": 3.021407670742622,
+      "w": 6.762465340955627e-07,
+      "ensemble_hash": "97b095bc44e7ecd4a16ad09416a6e8cdfdbd0e27c50c3d80910f9f57b8ac1ae8",
+      "source_cache_key": "699d954b2079aed6efb81b95b0b5cfa8dc6f48e0020df776874dd267cc2d6c85",
+      "channel_moment_preservation_residuals": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "mean_eta_xi_total": 0.0,
+        "physical_probability_mass": 0.0,
+        "raw_probability_mass": 0.0,
+        "outage_atom": 0.0
+      },
+      "raw_channel": {
+        "eta_atm": 0.9082089654181673,
+        "A0": 0.9977339699934346,
+        "w_eq": 1.312921595852572,
+        "sigma_s": 1.0570182137187947,
+        "sigma_R2": 0.0539620777961657,
+        "rho": 0.0,
+        "P0": 0.00016985667656141038,
+        "P1": 0.9998301433234386
+      },
+      "scientific_context_hash": "e598b9ed108c19336fdfa0da75c0dd4afeea4c3b0e37e185d837bb28cb302454",
+      "V_A": 5.125,
+      "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/699d954b2079aed6efb81b95b0b5cfa8dc6f48e0020df776874dd267cc2d6c85.json",
+      "source_payload_sha256": "dba9bd7633d3e5284f7fd40f968204f1680582ecf378832367864b6dd398bd75",
+      "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+      "MI_integration_order": 32,
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "certified_fading_security_lower_bound": false
+    }
+  ],
+  "report_sha256": "bfe046015d80df6f41db9adbdc196b99408158f4306f26f32f2ff0c9c3060b6c",
+  "finalizer_sha256": "81168458e429d8f44b3a7f5cca8c5a0652c2064e19f63878ddc7181ec547fe36",
+  "precision_journals": {
+    "fdc9b651eceb7e178c4e3591d011d5e9c768e00b121a49b354ebe620bb122bc1": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "cba7c391d373ad51a02d6ed41be39f94c66bb896128716097db91de567d3c9fd",
+        "1250.json": "fc738ec34dfc0d9e079b28ed635fed6a6e0b4c7f3f1d99b8b9e1271d17698602",
+        "1450.json": "da1e8a37654e935697682fad0bb98c68350b81de1ae39ae5cf32f75631dee367"
+      },
+      "request_sha256": "47ef5091a22d769d51c1f8a1ef20273e3489a97baa56badf64e89850b2818184",
+      "accepted_source": true
+    },
+    "a398a45035dd07653dd2284f4004281d37c6705bba478fdae3dd875a94c25cec": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "e2591993cb14c2b6baff5662d3c64cf9814c4b4d47975f5656e94f4e3dbea7fe",
+        "1250.json": "aef33244ef8231a44cc2038228f627727982d440ec9c0e62232ec7186f0ead88",
+        "1450.json": "7474af3eb8f3db0bd559671b2418987fbc4c9f817538412e1055d5db0fb26831"
+      },
+      "request_sha256": "602ce1acca69dce2e67d2778327e89ef4298691706560355b59f90ad6d142322",
+      "accepted_source": true
+    },
+    "8d4b624c676cea71999a07cf7d48107cbf35b1513aa5a58dfc4d89dcb5b12105": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "aef38d2d51e7fa9bfb4aeb46cbe8d139e5be018bc6ab9a4a3487c871eb11e074",
+        "1250.json": "c361a0d76b89ffa24910c4e98526628f2c207718360a6d706a0699d5c69da74e",
+        "1450.json": "2f03e71442553affdfb25a59bc5b89710c5dfd581822f29096e0cd15a97972d0"
+      },
+      "request_sha256": "b23a7272287974691ab6621e59d0b4e3c2e109a15c471643c1cc4f6b5cd4340c",
+      "accepted_source": true
+    },
+    "fde40e3703b7b061a36ead9db4148c5a46d349f45b55c006dee8bcd956a2ebf5": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "c15d89ec9286bc49c126b2bc152ac2e673b621735f7b3ab5816b08cb7f46d981",
+        "1250.json": "7633b2bf95216028dcbb1f9649a15ed651784ad07308dfa3a6897bb8721ba072",
+        "1450.json": "e8c720959555789b208db81695d89fcc565eed0b1b20a92e55d9a40bc9098bd4"
+      },
+      "request_sha256": "3f704c44e2f1f256cf8ed74897dec574a68317c0d19e7d7e6007e5956551910c",
+      "accepted_source": true
+    },
+    "699d954b2079aed6efb81b95b0b5cfa8dc6f48e0020df776874dd267cc2d6c85": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "f70e57644a304e620a95d6e78857f290a739547feb79cd1703b73c3e4e28bc12",
+        "1250.json": "f47815272e8c79727398aeefd3a0db8145d5dfa392d515c957f33297333a6c2c",
+        "1450.json": "c64f9b6b9fb5905a1e8e15853f75ee5d10efbdc94829ceb1da63521c9936007e"
+      },
+      "request_sha256": "01d08f8b7d78b5d2d35a391dceb8d252fee01feea86827a24cf114229f4f6977",
+      "accepted_source": true
+    },
+    "c5c3b23104db3c6b0d32ae2d99f9b7aab142eadc0731467c6ef634c9d37304f7": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "f510f2b0765b57cda7f3d76340161b79aa93bfb76a0b8f53bb0ecc6c92308afd",
+        "1250.json": "9f3094a71fe6e12e76fbe06ec26f44d3e4ac10ca9530d7d927623b7816eedb0c",
+        "1450.json": "fe3efde257f45a70c2b86b66933ee3a7ebf577fbbb3c02481296f9e2df86d92f"
+      },
+      "request_sha256": "e2db8bef40340b6bd0dddd577c6c4d1776ef0d0438cb86aecab119d9541447ca",
+      "accepted_source": true
+    },
+    "dc34170a58ffdbf71838f5a5b64a781f80b2fb05339fdc9d7fc6bb34fb6da28a": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "48100c7f6be311a091e59b75c137b437ed64eaa744c29d190f1232988271a319",
+        "1250.json": "ae6e499b576a54b94e7d69559fa927e1f909f83aa0ff408b27e53fde9258abf9",
+        "1450.json": "4c459ea7d501866ce7230c3844dff3e3ea9c96c29f55b35b0af8d179986cfb44"
+      },
+      "request_sha256": "c93549dbe1b593bd19749a1ad6d68876889b81831ac9a4d91ac23a6295f2bb85",
+      "accepted_source": true
+    },
+    "c7adab6748e9f95b4c989d4339a7cc694e962cf2a1e0e4cfe9c225d6343a5fe7": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "a62b08ed08d83425aa67993713730d7e84cea4cfb747e4d51be5556ae1c28072",
+        "1250.json": "f699fbc31cd8bcc7662819ece1ccb575f64d2eb44018544d7ea40964165afca0",
+        "1450.json": "457559ce9667415dadeacc21a3122ba717d93c9c632e3d4f52d656918f47b74f"
+      },
+      "request_sha256": "fa3edaa91af276720276f1444a173832d8976250ab32817c8c614fb955405342",
+      "accepted_source": true
+    },
+    "7af29f9eca03de80440b1b5f2ea27d4be49b66c25976f7232d82477dbb2d11a8": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "95c6131452d6fc9b6f696e1ee6d1480371647012e84fbf9e8d7a952f7fba57b3",
+        "1250.json": "a296a38b2c0623ac1146852ef4065283236faa12e0472ea2bfa392d37b8cbe67",
+        "1450.json": "26cde931ecfd17642b390807e787a8506e10226be9224024c767c50d203efa71"
+      },
+      "request_sha256": "1215cfd61d37c3a6b8b27aee128a053b73b7ec9eda2e861ef367051628246d22",
+      "accepted_source": true
+    },
+    "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "d33393f00e4e2a418f9cf9410ded38d76fccfd00e12f7ec0f31596812ab1d918",
+        "1250.json": "c37cfe5b077f3c73e88b5220213877e3894bfd2b2361698feffafdd0bae64fb4",
+        "1450.json": "2e6a86ec3717baf631109c4123cbbe6e0ba9762b57e730d9814a1dd369a33dbb"
+      },
+      "request_sha256": "7ff9a0ef801b8e7d24be1f82134c4d62451392207678f6a8c53161b93374d936",
+      "accepted_source": true
+    },
+    "5f439f5fd35de5811cc41e0e1086abe820bd258b23036b4651a4172f47bbfbc5": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "77dc7f005228603a9dc1d90c1d68551eb6b7915314d27c3c05414e39b3ae412d",
+        "1250.json": "78b0f93de60e512f13998a4f0a49c3bfcd12c408387b5543cac79bc8a66e364f",
+        "1450.json": "5d72bd3fdf756f3d1681977eb68e761ffa0f23b08f75c48433545cc25f103ce6"
+      },
+      "request_sha256": "5c91d7c30416d0b40beec9396e3ac6bff39aedbda38e7079fbcd41dcf749ac7d",
+      "accepted_source": true
+    },
+    "c8bb1494cb09b8cfa49c224c14f1712c282dc75dd5b841a9524ae10b99e5276c": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "fcd9565f461ef9fb571c1a386aa40feba98a568ea132a301fddc3d75217606a2",
+        "1250.json": "fe4c60200bb47ec91af32c157b6728ecb2b7c4847af4650d734746513d8c8763",
+        "1450.json": "293cadc131d4c2dadd33dca4e96f7f3abfc999c2a197a86bd4f82c85fe66fa43"
+      },
+      "request_sha256": "0c2aecb47a72edabd579472a8e09aa516e2e9d88745ebf49f382cd1821396392",
+      "accepted_source": true
+    },
+    "59ebe2e647b9c647f230e24239008252bee5defeed0ae5125afca7018296c432": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "c525b61de33e0d463ef15951fd82b45563fc86e54db9928d7c594f3cdaf110bd",
+        "1250.json": "8618f38b569e953b962b7aa7cc75235e6e58fccca7384b223a6a383cbe4a4bca",
+        "1450.json": "a8bd5c4e5cddf951988f70a625f245f2433945d9bc770ba16aa2ab350199dccb"
+      },
+      "request_sha256": "07eb74d9dfd85c82f8b6547d668ec0e0cb9dfc749946069530841e9c50c74a8f",
+      "accepted_source": true
+    },
+    "a88f47c3fbccd118d3755edc149cd78dd2e43172f7377435d85d49be5282999d": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "7fa10808747ebea4b4cdabcc5cdce5e61787d7a75086814bd6f71621c772398d",
+        "1250.json": "0e96ffd94606cce7b74c4ab21f8e93f5a924eb90e96f24cdf68c67bcfb9eb104",
+        "1450.json": "7d97db946b5fbe460d850e5e9b888c84dcb41627384778d62d4369a401985be6"
+      },
+      "request_sha256": "3ce19e936571150a75c78524b9b40d50dc900e68802b6f8e1d5cbce10a646bab",
+      "accepted_source": true
+    },
+    "1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "4c5336905ff6a8ab642fa8fafb313804c3e3290ec4a091eeda08982c89eeef9d",
+        "1250.json": "6bb1e8960f297972b64aad71d17ddc050c35c4db2ed39e9af1aad2db11eea7a2",
+        "1450.json": "2225811a41c8e2891de1ec2c5b94c59ca6bc9084967aa654d139d9cc6be5c87b"
+      },
+      "request_sha256": "b9dee507f23361e9e4ddf04b5f42472f6bd5c8d915e3bbbbb794cb1759100152",
+      "accepted_source": true
+    },
+    "696113dfc51a70ea3fdee959d33c1b14831650676a1a293addd7950f7c68fb5f": {
+      "digits": [
+        1050,
+        1250,
+        1450
+      ],
+      "row_sha256": {
+        "1050.json": "707bbf90e8b4569993ce19039bc8a76207871be25a24269436ab42c116224c2d",
+        "1250.json": "fc972ff06601f4e7b962c68a42a7d6fc1dff29df6f95b64285cd12c09efb79cd",
+        "1450.json": "4fe7bdab5079f2818662ae303ccbe8ebdf3fe5a1a7dbfca0a66be79077b14cdb"
+      },
+      "request_sha256": "c7404356d181b0263cce38ab62c48be683b7a1bb9cf584f42ef01f0d090204f9",
+      "accepted_source": true
+    },
+    "f755ea8d3e41e9e11293709a9e2ec662e1a5ac06ec183d69b976206f95c60a96": {
+      "digits": [
+        1050,
+        1250
+      ],
+      "row_sha256": {
+        "1050.json": "c148a7c3b8829206cb1116a2f55cc4a07782e7a9824d55a1c09d6c5baf866ed9",
+        "1250.json": "104ab9f0a7defa2b6c77f7a59d1dc1cfc1da72a1843945a9ca8a0a5f86a0a955"
+      },
+      "request_sha256": "bcd6ee3199da23ae22f2e3b702feb2e8b44765f093a2adc118c6d2ae76521eb5",
+      "accepted_source": false
+    }
+  },
+  "preflight_tests_run": 6,
+  "preflight_receipt_sha256": "363e2d32a99e1adea61728a74d05fd500c2c8a9951a854fea18dfc7ca31fe22d",
+  "restarted_multistarts": 0,
+  "rigorous_global_or_fading_security_claim": false
+}

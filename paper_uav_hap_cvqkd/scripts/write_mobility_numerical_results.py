@@ -1,0 +1,265 @@
+"""IEEE tables, captions, LaTeX and report from protected numerical artifacts."""
+from __future__ import annotations
+from pathlib import Path
+import copy
+import math
+import re
+import numpy as np
+from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
+from scripts.run_mobility_skr_experiment import SCHEMES,scenario,validate_settings
+from src.mobility_results_package import (ROOT,ORIGINAL,read_csv,reconstructed_winners,
+    verify_series,tradeoff_metrics)
+
+
+def ieee_tables(output,data):
+    s=data["settings"];g=s["geometry"];c=s["cloud"];m=s["mission"];receiver=s["channel"]
+    physical=data["states"][0]["physical"]
+    parameters=[("HAP altitude",g["h_hap_m"],"m","config.geometry"),
+        ("UAV altitude",g["h_uav_m"],"m","config.geometry"),
+        ("UAV region","1000 x 1000","m^2","config.geometry"),
+        ("Candidate positions",100,"","config.geometry"),("Grid spacing",100,"m","config.geometry"),
+        ("HAP horizontal position",str(g["hap_horizontal_m"]),"m","user-confirmed demonstration embedding"),
+        ("Reference UAV position","[450, 450]","m","config.geometry.reference_position_index"),
+        ("Reference slant distance",g["baseline_reference_distance_km"],"km","config.geometry"),
+        ("Time slots",m["slots"],"","config.mission"),
+        ("Mission duration",m["slots"]*m["slot_duration_s"],"s","slots x slot duration"),
+        ("Slot duration",m["slot_duration_s"],"s","config.mission"),
+        ("Maximum UAV speed",m["max_speed_m_per_s"],"m/s","config.mission"),
+        ("Cloud altitude",c["altitude_m"],"m","synthetic cloud config"),
+        ("Cloud radius",c["radius_m"],"m","synthetic cloud config"),
+        ("Cloud attenuation",c["attenuation_db"],"dB","synthetic cloud config"),
+        ("Cloud initial center",str(c["initial_center_m"]),"m","synthetic cloud config"),
+        ("Cloud velocity",str(c["velocity_m_per_s"]),"m/s","synthetic cloud config"),
+        ("MB source candidates",197,"","validated source roster"),
+        ("Uniform source candidates",30,"","validated source roster"),
+        ("Reconciliation efficiency",receiver["beta_rec"],"","config.channel"),
+        ("Optical wavelength",physical["wavelength_m"]*1e9,"nm","stored physical channel"),
+        ("Full divergence",physical["theta_div_rad"]*1e6,"microrad","stored physical channel"),
+        ("Beam waist",receiver["beam_waist_m"],"m","config.channel"),
+        ("Receiver diameter",2*receiver["receiver_radius_m"],"m","config.channel"),
+        ("Clear zenith transmission",receiver["clear_tau_zen"],"","config.channel"),
+        ("Ground Cn2",physical["cn2_ground_m_minus_two_thirds"],"m^(-2/3)","stored physical channel"),
+        ("HV wind speed",physical["wind_m_per_s"],"m/s","stored physical channel"),
+        ("HAP angular jitter",physical["theta_jt_rad"]*1e6,"microrad","stored physical channel"),
+        ("UAV position SD",physical["sigma_h_m"],"m","stored physical channel"),
+        ("AoA SD",physical["sigma_o_rad"]*1e3,"mrad","stored physical channel"),
+        ("FOV half angle",physical["theta_fov_rad"]*1e3,"mrad","stored physical channel"),
+        ("Input channel excess noise",receiver["xi_ch"],"SNU","config.channel"),
+        ("Detector efficiency",receiver["R"],"","config.channel"),
+        ("Detector excess noise",receiver["xi_det"],"SNU","config.channel"),
+        ("Ideal heterodyne chi",1.,"","stored moments"),
+        ("Movement reference distance",s["optimization"]["reference_distance_m"],"m","config.optimization"),
+        ("Main movement penalty",s["optimization"]["positive_lambda_bits_per_use"],"bits/use","config.optimization"),
+        ("QKD channel-use rate","NOT_SPECIFIED","uses/s","config.optimization.channel_use_rate_per_s is null")]
+    rows=[dict(parameter=name,value=value,unit=unit,provenance=origin) for name,value,unit,origin in parameters]
+    saved.write_csv(output/"table_I_system_parameters.csv",rows)
+    summary=data["summary"]
+    metrics=[("Average SKR (bits/use)","average_skr_bits_per_use"),
+        ("Improvement vs S1 (%)","improvement_vs_S1_percent"),("Improvement vs S2 (%)","improvement_vs_S2_percent"),
+        ("Positive-rate slots (%)","qkd_availability_percent"),("Flight distance (m)","total_flight_distance_m"),
+        ("Movement penalty (bits/use)","lambda_bits_per_use"),("Own penalized objective (bits/use)","penalized_objective_bits_per_use"),
+        ("Objective at common lambda=0.001","objective_at_common_positive_lambda")]
+    performance=[dict(metric=name,**{f"S{i+1}":float(r[key]) for i,r in enumerate(summary)}) for name,key in metrics]
+    saved.write_csv(output/"table_II_performance.csv",performance)
+    def escape(value):return str(value).replace("_",r"\_").replace("%",r"\%").replace("&",r"\&").replace("^",r"\textasciicircum{}")
+    def value(value):
+        if isinstance(value,(float,int)):
+            text=f"{value:.8g}"
+            if "e" in text:
+                mantissa,exponent=text.split("e")
+                return rf"${mantissa}\times10^{{{int(exponent)}}}$"
+            return text
+        return escape(value)
+    table1=[r"\begin{table}[t]",r"\caption{System and synthetic demonstration parameters. HAP coordinates preserve the reference link; cloud parameters are not measured weather data. Full-precision inputs are supplied in Table I CSV.}",r"\label{tab:mobility_system}",r"\centering\scriptsize",r"\begin{tabular}{@{}p{0.47\columnwidth}p{0.47\columnwidth}@{}}\hline",r"Parameter & Value \\ \hline"]
+    units={"m^2":r"$\mathrm{m}^2$","m^(-2/3)":r"$\mathrm{m}^{-2/3}$","microrad":r"$\mu$rad"}
+    for name,v,u,_ in parameters:
+        if name in ("HAP horizontal position","Cloud initial center","Cloud velocity"):
+            coordinates=g["hap_horizontal_m"] if name=="HAP horizontal position" else c["initial_center_m"] if name=="Cloud initial center" else c["velocity_m_per_s"]
+            v="("+", ".join(f"{x:.8g}" for x in coordinates)+")"
+        label=r"Ground $C_n^2(0)$" if name=="Ground Cn2" else escape(name)
+        if v=="NOT_SPECIFIED":v="Not specified"
+        table1.append(label+" & "+value(v)+(r"\,"+units.get(u,escape(u)) if u else "")+r" \\")
+    table1.extend([r"\hline\end{tabular}",r"\end{table}"])
+    table2=[r"\begin{table*}[t]",r"\caption{Preliminary effective-Gaussian performance. Availability means the fraction of slots with $S_n>0$; it is not an operational QKD no-outage probability. Own objectives use the scheme's displayed penalty; the common-penalty row permits like-for-like comparison.}",r"\label{tab:mobility_performance}",r"\centering\footnotesize",r"\begin{tabular}{lrrrr}\hline",r"Metric & S1 & S2 & S3 & S4 \\ \hline"]
+    for row in performance:
+        label=r"Objective at common $\lambda=0.001$ (bits/use)" if row["metric"]=="Objective at common lambda=0.001" else escape(row["metric"])
+        table2.append(label+" & "+" & ".join(f"{row[f'S{i}']:.8g}" for i in range(1,5))+r" \\")
+    table2.extend([r"\hline\end{tabular}",r"\end{table*}"])
+    (output/"table_I_system_parameters.tex").write_text("\n".join(table1)+"\n",encoding="utf-8",newline="\n")
+    (output/"table_II_performance.tex").write_text("\n".join(table2)+"\n",encoding="utf-8",newline="\n")
+
+
+def robustness(output,data):
+    variants=[("original",0.,0.),("start_y_minus150",-150.,0.),("start_y_plus150",150.,0.),
+              ("direction_minus15",0.,-15.),("direction_plus15",0.,15.)]
+    rows=[]
+    for name,offset,angle in variants:
+        settings=copy.deepcopy(data["settings"])
+        settings["cloud"]["initial_center_m"][1]+=offset
+        radians=math.radians(angle);direction=np.array([math.cos(radians),math.sin(radians)])
+        for speed in settings["optimization"]["cloud_speed_sweep_m_per_s"]:
+            summary,*_=scenario(settings,validate_settings(settings),data["winners"],velocity=direction*speed)
+            rows.extend(dict(r,scenario=name,start_y_offset_m=offset,direction_deg=angle,
+                cloud_speed_m_per_s=speed,scope="deterministic cached-state scenario sensitivity") for r in summary)
+    saved.write_csv(output/"optional_scenario_sensitivity.csv",rows)
+    aggregate=[]
+    for speed in data["settings"]["optimization"]["cloud_speed_sweep_m_per_s"]:
+        for scheme in SCHEMES:
+            rates=[float(r["average_skr_bits_per_use"]) for r in rows if r["cloud_speed_m_per_s"]==speed and r["scheme"]==scheme]
+            aggregate.append(dict(cloud_speed_m_per_s=speed,scheme=scheme,scenario_count=len(rates),
+                mean_average_skr=float(np.mean(rates)),sample_SD=float(np.std(rates,ddof=1)),
+                minimum=float(np.min(rates)),maximum=float(np.max(rates)),
+                interpretation="descriptive mean/SD over five deliberately specified scenarios; not a confidence interval"))
+    saved.write_csv(output/"optional_scenario_summary.csv",aggregate)
+    return dict(scenarios=5,velocity_cases=5,comparisons=len(rows),SKR_evaluations=0,MC_samples=0)
+
+
+def finish_package(output,data):
+    output=Path(output)
+    if (output/"package_receipt.json").exists():raise ValueError("Completed package exists")
+    uniform=saved.read_json(output/"uniform/receipt.json")
+    if uniform["status"]!="CURRENTLY_VERIFIED_PASS" or uniform["candidate_evaluations"]!=6000:
+        raise ValueError("Uniform benchmark incomplete")
+    for name,want in uniform["output_sha256"].items():
+        if saved.digest(output/"uniform"/name)!=want:raise ValueError("Uniform output bytes differ")
+    uniform_summary=read_csv(output/"uniform/summary.csv")
+    bars=[]
+    for family,summary in (("Uniform",uniform_summary),("MB",data["summary"])):
+        for index,configuration in ((1,"stationary"),(2,"moving_lambda0")):
+            r=summary[index]
+            bars.append(dict(family=family,configuration=configuration,average_skr=float(r["average_skr_bits_per_use"]),
+                flight_distance_m=float(r["total_flight_distance_m"]),source_candidates=30 if family=="Uniform" else 197,
+                QKD_positive_slot_availability=float(r["qkd_availability_percent"]),
+                scope="each family optimized over its own exact-source catalog under the same geometry/cloud/noise/mobility assumptions"))
+    saved.write_csv(output/"plot_data/figure_7_uniform_mb.csv",bars)
+    comparison=[]
+    for configuration in ("stationary","moving_lambda0"):
+        u=next(r["average_skr"] for r in bars if r["family"]=="Uniform" and r["configuration"]==configuration)
+        mb=next(r["average_skr"] for r in bars if r["family"]=="MB" and r["configuration"]==configuration)
+        comparison.append(dict(configuration=configuration,Uniform=u,MB=mb,absolute_MB_gain=mb-u,
+            MB_gain_percent=100*(mb-u)/u if u>0 else None,
+            caveat="joint shaping/variance/catalog comparison, not an isolated fixed-VA shaping theorem"))
+    saved.write_csv(output/"uniform_MB_gains.csv",comparison)
+    ieee_tables(output,data)
+    sensitivity=robustness(output,data)
+    from scripts.plot_mobility_numerical_package import render_package
+    render_package(output,data["settings"],include_uniform=True)
+    tradeoff=tradeoff_metrics(data["summary"])
+    captions=[
+        ("figure_1_cloud_trajectories","Cloud-induced occlusion and trajectories: (a) S3, (b) S4. Gray circles are occlusion footprints mapped through the altitude-plane ray intersection into UAV coordinates, not clouds located at UAV altitude. For a=(h_c-h_U)/(h_H-h_U), their centers are (c-a q_H)/(1-a) and radii R_c/(1-a). Actual cloud centers at h_c=5 km and UAVs at h_U=1 km are stored in the plotting CSV. Arrows indicate movement; open circles and crosses show start/end, which may coincide."),
+        ("figure_2_skr_time","Original per-slot usable SKR for S1--S4, with post-step rendering and no smoothing. Gray intervals indicate cloud blockage of the reference optical path. All results use the same preliminary effective-Gaussian channel, source adaptation, beta=0.95 and ideal heterodyne receiver."),
+        ("figure_3_cumulative_normalized","Cumulative normalized SKR C(n)=sum_{k=1}^n S(k)/N_t, with C(0)=0 and C(N_t) equal to the mean usable SKR. No channel-use rate is specified, so these values are in bits/use, not total secret bits or finite-size-secure key yield."),
+        ("figure_4_skr_flight_tradeoff","Average SKR versus total flight distance for all eight evaluated movement penalties. Only evaluated points are drawn; overlapping lambda values remain separately listed in CSV. S2, S3(lambda=0) and S4(lambda=0.001 bits/use) are marked. Flight distance is not propulsion energy; average SKR and penalized objective are reported separately."),
+        ("figure_5_cloud_velocity","The five original cloud-speed cases with fixed +x direction and unchanged initial center, radius, attenuation, physical channel and mission. Curves connect only evaluated speed points for visual guidance, without interpolation or extrapolated results. No monotonicity is asserted."),
+        ("figure_6_source_parameters","Exact selected source pairs for S2 and S4: (a) nu_MB,raw and (b) V_A. Values are held over each slot, without interpolation. The repository convention is nu_repo=42.5 nu_raw. Both schemes use identical source-adaptation rules and the same finite MB catalog."),
+        ("figure_7_uniform_mb","Controlled optimized Uniform and MB comparison for stationary and moving(lambda=0) UAVs. Uniform optimizes VA over 30 authenticated Uniform sources; MB optimizes nu_raw and VA over 197 authenticated MB sources. Geometry, clouds, slots, receiver, noise and mobility constraints are common. Available catalog sizes and selected energy may differ; this is a joint source-adaptation comparison, not an isolated energy-matched shaping gain.")]
+    saved.write_csv(output/"figure_captions.csv",[dict(figure=i+1,basename=name,caption=caption) for i,(name,caption) in enumerate(captions)])
+    write_latex(output,data,captions,tradeoff,comparison)
+    write_report(output,data,captions,tradeoff,comparison,uniform_summary,sensitivity)
+    manifest=saved.read_json(output/"startup_manifest.json")
+    receipt=dict(status="CURRENTLY_VERIFIED_PASS",scientific_status="PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE",
+        old_MB_candidate_evaluations_repeated=0,new_Uniform_evaluations=6000,Uniform_smoke_evaluations=30,
+        reused_MB_evaluations=39400,optional_cached_scenario_comparisons=sensitivity["comparisons"],
+        source_moments_generated=0,new_MC=0,new_AP_or_AO=False,figures=7,column_layouts=["single","double"],
+        tables=2,LaTeX_compile_status="BLOCKED_BY_ENVIRONMENT",publication_lifecycle="NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+        actual_fading_security_claim=False,protected_files=len(manifest["protected_hashes"]),
+        protected_changes=saved.verify_protected(manifest),tradeoff=tradeoff,
+        producers={n:saved.digest(ROOT/n) for n in ("src/mobility_results_package.py","scripts/build_mobility_numerical_package.py",
+            "scripts/plot_mobility_numerical_package.py","scripts/write_mobility_numerical_results.py")},
+        output_sha256={p.relative_to(output).as_posix():saved.digest(p) for p in output.rglob("*") if p.is_file()},commit_or_push=False)
+    saved.save(output/"package_receipt.json",receipt,exclusive=True)
+    print("PACKAGE_COMPLETE",receipt["status"],"7 figures x2 sizes, tables, LaTeX, report; preliminary science",flush=True)
+
+
+def write_latex(output,data,captions,tradeoff,comparison):
+    summary=data["summary"];rate=[float(r["average_skr_bits_per_use"]) for r in summary]
+    text=[r"% Requires IEEEtran, graphicx and amsmath. Copy this file with figures/ and the two table .tex files.",
+        r"\section{Numerical Results and Discussion}\label{sec:numerical_mobility}",
+        r"The numerical results in this section are preliminary effective-Gaussian diagnostics: fading enters through $T_{\rm eff}=\langle\sqrt{\eta}\rangle^2$, while fading-induced variance is omitted. They are not a certified fading-channel security lower bound or a finite-size-secure key yield.",
+        r"We use a $10\times10$ grid of 100 cell centers in a $1\,\mathrm{km}\times1\,\mathrm{km}$ UAV region, 30 slots of 20 s, and $v_{\max}=15$ m/s. The HAP/UAV altitudes are 20/1 km. The demonstrative HAP embedding preserves the 21.9393102292-km reference link. A synthetic cloud at 5 km has radius 420 m, attenuation 10 dB, initial center $(2093.71686623,450)$ m and velocity $(3,0)$ m/s. These cloud parameters are not measured weather data.",
+        r"At each position/state, source selection enumerates 197 authenticated MB sources without interpolating $C,w$ or SKR. The same ideal heterodyne receiver, $\xi_{\rm ch}=0.0186$, $\beta_{\rm rec}=0.95$, source adaptation and cloud scenario are used in all schemes. The UAV trajectory is optimized by DP on the finite grid. The implemented objective is $\overline S-\lambda D_{\rm fly}/D_{\rm ref}$ with $D_{\rm ref}=1000$ m; it is a distance penalty, not a propulsion-energy model.",
+        r"\input{table_I_system_parameters.tex}",r"\input{table_II_performance.tex}",
+        r"\subsection{Positioning and mobility}",
+        f"The reference fixed UAV gives {rate[0]:.7f} bits/use. The optimized stationary UAV selects $(950,950)$ m and gives {rate[1]:.7f} bits/use, a {float(summary[1]['improvement_vs_S1_percent']):.2f}\\% improvement. Without clouds, the cached clear-state optimum is $(950,450)$ m: the boundary solution therefore reflects geometry and cloud exposure, not an assumed grid error. No optimum outside the finite region is claimed.",
+        f"The maximum-SKR moving trajectory gives {rate[2]:.7f} bits/use and a flight distance of {float(summary[2]['total_flight_distance_m']):.2f} m. With $\\lambda=0.001$ bits/use, S4 gives {rate[3]:.7f} bits/use while flying {float(summary[3]['total_flight_distance_m']):.0f} m. It retains {tradeoff['S4_SKR_retained_vs_S3_percent']:.2f}\\% of S3's average SKR with {tradeoff['S4_flight_distance_reduction_vs_S3_percent']:.2f}\\% less flight distance; its gains over S1 and S2 are {tradeoff['S4_gain_vs_S1_percent']:.2f}\\% and {tradeoff['S4_gain_vs_S2_percent']:.2f}\\%, respectively. Its own penalized objective is {float(summary[3]['penalized_objective_bits_per_use']):.7f} bits/use and is not directly equated with an unpenalized mean.",
+        r"Figs.~\ref{fig:mobility_ieee_1} and \ref{fig:mobility_ieee_2} show how cell changes avoid most cloud attenuation. Per-slot discontinuities are retained. Fig.~\ref{fig:mobility_ieee_3} uses the normalized sum $C(n)=N_t^{-1}\sum_{k=1}^n S(k)$, whose endpoint is the average SKR; an unvalidated channel-use rate is not assumed.",
+        r"\subsection{SKR--mobility trade-off and source adaptation}",
+        r"Fig.~\ref{fig:mobility_ieee_4} shows only the eight evaluated penalty solutions, with overlapping points identified by their CSV penalty values. It is not an interpolated continuous Pareto frontier. Fig.~\ref{fig:mobility_ieee_5} varies only speed along $+x$ in the original cloud scenario; no monotonic trend is assumed. Additional fixed starting-position/direction sensitivities are reported separately as descriptive scenario means and standard deviations, not confidence intervals.",
+        r"Fig.~\ref{fig:mobility_ieee_6} compares the exact selected $(\nu_{\rm MB,raw},V_A)$ of S2 and S4. The repository uses $\nu_{\rm repo}=42.5\nu_{\rm raw}$. Changes occur at selected cloud/mobility states, and repeated parameter values are retained rather than interpolated.",
+        r"\subsection{Uniform versus MB and limitations}"]
+    for row in comparison:
+        text.append(f"For the {row['configuration'].replace('_',' ')} case, optimized Uniform gives {row['Uniform']:.7f} bits/use and optimized MB gives {row['MB']:.7f} bits/use (absolute gain {row['absolute_MB_gain']:.7f} bits/use).")
+    text.extend([r"Uniform enumerates 30 valid source variances and MB enumerates 197 shaping/variance pairs under common channel and mobility conditions. This supports a joint source-adaptation comparison; it does not isolate shaping at matched modulation energy or certify a continuous source optimum.",
+        r"The omitted output term is $(\langle\eta\rangle-T_{\rm eff})V_A$. In addition, replacing $\langle\eta\rangle\xi_{\rm ch}$ by $T_{\rm eff}\xi_{\rm ch}$ removes $(\langle\eta\rangle-T_{\rm eff})\xi_{\rm ch}$. Thus the full moment-matched Bob variance exceeds the adopted variance by $(\langle\eta\rangle-T_{\rm eff})(V_A+\xi_{\rm ch})$. Full-fading mixture precision and operational security justification remain unresolved, so these Gaussian diagnostics cannot support final fading-security conclusions.",
+        r"The circular binary-cloud model, known cloud schedule/CSI, instantaneous source adaptation, and endpoint slot-rate approximation neglect cloud fluid dynamics, estimation errors, propagation during transitions and reacquisition overhead. Positive-rate-slot availability is not physical no-outage probability. All reported optima are restricted to the discrete grid and available numerical source catalogs."])
+    for i,(name,caption) in enumerate(captions,1):
+        caption=caption.replace("_",r"\_").replace("%",r"\%").replace("^",r"\textasciicircum{}")
+        replacements=dict((
+            (r"a=(h\_c-h\_U)/(h\_H-h\_U)",r"$a=(h_c-h_U)/(h_H-h_U)$"),
+            (r"(c-a q\_H)/(1-a)",r"$(\mathbf c-a\mathbf q_H)/(1-a)$"),
+            (r"R\_c/(1-a)",r"$R_c/(1-a)$"),
+            (r"h\_c=5 km",r"$h_c=5$ km"),(r"h\_U=1 km",r"$h_U=1$ km"),
+            (r"C(n)=sum\_{k=1}\textasciicircum{}n S(k)/N\_t",r"$C(n)=N_t^{-1}\sum_{k=1}^n S(k)$"),
+            ("C(0)=0",r"$C(0)=0$"),(r"C(N\_t)",r"$C(N_t)$"),
+            ("beta=0.95",r"$\beta_{\rm rec}=0.95$"),
+            ("lambda=0.001 bits/use",r"$\lambda=0.001$ bits/use"),("lambda=0",r"$\lambda=0$"),
+            (r"nu\_repo=42.5 nu\_raw",r"$\nu_{\rm repo}=42.5\nu_{\rm raw}$"),
+            (r"nu\_MB,raw",r"$\nu_{\rm MB,raw}^{\star}$"),(r"nu\_raw",r"$\nu_{\rm raw}$"),
+            (r"V\_A",r"$V_A^{\star}$")))
+        caption=re.sub("|".join(re.escape(plain) for plain in replacements),
+            lambda match:replacements[match.group(0)],caption)
+        double=i==1
+        environment="figure*" if double else "figure"
+        layout="double" if double else "single"
+        dimension=r"\textwidth" if double else r"\columnwidth"
+        text.extend([rf"\begin{{{environment}}}[t]",r"\centering",
+            rf"\includegraphics[width={dimension}]{{figures/{name}_{layout}.pdf}}",
+            rf"\caption{{{caption}}}\label{{fig:mobility_ieee_{i}}}",rf"\end{{{environment}}}"])
+    (output/"numerical_results_section.tex").write_text("\n\n".join(text)+"\n",encoding="utf-8",newline="\n")
+    standalone=r"""\documentclass[journal]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\begin{document}
+\title{Mobility-aware HAP--UAV DM-CV-QKD: Preliminary Numerical Results}
+\author{Author review required}
+\maketitle
+\input{numerical_results_section.tex}
+\end{document}
+"""
+    (output/"ieee_numerical_results_standalone.tex").write_text(standalone,encoding="utf-8",newline="\n")
+
+
+def write_report(output,data,captions,tradeoff,comparison,uniform_summary,sensitivity):
+    boundary=saved.read_json(output/"stationary_boundary_audit.json")
+    security=saved.read_json(output/"scientific_validation_audit.json")
+    summary=data["summary"]
+    lines=["# Gói Numerical Results cho mô hình UAV–HAP dưới mây chuyển động", "", "Ngày 2026-10-14. Gói hình/bảng theo định dạng IEEE; số liệu khoa học vẫn là PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE. Không chứng nhận security cho kênh fading hoặc nâng lifecycle publication.","",
+        "Đã xác minh và tái sử dụng đủ 39.400 kết quả MB, 200 trạng thái, 100 vị trí, 30 slot. Không chạy lại bảng MB. Tính mới đúng 6.000 đối chứng Uniform (30 nguồn × 200 trạng thái), sau 30 phép smoke; không tính C,w mới, không AP/AO, nội suy hay Monte Carlo. 25 tests đã đạt, gồm nguyên 15 tests cũ và 10 kiểm tra dữ liệu/hình mới.","",
+        "| Scheme | Mean SKR (bits/use) | Flight (m) | lambda (bits/use) | Own objective |", "|---|---:|---:|---:|---:|"]
+    for row in summary:lines.append(f"| {row['scheme']} | {float(row['average_skr_bits_per_use']):.10g} | {float(row['total_flight_distance_m']):.9g} | {float(row['lambda_bits_per_use']):g} | {float(row['penalized_objective_bits_per_use']):.10g} |")
+    lines.extend(["",f"S4 giữ {tradeoff['S4_SKR_retained_vs_S3_percent']:.6f}% SKR của S3, giảm quãng bay {tradeoff['S4_flight_distance_reduction_vs_S3_percent']:.6f}%, tăng {tradeoff['S4_gain_vs_S1_percent']:.6f}% so S1 và {tradeoff['S4_gain_vs_S2_percent']:.6f}% so S2. Không gọi quãng bay là năng lượng. Table II tách mục tiêu riêng và mục tiêu chung lambda=0.001 để tránh so sánh khác đại lượng.","",
+        "Cumulative mới là C(n)=sum(S_1..S_n)/30, đơn vị bits/use; endpoint bằng đúng mean SKR. Không có f_use được xác thực nên không xuất tổng bit khóa và không gọi kết quả là finite-size-secure key yield. K thô có dấu được giữ nguyên; tiện ích S=max(0,K) có định nghĩa riêng.","",
+        f"Boundary audit: có mây, S2 chọn ({boundary['stationary_best']['x_m']:g},{boundary['stationary_best']['y_m']:g}) m với {boundary['stationary_best']['blocked_slots']} slot bị mây. Counterfactual dùng các giá trị sạch trong cache chọn ({boundary['no_cloud_counterfactual_best']['x_m']:g},{boundary['no_cloud_counterfactual_best']['y_m']:g}) m. Tọa độ HAP lệch +x làm giảm L về biên phải; mây và hệ số giao mặt phẳng làm (950,950) ít bị che hơn. Đây là optimum của lưới hữu hạn, không suy ra optimum liên tục hoặc lỗi biên.","",
+        "Uniform đối chứng dùng PMF/amplitude/cache C,w riêng và tối ưu VA trên 30 nguồn đã xác thực. MB dùng 197 cặp nu_raw/VA. Từng family tự tối ưu stationary/DP; cùng vùng, mây, slot, R/xi/beta/mobility, và source adaptation mỗi slot. Không ép Uniform đi theo quỹ đạo MB hoặc dùng nguồn MB cho Uniform. Catalog và VA chọn có thể khác, nên gain thể hiện joint source adaptation trong ngân hàng sẵn có, không phải cô lập PS ở cùng năng lượng trung bình.","",
+        "| Comparison | Uniform (bits/use) | MB (bits/use) | Absolute MB gain | Percent gain if Uniform>0 |", "|---|---:|---:|---:|---:|"])
+    for row in comparison:
+        gain="UNDEFINED" if row["MB_gain_percent"] is None else f"{row['MB_gain_percent']:.6f}%"
+        lines.append(f"| {row['configuration']} | {row['Uniform']:.10g} | {row['MB']:.10g} | {row['absolute_MB_gain']:.10g} | {gain} |")
+    lines.extend(["", "Main velocity figure dùng đúng năm vận tốc cũ, chỉ đổi độ lớn v theo +x. Ngoài ra, khảo sát riêng 5 kịch bản cố định (gốc, lệch tâm y±150 m, đổi hướng±15°) ở 5 vận tốc, tổng 100 so sánh từ bảng trạng thái MB có sẵn; không tính SKR mới. Mean/SD chỉ mô tả năm kịch bản xác định, không phải confidence interval hay mẫu khí tượng ngẫu nhiên.","",
+        "Điều bỏ qua trong mô hình: N_fade=(mean_eta−T_eff)VA; noise kênh đúng theo second moment là mean_eta xi_ch nhưng mô hình hiện dùng T_eff xi_ch. Tổng chênh output variance=(mean_eta−T_eff)(VA+xi_ch). Nó ảnh hưởng b, penalty trong Z và Gaussian MI. CSV fading_omission_audit ghi số cụ thể ở mọi source thắng; chỉ là audit đại số, không phải kết quả security mới. PDF Eq. (10), support/normalizer/atom và ba mômen vẫn giữ nguyên.","",
+        f"Có code full-fading MI/Holevo, nhưng chưa đủ điều kiện tái chạy thành bảng validated đầy đủ: MI mixture đã lưu không đạt sampling precision, Holevo interval chưa có rigorous global enclosure/security protocol; {len(security['corrected_source_paths_outside_original_snapshot'])} nguồn MB bổ sung nằm ngoài snapshot nguồn được evaluator corrected cũ cho phép. Không nới tolerance, bypass provenance hoặc ghép MI/Holevo khác noise để gọi là validated. Các hình chính giữ nguyên nhãn Gaussian sơ bộ như yêu cầu. Không kết luận rằng toàn bộ mô hình fading có SKR âm từ một điểm diagnostic.","",
+        "Tất cả hình có bản single (3.5 inch) và double (7.16 inch), PDF vector và PNG 300 dpi, cùng màu/line/marker. Fig1 biểu diễn tập che khuất chiếu qua tia vào mặt phẳng UAV: center=(c−a qH)/(1−a), radius=Rc/(1−a), a=(hc−hU)/(hH−hU). Đây không phải đặt mây ở cao độ UAV; tâm mây thật vẫn ở 5 km và lưu CSV. Fig2 giữ nhảy slot và shade thời gian reference bị che. Fig4 không vẽ đường Pareto nội suy; đủ tám lambda kể cả điểm trùng. Fig6 là S2/S4 và giữ nguyên mọi bước tham số.","",
+        "Giới hạn: cloud đĩa/suy hao nhị phân, forecast/CSI biết trước, slot endpoints bỏ diễn biến trong transit, reacquisition/source-overhead, không propulsion model, không security protocol/finite-size/source total-error enclosure. Khả dụng=phần trăm slot S>0, không phải xác suất không-outage AoA. Tọa độ HAP là embedding minh họa được user xác nhận, không measured location.","",
+        "Artifacts và caption:",""])
+    for i,(name,caption) in enumerate(captions,1):
+        lines.extend([f"- Figure {i}: [single PDF](figures/{name}_single.pdf), [double PDF](figures/{name}_double.pdf), [PNG](figures/{name}_double.png).",f"  {caption}"])
+    lines.extend(["", "[Table I CSV](table_I_system_parameters.csv) / [LaTeX](table_I_system_parameters.tex); [Table II CSV](table_II_performance.csv) / [LaTeX](table_II_performance.tex). [Numerical Results LaTeX](numerical_results_section.tex), [standalone IEEEtran](ieee_numerical_results_standalone.tex).", "",
+        "LaTeX đã sinh theo IEEEtran với graphicx/amsmath; trình biên dịch pdflatex/latexmk/tectonic không có trong môi trường: BLOCKED_BY_ENVIRONMENT cho compile. Không tuyên bố đã compile PDF manuscript. Các PDF hình được Matplotlib xuất và kiểm tra riêng.","",
+        "Các lệnh đã dùng, từ paper_uav_hap_cvqkd (ghi nhận quy trình; không chạy lại vào namespace đã hoàn tất):","", "```powershell", "& .venv/Scripts/python.exe scripts/build_mobility_numerical_package.py prepare",
+        "& .venv/Scripts/python.exe -m unittest tests.test_mobility_skr tests.test_mobility_results_package -v",
+        "& .venv/Scripts/python.exe scripts/build_mobility_numerical_package.py uniform-smoke",
+        "& .venv/Scripts/python.exe scripts/build_mobility_numerical_package.py uniform",
+        "& .venv/Scripts/python.exe scripts/build_mobility_numerical_package.py finish", "```","",
+        "Uniform và finish từ chối chạy lại khi receipt hoàn tất đã có. prepare chỉ dùng để khởi tạo; không chạy lại phase này hoặc helper xuất hình vào namespace đã hoàn tất. Nhà nghiên cứu có thể dùng các helper plotting/CSV với thư mục mới khi cần variant; không chỉnh source-data cũ. Không sửa tệp Overleaf ngoài Downloads. Không commit/push. Frozen-hash blocker và NOT_READY_FOR_PUBLICATION_SCALE_RUNS giữ nguyên.","",
+        "Bằng chứng máy đọc: [package receipt](package_receipt.json), [kiểm tra độc lập](final_validation.json), [25 tests](test_receipt.json), [đối chứng Uniform](uniform/receipt.json), [audit security](scientific_validation_audit.json). CURRENTLY_VERIFIED_PASS áp dụng cho kiểm tra số liệu/xuất hình; trạng thái khoa học vẫn sơ bộ, compile TeX là BLOCKED_BY_ENVIRONMENT.",""])
+    (output/"NUMERICAL_RESULTS_REPORT_VI.md").write_text("\n".join(lines),encoding="utf-8",newline="\n")

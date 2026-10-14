@@ -1,0 +1,76 @@
+{
+  "status": "AUDIT_COMPLETE_IMPLEMENTATION_READY_FOR_SCOPED_TESTS",
+  "captured_utc": "2026-10-14T11:57:30.019870+00:00",
+  "reused_files": {
+    "physical": {
+      "path": "scripts/calculate_channel_pdf_and_moments.py",
+      "sha256": "d504f531eb92c20a9d1a1cdd63b80dc4ffc636977eb808b6416ce129690f4e41"
+    },
+    "literal_pdf": {
+      "path": "src/manuscript_literal_3moments.py",
+      "sha256": "f47431a9da3ebd571b6d4866d9a0129ebf4063133a46866409ce10a4ab23e29c"
+    },
+    "normalized_pdf_moments": {
+      "path": "src/manuscript_corrected_3moments.py",
+      "sha256": "85d149870fbd177d0fafeb64c2a05f7d4c97a4f8d956a1a0e248af7af20641ef"
+    },
+    "effective_mapping": {
+      "path": "src/effective_channel_no_fading_noise.py",
+      "sha256": "a774773b5ea9ddace1e679d581050def6d970b7f55c90656380e6a4191c7bb61"
+    },
+    "authenticated_evaluator": {
+      "path": "scripts/run_ao_effective_channel_no_fading_noise_reference.py",
+      "sha256": "3d572acfb6bb5207121bac8d599f162d577d0f287a8c3a2f4f09c2dbd4b3e924"
+    },
+    "MI": {
+      "path": "src/cvqkd/mutual_information.py",
+      "sha256": "d1d7085cc32084ceb1ae7453e4b5349e4d2352611f5c2010fb1baffca2b4b665"
+    },
+    "Holevo": {
+      "path": "src/cvqkd/holevo.py",
+      "sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+    },
+    "covariance": {
+      "path": "src/cvqkd/covariance.py",
+      "sha256": "a0a5a3d3df992a28667d683766de248e906406d1750370aa73b96e2ff4633e5f"
+    },
+    "ensemble_MB": {
+      "path": "scripts/run_exact_mb_test2.py",
+      "sha256": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf"
+    },
+    "ensemble_normalization": {
+      "path": "src/modulation/normalization.py",
+      "sha256": "88dd777f6ce2f64117dc64cbcebc1335337aaa73f5b597410618d0581fd47ce2"
+    },
+    "source_provenance": {
+      "path": "scripts/exact_cache_provenance.py",
+      "sha256": "7067f39d8582859ab3c4a069980f0a0d2814a165456a9e15a4781dadfe04804a"
+    }
+  },
+  "source_roster": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv",
+  "source_roster_sha256": "84e86497adca0a730ef719fe812fd957cb9729c5c8a3bd4da61f0498c97e3859",
+  "MB_candidates": 197,
+  "original_MB_candidates": 182,
+  "new_accepted_MB_candidates": 15,
+  "expected_full_candidate_evaluations": 39400,
+  "new_source_or_AP": false,
+  "mode": "effective_channel_no_fading_noise",
+  "cloud_conditioning": "raw product first, existing active finite-domain conditioning second; preserve AoA atom; recompute three moments with ideal detector",
+  "geometry_status": "DEMONSTRATION_EMBEDDING_PRESERVES_BASELINE_SLANT_DISTANCE",
+  "actual_HAP_horizontal_coordinates_found": false,
+  "reference_UAV_m": [
+    450,
+    450
+  ],
+  "HAP_horizontal_m": [
+    11419.65511459133,
+    450
+  ],
+  "reference_distance_km": 21.9393102292,
+  "explicit_request_uses_distance_penalty_not_tex_energy_model": true,
+  "PDF_reference": "hash captured only; no local PDF text parser available; selected TeX excerpt and attached task supply the equations used",
+  "frozen_spec_unchanged": true,
+  "frozen_mismatch_preexisting": true,
+  "publication_lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "full_run_before_smoke_pass": false
+}

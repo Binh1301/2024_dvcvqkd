@@ -1,0 +1,39 @@
+parameter,value,unit,provenance
+HAP altitude,20000.0,m,config.geometry
+UAV altitude,1000.0,m,config.geometry
+UAV region,1000 x 1000,m^2,config.geometry
+Candidate positions,100,,config.geometry
+Grid spacing,100,m,config.geometry
+HAP horizontal position,"[11419.65511459133, 450.0]",m,user-confirmed demonstration embedding
+Reference UAV position,"[450, 450]",m,config.geometry.reference_position_index
+Reference slant distance,21.9393102292,km,config.geometry
+Time slots,30,,config.mission
+Mission duration,600.0,s,slots x slot duration
+Slot duration,20.0,s,config.mission
+Maximum UAV speed,15.0,m/s,config.mission
+Cloud altitude,5000.0,m,synthetic cloud config
+Cloud radius,420.0,m,synthetic cloud config
+Cloud attenuation,10.0,dB,synthetic cloud config
+Cloud initial center,"[2093.7168662297536, 450.0]",m,synthetic cloud config
+Cloud velocity,"[3.0, 0.0]",m/s,synthetic cloud config
+MB source candidates,197,,validated source roster
+Uniform source candidates,30,,validated source roster
+Reconciliation efficiency,0.95,,config.channel
+Optical wavelength,1550.0,nm,stored physical channel
+Full divergence,10.000000000000002,microrad,stored physical channel
+Beam waist,0.0986760647169751,m,config.channel
+Receiver diameter,0.55,m,config.channel
+Clear zenith transmission,0.92,,config.channel
+Ground Cn2,1e-14,m^(-2/3),stored physical channel
+HV wind speed,21.0,m/s,stored physical channel
+HAP angular jitter,15.610000000000001,microrad,stored physical channel
+UAV position SD,1.0,m,stored physical channel
+AoA SD,1.5,mrad,stored physical channel
+FOV half angle,6.25,mrad,stored physical channel
+Input channel excess noise,0.0186,SNU,config.channel
+Detector efficiency,1.0,,config.channel
+Detector excess noise,0.0,SNU,config.channel
+Ideal heterodyne chi,1.0,,stored moments
+Movement reference distance,1000.0,m,config.optimization
+Main movement penalty,0.001,bits/use,config.optimization
+QKD channel-use rate,NOT_SPECIFIED,uses/s,config.optimization.channel_use_rate_per_s is null

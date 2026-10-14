@@ -1,5 +1,25 @@
 # Evidence Register
 
+## EVID-0179 - Separate manuscript-literal three-moment implementation
+
+2026-10-12. User supplied manuscript (37), SHA256
+9e7e1af3c218aa8136cf9c00e41309e84c083bab5f8be9735bf14b73e3a8ca95.
+New src/manuscript_literal_3moments.py is outside the historical objective
+identity's src/channel and src/cvqkd scans. New config/single-point entry/tests
+and validation runner; existing source/channel/MI/Holevo/AO files unchanged.
+results/manuscript_literal_3moments/implementation_validation_4/validation.json
+records CURRENTLY_VERIFIED_PASS for implementation: 5 tests, 3.823s unittest,
+3251 old/protected hashes unchanged, 26 historical contexts compatible,
+original reference K=.07798099387393764 reproduced. Independent finite-domain
+integrals match Eqs12--14 for rho0/.2; domain/source tampering fails closed.
+Reference new-mode normalization FAILED: mass=.9841200272202841, discrepancy
+-.015879972779715867; no renormalization. Covariance numerical validity PASS,
+raw new K=-2.454774809836829, explicitly not an operational/security-certified
+rate. Mapping/DM-MI/G_d gaps disclosed in MANUSCRIPT_LITERAL_3MOMENTS_REPORT_VI.md.
+AP/AO/182-catalog/sweep/final-test NOT_RUN. Prior failed validation receipt
+retained. Frozen historical hash discrepancy/lifecycle/Objective C stop unchanged.
+
+
 ## EVID-0178 - Objective C explicitly stopped by user
 
 2026-10-11 21:59:57UTC+7: user says "dung". Verified controllerwrapperPID7132
@@ -8393,3 +8413,455 @@ expansion remains lifecycle-gated. No C,w interpolation was used.
 - Focused Holevo-interval suite: 13 tests and 2 subtests passed.
 - A broader legacy Holevo test selection was stopped as runtime-limited and is
   not used as pass evidence.
+
+## EVID-0180 - isolated manuscript_corrected_3moments, 2026-10-13
+
+User task attachment82ff4829 authorizes separate corrected Eq10/Eq20-preserving
+mode, lightweight A-O tests and reporting only. Evidence:
+results/manuscript_corrected_3moments/implementation_validation/attempt_2/validation.json
+and final_integrity_receipt.json; detailed report
+ docs/MANUSCRIPT_CORRECTED_3MOMENTS_REPORT_VI.md.
+24 tests CURRENTLY_VERIFIED_PASS, 0failures/errors, 3643 protected hashes
+unchanged; actual historical K=.07798099387393764, literal K=-2.454774809836829
+and literal rawmass=.9841200272202841 reproduced. 26 original objective contexts
+compatible. Original source/MB/normalization/literal/caches/catalog182 unchanged.
+New raw wrapper rho0 conditions active only; rawretainedmass .9841200272202841,
+Factive .9841173294426483, physicalmass .9999999999999999, discarded .015879972779715916.
+Reference UNIT algebra m1=.23790886783673015,mh=.40114871429673266,mn=2.662230522819319;
+Teff=.16092029098192165,Nout=.42786227764320994,b=2.312923878043779,
+Zstar=2.575487382363995. No corrected reference MI/Holevo/SKR production run.
+New discrete joint-fading MI exactphysicalsampling/positive likelihoodquadrature
+has tinyfixtures including256symbols; notreference precision certification.
+Ideal interval/refinement checks pass; selected trusted R=.7/xi_det=.0135
+Holevo absent -> chi/K=null, BLOCKED_BY_SCIENTIFIC_MODEL. No ideal substitution.
+Requested PDF(37)(2) notlocated; config distinguishes actualavailable(37)/request.
+Frozen specification hash df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15
+unchanged; historical discrepancy persists. AP/AO/all182/full26/ObjectiveC restart,
+training/heldout/final-test/publication/commit/push NOT_RUN. Entry --help only.
+
+## EVID-0181 - ONE ideal-heterodyne corrected reference, 2026-10-13
+
+Explicit usertask6abbafa6 switches only corrected reference to R=1,xi_det=0,
+chi_het=1; xi_ch=.0186,beta=.95,phase/AO OFF. Onepoint21.9393102292/.165/5.5,
+existing exactCw; separate idealconfig/entry/output, all previous modules/config
+and results unchanged. Evidence results/manuscript_corrected_3moments/
+ideal_heterodyne_reference_20261013/reference_result.json, preflight_tests.json,
+required_validation_checks.json, integrity_receipt.json; report
+ docs/MANUSCRIPT_CORRECTED_IDEAL_REFERENCE_REPORT_VI.md.
+29 tests CURRENTLY_VERIFIED_PASS, 3663 protected files unchanged, M/Nregressions.
+Actual physicalchannel recomputed: mass1,m1=.23790886783673015,
+mh=.40114871429673266,mn=1.7665162371050331; Teff=.16092029098192165,
+N_eff=.42786227764320994,Zstar=2.575487382363995. Ideal covariance valid.
+chi(Zstar)=1.2195896239728028; justified interval[2.575487382363995,
+2.5773603608169613], numericmax same atlowerendpoint; no monotonicity assumption,
+257/515 grids/refinement pass; rigorous global error enclosure NOT_ESTABLISHED.
+Actual mixtureMI .4652637991973034,4096samples/seed20261013,
+SE=.019468676410223464 >target.002 =>SAMPLING_PRECISION_NOT_MET.
+Likelihood32/64 convergence passed; sampling tolerance not relaxed, no extra run.
+SignedpointestimateKstar=Kinterval=-.7775890147353646 diagnostic only.
+Separate discrete effective-AWGN GH8/16/32 I=.4484184676941574,
+Kstar=Kinterval=-.7935920796633533 approximation, no substitution for mixture.
+Scientific status NOT_ESTABLISHED_MI_PRECISION, not a certifiedsecuritylowerbound.
+Exactlyone production execution, ~6.016s; AP/AO/182/26/restartC/training/test/
+publication/commit/push NOT_RUN. Frozenhash mismatch/lifecycle NOT_READY unchanged.
+
+## EVID-0182 - one-point negative-SKR causal diagnostic, 2026-10-13
+
+The explicit one-point diagnostic reads the historical D55 row and corrected
+ideal `reference_result.json`, rechecks current physics/source provenance and
+the unchanged historical evaluator at that same point, and reuses cached
+mixture MI. It does not recompute C,w or generate Monte Carlo samples. Entry:
+`scripts/run_negative_skr_diagnostic.py`. The receipt is
+`results/manuscript_corrected_3moments/negative_skr_diagnostic_20261013/diagnostic_receipt.json`
+and the Vietnamese report is `docs/NEGATIVE_SKR_DIAGNOSTIC_REPORT_VI.md`.
+
+The common geometry, source cache key, ensemble hash, C, and w match exactly.
+The derived PDF conventions do not: historical uses untruncated closed-form
+raw moments with `(A0,w_eq,sigma_X^2)=(0.9980912504070394,
+1.4111227269002553,0.00039536014503027954)`, while corrected Eq. (10) uses
+`(A0,w_eq,sigma_R^2)=(0.9977339699934346,1.312921595852572,
+0.0539620777961657)` and conditions active `0<eta<=1`. Corrected raw tail
+above one is `0.015879972779715795`. Order-dependent moment stages:
+historical full support .2011265222214531, changed aperture .171715967847831,
+changed raw Rytov .1694819790377013, retained unnormalized .1558491966743379,
+conditioned .16092029098192165. Full-support and retained raw moments are
+distinguished; independent full-support quadrature agrees. Historical raw
+mixed tail .00003653596377820733 is a new read-only diagnostic, not an input
+to its objective. This establishes a convention mismatch, not rounding failure.
+
+The corrected noise decomposition is `N_fading=0.42343717270144676`,
+`N_channel=0.0044251049417631805`, `N_eff=0.42786227764320994`, so fading is
+`98.9657642%` of effective output noise. Historical algebra reproduces
+`Z=2.8802711769958247`, `chi_BE=0.5244988060866094`, and
+`K=0.07798099387393764`; corrected algebra gives
+`Z=2.575487382363995`, `chi_BE=1.2195896239728028`, and the stored mixture
+diagnostic `K=-0.7775890147353646`. The largest entropy change is the
+`lambda_2` term (`+0.858312209606888` bits/use). Physical covariance controls
+show T-only chi decreases to .4429134296445705; adding fading to b increases
+chi from .44982539612874195 to 1.2191436805518054; final Z penalty gives
+corrected chi. Eight lightweight diagnostic tests CURRENTLY_VERIFIED_PASS,
+including independent Gamma+iOmega/iOmegaGamma spectra and fail-closed checks.
+Actual historical I/betaI/chi/K/Teff residuals and corrected producer residuals
+are zero. 3663 protected hashes and 13 previous ideal output hashes verified
+current and unchanged. Corrected MI remains `SAMPLING_PRECISION_NOT_MET`; no security
+lower bound is established. Final diagnostic status: `CONFIGURATION_MISMATCH`.
+
+No historical evaluator, Eq. (10), Eq. (20), source cache, catalog, AO/AP,
+Objective C, sweep, training/test state, or publication state was changed.
+
+## EVID-0183 - one-reference Gaussian mode without fading variance, 2026-10-13
+
+Explicit user decision implements effective_channel_no_fading_noise as a new
+module/config/entry/tests, outside historical channel/cvqkd hash namespaces.
+Evidence: results/effective_channel_no_fading_noise/reference_20261013/
+reference_result.json, validation_receipt.json, test_output.txt and startup_manifest.json.
+Report: docs/EFFECTIVE_CHANNEL_NO_FADING_NOISE_REPORT_VI.md.
+
+Exactly one candidate L21.9393102292/nuRaw.165/VA5.5, idealR1/xiDet0/chiHet1,
+beta.95/xiCh.0186/phaseOFF/AOOFF. Physical Eq10/conditioning and all three
+channel moments match corrected reference exactly; source cache C,w and
+ensemble/producers verified unchanged. New mapping T=mh²,
+xi_eff=.0186, N_eff=T*.0186=.0029931174122637422; a6.5,b1.8880547178128329,
+Zstar2.576345544379474; lambdas5.615399951552535/1.0034546693653674/
+4.201720703868558. Fresh discrete256 MI GH8/16/32 gives .527940610384956,
+last refinement8.881784197001252e-16. chiStar=.4429134296445705;
+signed diagnosticK=+.05863015022113771.
+
+Five tests CURRENTLY_VERIFIED_PASS, including full256 complex MI cross-check,
+independent uncertainty/symplectic/entropy, nonmutation and fail-closed inputs.
+3217 prior protected files unchanged (bytecode/state files excluded), one
+execution marker/result/candidate. New covariance intentionally differs from
+full fading moments; effective Gaussian approximation ignoring fading-induced
+variance, not an exact/operational/certified fading-channel security lower bound.
+Old modes/caches/results/frozen spec unchanged. AP/AO/182/26/restartC/newMC/
+training/heldout/final-test/publication/commit/push NOT_RUN. STOP.
+
+## EVID-0184 - authorized reference-distance no-fading-noise multistart AO, 2026-10-13
+
+Initial authorized preparation (historical within this entry). Current user attachment SHA256 26cc40e5cba079520feca769e9691f35d4365651db1c2195f1be07f68a99b511 explicitly
+authorizes AO, catalog comparison, on-demand exact sources under controlled budgets,
+Uniform optimization and Vietnamese reporting at only L21.9393102292km.
+Preparation: results/ao_effective_channel_no_fading_noise_reference/ startup_manifest.json,
+reference_regression.json, catalog_preparation.json, objective_identity.json,
+preflight_receipt.json. Seven scoped tests CURRENTLY_VERIFIED_PASS.
+Mandatory reference K=.05863015022113771; rounded-request residuals <=5e-12.
+182/182 catalog MB and 29 Uniform records evaluated freshly under the selected
+Gaussian Zstar objective, all exact source identities/hash-bound; best catalog
+(.17,5),K=.05873317206754991. Eight exact-compatible starts.
+No new source completion or AO convergence is claimed yet. Initial preparation
+recovered from JSON encoding of infinite beam curvature; physical inputs,
+regression/equations and protected files unchanged (preparation_recovery.json).
+Default disclosed budget: new-source wall1800s, per-source<=720s, max3 attempts;
+600s reserved for Uniform. Original 3600s internal evaluator and1050/1250/1450
+precision ladder unchanged; external Windows Job deadline bounds descendants.
+The old spec hash discrepancy/lifecycle/ObjectiveC USER_STOPPED remain.
+
+Completion (same EVID-0184): actual run FINISHED AO_RESOURCE_LIMITED.
+Artifacts: optimization_result.json,final_validation.json,comparison.csv,
+AO_iteration_history.csv,source_attempts.csv,checkpoint.json and3PNG/PDFfigures
+in results/ao_effective_channel_no_fading_noise_reference/. Vietnamese report
+docs/AO_EFFECTIVE_CHANNEL_NO_FADING_NOISE_REPORT_VI.md. All8 original multistarts
+executed P1/P2 and reached(.17,5),K=.05873317206754991. Best catalog equals
+terminal AO; delta vsinitial .00010302184641219903 (+.17571479183257652%).
+Uniform best exact VA1,K=.004586201522212313; shaping delta .0541469705453376.
+211 unique exact objectives. On-demand(.17,4.75),(.17,5.25),(0,.9) all TIMEOUT
+at720/480/600s;0 newCw. Sourcewall1800.016s,optimizationwall1807.765s.
+20 distinct missing candidates/70 requests; localbrackets incomplete:
+MBVA[4.5,5.5],nu[.165,.175];UniformVA[.8,1.075]. No convergence/global claim.
+Winner unchanged GH8/16/32;top2gap2.3486533591299263e-6 exceeds GHchanges;
+final-check maxK32-K8=2.7706774374802734e-10.7 scoped tests and independent
+artifact assertions CURRENTLY_VERIFIED_PASS.3228 protected hashes unchanged;
+no controller/source/oldC processes. Cache182/B/C/oldmodes/MI/Holevo/Eq10/20
+and frozen spec unchanged. Scope is Gaussian Zstar diagnostic,not certified
+fading security. Lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS persists. STOP.
+
+## EVID-0185 - extended-timeout checkpoint AO continuation preparation, 2026-10-13
+
+Explicit fresh user attachment CONTINUE AO FROM CHECKPOINT authorizes7200s
+per exact source,43200s total,sequential1 job. Preparation/reference regression
+CURRENTLY_VERIFIED_PASS:8 completed multistarts loaded without restart,211
+objective rows inherited,currentbest(.17,5),K=.05873317206754991.
+Exact oldtimeouts(.17,4.75),(.17,5.25),(0,.9) identified from prior machine log;
+no compatible completed source or valid partial numeric data found.
+6 scoped transport/partialprovenance tests CURRENTLY_VERIFIED_PASS;3275prior
+protected hashes unchanged. New namespace results/
+ao_effective_channel_no_fading_noise_reference_continuation/. preparation.json,
+startup_manifest.json,continuation_identity.json,preflight_receipt.json authoritative.
+Source/controller wrapper imports original math; APsubprocess watchdog3600
+is extended to7200 only in this continuation. External source ceiling7200
+(operational cleanup margin logged),total43200,reserve60,sequential1.
+Original1050/1250/1450 precision ladder and acceptance unchanged. Durable
+completed precision-row journals hashbind exactinput/mathproducer/mpmath/digits;
+original _row and worker.main execute unchanged. No precision reduction.
+Nonfinite auxiliary gate metadata serialized losslessly; C,w/results must
+remain finite/physical. New-source caches separate,checkpoint on success/30s
+heartbeat;resumable interrupted ownership checks. No source completion or
+new SKR/convergence claimed at preparation. Gaussian approximation scope and
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS/frozen oldhash mismatch/oldCstop persist.
+
+EVID-0185 execution observation:
+Live execution: controller PID132, session17091, started2026-10-13T11:44:55.502233+00:00. Sequential probe1(.17,4.75) active under7200s deadline; inner AP command verified,new journal request64p/64z,1050/1250/1450 unchanged. No newCw/K yet.30s heartbeat/checkpoint.
+
+EVID-0185 source1 COMPLETED_EXACT: (.17,4.75),wall3510.859s,CPU3363.546875s;
+C2.831187684087093,w4.721535220342036e-7,I.4663552145180123,chi.38436025832091403,
+K.05867719547119765.1050/1250/1450 rows rank256/stable; separate cache saved,
+sourcehash5238c5e8a9e1db8c2afbcbbca6ad6b9ba48fc66f91d3bb7fd561423e4247e47a.
+Source1Job/watch/sleeplease cleanup verified. Lower than priorbest,kept(.17,5),
+K.05873317206754991. Probe2(.17,5.25) now running; no convergence claim.
+
+EVID-0185 source2 COMPLETED_EXACT:(.17,5.25),wall3743.063s;C3.08474029904345,
+w7.899204190247678e-7,I.5077028502134571,chi.423606073224883,K.05871163447790123.
+1050/1250/1450 accepted;separate cache/checkpoint saved. BothVA4.75/5.25
+are below currentVA5;bestunchanged(.17,5),K.05873317206754991.
+Probe3 Uniform(0,.9) running; no local/global convergence yet.
+
+EVID-0185 source3 COMPLETED_EXACT: Uniform(0,.9),wall4157.141s;C=.802315161606083,w=.017029525425882673,I=.10071471988347636,chi=.09122793341318625,K=.004451050476116283. Original1050/1250/1450 accepted, new source hash aa870e25183db8627a4fad5319881c46154ee2ca146f868148bc3e3a05b8c6e9. Receipt third_source_success_observation.json verifies3275protected files,changes=[]. All3oldtimeouts nowcompleted; best(.17,5),K=.05873317206754991 unchanged. P1 next exact(.17,4.875) running. No newiteration/convergence claim.
+
+EVID-0185 source4 COMPLETED_EXACT:(.17,4.875),wall3331.422s;C2.894633792123773,w5.227124816005498e-7,I.47680374905782497,chi.394248305071617,K.05871525653331666. Source hash46d4f2a513f815611c3e0467438e9d9e40b178de5f1f6a2b25128ba594dfc46e;fourth_source_success_observation.json. Below currentbest. P1 counterpart(.17,5.125) running;no completed iteration/convergence.
+
+EVID-0185 source5 COMPLETED_EXACT:(.17,5.125),wall2922.906s;C3.021407670742622,w6.762465340955627e-7,I.4974765056239354,chi.4138709517994372,K.05873172854330139. Source hashdba9bd7633d3e5284f7fd40f968204f1680582ecf378832367864b6dd398bd75;fifth_source_success_observation.json. BothVA4.875/5.125 belowVA5. P1 nextmidpoint(.17,4.9375) active;bestunchanged,no convergence claim.
+
+EVID-0185 source6 COMPLETED_EXACT:(.17,4.9375),wall2833.204s;C2.926341573631268,w5.53668634723327e-7,I.4819997755923833,chi.3991731055936323,K.05872668121913183. Source hash5905818e14f0f0af641edf62f2506892c89f0459a5635267928e7bc2f1185941;sixth_source_success_observation.json. BelowVA5. P1 opposite neighbor(.17,5.0625) running;best unchanged, no convergence claim.
+
+EVID-0185 first strictbest improvement,source7 COMPLETED_EXACT:(.17,5.0625),wall2385.906s;C2.9897282098657603,w6.297709551727822e-7,I.4923360212305594,betaI.46771922016903145,chi.4089843958099926,K.05873482435903887. Delta_vs_previous=1.6522914889627316e-6 (+.002813216842881236%). GH16/32 equal,GH8 Kgap2.6938225e-11. first_best_improvement_observation.json binds fullcandidate/source/protected3275,changes=[]. P1 next(.17,5.03125) active;no local/global convergence claim.
+
+EVID-0185 source8 COMPLETED_EXACT:(.17,5.03125),wall2067.938s;C2.973885070414239,w6.087720548006772e-7,I.48975889413154405,chi.4065363521494283,K.058734597275538536. Source hash91abfbb5ea0308db9952486eb81c308a993fb55cbd8f689663a84dffa8170802;checkpoint/objective_evaluations.json source attempt8. BelowcurrentbestVA5.0625. P1 source9(.17,5.09375) active.
+
+EVID-0185 source9 completed. Checkpoint source_attempts[8]={'attempt': 9, 'nu_raw': 0.17, 'V_A': 5.09375, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2058.3589999999967, 'C': 3.005569064680924, 'w': 6.52231031239426e-07, 'I_AB': 0.4949085529415891, 'chi_BE': 0.41142926081482134, 'SKR': 0.05873386447968826, 'source_hash': '8f0e400f2dbfe8a25eb05bb0c691904836db802a0924df33f5e4f6e789adf781'}. P1 source10(.17,5.046875) active;best remains(.17,5.0625),K=.05873482435903887.
+
+EVID-0185 source10 completed. Checkpoint source_attempts[9]={'attempt': 10, 'nu_raw': 0.17, 'V_A': 5.046875, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2085.0780000000377, 'C': 2.9818069279923307, 'w': 6.190945650452507e-07, 'I_AB': 0.4910480331304301, 'chi_BE': 0.4077607715949032, 'SKR': 0.0587348598790054, 'source_hash': 'e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317'}. Currentbest={'nu_raw': 0.17, 'V_A': 5.046875, 'SKR': 0.0587348598790054}. P1 source11(.17,5.078125) active. No convergence claim.
+
+EVID-0185 P1->P2 observation CURRENTLY_VERIFIED_PASS: P1 nu=.17,16exact points,4refinement stages,INTERIOR,range[2,6.5],bracket[5.03125,5.0625],REFINEMENT_LIMIT_REACHED (legacy INNER_SEARCH_FAILURE;missing=[];numerical_failures=[]). BestVA5.046875,K.0587348598790054;source11VA5.078125,K.05873449210235543 belowbest. P2 active(.1675,5.046875);asserted immediate newVA matchesafterP1. Receipt P1_to_P2_observation.json;protected3275changes=[]. No converged/bracketclosure claim.
+
+EVID-0185 source12 P2 completed. Checkpoint source_attempts[11]={'attempt': 12, 'nu_raw': 0.1675, 'V_A': 5.046875, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2057.0470000000205, 'C': 2.9818069111355374, 'w': 6.417035177701382e-07, 'I_AB': 0.4910480328780329, 'chi_BE': 0.40776424416593215, 'SKR': 0.05873138706819908, 'source_hash': '220e99a290fffc93d8a8ae327a1030b617ebf2e5f1ed3ee81549c69b74e8e70f'}. Currentbest remains(.17,5.046875),K=.0587348598790054. P2 source13(.175,5.046875) active,same newVA.
+
+EVID-0185 source13 P2 completed. Checkpoint source_attempts[12]={'attempt': 13, 'nu_raw': 0.175, 'V_A': 5.046875, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2083.375, 'C': 2.981806925958081, 'w': 6.496398314858066e-07, 'I_AB': 0.4910480334752094, 'chi_BE': 0.40776539690776303, 'SKR': 0.058730234893685895, 'source_hash': 'f6e3000aaab6e103cf5b2a59b4e5fe9f5e7e5991cc9d2147944607655b0c1a3e'}. Currentbest remains(.17,5.046875),K=.0587348598790054. P2 source14(.16875,5.046875) active, targeted bracket midpoint.
+
+EVID-0185 source14 P2 completed. Checkpoint source_attempts[13]={'attempt': 14, 'nu_raw': 0.16875, 'V_A': 5.046875, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2065.0160000000033, 'C': 2.98180692106145, 'w': 6.272853210321136e-07, 'I_AB': 0.49104803301240096, 'chi_BE': 0.40776203883644246, 'SKR': 0.05873359252533844, 'source_hash': 'cd3ff7e232c9c6afb5b20b2a63bf21ba474929f77fcba52bc6729ca843ede366'}. Currentbest remains(.17,5.046875),K=.0587348598790054. P2 source15(.1725,5.046875) active;outer deadline clipped toremaining global budget5740.8s,unchanged7200s maximum/AP watchdog.
+
+EVID-0185 source15 P2 completed. Checkpoint source_attempts[14]={'attempt': 15, 'nu_raw': 0.1725, 'V_A': 5.046875, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2059.2970000000205, 'C': 2.981806932952628, 'w': 6.215096392386831e-07, 'I_AB': 0.4910480333251206, 'chi_BE': 0.40776112860454505, 'SKR': 0.05873450305431949, 'source_hash': 'cc2f9d2c0d21c5fc8e532ab72a6f9664748fb11943691a4b209f1b766660f303'}. Currentbest remains(.17,5.046875),K=.0587348598790054. P2 source16(.169375,5.046875) active;outer deadline clipped toremaining globalbudget3681.2s. No numerical failure/convergence claim.
+
+EVID-0185 source16 P2 completed. Checkpoint source_attempts[15]={'attempt': 16, 'nu_raw': 0.169375, 'V_A': 5.046875, 'status': 'COMPLETED_EXACT', 'elapsed_seconds': 2064.4379999999655, 'C': 2.9818069248990615, 'w': 6.22411556349827e-07, 'I_AB': 0.49104803307332734, 'chi_BE': 0.4077612864952922, 'SKR': 0.05873434492436874, 'source_hash': 'c4ef9324762bf79c2a285fa589d5f40828d05fd6cfb1c9957e0ce09a8934d6f2'}. Currentbest remains(.17,5.046875),K=.0587348598790054. P2 source17(.17125,5.046875) active;outer deadline1616.5s fromremaining global budget. Preserve completed precision rows ifglobal limit expires; no partial C,w/SKR acceptance.
+
+## EVID-0185 completion - extended-timeout AO continuation
+
+2026-10-14 Asia/Bangkok. Actual continuation complete: AO_RESOURCE_LIMITED.
+Numerical elapsed43135.438s; checkpoint43136.579s; total ceiling43200s,
+finalization reserve60s/shutdown margin5s. Loaded8old multistarts/211objectives;
+restarted0. Three prior timeouts COMPLETED_EXACT (3510.859/3743.063/4157.141s).
+New exactsource records16; attempts17; totalobjective rows227. Source17
+(.17125,5.046875) TIMEOUT at the remaining-global deadline1616.515s; actual
+1611.515s. Original precise_reason null; completion receipt derives the
+GLOBAL_CONTINUATION_EVALUATION_BUDGET_WITH_RESERVES classification from the
+unchanged controller/config and UTC/absolute deadline. No environmental abort
+or numerical failure. Hash-bound1050/1250rows retained;1450 incomplete,
+no accepted C,w/SKR for that candidate. No active research Python workers;
+sleep lease released,watchdog cleanup verified.
+
+One continuation iteration: P1 fixednu.17,VA5->5.046875,K .05873317206754991
+->.0587348598790054. P2 fixedthe immediate newVA5.046875,nu remains.17.
+P1 fourrefinement stages,16exactpoints,bracket[5.03125,5.0625],
+REFINEMENT_LIMIT_REACHED (legacyINNER_SEARCH_FAILURE,missing=[],numericfailures=[]).
+P2 two stages,6exactpoints,bracket[.169375,.1725],SOURCE_MISSING_REFINEMENT;
+missingnu .17125 and boundary0 atVA5.046875. Coordinate brackets notclosed.
+DeltaK=1.6878114554863544e-6 (+.0028736936829244926%);parameter change.046875.
+Best exact C2.9818069279923307,w6.190945650452507e-7,I.4910480331304301,
+betaI.4664956314739086,chi.4077607715949032,K.0587348598790054.
+Sourcekey2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f;
+payloadhash e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317.
+GH8/16/32 top10 winner stable; independent covariance uncertainty checks/
+symplectic domain pass,repairs=[]. Provenance of allnew caches/journals passes.
+Six scopedpreflight tests PASS;controller/config/test hashes stillmatch;
+no repeatedAP/AO or unit-test rerun for finalreport. Protected3275changes=[].
+
+Artifacts: continuation_result.json/checkpoint.json/objective_evaluations.json/
+exact_source_results.csv/continuation_iterations.csv/three_previous_timeout_probes.csv/
+final_validation.json/process_cleanup_check.json/completion_integrity_receipt.json
+under results/ao_effective_channel_no_fading_noise_reference_continuation/.
+Report docs/AO_NO_FADING_NOISE_CONTINUATION_REPORT_VI.md.
+Scientificcontext77abb3f0ff944accb850da5f6e8ad68b4fec69dd702bd11b5b897681e6c7193c;
+continuationcontext4fb404abbb81b41cadd49473d5bdfbc39e2da8dca061822b86817171ee6b2d0f.
+Eq10/20/PDF/moments/source normalization/oldmodes/cache182/B/C/oldAO/frozen
+bytes unchanged. Gaussian approximation only; source total-error enclosure,
+continuous/global optimum and exact fading security notcertified.
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and pre-existing frozenhash mismatch
+unchanged. ObjectiveC USER_STOPPED. No training/testdataset access,baseline/
+threshold approval,sweeps,trajectory,newmultistarts,commit/push. STOP.
+
+## EVID-0186 preparation: updated no-fading-noise distance figure
+
+2026-10-14. User explicitly selected best in validated C,w cache at each distance, no new AP/AO. New namespace results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/. startup_manifest.json binds priorfiles/Git/model/input hashes; source_roster.csv has227 authenticated ensembles (30Uniform/197MB),including16 newcontinuation sources. New module imports unchanged normalizedPDF/moment/no-fading-noise/MI/Holevo kernels, only reevaluates existing sources at26old distance coordinates. FixedMB(.2,1.3833230302980657) unchanged. No source generation,AO,training/testdataset/publication/commit/push. Initial metadata export KeyError corrected without evaluator/source changes; metadata_repair_receipt.json binds producer revisions. Current numeric evaluation RUNNING; no finalfigure/convergence claim. Frozen pre-existinghash mismatch and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain.
+
+EVID-0186 completion, DEC-0169, 2026-10-14: CURRENTLY_VERIFIED_PASS. All 5902 evaluations
+(227 validated sources at 26 distances) succeeded; 78 selected rows exported.
+The 30 Uniform and 197 MB sources were reused without AP, AO or source generation.
+Fixed MB remains nu_raw=0.2, V_A=1.3833230302980657 with its original ensemble.
+Each distance has freshly calculated normalized physical PDF moments, T_eff,
+discrete 256-QAM MI and direct-Z_star Holevo under the same no-fading-noise mode.
+GH8/16/32 select the same winner in all 52 family/distance comparisons.
+Reference L=21.9393102292 km reproduces (nu_raw,V_A)=(0.17,5.046875),
+K=0.0587348598790054. Uniform is positive at six sampled distances through
+24 km and negative at the remaining 20, starting at 25 km. Signed values
+remain in CSV; log10 display breaks at nonpositive values. Both MB curves
+remain positive at all 26 distances through 40 km.
+
+Artifacts under results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/:
+figure_receipt.json, completion_integrity_receipt.json, source_roster.csv,
+channel_moments_by_distance.json, all_cached_candidate_evaluations.csv,
+skr_vs_distance_three_scheme.csv and standalone PNG/vector PDF. Report:
+docs/SKR_DISTANCE_NO_FADING_NOISE_CACHE_REPORT_VI.md. Producer:
+scripts/redraw_no_fading_noise_three_scheme.py, SHA-256
+c836bb6e1489512b233db7d4aee0d81b928a42d59bd46378cb65fe3f4112ab0e.
+PNG is 3150x1950 at 300 dpi; PDF contains vector graphics without raster images.
+Independent saved-data validation checks all source payload hashes, finite-bank
+maxima, noise/covariance/Z/SKR identities, normalization and moment ordering.
+Maximum symplectic-spectrum residual is 2.3092638912203256e-14;
+maximum entropy residual is 1.7763568394002505e-15. All uncertainty matrices
+are physical; 3423 protected old-file hashes match. No objective/source rerun
+was needed for these final checks; no new unit-test count is claimed.
+This is a Gaussian approximation ignoring fading variance and a finite-cache
+comparison, with no continuous/global optimum or exact fading security claim.
+Old scientific kernels, security functional, frozen specification, modes,
+caches and results remain unchanged. No training/test dataset access, baseline
+approval or threshold certification; lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+The pre-existing frozen-hash discrepancy remains. STOP; no commit or push.
+
+## EVID-0187 preparation: mobility-aware source and UAV optimization
+
+2026-10-14. User attached a complete implementation/diagnostic task. Audit artifacts
+results/mobility_aware_skr_20261014/startup_manifest.json and audit.json bind Git,
+3437 protected old files, reference documents, reused scientific modules and the
+197-MB authenticated roster. docs/MOBILITY_AWARE_SKR_AUDIT.md records the explicit
+synthetic HAP-coordinate embedding, cloud parameters and raw-before-conditioning
+convention. Implementation adds separate geometry/DP, SKR integration, runner,
+plotter, config and tests. Numerical tests/smoke/full results NOT_RUN at this
+preparation checkpoint. No source generation, AP/AO or publication promotion.
+
+EVID-0187 preflight: CURRENTLY_VERIFIED_PASS for 15 scoped tests and 30 smoke
+evaluations (5 grid points, 3 sources, 2 cloud states). test_receipt.json and
+smoke/experiment_receipt.json bind current hashes and output. Initial test
+failures concerned dataclass metadata serialization and an unjustified all-grid
+initially-clear expectation; fixed the serializer and assertion without
+changing scientific inputs or formulas. Tests and smoke reproduce the current
+reference. Full demonstration is now permitted by DEC-0170; not yet complete.
+
+EVID-0187 completion, DEC-0170, 2026-10-14: CURRENTLY_VERIFIED_PASS for the
+synthetic mobility diagnostic. Full run completed 39400 evaluations of 197
+validated MB sources at 100 positions and two channel states; all original
+182 source keys are present, no new C,w/AP/AO/interpolation. 30 slots of 20 s,
+maximum step 300 m, freely selectable initial position, identical source
+adaptation in S1-S4. Five cloud velocities and eight movement penalties were
+actually evaluated from the completed binary-state table, without repeated
+SKR computation. Six standalone 300-dpi PNG/vector PDFs were exported and
+visually inspected. Fifteen scoped tests and 30 smoke evaluations passed
+before the full run, which took 990.6047625000356 s excluding setup.
+
+At the default synthetic cloud velocity 3 m/s and S4 lambda=0.001 bits/use:
+S1 mean .033503391695769096, distance0 m; S2 mean .05349345891657229,
+fixed position(950,950) m, distance0; S3 mean .061883253712551226,
+distance2323.606797749979 m; S4 mean .061041913501481276, distance600 m,
+penalized objective .06044191350148127. S2/S3/S4 gains versus S1 are
+59.665801606968635/84.70742984617291/82.19622077602915 percent. Availability
+is 100 percent of slots with positive computed K in all four schemes; this
+is not physical no-outage probability or an operational security claim.
+
+final_validation.json independently checks all source/state cache keys and
+journal/CSV identities, the 200 finite-bank maxima, normalization/moment
+ordering, covariance uncertainty/spectrum/entropy and P2/DP reconstruction.
+GH8/16/32 winners are stable at all 200 states. Spectrum residual maximum
+2.6645352591003757e-14; entropy residual 1.7763568394002505e-15; minimum
+uncertainty eigenvalue .0002973234528223727. Old3437 protected files have
+unchanged hashes. completion_integrity_receipt.json binds current producers,
+reports, outputs and six visual checks. Full experiment_receipt.json is the
+terminal evidence; checkpoint.json retains its last loop-progress snapshot.
+
+Artifacts under results/mobility_aware_skr_20261014/: startup/audit/test/smoke/
+full/final_validation/completion receipts, source and state tables, complete
+objective journal, scheme time series, summary, velocity/penalty CSV and six
+PNG/PDF figures. Report docs/MOBILITY_AWARE_SKR_REPORT_VI.md. User confirmed
+the synthetic HAP embedding preserving the old 21.9393102292-km reference;
+geometry_user_confirmation.json records it. External TeX/PDF are unchanged.
+The attached distance-penalty task governs, not the TeX propulsion-energy
+approximation. No energy quantities or bits/J are claimed.
+
+Existing physical PDF/three-moment/source/MI/Holevo/security kernels and
+frozen specification remain unchanged. Effective Gaussian approximation
+ignoring fading variance only; no exact fading-security or continuous/global
+physical optimum. No source generation, training/test dataset access,
+held-out/final-test/publication evaluation, baseline/threshold approval,
+commit/push. NOT_READY_FOR_PUBLICATION_SCALE_RUNS, pre-existing frozen-hash
+mismatch and Objective C USER_STOPPED remain. STOP after delivery.
+
+## EVID-0188 preparation: IEEE numerical-results package
+
+2026-10-14. New attached task requests organization and targeted missing
+comparisons without redesign or old39400 rerun. New namespace
+results/mobility_numerical_results_package_20261014/. startup_manifest.json
+binds3496 prior files/Git/frozen hash. audit/preparation receipts reproduce
+the actual four-scheme summary and validate grid/speed/means; Figures1-6 and
+explicit CSV plotting data generated in single/double-column sizes. Figure3
+uses sum(S)/Nt, Figure4 only eight evaluated points, Figure6 comparesS2/S4.
+scientific_validation_audit.json records omitted fading noise and incomplete
+mixture precision/security/source-snapshot prerequisites; main results remain
+PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE. Uniform30validsources
+exist; only missing6000statesource evaluations may be added after tests/smoke.
+No old kernel/source/cache/output edits, AP/AO, Cw, MC or publication promotion.
+
+## EVID-0188 completion: numerical results and IEEE exports; STOP
+
+2026-10-14. CURRENTLY_VERIFIED_PASS for the requested diagnostic package in
+results/mobility_numerical_results_package_20261014/. package_receipt.json,
+final_validation.json and completion_integrity_receipt.json bind current
+producers/inputs, original cached outputs, tests and new exports. Reused all
+39400 protected MB evaluations without rerunning them. Added only 6000 missing
+Uniform evaluations (30 authenticated Uniform sources x 200 states), after
+30 smoke evaluations and 25 CURRENTLY_VERIFIED_PASS tests (all original 15
+preserved plus 10 saved-data tests). Own Uniform C,w/ensemble were authenticated;
+no MB moment substitution, new C,w/AP/AO/MC, or scientific-kernel change.
+
+Independent saved-data checks verify all Uniform cache keys, 200 finite-bank
+maxima, common geometry/noise, signed K/positive utilities, covariance uncertainty,
+symplectic spectrum and entropy. GH16/32 selected winners agree at all 200 states.
+Maximum spectrum residual 1.7763568394002505e-14; entropy residual
+8.881784197001252e-16. Minimum uncertainty eigenvalue .0003139027689850495.
+All 3496 prior protected file hashes remain unchanged; original test file bytes
+and branch/HEAD are unchanged. No commit/push or dataset access.
+
+MB means S1/S2/S3/S4 are .033503391695769096/.05349345891657229/
+.061883253712551226/.061041913501481276 bits/use; flights 0/0/
+2323.606797749979/600 m. S4 retains 98.64043960103005 percent of S3 SKR with
+74.17807519839421 percent less flight distance. Uniform means are
+.0024459741451799003/.004525533061950683/.005221740888377324/
+.0049276200583754405 bits/use. Controlled stationary/moving Uniform-MB
+comparison independently optimizes each finite source bank; it does not isolate
+shaping gain at matched modulation energy or certify a continuous source optimum.
+
+Seven figures have single/double-column variants (14 vector PDFs and 14 PNGs at
+300 dpi), explicit CSV sources, captions, two IEEE tables, Vietnamese report and
+Numerical Results LaTeX. Every PNG layout was visually inspected. Fig1 shows
+inverse-ray occlusion footprints, not clouds at UAV altitude; Fig2 preserves
+slot jumps and places its legend outside data; Fig3 is sum(S)/Nt, not total bits;
+Fig4 keeps all eight discrete penalty records; Fig6 is exact S2/S4 parameter
+steps. Export typography revisions are archived and hash-bound in repair receipts.
+The Overleaf ZIP has 48 byte-verified members; all 32 report links resolve.
+LaTeX lexical/path checks pass, but compilation is BLOCKED_BY_ENVIRONMENT:
+no pdflatex/latexmk/tectonic. No compiled manuscript or page-layout claim.
+
+The separate optional sensitivity uses five fixed starting-position/direction
+scenarios x five speeds x four schemes = 100 cached-state DP comparisons;
+zero new SKR evaluations or random weather samples. Scenario mean/SD is
+descriptive, not a confidence interval. Boundary audit finds actual stationary
+optimum (950,950), five cloud-blocked slots; clear-only counterfactual is
+(950,450), with fourteen blocked slots under the actual cloud schedule.
+
+scientific_validation_audit.json and fading_omission_audit.csv identify omitted
+(mean_eta-T_eff)VA plus (mean_eta-T_eff)xi_ch, while adopted noise is T_eff xi_ch.
+Raw Eq10 PDF, active conditioning/outage atom, three moments and existing Eq20
+kernels remain unchanged. Full-fading modules exist, but stored mixture MI
+precision/security and coverage of 15 later MB sources remain unresolved;
+full fading-aware rerun is NOT_RUN. The package remains
+PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE; no exact fading security,
+finite-size key-yield, physical propulsion-energy or continuous/global optimum.
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen-hash mismatch and Objective C
+USER_STOPPED persist. External manuscripts, baseline/threshold approval, old
+scientific caches/results are unchanged. STOP after delivery.

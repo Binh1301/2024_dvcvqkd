@@ -1,0 +1,22 @@
+test_A_B_C_literal_algebra (tests.test_manuscript_literal_3moments.ManuscriptLiteralTests.test_A_B_C_literal_algebra) ... ok
+test_D_F_single_reference_new_backend (tests.test_manuscript_literal_3moments.ManuscriptLiteralTests.test_D_F_single_reference_new_backend) ... ERROR
+test_D_independent_finite_integrals (tests.test_manuscript_literal_3moments.ManuscriptLiteralTests.test_D_independent_finite_integrals) ... ok
+test_E_historical_reference_and_contexts (tests.test_manuscript_literal_3moments.ManuscriptLiteralTests.test_E_historical_reference_and_contexts) ... ok
+test_F_fail_closed_domains_and_zero (tests.test_manuscript_literal_3moments.ManuscriptLiteralTests.test_F_fail_closed_domains_and_zero) ... ok
+
+======================================================================
+ERROR: test_D_F_single_reference_new_backend (tests.test_manuscript_literal_3moments.ManuscriptLiteralTests.test_D_F_single_reference_new_backend)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\tests\test_manuscript_literal_3moments.py", line 107, in test_D_F_single_reference_new_backend
+    result = evaluate_candidate(self.candidate, moments, distance_km=21.9393102292,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\src\manuscript_literal_3moments.py", line 248, in evaluate_candidate
+    return dict(base, **cov, I_AB=mi, chi_BE=chi, SKR=skr,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dict() got multiple values for keyword argument 'status'
+
+----------------------------------------------------------------------
+Ran 5 tests in 8.277s
+
+FAILED (errors=1)

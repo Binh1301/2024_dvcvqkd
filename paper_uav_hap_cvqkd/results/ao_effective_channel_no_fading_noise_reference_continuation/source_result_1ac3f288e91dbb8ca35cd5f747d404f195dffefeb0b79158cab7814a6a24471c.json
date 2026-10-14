@@ -1,0 +1,58 @@
+{
+  "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c.json",
+  "source_sha256": "cc2f9d2c0d21c5fc8e532ab72a6f9664748fb11943691a4b209f1b766660f303",
+  "cache_key": "1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c",
+  "C": 2.981806932952628,
+  "w": 6.215096392386831e-07,
+  "source_runtime_seconds": 2055.3279999999795,
+  "diagnostics": [
+    {
+      "route": "ARBITRARY_PRECISION_FALLBACK",
+      "fast_path_gate": {
+        "all_sectors_positive": false,
+        "minimum_eigenvalue": -8.404941955201146e-17,
+        "sector_condition_number": {
+          "float_hex": "inf"
+        },
+        "sector_reconstruction_residual": 2.6066377657924385e-15
+      },
+      "fallback_precisions": [
+        1050,
+        1250,
+        1450
+      ],
+      "fallback_rows": [
+        {
+          "C": "2.9818069329526283990116766926137344847493737511532",
+          "digits": 1050,
+          "minimum_eigenvalue": "3.2277938378194789918247518740926726751044616335939e-217",
+          "rank": 256,
+          "resolved": true,
+          "w": "0.0000006215096392386831157285460026748299453854942294165"
+        },
+        {
+          "C": "2.9818069329526283990116766926137344847493737511532",
+          "digits": 1250,
+          "minimum_eigenvalue": "3.2277938378194789918247518740926726751044616335939e-217",
+          "rank": 256,
+          "resolved": true,
+          "w": "0.0000006215096392386831157285460026748299453854942294165"
+        },
+        {
+          "C": "2.9818069329526283990116766926137344847493737511532",
+          "digits": 1450,
+          "minimum_eigenvalue": "3.2277938378194789918247518740926726751044616335939e-217",
+          "rank": 256,
+          "resolved": true,
+          "w": "0.0000006215096392386831157285460026748299453854942294165"
+        }
+      ],
+      "minimum_eigenvalue": 3.227793837819479e-217,
+      "support_size": 256,
+      "numerical_retained_rank": 256,
+      "tau_diagnostic": 1e-12,
+      "exact_input_provenance": "float.hex binary64"
+    }
+  ],
+  "partial_checkpoint_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/precision_checkpoints/1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c"
+}

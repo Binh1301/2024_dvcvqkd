@@ -1,5 +1,135 @@
 # Next Actions
 
+## Current: deliver IEEE numerical package, then STOP
+
+EVID-0188/DEC-0171. Deliver the completed seven-figure/two-table numerical package
+in results/mobility_numerical_results_package_20261014/, especially Vietnamese
+report, numerical_results_section.tex and overleaf_numerical_results.zip.
+Saved-data/export validation and 25 tests CURRENTLY_VERIFIED_PASS. Reused
+39400 MB records; computed 6000 Uniform plus 30 smoke, no new exact source moments.
+The optional 100 scenario comparisons use cached-state DP only.
+
+Keep Gaussian approximation ignoring fading variance explicit. Full fading-aware
+security/MI precision and additional-source scope are unresolved; compilation
+and manuscript page layout are BLOCKED_BY_ENVIRONMENT. Do not rerun prepare,
+Uniform or export helpers into the completed namespace. No automatic AP/AO,
+source generation, sweeps, MC, training/held-out/final-test/publication work,
+external manuscript edit, baseline/threshold promotion, commit or push.
+Lifecycle NOT_READY/frozen-hash blockers and Objective C stop remain.
+Await a new explicit request; no additional numerical execution is pending.
+
+## Current: deliver completed mobility diagnostic, then STOP
+
+EVID-0187/DEC-0170. Deliver docs/MOBILITY_AWARE_SKR_REPORT_VI.md and the
+results/mobility_aware_skr_20261014/ CSV/six PNG/vector PDF figures. Runnable
+entry: scripts/run_mobility_skr_experiment.py; configuration:
+configs/mobility_aware_skr_demo.json. Full 39400 evaluations, 15 tests, smoke,
+five velocity cases and eight lambda cases completed and hash-bound.
+User-confirmed demonstration geometry; synthetic clouds and current Gaussian
+approximation ignoring fading variance. Distance penalty only, no joules.
+Computed finite-catalog/grid optimum does not certify continuous optimum or
+fading security. Preserve existing scientific code/cache/spec/results and
+external manuscripts. No automatic AP/AO/source generation, extra searches,
+training/held-out/final-test/publication evaluation, commit or push.
+Existing NOT_READY/frozen-hash blockers and Objective C stop remain.
+
+## Current: deliver completed cached-distance figure, then STOP
+
+EVID-0186/DEC-0169. Deliver docs/SKR_DISTANCE_NO_FADING_NOISE_CACHE_REPORT_VI.md
+and PNG/vector PDF/signed CSV under
+results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/.
+CURRENTLY_VERIFIED_PASS: 227 cached sources, 26 distances, 5902 evaluations,
+78 selected points, no numerical failures or changed protected files.
+Optimized means best in the finite validated cache; the model is the effective
+Gaussian approximation ignoring fading variance. Uniform log display ends at
+24 km; its 20 negative values remain in CSV. Both MB curves extend to 40 km.
+Do not restart AP/AO, generate sources, expand searches, access training/held-out/
+final-test data, run publication evaluation, commit or push automatically.
+Further work requires a new explicit task. Existing lifecycle/blockers remain.
+
+## Current: STOP after extended-timeout AO continuation; AO_RESOURCE_LIMITED
+
+EVID-0185/DEC-0168. Deliver docs/AO_NO_FADING_NOISE_CONTINUATION_REPORT_VI.md
+and results/ao_effective_channel_no_fading_noise_reference_continuation/.
+Bestexact(.17,5.046875),K=.0587348598790054;16newvalidated Cw and227objectives.
+Old3timeouts resolved;source17(.17125,5.046875) retainspartial1050/1250 only.
+P1/P2 localbrackets notclosed,boundarynu0 atnewVA missing; no convergence or
+exactfadingsecurity claim. Budget43200s exhausted withfinalizationreserve;
+no activecontroller/source worker. Preserve allcompleted work and oldresearch.
+Do not automatically resetbudget/retry/restart8starts/oldC or expandsearch.
+Further computation needs a newexplicit scope/resource request.
+No sweeps/trajectory/training/heldout/final-test/publication/commit/push.
+
+## Current: STOP after completed reference AO; AO_RESOURCE_LIMITED
+
+EVID-0184/DEC-0167. Deliver docs/AO_EFFECTIVE_CHANNEL_NO_FADING_NOISE_REPORT_VI.md
+and new namespace results/ao_effective_channel_no_fading_noise_reference/.
+Actual8start P1/P2 searches and3source attempts finished; budgets exhausted,
+3timeouts/0newCw. Keep bestexact(.17,5),K=.05873317206754991 and Uniform
+VA1,K=.004586201522212313. Local refinement stillmissing20distinctpairs;
+no convergence/global/security claim. No autoretry,restartoldC,sweeps,trajectory,
+training/heldout/final-test/publication evaluation,commit/push.
+A new explicit request/resource choice is needed for further exact source work.
+
+## Current: STOP after effective_channel_no_fading_noise one-point diagnostic
+
+EVID-0183/DEC-0166. Deliver docs/EFFECTIVE_CHANNEL_NO_FADING_NOISE_REPORT_VI.md
+and results/effective_channel_no_fading_noise/reference_20261013/ receipts.
+One-point signed Gaussian approximation K=+.05863015022113771; do not label
+it an exact fading-channel security lower bound or replace the corrected mode.
+Keep PDF/three moments/C,w and all old modes/results. Execution marker prevents
+duplicate reference execution. Await new scope before further computation,
+AP/AO/candidate/distance searches, ObjectiveC restart or commit/push.
+
+## Current: STOP after one-point negative-SKR causal diagnostic
+
+EVID-0182/DEC-0165. The historical/corrected comparison is recorded as
+`CONFIGURATION_MISMATCH`: common geometry/source identity pass, but derived PDF
+coefficients, support, and moment conventions differ. Use
+docs/NEGATIVE_SKR_DIAGNOSTIC_REPORT_VI.md and its diagnostic receipt for the
+stored covariance, spectrum, entropy, MI, and SKR decomposition. Do not call
+the corrected negative signed K a certified lower bound; mixture MI precision
+and rigorous continuous Holevo error enclosure remain unresolved. A like-for-
+like one-point model choice or precision continuation needs a new explicit
+request. No optimization, AP/AO, sweep, source generation, or commit/push.
+Completion checks: eight tests PASS, 3663 protected/13 prior ideal hashes unchanged.
+Read the full-support versus retained-integral distinction and the covariance
+control table before choosing any channel-convention correction.
+
+## Current: STOP after ideal one-reference evaluation and report
+
+EVID-0181/DEC-0164. Deliver onepoint result/report and integrityreceipt. Keep
+actualmixture MCSE failure visible; no automatic sample expansion/tolerance
+relaxation, source/AP/AO,182/26sweep, ObjectiveC restart, training/test/publication
+or commit/push. A fresh scoped request is needed for further precision work.
+Ideal branch uses configs/manuscript_corrected_3moments_ideal_reference.json and
+scripts/run_manuscript_corrected_ideal_reference.py; prior modes/results stay intact.
+Existing executionmarker prevents duplicate production evaluation. Frozen/lifecycle
+remain unchanged; numericinterval/MI results are diagnostics, not certification.
+
+
+## Current: STOP after corrected-mode implementation, tests and report
+
+EVID-0180/DEC-0163. Deliver corrected report and attempt_2 receipt. Selected
+trusted nonideal receiver Holevo unresolved; no corrected reference MI/SKR
+production run. Do not launch new entry/AP/AO/all182/full26/ObjectiveC restart,
+training/test/publication or commit/push automatically. Next scientific work
+requires a scoped request resolving receiver security, requested PDF version
+and required MI/Holevo numerical validation; do not overwrite old outputs.
+Frozen specification and lifecycle remain unchanged.
+
+
+## Current: STOP after manuscript reproduction implementation and tests
+
+EVID-0179/DEC-0162. Deliver report and validation receipt; do not run the
+new one-point production entry, 182-catalog sweep, 26-distance sweep, AP/AO,
+or resume Objective C without a fresh explicit request. PDF normalization
+at reference is .9841200272202841, not 1; never silently renormalize or change
+eta_f/total noise/equations to obtain positive SKR. Discuss this model gap and
+the G_d/discrete-MI source gaps with the author before operational/security
+interpretation or broader numerical work. Frozen specification remains unchanged.
+
+
 ## Current: STOP after explicit user termination of Objective C
 
 EVID-0178/DEC-0161. No controller/worker remains. Readuser_stop_receipt.json and

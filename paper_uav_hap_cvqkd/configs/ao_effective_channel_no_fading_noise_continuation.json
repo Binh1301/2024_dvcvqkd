@@ -1,0 +1,18 @@
+{
+  "scientific_model": "effective_channel_no_fading_noise",
+  "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+  "distance_km": 21.9393102292,
+  "exact_source_timeout_seconds": 7200,
+  "ao_continuation_budget_seconds": 43200,
+  "max_concurrent_exact_source_jobs": 1,
+  "checkpoint_after_every_success": true,
+  "reuse_existing_exact_source_cache": true,
+  "heartbeat_seconds": 30,
+  "finalization_reserve_seconds": 60,
+  "SKR_tolerance": 1e-8,
+  "parameter_tolerance": 1e-6,
+  "max_continuation_iterations": 64,
+  "restart_completed_multistarts": false,
+  "precision_ladder": [1050, 1250, 1450],
+  "partial_checkpoint_policy": "hash-bound completed precision rows; unchanged original AP row and acceptance functions"
+}

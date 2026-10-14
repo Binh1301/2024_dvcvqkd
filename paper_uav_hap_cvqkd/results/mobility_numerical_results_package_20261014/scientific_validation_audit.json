@@ -1,0 +1,78 @@
+{
+  "status": "PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE",
+  "fading_aware_numerical_modules_exist": true,
+  "complete_validated_fading_aware_evaluator_available": false,
+  "full_comparison_rerun": false,
+  "mixture_MC_rerun": false,
+  "reasons": [
+    "Stored mixture MI sampling precision not met; this is not a validated full-fading rate table",
+    "Numerical interval Holevo lacks rigorous continuous error enclosure and operational fading-protocol justification",
+    "Original corrected evaluator source snapshot does not authorize every later MB source; no guard bypass performed"
+  ],
+  "corrected_source_paths_outside_original_snapshot": [
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/c8bb1494cb09b8cfa49c224c14f1712c282dc75dd5b841a9524ae10b99e5276c.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/a88f47c3fbccd118d3755edc149cd78dd2e43172f7377435d85d49be5282999d.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/696113dfc51a70ea3fdee959d33c1b14831650676a1a293addd7950f7c68fb5f.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/fdc9b651eceb7e178c4e3591d011d5e9c768e00b121a49b354ebe620bb122bc1.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/fde40e3703b7b061a36ead9db4148c5a46d349f45b55c006dee8bcd956a2ebf5.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/c5c3b23104db3c6b0d32ae2d99f9b7aab142eadc0731467c6ef634c9d37304f7.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/c7adab6748e9f95b4c989d4339a7cc694e962cf2a1e0e4cfe9c225d6343a5fe7.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/dc34170a58ffdbf71838f5a5b64a781f80b2fb05339fdc9d7fc6bb34fb6da28a.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/5f439f5fd35de5811cc41e0e1086abe820bd258b23036b4651a4172f47bbfbc5.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/7af29f9eca03de80440b1b5f2ea27d4be49b66c25976f7232d82477dbb2d11a8.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/699d954b2079aed6efb81b95b0b5cfa8dc6f48e0020df776874dd267cc2d6c85.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/a398a45035dd07653dd2284f4004281d37c6705bba478fdae3dd875a94c25cec.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/1ac3f288e91dbb8ca35cd5f747d404f195dffefeb0b79158cab7814a6a24471c.json",
+    "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/59ebe2e647b9c647f230e24239008252bee5defeed0ae5125afca7018296c432.json"
+  ],
+  "stored_precision_evidence": [
+    {
+      "field": "sampling_stderr_tolerance",
+      "value": 0.002
+    },
+    {
+      "field": "status",
+      "value": "VALID"
+    },
+    {
+      "field": "status",
+      "value": "NUMERICALLY_VERIFIED"
+    },
+    {
+      "field": "rigorous_global_error_enclosure",
+      "value": false
+    },
+    {
+      "field": "stderr",
+      "value": 0.019468676410223464
+    },
+    {
+      "field": "sampling_stderr_tolerance",
+      "value": 0.002
+    },
+    {
+      "field": "sampling_precision_pass",
+      "value": false
+    },
+    {
+      "field": "total_error_certified",
+      "value": false
+    },
+    {
+      "field": "status",
+      "value": "SAMPLING_PRECISION_NOT_MET"
+    },
+    {
+      "field": "MI_valid",
+      "value": false
+    }
+  ],
+  "reference_result_sha256": "3ec265c8897076a688d51e7acd2d66998f811d26f6616e6b0f4120fc91ddf803",
+  "raw_physical_PDF_three_moments_unchanged": true,
+  "omission": "N_adopted=T_eff*xi_ch, rather than (mean_eta-T_eff)*VA+mean_eta*xi_ch",
+  "additional_output_noise_difference": "(mean_eta-T_eff)*(VA+xi_ch)",
+  "symplectic_covariance_and_Z_noise_terms_consistent_in_each_existing_mode": true,
+  "full_security_lower_bound_claim": false,
+  "publication_lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

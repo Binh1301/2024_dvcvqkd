@@ -1,5 +1,20 @@
 # Decision Log
 
+## DEC-0162 - Add only a separate manuscript reproduction mode; STOP after tests
+
+2026-10-12 explicit attachment aae63626-108b-440d-9b21-ec9a8b92595f plus
+user-supplied (37).pdf authorize literal three-moment backend and lightweight
+unit/regression tests only. Use eta_f=E[sqrt(eta)], literal total noise and
+selected T=eta_f/xi=xi_f mapping; preserve existing discrete-QAM MI and exact
+source normalization/caches. Do not change frozen spec, historical evaluator,
+AP/AO, previous results or Objective C. Keep model-specific outputs/identifiers.
+Accept EVID-0179 implementation checks, NOT normalization/security readiness:
+reference PDF mass .9841200272202841 fails normalization and is not repaired.
+G_d and discrete-MI source gaps remain disclosed; no physical substitutions.
+STOP now; sweep/catalog evaluation/optimization/new AP/publication require
+fresh authority. NOT_READY_FOR_PUBLICATION_SCALE_RUNS remains.
+
+
 ## DEC-0161 - User stop supersedes remaining Objective C execution authority
 
 2026-10-11 explicit "dung": STOP entirecontroller/workertree now. AcceptEVID0178,
@@ -1143,7 +1158,8 @@ Date: 2026-10-02
 
 Status: ACTIVE DIAGNOSTIC DECISION; NO OPTICAL CANDIDATE SELECTED
 
-Accept EVID-0117. All 90 primary ((theta_{m div},D_r)) pairs are already
+Accept EVID-0117. All 90 primary ((theta_{
+m div},D_r)) pairs are already
 non-positive at 20 km. Therefore no candidate satisfies the requested
 30--40-km Uniform crossing target, and no category-C/D design exists in the
 declared physically reasonable domain.
@@ -4474,3 +4490,201 @@ or lifecycle gate changed. Lifecycle remains
 - EVID-0098
 - `results/hap_uav_sayat_forensics/FORENSIC_DIAGNOSIS.md`
 - `results/hap_uav_sayat_forensics/forensic_report.json`
+
+## DEC-0163 - corrected three-moment isolated implementation; STOP (2026-10-13)
+
+Authority: userattachment82ff4829 explicitly preserves raw Eq10 and Eq20,
+selects active conditioning with AoA atom retained, rho0, phaseOFF, centered
+MB/VA=2n, corrected effective excess noise, DBL interval and discrete mixture MI.
+EVID-0180 supports isolated namespace only, not a change to frozen/historical
+experiment scope. New src modules remain outside src/channel and src/cvqkd.
+Use existing hash-matched C,w only; payload bytes also bind protected baseline.
+Selected receiver convention is trusted, R=.7/xi_det=.0135. No verified receiver
+Holevo exists; do not substitute ideal entropy. Final status
+BLOCKED_BY_SCIENTIFIC_MODEL, no corrected production reference SKR launched.
+Keep raw/literal outputs and all old caches/results. No optimization/AP/sweeps,
+ObjectiveC restart, final-test/publication or automatic commit/push. Resolve
+receiver security/provenance/numerical prerequisites under a fresh scoped request.
+Requested (37)(2) PDF unavailable; supplied equationtask authoritative, metadata
+unverified version recorded. Frozen-hash historical mismatch remains unchanged.
+
+## DEC-0164 - ideal one-point diagnostic complete; STOP (2026-10-13)
+
+Authority userattachment6abbafa6 explicitly selects idealheterodyne R1/xiDet0,
+chihet1; overrides previous STOP only for one reference candidate, tests/report.
+Accept EVID-0181 as software/algebra/onepoint diagnostic evidence. Keep previous
+trusted config, corrected core, raw Eq10/Eq20, historical/literal modes/caches/results.
+Actualmixture samplingSE target failed; do not increase budget or relax tolerance
+automatically. Signed SKR estimates remain negative and explicitly diagnostic.
+EffectiveGaussian discrete MI/SKR is separately labeled approximation; no silent
+fallback. Numerical interval max not a rigorous global enclosure/securitycertificate.
+No trustednonideal implementation, AP/source recalculation/AO/182/26/restartC or
+training/final-test/publication/commit/push. Deliver report and STOP; any precision
+expansion or optimization needs a fresh scoped request. Frozen specs untouched.
+
+## DEC-0165 - negative-SKR causal diagnostic records a configuration mismatch (2026-10-13)
+
+Authority: explicit user attachment `f386aec4-dfab-449a-85f6-be325a3dfac3`.
+
+Accept EVID-0182 as a one-reference diagnostic with existing C,w and mixture MI,
+read-only channel/provenance checks and unchanged historical point reproduction.
+The historical and
+corrected modes share the base D55 geometry and exact source identity, but their
+derived PDF coefficients, scintillation convention, support, and moment
+conditioning differ. Keep the final status `CONFIGURATION_MISMATCH`; do not
+describe the cross-mode SKR change as a like-for-like physical-channel effect.
+
+The stored algebra is internally consistent: corrected fading noise is
+`0.42343717270144676` versus channel noise `0.0044251049417631805`, historical
+and corrected covariance/Holevo/SKR values reproduce their artifacts, and the
+`lambda_2` entropy term dominates the Holevo increase. Corrected mixture MI
+precision remains unresolved (`SE=0.019468676410223464` versus target `0.002`),
+so the negative corrected K remains a signed diagnostic rather than a validated
+security lower bound. A future like-for-like one-point comparison or precision
+work requires a fresh scoped request; do not optimize or sweep automatically.
+
+Completion clarification: .1558491966743379 is retained, unnormalized mh²;
+corrected full-support raw mh² is .1694819790377013. Aperture, Rytov, tail cut
+and conditioning sensitivities are explicitly separated. Eight current tests
+and 3663 protected/13 prior ideal output hashes pass. Covariance controls show
+adding fading variance to b is the main positive change in chi at this point;
+those controls are mathematical sensitivities, not valid protocols.
+
+## DEC-0166 - separate Gaussian diagnostic deliberately ignores fading variance (2026-10-13)
+
+Authority: explicit user request REMOVE FADING-INDUCED NOISE FROM EFFECTIVE
+GAUSSIAN SKR. Supersede the previous STOP only for the one specified reference,
+isolated implementation, fresh Gaussian MI/Holevo, lightweight tests and report.
+Keep raw Eq10, normalized physical law, all three moments and existing C,w.
+Use T_eff=mh², xi_eff=xi_ch=.0186, N_eff=T_eff*xi_ch in both MI and covariance/
+Eq20; b=1+T_eff(VA+xi_ch). Do not mix old b with the new Z noise.
+
+Accept EVID-0183 as diagnostic evidence: K=+.05863015022113771 at
+L21.9393102292/.165/VA5.5. Full-moment covariance preservation is deliberately
+not claimed. This mode is an effective Gaussian approximation that ignores
+fading-induced variance; it does not replace manuscript_corrected_3moments or
+change frozen security/attack/lifecycle claims. Keep old corrected mixture
+precision failure visible in comparison; no reuse of its MI for the new mode.
+STOP after this result/report; no automatic AP/AO/search/sweep/restartC,
+publication/test/training or commit/push.
+
+## DEC-0167 - user-authorized isolated diagnostic AO, 2026-10-13
+
+The new explicit RUN MULTISTART ALTERNATING OPTIMIZATION attachment supersedes
+DEC-0166 STOP only for this reference-distance diagnostic. Permit catalog182
+comparison, 8 multistart P1/P2 trajectories, limited exact source generation in
+an overlay cache, higher-order discrete MI checks, Uniform VA search and report.
+Keep effective_channel_no_fading_noise equations, normalized physical PDF/moments,
+xi=.0186,beta=.95,ideal heterodyne,Eq10/20,direct chi(Zstar),signed K fixed.
+No physical upper/peak/energy constraints are introduced. Finite sampled ranges
+and source limits are computational only. Zero nu is explicitly checked.
+Use new namespace ao_effective_channel_no_fading_noise_reference; protected
+historical/catalog/B/C/modes/checkpoints remain byte-identical.
+User was asked an optional resource preference; disclosed default is fresh
+1800s new-source budget,720s per source,max3 attempts,600s Uniform reserve.
+No resource-limit outcome implies coordinate/global convergence or security.
+Frozen expected-hash mismatch remains a pre-existing promotion blocker.
+No old ObjectiveC restart,26-distance/trajectory/cloud/aperture/divergence sweeps,
+training/heldout/final-test/publication evaluation,commit or push. STOP after report.
+
+DEC-0167 completion: accept EVID-0184/final_validation.json only within
+the diagnostic scope. Actual AO/Uniform searches ran; all3 source attempts
+timeout, source budget exhausted. Final AO_RESOURCE_LIMITED, best exact
+(.17,5),K=.05873317206754991; no local/global convergence or fading-security
+certification. Original author-selected equations unchanged. No retry or reuse
+of oldC/unused historical budgets. Keep checkpoint/report and STOP; further
+source/optimization work requires new explicit scope/resource decision.
+
+## DEC-0168 - user explicitly extends exact-source time and resumes one AO, 2026-10-13
+
+Supersede previousSTOP only for same reference-distance no-fading-noise
+continuation. User authorizes7200s/source,43200s total,max1concurrent,frequent
+checkpointing and existing-cache reuse. Do not restart8multistarts. Recover
+exact oldprobes(.17,4.75),(.17,5.25),(0,.9),then continueP1/P2 using immediately
+updatedVA and exact new sources within budget. No interpolation.
+Accept EVID-0185 preparation only,not source/numeric convergence. New wrapper
+may extend transporttimeout and journal completed original precision rows;
+mathematical source/kernel/precision/normalization and Eq10/20 stay unchanged.
+Old evaluators/results/catalog182/B/C/checkpoints protected. Separate new
+namespace; stop gracefully at budget/environment limit,retain priorbest until
+verified strict improvement. Timeout is resource status,never negative/invalidK.
+No oldC restart/newmultistarts/distance/trajectory/publication/training/heldout/
+final-test access,commit/push. Gaussian Zstar approximation remains diagnostic.
+
+DEC-0168 completion 2026-10-14: authorized7200s/source and43200s continuation
+finished as AO_RESOURCE_LIMITED;stop numerical search at the remaining-global
+deadline,retain16complete new sources and source17precision checkpoints. Keep
+bestexact(.17,5.046875),K=.0587348598790054;no convergence/global/security
+promotion. P2 usednewP1 VA;8oldstarts neverrestarted. No automatic retry or new
+resourcebudget beyond this request. Existing model/lifecycle/frozen/cache/oldC
+scope remainsunchanged; no commit/push. EVID-0185/completion receipt supports
+this terminal snapshot.
+
+## DEC-0169 - user authorizes cached distance-figure update, 2026-10-14
+
+Supersede priorSTOP only for this finite existing-cache diagnostic figure. Select best among validatedcached Uniform/MB ensembles separately at26distances20-40km;preservefixedMB/source/PDF/no-fading-noise equations and alloldartifacts. Recompute distance-dependent physicalmoments/discreteMI/direct-Zstar Holevo;never copy the reference Teff to otherdistances. No new AP/AO/source generation or continuous/global/security certification. Label optimized=best in validatedcache and effectiveGaussian ignoring fadingvariance. Save standalonePNG/vectorPDF/signedCSV/provenance in new namespace;no commit/push.
+
+DEC-0169 completion, 2026-10-14: EVID-0186 and both figure/integrity receipts
+support delivery of the completed cached-distance figure. Interpret Optimized
+only as the best validated cached candidate at each sampled distance. Keep
+negative Uniform values in CSV and show only positive runs on the requested
+log10 figure. Stop after delivery; no additional AP/AO/search, training,
+held-out/final-test/publication evaluation, commit or push. Existing lifecycle,
+frozen-model blocker and source/security certification limits remain unchanged.
+
+## DEC-0170 - user authorizes synthetic mobility-aware diagnostic, 2026-10-14
+
+Supersede prior STOP only for the attached mobility task: finite authenticated
+MB catalog at 100 grid positions, two cloud states; P2 and discrete DP; 30-slot
+synthetic demonstration, velocity/penalty sweeps and six standalone figures.
+Use the existing effective_channel_no_fading_noise evaluator unchanged. The
+attached distance-penalty model overrides the selected TeX energy approximation
+for this implementation; no joules/propulsion-energy claim. Explicit HAP
+embedding preserves the old reference slant distance; no measured coordinate
+claim. Tests and a small smoke must pass before the full diagnostic. Keep raw
+K and positive-part usable rates distinct. No AP/AO, new source moments,
+training/held-out/final-test/publication evaluation, commit or push. Frozen
+hash discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain unchanged.
+
+DEC-0170 geometry confirmation: user explicitly chose the reference-preserving
+demonstration coordinates via the clarification reply. Recorded in
+results/mobility_aware_skr_20261014/geometry_user_confirmation.json. This matches
+the running configuration exactly; no numerical input or accepted result changed.
+
+DEC-0170 completion: deliver the completed diagnostic implementation, CSV,
+six PNG/vector PDFs and Vietnamese report supported by EVID-0187 and hash-bound
+full/final-validation/completion receipts. Finite catalog/grid optima are
+computed-table results, not continuous-domain or exact fading security
+certification. Default lambda=0.001 is a declared demonstration setting,
+not a selected physical energy parameter. Stop the authorized experiment;
+no automatic source/AO search, training/held-out/final-test/publication work,
+commit or push. Preserve all old results and external manuscripts.
+
+## DEC-0171 - targeted numerical package and Uniform benchmark, 2026-10-14
+
+User explicitly authorizes IEEE figures/tables/LaTeX, existing-data validation,
+only missing controlled Uniform comparison and affordable separate scenario
+sensitivity. Supersede priorSTOP solely for this diagnostic package. Preserve
+all old39400results and197MBbank; use existing no-fading-noise mode for controlled
+30Uniformsource states. Full fading-aware numerical modules are present but
+not validated for complete security/precision and every later source identity;
+do not bypass their guards or call this package certified fading security.
+Keep main figures preliminary; output omission audit, boundary explanation,
+normalized cumulative quantity, exact discrete results and all plotted CSV.
+No new Cw/AP/AO, oldfull MB rerun, training/heldout/final-test/publication
+evaluation, commit/push. Frozen mismatch andNOT_READY remain.
+
+DEC-0171 completion: accept EVID-0188 only as the requested cached-data and
+additional Uniform diagnostic package. Deliver the seven IEEE figures, two
+tables, plotting CSV, Overleaf ZIP, LaTeX section and Vietnamese report. Original
+39400 MB records, old C,w/scientific kernels and frozen specifications are
+preserved; only missing 6000 Uniform plus 30 smoke evaluations were computed.
+Optional scenario comparisons use the existing binary-state rate table.
+
+Keep preliminary Gaussian/no-fading-variance classification and finite-bank/
+finite-grid scope explicit. Do not promote full fading-security, publication
+lifecycle, physical energy, continuous optimality or matched-energy shaping
+claims. TeX compilation remains BLOCKED_BY_ENVIRONMENT, despite successful
+lexical/path/export checks. No external manuscript edit, commit or push.
+This task is COMPLETE; STOP. Further scientific runs require a new explicit
+request and independently valid lifecycle/provenance evidence.

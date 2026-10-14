@@ -1,0 +1,59 @@
+{
+  "started_utc": "2026-10-13T10:03:03.412546+00:00",
+  "scientific_context_hash": "77abb3f0ff944accb850da5f6e8ad68b4fec69dd702bd11b5b897681e6c7193c",
+  "config": {
+    "experiment": "ao_effective_channel_no_fading_noise_reference",
+    "scientific_model": "effective_channel_no_fading_noise",
+    "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+    "distance_km": 21.9393102292,
+    "xi_ch": 0.0186,
+    "beta_rec": 0.95,
+    "R": 1.0,
+    "xi_det": 0.0,
+    "chi_het": 1.0,
+    "theta_div_full_rad": 1e-05,
+    "w0_m": 0.0986760647169751,
+    "receiver_diameter_m": 0.55,
+    "adaptive_optics": "OFF",
+    "phase_noise": "OFF",
+    "T_eff_reference": 0.16092029098192165,
+    "starts": [
+      [
+        0.165,
+        5.5
+      ],
+      [
+        0.15,
+        6.5
+      ],
+      [
+        0.16,
+        6.0
+      ],
+      [
+        0.175,
+        4.5
+      ],
+      [
+        0.2,
+        3.5
+      ]
+    ],
+    "additional_diverse_starts": 3,
+    "max_ao_iterations": 6,
+    "SKR_tolerance": 1e-08,
+    "parameter_tolerance": 1e-06,
+    "MI_GH_orders": [
+      8,
+      16,
+      32
+    ],
+    "source_wall_budget_seconds": 1800,
+    "per_source_deadline_seconds": 720,
+    "max_new_source_attempts": 3,
+    "uniform_source_reserve_seconds": 600,
+    "resource_policy": "default disclosed to user; separate budget for this experiment only",
+    "physical_domain": "nu_raw>=0, VA>0; no peak, energy budget or physical upper bounds",
+    "security_interpretation": "Gaussian approximation omitting fading variance; no certified fading security claim"
+  }
+}

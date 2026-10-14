@@ -1,0 +1,1502 @@
+--- before/docs/EVIDENCE.md
++++ after/docs/EVIDENCE.md
+@@ -8725,3 +8725,69 @@
+ caches and results remain unchanged. No training/test dataset access, baseline
+ approval or threshold certification; lifecycle remains NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+ The pre-existing frozen-hash discrepancy remains. STOP; no commit or push.
++
++## EVID-0187 preparation: mobility-aware source and UAV optimization
++
++2026-10-14. User attached a complete implementation/diagnostic task. Audit artifacts
++results/mobility_aware_skr_20261014/startup_manifest.json and audit.json bind Git,
++3437 protected old files, reference documents, reused scientific modules and the
++197-MB authenticated roster. docs/MOBILITY_AWARE_SKR_AUDIT.md records the explicit
++synthetic HAP-coordinate embedding, cloud parameters and raw-before-conditioning
++convention. Implementation adds separate geometry/DP, SKR integration, runner,
++plotter, config and tests. Numerical tests/smoke/full results NOT_RUN at this
++preparation checkpoint. No source generation, AP/AO or publication promotion.
++
++EVID-0187 preflight: CURRENTLY_VERIFIED_PASS for 15 scoped tests and 30 smoke
++evaluations (5 grid points, 3 sources, 2 cloud states). test_receipt.json and
++smoke/experiment_receipt.json bind current hashes and output. Initial test
++failures concerned dataclass metadata serialization and an unjustified all-grid
++initially-clear expectation; fixed the serializer and assertion without
++changing scientific inputs or formulas. Tests and smoke reproduce the current
++reference. Full demonstration is now permitted by DEC-0170; not yet complete.
++
++EVID-0187 completion, DEC-0170, 2026-10-14: CURRENTLY_VERIFIED_PASS for the
++synthetic mobility diagnostic. Full run completed 39400 evaluations of 197
++validated MB sources at 100 positions and two channel states; all original
++182 source keys are present, no new C,w/AP/AO/interpolation. 30 slots of 20 s,
++maximum step 300 m, freely selectable initial position, identical source
++adaptation in S1-S4. Five cloud velocities and eight movement penalties were
++actually evaluated from the completed binary-state table, without repeated
++SKR computation. Six standalone 300-dpi PNG/vector PDFs were exported and
++visually inspected. Fifteen scoped tests and 30 smoke evaluations passed
++before the full run, which took 990.6047625000356 s excluding setup.
++
++At the default synthetic cloud velocity 3 m/s and S4 lambda=0.001 bits/use:
++S1 mean .033503391695769096, distance0 m; S2 mean .05349345891657229,
++fixed position(950,950) m, distance0; S3 mean .061883253712551226,
++distance2323.606797749979 m; S4 mean .061041913501481276, distance600 m,
++penalized objective .06044191350148127. S2/S3/S4 gains versus S1 are
++59.665801606968635/84.70742984617291/82.19622077602915 percent. Availability
++is 100 percent of slots with positive computed K in all four schemes; this
++is not physical no-outage probability or an operational security claim.
++
++final_validation.json independently checks all source/state cache keys and
++journal/CSV identities, the 200 finite-bank maxima, normalization/moment
++ordering, covariance uncertainty/spectrum/entropy and P2/DP reconstruction.
++GH8/16/32 winners are stable at all 200 states. Spectrum residual maximum
++2.6645352591003757e-14; entropy residual 1.7763568394002505e-15; minimum
++uncertainty eigenvalue .0002973234528223727. Old3437 protected files have
++unchanged hashes. completion_integrity_receipt.json binds current producers,
++reports, outputs and six visual checks. Full experiment_receipt.json is the
++terminal evidence; checkpoint.json retains its last loop-progress snapshot.
++
++Artifacts under results/mobility_aware_skr_20261014/: startup/audit/test/smoke/
++full/final_validation/completion receipts, source and state tables, complete
++objective journal, scheme time series, summary, velocity/penalty CSV and six
++PNG/PDF figures. Report docs/MOBILITY_AWARE_SKR_REPORT_VI.md. User confirmed
++the synthetic HAP embedding preserving the old 21.9393102292-km reference;
++geometry_user_confirmation.json records it. External TeX/PDF are unchanged.
++The attached distance-penalty task governs, not the TeX propulsion-energy
++approximation. No energy quantities or bits/J are claimed.
++
++Existing physical PDF/three-moment/source/MI/Holevo/security kernels and
++frozen specification remain unchanged. Effective Gaussian approximation
++ignoring fading variance only; no exact fading-security or continuous/global
++physical optimum. No source generation, training/test dataset access,
++held-out/final-test/publication evaluation, baseline/threshold approval,
++commit/push. NOT_READY_FOR_PUBLICATION_SCALE_RUNS, pre-existing frozen-hash
++mismatch and Objective C USER_STOPPED remain. STOP after delivery.
+--- before/docs/DECISION_LOG.md
++++ after/docs/DECISION_LOG.md
+@@ -4631,3 +4631,31 @@
+ log10 figure. Stop after delivery; no additional AP/AO/search, training,
+ held-out/final-test/publication evaluation, commit or push. Existing lifecycle,
+ frozen-model blocker and source/security certification limits remain unchanged.
++
++## DEC-0170 - user authorizes synthetic mobility-aware diagnostic, 2026-10-14
++
++Supersede prior STOP only for the attached mobility task: finite authenticated
++MB catalog at 100 grid positions, two cloud states; P2 and discrete DP; 30-slot
++synthetic demonstration, velocity/penalty sweeps and six standalone figures.
++Use the existing effective_channel_no_fading_noise evaluator unchanged. The
++attached distance-penalty model overrides the selected TeX energy approximation
++for this implementation; no joules/propulsion-energy claim. Explicit HAP
++embedding preserves the old reference slant distance; no measured coordinate
++claim. Tests and a small smoke must pass before the full diagnostic. Keep raw
++K and positive-part usable rates distinct. No AP/AO, new source moments,
++training/held-out/final-test/publication evaluation, commit or push. Frozen
++hash discrepancy and NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain unchanged.
++
++DEC-0170 geometry confirmation: user explicitly chose the reference-preserving
++demonstration coordinates via the clarification reply. Recorded in
++results/mobility_aware_skr_20261014/geometry_user_confirmation.json. This matches
++the running configuration exactly; no numerical input or accepted result changed.
++
++DEC-0170 completion: deliver the completed diagnostic implementation, CSV,
++six PNG/vector PDFs and Vietnamese report supported by EVID-0187 and hash-bound
++full/final-validation/completion receipts. Finite catalog/grid optima are
++computed-table results, not continuous-domain or exact fading security
++certification. Default lambda=0.001 is a declared demonstration setting,
++not a selected physical energy parameter. Stop the authorized experiment;
++no automatic source/AO search, training/held-out/final-test/publication work,
++commit or push. Preserve all old results and external manuscripts.
+--- before/docs/PROJECT_STATE.md
++++ after/docs/PROJECT_STATE.md
+@@ -1,4 +1,31 @@
+ # Project State
++
++## Current: mobility-aware joint optimization COMPLETE; STOP
++
++2026-10-14 EVID-0187/DEC-0170. CURRENTLY_VERIFIED_PASS for the requested
++synthetic diagnostic: 100 positions, 197 authenticated MB sources (all182
++original keys retained), two channel states, 39400 evaluations, 30x20s slots.
++15 scoped tests and 30 smoke evaluations passed before the full run. Five
++cloud velocities and eight lambda cases completed; six PNG/vector PDFs.
++Default means S1=.033503391695769096, S2=.05349345891657229 (950,950)m,
++S3=.061883253712551226, S4=.061041913501481276 bits/use. Flights0/0/
++2323.606797749979/600m; S4 lambda=.001, objective=.06044191350148127.
++No numerical failures; GH8/16/32 winners match at all200states. Independent
++cache keys, P1 maxima, covariance spectra/entropy and P2/DP checks pass;
++3437 protected old hashes unchanged. Geometry embedding is user-confirmed
++and preserves the original 21.9393102292km reference. Cloud parameters are
++synthetic, and the penalty is flight distance, not propulsion energy.
++Report docs/MOBILITY_AWARE_SKR_REPORT_VI.md; results/mobility_aware_skr_20261014/
++contains all CSV, figures, full/experiment_receipt.json, final_validation.json,
++completion_integrity_receipt.json and provenance. Progress checkpoint remains
++an immutable last loop snapshot; full receipt is terminal evidence.
++Current no-fading-noise Gaussian source/MI/Holevo kernels and physical PDF/
++three moments are reused unchanged. No new C,w/AP/AO/interpolation. No exact
++fading-security, continuous/global physical optimum or total-error certificate.
++No training/test data access, held-out/final-test/publication evaluation,
++baseline/threshold approval or commit/push. Frozen-hash mismatch and
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain; Objective C USER_STOPPED.
++Deliver implementation/report/figures, then STOP; await a new explicit task.
+ 
+ ## Current: updated cached distance figure COMPLETE; STOP
+ 
+--- before/docs/NEXT_ACTIONS.md
++++ after/docs/NEXT_ACTIONS.md
+@@ -1,4 +1,19 @@
+ # Next Actions
++
++## Current: deliver completed mobility diagnostic, then STOP
++
++EVID-0187/DEC-0170. Deliver docs/MOBILITY_AWARE_SKR_REPORT_VI.md and the
++results/mobility_aware_skr_20261014/ CSV/six PNG/vector PDF figures. Runnable
++entry: scripts/run_mobility_skr_experiment.py; configuration:
++configs/mobility_aware_skr_demo.json. Full 39400 evaluations, 15 tests, smoke,
++five velocity cases and eight lambda cases completed and hash-bound.
++User-confirmed demonstration geometry; synthetic clouds and current Gaussian
++approximation ignoring fading variance. Distance penalty only, no joules.
++Computed finite-catalog/grid optimum does not certify continuous optimum or
++fading security. Preserve existing scientific code/cache/spec/results and
++external manuscripts. No automatic AP/AO/source generation, extra searches,
++training/held-out/final-test/publication evaluation, commit or push.
++Existing NOT_READY/frozen-hash blockers and Objective C stop remain.
+ 
+ ## Current: deliver completed cached-distance figure, then STOP
+ 
+--- before/.agent/SESSION_HANDOFF.md
++++ after/.agent/SESSION_HANDOFF.md
+@@ -1,67 +1,58 @@
+ # Session Handoff
+ 
+-2026-10-14 EVID-0186/DEC-0169: updated cached-distance figure COMPLETE; STOP.
+-Branch channel/update; HEAD 84bf84dc3862b6cb51fa368f7e481459845ffb98.
+-User explicitly chose best validated cached C,w at each distance, without new
+-AP/AO. Diagnostic computation and independent artifact checks are complete.
++2026-10-14 EVID-0187/DEC-0170: mobility-aware joint source/UAV diagnostic
++COMPLETE; STOP. Branch channel/update, HEAD
++84bf84dc3862b6cb51fa368f7e481459845ffb98. Full controller session50811 and
++saved-data finalizer session24764 exited0. No new AP/source/AO process.
+ 
+-Deliver PNG/vector PDF/signed CSV in
+-results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/.
+-Report: docs/SKR_DISTANCE_NO_FADING_NOISE_CACHE_REPORT_VI.md.
+-Producer: scripts/redraw_no_fading_noise_three_scheme.py.
+-Machine evidence: figure_receipt.json, completion_integrity_receipt.json,
+-startup_manifest.json, source_roster.csv, channel_moments_by_distance.json,
+-all_cached_candidate_evaluations.csv and numerical_failures.csv (empty).
+-PNG 3150x1950, 300 dpi; PDF vector, visually inspected plot has the same
+-three colors, title, labels and logarithmic layout as the requested figure.
++Deliver docs/MOBILITY_AWARE_SKR_REPORT_VI.md and all results under
++results/mobility_aware_skr_20261014/. Runnable runner:
++scripts/run_mobility_skr_experiment.py; config configs/mobility_aware_skr_demo.json.
++Tests tests/test_mobility_skr.py: 15 CURRENTLY_VERIFIED_PASS. Smoke 30 evaluations
++at5positions/3sources passed before full. Full100positions,197MBsources,
++2states,39400evaluations,30slotsx20s completed in990.6047625000356s numeric time.
++Five cloud speeds and eight lambda values completed using the exact binary-state
++table; six 300dpi PNG/vector PDF figures exported and visually inspected.
+ 
+-CURRENTLY_VERIFIED_PASS: 227 authenticated existing sources, comprising 30
+-Uniform and 197 MB; 26 original distance coordinates, 20-40 km; 5902 successful
+-evaluations and 78 selected rows. All 52 GH8/16/32 family/distance winner checks
+-are stable. Fixed MB keeps nu_raw=0.2, V_A=1.3833230302980657 and its original
+-ensemble. Optimized means best in this finite validated cache, not a closed
+-continuous AO search or global optimum.
++Default S1/S2/S3/S4 mean usable SKR:
++.033503391695769096/.05349345891657229/.061883253712551226/.061041913501481276.
++S2 fixed position(950,950)m. Flights0/0/2323.606797749979/600m. S4 lambda=.001,
++D_ref1000m, penalized objective .06044191350148127. This is a distance penalty,
++not physical propulsion energy; no joules or bits/J. Availability100% means
++positive computed K in all slots, not physical no-outage/security availability.
++Source adaptation once per slot and free deployment are shared across schemes.
+ 
+-Mode effective_channel_no_fading_noise; normalized Eq. (10) PDF and all three
+-moments recalculated for each distance without altering their producer.
+-T_eff=mean_sqrt_eta**2; xi_eff=0.0186; N_eff=T_eff*xi_ch;
+-a=1+V_A; b=1+T_eff*(V_A+xi_ch);
+-Z_star=2*sqrt(T_eff)*C-sqrt(2*T_eff*xi_ch*w).
+-Fresh discrete 256-QAM MI GH8/16/32 and direct-Z_star Holevo use the same
+-ensemble/noise, ideal heterodyne R=1, xi_det=0, chi_het=1, beta=0.95;
+-phase/adaptive optics OFF. Source C,w come unchanged from cache.
++Reused normalized Eq10 PDF/three moments, no-fading-noise Gaussian mapping,
++C4 MB ensemble and exact cached C,w, fresh discrete-QAM MI GH8/16/32 and unchanged
++direct-Z_star covariance/Holevo. No interpolation or source generation. Cloud
++factor multiplies raw eta before existing finite-domain active conditioning;
++AoA atom and detector noise identity are retained. Clear tau_zen=.92 excludes
++added cloud loss; ideal R1,xi_det0,chi_het1,xi_ch.0186,beta.95,phase/adaptive
++optics OFF. All original182MB source keys are included in197accepted sources.
+ 
+-Reference L=21.9393102292 km: best MB (0.17,5.046875),
+-K=0.0587348598790054, identical to the completed continuation.
+-Uniform has six positive sampled points through 24 km and 20 negative points
+-starting at 25 km. Signed negative K is preserved in CSV; log10 draws only
+-positive runs with no connection across nonpositive values. Both MB curves
+-are positive at all sampled distances through 40 km. Do not claim an exact
+-continuous zero crossing from this sampled grid.
++User explicitly confirmed HAP demonstration coordinates (11419.65511459133,450)m
++and reference UAV(450,450)m, keeping original L21.9393102292km; actual HAP
++azimuth is not measured. One synthetic cloud h5km,R420m,A10dB,c0
++(2093.7168662297537,450)m,v(3,0)m/s. Cloud statistics/forecast/tracking/transit
++and scalar fading simplifications are stated in the report. External TeX/PDF
++unchanged; attached task's distance penalty overrides the TeX energy model.
++PDF full text not parsed; task and supplied TeX equations define the scope.
+ 
+-Independent saved-data checks verified all 227 payload hashes, finite-bank
+-maxima, moments/noise/covariance/Z/SKR identities, covariance uncertainty and
+-symplectic spectra; 3423 protected prior file hashes and all figure output
+-hashes match. Max spectrum residual 2.3092638912203256e-14, max entropy residual
+-1.7763568394002505e-15. No new objective/source run or unit-test count is claimed
+-for these final checks. Initial metadata-export KeyError was corrected only
+-in the new producer; metadata_repair_receipt.json preserves that provenance.
++Machine evidence: startup_manifest.json, audit.json, geometry_user_confirmation,
++test_receipt.json, smoke/experiment_receipt.json, full/experiment_receipt.json,
++final_validation.json, completion_integrity_receipt.json. Full CSV, journal,
++channel states, summary, time series and speed/penalty results are hash-bound.
++All200finite-bank maxima and complete source/state keys verified; GH8/16/32
++winners stable at200states. Independent covariance/entropy and DP checks pass.
++Max spectrum residual2.6645352591003757e-14, entropy1.7763568394002505e-15.
++3437oldprotected files unchanged. Full receipt is authoritative terminal state;
++checkpoint.json is the unchanged last loop-progress snapshot, not an active job.
+ 
+-Old scientific kernels, security functional, modes, caches/checkpoints/results
+-and frozen specification are unchanged. Gaussian approximation ignoring fading
+-variance; exact fading-channel security bound, source total-error enclosure
+-and continuous/global optimum remain unestablished. Lifecycle remains
+-NOT_READY_FOR_PUBLICATION_SCALE_RUNS; frozen actual df83ea63...78c15 differs
+-historical expected 561fecc...a7b1; Objective C remains USER_STOPPED.
+-No training/test dataset access, held-out/final-test/publication evaluation,
+-baseline approval or threshold certification. No AP/AO, new source generation,
+-interpolation, Monte Carlo, commit or push was performed for this redraw.
+-
+-Previous reference AO continuation remains AO_RESOURCE_LIMITED, with 16
+-completed new sources and unfinished (nu_raw,V_A)=(0.17125,5.046875) at its
+-remaining-global deadline. That partial source is excluded from this plot.
+-Its 1050/1250 checkpoints and all old evidence are retained under
+-results/ao_effective_channel_no_fading_noise_reference_continuation/;
+-no accepted C,w/SKR exists for that unfinished candidate. No automatic retry,
+-new time budget, AO restart or search expansion is authorized.
+-Deliver the completed figure, then STOP. Await a new explicit task.
++Existing scientific/security kernels, old modes/cache/results and frozen
++specification are unchanged. Gaussian approximation ignoring fading variance;
++no exact fading-security/continuous/global physical optimum/total-error claim.
++Frozen actual df83ea63...78c15 still differs from historical561fecc...a7b1;
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED remain.
++No training/test dataset access,held-out/final-test/publication evaluation,
++baseline/threshold certification,commit/push. STOP after delivery; further
++computation requires a new explicit task. Preserve pre-existing dirty worktree.
+--- /dev/null
++++ after/src/uav_mobility.py
+@@ -0,0 +1,126 @@
++"""Circular-cloud geometry and exact finite-grid dynamic programming."""
++from __future__ import annotations
++
++import math
++import numpy as np
++
++
++def scalar(value, name, *, positive=False, nonnegative=False):
++    value = float(value)
++    if not math.isfinite(value) or (positive and value <= 0) or (nonnegative and value < 0):
++        raise ValueError(f"Invalid {name}: {value}")
++    return value
++
++
++def xy(value, name):
++    value = np.asarray(value, dtype=float)
++    if value.shape != (2,) or not np.isfinite(value).all():
++        raise ValueError(f"{name} requires two finite horizontal coordinates")
++    return value
++
++
++def candidate_grid(side_m=1000., cells=10):
++    side_m = scalar(side_m, "grid side", positive=True)
++    if not isinstance(cells, int) or isinstance(cells, bool) or cells <= 0:
++        raise ValueError("Grid cells must be a positive integer")
++    centers = (np.arange(cells) + .5) * side_m / cells
++    return np.array([(x, y) for y in centers for x in centers])
++
++
++def link_geometry(positions, hap_xy, h_hap, h_uav):
++    positions = np.asarray(positions, dtype=float)
++    if positions.ndim != 2 or positions.shape[1] != 2 or not len(positions) or not np.isfinite(positions).all():
++        raise ValueError("Positions must be a nonempty finite Jx2 array")
++    dh = scalar(h_hap, "HAP altitude") - scalar(h_uav, "UAV altitude")
++    if dh <= 0:
++        raise ValueError("HAP must be above UAV")
++    horizontal = np.linalg.norm(positions - xy(hap_xy, "HAP position"), axis=1)
++    distances = np.hypot(horizontal, dh)
++    return distances, np.arctan2(horizontal, dh)
++
++
++def path_intersections(positions, hap_xy, h_hap, h_uav, h_cloud):
++    h_hap, h_uav, h_cloud = [scalar(v, "altitude") for v in (h_hap, h_uav, h_cloud)]
++    if not h_uav < h_cloud < h_hap:
++        raise ValueError("Cloud altitude must be strictly between UAV and HAP")
++    positions = np.asarray(positions, dtype=float)
++    link_geometry(positions, hap_xy, h_hap, h_uav)
++    fraction = (h_cloud - h_uav) / (h_hap - h_uav)
++    return positions + fraction * (xy(hap_xy, "HAP position") - positions)
++
++
++def moving_cloud(intersections, times, center, velocity, radius):
++    intersections = np.asarray(intersections, dtype=float)
++    times = np.asarray(times, dtype=float)
++    if intersections.ndim != 2 or intersections.shape[1] != 2 or not np.isfinite(intersections).all():
++        raise ValueError("Cloud intersections must be finite Jx2 coordinates")
++    if times.ndim != 1 or not len(times) or not np.isfinite(times).all() or (times < 0).any():
++        raise ValueError("Cloud times must be finite and nonnegative")
++    radius = scalar(radius, "cloud radius", positive=True)
++    centers = xy(center, "cloud center") + times[:, None] * xy(velocity, "cloud velocity")
++    separation = np.linalg.norm(intersections[:, None, :] - centers[None, :, :], axis=2)
++    return separation <= radius, centers
++
++
++def cloud_transmittance(attenuation_db, blocked):
++    loss = scalar(attenuation_db, "cloud attenuation dB", nonnegative=True)
++    transmission = 10 ** (-loss / 10) if blocked else 1.
++    if transmission <= 0:
++        raise ValueError("Cloud attenuation underflows; no silent zero substitution")
++    return transmission
++
++
++def usable_skr(raw_table):
++    raw_table = np.asarray(raw_table, dtype=float)
++    if raw_table.ndim != 2 or not all(raw_table.shape) or not np.isfinite(raw_table).all():
++        raise ValueError("SKR table must be nonempty, finite JxN")
++    return np.maximum(raw_table, 0.)
++
++
++def best_stationary(skr_table):
++    usable = usable_skr(skr_table)
++    means = usable.mean(axis=1)
++    return int(np.argmax(means)), means
++
++
++def transition_distances(positions):
++    positions = np.asarray(positions, dtype=float)
++    link_geometry(positions, [0., 0.], 1., 0.)
++    return np.linalg.norm(positions[:, None, :] - positions[None, :, :], axis=2)
++
++
++def optimize_trajectory(skr_table, positions, *, slot_duration_s, max_speed_m_per_s,
++                        penalty_bits_per_use, reference_distance_m):
++    usable = usable_skr(skr_table)
++    distance = transition_distances(positions)
++    if len(distance) != len(usable):
++        raise ValueError("Position/SKR table sizes differ")
++    dt = scalar(slot_duration_s, "slot duration", positive=True)
++    speed = scalar(max_speed_m_per_s, "maximum speed", nonnegative=True)
++    penalty = scalar(penalty_bits_per_use, "movement penalty", nonnegative=True)
++    reference = scalar(reference_distance_m, "reference distance", positive=True)
++    feasible = distance <= speed * dt
++    slots, count = usable.shape[1], usable.shape[0]
++    values = usable[:, 0] / slots
++    predecessors = np.full((slots, count), -1, dtype=int)
++    for n in range(1, slots):
++        # Rows are predecessors i; columns are destinations j.
++        proposals = values[:, None] - penalty * distance / reference
++        proposals = np.where(feasible, proposals, -np.inf)
++        predecessors[n] = np.argmax(proposals, axis=0)
++        values = usable[:, n] / slots + proposals[predecessors[n], np.arange(count)]
++    path = np.empty(slots, dtype=int)
++    path[-1] = int(np.argmax(values))
++    for n in range(slots - 1, 0, -1):
++        path[n-1] = predecessors[n, path[n]]
++    legs = distance[path[:-1], path[1:]]
++    if (legs > speed * dt).any():
++        raise ValueError("DP returned an infeasible transition")
++    rates = usable[path, np.arange(slots)]
++    flight = float(legs.sum())
++    objective = float(rates.mean()) - penalty * flight / reference
++    if not math.isclose(objective, float(values[path[-1]]), abs_tol=1e-12, rel_tol=1e-12):
++        raise ValueError("DP/backtracking objective disagreement")
++    return dict(path=path, rates=rates, average_skr=float(rates.mean()),
++                total_flight_distance_m=flight, penalized_objective=objective,
++                penalty_bits_per_use=penalty, max_transition_m=float(legs.max()) if len(legs) else 0.)
+--- /dev/null
++++ after/src/mobility_skr.py
+@@ -0,0 +1,170 @@
++"""Existing exact-source Gaussian SKR connected to binary cloud channel states.
++
++No source oracle, interpolation, new covariance or Holevo expression is used.
++"""
++from __future__ import annotations
++
++import csv
++from dataclasses import asdict, is_dataclass, replace
++import json
++import math
++from pathlib import Path
++
++from scripts import run_ao_effective_channel_no_fading_noise_reference as existing
++from scripts.exact_cache_provenance import source_settings, verify_source_payload
++from scripts.run_theta10_D55_unconstrained_three_scheme import unconstrained_config, candidate_from_payload
++from scripts.calculate_channel_pdf_and_moments import derive_physical_inputs
++from src.manuscript_literal_3moments import LiteralChannel
++from src.manuscript_corrected_3moments import PhysicalFadingDistribution
++from src.uav_mobility import link_geometry, scalar, cloud_transmittance
++
++ROOT = Path(__file__).resolve().parents[1]
++MODEL = "effective_channel_no_fading_noise"
++
++
++def load_candidates(settings, protected_hashes):
++    config = unconstrained_config()
++    roster_path = ROOT / settings["source_roster"]
++    receipt = existing.read_json(ROOT / settings["source_roster_receipt"])
++    if existing.digest(roster_path) != receipt["source_roster_sha256"]:
++        raise ValueError("Validated source roster hash differs")
++    if settings["source_family"] != "MB":
++        raise ValueError("This experiment uses the exact MB catalog only")
++    with roster_path.open(encoding="utf-8", newline="") as stream:
++        roster = [r for r in csv.DictReader(stream) if r["family"] == "MB"]
++    candidates = []
++    for row in roster:
++        path = ROOT / row["source_path"]
++        if existing.digest(path) != row["source_payload_sha256"]:
++            raise ValueError("Source roster payload hash mismatch")
++        payload = existing.read_json(path)
++        payload["_provenance"] = verify_source_payload(payload, source_settings(config))
++        payload["_path"] = row["source_path"]
++        candidate = candidate_from_payload(config, {payload["ensemble_hash"]: payload}, "MB",
++            float.fromhex(payload["nu_mb_raw_hex"]), float.fromhex(payload["V_A_hex"]))
++        existing.authenticate(candidate, protected_hashes, config)
++        for name in ("C", "w", "nu_raw", "V_A"):
++            if candidate[name] != float(row[name]):
++                raise ValueError(f"Source roster {name} mismatch")
++        if candidate["ensemble_hash"] != row["ensemble_hash"] or candidate["nu_raw"] <= 0:
++            raise ValueError("MB source identity mismatch")
++        candidates.append(candidate)
++    if not candidates or len({c["ensemble_hash"] for c in candidates}) != len(candidates):
++        raise ValueError("Empty or duplicate source catalog")
++    return sorted(candidates, key=lambda c:(c["nu_raw"], c["V_A"])), config, roster
++
++
++def channel_state(settings, position, blocked):
++    geometry, channel = settings["geometry"], settings["channel"]
++    if settings["scientific_model"] != MODEL:
++        raise ValueError("Use the existing no-fading-noise Gaussian mode")
++    if (channel["R"], channel["xi_det"], channel["xi_ch"], channel["beta_rec"]) != (1.,0.,.0186,.95):
++        raise ValueError("Existing ideal heterodyne/noise/reconciliation convention required")
++    if channel["phase_noise"] != "OFF" or channel["adaptive_optics"] != "OFF":
++        raise ValueError("Phase noise and adaptive optics must remain off")
++    if channel["clear_atmosphere_excludes_added_cloud_loss"] is not True:
++        raise ValueError("Clear atmosphere must exclude the added cloud attenuation")
++    distances, zenith = link_geometry([position], geometry["hap_horizontal_m"],
++                                      geometry["h_hap_m"], geometry["h_uav_m"])
++    physical = derive_physical_inputs(channel["clear_tau_zen"],
++        zenith_angle_rad_override=float(zenith[0]),
++        aperture_radius_m_override=channel["receiver_radius_m"],
++        beam_waist_m_override=channel["beam_waist_m"])
++    if physical["h_hap_m"] != geometry["h_hap_m"] or physical["h_uav_m"] != geometry["h_uav_m"]:
++        raise ValueError("Geometry altitude differs from the protected physics producer")
++    if not math.isclose(physical["link_length_m"], float(distances[0]), abs_tol=1e-9, rel_tol=0.):
++        raise ValueError("Geometry/physical link lengths disagree")
++    if channel["cloud_conditioning"] != "multiply_raw_channel_then_condition_active_on_0_T_le_1_preserve_outage":
++        raise ValueError("Unsupported channel conditioning; no silent convention change")
++    transmission = cloud_transmittance(settings["cloud"]["attenuation_db"], blocked)
++    clear = LiteralChannel.from_physical(physical)
++    # Multiplying RAW T by the cloud factor precedes the existing physical conditioning.
++    raw = clear if transmission == 1. else replace(clear, eta_atm=clear.eta_atm * transmission)
++    moments = PhysicalFadingDistribution(raw).moments(R=1., xi_det=0., xi_ch=.0186)
++    physical_record = {k:asdict(v) if is_dataclass(v) else v for k,v in physical.items()}
++    return dict(position_m=list(map(float, position)), distance_m=float(distances[0]),
++        zenith_rad=float(zenith[0]), blocked=bool(blocked), cloud_transmittance=transmission,
++        physical=existing.config_identity(physical_record), clear_raw_channel=asdict(clear),
++        cloud_raw_channel=asdict(raw), moments=moments)
++
++
++def scientific_identity(settings, baseline_config):
++    names = {p.relative_to(ROOT).as_posix() for folder in ("src/channel","src/cvqkd","src/modulation")
++             for p in (ROOT/folder).rglob("*.py")}
++    names.update(("src/effective_channel_no_fading_noise.py", "src/manuscript_literal_3moments.py",
++        "src/manuscript_corrected_3moments.py", "src/mobility_skr.py", "src/uav_mobility.py",
++        "scripts/run_ao_effective_channel_no_fading_noise_reference.py",
++        "scripts/run_theta10_D55_unconstrained_three_scheme.py", "scripts/run_exact_mb_test2.py",
++        "scripts/calculate_channel_pdf_and_moments.py", "scripts/exact_cache_provenance.py", "scripts/_common.py"))
++    return dict(mode=MODEL, baseline_config=existing.config_identity(baseline_config),
++        geometry=settings["geometry"], channel=settings["channel"],
++        scientific_implementation={n:existing.digest(ROOT/n) for n in sorted(names)},
++        security="chi_BE_at_direct_Z_star", MI="discrete_256_QAM_GH_product_8_16_32")
++
++
++def objective_key(identity, state, candidate, payload_hash):
++    return existing.hash_json(dict(schema="mobility-exact-objective-v1", identity=identity,
++        channel_state=state, ensemble_hash=candidate["ensemble_hash"],
++        source_cache_key=candidate["source_cache_key"], source_payload_sha256=payload_hash,
++        nu_raw_hex=float(candidate["nu_raw"]).hex(), V_A_hex=float(candidate["V_A"]).hex(),
++        C_hex=float(candidate["C"]).hex(), w_hex=float(candidate["w"]).hex()))
++
++
++def validate_result(row, candidate, state):
++    for name in ("I_AB","chi_BE","SKR","T_eff","Z_star","a","b","lambda_1","lambda_2","lambda_3"):
++        scalar(row[name], name)
++    if row["ensemble_hash"] != candidate["ensemble_hash"] or row["C"] != candidate["C"] or row["w"] != candidate["w"]:
++        raise ValueError("Cached objective/source mismatch")
++    if row["T_eff"] != state["moments"]["mean_sqrt_eta"]**2 or row["xi_eff"] != .0186:
++        raise ValueError("Cached objective/channel mismatch")
++    t, va = row["T_eff"], candidate["V_A"]
++    if row["N_eff"] != t*.0186 or abs(row["a"]-(1+va)) > 1e-13 or abs(row["b"]-(1+t*(va+.0186))) > 1e-13:
++        raise ValueError("Cached objective/noise/covariance mismatch")
++    z = 2*math.sqrt(t)*candidate["C"] - math.sqrt(2*t*.0186*candidate["w"])
++    if abs(row["Z_star"]-z) > 1e-13:
++        raise ValueError("Cached correlation identity failed")
++    if abs(row["SKR"]-(.95*row["I_AB"]-row["chi_BE"])) > 1e-14:
++        raise ValueError("Cached signed SKR identity failed")
++    if row["numerical_repairs"] or min(row[k] for k in ("lambda_1","lambda_2","lambda_3")) < 1:
++        raise ValueError("Cached nonphysical/repaired covariance rejected")
++    return row
++
++
++class ExactStateCache:
++    """Private, hash-bound objective journal; existing sources are read-only."""
++    def __init__(self, path, identity, protected_hashes, config):
++        self.path, self.identity = Path(path), identity
++        self.hashes, self.config = protected_hashes, config
++        self.records, self.new_evaluations, self.hits = {}, 0, 0
++        self.path.parent.mkdir(exist_ok=True)
++        if self.path.exists():
++            for line in self.path.read_text(encoding="utf-8").splitlines():
++                record = json.loads(line)
++                if existing.hash_json(record["row"]) != record["row_sha256"] or record["key"] in self.records:
++                    raise ValueError("Objective journal corruption or duplicate key")
++                self.records[record["key"]] = record
++
++    def evaluate(self, candidate, state):
++        payload_hash = existing.digest(ROOT/candidate["source_path"])
++        if self.hashes.get(candidate["source_path"]) != payload_hash:
++            raise ValueError("Source bytes changed after startup")
++        key = objective_key(self.identity, state, candidate, payload_hash)
++        if key in self.records:
++            record = self.records[key]
++            self.hits += 1
++            return key, validate_result(record["row"], candidate, state)
++        complete = existing.evaluate_authenticated(candidate, state["moments"], self.config, self.hashes)
++        names = ("nu_raw", "V_A", "C", "w", "ensemble_hash", "source_cache_key", "source_path",
++            "source_payload_sha256", "T_eff", "xi_eff", "N_eff", "a", "b", "Z_star",
++            "Z_signal", "Z_penalty", "lambda_1", "lambda_2", "lambda_3", "I_AB", "beta_I_AB",
++            "chi_BE", "SKR", "MI_orders", "numerical_repairs", "Holevo_target",
++            "certified_fading_security_lower_bound")
++        row = {name:complete[name] for name in names}
++        validate_result(row, candidate, state)
++        record = dict(key=key, row=row, row_sha256=existing.hash_json(row))
++        with self.path.open("a", encoding="utf-8", newline="\n") as stream:
++            stream.write(json.dumps(record, allow_nan=False, separators=(",", ":"))+"\n")
++            stream.flush()
++        self.records[key] = record
++        self.new_evaluations += 1
++        return key, row
+--- /dev/null
++++ after/scripts/run_mobility_skr_experiment.py
+@@ -0,0 +1,262 @@
++"""Finite MB enumeration and DP cloud-mobility demonstration; no AP or AO."""
++from __future__ import annotations
++
++import argparse
++from datetime import datetime, timezone
++import json
++import math
++from pathlib import Path
++import subprocess
++import sys
++import time
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT))
++import numpy as np
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from src.mobility_skr import load_candidates, channel_state, scientific_identity, ExactStateCache
++from src.uav_mobility import (candidate_grid, path_intersections, moving_cloud,
++    best_stationary, optimize_trajectory, scalar, usable_skr)
++
++DEFAULT = ROOT / "results/mobility_aware_skr_20261014"
++CONFIG = ROOT / "configs/mobility_aware_skr_demo.json"
++SCHEMES = ("S1 Reference Fixed", "S2 Optimized Stationary", "S3 Moving SKR Only", "S4 Moving Mobility-Aware")
++
++
++def verify_protected(manifest):
++    saved.verify_protected(manifest)
++
++
++def prepare_manifest(output):
++    output.mkdir(parents=True, exist_ok=True)
++    path = output / "startup_manifest.json"
++    if path.exists():
++        manifest = saved.read_json(path)
++        verify_protected(manifest)
++        return manifest
++    files = [p for folder in ("src","scripts","configs","tests","results","docs",".agent")
++        for p in (ROOT/folder).rglob("*") if p.is_file() and "__pycache__" not in p.parts
++        and output not in p.parents and p.relative_to(ROOT).as_posix() not in saved.STATE]
++    manifest = dict(captured_utc=datetime.now(timezone.utc).isoformat(),
++        branch=subprocess.check_output(["git","branch","--show-current"],cwd=ROOT,text=True).strip(),
++        HEAD=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),
++        protected_hashes={p.relative_to(ROOT).as_posix():saved.digest(p) for p in files},
++        frozen_actual_sha256=saved.digest(ROOT/"docs/FINAL_MODEL_SPEC.md"),
++        lifecycle="NOT_READY_FOR_PUBLICATION_SCALE_RUNS", authorized_scope="Synthetic cached-source mobility diagnostic")
++    saved.save(path, manifest, exclusive=True)
++    return manifest
++
++
++def validate_settings(settings):
++    if settings["schema"] != "mobility-aware-skr-demo-v1":
++        raise ValueError("Unsupported experiment schema")
++    mission, opt = settings["mission"], settings["optimization"]
++    if not isinstance(mission["slots"], int) or isinstance(mission["slots"], bool) or mission["slots"] <= 0:
++        raise ValueError("Mission slots must be a positive integer")
++    scalar(mission["slot_duration_s"], "slot duration", positive=True)
++    scalar(mission["max_speed_m_per_s"], "speed", nonnegative=True)
++    scalar(opt["reference_distance_m"], "distance normalization", positive=True)
++    scalar(opt["positive_lambda_bits_per_use"], "positive penalty", positive=True)
++    for value in opt["lambda_sweep_bits_per_use"]:
++        scalar(value, "penalty sweep", nonnegative=True)
++    for value in opt["cloud_speed_sweep_m_per_s"]:
++        scalar(value, "cloud speed sweep", nonnegative=True)
++    if opt["initial_position_freely_selectable"] is not True or opt["deployment_cost_included"] is not False:
++        raise ValueError("This DP uses free initial position and excludes deployment costs")
++    if opt["channel_use_rate_per_s"] is not None:
++        scalar(opt["channel_use_rate_per_s"], "channel use rate", positive=True)
++    geometry = settings["geometry"]
++    positions = candidate_grid(geometry["grid_side_m"], geometry["grid_cells_per_side"])
++    if positions.shape != (100,2) or geometry["grid_side_m"] != 1000. or geometry["grid_cells_per_side"] != 10:
++        raise ValueError("Requested demonstration requires exactly 100 cell centers on the 1 km grid")
++    reference = geometry["reference_position_index"]
++    if not isinstance(reference,int) or isinstance(reference,bool) or not 0<=reference<len(positions):
++        raise ValueError("Reference position must belong to the candidate grid")
++    path_intersections(positions, geometry["hap_horizontal_m"], geometry["h_hap_m"],
++                       geometry["h_uav_m"], settings["cloud"]["altitude_m"])
++    return positions
++
++
++def scheme_paths(usable, positions, reference_index, settings, penalty):
++    stationary, means = best_stationary(usable)
++    arguments = dict(slot_duration_s=settings["mission"]["slot_duration_s"],
++        max_speed_m_per_s=settings["mission"]["max_speed_m_per_s"],
++        reference_distance_m=settings["optimization"]["reference_distance_m"])
++    third = optimize_trajectory(usable, positions, penalty_bits_per_use=0., **arguments)
++    fourth = optimize_trajectory(usable, positions, penalty_bits_per_use=penalty, **arguments)
++    if means[stationary] < means[reference_index]-1e-12 or third["average_skr"] < means[stationary]-1e-12:
++        raise ValueError("Stationary/free-start DP dominance failed")
++    if fourth["penalized_objective"] < means[stationary]-1e-12:
++        raise ValueError("Penalized DP worse than feasible stationary solution")
++    slots = usable.shape[1]
++    return [np.full(slots,reference_index,dtype=int),np.full(slots,stationary,dtype=int),
++            third["path"],fourth["path"]]
++
++
++def scenario(settings, positions, winners, velocity=None, penalty=None):
++    cloud, geometry, mission, opt = [settings[k] for k in ("cloud","geometry","mission","optimization")]
++    times = np.arange(mission["slots"])*mission["slot_duration_s"]
++    intersections = path_intersections(positions, geometry["hap_horizontal_m"], geometry["h_hap_m"],
++                                      geometry["h_uav_m"], cloud["altitude_m"])
++    blocked, centers = moving_cloud(intersections,times,cloud["initial_center_m"],
++        cloud["velocity_m_per_s"] if velocity is None else velocity,cloud["radius_m"])
++    raw = np.array([[winners[j][int(b)]["SKR"] for b in blocked[j]] for j in range(len(positions))])
++    usable = usable_skr(raw)
++    reference_index = settings["_reference_local_index"]
++    penalty = opt["positive_lambda_bits_per_use"] if penalty is None else penalty
++    paths = scheme_paths(usable, positions, reference_index, settings, penalty)
++    summary, series = [], []
++    for scheme, path in zip(SCHEMES, paths):
++        coordinates = positions[path]
++        legs = np.linalg.norm(np.diff(coordinates,axis=0),axis=1)
++        if len(legs) and np.max(legs)>mission["max_speed_m_per_s"]*mission["slot_duration_s"]:
++            raise ValueError("Scheme trajectory violates speed constraint")
++        rates = usable[path,np.arange(len(times))]
++        distance = float(legs.sum())
++        mean = float(rates.mean())
++        own_lambda = penalty if scheme==SCHEMES[3] else 0.
++        summary.append(dict(scheme=scheme,average_skr_bits_per_use=mean,
++            qkd_availability_percent=float(np.mean(rates>0)*100),total_flight_distance_m=distance,
++            lambda_bits_per_use=own_lambda,penalized_objective_bits_per_use=mean-own_lambda*distance/opt["reference_distance_m"],
++            objective_at_common_positive_lambda=mean-penalty*distance/opt["reference_distance_m"],
++            initial_x_m=float(coordinates[0,0]),initial_y_m=float(coordinates[0,1]),
++            final_x_m=float(coordinates[-1,0]),final_y_m=float(coordinates[-1,1]),
++            max_transition_m=float(legs.max()) if len(legs) else 0.,
++            maximum_allowed_transition_m=mission["max_speed_m_per_s"]*mission["slot_duration_s"]))
++        cumulative = np.cumsum(rates)
++        for n, j in enumerate(path):
++            source = winners[int(j)][int(blocked[j,n])]
++            series.append(dict(scheme=scheme,slot=n+1,slot_start_s=float(times[n]),
++                slot_end_s=float(times[n]+mission["slot_duration_s"]),
++                position_index=int(settings["_position_indices"][j]),x_m=float(positions[j,0]),y_m=float(positions[j,1]),
++                blocked=bool(blocked[j,n]),cloud_x_m=float(centers[n,0]),cloud_y_m=float(centers[n,1]),
++                raw_skr=source["SKR"],usable_skr=float(rates[n]),nu_raw=source["nu_raw"],V_A=source["V_A"],
++                T_eff=source["T_eff"],ensemble_hash=source["ensemble_hash"],objective_key=source["objective_key"],
++                leg_distance_m=0. if n==0 else float(legs[n-1]),cumulative_skr_contributions=float(cumulative[n]),
++                cumulative_secret_bits=None if opt["channel_use_rate_per_s"] is None else
++                    float(cumulative[n]*mission["slot_duration_s"]*opt["channel_use_rate_per_s"])))
++    for item in summary:
++        for name,baseline in (("S1",summary[0]),("S2",summary[1])):
++            original=baseline["average_skr_bits_per_use"]
++            item[f"improvement_vs_{name}_percent"]=(item["average_skr_bits_per_use"]-original)/original*100 if original>0 else None
++    return summary,series,raw,usable,blocked,centers,intersections
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--config",type=Path,default=CONFIG)
++    parser.add_argument("--output",type=Path,default=DEFAULT)
++    parser.add_argument("--smoke",action="store_true")
++    args=parser.parse_args()
++    import torch
++    torch.set_num_threads(1)
++    root_output=args.output.resolve()
++    manifest=prepare_manifest(root_output)
++    output=root_output/("smoke" if args.smoke else "full")
++    output.mkdir(exist_ok=True)
++    if (output/"experiment_receipt.json").exists():
++        raise ValueError("Completed experiment exists; select a new output directory")
++    settings=saved.read_json(args.config)
++    positions=validate_settings(settings)
++    candidates,config,roster=load_candidates(settings,manifest["protected_hashes"])
++    indices=np.arange(100)
++    if args.smoke:
++        indices=np.array([0,9,44,90,99])
++        positions=positions[indices]
++        pairs={(.165,5.5),(.17,5.046875),(.2,1.3833230302980657)}
++        candidates=[c for c in candidates if (c["nu_raw"],c["V_A"]) in pairs]
++        if len(candidates)!=3:
++            raise ValueError("Smoke source fixtures are absent from the authenticated catalog")
++        settings["mission"]["slots"]=8
++    settings["_position_indices"]=indices.tolist()
++    settings["_reference_local_index"]=int(np.where(indices==settings["geometry"]["reference_position_index"])[0][0])
++    identity=scientific_identity(settings,config)
++    inputs=dict(settings=settings,scientific_identity=identity,source_roster_sha256=saved.digest(ROOT/settings["source_roster"]),
++        candidate_hashes=[c["ensemble_hash"] for c in candidates],producer_sha256=saved.digest(Path(__file__)))
++    if (output/"inputs.json").exists():
++        if saved.read_json(output/"inputs.json")!=inputs:
++            raise ValueError("Resume input/producer identity differs; select a new output directory")
++    else:saved.save(output/"inputs.json",inputs,exclusive=True)
++    cache=ExactStateCache(output/"objective_cache.jsonl",identity,manifest["protected_hashes"],config)
++    began=time.perf_counter()
++    states,winners,evaluations=[],[],[]
++    for local_index,position in enumerate(positions):
++        position_winners=[]
++        for blocked in (False,True):
++            state=channel_state(settings,position,blocked)
++            state["position_index"]=int(indices[local_index])
++            states.append(state)
++            rows=[]
++            for candidate in candidates:
++                try:key,row=cache.evaluate(candidate,state)
++                except Exception as error:
++                    saved.save(output/"failure_receipt.json",dict(status="FAILED",position_index=state["position_index"],
++                        blocked=blocked,nu_raw=candidate["nu_raw"],V_A=candidate["V_A"],error=str(error),
++                        protected_changes=saved.verify_protected(manifest)))
++                    raise
++                flat=dict(row,objective_key=key,position_index=state["position_index"],blocked=blocked)
++                rows.append(flat);evaluations.append(flat)
++            position_winners.append(max(rows,key=lambda r:r["SKR"]))
++        winners.append(position_winners)
++        print("POSITION",local_index+1,"/",len(positions),"grid",int(indices[local_index]),
++              "best K",[r["SKR"] for r in position_winners],"evaluations",cache.new_evaluations,"hits",cache.hits,flush=True)
++        saved.save(output/"checkpoint.json",dict(status="RUNNING",completed_positions=local_index+1,
++            new_evaluations=cache.new_evaluations,cache_hits=cache.hits,input_hash=saved.hash_json(inputs)))
++    summary,series,raw,usable,blocked,centers,intersections=scenario(settings,positions,winners)
++    if not blocked.any() or blocked.all():
++        raise ValueError("Demonstration must contain both clear and blocked paths")
++    saved.write_csv(output/"summary.csv",summary)
++    saved.write_csv(output/"scheme_time_series.csv",series)
++    saved.write_csv(output/"all_candidate_evaluations.csv",evaluations)
++    saved.write_csv(output/"source_roster.csv",[{k:c[k] for k in ("nu_raw","V_A","C","w","ensemble_hash","source_cache_key","source_path")} for c in candidates])
++    saved.save(output/"channel_states.json",states)
++    saved.write_csv(output/"optimized_state_sources.csv",[r for group in winners for r in group])
++    table=[]
++    for j in range(len(positions)):
++        for n in range(settings["mission"]["slots"]):
++            r=winners[j][int(blocked[j,n])]
++            table.append(dict(position_index=int(indices[j]),slot=n+1,blocked=bool(blocked[j,n]),
++                raw_skr=float(raw[j,n]),usable_skr=float(usable[j,n]),nu_raw=r["nu_raw"],V_A=r["V_A"],objective_key=r["objective_key"]))
++    saved.write_csv(output/"skr_table.csv",table)
++    saved.write_csv(output/"positions.csv",[dict(position_index=int(indices[j]),x_m=float(p[0]),y_m=float(p[1]),
++        intersection_x_m=float(intersections[j,0]),intersection_y_m=float(intersections[j,1])) for j,p in enumerate(positions)])
++    velocity_rows,penalty_rows=[],[]
++    base_velocity=np.asarray(settings["cloud"]["velocity_m_per_s"],dtype=float)
++    if np.linalg.norm(base_velocity)==0:
++        raise ValueError("A direction is required for the configured cloud-speed sweep")
++    direction=base_velocity/np.linalg.norm(base_velocity)
++    for speed in settings["optimization"]["cloud_speed_sweep_m_per_s"]:
++        comparisons,_,_,_,_,_,_=scenario(settings,positions,winners,velocity=direction*speed)
++        velocity_rows.extend(dict(row,cloud_speed_m_per_s=speed) for row in comparisons)
++    for penalty in settings["optimization"]["lambda_sweep_bits_per_use"]:
++        comparisons,_,_,_,_,_,_=scenario(settings,positions,winners,penalty=penalty)
++        penalty_rows.append(dict(comparisons[3],sweep_lambda_bits_per_use=penalty))
++    for a,b in zip(sorted(penalty_rows,key=lambda r:r["sweep_lambda_bits_per_use"]),sorted(penalty_rows,key=lambda r:r["sweep_lambda_bits_per_use"])[1:]):
++        if b["total_flight_distance_m"]>a["total_flight_distance_m"]+1e-8:
++            raise ValueError("Optimal flight distance increases with movement penalty")
++    saved.write_csv(output/"cloud_velocity_sweep.csv",velocity_rows)
++    saved.write_csv(output/"movement_penalty_sweep.csv",penalty_rows)
++    # Channel/source statistics are time invariant conditional on binary blockage.
++    if cache.new_evaluations+cache.hits!=len(positions)*2*len(candidates):
++        raise ValueError("Exact finite-catalog coverage is incomplete")
++    if not args.smoke:
++        from scripts.plot_mobility_skr_results import plot_results
++        plot_results(output,settings)
++    final=dict(status="CURRENTLY_VERIFIED_PASS",scope="SYNTHETIC_MOBILITY_DIAGNOSTIC_ONLY",
++        input_sha256=saved.digest(output/"inputs.json"),scientific_identity_sha256=saved.hash_json(identity),
++        elapsed_seconds=time.perf_counter()-began,positions=len(positions),source_candidates=len(candidates),
++        states=len(states),candidate_evaluations=len(evaluations),new_evaluations=cache.new_evaluations,cache_hits=cache.hits,
++        finite_catalog_enumeration_complete=True,DP_discrete_optimum=True,continuous_optimum=False,
++        numerical_failures=[],interpolation=False,AP_or_AO=False,new_source_moments=False,
++        cloud_velocity_experiments=len(settings["optimization"]["cloud_speed_sweep_m_per_s"]),
++        movement_penalty_experiments=len(settings["optimization"]["lambda_sweep_bits_per_use"]),
++        figures_exported=0 if args.smoke else 6,cloud_geometry_blocked_fraction=float(blocked.mean()),
++        summary=summary,protected_files=len(manifest["protected_hashes"]),protected_changes=saved.verify_protected(manifest),
++        propulsion_energy_model=False,certified_fading_security_bound=False,
++        lifecycle="NOT_READY_FOR_PUBLICATION_SCALE_RUNS",commit_or_push=False,
++        output_sha256={p.name:saved.digest(p) for p in output.iterdir() if p.is_file()})
++    saved.save(output/"experiment_receipt.json",final,exclusive=True)
++    print("EXPERIMENT_COMPLETE",final["status"],"evaluations",len(evaluations),"elapsed",final["elapsed_seconds"],flush=True)
++
++
++if __name__=="__main__":main()
+--- /dev/null
++++ after/scripts/plot_mobility_skr_results.py
+@@ -0,0 +1,120 @@
++"""Standalone vector PDF and 300-dpi PNG for saved mobility diagnostics."""
++from __future__ import annotations
++
++import csv
++from pathlib import Path
++import numpy as np
++import matplotlib
++matplotlib.use("Agg")
++import matplotlib.pyplot as plt
++from matplotlib.patches import Circle
++
++COLORS = ("#2563eb", "#f28e2b", "#d62728", "#7c3aed")
++NAMES = ("S1 Reference fixed", "S2 Stationary", "S3 Moving, lambda=0", "S4 Mobility-aware")
++
++
++def read_csv(path):
++    with Path(path).open(encoding="utf-8",newline="") as stream:
++        return list(csv.DictReader(stream))
++
++
++def plot_results(output, settings):
++    output = Path(output)
++    rows = read_csv(output/"scheme_time_series.csv")
++    schemes = list(dict.fromkeys(r["scheme"] for r in rows))
++    series = [[r for r in rows if r["scheme"]==scheme] for scheme in schemes]
++    positions = read_csv(output/"positions.csv")
++    velocity = read_csv(output/"cloud_velocity_sweep.csv")
++    penalty = read_csv(output/"movement_penalty_sweep.csv")
++    plt.rcParams.update({"pdf.use14corefonts":True,"font.size":10,"axes.labelsize":11})
++
++    def finish(fig, name):
++        fig.text(.5,.012,"Synthetic cloud scenario; effective Gaussian SKR ignores fading-induced variance.",
++                 ha="center",fontsize=8)
++        fig.tight_layout(rect=(0,.035,1,1))
++        fig.savefig(output/(name+".png"),dpi=300,facecolor="white")
++        fig.savefig(output/(name+".pdf"),facecolor="white")
++        plt.close(fig)
++
++    def decorate(ax):
++        ax.grid(alpha=.25)
++        ax.ticklabel_format(axis="y",style="sci",scilimits=(-2,2),useMathText=True)
++
++    fig, axes = plt.subplots(1,2,figsize=(11,5.2))
++    ax, plane = axes
++    ax.scatter([float(r["x_m"]) for r in positions],[float(r["y_m"]) for r in positions],
++               s=12,c="0.75",label="100 UAV cell centers")
++    for i in (2,3):
++        x=[float(r["x_m"]) for r in series[i]];y=[float(r["y_m"]) for r in series[i]]
++        ax.plot(x,y,color=COLORS[i],marker="o",markersize=3,
++                linestyle="-" if i==2 else "--",linewidth=1.6,label=NAMES[i])
++        ax.scatter(x[0],y[0],s=65,marker="^",color=COLORS[i])
++    for i,marker in ((0,"s"),(1,"*")):
++        row=series[i][0]
++        ax.scatter(float(row["x_m"]),float(row["y_m"]),s=120,marker=marker,color=COLORS[i],label=NAMES[i],zorder=5)
++    ax.set(xlim=(0,1000),ylim=(0,1000),xlabel="UAV x (m)",ylabel="UAV y (m)",title="UAV plane, altitude 1 km")
++    ax.set_aspect("equal");ax.grid(alpha=.25);ax.legend(fontsize=8,loc="upper left")
++    plane.scatter([float(r["intersection_x_m"]) for r in positions],
++                  [float(r["intersection_y_m"]) for r in positions],s=12,c="0.35",label="Optical-path intersections")
++    snapshot_indices = np.linspace(0,len(series[0])-1,4,dtype=int)
++    for index,alpha in zip(snapshot_indices,(.18,.28,.38,.5)):
++        r=series[0][index];center=(float(r["cloud_x_m"]),float(r["cloud_y_m"]))
++        plane.add_patch(Circle(center,settings["cloud"]["radius_m"],facecolor="#93c5fd",edgecolor="#1d4ed8",alpha=alpha))
++        plane.scatter(*center,s=24,color="#1d4ed8",marker="x")
++        plane.text(center[0],center[1]+settings["cloud"]["radius_m"]+20,f"t={float(r['slot_start_s']):.0f}s",ha="center",fontsize=8)
++    plane.autoscale_view();plane.set_aspect("equal");plane.grid(alpha=.25)
++    plane.set(xlabel="Cloud-plane x (m)",ylabel="Cloud-plane y (m)",
++              title=f"Cloud plane, altitude {settings['cloud']['altitude_m']/1000:g} km")
++    plane.legend(fontsize=8,loc="lower right")
++    finish(fig,"figure_1_cloud_and_uav_trajectory")
++
++    fig,ax=plt.subplots(figsize=(7.6,4.8))
++    for i,group in enumerate(series):
++        times=[float(r["slot_start_s"]) for r in group]+[float(group[-1]["slot_end_s"])]
++        rates=[float(r["usable_skr"]) for r in group];rates.append(rates[-1])
++        ax.step(times,rates,where="post",color=COLORS[i],label=NAMES[i],
++                linestyle=("-","--","-.",":")[i],linewidth=1.8)
++    ax.set(xlabel="Mission time (s)",ylabel="Usable SKR (bits/use)",title="SKR versus time")
++    decorate(ax);ax.legend(fontsize=9);finish(fig,"figure_2_skr_vs_time")
++
++    fig,ax=plt.subplots(figsize=(7.6,4.8))
++    report_bits=settings["optimization"]["channel_use_rate_per_s"] is not None
++    for i,group in enumerate(series):
++        times=[0.]+[float(r["slot_end_s"]) for r in group]
++        name="cumulative_secret_bits" if report_bits else "cumulative_skr_contributions"
++        values=[0.]+[float(r[name]) for r in group]
++        ax.plot(times,values,color=COLORS[i],label=NAMES[i],linestyle=("-","--","-.",":")[i],linewidth=1.8)
++    ax.set(xlabel="Mission time (s)",ylabel="Cumulative secret-key estimate (bits)" if report_bits else
++           "Cumulative SKR contributions (bits/use-slot)",title="Cumulative SKR contributions")
++    decorate(ax);ax.legend(fontsize=9);finish(fig,"figure_3_cumulative_skr")
++
++    fig,ax=plt.subplots(figsize=(7.6,4.8))
++    for i,scheme in enumerate(schemes):
++        group=sorted((r for r in velocity if r["scheme"]==scheme),key=lambda r:float(r["cloud_speed_m_per_s"]))
++        ax.plot([float(r["cloud_speed_m_per_s"]) for r in group],
++                [float(r["average_skr_bits_per_use"]) for r in group],color=COLORS[i],marker="o",
++                markersize=4,label=NAMES[i],linestyle=("-","--","-.",":")[i])
++    ax.set(xlabel="Cloud horizontal speed (m/s)",ylabel="Average usable SKR (bits/use)",title="Cloud-velocity sensitivity")
++    decorate(ax);ax.legend(fontsize=9);finish(fig,"figure_4_average_skr_vs_cloud_velocity")
++
++    fig,ax=plt.subplots(figsize=(7.6,4.8));flight=ax.twinx()
++    penalties=[float(r["sweep_lambda_bits_per_use"]) for r in penalty]
++    rate_line=ax.plot(penalties,[float(r["average_skr_bits_per_use"]) for r in penalty],
++                    color=COLORS[3],marker="o",label="Average SKR")
++    distance_line=flight.plot(penalties,[float(r["total_flight_distance_m"]) for r in penalty],
++                             color=COLORS[1],marker="s",linestyle="--",label="Flight distance")
++    ax.set_xscale("symlog",linthresh=.0005)
++    ax.set(xlabel=r"Movement penalty $\lambda$ (bits/use)",ylabel="Average usable SKR (bits/use)",
++           title="Mobility-penalty sensitivity")
++    flight.set_ylabel("Total UAV flight distance (m)",color=COLORS[1]);decorate(ax)
++    ax.legend(rate_line+distance_line,[line.get_label() for line in rate_line+distance_line],fontsize=9)
++    finish(fig,"figure_5_skr_and_flight_vs_penalty")
++
++    fig,axes=plt.subplots(2,1,figsize=(7.6,5.6),sharex=True)
++    group=series[2];times=[float(r["slot_start_s"]) for r in group]+[float(group[-1]["slot_end_s"])]
++    for ax,name,label in zip(axes,("nu_raw","V_A"),(r"$\nu_{\rm raw}^{*}$",r"$V_A^{*}$ (SNU)")):
++        values=[float(r[name]) for r in group];values.append(values[-1])
++        ax.step(times,values,where="post",color=COLORS[2],linewidth=1.8)
++        ax.set_ylabel(label);ax.grid(alpha=.25)
++    axes[0].set_title("Selected MB source parameters: S3 moving UAV")
++    axes[1].set_xlabel("Mission time (s)");finish(fig,"figure_6_optimized_source_parameters")
+--- /dev/null
++++ after/scripts/finalize_mobility_skr_experiment.py
+@@ -0,0 +1,182 @@
++"""Independent saved-data validation and Vietnamese mobility report; no SKR run."""
++from __future__ import annotations
++
++import csv
++import json
++import math
++from pathlib import Path
++import sys
++from datetime import datetime, timezone
++
++ROOT=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(ROOT))
++import numpy as np
++from PIL import Image
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from scripts.run_mobility_skr_experiment import DEFAULT, SCHEMES, scenario, validate_settings
++from src.mobility_skr import objective_key
++
++
++def csv_rows(path):
++    with path.open(encoding="utf-8",newline="") as stream:return list(csv.DictReader(stream))
++
++
++def main():
++    output=DEFAULT/"full"
++    manifest=saved.read_json(DEFAULT/"startup_manifest.json")
++    receipt=saved.read_json(output/"experiment_receipt.json")
++    if receipt["status"]!="CURRENTLY_VERIFIED_PASS":raise ValueError("Full diagnostic is incomplete")
++    if (DEFAULT/"final_validation.json").exists():raise ValueError("Final validation already exists")
++    for name,want in receipt["output_sha256"].items():
++        if saved.digest(output/name)!=want:raise ValueError(f"Output hash mismatch: {name}")
++    inputs=saved.read_json(output/"inputs.json");settings=inputs["settings"]
++    if saved.digest(ROOT/"scripts/run_mobility_skr_experiment.py")!=inputs["producer_sha256"]:
++        raise ValueError("Runner changed since execution")
++    for name,want in inputs["scientific_identity"]["scientific_implementation"].items():
++        if saved.digest(ROOT/name)!=want:raise ValueError(f"Scientific producer changed: {name}")
++    test=saved.read_json(DEFAULT/"test_receipt.json")
++    if test["status"]!="CURRENTLY_VERIFIED_PASS" or test["test_count"]!=15:
++        raise ValueError("Scoped test prerequisite is absent")
++    if saved.digest(DEFAULT/"test_output_retry.txt")!=test["output_sha256"] or saved.digest(ROOT/"tests/test_mobility_skr.py")!=test["test_producer_sha256"]:
++        raise ValueError("Scoped test evidence has changed")
++    smoke=saved.read_json(DEFAULT/"smoke/experiment_receipt.json")
++    if smoke["status"]!="CURRENTLY_VERIFIED_PASS" or smoke["candidate_evaluations"]!=30:
++        raise ValueError("Smoke prerequisite is absent")
++    all_rows=csv_rows(output/"all_candidate_evaluations.csv")
++    winners=csv_rows(output/"optimized_state_sources.csv")
++    roster=csv_rows(output/"source_roster.csv")
++    sources={r["ensemble_hash"]:r for r in roster}
++    states=saved.read_json(output/"channel_states.json")
++    if (len(all_rows),len(winners),len(sources),len(states))!=(39400,200,197,200):
++        raise ValueError("Requested finite-catalog/state coverage is incomplete")
++    original=csv_rows(ROOT/"results/exact_source_moments_catalog_20261012/all_182_MB_exact_source_moments.csv")
++    original_sources={r["cache_key"] for r in original}
++    if len(original_sources)!=182 or not original_sources<={r["source_cache_key"] for r in sources.values()}:
++        raise ValueError("Original 182 MB sources are not all preserved in the expanded catalog")
++    journal={}
++    with (output/"objective_cache.jsonl").open(encoding="utf-8") as stream:
++        for line in stream:
++            record=json.loads(line)
++            if record["row_sha256"]!=saved.hash_json(record["row"]) or record["key"] in journal:
++                raise ValueError("Objective journal row/hash corruption")
++            journal[record["key"]]=record["row"]
++    state_map={(s["position_index"],s["blocked"]):s for s in states}
++    maximum={};counts={};gh_maximum={};max_entropy_residual=0.;max_spectrum_residual=0.;minimum_uncertainty=math.inf
++    omega=np.array([[0,1,0,0],[-1,0,0,0],[0,0,0,1],[0,0,-1,0]])
++    def g(lam):
++        n=(lam-1)/2
++        return 0. if n==0 else (n+1)*math.log2(n+1)-n*math.log2(n)
++    for row in all_rows:
++        pair=(int(row["position_index"]),row["blocked"]=="True")
++        source=sources[row["ensemble_hash"]];state=state_map[pair]
++        record=journal[row["objective_key"]]
++        if any(row[k]!=source[k] for k in ("nu_raw","V_A","C","w","source_cache_key","source_path")):
++            raise ValueError("Source moments/parameters changed across channel states")
++        candidate={k:float(source[k]) for k in ("nu_raw","V_A","C","w")}
++        candidate.update(ensemble_hash=source["ensemble_hash"],source_cache_key=source["source_cache_key"])
++        payload_hash=saved.digest(ROOT/source["source_path"])
++        expected=objective_key(inputs["scientific_identity"],state,candidate,payload_hash)
++        if expected!=row["objective_key"]:raise ValueError("Complete physical/source cache key differs")
++        for name in ("nu_raw","V_A","C","w","I_AB","chi_BE","SKR","T_eff","xi_eff","N_eff","a","b","Z_star","lambda_1","lambda_2","lambda_3"):
++            if float(row[name])!=record[name]:raise ValueError(f"CSV/journal {name} mismatch")
++        t,va,a,b,z=[float(row[k]) for k in ("T_eff","V_A","a","b","Z_star")]
++        if abs(float(row["SKR"])-(.95*float(row["I_AB"])-float(row["chi_BE"])))>1e-14:
++            raise ValueError("Signed SKR identity failed")
++        if t!=state["moments"]["mean_sqrt_eta"]**2 or float(row["xi_eff"])!=.0186:
++            raise ValueError("Gaussian transmission/noise identity failed")
++        if abs(a-(1+va))>1e-13 or abs(b-(1+t*(va+.0186)))>1e-13:
++            raise ValueError("Gaussian covariance identity failed")
++        lambdas=[float(row[k]) for k in ("lambda_1","lambda_2","lambda_3")]
++        if min(lambdas)<1:raise ValueError("Nonphysical symplectic spectrum")
++        covariance=np.array([[a,0,z,0],[0,a,0,-z],[z,0,b,0],[0,-z,0,b]])
++        spectrum=np.sort(np.abs(np.linalg.eigvals(1j*omega@covariance)))
++        expected_spectrum=np.array(sorted([lambdas[0]]*2+[lambdas[1]]*2))
++        max_spectrum_residual=max(max_spectrum_residual,float(np.max(np.abs(spectrum-expected_spectrum))),abs(lambdas[2]-(a-z*z/(b+1))))
++        minimum_uncertainty=min(minimum_uncertainty,float(np.linalg.eigvalsh(covariance+1j*omega).min()))
++        max_entropy_residual=max(max_entropy_residual,abs(float(row["chi_BE"])-(g(lambdas[0])+g(lambdas[1])-g(lambdas[2]))))
++        counts[pair]=counts.get(pair,0)+1
++        if pair not in maximum or float(row["SKR"])>float(maximum[pair]["SKR"]):maximum[pair]=row
++        for refinement in record["MI_orders"]:
++            order_pair=(*pair,refinement["order"])
++            if order_pair not in gh_maximum or refinement["SKR"]>gh_maximum[order_pair][0]:
++                gh_maximum[order_pair]=(refinement["SKR"],row["ensemble_hash"])
++    if any(v!=197 for v in counts.values()) or len(journal)!=39400:
++        raise ValueError("Cache/state candidate counts differ")
++    if max_spectrum_residual>1e-12 or max_entropy_residual>1e-12 or minimum_uncertainty < -1e-12:
++        raise ValueError("Independent covariance/entropy check failed")
++    winning_table=[[None,None] for _ in range(100)]
++    for row in winners:
++        pair=(int(row["position_index"]),row["blocked"]=="True")
++        if row["objective_key"]!=maximum[pair]["objective_key"]:
++            raise ValueError("P1 selected row is not the finite-catalog maximum")
++        winning_table[pair[0]][int(pair[1])]=dict(journal[row["objective_key"]],objective_key=row["objective_key"])
++    for state in states:
++        m=state["moments"]
++        if not (0<=m["mean_sqrt_eta"]**2<=m["mean_eta"]<=1) or abs(m["physical_probability_mass"]-1)>1e-10:
++            raise ValueError("Cloud physical-law normalization/moments failed")
++        if abs(m["mean_eta_xi_total"]-(2+(.0186-1)*m["mean_eta"]))>1e-12:
++            raise ValueError("Detector noise was not kept consistent")
++    comparisons,series,*_=scenario(settings,validate_settings(settings),winning_table)
++    csv_summary=csv_rows(output/"summary.csv")
++    for original,independent in zip(csv_summary,comparisons):
++        for key in ("average_skr_bits_per_use","total_flight_distance_m","penalized_objective_bits_per_use","qkd_availability_percent"):
++            if abs(float(original[key])-independent[key])>1e-12:raise ValueError("Independent P2/DP summary differs")
++    fig_checks=[]
++    for png in sorted(output.glob("figure_*.png")):
++        with Image.open(png) as image:
++            if min(image.info["dpi"])<299.9:raise ValueError("Figure below 300 dpi")
++            size=image.size
++        pdf=png.with_suffix(".pdf");data=pdf.read_bytes()
++        if not data.startswith(b"%PDF") or b"/Subtype /Image" in data:
++            raise ValueError("Missing or non-vector PDF")
++        fig_checks.append(dict(png=png.name,pdf=pdf.name,size=size,PNG_sha256=saved.digest(png),PDF_sha256=saved.digest(pdf)))
++    if len(fig_checks)!=6:raise ValueError("Six figures were not exported")
++    gh_checks=[dict(position_index=j,blocked=b,
++        winners={str(order):gh_maximum[(j,b,order)][1] for order in (8,16,32)},
++        GH16_32_stable=gh_maximum[(j,b,16)][1]==gh_maximum[(j,b,32)][1]) for j,b in sorted(state_map)]
++    if not all(r["GH16_32_stable"] for r in gh_checks):
++        raise ValueError("Finite-catalog winner changes under GH16/32 refinement")
++    validation=dict(status="CURRENTLY_VERIFIED_PASS",checked_utc=datetime.now(timezone.utc).isoformat(),
++        validation_scope="Saved-data check only; no source, MI or Holevo rerun",candidate_evaluations=39400,
++        unique_source_candidates=197,original_182_sources_preserved=True,physical_states=200,
++        finite_catalog_maxima_verified=200,independent_P2_DP_summaries_match=True,GH_winner_checks=gh_checks,
++        maximum_entropy_residual=max_entropy_residual,maximum_symplectic_spectrum_residual=max_spectrum_residual,
++        minimum_uncertainty_eigenvalue=minimum_uncertainty,figures=fig_checks,
++        current_test_count=15,smoke_evaluations=30,protected_files=len(manifest["protected_hashes"]),
++        protected_changes=saved.verify_protected(manifest),input_sha256=saved.digest(output/"inputs.json"),
++        experiment_receipt_sha256=saved.digest(output/"experiment_receipt.json"),
++        verifier_sha256=saved.digest(Path(__file__)),plotter_sha256=saved.digest(ROOT/"scripts/plot_mobility_skr_results.py"))
++    saved.save(DEFAULT/"final_validation.json",validation,exclusive=True)
++    lines=["# Tối ưu vị trí UAV và nguồn MB dưới mây chuyển động", "", "Ngày 2026-10-14. CURRENTLY_VERIFIED_PASS cho mô phỏng minh họa; không phải chứng nhận bảo mật hoặc kết quả final-test.","",
++        "Đã hoàn tất: 100 vị trí, 30 slot × 20 s, 197 nguồn MB (giữ đủ 182 nguồn gốc), 200 trạng thái sạch/có mây, 39.400 phép đánh giá. Không tính C,w mới; không AP/AO hoặc nội suy. 15 tests và smoke 30 phép đánh giá đã đạt trước lượt đầy đủ.","",
++        "| Phương án | SKR trung bình (bits/use) | Khả dụng (%) | Quãng bay (m) | Tăng so S1 (%) | Tăng so S2 (%) | Mục tiêu riêng (bits/use) |", "|---|---:|---:|---:|---:|---:|---:|"]
++    for r in comparisons:
++        lines.append(f"| {r['scheme']} | {r['average_skr_bits_per_use']:.10g} | {r['qkd_availability_percent']:.6g} | {r['total_flight_distance_m']:.9g} | {r['improvement_vs_S1_percent']:.6g} | {r['improvement_vs_S2_percent']:.6g} | {r['penalized_objective_bits_per_use']:.10g} |")
++    stationary=next(r for r in series if r["scheme"]==SCHEMES[1])
++    lines.extend(["",f"S2 chọn vị trí cố định ({stationary['x_m']:g}, {stationary['y_m']:g}) m. S4 dùng lambda={settings['optimization']['positive_lambda_bits_per_use']:g} bits/use, D_ref={settings['optimization']['reference_distance_m']:g} m. Mục tiêu có phạt và SKR trung bình là hai đại lượng riêng; cột mục tiêu riêng của S1–S3 có lambda=0. CSV còn lưu objective_at_common_positive_lambda để so sánh cùng mục tiêu.","",
++        "Hình học minh họa: h_H=20 km, h_U=1 km, UAV tham chiếu (450,450) m, HAP (11419.65511459133,450) m. Tọa độ này giữ đúng L_ref=21.9393102292 km; azimuth +x là giả định minh họa vì repo không có tọa độ HAP thực tế. Mây giả lập ở 5 km, bán kính 420 m, suy hao 10 dB, tâm đầu (2093.7168662297537,450) m, vận tốc (3,0) m/s. Các tham số này không phải đo đạc thời tiết.","",
++        "Tái sử dụng derive_physical_inputs, LiteralChannel.from_physical, PhysicalFadingDistribution.moments, authenticate/evaluate_authenticated, canonical MB và normalization, deterministic_mutual_information, _holevo_from_source_moments và covariance hiện có. Tệp audit.json lưu đường dẫn/hash; code_equation chi tiết có trong báo cáo SKR trước. Ba mômen/PDF Eq. (10)/C,w/ensemble và Eq. (20) giữ nguyên producer.","",
++        "T_cloud=10^(-A_c b/10) nhân đúng một lần vào eta_atm của luật thô. Sau đó áp dụng conditioning active trên 0<T<=1 và giữ atom AoA. Đây không phải nhân trực tiếp cả ba mômen đã chuẩn hóa; thay đổi tail/normalizer được tính lại. Mômen thứ ba vẫn bằng 2+(xi_ch−1)mean_eta, không nhân phần shot/detector noise với suy hao mây.","",
++        "Mô hình SKR là effective_channel_no_fading_noise: T_eff=mean_sqrt_eta², xi_eff=0.0186, N_eff=T_eff xi_ch, a=VA+1, b=1+T_eff(VA+xi_ch), Z*=2sqrt(T_eff)C−sqrt(2T_eff xi_ch w). Ideal heterodyne R=1, xi_det=0, chi_het=1, beta=0.95; phase/adaptive optics OFF. MI discrete 256-QAM mới GH8/16/32 và Holevo direct Z_star dùng cùng ensemble/noise. Đây là xấp xỉ Gaussian bỏ phương sai fading, chưa là security lower bound của kênh fading.","",
++        "P1 vét cạn nguồn MB ở mỗi vị trí/trạng thái; giữ signed K trong all_candidate_evaluations.csv và dùng S=max(0,K) cho bảng tiện ích. P2 tối đa trung bình theo vị trí cố định. P3 dùng DP với d<=15×20=300 m mỗi bước, vị trí đầu tự chọn, không tính chi phí triển khai. Mục tiêu là mean(S)−lambda D_fly/D_ref, không phải mô hình năng lượng và không báo joule/bits/J. Cùng catalog và quy tắc đổi nguồn mỗi slot cho cả bốn phương án. Khả dụng ở bảng là tỷ lệ slot có S>0, không phải xác suất không-outage AoA hoặc bằng chứng cấp khóa vận hành. P1 và DP tách được vì nguồn không có ràng buộc ngân sách liên-slot hoặc chi phí đổi tham số trong mô hình này.","",
++        "Đã chạy năm vận tốc mây 0.5,1.5,3,4.5,6 m/s và tám lambda 0,0.0005,0.001,0.002,0.005,0.01,0.02,0.05 bits/use. Bảng hai trạng thái tại mỗi vị trí được tái sử dụng chính xác vì mọi thống kê khác độc lập thời gian/vận tốc trong mô hình binary này. Quỹ đạo mây là dữ liệu minh họa biết trước; không triển khai dự báo hoặc học máy.","",
++        "Không có channel-use rate giả định: cumulative_skr_contributions=sum(S_n), hiển thị bits/use-slot. Không gọi số này là tổng bit khóa thực tế. Nếu cấu hình channel_use_rate_per_s, xuất thêm cumulative_secret_bits=rate×Delta_t×sum(S_n), vẫn chỉ là ước lượng theo functional đang dùng.","",
++        f"Kiểm tra độc lập toàn bộ dữ liệu: 200 cực đại P1; cache keys/hash và cùng C,w; PDF normalization/moment ordering; a,b,Z,K; uncertainty matrix và spectrum. Max residual spectrum={max_spectrum_residual:.6g}, entropy={max_entropy_residual:.6g}. DP khớp vét cạn 3 vị trí/4 slot trong test; nghiệm toàn bộ khớp tái dựng DP. S2≥S1, S3≥S2; objective S4≥stationary cùng lambda. {validation['protected_files']} file cũ không đổi hash.","",
++        "Giới hạn: cực đại chỉ trong 100 điểm và 197 nguồn được tính số, không phải tối ưu liên tục/toàn cục của hệ vật lý. C,w và GH có kiểm tra số nhưng chưa có enclosure tổng sai số chặt. Cloud là đĩa phẳng suy hao nhị phân, CSI/lịch mây biết trước, thống kê turbulence/pointing cố định tại từng vị trí; không fluid dynamics. Đánh giá rate tại vị trí slot, bỏ diễn biến link giữa các cell, trễ reacquisition, overhead đổi nguồn và chi phí triển khai. Không đánh giá năng lượng đẩy thực tế.","",
++        "Khác đoạn Overleaf tham khảo: triển khai phạt quãng đường theo yêu cầu đính kèm, không P_hov/e_mov/E_ref. Không sửa tệp TeX/PDF bên ngoài. PDF được hash-bound nhưng chưa trích xuất full text vì thiếu PDF parser; các công thức triển khai lấy từ task đính kèm và đoạn TeX người dùng cung cấp.","",
++        "15 tests bao phủ A_c=0, hình học/biên/altitude mây, source/catalog/ref SKR, P2, DP-vét cạn, tốc độ, dominance, signed-negative handling, journal reuse/corruption và cache context. Lượt đầu bắt lỗi serialize UavMotion và assertion thừa rằng toàn lưới sạch ở slot đầu; sửa serializer và kiểm tra đúng reference ray đi vào/ra, không đổi physics để ép kết quả. Lưu log lỗi ban đầu và receipt lượt đạt.","",
++        "Chạy từ paper_uav_hap_cvqkd bằng PowerShell:","", "```powershell", "& .venv/Scripts/python.exe -m unittest tests.test_mobility_skr -v",
++        "& .venv/Scripts/python.exe scripts/run_mobility_skr_experiment.py --smoke --output results/mobility_demo_rerun",
++        "& .venv/Scripts/python.exe scripts/run_mobility_skr_experiment.py --output results/mobility_demo_rerun", "```","",
++        "Runner dùng cache journal cùng identity nếu cần tiếp tục lượt chưa xong; từ chối ghi đè lượt đã có experiment_receipt.json. Chỉnh tham số trong configs/mobility_aware_skr_demo.json và dùng output mới để giữ provenance.","",
++        "Tệp mới: src/uav_mobility.py, src/mobility_skr.py, scripts/run_mobility_skr_experiment.py, scripts/plot_mobility_skr_results.py, scripts/finalize_mobility_skr_experiment.py, tests/test_mobility_skr.py, configs/mobility_aware_skr_demo.json. Scientific kernels/security functional/frozen specification và mọi cache/result cũ không đổi.","",
++        "Artifacts: [summary.csv](../results/mobility_aware_skr_20261014/full/summary.csv), [time series](../results/mobility_aware_skr_20261014/full/scheme_time_series.csv), [bảng SKR](../results/mobility_aware_skr_20261014/full/skr_table.csv), [final validation](../results/mobility_aware_skr_20261014/final_validation.json).", ""])
++    for check in fig_checks:
++        lines.append(f"- [{check['png']}](../results/mobility_aware_skr_20261014/full/{check['png']}) / [PDF](../results/mobility_aware_skr_20261014/full/{check['pdf']})")
++    lines.extend(["", "Lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS và frozen-hash mismatch cũ vẫn giữ. Không training, held-out/final-test/publication evaluation, AP/AO, source generation, commit hoặc push. STOP sau báo cáo minh họa này.", ""])
++    report=ROOT/"docs/MOBILITY_AWARE_SKR_REPORT_VI.md"
++    with report.open("x",encoding="utf-8",newline="\n") as stream:stream.write("\n".join(lines))
++    print("FINAL_VALIDATION",validation["status"],"REPORT",str(report),flush=True)
++
++
++if __name__=="__main__":main()
+--- /dev/null
++++ after/tests/test_mobility_skr.py
+@@ -0,0 +1,176 @@
++"""Geometry, cached-source regression, brute-force DP and cache isolation."""
++import copy
++import itertools
++import json
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import numpy as np
++import torch
++from scripts import run_ao_effective_channel_no_fading_noise_reference as existing
++from scripts.run_mobility_skr_experiment import CONFIG, DEFAULT, validate_settings, scenario
++from src.mobility_skr import (load_candidates, channel_state, scientific_identity,
++    objective_key, ExactStateCache)
++from src.uav_mobility import (candidate_grid, path_intersections, moving_cloud,
++    link_geometry, cloud_transmittance, best_stationary, optimize_trajectory, usable_skr)
++
++
++class MobilityTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        torch.set_num_threads(1)
++        cls.settings=existing.read_json(CONFIG)
++        cls.manifest=existing.read_json(DEFAULT/"startup_manifest.json")
++        cls.candidates,cls.config,_=load_candidates(cls.settings,cls.manifest["protected_hashes"])
++        cls.positions=validate_settings(cls.settings)
++        cls.reference=cls.positions[cls.settings["geometry"]["reference_position_index"]]
++        cls.state=channel_state(cls.settings,cls.reference,False)
++        cls.candidate=next(c for c in cls.candidates if c["nu_raw"]==.17 and c["V_A"]==5.046875)
++        cls.score=existing.evaluate_authenticated(cls.candidate,cls.state["moments"],cls.config,cls.manifest["protected_hashes"])
++
++    def test_100_cell_centers_and_reference(self):
++        self.assertEqual(self.positions.shape,(100,2))
++        np.testing.assert_array_equal(self.positions[0],[50,50])
++        np.testing.assert_array_equal(self.positions[-1],[950,950])
++        np.testing.assert_array_equal(self.reference,[450,450])
++        self.assertAlmostEqual(self.state["distance_m"]/1000,21.9393102292,places=10)
++        other=channel_state(self.settings,self.positions[-1],False)
++        self.assertNotEqual(self.state["distance_m"],other["distance_m"])
++        self.assertNotEqual(self.state["moments"]["mean_sqrt_eta"],other["moments"]["mean_sqrt_eta"])
++
++    def test_cloud_intersections_and_altitudes(self):
++        points=np.array([[0.,0.],[10.,0.]])
++        np.testing.assert_array_equal(path_intersections(points,[10.,10.],20.,0.,10.),[[5.,5.],[10.,5.]])
++        np.testing.assert_array_equal(path_intersections(points,[10.,10.],20.,0.,5.),[[2.5,2.5],[10.,2.5]])
++        for height in (0.,20.,21.):
++            with self.assertRaises(ValueError):path_intersections(points,[10.,10.],20.,0.,height)
++
++    def test_cloud_cover_outside_boundary_and_motion(self):
++        blocked,centers=moving_cloud([[0.,0.],[1.,0.],[1.01,0.]], [0.,3.], [0.,0.], [1.,0.],1.)
++        np.testing.assert_array_equal(blocked[:,0],[True,True,False])
++        np.testing.assert_array_equal(blocked[:,1],[False,False,False])
++        np.testing.assert_array_equal(centers,[[0.,0.],[3.,0.]])
++
++    def test_no_cloud_preserves_moments_and_skr(self):
++        settings=copy.deepcopy(self.settings);settings["cloud"]["attenuation_db"]=0.
++        clear=channel_state(settings,self.reference,False)
++        blocked=channel_state(settings,self.reference,True)
++        self.assertEqual(clear["moments"],blocked["moments"])
++        self.assertEqual(clear["cloud_raw_channel"],blocked["cloud_raw_channel"])
++        result=existing.evaluate_authenticated(self.candidate,blocked["moments"],self.config,self.manifest["protected_hashes"])
++        self.assertEqual(result["I_AB"],self.score["I_AB"])
++        self.assertEqual(result["chi_BE"],self.score["chi_BE"])
++        self.assertEqual(result["SKR"],self.score["SKR"])
++
++    def test_cloud_applied_once_before_conditioning(self):
++        blocked=channel_state(self.settings,self.reference,True)
++        self.assertAlmostEqual(blocked["cloud_raw_channel"]["eta_atm"],self.state["clear_raw_channel"]["eta_atm"]*.1,places=15)
++        self.assertEqual(blocked["cloud_raw_channel"]["P0"],self.state["clear_raw_channel"]["P0"])
++        m=blocked["moments"]
++        self.assertAlmostEqual(m["physical_probability_mass"],1.,places=10)
++        self.assertEqual(m["mean_eta_xi_total"],2+(.0186-1)*m["mean_eta"])
++        self.assertNotEqual(m["mean_eta_xi_total"],.1*self.state["moments"]["mean_eta_xi_total"])
++        self.assertLess(m["mean_sqrt_eta"],self.state["moments"]["mean_sqrt_eta"])
++
++    def test_exact_reference_skr_and_source_catalog(self):
++        self.assertEqual(len(self.candidates),197)
++        self.assertAlmostEqual(self.score["SKR"],.0587348598790054,places=12)
++        self.assertAlmostEqual(self.score["T_eff"],.16092029098192165,places=12)
++        self.assertAlmostEqual(self.score["I_AB"],.4910480331304301,places=12)
++        self.assertAlmostEqual(self.score["chi_BE"],.4077607715949032,places=12)
++        self.assertEqual(self.score["C"],2.9818069279923307)
++        self.assertEqual(self.score["w"],6.190945650452507e-7)
++        self.assertEqual(self.score["numerical_repairs"],[])
++
++    def test_stationary_maximum_on_small_grid(self):
++        raw=np.array([[1.,0.,0.],[.6,.6,.6],[-1.,.4,.5]])
++        chosen,means=best_stationary(raw)
++        self.assertEqual(chosen,1);self.assertAlmostEqual(means[chosen],.6)
++
++    def test_dp_matches_exhaustive_three_positions_four_slots(self):
++        points=np.array([[0.,0.],[100.,0.],[200.,0.]])
++        rates=np.array([[.8,.1,.2,.4],[.2,.7,.3,.1],[.1,.1,.9,.8]])
++        for penalty in (0.,.2):
++            result=optimize_trajectory(rates,points,slot_duration_s=10.,max_speed_m_per_s=10.,
++                penalty_bits_per_use=penalty,reference_distance_m=100.)
++            values=[]
++            for path in itertools.product(range(3),repeat=4):
++                legs=np.linalg.norm(np.diff(points[list(path)],axis=0),axis=1)
++                if (legs<=100).all():values.append(float(rates[list(path),np.arange(4)].mean())-penalty*float(legs.sum())/100)
++            self.assertAlmostEqual(result["penalized_objective"],max(values),places=12)
++            self.assertLessEqual(result["max_transition_m"],100.)
++
++    def test_speed_zero_reduces_to_stationary_solution(self):
++        rates=np.array([[.4,.1,.5],[.2,.8,.2],[0.,.1,.1]])
++        result=optimize_trajectory(rates,[[0,0],[100,0],[200,0]],slot_duration_s=20.,max_speed_m_per_s=0.,
++            penalty_bits_per_use=.01,reference_distance_m=1000.)
++        self.assertEqual(len(set(result["path"])),1)
++        self.assertAlmostEqual(result["average_skr"],rates.mean(axis=1).max(),places=12)
++        self.assertEqual(result["total_flight_distance_m"],0.)
++
++    def test_optimization_dominance_and_penalty_flight_monotonicity(self):
++        rates=np.array([[.8,.1,.2,.4],[.2,.7,.3,.1],[.1,.1,.9,.8]])
++        points=[[0,0],[100,0],[200,0]];stationary=float(rates.mean(axis=1).max());flights=[]
++        for penalty in (0.,.01,.1,1.):
++            result=optimize_trajectory(rates,points,slot_duration_s=20.,max_speed_m_per_s=15.,
++                penalty_bits_per_use=penalty,reference_distance_m=100.)
++            self.assertGreaterEqual(result["penalized_objective"]+1e-12,stationary)
++            if penalty==0:self.assertGreaterEqual(result["average_skr"]+1e-12,stationary)
++            flights.append(result["total_flight_distance_m"])
++        self.assertEqual(flights,sorted(flights,reverse=True))
++
++    def test_signed_negative_skr_preserved_and_invalid_input_rejected(self):
++        raw=np.array([[-.1,.2],[.3,-.4]])
++        np.testing.assert_array_equal(usable_skr(raw),[[0.,.2],[.3,0.]])
++        self.assertEqual(raw[0,0],-.1)
++        for bad in ([[float('nan')]],[[float('inf')]],[]):
++            with self.assertRaises(ValueError):usable_skr(bad)
++        with self.assertRaises(ValueError):cloud_transmittance(-1.,True)
++
++    def test_cache_keys_bind_channel_ensemble_and_scientific_code(self):
++        identity=scientific_identity(self.settings,self.config)
++        digest=existing.digest(existing.ROOT/self.candidate["source_path"])
++        key=objective_key(identity,self.state,self.candidate,digest)
++        blocked=channel_state(self.settings,self.reference,True)
++        self.assertNotEqual(key,objective_key(identity,blocked,self.candidate,digest))
++        changed=dict(identity,security="different-target")
++        self.assertNotEqual(key,objective_key(changed,self.state,self.candidate,digest))
++        changed_source=dict(self.candidate,V_A=self.candidate["V_A"]+1e-14)
++        self.assertNotEqual(key,objective_key(identity,self.state,changed_source,digest))
++        self.assertNotEqual(key,objective_key(identity,self.state,self.candidate,"different-hash"))
++
++    def test_journal_reuses_identical_state_and_rejects_corruption(self):
++        with tempfile.TemporaryDirectory() as folder:
++            path=Path(folder)/"cache.jsonl"
++            with patch('src.mobility_skr.existing.evaluate_authenticated',return_value=self.score) as evaluator:
++                first=ExactStateCache(path,dict(test="same-state"),self.manifest["protected_hashes"],self.config)
++                key,row=first.evaluate(self.candidate,self.state)
++                second=ExactStateCache(path,dict(test="same-state"),self.manifest["protected_hashes"],self.config)
++                other_key,other_row=second.evaluate(self.candidate,self.state)
++                self.assertEqual(evaluator.call_count,1);self.assertEqual(row,other_row);self.assertEqual(key,other_key)
++                self.assertEqual(second.hits,1)
++            record=json.loads(path.read_text());record["row"]["I_AB"]+=.1
++            path.write_text(json.dumps(record)+'\n')
++            with self.assertRaises(ValueError):ExactStateCache(path,dict(test="same-state"),self.manifest["protected_hashes"],self.config)
++
++    def test_cloud_velocity_affects_blockage_not_channel_statistics(self):
++        intersections=path_intersections(self.positions,self.settings["geometry"]["hap_horizontal_m"],20000,1000,5000)
++        times=np.arange(30)*20
++        first,_=moving_cloud(intersections,times,self.settings["cloud"]["initial_center_m"],[3,0],420)
++        second,_=moving_cloud(intersections,times,self.settings["cloud"]["initial_center_m"],[6,0],420)
++        self.assertTrue(first.any() and (~first).any())
++        self.assertFalse(np.array_equal(first,second))
++        self.assertFalse(first[44,0]);self.assertFalse(first[44,-1])
++        self.assertTrue(first[44].any())
++        self.assertFalse(first[:,-1].any())
++
++    def test_noise_and_double_cloud_conventions_fail_closed(self):
++        settings=copy.deepcopy(self.settings);settings["channel"]["R"]=.7
++        with self.assertRaises(ValueError):channel_state(settings,self.reference,False)
++        settings=copy.deepcopy(self.settings);settings["channel"]["clear_atmosphere_excludes_added_cloud_loss"]=False
++        with self.assertRaises(ValueError):channel_state(settings,self.reference,False)
++
++
++if __name__=="__main__":unittest.main()
+--- /dev/null
++++ after/configs/mobility_aware_skr_demo.json
+@@ -0,0 +1,50 @@
++{
++  "schema": "mobility-aware-skr-demo-v1",
++  "scientific_model": "effective_channel_no_fading_noise",
++  "scenario_status": "SYNTHETIC_DEMONSTRATION_ONLY",
++  "geometry": {
++    "h_hap_m": 20000.0,
++    "h_uav_m": 1000.0,
++    "grid_side_m": 1000.0,
++    "grid_cells_per_side": 10,
++    "reference_position_index": 44,
++    "hap_horizontal_m": [11419.65511459133, 450.0],
++    "coordinate_origin": "Demonstration embedding: reference UAV (450,450) m, HAP along +x; slant distance matches the baseline, horizontal azimuth is not measured.",
++    "baseline_reference_distance_km": 21.9393102292
++  },
++  "channel": {
++    "clear_tau_zen": 0.92,
++    "clear_atmosphere_excludes_added_cloud_loss": true,
++    "receiver_radius_m": 0.275,
++    "beam_waist_m": 0.0986760647169751,
++    "R": 1.0,
++    "xi_det": 0.0,
++    "xi_ch": 0.0186,
++    "beta_rec": 0.95,
++    "phase_noise": "OFF",
++    "adaptive_optics": "OFF",
++    "cloud_conditioning": "multiply_raw_channel_then_condition_active_on_0_T_le_1_preserve_outage"
++  },
++  "cloud": {
++    "altitude_m": 5000.0,
++    "radius_m": 420.0,
++    "attenuation_db": 10.0,
++    "initial_center_m": [2093.7168662297537, 450.0],
++    "velocity_m_per_s": [3.0, 0.0],
++    "parameter_origin": "Reproducible synthetic circular-cloud demonstration; not measured atmospheric data."
++  },
++  "mission": {"slots": 30, "slot_duration_s": 20.0, "max_speed_m_per_s": 15.0},
++  "optimization": {
++    "reference_distance_m": 1000.0,
++    "positive_lambda_bits_per_use": 0.001,
++    "lambda_sweep_bits_per_use": [0.0, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05],
++    "cloud_speed_sweep_m_per_s": [0.5, 1.5, 3.0, 4.5, 6.0],
++    "initial_position_freely_selectable": true,
++    "deployment_cost_included": false,
++    "source_adaptation": "same finite MB catalog, once per slot in all schemes",
++    "channel_use_rate_per_s": null
++  },
++  "source_roster": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv",
++  "source_roster_receipt": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/figure_receipt.json",
++  "source_family": "MB"
++}
+--- /dev/null
++++ after/docs/MOBILITY_AWARE_SKR_AUDIT.md
+@@ -0,0 +1,48 @@
++# Mobility-aware joint source/UAV optimization: repository audit
++
++The authoritative attached task requests a distance penalty, not the physical
++energy model in the selected Overleaf excerpt. Implement synthetic diagnostic
++P1 finite MB enumeration, P2 stationary choice, P3 discrete DP. Keep the current
++effective Gaussian approximation ignoring fading variance; use direct Z_star,
++ideal heterodyne, beta=0.95 and xi_ch=0.0186. No security or publication promotion.
++
++Reused: derive_physical_inputs; LiteralChannel.from_physical;
++PhysicalFadingDistribution.moments; authenticate/evaluate_authenticated;
++canonical MB construction/normalization; deterministic_mutual_information;
++_holevo_from_source_moments and standard_form_covariance. audit.json binds paths
++and producer hashes. The authenticated latest source roster supplies 197 MB
++ensembles, including the original 182 and 15 later accepted records. No new
++source moments, AP/AO, interpolation or new Holevo formula is needed.
++
++The repository supplies h_H=20 km, h_U=1 km, L_ref=21.9393102292 km and zenith
++30 degrees but no HAP horizontal coordinates. The configurable demonstration
++places the reference at (450,450) m (grid index 44, zero based), with HAP at
++(11419.65511459133,450) m. This explicit azimuth/coordinate embedding preserves
++the reference slant distance; it is not a measured HAP location. The optional
++user clarification was offered before implementation. Clouds are explicitly
++synthetic: altitude 5 km, radius 420 m, attenuation 10 dB, initial center
++(2093.7168662297537,450) m, velocity (3,0) m/s. No measured-weather claim.
++
++Cloud transmittance multiplies the raw channel exactly once, before the
++existing normalization on 0<T<=1 with preserved outage atom. The third moment
++is recomputed, not naively multiplied by cloud attenuation. Recompute all
++geometry-dependent inputs at each cell. Two time-invariant binary channel
++states per position allow 39400 source evaluations instead of 100*30*197.
++Full physical state, binary state, exact source hex/ensemble/payload bytes and
++scientific-code/config hashes bind each objective journal key. Velocity/penalty
++sweeps then use the completed exact state table without fresh SKR interpolation.
++
++Order: small tests including 3-position/4-slot brute force and original geometry
++SKR regression; 5-position/3-source smoke; then 100-position/197-source/30-slot
++demonstration and configurable velocity/penalty experiments, CSV and six PNG/PDF
++figures. Report raw signed K separately from the usable positive part; cumulative
++contributions are bits/use-slot when no channel-use rate is specified. Report
++average SKR and penalized objective separately. No propulsion energy or bits/J.
++
++All old scientific files/results/cache hashes are protected by startup_manifest.
++Frozen actual SHA df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15
++still differs from the historical expected hash; preserve it as a pre-existing
++publication blocker. NOT_READY_FOR_PUBLICATION_SCALE_RUNS remains. No training,
++held-out/final-test/publication evaluation, commit or push. PDF reference bytes
++are hash-bound; its full text was not parsed because no PDF parser is installed.
++The pasted task and supplied TeX equations define this implementation scope.
+--- /dev/null
++++ after/docs/MOBILITY_AWARE_SKR_REPORT_VI.md
+@@ -0,0 +1,59 @@
++# Tối ưu vị trí UAV và nguồn MB dưới mây chuyển động
++
++Ngày 2026-10-14. CURRENTLY_VERIFIED_PASS cho mô phỏng minh họa; không phải chứng nhận bảo mật hoặc kết quả final-test.
++
++Đã hoàn tất: 100 vị trí, 30 slot × 20 s, 197 nguồn MB (giữ đủ 182 nguồn gốc), 200 trạng thái sạch/có mây, 39.400 phép đánh giá. Không tính C,w mới; không AP/AO hoặc nội suy. 15 tests và smoke 30 phép đánh giá đã đạt trước lượt đầy đủ.
++
++| Phương án | SKR trung bình (bits/use) | Khả dụng (%) | Quãng bay (m) | Tăng so S1 (%) | Tăng so S2 (%) | Mục tiêu riêng (bits/use) |
++|---|---:|---:|---:|---:|---:|---:|
++| S1 Reference Fixed | 0.0335033917 | 100 | 0 | 0 | -37.3692 | 0.0335033917 |
++| S2 Optimized Stationary | 0.05349345892 | 100 | 0 | 59.6658 | 0 | 0.05349345892 |
++| S3 Moving SKR Only | 0.06188325371 | 100 | 2323.6068 | 84.7074 | 15.6838 | 0.06188325371 |
++| S4 Moving Mobility-Aware | 0.0610419135 | 100 | 600 | 82.1962 | 14.111 | 0.0604419135 |
++
++S2 chọn vị trí cố định (950, 950) m. S4 dùng lambda=0.001 bits/use, D_ref=1000 m. Mục tiêu có phạt và SKR trung bình là hai đại lượng riêng; cột mục tiêu riêng của S1–S3 có lambda=0. CSV còn lưu objective_at_common_positive_lambda để so sánh cùng mục tiêu.
++
++Hình học minh họa: h_H=20 km, h_U=1 km, UAV tham chiếu (450,450) m, HAP (11419.65511459133,450) m. Tọa độ này giữ đúng L_ref=21.9393102292 km; azimuth +x là giả định minh họa vì repo không có tọa độ HAP thực tế. Mây giả lập ở 5 km, bán kính 420 m, suy hao 10 dB, tâm đầu (2093.7168662297537,450) m, vận tốc (3,0) m/s. Các tham số này không phải đo đạc thời tiết.
++
++Tái sử dụng derive_physical_inputs, LiteralChannel.from_physical, PhysicalFadingDistribution.moments, authenticate/evaluate_authenticated, canonical MB và normalization, deterministic_mutual_information, _holevo_from_source_moments và covariance hiện có. Tệp audit.json lưu đường dẫn/hash; code_equation chi tiết có trong báo cáo SKR trước. Ba mômen/PDF Eq. (10)/C,w/ensemble và Eq. (20) giữ nguyên producer.
++
++T_cloud=10^(-A_c b/10) nhân đúng một lần vào eta_atm của luật thô. Sau đó áp dụng conditioning active trên 0<T<=1 và giữ atom AoA. Đây không phải nhân trực tiếp cả ba mômen đã chuẩn hóa; thay đổi tail/normalizer được tính lại. Mômen thứ ba vẫn bằng 2+(xi_ch−1)mean_eta, không nhân phần shot/detector noise với suy hao mây.
++
++Mô hình SKR là effective_channel_no_fading_noise: T_eff=mean_sqrt_eta², xi_eff=0.0186, N_eff=T_eff xi_ch, a=VA+1, b=1+T_eff(VA+xi_ch), Z*=2sqrt(T_eff)C−sqrt(2T_eff xi_ch w). Ideal heterodyne R=1, xi_det=0, chi_het=1, beta=0.95; phase/adaptive optics OFF. MI discrete 256-QAM mới GH8/16/32 và Holevo direct Z_star dùng cùng ensemble/noise. Đây là xấp xỉ Gaussian bỏ phương sai fading, chưa là security lower bound của kênh fading.
++
++P1 vét cạn nguồn MB ở mỗi vị trí/trạng thái; giữ signed K trong all_candidate_evaluations.csv và dùng S=max(0,K) cho bảng tiện ích. P2 tối đa trung bình theo vị trí cố định. P3 dùng DP với d<=15×20=300 m mỗi bước, vị trí đầu tự chọn, không tính chi phí triển khai. Mục tiêu là mean(S)−lambda D_fly/D_ref, không phải mô hình năng lượng và không báo joule/bits/J. Cùng catalog và quy tắc đổi nguồn mỗi slot cho cả bốn phương án. Khả dụng ở bảng là tỷ lệ slot có S>0, không phải xác suất không-outage AoA hoặc bằng chứng cấp khóa vận hành. P1 và DP tách được vì nguồn không có ràng buộc ngân sách liên-slot hoặc chi phí đổi tham số trong mô hình này.
++
++Đã chạy năm vận tốc mây 0.5,1.5,3,4.5,6 m/s và tám lambda 0,0.0005,0.001,0.002,0.005,0.01,0.02,0.05 bits/use. Bảng hai trạng thái tại mỗi vị trí được tái sử dụng chính xác vì mọi thống kê khác độc lập thời gian/vận tốc trong mô hình binary này. Quỹ đạo mây là dữ liệu minh họa biết trước; không triển khai dự báo hoặc học máy.
++
++Không có channel-use rate giả định: cumulative_skr_contributions=sum(S_n), hiển thị bits/use-slot. Không gọi số này là tổng bit khóa thực tế. Nếu cấu hình channel_use_rate_per_s, xuất thêm cumulative_secret_bits=rate×Delta_t×sum(S_n), vẫn chỉ là ước lượng theo functional đang dùng.
++
++Kiểm tra độc lập toàn bộ dữ liệu: 200 cực đại P1; cache keys/hash và cùng C,w; PDF normalization/moment ordering; a,b,Z,K; uncertainty matrix và spectrum. Max residual spectrum=2.66454e-14, entropy=1.77636e-15. DP khớp vét cạn 3 vị trí/4 slot trong test; nghiệm toàn bộ khớp tái dựng DP. S2≥S1, S3≥S2; objective S4≥stationary cùng lambda. 3437 file cũ không đổi hash.
++
++Giới hạn: cực đại chỉ trong 100 điểm và 197 nguồn được tính số, không phải tối ưu liên tục/toàn cục của hệ vật lý. C,w và GH có kiểm tra số nhưng chưa có enclosure tổng sai số chặt. Cloud là đĩa phẳng suy hao nhị phân, CSI/lịch mây biết trước, thống kê turbulence/pointing cố định tại từng vị trí; không fluid dynamics. Đánh giá rate tại vị trí slot, bỏ diễn biến link giữa các cell, trễ reacquisition, overhead đổi nguồn và chi phí triển khai. Không đánh giá năng lượng đẩy thực tế.
++
++Khác đoạn Overleaf tham khảo: triển khai phạt quãng đường theo yêu cầu đính kèm, không P_hov/e_mov/E_ref. Không sửa tệp TeX/PDF bên ngoài. PDF được hash-bound nhưng chưa trích xuất full text vì thiếu PDF parser; các công thức triển khai lấy từ task đính kèm và đoạn TeX người dùng cung cấp.
++
++15 tests bao phủ A_c=0, hình học/biên/altitude mây, source/catalog/ref SKR, P2, DP-vét cạn, tốc độ, dominance, signed-negative handling, journal reuse/corruption và cache context. Lượt đầu bắt lỗi serialize UavMotion và assertion thừa rằng toàn lưới sạch ở slot đầu; sửa serializer và kiểm tra đúng reference ray đi vào/ra, không đổi physics để ép kết quả. Lưu log lỗi ban đầu và receipt lượt đạt.
++
++Chạy từ paper_uav_hap_cvqkd bằng PowerShell:
++
++```powershell
++& .venv/Scripts/python.exe -m unittest tests.test_mobility_skr -v
++& .venv/Scripts/python.exe scripts/run_mobility_skr_experiment.py --smoke --output results/mobility_demo_rerun
++& .venv/Scripts/python.exe scripts/run_mobility_skr_experiment.py --output results/mobility_demo_rerun
++```
++
++Runner dùng cache journal cùng identity nếu cần tiếp tục lượt chưa xong; từ chối ghi đè lượt đã có experiment_receipt.json. Chỉnh tham số trong configs/mobility_aware_skr_demo.json và dùng output mới để giữ provenance.
++
++Tệp mới: src/uav_mobility.py, src/mobility_skr.py, scripts/run_mobility_skr_experiment.py, scripts/plot_mobility_skr_results.py, scripts/finalize_mobility_skr_experiment.py, tests/test_mobility_skr.py, configs/mobility_aware_skr_demo.json. Scientific kernels/security functional/frozen specification và mọi cache/result cũ không đổi.
++
++Artifacts: [summary.csv](../results/mobility_aware_skr_20261014/full/summary.csv), [time series](../results/mobility_aware_skr_20261014/full/scheme_time_series.csv), [bảng SKR](../results/mobility_aware_skr_20261014/full/skr_table.csv), [final validation](../results/mobility_aware_skr_20261014/final_validation.json).
++
++- [figure_1_cloud_and_uav_trajectory.png](../results/mobility_aware_skr_20261014/full/figure_1_cloud_and_uav_trajectory.png) / [PDF](../results/mobility_aware_skr_20261014/full/figure_1_cloud_and_uav_trajectory.pdf)
++- [figure_2_skr_vs_time.png](../results/mobility_aware_skr_20261014/full/figure_2_skr_vs_time.png) / [PDF](../results/mobility_aware_skr_20261014/full/figure_2_skr_vs_time.pdf)
++- [figure_3_cumulative_skr.png](../results/mobility_aware_skr_20261014/full/figure_3_cumulative_skr.png) / [PDF](../results/mobility_aware_skr_20261014/full/figure_3_cumulative_skr.pdf)
++- [figure_4_average_skr_vs_cloud_velocity.png](../results/mobility_aware_skr_20261014/full/figure_4_average_skr_vs_cloud_velocity.png) / [PDF](../results/mobility_aware_skr_20261014/full/figure_4_average_skr_vs_cloud_velocity.pdf)
++- [figure_5_skr_and_flight_vs_penalty.png](../results/mobility_aware_skr_20261014/full/figure_5_skr_and_flight_vs_penalty.png) / [PDF](../results/mobility_aware_skr_20261014/full/figure_5_skr_and_flight_vs_penalty.pdf)
++- [figure_6_optimized_source_parameters.png](../results/mobility_aware_skr_20261014/full/figure_6_optimized_source_parameters.png) / [PDF](../results/mobility_aware_skr_20261014/full/figure_6_optimized_source_parameters.pdf)
++
++Lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS và frozen-hash mismatch cũ vẫn giữ. Không training, held-out/final-test/publication evaluation, AP/AO, source generation, commit hoặc push. STOP sau báo cáo minh họa này.

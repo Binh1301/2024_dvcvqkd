@@ -1,0 +1,35 @@
+{
+  "authority": "Explicit user longer exact-source computation authorization",
+  "attachment_sha256": "06725ac0a0853ca83689b9c8f2189013fa84fa5f6581d9a762ab4a65e3f090ee",
+  "EVID": "EVID-0185",
+  "DEC": "DEC-0168",
+  "config": {
+    "scientific_model": "effective_channel_no_fading_noise",
+    "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+    "distance_km": 21.9393102292,
+    "exact_source_timeout_seconds": 7200,
+    "ao_continuation_budget_seconds": 43200,
+    "max_concurrent_exact_source_jobs": 1,
+    "checkpoint_after_every_success": true,
+    "reuse_existing_exact_source_cache": true,
+    "heartbeat_seconds": 30,
+    "finalization_reserve_seconds": 60,
+    "SKR_tolerance": 1e-08,
+    "parameter_tolerance": 1e-06,
+    "max_continuation_iterations": 64,
+    "restart_completed_multistarts": false,
+    "precision_ladder": [
+      1050,
+      1250,
+      1450
+    ],
+    "partial_checkpoint_policy": "hash-bound completed precision rows; unchanged original AP row and acceptance functions"
+  },
+  "state_sha256": {
+    "docs/EVIDENCE.md": "ab0cf87328d1dffbc6703f292065789b132ff64ac5cfeacdfddd6ee6ce6ca1eb",
+    "docs/DECISION_LOG.md": "552dfc6f4168a1a0e8c9d5459595e53319988ef3da295758a7fa4b8e4b4b0c30",
+    "docs/PROJECT_STATE.md": "18fee0b963178a6662b353958cd5af055c5499f5bcc8bc8fd7a0a0fafefea5b2",
+    "docs/NEXT_ACTIONS.md": "b3caebb9b4d119d5d312b7dcb87fa6bf4d7f663662890ac72f5fa0e64f1e0175",
+    ".agent/SESSION_HANDOFF.md": "9337ff78c6bd7f2b03b5c7a5fd59c847a702102c875c5f4523352296211dc8ba"
+  }
+}

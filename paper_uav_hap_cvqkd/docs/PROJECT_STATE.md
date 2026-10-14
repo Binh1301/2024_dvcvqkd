@@ -1,5 +1,219 @@
 # Project State
 
+## Current: IEEE numerical-results package COMPLETE; STOP
+
+2026-10-14 EVID-0188/DEC-0171. CURRENTLY_VERIFIED_PASS for scoped numerical
+and export validation: reused 39400 MB records, added only 6000 missing Uniform
+records with own authenticated C,w (plus 30 smoke). All original 15 tests and
+10 new tests pass; 3496 protected old hashes remain unchanged. Seven figures
+have both column sizes, vector PDF/300-dpi PNG, explicit plotting CSV; two IEEE
+tables, captions, numerical-results LaTeX, Vietnamese report and Overleaf ZIP.
+
+S4 mean .061041913501481276 bits/use, flight 600 m: retains 98.64043960103005%
+of S3 mean with 74.17807519839421% less flight. Stationary Uniform/MB means
+.004525533061950683/.05349345891657229; moving lambda0 Uniform/MB means
+.005221740888377324/.061883253712551226. Joint catalog/source-adaptation
+comparison only, not isolated shaping at matched energy. Optional 100 DP-only
+scenario comparisons are separate from the original five-speed demonstration.
+
+Artifacts: results/mobility_numerical_results_package_20261014/, including
+NUMERICAL_RESULTS_REPORT_VI.md, package_receipt.json, final_validation.json,
+completion_integrity_receipt.json and overleaf_numerical_results.zip. All
+14 PNG layouts reviewed; vector/DPI/paths/math checks pass. LaTeX compilation
+is BLOCKED_BY_ENVIRONMENT (no compiler); manuscript page layout unverified.
+Scientific status PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE:
+full-fading precision/security/source-snapshot scope unresolved, no full-fading
+rerun or certified security claim. Physical PDF/three moments/exact C,w,
+scientific/MI/Holevo kernels and old results are unchanged. No new C,w/AP/AO/MC,
+training/test dataset access, held-out/final-test/publication evaluation,
+baseline/threshold approval or commit/push. Frozen-hash mismatch,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED remain.
+Deliver package, then STOP; await a new explicit task.
+
+## Current: mobility-aware joint optimization COMPLETE; STOP
+
+2026-10-14 EVID-0187/DEC-0170. CURRENTLY_VERIFIED_PASS for the requested
+synthetic diagnostic: 100 positions, 197 authenticated MB sources (all182
+original keys retained), two channel states, 39400 evaluations, 30x20s slots.
+15 scoped tests and 30 smoke evaluations passed before the full run. Five
+cloud velocities and eight lambda cases completed; six PNG/vector PDFs.
+Default means S1=.033503391695769096, S2=.05349345891657229 (950,950)m,
+S3=.061883253712551226, S4=.061041913501481276 bits/use. Flights0/0/
+2323.606797749979/600m; S4 lambda=.001, objective=.06044191350148127.
+No numerical failures; GH8/16/32 winners match at all200states. Independent
+cache keys, P1 maxima, covariance spectra/entropy and P2/DP checks pass;
+3437 protected old hashes unchanged. Geometry embedding is user-confirmed
+and preserves the original 21.9393102292km reference. Cloud parameters are
+synthetic, and the penalty is flight distance, not propulsion energy.
+Report docs/MOBILITY_AWARE_SKR_REPORT_VI.md; results/mobility_aware_skr_20261014/
+contains all CSV, figures, full/experiment_receipt.json, final_validation.json,
+completion_integrity_receipt.json and provenance. Progress checkpoint remains
+an immutable last loop snapshot; full receipt is terminal evidence.
+Current no-fading-noise Gaussian source/MI/Holevo kernels and physical PDF/
+three moments are reused unchanged. No new C,w/AP/AO/interpolation. No exact
+fading-security, continuous/global physical optimum or total-error certificate.
+No training/test data access, held-out/final-test/publication evaluation,
+baseline/threshold approval or commit/push. Frozen-hash mismatch and
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain; Objective C USER_STOPPED.
+Deliver implementation/report/figures, then STOP; await a new explicit task.
+
+## Current: updated cached distance figure COMPLETE; STOP
+
+2026-10-14 EVID-0186/DEC-0169. CURRENTLY_VERIFIED_PASS: 5902 evaluations of
+227 existing validated ensembles (30 Uniform, 197 MB) at 26 distances, 20-40 km;
+78 selected rows, zero numerical failures. Fixed MB keeps (0.2,1.3833230302980657).
+Physical PDF/moments/T_eff and discrete MI/direct-Z_star Holevo were recalculated
+per distance: xi_eff=0.0186, ideal heterodyne R=1, beta=0.95, phase/adaptive optics OFF.
+GH8/16/32 winners match at all distances. Reference best (0.17,5.046875)
+reproduces K=0.0587348598790054. Uniform is positive through the sampled 24 km
+point and negative from sampled 25 km; both MB curves are positive through 40 km.
+Signed CSV is preserved; log10 displays only positive runs.
+New namespace results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/:
+PNG, vector PDF, selected/all-candidate CSV, source roster, moments and receipts.
+Report docs/SKR_DISTANCE_NO_FADING_NOISE_CACHE_REPORT_VI.md. Independent checks
+verify the finite-bank maxima, physical covariance spectra, source and output
+hashes; all 3423 protected old files are unchanged.
+Gaussian approximation ignoring fading variance; finite-cache selection only,
+no continuous/global optimum or exact fading security claim. No new source
+generation, AP/AO, training, held-out/final-test/publication evaluation or
+baseline/threshold approval. Frozen-hash mismatch, old scientific data/model,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED remain.
+Deliver artifacts, then STOP; no automatic further run, commit or push.
+
+## Current: extended-timeout AO continuation COMPLETE; AO_RESOURCE_LIMITED; STOP
+
+2026-10-14 EVID-0185/DEC-0168. Actually ran43135.438s numericalcontinuation
+within43200s budget (reserve60s,shutdown5s),sequential1,source ceiling7200s.
+Loaded8oldstarts/211objectives,restarted0. Three oldtimeouts completed exact;
+16new C,w records saved,227objective rows. Source17(.17125,5.046875) hit
+remaining-global deadline;1050/1250 saved,1450incomplete,no acceptedCw/SKR.
+Currentbest exact(.17,5.046875),K=.0587348598790054;delta1.6878114554863544e-6
+(+.0028736936829244926%) vsoldbest. One P1->P2 iteration; P2 usedimmediate
+newVA. P1 bracket[5.03125,5.0625] stillopen after4refinementstages; P2
+bracket[.169375,.1725] missingneighbor.17125 and boundary0 atnewVA.
+No coordinate/global convergence. GH8/16/32 top10 winnerstable,physicality
+andprovenance checksCURRENTLY_VERIFIED_PASS;3275protectedhashesunchanged.
+Six scopedpreflight tests passed;producer/test hashes verifiedunchanged.
+No researchPython workers;Job/watchdog/sleeplease cleanup verified.
+Report docs/AO_NO_FADING_NOISE_CONTINUATION_REPORT_VI.md;artifacts under
+results/ao_effective_channel_no_fading_noise_reference_continuation/, including
+continuation_result/final_validation/completion_integrity_receipt.json.
+SameTeff.16092029098192165,xi.0186,beta.95,idealR1,phase/adaptiveopticsOFF.
+Eq10/20/PDF/three moments/source normalization and allold caches/modes/results
+unchanged. Gaussian approximation ignoringfadingvariance; no certifiedfading
+security or rigorous source/globalerror enclosure. Frozenhash mismatch and
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain;ObjectiveC USER_STOPPED.
+STOP;no autoretry/newbudget/multistarts/sweeps/trajectory/training/heldout/
+final-test/publication evaluation/commit/push.
+
+## Current: no-fading-noise reference AO COMPLETE; AO_RESOURCE_LIMITED; STOP
+
+2026-10-13 EVID-0184/DEC-0167. Actually ran8 multistarts at onlyL21.9393102292
+under effective_gaussian_Zstar_diagnostic_SKR (same normalizedPDF/3moments,
+Teff=.16092029098192165,xi=.0186,beta=.95,ideal heterodyne,phase/adaptiveopticsOFF).
+All8 original starts terminate(.17,5),K=.05873317206754991,matching182-catalog
+max. Delta vsinitial .00010302184641219903 (+.17571479183257652%).
+Uniform best exact VA1,K=.004586201522212313;shapingdelta=.0541469705453376.
+211 exact objectives;3newsource attempts timeout720/480/600s,0newCw;
+sourcewall1800.016s. Final AO_RESOURCE_LIMITED: MBVA[4.5,5.5],nu[.165,.175]
+and UniformVA[.8,1.075] brackets not numerically closed;20missingdistinctpairs.
+GH8/16/32 winner stable;7tests/independent assertionsCURRENTLY_VERIFIED_PASS,
+3228protectedhashesunchanged,0controller/source/oldCprocesses.
+Report docs/AO_EFFECTIVE_CHANNEL_NO_FADING_NOISE_REPORT_VI.md; result/checkpoint/
+CSV/3PNG+PDFs in results/ao_effective_channel_no_fading_noise_reference/.
+No exact physical-fading security/global/convergence claim. Oldmodels/cache182/
+B/C/checkpoints/MI/Holevo/Eq10/20/frozen spec unchanged; oldspec mismatch remains
+promotion blocker,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED.
+STOP. No retry/newbudget/search/sweep/trajectory/training/test/publication/commit/push.
+
+## Current: effective_channel_no_fading_noise one-point diagnostic COMPLETE; STOP
+
+2026-10-13 EVID-0183/DEC-0166 explicit user decision. New isolated module/config/
+entry/tests/report, same Eq10/normalized PDF/three moments/source cache; all
+moment preservation residuals zero. Only L21.9393102292/nuRaw.165/VA5.5,
+idealR1/xiDet0/chiHet1/beta.95/xiCh.0186/phaseOFF/AOOFF.
+Teff=.16092029098192165, xi_eff=.0186, N_eff=.0029931174122637422;
+a6.5,b1.8880547178128329,Zstar2.576345544379474; fresh discreteGaussian
+I=.527940610384956,chiStar=.4429134296445705,K=+.05863015022113771.
+Five tests CURRENTLY_VERIFIED_PASS;3217 prior protected files unchanged.
+Effective Gaussian approximation deliberately ignores fading variance and
+does not match full physical Bob covariance or establish fading security.
+Report docs/EFFECTIVE_CHANNEL_NO_FADING_NOISE_REPORT_VI.md; evidence
+results/effective_channel_no_fading_noise/reference_20261013/.
+Old modes/results/caches/frozen spec unchanged, historical spec-hash mismatch
+and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged; ObjectiveC USER_STOPPED.
+No AP/AO/182/26/restartC/newMC/training/test/publication/commit/push. STOP.
+
+## Current: negative-SKR causal diagnostic complete; CONFIGURATION_MISMATCH; STOP
+
+2026-10-13 EVID-0182/DEC-0165. One-point existing-source/MI diagnostic complete for
+L21.9393102292, nuRaw.165, VA5.5 using the stored historical row and corrected
+ideal reference. Base D55 geometry, source key, ensemble hash, C, and w match;
+derived PDF coefficients/support/moment conventions differ (historical
+untruncated closed-form versus corrected Eq10 active conditioning). Corrected
+raw tail above eta=1 is .015879972779715795; full-support raw Teff=.1694819790377013,
+retained unnormalized Teff=.1558491966743379; conditioned Teff=.16092029098192165,
+historical Teff=.2011265222214531. Aperture/Rytov/tail/conditioning stages separated.
+Fading noise=.42343717270144676 (98.9657642% of Neff); lambda2 entropy term
+accounts for the largest Holevo increase. Adding fading to b is the main chi
+change in physical covariance sensitivities. Eight tests CURRENTLY_VERIFIED_PASS,
+3663 protected + 13 prior ideal output hashes unchanged; actual historical
+I/betaI/chi/K/Teff reproduced with zero residuals. Report:
+docs/NEGATIVE_SKR_DIAGNOSTIC_REPORT_VI.md; receipt:
+results/manuscript_corrected_3moments/negative_skr_diagnostic_20261013/.
+Corrected MI remains SAMPLING_PRECISION_NOT_MET and security lower bound remains
+NOT_ESTABLISHED. No evaluator/source/cache/Eq10/Eq20/AO/AP/sweep/C/training/test/
+publication/commit/push change. Stop; like-for-like rerun needs fresh scope.
+
+## Current: ONE ideal corrected reference complete; MI precision NOT_ESTABLISHED; STOP
+
+2026-10-13 EVID-0181/DEC-0164. User selected idealR1/xiDet0,chihet1 foronly
+L21.9393102292,nuRaw.165,VA5.5. Separate idealconfig/entry/results; oldcorrected
+core/trusted config, historical/literal/cache/182/B/C unchanged. 29 tests
+CURRENTLY_VERIFIED_PASS;3663 protected hashes unchanged; originalM/Nregressions pass.
+Physicalmass1,mn=1.7665162371050331;Teff=.16092029098192165,Zstar=2.575487382363995.
+IdealchiStar=intervalnumericmax=1.2195896239728028; full interval justified but
+no rigorouserrorenclosure. ActualmixtureMI=.4652637991973034,SE=.019468676410223464,
+4096samples, SE>.002target =>NOT_ESTABLISHED_MI_PRECISION. SigneddiagnosticK=-.7775890147353646.
+EffectiveGaussian approximationI=.4484184676941574,K=-.7935920796633533 separately.
+No source recomputation/AP/AO/182/26/restartC/training/test/publication/commit/push.
+See docs/MANUSCRIPT_CORRECTED_IDEAL_REFERENCE_REPORT_VI.md and ideal_reference results.
+STOP after onepoint/report. ObjectiveC USER_STOPPED; frozen historical mismatch
+and NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+
+
+## Current: corrected three-moment mode implemented; selected detector BLOCKED; STOP
+
+2026-10-13 EVID-0180/DEC-0163. Isolated manuscript_corrected_3moments preserves
+raw Eq10, Eq20, old source/evaluators/caches/results. 24 lightweight tests
+CURRENTLY_VERIFIED_PASS;3643 protected hashes unchanged; M/N regressions and26
+historical contexts pass. Physical retained law normalizes to1 within1e-10,
+three moment/noise/cov/Z identities and deterministic/nonbinarylimits pass.
+Discrete pooled-fading mixture MI implemented/tested with small256 fixtures;
+reference precision/production point NOT_RUN. Trusted R=.7/xi_det=.0135 has no
+verified Holevo: chi/K null, BLOCKED_BY_SCIENTIFIC_MODEL; no ideal substitution.
+See docs/MANUSCRIPT_CORRECTED_3MOMENTS_REPORT_VI.md and implementation_validation/attempt_2.
+Requested PDF(37)(2) notlocated; explicittaskequations/available(37) distinguished.
+ObjectiveC USER_STOPPED/PID0, no AP/controller seen. AP/AO/182/26/training/final-test/
+publication/commit/push NOT_RUN; frozen historical discrepancy and lifecycle
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged. Wait for fresh scoped request.
+
+
+## Current: manuscript_literal_3moments implemented; normalization discrepancy; STOP
+
+2026-10-12 EVID-0179/DEC-0162. Separate backend/config/one-point entry outside
+historical hash scans; 5 lightweight tests PASS, 3251 old hashes unchanged,
+original reference reproduced, 26 historical contexts still compatible.
+New reference PDF mass=.9841200272202841 (normalization FAILED, not repaired),
+covariance numerically valid, raw K=-2.454774809836829. This is a literal
+reproduction fixture, not a security/operational-rate certification. See
+docs/MANUSCRIPT_LITERAL_3MOMENTS_REPORT_VI.md and implementation_validation_4.
+AP/AO/182-catalog/full numerical sweep NOT_RUN; new production entry NOT_RUN.
+Objective C remains USER_STOPPED, frozen hash mismatch remains a historical
+blocker for promotion, lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged.
+Wait for explicit next request; no automatic numerical optimization.
+
+
 ## Current: Objective C USER_STOPPED; zero workers, catalog182 preserved
 
 2026-10-11 EVID-0178/DEC-0161 explicituserstop,21:59:57UTC+7. Verifiedcontroller

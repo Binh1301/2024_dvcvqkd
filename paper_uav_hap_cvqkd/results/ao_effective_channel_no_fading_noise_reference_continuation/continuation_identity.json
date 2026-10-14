@@ -1,0 +1,36 @@
+{
+  "identity": {
+    "previous_scientific_context": "77abb3f0ff944accb850da5f6e8ad68b4fec69dd702bd11b5b897681e6c7193c",
+    "previous_checkpoint_sha256": "ee9ad74d2bc62c220f96c74ca871c42eb78ed6933f2d670dba38861dc08d1303",
+    "previous_objectives_sha256": "489af9191921b624682d40fbc9b5687f47b0ba088c10bd9501f39cb4cb349558",
+    "config": {
+      "scientific_model": "effective_channel_no_fading_noise",
+      "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+      "distance_km": 21.9393102292,
+      "exact_source_timeout_seconds": 7200,
+      "ao_continuation_budget_seconds": 43200,
+      "max_concurrent_exact_source_jobs": 1,
+      "checkpoint_after_every_success": true,
+      "reuse_existing_exact_source_cache": true,
+      "heartbeat_seconds": 30,
+      "finalization_reserve_seconds": 60,
+      "SKR_tolerance": 1e-08,
+      "parameter_tolerance": 1e-06,
+      "max_continuation_iterations": 64,
+      "restart_completed_multistarts": false,
+      "precision_ladder": [
+        1050,
+        1250,
+        1450
+      ],
+      "partial_checkpoint_policy": "hash-bound completed precision rows; unchanged original AP row and acceptance functions"
+    },
+    "producers": {
+      "scripts/continue_ao_effective_channel_no_fading_noise.py": "2e160c5a173d91e233ca4928b93c27cee95592d788f5deeed15540532a74ddec",
+      "configs/ao_effective_channel_no_fading_noise_continuation.json": "1379a4949ac996366f165f6015cb0943451b0993e12d70185b021824a95bb13f",
+      "tests/test_ao_no_fading_noise_continuation.py": "c9a45b9e1ef0f07eaf9f48c6772b4de9c31b347ad7986637ca21c2214dbbbe01"
+    },
+    "attachment_sha256": "06725ac0a0853ca83689b9c8f2189013fa84fa5f6581d9a762ab4a65e3f090ee"
+  },
+  "sha256": "4fb404abbb81b41cadd49473d5bdfbc39e2da8dca061822b86817171ee6b2d0f"
+}
