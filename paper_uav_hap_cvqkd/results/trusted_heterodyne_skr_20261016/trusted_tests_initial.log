@@ -1,0 +1,32 @@
+test_A_no_fading (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_A_no_fading) ... ok
+test_B_pure_loss_and_zero_limit (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_B_pure_loss_and_zero_limit) ... ok
+test_C_eta_dependent_noise_and_atom_quadrature (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_C_eta_dependent_noise_and_atom_quadrature) ... ok
+test_C_moment_identity_and_invalid_inputs (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_C_moment_identity_and_invalid_inputs) ... ok
+test_D_bob_variance_and_example_fixture_only (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_D_bob_variance_and_example_fixture_only) ... ok
+test_E_detector_independence (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_E_detector_independence) ... ok
+test_F_ideal_heterodyne_regression (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_F_ideal_heterodyne_regression) ... ok
+test_G_appendix_independent_block_algebra (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_G_appendix_independent_block_algebra) ... ok
+test_G_unit_efficiency_electronic_limit (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_G_unit_efficiency_electronic_limit) ... ok
+test_H_noise_not_duplicated_and_detector_normalization (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_H_noise_not_duplicated_and_detector_normalization) ... ok
+test_I_monte_carlo_channel_moments (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_I_monte_carlo_channel_moments) ... ok
+test_J_source_preservation_and_mutation_rejection (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_J_source_preservation_and_mutation_rejection) ... ok
+test_K_limits_and_zero_short_circuit (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_K_limits_and_zero_short_circuit) ... ERROR
+test_nonideal_discrete_full_product_mi_agreement (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_nonideal_discrete_full_product_mi_agreement) ... ok
+
+======================================================================
+ERROR: test_K_limits_and_zero_short_circuit (tests.test_trusted_heterodyne_skr.TrustedHeterodyneTests.test_K_limits_and_zero_short_circuit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\tests\test_trusted_heterodyne_skr.py", line 154, in test_K_limits_and_zero_short_circuit
+    row=corrected.evaluate_candidate(weak,deterministic_moments(t,R=1,xi_det=0,xi_ch=0),self.config,self.hashes,eta_B=.7,nu_B=.0135)
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\src\trusted_heterodyne_skr.py", line 231, in evaluate_candidate
+    return evaluate_batch(candidate,[moments],config,authorized_hashes,**detector)[0]
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\src\trusted_heterodyne_skr.py", line 222, in evaluate_batch
+    raise ValueError('Discrete MI outside source entropy')
+ValueError: Discrete MI outside source entropy
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.862s
+
+FAILED (errors=1)

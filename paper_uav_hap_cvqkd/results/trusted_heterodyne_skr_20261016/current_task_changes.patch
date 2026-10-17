@@ -1,0 +1,1138 @@
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,4 +1,34 @@
+ # Project State
++
++## Current: trusted heterodyne diagnostic COMPLETE; primary usable SKR zero; STOP
++
++2026-10-16 EVID-0191/DEC-0174. CURRENTLY_VERIFIED_PASS for software/numerical
++checks of channel_only_fading_trusted_heterodyne_v1; UNVALIDATED_SECURITY_MODEL.
++Channel-only m_xi, N=(m1-Teff)VA+m_xi, Wpre=1+m1VA+m_xi and exact-source
++Z kept separate from trusted eta_B/nu_B. AppendixA AFG entropy independently
++checked against finite AB purification; ideal and additive noise limits supported.
++No default/security/frozen-model promotion. The previous ideal moment evaluator
++was already correct; historical literal total-noise mode is preserved.
++
++71 scoped tests (14 new),166 boundary covariance checks,60 small evaluations
++and327680 physical MC samples/15 moment checks PASS. New22700 primary clear
++rows/200 P1 maxima, same1600 missions/7600 independent Bellman profiles PASS;
++max ideal regression4.574118861455645e-14. All4042 old protected files unchanged.
++Reference primary raw=-.74614052719539; trusted R.7/xi_det.0135 diagnostic
++raw=-.4528722259826575. Primary catalog maxima MB=-.027942008491032552,
++Uniform=-.027593717758446365; all usable/availability/returned mission flight0.
++No positive mobility claim; lambda0 tie-breaking remains explicit.
++
++Artifacts results/trusted_heterodyne_skr_20261016/, canonical report
++docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md, completion/final/validation/test
++receipts and full reference CSV. No full nonideal catalog; current detector
++config stays ideal. Supplied manuscript(38).pdf differs from requested(38)(3);
++version limit recorded. Security proof/actual fading-mixture lower bound/
++finite size/operational key yield remain unestablished. Frozen historical
++hash discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
++USER_STOPPED unchanged. No source/AP/AO, production baseline/threshold
++certification, training/test access, publication work, external edits or commit/push.
++Deliver and STOP; no automatic further execution.
+ 
+ ## Current: moment-effective heterodyne diagnostic COMPLETE; zero usable SKR; STOP
+ 
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -9039,3 +9039,76 @@
+ publication lifecycle and Objective C stop remain unchanged. No training/test dataset
+ access, publication evaluation, production baseline/threshold approval, external
+ manuscript edit or commit/push. Task complete; STOP after delivery.
++
++
++## EVID-0191 preparation - channel-only moments and trusted heterodyne, 2026-10-16
++
++Explicit user attachment bb825b02 authorizes audit/correction, independent tests,
++reference/small validation then matched finite-catalog P1-P3 only after numerical
++gates pass. results/trusted_heterodyne_skr_20261016/startup_manifest.json protects
++4042 old files. baseline_receipt.json:40 existing tests PASS before changes.
++noise_audit.json distinguishes historical literal total-noise misuse from the
++already-correct ideal moment evaluator; the missing feature is nonideal trusted
++receiver Holevo. Current binary config remains ideal; legacy corrected config
++R=.7/xi_det=.0135 is used only as an explicitly labeled detector diagnostic.
++Available manuscript(38).pdf differs from requested(38)(3); page3 visually checked.
++Hosseinidehaj v1 Eq4-7/AppendixA verified by primary web text; raw PDF unavailable.
++Frozen historical mismatch and NOT_READY remain. No default/source/kernel edits,
++AP/AO, training/test datasets, publication or ObjectiveC restart.
++
++EVID-0191 gate:71 current scoped tests PASS (14 new A-K plus57 regression);
++validation_receipt.json passes60 small evaluations and327680 fresh physical
++samples across5 positions/16 blocks each,15 channel-only moment checks.
++Reference primary raw=-.74614052719539; trusted diagnostic R.7/xi_det.0135
++raw=-.4528722259826575. Same channel-only moments/Wpre/Z in both cases.
++The low-SNR test exposed entropy-difference MI cancellation; expm1/log1p
++GH regrouping with antithetic nodes resolves it without changing likelihood.
++Appendix A covariance and independent AB purification agree. Near unit efficiency
++with electronic noise, ill-conditioned thermal ancilla is replaced by its
++equivalent finite purification; no tolerance relaxation or Z clipping.
++Finite matched primary catalog/P1-P3 numerical regression now permitted byDEC0174.
++
++
++## EVID-0191 completion - explicit channel-only moments/trusted heterodyne diagnostic
++
++CURRENTLY_VERIFIED_PASS for numerical/software scope, supported by
++results/trusted_heterodyne_skr_20261016/completion_integrity_receipt.json
++and final_validation.json. Separate src/trusted_heterodyne_skr.py uses
++m_xi=E[eta xi_ch], N=(m1-mh^2)VA+m_xi, Wpre=1+m1VA+m_xi and
++Z=2mhC-sqrt(2wN). Detector eta_B/nu_B are separate; chi_line/chi_tot
++never enter Wpre/Z. Complex discrete MI gain sqrt(eta_B Teff), noise
++1+nu_B+eta_B N/2. Trusted Holevo has AppendixA AFG conditioning,
++independent AB-purification check and finite ideal/additive-noise limits.
++Existing ideal moment evaluator was already correct; missing trusted
++nonideal support is added without rewriting historical literal modes.
++
++40 pre-change tests and71 current scoped tests PASS, including14 new A-K
++tests. Independent166 covariance boundary checks extendVA to1e-12;
++max Appendix/purification residual2.4868995751603507e-14. Five positions
++x65536 physical samples/16 blocks each give15 channel-only MC checks
++within prospective5SE+1e-10;60 small evaluations pass. Initial low-SNR
++MI cancellation is fixed by expm1/log1p of the same GH integral; singular
++thermal ancilla uses equivalent finite purification, without relaxing
++tolerance or clipping Z/covariance. Initial failures remain traceable.
++
++Recomputed22700 primary-ideal clear evaluations, zero legacyK reuse/newCw.
++Independent200 P1 maxima,1600 matched missions and7600 Bellman profiles
++PASS. Max ideal old/new difference4.574118861455645e-14. Catalog maxima
++rawMB=-.027942008491032552, Uniform=-.027593717758446365; all usable0.
++S1-S4 mean/availability/returned distance0; lambda0 tied paths imply
++no unique physical trajectory/mobility gain. Cloud matrix/seed/config and
++P1-P3 unchanged. No full nonideal catalog: primary config remains eta_B1/nu_B0.
++At reference nu.17/VA5.046875, corrected ideal K=-.74614052719539;
++explicit R.7/xi_det.0135 diagnostic K=-.4528722259826575, sameWpre/Z.
++All4042 protected pre-task files keep their hashes. No source/AP/AO or old
++code/cache/result edits. Report docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md
++includes full old/new/alternate reference decomposition and noise function map.
++
++Every new result remains UNVALIDATED_SECURITY_MODEL. Correct Gaussian
++detector equations do not prove DM fading Gaussian-surrogate MI or
++Denys/trusted covariance composition, finite-size/composable or operational
++security. New diagnostic receiver functional only; production default,
++production security functional, frozen model, source kernels and physical
++probability law preserved. Frozen mismatch/NOT_READY/ObjectiveC STOP remain.
++No training/test dataset access, publication evaluation, baseline/threshold
++certification, external manuscript edit or commit/push. Deliver and STOP.
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -4751,3 +4751,30 @@
+ producer identity, old data or accepted tolerances. STOP; no automatic retry,
+ extra search, ObjectiveC restart, training/test access, publication promotion,
+ production baseline/threshold approval, external manuscript edits or commit/push.
++
++
++## DEC-0174 - isolated trusted heterodyne correction and diagnostic gates
++
++2026-10-16 user attachment bb825b02 supersedes prior STOP only for its stated
++evaluator/noise audit, trusted-detector implementation and staged synthetic
++validation. Keep frozen ideal production model and all historical artifacts.
++Use channel-only m_xi; trusted receiver is a separate explicit argument.
++Numerical PASS permits finite matched diagnostics, never a security promotion.
++Label UNVALIDATED_SECURITY_MODEL for Gaussian-surrogate discrete fading MI
++and combination of Denys correlation constraints with trusted Gaussian detector
++entropies; full proof/global Z optimum not established. No AP/source changes,
++production default switch, ObjectiveC restart, training/test access, publication
++work, baseline/threshold certification, external edit, commit or push.
++
++
++DEC-0174 completion: accept EVID-0191 only as software/numerical validation
++of the isolated channel-only/trusted heterodyne diagnostic. Keep explicit
++UNVALIDATED_SECURITY_MODEL; do not promote Gaussian modulation security
++theorems to DM fading or treat receiver calibration as measured evidence.
++Deliver report/reference/catalog/MC/mission CSV and receipts, retain all old
++files/defaults. Primary ideal results remain zero usable; no physical/source
++redesign to force positive K. Full nonideal optimization NOT_RUN because
++current experiment detector is ideal. STOP after delivery. Further source,
++security or detector operating-point studies need a new explicit task; no
++automatic AP/AO/search, training/test access, publication, threshold/baseline
++certification, ObjectiveC restart, external edits, commit or push.
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,4 +1,18 @@
+ # Next Actions
++
++## Current: deliver trusted heterodyne diagnostic; STOP
++
++EVID-0191/DEC-0174: deliver docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md and
++results/trusted_heterodyne_skr_20261016/ (reference/MC/raw catalog/winners,
++matched P1-P3 summaries/trajectories, audits/receipts).71 scoped tests,166
++boundary checks and full22700/1600mission/7600Bellman validation complete.
++Keep UNVALIDATED_SECURITY_MODEL and zero-primary-usable result explicit.
++No full nonideal catalog or publication/security promotion. Legacy default,
++source/physical law/cache/old results and frozen mismatch preserved. Do not
++rerun completed validate/full stages, automatically start AP/AO/search, restart
++ObjectiveC, train/access test datasets, certify thresholds/baselines, edit
++external manuscript or commit/push. Await a new explicit task.
++
+ 
+ ## Current: deliver moment-effective comparison; STOP
+ 
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,51 +1,38 @@
+ # Session Handoff
+ 
+-2026-10-16 EVID-0190/DEC-0173. Moment-effective Gaussian heterodyne implementation
+-and matched Binary Cloud comparison COMPLETE; zero usable SKR; STOP.
+-Branch cloud/implement; HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec. No commit/push.
+-Pre-existing edits/deleted persistence-control JSON retained.3954 old files protected.
++2026-10-16 EVID-0191/DEC-0174. Trusted heterodyne diagnostic COMPLETE; STOP.
++Branch cloud/implement; HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec.
++No commit/push. Pre-existing edits/deleted diagnostic JSON retained.
+ 
+-Deliver docs/FADING_EFFECTIVE_SKR_REPORT_VI.md and
+-results/fading_effective_binary_cloud_20261016/. New module src/fading_effective_skr.py,
+-staged runner scripts/run_fading_effective_binary_cloud.py, config and14 focused tests
+-plus3 unchanged normalization tests PASS. Separate postprocessor
+-scripts/plot_fading_effective_comparison.py fixes layout and adds audited tables.
+-Do not change numerical producers after binding; current inputs/producers match.
+-Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B.
++Deliver docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md and
++results/trusted_heterodyne_skr_20261016/. New src/trusted_heterodyne_skr.py,
++runner/config/tests only; no old scientific source/cache/result edits.4042
++protected old hashes unchanged. Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B.
+ 
+-Updated N=(meanT-Teff)VA+meanT*xi_ch; b_pre=1+meanT*(VA+xi_ch).
+-Existing total-noise moment is reduced by loss/heterodyne vacuum terms before
+-forming excess noise. Same exact Cw and ensemble in MI/Holevo, ideal R1/xi_det0,
+-beta.95, heterodyne lambda3=a-Z^2/(b+1), directZminus and GH8/16/32.
+-Physical active-conditioned law/AoA atom, optical parameters and binary cloud/DP
+-unchanged. Manuscript (37)(3) missing; actually supplied (37).pdf p3 visually
+-checked, SHA0ea5d889...a43146b. Its homodyne/normalization discrepancies are recorded.
++The previous ideal moment evaluator already had correct channel-only noise.
++New mode separates m_xi/N/Wpre/Z from explicit trusted detector eta_B/nu_B.
++AppendixA AFG conditional covariance independently matches AB purification;
++finite ideal/additive-noise limits and low-SNR GH expm1/log1p regrouping tested.
++Initial numerical failures and version mismatch are documented, not erased.
+ 
+-17 tests;1310720 physical samples across5positions/16replications;15moment and5K
+-checks pass5SE bounds. New22700 clear rows,200 P1 maxima, same1600missions and
+-7600 independent Bellman profiles verified; no newCw/AP/AO or legacyK reuse.
+-All3954 old hashes unchanged. One checkpoint replacement file lock resumed from
+-the hash-validated new-model journal. Preserve failed-attempt logs/snapshots.
++40 baseline tests;71 scoped tests including14 new;166 boundary covariance
++checks;60 small evaluations;327680 physical samples/15 moment checks PASS.
++New22700 clear evaluations and200 P1 maxima, same1600missions/7600Bellman
++profiles verified; max ideal old/new residual4.574118861455645e-14.
++Primary config eta_B1/nu_B0 unchanged. Full nonideal catalog NOT_RUN.
++Reference nu.17/VA5.046875 primary raw=-.74614052719539; alternate trusted
++R.7/xi_det.0135 diagnostic raw=-.4528722259826575 with identicalWpre/Z.
++Max catalog rawMB=-.027942008491032552, Uniform=-.027593717758446365;
++all usable0. No mobility gain, global optimum or operational positive key.
+ 
+-Reference nu.17/VA5.046875 rawK+.0587348598790054 ->-.7461405271953896,
+-Delta_fad=.3885517238141117. Max raw MB=-.02794200849103555,
+-Uniform=-.027593717758446212; all usable/S1-S4 means/availability/returned flight0.
+-Do not claim mobility gain. Lambda0 has degenerate feasible-path ties. Source
+-nu/VA rows are least-negative raw maxima, not certified operating configurations.
+-
+-At matched historical nu.165/VA5.5, new Gaussian K=-.7935920796633524 reproduces
+-old Gaussian branch within9e-16; historical pooled-MI MC K=-.7775890147353646
+-had SE.019468676410223464 and failed its sampling-precision gate, not rerun here.
+-The new512-state oracle diagnostic E[K(T)]=.16566320906524937 (SE.01125834) is a
+-different CSI/postselection functional from K(mean covariance); not a security proof.
+-
+-Terminal evidence: completion_integrity_receipt.json, final_validation.json,
+-MC/reference/test/full/report/export/visual receipts and historical_MC_comparison.json.
+-Three comparison figures are visually checked; signed values retained. No legacy
+-production default, source cache, old report/result or frozen-specification change.
+-PRELIMINARY_MOMENT_MATCHED_GAUSSIAN_FADING_APPROXIMATION; full-fading/finite-size/
+-operational security, nonideal trusted-detector security and continuous optima not
+-established. NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen-hash discrepancy and
+-Objective C USER_STOPPED remain. No training/test dataset access, publication
+-work, production baseline/threshold approval, external manuscript edit or commit/push.
+-Deliver and STOP; await a new explicit task. Do not automatically rerun stages.
++Terminal evidence: completion_integrity_receipt.json/final_validation.json,
++validation/test receipts, reference_full_comparison.csv, noise_audit_complete.json.
++Every new result UNVALIDATED_SECURITY_MODEL: Gaussian detector numerical
++correctness does not establish DM fading/Gaussian-surrogate MI security,
++Denys+trusted composition, full-Z, composable/finite-size or operational yield.
++Production default/security functional and frozen specs untouched. Historical
++frozen hash mismatch, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
++USER_STOPPED remain. No source/AP/AO, training/test dataset access, publication
++evaluation, baseline/threshold certification, external manuscript edits, commit/push.
++No pending numerical process. Do not rerun completed stages automatically.
++Deliver and STOP; await new explicit task.
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/src/trusted_heterodyne_skr.py
+@@ -0,0 +1,263 @@
++"""Channel-only fading moments and explicit trusted heterodyne diagnostic.
++
++Appendix A: https://arxiv.org/pdf/2002.03476.pdf (v1).
++The Gaussian-surrogate MI / discrete fading security model is not validated.
++"""
++from dataclasses import replace
++import math
++import numpy as np
++import torch
++from scripts import run_ao_effective_channel_no_fading_noise_reference as sources
++from src.manuscript_literal_3moments import entropy
++from src.cvqkd.mutual_information import deterministic_mutual_information, _product_qam_factors
++
++MODEL = 'channel_only_fading_trusted_heterodyne_v1'
++SECURITY_STATUS = 'UNVALIDATED_SECURITY_MODEL'
++TOLERANCE = 1e-10
++
++
++def finite(value, name, lower=0.):
++    value = float(value)
++    if not math.isfinite(value) or value < lower:
++        raise ValueError('Invalid ' + name)
++    return value
++
++
++def effective_channel(moments, VA):
++    """m_xi is channel excess only; total-noise fields are never inputs."""
++    VA = finite(VA, 'VA')
++    if VA == 0:
++        raise ValueError('VA must be positive')
++    m1 = finite(moments['mean_eta'], 'mean eta')
++    mh = finite(moments['mean_sqrt_eta'], 'mean sqrt eta')
++    t = mh * mh
++    if moments.get('moment_law') == 'deterministic_delta':
++        t = finite(moments['deterministic_transmissivity'], 'delta T')
++        if m1 != t or mh != math.sqrt(t):
++            raise ValueError('Inconsistent exact delta law')
++    if not 0 <= t <= m1 <= 1 or (mh > 0 and t == 0) or (mh == 0 and m1 != 0):
++        raise ValueError('Invalid fading moments; no clipping')
++    if not math.isclose(moments.get('physical_probability_mass', 1.), 1., abs_tol=TOLERANCE, rel_tol=0.):
++        raise ValueError('Fading law must be normalized, preserving the AoA atom')
++    xi = moments.get('channel_excess_noise', moments.get('xi_ch'))
++    if xi is not None:
++        xi = finite(xi, 'channel excess noise')
++    if 'mean_eta_xi_channel' in moments:
++        mxi = finite(moments['mean_eta_xi_channel'], 'channel-only third moment')
++        if xi is not None and not math.isclose(mxi, m1 * xi, rel_tol=1e-12, abs_tol=1e-14):
++            raise ValueError('Constant channel excess and channel-only moment disagree')
++    elif xi is not None:
++        mxi = m1 * xi
++    else:
++        raise ValueError('Explicit channel-only noise moment required; total noise is ambiguous')
++    if t == 0 and mxi != 0:
++        raise ValueError('Zero-channel moment must have zero channel excess output')
++    fading = (m1 - t) * VA
++    noise = fading + mxi
++    b = 1 + m1 * VA + mxi
++    b_effective = 1 + t * VA + noise
++    if not math.isclose(b, b_effective, abs_tol=1e-12, rel_tol=1e-13):
++        raise ValueError('Bob pre-detector variance identity failed')
++    return dict(mean_eta=m1, mean_sqrt_eta=mh, m_xi=mxi, mean_eta_xi_channel=mxi,
++                channel_excess_noise=xi, T_eff=t, variance_sqrt_eta=m1-t,
++                fading_variance=m1-t, fading_excess_output=fading, Delta_fad=fading,
++                channel_excess_output=mxi, effective_excess_output=noise, N_eff=noise,
++                effective_excess_input=noise/t if t else None, xi_eff=noise/t if t else None,
++                a=1+VA, b=b, b_pre=b, W_pre=b, W_pre_effective=b_effective,
++                scientific_model=MODEL, security_status=SECURITY_STATUS,
++                MI_method='effective_gaussian_MI', exact_pooled_fading_likelihood=False)
++
++
++def receiver(mapping, eta_B=1., nu_B=0.):
++    eta_B = finite(eta_B, 'detector efficiency')
++    nu_B = finite(nu_B, 'electronic noise')
++    if not 0 < eta_B <= 1:
++        raise ValueError('Detector efficiency must be in (0,1]')
++    t, noise = mapping['T_eff'], mapping['effective_excess_output']
++    chi_het = (2-eta_B+2*nu_B)/eta_B
++    line = (1+noise)/t-1 if t else None
++    total = line+chi_het/t if t else None
++    return dict(eta_B=eta_B, nu_B=nu_B, chi_het=chi_het, chi_line=line, chi_tot=total,
++                detector_gain_squared=eta_B*t, sigma2_complex=1+nu_B+eta_B*noise/2,
++                V_B2=eta_B*mapping['W_pre']+1-eta_B+2*nu_B,
++                electronic_noise_convention='output-referred variance per detected arm, Appendix A nu_B = repository xi_det',
++                detector_security_convention='trusted',
++                likelihood='CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)')
++
++
++def heterodyne_likelihood(y, alpha, mapping, eta_B=1., nu_B=0.):
++    r = receiver(mapping, eta_B, nu_B)
++    variance = r['sigma2_complex']
++    return np.exp(-np.abs(np.asarray(y)-math.sqrt(r['detector_gain_squared'])*alpha)**2/variance)/(math.pi*variance)
++
++
++def symplectic_spectrum(matrix):
++    matrix = np.asarray(matrix, dtype=float)
++    n = len(matrix)//2
++    omega = np.kron(np.eye(n), [[0., 1.], [-1., 0.]])
++    if matrix.shape != (2*n, 2*n) or not np.isfinite(matrix).all() or not np.allclose(matrix, matrix.T, rtol=0, atol=1e-12):
++        raise ValueError('Invalid covariance matrix')
++    if np.linalg.eigvalsh(matrix).min() <= 0 or np.linalg.eigvalsh(matrix+1j*omega).min() < -TOLERANCE:
++        raise ValueError('Nonphysical covariance; no correlation clipping')
++    values = np.linalg.eigvals(1j*omega@matrix)
++    if np.max(np.abs(values.imag)) > TOLERANCE:
++        raise ValueError('Nonreal symplectic spectrum')
++    values = np.sort(np.abs(values.real)).reshape(n, 2)
++    if np.max(np.abs(values[:, 0]-values[:, 1])) > TOLERANCE or values.min() < 1-TOLERANCE:
++        raise ValueError('Invalid symplectic doublets')
++    return values.mean(axis=1)
++
++
++def spectral_entropy(values):
++    # Only entropy's continuous vacuum limit is used within the declared roundoff allowance.
++    values = np.asarray(values)
++    if values.min() < 1-TOLERANCE:
++        raise ValueError('Entropy outside physical domain')
++    return sum(entropy(max(0., (float(v)-1)/2)) for v in values)
++
++
++def trusted_holevo(a, b, z, eta_B=1., nu_B=0.):
++    """Appendix A AFG conditioning, cross-checked by an independent AB purification.
++
++    The two-mode purification avoids the singular thermal ancilla at eta_B=1.
++    It also provides the finite additive-electronic-noise limit at unit efficiency.
++    """
++    r = receiver(dict(T_eff=0., effective_excess_output=0., W_pre=b), eta_B, nu_B)
++    I, Z = np.eye(2), np.diag([1., -1.])
++    gamma = np.block([[a*I, z*Z], [z*Z, b*I]])
++    ab = symplectic_spectrum(gamma)
++    radicand = (a+b)**2-4*z*z
++    if radicand <= 0:
++        raise ValueError('Invalid standard-form covariance')
++    s = math.sqrt(radicand)
++    va, vb = (s+a-b)/2, (s-a+b)/2
++    ch = math.sqrt((a+b+s)/(2*s)); sh = z/(s*ch)
++    transform = np.block([[ch*I, sh*Z], [sh*Z, ch*I]])
++    diag = np.diag([va, va, vb, vb])
++    if not np.allclose(transform@diag@transform.T, gamma, atol=1e-12, rtol=1e-12):
++        raise ValueError('AB purification reconstruction failed')
++    if min(va, vb) < 1-TOLERANCE:
++        raise ValueError('Unphysical purification spectrum')
++    cross = transform@np.block([[math.sqrt(max(0., (va-1)*(va+1)))*Z, np.zeros((2,2))],
++                                [np.zeros((2,2)), math.sqrt(max(0., (vb-1)*(vb+1)))*Z]])
++    cross_b = math.sqrt(eta_B)*cross[2:4, :]
++    eve_conditional = diag-cross_b.T@cross_b/(r['V_B2']+1)
++    eve_spectrum = symplectic_spectrum(eve_conditional)
++    conditional = np.r_[1., eve_spectrum]
++    appendix = None
++    residual = 0.
++    appendix_status = 'IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION'
++    upsilon = 1+2*nu_B/(1-eta_B) if eta_B < 1 else None
++    if upsilon is not None and np.finfo(float).eps*upsilon**2 <= TOLERANCE:
++        appendix_status = 'CURRENTLY_VERIFIED_PASS'
++        epr = math.sqrt((upsilon-1)*(upsilon+1))
++        initial = np.zeros((8,8));initial[:4,:4]=gamma
++        initial[4:,4:] = np.block([[upsilon*I,epr*Z],[epr*Z,upsilon*I]])
++        beam = np.eye(8); u,v=math.sqrt(eta_B),math.sqrt(1-eta_B)
++        beam[2:6,2:6]=np.block([[u*I,v*I],[-v*I,u*I]])
++        after = beam@initial@beam.T  # A,B2,F,G; signs are a local phase convention.
++        keep=[0,1,4,5,6,7]; measured=[2,3]
++        afg = after[np.ix_(keep,keep)]
++        correlation = after[np.ix_(keep,measured)]
++        appendix = afg-correlation@np.linalg.solve(after[np.ix_(measured,measured)]+I,correlation.T)
++        conditional = symplectic_spectrum(appendix)
++        residual = float(np.max(np.abs(np.sort(conditional)-np.sort(np.r_[1.,eve_spectrum]))))
++        if residual > TOLERANCE:
++            raise ValueError('Appendix A and independent purification disagree')
++    elif eta_B < 1:
++        appendix_status = 'ILL_CONDITIONED_THERMAL_REPRESENTATION_USING_EQUIVALENT_PURIFICATION'
++    if (eta_B, nu_B) == (1., 0.):
++        conditional = np.array([a-z*z/(b+1)])
++    chi = spectral_entropy(ab)-spectral_entropy(eve_spectrum)
++    if not math.isfinite(chi) or chi < -TOLERANCE:
++        raise ValueError('Invalid Holevo information')
++    return dict(chi_BE=chi,lambda_1=float(ab[-1]),lambda_2=float(ab[0]),
++                conditional_symplectic_eigenvalues=conditional.tolist(),
++                conditional_eve_symplectic_eigenvalues=eve_spectrum.tolist(),
++                conditional_covariance_AFG=None if appendix is None else appendix.tolist(),
++                conditional_covariance_E=eve_conditional.tolist(),Gamma_AB=gamma.tolist(),
++                appendix_purification_spectrum_residual=residual,
++                entropy_roundoff_modes=[float(v) for v in np.r_[ab,conditional,eve_spectrum] if v<1],
++                appendix_covariance_status=appendix_status,
++                conditional_measurement='trusted_heterodyne_Appendix_A',
++                ideal_conditional_eigenvalue=a-z*z/(b+1) if (eta_B,nu_B)==(1.,0.) else None)
++
++
++
++def low_snr_discrete_mi(ensemble, gain_squared, variance, order):
++    """Same product-QAM GH integral, regrouped with expm1/log1p and +/- nodes.
++
++    Avoids subtracting entropy from almost equal conditional entropy at low SNR.
++    The exact normalization identity sum(p)=1 is used without changing the source.
++    """
++    factors = _product_qam_factors(ensemble.probabilities,
++                                 math.sqrt(gain_squared)*ensemble.amplitudes)
++    nodes, weights = np.polynomial.hermite.hermgauss(order)
++    total = 0.
++    for probabilities, levels in ((factors[0], factors[2]), (factors[1], factors[3])):
++        p = probabilities.detach().cpu().numpy()[0].astype(np.longdouble)
++        x = levels.detach().cpu().numpy()[0].astype(np.longdouble)/math.sqrt(variance)
++        delta = x[:, None]-x[None, :]
++        integral = np.zeros(len(p), dtype=np.longdouble)
++        for node, weight in zip(nodes, weights/math.sqrt(math.pi)):
++            plus = np.expm1(-delta*delta+2*node*delta)@p
++            minus = np.expm1(-delta*delta-2*node*delta)@p
++            integral -= weight*(np.log1p(plus)+np.log1p(minus))/2
++        total += float(p@integral/math.log(2))
++    if not math.isfinite(total) or total < 0:
++        raise FloatingPointError('Stable discrete low-SNR integral unresolved')
++    return total
++
++
++def evaluate_batch(candidate, moment_rows, config, authorized_hashes, *, eta_B=1., nu_B=0.):
++    ensemble = sources.authenticate(candidate, authorized_hashes, config)
++    mappings=[effective_channel(m,candidate['V_A']) for m in moment_rows]
++    if not mappings:
++        raise ValueError('Empty channel batch')
++    outputs=[]; active=[]
++    for i,m in enumerate(mappings):
++        r=receiver(m,eta_B,nu_B)
++        z=2*m['mean_sqrt_eta']*candidate['C']-math.sqrt(2*m['N_eff']*candidate['w'])
++        common=dict(m,**r,nu_raw=candidate['nu_raw'],V_A=candidate['V_A'],C=candidate['C'],w=candidate['w'],
++                    ensemble_hash=candidate['ensemble_hash'],source_cache_key=candidate['source_cache_key'],
++                    source_path=candidate['source_path'],source_payload_sha256=sources.digest(sources.ROOT/candidate['source_path']),
++                    Z_star=z,Z_signal=2*m['mean_sqrt_eta']*candidate['C'],Z_penalty=math.sqrt(2*m['N_eff']*candidate['w']),
++                    Holevo_target='chi_BE_at_direct_Z_star',numerical_repairs=[])
++        if m['T_eff']==0:
++            common.update(I_AB=0.,beta_I_AB=0.,chi_BE=0.,SKR=0.,K_raw=0.,K_usable=0.,QKD_expressions_evaluated=False)
++        else:
++            common.update(trusted_holevo(m['a'],m['b'],z,eta_B,nu_B));active.append(i)
++        outputs.append(common)
++    if not active:
++        return outputs
++    batch=replace(ensemble,probabilities=ensemble.probabilities.expand(len(active),-1),
++                  amplitudes=ensemble.amplitudes.expand(len(active),-1),declared_va=ensemble.declared_va.expand(len(active)))
++    t=torch.tensor([outputs[i]['detector_gain_squared'] for i in active],dtype=torch.float64)
++    eps=torch.tensor([2*(outputs[i]['sigma2_complex']-1)/outputs[i]['detector_gain_squared'] for i in active],dtype=torch.float64)
++    with torch.no_grad():
++        mi=[deterministic_mutual_information(batch,t,eps,quadrature_order=o,implementation='product') for o in (8,16,32)]
++    beta=float(config['cvqkd']['beta_reconciliation'])
++    if beta!=.95:
++        raise ValueError('Reconciliation convention differs from current repository')
++    hx=float(-torch.special.xlogy(ensemble.probabilities,ensemble.probabilities).sum()/math.log(2))
++    for k,i in enumerate(active):
++        row=outputs[i]
++        snr=row['detector_gain_squared']*candidate['V_A']/(2*row['sigma2_complex'])
++        row['MI_low_snr_regrouping']=snr < math.sqrt(np.finfo(float).eps)
++        if row['MI_low_snr_regrouping']:
++            for order, values in zip((8,16,32), mi):
++                values[k]=low_snr_discrete_mi(ensemble,row['detector_gain_squared'],row['sigma2_complex'],order)
++        if abs(float(mi[2][k]-mi[1][k]))>1e-8:
++            raise ValueError('GH16/32 discrete MI convergence unresolved')
++        value=float(mi[2][k]);row=outputs[i]
++        if not 0<=value<=hx:
++            raise ValueError('Discrete MI outside source entropy')
++        raw=beta*value-row['chi_BE']
++        row.update(I_AB=value,beta_rec=beta,beta_I_AB=beta*value,SKR=raw,K_raw=raw,K_usable=max(0.,raw),
++                   MI_orders=[dict(order=o,I_AB=float(v[k]),SKR=beta*float(v[k])-row['chi_BE']) for o,v in zip((8,16,32),mi)],
++                   QKD_expressions_evaluated=True,MI_detector_gain_squared=float(t[k]),MI_kernel_epsilon=float(eps[k]))
++    return outputs
++
++
++def evaluate_candidate(candidate,moments,config,authorized_hashes,**detector):
++    return evaluate_batch(candidate,[moments],config,authorized_hashes,**detector)[0]
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/run_trusted_heterodyne_skr.py
+@@ -0,0 +1,215 @@
++"""Versioned trusted heterodyne audit and matched synthetic regression stages."""
++import argparse
++import copy
++import json
++import math
++import sys
++import time
++from pathlib import Path
++import numpy as np
++import torch
++ROOT=Path(__file__).resolve().parents[1]
++if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from src.binary_cloud_skr import load_sources,read_csv,select_winner,mission_results,grouped_statistics
++from src.uav_mobility import candidate_grid,optimize_trajectory
++from src.manuscript_literal_3moments import LiteralChannel
++from src.manuscript_corrected_3moments import PhysicalFadingDistribution
++from scripts.run_fading_effective_binary_cloud import physical_samples
++from src.trusted_heterodyne_skr import MODEL,SECURITY_STATUS,evaluate_batch,evaluate_candidate
++
++DEFAULT=ROOT/'results/trusted_heterodyne_skr_20261016'
++CONFIG=ROOT/'configs/trusted_heterodyne_skr.json'
++PRODUCERS=('src/trusted_heterodyne_skr.py','scripts/run_trusted_heterodyne_skr.py','tests/test_trusted_heterodyne_skr.py','configs/trusted_heterodyne_skr.json')
++METRICS=('average_skr_bits_per_use','availability','total_flight_distance_m','penalized_objective_bits_per_use')
++
++
++def producers():return {p:saved.digest(ROOT/p) for p in PRODUCERS}
++
++
++def context(out):
++    cfg=saved.read_json(CONFIG);s=saved.read_json(ROOT/cfg['binary_config'])
++    h=saved.read_json(out/'startup_manifest.json')['protected_hashes']
++    expected=dict(config=cfg,binary_settings=s,producers=producers(),protected_inputs=saved.digest(out/'startup_manifest.json'))
++    if (out/'inputs.json').exists():
++        if saved.read_json(out/'inputs.json')!=expected:raise ValueError('Input/producer changed; new namespace required')
++    else:saved.save(out/'inputs.json',expected,exclusive=True)
++    groups,c,aliases=load_sources(s,h)
++    states=saved.read_json(ROOT/cfg['matched_cloud_results']/'clear_channel_states.json')
++    tests=saved.read_json(out/'test_receipt.json')
++    if tests['status']!='CURRENTLY_VERIFIED_PASS' or tests['producers']!=producers():raise ValueError('Current tests required')
++    torch.set_num_threads(1)
++    return cfg,s,h,groups,c,states,aliases
++
++
++def validate(out):
++    if (out/'validation_receipt.json').exists():raise ValueError('Validation already complete')
++    cfg,s,h,groups,c,states,aliases=context(out)
++    ref=saved.read_json(ROOT/cfg['reference_pair_from'])['reference_pair']
++    source=next(x for x in groups['MB'] if all(x[k]==v for k,v in ref.items()))
++    detector=saved.read_json(ROOT/cfg['diagnostic_detector_from'])
++    pair=dict(eta_B=detector['R'],nu_B=detector['xi_det'])
++    primary=dict(eta_B=s['channel']['R'],nu_B=s['channel']['xi_det'])
++    previous=saved.read_json(ROOT/cfg['previous_effective_results']/'reference_fixed_source.json')
++    rows={name:evaluate_candidate(source,states[44]['moments'],c,h,**d) for name,d in [('corrected_primary',primary),('trusted_detector_diagnostic',pair)]}
++    rows.update(previous_ideal=previous['updated'],legacy_no_fading_variance=previous['legacy'])
++    saved.save(out/'reference_decomposition.json',rows,exclusive=True)
++    quantities=('V_A','nu_raw','mean_eta','mean_sqrt_eta','T_eff','fading_variance','m_xi','N_eff','xi_eff','C','w','W_pre','Z_star','lambda_1','lambda_2','conditional_symplectic_eigenvalues','I_AB','beta_I_AB','chi_BE','K_raw','K_usable','chi_het','chi_line','chi_tot')
++    table=[]
++    aliases_old={'m_xi':'m_excess','W_pre':'b','K_raw':'SKR'}
++    for k in quantities:
++        old=previous['updated'].get(aliases_old.get(k,k))
++        if k=='conditional_symplectic_eigenvalues':old=[previous['updated']['lambda_3']]
++        new=rows['corrected_primary'][k]
++        diff=new-old if isinstance(new,(int,float)) and isinstance(old,(int,float)) else None
++        table.append(dict(quantity=k,previous_moment_ideal=old,corrected_primary=new,difference=diff,trusted_diagnostic=rows['trusted_detector_diagnostic'][k]))
++    saved.write_csv(out/'reference_comparison.csv',table)
++    small=[]
++    for family in ('MB','Uniform'):
++        sources=[groups[family][0],groups[family][len(groups[family])//2],groups[family][-1]]
++        for x in sources:
++            for name,d in [('primary',primary),('trusted_diagnostic',pair)]:
++                for j,row in zip((0,9,44,90,99),evaluate_batch(x,[states[j]['moments'] for j in (0,9,44,90,99)],c,h,**d)):
++                    small.append(dict(family=family,position_index=j,detector_case=name,**row))
++    saved.save(out/'small_evaluations.json',small,exclusive=True)
++    mc=[];law=[]
++    for j in cfg['MC']['positions']:
++        raw=LiteralChannel(**states[j]['clear_raw_channel']);fading=PhysicalFadingDistribution(raw)
++        actual=fading.moments(R=1,xi_det=0,xi_ch=s['channel']['xi_ch'])
++        if actual!=states[j]['moments']:raise ValueError('Analytical physical law/moments changed')
++        law.append(dict(position_index=j,**fading.diagnostics(),moment_quadrature_errors=actual['moment_quadrature_errors'],
++                        mean_eta=actual['mean_eta'],mean_sqrt_eta=actual['mean_sqrt_eta'],m_xi=actual['mean_eta']*s['channel']['xi_ch']))
++        values=physical_samples(fading,cfg['MC']['samples_per_position'],np.random.default_rng(cfg['MC']['seed_base']+j))
++        vectors=(values,np.sqrt(values),s['channel']['xi_ch']*values)
++        targets=(actual['mean_eta'],actual['mean_sqrt_eta'],s['channel']['xi_ch']*actual['mean_eta'])
++        for name,vector,target in zip(('m1','mhalf','m_xi_channel'),vectors,targets):
++            blocks=vector.reshape(cfg['MC']['independent_blocks'],-1).mean(axis=1)
++            se=float(blocks.std(ddof=1)/math.sqrt(len(blocks)));error=float(vector.mean())-target
++            if abs(error)>cfg['MC']['sigma_acceptance']*se+1e-10:raise ValueError('Physical MC moment check failed')
++            mc.append(dict(position_index=j,moment=name,analytic=target,MC=float(vector.mean()),SE=se,error=error,status='CURRENTLY_VERIFIED_PASS'))
++    saved.write_csv(out/'MC_channel_moments.csv',mc);saved.save(out/'physical_law_audit.json',law)
++    saved.save(out/'source_alias_audit.json',aliases)
++    saved.save(out/'validation_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',producers=producers(),small_evaluations=len(small),MC_samples=5*65536,MC_moment_checks=len(mc),security_status=SECURITY_STATUS,full_nonideal_catalog=False,primary_detector=primary,diagnostic_detector=pair),exclusive=True)
++    print('VALIDATION_PASS',rows['corrected_primary']['K_raw'],rows['trusted_detector_diagnostic']['K_raw'],flush=True)
++
++
++def journal_rows(out):
++    inputs=saved.hash_json(saved.read_json(out/'inputs.json'));records={}
++    path=out/'objective_batches.jsonl'
++    if path.exists():
++        for line in path.read_text(encoding='utf-8').splitlines():
++            x=json.loads(line)
++            if x['inputs_sha256']!=inputs or saved.hash_json(x['rows'])!=x['rows_sha256'] or x['source_id'] in records:raise ValueError('Journal provenance or duplicate source failure')
++            records[x['source_id']]=x
++    return inputs,records
++
++
++def full(out):
++    if (out/'full_receipt.json').exists():raise ValueError('Completed experiment is immutable')
++    cfg,s,h,groups,c,states,_=context(out)
++    gate=saved.read_json(out/'validation_receipt.json')
++    if gate['status']!='CURRENTLY_VERIFIED_PASS' or gate['producers']!=producers():raise ValueError('Validation gate failed')
++    identity,records=journal_rows(out);initial=len(records);start=time.perf_counter()
++    detector=dict(eta_B=s['channel']['R'],nu_B=s['channel']['xi_det'])
++    for family in ('MB','Uniform'):
++        for x in groups[family]:
++            source_id=family+':'+x['ensemble_hash']
++            if source_id not in records:
++                rows=[]
++                for j,r in enumerate(evaluate_batch(x,[st['moments'] for st in states],c,h,**detector)):
++                    key=saved.hash_json(dict(model=MODEL,inputs_sha256=identity,ensemble=x['ensemble_hash'],position=j,detector=detector))
++                    rows.append(dict(r,family=family,position_index=j,objective_key=key))
++                record=dict(source_id=source_id,inputs_sha256=identity,rows=rows,rows_sha256=saved.hash_json(rows))
++                with (out/'objective_batches.jsonl').open('a',encoding='utf-8',newline='\n') as stream:stream.write(json.dumps(record,allow_nan=False)+'\n')
++                records[source_id]=record
++            if len(records)%20==0:print('SOURCE_BATCHES',len(records),'/227',flush=True)
++    allrows=[r for rec in records.values() for r in rec['rows']]
++    winners={f:[dict(select_winner([r for r in allrows if r['family']==f and r['position_index']==j])) for j in range(100)] for f in groups}
++    for f in groups:
++        for winner in winners[f]:winner.update(K_star_raw=winner['K_raw'],K_star=winner['K_usable'])
++    saved.save(out/'clear_winners.json',winners,exclusive=True)
++    flatkeys=('family','position_index','nu_raw','V_A','C','w','ensemble_hash','source_cache_key','source_payload_sha256','mean_eta','mean_sqrt_eta','m_xi','T_eff','fading_variance','fading_excess_output','channel_excess_output','N_eff','xi_eff','W_pre','Z_star','lambda_1','lambda_2','I_AB','beta_I_AB','chi_BE','K_raw','K_usable','objective_key','security_status')
++    saved.write_csv(out/'all_candidate_evaluations.csv',[{k:r[k] for k in flatkeys} for r in allrows])
++    saved.write_csv(out/'clear_winners.csv',[{**{k:r[k] for k in flatkeys},'K_star':r['K_star'],'K_star_raw':r['K_star_raw']} for pool in winners.values() for r in pool])
++    old=ROOT/cfg['matched_cloud_results'];clouds=np.load(old/'cloud_states.npz',allow_pickle=False)['blocked'];scenarios=saved.read_json(old/'cloud_scenarios.json')
++    positions=candidate_grid();paths=np.zeros((16,100,2,4,30),dtype=np.int16);summaries=[];series=[]
++    for scenario in scenarios:
++        sid=scenario['scenario_id']
++        for realization in range(100):
++            for f,family in enumerate(('MB','Uniform')):
++                summary,ts=mission_results(s,positions,winners[family],clouds[sid,realization])
++                meta=dict(scenario_id=sid,realization_id=realization,family=family)
++                summaries.extend(dict(meta,**r) for r in summary)
++                for k,scheme in enumerate(('S1','S2','S3','S4')):paths[sid,realization,f,k]=[r['position_index'] for r in ts if r['scheme']==scheme]
++                if sid==0 and realization==0:series.extend(dict(meta,**r) for r in ts)
++        print('MISSION_SCENARIO',sid+1,'/16',flush=True)
++    penalties=s['sweeps']['lambda_bits_per_use'];lpaths=np.zeros((100,2,len(penalties),30),dtype=np.int16);lrows=[]
++    for realization in range(100):
++        for f,family in enumerate(('MB','Uniform')):
++            table=(~clouds[0,realization])*np.array([r['K_star'] for r in winners[family]])[:,None]
++            for k,penalty in enumerate(penalties):
++                result=optimize_trajectory(table,positions,slot_duration_s=s['mission']['slot_duration_s'],max_speed_m_per_s=s['mission']['max_speed_m_per_s'],penalty_bits_per_use=penalty,reference_distance_m=s['optimization']['reference_distance_m'])
++                lpaths[realization,f,k]=result['path'];lrows.append(dict(realization_id=realization,family=family,lambda_bits_per_use=penalty,average_skr_bits_per_use=result['average_skr'],availability=float(np.mean(result['rates']>=s['optimization']['K_min_bits_per_use'])),total_flight_distance_m=result['total_flight_distance_m'],penalized_objective_bits_per_use=result['penalized_objective']))
++    np.savez_compressed(out/'trajectories.npz',paths=paths,lambda_paths=lpaths)
++    saved.write_csv(out/'summary.csv',summaries);saved.write_csv(out/'time_series.csv',series);saved.write_csv(out/'lambda_sweep.csv',lrows)
++    saved.write_csv(out/'summary_statistics.csv',grouped_statistics(summaries,('scenario_id','family','scheme'),METRICS))
++    saved.write_csv(out/'lambda_statistics.csv',grouped_statistics(lrows,('family','lambda_bits_per_use'),METRICS))
++    saved.save(out/'full_receipt.json',dict(status='COMPUTED_PENDING_INDEPENDENT_VERIFICATION',producers=producers(),clear_evaluations=len(allrows),new_evaluations=(len(records)-initial)*100,legacy_K_reuse=0,source_moments_generated=0,missions=1600,detector=detector,matched_cloud_sha256=saved.digest(old/'cloud_states.npz'),security_status=SECURITY_STATUS,elapsed_seconds=time.perf_counter()-start,output_sha256={p:saved.digest(out/p) for p in ('objective_batches.jsonl','all_candidate_evaluations.csv','clear_winners.csv','clear_winners.json','summary.csv','summary_statistics.csv','lambda_sweep.csv','lambda_statistics.csv','trajectories.npz','time_series.csv')}),exclusive=True)
++    print('FULL_COMPUTED',len(allrows),flush=True)
++
++
++def verify(out):
++    from scripts.verify_binary_cloud_skr_results import optimal_value,path_metrics,assert_metrics,stationary_gap,verify_statistics
++    cfg,s,h,groups,c,states,_=context(out);receipt=saved.read_json(out/'full_receipt.json')
++    if receipt['producers']!=producers():raise ValueError('Scientific producer changed')
++    for name,digest in receipt['output_sha256'].items():
++        if saved.digest(out/name)!=digest:raise ValueError('Output hash changed: '+name)
++    _,records=journal_rows(out);rows=[r for x in records.values() for r in x['rows']]
++    prior={(r['family'],int(r['position_index']),r['ensemble_hash']):r for r in read_csv(ROOT/cfg['previous_effective_results']/'all_candidate_evaluations.csv')}
++    maximum=0.
++    for row in rows:
++        m=states[row['position_index']]['moments'];t=m['mean_sqrt_eta']**2;noise=(m['mean_eta']-t)*row['V_A']+m['mean_eta']*s['channel']['xi_ch']
++        assert_metrics(row,dict(T_eff=t,N_eff=noise,W_pre=1+m['mean_eta']*(row['V_A']+s['channel']['xi_ch']),Z_star=2*math.sqrt(t)*row['C']-math.sqrt(2*noise*row['w']),K_raw=s['channel']['beta_rec']*row['I_AB']-row['chi_BE'],K_usable=max(0.,row['K_raw'])))
++        before=prior[row['family'],row['position_index'],row['ensemble_hash']]
++        maximum=max(maximum,max(abs(row[k]-float(before[k])) for k in ('I_AB','chi_BE','K_raw','Z_star')))
++    if len(rows)!=22700 or maximum>1e-10:raise ValueError('Full ideal regression mismatch')
++    winners=saved.read_json(out/'clear_winners.json')
++    for family,pool in winners.items():
++        for j,w in enumerate(pool):
++            source=select_winner([r for r in rows if r['family']==family and r['position_index']==j])
++            if source['ensemble_hash']!=w['ensemble_hash'] or source['K_raw']!=w['K_star_raw']:raise ValueError('P1 maximum mismatch')
++    clouds=np.load(ROOT/cfg['matched_cloud_results']/'cloud_states.npz',allow_pickle=False)['blocked'];archive=np.load(out/'trajectories.npz',allow_pickle=False)
++    positions=candidate_grid();distance=np.linalg.norm(positions[:,None]-positions[None,:],axis=2);limit=s['mission']['slot_duration_s']*s['mission']['max_speed_m_per_s'];feasible=distance<=limit
++    summaries=read_csv(out/'summary.csv');lookup={(int(r['scenario_id']),int(r['realization_id']),r['family'],r['scheme']):r for r in summaries};checks=0
++    for sid in range(16):
++        for realization in range(100):
++            for f,family in enumerate(('MB','Uniform')):
++                table=(~clouds[sid,realization])*np.array([r['K_star'] for r in winners[family]])[:,None]
++                for k,scheme in enumerate(('S1','S2','S3','S4')):
++                    penalty=s['optimization']['positive_lambda_bits_per_use'] if k==3 else 0.;path=archive['paths'][sid,realization,f,k]
++                    metrics=path_metrics(path,table,positions,distance,limit,s['optimization']['K_min_bits_per_use'],penalty,s['optimization']['reference_distance_m']);assert_metrics(lookup[sid,realization,family,scheme],metrics)
++                    if k==0 and not (path==44).all():raise ValueError('Reference changed')
++                    if k==1:stationary_gap(path,table.mean(axis=1))
++                    if k>=2:
++                        checks+=1
++                        if abs(metrics['penalized_objective_bits_per_use']-optimal_value(table,distance,feasible,penalty,s['optimization']['reference_distance_m']))>1e-11:raise ValueError('Bellman mismatch')
++    lrows=read_csv(out/'lambda_sweep.csv');llookup={(int(r['realization_id']),r['family'],float(r['lambda_bits_per_use'])):r for r in lrows}
++    for realization in range(100):
++        for f,family in enumerate(('MB','Uniform')):
++            table=(~clouds[0,realization])*np.array([r['K_star'] for r in winners[family]])[:,None]
++            for k,penalty in enumerate(s['sweeps']['lambda_bits_per_use']):
++                path=archive['lambda_paths'][realization,f,k];metrics=path_metrics(path,table,positions,distance,limit,s['optimization']['K_min_bits_per_use'],penalty,s['optimization']['reference_distance_m']);assert_metrics(llookup[realization,family,penalty],metrics)
++                if penalty not in (0.,s['optimization']['positive_lambda_bits_per_use']):
++                    checks+=1
++                    if abs(metrics['penalized_objective_bits_per_use']-optimal_value(table,distance,feasible,penalty,s['optimization']['reference_distance_m']))>1e-11:raise ValueError('Lambda Bellman mismatch')
++    verify_statistics(out/'summary_statistics.csv',summaries,('scenario_id','family','scheme'));verify_statistics(out/'lambda_statistics.csv',lrows,('family','lambda_bits_per_use'))
++    protected=saved.verify_protected(saved.read_json(out/'startup_manifest.json'))
++    result=dict(status='CURRENTLY_VERIFIED_PASS',security_status=SECURITY_STATUS,producers=producers(),clear_evaluations=22700,P1_maxima=200,matched_missions=1600,Bellman_checks=checks,maximum_ideal_regression_difference=maximum,protected_files=len(h),protected_changes=protected,all_usable_zero=all(w['K_star']==0 for pool in winners.values() for w in pool),maximum_raw={f:max(w['K_star_raw'] for w in pool) for f,pool in winners.items()},full_nonideal_catalog=False,production_default_changed=False,publication_ready=False)
++    saved.save(out/'final_validation.json',result,exclusive=True);print(json.dumps(result),flush=True)
++
++
++def main():
++    parser=argparse.ArgumentParser();parser.add_argument('--stage',choices=('validate','full','verify'),required=True);parser.add_argument('--output',type=Path,default=DEFAULT);args=parser.parse_args()
++    globals()[args.stage](args.output)
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/tests/test_trusted_heterodyne_skr.py
+@@ -0,0 +1,168 @@
++"""Independent A-K regressions for channel-only noise and trusted detection."""
++import copy
++import json
++import math
++from pathlib import Path
++import unittest
++from unittest.mock import patch
++import numpy as np
++import torch
++from scipy.integrate import quad
++from src import trusted_heterodyne_skr as corrected
++from src import fading_effective_skr as previous
++from src.binary_cloud_skr import load_sources
++from src.manuscript_corrected_3moments import deterministic_moments
++from src.manuscript_literal_3moments import LiteralChannel, entropy
++from src.manuscript_corrected_mi import receiver_parameters
++from scripts.run_fading_effective_binary_cloud import physical_samples
++from src.manuscript_corrected_3moments import PhysicalFadingDistribution
++from src.cvqkd.mutual_information import deterministic_mutual_information
++
++ROOT=Path(__file__).resolve().parents[1]
++OUT=ROOT/'results/trusted_heterodyne_skr_20261016'
++
++
++class TrustedHeterodyneTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        torch.set_num_threads(1)
++        cls.hashes=json.loads((OUT/'startup_manifest.json').read_text())['protected_hashes']
++        cls.settings=json.loads((ROOT/'configs/binary_cloud_skr_demo.json').read_text())
++        cls.groups,cls.config,_=load_sources(cls.settings,cls.hashes)
++        cls.source=next(x for x in cls.groups['MB'] if (x['nu_raw'],x['V_A'])==(.17,5.046875))
++        cls.states=json.loads((ROOT/'results/binary_cloud_skr_20261015/clear_channel_states.json').read_text())
++        cls.m=cls.states[44]['moments']
++
++    def row(self,**kw):
++        return corrected.evaluate_candidate(self.source,self.m,self.config,self.hashes,**kw)
++
++    def test_A_no_fading(self):
++        for t in (.16,.25,.5,1e-14):
++            m=corrected.effective_channel(deterministic_moments(t,R=1,xi_det=0,xi_ch=.0186),2.)
++            self.assertEqual(m['T_eff'],t)
++            self.assertEqual(m['fading_excess_output'],0.)
++            self.assertAlmostEqual(m['effective_excess_input'],.0186,places=14)
++
++    def test_B_pure_loss_and_zero_limit(self):
++        for t in (.25,1e-10,0.):
++            m=corrected.effective_channel(deterministic_moments(t,R=1,xi_det=0,xi_ch=0),2.)
++            self.assertEqual(m['W_pre'],1+2*t)
++            self.assertEqual(m['N_eff'],0.)
++        self.assertEqual(m['W_pre'],1.)
++        self.assertIsNone(m['xi_eff'])
++
++    def test_C_moment_identity_and_invalid_inputs(self):
++        m=corrected.effective_channel(self.m,5.)
++        self.assertEqual(m['m_xi'],self.m['mean_eta']*.0186)
++        self.assertAlmostEqual(m['T_eff']*m['xi_eff'],m['fading_excess_output']+m['channel_excess_output'],places=14)
++        for bad in (dict(self.m,mean_sqrt_eta=1.),dict(self.m,mean_eta=-1.),dict(self.m,physical_probability_mass=.98)):
++            with self.assertRaises(ValueError):corrected.effective_channel(bad,2.)
++        with self.assertRaises(ValueError):corrected.effective_channel(dict(mean_eta=.5,mean_sqrt_eta=.5,chi_tot=5.),2.)
++
++    def test_C_eta_dependent_noise_and_atom_quadrature(self):
++        # P0=.2 plus .8*Uniform[0,1], xi_ch(eta)=.03*eta.
++        m1=.8*quad(lambda t:t,0,1)[0];mh=.8*quad(math.sqrt,0,1)[0]
++        mxi=.8*quad(lambda t:t*(.03*t),0,1)[0]
++        m=corrected.effective_channel(dict(mean_eta=m1,mean_sqrt_eta=mh,mean_eta_xi_channel=mxi),2.)
++        self.assertAlmostEqual(m['m_xi'],.008,places=14)
++        self.assertAlmostEqual(m['N_eff'],(m1-mh*mh)*2+.008,places=14)
++
++    def test_D_bob_variance_and_example_fixture_only(self):
++        m=corrected.effective_channel(self.m,5.046875)
++        self.assertEqual(m['W_pre'],1+self.m['mean_eta']*(5.046875+.0186))
++        self.assertAlmostEqual(m['W_pre'],1+m['T_eff']*5.046875+m['N_eff'],places=14)
++        fixture=dict(mean_eta=2.6407446657e-4,mean_sqrt_eta=math.sqrt(2.4357648533e-4),xi_ch=.0186)
++        a=corrected.effective_channel(fixture,.025)
++        self.assertAlmostEqual(a['N_eff'],5.4242346092e-6,delta=1e-15)
++        self.assertAlmostEqual(a['W_pre'],1.000011513647,delta=5e-13)
++
++    def test_E_detector_independence(self):
++        a,b=self.row(),self.row(eta_B=.7,nu_B=.0135)
++        for k in ('T_eff','xi_eff','m_xi','W_pre','Z_star','C','w','ensemble_hash'):
++            self.assertEqual(a[k],b[k])
++        self.assertLess(b['I_AB'],a['I_AB'])
++        self.assertGreater(abs(b['chi_BE']-a['chi_BE']),.01)
++
++    def test_F_ideal_heterodyne_regression(self):
++        old=previous.evaluate_candidate(self.source,self.m,self.config,self.hashes);new=self.row()
++        for k in ('I_AB','chi_BE','K_raw','Z_star','b'):
++            self.assertAlmostEqual(old[k],new[k],places=12)
++        self.assertAlmostEqual(new['conditional_symplectic_eigenvalues'][0],new['a']-new['Z_star']**2/(new['b']+1),places=13)
++        self.assertNotAlmostEqual(new['conditional_symplectic_eigenvalues'][0],math.sqrt(new['a']*(new['a']-new['Z_star']**2/new['b'])),places=5)
++
++    def test_G_appendix_independent_block_algebra(self):
++        r=self.row(eta_B=.7,nu_B=.0135);a,b,z=r['a'],r['b'],r['Z_star'];e=.7;n=.0135
++        I=np.eye(2);S=np.diag([1.,-1.]);v=1+2*n/(1-e);c=math.sqrt(v*v-1)
++        # Analytically expanded A,F,G blocks, independent of implementation's beam splitter.
++        afg=np.block([[a*I,-math.sqrt(1-e)*z*S,np.zeros((2,2))],
++                      [-math.sqrt(1-e)*z*S,((1-e)*b+e*v)*I,math.sqrt(e)*c*S],
++                      [np.zeros((2,2)),math.sqrt(e)*c*S,v*I]])
++        cross=np.vstack([math.sqrt(e)*z*S,math.sqrt(e*(1-e))*(v-b)*I,math.sqrt(1-e)*c*S])
++        conditional=afg-cross@cross.T/(e*b+(1-e)*v+1)
++        np.testing.assert_allclose(conditional,r['conditional_covariance_AFG'],atol=2e-14,rtol=0)
++        omega=np.kron(np.eye(3),[[0.,1.],[-1.,0.]])
++        values=np.sort(np.abs(np.linalg.eigvals(1j*omega@conditional)))[::2]
++        np.testing.assert_allclose(values,r['conditional_symplectic_eigenvalues'],atol=1e-13,rtol=0)
++        direct=sum(entropy(max(0.,(v-1)/2)) for v in (r['lambda_1'],r['lambda_2']))-sum(entropy(max(0.,(v-1)/2)) for v in values)
++        self.assertAlmostEqual(r['chi_BE'],direct,places=12)
++        self.assertLess(r['appendix_purification_spectrum_residual'],1e-13)
++
++    def test_G_unit_efficiency_electronic_limit(self):
++        r=self.row(eta_B=1.,nu_B=.0135)
++        q=self.row(eta_B=1-1e-8,nu_B=.0135)
++        self.assertAlmostEqual(r['chi_BE'],q['chi_BE'],delta=2e-8)
++        self.assertTrue(all(math.isfinite(v) for v in r['conditional_eve_symplectic_eigenvalues']))
++
++    def test_H_noise_not_duplicated_and_detector_normalization(self):
++        m=corrected.effective_channel(self.m,2.)
++        # Wrong old total fields cannot alter a channel-only computation.
++        changed=corrected.effective_channel(dict(self.m,mean_eta_xi_total=999.,chi_line=999.,chi_tot=999.),2.)
++        self.assertEqual(m,changed)
++        r=corrected.receiver(m,.8,.0135)
++        self.assertAlmostEqual(r['chi_het'],1.53375,places=14)
++        self.assertAlmostEqual(r['chi_line'],1/m['T_eff']-1+m['xi_eff'],places=14)
++        self.assertAlmostEqual(2*r['sigma2_complex'],.8*m['T_eff']*(1+r['chi_tot']),places=13)
++        self.assertAlmostEqual(r['V_B2']+1,2*r['sigma2_complex']+.8*m['T_eff']*2.,places=13)
++        mean,var=receiver_parameters(np.array([.3+.2j]),np.array([m['T_eff']]),R=.8,xi_det=.0135,xi_ch=m['xi_eff'])
++        self.assertAlmostEqual(var[0],r['sigma2_complex'],places=14)
++        center=math.sqrt(r['detector_gain_squared'])*(.3+.2j)
++        norm=quad(lambda x:quad(lambda y:float(corrected.heterodyne_likelihood(center+x+1j*y,.3+.2j,m,.8,.0135)),-12,12,epsabs=1e-10)[0],-12,12,epsabs=1e-10)[0]
++        self.assertAlmostEqual(norm,1.,places=10)
++
++    def test_I_monte_carlo_channel_moments(self):
++        for j in (0,9,44,90,99):
++            state=self.states[j];fading=PhysicalFadingDistribution(LiteralChannel(**state['clear_raw_channel']))
++            values=physical_samples(fading,65536,np.random.default_rng(20261020+j))
++            for vector,target in ((values,state['moments']['mean_eta']),(np.sqrt(values),state['moments']['mean_sqrt_eta']),(.0186*values,.0186*state['moments']['mean_eta'])):
++                blocks=vector.reshape(16,-1).mean(axis=1);se=blocks.std(ddof=1)/4
++                self.assertLessEqual(abs(vector.mean()-target),5*se+1e-10)
++
++    def test_J_source_preservation_and_mutation_rejection(self):
++        row=self.row()
++        for k in ('C','w','ensemble_hash'):self.assertEqual(row[k],self.source[k])
++        np.testing.assert_allclose(self.source['ensemble'].computed_va(),self.source['V_A'],rtol=1e-13)
++        bad=copy.copy(self.source);bad['w']+=1e-6
++        with self.assertRaises(ValueError):corrected.evaluate_candidate(bad,self.m,self.config,self.hashes)
++        self.assertEqual([len(self.groups[k]) for k in ('MB','Uniform')],[197,30])
++
++    def test_K_limits_and_zero_short_circuit(self):
++        with patch('src.trusted_heterodyne_skr.trusted_holevo',side_effect=AssertionError('No zero-T evaluation')):
++            zero=corrected.evaluate_candidate(self.source,deterministic_moments(0,R=1,xi_det=0,xi_ch=0),self.config,self.hashes,eta_B=.7,nu_B=.0135)
++        self.assertEqual(zero['K_raw'],0.);self.assertFalse(zero['QKD_expressions_evaluated'])
++        weak=min(self.groups['MB'],key=lambda x:x['V_A'])
++        for t in (1e-10,1e-14):
++            row=corrected.evaluate_candidate(weak,deterministic_moments(t,R=1,xi_det=0,xi_ch=0),self.config,self.hashes,eta_B=.7,nu_B=.0135)
++            self.assertTrue(all(math.isfinite(row[k]) for k in ('chi_BE','I_AB','K_raw')))
++            slope=.7*t*weak['V_A']/(2*(1+.0135)*math.log(2))
++            self.assertAlmostEqual(row['I_AB']/slope,1.,delta=1e-6)
++        with self.assertRaises(ValueError):corrected.trusted_holevo(2.,2.,2.)
++
++    def test_nonideal_discrete_full_product_mi_agreement(self):
++        row=self.row(eta_B=.7,nu_B=.0135)
++        t=torch.tensor([row['MI_detector_gain_squared']],dtype=torch.float64)
++        eps=torch.tensor([row['MI_kernel_epsilon']],dtype=torch.float64)
++        value=deterministic_mutual_information(self.source['ensemble'],t,eps,quadrature_order=16,implementation='full')
++        self.assertAlmostEqual(float(value[0]),row['MI_orders'][1]['I_AB'],places=12)
++
++
++if __name__=='__main__':unittest.main()
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/configs/trusted_heterodyne_skr.json
+@@ -0,0 +1,27 @@
++{
++  "schema": "trusted-heterodyne-skr-v1",
++  "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
++  "security_status": "UNVALIDATED_SECURITY_MODEL",
++  "binary_config": "configs/binary_cloud_skr_demo.json",
++  "matched_cloud_results": "results/binary_cloud_skr_20261015",
++  "previous_effective_results": "results/fading_effective_binary_cloud_20261016",
++  "reference_pair_from": "configs/fading_effective_binary_cloud.json",
++  "diagnostic_detector_from": "configs/manuscript_corrected_3moments.json",
++  "primary_detector_from": "binary_config.channel.R/xi_det",
++  "full_nonideal_catalog": false,
++  "MC": {
++    "positions": [
++      0,
++      9,
++      44,
++      90,
++      99
++    ],
++    "samples_per_position": 65536,
++    "independent_blocks": 16,
++    "seed_base": 20261020,
++    "sigma_acceptance": 5
++  },
++  "physical_parameters_changed": false,
++  "production_default_changed": false
++}
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md
+@@ -0,0 +1,194 @@
++# Báo cáo mômen kênh và trusted heterodyne
++
++Ngày 2026-10-16. Hoàn tất implementation và numerical diagnostics của task bb825b02.
++**UNVALIDATED_SECURITY_MODEL**. **NOT_READY_FOR_PUBLICATION_SCALE_RUNS**.
++
++## A. Root cause và baseline
++
++Nhánh mới nhất src/fading_effective_skr.py đã dùng đúng channel-only excess noise và ideal heterodyne. Không phát hiện total-noise contamination trong nhánh này. SKR âm trước task không phải bằng chứng có lỗi noise accounting.
++
++Mode lịch sử src/manuscript_literal_3moments.py có lỗi diễn giải: LiteralChannel.moments trả mômen total input-referred noise, effective_channel dùng nguyên nó làm excess noise và eta_f=mean_sqrt_eta thay vì bình phương. Mode literal được giữ nguyên để bảo toàn ý nghĩa kết quả lịch sử. Nhánh effective_channel_no_fading_noise cố ý bỏ fading variance theo mode riêng, không phải corrected fading evaluator.
++
++Khoảng trống chính của nhánh moment-corrected là từ chối nonideal trusted detector. Nó chưa từng chứng nhận việc dùng ideal three-entropy formula cho detector không lý tưởng. Task này thêm evaluator có version riêng, không đổi default hoặc ghi đè cache cũ.
++
++Baseline trước sửa:40 tests PASS, snapshot4042 tệp. JSON chẩn đoán đã bị xóa từ trước vẫn giữ trạng thái đó. startup_manifest.json, baseline_receipt.json và noise_audit.json có trước implementation; bản đồ đầy đủ ở noise_audit_complete.json.
++
++| Hàm | Quy ước nhiễu / phát hiện |
++|---|---|
++| src/manuscript_literal_3moments.py::LiteralChannel.moments | mean_eta_xi includes loss vacuum and detection noise, not <eta xi_ch> |
++| src/manuscript_literal_3moments.py::effective_channel | historical literal eta_f=mean_sqrt_eta rather than squared, and total-noise moment used as excess; retained historical mode |
++| src/manuscript_corrected_3moments.py::effective_fading_channel | correct m1 xi_ch, subtracts total moment only as redundant check; W_pre excludes detector |
++| src/fading_effective_skr.py::evaluate_batch | correct ideal complex MI/direct Z, no nonideal detector support |
++| src/manuscript_corrected_3moments.py::holevo_interval_maximizer | explicit rejection of trusted nonideal, not an incorrect ideal substitution |
++| src/manuscript_corrected_mi.py::receiver_parameters | xi_det is output-referred per detected arm, matches nu_B in Appendix A; CN variance=1+nu_B+eta_B eta xi_ch/2 |
++| src/binary_cloud_skr.py::mission_results | none; rates masked for blocked slots; unchanged P1/P2/P3 |
++| src/manuscript_corrected_3moments.py::PhysicalFadingDistribution.moments | Closed forms and independent quadrature on existing active-conditioned law; historical third moment is total input-referred-noise product, not channel-only |
++| scripts/run_exact_mb_test2.py::build_mb_ensemble | none; exact 256-QAM MB PMF, nu conversion and scalar physical energy normalization unchanged |
++| src/cvqkd/gram_moments.py::c4_gram_source_moments | none; C,w kernel not called for new builds |
++| scripts/run_ao_effective_channel_no_fading_noise_reference.py::authenticate | none; source/ensemble/hash/Cw validation reused |
++| src/cvqkd/holevo.py::_holevo_from_source_moments | epsilon is channel excess referred to input; ideal receiver only in current primary path |
++| src/cvqkd/covariance.py::standard_form_covariance | b=1+T VA+T epsilon; ideal conditional a-Z^2/(b+1), no trusted detector |
++| src/cvqkd/mutual_information.py::deterministic_mutual_information | complex variance 1+T epsilon/2, 2D discrete GH MI; new adapter maps detector gain and output noise to its existing likelihood |
++| src/binary_cloud_skr.py::select_winner | none; same finite catalog argmax signed K |
++| src/uav_mobility.py::best_stationary/optimize_trajectory | none; P2 mean/P3 reward and distance penalty unchanged |
++| src/trusted_heterodyne_skr.py::effective_channel | m_xi channel-only, no total-noise input, explicit optional eta-dependent third moment |
++| src/trusted_heterodyne_skr.py::trusted_holevo | pre-detector AB unchanged; trusted detection treated by AFG conditional covariance / equivalent finite purification |
++
++## B. Mathematical audit
++
++Nguồn: [Hosseinidehaj–Walk–Ralph, arXiv:2002.03476v1](https://arxiv.org/pdf/2002.03476.pdf), Eq4–7/AppendixA; [Denys–Brown–Leverrier, Quantum5,540(2021)](https://quantum-journal.org/papers/q-2021-09-13-540/pdf/).
++
++Đã kiểm tra primary web text Hosseinidehaj v1. Tệp local 2002.03476v1(1).pdf không tìm thấy trong Downloads/workspace; raw download và screenshot không khả dụng. Bản thảo thực tế là 2026__Binh_s_work (38).pdf, SHA256 0c60153cb6dcd4f8a3a2e8ecfe0cb245b473463f051837fb46028916eb6be0a0. Biến thể (38)(3).pdf không tìm thấy, không giả định hai bản tương đương. Trang3 đã xem trực quan: Eq12 likelihood vô hướng, Eq13 conditional homodyne, Eq18/21 dùng total/homodyne noise. Các công thức receiver này không được dùng làm heterodyne default.
++
++\[
++m_1=E[\eta],\quad m_{1/2}=E[\sqrt\eta],\quad m_\xi=E[\eta\xi_{ch}(\eta)],\quad \eta_f=m_{1/2}^2.
++\]
++\[
++N_{fad}=(m_1-\eta_f)V_A,\quad N_{ch}=m_\xi,\quad N_{eff}=N_{fad}+N_{ch},\quad \xi_f=N_{eff}/\eta_f.
++\]
++
++m_xi là channel excess, không chứa loss vacuum/detector. Với xi_ch constant, dùng m1*xi_ch trực tiếp; không lấy hiệu hai total-noise số lớn. API nhận mômen channel-only độc lập khi xi_ch phụ thuộc eta, từ chối constant xi_ch mâu thuẫn. Khi eta_f=0, xi_f để trống và không gọi MI/Holevo.
++
++\[
++W_{pre}=1+\eta_fV_A+N_{eff}=1+m_1V_A+m_\xi,\qquad
++Z_*=2m_{1/2}C-\sqrt{2wN_{eff}}.
++\]
++
++Hai dạng W_pre được kiểm tra. Vacuum1 chỉ xuất hiện một lần; không đưa chi_line/chi_tot/detector vào W_pre hoặc Z. Không fading khôi phục Z=2sqrt(T)C-sqrt(2T xi_ch w); pure loss T0 trả W_pre1/Z0. C,w và normalization nguồn giữ nguyên. Áp dụng cận Denys vào covariance fading hiệu dụng là giả định ghép mô hình; không gọi đây là công thức fading nguyên văn trong Denys Eq14. Giữ direct Z-minus target, không chứng nhận full-Z interval optimum.
++
++### Receiver và MI
++
++Repo định nghĩa xi_det là output-referred quadrature noise mỗi detected arm; nó khớp nu_B của AppendixA. Tách rõ:
++
++\[
++\chi_{het}=(2-\eta_B+2\nu_B)/\eta_B,\quad
++\chi_{line}=1/\eta_f-1+\xi_f,\quad
++\chi_{tot}=\chi_{line}+\chi_{het}/\eta_f.
++\]
++\[
++Y=\sqrt{\eta_B\eta_f}\alpha+\mathcal{CN}(0,1+\nu_B+\eta_BN_{eff}/2),\quad
++V_{B2}=\eta_BW_{pre}+1-\eta_B+2\nu_B.
++\]
++
++Đây là effective_gaussian_MI, tích phân discrete-input256-state hai quadrature GH8/16/32, không phải Gaussian-modulation MI. Adapter chuyển đúng gain/noise sang kernel hiện có. Product-QAM factorization có guard. pooled_fading_mixture_MI là estimator khác, không được chạy hay thay thế ở đây.
++
++Ở SNR dưới sqrt(machine epsilon), entropy-difference MI bị cancellation. Dùng expm1/log1p với node +/- của cùng tích phân GH để tránh trừ entropy gần nhau. Không clip MI âm thành0, không thay likelihood. Full-complex/product agreement và low-SNR slope đều PASS.
++
++### Trusted Holevo
++
++Gamma_AB trước detector giữ V=VA+1, W=W_pre và Z từ exact source. Kiểm tra positive covariance, gamma+iOmega và symplectic doublets. Với eta_B<1, auxiliary EPR có upsilon=1+2nu_B/(1-eta_B); beam splitter tạo A,B2,F,G; conditional covariance là gamma_AFG-C(gamma_B2+I)^(-1)C^T. Chi=S(AB)-S(AFG|B2).
++
++Purification độc lập của standard-form AB tạo hai mode Eve; spectrum conditional Eve phải khớp AFG sau khi thêm vacuum eigenvalue. Ở eta_B1/nu_B0 khôi phục a-Z²/(b+1), không chia0/0. Với eta_B1/electronic noise dương, dùng finite purification. Khi eps_machine*upsilon²>1e-10, tránh diagonalize thermal representation ill-conditioned và ghi trạng thái dùng purification tương đương. Không nới tolerance sau kết quả. Vacuum-limit entropy trong allowance1e-10 giữ raw eigenvalues dưới1 ở entropy_roundoff_modes; không clip Z/covariance.
++
++### Physical PDF và normalization
++
++Giữ HAP20000m/UAV1000m, reference44, L_ref21.9393102292km, D_r=.55m, beam_waist=.0986760647169751m và xi_ch=.0186 theo repo. Không hard-code fixture nhỏ của task thay kênh thật.
++
++Luật hiện hành active-conditioned trên0<eta<=1, giữ atom AoA0. Raw Eq10 mass trên[0,1] tại reference=.9841200272202841, active retained mass=.9841173294426483, P0=.00016985667656141038. Conditioning đã có trước task, không phải renormalization mới. Closed forms dùng đúng luật này và khớp quadrature độc lập. Không khẳng định raw Eq19–20 không-normalize bằng moment conditioned. physical_law_audit.json lưu raw mass/tail/normalizer và quadrature errors. Atom0 đóng góp0 vào eta*xi_ch.
++
++## C. Implementation
++
++- src/trusted_heterodyne_skr.py: effective_channel -> receiver -> trusted_holevo; evaluate_batch/authenticate dùng một exact source cho MI và correlation.
++- tests/test_trusted_heterodyne_skr.py:14 tests A–K, có Appendix block algebra độc lập, MC và source mutation rejection.
++- scripts/run_trusted_heterodyne_skr.py: validate/full/verify, journal/model key version mới, hash-bound inputs/producers và immutable completed stages.
++- configs/trusted_heterodyne_skr.json: tham chiếu config thật; primary receiver lấy từ binary config, alternate diagnostic lấy R/xi_det từ corrected config lịch sử.
++- docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md: báo cáo này.
++
++Nguồn đi qua load_sources/authenticate; giữ ensemble hash, nu_raw, C,w và VA=2nbar. Không AP/new source/interpolation. Sau gates mới tính P1 rồi gọi nguyên mission_results/DP. Mọi output mới tách riêng results/trusted_heterodyne_skr_20261016/. Scientific kernels/legacy source và kết quả cũ giữ nguyên.
++
++Dùng .venv-binary-cloud/Scripts/python.exe -X utf8 -B scripts/run_trusted_heterodyne_skr.py --stage validate|full|verify. Namespace hiện tại đã hoàn tất, không chạy lại validate/full vào đó. Resume chỉ cho journal chưa hoàn tất với cùng input/producer identity; startup/test receipts là prerequisite.
++
++## D. Validation
++
++| Nhóm | Kết quả | Bằng chứng |
++|---|---|---|
++| Baseline trước sửa |40 PASS |baseline_receipt.json |
++| A No fading |PASS |eta_f=T, fading0, xi_f=xi_ch |
++| B Pure loss |PASS |W_pre1+T VA, T0 vacuum |
++| C Moments |PASS |constant/eta-dependent m_xi, rejects invalid inputs |
++| D Bob identity |PASS |hai dạng W_pre và unit-test fixture riêng |
++| E Detector independence |PASS |kênh/Wpre/Z/Cw không đổi |
++| F Ideal heterodyne |PASS |Schur complement và old/new regression |
++| G Nonideal trusted |PASS |AppendixA block covariance/purification/receiver limits |
++| H Không duplicate noise |PASS |chi_line/chi_tot riêng, normalized complex likelihood |
++| I MC moments |PASS |5x65536 physical samples,16 independent blocks,15 checks5SE+1e-10 |
++| J Source preservation |PASS |197MB/30Uniform; hashes/VA/Cw; mutation rejection |
++| K Physical/numerical |PASS |T0, strong loss, entropy, physicality, low-SNR slope |
++| Scoped regression |71 PASS |scoped_tests.log/test_receipt.json |
++| Boundary sweep độc lập |166 PASS |VA tới1e-12,100 random physical CMs và vacuum/receiver limits |
++| Small set |60 PASS |3 nguồn/họ x5 vị trí x2 detector |
++| Full primary/P1–P3 |PASS |final_validation.json |
++
++Boundary sweep max Appendix/purification residual2.4868995751603507e-14. Lỗi ban đầu và cách sửa được giữ ở trusted_tests_initial.log và initial_receiver_probe_failure.json. Không thay tolerance. MC_channel_moments.csv lưu số và SE; analytic moments vẫn là primary.
++
++## E. Numerical decomposition tại reference thật
++
++Cùng nu_raw=.17, VA5.046875 SNU. Primary eta_B1/nu_B0. Diagnostic eta_B.7/nu_B.0135 từ config lịch sử, không đổi primary detector.
++
++| Đại lượng | Moment ideal trước | Corrected ideal | Chênh lệch | Trusted diagnostic |
++|---|---:|---:|---:|---:|
++| V_A | 5.046875 | 5.046875 | 0 | 5.046875 |
++| nu_raw | 0.17 | 0.17 | 0 | 0.17 |
++| m1=<eta> | 0.2379088678367 | 0.2379088678367 | 0 | 0.2379088678367 |
++| mhalf=<sqrt eta> | 0.4011487142967 | 0.4011487142967 | 0 | 0.4011487142967 |
++| eta_f | 0.1609202909819 | 0.1609202909819 | 0 | 0.1609202909819 |
++| Var(sqrt eta) | 0.07698857685481 | 0.07698857685481 | 0 | 0.07698857685481 |
++| m_xi=<eta xi_ch> | 0.004425104941763 | 0.004425104941763 | 0 | 0.004425104941763 |
++| Fading contribution | 0.3885517238141 | 0.3885517238141 | 0 | 0.3885517238141 |
++| Channel excess contribution | 0.004425104941763 | 0.004425104941763 | 0 | 0.004425104941763 |
++| eta_f xi_f | 0.3929768287559 | 0.3929768287559 | 0 | 0.3929768287559 |
++| xi_f | 2.442058899831 | 2.442058899831 | 0 | 2.442058899831 |
++| C | 2.981806927992 | 2.981806927992 | 0 | 2.981806927992 |
++| w | 6.190945650453e-07 | 6.190945650453e-07 | 0 | 6.190945650453e-07 |
++| V | 6.046875 | 6.046875 | 0 | 6.046875 |
++| W_pre | 2.205121422305 | 2.205121422305 | 0 | 2.205121422305 |
++| Z_star | 2.391598478285 | 2.391598478285 | 0 | 2.391598478285 |
++| nu_1 | 5.283036505027 | 5.283036505027 | 4.440892098501e-15 | 5.283036505027 |
++| nu_2 | 1.441282927332 | 1.441282927332 | 2.22044604925e-16 | 1.441282927332 |
++| Conditional eigenvalues | [4.262311319657] | [4.262311319657] | — | [1, 1.110128539824, 4.499003015195] |
++| I_AB | 0.4215725849611 | 0.4215725849611 | 0 | 0.3184044344168 |
++| beta I_AB | 0.4004939557131 | 0.4004939557131 | 0 | 0.302484212696 |
++| chi_BE | 1.146634482908 | 1.146634482908 | 4.440892098501e-16 | 0.7553564386786 |
++| K_raw | -0.7461405271954 | -0.7461405271954 | -4.440892098501e-16 | -0.4528722259827 |
++| K_usable | 0 | 0 | 0 | 0 |
++
++\[
++N_{eff}=\underbrace{0.3885517238141117}_{(m_1-\eta_f)V_A}
+++\underbrace{0.0044251049417631805}_{m_\xi}=0.39297682875587486.
++\]
++
++Noise input-referred được in riêng:
++
++| Detector | chi_het | chi_line | chi_tot | V_B2 | Complex noise variance |
++|---|---:|---:|---:|---:|---:|
++| Primary ideal | 1 | 7.656315622201 | 13.87057234457 | 2.205121422305 | 1.196488414378 |
++| Trusted diagnostic | 1.895714285714 | 7.656315622201 | 19.43677086589 | 1.870584995614 | 1.151041890065 |
++
++Legacy no-fading-variance rawK=0.05873485987901; previous moment ideal và corrected ideal đều khoảng-0.746140527195. Trusted diagnostic vẫn âm. Không điều chỉnh physics/source/noise để ép dương.
++
++reference_full_comparison.csv và reference_decomposition.json giữ full precision, spectra và conditional matrices; bảng Markdown làm tròn. Chênh lệch để trống khi đại lượng là một spectrum hoặc field trước không tồn tại.
++
++## F. Optimization sau numerical gates
++
++Full primary giữ detector hiện hành, catalog197MB/30Uniform,100 vị trí và cùng cloud/seeds. Tính mới22700 row, không nhập K cũ; source C,w đã xác thực được dùng lại. Không chạy catalog nonideal vì điều đó đổi cấu hình chính.
++
++Xác minh độc lập200 P1 maxima,1600 matched missions,7600 Bellman profiles. Max ideal old/new difference=4.57411886145564e-14. Bảo toàn4042 old files, changed=[].
++
++| Source | Maximum raw K trên catalog/lưới | Usable K |
++|---|---:|---:|
++| MB | -0.0279420084910326 |0 |
++| Uniform | -0.0275937177584464 |0 |
++
++Tất cả usable rates0; S1–S4 mean SKR/availability/returned distance0. Lambda0 có nhiều feasible paths hòa objective; đứng yên là tie-breaking. Không có mobility gain, unique trajectory hoặc physical energy gain được xác lập. Relative gain so reference0 không xác định. Không suy rộng thành bất khả thi với mọi nguồn/protocol hoặc optimum liên tục.
++
++Cloud NPZ SHA25614aa45add1f1a8828a1dfb9d870c883a150fe8fe820b787dd4050a132b391f35 giữ nguyên. P1 signed catalog argmax, P2 stationary mean, P3 reward S/Nt và lambda*d/Dref, speed/free-initial conventions không đổi. Availability không là objective. Summary/statistics/time-series/trajectory/lambda files mới tách riêng. Không tổng bit khóa khi thiếu channel-use rate.
++
++## G. Security assumptions và trạng thái cuối
++
++Hosseinidehaj trực tiếp hỗ trợ Gaussian-modulation fading covariance và trusted Gaussian detector entropy của protocol trong bài đó. C,w và correlation constraint có nguồn gốc Denys. Kết hợp chúng với Gaussian-surrogate MI cho MB256-state qua fading chưa có theorem/error enclosure được kiểm chứng. Mọi row mới giữ **UNVALIDATED_SECURITY_MODEL**, dù numerical identities PASS.
++
++Không chứng nhận composable/finite-size security, attack class mới, operational yield, tight lower bound cho actual pooled-fading MI, calibrated detector measurements, full-Z worst case hoặc continuous optimum. Trusted modes/noise giả định nằm trong Bob và không truy cập được bởi Eve. Cloud synthetic và DP biết toàn horizon; relocation/reacquisition/source-switch overhead chưa mô hình hóa.
++
++Frozen actual hash df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15 vẫn khác historical hash trong AGENTS, không sửa/restore. NOT_READY_FOR_PUBLICATION_SCALE_RUNS và ObjectiveC USER_STOPPED giữ nguyên. Không đổi frozen specs, source cache/Cw/normalization, production default/security functional, physical law, shared kernels hoặc cloud/DP. Không training/test dataset access, publication evaluation, production baseline/threshold approval, Downloads edit, commit/push.
++
++Implementation/numerical validation hoàn tất; security validation chưa được thiết lập. Deliver và STOP.

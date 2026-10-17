@@ -1,0 +1,40 @@
+AUDITED 0 reference_fading primary_detector CHI 1.1466344829084623 BOUND 3.061425978931402
+AUDITED 0 reference_fading trusted_detector CHI 0.7553564386786374 BOUND 3.061425978931402
+AUDITED 0 fixed_channel_0.01 primary_detector CHI 0.0315840314824652 BOUND 0.3426272697228435
+AUDITED 0 fixed_channel_0.01 trusted_detector CHI 0.021859516286831186 BOUND 0.3426272697228435
+AUDITED 0 fixed_channel_0.001 primary_detector CHI 0.0032326922368840164 BOUND 0.051007343577743613
+AUDITED 0 fixed_channel_0.001 trusted_detector CHI 0.0022287806203456573 BOUND 0.051007343577743613
+AUDITED 0 fixed_channel_0.0001 primary_detector CHI 0.0003268357895141925 BOUND 0.0067826165932085986
+AUDITED 0 fixed_channel_0.0001 trusted_detector CHI 0.00022525369857064672 BOUND 0.0067826165932085986
+AUDITED 0 fixed_channel_1e-05 primary_detector CHI 3.300113121707855e-05 BOUND 0.0008465247681715396
+AUDITED 0 fixed_channel_1e-05 trusted_detector CHI 2.2743811615915238e-05 BOUND 0.0008465247681715396
+AUDITED 0 fixed_channel_1e-06 primary_detector CHI 3.331478445067356e-06 BOUND 0.00010147953724350486
+AUDITED 0 fixed_channel_1e-06 trusted_detector CHI 2.296035548248978e-06 BOUND 0.00010147953724350486
+AUDITED 0 fixed_channel_0.0 primary_detector CHI 0.0 BOUND 0.0
+AUDITED 0 fixed_channel_0.0 trusted_detector CHI 0.0 BOUND 0.0
+AUDITED 0 pure_loss_T_0.25 primary_detector CHI 0.5387506143046893 BOUND 3.1401248393775134
+AUDITED 0 pure_loss_T_0.25 trusted_detector CHI 0.40402047239190136 BOUND 3.1401248393775134
+AUDITED 1 reference_fading primary_detector CHI 0.031126769609743657 BOUND 0.09374418110429326
+AUDITED 1 reference_fading trusted_detector CHI 0.01986931202024249 BOUND 0.09374418110429326
+AUDITED 1 fixed_channel_0.01 primary_detector CHI 0.0013896509925367998 BOUND 0.005932319126107636
+AUDITED 1 fixed_channel_0.01 trusted_detector CHI 0.0009111615795291673 BOUND 0.005932319126107636
+AUDITED 1 fixed_channel_0.001 primary_detector CHI 0.0001698521951537544 BOUND 0.0007380618074035169
+AUDITED 1 fixed_channel_0.001 trusted_detector CHI 0.00011244383352948677 BOUND 0.0007380618074035169
+AUDITED 1 fixed_channel_0.0001 primary_detector CHI 2.007450996038727e-05 BOUND 8.828972552817861e-05
+AUDITED 1 fixed_channel_0.0001 trusted_detector CHI 1.3378015914707155e-05 BOUND 8.828972552817861e-05
+AUDITED 1 fixed_channel_1e-05 primary_detector CHI 2.316388945121194e-06 BOUND 1.0277332585125493e-05
+AUDITED 1 fixed_channel_1e-05 trusted_detector CHI 1.5511767931886703e-06 BOUND 1.0277332585125493e-05
+AUDITED 1 fixed_channel_1e-06 primary_detector CHI 2.625328093666127e-07 BOUND 1.1725693172790012e-06
+AUDITED 1 fixed_channel_1e-06 trusted_detector CHI 1.7645535186037518e-07 BOUND 1.1725693172790012e-06
+AUDITED 1 fixed_channel_0.0 primary_detector CHI -1.4149498560666738e-70 BOUND 0.0
+AUDITED 1 fixed_channel_0.0 trusted_detector CHI -1.4149498560666738e-70 BOUND 0.0
+AUDITED 1 pure_loss_T_0.25 primary_detector CHI 0.0001972154353901986 BOUND 0.06104296876439596
+AUDITED 1 pure_loss_T_0.25 trusted_detector CHI 0.0001363294282413985 BOUND 0.06104296876439596
+Traceback (most recent call last):
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\audit_negative_skr_independent.py", line 237, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\audit_negative_skr_independent.py", line 218, in main
+    vacuum_cases.append(dict(detector=name,xi_ch=xi,I_AB=0.,K_raw=-float(m['chi_BE']),**to_json(m)))
+                        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dict() got multiple values for keyword argument 'xi_ch'

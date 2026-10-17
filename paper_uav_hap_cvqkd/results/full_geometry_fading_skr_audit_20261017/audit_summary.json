@@ -1,0 +1,44 @@
+{
+  "audit_completed": true,
+  "verification_scope": "Audit/provenance complete; strict failures retained",
+  "verdicts": [
+    "CONFIGURATION_MATCH_CONFIRMED",
+    "MOMENT_MISMATCH",
+    "NUMERICALLY_CONSISTENT",
+    "UNVALIDATED_SECURITY_MODEL"
+  ],
+  "strict_checks": {
+    "passed": 89,
+    "failed": 5,
+    "status": "FAILED"
+  },
+  "downstream_diagnosis": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "checks": 18
+  },
+  "current_hardware": {
+    "Dr_m": 0.55,
+    "theta_full_rad": 1.0000000000000003e-05,
+    "w0_m": 0.0986760647169751
+  },
+  "runtime_m1": 0.23790886783673015,
+  "independent_high_precision_m1": 0.2379088678213789,
+  "m1_difference": -1.535124805052135e-11,
+  "signed_SKR": {
+    "ideal_primary": {
+      "runtime": -0.74614052719539,
+      "independent": -0.7461405272043098,
+      "difference": -8.919753824443433e-12
+    },
+    "trusted_diagnostic": {
+      "runtime": -0.4528722259826575,
+      "independent": -0.4528722259878813,
+      "difference": -5.2238213754662866e-12
+    }
+  },
+  "source_moment_builds": 0,
+  "new_production_SKR_calls": 8,
+  "full_catalog_or_missions_run": false,
+  "production_edited": false,
+  "recommended_production_change_not_applied": "Only optional tighter/scaled mu2 quadrature; no formula/noise/hardware correction to force positive SKR"
+}

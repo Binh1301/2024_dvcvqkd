@@ -1,0 +1,623 @@
+# CODEX TASK — Independent Physical Audit of Negative SKR
+
+## 1. Mục tiêu
+
+Hãy thực hiện kiểm tra độc lập kết quả SKR âm trong repository HAP–UAV 256-QAM MB-shaped DM-CV-QKD.
+
+Evaluator hiện tại đã được triển khai với:
+
+- Effective fading moments của Hosseinidehaj.
+- Exact source quantities \(C,w\) theo Denys.
+- Trusted heterodyne detection.
+- Reverse reconciliation.
+
+Kết quả mới nhất:
+
+| Detector | Raw SKR (bits/use) |
+|---|---:|
+| Ideal | −0.746140527195 |
+| Trusted diagnostic (0.7, 0.0135) | −0.452872225983 |
+
+Reference point:
+
+\[
+(\nu_{\rm raw},V_A)=(0.17,5.046875).
+\]
+
+71 tests, 166 covariance checks và 15 Monte Carlo moment checks đều PASS.
+
+**Tuy nhiên, các kiểm tra đó chưa chứng minh giá trị Holevo và MI là đúng về mặt vật lý.**
+
+Nhiệm vụ lần này là xác định độc lập nguyên nhân SKR âm, không tìm cách ép SKR dương.
+
+**Chỉ audit và báo cáo. Không sửa production code trước khi xác định được root cause. Không chạy lại toàn bộ P1–P3 khi chưa cần.**
+
+## 2. Đọc báo cáo và xác định evaluator đang hoạt động
+
+Đọc:
+
+`docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md`
+
+Đối chiếu với:
+
+- `2002.03476v1(1).pdf`, Hosseinidehaj et al., đặc biệt Eq. (4)–(7), Appendix A.
+- `2026__Binh_s_work (38)(3).pdf`.
+- Denys et al. (2021), công thức cận tương quan \(Z^*\).
+
+Nếu PDF không tồn tại trong repository, tìm đúng phiên bản có sẵn và ghi rõ nguồn thực tế.
+
+Truy vết call graph thật sự của evaluator được gọi khi tính reference SKR. Không được giả định nhánh mới đã được sử dụng chỉ vì có hàm hoặc tests.
+
+Xác định rõ:
+
+- MI evaluator thực sự được gọi.
+- Holevo evaluator thực sự được gọi.
+- Detector mode.
+- Noise normalization.
+- Fading moments và channel configuration.
+- Source ensemble và exact \(C,w\).
+- Các giá trị nào được load từ cache.
+
+Nếu có cache, xác nhận version và hash để tránh đọc nhầm kết quả từ evaluator cũ.
+
+## 3. Xuất toàn bộ số liệu tại reference point
+
+Tại:
+
+\[
+\nu_{\rm raw}=0.17,\qquad V_A=5.046875,
+\]
+
+in đầy đủ ít nhất 16 chữ số có nghĩa khi phù hợp:
+
+| Quantity | Ideal | Trusted |
+|---|---|---|
+| \(\langle\eta\rangle\) | | |
+| \(\langle\sqrt\eta\rangle\) | | |
+| \(\eta_f\) | | |
+| \(\operatorname{Var}(\sqrt\eta)\) | | |
+| \(\xi_{\rm ch}\) | | |
+| \(\langle\eta\xi_{\rm ch}\rangle\) | | |
+| Fading excess output | | |
+| \(\eta_f\xi_f\) | | |
+| \(\xi_f\) | | |
+| \(C,w\) | | |
+| \(V,W_{\rm pre},Z\) | | |
+| Symplectic eigenvalues | | |
+| \(S(AB_1)\) | | |
+| Conditional entropy | | |
+| \(\chi_{BE}\) | | |
+| \(I_{AB}\) | | |
+| \(\beta I_{AB}\) | | |
+| Raw SKR | | |
+
+Đặc biệt không được chỉ in raw SKR. Phải xuất riêng từng entropy đóng góp vào Holevo.
+
+## 4. Kiểm tra ba moments và covariance
+
+Công thức tham chiếu bắt buộc:
+
+\[
+m_1=\langle\eta\rangle,
+\qquad
+m_{1/2}=\langle\sqrt\eta\rangle.
+\]
+
+Với channel excess noise cố định:
+
+\[
+m_\xi=\xi_{\rm ch}m_1.
+\]
+
+\[
+\eta_f=m_{1/2}^2.
+\]
+
+\[
+\eta_f\xi_f
+=
+(m_1-\eta_f)V_A+m_\xi.
+\]
+
+\[
+\boxed{
+W_{\rm pre}
+=
+1+\eta_fV_A+\eta_f\xi_f
+=
+1+m_1(V_A+\xi_{\rm ch}).
+}
+\]
+
+Kiểm tra các đẳng thức bằng phép tính độc lập, không tái sử dụng cùng helper function của evaluator.
+
+Phải xác nhận rằng:
+
+- \(\chi_{\rm line}\) không được cộng vào \(W_{\rm pre}\).
+- \(\chi_{\rm tot}\) không được cộng vào \(W_{\rm pre}\).
+- Trusted detector noise không được cộng vào \(W_{\rm pre}\).
+- Shot noise không bị cộng hai lần.
+- Fading excess noise không bị bỏ sót hoặc cộng hai lần.
+
+In các thành phần số học tạo nên \(W_{\rm pre}\).
+
+Nếu \(W_{\rm pre}\) sai, phải truy vết tới đúng file, dòng và biểu thức gây sai.
+
+## 5. Kiểm tra chặn trên vật lý của Holevo — BẮT BUỘC
+
+Đây là bài kiểm tra quan trọng nhất.
+
+Gọi \(B_1\) là mode lượng tử Bob nhận được trước trusted detector.
+
+Với covariance:
+
+\[
+\gamma_{B_1}=W_{\rm pre}I_2,
+\]
+
+entropy của mode Bob thỏa:
+
+\[
+S(B_1)\le
+g\left(\frac{W_{\rm pre}-1}{2}\right),
+\]
+
+trong đó:
+
+\[
+g(x)=(x+1)\log_2(x+1)-x\log_2x.
+\]
+
+Vì phép đo Bob và trusted detection là các phép xử lý cục bộ, sử dụng data processing và quantum mutual information:
+
+\[
+\chi(Y_B:E)\le I(B_1:E).
+\]
+
+Đồng thời:
+
+\[
+I(B_1:E)\le2S(B_1).
+\]
+
+Do đó phải thỏa mãn:
+
+\[
+\boxed{
+0\le\chi(Y_B:E)
+\le
+2g\left(\frac{W_{\rm pre}-1}{2}\right).
+}
+\]
+
+Áp dụng riêng cho ideal và trusted detector.
+
+Các giả thiết cần xác nhận: \(W_{\rm pre}\) là covariance mode Bob trước detector theo SNU vacuum = 1, phép đo Bob là local processing, và trusted detector ancillas độc lập với Eve.
+
+Tính chính xác:
+
+\[
+\chi_{\rm upper}
+=
+2g\left(\frac{W_{\rm pre}-1}{2}\right).
+\]
+
+So sánh:
+
+\[
+\chi_{\rm computed}
+\quad\text{vs.}\quad
+\chi_{\rm upper}.
+\]
+
+Nếu:
+
+\[
+\chi_{\rm computed}>\chi_{\rm upper}
+\]
+
+vượt quá numerical tolerance hợp lý, đánh dấu:
+
+`FAIL — HOLEVO_PHYSICAL_ENTROPY_BOUND`
+
+Đây là một contradiction vật lý, không phải sai số rounding thông thường.
+
+Nếu covariance Bob không đối xứng, sử dụng symplectic eigenvalue của covariance một mode để lấy chặn entropy tương ứng.
+
+Không điều chỉnh giới hạn chặn hoặc clip Holevo để đạt PASS.
+
+## 6. Kiểm tra trực tiếp symplectic eigenvalues và entropy
+
+Dùng:
+
+\[
+\gamma_{AB_1}
+=
+\begin{pmatrix}
+VI_2&Z\sigma_z\\
+Z\sigma_z&WI_2
+\end{pmatrix}.
+\]
+
+Tính:
+
+\[
+\Delta=V^2+W^2-2Z^2,
+\]
+
+\[
+D=(VW-Z^2)^2,
+\]
+
+\[
+\nu_{1,2}
+=
+\sqrt{
+\frac{\Delta\pm\sqrt{\Delta^2-4D}}2
+}.
+\]
+
+Với ideal heterodyne:
+
+\[
+\nu_{3,\rm het}
+=
+V-\frac{Z^2}{W+1}.
+\]
+
+\[
+\chi_{BE}
+=
+g\left(\frac{\nu_1-1}{2}\right)
++
+g\left(\frac{\nu_2-1}{2}\right)
+-
+g\left(\frac{\nu_{3,\rm het}-1}{2}\right).
+\]
+
+Tính lại độc lập bằng một script chẩn đoán ngắn, không import Holevo function hoặc symplectic eigenvalue helper từ production evaluator.
+
+Đồng thời tính symplectic spectrum trực tiếp từ ma trận \(i\Omega\gamma\) để cross-check công thức đóng.
+
+Phải in riêng:
+
+\[
+S(AB_1)
+=
+g\left(\frac{\nu_1-1}{2}\right)
++
+g\left(\frac{\nu_2-1}{2}\right)
+\]
+
+và:
+
+\[
+S(A|Y_B)
+=
+g\left(\frac{\nu_{3,\rm het}-1}{2}\right).
+\]
+
+Kiểm tra:
+
+- \(\nu_1,\nu_2,\nu_3\ge1\).
+- Ma trận covariance thỏa nguyên lý bất định lượng tử.
+- Conditional entropy được trừ đúng.
+- Không nhầm homodyne với heterodyne.
+- Không nhầm \(Z\) sau kênh với source-side correlation chưa nhân \(\sqrt{\eta_f}\).
+- Không có lỗi do cancellation giữa hai entropy lớn.
+
+Nếu \(\chi_{BE}\) vẫn lớn, phải xác định số hạng entropy nào gây ra.
+
+## 7. Trusted heterodyne — kiểm tra độc lập Appendix A
+
+Sử dụng detector model của Hosseinidehaj với:
+
+\[
+\eta_B,\quad \nu_B.
+\]
+
+Đặt:
+
+\[
+\upsilon=1+\frac{2\nu_B}{1-\eta_B}
+\]
+
+và:
+
+\[
+V_{B_2}
+=
+\eta_BW_{\rm pre}+(1-\eta_B)\upsilon.
+\]
+
+Tạo independent covariance model với beam splitter, trusted ancilla modes \(F,G\) và heterodyne measurement.
+
+Tính conditional covariance:
+
+\[
+\gamma_{AFG|B_2}
+=
+\gamma_{AFG}
+-
+C_{AFG,B_2}
+(\gamma_{B_2}+I_2)^{-1}
+C_{AFG,B_2}^{T}.
+\]
+
+Từ đó tính conditional symplectic eigenvalues và:
+
+\[
+\chi_{BE}
+=
+S(AB_1)-S(AFG|B_2).
+\]
+
+Không dùng ideal \(\nu_3\) để thay cho nonideal conditional spectrum.
+
+Kiểm tra độc lập:
+
+- Trusted detector purification.
+- Beam-splitter transformation.
+- Transpose, matrix ordering, quadrature ordering.
+- Symplectic form \(\Omega\).
+- SNU normalization.
+- Electronic-noise convention.
+- Detector ancilla độc lập với Eve.
+- Giới hạn \(\eta_B\to1,\nu_B\to0\) khôi phục ideal model.
+
+Lưu ý: Trusted detector có thể làm giảm Holevo, nhưng không thể vi phạm chặn trên entropy tại bước 5.
+
+Nếu covariance trusted hợp lệ nhưng Holevo vi phạm entropy bound, cần xem lại định nghĩa của entropy/purification đang sử dụng, không được chấp nhận chỉ vì eigenvalues đều lớn hơn 1.
+
+## 8. Independent MI audit
+
+Tại cùng reference point, in:
+
+\[
+I_{AB},
+\qquad
+\beta I_{AB},
+\qquad
+\chi_{BE}.
+\]
+
+Đối với 256-QAM:
+
+\[
+I_{AB}
+=
+\sum_kp_k
+\int_{\mathbb C}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_jp_jp(y|\alpha_j)}
+\,d^2y.
+\]
+
+Kiểm tra độc lập:
+
+- Chuẩn hóa toàn bộ 256 xác suất MB.
+- \(V_A=2\sum_kp_k|\alpha_k|^2\) theo convention hiện hành.
+- Likelihood heterodyne được chuẩn hóa.
+- Gain phù hợp với \(\eta_f\) và detector efficiency.
+- Noise variance đúng trên mỗi quadrature.
+- Shot noise và heterodyne measurement vacuum chỉ được tính một lần.
+- Electronic noise đúng quy ước.
+- Không có lỗi log cơ số \(e\) so với log cơ số \(2\).
+- Không sử dụng Gaussian modulation MI thay cho 256-QAM MI.
+
+Xây dựng independent numerical MI check tại reference point bằng một implementation không gọi lại production MI evaluator.
+
+Đánh giá giới hạn:
+
+\[
+0\le I_{AB}\le H(X)\le8\ \mathrm{bits/use}.
+\]
+
+Với kênh Gaussian hiệu dụng, kiểm tra thêm Gaussian-input capacity upper bound theo đúng SNR và quadrature convention của code.
+
+Nếu \(\eta_f\) rất nhỏ và \(V_A\) hữu hạn, MI phải tiến về 0.
+
+Phân biệt effective Gaussian MI và true fading-mixture MI. Không sử dụng chúng thay thế nhau mà không ghi rõ giả thiết.
+
+## 9. Kiểm tra giới hạn vật lý
+
+Chạy các trường hợp chẩn đoán độc lập:
+
+**Case A — Zero transmittance**
+
+\[
+T=0.
+\]
+
+Với finite input-referred channel excess noise:
+
+\[
+W_{\rm pre}=1,\quad Z=0,\quad
+I_{AB}=0,\quad\chi_{BE}=0.
+\]
+
+**Case B — Pure-loss fixed channel**
+
+\[
+\xi_{\rm ch}=0,\quad
+\operatorname{Var}(\sqrt T)=0.
+\]
+
+\[
+W_{\rm pre}=1+TV_A.
+\]
+
+**Case C — Weak-transmission scaling**
+
+Thử:
+
+\[
+T=10^{-2},10^{-3},10^{-4},10^{-5},10^{-6},0.
+\]
+
+Với cùng \(V_A,C,w\) và detector convention.
+
+In bảng:
+
+\[
+T,\quad W,\quad Z,\quad I_{AB},\quad
+\chi_{BE},\quad
+2S(B_1),\quad K_{\rm raw}.
+\]
+
+Kiểm tra entropy bound ở tất cả các giá trị.
+
+**Case D — No modulation**
+
+Khi:
+
+\[
+V_A\to0,
+\]
+
+MI phải tiến về 0. Kiểm tra giới hạn nguồn coherent vacuum và channel noise theo quy ước đang sử dụng.
+
+**Case E — Source comparison**
+
+Chạy cả:
+
+\[
+(\nu_{\rm raw},V_A)=(0.17,5.046875)
+\]
+
+và:
+
+\[
+(\nu_{\rm raw},V_A)=(0.30,0.025),
+\]
+
+nếu source records tồn tại trong catalog hiện tại.
+
+Lấy exact \(C,w\) từ repository; không gán bằng số đã báo cáo trước nếu record không khớp.
+
+## 10. Điều tra nghi vấn chính
+
+Cần đặc biệt kiểm tra tại reference point xem:
+
+\[
+W_{\rm pre}=1+\langle\eta\rangle(V_A+\xi_{\rm ch})
+\]
+
+có thật sự chỉ lớn hơn 1 một lượng rất nhỏ hay không.
+
+Nếu \(\langle\eta\rangle\) cùng bậc \(10^{-4}\), \(V_A\approx5\) và channel excess noise nhỏ, thì entropy bound của Bob sẽ rất thấp.
+
+Nếu đồng thời evaluator cho:
+
+\[
+K_{\rm raw}\approx-0.746,
+\]
+
+phải tìm chính xác nguồn gốc của sự bất thường.
+
+Không được kết luận đây là ảnh hưởng vật lý của fading nếu chưa giải thích được đồng thời:
+
+1. Bob covariance.
+2. Bob entropy upper bound.
+3. Holevo.
+4. Mutual information.
+5. Cách detector tác động lên conditional entropy.
+
+Nếu kết quả không vi phạm các chặn vật lý, giải thích định lượng vì sao SKR vẫn âm.
+
+Nếu vi phạm, tìm đúng bước sai trong code hoặc trong lập luận áp dụng công thức bảo mật.
+
+## 11. Kiểm tra giới hạn của mô hình Denys + Hosseinidehaj
+
+Hosseinidehaj xây dựng fading covariance cho Gaussian modulation; repository sử dụng 256-state discrete modulation với correlation bound của Denys.
+
+Hãy kiểm tra riêng:
+
+- \(Z\) có đúng là lower bound của tương quan cho nguồn 256-QAM hay không.
+- Cách đưa effective fading excess noise vào \(Z\) có thỏa các ràng buộc cần thiết của Denys hay không.
+- Covariance đang dùng có phải covariance vật lý của một Gaussian surrogate hay không.
+- Bound trên Holevo có được áp dụng đúng với covariance và protocol thực tế hay không.
+- Các giả thiết trusted detection có được xử lý nhất quán với mô hình discrete modulation hay không.
+
+Phân biệt:
+
+`MATHEMATICALLY_VALIDATED`
+
+`NUMERICALLY_VALIDATED`
+
+`SECURITY_PROOF_VALIDATED`
+
+Không coi ba trạng thái này tương đương.
+
+Nếu chưa có chứng minh bảo mật cho cách kết hợp cụ thể, giữ nhãn:
+
+`UNVALIDATED_SECURITY_MODEL`.
+
+## 12. Báo cáo cuối cùng
+
+Tạo tài liệu:
+
+`docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md`
+
+Báo cáo bằng tiếng Việt, gồm:
+
+### A. Actual implementation
+
+File, hàm và call graph của evaluator thực sự chạy.
+
+### B. Reference numerical decomposition
+
+Bảng đầy đủ mọi moment, \(V,W,Z\), eigenvalues, entropy, MI và SKR.
+
+### C. Independent physics checks
+
+Bảng PASS/FAIL đặc biệt cho:
+
+\[
+\chi_{BE}\le2g\left(\frac{W_{\rm pre}-1}{2}\right).
+\]
+
+### D. Ideal vs trusted heterodyne
+
+So sánh hai detector và giải thích chính xác vì sao SKR khác nhau.
+
+### E. Root cause
+
+Xác định lỗi nếu có, đến mức file/function/line, kèm bằng chứng.
+
+### F. Security validity
+
+Phân biệt những gì được chứng minh từ các tài liệu gốc với các giả thiết mở rộng.
+
+### G. Recommendation
+
+Nêu thay đổi tối thiểu cần thiết để sửa lỗi, nếu lỗi được xác nhận.
+
+Nếu không tìm thấy lỗi, cung cấp một independent derivation giải thích kết quả SKR âm mà không vi phạm các kiểm tra vật lý.
+
+## 13. Ràng buộc thực hiện
+
+- Audit-only, không chỉnh sửa production evaluator.
+- Có thể tạo script chẩn đoán riêng.
+- Không commit/push.
+- Không xóa hoặc sửa dữ liệu lịch sử.
+- Không chạy lại toàn bộ 22.700 điểm trước khi reference audit đạt.
+- Không sửa công thức để ép SKR dương.
+- Không sử dụng kết quả từ cùng production helper làm bằng chứng kiểm chứng độc lập.
+- Báo cáo đầy đủ các kết quả FAIL.
+
+**Acceptance criterion quan trọng nhất:**
+
+Nếu covariance Bob trước detector là hợp lệ, thì Holevo information của kết quả đo Bob phải thỏa:
+
+\[
+\boxed{
+\chi(Y_B:E)
+\le
+2g\left(\frac{W_{\rm pre}-1}{2}\right).
+}
+\]
+
+Bất kỳ vi phạm thực sự nào của bất đẳng thức này đều phải được điều tra đến tận gốc trước khi tiếp tục tối ưu SKR hoặc quỹ đạo UAV.

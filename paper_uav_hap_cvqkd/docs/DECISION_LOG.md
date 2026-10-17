@@ -4688,3 +4688,145 @@ claims. TeX compilation remains BLOCKED_BY_ENVIRONMENT, despite successful
 lexical/path/export checks. No external manuscript edit, commit or push.
 This task is COMPLETE; STOP. Further scientific runs require a new explicit
 request and independently valid lifecycle/provenance evidence.
+
+
+## DEC-0172 - approved binary-cloud implementation and bounded synthetic diagnostics
+
+2026-10-15 explicit user instruction PLEASE IMPLEMENT THIS PLAN approves the
+reviewed binary-cloud plan: p=.4, latent ell250m/rho.9, PCG64 seed20261015,
+100 missions per each of16 cloud scenarios, 30x20s slots, complete blockage,
+Kmin=.001, own exact197MB/30Uniform banks and four matched position policies.
+Authorize new isolated implementation, tests, direct30-clear smoke, verified
+clear-only cache reuse, finite DP/penalty experiments, seven IEEE figures/two
+tables/LaTeX/ZIP and Vietnamese report. The old STOP is superseded solely for
+this diagnostic task after tests/audit/smoke prerequisites pass. Existing
+effective_channel_no_fading_noise evaluator, kernels and old results remain
+unchanged; label PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE.
+No Cw/AP/AO, old ObjectiveC restart, training/held-out/final-test/publication
+evaluation, baseline/threshold promotion, external manuscript edit or commit/push.
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and frozen historical discrepancy remain.
+
+
+DEC-0172 completion, 2026-10-16: accept EVID-0189 only for the approved synthetic
+binary complete-blockage framework, verified exact finite catalogs and finite-grid
+DP/export scope. Deliver the implementation, diagnostics, seven IEEE figures,
+two tables, plotting CSV, Overleaf ZIP and Vietnamese report. Keep the original
+geometric-cloud implementation/results as historical reproducible outputs.
+Accept the verifier's8ULP stationary-tie comparison as a roundoff-only check;
+no scientific objective, DP, threshold, source, frozen criterion or result changed.
+Export repairs preserve their earlier bytes and leave experiment hashes unchanged.
+No full-fading/security/publication promotion follows. Compilation/page layout
+remain blocked/unverified. STOP; further scientific execution or external manuscript
+integration requires a new task. Do not rerun completed stages into this namespace,
+restart ObjectiveC, train, access test datasets, certify thresholds or commit/push.
+
+
+## DEC-0173 - authorize isolated moment-effective heterodyne diagnostic
+
+2026-10-16 explicit user task supersedes prior STOP solely for implementing
+and testing the three-moment effective Gaussian evaluator, analytic/MC
+validation, then new197MB/30Uniform catalog evaluations and matched binary
+P1-P3 framework if required gates pass. Preserve ideal heterodyne R1/xi_det0,
+beta.95, exact C,w/directZminus, existing active-conditioned physical PDF/AoA
+atom, cloud schedules/DP/objective and all legacy results. Correct excess-noise
+accounting uses N=(meanT-Teff)VA+meanT*xi_ch, not total vacuum/detector noise.
+Reject unsupported nonideal/trusted-detector security rather than importing
+homodyne formulas. Use the actually supplied (37).pdf with version mismatch
+explicitly recorded. No production default, security/frozen-model promotion,
+source generation/AP/AO, training/test dataset access, publication evaluation,
+old ObjectiveC restart, external manuscript edit or commit/push. Full sweep
+is gated by current tests, deterministic/small-binary and MC validation.
+
+
+DEC-0173 completion, 2026-10-16: accept EVID-0190 for the separate numerically
+consistent moment-Gaussian heterodyne diagnostic and matched finite-catalog/grid
+comparison only. All required staged numerical checks pass; do not call this
+fully validated physical-fading security. Preserve the unchanged legacy default
+and historical binary results. New data show zero usable rates everywhere in the
+examined catalogs/grid; report negatives/decomposition/undefined relative gains,
+not positive mobility claims. Do not change noise, physical parameters, source
+bounds or receiver convention to force positive K. Any future CSI/postselection,
+physical redesign or security-proof extension needs a fresh task/scope decision.
+The transient file-lock resume and renderer repair do not alter numerical inputs,
+producer identity, old data or accepted tolerances. STOP; no automatic retry,
+extra search, ObjectiveC restart, training/test access, publication promotion,
+production baseline/threshold approval, external manuscript edits or commit/push.
+
+
+## DEC-0174 - isolated trusted heterodyne correction and diagnostic gates
+
+2026-10-16 user attachment bb825b02 supersedes prior STOP only for its stated
+evaluator/noise audit, trusted-detector implementation and staged synthetic
+validation. Keep frozen ideal production model and all historical artifacts.
+Use channel-only m_xi; trusted receiver is a separate explicit argument.
+Numerical PASS permits finite matched diagnostics, never a security promotion.
+Label UNVALIDATED_SECURITY_MODEL for Gaussian-surrogate discrete fading MI
+and combination of Denys correlation constraints with trusted Gaussian detector
+entropies; full proof/global Z optimum not established. No AP/source changes,
+production default switch, ObjectiveC restart, training/test access, publication
+work, baseline/threshold certification, external edit, commit or push.
+
+
+DEC-0174 completion: accept EVID-0191 only as software/numerical validation
+of the isolated channel-only/trusted heterodyne diagnostic. Keep explicit
+UNVALIDATED_SECURITY_MODEL; do not promote Gaussian modulation security
+theorems to DM fading or treat receiver calibration as measured evidence.
+Deliver report/reference/catalog/MC/mission CSV and receipts, retain all old
+files/defaults. Primary ideal results remain zero usable; no physical/source
+redesign to force positive K. Full nonideal optimization NOT_RUN because
+current experiment detector is ideal. STOP after delivery. Further source,
+security or detector operating-point studies need a new explicit task; no
+automatic AP/AO/search, training/test access, publication, threshold/baseline
+certification, ObjectiveC restart, external edits, commit or push.
+
+
+## DEC-0175 - independent bounded physical audit only
+
+2026-10-17 user task d36a98d1 supersedes prior STOP solely for independent
+reference physics checks and requested finite limits/source comparison.
+Do not edit production evaluator, source, physical config or historical data.
+No full catalog/P1-P3 rerun, optimizer, source/AP/AO, training/test dataset
+access, publication evaluation, baseline/threshold approval or commit/push.
+Keep UNVALIDATED_SECURITY_MODEL; numerical PASS does not establish a
+security proof. Record every physical FAIL and trace any actual entropy-bound
+contradiction before recommending a change.
+
+
+DEC-0175 completion: accept EVID-0192 as independent numerical/reference physical
+consistency evidence only. No actual entropy-bound contradiction or arithmetic/noise
+bug is established. Do not change production equations to force positive K. Deliver
+independent decomposition, weak-transmission/source comparisons, call graph, CSV and
+report. Keep UNVALIDATED_SECURITY_MODEL; necessary entropy-bound PASS does not prove
+a key-rate lower bound for the actual DM fading protocol. Follow-up security work,
+full-Z/true-mixture estimation or production guard implementation is a proposal,
+not executed or approved by this audit. Preserve all old files and defaults; no
+full-catalog/trajectory rerun, source/AP/AO, training/test/publication, certification,
+ObjectiveC restart, external manuscript edit, commit or push. Deliver and STOP.
+
+
+## DEC-0176 - full numerical geometry to SKR audit, fixed source only
+
+2026-10-17 user task b8e5bb91 supersedes priorSTOP only for its audit scope.
+Expected current Dr.55m/full-angle10urad; independently derive geometry,
+turbulence/pointing/active PDF and moments, then same exact source reference
+and four declared hardware combinations as diagnostic cases. Do not edit production
+code/config/cache or old data. If an actual error is found, record file/line, impact
+and minimal correction, wait for user confirmation before any production change.
+No source/AP/AO, full22700 evaluation/1600 mission/P1-P3 rerun, training/test dataset
+access, publication evaluation, threshold/baseline approval, ObjectiveC restart,
+external manuscript edit, commit/push. Keep frozen mismatch/NOT_READY and
+UNVALIDATED_SECURITY_MODEL. Numerical/configuration conclusions are scoped
+to their specific checks; no generic security PASS.
+
+
+DEC-0176 completion: accept EVID-0193 as configuration/runtime and bounded numerical
+audit evidence with explicitly preserved5 strict FAILs. Confirm current Dr.55/full
+angle10urad and no mixed hardware cache. Precision differences are localized to
+mu2 quadrature and small-Teff input-noise sensitivity, with negligible signed-SKR
+impact at the audited source. Do not hide FAILs, widen tolerance after results or
+promote a generic PASS. Optional mu2 integrand scaling/epsabs refinement requires
+separate user confirmation before production edits; none made. Keep
+UNVALIDATED_SECURITY_MODEL and existing lifecycle/frozen conflict. Deliver full
+A-I report and artifacts; STOP. No full-catalog/mission/optimizer, source/AP/AO,
+training/test/publication, baseline/threshold promotion, ObjectiveC restart,
+external manuscript edit, commit/push follows from this audit.

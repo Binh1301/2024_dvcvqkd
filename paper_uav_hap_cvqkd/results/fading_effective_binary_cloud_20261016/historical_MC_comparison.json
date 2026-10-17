@@ -1,0 +1,63 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "historical_artifact": "results\\manuscript_corrected_3moments\\ideal_heterodyne_reference_20261013\\reference_result.json",
+  "historical_sha256": "2196bb46f68fcdb55aa0f10767313f35c9f7f21e23e8ff5610e91728adb7efb6",
+  "source": {
+    "nu_raw": 0.165,
+    "V_A": 5.5,
+    "ensemble_hash": "430914e792382cce5d92b0ff5ba4e8a641e912bce78c8565dbc18540b92b2faa"
+  },
+  "same_source_and_physical_law": true,
+  "historical_pooled_fading_MC": {
+    "I_AB": 0.4652637991973034,
+    "standard_error": 0.019468676410223464,
+    "samples": 4096,
+    "K_raw": -0.7775890147353646,
+    "precision_pass": false,
+    "currently_rerun": false
+  },
+  "historical_effective_gaussian": {
+    "I_AB": 0.4484184676941574,
+    "MI_method": "discrete_QAM_effective_Gaussian_AWGN_approximation",
+    "quadrature_rows": [
+      {
+        "order": 8,
+        "I_AB": 0.4484184676630707
+      },
+      {
+        "order": 16,
+        "I_AB": 0.4484184676941583
+      },
+      {
+        "order": 32,
+        "I_AB": 0.4484184676941574
+      }
+    ],
+    "last_refinement_difference": 8.881784197001252e-16,
+    "refinement_tolerance": 1e-8,
+    "numerical_refinement_pass": true,
+    "sigma2_complex": 1.213931138821605,
+    "actual_fading_mixture": false,
+    "approximation_error_bound": "NOT_ESTABLISHED",
+    "beta_I_AB": 0.42599754430944947,
+    "K_at_Z_star": -0.7935920796633533,
+    "K_conservative": -0.7935920796633533,
+    "K_interpretation": "effective Gaussian channel approximation, not actual pooled-fading SKR"
+  },
+  "updated_effective_gaussian": {
+    "I_AB": 0.4484184676941574,
+    "chi_BE": 1.219589623972802,
+    "SKR": -0.7935920796633524,
+    "N_eff": 0.42786227764320994,
+    "b": 2.312923878043779,
+    "C": 3.2113076519605626,
+    "w": 0.0000010248765983174194
+  },
+  "residuals": {
+    "I_AB": 0,
+    "chi_BE": -8.881784197001252e-16,
+    "K_raw": 8.881784197001252e-16
+  },
+  "interpretation": "Pooled-mixture MI versus moment-Gaussian MI differs; historical MC precision was not met. This is distinct from statewise oracle average K(T). No total approximation-error/security bound follows.",
+  "verification_scope": "Matched historical Gaussian approximation reproduction only; historical pooled MC was not rerun and its precision gate failed."
+}

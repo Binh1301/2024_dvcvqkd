@@ -1,0 +1,33 @@
+{
+  "schema": "fading-effective-binary-v1",
+  "scientific_model": "fading_effective_gaussian_heterodyne",
+  "binary_config": "configs/binary_cloud_skr_demo.json",
+  "legacy_results": "results/binary_cloud_skr_20261015",
+  "reference_pair": {
+    "nu_raw": 0.17,
+    "V_A": 5.046875
+  },
+  "MC": {
+    "positions": [
+      0,
+      9,
+      44,
+      90,
+      99
+    ],
+    "samples_per_position": 262144,
+    "replications": 16,
+    "seed": 20261018,
+    "instantaneous_samples": 512,
+    "instantaneous_seed": 20261019,
+    "sigma_acceptance": 5,
+    "numerical_allowance_bits": 0.000001
+  },
+  "quadrature_orders": [
+    8,
+    16,
+    32
+  ],
+  "MI_refinement_tolerance": 1e-8,
+  "production_default_changed": false
+}

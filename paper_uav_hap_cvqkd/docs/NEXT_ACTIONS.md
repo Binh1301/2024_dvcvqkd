@@ -1,5 +1,85 @@
 # Next Actions
 
+## Current: deliver full geometry/fading/SKR audit; STOP
+
+EVID-0193/DEC-0176. Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and
+results/full_geometry_fading_skr_audit_20261017/ including runtime trace,
+closed-vs-quadrature/sensitivity CSV, high precision, explicit5 strict FAILs
+and quadrature_precision_diagnosis.json. Hardware is confirmed(.55m,10urad),
+no stale hardware cache.18 causal checks explain numerical differences; do not
+present all94 initial checks as PASS or infer a security proof.
+
+No production correction applied. A proposed tighter/scaled mu2 integral needs
+separate user confirmation; do not implement automatically. Preserve old source,
+config/results/frozen conflict; no source/AP/AO/full catalog/missions/P1-P3,
+training/test/publication/threshold-baseline promotion, ObjectiveC restart,
+external edits, commit/push. UNVALIDATED_SECURITY_MODEL/NOT_READY remain.
+
+
+## Current: deliver independent negative-SKR audit; STOP
+
+EVID-0192/DEC-0175: deliver docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md and
+results/negative_skr_independent_audit_20261017/ (actual call graph, reference entropy
+CSV/high precision, independent MI/Holevo/PDF/limits, checks and validation receipt).
+213 independent/self/supplemental checks and40 physical entropy bounds pass; no actual
+contradiction at the audited inputs. No production formula change justified. Keep
+UNVALIDATED_SECURITY_MODEL and exact scope; do not treat audit PASS as full security.
+
+No full-catalog/P1-P3, source/AP/AO, training/test/publication, baseline/threshold
+certification, ObjectiveC restart, external manuscript edit or commit/push. Proposed
+future guard/security/true-fading-MI work requires a new task. Preserve all existing
+config/source/results/frozen discrepancy; no automatic rerun of completed diagnostics.
+
+
+## Current: deliver trusted heterodyne diagnostic; STOP
+
+EVID-0191/DEC-0174: deliver docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md and
+results/trusted_heterodyne_skr_20261016/ (reference/MC/raw catalog/winners,
+matched P1-P3 summaries/trajectories, audits/receipts).71 scoped tests,166
+boundary checks and full22700/1600mission/7600Bellman validation complete.
+Keep UNVALIDATED_SECURITY_MODEL and zero-primary-usable result explicit.
+No full nonideal catalog or publication/security promotion. Legacy default,
+source/physical law/cache/old results and frozen mismatch preserved. Do not
+rerun completed validate/full stages, automatically start AP/AO/search, restart
+ObjectiveC, train/access test datasets, certify thresholds/baselines, edit
+external manuscript or commit/push. Await a new explicit task.
+
+
+## Current: deliver moment-effective comparison; STOP
+
+2026-10-16 EVID-0190/DEC-0173. Deliver docs/FADING_EFFECTIVE_SKR_REPORT_VI.md
+and results/fading_effective_binary_cloud_20261016/ raw/comparison/MC/mission
+CSV,3 PNG/vectorPDF figures, historical MC reconciliation and terminal receipts.
+Implementation/17tests/MC/reference/small-binary/full22700/1600mission/7600Bellman
+checks complete. All catalog/grid usable rates are0; preserve signed negatives
+and do not promote a mobility-performance claim or alter physics to make K positive.
+
+Keep the legacy production default and old result namespaces unchanged. Do not
+rerun completed stages into this namespace. The final figures/tables use the
+layout-only postprocessor scripts/plot_fading_effective_comparison.py. Theoretical
+fading/security/CSI and nonideal trusted-detector scope remain unresolved; a new
+explicit task is required for any extension. NOT_READY/frozen discrepancy and
+Objective C USER_STOPPED remain. No automatic source/AP/AO/search, training/test
+access, publication work, baseline/threshold approval, external edits or commit/push.
+
+
+## Current: deliver completed binary-cloud package, then STOP
+
+2026-10-16 EVID-0189/DEC-0172. Deliver docs/BINARY_CLOUD_SKR_REPORT_VI.md and
+results/binary_cloud_skr_20261015/overleaf_binary_cloud.zip with figures/plot_data,
+source/winner tables, scenario matrices/paths, receipts and final_validation.json.
+Implementation,23+3 tests,30 fresh clear smoke and1600-mission/7600-Bellman
+verification are complete;1684 plot-data checks and14 reviewed main layouts pass.
+Do not rerun audit/smoke/experiment/export into the completed namespace.
+
+Keep preliminary Gaussian/no-fading-variance scope, per-mission offline S2/P3
+knowledge and joint source/energy-adaptation interpretation explicit. Compilation
+and manuscript page layout remain BLOCKED_BY_ENVIRONMENT/unverified. Frozen
+historical discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C
+USER_STOPPED remain. No automatic AP/AO, source generation, sweeps, training/test
+access, publication evaluation, baseline/threshold promotion, external manuscript
+edit or commit/push. Await a new explicit task; no numerical execution is pending.
+
 ## Current: deliver IEEE numerical package, then STOP
 
 EVID-0188/DEC-0171. Deliver the completed seven-figure/two-table numerical package

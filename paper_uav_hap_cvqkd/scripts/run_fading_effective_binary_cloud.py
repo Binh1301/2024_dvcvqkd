@@ -1,0 +1,453 @@
+"""Staged moment-effective heterodyne comparison; no production-default switch."""
+from __future__ import annotations
+import argparse
+import copy
+import json
+import math
+from pathlib import Path
+import sys
+import time
+import numpy as np
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
+from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
+from src.binary_cloud_skr import load_sources,clear_state,mission_results,select_winner,read_csv,grouped_statistics
+from src.uav_mobility import candidate_grid,optimize_trajectory
+from src.manuscript_corrected_3moments import PhysicalFadingDistribution,deterministic_moments
+from src.manuscript_literal_3moments import LiteralChannel
+from src.manuscript_corrected_mi import _physical_fading_samples
+from src.fading_effective_skr import MODEL,STATUS,evaluate_batch,evaluate_candidate
+
+DEFAULT=ROOT/'results/fading_effective_binary_cloud_20261016'
+CONFIG=ROOT/'configs/fading_effective_binary_cloud.json'
+PRODUCERS=('src/fading_effective_skr.py','scripts/run_fading_effective_binary_cloud.py','tests/test_fading_effective_skr.py','configs/fading_effective_binary_cloud.json')
+METRICS=('average_skr_bits_per_use','availability','total_flight_distance_m','penalized_objective_bits_per_use')
+
+
+def producer_hashes():return {p:saved.digest(ROOT/p) for p in PRODUCERS}
+
+
+def protected(output):return saved.verify_protected(saved.read_json(output/'startup_manifest.json'))
+
+
+def context(output):
+    cfg=saved.read_json(CONFIG);settings=saved.read_json(ROOT/cfg['binary_config'])
+    expected=dict(config=cfg,binary_settings=settings,producers=producer_hashes(),scientific_model=MODEL,scientific_status=STATUS)
+    path=output/'inputs.json'
+    if path.exists():
+        if saved.read_json(path)!=expected:raise ValueError('Model/config/producer identity changed')
+    else:saved.save(path,expected,exclusive=True)
+    protected(output);hashes=saved.read_json(output/'startup_manifest.json')['protected_hashes']
+    groups,config,aliases=load_sources(settings,hashes)
+    alias_path=output/'source_alias_audit.json'
+    if alias_path.exists():
+        if saved.read_json(alias_path)!=aliases:raise ValueError('Source alias audit changed')
+    else:saved.save(alias_path,aliases,exclusive=True)
+    positions=candidate_grid();old=ROOT/cfg['legacy_results']
+    old_states=saved.read_json(old/'clear_channel_states.json');states=[]
+    for j,p in enumerate(positions):
+        state=clear_state(settings,p,j)
+        if state['clear_raw_channel']!=old_states[j]['clear_raw_channel'] or state['moments']!=old_states[j]['moments']:
+            raise ValueError('Physical law/moments changed; no silent conditioning change')
+        states.append(state)
+    return cfg,settings,hashes,groups,config,states,positions,old
+
+
+def require(output,name):
+    if saved.read_json(output/name)['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Prerequisite failed: '+name)
+    tests=saved.read_json(output/'test_receipt.json')
+    if tests['status']!='CURRENTLY_VERIFIED_PASS' or tests['producers']!=producer_hashes():raise ValueError('Current scoped tests required')
+
+
+def reference(output):
+    if (output/'reference_receipt.json').exists():raise ValueError('Reference stage already complete')
+    cfg,s,h,groups,c,states,positions,old=context(output)
+    cand=next(x for x in groups['MB'] if x['nu_raw']==cfg['reference_pair']['nu_raw'] and x['V_A']==cfg['reference_pair']['V_A'])
+    m=states[44]['moments'];new=evaluate_candidate(cand,m,c,h);legacy=saved.evaluate_authenticated(cand,m,c,h)
+    deterministic=[]
+    for t in (.25,.0625):
+        dm=deterministic_moments(t,R=1.,xi_det=0.,xi_ch=.0186)
+        a=evaluate_candidate(cand,dm,c,h);b=saved.evaluate_authenticated(cand,dm,c,h)
+        if max(abs(a[k]-b[k]) for k in ('I_AB','chi_BE','SKR','b','Z_star'))>1e-10:raise ValueError('Deterministic reduction failed')
+        deterministic.append(dict(T=t,legacy_SKR=b['SKR'],updated_SKR=a['SKR'],fading_variance=a['fading_variance']))
+    saved.write_csv(output/'deterministic_reference.csv',deterministic)
+    saved.save(output/'reference_fixed_source.json',dict(legacy=legacy,updated=new))
+    quantities=('mean_eta','T_eff','variance_sqrt_eta','xi_eff','N_eff','I_AB','chi_BE','SKR','nu_raw','V_A')
+    comparison=[]
+    for name in quantities:
+        lv=legacy.get(name,m['mean_eta']-legacy['T_eff'] if name=='variance_sqrt_eta' else None)
+        comparison.append(dict(quantity=name,legacy=lv,updated=new.get(name)))
+    comparison.append(dict(quantity='usable_SKR',legacy=max(0.,legacy['SKR']),updated=new['K_usable']))
+    saved.write_csv(output/'reference_comparison.csv',comparison)
+    # Five nearby cells and three exact candidates per source family; no global-optimum claim.
+    indices=[33,34,44,45,55];smoke_winners={};smoke_rows=[]
+    pairs={'MB':{(.165,5.5),(.17,5.046875),(.2,1.3833230302980657)},'Uniform':{(0.,.5),(0.,1.),(0.,1.25)}}
+    for family in ('MB','Uniform'):
+        per_position=[[] for _ in indices]
+        for source in [x for x in groups[family] if (x['nu_raw'],x['V_A']) in pairs[family]]:
+            for k,row in enumerate(evaluate_batch(source,[states[j]['moments'] for j in indices],c,h)):
+                flat=dict(row,family=family,position_index=indices[k],objective_key=saved.hash_json(dict(model=MODEL,ensemble=row['ensemble_hash'],position=indices[k])))
+                per_position[k].append(flat);smoke_rows.append(flat)
+        smoke_winners[family]=[dict(select_winner(rows),K_star_raw=select_winner(rows)['SKR'],K_star=max(0.,select_winner(rows)['SKR'])) for rows in per_position]
+    clouds=np.load(old/'cloud_states.npz',allow_pickle=False)['blocked'];mini=copy.deepcopy(s);mini['geometry']['reference_position_index']=2
+    mini_summary=[]
+    for realization in range(3):
+        for family in ('MB','Uniform'):
+            summary,_=mission_results(mini,positions[indices],smoke_winners[family],clouds[0,realization,indices,:])
+            mini_summary.extend(dict(realization_id=realization,family=family,**r) for r in summary)
+    saved.write_csv(output/'small_binary_summary.csv',mini_summary)
+    saved.write_csv(output/'small_clear_evaluations.csv',[{k:v for k,v in r.items() if k in ('family','position_index','nu_raw','V_A','I_AB','chi_BE','SKR','K_usable','ensemble_hash','C','w')} for r in smoke_rows])
+    receipt=dict(status='CURRENTLY_VERIFIED_PASS',scientific_status=STATUS,reference_source=cfg['reference_pair'],
+        deterministic_cases=len(deterministic),small_clear_evaluations=len(smoke_rows),small_missions=3,
+        old_reference_SKR=legacy['SKR'],updated_reference_SKR=new['SKR'],source_moments_generated=0,
+        physical_moments_unchanged=True,normalization='existing active-conditioned [0,1] law; AoA atom preserved',
+        source_alias_audit_sha256=saved.digest(output/'source_alias_audit.json'),producers=producer_hashes(),protected_changes=protected(output))
+    saved.save(output/'reference_receipt.json',receipt,exclusive=True)
+    print('REFERENCE_PASS',legacy['SKR'],new['SKR'],flush=True)
+
+
+def empirical_moments(template,values):
+    m1=float(values.mean());mh=float(np.sqrt(values).mean())
+    return dict(template,mean_eta=m1,mean_sqrt_eta=mh,mean_eta_xi_total=2+(.0186-1)*m1,
+        mean_eta_xi=2+(.0186-1)*m1,moment_origin='independent exact physical Monte Carlo samples')
+
+
+def physical_samples(fading,count,rng):
+    # Validation-only batches respect the legacy sampler's unchanged 65,536-draw ceiling.
+    chunks=[]
+    for begin in range(0,count,4096):
+        values,_=_physical_fading_samples(fading,min(4096,count-begin),rng)
+        chunks.append(values)
+    return np.concatenate(chunks)
+
+
+def monte_carlo(output):
+    require(output,'reference_receipt.json')
+    if (output/'MC_receipt.json').exists():raise ValueError('MC stage already complete')
+    cfg,s,h,groups,c,states,positions,old=context(output);settings=cfg['MC']
+    cand=next(x for x in groups['MB'] if (x['nu_raw'],x['V_A'])==(cfg['reference_pair']['nu_raw'],cfg['reference_pair']['V_A']))
+    sample_rows=[];skr_rows=[];all_pass=True;replica_rows=[]
+    replicas=settings['replications'];per_replica=settings['samples_per_position']//replicas
+    if per_replica*replicas!=settings['samples_per_position']:raise ValueError('MC samples must divide into replications')
+    for j in settings['positions']:
+        fading=PhysicalFadingDistribution(LiteralChannel(**states[j]['clear_raw_channel']))
+        rng=np.random.default_rng(np.random.SeedSequence([settings['seed'],j]));draws=[];maps=[]
+        for replication in range(replicas):
+            values=physical_samples(fading,per_replica,rng);draws.append(values)
+            maps.append(empirical_moments(states[j]['moments'],values))
+        values=np.concatenate(draws);pooled=empirical_moments(states[j]['moments'],values)
+        evaluated=evaluate_batch(cand,[states[j]['moments'],pooled,*maps],c,h)
+        for name,vector,target in (('m1',values,states[j]['moments']['mean_eta']),('mhalf',np.sqrt(values),states[j]['moments']['mean_sqrt_eta']),
+                                   ('mxi_total',2+(.0186-1)*values,states[j]['moments']['mean_eta_xi_total'])):
+            se=float(vector.std(ddof=1)/math.sqrt(len(vector)));estimate=float(vector.mean());tolerance=settings['sigma_acceptance']*se+1e-10
+            passed=abs(estimate-target)<=tolerance;all_pass &= passed
+            sample_rows.append(dict(position_index=j,moment=name,analytical=target,MC=estimate,standard_error=se,tolerance=tolerance,passed=passed,
+                samples=len(values),AoA_outages=int(np.count_nonzero(values==0)),binary_cloud_events_included=False))
+        rep_keys=np.array([r['SKR'] for r in evaluated[2:]]);se=float(rep_keys.std(ddof=1)/math.sqrt(replicas));difference=evaluated[1]['SKR']-evaluated[0]['SKR']
+        tolerance=settings['sigma_acceptance']*se+settings['numerical_allowance_bits'];passed=abs(difference)<=tolerance;all_pass &= passed
+        skr_rows.append(dict(position_index=j,K_analytical=evaluated[0]['SKR'],K_MC_pooled=evaluated[1]['SKR'],difference=difference,
+            MC_replication_SE=se,tolerance=tolerance,passed=passed,samples=len(values),replications=replicas))
+        replica_rows.extend(dict(position_index=j,replication=k,K_raw=r['SKR'],m1=maps[k]['mean_eta'],mhalf=maps[k]['mean_sqrt_eta']) for k,r in enumerate(evaluated[2:]))
+    saved.write_csv(output/'analytical_vs_MC_moments.csv',sample_rows);saved.write_csv(output/'analytical_vs_MC_SKR.csv',skr_rows)
+    saved.write_csv(output/'MC_replications.csv',replica_rows)
+    fading=PhysicalFadingDistribution(LiteralChannel(**states[44]['clear_raw_channel']))
+    values,_=_physical_fading_samples(fading,settings['instantaneous_samples'],np.random.default_rng(settings['instantaneous_seed']))
+    delta=[deterministic_moments(float(t),R=1.,xi_det=0.,xi_ch=.0186) for t in values]
+    instantaneous=evaluate_batch(cand,delta,c,h)
+    saved.write_csv(output/'instantaneous_fixed_source.csv',[dict(sample=i,T=float(values[i]),I_AB=r['I_AB'],chi_BE=r['chi_BE'],K_raw=r['SKR'],K_usable=r['K_usable'],QKD_expressions_evaluated=r['QKD_expressions_evaluated']) for i,r in enumerate(instantaneous)])
+    raw=np.array([r['SKR'] for r in instantaneous]);usable=np.maximum(raw,0.)
+    diagnostic=dict(samples=len(raw),mean_instantaneous_raw=float(raw.mean()),mean_instantaneous_raw_SE=float(raw.std(ddof=1)/math.sqrt(len(raw))),
+        mean_instantaneous_positive=float(usable.mean()),mean_instantaneous_positive_SE=float(usable.std(ddof=1)/math.sqrt(len(raw))),
+        negative_instantaneous_samples=int(np.count_nonzero(raw<0)),AoA_outages=int(np.count_nonzero(values==0)),
+        fixed_source=cfg['reference_pair'],moment_effective_raw=saved.read_json(output/'reference_fixed_source.json')['updated']['SKR'],
+        interpretation='Statewise CSI/oracle diagnostic and optional transmit-abstain positive-part diagnostic; neither establishes an operational fading protocol')
+    saved.save(output/'instantaneous_vs_moment_diagnostic.json',diagnostic)
+    receipt=dict(status='CURRENTLY_VERIFIED_PASS' if all_pass else 'FAILED',scientific_status=STATUS,
+        positions=settings['positions'],physical_samples=len(settings['positions'])*settings['samples_per_position'],
+        analytical_moments_are_primary=True,MC_only_validation=True,independent_moment_checks=len(sample_rows),K_checks=len(skr_rows),
+        instantaneous_diagnostic=diagnostic,acceptance=settings,producers=producer_hashes(),protected_changes=protected(output))
+    saved.save(output/'MC_receipt.json',receipt,exclusive=True)
+    if not all_pass:raise ValueError('Analytical/MC validation failed; full evaluation prohibited')
+    print('MC_PASS',receipt['physical_samples'],'samples',flush=True)
+
+
+FIELDS=('nu_raw','V_A','C','w','ensemble_hash','source_cache_key','source_path','source_payload_sha256','mean_eta','mean_sqrt_eta',
+    'm_xi_total','m_excess','T_eff','fading_variance','Delta_fad','N_eff','xi_eff','sigma2_complex','a','b','Z_star','Z_signal','Z_penalty',
+    'lambda_1','lambda_2','lambda_3','I_AB','beta_I_AB','chi_BE','SKR','K_raw','K_usable','MI_orders','numerical_repairs')
+
+
+def full(output):
+    require(output,'MC_receipt.json')
+    if (output/'full_receipt.json').exists():raise ValueError('Completed full experiment is immutable')
+    cfg,s,h,groups,c,states,positions,old=context(output);began=time.perf_counter()
+    input_hash=saved.hash_json(saved.read_json(output/'inputs.json'));journal=output/'new_objective_batches.jsonl';completed={}
+    if journal.exists():
+        for line in journal.read_text(encoding='utf-8').splitlines():
+            item=json.loads(line)
+            if item['input_sha256']!=input_hash or saved.hash_json(item['rows'])!=item['rows_sha256'] or item['source_id'] in completed:
+                raise ValueError('New-model cache journal identity/corruption failure')
+            completed[item['source_id']]=item
+    previous=len(completed);total=0
+    for family in ('MB','Uniform'):
+        for candidate in groups[family]:
+            source_id=family+':'+candidate['ensemble_hash'];total+=1
+            if source_id not in completed:
+                evaluated=evaluate_batch(candidate,[st['moments'] for st in states],c,h);rows=[]
+                for j,value in enumerate(evaluated):
+                    row={name:value[name] for name in FIELDS}
+                    key=saved.hash_json(dict(model=MODEL,input_sha256=input_hash,position=j,source=candidate['ensemble_hash'],
+                        source_payload_sha256=row['source_payload_sha256'],C_hex=float(row['C']).hex(),w_hex=float(row['w']).hex()))
+                    rows.append(dict(row,position_index=j,family=family,objective_key=key,scientific_model=MODEL))
+                record=dict(input_sha256=input_hash,source_id=source_id,rows=rows,rows_sha256=saved.hash_json(rows))
+                with journal.open('a',encoding='utf-8',newline='\n') as stream:stream.write(json.dumps(record,allow_nan=False)+'\n');stream.flush()
+                completed[source_id]=record
+            if total%20==0:print('SOURCE_BATCH',total,'/227',flush=True)
+            saved.save(output/'checkpoint.json',dict(status='RUNNING_NEW_P1',completed_sources=total,input_sha256=input_hash))
+    rows=[row for item in completed.values() for row in item['rows']]
+    if len(rows)!=22700:raise ValueError('Incomplete updated P1 catalog')
+    winners={};gh_checks=[]
+    for family in ('MB','Uniform'):
+        winners[family]=[]
+        for j in range(100):
+            pool=[r for r in rows if r['family']==family and r['position_index']==j]
+            if len(pool)!=len(groups[family]):raise ValueError('Source/position coverage incomplete')
+            winner=select_winner(pool);winners[family].append(dict(winner,K_star_raw=winner['SKR'],K_star=max(0.,winner['SKR'])))
+            selected=[min(pool,key=lambda r:(-r['MI_orders'][index]['SKR'],r['nu_raw'],r['V_A'],r['ensemble_hash']))['ensemble_hash'] for index in (1,2)]
+            if selected[0]!=selected[1]:raise ValueError('GH16/32 P1 ranking unresolved')
+            gh_checks.append(dict(family=family,position_index=j,GH16_32_stable=True))
+    saved.write_csv(output/'all_candidate_evaluations.csv',rows)
+    saved.write_csv(output/'clear_winners.csv',[r for group in winners.values() for r in group])
+    saved.save(output/'clear_channel_states.json',states)
+    old_winners=read_csv(old/'clear_winners.csv');comparisons=[]
+    for family in ('MB','Uniform'):
+        for j,new in enumerate(winners[family]):
+            before=next(r for r in old_winners if r['family']==family and int(r['position_index'])==j)
+            comparisons.append(dict(family=family,position_index=j,legacy_raw=float(before['SKR']),updated_raw=new['SKR'],
+                legacy_usable=float(before['K_star']),updated_usable=new['K_star'],legacy_nu=float(before['nu_raw']),updated_nu=new['nu_raw'],
+                legacy_V_A=float(before['V_A']),updated_V_A=new['V_A'],updated_I_AB=new['I_AB'],updated_chi_BE=new['chi_BE'],
+                T_eff=new['T_eff'],mean_T=new['mean_eta'],fading_variance=new['fading_variance'],updated_xi_eff=new['xi_eff']))
+    saved.write_csv(output/'clear_legacy_updated.csv',comparisons)
+    clouds=np.load(old/'cloud_states.npz',allow_pickle=False)['blocked'];scenarios=saved.read_json(old/'cloud_scenarios.json')
+    if clouds.shape!=(16,100,100,30):raise ValueError('Approved matched-cloud experiment shape changed')
+    saved.save(output/'matched_cloud_inputs.json',dict(path=(old/'cloud_states.npz').relative_to(ROOT).as_posix(),
+        sha256=saved.digest(old/'cloud_states.npz'),generator_sha256=saved.digest(ROOT/'src/binary_cloud.py'),
+        scenarios=scenarios,clouds_regenerated=False,binary_settings=s))
+    summaries=[];demo=[];paths=np.zeros((16,100,2,4,30),dtype=np.int16)
+    for scenario in scenarios:
+        sid=scenario['scenario_id']
+        for realization in range(100):
+            for f,family in enumerate(('MB','Uniform')):
+                summary,series=mission_results(s,positions,winners[family],clouds[sid,realization])
+                for k,scheme in enumerate(('S1','S2','S3','S4')):paths[sid,realization,f,k]=[r['position_index'] for r in series if r['scheme']==scheme]
+                meta=dict(scenario_id=sid,probability=scenario['probability'],correlation_length_m=scenario['correlation_length_m'],
+                    temporal_rho=scenario['temporal_rho'],realization_id=realization,family=family)
+                summaries.extend(dict(meta,**r) for r in summary)
+                if sid==0 and realization==0:demo.extend(dict(meta,**r) for r in series)
+        print('MATCHED_MISSION_SCENARIO',sid+1,'/16',flush=True)
+    penalties=s['sweeps']['lambda_bits_per_use'];lambda_paths=np.zeros((100,2,len(penalties),30),dtype=np.int16);lambda_rows=[]
+    default={(r['realization_id'],r['family'],r['scheme']):r for r in summaries if r['scenario_id']==0}
+    opt=s['optimization'];mission=s['mission']
+    for realization in range(100):
+        for f,family in enumerate(('MB','Uniform')):
+            table=(~clouds[0,realization])*np.array([w['K_star'] for w in winners[family]])[:,None]
+            for k,penalty in enumerate(penalties):
+                if penalty in (0.,opt['positive_lambda_bits_per_use']):
+                    scheme='S3' if penalty==0. else 'S4';idx=2 if penalty==0. else 3
+                    path=paths[0,realization,f,idx];metrics={name:default[realization,family,scheme][name] for name in METRICS}
+                else:
+                    result=optimize_trajectory(table,positions,slot_duration_s=mission['slot_duration_s'],max_speed_m_per_s=mission['max_speed_m_per_s'],
+                        penalty_bits_per_use=penalty,reference_distance_m=opt['reference_distance_m']);path=result['path']
+                    metrics=dict(average_skr_bits_per_use=result['average_skr'],availability=float(np.mean(result['rates']>=opt['K_min_bits_per_use'])),
+                        total_flight_distance_m=result['total_flight_distance_m'],penalized_objective_bits_per_use=result['penalized_objective'])
+                lambda_paths[realization,f,k]=path
+                lambda_rows.append(dict(realization_id=realization,family=family,lambda_bits_per_use=penalty,**metrics))
+    np.savez_compressed(output/'trajectories.npz',paths=paths,lambda_paths=lambda_paths)
+    saved.write_csv(output/'summary.csv',summaries);saved.write_csv(output/'scheme_time_series.csv',demo);saved.write_csv(output/'lambda_sweep.csv',lambda_rows)
+    stats=grouped_statistics(summaries,('scenario_id','probability','correlation_length_m','temporal_rho','family','scheme'),METRICS)
+    saved.write_csv(output/'summary_statistics.csv',stats)
+    saved.write_csv(output/'lambda_statistics.csv',grouped_statistics(lambda_rows,('family','lambda_bits_per_use'),METRICS))
+    legacy_summary=read_csv(old/'summary.csv');old_lookup={(int(r['scenario_id']),int(r['realization_id']),r['family'],r['scheme']):r for r in legacy_summary}
+    paired=[]
+    for r in summaries:
+        before=old_lookup[r['scenario_id'],r['realization_id'],r['family'],r['scheme']]
+        paired.append(dict(scenario_id=r['scenario_id'],family=r['family'],scheme=r['scheme'],realization_id=r['realization_id'],
+            **{name:r[name]-float(before[name]) for name in METRICS}))
+    saved.write_csv(output/'paired_updated_minus_legacy.csv',grouped_statistics(paired,('scenario_id','family','scheme'),METRICS))
+    names=('all_candidate_evaluations.csv','clear_winners.csv','clear_channel_states.json','clear_legacy_updated.csv','matched_cloud_inputs.json',
+        'summary.csv','summary_statistics.csv','lambda_sweep.csv','lambda_statistics.csv','paired_updated_minus_legacy.csv','trajectories.npz','scheme_time_series.csv')
+    receipt=dict(status='COMPUTED_PENDING_INDEPENDENT_VERIFICATION',scientific_status=STATUS,source_candidates=227,clear_evaluations=22700,
+        current_invocation_new_evaluations=(len(completed)-previous)*100,new_model_cache_hits=previous*100,legacy_SKR_rows_reused=0,
+        source_moments_generated=0,physical_moments_unchanged=True,binary_clouds_and_DP_unchanged=True,
+        missions=1600,DP_objective_profiles=7600,GH_winner_checks=gh_checks,
+        all_MB_usable_zero=all(r['K_star']==0 for r in winners['MB']),all_Uniform_usable_zero=all(r['K_star']==0 for r in winners['Uniform']),
+        maximum_MB_raw=max(r['K_star_raw'] for r in winners['MB']),maximum_Uniform_raw=max(r['K_star_raw'] for r in winners['Uniform']),
+        elapsed_seconds=time.perf_counter()-began,producers=producer_hashes(),protected_changes=protected(output),
+        output_sha256={name:saved.digest(output/name) for name in names},production_default_changed=False,lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS')
+    saved.save(output/'full_receipt.json',receipt,exclusive=True)
+    saved.save(output/'checkpoint.json',dict(status='COMPLETE',completed_sources=227,input_sha256=input_hash))
+    print('FULL_COMPLETE',receipt['maximum_MB_raw'],receipt['maximum_Uniform_raw'],flush=True)
+
+
+def parsed_candidates(output):
+    rows=read_csv(output/'all_candidate_evaluations.csv')
+    strings={'ensemble_hash','source_cache_key','source_path','source_payload_sha256','family','objective_key','scientific_model'}
+    for row in rows:
+        for name in list(row):
+            if name in strings:continue
+            if name in ('MI_orders','numerical_repairs'):row[name]=json.loads(row[name])
+            elif name=='position_index':row[name]=int(row[name])
+            else:row[name]=float(row[name])
+    return rows
+
+
+def verify(output):
+    from scripts.verify_binary_cloud_skr_results import optimal_value,path_metrics,assert_metrics,stationary_gap,verify_statistics
+    from src.binary_cloud_skr import covariance_check
+    cfg,s,h,groups,c,states,positions,old=context(output);require(output,'MC_receipt.json')
+    receipt=saved.read_json(output/'full_receipt.json')
+    for name,digest in receipt['output_sha256'].items():
+        if saved.digest(output/name)!=digest:raise ValueError('Updated output hash changed: '+name)
+    rows=parsed_candidates(output);by_source={(f,x['ensemble_hash']):x for f,g in groups.items() for x in g};by_position={}
+    max_spectrum=max_entropy=0.;repair_rows=0
+    for row in rows:
+        j=row['position_index'];source=by_source[row['family'],row['ensemble_hash']];m=states[j]['moments']
+        if row['C']!=source['C'] or row['w']!=source['w'] or row['source_payload_sha256']!=saved.digest(ROOT/source['source_path']):raise ValueError('Exact source identity failed')
+        t=m['mean_sqrt_eta']**2;variance=m['mean_eta']-t;noise=variance*row['V_A']+m['mean_eta']*.0186
+        assert_metrics(row,dict(T_eff=t,fading_variance=variance,Delta_fad=variance*row['V_A'],m_excess=m['mean_eta']*.0186,
+            N_eff=noise,xi_eff=noise/t,b=1+m['mean_eta']*(row['V_A']+.0186),
+            Z_star=2*math.sqrt(t)*source['C']-math.sqrt(2*noise*source['w']),SKR=.95*row['I_AB']-row['chi_BE'],K_usable=max(0.,row['SKR'])))
+        check=covariance_check(row);max_spectrum=max(max_spectrum,check['spectrum_residual']);max_entropy=max(max_entropy,check['entropy_residual'])
+        repair_rows+=bool(row['numerical_repairs']);by_position.setdefault((row['family'],j),[]).append(row)
+    winners={f:[] for f in ('MB','Uniform')};stored=read_csv(output/'clear_winners.csv')
+    for (family,j),pool in sorted(by_position.items()):
+        if len(pool)!=len(groups[family]):raise ValueError('P1 source coverage failed')
+        winner=select_winner(pool);selected=next(r for r in stored if r['family']==family and int(r['position_index'])==j)
+        if selected['ensemble_hash']!=winner['ensemble_hash'] or float(selected['K_star_raw'])!=winner['SKR'] or float(selected['K_star'])!=max(0.,winner['SKR']):raise ValueError('P1 maximum failed')
+        winners[family].append(dict(winner,K_star=max(0.,winner['SKR'])))
+    if len(rows)!=22700 or len(by_position)!=200:raise ValueError('Updated table incomplete')
+    cloud_record=saved.read_json(output/'matched_cloud_inputs.json')
+    if saved.digest(ROOT/cloud_record['path'])!=cloud_record['sha256']:raise ValueError('Matched clouds changed')
+    clouds=np.load(ROOT/cloud_record['path'],allow_pickle=False)['blocked'];scenarios=cloud_record['scenarios']
+    archive=np.load(output/'trajectories.npz',allow_pickle=False);paths=archive['paths'];lambda_paths=archive['lambda_paths']
+    summaries=read_csv(output/'summary.csv');lookup={(int(r['scenario_id']),int(r['realization_id']),r['family'],r['scheme']):r for r in summaries}
+    if len(lookup)!=12800 or len(summaries)!=12800:raise ValueError('Mission coverage failed')
+    distance=np.linalg.norm(positions[:,None]-positions[None,:],axis=2);limit=s['mission']['slot_duration_s']*s['mission']['max_speed_m_per_s'];feasible=distance<=limit
+    checks=0
+    for scenario in scenarios:
+        sid=scenario['scenario_id']
+        for realization in range(100):
+            for f,family in enumerate(('MB','Uniform')):
+                table=(~clouds[sid,realization])*np.array([r['K_star'] for r in winners[family]])[:,None];means=table.mean(axis=1)
+                for k,scheme in enumerate(('S1','S2','S3','S4')):
+                    penalty=s['optimization']['positive_lambda_bits_per_use'] if k==3 else 0.
+                    path=paths[sid,realization,f,k];metrics=path_metrics(path,table,positions,distance,limit,s['optimization']['K_min_bits_per_use'],penalty,s['optimization']['reference_distance_m'])
+                    assert_metrics(lookup[sid,realization,family,scheme],metrics)
+                    if k==0 and not (path==44).all():raise ValueError('Reference geometry changed')
+                    if k==1:stationary_gap(path,means)
+                    if k>=2:
+                        checks+=1
+                        if abs(metrics['penalized_objective_bits_per_use']-optimal_value(table,distance,feasible,penalty,s['optimization']['reference_distance_m']))>1e-11:raise ValueError('DP optimum failed')
+        print('VERIFY_SCENARIO',sid+1,'/16',flush=True)
+    lambda_rows=read_csv(output/'lambda_sweep.csv');lambda_lookup={(int(r['realization_id']),r['family'],float(r['lambda_bits_per_use'])):r for r in lambda_rows}
+    for realization in range(100):
+        for f,family in enumerate(('MB','Uniform')):
+            table=(~clouds[0,realization])*np.array([r['K_star'] for r in winners[family]])[:,None]
+            for k,penalty in enumerate(s['sweeps']['lambda_bits_per_use']):
+                metrics=path_metrics(lambda_paths[realization,f,k],table,positions,distance,limit,s['optimization']['K_min_bits_per_use'],penalty,s['optimization']['reference_distance_m'])
+                assert_metrics(lambda_lookup[realization,family,penalty],metrics)
+                if penalty not in (0.,s['optimization']['positive_lambda_bits_per_use']):
+                    checks+=1
+                    if abs(metrics['penalized_objective_bits_per_use']-optimal_value(table,distance,feasible,penalty,s['optimization']['reference_distance_m']))>1e-11:raise ValueError('Penalty DP optimum failed')
+    verify_statistics(output/'summary_statistics.csv',summaries,('scenario_id','probability','correlation_length_m','temporal_rho','family','scheme'))
+    verify_statistics(output/'lambda_statistics.csv',lambda_rows,('family','lambda_bits_per_use'))
+    saved.save(output/'final_validation.json',dict(status='CURRENTLY_VERIFIED_PASS',scientific_status=STATUS,clear_rows_verified=len(rows),
+        P1_maxima_verified=200,missions_verified=1600,Bellman_checks=checks,maximum_spectrum_residual=max_spectrum,
+        maximum_entropy_residual=max_entropy,numerical_repair_rows=repair_rows,matched_cloud_sha256=cloud_record['sha256'],
+        protected_changes=protected(output),producers=producer_hashes(),production_default_changed=False,
+        full_fading_security_proof='NOT_ESTABLISHED',publication_ready=False))
+    print('VERIFIED',checks,'Bellman checks',flush=True)
+
+
+def report(output):
+    require(output,'reference_receipt.json')
+    validation=saved.read_json(output/'final_validation.json')
+    if validation['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Full verification required')
+    cfg=saved.read_json(CONFIG);old=ROOT/cfg['legacy_results'];settings=saved.read_json(ROOT/cfg['binary_config'])
+    before=read_csv(old/'summary_statistics.csv');after=read_csv(output/'summary_statistics.csv');comparison=[]
+    for row in after:
+        key=(row['scenario_id'],row['family'],row['scheme'],row['metric'])
+        original=next(r for r in before if (r['scenario_id'],r['family'],r['scheme'],r['metric'])==key)
+        comparison.append(dict(scenario_id=row['scenario_id'],family=row['family'],scheme=row['scheme'],metric=row['metric'],
+            legacy_mean=float(original['mean']),updated_mean=float(row['mean']),legacy_sd=float(original['sd']),updated_sd=float(row['sd']),
+            absolute_change=float(row['mean'])-float(original['mean'])))
+    saved.write_csv(output/'scheme_legacy_updated_comparison.csv',comparison)
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({'font.size':9,'pdf.fonttype':42,'axes.spines.right':False,'axes.spines.top':False})
+    figures=output/'figures';figures.mkdir(exist_ok=True)
+    clear=read_csv(output/'clear_legacy_updated.csv');ref=saved.read_json(output/'reference_fixed_source.json')
+    fig,axes=plt.subplots(2,1,figsize=(7.16,5.2),layout='constrained',sharex=True)
+    for ax,family in zip(axes,('MB','Uniform')):
+        values=[r for r in clear if r['family']==family]
+        ax.plot([int(r['position_index']) for r in values],[float(r['legacy_raw']) for r in values],label='Legacy best raw K')
+        ax.plot([int(r['position_index']) for r in values],[float(r['updated_raw']) for r in values],label='Moment-effective best raw K')
+        ax.axhline(0.,color='black',linewidth=.7);ax.set_ylabel(family+' raw K (bits/use)');ax.grid(alpha=.2);ax.legend()
+    axes[-1].set_xlabel('UAV grid position index')
+    fig.savefig(figures/'clear_signed_skr_comparison.pdf');fig.savefig(figures/'clear_signed_skr_comparison.png',dpi=300);plt.close(fig)
+    quantities=('beta_I_AB','chi_BE','SKR');fig,ax=plt.subplots(figsize=(7.16,3.2),layout='constrained');x=np.arange(3)
+    ax.bar(x-.18,[ref['legacy'][k] for k in quantities],.34,label='Legacy')
+    ax.bar(x+.18,[ref['updated'][k] for k in quantities],.34,label='Moment-effective')
+    ax.axhline(0.,color='black',linewidth=.7);ax.set(xticks=x,xticklabels=['beta I_AB','chi_BE','signed raw K'],ylabel='bits/use',title='Matched fixed-source reference decomposition');ax.legend()
+    fig.savefig(figures/'reference_decomposition.pdf');fig.savefig(figures/'reference_decomposition.png',dpi=300);plt.close(fig)
+    fig,axes=plt.subplots(1,2,figsize=(7.16,3.3),layout='constrained')
+    for ax,metric,title in zip(axes,('average_skr_bits_per_use','availability'),('Mean usable SKR','Threshold availability')):
+        values=[r for r in comparison if r['scenario_id']=='0' and r['family']=='MB' and r['metric']==metric]
+        x=np.arange(4);ax.bar(x-.18,[r['legacy_mean'] for r in values],.34,label='Legacy');ax.bar(x+.18,[r['updated_mean'] for r in values],.34,label='Moment-effective')
+        ax.set(xticks=x,xticklabels=['S1','S2','S3','S4'],title=title);ax.legend()
+        if all(r['updated_mean']==0 for r in values):ax.text(.5,.85,'Updated: all zero\nNo mobility gain claimed',transform=ax.transAxes,ha='center',fontsize=8)
+    fig.savefig(figures/'scheme_comparison.pdf');fig.savefig(figures/'scheme_comparison.png',dpi=300);plt.close(fig)
+    full_receipt=saved.read_json(output/'full_receipt.json');mc=saved.read_json(output/'MC_receipt.json');tests=saved.read_json(output/'test_receipt.json')
+    text='# Cập nhật SKR theo mômen fading và heterodyne\n\nNgày 2026-10-16. '+STATUS+'. Không đổi production default.\n\n'
+    text+='## Công thức và audit\n\nTệp thực tế được cung cấp là 2026__Binh_s_work (37).pdf, SHA256 '+saved.read_json(output/'startup_manifest.json')['manuscript_sha256']+'. Trang3 chứa III-A/(11)-(21); biến thể (37)(3).pdf trong task không có trên máy. Bản thảo dùng likelihood vô hướng và conditional eigenvalue homodyne; code giữ complex heterodyne/reverse reconciliation, beta=.95, R=1, xi_det=0. Nguồn kiểm tra heterodyne: Denys–Brown–Leverrier, Quantum5,540(2021), p9, https://quantum-journal.org/papers/q-2021-09-13-540/pdf/.\n\n'
+    text+=r'Đặt $m_1=E[T]$, $m_{1/2}=E[\sqrt T]$, $T_{eff}=m_{1/2}^2$, $V_{fad}=m_1-T_{eff}$. Mômen total-noise hiện có là $m_{\xi,total}=1+\chi_{het}+(\epsilon_{ch}-1)m_1$. Vì nó chứa loss vacuum và detector term, chỉ phần $m_{excess}=m_{\xi,total}-(1+\chi_{het}-m_1)=m_1\epsilon_{ch}$ đi vào excess noise.'+'\n\n'
+    text+=r'Legacy cố ý dùng $N_{old}=T_{eff}\epsilon_{ch}$, $b_{old}=1+T_{eff}(V_A+\epsilon_{ch})$. Updated dùng $N=V_{fad}V_A+m_1\epsilon_{ch}$, $\xi_{eff}=N/T_{eff}$ và $b_{pre}=1+T_{eff}V_A+N=1+m_1(V_A+\epsilon_{ch})$. Vacuum Bob=1 chỉ xuất hiện một lần. Heterodyne likelihood là $CN(\sqrt{T_{eff}}\alpha,1+N/2)$ trên cả hai quadrature; covariance có $\lambda_3=a-Z^2/(b+1)$, không dùng homodyne $\sqrt{a(a-Z^2/b)}$. $Z_-=2m_{1/2}C-\sqrt{2Nw}$, với đúng C,w/ensemble đã xác thực.'+'\n\n'
+    text+='Bộ receiver mới chỉ hỗ trợ ideal heterodyne hiện tại; R≠1/xi_det≠0 bị từ chối rõ, không giả vờ có trusted-detector security đã kiểm chứng. Chi_het=1 là added heterodyne vacuum ở receiver; không đưa nó thành noise Eve-accessible. Phương sai fading không bị giảm để ép SKR dương.\n\n'
+    text+='PDF thô trên[0,1] có retained mass<1. Giữ nguyên luật vật lý đã được author chấp nhận trong repo: active PDF conditioned trên(0,1], giữ atom AoA P0 tại0. Không đổi Eq10, không đổi normalizer hoặc AoA probability. Binary cloud là outage độc lập ở lớp mission, không đưa vào mômen clear-sky; cloud blocked đặt S=0 mà không tính QKD tạiT=0. Tham số vật lý giữ đúng config repo (D_r=.55m, beam_waist='+str(settings['channel']['beam_waist_m'])+'m), không thay bằng mặc định D_r=.08m/divergence233urad ở SectionIV của PDF.\n\n'
+    text+='## Reference và đối chiếu\n\n| Đại lượng, cùng nguồn nu=.17/VA=5.046875 | Legacy | Updated |\n|---|---:|---:|\n'
+    for k in ('mean_eta','T_eff','N_eff','xi_eff','b','I_AB','chi_BE','SKR'):
+        text+=f"| {k} | {ref['legacy'][k]:.12g} | {ref['updated'][k]:.12g} |\n"
+    text+=f"\nFading variance={ref['updated']['fading_variance']:.12g}; Delta_fad={ref['updated']['Delta_fad']:.12g}; m_excess={ref['updated']['m_excess']:.12g}. Raw K được lưu có dấu; usable=max(0,raw).\n\n"
+    text+='Nguồn được tối ưu lại riêng tại100 vị trí bằng toàn bộ197MB và30Uniform exact sources; không dùng lại K legacy. [Clear comparison](clear_legacy_updated.csv) ghi raw/usable K và nu/VA tối ưu của cả hai model theo vị trí.\n\n'
+    text+='## Validation và Monte Carlo\n\n'+str(tests['tests'])+' focused tests PASS; deterministic delta, vacuum/detector accounting, likelihood2D, ensemble identity, batch/scalar/full-product equivalence, physicality, smallT và legacy preservation đều có kiểm tra. Log lỗi đầu tiên được giữ: legacy strict Jensen guard không nhận một số delta do sqrt rounding; dùng các delta binary-exact để đối chiếu và test riêng exact-delta tag ở.16/.5. Không sửa legacy để ép PASS.\n\n'
+    text+='MC chỉ dùng validation, không thay analytic moments chính. Mỗi vị trí0/9/44/90/99 lấy262144 mẫu từ exact physical sampler,16 replication, cùng AoA atom và active conditioning. So m1/mhalf/mxi_total với SE mẫu; so K(MC moments) và K(analytic moments) bằng cùng evaluator, tolerance cố định5SE+1e-6bit. [Mômen](analytical_vs_MC_moments.csv), [SKR](analytical_vs_MC_SKR.csv), [replications](MC_replications.csv).\n\n'
+    diag=mc['instantaneous_diagnostic']
+    text+=f"Tại cùng nguồn reference, moment-effective K={diag['moment_effective_raw']:.12g}; MC trung bình K(T_i)={diag['mean_instantaneous_raw']:.12g} ± SE{diag['mean_instantaneous_raw_SE']:.4g}, còn mean positive-part={diag['mean_instantaneous_positive']:.12g}. Không đồng nhất các đại lượng: K(E covariance) là functional khác E[K(T)], và E[max(K,0)] đòi CSI/postselection/transmit-abstain. Không được coi chúng là bằng chứng bảo mật vận hành.\n\n"
+    text+='## Binary P1–P3\n\nTái sử dụng đúng ma trận cloud cũ và hash generator, cùng16 cấu hình×100 mission,30×20s, constraints, lambda, threshold và DP. Không đổi optimizer hoặc cloud model. [Scheme comparison](scheme_legacy_updated_comparison.csv), [paired differences](paired_updated_minus_legacy.csv), [updated summary](summary_statistics.csv).\n\n'
+    text+=f"Max raw MB={full_receipt['maximum_MB_raw']:.12g}; max raw Uniform={full_receipt['maximum_Uniform_raw']:.12g}. All MB usable zero={full_receipt['all_MB_usable_zero']}; all Uniform usable zero={full_receipt['all_Uniform_usable_zero']}. Nếu mọi usable rate bằng0 thì không có mobility SKR gain; relative improvement so reference0 để trống, không báo phần trăm giả.\n\n"
+    text+='## Trả lời các câu hỏi bắt buộc\n\n- Vì sao trước đây thiếu fading variance? Đó là nhánh diagnostic có chủ ý effective_channel_no_fading_noise (EVID0183/DEC0166), dùng để cô lập ảnh hưởng variance, không phải đầy đủ fading security.\n- Hiện variance được đưa vào thế nào? Qua V_fad*VA trong N, cùng mean_T*xi_ch; cùng N đi vào MI, Z-minus và covariance.\n- Noise có tính đúng một lần? Có trong phạm vi ideal heterodyne: tách mxi_total khỏi vacuum/detector trước khi lập b_pre; measurement added vacuum chỉ ở likelihood và b+1.\n- Receiver còn heterodyne? Có; complex two-quadrature likelihood và heterodyne Schur complement giữ nguyên. Không chuyển sang homodyne của manuscript.\n- Vì sao khác kết quả Monte Carlo? Moment matching và average instantaneous rates là hai functional khác nhau; còn postselection và sampling uncertainty phải báo riêng. Xem diagnostic matched-source mới, không ghép số lịch sử khác nguồn/cấu hình.\n- Có positive SKR với cấu hình gốc? Xem max signed rates và toàn bộ catalog ở trên; không chỉnh vật lý hoặc noise để ép dương.\n- Đủ publication chưa? Chưa. Đây là xấp xỉ Gaussian moment-matched; conditional likelihood thật của fading không Gaussian/homoscedastic, security/CSI/block-bin estimation và finite-size proof chưa được thiết lập. Direct Z-minus giữ đúng scope được yêu cầu, không tuyên bố chứng nhận full interval hay global continuous optimum.\n\n'
+    text+='## Files và interfaces\n\nMới: src/fading_effective_skr.py (effective_channel, heterodyne_likelihood, evaluate_candidate/evaluate_batch), scripts/run_fading_effective_binary_cloud.py (reference, monte_carlo, full, verify, report), configs/fading_effective_binary_cloud.json và tests/test_fading_effective_skr.py. Cập nhật docs/FADING_EFFECTIVE_SKR_REPORT_VI.md cùng Evidence/Decision/ProjectState/NextActions/Handoff theo receipt. Các source/kernel/config legacy, shared caches, binary generator/DP và mọi kết quả trước task đều giữ nguyên. Không đổi production default, training/test dataset access, publication evaluation, commit hoặc push.\n\n'
+    text+='Run stages bằng .venv-binary-cloud/Scripts/python.exe -X utf8 -B scripts/run_fading_effective_binary_cloud.py --stage reference|mc|full|verify|report. Mỗi stage tính số từ chối ghi đè khi đã hoàn tất; journal mới resume chỉ cùng producer/input identity. Tất cả kết quả trong namespace riêng fading_effective_binary_cloud_20261016; không sửa Downloads manuscript.\n'
+    (output/'FADING_EFFECTIVE_REPORT_VI.md').write_text(text,encoding='utf-8',newline='\n')
+    canonical=text.replace('](clear_','](../results/fading_effective_binary_cloud_20261016/clear_')
+    import re
+    canonical=re.sub(r'\]\((?!https?://|\.\./)([^)]+)\)',r'](../results/fading_effective_binary_cloud_20261016/\1)',text)
+    (ROOT/'docs/FADING_EFFECTIVE_SKR_REPORT_VI.md').write_text(canonical,encoding='utf-8',newline='\n')
+    saved.save(output/'report_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',figures=3,scientific_status=STATUS,
+        report_sha256=saved.digest(output/'FADING_EFFECTIVE_REPORT_VI.md'),canonical_report_sha256=saved.digest(ROOT/'docs/FADING_EFFECTIVE_SKR_REPORT_VI.md'),
+        output_sha256={p.relative_to(output).as_posix():saved.digest(p) for p in figures.iterdir() if p.is_file()},
+        protected_changes=protected(output),producers=producer_hashes()))
+    print('REPORT_COMPLETE',flush=True)
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--stage',required=True,choices=('reference','mc','full','verify','report'));parser.add_argument('--output',type=Path,default=DEFAULT)
+    args=parser.parse_args();output=args.output.resolve()
+    import torch
+    torch.set_num_threads(1)
+    try:{'reference':reference,'mc':monte_carlo,'full':full,'verify':verify,'report':report}[args.stage](output)
+    except Exception as error:
+        saved.save(output/(args.stage+'_failure.json'),dict(status='FAILED',stage=args.stage,error=str(error),producers=producer_hashes()));raise
+
+
+if __name__=='__main__':main()

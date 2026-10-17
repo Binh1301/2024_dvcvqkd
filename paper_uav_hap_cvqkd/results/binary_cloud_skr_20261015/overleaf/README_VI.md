@@ -1,0 +1,1 @@
+Upload toàn bộ thư mục này lên Overleaf; chọn main.tex. Cần IEEEtran, graphicx, amsmath, amssymb và url. Đây là kết quả minh họa sơ bộ, không phải chứng nhận bảo mật fading. Hai cỡ hình single/double được lưu; mặc định dùng single.

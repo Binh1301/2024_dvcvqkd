@@ -1,55 +1,41 @@
 # Session Handoff
 
-2026-10-14 EVID-0188/DEC-0171. IEEE Numerical Results package COMPLETE; STOP.
-Branch channel/update; HEAD 84bf84dc3862b6cb51fa368f7e481459845ffb98 unchanged.
-No commit/push. Root path results/mobility_numerical_results_package_20261014/.
-Deliver NUMERICAL_RESULTS_REPORT_VI.md, numerical_results_section.tex,
-overleaf_numerical_results.zip, figures/ and the two tables/plot_data CSV.
-Zip includes 48 byte-verified members with relative Overleaf paths; external
-Downloads manuscript was not edited. TeX needs IEEEtran, graphicx, amsmath.
-Compilation BLOCKED_BY_ENVIRONMENT (no pdflatex/latexmk/tectonic); lexical
-structure/math/paths checked, manuscript page layout not verified.
+2026-10-17 EVID-0193/DEC-0176. Full numerical geometry/fading/SKR audit COMPLETE;
+5 strict comparison failures retained and diagnosed. STOP. Branch cloud/implement,
+HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec unchanged. No commit/push.
 
-Reused protected MB 39400 records (100 positions, 197 authenticated sources,
-2 states), no rerun. Computed only missing Uniform 6000 records (own 30 sources,
-200 states) after original 15 + 10 new tests and Uniform 30-evaluation smoke.
-Uniform receipt: 6000 new, zero cache hits. No new C,w/AP/AO/MC, interpolation,
-or scientific kernel edit. Independent keys/maxima/covariance spectrum/entropy,
-grid/speed/summary/cumulative checks pass. GH16/32 winners agree at 200 states.
-All 3496 old protected hashes unchanged, original 15-test source unchanged.
+Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and
+results/full_geometry_fading_skr_audit_20261017/. New diagnostic scripts only:
+scripts/probe_full_geometry_runtime.py and scripts/audit_full_geometry_fading_skr.py.
+Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B. No pending numerical run.
 
-MB mean S1/S2/S3/S4=.033503391695769096/.05349345891657229/
-.061883253712551226/.061041913501481276 bits/use; flight 0/0/
-2323.606797749979/600 m. S4 lambda=.001, objective .06044191350148127:
-98.64043960103005% SKR retained, 74.17807519839421% less flight versus S3.
-Uniform means=.0024459741451799003/.004525533061950683/
-.005221740888377324/.0049276200583754405. Fig7 uses independent stationary
-and lambda0-moving Uniform/MB optima; different finite source banks and selected
-energy mean this is joint adaptation gain, not matched-energy PS isolation.
+Runtime reference confirms Dr.55/radius.275/full-angle10urad/w0.0986760647.
+Default.yaml has Dr.08/theta223urad; binary overrides win. CaseB explicitly uses
+233urad old manuscript, not223. FreshA equals saved complete physical state and
+old/new reference SKRs have residual0.4 states/8 production SKRs recomputed;
+no objective cache use, source builds or full catalog/missions.
 
-Seven figures x single/double sizes: 14 vector PDFs + 14 PNGs at 300dpi.
-All PNG layouts visually reviewed; Fig1 inverse-ray cloud footprints retain
-altitude distinction, Fig2 legend outside data, Fig3 C=sum(S)/Nt (no f_use),
-Fig4 eight discrete points, Fig6 S2/S4 exact source steps. Current exports are
-bound by package/final/completion receipts; preparation and first-export/repair
-receipts are historical stage snapshots with preserved earlier output bytes.
-Optional 5 fixed scenarios x5 speeds x4 schemes=100 cached-state DP comparisons,
-no new SKR/MC; mean/SD descriptive. Tables I/II use actual config and distinguish
-average SKR/penalized objective/positive-slot availability/flight distance.
+Independent70dps geometry/HV/Gd/PDF CF+quadrature through same exact source to
+independent MI/Holevo uses no production numerical helper for validation.
+94 strict comparisons:89 PASS,5 FAIL retained. Main difference comes from
+mu2 quad in src/channel/pointing_error.py:124-136 (epsabs1e-18 at mu2~5e-14).
+Original5.0349262917105936e-14, MP5.0349262957777165e-14; difference4.067e-23
+is inside reported quadrature uncertainty.18 follow-up causal/metric/AoA checks
+pass. Reusing originalmu2 only reconstructs runtime all4 cases. D xi_f absolute
+residual5.157e-9 is relative2.184e-11, K residual~9e-15; no tolerance widening.
 
-fading_omission_audit.csv records omitted (mean_eta-T_eff)VA and the additional
-(mean_eta-T_eff)xi_ch noise difference; no full-fading MI/Holevo run. Modules
-exist, but cached mixture precision/security/source-snapshot prerequisites remain
-unresolved (15 later MB sources outside old corrected snapshot). All primary
-results remain PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE. Preserve
-Eq10/physical PDF/three moments/exact C,w/direct-Z kernels and all old modes/results.
-Do not claim exact fading security, finite-size key yield, physical propulsion
-energy or global continuous optimum. Frozen actual df83ea63...78c15 differs from
-historical 561fecc...a7b1; NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C
-USER_STOPPED remain. No training/test dataset access, held-out/final-test or
-publication evaluation, baseline/threshold approval, automatic rerun or commit/push.
+Runtime m1=.23790886783673015, independent.2379088678213789. Independent ideal
+K=-.7461405272043098 vs runtime-.74614052719539 (delta-8.92e-12), trusted
+-.4528722259878813 vs-.4528722259826575 (delta-5.22e-12).8 physical bounds pass.
+OnlyA(.55,10urad) givesm1~.2379;B(.08,233urad)~.000264034,
+C(.55,233urad)~.0123923,D(.08,10urad)~.000647763. No actual configuration mix.
 
-Latest saved-data verifier exited0, CURRENTLY_VERIFIED_PASS; no evaluation
-controller pending. Do not rerun prepare or export helpers into this completed
-namespace. Finish delivery, STOP, await a new explicit task. Preserve pre-existing
-dirty worktree; startup_manifest.json contains the pre-task status and doc bytes.
+Artifacts: validation_receipt.json, independent_geometry_audit.json (raw strict
+FAILs), quadrature_precision_diagnosis.json, runtime_probe.json, audit_summary.json,
+configuration_sensitivity.csv and full equation/numerical substitutions in report.
+All4127 protected old files unchanged. No production/source/config/cache/frozen
+spec edit. Optional future mu2 scaling/tolerance refinement only proposed;
+wait for separate user confirmation, do not fix automatically. Keep
+UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen mismatch/ObjectiveC USER_STOPPED.
+No source/AP/AO/full22700/1600mission/P1-P3/training/test/publication/baseline or
+threshold approval/external manuscript edit/commit/push. Deliver and STOP.

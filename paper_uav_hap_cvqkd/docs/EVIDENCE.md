@@ -8865,3 +8865,371 @@ finite-size key-yield, physical propulsion-energy or continuous/global optimum.
 NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen-hash mismatch and Objective C
 USER_STOPPED persist. External manuscripts, baseline/threshold approval, old
 scientific caches/results are unchanged. STOP after delivery.
+
+
+## EVID-0189 preparation: correlated binary-cloud diagnostic, 2026-10-15
+
+Explicit user approval of the reviewed implementation plan. New isolated modules,
+config, runner, verifier, exports and tests are being prepared.
+results/binary_cloud_skr_20261015/startup_manifest.json binds branch cloud/implement,
+HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec, 3639 pre-existing files and the
+pre-existing deleted diagnostic JSON. Frozen actual SHA256 df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15
+still differs from the historical AGENTS value; no frozen specification is changed.
+Initial real-cache integration checks find 19700 MB/3000 Uniform clear-only rows,
+zero physical-moment residual and valid covariance/entropy. Historical artifacts
+remain read-only, and LF/CRLF aliases require proven byte equivalence. Final tests,
+audit/smoke/full experiment and exports are pending; no completion claim yet.
+Only synthetic correlated binary complete blockage and finite-catalog/grid diagnostics
+are authorized; no source generation/AP/AO, training/test datasets, held-out/final-test,
+publication evaluation or security/lifecycle promotion.
+
+EVID-0189 preflight: test_receipt.json records23 CURRENTLY_VERIFIED_PASS tests
+(20 new plus3 existing normalization), current producer hashes and actual log.
+audit_receipt.json verifies22700 clear-source rows,200 P1 GH16/32 winners,
+exactly preserved physical moments and512x64 independent cloud statistical
+fixture. smoke_receipt.json verifies30 fresh clear evaluations against cache.
+All3639 old hashes unchanged. Full synthetic missions are now permitted by
+DEC-0172; no publication/security lifecycle promotion follows.
+
+
+## EVID-0189 completion - binary-cloud diagnostic and IEEE exports, 2026-10-16
+
+CURRENTLY_VERIFIED_PASS for the approved isolated implementation and numerical/export
+scope. results/binary_cloud_skr_20261015/completion_integrity_receipt.json binds the
+actual startup/input/audit/test/smoke/experiment/final/export/visual receipts and ZIP.
+23 primary tests (20 new plus3 unchanged normalization) and3 verifier regression
+tests pass. Cloud audit uses512 independent64-slot missions, independent of the
+100-per-configuration experiment seeds. Exact full clear-only coverage is19700MB
+and3000Uniform rows; source payload/ensemble identities, historical objective keys,
+raw/LF/CRLF aliases, common MI/Holevo ensemble and200 P1 maxima were verified.
+No cloud-attenuated old row was imported. Fresh30 clear smoke evaluations match
+stored SKR with zero residual. No source moments, AP/AO or P1 rerun was needed.
+
+16 scenarios x100 missions,30x20s slots, total1600 mission simulations completed;
+common innovations pair configurations, so independent sampling is per mission
+within each configuration. Full verification replays1600 cloud matrices and checks
+all7600 Bellman objective profiles independently of the trajectory solver. Speed,
+stationary/P1 maxima, threshold availability, zero-blockage rates, statistics and
+paired contrasts pass. Plot-data checks1684, vector/DPI/width checks14PDF/14PNG,
+30 byte-verified Overleaf archive members and visual review of14 main PNG layouts
+plus the extra clear-sky map pass. All3639 protected old files remain unchanged.
+Maximum spectrum/entropy residuals2.220446049250313e-14/1.8207657603852567e-14.
+
+Default MB mean S1/S2/S3/S4=.0341053753030758/.061241610834007816/
+.06319356562032614/.06310392183668584 bits/use. Mean flights0/0/
+1417.5250281102574/216.48214515945114m. S4 retains99.85814412787072%
+of S3 mean SKR with84.7281606415056% less mean flight (ratios of means).
+Default Uniform means=.0026630543505646166/.005149801725585259/
+.005432029394342155/.005351439300641405. Own exact finite source banks and
+selected energies differ; this is joint source/position adaptation, not isolated
+matched-energy shaping gain. S2 is selected per mission with full future cloud
+knowledge; it is not one location frozen for independent future missions.
+
+The first independent verification rejected one symmetric stationary-index tie:
+C/F-contiguous summation differs by1.3877787807814457e-17 bits/use. The verifier
+now accepts stationary maximality within8ULP, while three regression tests reject
+genuinely suboptimal/nonstationary paths. No solver/result changed. First failure,
+reconciliation and original export versions remain preserved. Export-only repairs
+fix Fig1 tick clipping, Fig2 legend overlap and the extra diagnostic title.
+All scientific output hashes are unchanged by those repairs.
+
+Report docs/BINARY_CLOUD_SKR_REPORT_VI.md and exported NUMERICAL_RESULTS_REPORT_VI.md.
+LaTeX compilation BLOCKED_BY_ENVIRONMENT (no pdflatex/tectonic); manuscript page
+layout NOT_RUN. Scientific status remains
+PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE. Fading variance/security,
+finite-size/operational key yield and continuous/global optimum are not established.
+Old optical/MI/Holevo kernels, frozen specifications, source caches and geometric
+cloud results are unchanged. No training/test dataset access, publication evaluation,
+production baseline/threshold approval, ObjectiveC restart, external manuscript edit,
+commit or push. NOT_READY_FOR_PUBLICATION_SCALE_RUNS and frozen discrepancy remain.
+Task complete; STOP after delivery.
+
+
+## EVID-0190 preparation - moment-effective heterodyne evaluator, 2026-10-16
+
+Explicit user task authorizes a separate fading-effective evaluator, existing
+exact sources/physical moments, staged deterministic/MC tests then matched
+binary P1-P3 comparisons. results/fading_effective_binary_cloud_20261016/
+startup_manifest.json protects3954 pre-existing files, including prior binary
+results/code; frozen actual hash remains df83ea63...78c15. PDF supplied is
+(37).pdf SHA2560ea5d889ccd678de92a1a1a70b424af918794eac2e7f98106cbc5f785a43146b;
+the requested (37)(3) variant is absent. Page3 visually verifies Eq11-21 and
+its homodyne/total-noise discrepancies. model_audit.json records exact old/new
+formulas; reuse corrected effective_fading_channel, not raw total noise as excess.
+
+17 current tests PASS (14 focused plus3 unchanged normalization). Reference
+receipt passes deterministic binary-exact delta reduction and30 new clear/small
+binary evaluations. Fixed reference same nu.17/VA5.046875 changes rawK
++.0587348598790054 to-.7461405271953896; Delta_fad=.3885517238141117.
+No Cw/source/kernel/physical law changes or production-default switch.
+MC validation and full new-model catalog/mission comparisons remain pending.
+Initial test guard/sampler-budget and provenance-variable errors are preserved;
+legacy guards/caps unchanged, chunked validation only.
+
+EVID-0190 validation gate: MC_receipt.json CURRENTLY_VERIFIED_PASS for
+1310720 physical samples (5positions x262144,16replications each) plus512
+instantaneous-rate diagnostic samples. All15 moment checks and5 same-evaluator
+K comparisons pass prospective5SE bounds; analytical moments stay primary.
+Sampler calls are bounded4096 chunks under unchanged legacy workload caps.
+No trusted detector/model or source changes. Full new-model catalog and matched
+mission comparison are now permitted by DEC-0173.
+
+
+## EVID-0190 completion - effective fading-moment heterodyne comparison, 2026-10-16
+
+CURRENTLY_VERIFIED_PASS for scoped numerical/software consistency only, supported
+by results/fading_effective_binary_cloud_20261016/completion_integrity_receipt.json.
+New evaluator reuses effective_fading_channel: Teff=mh^2, Vfad=m1-Teff,
+N=Vfad*VA+m1*xi_ch, b_pre=1+m1*(VA+xi_ch). Existing mxi_total contains loss
+vacuum and heterodyne added vacuum, so m_excess=mxi_total-(1+chi_het-m1).
+Ideal heterodyne R1/xi_det0, beta.95, exact Cw/direct Zminus and complex GH8/16/32
+MI remain. Conditional lambda3=a-Z^2/(b+1), not manuscript homodyne expression.
+The physical active-conditioned(0,1] law and AoA atom are unchanged; cloud outage
+is a separate mission mask. Normalization/receiver-version discrepancies are
+explicit in model_audit.json and docs/FADING_EFFECTIVE_SKR_REPORT_VI.md.
+
+17 tests pass (14 new scientific regressions plus3 unchanged normalization).
+MC validation uses1310720 physical samples, 5positions x262144,16replications,
+under unchanged sampler caps with4096 chunks; all15 moment checks and5 K checks
+pass prospectively fixed5SE tolerances. Maximum moment z=.9550562585503326.
+At fixed nu.17/VA5.046875, K_analytic=-.7461405271953896 and pooled-MC-moment
+K=-.7449167771963204 (replicationSE .0007633000478619446). Deterministic reduction,
+zero-transmission short circuit, two-quadrature normalization, same-ensemble,
+full/product/batch/scalar consistency, physicality and smallT tests pass.
+
+Reference legacy rawK=.0587348598790054 -> updated-.7461405271953896;
+Vfad=.0769885768548085, Delta_fad=.3885517238141117,
+N=.39297682875587486, xi_eff=2.44205889983149, b=2.2051214223052606,
+I=.4215725849611287, chi=1.1466344829084618. Full22700 clear evaluations are
+new-model computations (197MB/30Uniform x100 positions); zero legacy K reuse,
+zero newCw/AP/AO. All200 P1 maxima/physically valid covariances and7600 Bellman
+profiles over the same1600 mission/cloud schedules pass independent verification;
+max spectrum/entropy residual2.6645352591003757e-14/1.8263168755083825e-14,
+numerical repair rows0. All3954 pre-existing protected files remain unchanged.
+
+Every finite-catalog/grid usable rate is zero. Maximum rawMB=-.02794200849103555,
+Uniform=-.027593717758446212. Updated S1-S4 mean usable rate/availability/returned
+flight are all0 for both families. Positive-lambda DP stays stationary; lambda0
+paths are tied, so the selected zero-flight path is not a physical efficiency claim.
+Raw negatives and least-negative catalog source choices remain in CSV; relative
+improvements over zero reference are undefined. No mobility SKR gain is claimed.
+
+The separate512-state fixed-source oracle diagnostic has meanK(T)=.16566320906524937,
+SE=.011258341084902543; positive-part mean is the same for these samples, with0
+negative samples and0 observed AoA events. This is not K(averaged covariance).
+At matched historical nu.165/VA5.5, current Gaussian K=-.7935920796633524
+reproduces the stored Gaussian branch within8.9e-16; stored pooled-mixture MC
+K=-.7775890147353646 has MI SE=.019468676410223464 and did not meet its precision
+gate. That historical MC was not rerun or promoted to current mixture validation.
+
+New results include comparison tables, raw catalog, MC decompositions, matched
+trajectories/statistics,3 reviewed PNG/vectorPDF figures and Vietnamese report.
+A layout-only postprocessor corrects legend/annotation overlap and adds audited
+optimized-source/historical-MC tables without touching numerical producer identity.
+Initial deterministic-legacy sqrt guard, sampler budget call and reference metadata
+errors are preserved; all are resolved without changing legacy guards/caps/model.
+One transient checkpoint file lock was resumed from the exact-input journal;
+no failed point was dropped and no source/kernel/scientific change was made.
+
+Status PRELIMINARY_MOMENT_MATCHED_GAUSSIAN_FADING_APPROXIMATION. True pooled-fading
+likelihood, rigorous approximation/error enclosure, operational fading/CSI/bin
+security and finite-size proof remain unestablished. Nonideal/trusted detector
+security remains unsupported, explicitly rejected. Production default, physical
+model/source caches, old evaluators/results/cloud generator/DP, frozen specifications,
+publication lifecycle and Objective C stop remain unchanged. No training/test dataset
+access, publication evaluation, production baseline/threshold approval, external
+manuscript edit or commit/push. Task complete; STOP after delivery.
+
+
+## EVID-0191 preparation - channel-only moments and trusted heterodyne, 2026-10-16
+
+Explicit user attachment bb825b02 authorizes audit/correction, independent tests,
+reference/small validation then matched finite-catalog P1-P3 only after numerical
+gates pass. results/trusted_heterodyne_skr_20261016/startup_manifest.json protects
+4042 old files. baseline_receipt.json:40 existing tests PASS before changes.
+noise_audit.json distinguishes historical literal total-noise misuse from the
+already-correct ideal moment evaluator; the missing feature is nonideal trusted
+receiver Holevo. Current binary config remains ideal; legacy corrected config
+R=.7/xi_det=.0135 is used only as an explicitly labeled detector diagnostic.
+Available manuscript(38).pdf differs from requested(38)(3); page3 visually checked.
+Hosseinidehaj v1 Eq4-7/AppendixA verified by primary web text; raw PDF unavailable.
+Frozen historical mismatch and NOT_READY remain. No default/source/kernel edits,
+AP/AO, training/test datasets, publication or ObjectiveC restart.
+
+EVID-0191 gate:71 current scoped tests PASS (14 new A-K plus57 regression);
+validation_receipt.json passes60 small evaluations and327680 fresh physical
+samples across5 positions/16 blocks each,15 channel-only moment checks.
+Reference primary raw=-.74614052719539; trusted diagnostic R.7/xi_det.0135
+raw=-.4528722259826575. Same channel-only moments/Wpre/Z in both cases.
+The low-SNR test exposed entropy-difference MI cancellation; expm1/log1p
+GH regrouping with antithetic nodes resolves it without changing likelihood.
+Appendix A covariance and independent AB purification agree. Near unit efficiency
+with electronic noise, ill-conditioned thermal ancilla is replaced by its
+equivalent finite purification; no tolerance relaxation or Z clipping.
+Finite matched primary catalog/P1-P3 numerical regression now permitted byDEC0174.
+
+
+## EVID-0191 completion - explicit channel-only moments/trusted heterodyne diagnostic
+
+CURRENTLY_VERIFIED_PASS for numerical/software scope, supported by
+results/trusted_heterodyne_skr_20261016/completion_integrity_receipt.json
+and final_validation.json. Separate src/trusted_heterodyne_skr.py uses
+m_xi=E[eta xi_ch], N=(m1-mh^2)VA+m_xi, Wpre=1+m1VA+m_xi and
+Z=2mhC-sqrt(2wN). Detector eta_B/nu_B are separate; chi_line/chi_tot
+never enter Wpre/Z. Complex discrete MI gain sqrt(eta_B Teff), noise
+1+nu_B+eta_B N/2. Trusted Holevo has AppendixA AFG conditioning,
+independent AB-purification check and finite ideal/additive-noise limits.
+Existing ideal moment evaluator was already correct; missing trusted
+nonideal support is added without rewriting historical literal modes.
+
+40 pre-change tests and71 current scoped tests PASS, including14 new A-K
+tests. Independent166 covariance boundary checks extendVA to1e-12;
+max Appendix/purification residual2.4868995751603507e-14. Five positions
+x65536 physical samples/16 blocks each give15 channel-only MC checks
+within prospective5SE+1e-10;60 small evaluations pass. Initial low-SNR
+MI cancellation is fixed by expm1/log1p of the same GH integral; singular
+thermal ancilla uses equivalent finite purification, without relaxing
+tolerance or clipping Z/covariance. Initial failures remain traceable.
+
+Recomputed22700 primary-ideal clear evaluations, zero legacyK reuse/newCw.
+Independent200 P1 maxima,1600 matched missions and7600 Bellman profiles
+PASS. Max ideal old/new difference4.574118861455645e-14. Catalog maxima
+rawMB=-.027942008491032552, Uniform=-.027593717758446365; all usable0.
+S1-S4 mean/availability/returned distance0; lambda0 tied paths imply
+no unique physical trajectory/mobility gain. Cloud matrix/seed/config and
+P1-P3 unchanged. No full nonideal catalog: primary config remains eta_B1/nu_B0.
+At reference nu.17/VA5.046875, corrected ideal K=-.74614052719539;
+explicit R.7/xi_det.0135 diagnostic K=-.4528722259826575, sameWpre/Z.
+All4042 protected pre-task files keep their hashes. No source/AP/AO or old
+code/cache/result edits. Report docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md
+includes full old/new/alternate reference decomposition and noise function map.
+
+Every new result remains UNVALIDATED_SECURITY_MODEL. Correct Gaussian
+detector equations do not prove DM fading Gaussian-surrogate MI or
+Denys/trusted covariance composition, finite-size/composable or operational
+security. New diagnostic receiver functional only; production default,
+production security functional, frozen model, source kernels and physical
+probability law preserved. Frozen mismatch/NOT_READY/ObjectiveC STOP remain.
+No training/test dataset access, publication evaluation, baseline/threshold
+certification, external manuscript edit or commit/push. Deliver and STOP.
+
+
+## EVID-0192 preparation - independent physical audit of negative SKR
+
+2026-10-17 explicit user attachment d36a98d1 authorizes audit-only reference
+call graph/provenance, independent MI/Holevo/entropy-bound calculations,
+finite limits and report. results/negative_skr_independent_audit_20261017/
+startup_manifest.json protects4094 existing files. No production/source
+changes or full P1-P3 allowed. production_probe.json records32 fresh bounded
+SKR calls for2 exact cached sources/2 detectors/reference and fixed-channel
+limits. Historical producer/result receipts match; reference residuals0.
+actual_call_graph.json confirms src/trusted_heterodyne_skr.trusted_holevo
+and discrete deterministic_mutual_information product GH8/16/32 execute,
+not a stale SKR cache. Independent script imports no production numerical
+helpers. Numerical/physical audit outcome pending. Frozen mismatch and
+NOT_READY remain; no AP/AO/source generation, training/test or publication.
+
+
+## EVID-0192 completion - independent negative-SKR physical audit
+
+2026-10-17 CURRENTLY_VERIFIED_PASS for the bounded independent physical/numerical
+scope, supported by results/negative_skr_independent_audit_20261017/validation_receipt.json
+and docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md. Independent script imports no
+production numerical helpers. Fresh32 production probes confirm the actual
+trusted_heterodyne_skr call graph and prior input/producer/source hashes; no
+cached SKR is reused as a fresh computation. Exact C,w/ensembles authenticated,
+with independent binary64 ensemble/payload hash reconstruction for both sources.
+
+213 checks PASS (201 main,5 self,7 supplemental), including40 physical entropy-bound
+cases with0 actual HOLEVO_PHYSICAL_ENTROPY_BOUND failures. Reference mean_eta is
+.23790886783673015, not order1e-4; Wpre=2.2051214223052606 and upper2S(B1)=
+3.061425978931402. Independent S(AB)=3.6675057447539796; ideal conditional entropy
+2.520871261845518 gives chi1.1466344829084623, I=.4215725849611298 and
+rawK=-.7461405271953889. Trusted(.7,.0135) conditional2.9121493060753423 gives
+chi=.7553564386786374, I=.3184044344168209, rawK=-.4528722259826576.
+Both satisfy the physical upper bound with a large margin. Fading contributes
+98.8739527071424% of effective output excess at this reference.
+
+Independent70-digit closed/matrix symplectic calculations, explicit AppendixA
+AFG blocks and two numerical discrete MI integrations agree with production:
+max compared difference9.076073226310655e-15; direct2D/adaptive MI difference
+3.9898639947466563e-16; conditional-matrix max difference4.440892098500626e-16.
+Independent PDF integration reproduces current active-conditioned law/AoA moments;
+no normalization/model change. Fixed T1e-2..1e-6/0, pure loss, coherent vacuum,
+VA->0 MI, both exact sources and trusted->ideal limits pass. Raw70-digit zero-case
+residuals and the initial diagnostic-export TypeError are preserved. A deliberately
+mixed small-moment/large-Holevo fixture is correctly rejected, not a failure of the
+actual configuration. No tolerance widening or Holevo/MI clipping to force PASS.
+
+No production formula bug is established at the audited points. Passing necessary
+entropy bounds is not proof of true fading MI/security. General Denys constraint
+algebra is consistent with independent phase-tracked fading under stated assumptions;
+full-Z worst case, Gaussian-surrogate MI lower bound/trusted DM composition and
+operational/finite-size/composable security remain UNVALIDATED_SECURITY_MODEL.
+All4094 protected existing files are unchanged. No production/source/config edits,
+new Cw/AP/AO, full catalog/P1-P3, training/test access, publication evaluation,
+production baseline/threshold certification, external edit, commit or push.
+Frozen discrepancy/NOT_READY/ObjectiveC USER_STOPPED remain. Audit complete; STOP.
+
+
+## EVID-0193 preparation - full geometry/fading/SKR audit
+
+2026-10-17 user attachment b8e5bb91 explicitly authorizes audit-only runtime
+configuration tracing, independent geometry/PDF/moments and fixed-source SKR
+for four Dr/divergence combinations. results/full_geometry_fading_skr_audit_20261017/
+startup_manifest.json protects4127 existing files. Runtime probe freshly rebuilds
+4 channel states and8 SKRs; A uses binary overrides Dr.55/beam waist.0986760647,
+not default.yaml Dr.08/theta223urad. Requested old-manuscript diagnostic uses233urad
+explicitly. FreshA equals the historical saved physical state and both reference
+SKRs have zero old/new residual. No geometry-deficient objective cache reused.
+Independent geometry/PDF calculations pending; no production, source, config,
+AP/AO, full catalog/mission/optimizer, training/test/publication or commit/push.
+
+
+## EVID-0193 completion - full numerical geometry/fading/SKR audit
+
+2026-10-17 audit COMPLETE with5 strict numerical comparison FAILs retained,
+not an all-checks PASS. See results/full_geometry_fading_skr_audit_20261017/
+validation_receipt.json and docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md (A-I).
+CONFIGURATION_MATCH_CONFIRMED: reconstructed runtime Dr.55m, radius.275m,
+full-angle10urad, w0=.0986760647169751m. Default.yaml remains Dr.08/theta223urad;
+old-manuscript233urad is a separate diagnostic. Explicit binary overrides win.
+FreshA physical state equals the saved state; both old/new reference SKRs have
+zero residual.4 hardware cases x2 receivers are freshly evaluated, no objective
+cache reuse/source builds/full catalog/missions. Geometry fingerprints and
+arguments/return objects are recorded. No physics environment override path.
+
+Independent70dps primitive-to-geometry/HV/Gd/PDF derivation and independent
+quadrature reproduce same law. Raw sigma_R2 used, aperture-averaged v_sc not
+used by active Literal PDF. Unbroadened pointing metadata A0/weq differs from
+active from_physical recomputation using w_eff; both branches are identified.
+RawA PDF retained total mass=.98412002722, active normalization=.98411732944;
+conditioned current law preserves AoA atom. Raw Eq19 alone does not produce
+conditioned m1. Source Cw and ensemble hash remain exact/authenticated.
+
+94 initial comparisons:89 PASS,5 FAIL, unchanged. Independent high-precision
+A m1=.2379088678213789 versus runtime .23790886783673015 (delta=-1.535124805052135e-11).
+Root: src/channel/pointing_error.py:124-136 mu2 quad epsabs1e-18 at integral~5e-14.
+Original mu2=5.0349262917105936e-14 vsMP=5.0349262957777165e-14; difference
+-4.067122899811768e-23 is inside original error estimate2.381899496662549e-19.
+Diagnostic tighter quadrature=5.034926295777721e-14. Gd delta=2.4221669808754953e-11.
+Substituting only original mu2 in independent equations reconstructs all4 runtime
+moment sets within1e-13.18 causal/metric/AoA checks pass; original5 FAILs are not
+relabeled. D xi_f absolute delta5.157e-9 is relative2.184e-11; signed K delta~9e-15.
+
+A independent idealK=-.7461405272043098 versus runtime-.74614052719539, difference
+-8.919753824443433e-12; trustedK=-.4528722259878813 versus-.4528722259826575,
+difference-5.2238213754662866e-12. All8 entropy bounds/physical covariances pass.
+Fading output fraction98.87% remains correct. No noise/MI/Holevo error explaining
+the negative sign is established. At same fixed source, independent m1 forB/C/D
+is.00026403393702785954/.012392337848559115/.0006477631989111676; onlyA gives.2379089.
+
+Verdicts are scoped: CONFIGURATION_MATCH_CONFIRMED; MOMENT_MISMATCH for strict
+high-precision vs finite-quadrature comparison; NUMERICALLY_CONSISTENT for explicit
+CF/quadrature/noise/MI/Holevo/signed-SKR checks within quantified errors;
+UNVALIDATED_SECURITY_MODEL. No generic numerical/security PASS. Optional future
+mu2 scaling/tolerance refinement is proposed only, not applied. All4127 protected
+old files unchanged; production/source/config/frozen specs/defaults untouched.
+No source/AP/AO, full22700/1600mission/P1-P3, training/test/publication, baseline/
+threshold certification, ObjectiveC restart, external edit or commit/push.
+Frozen historical mismatch/NOT_READY remain. Deliver audit and STOP.

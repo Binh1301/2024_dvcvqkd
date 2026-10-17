@@ -1,0 +1,40 @@
+{
+  "status": "COMPUTED_PENDING_INDEPENDENT_VERIFICATION",
+  "scientific_status": "PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE",
+  "scenarios": 16,
+  "missions_per_scenario": 100,
+  "missions": 1600,
+  "DP_calls": 7600,
+  "source_candidates": {
+    "MB": 197,
+    "Uniform": 30
+  },
+  "clear_rows_reused": 22700,
+  "new_P1_evaluations": 0,
+  "elapsed_seconds": 34.924093300000095,
+  "new_source_moments": 0,
+  "blocked_QKD_evaluations": 0,
+  "cloud_RNG": "PCG64 SeedSequence([20261015,realization_id]); common innovations across configurations",
+  "time_series_scope": "Default scenario realization 0 only; all mission paths/cloud matrices preserved in NPZ",
+  "producers": {
+    "src/binary_cloud.py": "54a71c982a4f0df66166b3480df1642dea9a708ba34af1580276aab311444e21",
+    "src/binary_cloud_skr.py": "ecf6beac570a6095b48142aa8397d795f7e0eb317541e0ae9a2eddbfd005f893",
+    "scripts/run_binary_cloud_skr_experiment.py": "e77cdcc5c9caf9aa5b72944675c18adb7eb56d18c6262d3d16f31091d2d25deb",
+    "tests/test_binary_cloud.py": "35d3e477f661a929b27d7657df4da8b083d9af139457a769f2cb54fd737af52b",
+    "tests/test_binary_cloud_skr.py": "757e4581a091e1a7286fad75361354b8c9e68ef87f96dd4156b07eb2f2a49e17"
+  },
+  "input_sha256": "e04e756b0e55505f388f31b93cd370a22f81d484ab99dec0a1a747e23fb20599",
+  "protected_changes": [],
+  "output_sha256": {
+    "cloud_states.npz": "14aa45add1f1a8828a1dfb9d870c883a150fe8fe820b787dd4050a132b391f35",
+    "trajectories.npz": "eec6aa9e86dc6db25417f9a2049308b7d388ab3ab1744092edd26a9df90d6ab4",
+    "cloud_scenarios.json": "c0875e2c1e7446ea4f8ae502aa8a55199669e190e18187a7c3223222d1b65418",
+    "summary.csv": "10be687a62374607149d6e52e99fb828f44e009a97330fbeee6fee61bbcc7aec",
+    "scheme_time_series.csv": "94709f323014c265290a6838b1427395020e9671b6619ace95aec3868a3f14e3",
+    "lambda_sweep.csv": "85f2b690e65d8cafc264e7ecba3bc89fbb7f74cb5e0b85f3f094826390a8b3f1",
+    "summary_statistics.csv": "18d2cbe6420416d6e815cd64503d6ac1e9e012e617a64354cd84f2c9e04cc63c",
+    "lambda_statistics.csv": "09ed2b0dbd2bb9ece33fb3cc2890d524ee8c1648ac15264fee65fc4b57e08ef6",
+    "paired_statistics.csv": "ca4dfa5e3493420dc2c7b1c2b8613eada57f550e1866ac1bae018d66a1b50fa7"
+  },
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

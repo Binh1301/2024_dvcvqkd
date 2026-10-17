@@ -1,0 +1,44 @@
+{
+  "status": "AUDIT_COMPLETE_IMPLEMENTATION_PENDING_TESTS",
+  "legacy": {
+    "file": "src/effective_channel_no_fading_noise.py",
+    "function": "effective_channel",
+    "T_eff": "mean_sqrt_eta**2",
+    "N_eff": "T_eff*xi_ch",
+    "Bob": "1+T_eff*(VA+xi_ch)",
+    "fading_variance": "deliberately omitted in DEC-0166/EVID-0183 diagnostic"
+  },
+  "reused_correction": {
+    "file": "src/manuscript_corrected_3moments.py",
+    "function": "effective_fading_channel",
+    "N_eff": "(mean_eta-T_eff)*VA+mean_eta*xi_ch",
+    "Bob": "1+mean_eta*(VA+xi_ch)",
+    "m_total": "1+chi_het+(xi_ch-1)*mean_eta",
+    "excess_recovery": "m_total-(1+chi_het-mean_eta)"
+  },
+  "heterodyne": {
+    "file": "src/cvqkd/covariance.py",
+    "conditional": "a-Z**2/(b+1)",
+    "likelihood": "CN(sqrt(T_eff)*alpha,1+N_eff/2)",
+    "VA": "2 sum p|alpha|^2",
+    "efficiency": 1,
+    "electronic_excess_noise": 0,
+    "beta": 0.95
+  },
+  "manuscript": {
+    "actual_file": "2026__Binh_s_work (37).pdf",
+    "sha256": "0ea5d889ccd678de92a1a1a70b424af918794eac2e7f98106cbc5f785a43146b",
+    "page": 3,
+    "referenced_variant_missing": "(37)(3).pdf",
+    "discrepancies": [
+      "homodyne conditional eigenvalue",
+      "scalar likelihood with incomplete variance specification",
+      "xi_n contains loss vacuum and detector noise, not only excess",
+      "raw [0,1] PDF mass below1: keep existing active conditioning and AoA atom; report both raw and physical moments"
+    ]
+  },
+  "primary_source": "https://quantum-journal.org/papers/q-2021-09-13-540/pdf/",
+  "primary_source_page": 9,
+  "scientific_status": "PRELIMINARY_MOMENT_MATCHED_GAUSSIAN_FADING_APPROXIMATION",
+  "legacy_and_physics_unchanged": true
+}

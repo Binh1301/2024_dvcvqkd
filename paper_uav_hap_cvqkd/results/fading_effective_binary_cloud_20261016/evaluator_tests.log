@@ -1,0 +1,29 @@
+test_batch_scalar_and_full_product_quadrature_agree (tests.test_fading_effective_skr.FadingEffectiveTests.test_batch_scalar_and_full_product_quadrature_agree) ... ok
+test_binary_no_cloud_and_all_blocked_limits (tests.test_fading_effective_skr.FadingEffectiveTests.test_binary_no_cloud_and_all_blocked_limits) ... ok
+test_covariance_physicality_and_heterodyne_conditional (tests.test_fading_effective_skr.FadingEffectiveTests.test_covariance_physicality_and_heterodyne_conditional) ... ok
+test_deterministic_limit_and_legacy_result (tests.test_fading_effective_skr.FadingEffectiveTests.test_deterministic_limit_and_legacy_result) ... ERROR
+test_exact_source_moments_and_historical_results_preserved (tests.test_fading_effective_skr.FadingEffectiveTests.test_exact_source_moments_and_historical_results_preserved) ... ok
+test_heterodyne_likelihood_normalizes_two_quadratures (tests.test_fading_effective_skr.FadingEffectiveTests.test_heterodyne_likelihood_normalizes_two_quadratures) ... ok
+test_reference_decomposition_signed_and_clipped (tests.test_fading_effective_skr.FadingEffectiveTests.test_reference_decomposition_signed_and_clipped) ... ok
+test_reject_unsupported_detector_and_nonphysical_variance (tests.test_fading_effective_skr.FadingEffectiveTests.test_reject_unsupported_detector_and_nonphysical_variance) ... ok
+test_same_ensemble_object_reaches_mi_and_holevo (tests.test_fading_effective_skr.FadingEffectiveTests.test_same_ensemble_object_reaches_mi_and_holevo) ... ok
+test_total_noise_counted_once (tests.test_fading_effective_skr.FadingEffectiveTests.test_total_noise_counted_once) ... ok
+test_very_small_transmission_remains_finite (tests.test_fading_effective_skr.FadingEffectiveTests.test_very_small_transmission_remains_finite) ... ok
+test_zero_transmission_skips_qkd_expressions (tests.test_fading_effective_skr.FadingEffectiveTests.test_zero_transmission_skips_qkd_expressions) ... ok
+
+======================================================================
+ERROR: test_deterministic_limit_and_legacy_result (tests.test_fading_effective_skr.FadingEffectiveTests.test_deterministic_limit_and_legacy_result)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\tests\test_fading_effective_skr.py", line 36, in test_deterministic_limit_and_legacy_result
+    old=legacy.evaluate_authenticated(self.candidate,m,self.config,self.hashes)
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_ao_effective_channel_no_fading_noise_reference.py", line 120, in evaluate_authenticated
+    mapping = effective_channel(moments, candidate["V_A"])
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\src\effective_channel_no_fading_noise.py", line 37, in effective_channel
+    raise ValueError("Invalid physical channel moments; no clipping")
+ValueError: Invalid physical channel moments; no clipping
+
+----------------------------------------------------------------------
+Ran 12 tests in 3.212s
+
+FAILED (errors=1)

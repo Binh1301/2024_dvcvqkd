@@ -1,0 +1,1043 @@
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -9170,3 +9170,66 @@
+ new Cw/AP/AO, full catalog/P1-P3, training/test access, publication evaluation,
+ production baseline/threshold certification, external edit, commit or push.
+ Frozen discrepancy/NOT_READY/ObjectiveC USER_STOPPED remain. Audit complete; STOP.
++
++
++## EVID-0193 preparation - full geometry/fading/SKR audit
++
++2026-10-17 user attachment b8e5bb91 explicitly authorizes audit-only runtime
++configuration tracing, independent geometry/PDF/moments and fixed-source SKR
++for four Dr/divergence combinations. results/full_geometry_fading_skr_audit_20261017/
++startup_manifest.json protects4127 existing files. Runtime probe freshly rebuilds
++4 channel states and8 SKRs; A uses binary overrides Dr.55/beam waist.0986760647,
++not default.yaml Dr.08/theta223urad. Requested old-manuscript diagnostic uses233urad
++explicitly. FreshA equals the historical saved physical state and both reference
++SKRs have zero old/new residual. No geometry-deficient objective cache reused.
++Independent geometry/PDF calculations pending; no production, source, config,
++AP/AO, full catalog/mission/optimizer, training/test/publication or commit/push.
++
++
++## EVID-0193 completion - full numerical geometry/fading/SKR audit
++
++2026-10-17 audit COMPLETE with5 strict numerical comparison FAILs retained,
++not an all-checks PASS. See results/full_geometry_fading_skr_audit_20261017/
++validation_receipt.json and docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md (A-I).
++CONFIGURATION_MATCH_CONFIRMED: reconstructed runtime Dr.55m, radius.275m,
++full-angle10urad, w0=.0986760647169751m. Default.yaml remains Dr.08/theta223urad;
++old-manuscript233urad is a separate diagnostic. Explicit binary overrides win.
++FreshA physical state equals the saved state; both old/new reference SKRs have
++zero residual.4 hardware cases x2 receivers are freshly evaluated, no objective
++cache reuse/source builds/full catalog/missions. Geometry fingerprints and
++arguments/return objects are recorded. No physics environment override path.
++
++Independent70dps primitive-to-geometry/HV/Gd/PDF derivation and independent
++quadrature reproduce same law. Raw sigma_R2 used, aperture-averaged v_sc not
++used by active Literal PDF. Unbroadened pointing metadata A0/weq differs from
++active from_physical recomputation using w_eff; both branches are identified.
++RawA PDF retained total mass=.98412002722, active normalization=.98411732944;
++conditioned current law preserves AoA atom. Raw Eq19 alone does not produce
++conditioned m1. Source Cw and ensemble hash remain exact/authenticated.
++
++94 initial comparisons:89 PASS,5 FAIL, unchanged. Independent high-precision
++A m1=.2379088678213789 versus runtime .23790886783673015 (delta=-1.535124805052135e-11).
++Root: src/channel/pointing_error.py:124-136 mu2 quad epsabs1e-18 at integral~5e-14.
++Original mu2=5.0349262917105936e-14 vsMP=5.0349262957777165e-14; difference
++-4.067122899811768e-23 is inside original error estimate2.381899496662549e-19.
++Diagnostic tighter quadrature=5.034926295777721e-14. Gd delta=2.4221669808754953e-11.
++Substituting only original mu2 in independent equations reconstructs all4 runtime
++moment sets within1e-13.18 causal/metric/AoA checks pass; original5 FAILs are not
++relabeled. D xi_f absolute delta5.157e-9 is relative2.184e-11; signed K delta~9e-15.
++
++A independent idealK=-.7461405272043098 versus runtime-.74614052719539, difference
++-8.919753824443433e-12; trustedK=-.4528722259878813 versus-.4528722259826575,
++difference-5.2238213754662866e-12. All8 entropy bounds/physical covariances pass.
++Fading output fraction98.87% remains correct. No noise/MI/Holevo error explaining
++the negative sign is established. At same fixed source, independent m1 forB/C/D
++is.00026403393702785954/.012392337848559115/.0006477631989111676; onlyA gives.2379089.
++
++Verdicts are scoped: CONFIGURATION_MATCH_CONFIRMED; MOMENT_MISMATCH for strict
++high-precision vs finite-quadrature comparison; NUMERICALLY_CONSISTENT for explicit
++CF/quadrature/noise/MI/Holevo/signed-SKR checks within quantified errors;
++UNVALIDATED_SECURITY_MODEL. No generic numerical/security PASS. Optional future
++mu2 scaling/tolerance refinement is proposed only, not applied. All4127 protected
++old files unchanged; production/source/config/frozen specs/defaults untouched.
++No source/AP/AO, full22700/1600mission/P1-P3, training/test/publication, baseline/
++threshold certification, ObjectiveC restart, external edit or commit/push.
++Frozen historical mismatch/NOT_READY remain. Deliver audit and STOP.
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -4802,3 +4802,31 @@
+ not executed or approved by this audit. Preserve all old files and defaults; no
+ full-catalog/trajectory rerun, source/AP/AO, training/test/publication, certification,
+ ObjectiveC restart, external manuscript edit, commit or push. Deliver and STOP.
++
++
++## DEC-0176 - full numerical geometry to SKR audit, fixed source only
++
++2026-10-17 user task b8e5bb91 supersedes priorSTOP only for its audit scope.
++Expected current Dr.55m/full-angle10urad; independently derive geometry,
++turbulence/pointing/active PDF and moments, then same exact source reference
++and four declared hardware combinations as diagnostic cases. Do not edit production
++code/config/cache or old data. If an actual error is found, record file/line, impact
++and minimal correction, wait for user confirmation before any production change.
++No source/AP/AO, full22700 evaluation/1600 mission/P1-P3 rerun, training/test dataset
++access, publication evaluation, threshold/baseline approval, ObjectiveC restart,
++external manuscript edit, commit/push. Keep frozen mismatch/NOT_READY and
++UNVALIDATED_SECURITY_MODEL. Numerical/configuration conclusions are scoped
++to their specific checks; no generic security PASS.
++
++
++DEC-0176 completion: accept EVID-0193 as configuration/runtime and bounded numerical
++audit evidence with explicitly preserved5 strict FAILs. Confirm current Dr.55/full
++angle10urad and no mixed hardware cache. Precision differences are localized to
++mu2 quadrature and small-Teff input-noise sensitivity, with negligible signed-SKR
++impact at the audited source. Do not hide FAILs, widen tolerance after results or
++promote a generic PASS. Optional mu2 integrand scaling/epsabs refinement requires
++separate user confirmation before production edits; none made. Keep
++UNVALIDATED_SECURITY_MODEL and existing lifecycle/frozen conflict. Deliver full
++A-I report and artifacts; STOP. No full-catalog/mission/optimizer, source/AP/AO,
++training/test/publication, baseline/threshold promotion, ObjectiveC restart,
++external manuscript edit, commit/push follows from this audit.
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,4 +1,33 @@
+ # Project State
++
++## Current: full geometry/fading/SKR audit COMPLETE with5 strict differences; STOP
++
++2026-10-17 EVID-0193/DEC-0176. CONFIGURATION_MATCH_CONFIRMED: reference actually
++uses Dr.55m, radius.275m, full-angle10urad and w0=.0986760647169751m. Defaults
++Dr.08/theta223urad are overridden; old-manuscript233urad is diagnostic only.
++Runtime trace and fresh physical-state equality match historical reference.
++Report docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md; artifacts
++results/full_geometry_fading_skr_audit_20261017/. No production edits.
++
++4 geometries x2 detectors freshly evaluated, with independent primitive geometry,
++HV/broadening, raw/conditioned PDF closed forms and quadrature through exact-source
++MI/Holevo/SKR.94 strict comparisons:89 PASS,5 FAIL retained. Root of small differences:
++mu2 quadrature epsabs1e-18, original5.0349262917105936e-14 vs independent
++5.0349262957777165e-14, within original error estimate.18 causal/metric follow-up
++checks PASS and explain all discrepancies; no tolerance widened. Independent
++m1=.2379088678213789 versus runtime .23790886783673015; ideal K residual-8.92e-12,
++trusted-5.22e-12.8 physical entropy bounds pass; negative sign is not explained by
++a hardware mix or noise/Holevo/MI formula error. No generic PASS or security claim.
++
++OnlyA(.55m,10urad) yields m1~.2379;B(.08m,233urad)~.000264034,
++C(.55m,233urad)~.0123923,D(.08m,10urad)~.000647763. Source/geometry/moment
++fingerprints and equation substitutions are saved. All4127 old protected files
++unchanged. Proposed numerical mu2 refinement is NOT_APPLIED; await separate user
++confirmation before any production change. UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen historical mismatch and ObjectiveC
++USER_STOPPED remain. No source/AP/AO/full catalog/missions/training/test/publication/
++baseline-threshold approval/external edit/commit/push. Deliver and STOP.
++
+ 
+ ## Current: independent negative-SKR physical audit COMPLETE; no entropy contradiction; STOP
+ 
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,4 +1,20 @@
+ # Next Actions
++
++## Current: deliver full geometry/fading/SKR audit; STOP
++
++EVID-0193/DEC-0176. Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and
++results/full_geometry_fading_skr_audit_20261017/ including runtime trace,
++closed-vs-quadrature/sensitivity CSV, high precision, explicit5 strict FAILs
++and quadrature_precision_diagnosis.json. Hardware is confirmed(.55m,10urad),
++no stale hardware cache.18 causal checks explain numerical differences; do not
++present all94 initial checks as PASS or infer a security proof.
++
++No production correction applied. A proposed tighter/scaled mu2 integral needs
++separate user confirmation; do not implement automatically. Preserve old source,
++config/results/frozen conflict; no source/AP/AO/full catalog/missions/P1-P3,
++training/test/publication/threshold-baseline promotion, ObjectiveC restart,
++external edits, commit/push. UNVALIDATED_SECURITY_MODEL/NOT_READY remain.
++
+ 
+ ## Current: deliver independent negative-SKR audit; STOP
+ 
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,37 +1,41 @@
+ # Session Handoff
+ 
+-2026-10-17 EVID-0192/DEC-0175. Independent negative-SKR physical audit COMPLETE; STOP.
+-Branch cloud/implement; HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec unchanged.
+-Pre-existing dirty state/deleted diagnostic JSON preserved. No commit/push.
++2026-10-17 EVID-0193/DEC-0176. Full numerical geometry/fading/SKR audit COMPLETE;
++5 strict comparison failures retained and diagnosed. STOP. Branch cloud/implement,
++HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec unchanged. No commit/push.
+ 
+-Deliver docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md and
+-results/negative_skr_independent_audit_20261017/. New scripts:
+-scripts/probe_negative_skr_production.py (bounded live call graph/provenance),
+-scripts/audit_negative_skr_independent.py (no production numerical imports).
++Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and
++results/full_geometry_fading_skr_audit_20261017/. New diagnostic scripts only:
++scripts/probe_full_geometry_runtime.py and scripts/audit_full_geometry_fading_skr.py.
+ Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B. No pending numerical run.
+ 
+-32 fresh production probes,2 exact sources,2 detector cases; prior producers,
+-source hashes and historical reference match. Independent70dps entropy/spectrum,
+-AppendixA blocks, direct256-state 2D GH/adaptive MI, PDF integration and limits:
+-213 checks PASS;40 physical entropy-bound cases,0 actual contradictions.
+-Current m1=.23790886783673015 and Wpre=2.2051214223052606, not a near-vacuum
+-W from order1e-4 moments. chi_upper=3.061425978931402. Ideal S_AB=3.6675057447539796,
+-S_cond=2.520871261845518, chi1.1466344829084623, MI.4215725849611298,
+-rawK=-.7461405271953889. Trusted S_cond=2.9121493060753423,
+-chi.7553564386786374, MI.3184044344168209, rawK=-.4528722259826576.
+-Fading is98.87395% of output excess. No production formula bug established.
+-Max production-independent residual9.076073226310655e-15. All4094 protected
+-old files unchanged. Initial diagnostic serialization error/log and tiny70dps
+-zero-case residual retained; no physics/tolerance changed to force PASS.
++Runtime reference confirms Dr.55/radius.275/full-angle10urad/w0.0986760647.
++Default.yaml has Dr.08/theta223urad; binary overrides win. CaseB explicitly uses
++233urad old manuscript, not223. FreshA equals saved complete physical state and
++old/new reference SKRs have residual0.4 states/8 production SKRs recomputed;
++no objective cache use, source builds or full catalog/missions.
+ 
+-Terminal scientific evidence: validation_receipt.json, audit_summary.json,
+-independent_audit.json, reference_entropy_decomposition.csv, actual_call_graph.json,
+-high_precision_decomposition.json and supplemental_independent_checks.json.
+-No new Cw/AP/AO or full catalog/P1-P3. Existing numerical source/config/default,
+-security functional, frozen specs and historical outputs unchanged. Necessary
+-entropy-bound consistency is not sufficient security certification. Keep
+-UNVALIDATED_SECURITY_MODEL: actual fading-mixture MI lower-bound/trusted-DM/full-Z/
+-operational/finite-size/composable proof unresolved. Frozen discrepancy,
+-NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC USER_STOPPED remain.
+-No training/test dataset access, publication evaluation, baseline/threshold
+-approval, external PDF edit, commit/push. Deliver and STOP; await new explicit task.
++Independent70dps geometry/HV/Gd/PDF CF+quadrature through same exact source to
++independent MI/Holevo uses no production numerical helper for validation.
++94 strict comparisons:89 PASS,5 FAIL retained. Main difference comes from
++mu2 quad in src/channel/pointing_error.py:124-136 (epsabs1e-18 at mu2~5e-14).
++Original5.0349262917105936e-14, MP5.0349262957777165e-14; difference4.067e-23
++is inside reported quadrature uncertainty.18 follow-up causal/metric/AoA checks
++pass. Reusing originalmu2 only reconstructs runtime all4 cases. D xi_f absolute
++residual5.157e-9 is relative2.184e-11, K residual~9e-15; no tolerance widening.
++
++Runtime m1=.23790886783673015, independent.2379088678213789. Independent ideal
++K=-.7461405272043098 vs runtime-.74614052719539 (delta-8.92e-12), trusted
++-.4528722259878813 vs-.4528722259826575 (delta-5.22e-12).8 physical bounds pass.
++OnlyA(.55,10urad) givesm1~.2379;B(.08,233urad)~.000264034,
++C(.55,233urad)~.0123923,D(.08,10urad)~.000647763. No actual configuration mix.
++
++Artifacts: validation_receipt.json, independent_geometry_audit.json (raw strict
++FAILs), quadrature_precision_diagnosis.json, runtime_probe.json, audit_summary.json,
++configuration_sensitivity.csv and full equation/numerical substitutions in report.
++All4127 protected old files unchanged. No production/source/config/cache/frozen
++spec edit. Optional future mu2 scaling/tolerance refinement only proposed;
++wait for separate user confirmation, do not fix automatically. Keep
++UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen mismatch/ObjectiveC USER_STOPPED.
++No source/AP/AO/full22700/1600mission/P1-P3/training/test/publication/baseline or
++threshold approval/external manuscript edit/commit/push. Deliver and STOP.
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/probe_full_geometry_runtime.py
+@@ -0,0 +1,97 @@
++"""Read-only runtime reconstruction for four declared geometry diagnostics."""
++import copy
++from dataclasses import asdict,is_dataclass
++import hashlib,inspect,json,math,sys
++from pathlib import Path
++import torch
++ROOT=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(ROOT))
++from scripts._common import load_yaml
++from src.binary_cloud_skr import clear_state,load_sources
++from src.uav_mobility import candidate_grid
++from src.trusted_heterodyne_skr import evaluate_candidate
++
++OUT=ROOT/'results/full_geometry_fading_skr_audit_20261017'
++read=lambda p:json.loads(p.read_text(encoding='utf-8'))
++sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
++
++
++def clean(value):
++    if is_dataclass(value):return clean(asdict(value))
++    if isinstance(value,Path):return value.as_posix()
++    if isinstance(value,dict):return {str(k):clean(v) for k,v in value.items()}
++    if isinstance(value,(list,tuple)):return [clean(x) for x in value]
++    if isinstance(value,float) and not math.isfinite(value):return {'float_hex':value.hex()}
++    if hasattr(value,'tolist'):return clean(value.tolist())
++    if hasattr(value,'item'):return clean(value.item())
++    return value
++
++
++def main():
++    assert not (OUT/'runtime_probe.json').exists(),'Completed probe is immutable'
++    start=read(OUT/'startup_manifest.json');settings=read(ROOT/'configs/binary_cloud_skr_demo.json')
++    defaults=load_yaml(ROOT/'configs/default.yaml');old=ROOT/'results/trusted_heterodyne_skr_20261016'
++    prior=read(old/'completion_integrity_receipt.json')
++    for p,h in prior['receipts_and_report_sha256'].items():
++        if sha(old/p)!=h:raise ValueError('Prior artifact changed: '+p)
++    for p,h in read(old/'inputs.json')['producers'].items():
++        if sha(ROOT/p)!=h:raise ValueError('Prior producer changed: '+p)
++    groups,config,aliases=load_sources(settings,start['protected_hashes']);pair=read(ROOT/'configs/fading_effective_binary_cloud.json')['reference_pair']
++    source=next(x for x in groups['MB'] if all(x[k]==v for k,v in pair.items()))
++    ensemble=source['ensemble'];a=ensemble.amplitudes[0].tolist()
++    selected={k:source[k] for k in ('nu_raw','V_A','C','w','ensemble_hash','source_cache_key','source_path')}
++    selected.update(source_payload_sha256=sha(ROOT/source['source_path']),probabilities=ensemble.probabilities[0].tolist(),amplitudes=[[x.real,x.imag] for x in a])
++    trusted=read(ROOT/'configs/manuscript_corrected_3moments.json')
++    detectors={'ideal_primary':dict(eta_B=settings['channel']['R'],nu_B=settings['channel']['xi_det']),
++               'trusted_diagnostic':dict(eta_B=trusted['R'],nu_B=trusted['xi_det'])}
++    index=settings['geometry']['reference_position_index'];position=candidate_grid()[index]
++    traces=[];active_case=None
++    functions={'derive_physical_inputs','gaussian_beam_radius','manuscript_pointing_parameters',
++               'hufnagel_valley_scintillation','from_physical','moments','link_geometry','load_yaml'}
++    def profile(frame,event,arg):
++        name=frame.f_code.co_name;filename=frame.f_code.co_filename.replace('\\','/')
++        if name not in functions or not filename.startswith(ROOT.as_posix()+'/'):return
++        code=frame.f_code;count=code.co_argcount+code.co_kwonlyargcount
++        args={n:frame.f_locals.get(n) for n in code.co_varnames[:count] if n not in ('self','cls','config')}
++        if name=='from_physical':args={'physical':frame.f_locals['physical']}
++        if name=='moments':args={k:v for k,v in args.items() if k!='moments'}
++        if event=='call':traces.append(dict(case=active_case,event=event,file=filename[len(ROOT.as_posix())+1:],function=name,line=code.co_firstlineno,arguments=clean(args)))
++        elif event=='return' and name in ('derive_physical_inputs','from_physical','moments','manuscript_pointing_parameters'):
++            if name=='moments' and not isinstance(arg,dict):return
++            traces.append(dict(case=active_case,event=event,file=filename[len(ROOT.as_posix())+1:],function=name,line=code.co_firstlineno,result=clean(arg)))
++    cases=[];torch.set_num_threads(1)
++    combinations=[('A',2*settings['channel']['receiver_radius_m'],None),('B',.08,233e-6),('C',.55,233e-6),('D',.08,10e-6)]
++    for case,diameter,divergence in combinations:
++        cfg=copy.deepcopy(settings);cfg['channel']['receiver_radius_m']=diameter/2
++        if divergence is not None:cfg['channel']['beam_waist_m']=2*defaults['channel']['wavelength_m']/(math.pi*divergence)
++        active_case=case;sys.setprofile(profile)
++        try:state=clear_state(cfg,position,index)
++        finally:sys.setprofile(None)
++        rows={name:evaluate_candidate(source,state['moments'],config,start['protected_hashes'],**d) for name,d in detectors.items()}
++        fingerprint=hashlib.sha256(json.dumps(dict(channel=cfg['channel'],geometry=cfg['geometry'],raw=state['clear_raw_channel'],physical=state['physical']),sort_keys=True,separators=(',',':')).encode()).hexdigest()
++        cases.append(dict(case=case,settings=cfg,state=state,geometry_fingerprint=fingerprint,production_results=rows))
++        print('RUNTIME_CASE',case,'Dr',state['physical']['receiver_diameter_m'],'theta',state['physical']['theta_div_rad'],'m1',state['moments']['mean_eta'],flush=True)
++    cached_state=read(ROOT/'results/binary_cloud_skr_20261015/clear_channel_states.json')[index]
++    old_reference=read(old/'reference_decomposition.json')
++    comparisons={name:{k:cases[0]['production_results'][name][k]-old_reference[key][k] for k in ('I_AB','chi_BE','K_raw','W_pre','Z_star')} for name,key in (('ideal_primary','corrected_primary'),('trusted_diagnostic','trusted_detector_diagnostic'))}
++    files=('configs/default.yaml','configs/binary_cloud_skr_demo.json','configs/trusted_heterodyne_skr.json',
++           'configs/fading_effective_binary_cloud.json','configs/manuscript_corrected_3moments.json',
++           'scripts/_common.py','scripts/calculate_channel_pdf_and_moments.py','src/channel/pointing_error.py',
++           'src/channel/scintillation.py','src/mobility_skr.py','src/manuscript_literal_3moments.py',
++           'src/manuscript_corrected_3moments.py','src/trusted_heterodyne_skr.py','src/uav_mobility.py',
++           'scripts/run_trusted_heterodyne_skr.py')
++    env_matches={p:[(i+1,l.strip()) for i,l in enumerate((ROOT/p).read_text(encoding='utf-8').splitlines()) if any(x in l for x in ('os.environ','os.getenv','environ[','environ.get('))] for p in files if p.endswith('.py')}
++    entry=(ROOT/'scripts/run_trusted_heterodyne_skr.py').read_text(encoding='utf-8')
++    result=dict(status='RUNTIME_RECONSTRUCTED_PENDING_INDEPENDENT_AUDIT',defaults=clean(defaults),binary_settings=settings,
++                cases=cases,source=selected,detectors=detectors,source_aliases=aliases,beta_rec=config['cvqkd']['beta_reconciliation'],
++                raw_runtime_source_fingerprints={p:sha(ROOT/p) for p in files},runtime_trace=traces,
++                fresh_A_matches_saved_state=cases[0]['state']==cached_state,reference_old_new_residual=comparisons,
++                objective_cache_reused=False,source_moments_built=0,new_SKR_calls=8,full_catalog_or_missions_run=False,
++                cli=dict(probe_argv=sys.argv,historical_runner_supported_arguments=['--stage','--output'],historical_physics_cli_overrides=False,historical_argv_not_saved=True),
++                environment_config_reads=env_matches,no_environment_physics_override_path=not any(env_matches.values()),
++                detector_0p8_in_active_configs=False,probe_script_sha256=sha(Path(__file__)))
++    (OUT/'runtime_probe.json').write_text(json.dumps(clean(result),indent=2,allow_nan=False)+'\n',encoding='utf-8')
++    print('RUNTIME_PROBE_SAVED',result['fresh_A_matches_saved_state'],comparisons,flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/audit_full_geometry_fading_skr.py
+@@ -0,0 +1,160 @@
++"""Independent geometry/PDF derivation with reused independent quantum diagnostics.
++
++No production geometry, channel-moment, MI, or Holevo helpers are imported.
++"""
++import csv,hashlib,json,math,sys,time
++from pathlib import Path
++import mpmath as mp
++import numpy as np
++from scipy.integrate import quad
++from scipy.special import log_ndtr
++ROOT=Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(ROOT))
++from scripts import audit_negative_skr_independent as quantum
++OUT=ROOT/'results/full_geometry_fading_skr_audit_20261017'
++M=quantum.M
++mp.mp.dps=70
++
++
++def primitive_integrals(defaults,settings):
++    c=defaults['channel'];geo=settings['geometry'];profile=c['turbulence_profile']
++    h0,h1,wl,wind,ground=map(M,(c['h_uav_m'],c['h_hap_m'],c['wavelength_m'],profile['wind_speed_m_per_s'],profile['cn2_ground_m_minus_two_thirds']))
++    index=geo['reference_position_index'];cells=geo['grid_cells_per_side'];step=M(geo['grid_side_m'])/cells
++    q=[(index%cells+mp.mpf('.5'))*step,(index//cells+mp.mpf('.5'))*step]
++    horizontal=mp.sqrt(sum((M(x)-y)**2 for x,y in zip(geo['hap_horizontal_m'],q)))
++    dh=h1-h0;zeta=mp.atan2(horizontal,dh);sec=1/mp.cos(zeta);L=dh*sec;k=2*mp.pi/wl
++    def cn2(h):return M('.00594')*(wind/27)**2*(M('1e-5')*h)**10*mp.exp(-h/1000)+M('2.7e-16')*mp.exp(-h/1500)+ground*mp.exp(-h/100)
++    knots=[h0]+[M(x) for x in (2000,5000,10000) if h0<x<h1]+[h1]
++    integrate=lambda f:mp.quad(f,knots)
++    jry=integrate(lambda h:cn2(h)*(h-h0)**(M(5)/6))
++    mu2=integrate(lambda h:cn2(h)*((h-h0)/dh)**(M(5)/3))
++    jnum=integrate(lambda h:cn2(h)*h*h);jden=integrate(lambda h:cn2(h)*h**(M(5)/6))
++    return dict(h_hap_m=h1,h_uav_m=h0,vertical_span_m=dh,wavelength_m=wl,wind_m_per_s=wind,cn2_ground=ground,
++                reference_xy_m=q,horizontal_distance_m=horizontal,zeta_rad=zeta,zeta_deg=zeta*180/mp.pi,secant=sec,
++                L_m=L,wave_number_per_m=k,tau_zen=M(settings['channel']['clear_tau_zen']),
++                eta_atm=M(settings['channel']['clear_tau_zen'])**sec,rytov_integral=jry,mu2_integral=mu2,
++                aperture_numerator=jnum,aperture_denominator=jden,Phi_m=(jnum/jden)**(M(6)/7),
++                sigma_R2=M('2.25')*k**(M(7)/6)*sec**(M(11)/6)*jry,
++                theta_jt_rad=M(c['pointing']['theta_jt_rad']),sigma_h_m=M(c['pointing']['sigma_h_m']),
++                sigma_o_rad=M(c['aoa']['sigma_o_rad']),theta_FOV_rad=M(c['aoa']['theta_fov_rad']))
++
++
++def geometry(common,diameter,theta):
++    c=common;D,theta=map(M,(diameter,theta));wl,L,k=c['wavelength_m'],c['L_m'],c['wave_number_per_m']
++    w0=2*wl/(mp.pi*theta);rayleigh=mp.pi*w0*w0/wl
++    # Current runtime F0=infinity is checked explicitly by the caller.
++    focusing=mp.mpf(1);wL=w0*mp.sqrt(focusing*focusing+(L*wl/(mp.pi*w0*w0))**2)
++    beam_lambda=2*L/(k*wL*wL)
++    Gd=M('4.35')*beam_lambda**(M(5)/6)*k**(M(7)/6)*c['vertical_span_m']**(M(5)/6)*c['secant']**(M(11)/6)*c['mu2_integral']
++    weff=wL*mp.sqrt(1+Gd);v=mp.sqrt(mp.pi)*D/(2*mp.sqrt(2)*weff);erf=mp.erf(v);A0=erf*erf
++    weq=mp.sqrt(weff*weff*mp.sqrt(mp.pi)*erf/(2*v*mp.exp(-v*v)))
++    # The first pointing metadata helper uses unbroadened nu; active LiteralChannel does not.
++    v_metadata=mp.sqrt(mp.pi)*D/(2*mp.sqrt(2)*wL)
++    metadata_A0=mp.erf(v_metadata)**2
++    metadata_weq=mp.sqrt(weff*weff*mp.sqrt(mp.pi)*mp.erf(v_metadata)/(2*v_metadata*mp.exp(-v_metadata*v_metadata)))
++    sigma_jt=L*c['theta_jt_rad'];sigma_s=mp.sqrt(c['sigma_h_m']**2+sigma_jt*sigma_jt)
++    chi=weq/(2*sigma_s);d=chi*chi
++    P0=mp.exp(-c['theta_FOV_rad']**2/(2*c['sigma_o_rad']**2));P1=1-P0
++    Aap=1/(1+M('1.11')*(D*D/(wl*c['Phi_m']*c['secant']))**(M(7)/6))
++    return dict(c,Dr_m=D,r_ap_m=D/2,theta_div_rad=theta,w0_m=w0,rayleigh_m=rayleigh,F0='infinity',focusing_factor=focusing,
++                wL_m=wL,beam_lambda=beam_lambda,G_d=Gd,w_eff_m=weff,nu_ap=v,erf_nu=erf,A0=A0,w_eq_m=weq,
++                metadata_unbroadened_nu=v_metadata,metadata_unbroadened_A0=metadata_A0,metadata_unbroadened_weq=metadata_weq,
++                sigma_jt_m=sigma_jt,sigma_s_m=sigma_s,pointing_chi=chi,pointing_chi_squared=d,P0=P0,P1=P1,
++                A_ap=Aap,v_sc_unused_in_active_PDF=Aap*c['sigma_R2'])
++
++
++def fading(g,xi):
++    d=g['pointing_chi_squared'];B=g['A0']*g['eta_atm'];s=g['sigma_R2']
++    # Runtime boresight is zero; the exact general coefficients reduce to these expressions.
++    C1=mp.exp(s*d*(1+d)/2);C3=1/mp.sqrt(2*s);mu=s*(1+2*d)/2;x1=-mp.log(B)+mu
++    def Q(a):return (mp.exp(a*x1-a*mu)*mp.erfc(C3*x1)+mp.exp(a*a/(4*C3*C3)-a*mu)*mp.erfc(a/(2*C3)-C3*x1))/2
++    q0,qh,q1=Q(d),Q(d+M('.5')),Q(d+1);active_mass=C1*q0
++    raw_m1=g['P1']*B*d*C1/(d+1)*q1
++    raw_mh=g['P1']*mp.sqrt(B)*d*C1/(d+M('.5'))*qh
++    m1=raw_m1/active_mass;mh=raw_mh/active_mass
++    # Independent log-coordinate quadrature of the displayed PDF, not the closed form.
++    df,bf,c1f,c3f,muf=map(float,(d,B,C1,C3,mu))
++    logpref=math.log(df*c1f/2)-df*math.log(bf)
++    def density_y(y,power):
++        x=logpref+(df+power)*y+math.log(2)+float(log_ndtr(-math.sqrt(2)*c3f*(y-math.log(bf)+muf)))
++        return math.exp(x) if x>-745 else 0.
++    def integral(power,lower=-math.inf,upper=0.):return quad(lambda y:density_y(y,power),lower,upper,epsabs=2e-13,epsrel=2e-13,limit=350)
++    mass_q,em=integral(0);m1q,e1=integral(1);mhq,eh=integral(.5);tail_q,et=integral(0,0.,math.inf)
++    independent_raw_m1=float(g['P1'])*m1q;independent_raw_mh=float(g['P1'])*mhq
++    numerical_m1=independent_raw_m1/mass_q;numerical_mh=independent_raw_mh/mass_q
++    return dict(B=B,C1=C1,C3=C3,mu=mu,x1=x1,Q_chi2=q0,Q_chi2_plus_half=qh,Q_chi2_plus_one=q1,
++                raw_active_mass=active_mass,raw_total_mass=g['P0']+g['P1']*active_mass,
++                raw_mass_deficit=g['P1']*(1-active_mass),raw_mean_eta=raw_m1,raw_mean_sqrt_eta=raw_mh,
++                mean_eta=m1,mean_sqrt_eta=mh,m_xi=M(xi)*m1,physical_total_mass=g['P0']+g['P1'],
++                numerical_active_mass=mass_q,numerical_raw_total_mass=float(g['P0'])+float(g['P1'])*mass_q,
++                numerical_raw_m1=independent_raw_m1,numerical_raw_mhalf=independent_raw_mh,
++                numerical_mean_eta=numerical_m1,numerical_mean_sqrt_eta=numerical_mh,numerical_m_xi=M(xi)*numerical_m1,
++                numerical_tail_probability=tail_q,numerical_whole_raw_total=float(g['P0'])+float(g['P1'])*(mass_q+tail_q),
++                quadrature_error_estimates=dict(mass=em,m1=e1,mhalf=eh,tail=et),
++                PDF_active_prefactor=g['P1']*d*C1/(2*B**d),rho=0,
++                conditioning='Preserve existing active conditioning on (0,1] and retain P0 separately; no new normalization choice')
++
++
++def main():
++    if (OUT/'independent_geometry_audit.json').exists():raise RuntimeError('Completed audit is immutable')
++    runtime=json.loads((OUT/'runtime_probe.json').read_text(encoding='utf-8'))
++    c=primitive_integrals(runtime['defaults'],runtime['binary_settings']);source=runtime['source'];xi=runtime['binary_settings']['channel']['xi_ch']
++    checks=[];failures=[]
++    def check(name,ok,details=None):
++        row=dict(check=name,status='CURRENTLY_VERIFIED_PASS' if ok else 'FAIL',detail=details);checks.append(row)
++        if not ok:failures.append(row)
++    check('runtime_target_units',abs(runtime['cases'][0]['state']['physical']['theta_div_rad']-10e-6)<1e-18 and runtime['cases'][0]['state']['physical']['receiver_diameter_m']==.55)
++    check('radius_not_diameter',runtime['cases'][0]['settings']['channel']['receiver_radius_m']==.275)
++    check('F0_infinity',runtime['defaults']['channel']['radius_of_curvature_m']=={'float_hex':'inf'})
++    check('reconstructed_A_matches_cached_geometry',runtime['fresh_A_matches_saved_state'])
++    check('physics_no_environment_override_path',runtime['no_environment_physics_override_path'])
++    check('source_ensemble',max(abs(quantum.source_audit(source)[k]) for k in ('normalization_residual','energy_residual','PMF_reconstruction_residual','amplitude_reconstruction_residual'))<1e-12)
++    cases=[];high=[];mirows=[];moment_table=[];began=time.perf_counter()
++    definitions=[('A',2*runtime['binary_settings']['channel']['receiver_radius_m'],10e-6),('B',.08,233e-6),('C',.55,233e-6),('D',.08,10e-6)]
++    for case,D,theta in definitions:
++        g=geometry(c,D,theta);f=fading(g,xi);observed=next(x for x in runtime['cases'] if x['case']==case)
++        p=observed['state']['physical'];raw=observed['state']['clear_raw_channel'];m=observed['state']['moments']
++        pairs={'L_m':p['link_length_m'],'zeta_rad':p['zenith_angle_rad'],'eta_atm':p['eta_atm'],'w0_m':p['beam_waist_m'],
++               'wL_m':p['pointing']['omega_L_m'],'G_d':p['pointing']['G_d'],'A0':raw['A0'],'w_eq_m':raw['w_eq'],
++               'sigma_s_m':raw['sigma_s'],'sigma_R2':raw['sigma_R2'],'P0':raw['P0'],
++               'A_ap':p['A_ap'],'v_sc_unused_in_active_PDF':p['v_sc']}
++        residual={k:float(g[k])-v for k,v in pairs.items()}
++        check(case+'_geometry_runtime_agreement',all(abs(diff)<=1e-12+1e-10*abs(pairs[k]) for k,diff in residual.items()),residual)
++        for label,k,q in [('raw_mass','raw_total_mass','numerical_raw_total_mass'),('raw_m1','raw_mean_eta','numerical_raw_m1'),
++                           ('raw_mhalf','raw_mean_sqrt_eta','numerical_raw_mhalf'),('physical_m1','mean_eta','numerical_mean_eta'),
++                           ('physical_mhalf','mean_sqrt_eta','numerical_mean_sqrt_eta'),('physical_mxi','m_xi','numerical_m_xi')]:
++            error=abs(float(f[k])-float(f[q]));rel=error/max(abs(float(f[k])),1e-300)
++            check(case+'_'+label+'_closed_quadrature',rel<1e-10 or error<2e-13,dict(absolute_error=error,relative_error=rel))
++            moment_table.append(dict(case=case,quantity=label,closed_form=float(f[k]),quadrature=float(f[q]),relative_error=rel))
++        check(case+'_closed_runtime_moments',max(abs(float(f['mean_eta'])-m['mean_eta']),abs(float(f['mean_sqrt_eta'])-m['mean_sqrt_eta']))<1e-11)
++        check(case+'_full_raw_mass_including_tail',abs(f['numerical_whole_raw_total']-1)<2e-12)
++        check(case+'_outage_atom_preserved',float(g['P0'])==float(g['P0']) and abs(float(g['P0']+g['P1'])-1)<1e-14)
++        quantum_results={}
++        for detector,settings in runtime['detectors'].items():
++            model=quantum.physical_model(source,f['mean_eta'],f['mean_sqrt_eta'],xi,settings['eta_B'],settings['nu_B'])
++            mi=quantum.independent_MI(source,model['eta_f'],model['N_eff'],settings['eta_B'],settings['nu_B'],full=True)
++            model.update(mi);model['beta_I_AB']=M(runtime['beta_rec'])*M(mi['I_AB']);model['K_raw']=model['beta_I_AB']-model['chi_BE']
++            actual=observed['production_results'][detector]
++            diffs={k:float(model[k])-actual[q] for k,q in [('W_pre','W_pre'),('Z','Z_star'),('eta_f','T_eff'),('xi_f','xi_eff'),('I_AB','I_AB'),('chi_BE','chi_BE'),('K_raw','K_raw')]}
++            check(case+'_'+detector+'_independent_SKR_agreement',max(abs(v) for v in diffs.values())<1e-9,diffs)
++            for label,ok in model['checks'].items():check(case+'_'+detector+'_'+label,bool(ok))
++            model['fading_fraction_percent']=100*model['fading_excess_output']/model['N_eff']
++            quantum_results[detector]=quantum.to_json(model);high.append(dict(case=case,detector=detector,**quantum.high_precision(model)))
++            mirows.append(dict(case=case,detector=detector,**{k:quantum.to_json(model[k]) for k in ('I_AB','beta_I_AB','S_AB','conditional_entropy','chi_BE','K_raw','chi_upper')}))
++        cases.append(dict(case=case,geometry=quantum.to_json(g),fading=quantum.to_json(f),quantum=quantum_results,runtime_geometry_fingerprint=observed['geometry_fingerprint']))
++        print('INDEPENDENT_CASE',case,'m1',float(f['mean_eta']),'K',quantum_results['ideal_primary']['K_raw'],flush=True)
++    result=dict(verdicts=['CONFIGURATION_MATCH_CONFIRMED','NUMERICALLY_CONSISTENT','UNVALIDATED_SECURITY_MODEL'] if not failures else ['FAILED_AUDIT','UNVALIDATED_SECURITY_MODEL'],
++                checks=checks,failures=failures,independent_geometry_to_SKR_cases=8,source_moment_builds=0,full_catalog_or_missions_run=False,
++                common_primitives=quantum.to_json(c),cases=cases,quantum_helper='Independent audit code scripts/audit_negative_skr_independent.py, not production numerical helpers',
++                independent_quantum_helper_sha256=hashlib.sha256((ROOT/'scripts/audit_negative_skr_independent.py').read_bytes()).hexdigest(),
++                runtime_probe_sha256=hashlib.sha256((OUT/'runtime_probe.json').read_bytes()).hexdigest(),elapsed_seconds=time.perf_counter()-began)
++    (OUT/'independent_geometry_audit.json').write_text(json.dumps(result,indent=2,allow_nan=False)+'\n',encoding='utf-8')
++    (OUT/'high_precision_SKR.json').write_text(json.dumps(high,indent=2)+'\n',encoding='utf-8')
++    for name,rows in (('moments_closed_vs_quadrature.csv',moment_table),('SKR_entropy_decomposition.csv',mirows)):
++        with (OUT/name).open('w',encoding='utf-8',newline='') as stream:
++            writer=csv.DictWriter(stream,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
++    (OUT/'high_precision_common_geometry.json').write_text(json.dumps(quantum.high_precision(c),indent=2)+'\n',encoding='utf-8')
++    print('VERDICTS',result['verdicts'],'CHECKS',len(checks),'FAILURES',len(failures),flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md
+@@ -0,0 +1,540 @@
++# Full Numerical Audit of HAP–UAV Geometry, Fading Moments and SKR
++
++Ngày2026-10-17. Task b8e5bb91. Audit-only: không sửa production code/config/source, không chạy22.700 điểm hoặc1.600 missions, không commit/push.
++
++Kết luận hardware: **CONFIGURATION_MATCH_CONFIRMED**. Reference âm được tạo với Dr=.55m và divergence full-angle10urad. Không có evidence rằng reference này lấy từ hardware cũ. Có **5 FAIL strict comparisons được giữ nguyên**, truy về độ chính xác tích phân phụ mu2 và sensitivity của input-referred xi_f; chúng không đổi dấu hoặc độ lớn SKR. Không gọi toàn bộ audit là một PASS chung. **UNVALIDATED_SECURITY_MODEL** giữ nguyên.
++
++## A. Actual runtime configuration
++
++Probe scripts/probe_full_geometry_runtime.py rebuild từ configuration files qua clear_state -> channel_state -> derive_physical_inputs -> manuscript_pointing_parameters -> LiteralChannel.from_physical -> PhysicalFadingDistribution.moments, rồi evaluate_candidate của trusted_heterodyne_skr. Sys.setprofile lưu arguments và return objects thực tế trong runtime_probe.json; không kết luận từ một literal trong file.
++
++Runtime primary dùng configs/binary_cloud_skr_demo.json; derive_physical_inputs đọc configs/default.yaml rồi nhận explicit aperture/beam-waist/zenith/tau overrides. Các thông số turbulence/UAV/AoA còn lại lấy từ default.yaml. Source pair lấy đúng reference_pair trong configs/fading_effective_binary_cloud.json. Trusted alternate lấy riêng từ configs/manuscript_corrected_3moments.json; không đổi thành primary.
++
++| Parameter | Default/source configuration | Runtime actual | Unit | Source |
++|---|---|---|---|---|
++| Dr | 0.080000000000000002 | 0.55000000000000004 | m | default.yaml -> binary_cloud.channel.receiver_radius_m x2 |
++| r_ap | 0.040000000000000001 | 0.27500000000000002 | m | same; derive_physical_inputs override |
++| theta_div | 0.000223 | 1.0000000000000003e-05 | rad, full angle | default.yaml -> derived from configured beam_waist override |
++| lambda | 1.55e-06 | 1.55e-06 | m | default.yaml.channel.wavelength_m |
++| w0 | 0.004424935637532516 | 0.098676064716975098 | m | binary_cloud.channel.beam_waist_m |
++| h_HAP | 20000 | 20000 | m | default.yaml + explicit geometry equality check |
++| h_UAV | 1000 | 1000 | m | same |
++| zeta | 0.52359877559829882 | 0.52359877559784263 | rad | grid/HAP coordinates -> link_geometry override |
++| sigma_h | 1 | 1 | m per axis | default.yaml.pointing.sigma_h_m |
++| theta_jt | 1.5610000000000001e-05 | 1.5610000000000001e-05 | rad per axis | default.yaml.pointing.theta_jt_rad |
++| Cn2(0) | 1e-14 | 1e-14 | m^(-2/3) | default.yaml.turbulence_profile |
++| wind | 21 | 21 | m/s | same |
++| sigma_o | 0.0015 | 0.0015 | rad | default.yaml.aoa.sigma_o_rad |
++| theta_FOV | 0.0062500000000000003 | 0.0062500000000000003 | rad half-angle | default.yaml.aoa.theta_fov_rad |
++| xi_ch | 0.018599999999999998 | 0.018599999999999998 | SNU input channel excess | binary_cloud.channel.xi_ch |
++| eta_B primary | function default1 | 1 | unitless | binary_cloud.channel.R |
++| nu_B primary | function default0 | 0 | SNU output per detected arm | binary_cloud.channel.xi_det |
++| eta_B diagnostic | historical config.7 | 0.69999999999999996 | unitless | manuscript_corrected_3moments.json.R |
++| nu_B diagnostic | historical config.0135 | 0.0135 | SNU | same.xi_det |
++| tau_zen | — | 0.92000000000000004 | power | explicit binary config.clear_tau_zen |
++| F0 | infinity | infinity | m | default.yaml.radius_of_curvature_m |
++
++Default.yaml hiện là223urad, không phải233urad.233urad là old-manuscript case được user yêu cầu chẩn đoán. Default Dr=.08m/theta223urad không được dùng cho reference vì explicit override Dr=.55/w0=.098676... thắng. Default tau_zen=null còn yêu cầu chọn atmosphere rõ ràng. UavMotion dataclass có legacy defaults khác; channel builder explicitly truyền sigma_h/sigma_o hiện hành, không lấy dataclass defaults.
++
++CLI historical runner chỉ có --stage và --output, không có geometry/physics flags. Hàm load_yaml đọc YAML trực tiếp, không environment substitution; static search trên dependency path không phát hiện os.environ/getenv cho physics. Runtime arguments/return objects còn xác nhận effective values. Historical argv/env chưa lưu nguyên gốc; đây là reconstructed trace với input/producer hash matching, không giả vờ truy xuất process cũ.
++
++Không có eta_B=.8 trong active receiver configs. Giá trị.8 trong probability sweep là cloud probability, không phải detector efficiency. Primary(1,0) và trusted diagnostic(.7,.0135) được tách riêng ở mọi bảng.
++
++10urad=1e-5rad; Dr=.55m -> r_ap=.275m. Với full-angle theta dùng w0=2lambda/(pi theta). Nếu dùng half-angle theta_half=theta_full/2, công thức tương đương là lambda/(pi theta_half), không dùng lẫn hệ số2.
++
++Fresh reconstructed A bằng toàn bộ cached clear physical state ở reference44; producer/receipt hashes của evaluator trước đều khớp. Hai SKRs freshA có residual0 so reference artifact cũ. Geometry fingerprint mới lưu đầy đủ Dr/theta/w0, primitives, raw channel và source producers. Không dùng cached objective thiếu fingerprint để tính8 kết quả mới; source cache C,w độc lập geometry được xác thực riêng.
++
++## B. Geometric and atmospheric calculations
++
++Mọi phép tính độc lập ở scripts/audit_full_geometry_fading_skr.py bắt đầu từ primitive config/coordinates, không từ production intermediate. Mpmath70dps tự tích phân profile; không import geometry/channel/moment helpers production. Trong các bảng, cột MP là independent high-precision chain; sai khác với runtime được giữ, không thay số MP thành số cũ.
++
++\[
++\zeta=\arctan(r_\perp/\Delta h)
++=\arctan(10969.655114591331/19000)
++=0.52359877559784263.
++\]
++
++zeta=29.999999999973856 degree. Geometry embedding không ép chính xác30degree; khác nhỏ do tọa độ HAP được lưu hữu hạn.
++\[
++L=(h_{HAP}-h_{UAV})\sec\zeta
++=(20000-1000)\times 1.1547005383789473
++=21939.3102292.
++\]
++
++\[
++\eta_{atm}=\tau_{zen}^{\sec\zeta}
++=0.92^{1.1547005383789473}
++=0.9082089654181672.
++\]
++
++\[
++w_0=2\lambda/(\pi\theta_{div})
++=2(1.55\times10^{-6})/(\pi\,10^{-5})
++=0.098676064716975112.
++\]
++
++\[
++z_R=\pi w_0^2/\lambda
++=\pi(0.098676064716975112)^2/(1.55\times10^{-6})
++=19735.212943395021.
++\]
++
++F0=infinity nên focusing factor1-L/F0=1, L dùng mét. Beam propagation:
++\[
++w_L=w_0\sqrt{(1-L/F_0)^2+(L\lambda/(\pi w_0^2))^2}.
++\]
++
++\[
++w_L
++=0.098676064716975112\sqrt{1+(21939.3102292\,1.55\times10^{-6}/(\pi\,0.098676064716975112^2))^2}
++=0.14754761631878588.
++\]
++
++### Hufnagel–Valley/Rytov và broadening
++
++Profile được tính độc lập:
++\[
++C_n^2(h)=0.00594(v/27)^2(10^{-5}h)^{10}e^{-h/1000}+2.7\times10^{-16}e^{-h/1500}+C_n^2(0)e^{-h/100}.
++\]
++v=21m/s, Cn2(0)=1e-14m^(-2/3), h trong mét. Các tích phân và công thức dùng đúng code hiện hành:
++\[
++J_R=\int_{1000}^{20000} C_n^2(h)(h-1000)^{5/6}dh,
++\quad \sigma_R^2=2.25k^{7/6}\sec^{11/6}\zeta\ J_R,\quad k=2\pi/\lambda.
++\]
++\[
++\mu_2=\int_{1000}^{20000}C_n^2(h)((h-1000)/19000)^{5/3}dh,
++\quad \Lambda_L=2L/(kw_L^2),
++\]
++\[
++G_d=4.35\Lambda_L^{5/6}k^{7/6}(19000)^{5/6}\sec^{11/6}\zeta\ \mu_2,
++\quad w_{L,eff}=w_L\sqrt{1+G_d}.
++\]
++
++| Auxiliary | Independent value |
++|---|---|
++| wave_number_per_m | 4053667.9401158621 |
++| rytov_integral | 3.5993391631024063e-10 |
++| sigma_R2 | 0.053962077796165596 |
++| mu2_integral | 5.0349262957777168e-14 |
++| beam_lambda | 0.49721062350410394 |
++| G_d | 0.029985462263114906 |
++| w_eff_m | 0.14974341909718894 |
++
++\[
++G_d
++=4.35(0.49721062350410394)^{5/6}(4053667.9401158621)^{7/6}19000^{5/6}(1.1547005383789473)^{11/6}(5.0349262957777168e-14)
++=0.029985462263114906.
++\]
++
++\[
++w_{L,eff}
++=0.14754761631878588\sqrt{1+0.029985462263114906}
++=0.14974341909718894.
++\]
++
++Aperture averaging cũng được tính nhưng không đi vào sigma_R² của active Literal PDF:
++\[
++J_2=\int C_n^2(h)h^2dh,\quad J_{5/6}=\int C_n^2(h)h^{5/6}dh,\quad
++\Phi_m=(J_2/J_{5/6})^{6/7},
++\]
++\[
++A_{ap}=[1+1.11(D_r^2/(\lambda\Phi_m\sec\zeta))^{7/6}]^{-1},\quad v_{sc}=A_{ap}\sigma_R^2.
++\]
++
++| Quantity | Independent value |
++|---|---|
++| aperture_numerator | 1.8307834031742625e-05 |
++| aperture_denominator | 4.3469721253605587e-10 |
++| Phi_m | 9200.5625281323919 |
++| A_ap | 0.029306517552841332 |
++| v_sc_unused_in_active_PDF | 0.0015814405801211167 |
++
++Active LiteralChannel.from_physical dùng raw sigma_R0_squared≈.053962..., không dùng aperture-averaged v_sc≈.00158144. Đây là mode-specific choice có sẵn. Không trộn hai PDF/scintillation branches. G_d được audit theo công thức implementation; citation/physical calibration của broadening vẫn là giới hạn đã ghi trong code, không được numerical matching tự chứng nhận.
++### Aperture collection, pointing và AoA
++\[
++v=\sqrt\pi D_r/(2\sqrt2\,w_{L,eff}),\quad A_0=\operatorname{erf}^2(v),\quad
++w_{L,eq}=\sqrt{w_{L,eff}^2\sqrt\pi\operatorname{erf}(v)/(2v e^{-v^2})}.
++\]
++
++\[
++v
++=\sqrt\pi(0.55)/(2\sqrt2\,0.14974341909718894)
++=2.301679698779048.
++\]
++
++\[
++A_0
++=(0.99886634240679539)^2
++=0.99773396999312947.
++\]
++
++\[
++w_{L,eq}
++=\sqrt{(0.14974341909718894)^2\sqrt\pi(0.99886634240679539)/(2(2.301679698779048)(e^{-(2.301679698779048)^2}))}
++=1.3129215957938436.
++\]
++
++\[
++\sigma_{jt}=L\theta_{jt}
++=21939.3102292(15.61\times10^{-6})
++=0.34247263267781197.
++\]
++
++\[
++\sigma_s=\sqrt{\sigma_h^2+\sigma_{jt}^2}
++=\sqrt{1^2+(0.34247263267781197)^2}
++=1.0570182137187947.
++\]
++
++\[
++\chi_p=w_{L,eq}/(2\sigma_s)
++=1.3129215957938436/(2(1.0570182137187947))
++=0.62104965588754202.
++\]
++
++Pointing chi_p²=0.3857026750780343; đây không phải Holevo chi_BE.
++\[
++P_0
++=\exp[-(0.00625)^2/(2(0.0015)^2)]
++=0.00016985667656141065.
++\]
++
++\[
++P_1
++=1-0.00016985667656141065
++=0.99983014332343856.
++\]
++
++Atom P0 delta(eta) được giữ riêng. Các positive-power moments không nhận đóng góp từ atom0. Không bỏ P0, không biến nó thành continuous density.
++
++### Hai aperture intermediates khác nhau trong runtime
++
++manuscript_pointing_parameters:148–156 tính nu theo w_L chưa broadened, trả A0/weq metadata. LiteralChannel.from_physical:86–95 tính lại nu theo w_eff và dùng kết quả đó làm active raw PDF. Không được lấy nhầm metadata intermediate thay active PDF value.
++
++| Quantity | First pointing metadata runtime | Active LiteralChannel runtime | Independent active |
++|---|---|---|---|
++| nu | 2.3359332828332513 | 2.3016796988061117 | 2.301679698779048 |
++| A0 | 0.99809125040703939 | 0.99773396999343456 | 0.99773396999312947 |
++| w_eq | 1.4111227269002553 | 1.312921595852572 | 1.3129215957938436 |
++
++## C. Fading PDF and moments
++
++Runtime rho=0 được kiểm tra rõ. Đặt d=chi_p², B=A0 eta_atm:
++\[
++C_1=e^{\sigma_R^2d(1+d)/2},\quad C_3=(2\sigma_R^2)^{-1/2},\quad
++\mu=\sigma_R^2(1+2d)/2,\quad x_1=-\ln B+\mu.
++\]
++
++| Coefficient | Independent value |
++|---|---|
++| B | 0.90615093665002078 |
++| C1 | 1.0145250125664589 |
++| C3 | 3.0439721195155762 |
++| mu | 0.047794356656832869 |
++| x1 | 0.14634374672773473 |
++| d | 0.3857026750780343 |
++
++Raw PDF gồm atom và continuous term:
++\[
++f_{raw}(\eta)=P_0\delta(\eta)+\frac{P_1dC_1}{2B^d}\eta^{d-1}
++\operatorname{erfc}[C_3(\ln(\eta/B)+\mu)].
++\]
++
++Thay số MP: 0.00016985667656141065 delta(eta) + 0.20319803544991463 eta^(-0.61429732492196565) erfc[3.0439721195155762(ln(eta/0.90615093665002078)+0.047794356656832869)]. C1 channel PDF khác C của exact source Denys.
++
++\[
++Q(a)=\tfrac12[e^{ax_1-a\mu}\operatorname{erfc}(C_3x_1)+
++e^{a^2/(4C_3^2)-a\mu}\operatorname{erfc}(a/(2C_3)-C_3x_1)].
++\]
++
++| Q value | Independent result |
++|---|---|
++| Q_chi2 | 0.97002766541408547 |
++| Q_chi2_plus_half | 0.9388545878232667 |
++| Q_chi2_plus_one | 0.91513546373513399 |
++
++Eq19–20 RAW [0,1] moments:
++\[
++m_{1,raw}=P_1B\frac{dC_1}{d+1}Q(d+1),\quad
++m_{1/2,raw}=P_1\sqrt B\frac{dC_1}{d+1/2}Q(d+1/2).
++\]
++
++\[
++m_{1,raw}
++=(0.99983014332343856)(0.90615093665002078)\frac{(0.3857026750780343)(1.0145250125664589)}{1.3857026750780344}(0.91513546373513399)
++=0.23413023965143001.
++\]
++
++\[
++m_{1/2,raw}
++=(0.99983014332343856)\sqrt{0.90615093665002078}\frac{(0.3857026750780343)(1.0145250125664589)}{0.88570267507803435}(0.9388545878232667)
++=0.39477740140367801.
++\]
++
++Active retained mass F_active=C1 Q(d). Raw total [0,1] mass=P0+P1 F_active. Existing PhysicalFadingDistribution giữ P0 và condition riêng active component: physical f_cont=f_raw,cont/F_active trên(0,1]. Đây là lựa chọn đã có và được config/receipt nêu rõ, không phải renormalization mới để cứu kết quả. Raw lognormal extension trên eta>0 có total mass1; phần thiếu trên[0,1] là mass eta>1 của surrogate. Nếu dùng raw Eq19 đơn lẻ, không thu được runtime conditioned m1≈.2379089.
++
++| Quantity/law | Independent closed | Independent quadrature | Relative error |
++|---|---|---|---|
++| raw_mass | 0.9841200272216735 | 0.9841200272216732 | 2.256275645074497e-16 |
++| raw_m1 | 0.23413023965143 | 0.23413023965142996 | 2.3709517964831065e-16 |
++| raw_mhalf | 0.394777401403678 | 0.394777401403678 | 0.0 |
++| physical_m1 | 0.2379088678213789 | 0.23790886782137888 | 1.1666473750977494e-16 |
++| physical_mhalf | 0.40114871427647913 | 0.40114871427647913 | 0.0 |
++| physical_mxi | 0.004425104941477648 | 0.004425104941477647 | 1.9600930361185308e-16 |
++
++\[
++F_{active}=C_1Q(d)
++=(1.0145250125664589)(0.97002766541408547)
++=0.98411732944403785.
++\]
++
++\[
++m_{1,physical}=m_{1,raw}/F_{active}
++=0.23413023965143001/0.98411732944403785
++=0.23790886782137891.
++\]
++
++\[
++m_{1/2,physical}=m_{1/2,raw}/F_{active}
++=0.39477740140367801/0.98411732944403785
++=0.40114871427647913.
++\]
++
++\[
++m_\xi=\xi_{ch}m_1
++=0.0186(0.23790886782137891)
++=0.0044251049414776476.
++\]
++
++Independent raw mass=0.98412002722167347, deficit=0.015879972778326548; active tail≈0.01588267055596209; full raw positive-support mass including atom=0.99999999999999978. Physical conditioned total=1. Both methods giữ atom0 explicit. Tolerance CF/quadrature: relative1e-10 hoặc absolute2e-13, với adaptive error estimates được lưu; không nới sau kết quả.
++Runtime original quad cho G_d hơi khác MP: raw m1=0.23413023966620677, active norm=0.98411732944264829; raw m1/norm=0.2379088678367301. Độc lập thay đúng original mu2 quadrature vào cùng công thức tái dựng được m1=0.23790886783673018. Vì vậy .2379089 truy được về primitives và integration, không phải chỉ từ cache PASS. Phần khác nhau1.535e-11 được điều tra ởI.
++## D. Effective channel
++
++Các dòng sau dùng independent high-precision chain, kèm runtime ở bảng so sánh. Channel excess không chứa chi_line, chi_tot hoặc detector noise.
++
++\[
++\eta_f=m_{1/2}^2
++=(0.40114871427647913)^2
++=0.16092029096567229.
++\]
++
++\[
++\operatorname{Var}(\sqrt\eta)=m_1-\eta_f
++=0.23790886782137891-0.16092029096567229
++=0.07698857685570662.
++\]
++
++\[
++E_{fading}=(m_1-\eta_f)V_A
++=(0.07698857685570662)5.046875
++=0.38855172381864433.
++\]
++
++\[
++E_{channel}=m_\xi
++=0.0186(0.23790886782137891)
++=0.0044251049414776476.
++\]
++
++\[
++N_{eff}=\eta_f\xi_f
++=0.38855172381864433+0.0044251049414776476
++=0.39297682876012202.
++\]
++
++\[
++\xi_f=N_{eff}/\eta_f
++=0.39297682876012202/0.16092029096567229
++=2.4420589001044766.
++\]
++
++\[
++r_{fading}=100E_{fading}/N_{eff}
++=100(0.38855172381864433)/(0.39297682876012202)
++=98.873952707227232.
++\]
++
++Runtime nguyên bản: tử số=0.38855172381411168, mẫu số=0.39297682875587486, ratio=98.873952707142394%. Tuyên bố98.87% đúng khi làm tròn; không phải từ total noise hoặc detector.
++## E. Covariance
++
++Exact source nu_raw=0.17000000000000001, VA=5.046875; C=2.9818069279923307, w=6.1909456504525073e-07; ensemble hash b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b; payload hash e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317. Không build/source worker mới, không nội suy C,w.
++\[
++V=V_A+1
++=5.046875+1
++=6.046875.
++\]
++
++\[
++W_{pre}=1+\eta_fV_A+N_{eff}
++=1+(0.16092029096567229)5.046875+0.39297682876012202
++=2.2051214222274993.
++\]
++
++\[
++W_{pre}=1+m_1(V_A+\xi_{ch})
++=1+(0.23790886782137891)(5.046875+0.0186)
++=2.2051214222274993.
++\]
++
++\[
++Z_{base}=2\sqrt{\eta_f}C
++=2\sqrt{0.16092029096567229}(2.9818069279923307)
++=2.3922960307696428.
++\]
++
++\[
++Z_{correction}=\sqrt{2N_{eff}w}
++=\sqrt{2(0.39297682876012202)(6.1909456504525073e-07)}
++=0.00069755260572104477.
++\]
++
++\[
++Z=Z_{base}-Z_{correction}
++=2.3922960307696428-0.00069755260572104477
++=2.3915984781639219.
++\]
++
++Gamma_AB=[[V,0,Z,0],[0,V,0,-Z],[Z,0,W,0],[0,-Z,0,W]]. Full matrix và spectra ở high_precision_SKR.json. Kiểm tra riêng positive covariance, Gamma+iOmega, closed symplectic spectrum so direct iOmegaGamma; không clip Z/covariance để làm hợp lệ.
++| Metric | Independent A value |
++|---|---|
++| min eigenvalue Gamma+iOmega | 0.35091351052616659 |
++| closed vs matrix symplectic residual | 2.897817305224548e-70 |
++
++## F. Mutual information and Holevo
++
++Nguồn256 labels: p_k proportional exp(-nu_raw*|raw_grid|²), raw_grid=(i-7.5)+j(l-7.5). nu_repo=42.5nu_raw. Physical alpha_k=raw_grid*sqrt(VA/(2 sum p|raw_grid|²)), nên VA=2sum p|alpha|². Arrays256 xác suất/amplitudes nguyên precision nằm trong runtime_probe.json; exact ensemble/source hash được xác thực, không Gaussian-modulated substitution.
++
++Independent audit tái sử dụng numerical functions của scripts/audit_negative_skr_independent.py đã được tách khỏi production: direct full256 complex likelihood GH16/32/48 và independent adaptive quadrature trên real marginals sau factorization check. File này không import production MI/Holevo helpers. Geometry/PDF ở task này được viết mới từ primitives. Không dùng old SKR result làm input.
++
++\[
++p(y|\alpha_k)=\frac{1}{\pi\sigma_c^2}e^{-|y-\sqrt{\eta_B\eta_f}\alpha_k|^2/\sigma_c^2},
++\quad\sigma_c^2=1+\nu_B+\eta_BN_{eff}/2.
++\]
++\[
++I=\sum_kp_k\int_{\mathbb C}p(y|\alpha_k)\log_2\frac{p(y|\alpha_k)}{\sum_jp_jp(y|\alpha_j)}d^2y.
++\]
++
++Complex variance sigma_c² nghĩa mỗi real quadrature có variance sigma_c²/2. Gain channel sqrt(eta_f), detector sqrt(eta_B). Heterodyne vacuum contribution1 và electronic noise nu_B được cộng đúng một lần. Ln được chia ln2. Đây là effective Gaussian likelihood, không true pooled-fading mixture MI.
++
++| Detector | Channel amplitude gain | Detector amplitude gain | Complex variance | Per-real variance | I_AB | beta I_AB | GH32/48 difference |
++|---|---|---|---|---|---|---|---|
++| ideal_primary | 0.40114871427647913 | 1 | 1.1964884143800609 | 0.59824420719003046 | 0.42157258492356747 | 0.4004939556773891 | 0 |
++| trusted_diagnostic | 0.40114871427647913 | 0.83666002653407556 | 1.1510418900660426 | 0.57552094503302131 | 0.31840443438760091 | 0.30248421266822084 | 1.1102230246251565e-16 |
++
++Holevo independent dùng Delta=V²+W²-2Z², D=(VW-Z²)²; nu1,2=sqrt((Delta +/- sqrt(Delta²-4D))/2). Ideal conditional nu3=V-Z²/(W+1). Delta/D được tính lại dưới đây, không đọc từ production covariance helper. S(AB)=sum g((nu1,2-1)/2); S_cond được trừ, không cộng.
++
++| Quantity | Independent ideal A |
++|---|---|
++| Delta | 29.987771190879648 |
++| D | 57.978330784657338 |
++| nu1 | 5.283036505104068 |
++| nu2 | 1.4412829273315673 |
++| nu3 het | [4.2623113197944393] |
++
++Trusted detector dùng upsilon=1+2nu_B/(1-eta_B), V_B2=eta_BW+(1-eta_B)upsilon. Tạo independent AFG/C blocks từ beam splitter/EPR AppendixA, condition Gamma_AFG-C(Gamma_B2+I)^(-1)C^T và lấy3 symplectic eigenvalues, không dùng ideal nu3. Ancillas được giả định trusted/độc lập Eve; đây không phải calibration chứng minh từ phép đo.
++
++| Quantity | Independent ideal A | Independent trusted A |
++|---|---|---|
++| lambda_1 | 5.283036505104068 | 5.283036505104068 |
++| lambda_2 | 1.4412829273315673 | 1.4412829273315673 |
++| conditional_eigenvalues | [4.2623113197944393] | [1, 1.1101285398242504, 4.4990030153218932] |
++| S_AB_terms | [2.8353531906054847, 0.8321525541689706] | [2.8353531906054847, 0.8321525541689706] |
++| S_AB | 3.6675057447744552 | 3.6675057447744552 |
++| conditional_entropy_terms | [2.5208712618927565] | [0, 0.31190856095705655, 2.6002407451612966] |
++| conditional_entropy | 2.5208712618927565 | 2.9121493061183532 |
++| chi_BE | 1.146634482881699 | 0.75535643865610214 |
++| chi_upper | 3.0614259788216649 | 3.0614259788216649 |
++
++Cả8 covariance/detector cases đều đạt physicality và chi<=2g((Wpre-1)/2), không clip Holevo. Bound là necessary consistency check, không phải tightness hoặc security-proof certificate. So printed chi≈1.146634/.755356 khớp; sai khác ~1e-11 của independent chain so runtime được giải thích bằngmu2, không nhầm receiver hoặc log base.
++## G. SKR
++
++ideal_primary:
++\[
++K_{ind}=0.95I_{ind}-\chi_{ind}
++=0.95(0.42157258492356747)-1.146634482881699
++=-0.74614052720430979.
++\]
++
++\[
++K_{runtime}=0.95I_{runtime}-\chi_{runtime}
++=0.95(0.4215725849611287)-1.1466344829084623
++=-0.74614052719539004.
++\]
++
++Independent minus runtime K=-8.9197538244434327e-12 bits/use. beta*MI=0.4004939556773891<chi=1.146634482881699; rate âm trong cả hai phép tính. Không chỉnh hardware/noise/source để ép dương.
++trusted_diagnostic:
++\[
++K_{ind}=0.95I_{ind}-\chi_{ind}
++=0.95(0.31840443438760091)-0.75535643865610214
++=-0.45287222598788129.
++\]
++
++\[
++K_{runtime}=0.95I_{runtime}-\chi_{runtime}
++=0.95(0.31840443441681998)-0.75535643867863644
++=-0.45287222598265747.
++\]
++
++Independent minus runtime K=-5.2238213754662866e-12 bits/use. beta*MI=0.30248421266822084<chi=0.75535643865610214; rate âm trong cả hai phép tính. Không chỉnh hardware/noise/source để ép dương.
++## H. Configuration sensitivity
++
++Chỉ4 cases x2 receiver với cùng exact source/primitive atmospheric/motion inputs. Mỗi case tính fresh, không dùng objective cache. A là config đang chạy; B/C/D là diagnostics theo user, không ghi vào production configuration.
++
++| Case | Dr m | Full-angle urad | w0 | wL | w_eq | A0 | sigma_s | pointing chi² |
++|---|---|---|---|---|---|---|---|---|
++| A | 0.55000000000000004 | 10 | 0.098676064716975112 | 0.14754761631878588 | 1.3129215957938436 | 0.99773396999312947 | 1.0570182137187947 | 0.3857026750780343 |
++| B | 0.080000000000000002 | 233 | 0.0042350242367800474 | 2.555933150291724 | 2.5565913072600046 | 0.00048958417445276099 | 1.0570182137187947 | 1.4625060891170982 |
++| C | 0.55000000000000004 | 233 | 0.0042350242367800474 | 2.555933150291724 | 2.5718196925986696 | 0.022868278006622972 | 1.0570182137187947 | 1.4799808703600605 |
++| D | 0.080000000000000002 | 10 | 0.098676064716975112 | 0.14754761631878588 | 0.15548695760579603 | 0.13258191195557179 | 1.0570182137187947 | 0.0054095731618025071 |
++
++| Case | m1 | eta_f | xi_f | W_pre | Z | I ideal | chi ideal | K ideal | K trusted |
++|---|---|---|---|---|---|---|---|---|---|
++| A | 0.23790886782137891 | 0.16092029096567229 | 2.4420589001044766 | 2.2051214222274993 | 2.3915984781639219 | 0.42157258492356747 | 1.146634482881699 | -0.74614052720430979 | -0.45287222598788129 |
++| B | 0.00026403393702785954 | 0.00024354548877273714 | 0.44473691162212892 | 1.0013374573071663 | 0.093056243288312676 | 0.00088631939018465151 | 0.0015943167103623082 | -0.00075231328968688928 | -0.0004912016334547287 |
++| C | 0.012392337848559115 | 0.011444664261479859 | 0.43804584426713222 | 1.0627730775634301 | 0.63790705854323149 | 0.040973323594095556 | 0.059865914928012021 | -0.020941257513621241 | -0.013191646139340154 |
++| D | 0.00064776319891116758 | 1.3605130943901468e-05 | 236.12892136198687 | 1.0032812282900045 | 0.021933799983696503 | 4.9449890560688542e-05 | 0.017272210615157907 | -0.017225233219125252 | -0.011062322975862621 |
++
++ChỉA cho m1≈.2379089. B cho m1≈.000264034, đúng bậc1e-4 của hardware cũ nhưng không được coi trùng exact một con số minh họa từ configuration khác. Default223urad khác caseB233urad; không đổi tên chúng cho khớp kết quả mong muốn.
++| Case | Reconstructed geometry fingerprint |
++|---|---|
++| A | 61476619a452852eb311bfc1099041a571da53e851bb585911d5650a3f7148b4 |
++| B | afe45c172cb7e463fe67572365d151eeb2242f87f4bb3da64f8c59cae2e07e8b |
++| C | da38ad5f44207a4bb948313caac757762d20d3dcb67b841867f26ab372d978af |
++| D | d31437fa8b6b06c0561b936e2a5c3dd10802b48dd7fc85e4d8968c04f8007d59 |
++
++## I. Final verdict, strict FAILs và tác động định lượng
++
++**CONFIGURATION_MATCH_CONFIRMED:** trace hiệu lực Dr=.55/full-angle10urad, fresh physical-state equality và zero residual fresh/historical reference SKR cùng xác nhận hardware. Không có CONFIGURATION_MISMATCH ở reference.
++
++**MOMENT_MISMATCH, scope strict high-precision comparison:** không che5 FAIL trong independent_geometry_audit.json. Các phép CF/quadrature độc lập cùng luật đều khớp; discrepancy so runtime đến từ accuracy quadrature phụ mu2, không phải dùng sai hardware hoặc moment convention.
++
++| Original strict check | Outcome | Detail |
++|---|---|---|
++| A_geometry_runtime_agreement | FAIL | {"L_m": 0.0, "zeta_rad": 0.0, "eta_atm": -1.1102230246251565e-16, "w0_m": 1.3877787807814457e-17, "wL_m": -2.7755575615628914e-17, "G_d": 2.4221669808754953e-11, "A0": -3.05089287166993e-13, "w_eq_m": -5.87283555120166e-11, "sigma_s_m": 0.0, "sigma_R2": -1.0408340855860843e-16, "P0": 2.710505431213761e-19, "A_ap": 2.7755575615628914e-17, "v_sc_unused_in_active_PDF": -1.5178830414797062e-18} |
++| A_closed_runtime_moments | FAIL | null |
++| D_geometry_runtime_agreement | FAIL | {"L_m": 0.0, "zeta_rad": 0.0, "eta_atm": -1.1102230246251565e-16, "w0_m": 1.3877787807814457e-17, "wL_m": -2.7755575615628914e-17, "G_d": 2.4221669808754953e-11, "A0": -2.8917701566655296e-12, "w_eq_m": 1.6896206656014101e-12, "sigma_s_m": 0.0, "sigma_R2": -1.0408340855860843e-16, "P0": 2.710505431213761e-19, "A_ap": 1.1102230246251565e-16, "v_sc_unused_in_active_PDF": -6.938893903907228e-17} |
++| D_ideal_primary_independent_SKR_agreement | FAIL | {"W_pre": -6.661338147750939e-16, "Z": 2.330774462322438e-13, "eta_f": 2.8829105172979014e-16, "xi_f": -5.15734654982225e-09, "I_AB": 1.9159614216349152e-15, "chi_BE": -7.577272143066693e-15, "K_raw": 9.398731792842341e-15} |
++| D_trusted_diagnostic_independent_SKR_agreement | FAIL | {"W_pre": -6.661338147750939e-16, "Z": 2.330774462322438e-13, "eta_f": 2.8829105172979014e-16, "xi_f": -5.15734654982225e-09, "I_AB": 2.5017694079559893e-15, "chi_BE": -5.755812493291046e-15, "K_raw": 8.132383655379272e-15} |
++
++Audit trước tự tích phân PDF từ raw channel parameters đã lưu và kiểm MI/Holevo trên các moment đó; chưa tái dựng Gd từ primitive turbulence inputs. Audit hiện tại đi thêm bước này. Vì vậy residual SKR khoảng9e-12 ở đây không mâu thuẫn với residual khoảng9e-15 của audit trước và không có bằng chứng cache/evaluator version bị trộn.
++
++Root của sai khác Gd: src/channel/pointing_error.py:124–136, manuscript_pointing_parameters, quad(...epsabs=1e-18,epsrel=2e-13). Mu2 chỉ cỡ5e-14; absolute tolerance cho phép dừng trước khi đạt relative target. Giữ nguyên code này, probe chẩn đoán capture original value/error rồi tính lại integrand riêng với epsabs1e-28. Không thay kết quả runtime hoặc production tolerance.
++
++| mu2 calculation | Value | Reported absolute error |
++|---|---|---|
++| Original production quadrature | 5.0349262917105936e-14 | 2.3818994966625489e-19 |
++| Independent70dps | 0.00000000000005034926295777716499811767830693570915664790917938113232172369531 | arithmetic precision; not physical accuracy |
++| Diagnostic tighter SciPy quadrature | 5.0349262957777212e-14 | 3.0292258760486853e-28 |
++
++Original minus MP mu2=-4.0671228998117678e-23, nằm trong original error estimate. Gd independent-runtime=2.4221669808754953e-11; A m1 difference=-1.5351248050521349e-11. D xi_f difference≈-5.157e-9 chỉ là relative≈-2.184e-11 vì eta_f nhỏ; SKR D difference≈9e-15. Năm initial FAIL không bị đổi tolerance hoặc rewrite thành PASS.
++Causal test thay chỉ mu2 original vào independent geometry dựng lại runtime Gd/m1/mhalf cho cả4 cases với residual<1e-13. Các check riêng theo đúng đại lượng xác nhận cả8 signed SKRs chênh<1e-9. Đây là giải thích uncertainty/cause, không hủy strict FAIL. quadrature_precision_diagnosis.json lưu toàn bộ hai bộ kiểm tra.
++**NUMERICALLY_CONSISTENT, scope:** closed-form vs independent quadrature của raw/conditioned PDF, moment identities, covariance/noise accounting, independent MI/Holevo và signed SKR đến sai số đã định lượng. Không có evidence NOISE_ACCOUNTING_ERROR, HOLEVO_ERROR hoặc MI_ERROR gây dấu âm. Không tuyên bố toàn bộ94 strict checks đều PASS:89 PASS,5 FAIL được báo đủ;18 causal/metric/AoA follow-up checks PASS.
++
++**UNVALIDATED_SECURITY_MODEL:** numerical/configuration confirmation không thiết lập security proof cho discrete modulation fading. Hosseinidehaj hỗ trợ Gaussian-modulation fading covariance/receiver; exact Denys C,w/correlation constraints giữ nguyên. Gaussian-surrogate MI không được tự đồng nhất true pooled-fading MI hoặc lower bound đã chứng minh; directZ không được tự chứng nhận full-interval worst case. Trusted-DM composition, calibration, operational/finite-size/composable scope vẫn chưa xác lập.
++
++Khuyến nghị tối thiểu nếu cần matching ở precision cao hơn: một task sau có thể scale integrand mu2 hoặc giảm epsabs tương xứng khoảng1e-28 và prospectively kiểm regression. Đây là numerical refinement, không phải thay physical model để cứu SKR; tác động reference K hiện chỉ khoảng9e-12. **Chưa sửa production; chờ xác nhận riêng trước bất kỳ thay đổi nào.**
++
++Sources: [Hosseinidehaj v1 Eq4–7/AppendixA](https://arxiv.org/pdf/2002.03476.pdf), [Denys2021](https://quantum-journal.org/papers/q-2021-09-13-540/pdf/); bản thảo thực tế dùng để đối chiếu là2026__Binh_s_work (38).pdf (SHA0c60153c...be0a0), requested(38)(3) không có. Công thức Gd tái lập từ repo, bibliography/calibration ngoài code chưa được xác nhận. Frozen actual hashdf83ea63...78c15 vẫn khác historical AGENTS; không sửa. NOT_READY_FOR_PUBLICATION_SCALE_RUNS và ObjectiveC USER_STOPPED giữ nguyên.
++
++Artifacts: runtime_probe.json (arguments/return objects, original defaults/CLI/env), independent_geometry_audit.json (4 independent chains và94 checks), high_precision_common_geometry.json/high_precision_SKR.json, moments_closed_vs_quadrature.csv, runtime_parameters.csv, configuration_sensitivity.csv, SKR_entropy_decomposition.csv và quadrature_precision_diagnosis.json. Các file nằm trong results/full_geometry_fading_skr_audit_20261017/. Runtime probe script và independent audit script là2 file mới riêng; không sửa source/Cw/config/frozen specifications hoặc output cũ. Không full-catalog/mission/optimizer, training/test access, publication/baseline/threshold promotion, external edits hoặc commit/push. Audit complete; STOP.
++

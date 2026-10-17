@@ -1,0 +1,27 @@
+{
+  "schema": "trusted-heterodyne-skr-v1",
+  "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "binary_config": "configs/binary_cloud_skr_demo.json",
+  "matched_cloud_results": "results/binary_cloud_skr_20261015",
+  "previous_effective_results": "results/fading_effective_binary_cloud_20261016",
+  "reference_pair_from": "configs/fading_effective_binary_cloud.json",
+  "diagnostic_detector_from": "configs/manuscript_corrected_3moments.json",
+  "primary_detector_from": "binary_config.channel.R/xi_det",
+  "full_nonideal_catalog": false,
+  "MC": {
+    "positions": [
+      0,
+      9,
+      44,
+      90,
+      99
+    ],
+    "samples_per_position": 65536,
+    "independent_blocks": 16,
+    "seed_base": 20261020,
+    "sigma_acceptance": 5
+  },
+  "physical_parameters_changed": false,
+  "production_default_changed": false
+}

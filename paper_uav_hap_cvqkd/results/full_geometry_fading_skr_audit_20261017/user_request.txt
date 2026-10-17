@@ -1,0 +1,880 @@
+# CODEX TASK — Full Numerical Audit of HAP–UAV Channel Geometry, Fading Moments and SKR
+
+## 1. Mục tiêu
+
+Hãy kiểm tra lại toàn bộ quy trình tính SKR trong repository HAP–UAV 256-QAM MB-shaped DM-CV-QKD, đặc biệt xác minh **cấu hình vật lý thực sự được sử dụng**.
+
+Cấu hình đã chốt của nghiên cứu là:
+
+\[
+\boxed{
+D_r=0.55\ {\rm m},\qquad
+\theta_{\rm div}=10\ \mu{\rm rad}.
+}
+\]
+
+Trong đó:
+
+- \(D_r\) là đường kính khẩu độ máy thu UAV, không phải bán kính.
+- \(\theta_{\rm div}\) là góc phân kỳ toàn phần theo quy ước hiện hành.
+- Bán kính khẩu độ tương ứng là \(r_{\rm ap}=0.275\) m.
+
+Repository đã từng có những cấu hình cũ:
+
+\[
+D_r=0.08\ {\rm m},
+\qquad
+\theta_{\rm div}=233\ \mu{\rm rad}.
+\]
+
+**Không được trộn các cấu hình này.**
+
+Báo cáo audit trước cho:
+
+\[
+\langle\eta\rangle=0.2379089,
+\]
+
+\[
+W_{\rm pre}=2.2051214,
+\]
+
+và tại:
+
+\[
+(\nu_{\rm raw},V_A)=(0.17,5.046875),
+\]
+
+có:
+
+\[
+K_{\rm ideal}=-0.746140527195,
+\]
+
+\[
+K_{\rm trusted}=-0.452872225983.
+\]
+
+Nhiệm vụ là truy vết và tính lại độc lập từng đại lượng để xác định các kết quả trên có thực sự thuộc cấu hình \(D_r=0.55\) m, \(\theta_{\rm div}=10\ \mu\mathrm{rad}\) hay không.
+
+**Chỉ audit, tính độc lập và báo cáo. Không sửa production code trước khi tìm được lỗi có bằng chứng.**
+
+---
+
+## 2. Xác minh cấu hình runtime thật sự
+
+Đọc đầy đủ:
+
+- `docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md`
+- `docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md`
+- File cấu hình vật lý của hệ thống.
+- Hàm tính channel geometry.
+- Hàm tính fading distribution.
+- Hàm tính ba moments.
+- Entry point thực sự chạy reference evaluator.
+- Cache và metadata của các kết quả hiện tại.
+
+Phải phân biệt:
+
+1. Default parameters trong source code.
+2. Parameters trong configuration files.
+3. CLI arguments.
+4. Environment overrides.
+5. Runtime effective parameters.
+6. Parameters thực sự được sử dụng để tạo kết quả cache.
+
+**Không được kết luận cấu hình đúng chỉ vì thấy `D_r=0.55` hoặc `theta_div=10e-6` trong một file.**
+
+Phải có bằng chứng từ runtime object hoặc reconstructed execution trace.
+
+Xuất bảng:
+
+| Parameter | Default | Runtime actual | Unit | Source file |
+|---|---|---|---|---|
+| \(D_r\) | | | m | |
+| \(r_{\rm ap}\) | | | m | |
+| \(\theta_{\rm div}\) | | | rad | |
+| \(\lambda\) | | | m | |
+| \(w_0\) | | | m | |
+| \(h_{\rm HAP}\) | | | m | |
+| \(h_{\rm UAV}\) | | | m | |
+| \(\zeta\) | | | degree/rad | |
+| \(\sigma_h\) | | | m | |
+| \(\theta_{\rm jt}\) | | | rad | |
+| \(C_n^2(0)\) | | | \(\mathrm{m}^{-2/3}\) | |
+| \(v_{\rm wind}\) | | | m/s | |
+| \(\sigma_o\) | | | rad | |
+| \(\theta_{\rm FOV}\) | | | rad | |
+| \(\xi_{\rm ch}\) | | | SNU | |
+| \(\eta_B\) | | | — | |
+| \(\nu_B\) | | | SNU | |
+
+Đặc biệt kiểm tra lỗi đổi đơn vị:
+
+- \(10\ \mu{\rm rad}=10^{-5}\ {\rm rad}\).
+- \(0.55\ {\rm m}\) là đường kính, bán kính là \(0.275\ {\rm m}\).
+- Độ và radian không được trộn.
+- Phân biệt beam divergence full-angle và half-angle.
+
+Nếu kết quả audit lấy từ cấu hình cũ, phải báo `CONFIGURATION_MISMATCH`.
+
+---
+
+## 3. Tính lại channel geometry từ đầu
+
+Không tái sử dụng trực tiếp các intermediate outputs của production evaluator.
+
+Hãy xây dựng independent numerical script tính từng đại lượng từ runtime inputs.
+
+### 3.1. Slant distance
+
+\[
+\boxed{
+L=(h_{\rm HAP}-h_{\rm UAV})\sec\zeta.
+}
+\]
+
+Nếu runtime thực sự dùng:
+
+\[
+h_{\rm HAP}=20\ {\rm km},
+\quad h_{\rm UAV}=1\ {\rm km},
+\quad \zeta=30^\circ,
+\]
+
+thì kết quả kiểm tra là:
+
+\[
+L=21.93931023\ {\rm km}.
+\]
+
+Nếu runtime khác, không ép dùng kết quả này.
+
+### 3.2. Atmospheric transmittance
+
+Theo bản thảo:
+
+\[
+\boxed{
+\eta_{\rm atm}=\tau_{\rm zen}^{\sec\zeta}.
+}
+\]
+
+In đầy đủ \(\tau_{\rm zen}\), \(\zeta\), phép thay số và kết quả.
+
+### 3.3. Beam waist
+
+Theo quy ước divergence toàn phần trong PDF:
+
+\[
+\boxed{
+w_0=\frac{2\lambda}{\pi\theta_{\rm div}}.
+}
+\]
+
+Nếu:
+
+\[
+\lambda=1550\ {\rm nm},
+\quad \theta_{\rm div}=10\ \mu{\rm rad},
+\]
+
+thì:
+
+\[
+\boxed{w_0=0.0986760647\ {\rm m}.}
+\]
+
+Nếu repository cho kết quả khác, phải xác định nguyên nhân: unit conversion, divergence convention hay công thức khác.
+
+### 3.4. Beam propagation
+
+Tính và in rõ:
+
+\[
+w_L,\qquad
+w_{L,\rm eff},\qquad
+w_{L,\rm eq}.
+\]
+
+Sử dụng đúng các biểu thức propagation, turbulence broadening và equivalent beam radius đang được nghiên cứu trong repository.
+
+Phải trình bày cả công thức gốc, tất cả tham số phụ, phép thay số và kết quả.
+
+Đặc biệt kiểm tra \(F_0=\infty\), \(G_d\), Rytov variance và việc sử dụng \(L\) theo mét.
+
+### 3.5. Aperture collection
+
+Tính:
+
+\[
+\boxed{
+A_0=[\operatorname{erf}(v)]^2
+}
+\]
+
+với \(v\) được định nghĩa theo mô hình khẩu độ trong PDF.
+
+Kiểm tra chính xác \(D_r\) là đường kính hay bán kính trong công thức \(v\).
+
+Xuất cả \(v\), \(\operatorname{erf}(v)\) và \(A_0\).
+
+### 3.6. Pointing error
+
+Tính:
+
+\[
+\sigma_{\rm jt}=L\theta_{\rm jt}
+\]
+
+\[
+\boxed{
+\sigma_s^2=\sigma_h^2+\sigma_{\rm jt}^2.
+}
+\]
+
+Sau đó tính tham số pointing:
+
+\[
+\boxed{
+\chi=\frac{w_{L,\rm eq}}{2\sigma_s}.
+}
+\]
+
+In:
+
+\[
+\sigma_{\rm jt},\quad
+\sigma_h,\quad
+\sigma_s,\quad
+\chi,\quad
+\chi^2.
+\]
+
+Phải phân biệt \(\chi^2\) của pointing error với Holevo information \(\chi_{BE}\).
+
+### 3.7. AoA
+
+Tính:
+
+\[
+P_0=
+\exp\left(
+-\frac{\theta_{\rm FOV}^2}{2\sigma_o^2}
+\right)
+\]
+
+và:
+
+\[
+P_1=1-P_0.
+\]
+
+Kiểm tra xác suất tại \(\eta=0\) được xử lý riêng, không biến thành một phần của continuous PDF hoặc bị bỏ đi.
+
+---
+
+## 4. Tính lại fading PDF và các tham số phụ
+
+Sử dụng đúng phân phối \(f_\eta(\eta)\) của bài HAP–UAV.
+
+Tính và in:
+
+\[
+A_0,\quad
+\eta_{\rm atm},\quad
+B=A_0\eta_{\rm atm},
+\]
+
+\[
+\chi^2,\quad C_1,\quad C_3,\quad\mu,\quad x_1.
+\]
+
+Không được nhầm \(C_1\) của channel PDF với \(C\) của source correlation Denys.
+
+Viết ra toàn bộ biểu thức \(f_\eta(\eta)\) sau khi thay số.
+
+Kiểm tra chuẩn hóa:
+
+\[
+P_0+\int_0^1 f_{\eta,\mathrm{continuous}}(\eta)d\eta.
+\]
+
+Nếu khác 1, phải báo chính xác chênh lệch.
+
+Phải phân biệt mass bị cắt ngoài miền tích phân, lỗi chuẩn hóa PDF và các giới hạn vật lý của mô hình lognormal.
+
+Không được tự renormalize âm thầm.
+
+---
+
+## 5. Tính ba fading moments bằng hai phương pháp độc lập
+
+### Phương pháp A: Closed form
+
+Theo Eq. (19)–(20) của bản thảo:
+
+\[
+\boxed{
+\langle\eta\rangle
+=
+P_1A_0\eta_{\rm atm}
+\frac{\chi^2C_1}{\chi^2+1}
+\mathcal Q(\chi^2+1)
+}
+\]
+
+\[
+\boxed{
+\langle\sqrt\eta\rangle
+=
+P_1\sqrt{A_0\eta_{\rm atm}}
+\frac{\chi^2C_1}{\chi^2+0.5}
+\mathcal Q(\chi^2+0.5)
+}
+\]
+
+In rõ các giá trị:
+
+\[
+\mathcal Q(\chi^2),
+\quad
+\mathcal Q(\chi^2+0.5),
+\quad
+\mathcal Q(\chi^2+1).
+\]
+
+Trình bày phép thay số đầy đủ vào cả hai moment.
+
+### Phương pháp B: Numerical integration
+
+Tính độc lập:
+
+\[
+\boxed{
+\langle\eta\rangle
+=
+\int_0^1\eta f_\eta(\eta)d\eta
+}
+\]
+
+và:
+
+\[
+\boxed{
+\langle\sqrt\eta\rangle
+=
+\int_0^1\sqrt\eta f_\eta(\eta)d\eta.
+}
+\]
+
+Phải xử lý atom tại 0 một cách tường minh.
+
+So sánh closed form và quadrature với tolerance có cơ sở số học.
+
+### Moment thứ ba
+
+Theo Hosseinidehaj, Eq. (6)–(7):
+
+\[
+\boxed{
+\langle\eta\xi_\eta\rangle
+=
+\langle\eta\xi_{\rm ch}(\eta)\rangle.
+}
+\]
+
+Nếu \(\xi_{\rm ch}\) cố định:
+
+\[
+\boxed{
+\langle\eta\xi_\eta\rangle
+=
+\xi_{\rm ch}\langle\eta\rangle.
+}
+\]
+
+Không sử dụng \(\chi_{\rm line}\), \(\chi_{\rm tot}\) hoặc trusted detection noise tại đây.
+
+Xuất:
+
+| Quantity | Closed form | Independent quadrature | Relative error |
+|---|---|---|---|
+| PDF total mass | | | |
+| \(\langle\eta\rangle\) | | | |
+| \(\langle\sqrt\eta\rangle\) | | | |
+| \(\langle\eta\xi_\eta\rangle\) | | | |
+
+**Kiểm tra đặc biệt:** Giải thích rõ tại sao reference hiện cho:
+
+\[
+\boxed{\langle\eta\rangle=0.2379089.}
+\]
+
+Giá trị này phải được truy về các tham số vật lý, không được chỉ trả lời rằng cache hoặc test đã PASS.
+
+---
+
+## 6. Tính effective fading channel theo từng phép thay số
+
+Tại reference:
+
+\[
+V_A=5.046875.
+\]
+
+Tính:
+
+\[
+\boxed{
+\eta_f=\langle\sqrt\eta\rangle^2.
+}
+\]
+
+\[
+\boxed{
+\operatorname{Var}(\sqrt\eta)
+=
+\langle\eta\rangle-\eta_f.
+}
+\]
+
+Phân rã:
+
+\[
+E_{\rm fading}
+=
+(\langle\eta\rangle-\eta_f)V_A
+\]
+
+\[
+E_{\rm channel}
+=
+\langle\eta\xi_\eta\rangle.
+\]
+
+Sau đó:
+
+\[
+\boxed{
+\eta_f\xi_f=E_{\rm fading}+E_{\rm channel}.
+}
+\]
+
+Và:
+
+\[
+\boxed{
+\xi_f=\frac{E_{\rm fading}+E_{\rm channel}}{\eta_f}.
+}
+\]
+
+Yêu cầu trình bày:
+
+\[
+\text{Formula}
+\longrightarrow
+\text{Numerical substitution}
+\longrightarrow
+\text{Final value}.
+\]
+
+Tính tỷ lệ:
+
+\[
+r_{\rm fading}
+=
+\frac{E_{\rm fading}}
+{E_{\rm fading}+E_{\rm channel}}
+\times100\%.
+\]
+
+Kiểm tra tuyên bố trước đây rằng fading đóng góp 98.87%.
+
+Phải xuất chính xác cả tử số và mẫu số.
+
+---
+
+## 7. Tính lại \(V,W,Z\)
+
+Sử dụng đúng nguồn 256-QAM tại:
+
+\[
+(\nu_{\rm raw},V_A)=(0.17,5.046875).
+\]
+
+Lấy exact \(C,w\) từ source catalog, xác nhận ensemble hash.
+
+Tính:
+
+\[
+\boxed{V=V_A+1.}
+\]
+
+\[
+\boxed{
+W_{\rm pre}
+=
+1+\eta_fV_A+\eta_f\xi_f.
+}
+\]
+
+Đồng thời kiểm tra độc lập:
+
+\[
+\boxed{
+W_{\rm pre}
+=
+1+\langle\eta\rangle(V_A+\xi_{\rm ch})
+}
+\]
+
+khi channel excess noise cố định.
+
+Hai công thức phải khớp.
+
+Tiếp theo:
+
+\[
+\boxed{
+Z^*
+=
+2\sqrt{\eta_f}C
+-
+\sqrt{2\eta_f\xi_fw}.
+}
+\]
+
+In riêng:
+
+\[
+Z_{\rm base}=2\sqrt{\eta_f}C,
+\]
+
+\[
+Z_{\rm correction}=\sqrt{2\eta_f\xi_fw}.
+\]
+
+Và:
+
+\[
+Z^*=Z_{\rm base}-Z_{\rm correction}.
+\]
+
+Không chỉ in một giá trị \(Z\) cuối cùng.
+
+Kiểm tra covariance matrix:
+
+\[
+\gamma_{AB_1}
+=
+\begin{pmatrix}
+VI_2&Z\sigma_z\\
+Z\sigma_z&W_{\rm pre}I_2
+\end{pmatrix}.
+\]
+
+Kiểm tra nguyên lý bất định và physical symplectic eigenvalues.
+
+---
+
+## 8. Tính Holevo — trình bày từng entropy
+
+Từ \(V,W,Z\), tính:
+
+\[
+\Delta=V^2+W^2-2Z^2,
+\]
+
+\[
+D=(VW-Z^2)^2,
+\]
+
+\[
+\nu_{1,2}
+=
+\sqrt{
+\frac{\Delta\pm\sqrt{\Delta^2-4D}}2
+}.
+\]
+
+In:
+
+\[
+\Delta,\quad D,\quad\nu_1,\quad\nu_2.
+\]
+
+Tính:
+
+\[
+S(AB_1)
+=
+g\left(\frac{\nu_1-1}{2}\right)
++
+g\left(\frac{\nu_2-1}{2}\right).
+\]
+
+Với ideal heterodyne:
+
+\[
+\nu_{3,\rm het}
+=
+V-\frac{Z^2}{W+1}.
+\]
+
+Và:
+
+\[
+\chi_{BE}
+=
+S(AB_1)-S(A|Y_B).
+\]
+
+Với trusted heterodyne không lý tưởng, dùng đầy đủ Appendix A của Hosseinidehaj để xây dựng detector ancillas, conditional covariance và conditional symplectic eigenvalues.
+
+Phải in từng entropy trước khi lấy hiệu, đồng thời đối chiếu chặn:
+
+\[
+\boxed{
+\chi_{BE}
+\le
+2g\left(\frac{W_{\rm pre}-1}{2}\right).
+}
+\]
+
+So sánh với các giá trị đã báo cáo:
+
+\[
+\chi_{BE,\rm ideal}\approx1.146634,
+\]
+
+\[
+\chi_{BE,\rm trusted}\approx0.755356.
+\]
+
+Nếu khác nhau, giải thích rõ nguyên nhân và cấu hình detector được sử dụng.
+
+**Không tự động lấy \((\eta_B,\nu_B)=(0.7,0.0135)\) làm cấu hình chính nếu runtime hiện hành dùng giá trị khác.**
+
+Phân biệt detector ideal, trusted diagnostic 0.7 và detector 0.8 nếu có trong config.
+
+---
+
+## 9. Tính lại \(I_{AB}\) từ likelihood
+
+Đối với discrete 256-QAM:
+
+\[
+I_{AB}
+=
+\sum_kp_k
+\int_{\mathbb C}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_jp_jp(y|\alpha_j)}
+d^2y.
+\]
+
+Yêu cầu xuất:
+
+- Toàn bộ quy ước \(V_A\), \(\alpha_k\), \(p_k\).
+- Gain của effective channel.
+- Gain của detector.
+- Noise variance trên mỗi quadrature.
+- Heterodyne vacuum contribution.
+- Electronic noise.
+- Công thức đầy đủ của likelihood.
+- Phương pháp tích phân và sai số hội tụ.
+
+Tính lại MI bằng independent implementation.
+
+Phải báo cáo cả:
+
+\[
+I_{AB}
+\]
+
+và:
+
+\[
+\beta I_{AB}.
+\]
+
+Không sử dụng Gaussian-modulated MI thay cho 256-QAM MI.
+
+---
+
+## 10. Tính SKR cuối cùng
+
+\[
+\boxed{
+K_{\rm raw}
+=
+0.95I_{AB}-\chi_{BE}
+}
+\]
+
+nếu runtime thực sự dùng \(\beta=0.95\).
+
+Phải hiển thị phép thay số:
+
+\[
+K_{\rm raw}
+=
+0.95\times(\text{MI computed})
+-
+(\text{Holevo computed}).
+\]
+
+So sánh với:
+
+\[
+K_{\rm ideal}=-0.746140527195,
+\]
+
+\[
+K_{\rm trusted}=-0.452872225983.
+\]
+
+Nếu kết quả khớp, phải giải thích định lượng vì sao:
+
+\[
+\beta I_{AB}<\chi_{BE}.
+\]
+
+Nếu không khớp, truy vết sai khác về geometry, moments, source, detector, likelihood hoặc Holevo.
+
+---
+
+## 11. Sensitivity check — xác minh nguy cơ dùng nhầm cấu hình
+
+Chạy một bài kiểm tra nhỏ tại cùng reference source và cùng các tham số khác.
+
+So sánh bốn trường hợp:
+
+| Case | \(D_r\) | \(\theta_{\rm div}\) |
+|---|---|---|
+| A — Expected current | 0.55 m | 10 µrad |
+| B — Old manuscript | 0.08 m | 233 µrad |
+| C — Aperture comparison | 0.55 m | 233 µrad |
+| D — Divergence comparison | 0.08 m | 10 µrad |
+
+Đây chỉ là diagnostic cases, không thay đổi production configuration.
+
+In:
+
+\[
+w_0,w_L,w_{L,\rm eq},A_0,\sigma_s,\chi^2,
+\]
+
+\[
+\langle\eta\rangle,
+\eta_f,\xi_f,W_{\rm pre},Z,
+I_{AB},\chi_{BE},K_{\rm raw}.
+\]
+
+Mục tiêu là xác định giá trị:
+
+\[
+\langle\eta\rangle=0.2379089
+\]
+
+khớp với trường hợp nào.
+
+Không sử dụng kết quả cache nếu cache thiếu geometry fingerprint.
+
+---
+
+## 12. Yêu cầu báo cáo chi tiết bằng tiếng Việt
+
+Tạo file:
+
+`docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md`
+
+**Báo cáo bắt buộc có các mục:**
+
+### A. Actual runtime configuration
+
+Chứng minh \(D_r\), \(\theta_{\rm div}\), \(w_0\) và các tham số vật lý được sử dụng thực tế.
+
+### B. Geometric and atmospheric calculations
+
+Viết từng công thức, từng phép thay số và kết quả cho tất cả tham số hình học.
+
+### C. Fading PDF and moments
+
+Viết PDF, kiểm tra chuẩn hóa, tính hai moment bằng closed form và numerical quadrature, tính moment excess noise.
+
+### D. Effective channel
+
+Tính đầy đủ \(\eta_f\), fading variance, \(\xi_f\) và tỷ lệ 98.87%.
+
+### E. Covariance
+
+Tính \(V,W,Z\), phân rã \(Z\), kiểm tra physicality.
+
+### F. Mutual information and Holevo
+
+Trình bày độc lập \(I_{AB}\), từng entropy, các symplectic eigenvalues và chặn vật lý.
+
+### G. SKR
+
+Tính từng phép thay số để thu được signed SKR cho ideal và trusted detector.
+
+### H. Configuration sensitivity
+
+So sánh bốn tổ hợp khẩu độ/phân kỳ, xác định configuration fingerprint của reference cũ.
+
+### I. Final verdict
+
+Chọn một hoặc nhiều trạng thái có bằng chứng:
+
+- `CONFIGURATION_MATCH_CONFIRMED`
+- `CONFIGURATION_MISMATCH`
+- `MOMENT_MISMATCH`
+- `NOISE_ACCOUNTING_ERROR`
+- `HOLEVO_ERROR`
+- `MI_ERROR`
+- `NUMERICALLY_CONSISTENT`
+- `UNVALIDATED_SECURITY_MODEL`
+
+Không được kết luận một nhãn PASS tổng quát thay cho các kiểm tra cụ thể.
+
+## 13. Quy tắc thực hiện
+
+- Chỉ audit, không sửa production code.
+- Không chạy lại 22.700 source–location evaluations.
+- Không chạy lại 1.600 missions.
+- Không commit/push.
+- Không thay đổi dữ liệu cũ.
+- Không dùng lại cùng production helper để giả làm kiểm chứng độc lập.
+- Không hard-code kết quả audit cũ làm input mới.
+- Không thay đổi \(D_r\), \(\theta_{\rm div}\) để ép SKR dương.
+- Nếu có lỗi, xác định file, hàm, dòng code, tác động định lượng và cách sửa tối thiểu; chờ xác nhận trước khi sửa.
+
+## Acceptance criteria
+
+Báo cáo chỉ hoàn thành khi trả lời được đầy đủ:
+
+**1.** Reference SKR −0.746140527195 được tính với \(D_r=0.55\) m và \(\theta_{\rm div}=10\ \mu\mathrm{rad}\), hay một cấu hình khác?
+
+**2.** Từ các tham số vật lý cụ thể nào tính ra:
+
+\[
+\langle\eta\rangle=0.2379089?
+\]
+
+**3.** Closed-form fading moments có khớp numerical integration độc lập không?
+
+**4.** 98.87% fading excess noise được tính từ tử số/mẫu số nào?
+
+**5.** Công thức và phép thay số cụ thể nào tạo ra \(W_{\rm pre}=2.2051214\)?
+
+**6.** Giá trị \(Z\), các symplectic eigenvalues, từng entropy và MI bằng bao nhiêu?
+
+**7.** Vì sao SKR âm, và đây là kết quả nhất quán của mô hình hay lỗi trong configuration/evaluator?
+
+**8.** Những kết luận nào chỉ có tính numerical validation và chưa phải security proof cho discrete-modulation fading CV-QKD?
+
+**Quan trọng nhất: Không chỉ nói tests PASS. Phải trình bày rõ từ tham số vật lý đầu vào đến SKR cuối cùng, kèm công thức, phép thay số, giá trị trung gian và đường dẫn đến code thực thi.**

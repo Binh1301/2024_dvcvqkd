@@ -1,0 +1,22 @@
+parameter,default,runtime,unit,source
+Dr,0.08,0.55,m,default.yaml -> binary_cloud.channel.receiver_radius_m x2
+r_ap,0.04,0.275,m,same; derive_physical_inputs override
+theta_div,0.000223,1.0000000000000003e-05,"rad, full angle",default.yaml -> derived from configured beam_waist override
+lambda,1.55e-06,1.55e-06,m,default.yaml.channel.wavelength_m
+w0,0.004424935637532516,0.0986760647169751,m,binary_cloud.channel.beam_waist_m
+h_HAP,20000.0,20000.0,m,default.yaml + explicit geometry equality check
+h_UAV,1000.0,1000.0,m,same
+zeta,0.5235987755982988,0.5235987755978426,rad,grid/HAP coordinates -> link_geometry override
+sigma_h,1.0,1.0,m per axis,default.yaml.pointing.sigma_h_m
+theta_jt,1.561e-05,1.561e-05,rad per axis,default.yaml.pointing.theta_jt_rad
+Cn2(0),1e-14,1e-14,m^(-2/3),default.yaml.turbulence_profile
+wind,21.0,21.0,m/s,same
+sigma_o,0.0015,0.0015,rad,default.yaml.aoa.sigma_o_rad
+theta_FOV,0.00625,0.00625,rad half-angle,default.yaml.aoa.theta_fov_rad
+xi_ch,0.0186,0.0186,SNU input channel excess,binary_cloud.channel.xi_ch
+eta_B primary,function default1,1,unitless,binary_cloud.channel.R
+nu_B primary,function default0,0,SNU output per detected arm,binary_cloud.channel.xi_det
+eta_B diagnostic,historical config.7,0.7,unitless,manuscript_corrected_3moments.json.R
+nu_B diagnostic,historical config.0135,0.0135,SNU,same.xi_det
+tau_zen,,0.92,power,explicit binary config.clear_tau_zen
+F0,infinity,infinity,m,default.yaml.radius_of_curvature_m

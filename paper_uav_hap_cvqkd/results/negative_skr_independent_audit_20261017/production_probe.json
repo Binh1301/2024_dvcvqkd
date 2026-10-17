@@ -1,0 +1,5226 @@
+{
+  "provenance": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "scope": "Source/producer/cache provenance and fresh production probe only; independent numerical validation pending",
+    "producer_script_sha256": "1ef88009ea95663a6c3b7677f16d36b7f5646c9bbd1e09bd50cd7821404a2b4b",
+    "input_sha256": "7d900205e3bdcb477f0cc2e2b9cc328f107c28b64a889a964ac27f1b5eab9dd2",
+    "prior_result_residual": {
+      "primary_detector": {
+        "I_AB": 0.0,
+        "chi_BE": 0.0,
+        "K_raw": 0.0,
+        "W_pre": 0.0,
+        "Z_star": 0.0
+      },
+      "trusted_detector": {
+        "I_AB": 0.0,
+        "chi_BE": 0.0,
+        "K_raw": 0.0,
+        "W_pre": 0.0,
+        "Z_star": 0.0
+      }
+    },
+    "prior_model": "channel_only_fading_trusted_heterodyne_v1",
+    "previous_receipts_verified": true,
+    "source_moments_recomputed": 0,
+    "objective_cache_K_reused_for_probe": 0,
+    "new_SKR_calls": 32,
+    "failures": []
+  },
+  "results": [
+    {
+      "source_id": 0,
+      "case": "reference_fading",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.23790886783673015,
+        "mean_sqrt_eta": 0.40114871429673266,
+        "m_xi": 0.0044251049417631805,
+        "mean_eta_xi_channel": 0.0044251049417631805,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.16092029098192165,
+        "variance_sqrt_eta": 0.0769885768548085,
+        "fading_variance": 0.0769885768548085,
+        "fading_excess_output": 0.3885517238141117,
+        "Delta_fad": 0.3885517238141117,
+        "channel_excess_output": 0.0044251049417631805,
+        "effective_excess_output": 0.39297682875587486,
+        "N_eff": 0.39297682875587486,
+        "effective_excess_input": 2.44205889983149,
+        "xi_eff": 2.44205889983149,
+        "a": 6.046875,
+        "b": 2.2051214223052606,
+        "b_pre": 2.2051214223052606,
+        "W_pre": 2.2051214223052606,
+        "W_pre_effective": 2.2051214223052606,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 7.6563156222006015,
+        "chi_tot": 13.870572344569712,
+        "detector_gain_squared": 0.16092029098192165,
+        "sigma2_complex": 1.1964884143779375,
+        "V_B2": 2.2051214223052606,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 2.3915984782847097,
+        "Z_signal": 2.392296030890427,
+        "Z_penalty": 0.0006975526057172753,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 1.1466344829084623,
+        "lambda_1": 5.283036505026984,
+        "lambda_2": 1.4412829273322416,
+        "conditional_symplectic_eigenvalues": [
+          4.262311319657477
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0,
+          4.262311319657478
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            4.329296328673261,
+            0.0,
+            -0.5974805123382421,
+            0.0
+          ],
+          [
+            0.0,
+            4.329296328673261,
+            0.0,
+            0.5974805123382421
+          ],
+          [
+            -0.5974805123382421,
+            0.0,
+            1.066985009015785,
+            0.0
+          ],
+          [
+            0.0,
+            0.5974805123382421,
+            0.0,
+            1.066985009015785
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            2.3915984782847097,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -2.3915984782847097
+          ],
+          [
+            2.3915984782847097,
+            0.0,
+            2.2051214223052606,
+            0.0
+          ],
+          [
+            0.0,
+            -2.3915984782847097,
+            0.0,
+            2.2051214223052606
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 4.262311319657477,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.4215725849611287,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.4004939557130722,
+        "SKR": -0.74614052719539,
+        "K_raw": -0.74614052719539,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.42157258494512817,
+            "SKR": -0.7461405272105905
+          },
+          {
+            "order": 16,
+            "I_AB": 0.42157258496112915,
+            "SKR": -0.7461405271953896
+          },
+          {
+            "order": 32,
+            "I_AB": 0.4215725849611287,
+            "SKR": -0.74614052719539
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.16092029098192165,
+        "MI_kernel_epsilon": 2.4420588998314914
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "reference_fading",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.23790886783673015,
+        "mean_sqrt_eta": 0.40114871429673266,
+        "m_xi": 0.0044251049417631805,
+        "mean_eta_xi_channel": 0.0044251049417631805,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.16092029098192165,
+        "variance_sqrt_eta": 0.0769885768548085,
+        "fading_variance": 0.0769885768548085,
+        "fading_excess_output": 0.3885517238141117,
+        "Delta_fad": 0.3885517238141117,
+        "channel_excess_output": 0.0044251049417631805,
+        "effective_excess_output": 0.39297682875587486,
+        "N_eff": 0.39297682875587486,
+        "effective_excess_input": 2.44205889983149,
+        "xi_eff": 2.44205889983149,
+        "a": 6.046875,
+        "b": 2.2051214223052606,
+        "b_pre": 2.2051214223052606,
+        "W_pre": 2.2051214223052606,
+        "W_pre_effective": 2.2051214223052606,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 7.6563156222006015,
+        "chi_tot": 19.43677086589176,
+        "detector_gain_squared": 0.11264420368734515,
+        "sigma2_complex": 1.1510418900645563,
+        "V_B2": 1.8705849956136822,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 2.3915984782847097,
+        "Z_signal": 2.392296030890427,
+        "Z_penalty": 0.0006975526057172753,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.7553564386786364,
+        "lambda_1": 5.283036505026984,
+        "lambda_2": 1.4412829273322416,
+        "conditional_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.1101285398235259,
+          4.49900301519474
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.1101285398235266,
+          4.499003015194737
+        ],
+        "conditional_covariance_AFG": [
+          [
+            4.652099961792964,
+            0.0,
+            -0.9537285234337693,
+            0.0,
+            -0.1655853472152466,
+            0.0
+          ],
+          [
+            0.0,
+            4.652099961792964,
+            0.0,
+            0.9537285234337693,
+            0.0,
+            -0.1655853472152466
+          ],
+          [
+            -0.9537285234337693,
+            0.0,
+            1.3335674724328888,
+            0.0,
+            0.4051515401697417,
+            0.0
+          ],
+          [
+            0.0,
+            0.9537285234337693,
+            0.0,
+            1.3335674724328888,
+            0.0,
+            -0.4051515401697417
+          ],
+          [
+            -0.1655853472152466,
+            0.0,
+            0.4051515401697417,
+            0.0,
+            1.070341986011135,
+            0.0
+          ],
+          [
+            0.0,
+            -0.1655853472152466,
+            0.0,
+            -0.4051515401697417,
+            0.0,
+            1.070341986011135
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            4.53761452565664,
+            0.0,
+            -0.4669773982313594,
+            0.0
+          ],
+          [
+            0.0,
+            4.53761452565664,
+            0.0,
+            0.4669773982313594
+          ],
+          [
+            -0.4669773982313594,
+            0.0,
+            1.1487400502854297,
+            0.0
+          ],
+          [
+            0.0,
+            0.4669773982313594,
+            0.0,
+            1.1487400502854297
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            2.3915984782847097,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -2.3915984782847097
+          ],
+          [
+            2.3915984782847097,
+            0.0,
+            2.2051214223052606,
+            0.0
+          ],
+          [
+            0.0,
+            -2.3915984782847097,
+            0.0,
+            2.2051214223052606
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 2.6645352591003757e-15,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.31840443441682,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.30248421269597897,
+        "SKR": -0.4528722259826575,
+        "K_raw": -0.4528722259826575,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.3184044344123569,
+            "SKR": -0.4528722259868974
+          },
+          {
+            "order": 16,
+            "I_AB": 0.31840443441682,
+            "SKR": -0.4528722259826575
+          },
+          {
+            "order": 32,
+            "I_AB": 0.31840443441682,
+            "SKR": -0.4528722259826575
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.11264420368734515,
+        "MI_kernel_epsilon": 2.681751659122871
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.01",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.01,
+        "mean_sqrt_eta": 0.1,
+        "m_xi": 0.000186,
+        "mean_eta_xi_channel": 0.000186,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.01,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.000186,
+        "effective_excess_output": 0.000186,
+        "N_eff": 0.000186,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.05065475,
+        "b_pre": 1.05065475,
+        "W_pre": 1.05065475,
+        "W_pre_effective": 1.05065475,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 99.0186,
+        "chi_tot": 199.0186,
+        "detector_gain_squared": 0.01,
+        "sigma2_complex": 1.000093,
+        "V_B2": 1.05065475,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.5963462098553807,
+        "Z_signal": 0.5963613855984662,
+        "Z_penalty": 1.5175743085491176e-05,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.031584031482463804,
+        "lambda_1": 5.9964101887488,
+        "lambda_2": 1.0001899387488042,
+        "conditional_symplectic_eigenvalues": [
+          5.873452924924282
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999998,
+          5.8734529249242815
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            5.873456262881064,
+            0.0,
+            -0.004789916486654559,
+            0.0
+          ],
+          [
+            0.0,
+            5.873456262881064,
+            0.0,
+            0.004789916486654559
+          ],
+          [
+            -0.004789916486654559,
+            0.0,
+            1.000003337956782,
+            0.0
+          ],
+          [
+            0.0,
+            0.004789916486654559,
+            0.0,
+            1.000003337956782
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.5963462098553807,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.5963462098553807
+          ],
+          [
+            0.5963462098553807,
+            0.0,
+            1.05065475,
+            0.0
+          ],
+          [
+            0.0,
+            -0.5963462098553807,
+            0.0,
+            1.05065475
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 5.873452924924282,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.03595045448233769,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.0341529317582208,
+        "SKR": 0.0025689002757569995,
+        "K_raw": 0.0025689002757569995,
+        "K_usable": 0.0025689002757569995,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.03595045448233769,
+            "SKR": 0.0025689002757569995
+          },
+          {
+            "order": 16,
+            "I_AB": 0.03595045448233769,
+            "SKR": 0.0025689002757569995
+          },
+          {
+            "order": 32,
+            "I_AB": 0.03595045448233769,
+            "SKR": 0.0025689002757569995
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.01,
+        "MI_kernel_epsilon": 0.018599999999979744
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.01",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.01,
+        "mean_sqrt_eta": 0.1,
+        "m_xi": 0.000186,
+        "mean_eta_xi_channel": 0.000186,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.01,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.000186,
+        "effective_excess_output": 0.000186,
+        "N_eff": 0.000186,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.05065475,
+        "b_pre": 1.05065475,
+        "W_pre": 1.05065475,
+        "W_pre_effective": 1.05065475,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 99.0186,
+        "chi_tot": 288.59002857142855,
+        "detector_gain_squared": 0.006999999999999999,
+        "sigma2_complex": 1.0135651,
+        "V_B2": 1.062458325,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.5963462098553807,
+        "Z_signal": 0.5963613855984662,
+        "Z_penalty": 1.5175743085491176e-05,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.021859516286828917,
+        "lambda_1": 5.9964101887488,
+        "lambda_2": 1.0001899387488042,
+        "conditional_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.000058457571797,
+          5.910833403450119
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.000058457571797,
+          5.910833403450116
+        ],
+        "conditional_covariance_AFG": [
+          [
+            5.926174301038621,
+            0.0,
+            -0.33099405625606926,
+            0.0,
+            -0.05746684133343964,
+            0.0
+          ],
+          [
+            0.0,
+            5.926174301038621,
+            0.0,
+            0.33099405625606926,
+            0.0,
+            -0.05746684133343964
+          ],
+          [
+            -0.33099405625606926,
+            0.0,
+            1.0780388023113148,
+            0.0,
+            0.36078692012755914,
+            0.0
+          ],
+          [
+            0.0,
+            0.33099405625606926,
+            0.0,
+            1.0780388023113148,
+            0.0,
+            -0.36078692012755914
+          ],
+          [
+            -0.05746684133343964,
+            0.0,
+            0.36078692012755914,
+            0.0,
+            1.062639447151011,
+            0.0
+          ],
+          [
+            0.0,
+            -0.05746684133343964,
+            0.0,
+            -0.36078692012755914,
+            0.0,
+            1.062639447151011
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            5.91083501162212,
+            0.0,
+            -0.003333752451372824,
+            0.0
+          ],
+          [
+            0.0,
+            5.91083501162212,
+            0.0,
+            0.003333752451372824
+          ],
+          [
+            -0.003333752451372824,
+            0.0,
+            1.000060065743802,
+            0.0
+          ],
+          [
+            0.0,
+            0.003333752451372824,
+            0.0,
+            1.000060065743802
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.5963462098553807,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.5963462098553807
+          ],
+          [
+            0.5963462098553807,
+            0.0,
+            1.05065475,
+            0.0
+          ],
+          [
+            0.0,
+            -0.5963462098553807,
+            0.0,
+            1.05065475
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 2.6645352591003757e-15,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.024926213628289062,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.02367990294687461,
+        "SKR": 0.001820386660045692,
+        "K_raw": 0.001820386660045692,
+        "K_usable": 0.001820386660045692,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.024926213628288174,
+            "SKR": 0.0018203866600448454
+          },
+          {
+            "order": 16,
+            "I_AB": 0.024926213628289062,
+            "SKR": 0.001820386660045692
+          },
+          {
+            "order": 32,
+            "I_AB": 0.024926213628289062,
+            "SKR": 0.001820386660045692
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.006999999999999999,
+        "MI_kernel_epsilon": 3.8757428571428885
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.001",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.001,
+        "mean_sqrt_eta": 0.03162277660168379,
+        "m_xi": 1.8599999999999998e-05,
+        "mean_eta_xi_channel": 1.8599999999999998e-05,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-05,
+        "effective_excess_output": 1.8599999999999998e-05,
+        "N_eff": 1.8599999999999998e-05,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.0050654749999999,
+        "b_pre": 1.0050654749999999,
+        "W_pre": 1.0050654749999999,
+        "W_pre_effective": 1.0050654749999999,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 999.0186,
+        "chi_tot": 1999.0185999999999,
+        "detector_gain_squared": 0.001,
+        "sigma2_complex": 1.0000093,
+        "V_B2": 1.0050654749999999,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.18858122971517544,
+        "Z_signal": 0.188586028706509,
+        "Z_penalty": 4.7989913335703496e-06,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.0032326922368834943,
+        "lambda_1": 6.041828396368663,
+        "lambda_2": 1.0000188713686642,
+        "conditional_symplectic_eigenvalues": [
+          6.029138481844209
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0,
+          6.029138481844209
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            6.02913851585177,
+            0.0,
+            -0.0004889211200666012,
+            0.0
+          ],
+          [
+            0.0,
+            6.02913851585177,
+            0.0,
+            0.0004889211200666012
+          ],
+          [
+            -0.0004889211200666012,
+            0.0,
+            1.0000000340075617,
+            0.0
+          ],
+          [
+            0.0,
+            0.0004889211200666012,
+            0.0,
+            1.0000000340075617
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.18858122971517544,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.18858122971517544
+          ],
+          [
+            0.18858122971517544,
+            0.0,
+            1.0050654749999999,
+            0.0
+          ],
+          [
+            0.0,
+            -0.18858122971517544,
+            0.0,
+            1.0050654749999999
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 6.029138481844209,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.0036359313572527086,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.003454134789390073,
+        "SKR": 0.00022144255250657876,
+        "K_raw": 0.00022144255250657876,
+        "K_usable": 0.00022144255250657876,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.0036359313572527086,
+            "SKR": 0.00022144255250657876
+          },
+          {
+            "order": 16,
+            "I_AB": 0.0036359313572531526,
+            "SKR": 0.00022144255250700073
+          },
+          {
+            "order": 32,
+            "I_AB": 0.0036359313572527086,
+            "SKR": 0.00022144255250657876
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.001,
+        "MI_kernel_epsilon": 0.01860000000020179
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.001",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.001,
+        "mean_sqrt_eta": 0.03162277660168379,
+        "m_xi": 1.8599999999999998e-05,
+        "mean_eta_xi_channel": 1.8599999999999998e-05,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-05,
+        "effective_excess_output": 1.8599999999999998e-05,
+        "N_eff": 1.8599999999999998e-05,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.0050654749999999,
+        "b_pre": 1.0050654749999999,
+        "W_pre": 1.0050654749999999,
+        "W_pre_effective": 1.0050654749999999,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 999.0186,
+        "chi_tot": 2894.7328857142857,
+        "detector_gain_squared": 0.0007,
+        "sigma2_complex": 1.01350651,
+        "V_B2": 1.0305458324999999,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.18858122971517544,
+        "Z_signal": 0.188586028706509,
+        "Z_penalty": 4.7989913335703496e-06,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.002228780620344928,
+        "lambda_1": 6.041828396368663,
+        "lambda_2": 1.0000188713686642,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.0000058344436216,
+          6.0330569312761355
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000058344436222,
+          6.033056931276138
+        ],
+        "conditional_covariance_AFG": [
+          [
+            6.034615234304403,
+            0.0,
+            -0.1063145193909166,
+            0.0,
+            -0.018458215493006056,
+            0.0
+          ],
+          [
+            0.0,
+            6.034615234304403,
+            0.0,
+            0.1063145193909166,
+            0.0,
+            -0.018458215493006056
+          ],
+          [
+            -0.1063145193909166,
+            0.0,
+            1.0637735803237527,
+            0.0,
+            0.3583102072287894,
+            0.0
+          ],
+          [
+            0.0,
+            0.1063145193909166,
+            0.0,
+            1.0637735803237527,
+            0.0,
+            -0.3583102072287894
+          ],
+          [
+            -0.018458215493006056,
+            0.0,
+            0.3583102072287894,
+            0.0,
+            1.0622094428518645,
+            0.0
+          ],
+          [
+            0.0,
+            -0.018458215493006056,
+            0.0,
+            -0.3583102072287894,
+            0.0,
+            1.0622094428518645
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            6.033056947515189,
+            0.0,
+            -0.0003379501164205858,
+            0.0
+          ],
+          [
+            0.0,
+            6.033056947515189,
+            0.0,
+            0.0003379501164205858
+          ],
+          [
+            -0.0003379501164205858,
+            0.0,
+            1.0000058506826754,
+            0.0
+          ],
+          [
+            0.0,
+            0.0003379501164205858,
+            0.0,
+            1.0000058506826754
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.18858122971517544,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.18858122971517544
+          ],
+          [
+            0.18858122971517544,
+            0.0,
+            1.0050654749999999,
+            0.0
+          ],
+          [
+            0.0,
+            -0.18858122971517544,
+            0.0,
+            1.0050654749999999
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 2.6645352591003757e-15,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.002512235828155518,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.002386624036747742,
+        "SKR": 0.0001578434164028141,
+        "K_raw": 0.0001578434164028141,
+        "K_usable": 0.0001578434164028141,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.0025122358281537416,
+            "SKR": 0.00015784341640112665
+          },
+          {
+            "order": 16,
+            "I_AB": 0.0025122358281537416,
+            "SKR": 0.00015784341640112665
+          },
+          {
+            "order": 32,
+            "I_AB": 0.002512235828155518,
+            "SKR": 0.0001578434164028141
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.0007,
+        "MI_kernel_epsilon": 38.59002857142865
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0001",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.0001,
+        "mean_sqrt_eta": 0.01,
+        "m_xi": 1.86e-06,
+        "mean_eta_xi_channel": 1.86e-06,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-06,
+        "effective_excess_output": 1.86e-06,
+        "N_eff": 1.86e-06,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.0005065475000001,
+        "b_pre": 1.0005065475000001,
+        "W_pre": 1.0005065475000001,
+        "W_pre_effective": 1.0005065475000001,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 9999.0186,
+        "chi_tot": 19999.0186,
+        "detector_gain_squared": 0.0001,
+        "sigma2_complex": 1.00000093,
+        "V_B2": 1.0005065475000001,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.05963462098553807,
+        "Z_signal": 0.05963613855984662,
+        "Z_penalty": 1.5175743085491178e-06,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.0003268357895129803,
+        "lambda_1": 6.046370338420455,
+        "lambda_2": 1.0000018859204576,
+        "conditional_symplectic_eigenvalues": [
+          6.045097306233123
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0,
+          6.04509730623312
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            6.045097306573842,
+            0.0,
+            -4.89939083560869e-05,
+            0.0
+          ],
+          [
+            0.0,
+            6.045097306573842,
+            0.0,
+            4.89939083560869e-05
+          ],
+          [
+            -4.89939083560869e-05,
+            0.0,
+            1.0000000003407197,
+            0.0
+          ],
+          [
+            0.0,
+            4.89939083560869e-05,
+            0.0,
+            1.0000000003407197
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.05963462098553807,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.05963462098553807
+          ],
+          [
+            0.05963462098553807,
+            0.0,
+            1.0005065475000001,
+            0.0
+          ],
+          [
+            0.0,
+            -0.05963462098553807,
+            0.0,
+            1.0005065475000001
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 6.045097306233123,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.0003640088124523544,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.00034580837182973667,
+        "SKR": 1.897258231675636e-05,
+        "K_raw": 1.897258231675636e-05,
+        "K_usable": 1.897258231675636e-05,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.0003640088124514662,
+            "SKR": 1.897258231591258e-05
+          },
+          {
+            "order": 16,
+            "I_AB": 0.0003640088124523544,
+            "SKR": 1.897258231675636e-05
+          },
+          {
+            "order": 32,
+            "I_AB": 0.0003640088124523544,
+            "SKR": 1.897258231675636e-05
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.0001,
+        "MI_kernel_epsilon": 0.018599999997981342
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0001",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.0001,
+        "mean_sqrt_eta": 0.01,
+        "m_xi": 1.86e-06,
+        "mean_eta_xi_channel": 1.86e-06,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-06,
+        "effective_excess_output": 1.86e-06,
+        "N_eff": 1.86e-06,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.0005065475000001,
+        "b_pre": 1.0005065475000001,
+        "W_pre": 1.0005065475000001,
+        "W_pre_effective": 1.0005065475000001,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 9999.0186,
+        "chi_tot": 28956.161457142854,
+        "detector_gain_squared": 7e-05,
+        "sigma2_complex": 1.013500651,
+        "V_B2": 1.02735458325,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.05963462098553807,
+        "Z_signal": 0.05963613855984662,
+        "Z_penalty": 1.5175743085491178e-06,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.00022525369856252198,
+        "lambda_1": 6.046370338420455,
+        "lambda_2": 1.0000018859204576,
+        "conditional_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.0000005833314591,
+          6.0454910170006615
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000005833314596,
+          6.04549101700066
+        ],
+        "conditional_covariance_AFG": [
+          [
+            6.045647093626527,
+            0.0,
+            -0.03367252341997774,
+            0.0,
+            -0.005846188244466124,
+            0.0
+          ],
+          [
+            0.0,
+            6.045647093626527,
+            0.0,
+            0.03367252341997774,
+            0.0,
+            -0.005846188244466124
+          ],
+          [
+            -0.03367252341997774,
+            0.0,
+            1.0623223578247731,
+            0.0,
+            0.358058247498661,
+            0.0
+          ],
+          [
+            0.0,
+            0.03367252341997774,
+            0.0,
+            1.0623223578247731,
+            0.0,
+            -0.358058247498661
+          ],
+          [
+            -0.005846188244466124,
+            0.0,
+            0.358058247498661,
+            0.0,
+            1.0621656978674454,
+            0.0
+          ],
+          [
+            0.0,
+            -0.005846188244466124,
+            0.0,
+            -0.358058247498661,
+            0.0,
+            1.0621656978674454
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            6.045491017163209,
+            0.0,
+            -3.384156115788669e-05,
+            0.0
+          ],
+          [
+            0.0,
+            6.045491017163209,
+            0.0,
+            3.384156115788669e-05
+          ],
+          [
+            -3.384156115788669e-05,
+            0.0,
+            1.00000058349401,
+            0.0
+          ],
+          [
+            0.0,
+            3.384156115788669e-05,
+            0.0,
+            1.00000058349401
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.05963462098553807,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.05963462098553807
+          ],
+          [
+            0.05963462098553807,
+            0.0,
+            1.0005065475000001,
+            0.0
+          ],
+          [
+            0.0,
+            -0.05963462098553807,
+            0.0,
+            1.0005065475000001
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 1.7763568394002505e-15,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.00025142198816574535,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.00023885088875745807,
+        "SKR": 1.3597190194936093e-05,
+        "K_raw": 1.3597190194936093e-05,
+        "K_usable": 1.3597190194936093e-05,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.0002514219881666335,
+            "SKR": 1.3597190195779874e-05
+          },
+          {
+            "order": 16,
+            "I_AB": 0.0002514219881675217,
+            "SKR": 1.3597190196623627e-05
+          },
+          {
+            "order": 32,
+            "I_AB": 0.00025142198816574535,
+            "SKR": 1.3597190194936093e-05
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 7e-05,
+        "MI_kernel_epsilon": 385.73288571428503
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-05",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 1e-05,
+        "mean_sqrt_eta": 0.0031622776601683794,
+        "m_xi": 1.86e-07,
+        "mean_eta_xi_channel": 1.86e-07,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-05,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-07,
+        "effective_excess_output": 1.86e-07,
+        "N_eff": 1.86e-07,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.00005065475,
+        "b_pre": 1.00005065475,
+        "W_pre": 1.00005065475,
+        "W_pre_effective": 1.00005065475,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 99999.0186,
+        "chi_tot": 199999.01859999998,
+        "detector_gain_squared": 1e-05,
+        "sigma2_complex": 1.000000093,
+        "V_B2": 1.0000506547499999,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.018858122971517545,
+        "Z_signal": 0.0188586028706509,
+        "Z_penalty": 4.79899133357035e-07,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 3.300113121884607e-05,
+        "lambda_1": 6.046824533829897,
+        "lambda_2": 1.0000001885798904,
+        "conditional_symplectic_eigenvalues": [
+          6.046697190102454
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0,
+          6.046697190102453
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            6.046697190105862,
+            0.0,
+            -4.900411365321898e-06,
+            0.0
+          ],
+          [
+            0.0,
+            6.046697190105862,
+            0.0,
+            4.900411365321898e-06
+          ],
+          [
+            -4.900411365321898e-06,
+            0.0,
+            1.000000000003408,
+            0.0
+          ],
+          [
+            0.0,
+            4.900411365321898e-06,
+            0.0,
+            1.000000000003408
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.018858122971517545,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.018858122971517545
+          ],
+          [
+            0.018858122971517545,
+            0.0,
+            1.00005065475,
+            0.0
+          ],
+          [
+            0.0,
+            -0.018858122971517545,
+            0.0,
+            1.00005065475
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 6.046697190102454,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 3.6405044958165433e-05,
+        "beta_rec": 0.95,
+        "beta_I_AB": 3.458479271025716e-05,
+        "SKR": 1.5836614914110938e-06,
+        "K_raw": 1.5836614914110938e-06,
+        "K_usable": 1.5836614914110938e-06,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 3.6405044958165433e-05,
+            "SKR": 1.5836614914110938e-06
+          },
+          {
+            "order": 16,
+            "I_AB": 3.6405044958165433e-05,
+            "SKR": 1.5836614914110938e-06
+          },
+          {
+            "order": 32,
+            "I_AB": 3.6405044958165433e-05,
+            "SKR": 1.5836614914110938e-06
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 1e-05,
+        "MI_kernel_epsilon": 0.018599999984658666
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-05",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 1e-05,
+        "mean_sqrt_eta": 0.0031622776601683794,
+        "m_xi": 1.86e-07,
+        "mean_eta_xi_channel": 1.86e-07,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-05,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-07,
+        "effective_excess_output": 1.86e-07,
+        "N_eff": 1.86e-07,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.00005065475,
+        "b_pre": 1.00005065475,
+        "W_pre": 1.00005065475,
+        "W_pre_effective": 1.00005065475,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 99999.0186,
+        "chi_tot": 289570.44717142853,
+        "detector_gain_squared": 7e-06,
+        "sigma2_complex": 1.0135000651000001,
+        "V_B2": 1.0270354583249999,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.018858122971517545,
+        "Z_signal": 0.0188586028706509,
+        "Z_penalty": 4.79899133357035e-07,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 2.2743811618486376e-05,
+        "lambda_1": 6.046824533829897,
+        "lambda_2": 1.0000001885798904,
+        "conditional_symplectic_eigenvalues": [
+          1.0000000000000004,
+          1.0000000583320179,
+          6.0467365799011095
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.000000058332017,
+          6.046736579901116
+        ],
+        "conditional_covariance_AFG": [
+          [
+            6.046752190031194,
+            0.0,
+            -0.010649863247180261,
+            0.0,
+            -0.0018490181013252442,
+            0.0
+          ],
+          [
+            0.0,
+            6.046752190031194,
+            0.0,
+            0.010649863247180261,
+            0.0,
+            -0.0018490181013252442
+          ],
+          [
+            -0.010649863247180261,
+            0.0,
+            1.0621769842554443,
+            0.0,
+            0.3580330078918318,
+            0.0
+          ],
+          [
+            0.0,
+            0.010649863247180261,
+            0.0,
+            1.0621769842554443,
+            0.0,
+            -0.3580330078918318
+          ],
+          [
+            -0.0018490181013252442,
+            0.0,
+            0.3580330078918318,
+            0.0,
+            1.062161315793346,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0018490181013252442,
+            0.0,
+            -0.3580330078918318,
+            0.0,
+            1.062161315793346
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            6.046736579902738,
+            0.0,
+            -3.3846224266341774e-06,
+            0.0
+          ],
+          [
+            0.0,
+            6.046736579902738,
+            0.0,
+            3.3846224266341774e-06
+          ],
+          [
+            -3.3846224266341774e-06,
+            0.0,
+            1.0000000583336428,
+            0.0
+          ],
+          [
+            0.0,
+            3.3846224266341774e-06,
+            0.0,
+            1.0000000583336428
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.018858122971517545,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.018858122971517545
+          ],
+          [
+            0.018858122971517545,
+            0.0,
+            1.00005065475,
+            0.0
+          ],
+          [
+            0.0,
+            -0.018858122971517545,
+            0.0,
+            1.00005065475
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 6.217248937900877e-15,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 2.5144185159753363e-05,
+        "beta_rec": 0.95,
+        "beta_I_AB": 2.3886975901765694e-05,
+        "SKR": 1.143164283279318e-06,
+        "K_raw": 1.143164283279318e-06,
+        "K_usable": 1.143164283279318e-06,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 2.5144185159309274e-05,
+            "SKR": 1.1431642828574313e-06
+          },
+          {
+            "order": 16,
+            "I_AB": 2.5144185159753363e-05,
+            "SKR": 1.143164283279318e-06
+          },
+          {
+            "order": 32,
+            "I_AB": 2.5144185159753363e-05,
+            "SKR": 1.143164283279318e-06
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 7e-06,
+        "MI_kernel_epsilon": 3857.1614571428927
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-06",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 1e-06,
+        "mean_sqrt_eta": 0.001,
+        "m_xi": 1.8599999999999998e-08,
+        "mean_eta_xi_channel": 1.8599999999999998e-08,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-06,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-08,
+        "effective_excess_output": 1.8599999999999998e-08,
+        "N_eff": 1.8599999999999998e-08,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.000005065475,
+        "b_pre": 1.000005065475,
+        "W_pre": 1.000005065475,
+        "W_pre_effective": 1.000005065475,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 999999.0186000001,
+        "chi_tot": 1999999.0186,
+        "detector_gain_squared": 1e-06,
+        "sigma2_complex": 1.0000000093,
+        "V_B2": 1.000005065475,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.005963462098553806,
+        "Z_signal": 0.005963613855984661,
+        "Z_penalty": 1.5175743085491175e-07,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 3.3314784411153653e-06,
+        "lambda_1": 6.0468699533828705,
+        "lambda_2": 1.0000000188578673,
+        "conditional_symplectic_eigenvalues": [
+          6.046857218604935
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999999,
+          6.046857218604936
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            6.04685721860497,
+            0.0,
+            -4.900513386086573e-07,
+            0.0
+          ],
+          [
+            0.0,
+            6.04685721860497,
+            0.0,
+            4.900513386086573e-07
+          ],
+          [
+            -4.900513386086573e-07,
+            0.0,
+            1.000000000000034,
+            0.0
+          ],
+          [
+            0.0,
+            4.900513386086573e-07,
+            0.0,
+            1.000000000000034
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.005963462098553806,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.005963462098553806
+          ],
+          [
+            0.005963462098553806,
+            0.0,
+            1.000005065475,
+            0.0
+          ],
+          [
+            0.0,
+            -0.005963462098553806,
+            0.0,
+            1.000005065475
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999999
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 6.046857218604935,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 3.640546139216383e-06,
+        "beta_rec": 0.95,
+        "beta_I_AB": 3.4585188322555635e-06,
+        "SKR": 1.2704039114019824e-07,
+        "K_raw": 1.2704039114019824e-07,
+        "K_usable": 1.2704039114019824e-07,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 3.6405461383282045e-06,
+            "SKR": 1.270403902964289e-07
+          },
+          {
+            "order": 16,
+            "I_AB": 3.640546139216383e-06,
+            "SKR": 1.2704039114019824e-07
+          },
+          {
+            "order": 32,
+            "I_AB": 3.640546139216383e-06,
+            "SKR": 1.2704039114019824e-07
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 1e-06,
+        "MI_kernel_epsilon": 0.01860000020670327
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-06",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 1e-06,
+        "mean_sqrt_eta": 0.001,
+        "m_xi": 1.8599999999999998e-08,
+        "mean_eta_xi_channel": 1.8599999999999998e-08,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-06,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-08,
+        "effective_excess_output": 1.8599999999999998e-08,
+        "N_eff": 1.8599999999999998e-08,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 6.046875,
+        "b": 1.000005065475,
+        "b_pre": 1.000005065475,
+        "W_pre": 1.000005065475,
+        "W_pre_effective": 1.000005065475,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 999999.0186000001,
+        "chi_tot": 2895713.3043142855,
+        "detector_gain_squared": 7e-07,
+        "sigma2_complex": 1.0135000065100002,
+        "V_B2": 1.0270035458324998,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.005963462098553806,
+        "Z_signal": 0.005963613855984661,
+        "Z_penalty": 1.5175743085491175e-07,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 2.296035546134334e-06,
+        "lambda_1": 6.0468699533828705,
+        "lambda_2": 1.0000000188578673,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.0000000058331908,
+          6.046861157772081
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000000058331904,
+          6.046861157772081
+        ],
+        "conditional_covariance_AFG": [
+          [
+            6.046862718809772,
+            0.0,
+            -0.0033678354843255888,
+            0.0,
+            -0.0005847200690067306,
+            0.0
+          ],
+          [
+            0.0,
+            6.046862718809772,
+            0.0,
+            0.0033678354843255888,
+            0.0,
+            -0.0005847200690067306
+          ],
+          [
+            -0.0033678354843255888,
+            0.0,
+            1.062162444380925,
+            0.0,
+            0.35803048349404815,
+            0.0
+          ],
+          [
+            0.0,
+            0.0033678354843255888,
+            0.0,
+            1.062162444380925,
+            0.0,
+            -0.35803048349404815
+          ],
+          [
+            -0.0005847200690067306,
+            0.0,
+            0.35803048349404815,
+            0.0,
+            1.062160877510047,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0005847200690067306,
+            0.0,
+            -0.35803048349404815,
+            0.0,
+            1.062160877510047
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            6.046861157772101,
+            0.0,
+            -3.3846690258763686e-07,
+            0.0
+          ],
+          [
+            0.0,
+            6.046861157772101,
+            0.0,
+            3.3846690258763686e-07
+          ],
+          [
+            -3.3846690258763686e-07,
+            0.0,
+            1.0000000058332066,
+            0.0
+          ],
+          [
+            0.0,
+            3.3846690258763686e-07,
+            0.0,
+            1.0000000058332066
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            0.005963462098553806,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -0.005963462098553806
+          ],
+          [
+            0.005963462098553806,
+            0.0,
+            1.000005065475,
+            0.0
+          ],
+          [
+            0.0,
+            -0.005963462098553806,
+            0.0,
+            1.000005065475
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 4.440892098500626e-16,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 2.514438381062689e-06,
+        "beta_rec": 0.95,
+        "beta_I_AB": 2.3887164620095544e-06,
+        "SKR": 9.26809158752204e-08,
+        "K_raw": 9.26809158752204e-08,
+        "K_usable": 9.26809158752204e-08,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 2.5144383801745107e-06,
+            "SKR": 9.268091503145107e-08
+          },
+          {
+            "order": 16,
+            "I_AB": 2.5144383815067783e-06,
+            "SKR": 9.268091629710548e-08
+          },
+          {
+            "order": 32,
+            "I_AB": 2.514438381062689e-06,
+            "SKR": 9.26809158752204e-08
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 7e-07,
+        "MI_kernel_epsilon": 38571.447171429034
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": null,
+        "xi_eff": null,
+        "a": 6.046875,
+        "b": 1.0,
+        "b_pre": 1.0,
+        "W_pre": 1.0,
+        "W_pre_effective": 1.0,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": null,
+        "chi_tot": null,
+        "detector_gain_squared": 0.0,
+        "sigma2_complex": 1.0,
+        "V_B2": 1.0,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.0,
+        "Z_signal": 0.0,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "I_AB": 0.0,
+        "beta_I_AB": 0.0,
+        "chi_BE": 0.0,
+        "SKR": 0.0,
+        "K_raw": 0.0,
+        "K_usable": 0.0,
+        "QKD_expressions_evaluated": false
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": null,
+        "xi_eff": null,
+        "a": 6.046875,
+        "b": 1.0,
+        "b_pre": 1.0,
+        "W_pre": 1.0,
+        "W_pre_effective": 1.0,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": null,
+        "chi_tot": null,
+        "detector_gain_squared": 0.0,
+        "sigma2_complex": 1.0135,
+        "V_B2": 1.027,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 0.0,
+        "Z_signal": 0.0,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "I_AB": 0.0,
+        "beta_I_AB": 0.0,
+        "chi_BE": 0.0,
+        "SKR": 0.0,
+        "K_raw": 0.0,
+        "K_usable": 0.0,
+        "QKD_expressions_evaluated": false
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "pure_loss_T_0.25",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.25,
+        "mean_sqrt_eta": 0.5,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0,
+        "T_eff": 0.25,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": 0.0,
+        "xi_eff": 0.0,
+        "a": 6.046875,
+        "b": 2.26171875,
+        "b_pre": 2.26171875,
+        "W_pre": 2.26171875,
+        "W_pre_effective": 2.26171875,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 3.0,
+        "chi_tot": 7.0,
+        "detector_gain_squared": 0.25,
+        "sigma2_complex": 1.0,
+        "V_B2": 2.26171875,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 2.9818069279923307,
+        "Z_signal": 2.9818069279923307,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.5387506143046967,
+        "lambda_1": 4.785156554327669,
+        "lambda_2": 1.0000003043276662,
+        "conditional_symplectic_eigenvalues": [
+          3.320958623603948
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999998,
+          3.3209586236039472
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            3.3209587006279504,
+            0.0,
+            -0.0005769034020681942,
+            0.0
+          ],
+          [
+            0.0,
+            3.3209587006279504,
+            0.0,
+            0.0005769034020681942
+          ],
+          [
+            -0.0005769034020681942,
+            0.0,
+            1.000000077024003,
+            0.0
+          ],
+          [
+            0.0,
+            0.0005769034020681942,
+            0.0,
+            1.000000077024003
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            2.9818069279923307,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -2.9818069279923307
+          ],
+          [
+            2.9818069279923307,
+            0.0,
+            2.26171875,
+            0.0
+          ],
+          [
+            0.0,
+            -2.9818069279923307,
+            0.0,
+            2.26171875
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 3.320958623603948,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.7056323834231835,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.6703507642520242,
+        "SKR": 0.1316001499473275,
+        "K_raw": 0.1316001499473275,
+        "K_usable": 0.1316001499473275,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.7056323833556197,
+            "SKR": 0.13160014988314195
+          },
+          {
+            "order": 16,
+            "I_AB": 0.7056323834231835,
+            "SKR": 0.1316001499473275
+          },
+          {
+            "order": 32,
+            "I_AB": 0.7056323834231835,
+            "SKR": 0.1316001499473275
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.25,
+        "MI_kernel_epsilon": 0.0
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "pure_loss_T_0.25",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.25,
+        "mean_sqrt_eta": 0.5,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0,
+        "T_eff": 0.25,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": 0.0,
+        "xi_eff": 0.0,
+        "a": 6.046875,
+        "b": 2.26171875,
+        "b_pre": 2.26171875,
+        "W_pre": 2.26171875,
+        "W_pre_effective": 2.26171875,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 3.0,
+        "chi_tot": 10.582857142857144,
+        "detector_gain_squared": 0.175,
+        "sigma2_complex": 1.0135,
+        "V_B2": 1.9102031249999998,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.17,
+        "V_A": 5.046875,
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+        "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "Z_star": 2.9818069279923307,
+        "Z_signal": 2.9818069279923307,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.40402047239190875,
+        "lambda_1": 4.785156554327669,
+        "lambda_2": 1.0000003043276662,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.000000081812218,
+          3.636418442182932
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000000818122174,
+          3.6364184421829338
+        ],
+        "conditional_covariance_AFG": [
+          [
+            3.908254250262422,
+            0.0,
+            -1.172905790095307,
+            0.0,
+            -0.20363867466651447,
+            0.0
+          ],
+          [
+            0.0,
+            3.908254250262422,
+            0.0,
+            1.172905790095307,
+            0.0,
+            -0.20363867466651447
+          ],
+          [
+            -1.172905790095307,
+            0.0,
+            1.3424454908108865,
+            0.0,
+            0.40669293242087345,
+            0.0
+          ],
+          [
+            0.0,
+            1.172905790095307,
+            0.0,
+            1.3424454908108865,
+            0.0,
+            -0.40669293242087345
+          ],
+          [
+            -0.20363867466651447,
+            0.0,
+            0.40669293242087345,
+            0.0,
+            1.07060960091918,
+            0.0
+          ],
+          [
+            0.0,
+            -0.20363867466651447,
+            0.0,
+            -0.40669293242087345,
+            0.0,
+            1.07060960091918
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            3.6364184863670372,
+            0.0,
+            -0.0004526102109883593,
+            0.0
+          ],
+          [
+            0.0,
+            3.6364184863670372,
+            0.0,
+            0.0004526102109883593
+          ],
+          [
+            -0.0004526102109883593,
+            0.0,
+            1.000000125996322,
+            0.0
+          ],
+          [
+            0.0,
+            0.0004526102109883593,
+            0.0,
+            1.000000125996322
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            6.046875,
+            0.0,
+            2.9818069279923307,
+            0.0
+          ],
+          [
+            0.0,
+            6.046875,
+            0.0,
+            -2.9818069279923307
+          ],
+          [
+            2.9818069279923307,
+            0.0,
+            2.26171875,
+            0.0
+          ],
+          [
+            0.0,
+            -2.9818069279923307,
+            0.0,
+            2.26171875
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 1.7763568394002505e-15,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.5217737633076922,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.4956850751423076,
+        "SKR": 0.09166460275039884,
+        "K_raw": 0.09166460275039884,
+        "K_usable": 0.09166460275039884,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.5217737632735426,
+            "SKR": 0.09166460271795673
+          },
+          {
+            "order": 16,
+            "I_AB": 0.521773763307694,
+            "SKR": 0.0916646027504005
+          },
+          {
+            "order": 32,
+            "I_AB": 0.5217737633076922,
+            "SKR": 0.09166460275039884
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.175,
+        "MI_kernel_epsilon": 0.15428571428571505
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "reference_fading",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.23790886783673015,
+        "mean_sqrt_eta": 0.40114871429673266,
+        "m_xi": 0.0044251049417631805,
+        "mean_eta_xi_channel": 0.0044251049417631805,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.16092029098192165,
+        "variance_sqrt_eta": 0.0769885768548085,
+        "fading_variance": 0.0769885768548085,
+        "fading_excess_output": 0.0019247144213702127,
+        "Delta_fad": 0.0019247144213702127,
+        "channel_excess_output": 0.0044251049417631805,
+        "effective_excess_output": 0.006349819363133393,
+        "N_eff": 0.006349819363133393,
+        "effective_excess_input": 0.039459407663181234,
+        "xi_eff": 0.039459407663181234,
+        "a": 1.025,
+        "b": 1.0103728266376815,
+        "b_pre": 1.0103728266376815,
+        "W_pre": 1.0103728266376815,
+        "W_pre_effective": 1.0103728266376815,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 5.253716130032292,
+        "chi_tot": 11.467972852401402,
+        "detector_gain_squared": 0.16092029098192165,
+        "sigma2_complex": 1.0031749096815668,
+        "V_B2": 1.0103728266376812,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0902584595872442,
+        "Z_signal": 0.09025846071676484,
+        "Z_penalty": 1.1295206394378028e-09,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.031126769609746627,
+        "lambda_1": 1.0209895932664508,
+        "lambda_2": 1.006362419904133,
+        "conditional_symplectic_eigenvalues": [
+          1.0209477220249303
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999997,
+          1.0209477220249303
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.0209478534290568,
+            0.0,
+            -0.0005153260011325379,
+            0.0
+          ],
+          [
+            0.0,
+            1.0209478534290568,
+            0.0,
+            0.0005153260011325379
+          ],
+          [
+            -0.0005153260011325379,
+            0.0,
+            1.0000001314041265,
+            0.0
+          ],
+          [
+            0.0,
+            0.0005153260011325379,
+            0.0,
+            1.0000001314041265
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.0902584595872442,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.0902584595872442
+          ],
+          [
+            0.0902584595872442,
+            0.0,
+            1.0103728266376815,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0902584595872442,
+            0.0,
+            1.0103728266376815
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999997
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.0209477220249303,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.002889905575603091,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.0027454102968229367,
+        "SKR": -0.02838135931292369,
+        "K_raw": -0.02838135931292369,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.002889905575603091,
+            "SKR": -0.02838135931292369
+          },
+          {
+            "order": 16,
+            "I_AB": 0.002889905575603091,
+            "SKR": -0.02838135931292369
+          },
+          {
+            "order": 32,
+            "I_AB": 0.002889905575603091,
+            "SKR": -0.02838135931292369
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.16092029098192165,
+        "MI_kernel_epsilon": 0.039459407663181914
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "reference_fading",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.23790886783673015,
+        "mean_sqrt_eta": 0.40114871429673266,
+        "m_xi": 0.0044251049417631805,
+        "mean_eta_xi_channel": 0.0044251049417631805,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.16092029098192165,
+        "variance_sqrt_eta": 0.0769885768548085,
+        "fading_variance": 0.0769885768548085,
+        "fading_excess_output": 0.0019247144213702127,
+        "Delta_fad": 0.0019247144213702127,
+        "channel_excess_output": 0.0044251049417631805,
+        "effective_excess_output": 0.006349819363133393,
+        "N_eff": 0.006349819363133393,
+        "effective_excess_input": 0.039459407663181234,
+        "xi_eff": 0.039459407663181234,
+        "a": 1.025,
+        "b": 1.0103728266376815,
+        "b_pre": 1.0103728266376815,
+        "W_pre": 1.0103728266376815,
+        "W_pre_effective": 1.0103728266376815,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 5.253716130032292,
+        "chi_tot": 17.03417137372345,
+        "detector_gain_squared": 0.11264420368734515,
+        "sigma2_complex": 1.0157224367770967,
+        "V_B2": 1.034260978646377,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0902584595872442,
+        "Z_signal": 0.09025846071676484,
+        "Z_penalty": 1.1295206394378028e-09,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.019869312020242405,
+        "lambda_1": 1.0209895932664508,
+        "lambda_2": 1.006362419904133,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.0019610533961036,
+          1.0209606556600703
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0019610533961034,
+          1.020960655660071
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.0221967153040814,
+            0.0,
+            -0.05079116358064364,
+            0.0,
+            -0.008818308617516467,
+            0.0
+          ],
+          [
+            0.0,
+            1.0221967153040814,
+            0.0,
+            0.05079116358064364,
+            0.0,
+            -0.008818308617516467
+          ],
+          [
+            -0.05079116358064364,
+            0.0,
+            1.0654573094493534,
+            0.0,
+            0.3586025345158828,
+            0.0
+          ],
+          [
+            0.0,
+            0.05079116358064364,
+            0.0,
+            1.0654573094493534,
+            0.0,
+            -0.3586025345158828
+          ],
+          [
+            -0.008818308617516467,
+            0.0,
+            0.3586025345158828,
+            0.0,
+            1.0622601964092389,
+            0.0
+          ],
+          [
+            0.0,
+            -0.008818308617516467,
+            0.0,
+            -0.3586025345158828,
+            0.0,
+            1.0622601964092389
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0209607184834038,
+            0.0,
+            -0.00035649220050332746,
+            0.0
+          ],
+          [
+            0.0,
+            1.0209607184834038,
+            0.0,
+            0.00035649220050332746
+          ],
+          [
+            -0.00035649220050332746,
+            0.0,
+            1.0019611162194368,
+            0.0
+          ],
+          [
+            0.0,
+            0.00035649220050332746,
+            0.0,
+            1.0019611162194368
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.0902584595872442,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.0902584595872442
+          ],
+          [
+            0.0902584595872442,
+            0.0,
+            1.0103728266376815,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0902584595872442,
+            0.0,
+            1.0103728266376815
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 6.661338147750939e-16,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.0019985614545317,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.0018986333818051147,
+        "SKR": -0.01797067863843729,
+        "K_raw": -0.01797067863843729,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.0019985614545308117,
+            "SKR": -0.017970678638438133
+          },
+          {
+            "order": 16,
+            "I_AB": 0.0019985614545308117,
+            "SKR": -0.017970678638438133
+          },
+          {
+            "order": 32,
+            "I_AB": 0.0019985614545317,
+            "SKR": -0.01797067863843729
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.11264420368734515,
+        "MI_kernel_epsilon": 0.2791521669545619
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.01",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.01,
+        "mean_sqrt_eta": 0.1,
+        "m_xi": 0.000186,
+        "mean_eta_xi_channel": 0.000186,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.01,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.000186,
+        "effective_excess_output": 0.000186,
+        "N_eff": 0.000186,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.000436,
+        "b_pre": 1.000436,
+        "W_pre": 1.000436,
+        "W_pre_effective": 1.000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 99.0186,
+        "chi_tot": 199.0186,
+        "detector_gain_squared": 0.01,
+        "sigma2_complex": 1.000093,
+        "V_B2": 1.000436,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.02249999980668304,
+        "Z_signal": 0.0225,
+        "Z_penalty": 1.933169603239599e-10,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.0013896509925302447,
+        "lambda_1": 1.0247500229679838,
+        "lambda_2": 1.0001860229679846,
+        "conditional_symplectic_eigenvalues": [
+          1.0247469301735717
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000000000000002,
+          1.0247469301735714
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.0247469304576946,
+            0.0,
+            -2.3984934104099005e-05,
+            0.0
+          ],
+          [
+            0.0,
+            1.0247469304576946,
+            0.0,
+            2.3984934104099005e-05
+          ],
+          [
+            -2.3984934104099005e-05,
+            0.0,
+            1.000000000284123,
+            0.0
+          ],
+          [
+            0.0,
+            2.3984934104099005e-05,
+            0.0,
+            1.000000000284123
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.02249999980668304,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.02249999980668304
+          ],
+          [
+            0.02249999980668304,
+            0.0,
+            1.000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.02249999980668304,
+            0.0,
+            1.000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.0247469301735717,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.00018030884232000943,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.00017129340020400894,
+        "SKR": -0.0012183575923262358,
+        "K_raw": -0.0012183575923262358,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.00018030884232045352,
+            "SKR": -0.0012183575923258138
+          },
+          {
+            "order": 16,
+            "I_AB": 0.00018030884232045352,
+            "SKR": -0.0012183575923258138
+          },
+          {
+            "order": 32,
+            "I_AB": 0.00018030884232000943,
+            "SKR": -0.0012183575923262358
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.01,
+        "MI_kernel_epsilon": 0.018599999999979744
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.01",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.01,
+        "mean_sqrt_eta": 0.1,
+        "m_xi": 0.000186,
+        "mean_eta_xi_channel": 0.000186,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.01,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.000186,
+        "effective_excess_output": 0.000186,
+        "N_eff": 0.000186,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.000436,
+        "b_pre": 1.000436,
+        "W_pre": 1.000436,
+        "W_pre_effective": 1.000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 99.0186,
+        "chi_tot": 288.59002857142855,
+        "detector_gain_squared": 0.006999999999999999,
+        "sigma2_complex": 1.0135651,
+        "V_B2": 1.0273052,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.02249999980668304,
+        "Z_signal": 0.0225,
+        "Z_penalty": 1.933169603239599e-10,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.0009111615795294736,
+        "lambda_1": 1.0247500229679838,
+        "lambda_2": 1.0001860229679846,
+        "conditional_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.0000575327898256,
+          1.0247478867661723
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000575327898251,
+          1.024747886766172
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.024825198991296,
+            0.0,
+            -0.012704871987396251,
+            0.0,
+            -0.002205806566195627,
+            0.0
+          ],
+          [
+            0.0,
+            1.024825198991296,
+            0.0,
+            0.012704871987396251,
+            0.0,
+            -0.002205806566195627
+          ],
+          [
+            -0.012704871987396251,
+            0.0,
+            1.062299864864945,
+            0.0,
+            0.35805434229453686,
+            0.0
+          ],
+          [
+            0.0,
+            0.012704871987396251,
+            0.0,
+            1.062299864864945,
+            0.0,
+            -0.35805434229453686
+          ],
+          [
+            -0.002205806566195627,
+            0.0,
+            0.35805434229453686,
+            0.0,
+            1.062165019849996,
+            0.0
+          ],
+          [
+            0.0,
+            -0.002205806566195627,
+            0.0,
+            -0.35805434229453686,
+            0.0,
+            1.062165019849996
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0247478869017228,
+            0.0,
+            -1.656693227424622e-05,
+            0.0
+          ],
+          [
+            0.0,
+            1.0247478869017228,
+            0.0,
+            1.656693227424622e-05
+          ],
+          [
+            -1.656693227424622e-05,
+            0.0,
+            1.0000575329253756,
+            0.0
+          ],
+          [
+            0.0,
+            1.656693227424622e-05,
+            0.0,
+            1.0000575329253756
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.02249999980668304,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.02249999980668304
+          ],
+          [
+            0.02249999980668304,
+            0.0,
+            1.000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.02249999980668304,
+            0.0,
+            1.000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 4.440892098500626e-16,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.00012454095695302314,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.00011831390910537197,
+        "SKR": -0.0007928476704241016,
+        "K_raw": -0.0007928476704241016,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.00012454095695257905,
+            "SKR": -0.0007928476704245236
+          },
+          {
+            "order": 16,
+            "I_AB": 0.00012454095695302314,
+            "SKR": -0.0007928476704241016
+          },
+          {
+            "order": 32,
+            "I_AB": 0.00012454095695302314,
+            "SKR": -0.0007928476704241016
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.006999999999999999,
+        "MI_kernel_epsilon": 3.8757428571428885
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.001",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.001,
+        "mean_sqrt_eta": 0.03162277660168379,
+        "m_xi": 1.8599999999999998e-05,
+        "mean_eta_xi_channel": 1.8599999999999998e-05,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-05,
+        "effective_excess_output": 1.8599999999999998e-05,
+        "N_eff": 1.8599999999999998e-05,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.0000436,
+        "b_pre": 1.0000436,
+        "W_pre": 1.0000436,
+        "W_pre_effective": 1.0000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 999.0186,
+        "chi_tot": 1999.0185999999999,
+        "detector_gain_squared": 0.001,
+        "sigma2_complex": 1.0000093,
+        "V_B2": 1.0000435999999997,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0071151246742466616,
+        "Z_signal": 0.007115124735378852,
+        "Z_penalty": 6.113219049641153e-11,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.00016985219515969208,
+        "lambda_1": 1.0249750002300608,
+        "lambda_2": 1.0000186002300602,
+        "conditional_symplectic_eigenvalues": [
+          1.0249746880522352
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.024974688052235
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.024974688055103,
+            0.0,
+            -2.409673240345589e-06,
+            0.0
+          ],
+          [
+            0.0,
+            1.024974688055103,
+            0.0,
+            2.409673240345589e-06
+          ],
+          [
+            -2.409673240345589e-06,
+            0.0,
+            1.0000000000028675,
+            0.0
+          ],
+          [
+            0.0,
+            2.409673240345589e-06,
+            0.0,
+            1.0000000000028675
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.0071151246742466616,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.0071151246742466616
+          ],
+          [
+            0.0071151246742466616,
+            0.0,
+            1.0000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0071151246742466616,
+            0.0,
+            1.0000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.0249746880522352,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 1.8033407590767325e-05,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.713173721122896e-05,
+        "SKR": -0.00015272045794846313,
+        "K_raw": -0.00015272045794846313,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.8033407589879147e-05,
+            "SKR": -0.00015272045794930688
+          },
+          {
+            "order": 16,
+            "I_AB": 1.8033407590323236e-05,
+            "SKR": -0.000152720457948885
+          },
+          {
+            "order": 32,
+            "I_AB": 1.8033407590767325e-05,
+            "SKR": -0.00015272045794846313
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.001,
+        "MI_kernel_epsilon": 0.01860000000020179
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.001",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.001,
+        "mean_sqrt_eta": 0.03162277660168379,
+        "m_xi": 1.8599999999999998e-05,
+        "mean_eta_xi_channel": 1.8599999999999998e-05,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-05,
+        "effective_excess_output": 1.8599999999999998e-05,
+        "N_eff": 1.8599999999999998e-05,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.0000436,
+        "b_pre": 1.0000436,
+        "W_pre": 1.0000436,
+        "W_pre_effective": 1.0000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 999.0186,
+        "chi_tot": 2894.7328857142857,
+        "detector_gain_squared": 0.0007,
+        "sigma2_complex": 1.01350651,
+        "V_B2": 1.0270305199999998,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0071151246742466616,
+        "Z_signal": 0.007115124735378852,
+        "Z_penalty": 6.113219049641153e-11,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.00011244383352941589,
+        "lambda_1": 1.0249750002300608,
+        "lambda_2": 1.0000186002300602,
+        "conditional_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.00000575341386,
+          1.024974784615527
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000057534138609,
+          1.0249747846155266
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.0249825175304261,
+            0.0,
+            -0.004018177709831509,
+            0.0,
+            -0.0006976318049705675,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249825175304261,
+            0.0,
+            0.004018177709831509,
+            0.0,
+            -0.0006976318049705675
+          ],
+          [
+            -0.004018177709831509,
+            0.0,
+            1.062174734300498,
+            0.0,
+            0.35803261725701085,
+            0.0
+          ],
+          [
+            0.0,
+            0.004018177709831509,
+            0.0,
+            1.062174734300498,
+            0.0,
+            -0.35803261725701085
+          ],
+          [
+            -0.0006976318049705675,
+            0.0,
+            0.35803261725701085,
+            0.0,
+            1.0621612479717375,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0006976318049705675,
+            0.0,
+            -0.35803261725701085,
+            0.0,
+            1.0621612479717375
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0249747846168942,
+            0.0,
+            -1.6643143980442484e-06,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249747846168942,
+            0.0,
+            1.6643143980442484e-06
+          ],
+          [
+            -1.6643143980442484e-06,
+            0.0,
+            1.0000057534152282,
+            0.0
+          ],
+          [
+            0.0,
+            1.6643143980442484e-06,
+            0.0,
+            1.0000057534152282
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.0071151246742466616,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.0071151246742466616
+          ],
+          [
+            0.0071151246742466616,
+            0.0,
+            1.0000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0071151246742466616,
+            0.0,
+            1.0000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 8.881784197001252e-16,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 1.2455299487346139e-05,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.1832534512978832e-05,
+        "SKR": -0.00010061129901643706,
+        "K_raw": -0.00010061129901643706,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.245529948690205e-05,
+            "SKR": -0.00010061129901685895
+          },
+          {
+            "order": 16,
+            "I_AB": 1.2455299487346139e-05,
+            "SKR": -0.00010061129901643706
+          },
+          {
+            "order": 32,
+            "I_AB": 1.2455299487346139e-05,
+            "SKR": -0.00010061129901643706
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.0007,
+        "MI_kernel_epsilon": 38.59002857142865
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0001",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.0001,
+        "mean_sqrt_eta": 0.01,
+        "m_xi": 1.86e-06,
+        "mean_eta_xi_channel": 1.86e-06,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-06,
+        "effective_excess_output": 1.86e-06,
+        "N_eff": 1.86e-06,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.00000436,
+        "b_pre": 1.00000436,
+        "W_pre": 1.00000436,
+        "W_pre_effective": 1.00000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 9999.0186,
+        "chi_tot": 19999.0186,
+        "detector_gain_squared": 0.0001,
+        "sigma2_complex": 1.00000093,
+        "V_B2": 1.0000043600000001,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.002249999980668304,
+        "Z_signal": 0.00225,
+        "Z_penalty": 1.9331696032395992e-11,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 2.0074509964648768e-05,
+        "lambda_1": 1.0249975000023392,
+        "lambda_2": 1.0000018600023395,
+        "conditional_symplectic_eigenvalues": [
+          1.0249974687555614
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.024997468755561
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.02499746875559,
+            0.0,
+            -2.41078877597883e-07,
+            0.0
+          ],
+          [
+            0.0,
+            1.02499746875559,
+            0.0,
+            2.41078877597883e-07
+          ],
+          [
+            -2.41078877597883e-07,
+            0.0,
+            1.0000000000000286,
+            0.0
+          ],
+          [
+            0.0,
+            2.41078877597883e-07,
+            0.0,
+            1.0000000000000286
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.002249999980668304,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.002249999980668304
+          ],
+          [
+            0.002249999980668304,
+            0.0,
+            1.00000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.002249999980668304,
+            0.0,
+            1.00000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.0249974687555614,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 1.8033659960892123e-06,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.7131976962847516e-06,
+        "SKR": -1.8361312268364015e-05,
+        "K_raw": -1.8361312268364015e-05,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.8033659956451231e-06,
+            "SKR": -1.83613122687859e-05
+          },
+          {
+            "order": 16,
+            "I_AB": 1.8033659965333015e-06,
+            "SKR": -1.836131226794213e-05
+          },
+          {
+            "order": 32,
+            "I_AB": 1.8033659960892123e-06,
+            "SKR": -1.8361312268364015e-05
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.0001,
+        "MI_kernel_epsilon": 0.018599999997981342
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0001",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.0001,
+        "mean_sqrt_eta": 0.01,
+        "m_xi": 1.86e-06,
+        "mean_eta_xi_channel": 1.86e-06,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0001,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-06,
+        "effective_excess_output": 1.86e-06,
+        "N_eff": 1.86e-06,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.00000436,
+        "b_pre": 1.00000436,
+        "W_pre": 1.00000436,
+        "W_pre_effective": 1.00000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 9999.0186,
+        "chi_tot": 28956.161457142854,
+        "detector_gain_squared": 7e-05,
+        "sigma2_complex": 1.013500651,
+        "V_B2": 1.027003052,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.002249999980668304,
+        "Z_signal": 0.00225,
+        "Z_penalty": 1.9331696032395992e-11,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 1.3378015915291308e-05,
+        "lambda_1": 1.0249975000023392,
+        "lambda_2": 1.0000018600023395,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.0000005753427352,
+          1.0249974784209346
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000005753427348,
+          1.0249974784209355
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.0249982517293519,
+            0.0,
+            -0.001270676579394847,
+            0.0,
+            -0.00022061353669054754,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249982517293519,
+            0.0,
+            0.001270676579394847,
+            0.0,
+            -0.00022061353669054754
+          ],
+          [
+            -0.001270676579394847,
+            0.0,
+            1.0621622193788391,
+            0.0,
+            0.3580304444294217,
+            0.0
+          ],
+          [
+            0.0,
+            0.001270676579394847,
+            0.0,
+            1.0621622193788391,
+            0.0,
+            -0.3580304444294217
+          ],
+          [
+            -0.00022061353669054754,
+            0.0,
+            0.3580304444294217,
+            0.0,
+            1.0621608707276875,
+            0.0
+          ],
+          [
+            0.0,
+            -0.00022061353669054754,
+            0.0,
+            -0.3580304444294217,
+            0.0,
+            1.0621608707276875
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0249974784209488,
+            0.0,
+            -1.6650747717264446e-07,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249974784209488,
+            0.0,
+            1.6650747717264446e-07
+          ],
+          [
+            -1.6650747717264446e-07,
+            0.0,
+            1.0000005753427483,
+            0.0
+          ],
+          [
+            0.0,
+            1.6650747717264446e-07,
+            0.0,
+            1.0000005753427483
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.002249999980668304,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.002249999980668304
+          ],
+          [
+            0.002249999980668304,
+            0.0,
+            1.00000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.002249999980668304,
+            0.0,
+            1.00000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 8.881784197001252e-16,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 1.2455419864387807e-06,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.1832648871168416e-06,
+        "SKR": -1.2194751028174467e-05,
+        "K_raw": -1.2194751028174467e-05,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.2455419864387807e-06,
+            "SKR": -1.2194751028174467e-05
+          },
+          {
+            "order": 16,
+            "I_AB": 1.2455419877710483e-06,
+            "SKR": -1.2194751026908812e-05
+          },
+          {
+            "order": 32,
+            "I_AB": 1.2455419864387807e-06,
+            "SKR": -1.2194751028174467e-05
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 7e-05,
+        "MI_kernel_epsilon": 385.73288571428503
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-05",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 1e-05,
+        "mean_sqrt_eta": 0.0031622776601683794,
+        "m_xi": 1.86e-07,
+        "mean_eta_xi_channel": 1.86e-07,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-05,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-07,
+        "effective_excess_output": 1.86e-07,
+        "N_eff": 1.86e-07,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.000000436,
+        "b_pre": 1.000000436,
+        "W_pre": 1.000000436,
+        "W_pre_effective": 1.000000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 99999.0186,
+        "chi_tot": 199999.01859999998,
+        "detector_gain_squared": 1e-05,
+        "sigma2_complex": 1.000000093,
+        "V_B2": 1.000000436,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0007115124674246662,
+        "Z_signal": 0.0007115124735378853,
+        "Z_penalty": 6.113219049641154e-12,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 2.316388945475256e-06,
+        "lambda_1": 1.0249997500000267,
+        "lambda_2": 1.0000001860000274,
+        "conditional_symplectic_eigenvalues": [
+          1.0249997468750593
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999996,
+          1.0249997468750593
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.0249997468750598,
+            0.0,
+            -2.4109003062959643e-08,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249997468750598,
+            0.0,
+            2.4109003062959643e-08
+          ],
+          [
+            -2.4109003062959643e-08,
+            0.0,
+            1.0000000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            2.4109003062959643e-08,
+            0.0,
+            1.0000000000000002
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.0007115124674246662,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.0007115124674246662
+          ],
+          [
+            0.0007115124674246662,
+            0.0,
+            1.000000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0007115124674246662,
+            0.0,
+            1.000000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999996
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.0249997468750593,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 1.8033685034168911e-07,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.7132000782460465e-07,
+        "SKR": -2.1450689376506516e-06,
+        "K_raw": -2.1450689376506516e-06,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.803368498975999e-07,
+            "SKR": -2.1450689380725363e-06
+          },
+          {
+            "order": 16,
+            "I_AB": 1.8033685078577832e-07,
+            "SKR": -2.145068937228767e-06
+          },
+          {
+            "order": 32,
+            "I_AB": 1.8033685034168911e-07,
+            "SKR": -2.1450689376506516e-06
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 1e-05,
+        "MI_kernel_epsilon": 0.018599999984658666
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-05",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 1e-05,
+        "mean_sqrt_eta": 0.0031622776601683794,
+        "m_xi": 1.86e-07,
+        "mean_eta_xi_channel": 1.86e-07,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-05,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.86e-07,
+        "effective_excess_output": 1.86e-07,
+        "N_eff": 1.86e-07,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.000000436,
+        "b_pre": 1.000000436,
+        "W_pre": 1.000000436,
+        "W_pre_effective": 1.000000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 99999.0186,
+        "chi_tot": 289570.44717142853,
+        "detector_gain_squared": 7e-06,
+        "sigma2_complex": 1.0135000651000001,
+        "V_B2": 1.0270003052,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0007115124674246662,
+        "Z_signal": 0.0007115124735378853,
+        "Z_penalty": 6.113219049641154e-12,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 1.5511767934572873e-06,
+        "lambda_1": 1.0249997500000267,
+        "lambda_2": 1.0000001860000274,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.0000000575342871,
+          1.024999747841687
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000000575342871,
+          1.0249997478416866
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.0249998251726982,
+            0.0,
+            -0.000401823760544946,
+            0.0,
+            -6.97642203985016e-05,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249998251726982,
+            0.0,
+            0.000401823760544946,
+            0.0,
+            -6.97642203985016e-05
+          ],
+          [
+            -0.000401823760544946,
+            0.0,
+            1.0621609678680182,
+            0.0,
+            0.358030227143424,
+            0.0
+          ],
+          [
+            0.0,
+            0.000401823760544946,
+            0.0,
+            1.0621609678680182,
+            0.0,
+            -0.358030227143424
+          ],
+          [
+            -6.976422039850159e-05,
+            0.0,
+            0.358030227143424,
+            0.0,
+            1.0621608330027201,
+            0.0
+          ],
+          [
+            0.0,
+            -6.976422039850159e-05,
+            0.0,
+            -0.358030227143424,
+            0.0,
+            1.0621608330027201
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0249997478416875,
+            0.0,
+            -1.6651507925096706e-08,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249997478416875,
+            0.0,
+            1.6651507925096706e-08
+          ],
+          [
+            -1.6651507925096706e-08,
+            0.0,
+            1.0000000575342871,
+            0.0
+          ],
+          [
+            0.0,
+            1.6651507925096706e-08,
+            0.0,
+            1.0000000575342871
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.0007115124674246662,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.0007115124674246662
+          ],
+          [
+            0.0007115124674246662,
+            0.0,
+            1.000000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0007115124674246662,
+            0.0,
+            1.000000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 4.440892098500626e-16,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 1.2455431752655954e-07,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.1832660165023156e-07,
+        "SKR": -1.4328501918070557e-06,
+        "K_raw": -1.4328501918070557e-06,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.2455431752655954e-07,
+            "SKR": -1.4328501918070557e-06
+          },
+          {
+            "order": 16,
+            "I_AB": 1.2455431752655954e-07,
+            "SKR": -1.4328501918070557e-06
+          },
+          {
+            "order": 32,
+            "I_AB": 1.2455431752655954e-07,
+            "SKR": -1.4328501918070557e-06
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 7e-06,
+        "MI_kernel_epsilon": 3857.1614571428927
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-06",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 1e-06,
+        "mean_sqrt_eta": 0.001,
+        "m_xi": 1.8599999999999998e-08,
+        "mean_eta_xi_channel": 1.8599999999999998e-08,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-06,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-08,
+        "effective_excess_output": 1.8599999999999998e-08,
+        "N_eff": 1.8599999999999998e-08,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.0000000436,
+        "b_pre": 1.0000000436,
+        "W_pre": 1.0000000436,
+        "W_pre_effective": 1.0000000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 999999.0186000001,
+        "chi_tot": 1999999.0186,
+        "detector_gain_squared": 1e-06,
+        "sigma2_complex": 1.0000000093,
+        "V_B2": 1.0000000436,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.00022499999806683039,
+        "Z_signal": 0.000225,
+        "Z_penalty": 1.933169603239599e-12,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 2.625328052868747e-07,
+        "lambda_1": 1.024999975000001,
+        "lambda_2": 1.0000000186000004,
+        "conditional_symplectic_eigenvalues": [
+          1.024999974687501
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0,
+          1.0249999746875016
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.0249999746875011,
+            0.0,
+            -2.4109114720358586e-09,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249999746875011,
+            0.0,
+            2.4109114720358586e-09
+          ],
+          [
+            -2.4109114720358586e-09,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            2.4109114720358586e-09,
+            0.0,
+            1.0
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.00022499999806683039,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.00022499999806683039
+          ],
+          [
+            0.00022499999806683039,
+            0.0,
+            1.0000000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.00022499999806683039,
+            0.0,
+            1.0000000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.024999974687501,
+        "MI_low_snr_regrouping": true,
+        "I_AB": 1.8033687730672746e-08,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.713200334413911e-08,
+        "SKR": -2.454008019427356e-07,
+        "K_raw": -2.454008019427356e-07,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.8033687730690402e-08,
+            "SKR": -2.454008019427188e-07
+          },
+          {
+            "order": 16,
+            "I_AB": 1.803368773067908e-08,
+            "SKR": -2.454008019427296e-07
+          },
+          {
+            "order": 32,
+            "I_AB": 1.8033687730672746e-08,
+            "SKR": -2.454008019427356e-07
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 1e-06,
+        "MI_kernel_epsilon": 0.01860000020670327
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-06",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 1e-06,
+        "mean_sqrt_eta": 0.001,
+        "m_xi": 1.8599999999999998e-08,
+        "mean_eta_xi_channel": 1.8599999999999998e-08,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 1e-06,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 1.8599999999999998e-08,
+        "effective_excess_output": 1.8599999999999998e-08,
+        "N_eff": 1.8599999999999998e-08,
+        "effective_excess_input": 0.0186,
+        "xi_eff": 0.0186,
+        "a": 1.025,
+        "b": 1.0000000436,
+        "b_pre": 1.0000000436,
+        "W_pre": 1.0000000436,
+        "W_pre_effective": 1.0000000436,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 999999.0186000001,
+        "chi_tot": 2895713.3043142855,
+        "detector_gain_squared": 7e-07,
+        "sigma2_complex": 1.0135000065100002,
+        "V_B2": 1.02700003052,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.00022499999806683039,
+        "Z_signal": 0.000225,
+        "Z_penalty": 1.933169603239599e-12,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 1.7645534935994966e-07,
+        "lambda_1": 1.024999975000001,
+        "lambda_2": 1.0000000186000004,
+        "conditional_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.0000000057534288,
+          1.024999974784165
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          1.0000000057534288,
+          1.0249999747841647
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.0249999825172673,
+            0.0,
+            -0.0001270678473486516,
+            0.0,
+            -2.206138655407591e-05,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249999825172673,
+            0.0,
+            0.0001270678473486516,
+            0.0,
+            -2.206138655407591e-05
+          ],
+          [
+            -0.0001270678473486516,
+            0.0,
+            1.0621608427167495,
+            0.0,
+            0.3580302054147918,
+            0.0
+          ],
+          [
+            0.0,
+            0.0001270678473486516,
+            0.0,
+            1.0621608427167495,
+            0.0,
+            -0.3580302054147918
+          ],
+          [
+            -2.206138655407591e-05,
+            0.0,
+            0.3580302054147918,
+            0.0,
+            1.0621608292302178,
+            0.0
+          ],
+          [
+            0.0,
+            -2.206138655407591e-05,
+            0.0,
+            -0.3580302054147918,
+            0.0,
+            1.0621608292302178
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0249999747841647,
+            0.0,
+            -1.665158403359934e-09,
+            0.0
+          ],
+          [
+            0.0,
+            1.0249999747841647,
+            0.0,
+            1.665158403359934e-09
+          ],
+          [
+            -1.665158403359934e-09,
+            0.0,
+            1.0000000057534288,
+            0.0
+          ],
+          [
+            0.0,
+            1.665158403359934e-09,
+            0.0,
+            1.0000000057534288
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.00022499999806683039,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.00022499999806683039
+          ],
+          [
+            0.00022499999806683039,
+            0.0,
+            1.0000000436,
+            0.0
+          ],
+          [
+            0.0,
+            -0.00022499999806683039,
+            0.0,
+            1.0000000436
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 2.220446049250313e-16,
+        "entropy_roundoff_modes": [
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": true,
+        "I_AB": 1.2455433125008881e-08,
+        "beta_rec": 0.95,
+        "beta_I_AB": 1.1832661468758438e-08,
+        "SKR": -1.6462268789119122e-07,
+        "K_raw": -1.6462268789119122e-07,
+        "K_usable": 0.0,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 1.2455433125000393e-08,
+            "SKR": -1.646226878911993e-07
+          },
+          {
+            "order": 16,
+            "I_AB": 1.2455433125014445e-08,
+            "SKR": -1.6462268789118595e-07
+          },
+          {
+            "order": 32,
+            "I_AB": 1.2455433125008881e-08,
+            "SKR": -1.6462268789119122e-07
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 7e-07,
+        "MI_kernel_epsilon": 38571.447171429034
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": null,
+        "xi_eff": null,
+        "a": 1.025,
+        "b": 1.0,
+        "b_pre": 1.0,
+        "W_pre": 1.0,
+        "W_pre_effective": 1.0,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": null,
+        "chi_tot": null,
+        "detector_gain_squared": 0.0,
+        "sigma2_complex": 1.0,
+        "V_B2": 1.0,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0,
+        "Z_signal": 0.0,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "I_AB": 0.0,
+        "beta_I_AB": 0.0,
+        "chi_BE": 0.0,
+        "SKR": 0.0,
+        "K_raw": 0.0,
+        "K_usable": 0.0,
+        "QKD_expressions_evaluated": false
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.0,
+        "mean_sqrt_eta": 0.0,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0186,
+        "T_eff": 0.0,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": null,
+        "xi_eff": null,
+        "a": 1.025,
+        "b": 1.0,
+        "b_pre": 1.0,
+        "W_pre": 1.0,
+        "W_pre_effective": 1.0,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": null,
+        "chi_tot": null,
+        "detector_gain_squared": 0.0,
+        "sigma2_complex": 1.0135,
+        "V_B2": 1.027,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.0,
+        "Z_signal": 0.0,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "I_AB": 0.0,
+        "beta_I_AB": 0.0,
+        "chi_BE": 0.0,
+        "SKR": 0.0,
+        "K_raw": 0.0,
+        "K_usable": 0.0,
+        "QKD_expressions_evaluated": false
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "pure_loss_T_0.25",
+      "detector": "primary_detector",
+      "result": {
+        "mean_eta": 0.25,
+        "mean_sqrt_eta": 0.5,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0,
+        "T_eff": 0.25,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": 0.0,
+        "xi_eff": 0.0,
+        "a": 1.025,
+        "b": 1.00625,
+        "b_pre": 1.00625,
+        "W_pre": 1.00625,
+        "W_pre_effective": 1.00625,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 1.0,
+        "nu_B": 0.0,
+        "chi_het": 1.0,
+        "chi_line": 3.0,
+        "chi_tot": 7.0,
+        "detector_gain_squared": 0.25,
+        "sigma2_complex": 1.0,
+        "V_B2": 1.00625,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.11249999999999999,
+        "Z_signal": 0.11249999999999999,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.00019721543538955832,
+        "lambda_1": 1.0187499999999994,
+        "lambda_2": 0.9999999999999998,
+        "conditional_symplectic_eigenvalues": [
+          1.0186915887850467
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.0186915887850463
+        ],
+        "conditional_covariance_AFG": null,
+        "conditional_covariance_E": [
+          [
+            1.0186915887850465,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0186915887850465,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.11249999999999999,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.11249999999999999
+          ],
+          [
+            0.11249999999999999,
+            0.0,
+            1.00625,
+            0.0
+          ],
+          [
+            0.0,
+            -0.11249999999999999,
+            0.0,
+            1.00625
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 0.0,
+        "entropy_roundoff_modes": [
+          0.9999999999999998,
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": 1.0186915887850467,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.004501392234939505,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.00427632262319253,
+        "SKR": 0.004079107187802971,
+        "K_raw": 0.004079107187802971,
+        "K_usable": 0.004079107187802971,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.004501392234939061,
+            "SKR": 0.00407910718780255
+          },
+          {
+            "order": 16,
+            "I_AB": 0.004501392234940393,
+            "SKR": 0.004079107187803815
+          },
+          {
+            "order": 32,
+            "I_AB": 0.004501392234939505,
+            "SKR": 0.004079107187802971
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.25,
+        "MI_kernel_epsilon": 0.0
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "pure_loss_T_0.25",
+      "detector": "trusted_detector",
+      "result": {
+        "mean_eta": 0.25,
+        "mean_sqrt_eta": 0.5,
+        "m_xi": 0.0,
+        "mean_eta_xi_channel": 0.0,
+        "channel_excess_noise": 0.0,
+        "T_eff": 0.25,
+        "variance_sqrt_eta": 0.0,
+        "fading_variance": 0.0,
+        "fading_excess_output": 0.0,
+        "Delta_fad": 0.0,
+        "channel_excess_output": 0.0,
+        "effective_excess_output": 0.0,
+        "N_eff": 0.0,
+        "effective_excess_input": 0.0,
+        "xi_eff": 0.0,
+        "a": 1.025,
+        "b": 1.00625,
+        "b_pre": 1.00625,
+        "W_pre": 1.00625,
+        "W_pre_effective": 1.00625,
+        "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+        "security_status": "UNVALIDATED_SECURITY_MODEL",
+        "MI_method": "effective_gaussian_MI",
+        "exact_pooled_fading_likelihood": false,
+        "eta_B": 0.7,
+        "nu_B": 0.0135,
+        "chi_het": 1.8957142857142857,
+        "chi_line": 3.0,
+        "chi_tot": 10.582857142857144,
+        "detector_gain_squared": 0.175,
+        "sigma2_complex": 1.0135,
+        "V_B2": 1.031375,
+        "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+        "detector_security_convention": "trusted",
+        "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+        "nu_raw": 0.3,
+        "V_A": 0.025,
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "source_cache_key": "87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798",
+        "source_path": "results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json",
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "Z_star": 0.11249999999999999,
+        "Z_signal": 0.11249999999999999,
+        "Z_penalty": 0.0,
+        "Holevo_target": "chi_BE_at_direct_Z_star",
+        "numerical_repairs": [],
+        "chi_BE": 0.00013632942824091943,
+        "lambda_1": 1.0187499999999994,
+        "lambda_2": 0.9999999999999998,
+        "conditional_symplectic_eigenvalues": [
+          1.0,
+          1.0000000000000007,
+          1.0187096178696695
+        ],
+        "conditional_eve_symplectic_eigenvalues": [
+          0.9999999999999998,
+          1.018709617869669
+        ],
+        "conditional_covariance_AFG": [
+          [
+            1.0206387299243123,
+            0.0,
+            -0.06339709129697972,
+            0.0,
+            -0.011006936583013995,
+            0.0
+          ],
+          [
+            0.0,
+            1.0206387299243123,
+            0.0,
+            0.06339709129697972,
+            0.0,
+            -0.011006936583013995
+          ],
+          [
+            -0.06339709129697972,
+            0.0,
+            1.0641498984677868,
+            0.0,
+            0.3583755431907662,
+            0.0
+          ],
+          [
+            0.0,
+            0.06339709129697972,
+            0.0,
+            1.0641498984677868,
+            0.0,
+            -0.3583755431907662
+          ],
+          [
+            -0.011006936583013995,
+            0.0,
+            0.3583755431907662,
+            0.0,
+            1.0622207864131439,
+            0.0
+          ],
+          [
+            0.0,
+            -0.011006936583013995,
+            0.0,
+            -0.3583755431907662,
+            0.0,
+            1.0622207864131439
+          ]
+        ],
+        "conditional_covariance_E": [
+          [
+            1.0187096178696693,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0187096178696693,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "Gamma_AB": [
+          [
+            1.025,
+            0.0,
+            0.11249999999999999,
+            0.0
+          ],
+          [
+            0.0,
+            1.025,
+            0.0,
+            -0.11249999999999999
+          ],
+          [
+            0.11249999999999999,
+            0.0,
+            1.00625,
+            0.0
+          ],
+          [
+            0.0,
+            -0.11249999999999999,
+            0.0,
+            1.00625
+          ]
+        ],
+        "appendix_purification_spectrum_residual": 6.661338147750939e-16,
+        "entropy_roundoff_modes": [
+          0.9999999999999998,
+          0.9999999999999998
+        ],
+        "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+        "conditional_measurement": "trusted_heterodyne_Appendix_A",
+        "ideal_conditional_eigenvalue": null,
+        "MI_low_snr_regrouping": false,
+        "I_AB": 0.0031105027253084394,
+        "beta_rec": 0.95,
+        "beta_I_AB": 0.002954977589043017,
+        "SKR": 0.0028186481608020978,
+        "K_raw": 0.0028186481608020978,
+        "K_usable": 0.0028186481608020978,
+        "MI_orders": [
+          {
+            "order": 8,
+            "I_AB": 0.0031105027253084394,
+            "SKR": 0.0028186481608020978
+          },
+          {
+            "order": 16,
+            "I_AB": 0.0031105027253084394,
+            "SKR": 0.0028186481608020978
+          },
+          {
+            "order": 32,
+            "I_AB": 0.0031105027253084394,
+            "SKR": 0.0028186481608020978
+          }
+        ],
+        "QKD_expressions_evaluated": true,
+        "MI_detector_gain_squared": 0.175,
+        "MI_kernel_epsilon": 0.15428571428571505
+      }
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "root_cause": "Finite precision of production mu2 quadrature with epsabs=1e-18; not a hardware-configuration mismatch",
+  "source_file": "src/channel/pointing_error.py",
+  "function": "manuscript_pointing_parameters",
+  "original_quadrature": [
+    {
+      "interval": [
+        1000.0,
+        20000.0
+      ],
+      "kwargs": {
+        "epsabs": 1e-18,
+        "epsrel": 2e-13,
+        "limit": 300
+      },
+      "observed_value": 5.0349262917105936e-14,
+      "observed_error_estimate": 2.381899496662549e-19,
+      "tighter_value": 5.034926295777721e-14,
+      "tighter_error_estimate": 3.0292258760486853e-28
+    }
+  ],
+  "MP_mu2": "0.00000000000005034926295777716499811767830693570915664790917938113232172369531",
+  "mu2_difference_original_minus_MP": -4.067122899811768e-23,
+  "Gd_difference_independent_minus_runtime": 2.4221669808754953e-11,
+  "original_strict_checks_preserved": true,
+  "original_failures": [
+    {
+      "check": "A_geometry_runtime_agreement",
+      "status": "FAIL",
+      "detail": {
+        "L_m": 0.0,
+        "zeta_rad": 0.0,
+        "eta_atm": -1.1102230246251565e-16,
+        "w0_m": 1.3877787807814457e-17,
+        "wL_m": -2.7755575615628914e-17,
+        "G_d": 2.4221669808754953e-11,
+        "A0": -3.05089287166993e-13,
+        "w_eq_m": -5.87283555120166e-11,
+        "sigma_s_m": 0.0,
+        "sigma_R2": -1.0408340855860843e-16,
+        "P0": 2.710505431213761e-19,
+        "A_ap": 2.7755575615628914e-17,
+        "v_sc_unused_in_active_PDF": -1.5178830414797062e-18
+      }
+    },
+    {
+      "check": "A_closed_runtime_moments",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "check": "D_geometry_runtime_agreement",
+      "status": "FAIL",
+      "detail": {
+        "L_m": 0.0,
+        "zeta_rad": 0.0,
+        "eta_atm": -1.1102230246251565e-16,
+        "w0_m": 1.3877787807814457e-17,
+        "wL_m": -2.7755575615628914e-17,
+        "G_d": 2.4221669808754953e-11,
+        "A0": -2.8917701566655296e-12,
+        "w_eq_m": 1.6896206656014101e-12,
+        "sigma_s_m": 0.0,
+        "sigma_R2": -1.0408340855860843e-16,
+        "P0": 2.710505431213761e-19,
+        "A_ap": 1.1102230246251565e-16,
+        "v_sc_unused_in_active_PDF": -6.938893903907228e-17
+      }
+    },
+    {
+      "check": "D_ideal_primary_independent_SKR_agreement",
+      "status": "FAIL",
+      "detail": {
+        "W_pre": -6.661338147750939e-16,
+        "Z": 2.330774462322438e-13,
+        "eta_f": 2.8829105172979014e-16,
+        "xi_f": -5.15734654982225e-09,
+        "I_AB": 1.9159614216349152e-15,
+        "chi_BE": -7.577272143066693e-15,
+        "K_raw": 9.398731792842341e-15
+      }
+    },
+    {
+      "check": "D_trusted_diagnostic_independent_SKR_agreement",
+      "status": "FAIL",
+      "detail": {
+        "W_pre": -6.661338147750939e-16,
+        "Z": 2.330774462322438e-13,
+        "eta_f": 2.8829105172979014e-16,
+        "xi_f": -5.15734654982225e-09,
+        "I_AB": 2.5017694079559893e-15,
+        "chi_BE": -5.755812493291046e-15,
+        "K_raw": 8.132383655379272e-15
+      }
+    }
+  ],
+  "checks": [
+    {
+      "check": "mu2_original_error_within_its_reported_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "mu2_tighter_quad_matches_MP",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "A_quadrature_cause_reconstructs_runtime",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "G_d": -4.85722573273506e-17,
+        "mean_eta": 2.7755575615628914e-17,
+        "mean_sqrt_eta": 5.551115123125783e-17
+      }
+    },
+    {
+      "check": "A_AoA_preserved_in_runtime_distribution",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "A_ideal_primary_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": -8.919753824443433e-12,
+        "xi_difference": 2.7298652227614184e-10,
+        "xi_relative_difference": 1.1178539645173128e-10
+      }
+    },
+    {
+      "check": "A_trusted_diagnostic_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": -5.2238213754662866e-12,
+        "xi_difference": 2.7298652227614184e-10,
+        "xi_relative_difference": 1.1178539645173128e-10
+      }
+    },
+    {
+      "check": "B_quadrature_cause_reconstructs_runtime",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "G_d": -3.7947076036992655e-19,
+        "mean_eta": -2.168404344971009e-19,
+        "mean_sqrt_eta": 0.0
+      }
+    },
+    {
+      "check": "B_AoA_preserved_in_runtime_distribution",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "B_ideal_primary_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": 3.2093468507743417e-15,
+        "xi_difference": -1.2290168882600483e-13,
+        "xi_relative_difference": -2.7634694943062063e-13
+      }
+    },
+    {
+      "check": "B_trusted_diagnostic_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": 5.574425469834221e-15,
+        "xi_difference": -1.2290168882600483e-13,
+        "xi_relative_difference": -2.7634694943062063e-13
+      }
+    },
+    {
+      "check": "C_quadrature_cause_reconstructs_runtime",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "G_d": -3.7947076036992655e-19,
+        "mean_eta": 3.469446951953614e-18,
+        "mean_sqrt_eta": -1.3877787807814457e-17
+      }
+    },
+    {
+      "check": "C_AoA_preserved_in_runtime_distribution",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "C_ideal_primary_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": -6.800116025829084e-15,
+        "xi_difference": -1.1218803663837207e-13,
+        "xi_relative_difference": -2.561102635867675e-13
+      }
+    },
+    {
+      "check": "C_trusted_diagnostic_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": 8.713516019831502e-15,
+        "xi_difference": -1.1218803663837207e-13,
+        "xi_relative_difference": -2.561102635867675e-13
+      }
+    },
+    {
+      "check": "D_quadrature_cause_reconstructs_runtime",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "G_d": -4.85722573273506e-17,
+        "mean_eta": 3.2526065174565133e-19,
+        "mean_sqrt_eta": -4.336808689942018e-19
+      }
+    },
+    {
+      "check": "D_AoA_preserved_in_runtime_distribution",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "D_ideal_primary_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": 9.398731792842341e-15,
+        "xi_difference": -5.15734654982225e-09,
+        "xi_relative_difference": -2.1841231984469063e-11
+      }
+    },
+    {
+      "check": "D_trusted_diagnostic_signed_SKR_residual",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "K_difference": 8.132383655379272e-15,
+        "xi_difference": -5.15734654982225e-09,
+        "xi_relative_difference": -2.1841231984469063e-11
+      }
+    }
+  ],
+  "reconstructed_runtime_cases": [
+    {
+      "case": "A",
+      "residuals": {
+        "G_d": -4.85722573273506e-17,
+        "mean_eta": 2.7755575615628914e-17,
+        "mean_sqrt_eta": 5.551115123125783e-17
+      },
+      "mean_eta_using_original_mu2": 0.23790886783673018
+    },
+    {
+      "case": "B",
+      "residuals": {
+        "G_d": -3.7947076036992655e-19,
+        "mean_eta": -2.168404344971009e-19,
+        "mean_sqrt_eta": 0.0
+      },
+      "mean_eta_using_original_mu2": 0.0002640339370278923
+    },
+    {
+      "case": "C",
+      "residuals": {
+        "G_d": -3.7947076036992655e-19,
+        "mean_eta": 3.469446951953614e-18,
+        "mean_sqrt_eta": -1.3877787807814457e-17
+      },
+      "mean_eta_using_original_mu2": 0.012392337848560643
+    },
+    {
+      "case": "D",
+      "residuals": {
+        "G_d": -4.85722573273506e-17,
+        "mean_eta": 3.2526065174565133e-19,
+        "mean_sqrt_eta": -4.336808689942018e-19
+      },
+      "mean_eta_using_original_mu2": 0.0006477631989112938
+    }
+  ],
+  "production_files_edited": false,
+  "tighter_quadrature_is_diagnostic_only": true
+}

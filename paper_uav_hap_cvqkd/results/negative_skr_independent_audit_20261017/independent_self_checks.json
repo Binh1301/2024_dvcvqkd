@@ -1,0 +1,76 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "checks": [
+    {
+      "name": "bosonic_entropy_known_values",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "details": "g(0)=0,g(1)=2"
+    },
+    {
+      "name": "vacuum_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "details": [
+        "1.0",
+        "1.0"
+      ]
+    },
+    {
+      "name": "normalized_complex_likelihood_and_quadratures",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "details": [
+        {
+          "complex_variance": 1.0,
+          "normalization": 1.0,
+          "second_moment": 1.0,
+          "per_real_quadrature": 0.5,
+          "quadrature_error": 3.6313583001311924e-14
+        },
+        {
+          "complex_variance": 1.1964884143779373,
+          "normalization": 0.9999999999999999,
+          "second_moment": 1.1964884143779373,
+          "per_real_quadrature": 0.5982442071889686,
+          "quadrature_error": 1.3238955228441264e-14
+        },
+        {
+          "complex_variance": 1.1510418900645563,
+          "normalization": 0.9999999999999999,
+          "second_moment": 1.151041890064556,
+          "per_real_quadrature": 0.575520945032278,
+          "quadrature_error": 9.417880646218559e-14
+        }
+      ]
+    },
+    {
+      "name": "entropy_bound_detects_wrong_configuration",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "details": {
+        "status": "EXPECTED_REJECTION_IF_INPUTS_ARE_MIXED",
+        "not_actual_repository_configuration": true,
+        "m1": 0.00026407446657,
+        "W_pre": 1.0013376626085486,
+        "chi_upper": 0.016037567950527874,
+        "mismatched_chi": 1.1466344829084623,
+        "would_fail": "HOLEVO_PHYSICAL_ENTROPY_BOUND"
+      }
+    },
+    {
+      "name": "no_production_numerical_imports",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "details": [
+        "pathlib",
+        "scipy.integrate",
+        "scipy.special",
+        "argparse",
+        "csv",
+        "hashlib",
+        "json",
+        "math",
+        "time",
+        "mpmath",
+        "numpy"
+      ]
+    }
+  ],
+  "independent_audit_script_sha256": "c3c30ef1998b832c03eab70a0d332867780e6ad2aba3ed7e0aa3dab7efc09358"
+}

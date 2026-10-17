@@ -1,0 +1,222 @@
+"""Saved-data verification; no AP, no QKD evaluator, no old-output mutation."""
+from __future__ import annotations
+import argparse
+import json
+import math
+from pathlib import Path
+import re
+import sys
+import zipfile
+import numpy as np
+from scipy.stats import t
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
+from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
+from scripts.run_binary_cloud_skr_experiment import (DEFAULT,producers,verify_protected,load_winners,METRICS,identity)
+from src.binary_cloud import generate_cloud
+from src.binary_cloud_skr import (read_csv,validate_settings,load_sources,validate_result,covariance_check,
+                                  select_winner,STATUS,cloud_scenarios)
+
+
+def optimal_value(table,distance,feasible,penalty,reference):
+    """Independent value-only Bellman check; does not call the trajectory solver."""
+    values=table[:,0]/table.shape[1]
+    costs=penalty*distance/reference
+    for n in range(1,table.shape[1]):
+        values=table[:,n]/table.shape[1]+np.max(np.where(feasible,values[:,None]-costs,-np.inf),axis=0)
+    return float(values.max())
+
+
+def path_metrics(path,table,positions,distance,speed_limit,threshold,penalty,reference):
+    path=np.asarray(path)
+    if path.ndim!=1 or len(path)!=table.shape[1] or not np.issubdtype(path.dtype,np.integer) or (path<0).any() or (path>=len(positions)).any():
+        raise ValueError('Invalid discrete path')
+    legs=distance[path[:-1],path[1:]]
+    if (legs>speed_limit+1e-10).any():raise ValueError('Speed violation')
+    values=table[path,np.arange(len(path))];flight=float(legs.sum());mean=float(values.mean())
+    return dict(average_skr_bits_per_use=mean,availability=float(np.mean(values>=threshold)),total_flight_distance_m=flight,
+                penalized_objective_bits_per_use=mean-penalty*flight/reference)
+
+
+def stationary_gap(path,means):
+    if not np.all(path==path[0]):raise ValueError('P2 path is not stationary')
+    gap=float(means.max()-means[int(path[0])])
+    # C/F-contiguous summation can differ by a few ULPs for symmetric grid cells.
+    if gap>8*np.spacing(float(means.max())):raise ValueError('P2 stationary maximum failed')
+    return gap
+
+
+def assert_metrics(stored,expected):
+    for name,value in expected.items():
+        if not math.isclose(float(stored[name]),value,abs_tol=2e-12,rel_tol=2e-12):
+            raise ValueError(f'Metric mismatch: {name}: {stored[name]} != {value}')
+
+
+def verify_statistics(path,rows,group_fields):
+    groups={}
+    for row in rows:groups.setdefault(tuple(row[k] for k in group_fields),[]).append(row)
+    stats=read_csv(path)
+    if len(stats)!=len(groups)*len(METRICS):raise ValueError('Statistics coverage incomplete')
+    seen=set()
+    for row in stats:
+        key=tuple(row[k] for k in group_fields);metric=row['metric'];seen_key=(key,metric)
+        if metric not in METRICS or seen_key in seen:raise ValueError('Duplicate/unknown summary statistic')
+        seen.add(seen_key);values=np.array([float(r[metric]) for r in groups[key]])
+        mean=float(values.mean());sd=float(values.std(ddof=1));se=sd/math.sqrt(len(values));half=float(t.ppf(.975,len(values)-1))*se
+        assert_metrics(row,dict(mean=mean,sd=sd,se=se,ci95_low=mean-half,ci95_high=mean+half))
+        if int(row['realizations'])!=len(values):raise ValueError('Wrong independent mission count')
+
+
+def verify(output, *, exports=False):
+    output=Path(output);inputs=saved.read_json(output/'inputs.json');settings=inputs['settings']
+    if inputs!=identity(settings):raise ValueError('Current producer/config identity differs')
+    verify_protected(output);audit=saved.read_json(output/'audit_receipt.json')
+    for name,h in audit['output_sha256'].items():
+        if saved.digest(output/name)!=h:raise ValueError('Audit output changed: '+name)
+    if saved.read_json(output/'correlation_audit.json')['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Correlation fixture failed')
+    manifest=saved.read_json(output/'startup_manifest.json')
+    sources,_,_=load_sources(settings,manifest['protected_hashes'])
+    states=saved.read_json(output/'clear_channel_states.json');winners=load_winners(output)
+    rows=read_csv(output/'clear_candidate_evaluations.csv');groups={}
+    numeric={'nu_raw','V_A','C','w','T_eff','xi_eff','N_eff','a','b','Z_star','Z_signal','Z_penalty',
+             'lambda_1','lambda_2','lambda_3','I_AB','beta_I_AB','chi_BE','SKR'}
+    source_lookup={(family,c['ensemble_hash']):c for family,group in sources.items() for c in group}
+    max_spectrum=max_entropy=0.;checked=0
+    for raw in rows:
+        row={k:float(v) if k in numeric else json.loads(v) if k in ('MI_orders','numerical_repairs') else v=='True' if k=='certified_fading_security_lower_bound' else v
+             for k,v in raw.items() if k not in ('family','position_index','objective_key','row_sha256')}
+        if saved.hash_json(row)!=raw['row_sha256']:raise ValueError('Imported numerical row no longer matches historical row hash')
+        family=raw['family'];j=int(raw['position_index']);candidate=source_lookup[family,row['ensemble_hash']]
+        validate_result(row,candidate,states[j]);check=covariance_check(row)
+        max_spectrum=max(max_spectrum,check['spectrum_residual']);max_entropy=max(max_entropy,check['entropy_residual'])
+        groups.setdefault((family,j),[]).append(row);checked+=1
+    if checked!=22700 or len(groups)!=200:raise ValueError('Incomplete clear candidate table')
+    for (family,j),group in groups.items():
+        if len(group)!=len(sources[family]) or len({r['ensemble_hash'] for r in group})!=len(group):raise ValueError('P1 catalog coverage failed')
+        best=select_winner(group);winner=winners[family][j]
+        if best['ensemble_hash']!=winner['ensemble_hash'] or winner['K_star_raw']!=best['SKR'] or winner['K_star']!=max(0.,best['SKR']):
+            raise ValueError('P1 maximum failed')
+    positions=validate_settings(settings);distance=np.linalg.norm(positions[:,None]-positions[None,:],axis=2)
+    mission=settings['mission'];opt=settings['optimization'];cloud=settings['cloud']
+    limit=mission['slot_duration_s']*mission['max_speed_m_per_s'];feasible=distance<=limit
+    scenarios=cloud_scenarios(settings)
+    if saved.read_json(output/'cloud_scenarios.json')!=json.loads(json.dumps(scenarios)):raise ValueError('Scenario specification changed')
+    clouds=np.load(output/'cloud_states.npz',allow_pickle=False)['blocked']
+    data=np.load(output/'trajectories.npz',allow_pickle=False);paths=data['paths'];lambda_paths=data['lambda_paths']
+    count=cloud['realizations'];slots=mission['slots']
+    if clouds.dtype!=np.bool_ or clouds.shape!=(len(scenarios),count,100,slots) or paths.shape!=(len(scenarios),count,2,4,slots):
+        raise ValueError('Cloud/path shapes failed')
+    summary=read_csv(output/'summary.csv');lookup={(int(r['scenario_id']),int(r['realization_id']),r['family'],r['scheme']):r for r in summary}
+    if len(lookup)!=len(scenarios)*count*8 or len(summary)!=len(lookup):raise ValueError('Summary coverage failed')
+    dp_checks=0;correlations=[];maximum_stationary_gap=0.
+    for scenario in scenarios:
+        sid=scenario['scenario_id'];p,ell,rho=scenario['parameters'];fractions=[]
+        for realization in range(count):
+            blocked=clouds[sid,realization]
+            if not np.array_equal(blocked,generate_cloud(positions,slots,p,ell,rho,cloud['seed'],realization)):raise ValueError('Cloud seed replay differs')
+            fractions.append(float(blocked.mean()))
+            for f,family in enumerate(('MB','Uniform')):
+                clear=np.array([r['K_star'] for r in winners[family]]);table=(~blocked)*clear[:,None]
+                if np.any(table[blocked]!=0):raise ValueError('Blocked usable SKR must be zero')
+                means=table.mean(axis=1);stationary=int(np.argmax(means))
+                for k,scheme in enumerate(('S1','S2','S3','S4')):
+                    path=paths[sid,realization,f,k];penalty=opt['positive_lambda_bits_per_use'] if scheme=='S4' else 0.
+                    metrics=path_metrics(path,table,positions,distance,limit,opt['K_min_bits_per_use'],penalty,opt['reference_distance_m'])
+                    stored=lookup[sid,realization,family,scheme];assert_metrics(stored,metrics)
+                    if float(stored['K_min_bits_per_use'])!=opt['K_min_bits_per_use']:raise ValueError('Availability threshold changed')
+                    baseline=float(lookup[sid,realization,family,'S1']['average_skr_bits_per_use']);delta=metrics['average_skr_bits_per_use']-baseline
+                    assert_metrics(stored,dict(improvement_vs_reference_absolute=delta))
+                    if baseline>0:assert_metrics(stored,dict(improvement_vs_reference_percent=100*delta/baseline))
+                    elif stored['improvement_vs_reference_percent']!='' or stored['improvement_percent_status']!='UNDEFINED_ZERO_REFERENCE':raise ValueError('Zero-reference improvement must be undefined')
+                    if k==0 and not (path==settings['geometry']['reference_position_index']).all():raise ValueError('S1 geometry changed')
+                    if k==1:maximum_stationary_gap=max(maximum_stationary_gap,stationary_gap(path,means))
+                    if k>=2:
+                        target=optimal_value(table,distance,feasible,penalty,opt['reference_distance_m']);dp_checks+=1
+                        if abs(metrics['penalized_objective_bits_per_use']-target)>1e-11:raise ValueError('Independent Bellman optimum mismatch')
+                if clear.min()>=opt['K_min_bits_per_use'] and not np.array_equal(table>=opt['K_min_bits_per_use'],~blocked):raise ValueError('Cloud-only availability identity failed')
+        fractions=np.array(fractions);se=float(fractions.std(ddof=1)/math.sqrt(count));residual=abs(float(fractions.mean())-p)
+        if residual>5*se+1e-12:raise ValueError('Mission-level blockage probability check failed')
+        correlations.append(dict(scenario_id=sid,configured_probability=p,empirical_probability=float(fractions.mean()),
+            independent_mission_SE=se,residual=residual,tolerance=5*se+1e-12,passed=True))
+        print('VERIFY_SCENARIO',sid+1,'/',len(scenarios),flush=True)
+    penalties=settings['sweeps']['lambda_bits_per_use'];lambda_rows=read_csv(output/'lambda_sweep.csv')
+    ll={(int(r['realization_id']),r['family'],float(r['lambda_bits_per_use'])):r for r in lambda_rows}
+    if len(ll)!=count*2*len(penalties) or len(ll)!=len(lambda_rows) or lambda_paths.shape!=(count,2,len(penalties),slots):raise ValueError('Lambda coverage failed')
+    for realization in range(count):
+        for f,family in enumerate(('MB','Uniform')):
+            table=(~clouds[0,realization])*np.array([r['K_star'] for r in winners[family]])[:,None];flights=[]
+            for k,penalty in enumerate(penalties):
+                metrics=path_metrics(lambda_paths[realization,f,k],table,positions,distance,limit,opt['K_min_bits_per_use'],penalty,opt['reference_distance_m'])
+                assert_metrics(ll[realization,family,penalty],metrics);flights.append(metrics['total_flight_distance_m'])
+                if penalty not in (0.,opt['positive_lambda_bits_per_use']):
+                    dp_checks+=1
+                    if abs(metrics['penalized_objective_bits_per_use']-optimal_value(table,distance,feasible,penalty,opt['reference_distance_m']))>1e-11:raise ValueError('Lambda Bellman optimum mismatch')
+            if np.any(np.diff(flights)>1e-8):raise ValueError('Penalty-flight monotonicity failed')
+    verify_statistics(output/'summary_statistics.csv',summary,('scenario_id','probability','correlation_length_m','temporal_rho','family','scheme'))
+    verify_statistics(output/'lambda_statistics.csv',lambda_rows,('family','lambda_bits_per_use'))
+    paired=[]
+    for sid in range(len(scenarios)):
+        for scheme in ('S1','S2','S3','S4'):
+            for realization in range(count):
+                for name,fa,sa,fb,sb in [('MB_minus_Uniform','MB',scheme,'Uniform',scheme),('MB_'+scheme+'_minus_S1','MB',scheme,'MB','S1')]:
+                    paired.append(dict(scenario_id=str(sid),scheme=scheme,contrast=name,
+                        **{metric:float(lookup[sid,realization,fa,sa][metric])-float(lookup[sid,realization,fb,sb][metric]) for metric in METRICS}))
+    verify_statistics(output/'paired_statistics.csv',paired,('scenario_id','scheme','contrast'))
+    demo=read_csv(output/'scheme_time_series.csv')
+    if len(demo)!=2*4*slots:raise ValueError('Demonstration time series incomplete')
+    for row in demo:
+        f=0 if row['family']=='MB' else 1;k=int(row['scheme'][-1])-1;n=int(row['slot'])-1;j=int(paths[0,0,f,k,n])
+        source=winners[row['family']][j];blocked=bool(clouds[0,0,j,n]);value=0. if blocked else source['K_star']
+        if int(row['position_index'])!=j or (row['blocked']=='True')!=blocked or (row['source_active']=='True')==blocked:raise ValueError('Time series state/source activity mismatch')
+        assert_metrics(row,dict(usable_skr=value,nu_raw=source['nu_raw'],V_A=source['V_A'],mean_photons=source['V_A']/2))
+        if (row['available']=='True')!=(value>=opt['K_min_bits_per_use']):raise ValueError('Time series availability failed')
+        trace=paths[0,0,f,k,:n+1];values=(~clouds[0,0,trace,np.arange(n+1)])*np.array([winners[row['family']][int(jj)]['K_star'] for jj in trace])
+        assert_metrics(row,dict(cumulative_normalized_skr=float(values.sum()/slots)))
+    receipt=saved.read_json(output/'experiment_receipt.json')
+    for name,h in receipt['output_sha256'].items():
+        if saved.digest(output/name)!=h:raise ValueError('Experiment output changed: '+name)
+    if receipt['producers']!=producers() or receipt['input_sha256']!=saved.hash_json(inputs):raise ValueError('Experiment identity changed')
+    exported=None
+    if exports:
+        from PIL import Image
+        export_receipt=saved.read_json(output/'export_receipt.json')
+        for name,h in export_receipt['output_sha256'].items():
+            if saved.digest(output/name)!=h:raise ValueError('Export changed: '+name)
+        for size,width in (('single',1050),('double',2148)):
+            for number in range(1,8):
+                stem=f'figure_{number}_{size}';png=output/'figures'/(stem+'.png');pdf=output/'figures'/(stem+'.pdf')
+                with Image.open(png) as picture:
+                    if picture.width!=width or abs(picture.info['dpi'][0]-300)>1:raise ValueError('PNG width/DPI failed')
+                raw=pdf.read_bytes()
+                if b'/Subtype /Image' in raw:raise ValueError('Raster image embedded in vector PDF')
+                box=re.search(rb'/MediaBox\s*\[\s*0\s+0\s+([\d.]+)',raw)
+                if not box or abs(float(box.group(1))-width/300*72)>1e-5:raise ValueError('PDF column width failed')
+        archive=output/'overleaf_binary_cloud.zip'
+        with zipfile.ZipFile(archive) as z:
+            for name in z.namelist():
+                if name.startswith('/') or '..' in Path(name).parts:raise ValueError('Unsafe archive path')
+                if z.read(name)!=(output/'overleaf'/name).read_bytes():raise ValueError('Archive member differs')
+        exported=dict(PNG_layouts=14,vector_PDFs=14,overleaf_members=len(z.namelist()),LaTeX_compile=export_receipt['LaTeX_compile'])
+    result=dict(status='CURRENTLY_VERIFIED_PASS',scope='Saved numerical tables and finite DP/export verification only',
+        scientific_status=STATUS,positions=100,clear_candidates_verified=checked,P1_maxima_verified=200,
+        missions=len(scenarios)*count,cloud_seed_replays=len(scenarios)*count,independent_Bellman_checks=dp_checks,
+        maximum_spectrum_residual=max_spectrum,maximum_entropy_residual=max_entropy,maximum_stationary_gap=maximum_stationary_gap,
+        statistical_uncertainty='Independent mission clusters; paired differences; t intervals for Monte Carlo means',
+        cloud_probability_checks=correlations,protected_changes=verify_protected(output),producers=producers(),
+        source_moments_generated=0,blocked_QKD_evaluations=0,new_scientific_evaluations=0,exports=exported,
+        verifier_sha256=saved.digest(Path(__file__)),
+        lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS',frozen_historical_discrepancy=True)
+    saved.save(output/('final_validation.json' if exports else 'saved_data_validation.json'),result)
+    print('VERIFIED',result['status'],dp_checks,'independent Bellman checks',flush=True)
+    return result
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=DEFAULT);parser.add_argument('--exports',action='store_true')
+    args=parser.parse_args()
+    try:verify(args.output,exports=args.exports)
+    except Exception as error:
+        saved.save(args.output/'verification_failure_receipt.json',dict(status='FAILED',error=str(error),exports=args.exports));raise
+
+
+if __name__=='__main__':main()

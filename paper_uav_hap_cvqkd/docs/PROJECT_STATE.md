@@ -1,5 +1,156 @@
 # Project State
 
+## Current: full geometry/fading/SKR audit COMPLETE with5 strict differences; STOP
+
+2026-10-17 EVID-0193/DEC-0176. CONFIGURATION_MATCH_CONFIRMED: reference actually
+uses Dr.55m, radius.275m, full-angle10urad and w0=.0986760647169751m. Defaults
+Dr.08/theta223urad are overridden; old-manuscript233urad is diagnostic only.
+Runtime trace and fresh physical-state equality match historical reference.
+Report docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md; artifacts
+results/full_geometry_fading_skr_audit_20261017/. No production edits.
+
+4 geometries x2 detectors freshly evaluated, with independent primitive geometry,
+HV/broadening, raw/conditioned PDF closed forms and quadrature through exact-source
+MI/Holevo/SKR.94 strict comparisons:89 PASS,5 FAIL retained. Root of small differences:
+mu2 quadrature epsabs1e-18, original5.0349262917105936e-14 vs independent
+5.0349262957777165e-14, within original error estimate.18 causal/metric follow-up
+checks PASS and explain all discrepancies; no tolerance widened. Independent
+m1=.2379088678213789 versus runtime .23790886783673015; ideal K residual-8.92e-12,
+trusted-5.22e-12.8 physical entropy bounds pass; negative sign is not explained by
+a hardware mix or noise/Holevo/MI formula error. No generic PASS or security claim.
+
+OnlyA(.55m,10urad) yields m1~.2379;B(.08m,233urad)~.000264034,
+C(.55m,233urad)~.0123923,D(.08m,10urad)~.000647763. Source/geometry/moment
+fingerprints and equation substitutions are saved. All4127 old protected files
+unchanged. Proposed numerical mu2 refinement is NOT_APPLIED; await separate user
+confirmation before any production change. UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen historical mismatch and ObjectiveC
+USER_STOPPED remain. No source/AP/AO/full catalog/missions/training/test/publication/
+baseline-threshold approval/external edit/commit/push. Deliver and STOP.
+
+
+## Current: independent negative-SKR physical audit COMPLETE; no entropy contradiction; STOP
+
+2026-10-17 EVID-0192/DEC-0175. CURRENTLY_VERIFIED_PASS for bounded independent
+reference/limit physical and numerical checks, not a new security proof. Report
+ docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md and results/negative_skr_independent_audit_20261017/.
+Actual call graph/provenance verified with32 fresh production SKR probes and no
+cached-K substitution. Separate numerical script imports no production helpers.
+
+213 checks PASS, including40 entropy-bound cases with0 actual violations. Current
+mean_eta=.23790886783673015, Wpre=2.2051214223052606, chi_upper=3.061425978931402.
+Reference ideal chi=1.1466344829084623, MI=.4215725849611298, K=-.7461405271953889;
+trusted chi=.7553564386786374, MI=.3184044344168209, K=-.4528722259826576.
+Independent entropy terms/MI/PDF/weak-T/vacuum/source/receiver limits explain these
+negative surrogate rates without a physical contradiction. Current m1 is not1e-4;
+fading accounts for98.87395% of output excess. Max production/independent residual
+9.076073226310655e-15. No production correction is justified by this reference audit.
+
+All4094 protected old files unchanged; source Cw/ensembles/config/default/security
+functional and frozen specs preserved. No source/AP/AO, full catalog/P1-P3, training/
+test access, publication evaluation or baseline/threshold approval. Numerical and
+conditional mathematical consistency do not establish actual DM fading/security,
+Gaussian-surrogate MI lower bounds or full-Z/trusted composability. Keep
+UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen historical
+hash discrepancy and ObjectiveC USER_STOPPED. No external edits/commit/push.
+Deliver and STOP; no automatic continuation of optimization.
+
+
+## Current: trusted heterodyne diagnostic COMPLETE; primary usable SKR zero; STOP
+
+2026-10-16 EVID-0191/DEC-0174. CURRENTLY_VERIFIED_PASS for software/numerical
+checks of channel_only_fading_trusted_heterodyne_v1; UNVALIDATED_SECURITY_MODEL.
+Channel-only m_xi, N=(m1-Teff)VA+m_xi, Wpre=1+m1VA+m_xi and exact-source
+Z kept separate from trusted eta_B/nu_B. AppendixA AFG entropy independently
+checked against finite AB purification; ideal and additive noise limits supported.
+No default/security/frozen-model promotion. The previous ideal moment evaluator
+was already correct; historical literal total-noise mode is preserved.
+
+71 scoped tests (14 new),166 boundary covariance checks,60 small evaluations
+and327680 physical MC samples/15 moment checks PASS. New22700 primary clear
+rows/200 P1 maxima, same1600 missions/7600 independent Bellman profiles PASS;
+max ideal regression4.574118861455645e-14. All4042 old protected files unchanged.
+Reference primary raw=-.74614052719539; trusted R.7/xi_det.0135 diagnostic
+raw=-.4528722259826575. Primary catalog maxima MB=-.027942008491032552,
+Uniform=-.027593717758446365; all usable/availability/returned mission flight0.
+No positive mobility claim; lambda0 tie-breaking remains explicit.
+
+Artifacts results/trusted_heterodyne_skr_20261016/, canonical report
+docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md, completion/final/validation/test
+receipts and full reference CSV. No full nonideal catalog; current detector
+config stays ideal. Supplied manuscript(38).pdf differs from requested(38)(3);
+version limit recorded. Security proof/actual fading-mixture lower bound/
+finite size/operational key yield remain unestablished. Frozen historical
+hash discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
+USER_STOPPED unchanged. No source/AP/AO, production baseline/threshold
+certification, training/test access, publication work, external edits or commit/push.
+Deliver and STOP; no automatic further execution.
+
+## Current: moment-effective heterodyne diagnostic COMPLETE; zero usable SKR; STOP
+
+2026-10-16 EVID-0190/DEC-0173. CURRENTLY_VERIFIED_PASS for software/numerical
+consistency of the separate PRELIMINARY_MOMENT_MATCHED_GAUSSIAN_FADING_APPROXIMATION.
+N=(meanT-Teff)VA+meanT*xi_ch, b_pre=1+meanT*(VA+xi_ch); vacuum/detector terms
+counted once. Ideal heterodyne/directZ/exact Cw, original physical moments/AoA
+conditioning and existing cloud/DP conventions are preserved. Production default
+remains the legacy evaluator; no silent security/model promotion.
+
+17 tests,1310720 physical MC samples (15 moment/5 same-evaluator K checks),
+reference/small-binary gates pass. Fresh22700 MB/Uniform clear evaluations and
+200 P1 maxima independently verified; same1600 cloud missions/7600 Bellman checks.
+No source generation/AP/AO, no legacy K substituted. All3954 pre-existing protected
+files unchanged. One transient checkpoint lock resumed by exact-input journal;
+no numerical producer/input change. Source-cache and legacy regressions preserved.
+
+Fixed reference nu.17/VA5.046875: oldraw+.0587348598790054, newraw-.7461405271953896,
+Vfad=.0769885768548085, Delta_fad=.3885517238141117. Finite catalog/grid maxima
+rawMB=-.02794200849103555, Uniform=-.027593717758446212: all usable K=0.
+Updated S1-S4 means/availability/selected flight=0; no mobility SKR gain.
+Lambda0 trajectories are tied, not a physical energy improvement. Raw negatives,
+least-negative source choices and undefined zero-reference percent gains are saved.
+
+Artifacts results/fading_effective_binary_cloud_20261016/; report
+ docs/FADING_EFFECTIVE_SKR_REPORT_VI.md. Same-mean-covariance K differs from
+instantaneous-CSI average K(T); the historical pooled-MI point is reconciled
+separately and its unmet sampling precision is retained. Three comparison figures
+and tables reviewed; numerical/formula/provenance receipts bind the results.
+No full-fading security, finite-size yield, continuous optimum or publication claim.
+Nonideal/trusted detector security unsupported. Frozen discrepancy,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED remain.
+No training/test data, publication evaluation, production baseline/threshold
+approval, external manuscript edit, commit or push. Deliver and STOP.
+
+## Current: binary-cloud joint source/UAV diagnostic COMPLETE; STOP
+
+2026-10-16 EVID-0189/DEC-0172. CURRENTLY_VERIFIED_PASS for approved preliminary
+implementation and numerical/export checks. New Gaussian-copula binary complete
+blockage: p=.4, latent ell250m/rho.9,100 missions per16 scenarios,30x20s slots.
+Reused22700 authenticated clear-only rows (197MB/30Uniform sources at100positions);
+30 fresh clear smoke evaluations match with zero residual, no newCw/AP/AO or P1 objective evaluations.
+23 primary plus3 verifier regression tests pass. Independent verification replays
+1600 cloud matrices and checks7600 Bellman profiles,200 P1 maxima and1684 plotting
+records/checks. Old optical/channel/MI/Holevo kernels and all3639 protected old
+files are unchanged. Full scientific run repeated0; only saved-data export repairs.
+
+Default MB means S1/S2/S3/S4=.0341053753030758/.061241610834007816/
+.06319356562032614/.06310392183668584 bits/use. S3/S4 mean flight
+1417.5250281102574/216.48214515945114m: S4 retains99.85814412787072% SKR
+with84.7281606415056% less flight. Uniform uses its own optimized variance bank
+under matched policies/cloud draws; selected energies differ. S2 is a per-mission
+hindsight stationary oracle with the full cloud horizon, not a frozen future policy.
+
+Artifacts results/binary_cloud_skr_20261015/, report docs/BINARY_CLOUD_SKR_REPORT_VI.md.
+Seven figures in both widths,14vectorPDF/14PNG300dpi, two tables, plottingCSV,
+LaTeX and30-member byte-verified OverleafZIP;14 main layouts visually reviewed.
+Compilation BLOCKED_BY_ENVIRONMENT (no compiler), manuscript page layout NOT_RUN.
+One2ULP stationary tie and export clipping corrections are documented; experiment
+values/old outputs unchanged. PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE;
+no exact fading-security, finite-size yield, physical propulsion-energy or continuous
+optimum claim. Frozen discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
+Objective C USER_STOPPED remain. No training/test access, publication evaluation,
+production baseline/threshold approval, external manuscript edit, commit or push.
+Deliver package, STOP; no automatic continuation or overwrite of completed stages.
+
 ## Current: IEEE numerical-results package COMPLETE; STOP
 
 2026-10-14 EVID-0188/DEC-0171. CURRENTLY_VERIFIED_PASS for scoped numerical

@@ -1,0 +1,41 @@
+\section{Mobility-Aware HAP--UAV Source and Position Optimization}
+We use one UAV on 100 cell centers in a $1\,\mathrm{km}\times1\,\mathrm{km}$ region.
+The HAP and UAV altitudes are fixed at 20 km and 1 km. The reference cell is
+$(450,450)$ m and preserves the original 21.9393102292 km slant range.
+\subsection{Correlated Binary Link Blockage}
+Let $d_{ij}=\|\mathbf q_i-\mathbf q_j\|_2$ and $\Sigma_{ij}=\exp(-d_{ij}/\ell)$.
+With $LL^{\mathsf T}=\Sigma$ and independent standard normal vectors,
+\begin{align}
+\mathbf z_1&=L\boldsymbol\xi_1,\\
+\mathbf z_n&=\rho\mathbf z_{n-1}+\sqrt{1-\rho^2}L\boldsymbol\xi_n,\\
+c_{j,n}&=\mathbb{I}\{z_{j,n}<\Phi^{-1}(p)\}.
+\end{align}
+The synthetic default is $p=0.4$, $\ell=250$ m, $\rho=0.9$ per 20 s slot.
+The latent parameters are not Bernoulli correlation coefficients or measured meteorology.
+Complete cloud blockage gives zero usable rate without evaluating QKD formulas at zero transmittance.
+\subsection{Finite-Catalog Source Search and Positioning}
+For each fixed position the existing common-ensemble discrete-input MI and direct-$Z_\star$
+Holevo evaluator gives $K_j(c)=0.95 I_{AB,j}(c)-\chi_{BE,j}(c)$.
+P1 searches all 197 MB exact-source pairs, or the separate 30-source Uniform variance bank:
+\begin{align}
+K_j^\star&=\left[\max_{c\in\mathcal C_{\rm src}} K_j(c)\right]^+,\\
+S_{j,n}&=(1-c_{j,n})K_j^\star.
+\end{align}
+P2 selects the stationary location maximizing $N_t^{-1}\sum_n S_{j,n}$.
+P3 maximizes $N_t^{-1}\sum_n S_{j_n,n}-\lambda D_{\rm fly}/D_{\rm ref}$,
+with $D_{\rm fly}=\sum_{n=2}^{N_t}d_{j_{n-1},j_n}$ and
+$d_{j_{n-1},j_n}\le v_{\max}\Delta t$. Exact finite-grid dynamic programming uses
+\begin{align}
+F_1(j)&=S_{j,1}/N_t,\\
+F_n(j)&=S_{j,n}/N_t+\max_{i\in\mathcal N(j)}\{F_{n-1}(i)-\lambda d_{ij}/D_{\rm ref}\}.
+\end{align}
+Backtracking recovers the trajectory. Initial position is freely chosen before the mission;
+deployment, relocation interruptions, reacquisition and source-switching overhead are excluded.
+Availability $A=N_t^{-1}\sum_n\mathbb{I}\{S_{j_n,n}\ge K_{\min}\}$,
+with $K_{\min}=0.001$ bits/use, is an evaluation metric only.
+\subsection{Scientific Scope}
+All reported rates use the existing effective Gaussian diagnostic with
+$T_{\rm eff}=\mathbb E[\sqrt\eta]^2$ and $\xi_{\rm eff}=0.0186$ SNU.
+It omits fading-induced variance and does not establish a full fading-channel security bound,
+finite-size key yield, or an operational protocol. The distance penalty is not propulsion energy.
+Cloud schedules are known offline; optimality holds only on the finite source catalog and UAV grid.

@@ -1,0 +1,6908 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "mathematical_scope": "Physical entropy bound and covariance/detection identities under stated model assumptions",
+  "production_code_edited": false,
+  "full_P1_P3_run": false,
+  "checks": 201,
+  "failures": [],
+  "MP_digits": 70,
+  "physical_entropy_bound_failures": 0,
+  "independent_imports_exclude_production_helpers": true,
+  "elapsed_seconds": 38.47987560000183,
+  "source_audits": [
+    {
+      "probability_sum": 0.9999999999999998,
+      "minimum_probability": 2.675586801303747e-10,
+      "normalization_residual": -2.220446049250313e-16,
+      "energy": 5.046874999999998,
+      "energy_residual": -1.7763568394002505e-15,
+      "mean_amplitude": [
+        1.9914913437151517e-17,
+        0.0
+      ],
+      "PMF_reconstruction_residual": 2.0816681711721685e-17,
+      "amplitude_reconstruction_residual": 6.280369834735101e-16,
+      "H_X": 5.650500223421142,
+      "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+      "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "Cw_new_oracle_run": false
+    },
+    {
+      "probability_sum": 1.0,
+      "minimum_probability": 2.101515598958143e-16,
+      "normalization_residual": 0.0,
+      "energy": 0.025,
+      "energy_residual": 0.0,
+      "mean_amplitude": [
+        1.2581125001337446e-18,
+        0.0
+      ],
+      "PMF_reconstruction_residual": 1.3877787807814457e-17,
+      "amplitude_reconstruction_residual": 7.850462293418876e-17,
+      "H_X": 4.83115674917553,
+      "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+      "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "Cw_new_oracle_run": false
+    }
+  ],
+  "independent_pdf": {
+    "B": 0.906150936650298,
+    "chi_squared": 0.38570267511254014,
+    "log_C1": 0.014420535049423776,
+    "C3": 3.043972119515573,
+    "mu": 0.04779435665869496,
+    "raw_active_retained_mass": 0.9841173294426485,
+    "raw_total_mass": 0.9841200272202844,
+    "AoA_atom": 0.00016985667656141038,
+    "physical_mass": 1.0,
+    "independent_mean_eta": 0.23790886783673015,
+    "independent_mean_sqrt_eta": 0.40114871429673277,
+    "mean_eta_residual": 0.0,
+    "mean_sqrt_eta_residual": 1.1102230246251565e-16,
+    "quadrature_error_bounds": {
+      "mass": 1.1477616177432844e-13,
+      "mean_eta": 5.081952057116707e-14,
+      "mean_sqrt_eta": 6.801889801913156e-14
+    },
+    "new_renormalization_applied": false,
+    "law": "Independently integrates existing active-conditioned [0,1] law with unchanged AoA atom"
+  },
+  "results": [
+    {
+      "source_id": 0,
+      "case": "reference_fading",
+      "detector": "primary_detector",
+      "m1": 0.23790886783673015,
+      "mhalf": 0.40114871429673266,
+      "eta_f": 0.16092029098192165,
+      "fading_variance": 0.0769885768548085,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0044251049417631805,
+      "fading_excess_output": 0.3885517238141117,
+      "N_eff": 0.39297682875587486,
+      "xi_f": 2.44205889983149,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 2.2051214223052606,
+      "Z": 2.3915984782847097,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 2.392296030890427,
+      "Z_penalty": 0.0006975526057172753,
+      "lambda_1": 5.283036505026981,
+      "lambda_2": 1.4412829273322418,
+      "conditional_eigenvalues": [
+        4.262311319657476
+      ],
+      "S_AB_terms": [
+        2.835353190584177,
+        0.832152554169803
+      ],
+      "S_AB": 3.6675057447539796,
+      "conditional_entropy_terms": [
+        2.520871261845518
+      ],
+      "conditional_entropy": 2.520871261845518,
+      "chi_BE": 1.1466344829084623,
+      "Bob_entropy_upper": 1.530712989465701,
+      "chi_upper": 3.061425978931402,
+      "chi_bound_margin": 1.9147914960229395,
+      "signal_output": 0.8121445935493858,
+      "source_modulation_output": 1.2006963173634975,
+      "V_B2": 2.2051214223052606,
+      "sigma2_complex": 1.1964884143779375,
+      "variance_per_real_quadrature": 0.5982442071889688,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 2.173362978918411e-70,
+      "minimum_uncertainty_eigenvalue": 0.3509135105186089,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          2.3915984782847097,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -2.3915984782847097
+        ],
+        [
+          2.3915984782847097,
+          0.0,
+          2.2051214223052606,
+          0.0
+        ],
+        [
+          0.0,
+          -2.3915984782847097,
+          0.0,
+          2.2051214223052606
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          4.262311319657476,
+          0.0
+        ],
+        [
+          0.0,
+          4.262311319657476
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 1.1961480154452135,
+      "Denys_c2": 1.0122737087331612,
+      "Denys_nB": 0.6025607111526303,
+      "Denys_residual_variance": 0.19648841437793743,
+      "Denys_general_Z": 2.3915984782847097,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.4215725849611298,
+      "quadrature_error": 2.3710894281397084e-12,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.4215725854084337,
+      "SNR": 0.3393867352955628,
+      "capacity_margin": 4.4730386061786476e-10,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [
+        {
+          "order": 16,
+          "I_AB": 0.4215725849611303
+        },
+        {
+          "order": 32,
+          "I_AB": 0.4215725849611303
+        },
+        {
+          "order": 48,
+          "I_AB": 0.4215725849611301
+        }
+      ],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.40049395571307334,
+      "K_raw": -0.7461405271953889
+    },
+    {
+      "source_id": 0,
+      "case": "reference_fading",
+      "detector": "trusted_detector",
+      "m1": 0.23790886783673015,
+      "mhalf": 0.40114871429673266,
+      "eta_f": 0.16092029098192165,
+      "fading_variance": 0.0769885768548085,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0044251049417631805,
+      "fading_excess_output": 0.3885517238141117,
+      "N_eff": 0.39297682875587486,
+      "xi_f": 2.44205889983149,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 2.2051214223052606,
+      "Z": 2.3915984782847097,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 2.392296030890427,
+      "Z_penalty": 0.0006975526057172753,
+      "lambda_1": 5.283036505026981,
+      "lambda_2": 1.4412829273322418,
+      "conditional_eigenvalues": [
+        1.0,
+        1.1101285398235259,
+        4.499003015194737
+      ],
+      "S_AB_terms": [
+        2.835353190584177,
+        0.832152554169803
+      ],
+      "S_AB": 3.6675057447539796,
+      "conditional_entropy_terms": [
+        0.0,
+        0.3119085609555132,
+        2.6002407451198293
+      ],
+      "conditional_entropy": 2.9121493060753423,
+      "chi_BE": 0.7553564386786374,
+      "Bob_entropy_upper": 1.530712989465701,
+      "chi_upper": 3.061425978931402,
+      "chi_bound_margin": 2.3060695402527642,
+      "signal_output": 0.8121445935493858,
+      "source_modulation_output": 1.2006963173634975,
+      "V_B2": 1.8705849956136824,
+      "sigma2_complex": 1.1510418900645563,
+      "variance_per_real_quadrature": 0.5755209450322781,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 2.173362978918411e-70,
+      "minimum_uncertainty_eigenvalue": 0.3509135105186089,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "-4.527839539413356183754559645443895890341265599069569094791307445e-71"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          2.3915984782847097,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -2.3915984782847097
+        ],
+        [
+          2.3915984782847097,
+          0.0,
+          2.2051214223052606,
+          0.0
+        ],
+        [
+          0.0,
+          -2.3915984782847097,
+          0.0,
+          2.2051214223052606
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          4.652099961792964,
+          0.0,
+          -0.9537285234337692,
+          0.0,
+          -0.16558534721524654,
+          0.0
+        ],
+        [
+          0.0,
+          4.652099961792964,
+          0.0,
+          0.9537285234337692,
+          0.0,
+          -0.16558534721524654
+        ],
+        [
+          -0.9537285234337692,
+          0.0,
+          1.3335674724328883,
+          0.0,
+          0.40515154016974153,
+          0.0
+        ],
+        [
+          0.0,
+          0.9537285234337692,
+          0.0,
+          1.3335674724328883,
+          0.0,
+          -0.40515154016974153
+        ],
+        [
+          -0.16558534721524654,
+          0.0,
+          0.40515154016974153,
+          0.0,
+          1.070341986011135,
+          0.0
+        ],
+        [
+          0.0,
+          -0.16558534721524654,
+          0.0,
+          -0.40515154016974153,
+          0.0,
+          1.070341986011135
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 1.1961480154452135,
+      "Denys_c2": 1.0122737087331612,
+      "Denys_nB": 0.6025607111526303,
+      "Denys_residual_variance": 0.19648841437793743,
+      "Denys_general_Z": 2.3915984782847097,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.3184044344168209,
+      "quadrature_error": 2.465716883403908e-12,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.3184044345583669,
+      "SNR": 0.2469507063086494,
+      "capacity_margin": 1.4154599714544247e-10,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [
+        {
+          "order": 16,
+          "I_AB": 0.3184044344168208
+        },
+        {
+          "order": 32,
+          "I_AB": 0.3184044344168208
+        },
+        {
+          "order": 48,
+          "I_AB": 0.31840443441682065
+        }
+      ],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.30248421269597986,
+      "K_raw": -0.4528722259826576
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.01",
+      "detector": "primary_detector",
+      "m1": 0.01,
+      "mhalf": 0.1,
+      "eta_f": 0.01,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.000186,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.000186,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.05065475,
+      "Z": 0.5963462098553807,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.5963613855984662,
+      "Z_penalty": 1.5175743085491176e-05,
+      "lambda_1": 5.996410188748804,
+      "lambda_2": 1.0001899387488042,
+      "conditional_eigenvalues": [
+        5.873452924924282
+      ],
+      "S_AB_terms": [
+        3.020050428936392,
+        0.0014060160483668998
+      ],
+      "S_AB": 3.021456444984759,
+      "conditional_entropy_terms": [
+        2.9898724135022934
+      ],
+      "conditional_entropy": 2.9898724135022934,
+      "chi_BE": 0.0315840314824652,
+      "Bob_entropy_upper": 0.17131363486142176,
+      "chi_upper": 0.3426272697228435,
+      "chi_bound_margin": 0.31104323824037833,
+      "signal_output": 0.05046875,
+      "source_modulation_output": 0.05046875,
+      "V_B2": 1.05065475,
+      "sigma2_complex": 1.000093,
+      "variance_per_real_quadrature": 0.5000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 3.622271631530685e-71,
+      "minimum_uncertainty_eigenvalue": 0.00018723760267359263,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.5963462098553807,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.5963462098553807
+        ],
+        [
+          0.5963462098553807,
+          0.0,
+          1.05065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.5963462098553807,
+          0.0,
+          1.05065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          5.873452924924282,
+          0.0
+        ],
+        [
+          0.0,
+          5.873452924924282
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.2981806927992331,
+      "Denys_c2": 0.25234375,
+      "Denys_nB": 0.025327375,
+      "Denys_residual_variance": 9.3e-05,
+      "Denys_general_Z": 0.5963462098553807,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0359504544823393,
+      "quadrature_error": 7.533878319065177e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.03595045448236456,
+      "SNR": 0.025232028421356814,
+      "capacity_margin": 2.525757381022231e-14,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.03415293175822234,
+      "K_raw": 0.0025689002757571387
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.01",
+      "detector": "trusted_detector",
+      "m1": 0.01,
+      "mhalf": 0.1,
+      "eta_f": 0.01,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.000186,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.000186,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.05065475,
+      "Z": 0.5963462098553807,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.5963613855984662,
+      "Z_penalty": 1.5175743085491176e-05,
+      "lambda_1": 5.996410188748804,
+      "lambda_2": 1.0001899387488042,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000584575717968,
+        5.910833403450114
+      ],
+      "S_AB_terms": [
+        3.020050428936392,
+        0.0014060160483668998
+      ],
+      "S_AB": 3.021456444984759,
+      "conditional_entropy_terms": [
+        0.0,
+        0.00048242013779861167,
+        2.999114508560129
+      ],
+      "conditional_entropy": 2.999596928697928,
+      "chi_BE": 0.021859516286831186,
+      "Bob_entropy_upper": 0.17131363486142176,
+      "chi_upper": 0.3426272697228435,
+      "chi_bound_margin": 0.3207677534360124,
+      "signal_output": 0.05046875,
+      "source_modulation_output": 0.05046875,
+      "V_B2": 1.062458325,
+      "sigma2_complex": 1.0135651,
+      "variance_per_real_quadrature": 0.50678255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 3.622271631530685e-71,
+      "minimum_uncertainty_eigenvalue": 0.00018723760267359263,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "3.622271631530684947003647716355116712273012479255655275833045956e-71"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.5963462098553807,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.5963462098553807
+        ],
+        [
+          0.5963462098553807,
+          0.0,
+          1.05065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.5963462098553807,
+          0.0,
+          1.05065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          5.926174301038621,
+          0.0,
+          -0.3309940562560692,
+          0.0,
+          -0.057466841333439614,
+          0.0
+        ],
+        [
+          0.0,
+          5.926174301038621,
+          0.0,
+          0.3309940562560692,
+          0.0,
+          -0.057466841333439614
+        ],
+        [
+          -0.3309940562560692,
+          0.0,
+          1.0780388023113145,
+          0.0,
+          0.360786920127559,
+          0.0
+        ],
+        [
+          0.0,
+          0.3309940562560692,
+          0.0,
+          1.0780388023113145,
+          0.0,
+          -0.360786920127559
+        ],
+        [
+          -0.057466841333439614,
+          0.0,
+          0.360786920127559,
+          0.0,
+          1.062639447151011,
+          0.0
+        ],
+        [
+          0.0,
+          -0.057466841333439614,
+          0.0,
+          -0.360786920127559,
+          0.0,
+          1.062639447151011
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.2981806927992331,
+      "Denys_c2": 0.25234375,
+      "Denys_nB": 0.025327375,
+      "Denys_residual_variance": 9.3e-05,
+      "Denys_general_Z": 0.5963462098553807,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0249262136282902,
+      "quadrature_error": 6.361208263646967e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.024926213628295998,
+      "SNR": 0.017427654622283257,
+      "capacity_margin": 5.797445856714489e-15,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.02367990294687569,
+      "K_raw": 0.001820386660044504
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.001",
+      "detector": "primary_detector",
+      "m1": 0.001,
+      "mhalf": 0.03162277660168379,
+      "eta_f": 0.001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-05,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-05,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.005065475,
+      "Z": 0.18858122971517544,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.188586028706509,
+      "Z_penalty": 4.7989913335703496e-06,
+      "lambda_1": 6.041828396368664,
+      "lambda_2": 1.0000188713686642,
+      "conditional_eigenvalues": [
+        6.029138481844209
+      ],
+      "S_AB_terms": [
+        3.0310384148626506,
+        0.00017112692282240816
+      ],
+      "S_AB": 3.031209541785473,
+      "conditional_entropy_terms": [
+        3.027976849548589
+      ],
+      "conditional_entropy": 3.027976849548589,
+      "chi_BE": 0.0032326922368840164,
+      "Bob_entropy_upper": 0.025503671788871807,
+      "chi_upper": 0.051007343577743613,
+      "chi_bound_margin": 0.0477746513408596,
+      "signal_output": 0.005046875,
+      "source_modulation_output": 0.005046875,
+      "V_B2": 1.005065475,
+      "sigma2_complex": 1.0000093,
+      "variance_per_real_quadrature": 0.50000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 6.520088936755233e-70,
+      "minimum_uncertainty_eigenvalue": 1.884435855914225e-05,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.18858122971517544,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.18858122971517544
+        ],
+        [
+          0.18858122971517544,
+          0.0,
+          1.005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.18858122971517544,
+          0.0,
+          1.005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.029138481844209,
+          0.0
+        ],
+        [
+          0.0,
+          6.029138481844209
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.0942930143532545,
+      "Denys_c2": 0.07979810033081144,
+      "Denys_nB": 0.0025327375,
+      "Denys_residual_variance": 9.30000000000053e-06,
+      "Denys_general_Z": 0.18858122971517544,
+      "Denys_Z_mapping_residual": 1.993584073369158e-17,
+      "I_AB": 0.003635931357254054,
+      "quadrature_error": 2.46122131657644e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0036359313572539302,
+      "SNR": 0.0025234140322494985,
+      "capacity_margin": -1.235990476633475e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.003454134789391351,
+      "K_raw": 0.00022144255250733478
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.001",
+      "detector": "trusted_detector",
+      "m1": 0.001,
+      "mhalf": 0.03162277660168379,
+      "eta_f": 0.001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-05,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-05,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.005065475,
+      "Z": 0.18858122971517544,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.188586028706509,
+      "Z_penalty": 4.7989913335703496e-06,
+      "lambda_1": 6.041828396368664,
+      "lambda_2": 1.0000188713686642,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000058344436222,
+        6.033056931276136
+      ],
+      "S_AB_terms": [
+        3.0310384148626506,
+        0.00017112692282240816
+      ],
+      "S_AB": 3.031209541785473,
+      "conditional_entropy_terms": [
+        0.0,
+        5.784754766467669e-05,
+        3.0289229136174627
+      ],
+      "conditional_entropy": 3.0289807611651276,
+      "chi_BE": 0.0022287806203456573,
+      "Bob_entropy_upper": 0.025503671788871807,
+      "chi_upper": 0.051007343577743613,
+      "chi_bound_margin": 0.04877856295739796,
+      "signal_output": 0.005046875,
+      "source_modulation_output": 0.005046875,
+      "V_B2": 1.0305458325,
+      "sigma2_complex": 1.01350651,
+      "variance_per_real_quadrature": 0.506753255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 6.520088936755233e-70,
+      "minimum_uncertainty_eigenvalue": 1.884435855914225e-05,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "3.622271631530684947003647716355116712273012479255655275833045956e-71"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.18858122971517544,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.18858122971517544
+        ],
+        [
+          0.18858122971517544,
+          0.0,
+          1.005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.18858122971517544,
+          0.0,
+          1.005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.034615234304403,
+          0.0,
+          -0.10631451939091659,
+          0.0,
+          -0.01845821549300605,
+          0.0
+        ],
+        [
+          0.0,
+          6.034615234304403,
+          0.0,
+          0.10631451939091659,
+          0.0,
+          -0.01845821549300605
+        ],
+        [
+          -0.10631451939091659,
+          0.0,
+          1.0637735803237527,
+          0.0,
+          0.35831020722878926,
+          0.0
+        ],
+        [
+          0.0,
+          0.10631451939091659,
+          0.0,
+          1.0637735803237527,
+          0.0,
+          -0.35831020722878926
+        ],
+        [
+          -0.01845821549300605,
+          0.0,
+          0.35831020722878926,
+          0.0,
+          1.0622094428518642,
+          0.0
+        ],
+        [
+          0.0,
+          -0.01845821549300605,
+          0.0,
+          -0.35831020722878926,
+          0.0,
+          1.0622094428518642
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.0942930143532545,
+      "Denys_c2": 0.07979810033081144,
+      "Denys_nB": 0.0025327375,
+      "Denys_residual_variance": 9.30000000000053e-06,
+      "Denys_general_Z": 0.18858122971517544,
+      "Denys_Z_mapping_residual": 1.993584073369158e-17,
+      "I_AB": 0.002512235828155978,
+      "quadrature_error": 2.0382754318296446e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0025122358281558723,
+      "SNR": 0.0017428662101045597,
+      "capacity_margin": -1.0581813203458523e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.002386624036748179,
+      "K_raw": 0.00015784341640252163
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0001",
+      "detector": "primary_detector",
+      "m1": 0.0001,
+      "mhalf": 0.01,
+      "eta_f": 0.0001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-06,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-06,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.0005065475,
+      "Z": 0.05963462098553807,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.05963613855984661,
+      "Z_penalty": 1.5175743085491178e-06,
+      "lambda_1": 6.0463703384204575,
+      "lambda_2": 1.0000018859204578,
+      "conditional_eigenvalues": [
+        6.045097306233123
+      ],
+      "S_AB_terms": [
+        3.032132610915169,
+        2.0234979271255435e-05
+      ],
+      "S_AB": 3.0321528458944402,
+      "conditional_entropy_terms": [
+        3.031826010104926
+      ],
+      "conditional_entropy": 3.031826010104926,
+      "chi_BE": 0.0003268357895141925,
+      "Bob_entropy_upper": 0.0033913082966042993,
+      "chi_upper": 0.0067826165932085986,
+      "chi_bound_margin": 0.006455780803694406,
+      "signal_output": 0.0005046875,
+      "source_modulation_output": 0.0005046875,
+      "V_B2": 1.0005065475,
+      "sigma2_complex": 1.00000093,
+      "variance_per_real_quadrature": 0.500000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 1.8111358157653425e-71,
+      "minimum_uncertainty_eigenvalue": 1.885650356216819e-06,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.05963462098553807,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.05963462098553807
+        ],
+        [
+          0.05963462098553807,
+          0.0,
+          1.0005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.05963462098553807,
+          0.0,
+          1.0005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.045097306233123,
+          0.0
+        ],
+        [
+          0.0,
+          6.045097306233123
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.029818069279923306,
+      "Denys_c2": 0.025234375,
+      "Denys_nB": 0.00025327375,
+      "Denys_residual_variance": 9.3e-07,
+      "Denys_general_Z": 0.05963462098553807,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.00036400881245323346,
+      "quadrature_error": 7.713196622677626e-14,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.00036400881245309306,
+      "SNR": 0.0002523435153205307,
+      "capacity_margin": -1.4040418133687282e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0003458083718305718,
+      "K_raw": 1.8972582316379284e-05
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0001",
+      "detector": "trusted_detector",
+      "m1": 0.0001,
+      "mhalf": 0.01,
+      "eta_f": 0.0001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-06,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-06,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.0005065475,
+      "Z": 0.05963462098553807,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.05963613855984661,
+      "Z_penalty": 1.5175743085491178e-06,
+      "lambda_1": 6.0463703384204575,
+      "lambda_2": 1.0000018859204578,
+      "conditional_eigenvalues": [
+        1.0,
+        1.000000583331459,
+        6.045491017000659
+      ],
+      "S_AB_terms": [
+        3.032132610915169,
+        2.0234979271255435e-05
+      ],
+      "S_AB": 3.0321528458944402,
+      "conditional_entropy_terms": [
+        0.0,
+        6.752608812717992e-06,
+        3.0319208395870567
+      ],
+      "conditional_entropy": 3.0319275921958697,
+      "chi_BE": 0.00022525369857064672,
+      "Bob_entropy_upper": 0.0033913082966042993,
+      "chi_upper": 0.0067826165932085986,
+      "chi_bound_margin": 0.006557362894637952,
+      "signal_output": 0.0005046875,
+      "source_modulation_output": 0.0005046875,
+      "V_B2": 1.02735458325,
+      "sigma2_complex": 1.013500651,
+      "variance_per_real_quadrature": 0.5067503255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 1.8111358157653425e-71,
+      "minimum_uncertainty_eigenvalue": 1.885650356216819e-06,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.05963462098553807,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.05963462098553807
+        ],
+        [
+          0.05963462098553807,
+          0.0,
+          1.0005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.05963462098553807,
+          0.0,
+          1.0005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.045647093626527,
+          0.0,
+          -0.033672523419977736,
+          0.0,
+          -0.005846188244466122,
+          0.0
+        ],
+        [
+          0.0,
+          6.045647093626527,
+          0.0,
+          0.033672523419977736,
+          0.0,
+          -0.005846188244466122
+        ],
+        [
+          -0.033672523419977736,
+          0.0,
+          1.062322357824773,
+          0.0,
+          0.35805824749866083,
+          0.0
+        ],
+        [
+          0.0,
+          0.033672523419977736,
+          0.0,
+          1.062322357824773,
+          0.0,
+          -0.35805824749866083
+        ],
+        [
+          -0.005846188244466122,
+          0.0,
+          0.35805824749866083,
+          0.0,
+          1.0621656978674454,
+          0.0
+        ],
+        [
+          0.0,
+          -0.005846188244466122,
+          0.0,
+          -0.35805824749866083,
+          0.0,
+          1.0621656978674454
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.029818069279923306,
+      "Denys_c2": 0.025234375,
+      "Denys_nB": 0.00025327375,
+      "Denys_residual_variance": 9.3e-07,
+      "Denys_general_Z": 0.05963462098553807,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.00025142198816762286,
+      "quadrature_error": 6.408675387119509e-14,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.00025142198816746023,
+      "SNR": 0.00017428762855328437,
+      "capacity_margin": -1.6263032587282567e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.00023885088875924172,
+      "K_raw": 1.3597190188595e-05
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-05",
+      "detector": "primary_detector",
+      "m1": 1e-05,
+      "mhalf": 0.0031622776601683794,
+      "eta_f": 1e-05,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-07,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-07,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.00005065475,
+      "Z": 0.018858122971517545,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.0188586028706509,
+      "Z_penalty": 4.79899133357035e-07,
+      "lambda_1": 6.0468245338298905,
+      "lambda_2": 1.0000001885798904,
+      "conditional_eigenvalues": [
+        6.046697190102454
+      ],
+      "S_AB_terms": [
+        3.0322419847553657,
+        2.3366006329152195e-06
+      ],
+      "S_AB": 3.0322443213559986,
+      "conditional_entropy_terms": [
+        3.0322113202247816
+      ],
+      "conditional_entropy": 3.0322113202247816,
+      "chi_BE": 3.300113121707855e-05,
+      "Bob_entropy_upper": 0.0004232623840857698,
+      "chi_upper": 0.0008465247681715396,
+      "chi_bound_margin": 0.0008135236369544611,
+      "signal_output": 5.046875e-05,
+      "source_modulation_output": 5.046875e-05,
+      "V_B2": 1.00005065475,
+      "sigma2_complex": 1.000000093,
+      "variance_per_real_quadrature": 0.5000000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 1.448908652612274e-70,
+      "minimum_uncertainty_eigenvalue": 1.885771895380964e-07,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.018858122971517545,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.018858122971517545
+        ],
+        [
+          0.018858122971517545,
+          0.0,
+          1.00005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.018858122971517545,
+          0.0,
+          1.00005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.046697190102454,
+          0.0
+        ],
+        [
+          0.0,
+          6.046697190102454
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.00942930143532545,
+      "Denys_c2": 0.007979810033081144,
+      "Denys_nB": 2.5327375e-05,
+      "Denys_residual_variance": 9.299999999999891e-08,
+      "Denys_general_Z": 0.018858122971517545,
+      "Denys_Z_mapping_residual": 4.083324536235427e-19,
+      "I_AB": 3.64050449595641e-05,
+      "quadrature_error": 2.4374515812449023e-14,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 3.640504495941683e-05,
+      "SNR": 2.5234372653203335e-05,
+      "capacity_margin": -1.4726853634142167e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 3.4584792711585894e-05,
+      "K_raw": 1.5836614945073489e-06
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-05",
+      "detector": "trusted_detector",
+      "m1": 1e-05,
+      "mhalf": 0.0031622776601683794,
+      "eta_f": 1e-05,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-07,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-07,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.00005065475,
+      "Z": 0.018858122971517545,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.0188586028706509,
+      "Z_penalty": 4.79899133357035e-07,
+      "lambda_1": 6.0468245338298905,
+      "lambda_2": 1.0000001885798904,
+      "conditional_eigenvalues": [
+        1.0,
+        1.000000058332017,
+        6.046736579901113
+      ],
+      "S_AB_terms": [
+        3.0322419847553657,
+        2.3366006329152195e-06
+      ],
+      "S_AB": 3.0322443213559986,
+      "conditional_entropy_terms": [
+        0.0,
+        7.721360062863274e-07,
+        3.0322208054083766
+      ],
+      "conditional_entropy": 3.032221577544383,
+      "chi_BE": 2.2743811615915238e-05,
+      "Bob_entropy_upper": 0.0004232623840857698,
+      "chi_upper": 0.0008465247681715396,
+      "chi_bound_margin": 0.0008237809565556244,
+      "signal_output": 5.046875e-05,
+      "source_modulation_output": 5.046875e-05,
+      "V_B2": 1.027035458325,
+      "sigma2_complex": 1.0135000651,
+      "variance_per_real_quadrature": 0.50675003255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 1.448908652612274e-70,
+      "minimum_uncertainty_eigenvalue": 1.885771895380964e-07,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.018858122971517545,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.018858122971517545
+        ],
+        [
+          0.018858122971517545,
+          0.0,
+          1.00005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.018858122971517545,
+          0.0,
+          1.00005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.046752190031194,
+          0.0,
+          -0.01064986324718026,
+          0.0,
+          -0.0018490181013252436,
+          0.0
+        ],
+        [
+          0.0,
+          6.046752190031194,
+          0.0,
+          0.01064986324718026,
+          0.0,
+          -0.0018490181013252436
+        ],
+        [
+          -0.01064986324718026,
+          0.0,
+          1.0621769842554438,
+          0.0,
+          0.3580330078918316,
+          0.0
+        ],
+        [
+          0.0,
+          0.01064986324718026,
+          0.0,
+          1.0621769842554438,
+          0.0,
+          -0.3580330078918316
+        ],
+        [
+          -0.0018490181013252436,
+          0.0,
+          0.3580330078918316,
+          0.0,
+          1.0621613157933458,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0018490181013252436,
+          0.0,
+          -0.3580330078918316,
+          0.0,
+          1.0621613157933458
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.00942930143532545,
+      "Denys_c2": 0.007979810033081144,
+      "Denys_nB": 2.5327375e-05,
+      "Denys_residual_variance": 9.299999999999891e-08,
+      "Denys_general_Z": 0.018858122971517545,
+      "Denys_Z_mapping_residual": 4.083324536235427e-19,
+      "I_AB": 2.5144185160549747e-05,
+      "quadrature_error": 2.0256513353428675e-14,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 2.5144185160564597e-05,
+      "SNR": 1.7428772930820794e-05,
+      "capacity_margin": 1.4850181631262394e-17,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 2.388697590252226e-05,
+      "K_raw": 1.1431642866070215e-06
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-06",
+      "detector": "primary_detector",
+      "m1": 1e-06,
+      "mhalf": 0.001,
+      "eta_f": 1e-06,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-08,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-08,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.000005065475,
+      "Z": 0.005963462098553807,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.005963613855984661,
+      "Z_penalty": 1.5175743085491175e-07,
+      "lambda_1": 6.046869953382868,
+      "lambda_2": 1.0000000188578675,
+      "conditional_eigenvalues": [
+        6.046857218604935
+      ],
+      "S_AB_terms": [
+        3.0322529216819936,
+        2.649808842675273e-07
+      ],
+      "S_AB": 3.032253186662878,
+      "conditional_entropy_terms": [
+        3.032249855184433
+      ],
+      "conditional_entropy": 3.032249855184433,
+      "chi_BE": 3.331478445067356e-06,
+      "Bob_entropy_upper": 5.073976862175243e-05,
+      "chi_upper": 0.00010147953724350486,
+      "chi_bound_margin": 9.814805879843751e-05,
+      "signal_output": 5.046875e-06,
+      "source_modulation_output": 5.046875e-06,
+      "V_B2": 1.000005065475,
+      "sigma2_complex": 1.0000000093,
+      "variance_per_real_quadrature": 0.50000000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 7.24454326306137e-71,
+      "minimum_uncertainty_eigenvalue": 1.885784015697621e-08,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.005963462098553807,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.005963462098553807
+        ],
+        [
+          0.005963462098553807,
+          0.0,
+          1.000005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.005963462098553807,
+          0.0,
+          1.000005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.046857218604935,
+          0.0
+        ],
+        [
+          0.0,
+          6.046857218604935
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.0029818069279923306,
+      "Denys_c2": 0.0025234375,
+      "Denys_nB": 2.5327375e-06,
+      "Denys_residual_variance": 9.3e-09,
+      "Denys_general_Z": 0.005963462098553807,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 3.640546140170471e-06,
+      "quadrature_error": 7.70761193230467e-15,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 3.640546140042769e-06,
+      "SNR": 2.52343747653203e-06,
+      "capacity_margin": -1.2770207525984734e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 3.4585188331619476e-06,
+      "K_raw": 1.2704038809459162e-07
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-06",
+      "detector": "trusted_detector",
+      "m1": 1e-06,
+      "mhalf": 0.001,
+      "eta_f": 1e-06,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-08,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-08,
+      "xi_f": 0.0186,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.000005065475,
+      "Z": 0.005963462098553807,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.005963613855984661,
+      "Z_penalty": 1.5175743085491175e-07,
+      "lambda_1": 6.046869953382868,
+      "lambda_2": 1.0000000188578675,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000000058331904,
+        6.046861157772084
+      ],
+      "S_AB_terms": [
+        3.0322529216819936,
+        2.649808842675273e-07
+      ],
+      "S_AB": 3.032253186662878,
+      "conditional_entropy_terms": [
+        0.0,
+        8.690217887318361e-08,
+        3.0322508037251508
+      ],
+      "conditional_entropy": 3.0322508906273296,
+      "chi_BE": 2.296035548248978e-06,
+      "Bob_entropy_upper": 5.073976862175243e-05,
+      "chi_upper": 0.00010147953724350486,
+      "chi_bound_margin": 9.918350169525588e-05,
+      "signal_output": 5.046875e-06,
+      "source_modulation_output": 5.046875e-06,
+      "V_B2": 1.0270035458325,
+      "sigma2_complex": 1.01350000651,
+      "variance_per_real_quadrature": 0.506750003255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 7.24454326306137e-71,
+      "minimum_uncertainty_eigenvalue": 1.885784015697621e-08,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "-2.716703723648013710252735787266337534204759359441741456874784467e-71"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.005963462098553807,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.005963462098553807
+        ],
+        [
+          0.005963462098553807,
+          0.0,
+          1.000005065475,
+          0.0
+        ],
+        [
+          0.0,
+          -0.005963462098553807,
+          0.0,
+          1.000005065475
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.046862718809772,
+          0.0,
+          -0.0033678354843255888,
+          0.0,
+          -0.0005847200690067303,
+          0.0
+        ],
+        [
+          0.0,
+          6.046862718809772,
+          0.0,
+          0.0033678354843255888,
+          0.0,
+          -0.0005847200690067303
+        ],
+        [
+          -0.0033678354843255888,
+          0.0,
+          1.0621624443809248,
+          0.0,
+          0.35803048349404804,
+          0.0
+        ],
+        [
+          0.0,
+          0.0033678354843255888,
+          0.0,
+          1.0621624443809248,
+          0.0,
+          -0.35803048349404804
+        ],
+        [
+          -0.0005847200690067303,
+          0.0,
+          0.35803048349404804,
+          0.0,
+          1.062160877510047,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0005847200690067303,
+          0.0,
+          -0.35803048349404804,
+          0.0,
+          1.062160877510047
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.0029818069279923306,
+      "Denys_c2": 0.0025234375,
+      "Denys_nB": 2.5327375e-06,
+      "Denys_residual_variance": 9.3e-09,
+      "Denys_general_Z": 0.005963462098553807,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 2.514438381935035e-06,
+      "quadrature_error": 6.405084854107599e-15,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 2.5144383817879467e-06,
+      "SNR": 1.7428773938370669e-06,
+      "capacity_margin": -1.470881183236565e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 2.3887164628382834e-06,
+      "K_raw": 9.268091458930543e-08
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0",
+      "detector": "primary_detector",
+      "m1": 0.0,
+      "mhalf": 0.0,
+      "eta_f": 0.0,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": null,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.0,
+      "Z": 0.0,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 6.046875,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        6.046875
+      ],
+      "S_AB_terms": [
+        3.03225413689093,
+        0.0
+      ],
+      "S_AB": 3.03225413689093,
+      "conditional_entropy_terms": [
+        3.03225413689093
+      ],
+      "conditional_entropy": 3.03225413689093,
+      "chi_BE": 0.0,
+      "Bob_entropy_upper": 0.0,
+      "chi_upper": 0.0,
+      "chi_bound_margin": 0.0,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.0,
+      "sigma2_complex": 1.0,
+      "variance_per_real_quadrature": 0.5,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 1.8111358157653425e-71,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.046875,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.0,
+      "Denys_c2": 0.0,
+      "Denys_nB": 0.0,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 0.0,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0,
+      "quadrature_error": 0.0,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0,
+      "SNR": 0.0,
+      "capacity_margin": 0.0,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0,
+      "K_raw": 0.0
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0",
+      "detector": "trusted_detector",
+      "m1": 0.0,
+      "mhalf": 0.0,
+      "eta_f": 0.0,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": null,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 1.0,
+      "Z": 0.0,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 6.046875,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0,
+        6.046875
+      ],
+      "S_AB_terms": [
+        3.03225413689093,
+        0.0
+      ],
+      "S_AB": 3.03225413689093,
+      "conditional_entropy_terms": [
+        0.0,
+        0.0,
+        3.03225413689093
+      ],
+      "conditional_entropy": 3.03225413689093,
+      "chi_BE": 0.0,
+      "Bob_entropy_upper": 0.0,
+      "chi_upper": 0.0,
+      "chi_bound_margin": 0.0,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.027,
+      "sigma2_complex": 1.0135,
+      "variance_per_real_quadrature": 0.50675,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 1.8111358157653425e-71,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0",
+        "-1.811135815765342473501823858177558356136506239627827637916522978e-71",
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          6.046875,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.062160828811051,
+          0.0,
+          0.3580302030004988,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.062160828811051,
+          0.0,
+          -0.3580302030004988
+        ],
+        [
+          0.0,
+          0.0,
+          0.3580302030004988,
+          0.0,
+          1.062160828811051,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.3580302030004988,
+          0.0,
+          1.062160828811051
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 0.0,
+      "Denys_c2": 0.0,
+      "Denys_nB": 0.0,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 0.0,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0,
+      "quadrature_error": 0.0,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0,
+      "SNR": 0.0,
+      "capacity_margin": 0.0,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0,
+      "K_raw": 0.0
+    },
+    {
+      "source_id": 0,
+      "case": "pure_loss_T_0.25",
+      "detector": "primary_detector",
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": 0.0,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 2.26171875,
+      "Z": 2.9818069279923307,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 2.9818069279923307,
+      "Z_penalty": 0.0,
+      "lambda_1": 4.785156554327665,
+      "lambda_2": 1.0000003043276657,
+      "conditional_eigenvalues": [
+        3.320958623603948
+      ],
+      "S_AB_terms": [
+        2.6906196408895147,
+        3.6657129066074848e-06
+      ],
+      "S_AB": 2.690623306602421,
+      "conditional_entropy_terms": [
+        2.151872692297732
+      ],
+      "conditional_entropy": 2.151872692297732,
+      "chi_BE": 0.5387506143046893,
+      "Bob_entropy_upper": 1.5700624196887567,
+      "chi_upper": 3.1401248393775134,
+      "chi_bound_margin": 2.6013742250728242,
+      "signal_output": 1.26171875,
+      "source_modulation_output": 1.26171875,
+      "V_B2": 2.26171875,
+      "sigma2_complex": 1.0,
+      "variance_per_real_quadrature": 0.5,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 7.24454326306137e-71,
+      "minimum_uncertainty_eigenvalue": 2.118990632809788e-07,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          2.9818069279923307,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -2.9818069279923307
+        ],
+        [
+          2.9818069279923307,
+          0.0,
+          2.26171875,
+          0.0
+        ],
+        [
+          0.0,
+          -2.9818069279923307,
+          0.0,
+          2.26171875
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          3.320958623603948,
+          0.0
+        ],
+        [
+          0.0,
+          3.320958623603948
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 1.4909034639961654,
+      "Denys_c2": 1.26171875,
+      "Denys_nB": 0.630859375,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 2.9818069279923307,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.7056323834231844,
+      "quadrature_error": 3.240225244792083e-12,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.7056323873614143,
+      "SNR": 0.6308593749999998,
+      "capacity_margin": 3.9382299643619945e-09,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.6703507642520252,
+      "K_raw": 0.13160014994733593
+    },
+    {
+      "source_id": 0,
+      "case": "pure_loss_T_0.25",
+      "detector": "trusted_detector",
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": 0.0,
+      "C": 2.9818069279923307,
+      "w": 6.190945650452507e-07,
+      "V": 6.046875,
+      "W_pre": 2.26171875,
+      "Z": 2.9818069279923307,
+      "source_side_Z": 5.963613855984661,
+      "Z_signal": 2.9818069279923307,
+      "Z_penalty": 0.0,
+      "lambda_1": 4.785156554327665,
+      "lambda_2": 1.0000003043276657,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000000818122174,
+        3.6364184421829333
+      ],
+      "S_AB_terms": [
+        2.6906196408895147,
+        3.6657129066074848e-06
+      ],
+      "S_AB": 2.690623306602421,
+      "conditional_entropy_terms": [
+        0.0,
+        1.0629781048948478e-06,
+        2.286601771232415
+      ],
+      "conditional_entropy": 2.28660283421052,
+      "chi_BE": 0.40402047239190136,
+      "Bob_entropy_upper": 1.5700624196887567,
+      "chi_upper": 3.1401248393775134,
+      "chi_bound_margin": 2.736104366985612,
+      "signal_output": 1.26171875,
+      "source_modulation_output": 1.26171875,
+      "V_B2": 1.910203125,
+      "sigma2_complex": 1.0135,
+      "variance_per_real_quadrature": 0.50675,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 7.24454326306137e-71,
+      "minimum_uncertainty_eigenvalue": 2.118990632809788e-07,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          2.9818069279923307,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -2.9818069279923307
+        ],
+        [
+          2.9818069279923307,
+          0.0,
+          2.26171875,
+          0.0
+        ],
+        [
+          0.0,
+          -2.9818069279923307,
+          0.0,
+          2.26171875
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          3.9082542502624222,
+          0.0,
+          -1.172905790095307,
+          0.0,
+          -0.2036386746665144,
+          0.0
+        ],
+        [
+          0.0,
+          3.9082542502624222,
+          0.0,
+          1.172905790095307,
+          0.0,
+          -0.2036386746665144
+        ],
+        [
+          -1.172905790095307,
+          0.0,
+          1.3424454908108863,
+          0.0,
+          0.4066929324208733,
+          0.0
+        ],
+        [
+          0.0,
+          1.172905790095307,
+          0.0,
+          1.3424454908108863,
+          0.0,
+          -0.4066929324208733
+        ],
+        [
+          -0.2036386746665144,
+          0.0,
+          0.4066929324208733,
+          0.0,
+          1.07060960091918,
+          0.0
+        ],
+        [
+          0.0,
+          -0.2036386746665144,
+          0.0,
+          -0.4066929324208733,
+          0.0,
+          1.07060960091918
+        ]
+      ],
+      "nbar": 2.5234375,
+      "Denys_c1": 1.4909034639961654,
+      "Denys_c2": 1.26171875,
+      "Denys_nB": 0.630859375,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 2.9818069279923307,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.521773763307694,
+      "quadrature_error": 2.374596229133544e-12,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.521773764398489,
+      "SNR": 0.43571935125801664,
+      "capacity_margin": 1.090795009872636e-09,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.4956850751423093,
+      "K_raw": 0.09166460275040791
+    },
+    {
+      "source_id": 1,
+      "case": "reference_fading",
+      "detector": "primary_detector",
+      "m1": 0.23790886783673015,
+      "mhalf": 0.40114871429673266,
+      "eta_f": 0.16092029098192165,
+      "fading_variance": 0.0769885768548085,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0044251049417631805,
+      "fading_excess_output": 0.0019247144213702127,
+      "N_eff": 0.006349819363133394,
+      "xi_f": 0.039459407663181234,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0103728266376815,
+      "Z": 0.0902584595872442,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.09025846071676484,
+      "Z_penalty": 1.1295206394378028e-09,
+      "lambda_1": 1.0209895932664508,
+      "lambda_2": 1.0063624199041323,
+      "conditional_eigenvalues": [
+        1.0209477220249303
+      ],
+      "S_AB_terms": [
+        0.08421466723416011,
+        0.030988789865724037
+      ],
+      "S_AB": 0.11520345709988415,
+      "conditional_entropy_terms": [
+        0.0840766874901405
+      ],
+      "conditional_entropy": 0.0840766874901405,
+      "chi_BE": 0.031126769609743657,
+      "Bob_entropy_upper": 0.04687209055214663,
+      "chi_upper": 0.09374418110429326,
+      "chi_bound_margin": 0.06261741149454961,
+      "signal_output": 0.004023007274548041,
+      "source_modulation_output": 0.005947721695918254,
+      "V_B2": 1.0103728266376815,
+      "sigma2_complex": 1.0031749096815668,
+      "variance_per_real_quadrature": 0.5015874548407834,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 1.2677950710357397e-70,
+      "minimum_uncertainty_eigenvalue": 0.006337190033667302,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.0902584595872442,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.0902584595872442
+        ],
+        [
+          0.0902584595872442,
+          0.0,
+          1.0103728266376815,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0902584595872442,
+          0.0,
+          1.0103728266376815
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0209477220249303,
+          0.0
+        ],
+        [
+          0.0,
+          1.0209477220249303
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.04512923035838242,
+      "Denys_c2": 0.005014358928709158,
+      "Denys_nB": 0.005186413318840718,
+      "Denys_residual_variance": 0.003174909681566697,
+      "Denys_general_Z": 0.0902584595872442,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0028899055756050323,
+      "quadrature_error": 2.210724407941515e-13,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.0028899055756049096,
+      "SNR": 0.002005137506790838,
+      "capacity_margin": -1.227316859253591e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [
+        {
+          "order": 16,
+          "I_AB": 0.0028899055756046697
+        },
+        {
+          "order": 32,
+          "I_AB": 0.002889905575604602
+        },
+        {
+          "order": 48,
+          "I_AB": 0.0028899055756046333
+        }
+      ],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0027454102968247807,
+      "K_raw": -0.028381359312918877
+    },
+    {
+      "source_id": 1,
+      "case": "reference_fading",
+      "detector": "trusted_detector",
+      "m1": 0.23790886783673015,
+      "mhalf": 0.40114871429673266,
+      "eta_f": 0.16092029098192165,
+      "fading_variance": 0.0769885768548085,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0044251049417631805,
+      "fading_excess_output": 0.0019247144213702127,
+      "N_eff": 0.006349819363133394,
+      "xi_f": 0.039459407663181234,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0103728266376815,
+      "Z": 0.0902584595872442,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.09025846071676484,
+      "Z_penalty": 1.1295206394378028e-09,
+      "lambda_1": 1.0209895932664508,
+      "lambda_2": 1.0063624199041323,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0019610533961032,
+        1.0209606556600703
+      ],
+      "S_AB_terms": [
+        0.08421466723416011,
+        0.030988789865724037
+      ],
+      "S_AB": 0.11520345709988415,
+      "conditional_entropy_terms": [
+        0.0,
+        0.011214830564581979,
+        0.08411931451505969
+      ],
+      "conditional_entropy": 0.09533414507964166,
+      "chi_BE": 0.01986931202024249,
+      "Bob_entropy_upper": 0.04687209055214663,
+      "chi_upper": 0.09374418110429326,
+      "chi_bound_margin": 0.07387486908405078,
+      "signal_output": 0.004023007274548041,
+      "source_modulation_output": 0.005947721695918254,
+      "V_B2": 1.034260978646377,
+      "sigma2_complex": 1.0157224367770967,
+      "variance_per_real_quadrature": 0.5078612183885484,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 1.2677950710357397e-70,
+      "minimum_uncertainty_eigenvalue": 0.006337190033667302,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.0902584595872442,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.0902584595872442
+        ],
+        [
+          0.0902584595872442,
+          0.0,
+          1.0103728266376815,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0902584595872442,
+          0.0,
+          1.0103728266376815
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0221967153040816,
+          0.0,
+          -0.05079116358064363,
+          0.0,
+          -0.008818308617516464,
+          0.0
+        ],
+        [
+          0.0,
+          1.0221967153040816,
+          0.0,
+          0.05079116358064363,
+          0.0,
+          -0.008818308617516464
+        ],
+        [
+          -0.05079116358064363,
+          0.0,
+          1.0654573094493534,
+          0.0,
+          0.3586025345158827,
+          0.0
+        ],
+        [
+          0.0,
+          0.05079116358064363,
+          0.0,
+          1.0654573094493534,
+          0.0,
+          -0.3586025345158827
+        ],
+        [
+          -0.008818308617516464,
+          0.0,
+          0.3586025345158827,
+          0.0,
+          1.0622601964092389,
+          0.0
+        ],
+        [
+          0.0,
+          -0.008818308617516464,
+          0.0,
+          -0.3586025345158827,
+          0.0,
+          1.0622601964092389
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.04512923035838242,
+      "Denys_c2": 0.005014358928709158,
+      "Denys_nB": 0.005186413318840718,
+      "Denys_residual_variance": 0.003174909681566697,
+      "Denys_general_Z": 0.0902584595872442,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.00199856145453292,
+      "quadrature_error": 1.8346253674861613e-13,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.001998561454532792,
+      "SNR": 0.0013862572048320477,
+      "capacity_margin": -1.2793585635328952e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [
+        {
+          "order": 16,
+          "I_AB": 0.0019985614545327277
+        },
+        {
+          "order": 32,
+          "I_AB": 0.0019985614545325924
+        },
+        {
+          "order": 48,
+          "I_AB": 0.0019985614545326583
+        }
+      ],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.001898633381806274,
+      "K_raw": -0.017970678638436214
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.01",
+      "detector": "primary_detector",
+      "m1": 0.01,
+      "mhalf": 0.1,
+      "eta_f": 0.01,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.000186,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.000186,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.000436,
+      "Z": 0.022499999806683036,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.0225,
+      "Z_penalty": 1.933169603239599e-10,
+      "lambda_1": 1.0247500229679845,
+      "lambda_2": 1.0001860229679846,
+      "conditional_eigenvalues": [
+        1.0247469301735719
+      ],
+      "S_AB_terms": [
+        0.09637673118143807,
+        0.0013798247839061457
+      ],
+      "S_AB": 0.09775655596534422,
+      "conditional_entropy_terms": [
+        0.09636690497280742
+      ],
+      "conditional_entropy": 0.09636690497280742,
+      "chi_BE": 0.0013896509925367998,
+      "Bob_entropy_upper": 0.002966159563053818,
+      "chi_upper": 0.005932319126107636,
+      "chi_bound_margin": 0.004542668133570836,
+      "signal_output": 0.00025,
+      "source_modulation_output": 0.00025,
+      "V_B2": 1.000436,
+      "sigma2_complex": 1.000093,
+      "variance_per_real_quadrature": 0.5000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 2.7167037236480137e-70,
+      "minimum_uncertainty_eigenvalue": 0.0001859770420589099,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.022499999806683036,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.022499999806683036
+        ],
+        [
+          0.022499999806683036,
+          0.0,
+          1.000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.022499999806683036,
+          0.0,
+          1.000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0247469301735719,
+          0.0
+        ],
+        [
+          0.0,
+          1.0247469301735719
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.01125,
+      "Denys_c2": 0.00125,
+      "Denys_nB": 0.000218,
+      "Denys_residual_variance": 9.3e-05,
+      "Denys_general_Z": 0.022499999806683036,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0001803088423210552,
+      "quadrature_error": 5.489187596345052e-14,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.00018030884232088024,
+      "SNR": 0.0001249883760810245,
+      "capacity_margin": -1.7496312558484828e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.00017129340020500245,
+      "K_raw": -0.0012183575923317973
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.01",
+      "detector": "trusted_detector",
+      "m1": 0.01,
+      "mhalf": 0.1,
+      "eta_f": 0.01,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.000186,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.000186,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.000436,
+      "Z": 0.022499999806683036,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.0225,
+      "Z_penalty": 1.933169603239599e-10,
+      "lambda_1": 1.0247500229679845,
+      "lambda_2": 1.0001860229679846,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000575327898251,
+        1.0247478867661723
+      ],
+      "S_AB_terms": [
+        0.09637673118143807,
+        0.0013798247839061457
+      ],
+      "S_AB": 0.09775655596534422,
+      "conditional_entropy_terms": [
+        0.0,
+        0.0004754501649379237,
+        0.09636994422087712
+      ],
+      "conditional_entropy": 0.09684539438581505,
+      "chi_BE": 0.0009111615795291673,
+      "Bob_entropy_upper": 0.002966159563053818,
+      "chi_upper": 0.005932319126107636,
+      "chi_bound_margin": 0.005021157546578468,
+      "signal_output": 0.00025,
+      "source_modulation_output": 0.00025,
+      "V_B2": 1.0273052,
+      "sigma2_complex": 1.0135651,
+      "variance_per_real_quadrature": 0.50678255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 2.7167037236480137e-70,
+      "minimum_uncertainty_eigenvalue": 0.0001859770420589099,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.022499999806683036,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.022499999806683036
+        ],
+        [
+          0.022499999806683036,
+          0.0,
+          1.000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.022499999806683036,
+          0.0,
+          1.000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0248251989912962,
+          0.0,
+          -0.012704871987396248,
+          0.0,
+          -0.002205806566195626,
+          0.0
+        ],
+        [
+          0.0,
+          1.0248251989912962,
+          0.0,
+          0.012704871987396248,
+          0.0,
+          -0.002205806566195626
+        ],
+        [
+          -0.012704871987396248,
+          0.0,
+          1.0622998648649449,
+          0.0,
+          0.3580543422945367,
+          0.0
+        ],
+        [
+          0.0,
+          0.012704871987396248,
+          0.0,
+          1.0622998648649449,
+          0.0,
+          -0.3580543422945367
+        ],
+        [
+          -0.002205806566195626,
+          0.0,
+          0.3580543422945367,
+          0.0,
+          1.062165019849996,
+          0.0
+        ],
+        [
+          0.0,
+          -0.002205806566195626,
+          0.0,
+          -0.3580543422945367,
+          0.0,
+          1.062165019849996
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.01125,
+      "Denys_c2": 0.00125,
+      "Denys_nB": 0.000218,
+      "Denys_residual_variance": 9.3e-05,
+      "Denys_general_Z": 0.022499999806683036,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.00012454095695421874,
+      "quadrature_error": 4.561411741670982e-14,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.00012454095695413195,
+      "SNR": 8.632893930542794e-05,
+      "capacity_margin": -8.679038390746463e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0001183139091065078,
+      "K_raw": -0.0007928476704226595
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.001",
+      "detector": "primary_detector",
+      "m1": 0.001,
+      "mhalf": 0.03162277660168379,
+      "eta_f": 0.001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-05,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-05,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0000436,
+      "Z": 0.007115124674246662,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.007115124735378853,
+      "Z_penalty": 6.113219049641153e-11,
+      "lambda_1": 1.02497500023006,
+      "lambda_2": 1.00001860023006,
+      "conditional_eigenvalues": [
+        1.0249746880522355
+      ],
+      "S_AB_terms": [
+        0.0970907767291893,
+        0.00016886239095366564
+      ],
+      "S_AB": 0.09725963912014296,
+      "conditional_entropy_terms": [
+        0.09708978692498921
+      ],
+      "conditional_entropy": 0.09708978692498921,
+      "chi_BE": 0.0001698521951537544,
+      "Bob_entropy_upper": 0.00036903090370175845,
+      "chi_upper": 0.0007380618074035169,
+      "chi_bound_margin": 0.0005682096122497625,
+      "signal_output": 2.5e-05,
+      "source_modulation_output": 2.5e-05,
+      "V_B2": 1.0000436,
+      "sigma2_complex": 1.0000093,
+      "variance_per_real_quadrature": 0.50000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 3.078930886801082e-70,
+      "minimum_uncertainty_eigenvalue": 1.8599770800225702e-05,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.007115124674246662,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.007115124674246662
+        ],
+        [
+          0.007115124674246662,
+          0.0,
+          1.0000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.007115124674246662,
+          0.0,
+          1.0000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0249746880522355,
+          0.0
+        ],
+        [
+          0.0,
+          1.0249746880522355
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.003557562367689426,
+      "Denys_c2": 0.00039528470752104737,
+      "Denys_nB": 2.18e-05,
+      "Denys_residual_variance": 9.300000000000002e-06,
+      "Denys_general_Z": 0.0071151246742466616,
+      "Denys_Z_mapping_residual": 7.469975191014543e-19,
+      "I_AB": 1.8033407591929143e-05,
+      "quadrature_error": 1.7353807902687052e-14,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.803340759185879e-05,
+      "SNR": 1.2499883751081113e-05,
+      "capacity_margin": -7.035116846715317e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.7131737212332686e-05,
+      "K_raw": -0.00015272045794142172
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.001",
+      "detector": "trusted_detector",
+      "m1": 0.001,
+      "mhalf": 0.03162277660168379,
+      "eta_f": 0.001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-05,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-05,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0000436,
+      "Z": 0.007115124674246662,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.007115124735378853,
+      "Z_penalty": 6.113219049641153e-11,
+      "lambda_1": 1.02497500023006,
+      "lambda_2": 1.00001860023006,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000057534138604,
+        1.0249747846155264
+      ],
+      "S_AB_terms": [
+        0.0970907767291893,
+        0.00016886239095366564
+      ],
+      "S_AB": 0.09725963912014296,
+      "conditional_entropy_terms": [
+        0.0,
+        5.710219367734424e-05,
+        0.09709009309293613
+      ],
+      "conditional_entropy": 0.09714719528661347,
+      "chi_BE": 0.00011244383352948677,
+      "Bob_entropy_upper": 0.00036903090370175845,
+      "chi_upper": 0.0007380618074035169,
+      "chi_bound_margin": 0.0006256179738740301,
+      "signal_output": 2.5e-05,
+      "source_modulation_output": 2.5e-05,
+      "V_B2": 1.02703052,
+      "sigma2_complex": 1.01350651,
+      "variance_per_real_quadrature": 0.506753255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 3.078930886801082e-70,
+      "minimum_uncertainty_eigenvalue": 1.8599770800225702e-05,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "-5.433407447296027420505471574532675068409518718883482913749568934e-71"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.007115124674246662,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.007115124674246662
+        ],
+        [
+          0.007115124674246662,
+          0.0,
+          1.0000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.007115124674246662,
+          0.0,
+          1.0000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0249825175304261,
+          0.0,
+          -0.004018177709831509,
+          0.0,
+          -0.0006976318049705673,
+          0.0
+        ],
+        [
+          0.0,
+          1.0249825175304261,
+          0.0,
+          0.004018177709831509,
+          0.0,
+          -0.0006976318049705673
+        ],
+        [
+          -0.004018177709831509,
+          0.0,
+          1.062174734300498,
+          0.0,
+          0.35803261725701074,
+          0.0
+        ],
+        [
+          0.0,
+          0.004018177709831509,
+          0.0,
+          1.062174734300498,
+          0.0,
+          -0.35803261725701074
+        ],
+        [
+          -0.0006976318049705673,
+          0.0,
+          0.35803261725701074,
+          0.0,
+          1.0621612479717375,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0006976318049705673,
+          0.0,
+          -0.35803261725701074,
+          0.0,
+          1.0621612479717375
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.003557562367689426,
+      "Denys_c2": 0.00039528470752104737,
+      "Denys_nB": 2.18e-05,
+      "Denys_residual_variance": 9.300000000000002e-06,
+      "Denys_general_Z": 0.0071151246742466616,
+      "Denys_Z_mapping_residual": 7.469975191014543e-19,
+      "I_AB": 1.2455299488940245e-05,
+      "quadrature_error": 1.4422041678676536e-14,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.2455299488822793e-05,
+      "SNR": 8.633392991230021e-06,
+      "capacity_margin": -1.174512825321758e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.1832534514493233e-05,
+      "K_raw": -0.00010061129901499354
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0001",
+      "detector": "primary_detector",
+      "m1": 0.0001,
+      "mhalf": 0.01,
+      "eta_f": 0.0001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-06,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-06,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.00000436,
+      "Z": 0.002249999980668304,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.00225,
+      "Z_penalty": 1.9331696032395992e-11,
+      "lambda_1": 1.0249975000023392,
+      "lambda_2": 1.0000018600023393,
+      "conditional_eigenvalues": [
+        1.0249974687555616
+      ],
+      "S_AB_terms": [
+        0.09716210813917377,
+        1.9975457778533306e-05
+      ],
+      "S_AB": 0.0971820835969523,
+      "conditional_entropy_terms": [
+        0.09716200908699191
+      ],
+      "conditional_entropy": 0.09716200908699191,
+      "chi_BE": 2.007450996038727e-05,
+      "Bob_entropy_upper": 4.414486276408931e-05,
+      "chi_upper": 8.828972552817861e-05,
+      "chi_bound_margin": 6.821521556779134e-05,
+      "signal_output": 2.5e-06,
+      "source_modulation_output": 2.5e-06,
+      "V_B2": 1.00000436,
+      "sigma2_complex": 1.00000093,
+      "variance_per_real_quadrature": 0.500000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 7.24454326306137e-71,
+      "minimum_uncertainty_eigenvalue": 1.8599977465317297e-06,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.002249999980668304,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.002249999980668304
+        ],
+        [
+          0.002249999980668304,
+          0.0,
+          1.00000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.002249999980668304,
+          0.0,
+          1.00000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0249974687555616,
+          0.0
+        ],
+        [
+          0.0,
+          1.0249974687555616
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.001125,
+      "Denys_c2": 0.000125,
+      "Denys_nB": 2.18e-06,
+      "Denys_residual_variance": 9.3e-07,
+      "Denys_general_Z": 0.002249999980668304,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 1.803365996978349e-06,
+      "quadrature_error": 5.4872667301450616e-15,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.8033659968773144e-06,
+      "SNR": 1.2499988375010814e-06,
+      "capacity_margin": -1.0103451346496657e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.7131976971294315e-06,
+      "K_raw": -1.836131226325784e-05
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0001",
+      "detector": "trusted_detector",
+      "m1": 0.0001,
+      "mhalf": 0.01,
+      "eta_f": 0.0001,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-06,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-06,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.00000436,
+      "Z": 0.002249999980668304,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.00225,
+      "Z_penalty": 1.9331696032395992e-11,
+      "lambda_1": 1.0249975000023392,
+      "lambda_2": 1.0000018600023393,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000005753427348,
+        1.0249974784209352
+      ],
+      "S_AB_terms": [
+        0.09716210813917377,
+        1.9975457778533306e-05
+      ],
+      "S_AB": 0.0971820835969523,
+      "conditional_entropy_terms": [
+        0.0,
+        6.665854839988578e-06,
+        0.0971620397261976
+      ],
+      "conditional_entropy": 0.09716870558103759,
+      "chi_BE": 1.3378015914707155e-05,
+      "Bob_entropy_upper": 4.414486276408931e-05,
+      "chi_upper": 8.828972552817861e-05,
+      "chi_bound_margin": 7.491170961347146e-05,
+      "signal_output": 2.5e-06,
+      "source_modulation_output": 2.5e-06,
+      "V_B2": 1.027003052,
+      "sigma2_complex": 1.013500651,
+      "variance_per_real_quadrature": 0.5067503255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 7.24454326306137e-71,
+      "minimum_uncertainty_eigenvalue": 1.8599977465317297e-06,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "-5.433407447296027420505471574532675068409518718883482913749568934e-71"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.002249999980668304,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.002249999980668304
+        ],
+        [
+          0.002249999980668304,
+          0.0,
+          1.00000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.002249999980668304,
+          0.0,
+          1.00000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.024998251729352,
+          0.0,
+          -0.0012706765793948469,
+          0.0,
+          -0.00022061353669054743,
+          0.0
+        ],
+        [
+          0.0,
+          1.024998251729352,
+          0.0,
+          0.0012706765793948469,
+          0.0,
+          -0.00022061353669054743
+        ],
+        [
+          -0.0012706765793948469,
+          0.0,
+          1.062162219378839,
+          0.0,
+          0.35803044442942156,
+          0.0
+        ],
+        [
+          0.0,
+          0.0012706765793948469,
+          0.0,
+          1.062162219378839,
+          0.0,
+          -0.35803044442942156
+        ],
+        [
+          -0.00022061353669054743,
+          0.0,
+          0.35803044442942156,
+          0.0,
+          1.0621608707276875,
+          0.0
+        ],
+        [
+          0.0,
+          -0.00022061353669054743,
+          0.0,
+          -0.35803044442942156,
+          0.0,
+          1.0621608707276875
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.001125,
+      "Denys_c2": 0.000125,
+      "Denys_nB": 2.18e-06,
+      "Denys_residual_variance": 9.3e-07,
+      "Denys_general_Z": 0.002249999980668304,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 1.2455419882697343e-06,
+      "quadrature_error": 4.5607960794171345e-15,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.2455419881652363e-06,
+      "SNR": 8.633442900472294e-07,
+      "capacity_margin": -1.044980311862894e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.1832648888562477e-06,
+      "K_raw": -1.2194751025850908e-05
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-05",
+      "detector": "primary_detector",
+      "m1": 1e-05,
+      "mhalf": 0.0031622776601683794,
+      "eta_f": 1e-05,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-07,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-07,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.000000436,
+      "Z": 0.0007115124674246662,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.0007115124735378853,
+      "Z_penalty": 6.113219049641154e-12,
+      "lambda_1": 1.0249997500000272,
+      "lambda_2": 1.0000001860000272,
+      "conditional_eigenvalues": [
+        1.0249997468750596
+      ],
+      "S_AB_terms": [
+        0.09716924055126568,
+        2.3064830093885784e-06
+      ],
+      "S_AB": 0.09717154703427507,
+      "conditional_entropy_terms": [
+        0.09716923064532995
+      ],
+      "conditional_entropy": 0.09716923064532995,
+      "chi_BE": 2.316388945121194e-06,
+      "Bob_entropy_upper": 5.138666292562746e-06,
+      "chi_upper": 1.0277332585125493e-05,
+      "chi_bound_margin": 7.960943640004298e-06,
+      "signal_output": 2.5e-07,
+      "source_modulation_output": 2.5e-07,
+      "V_B2": 1.000000436,
+      "sigma2_complex": 1.000000093,
+      "variance_per_real_quadrature": 0.5000000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 9.055679078826712e-71,
+      "minimum_uncertainty_eigenvalue": 1.8599998141175458e-07,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.0007115124674246662,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.0007115124674246662
+        ],
+        [
+          0.0007115124674246662,
+          0.0,
+          1.000000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0007115124674246662,
+          0.0,
+          1.000000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0249997468750596,
+          0.0
+        ],
+        [
+          0.0,
+          1.0249997468750596
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.00035575623676894265,
+      "Denys_c2": 3.952847075210474e-05,
+      "Denys_nB": 2.18e-07,
+      "Denys_residual_variance": 9.3e-08,
+      "Denys_general_Z": 0.0007115124674246662,
+      "Denys_Z_mapping_residual": 1.5300249129193057e-20,
+      "I_AB": 1.8033685219734412e-07,
+      "quadrature_error": 1.7349300825585772e-15,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.803368520687402e-07,
+      "SNR": 1.249999883750011e-07,
+      "capacity_margin": -1.2860392712065675e-16,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.7132000958747691e-07,
+      "K_raw": -2.145068935533717e-06
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-05",
+      "detector": "trusted_detector",
+      "m1": 1e-05,
+      "mhalf": 0.0031622776601683794,
+      "eta_f": 1e-05,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-07,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-07,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.000000436,
+      "Z": 0.0007115124674246662,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.0007115124735378853,
+      "Z_penalty": 6.113219049641154e-12,
+      "lambda_1": 1.0249997500000272,
+      "lambda_2": 1.0000001860000272,
+      "conditional_eigenvalues": [
+        1.0,
+        1.000000057534287,
+        1.0249997478416875
+      ],
+      "S_AB_terms": [
+        0.09716924055126568,
+        2.3064830093885784e-06
+      ],
+      "S_AB": 0.09717154703427507,
+      "conditional_entropy_terms": [
+        0.0,
+        7.621480072736889e-07,
+        0.09716923370947461
+      ],
+      "conditional_entropy": 0.09716999585748189,
+      "chi_BE": 1.5511767931886703e-06,
+      "Bob_entropy_upper": 5.138666292562746e-06,
+      "chi_upper": 1.0277332585125493e-05,
+      "chi_bound_margin": 8.726155791936822e-06,
+      "signal_output": 2.5e-07,
+      "source_modulation_output": 2.5e-07,
+      "V_B2": 1.0270003052,
+      "sigma2_complex": 1.0135000651,
+      "variance_per_real_quadrature": 0.50675003255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 9.055679078826712e-71,
+      "minimum_uncertainty_eigenvalue": 1.8599998141175458e-07,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.0007115124674246662,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.0007115124674246662
+        ],
+        [
+          0.0007115124674246662,
+          0.0,
+          1.000000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0007115124674246662,
+          0.0,
+          1.000000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0249998251726984,
+          0.0,
+          -0.00040182376054494597,
+          0.0,
+          -6.976422039850158e-05,
+          0.0
+        ],
+        [
+          0.0,
+          1.0249998251726984,
+          0.0,
+          0.00040182376054494597,
+          0.0,
+          -6.976422039850158e-05
+        ],
+        [
+          -0.00040182376054494597,
+          0.0,
+          1.0621609678680182,
+          0.0,
+          0.3580302271434238,
+          0.0
+        ],
+        [
+          0.0,
+          0.00040182376054494597,
+          0.0,
+          1.0621609678680182,
+          0.0,
+          -0.3580302271434238
+        ],
+        [
+          -6.976422039850158e-05,
+          0.0,
+          0.3580302271434238,
+          0.0,
+          1.0621608330027201,
+          0.0
+        ],
+        [
+          0.0,
+          -6.976422039850158e-05,
+          0.0,
+          -0.3580302271434238,
+          0.0,
+          1.0621608330027201
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.00035575623676894265,
+      "Denys_c2": 3.952847075210474e-05,
+      "Denys_nB": 2.18e-07,
+      "Denys_residual_variance": 9.3e-08,
+      "Denys_general_Z": 0.0007115124674246662,
+      "Denys_Z_mapping_residual": 1.5300249129193057e-20,
+      "I_AB": 1.24554319293864e-07,
+      "quadrature_error": 1.4420139651313028e-15,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.2455431921070226e-07,
+      "SNR": 8.633447891428261e-08,
+      "capacity_margin": -8.316174770098641e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.183266033291708e-07,
+      "K_raw": -1.4328501898594995e-06
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-06",
+      "detector": "primary_detector",
+      "m1": 1e-06,
+      "mhalf": 0.001,
+      "eta_f": 1e-06,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-08,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-08,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0000000436,
+      "Z": 0.00022499999806683039,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.00022499999999999997,
+      "Z_penalty": 1.933169603239599e-12,
+      "lambda_1": 1.0249999750000007,
+      "lambda_2": 1.0000000186000007,
+      "conditional_eigenvalues": [
+        1.024999974687501
+      ],
+      "S_AB_terms": [
+        0.09716995378518833,
+        2.615422086179502e-07
+      ],
+      "S_AB": 0.09717021532739695,
+      "conditional_entropy_terms": [
+        0.09716995279458758
+      ],
+      "conditional_entropy": 0.09716995279458758,
+      "chi_BE": 2.625328093666127e-07,
+      "Bob_entropy_upper": 5.862846586395006e-07,
+      "chi_upper": 1.1725693172790012e-06,
+      "chi_bound_margin": 9.100365079123885e-07,
+      "signal_output": 2.5e-08,
+      "source_modulation_output": 2.5e-08,
+      "V_B2": 1.0000000436,
+      "sigma2_complex": 1.0000000093,
+      "variance_per_real_quadrature": 0.50000000465,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 1.6300222341888082e-70,
+      "minimum_uncertainty_eigenvalue": 1.8600000761763485e-08,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.00022499999806683039,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.00022499999806683039
+        ],
+        [
+          0.00022499999806683039,
+          0.0,
+          1.0000000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.00022499999806683039,
+          0.0,
+          1.0000000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.024999974687501,
+          0.0
+        ],
+        [
+          0.0,
+          1.024999974687501
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.00011249999999999998,
+      "Denys_c2": 1.25e-05,
+      "Denys_nB": 2.18e-08,
+      "Denys_residual_variance": 9.3e-09,
+      "Denys_general_Z": 0.00022499999806683039,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 1.803368783035684e-08,
+      "quadrature_error": 5.488674401783248e-16,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.8033687730688195e-08,
+      "SNR": 1.249999988375e-08,
+      "capacity_margin": -9.966864636773941e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.7132003438838997e-08,
+      "K_raw": -2.454008059277737e-07
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-06",
+      "detector": "trusted_detector",
+      "m1": 1e-06,
+      "mhalf": 0.001,
+      "eta_f": 1e-06,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 1.86e-08,
+      "fading_excess_output": 0.0,
+      "N_eff": 1.86e-08,
+      "xi_f": 0.0186,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0000000436,
+      "Z": 0.00022499999806683039,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.00022499999999999997,
+      "Z_penalty": 1.933169603239599e-12,
+      "lambda_1": 1.0249999750000007,
+      "lambda_2": 1.0000000186000007,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0000000057534288,
+        1.0249999747841647
+      ],
+      "S_AB_terms": [
+        0.09716995378518833,
+        2.615422086179502e-07
+      ],
+      "S_AB": 0.09717021532739695,
+      "conditional_entropy_terms": [
+        0.0,
+        8.577104079947757e-08,
+        0.09716995310100429
+      ],
+      "conditional_entropy": 0.09717003887204509,
+      "chi_BE": 1.7645535186037518e-07,
+      "Bob_entropy_upper": 5.862846586395006e-07,
+      "chi_upper": 1.1725693172790012e-06,
+      "chi_bound_margin": 9.96113965418626e-07,
+      "signal_output": 2.5e-08,
+      "source_modulation_output": 2.5e-08,
+      "V_B2": 1.02700003052,
+      "sigma2_complex": 1.01350000651,
+      "variance_per_real_quadrature": 0.506750003255,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 1.6300222341888082e-70,
+      "minimum_uncertainty_eigenvalue": 1.8600000761763485e-08,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "3.622271631530684947003647716355116712273012479255655275833045956e-71"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.00022499999806683039,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.00022499999806683039
+        ],
+        [
+          0.00022499999806683039,
+          0.0,
+          1.0000000436,
+          0.0
+        ],
+        [
+          0.0,
+          -0.00022499999806683039,
+          0.0,
+          1.0000000436
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0249999825172675,
+          0.0,
+          -0.0001270678473486516,
+          0.0,
+          -2.20613865540759e-05,
+          0.0
+        ],
+        [
+          0.0,
+          1.0249999825172675,
+          0.0,
+          0.0001270678473486516,
+          0.0,
+          -2.20613865540759e-05
+        ],
+        [
+          -0.0001270678473486516,
+          0.0,
+          1.0621608427167495,
+          0.0,
+          0.35803020541479164,
+          0.0
+        ],
+        [
+          0.0,
+          0.0001270678473486516,
+          0.0,
+          1.0621608427167495,
+          0.0,
+          -0.35803020541479164
+        ],
+        [
+          -2.20613865540759e-05,
+          0.0,
+          0.35803020541479164,
+          0.0,
+          1.0621608292302178,
+          0.0
+        ],
+        [
+          0.0,
+          -2.20613865540759e-05,
+          0.0,
+          -0.35803020541479164,
+          0.0,
+          1.0621608292302178
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.00011249999999999998,
+      "Denys_c2": 1.25e-05,
+      "Denys_nB": 2.18e-08,
+      "Denys_residual_variance": 9.3e-09,
+      "Denys_general_Z": 0.00022499999806683039,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 1.2455433209965002e-08,
+      "quadrature_error": 4.564784309607583e-16,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 1.245543312501336e-08,
+      "SNR": 8.633448390524174e-09,
+      "capacity_margin": -8.495164246945928e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 1.1832661549466753e-08,
+      "K_raw": -1.646226903109084e-07
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0",
+      "detector": "primary_detector",
+      "m1": 0.0,
+      "mhalf": 0.0,
+      "eta_f": 0.0,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": null,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0,
+      "Z": 0.0,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.025,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.025
+      ],
+      "S_AB_terms": [
+        0.09717003303332018,
+        0.0
+      ],
+      "S_AB": 0.09717003303332018,
+      "conditional_entropy_terms": [
+        0.09717003303332018
+      ],
+      "conditional_entropy": 0.09717003303332018,
+      "chi_BE": -1.4149498560666738e-70,
+      "Bob_entropy_upper": 0.0,
+      "chi_upper": 0.0,
+      "chi_bound_margin": 1.4149498560666738e-70,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.0,
+      "sigma2_complex": 1.0,
+      "variance_per_real_quadrature": 0.5,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 5.4334074472960274e-71,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "3.622271631530684947003647716355116712273012479255655275833045956e-71"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.025,
+          0.0
+        ],
+        [
+          0.0,
+          1.025
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.0,
+      "Denys_c2": 0.0,
+      "Denys_nB": 0.0,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 0.0,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0,
+      "quadrature_error": 0.0,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.0,
+      "SNR": 0.0,
+      "capacity_margin": 0.0,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0,
+      "K_raw": 1.4149498560666738e-70
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0",
+      "detector": "trusted_detector",
+      "m1": 0.0,
+      "mhalf": 0.0,
+      "eta_f": 0.0,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": null,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.0,
+      "Z": 0.0,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.025,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0,
+        1.025
+      ],
+      "S_AB_terms": [
+        0.09717003303332018,
+        0.0
+      ],
+      "S_AB": 0.09717003303332018,
+      "conditional_entropy_terms": [
+        0.0,
+        0.0,
+        0.09717003303332018
+      ],
+      "conditional_entropy": 0.09717003303332018,
+      "chi_BE": -1.4149498560666738e-70,
+      "Bob_entropy_upper": 0.0,
+      "chi_upper": 0.0,
+      "chi_bound_margin": 1.4149498560666738e-70,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.027,
+      "sigma2_complex": 1.0135,
+      "variance_per_real_quadrature": 0.50675,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 5.4334074472960274e-71,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "3.622271631530684947003647716355116712273012479255655275833045956e-71",
+        "-1.811135815765342473501823858177558356136506239627827637916522978e-71",
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.025,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.062160828811051,
+          0.0,
+          0.3580302030004988,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.062160828811051,
+          0.0,
+          -0.3580302030004988
+        ],
+        [
+          0.0,
+          0.0,
+          0.3580302030004988,
+          0.0,
+          1.062160828811051,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.3580302030004988,
+          0.0,
+          1.062160828811051
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.0,
+      "Denys_c2": 0.0,
+      "Denys_nB": 0.0,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 0.0,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0,
+      "quadrature_error": 0.0,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.0,
+      "SNR": 0.0,
+      "capacity_margin": 0.0,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0,
+      "K_raw": 1.4149498560666738e-70
+    },
+    {
+      "source_id": 1,
+      "case": "pure_loss_T_0.25",
+      "detector": "primary_detector",
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": 0.0,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.00625,
+      "Z": 0.11249999999999999,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.11249999999999999,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.01875,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0186915887850467
+      ],
+      "S_AB_terms": [
+        0.07674752093755727,
+        3.459618836315985e-17
+      ],
+      "S_AB": 0.0767475209375573,
+      "conditional_entropy_terms": [
+        0.0765503055021671
+      ],
+      "conditional_entropy": 0.0765503055021671,
+      "chi_BE": 0.0001972154353901986,
+      "Bob_entropy_upper": 0.03052148438219798,
+      "chi_upper": 0.06104296876439596,
+      "chi_bound_margin": 0.060845753329005756,
+      "signal_output": 0.00625,
+      "source_modulation_output": 0.00625,
+      "V_B2": 1.00625,
+      "sigma2_complex": 1.0,
+      "variance_per_real_quadrature": 0.5,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 3.622271631530685e-70,
+      "minimum_uncertainty_eigenvalue": -4.330011883152609e-16,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.11249999999999999,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.11249999999999999
+        ],
+        [
+          0.11249999999999999,
+          0.0,
+          1.00625,
+          0.0
+        ],
+        [
+          0.0,
+          -0.11249999999999999,
+          0.0,
+          1.00625
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0186915887850467,
+          0.0
+        ],
+        [
+          0.0,
+          1.0186915887850467
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.056249999999999994,
+      "Denys_c2": 0.00625,
+      "Denys_nB": 0.003125,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 0.11249999999999999,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.004501392234940846,
+      "quadrature_error": 2.7704379062591565e-13,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.004501392234940781,
+      "SNR": 0.003125,
+      "capacity_margin": -6.505213034913027e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.004276322623193804,
+      "K_raw": 0.004079107187803605
+    },
+    {
+      "source_id": 1,
+      "case": "pure_loss_T_0.25",
+      "detector": "trusted_detector",
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": 0.0,
+      "C": 0.11249999999999999,
+      "w": 1.0046087943251475e-16,
+      "V": 1.025,
+      "W_pre": 1.00625,
+      "Z": 0.11249999999999999,
+      "source_side_Z": 0.22499999999999998,
+      "Z_signal": 0.11249999999999999,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.01875,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0,
+        1.0187096178696695
+      ],
+      "S_AB_terms": [
+        0.07674752093755727,
+        3.459618836315985e-17
+      ],
+      "S_AB": 0.0767475209375573,
+      "conditional_entropy_terms": [
+        0.0,
+        1.0970313177364527e-17,
+        0.07661119150931589
+      ],
+      "conditional_entropy": 0.0766111915093159,
+      "chi_BE": 0.0001363294282413985,
+      "Bob_entropy_upper": 0.03052148438219798,
+      "chi_upper": 0.06104296876439596,
+      "chi_bound_margin": 0.06090663933615456,
+      "signal_output": 0.00625,
+      "source_modulation_output": 0.00625,
+      "V_B2": 1.031375,
+      "sigma2_complex": 1.0135,
+      "variance_per_real_quadrature": 0.50675,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 3.622271631530685e-70,
+      "minimum_uncertainty_eigenvalue": -4.330011883152609e-16,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "3.622271631530684947003647716355116712273012479255655275833045956e-71"
+      ],
+      "Gamma_AB": [
+        [
+          1.025,
+          0.0,
+          0.11249999999999999,
+          0.0
+        ],
+        [
+          0.0,
+          1.025,
+          0.0,
+          -0.11249999999999999
+        ],
+        [
+          0.11249999999999999,
+          0.0,
+          1.00625,
+          0.0
+        ],
+        [
+          0.0,
+          -0.11249999999999999,
+          0.0,
+          1.00625
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0206387299243123,
+          0.0,
+          -0.06339709129697972,
+          0.0,
+          -0.01100693658301399,
+          0.0
+        ],
+        [
+          0.0,
+          1.0206387299243123,
+          0.0,
+          0.06339709129697972,
+          0.0,
+          -0.01100693658301399
+        ],
+        [
+          -0.06339709129697972,
+          0.0,
+          1.0641498984677866,
+          0.0,
+          0.35837554319076603,
+          0.0
+        ],
+        [
+          0.0,
+          0.06339709129697972,
+          0.0,
+          1.0641498984677866,
+          0.0,
+          -0.35837554319076603
+        ],
+        [
+          -0.01100693658301399,
+          0.0,
+          0.35837554319076603,
+          0.0,
+          1.0622207864131439,
+          0.0
+        ],
+        [
+          0.0,
+          -0.01100693658301399,
+          0.0,
+          -0.35837554319076603,
+          0.0,
+          1.0622207864131439
+        ]
+      ],
+      "nbar": 0.0125,
+      "Denys_c1": 0.056249999999999994,
+      "Denys_c2": 0.00625,
+      "Denys_nB": 0.003125,
+      "Denys_residual_variance": 0.0,
+      "Denys_general_Z": 0.11249999999999999,
+      "Denys_Z_mapping_residual": 0.0,
+      "I_AB": 0.0031105027253099876,
+      "quadrature_error": 2.294771473105328e-13,
+      "H_X": 4.8311567491755305,
+      "Gaussian_input_capacity_upper": 0.0031105027253099165,
+      "SNR": 0.00215836211149482,
+      "capacity_margin": -7.112366251504909e-17,
+      "PMF_factorization_residual": 6.938893903907228e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true,
+      "beta_I_AB": 0.0029549775890444882,
+      "K_raw": 0.0028186481608030896
+    }
+  ],
+  "vacuum_cases": [
+    {
+      "detector": "primary_detector",
+      "I_AB": 0.0,
+      "K_raw": -0.0,
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": 0.0,
+      "C": 0.0,
+      "w": 0.0,
+      "V": 1.0,
+      "W_pre": 1.0,
+      "Z": 0.0,
+      "source_side_Z": 0.0,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.0,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0
+      ],
+      "S_AB_terms": [
+        0.0,
+        0.0
+      ],
+      "S_AB": 0.0,
+      "conditional_entropy_terms": [
+        0.0
+      ],
+      "conditional_entropy": 0.0,
+      "chi_BE": 0.0,
+      "Bob_entropy_upper": 0.0,
+      "chi_upper": 0.0,
+      "chi_bound_margin": 0.0,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.0,
+      "sigma2_complex": 1.0,
+      "variance_per_real_quadrature": 0.5,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 1.8111358157653425e-71,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0",
+        "0.0",
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "detector": "trusted_detector",
+      "I_AB": 0.0,
+      "K_raw": -0.0,
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0,
+      "m_xi": 0.0,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.0,
+      "xi_f": 0.0,
+      "C": 0.0,
+      "w": 0.0,
+      "V": 1.0,
+      "W_pre": 1.0,
+      "Z": 0.0,
+      "source_side_Z": 0.0,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.0,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "S_AB_terms": [
+        0.0,
+        0.0
+      ],
+      "S_AB": 0.0,
+      "conditional_entropy_terms": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "conditional_entropy": 0.0,
+      "chi_BE": 0.0,
+      "Bob_entropy_upper": 0.0,
+      "chi_upper": 0.0,
+      "chi_bound_margin": 0.0,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.027,
+      "sigma2_complex": 1.0135,
+      "variance_per_real_quadrature": 0.50675,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 1.8111358157653425e-71,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "0.0",
+        "0.0",
+        "-1.811135815765342473501823858177558356136506239627827637916522978e-71",
+        "-9.0556790788267123675091192908877917806825311981391381895826148899e-72",
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.062160828811051,
+          0.0,
+          0.3580302030004988,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.062160828811051,
+          0.0,
+          -0.3580302030004988
+        ],
+        [
+          0.0,
+          0.0,
+          0.3580302030004988,
+          0.0,
+          1.062160828811051,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.3580302030004988,
+          0.0,
+          1.062160828811051
+        ]
+      ]
+    },
+    {
+      "detector": "primary_detector",
+      "I_AB": 0.0,
+      "K_raw": -0.023698549332407504,
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.00465,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.00465,
+      "xi_f": 0.0186,
+      "C": 0.0,
+      "w": 0.0,
+      "V": 1.0,
+      "W_pre": 1.00465,
+      "Z": 0.0,
+      "source_side_Z": 0.0,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.00465,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0
+      ],
+      "S_AB_terms": [
+        0.023698549332407504,
+        0.0
+      ],
+      "S_AB": 0.023698549332407504,
+      "conditional_entropy_terms": [
+        0.0
+      ],
+      "conditional_entropy": 0.0,
+      "chi_BE": 0.023698549332407504,
+      "Bob_entropy_upper": 0.023698549332407504,
+      "chi_upper": 0.04739709866481501,
+      "chi_bound_margin": 0.023698549332407504,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.00465,
+      "sigma2_complex": 1.002325,
+      "variance_per_real_quadrature": 0.5011625,
+      "eta_B": 1.0,
+      "nu_B": 0.0,
+      "closed_matrix_spectrum_residual": 5.161737074931226e-70,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "5.0711802841429589258051068028971633971822174709579173861662643384e-70",
+        "0.0"
+      ],
+      "Gamma_AB": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.00465,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.00465
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "detector": "trusted_detector",
+      "I_AB": 0.0,
+      "K_raw": -0.015163458368235152,
+      "m1": 0.25,
+      "mhalf": 0.5,
+      "eta_f": 0.25,
+      "fading_variance": 0.0,
+      "xi_ch": 0.0186,
+      "m_xi": 0.00465,
+      "fading_excess_output": 0.0,
+      "N_eff": 0.00465,
+      "xi_f": 0.0186,
+      "C": 0.0,
+      "w": 0.0,
+      "V": 1.0,
+      "W_pre": 1.00465,
+      "Z": 0.0,
+      "source_side_Z": 0.0,
+      "Z_signal": 0.0,
+      "Z_penalty": 0.0,
+      "lambda_1": 1.00465,
+      "lambda_2": 1.0,
+      "conditional_eigenvalues": [
+        1.0,
+        1.0,
+        1.0014360511364335
+      ],
+      "S_AB_terms": [
+        0.023698549332407504,
+        0.0
+      ],
+      "S_AB": 0.023698549332407504,
+      "conditional_entropy_terms": [
+        0.0,
+        0.0,
+        0.008535090964172353
+      ],
+      "conditional_entropy": 0.008535090964172353,
+      "chi_BE": 0.015163458368235152,
+      "Bob_entropy_upper": 0.023698549332407504,
+      "chi_upper": 0.04739709866481501,
+      "chi_bound_margin": 0.03223364029657986,
+      "signal_output": 0.0,
+      "source_modulation_output": 0.0,
+      "V_B2": 1.030255,
+      "sigma2_complex": 1.0151275,
+      "variance_per_real_quadrature": 0.50756375,
+      "eta_B": 0.7,
+      "nu_B": 0.0135,
+      "closed_matrix_spectrum_residual": 5.161737074931226e-70,
+      "minimum_uncertainty_eigenvalue": 0.0,
+      "checks": {
+        "moment_order": true,
+        "W_identity": true,
+        "spectrum": true,
+        "uncertainty": true,
+        "holevo_physical_entropy_bound": true
+      },
+      "exact_vacuum_mode_residuals": [
+        "5.0711802841429589258051068028971633971822174709579173861662643384e-70",
+        "-5.433407447296027420505471574532675068409518718883482913749568934e-71",
+        "-9.0556790788267123675091192908877917806825311981391381895826148899e-72"
+      ],
+      "Gamma_AB": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.00465,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.00465
+        ]
+      ],
+      "conditional_covariance": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0636415130119123,
+          0.0,
+          0.358287277840447,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0636415130119123,
+          0.0,
+          -0.358287277840447
+        ],
+        [
+          0.0,
+          0.0,
+          0.358287277840447,
+          0.0,
+          1.0622054618754786,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -0.358287277840447,
+          0.0,
+          1.0622054618754786
+        ]
+      ]
+    }
+  ],
+  "no_modulation_MI": [
+    {
+      "V_A": 0.01,
+      "detector": "primary_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 0.0011573228585620618,
+      "quadrature_error": 1.3781191739690644e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0011573228585619515,
+      "SNR": 0.0008025169209350454,
+      "capacity_margin": -1.1037178115902435e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 0.01,
+      "detector": "trusted_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 0.0008000751331751374,
+      "quadrature_error": 1.144797892069431e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.000800075133175009,
+      "SNR": 0.0005547236250706112,
+      "capacity_margin": -1.2836953722228372e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 0.0001,
+      "detector": "primary_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 1.158222782200118e-05,
+      "quadrature_error": 1.374840448208597e-14,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 1.1582227821829588e-05,
+      "SNR": 8.028220785296145e-06,
+      "capacity_margin": -1.7159193445477616e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 0.0001,
+      "detector": "trusted_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 8.005051279413977e-06,
+      "quadrature_error": 1.1429004187630971e-14,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 8.005051279311428e-06,
+      "SNR": 5.5486941184387656e-06,
+      "capacity_margin": -1.0254858485818363e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 1e-08,
+      "detector": "primary_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 1.1582320754828643e-09,
+      "quadrature_error": 4.4992988055776147e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 1.1582318791722095e-09,
+      "SNR": 8.028251618051283e-10,
+      "capacity_margin": -1.9631065479737408e-16,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 1e-08,
+      "detector": "trusted_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 8.005095682148702e-10,
+      "quadrature_error": 7.494940038683147e-13,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 8.005094734411049e-10,
+      "SNR": 5.548708846811691e-10,
+      "capacity_margin": -9.477376528488989e-17,
+      "PMF_factorization_residual": 3.469446951953614e-18,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 0.0,
+      "detector": "primary_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 0.0,
+      "quadrature_error": 0.0,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0,
+      "SNR": 0.0,
+      "capacity_margin": 0.0,
+      "PMF_factorization_residual": 1.1102230246251565e-16,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    },
+    {
+      "V_A": 0.0,
+      "detector": "trusted_detector",
+      "scope": "MI-only source-amplitude limit; no Cw interpolation or new exact-source claim",
+      "I_AB": 0.0,
+      "quadrature_error": 0.0,
+      "H_X": 5.650500223421142,
+      "Gaussian_input_capacity_upper": 0.0,
+      "SNR": 0.0,
+      "capacity_margin": 0.0,
+      "PMF_factorization_residual": 1.1102230246251565e-16,
+      "full_2D_GH": [],
+      "gaussian_surrogate_only": true
+    }
+  ],
+  "production_comparisons": [
+    {
+      "source_id": 0,
+      "case": "reference_fading",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 0.0,
+        "I_AB": 1.1102230246251565e-15,
+        "K_raw": 1.1102230246251565e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "reference_fading",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 9.992007221626409e-16,
+        "I_AB": 9.43689570931383e-16,
+        "K_raw": -1.1102230246251565e-16
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.01",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 1.394717674685353e-15,
+        "I_AB": 1.609823385706477e-15,
+        "K_raw": 1.3921155894713877e-16
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.01",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 2.2690183065776637e-15,
+        "I_AB": 1.1379786002407855e-15,
+        "K_raw": -1.1878519001751187e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.001",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 5.221517662690189e-16,
+        "I_AB": 1.345278055620014e-15,
+        "K_raw": 7.560141748741422e-16
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.001",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 7.294512216482474e-16,
+        "I_AB": 4.601354020028481e-16,
+        "K_raw": -2.924635360279648e-16
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0001",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": -2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 1.2121922389474182e-15,
+        "I_AB": 8.79071121451247e-16,
+        "K_raw": -3.770753511950914e-16
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0001",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": -2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 8.124740030063249e-15,
+        "I_AB": 1.877512902093148e-15,
+        "K_raw": -6.341093625118928e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-05",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -1.7675205916944936e-15,
+        "I_AB": 1.398668236351347e-15,
+        "K_raw": 3.096255035063447e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-05",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -2.5711380182043275e-15,
+        "I_AB": 7.963837651402822e-16,
+        "K_raw": 3.3277033997688955e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-06",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": 3.951990610576075e-15,
+        "I_AB": 9.540881709083505e-16,
+        "K_raw": -3.0456066205730373e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_1e-06",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": 2.1146440108417257e-15,
+        "I_AB": 8.7234567985004785e-16,
+        "K_raw": -1.285914969121558e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": 0.0,
+        "I_AB": 0.0,
+        "K_raw": 0.0
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "fixed_channel_0.0",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": 0.0,
+        "I_AB": 0.0,
+        "K_raw": 0.0
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "pure_loss_T_0.25",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -7.438494264988549e-15,
+        "I_AB": 8.881784197001252e-16,
+        "K_raw": 8.43769498715119e-15
+      }
+    },
+    {
+      "source_id": 0,
+      "case": "pure_loss_T_0.25",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -7.382983113757291e-15,
+        "I_AB": 1.7763568394002505e-15,
+        "K_raw": 9.076073226310655e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "reference_fading",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -2.9698465908722937e-15,
+        "I_AB": 1.941155569618047e-15,
+        "K_raw": 4.812122922359663e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "reference_fading",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 8.326672684688674e-17,
+        "I_AB": 1.2199442844806896e-15,
+        "K_raw": 1.0755285551056204e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.01",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": -3.469446951953614e-18,
+        "xi_f": 0.0,
+        "chi_BE": 6.55508633484736e-15,
+        "I_AB": 1.0457672054708933e-15,
+        "K_raw": -5.5615234639816435e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.01",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": -3.469446951953614e-18,
+        "xi_f": 0.0,
+        "chi_BE": -3.06287113727155e-16,
+        "I_AB": 1.19560394570839e-15,
+        "K_raw": 1.4420973096229694e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.001",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": -5.937687407725489e-15,
+        "I_AB": 1.1618174955083105e-15,
+        "K_raw": 7.041405219315733e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.001",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": 7.087971702623985e-17,
+        "I_AB": 1.5941058423372262e-15,
+        "K_raw": 1.4435203249743567e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0001",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -4.261497296535743e-15,
+        "I_AB": 8.891366257217067e-16,
+        "K_raw": 5.106175492196677e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0001",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -5.841528839421392e-16,
+        "I_AB": 1.8309536185649473e-15,
+        "K_raw": 2.323558758051368e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-05",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -3.540623130511393e-16,
+        "I_AB": 1.855655005131014e-15,
+        "K_raw": 2.116934811447575e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-05",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -2.686170174639145e-16,
+        "I_AB": 1.7673044659440457e-15,
+        "K_raw": 1.9475561740839743e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-06",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 4.079737949159041e-15,
+        "I_AB": 9.968409479285945e-17,
+        "K_raw": -3.985038077469234e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_1e-06",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 2.5004255107758316e-15,
+        "I_AB": 8.495612082529564e-17,
+        "K_raw": -2.4197171940065673e-15
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": -1.4149498560666738e-70,
+        "I_AB": 0.0,
+        "K_raw": 1.4149498560666738e-70
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "fixed_channel_0.0",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": -1.4149498560666738e-70,
+        "I_AB": 0.0,
+        "K_raw": 1.4149498560666738e-70
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "pure_loss_T_0.25",
+      "detector": "primary_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 6.402755929613146e-16,
+        "I_AB": 1.3409412469300719e-15,
+        "K_raw": 6.34041430469523e-16
+      }
+    },
+    {
+      "source_id": 1,
+      "case": "pure_loss_T_0.25",
+      "detector": "trusted_detector",
+      "residuals": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 4.790818349670323e-16,
+        "I_AB": 1.5482407023093003e-15,
+        "K_raw": 9.918281473897395e-16
+      }
+    }
+  ],
+  "checks_table": [
+    {
+      "check": "source_0",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "probability_sum": 0.9999999999999998,
+        "minimum_probability": 2.675586801303747e-10,
+        "normalization_residual": -2.220446049250313e-16,
+        "energy": 5.046874999999998,
+        "energy_residual": -1.7763568394002505e-15,
+        "mean_amplitude": [
+          1.9914913437151517e-17,
+          0.0
+        ],
+        "PMF_reconstruction_residual": 2.0816681711721685e-17,
+        "amplitude_reconstruction_residual": 6.280369834735101e-16,
+        "H_X": 5.650500223421142,
+        "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+        "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+        "C": 2.9818069279923307,
+        "w": 6.190945650452507e-07,
+        "Cw_new_oracle_run": false
+      }
+    },
+    {
+      "check": "source_1",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "probability_sum": 1.0,
+        "minimum_probability": 2.101515598958143e-16,
+        "normalization_residual": 0.0,
+        "energy": 0.025,
+        "energy_residual": 0.0,
+        "mean_amplitude": [
+          1.2581125001337446e-18,
+          0.0
+        ],
+        "PMF_reconstruction_residual": 1.3877787807814457e-17,
+        "amplitude_reconstruction_residual": 7.850462293418876e-17,
+        "H_X": 4.83115674917553,
+        "source_payload_sha256": "7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97",
+        "ensemble_hash": "5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38",
+        "C": 0.11249999999999999,
+        "w": 1.0046087943251475e-16,
+        "Cw_new_oracle_run": false
+      }
+    },
+    {
+      "check": "independent_PDF_moments",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "B": 0.906150936650298,
+        "chi_squared": 0.38570267511254014,
+        "log_C1": 0.014420535049423776,
+        "C3": 3.043972119515573,
+        "mu": 0.04779435665869496,
+        "raw_active_retained_mass": 0.9841173294426485,
+        "raw_total_mass": 0.9841200272202844,
+        "AoA_atom": 0.00016985667656141038,
+        "physical_mass": 1.0,
+        "independent_mean_eta": 0.23790886783673015,
+        "independent_mean_sqrt_eta": 0.40114871429673277,
+        "mean_eta_residual": 0.0,
+        "mean_sqrt_eta_residual": 1.1102230246251565e-16,
+        "quadrature_error_bounds": {
+          "mass": 1.1477616177432844e-13,
+          "mean_eta": 5.081952057116707e-14,
+          "mean_sqrt_eta": 6.801889801913156e-14
+        },
+        "new_renormalization_applied": false,
+        "law": "Independently integrates existing active-conditioned [0,1] law with unchanged AoA atom"
+      }
+    },
+    {
+      "check": "0_reference_fading_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 0.0,
+        "I_AB": 1.1102230246251565e-15,
+        "K_raw": 1.1102230246251565e-15
+      }
+    },
+    {
+      "check": "0_reference_fading_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_reference_fading_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 9.992007221626409e-16,
+        "I_AB": 9.43689570931383e-16,
+        "K_raw": -1.1102230246251565e-16
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.01_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 1.394717674685353e-15,
+        "I_AB": 1.609823385706477e-15,
+        "K_raw": 1.3921155894713877e-16
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.01_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.01_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 2.2690183065776637e-15,
+        "I_AB": 1.1379786002407855e-15,
+        "K_raw": -1.1878519001751187e-15
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.001_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 5.221517662690189e-16,
+        "I_AB": 1.345278055620014e-15,
+        "K_raw": 7.560141748741422e-16
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.001_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.001_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 7.294512216482474e-16,
+        "I_AB": 4.601354020028481e-16,
+        "K_raw": -2.924635360279648e-16
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.0001_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": -2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 1.2121922389474182e-15,
+        "I_AB": 8.79071121451247e-16,
+        "K_raw": -3.770753511950914e-16
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.0001_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0001_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": -2.220446049250313e-16,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 8.124740030063249e-15,
+        "I_AB": 1.877512902093148e-15,
+        "K_raw": -6.341093625118928e-15
+      }
+    },
+    {
+      "check": "0_fixed_channel_1e-05_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -1.7675205916944936e-15,
+        "I_AB": 1.398668236351347e-15,
+        "K_raw": 3.096255035063447e-15
+      }
+    },
+    {
+      "check": "0_fixed_channel_1e-05_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-05_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -2.5711380182043275e-15,
+        "I_AB": 7.963837651402822e-16,
+        "K_raw": 3.3277033997688955e-15
+      }
+    },
+    {
+      "check": "0_fixed_channel_1e-06_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": 3.951990610576075e-15,
+        "I_AB": 9.540881709083505e-16,
+        "K_raw": -3.0456066205730373e-15
+      }
+    },
+    {
+      "check": "0_fixed_channel_1e-06_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_1e-06_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": 2.1146440108417257e-15,
+        "I_AB": 8.7234567985004785e-16,
+        "K_raw": -1.285914969121558e-15
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.0_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": 0.0,
+        "I_AB": 0.0,
+        "K_raw": 0.0
+      }
+    },
+    {
+      "check": "0_fixed_channel_0.0_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_fixed_channel_0.0_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": 0.0,
+        "I_AB": 0.0,
+        "K_raw": 0.0
+      }
+    },
+    {
+      "check": "0_pure_loss_T_0.25_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -7.438494264988549e-15,
+        "I_AB": 8.881784197001252e-16,
+        "K_raw": 8.43769498715119e-15
+      }
+    },
+    {
+      "check": "0_pure_loss_T_0.25_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "0_pure_loss_T_0.25_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -7.382983113757291e-15,
+        "I_AB": 1.7763568394002505e-15,
+        "K_raw": 9.076073226310655e-15
+      }
+    },
+    {
+      "check": "1_reference_fading_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -2.9698465908722937e-15,
+        "I_AB": 1.941155569618047e-15,
+        "K_raw": 4.812122922359663e-15
+      }
+    },
+    {
+      "check": "1_reference_fading_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_reference_fading_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 8.326672684688674e-17,
+        "I_AB": 1.2199442844806896e-15,
+        "K_raw": 1.0755285551056204e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.01_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": -3.469446951953614e-18,
+        "xi_f": 0.0,
+        "chi_BE": 6.55508633484736e-15,
+        "I_AB": 1.0457672054708933e-15,
+        "K_raw": -5.5615234639816435e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.01_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.01_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": -3.469446951953614e-18,
+        "xi_f": 0.0,
+        "chi_BE": -3.06287113727155e-16,
+        "I_AB": 1.19560394570839e-15,
+        "K_raw": 1.4420973096229694e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.001_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": -5.937687407725489e-15,
+        "I_AB": 1.1618174955083105e-15,
+        "K_raw": 7.041405219315733e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.001_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.001_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 8.673617379884035e-19,
+        "xi_f": 0.0,
+        "chi_BE": 7.087971702623985e-17,
+        "I_AB": 1.5941058423372262e-15,
+        "K_raw": 1.4435203249743567e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.0001_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -4.261497296535743e-15,
+        "I_AB": 8.891366257217067e-16,
+        "K_raw": 5.106175492196677e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.0001_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0001_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -5.841528839421392e-16,
+        "I_AB": 1.8309536185649473e-15,
+        "K_raw": 2.323558758051368e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_1e-05_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -3.540623130511393e-16,
+        "I_AB": 1.855655005131014e-15,
+        "K_raw": 2.116934811447575e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_1e-05_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-05_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": -2.686170174639145e-16,
+        "I_AB": 1.7673044659440457e-15,
+        "K_raw": 1.9475561740839743e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_1e-06_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 4.079737949159041e-15,
+        "I_AB": 9.968409479285945e-17,
+        "K_raw": -3.985038077469234e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_1e-06_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_1e-06_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 2.5004255107758316e-15,
+        "I_AB": 8.495612082529564e-17,
+        "K_raw": -2.4197171940065673e-15
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.0_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": -1.4149498560666738e-70,
+        "I_AB": 0.0,
+        "K_raw": 1.4149498560666738e-70
+      }
+    },
+    {
+      "check": "1_fixed_channel_0.0_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_fixed_channel_0.0_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "chi_BE": -1.4149498560666738e-70,
+        "I_AB": 0.0,
+        "K_raw": 1.4149498560666738e-70
+      }
+    },
+    {
+      "check": "1_pure_loss_T_0.25_primary_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_primary_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_primary_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_primary_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_primary_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_primary_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 6.402755929613146e-16,
+        "I_AB": 1.3409412469300719e-15,
+        "K_raw": 6.34041430469523e-16
+      }
+    },
+    {
+      "check": "1_pure_loss_T_0.25_trusted_detector_moment_order",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_trusted_detector_W_identity",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_trusted_detector_spectrum",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_trusted_detector_uncertainty",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_trusted_detector_holevo_physical_entropy_bound",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "1_pure_loss_T_0.25_trusted_detector_production_comparison",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": {
+        "m1": 0.0,
+        "mhalf": 0.0,
+        "eta_f": 0.0,
+        "W_pre": 0.0,
+        "Z": 0.0,
+        "xi_f": 0.0,
+        "chi_BE": 4.790818349670323e-16,
+        "I_AB": 1.5482407023093003e-15,
+        "K_raw": 9.918281473897395e-16
+      }
+    },
+    {
+      "check": "coherent_vacuum_0.0_primary_detector",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "coherent_vacuum_0.0_trusted_detector",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "coherent_vacuum_0.0186_primary_detector",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "coherent_vacuum_0.0186_trusted_detector",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "no_modulation_MI_limit_primary_detector",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    },
+    {
+      "check": "no_modulation_MI_limit_trusted_detector",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "detail": null
+    }
+  ]
+}

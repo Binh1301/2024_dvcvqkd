@@ -1,0 +1,1996 @@
+diff --git a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+index 128475d..c639529 100644
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,55 +1,41 @@
+ # Session Handoff
+ 
+-2026-10-14 EVID-0188/DEC-0171. IEEE Numerical Results package COMPLETE; STOP.
+-Branch channel/update; HEAD 84bf84dc3862b6cb51fa368f7e481459845ffb98 unchanged.
+-No commit/push. Root path results/mobility_numerical_results_package_20261014/.
+-Deliver NUMERICAL_RESULTS_REPORT_VI.md, numerical_results_section.tex,
+-overleaf_numerical_results.zip, figures/ and the two tables/plot_data CSV.
+-Zip includes 48 byte-verified members with relative Overleaf paths; external
+-Downloads manuscript was not edited. TeX needs IEEEtran, graphicx, amsmath.
+-Compilation BLOCKED_BY_ENVIRONMENT (no pdflatex/latexmk/tectonic); lexical
+-structure/math/paths checked, manuscript page layout not verified.
++2026-10-16 EVID-0189/DEC-0172. Binary-cloud implementation, diagnostics and IEEE
++package COMPLETE; STOP. Branch cloud/implement, HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec.
++No commit/push. Pre-existing deleted persistence-control JSON is unchanged.
+ 
+-Reused protected MB 39400 records (100 positions, 197 authenticated sources,
+-2 states), no rerun. Computed only missing Uniform 6000 records (own 30 sources,
+-200 states) after original 15 + 10 new tests and Uniform 30-evaluation smoke.
+-Uniform receipt: 6000 new, zero cache hits. No new C,w/AP/AO/MC, interpolation,
+-or scientific kernel edit. Independent keys/maxima/covariance spectrum/entropy,
+-grid/speed/summary/cumulative checks pass. GH16/32 winners agree at 200 states.
+-All 3496 old protected hashes unchanged, original 15-test source unchanged.
++Deliver docs/BINARY_CLOUD_SKR_REPORT_VI.md and
++results/binary_cloud_skr_20261015/overleaf_binary_cloud.zip. New modules/config,
++runner stages audit/smoke/experiment/export and independent verifier are present.
++Use .venv-binary-cloud/Scripts/python.exe -B. Isolated venv uses system packages
++and an offline copy of pip-vendored packaging; Python system files unchanged.
+ 
+-MB mean S1/S2/S3/S4=.033503391695769096/.05349345891657229/
+-.061883253712551226/.061041913501481276 bits/use; flight 0/0/
+-2323.606797749979/600 m. S4 lambda=.001, objective .06044191350148127:
+-98.64043960103005% SKR retained, 74.17807519839421% less flight versus S3.
+-Uniform means=.0024459741451799003/.004525533061950683/
+-.005221740888377324/.0049276200583754405. Fig7 uses independent stationary
+-and lambda0-moving Uniform/MB optima; different finite source banks and selected
+-energy mean this is joint adaptation gain, not matched-energy PS isolation.
++23 primary tests plus3 stationary-verifier regression tests PASS, with receipts.
++Full clear-source coverage19700MB+3000Uniform;30 fresh clear smoke evaluations
++match exactly. No new source moments/AP/AO/P1 rerun. Gaussian latent covariance
++exp(-d/ell), stationary AR1, threshold Bernoulli, seed20261015; p.4/ell250/rho.9.
++16x100 missions,30x20s, independently verified1600 seed replays/7600 Bellman
++profiles/200 P1 maxima/1684 plotting checks. All3639 protected old hashes unchanged.
+ 
+-Seven figures x single/double sizes: 14 vector PDFs + 14 PNGs at 300dpi.
+-All PNG layouts visually reviewed; Fig1 inverse-ray cloud footprints retain
+-altitude distinction, Fig2 legend outside data, Fig3 C=sum(S)/Nt (no f_use),
+-Fig4 eight discrete points, Fig6 S2/S4 exact source steps. Current exports are
+-bound by package/final/completion receipts; preparation and first-export/repair
+-receipts are historical stage snapshots with preserved earlier output bytes.
+-Optional 5 fixed scenarios x5 speeds x4 schemes=100 cached-state DP comparisons,
+-no new SKR/MC; mean/SD descriptive. Tables I/II use actual config and distinguish
+-average SKR/penalized objective/positive-slot availability/flight distance.
++MB default mean S1/S2/S3/S4=.0341053753030758/.061241610834007816/
++.06319356562032614/.06310392183668584; S3/S4 flight1417.5250281102574/
++216.48214515945114m. S4 retains99.85814412787072% SKR and reduces84.7281606415056%
++mean flight. Uniform matched-policy bank uses its own exact sources/VA, not matched
++energy shaping isolation. S2 is a per-mission full-future-cloud stationary oracle.
++Availability>=Kmin.001 is evaluated separately from the SKR objective.
+ 
+-fading_omission_audit.csv records omitted (mean_eta-T_eff)VA and the additional
+-(mean_eta-T_eff)xi_ch noise difference; no full-fading MI/Holevo run. Modules
+-exist, but cached mixture precision/security/source-snapshot prerequisites remain
+-unresolved (15 later MB sources outside old corrected snapshot). All primary
+-results remain PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE. Preserve
+-Eq10/physical PDF/three moments/exact C,w/direct-Z kernels and all old modes/results.
+-Do not claim exact fading security, finite-size key yield, physical propulsion
+-energy or global continuous optimum. Frozen actual df83ea63...78c15 differs from
+-historical 561fecc...a7b1; NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C
+-USER_STOPPED remain. No training/test dataset access, held-out/final-test or
+-publication evaluation, baseline/threshold approval, automatic rerun or commit/push.
++Seven figures x2 widths:14 main vectorPDF/PNG300dpi, plus clear-sky diagnostic;
++two tables/captions/plottingCSV/LaTeX and30 byte-verified Overleaf members.
++Current final_validation.json and completion_integrity_receipt.json are terminal
++evidence. Original verifier2ULP tie failure and export snapshots remain historical.
++Only verifier and rendering were repaired; all experiment numeric hashes unchanged.
++No need to re-run completed prepare/export stages or repeat the experiment.
+ 
+-Latest saved-data verifier exited0, CURRENTLY_VERIFIED_PASS; no evaluation
+-controller pending. Do not rerun prepare or export helpers into this completed
+-namespace. Finish delivery, STOP, await a new explicit task. Preserve pre-existing
+-dirty worktree; startup_manifest.json contains the pre-task status and doc bytes.
++LaTeX compile BLOCKED_BY_ENVIRONMENT (no pdflatex/tectonic), page layout NOT_RUN.
++PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE; full-fading security,
++finite-size key yield, physical energy and continuous optima not established.
++Frozen actual df83ea63...78c15 vs historical561fecc...a7b1 remains a blocker;
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS, Objective C USER_STOPPED persist.
++No training/test dataset access, held-out/final-test/publication evaluation,
++production baseline/threshold approval, external Downloads edit or commit/push.
++Deliver and STOP; await a new explicit task.
+diff --git a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+index 7a5debe..85e8abf 100644
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -4688,3 +4688,34 @@ claims. TeX compilation remains BLOCKED_BY_ENVIRONMENT, despite successful
+ lexical/path/export checks. No external manuscript edit, commit or push.
+ This task is COMPLETE; STOP. Further scientific runs require a new explicit
+ request and independently valid lifecycle/provenance evidence.
++
++
++## DEC-0172 - approved binary-cloud implementation and bounded synthetic diagnostics
++
++2026-10-15 explicit user instruction PLEASE IMPLEMENT THIS PLAN approves the
++reviewed binary-cloud plan: p=.4, latent ell250m/rho.9, PCG64 seed20261015,
++100 missions per each of16 cloud scenarios, 30x20s slots, complete blockage,
++Kmin=.001, own exact197MB/30Uniform banks and four matched position policies.
++Authorize new isolated implementation, tests, direct30-clear smoke, verified
++clear-only cache reuse, finite DP/penalty experiments, seven IEEE figures/two
++tables/LaTeX/ZIP and Vietnamese report. The old STOP is superseded solely for
++this diagnostic task after tests/audit/smoke prerequisites pass. Existing
++effective_channel_no_fading_noise evaluator, kernels and old results remain
++unchanged; label PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE.
++No Cw/AP/AO, old ObjectiveC restart, training/held-out/final-test/publication
++evaluation, baseline/threshold promotion, external manuscript edit or commit/push.
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS and frozen historical discrepancy remain.
++
++
++DEC-0172 completion, 2026-10-16: accept EVID-0189 only for the approved synthetic
++binary complete-blockage framework, verified exact finite catalogs and finite-grid
++DP/export scope. Deliver the implementation, diagnostics, seven IEEE figures,
++two tables, plotting CSV, Overleaf ZIP and Vietnamese report. Keep the original
++geometric-cloud implementation/results as historical reproducible outputs.
++Accept the verifier's8ULP stationary-tie comparison as a roundoff-only check;
++no scientific objective, DP, threshold, source, frozen criterion or result changed.
++Export repairs preserve their earlier bytes and leave experiment hashes unchanged.
++No full-fading/security/publication promotion follows. Compilation/page layout
++remain blocked/unverified. STOP; further scientific execution or external manuscript
++integration requires a new task. Do not rerun completed stages into this namespace,
++restart ObjectiveC, train, access test datasets, certify thresholds or commit/push.
+diff --git a/paper_uav_hap_cvqkd/docs/EVIDENCE.md b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+index b798412..0643c45 100644
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -8865,3 +8865,81 @@ finite-size key-yield, physical propulsion-energy or continuous/global optimum.
+ NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen-hash mismatch and Objective C
+ USER_STOPPED persist. External manuscripts, baseline/threshold approval, old
+ scientific caches/results are unchanged. STOP after delivery.
++
++
++## EVID-0189 preparation: correlated binary-cloud diagnostic, 2026-10-15
++
++Explicit user approval of the reviewed implementation plan. New isolated modules,
++config, runner, verifier, exports and tests are being prepared.
++results/binary_cloud_skr_20261015/startup_manifest.json binds branch cloud/implement,
++HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec, 3639 pre-existing files and the
++pre-existing deleted diagnostic JSON. Frozen actual SHA256 df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15
++still differs from the historical AGENTS value; no frozen specification is changed.
++Initial real-cache integration checks find 19700 MB/3000 Uniform clear-only rows,
++zero physical-moment residual and valid covariance/entropy. Historical artifacts
++remain read-only, and LF/CRLF aliases require proven byte equivalence. Final tests,
++audit/smoke/full experiment and exports are pending; no completion claim yet.
++Only synthetic correlated binary complete blockage and finite-catalog/grid diagnostics
++are authorized; no source generation/AP/AO, training/test datasets, held-out/final-test,
++publication evaluation or security/lifecycle promotion.
++
++EVID-0189 preflight: test_receipt.json records23 CURRENTLY_VERIFIED_PASS tests
++(20 new plus3 existing normalization), current producer hashes and actual log.
++audit_receipt.json verifies22700 clear-source rows,200 P1 GH16/32 winners,
++exactly preserved physical moments and512x64 independent cloud statistical
++fixture. smoke_receipt.json verifies30 fresh clear evaluations against cache.
++All3639 old hashes unchanged. Full synthetic missions are now permitted by
++DEC-0172; no publication/security lifecycle promotion follows.
++
++
++## EVID-0189 completion - binary-cloud diagnostic and IEEE exports, 2026-10-16
++
++CURRENTLY_VERIFIED_PASS for the approved isolated implementation and numerical/export
++scope. results/binary_cloud_skr_20261015/completion_integrity_receipt.json binds the
++actual startup/input/audit/test/smoke/experiment/final/export/visual receipts and ZIP.
++23 primary tests (20 new plus3 unchanged normalization) and3 verifier regression
++tests pass. Cloud audit uses512 independent64-slot missions, independent of the
++100-per-configuration experiment seeds. Exact full clear-only coverage is19700MB
++and3000Uniform rows; source payload/ensemble identities, historical objective keys,
++raw/LF/CRLF aliases, common MI/Holevo ensemble and200 P1 maxima were verified.
++No cloud-attenuated old row was imported. Fresh30 clear smoke evaluations match
++stored SKR with zero residual. No source moments, AP/AO or P1 rerun was needed.
++
++16 scenarios x100 missions,30x20s slots, total1600 mission simulations completed;
++common innovations pair configurations, so independent sampling is per mission
++within each configuration. Full verification replays1600 cloud matrices and checks
++all7600 Bellman objective profiles independently of the trajectory solver. Speed,
++stationary/P1 maxima, threshold availability, zero-blockage rates, statistics and
++paired contrasts pass. Plot-data checks1684, vector/DPI/width checks14PDF/14PNG,
++30 byte-verified Overleaf archive members and visual review of14 main PNG layouts
++plus the extra clear-sky map pass. All3639 protected old files remain unchanged.
++Maximum spectrum/entropy residuals2.220446049250313e-14/1.8207657603852567e-14.
++
++Default MB mean S1/S2/S3/S4=.0341053753030758/.061241610834007816/
++.06319356562032614/.06310392183668584 bits/use. Mean flights0/0/
++1417.5250281102574/216.48214515945114m. S4 retains99.85814412787072%
++of S3 mean SKR with84.7281606415056% less mean flight (ratios of means).
++Default Uniform means=.0026630543505646166/.005149801725585259/
++.005432029394342155/.005351439300641405. Own exact finite source banks and
++selected energies differ; this is joint source/position adaptation, not isolated
++matched-energy shaping gain. S2 is selected per mission with full future cloud
++knowledge; it is not one location frozen for independent future missions.
++
++The first independent verification rejected one symmetric stationary-index tie:
++C/F-contiguous summation differs by1.3877787807814457e-17 bits/use. The verifier
++now accepts stationary maximality within8ULP, while three regression tests reject
++genuinely suboptimal/nonstationary paths. No solver/result changed. First failure,
++reconciliation and original export versions remain preserved. Export-only repairs
++fix Fig1 tick clipping, Fig2 legend overlap and the extra diagnostic title.
++All scientific output hashes are unchanged by those repairs.
++
++Report docs/BINARY_CLOUD_SKR_REPORT_VI.md and exported NUMERICAL_RESULTS_REPORT_VI.md.
++LaTeX compilation BLOCKED_BY_ENVIRONMENT (no pdflatex/tectonic); manuscript page
++layout NOT_RUN. Scientific status remains
++PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE. Fading variance/security,
++finite-size/operational key yield and continuous/global optimum are not established.
++Old optical/MI/Holevo kernels, frozen specifications, source caches and geometric
++cloud results are unchanged. No training/test dataset access, publication evaluation,
++production baseline/threshold approval, ObjectiveC restart, external manuscript edit,
++commit or push. NOT_READY_FOR_PUBLICATION_SCALE_RUNS and frozen discrepancy remain.
++Task complete; STOP after delivery.
+diff --git a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+index 68efec5..ec14f5c 100644
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,5 +1,22 @@
+ # Next Actions
+ 
++## Current: deliver completed binary-cloud package, then STOP
++
++2026-10-16 EVID-0189/DEC-0172. Deliver docs/BINARY_CLOUD_SKR_REPORT_VI.md and
++results/binary_cloud_skr_20261015/overleaf_binary_cloud.zip with figures/plot_data,
++source/winner tables, scenario matrices/paths, receipts and final_validation.json.
++Implementation,23+3 tests,30 fresh clear smoke and1600-mission/7600-Bellman
++verification are complete;1684 plot-data checks and14 reviewed main layouts pass.
++Do not rerun audit/smoke/experiment/export into the completed namespace.
++
++Keep preliminary Gaussian/no-fading-variance scope, per-mission offline S2/P3
++knowledge and joint source/energy-adaptation interpretation explicit. Compilation
++and manuscript page layout remain BLOCKED_BY_ENVIRONMENT/unverified. Frozen
++historical discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C
++USER_STOPPED remain. No automatic AP/AO, source generation, sweeps, training/test
++access, publication evaluation, baseline/threshold promotion, external manuscript
++edit or commit/push. Await a new explicit task; no numerical execution is pending.
++
+ ## Current: deliver IEEE numerical package, then STOP
+ 
+ EVID-0188/DEC-0171. Deliver the completed seven-figure/two-table numerical package
+diff --git a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+index b4c8e9d..cdf5227 100644
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,5 +1,36 @@
+ # Project State
+ 
++## Current: binary-cloud joint source/UAV diagnostic COMPLETE; STOP
++
++2026-10-16 EVID-0189/DEC-0172. CURRENTLY_VERIFIED_PASS for approved preliminary
++implementation and numerical/export checks. New Gaussian-copula binary complete
++blockage: p=.4, latent ell250m/rho.9,100 missions per16 scenarios,30x20s slots.
++Reused22700 authenticated clear-only rows (197MB/30Uniform sources at100positions);
++30 fresh clear smoke evaluations match with zero residual, no newCw/AP/AO or P1 objective evaluations.
++23 primary plus3 verifier regression tests pass. Independent verification replays
++1600 cloud matrices and checks7600 Bellman profiles,200 P1 maxima and1684 plotting
++records/checks. Old optical/channel/MI/Holevo kernels and all3639 protected old
++files are unchanged. Full scientific run repeated0; only saved-data export repairs.
++
++Default MB means S1/S2/S3/S4=.0341053753030758/.061241610834007816/
++.06319356562032614/.06310392183668584 bits/use. S3/S4 mean flight
++1417.5250281102574/216.48214515945114m: S4 retains99.85814412787072% SKR
++with84.7281606415056% less flight. Uniform uses its own optimized variance bank
++under matched policies/cloud draws; selected energies differ. S2 is a per-mission
++hindsight stationary oracle with the full cloud horizon, not a frozen future policy.
++
++Artifacts results/binary_cloud_skr_20261015/, report docs/BINARY_CLOUD_SKR_REPORT_VI.md.
++Seven figures in both widths,14vectorPDF/14PNG300dpi, two tables, plottingCSV,
++LaTeX and30-member byte-verified OverleafZIP;14 main layouts visually reviewed.
++Compilation BLOCKED_BY_ENVIRONMENT (no compiler), manuscript page layout NOT_RUN.
++One2ULP stationary tie and export clipping corrections are documented; experiment
++values/old outputs unchanged. PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE;
++no exact fading-security, finite-size yield, physical propulsion-energy or continuous
++optimum claim. Frozen discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
++Objective C USER_STOPPED remain. No training/test access, publication evaluation,
++production baseline/threshold approval, external manuscript edit, commit or push.
++Deliver package, STOP; no automatic continuation or overwrite of completed stages.
++
+ ## Current: IEEE numerical-results package COMPLETE; STOP
+ 
+ 2026-10-14 EVID-0188/DEC-0171. CURRENTLY_VERIFIED_PASS for scoped numerical
+diff --git a/paper_uav_hap_cvqkd/src/binary_cloud.py b/paper_uav_hap_cvqkd/src/binary_cloud.py
+new file mode 100644
+index 0000000..6e1ad03
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/src/binary_cloud.py
+@@ -0,0 +1,133 @@
++"""Synthetic stationary Gaussian-copula cloud states, not measured weather."""
++from __future__ import annotations
++
++import math
++from functools import lru_cache
++import numpy as np
++from scipy.integrate import quad
++from scipy.special import ndtr, ndtri
++from src.uav_mobility import scalar, transition_distances
++
++
++def positive_integer(value, name):
++    if type(value) is not int or value <= 0:
++        raise ValueError(f"{name} must be a positive integer")
++    return value
++
++
++def cloud_parameters(probability, correlation_length_m, temporal_rho):
++    p = scalar(probability, "blockage probability")
++    ell = scalar(correlation_length_m, "latent correlation length", positive=True)
++    rho = scalar(temporal_rho, "latent temporal correlation")
++    if not 0 <= p <= 1 or not 0 <= rho < 1:
++        raise ValueError("Require 0<=p<=1 and 0<=rho<1")
++    return p, ell, rho
++
++
++@lru_cache(maxsize=32)
++def _spatial_factor(coordinates, ell):
++    covariance = np.exp(-transition_distances(np.asarray(coordinates)) / ell)
++    # Duplicate positions/singular kernels fail; no jitter changes the model.
++    factor = np.linalg.cholesky(covariance)
++    if not np.allclose(factor @ factor.T, covariance, atol=1e-12, rtol=1e-12):
++        raise ValueError("Spatial factorization residual")
++    covariance.setflags(write=False); factor.setflags(write=False)
++    return covariance, factor
++
++
++def spatial_covariance(positions, correlation_length_m):
++    ell = scalar(correlation_length_m, "latent correlation length", positive=True)
++    points = np.asarray(positions, dtype=float)
++    if points.ndim != 2 or points.shape[1] != 2 or not len(points) or not np.isfinite(points).all():
++        raise ValueError("Positions must be a nonempty finite Jx2 array")
++    return _spatial_factor(tuple(map(tuple, points)), ell)
++
++
++def generate_cloud(positions, slots, probability, correlation_length_m, temporal_rho,
++                   seed=20261015, realization_id=0, *, return_latent=False):
++    """Return JxN booleans; the same seed/ID supplies common innovations."""
++    slots = positive_integer(slots, "slots")
++    p, ell, rho = cloud_parameters(probability, correlation_length_m, temporal_rho)
++    if type(seed) is not int or seed < 0 or type(realization_id) is not int or realization_id < 0:
++        raise ValueError("Seed and realization ID must be nonnegative integers")
++    _, factor = spatial_covariance(positions, ell)
++    rng = np.random.Generator(np.random.PCG64(np.random.SeedSequence([seed, realization_id])))
++    innovations = rng.standard_normal((slots, len(factor))) @ factor.T
++    latent = np.empty_like(innovations)
++    latent[0] = innovations[0]
++    for n in range(1, slots):
++        latent[n] = rho * latent[n-1] + math.sqrt(1-rho*rho) * innovations[n]
++    if p in (0., 1.):
++        blocked = np.full((len(factor), slots), bool(p), dtype=bool)
++    else:
++        blocked = (latent < ndtri(p)).T
++    return (blocked, latent.T) if return_latent else blocked
++
++
++def bernoulli_correlation(probability, latent_correlation):
++    p = scalar(probability, "probability")
++    r = scalar(latent_correlation, "latent correlation")
++    if not 0 <= p <= 1 or not -1 <= r <= 1:
++        raise ValueError("Invalid Bernoulli correlation parameters")
++    if p in (0., 1.):
++        return None
++    if r == 1.:
++        return 1.
++    if r == -1.:
++        joint = max(0., 2*p-1)
++    else:
++        a = float(ndtri(p))
++        joint = quad(lambda x: math.exp(-x*x/2)/math.sqrt(2*math.pi)
++                     * ndtr((a-r*x)/math.sqrt(1-r*r)), -np.inf, a,
++                     epsabs=1e-11, epsrel=1e-11)[0]
++    return float((joint-p*p)/(p*(1-p)))
++
++
++def mean_statistics(values):
++    values = np.asarray(values, dtype=float)
++    if values.ndim != 1 or len(values) < 2 or not np.isfinite(values).all():
++        raise ValueError("Statistics require at least two finite independent mission values")
++    from scipy.stats import t
++    mean = float(values.mean())
++    sd = float(values.std(ddof=1))
++    se = sd / math.sqrt(len(values))
++    half = float(t.ppf(.975, len(values)-1)) * se
++    return dict(mean=mean, sd=sd, se=se, ci95_low=mean-half, ci95_high=mean+half,
++                realizations=len(values), uncertainty_scope="independent_missions_not_cells_or_slots")
++
++
++def correlation_audit(positions, *, probability=.4, correlation_length_m=250., temporal_rho=.9,
++                      missions=512, slots=64, seed=20261016):
++    """Cluster-SE checks; every per-mission statistic can contain correlated cells."""
++    positive_integer(missions, "audit missions")
++    if missions < 2 or slots < 2 or len(positions) < 3:
++        raise ValueError("Correlation audit requires >=2 missions, >=2 slots, >=3 positions")
++    p, ell, rho = cloud_parameters(probability, correlation_length_m, temporal_rho)
++    if p in (0.,1.):
++        raise ValueError("Binary correlation is undefined for a deterministic cloud law")
++    distance = transition_distances(positions)
++    near = int(np.argsort(distance[0])[1]); far = int(np.argmax(distance[0]))
++    targets = dict(blockage_probability=p,
++        latent_spatial_near=math.exp(-distance[0,near]/ell),
++        latent_spatial_far=math.exp(-distance[0,far]/ell), latent_temporal=rho)
++    for name in ("spatial_near", "spatial_far", "temporal"):
++        targets["binary_"+name] = bernoulli_correlation(p, targets["latent_"+name])
++    values = {k:[] for k in targets}
++    for realization in range(missions):
++        c,z = generate_cloud(positions, slots, p, ell, rho, seed, realization, return_latent=True)
++        b = (c.astype(float)-p)/math.sqrt(p*(1-p))
++        values["blockage_probability"].append(float(c.mean()))
++        for name, data in (("latent",z),("binary",b)):
++            values[name+"_spatial_near"].append(float(np.mean(data[0]*data[near])))
++            values[name+"_spatial_far"].append(float(np.mean(data[0]*data[far])))
++            values[name+"_temporal"].append(float(np.mean(data[:,:-1]*data[:,1:])))
++    rows=[]
++    for name, target in targets.items():
++        stats=mean_statistics(values[name])
++        tolerance=5*stats["se"] + 1e-10
++        rows.append(dict(metric=name,target=target,**stats,tolerance=tolerance,
++                         passed=abs(stats["mean"]-target)<=tolerance))
++    return dict(status="CURRENTLY_VERIFIED_PASS" if all(r["passed"] for r in rows) else "FAILED",
++                missions=missions,slots=slots,seed=seed,near_index=near,far_index=far,
++                probability=p,correlation_length_m=ell,temporal_rho=rho,checks=rows,
++                interpretation="Gaussian latent parameters; binary covariance computed by threshold integral")
+diff --git a/paper_uav_hap_cvqkd/src/binary_cloud_skr.py b/paper_uav_hap_cvqkd/src/binary_cloud_skr.py
+new file mode 100644
+index 0000000..2ab886e
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/src/binary_cloud_skr.py
+@@ -0,0 +1,284 @@
++"""Read-only exact clear-source integration and offline binary-cloud diagnostics."""
++from __future__ import annotations
++
++import csv
++import json
++import math
++from pathlib import Path
++import numpy as np
++
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from scripts.exact_cache_provenance import source_hashes, source_settings, verify_source_payload
++from scripts.run_theta10_D55_unconstrained_three_scheme import unconstrained_config, candidate_from_payload
++from src.mobility_skr import channel_state, objective_key, validate_result
++from src.uav_mobility import candidate_grid, best_stationary, optimize_trajectory, scalar
++from src.binary_cloud import cloud_parameters, positive_integer, mean_statistics
++
++ROOT=Path(__file__).resolve().parents[1]
++OLD=ROOT/'results/mobility_aware_skr_20261014'
++UNIFORM=ROOT/'results/mobility_numerical_results_package_20261014/uniform'
++STATUS='PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE'
++SCHEMES=('S1','S2','S3','S4')
++
++
++def read_csv(path):
++    with Path(path).open(encoding='utf-8',newline='') as stream:
++        return list(csv.DictReader(stream))
++
++
++def verify_alias(path, expected):
++    """Only byte-identical or provable line-ending aliases; never JSON reserialization."""
++    hashes=source_hashes(Path(path).read_bytes())
++    if expected not in hashes.values():
++        raise ValueError(f'Historical content changed: {path}')
++    return dict(path=str(Path(path).relative_to(ROOT)).replace('\\','/'),historical_sha256=expected,
++                **hashes,verification='RAW_BYTE_MATCH' if expected==hashes['raw_sha256'] else 'VERIFIED_NEWLINE_EQUIVALENT')
++
++
++def validate_settings(settings):
++    if settings.get('schema')!='binary-cloud-skr-v1' or settings.get('scientific_model')!='effective_channel_no_fading_noise':
++        raise ValueError('Unsupported binary-cloud experiment/model')
++    old=saved.read_json(OLD/'full/inputs.json')['settings']
++    if settings['geometry']!=old['geometry'] or settings['channel']!=old['channel']:
++        raise ValueError('Approved reference geometry and clear-channel conventions must be preserved')
++    positions=candidate_grid(1000.,10)
++    mission=settings['mission']; opt=settings['optimization']; cloud=settings['cloud']
++    positive_integer(mission['slots'],'slots'); positive_integer(cloud['realizations'],'realizations')
++    if cloud['realizations']<2:raise ValueError('At least two independent missions are required')
++    scalar(mission['slot_duration_s'],'slot duration',positive=True)
++    scalar(mission['max_speed_m_per_s'],'maximum speed',nonnegative=True)
++    scalar(opt['reference_distance_m'],'reference distance',positive=True)
++    scalar(opt['positive_lambda_bits_per_use'],'positive lambda',positive=True)
++    scalar(opt['K_min_bits_per_use'],'availability threshold',positive=True)
++    if opt['initial_position_freely_selectable'] is not True or opt['deployment_cost_included'] is not False:
++        raise ValueError('Free initial position and excluded deployment are required')
++    if opt['channel_use_rate_per_s'] is not None:raise ValueError('No physical channel-use rate was approved')
++    if cloud['model']!='stationary_gaussian_copula_ar1_complete_blockage':raise ValueError('Unsupported cloud model')
++    allowed={'model','probability','correlation_length_m','temporal_rho','seed','realizations','parameter_origin'}
++    if set(cloud)!=allowed:raise ValueError('Cloud config must not contain geometric-cloud parameters')
++    cloud_parameters(cloud['probability'],cloud['correlation_length_m'],cloud['temporal_rho'])
++    if type(cloud['seed']) is not int or cloud['seed']<0:raise ValueError('Invalid seed')
++    for p in settings['sweeps']['probability']:cloud_parameters(p,cloud['correlation_length_m'],cloud['temporal_rho'])
++    for ell in settings['sweeps']['correlation_length_m']:cloud_parameters(cloud['probability'],ell,cloud['temporal_rho'])
++    for rho in settings['sweeps']['temporal_rho']:cloud_parameters(cloud['probability'],cloud['correlation_length_m'],rho)
++    penalties=settings['sweeps']['lambda_bits_per_use']
++    if penalties!=sorted(penalties) or len(set(penalties))!=len(penalties) or 0. not in penalties or opt['positive_lambda_bits_per_use'] not in penalties:
++        raise ValueError('Lambda sweep must be unique and include zero/default')
++    for penalty in penalties:scalar(penalty,'lambda',nonnegative=True)
++    return positions
++
++
++def load_sources(settings, protected_hashes):
++    roster_path=ROOT/settings['source_roster']; receipt=saved.read_json(ROOT/settings['source_roster_receipt'])
++    aliases=[verify_alias(roster_path,receipt['source_roster_sha256'])]
++    roster=read_csv(roster_path); config=unconstrained_config(); groups={'MB':[],'Uniform':[]}
++    for row in roster:
++        family=row['family']
++        if family not in groups:raise ValueError('Unexpected source family')
++        path=ROOT/row['source_path']; aliases.append(verify_alias(path,row['source_payload_sha256']))
++        if protected_hashes.get(row['source_path'])!=saved.digest(path):raise ValueError('Source changed since startup')
++        payload=saved.read_json(path)
++        payload['_provenance']=verify_source_payload(payload,source_settings(config));payload['_path']=row['source_path']
++        candidate=candidate_from_payload(config,{payload['ensemble_hash']:payload},family,
++            float.fromhex(payload['nu_mb_raw_hex']),float.fromhex(payload['V_A_hex']))
++        if candidate is None:raise ValueError('Exact ensemble missing from source payload')
++        saved.authenticate(candidate,protected_hashes,config)
++        if any(candidate[k]!=float(row[k]) for k in ('C','w','nu_raw','V_A')) or candidate['ensemble_hash']!=row['ensemble_hash']:
++            raise ValueError('Source roster numerical/ensemble mismatch')
++        groups[family].append(candidate)
++    for family,count in (('MB',197),('Uniform',30)):
++        groups[family].sort(key=lambda c:(c['nu_raw'],c['V_A'],c['ensemble_hash']))
++        if len(groups[family])!=count or len({c['ensemble_hash'] for c in groups[family]})!=count:
++            raise ValueError(f'Incomplete or duplicate {family} source catalog')
++    return groups,config,aliases
++
++
++def clear_state(settings, position, index):
++    # The legacy clear builder reads attenuation even for blocked=False; no cloud loss is applied.
++    adapter=dict(settings,cloud={'attenuation_db':0.})
++    state=channel_state(adapter,position,False);state['position_index']=index
++    if state['cloud_transmittance']!=1. or state['blocked']:raise ValueError('Clear state required')
++    return state
++
++
++def select_winner(rows):
++    if not rows:raise ValueError('Empty P1 catalog')
++    return min(rows,key=lambda r:(-r['SKR'],r['nu_raw'],r['V_A'],r['ensemble_hash']))
++
++
++def covariance_check(row):
++    a,b,z=(row[k] for k in ('a','b','Z_star'))
++    matrix=np.array([[a,0,z,0],[0,a,0,-z],[z,0,b,0],[0,-z,0,b]],dtype=float)
++    omega=np.kron(np.eye(2),np.array([[0.,1.],[-1.,0.]]))
++    physical_min=float(np.linalg.eigvalsh(matrix+1j*omega).min())
++    spectrum=np.sort(np.abs(np.linalg.eigvals(1j*omega@matrix)))[::2]
++    expected=sorted([row['lambda_1'],row['lambda_2']])
++    residual=float(np.max(np.abs(spectrum-expected)))
++    conditional=a-z*z/(b+1)
++    def entropy(value):
++        if value<1.-1e-12:raise ValueError('Nonphysical entropy argument')
++        n=max(0.,(value-1)/2)
++        return (n+1)*math.log2(n+1)-(n*math.log2(n) if n else 0.)
++    chi=entropy(spectrum[0])+entropy(spectrum[1])-entropy(conditional)
++    if physical_min < -1e-11 or residual>1e-10 or abs(conditional-row['lambda_3'])>1e-10 or abs(chi-row['chi_BE'])>1e-10:
++        raise ValueError('Independent covariance/spectrum/entropy check failed')
++    return dict(spectrum_residual=residual,entropy_residual=abs(chi-row['chi_BE']),minimum_uncertainty_eigenvalue=physical_min)
++
++
++def load_clear_bank(settings, protected_hashes):
++    """Import only authenticated clear rows; preserve every historical byte/key."""
++    positions=validate_settings(settings)
++    groups,config,aliases=load_sources(settings,protected_hashes)
++    inputs=saved.read_json(OLD/'full/inputs.json');identity=inputs['scientific_identity']
++    if identity['baseline_config']!=saved.config_identity(config):raise ValueError('Scientific config differs from cached config')
++    for name,h in identity['scientific_implementation'].items():aliases.append(verify_alias(ROOT/name,h))
++    aliases.append(verify_alias(ROOT/'scripts/build_mobility_numerical_package.py',saved.read_json(UNIFORM/'receipt.json')['adapter_sha256']))
++    aliases.append(verify_alias(ROOT/'scripts/run_mobility_skr_experiment.py',inputs['producer_sha256']))
++    original_receipt=saved.read_json(OLD/'full/experiment_receipt.json')
++    for name in ('inputs.json','channel_states.json'):
++        aliases.append(verify_alias(OLD/'full'/name,original_receipt['output_sha256'][name]))
++    old_states=saved.read_json(OLD/'full/channel_states.json')
++    states={s['position_index']:s for s in old_states if s['blocked'] is False and s['cloud_transmittance']==1.}
++    if len(states)!=100:raise ValueError('Incomplete historical clear geometry')
++    fresh_states=[];moment_residual=0.
++    for j,position in enumerate(positions):
++        old=states[j];fresh=clear_state(settings,position,j);fresh_states.append(fresh)
++        if old['position_m']!=list(position) or not math.isclose(old['distance_m'],fresh['distance_m'],rel_tol=0.,abs_tol=1e-9):
++            raise ValueError('Cached clear position/distance differs')
++        if old['clear_raw_channel']!=fresh['clear_raw_channel']:raise ValueError('Cached physical fading law differs')
++        for name in ('mean_eta','mean_sqrt_eta','mean_eta_xi_total'):
++            residual=abs(old['moments'][name]-fresh['moments'][name]);moment_residual=max(moment_residual,residual)
++            if residual>1e-12:raise ValueError('Clear physical moments changed')
++    source_aliases={(a['path'],a['historical_sha256']):a for a in aliases}
++    current_source_hashes={c['source_path']:saved.digest(ROOT/c['source_path']) for group in groups.values() for c in group}
++    all_rows=[];winners={};reuse=[];gh=[];max_spectrum=max_entropy=0.;min_uncertainty=math.inf
++    for family,directory in (('MB',OLD/'full'),('Uniform',UNIFORM)):
++        receipt=saved.read_json(directory/('experiment_receipt.json' if family=='MB' else 'receipt.json'))
++        for name in ('objective_cache.jsonl','all_candidate_evaluations.csv'):
++            aliases.append(verify_alias(directory/name,receipt['output_sha256'][name]))
++        journal={}
++        with (directory/'objective_cache.jsonl').open(encoding='utf-8') as stream:
++            for line in stream:
++                record=json.loads(line)
++                if record['row_sha256']!=saved.hash_json(record['row']) or record['key'] in journal:
++                    raise ValueError('Historical objective journal corruption')
++                journal[record['key']]=record
++        clear_csv=[r for r in read_csv(directory/'all_candidate_evaluations.csv') if r['blocked']=='False']
++        lookup={(int(r['position_index']),r['ensemble_hash']):r for r in clear_csv}
++        if len(lookup)!=100*len(groups[family]) or len(lookup)!=len(clear_csv):raise ValueError('Clear-only catalog coverage incomplete')
++        historical_identity=identity if family=='MB' else dict(identity,source_family='Uniform',adapter_sha256=receipt['adapter_sha256'])
++        winners[family]=[]
++        for j in range(100):
++            rows=[]
++            for candidate in groups[family]:
++                cell=lookup[j,candidate['ensemble_hash']];record=journal[cell['objective_key']];row=record['row']
++                if any(row[k]!=float(cell[k]) for k in ('C','w','V_A','nu_raw','SKR','I_AB','chi_BE')):
++                    raise ValueError('CSV and objective journal disagree')
++                alias_id=(candidate['source_path'],row['source_payload_sha256'])
++                if alias_id not in source_aliases:
++                    source_aliases[alias_id]=verify_alias(ROOT/candidate['source_path'],row['source_payload_sha256'])
++                    aliases.append(source_aliases[alias_id])
++                expected=objective_key(historical_identity,states[j],candidate,row['source_payload_sha256'])
++                if expected!=record['key']:raise ValueError('Historical clear objective key failed')
++                validate_result(row,candidate,states[j])
++                if row['Holevo_target']!='chi_BE_at_direct_Z_star' or row['certified_fading_security_lower_bound'] is not False:
++                    raise ValueError('Different scientific interpretation')
++                orders=row['MI_orders']
++                if [r['order'] for r in orders]!=[8,16,32] or abs(orders[2]['I_AB']-orders[1]['I_AB'])>1e-8:
++                    raise ValueError('MI quadrature refinement failed')
++                checks=covariance_check(row);max_spectrum=max(max_spectrum,checks['spectrum_residual']);max_entropy=max(max_entropy,checks['entropy_residual'])
++                min_uncertainty=min(min_uncertainty,checks['minimum_uncertainty_eigenvalue'])
++                flat=dict(row,family=family,position_index=j,objective_key=record['key'],row_sha256=record['row_sha256'])
++                rows.append(flat);all_rows.append(flat)
++                reuse.append(dict(family=family,position_index=j,ensemble_hash=row['ensemble_hash'],historical_objective_key=record['key'],
++                    historical_row_sha256=record['row_sha256'],historical_source_payload_sha256=row['source_payload_sha256'],
++                    current_source_payload_sha256=current_source_hashes[candidate['source_path']],origin=directory.relative_to(ROOT).as_posix(),blocked=False,cloud_transmittance=1.))
++            winner=select_winner(rows)
++            winner=dict(winner,K_star_raw=winner['SKR'],K_star=max(0.,winner['SKR']))
++            winners[family].append(winner)
++            hashes=[]
++            for order_index in (1,2):
++                best=min(rows,key=lambda r:(-r['MI_orders'][order_index]['SKR'],r['nu_raw'],r['V_A'],r['ensemble_hash']))
++                hashes.append(best['ensemble_hash'])
++            if hashes[0]!=hashes[1]:raise ValueError('GH16/32 P1 winner unresolved')
++            gh.append(dict(family=family,position_index=j,GH16_32_winner_stable=True))
++    aliases=list({(a['path'],a['historical_sha256']):a for a in aliases}.values())
++    audit=dict(status='CURRENTLY_VERIFIED_PASS',scientific_status=STATUS,positions=100,MB_sources=197,Uniform_sources=30,
++        reused_clear_MB=19700,reused_clear_Uniform=3000,new_P1_evaluations=0,new_source_moments=0,
++        aliases=aliases,GH_winners=gh,physical_moment_maximum_residual=moment_residual,
++        maximum_spectrum_residual=max_spectrum,maximum_entropy_residual=max_entropy,
++        minimum_uncertainty_eigenvalue=min_uncertainty,interpolation=False,blocked_rows_imported=0)
++    return dict(positions=positions,sources=groups,config=config,states=fresh_states,winners=winners,rows=all_rows,reuse=reuse,audit=audit)
++
++
++def slot_table(clear_rates, blocked):
++    clear_rates=np.asarray(clear_rates,dtype=float);blocked=np.asarray(blocked)
++    if clear_rates.ndim!=1 or not np.isfinite(clear_rates).all() or blocked.dtype!=np.bool_ or blocked.ndim!=2 or blocked.shape[0]!=len(clear_rates) or not blocked.shape[1]:
++        raise ValueError('Expected finite J-vector rates and nonempty boolean JxN cloud table')
++    return (~blocked)*np.maximum(clear_rates,0.)[:,None]
++
++
++def mission_results(settings, positions, winners, blocked, *, penalty=None, include_series=True):
++    rates=slot_table([r['K_star_raw'] for r in winners],blocked)
++    opt=settings['optimization'];mission=settings['mission'];slots=rates.shape[1]
++    threshold=scalar(opt['K_min_bits_per_use'],'availability threshold',positive=True)
++    penalty=opt['positive_lambda_bits_per_use'] if penalty is None else scalar(penalty,'lambda',nonnegative=True)
++    stationary,means=best_stationary(rates)
++    kwargs=dict(slot_duration_s=mission['slot_duration_s'],max_speed_m_per_s=mission['max_speed_m_per_s'],reference_distance_m=opt['reference_distance_m'])
++    moving=optimize_trajectory(rates,positions,penalty_bits_per_use=0.,**kwargs)
++    regularized=optimize_trajectory(rates,positions,penalty_bits_per_use=penalty,**kwargs)
++    reference=settings['geometry']['reference_position_index']
++    paths=[np.full(slots,reference,dtype=int),np.full(slots,stationary,dtype=int),moving['path'],regularized['path']]
++    if means[stationary]+1e-12<means[reference] or moving['average_skr']+1e-12<means[stationary] or regularized['penalized_objective']+1e-12<means[stationary]:
++        raise ValueError('P2/P3 dominance failed')
++    summaries=[];series=[]
++    for scheme,path in zip(SCHEMES,paths):
++        selected=rates[path,np.arange(slots)];coordinates=positions[path]
++        legs=np.r_[0.,np.linalg.norm(np.diff(coordinates,axis=0),axis=1)]
++        if np.max(legs)>kwargs['slot_duration_s']*kwargs['max_speed_m_per_s']+1e-10:raise ValueError('Infeasible trajectory')
++        distance=float(legs.sum());mean=float(selected.mean());own_lambda=penalty if scheme=='S4' else 0.
++        summaries.append(dict(scheme=scheme,average_skr_bits_per_use=mean,availability=float(np.mean(selected>=threshold)),
++            K_min_bits_per_use=threshold,total_flight_distance_m=distance,lambda_bits_per_use=own_lambda,
++            penalized_objective_bits_per_use=mean-own_lambda*distance/opt['reference_distance_m'],
++            objective_at_common_positive_lambda=mean-penalty*distance/opt['reference_distance_m'],
++            initial_position_index=int(path[0]),final_position_index=int(path[-1]),max_transition_m=float(legs.max())))
++        if include_series:
++            cumulative=np.cumsum(selected)/slots
++            for n,j in enumerate(path):
++                source=winners[int(j)];active=not bool(blocked[j,n])
++                series.append(dict(scheme=scheme,slot=n+1,slot_end_s=(n+1)*mission['slot_duration_s'],position_index=int(j),
++                    x_m=float(positions[j,0]),y_m=float(positions[j,1]),blocked=not active,source_active=active,
++                    clear_raw_skr=source['K_star_raw'],usable_skr=float(selected[n]),available=bool(selected[n]>=threshold),
++                    nu_raw=source['nu_raw'],V_A=source['V_A'],mean_photons=source['V_A']/2,
++                    ensemble_hash=source['ensemble_hash'],objective_key=source['objective_key'],leg_distance_m=float(legs[n]),
++                    cumulative_normalized_skr=float(cumulative[n])))
++    baseline=summaries[0]['average_skr_bits_per_use']
++    for row in summaries:
++        delta=row['average_skr_bits_per_use']-baseline
++        row.update(improvement_vs_reference_absolute=delta,improvement_vs_reference_percent=100*delta/baseline if baseline>0 else None,
++                   improvement_percent_status='DEFINED' if baseline>0 else 'UNDEFINED_ZERO_REFERENCE')
++    return summaries,series
++
++
++def cloud_scenarios(settings):
++    cloud=settings['cloud'];base=(cloud['probability'],cloud['correlation_length_m'],cloud['temporal_rho'])
++    scenarios=[]
++    def add(values,axis):
++        if values not in [r['parameters'] for r in scenarios]:
++            scenarios.append(dict(scenario_id=len(scenarios),axis=axis,parameters=values,
++                probability=values[0],correlation_length_m=values[1],temporal_rho=values[2]))
++    add(base,'default')
++    for p in settings['sweeps']['probability']:add((p,base[1],base[2]),'probability')
++    for ell in settings['sweeps']['correlation_length_m']:add((base[0],ell,base[2]),'spatial')
++    for rho in settings['sweeps']['temporal_rho']:add((base[0],base[1],rho),'temporal')
++    return scenarios
++
++
++def grouped_statistics(rows, group_fields, metric_fields):
++    groups={}
++    for row in rows:groups.setdefault(tuple(row[k] for k in group_fields),[]).append(row)
++    output=[]
++    for key,group in groups.items():
++        for metric in metric_fields:
++            output.append(dict(zip(group_fields,key),metric=metric,**mean_statistics([r[metric] for r in group])))
++    return output
+diff --git a/paper_uav_hap_cvqkd/scripts/run_binary_cloud_skr_experiment.py b/paper_uav_hap_cvqkd/scripts/run_binary_cloud_skr_experiment.py
+new file mode 100644
+index 0000000..5cfaaf7
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/run_binary_cloud_skr_experiment.py
+@@ -0,0 +1,271 @@
++"""Approved synthetic binary-cloud diagnostic; preserves old experiments."""
++from __future__ import annotations
++import argparse
++from datetime import datetime, timezone
++import json
++from pathlib import Path
++import subprocess
++import sys
++import time
++import numpy as np
++
++ROOT=Path(__file__).resolve().parents[1]
++if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from src.binary_cloud import generate_cloud, correlation_audit
++from src.binary_cloud_skr import (STATUS,load_clear_bank,validate_settings,mission_results,
++                                 cloud_scenarios,grouped_statistics,slot_table)
++from src.uav_mobility import optimize_trajectory
++
++DEFAULT=ROOT/'results/binary_cloud_skr_20261015'
++CONFIG=ROOT/'configs/binary_cloud_skr_demo.json'
++PRODUCERS=('src/binary_cloud.py','src/binary_cloud_skr.py',
++    'scripts/run_binary_cloud_skr_experiment.py','tests/test_binary_cloud.py','tests/test_binary_cloud_skr.py')
++METRICS=('average_skr_bits_per_use','availability','total_flight_distance_m','penalized_objective_bits_per_use')
++
++
++def producers():return {p:saved.digest(ROOT/p) for p in PRODUCERS}
++
++
++def verify_protected(output):
++    return saved.verify_protected(saved.read_json(Path(output)/'startup_manifest.json'))
++
++
++def ensure_startup(output):
++    output=Path(output);output.mkdir(parents=True,exist_ok=True)
++    if (output/'startup_manifest.json').exists():return
++    hashes={}
++    for folder in ('src','scripts','configs','tests','results'):
++        for path in (ROOT/folder).rglob('*'):
++            if path.is_file() and '__pycache__' not in path.parts and '.pytest_cache' not in path.parts and not path.is_relative_to(output):
++                hashes[path.relative_to(ROOT).as_posix()]=saved.digest(path)
++    for p in ('docs/FINAL_MODEL_SPEC.md','docs/SECURITY_SCOPE_FREEZE.md','docs/NUMERICAL_CONVERGENCE_PREREGISTRATION.md'):
++        hashes[p]=saved.digest(ROOT/p)
++    saved.save(output/'startup_manifest.json',dict(schema='binary-cloud-startup-v1',
++        created_utc=datetime.now(timezone.utc).isoformat(),protected_hashes=hashes,
++        branch=subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip(),
++        HEAD=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
++        git_status=subprocess.check_output(['git','-c','core.longpaths=true','status','--short','--branch'],cwd=ROOT,text=True),
++        frozen_sha256=hashes['docs/FINAL_MODEL_SPEC.md'],frozen_historical_discrepancy=True,
++        scope='Explicitly approved preliminary binary-cloud diagnostic; no publication/security promotion',
++        lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS'),exclusive=True)
++
++
++def identity(settings):return dict(settings=settings,producers=producers(),scope=STATUS)
++
++
++def bind_inputs(output,settings):
++    expected=identity(settings);path=output/'inputs.json'
++    if path.exists():
++        if saved.read_json(path)!=expected:raise ValueError('Input/producer identity changed; choose a new output namespace')
++    else:saved.save(path,expected,exclusive=True)
++    return expected
++
++
++def audit(output,settings):
++    ensure_startup(output);verify_protected(output)
++    inputs=bind_inputs(output,settings)
++    if (output/'audit_receipt.json').exists():raise ValueError('Audit already completed; preserve it')
++    bank=load_clear_bank(settings,saved.read_json(output/'startup_manifest.json')['protected_hashes'])
++    saved.save(output/'clear_channel_states.json',bank['states'])
++    saved.write_csv(output/'clear_candidate_evaluations.csv',bank['rows'])
++    saved.write_csv(output/'cache_reuse_audit.csv',bank['reuse'])
++    saved.write_csv(output/'clear_winners.csv',[r for family in bank['winners'].values() for r in family])
++    saved.write_csv(output/'source_roster.csv',[{k:c[k] for k in ('family','nu_raw','nu_repo','V_A','C','w','ensemble_hash','source_cache_key','canonical_source_cache_key','source_path')} for group in bank['sources'].values() for c in group])
++    saved.write_csv(output/'positions.csv',[dict(position_index=j,x_m=p[0],y_m=p[1]) for j,p in enumerate(bank['positions'])])
++    spread=[]
++    for family,winners in bank['winners'].items():
++        values=np.array([r['K_star'] for r in winners])
++        spread.append(dict(family=family,minimum=float(values.min()),maximum=float(values.max()),mean=float(values.mean()),
++            population_sd=float(values.std()),CV=float(values.std()/values.mean()) if values.mean() else None,
++            range_over_mean=float(np.ptp(values)/values.mean()) if values.mean() else None,
++            distinct_source_pairs=len({(r['nu_raw'],r['V_A']) for r in winners})))
++    saved.write_csv(output/'clear_sky_spatial_variation.csv',spread)
++    omissions=[]
++    for family,group in bank['winners'].items():
++        for j,row in enumerate(group):
++            m1=bank['states'][j]['moments']['mean_eta'];t=row['T_eff'];va=row['V_A']
++            omissions.append(dict(family=family,position_index=j,V_A=va,T_eff=t,mean_eta=m1,adopted_noise=t*.0186,
++                omitted_fading_variance=(m1-t)*va,omitted_channel_noise_difference=(m1-t)*.0186,
++                full_fading_security='NOT_ESTABLISHED'))
++    saved.write_csv(output/'fading_omission_audit.csv',omissions)
++    statistics=correlation_audit(bank['positions'])
++    saved.save(output/'correlation_audit.json',statistics)
++    if statistics['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Cloud statistics failed')
++    receipt=dict(bank['audit'],input_sha256=saved.hash_json(inputs),protected_changes=verify_protected(output),
++                 correlation_audit_sha256=saved.digest(output/'correlation_audit.json'),
++                 output_sha256={n:saved.digest(output/n) for n in ('clear_channel_states.json','clear_candidate_evaluations.csv',
++                    'clear_winners.csv','source_roster.csv','positions.csv','cache_reuse_audit.csv','clear_sky_spatial_variation.csv','correlation_audit.json','fading_omission_audit.csv')})
++    saved.save(output/'audit_receipt.json',receipt,exclusive=True)
++    print('AUDIT_COMPLETE',len(bank['rows']),'clear rows; cloud statistics',statistics['status'],flush=True)
++
++
++def load_winners(output):
++    from src.binary_cloud_skr import read_csv
++    rows=read_csv(output/'clear_winners.csv');groups={family:[] for family in ('MB','Uniform')}
++    numeric=('nu_raw','V_A','C','w','K_star_raw','K_star','SKR','I_AB','chi_BE','T_eff','xi_eff','N_eff','a','b','Z_star','lambda_1','lambda_2','lambda_3')
++    for row in rows:
++        for name in numeric:row[name]=float(row[name])
++        row['position_index']=int(row['position_index']);groups[row['family']].append(row)
++    for rows in groups.values():
++        rows.sort(key=lambda r:r['position_index'])
++        if [r['position_index'] for r in rows]!=list(range(100)):raise ValueError('Winner positions incomplete')
++    return groups
++
++
++def require_stage(output,settings,stage):
++    if saved.read_json(output/'inputs.json')!=identity(settings):raise ValueError('Producer/config identity changed')
++    if saved.read_json(output/stage)['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Previous stage did not pass')
++    verify_protected(output)
++
++
++def smoke(output,settings):
++    require_stage(output,settings,'audit_receipt.json')
++    if (output/'smoke_receipt.json').exists():raise ValueError('Smoke already complete')
++    from src.binary_cloud_skr import load_sources,clear_state,read_csv
++    import torch
++    torch.set_num_threads(1)
++    hashes=saved.read_json(output/'startup_manifest.json')['protected_hashes']
++    groups,config,_=load_sources(settings,hashes);positions=validate_settings(settings)
++    cached={(r['family'],int(r['position_index']),r['ensemble_hash']):float(r['SKR']) for r in read_csv(output/'clear_candidate_evaluations.csv')}
++    selected={'MB':{(.165,5.5),(.17,5.046875),(.2,1.3833230302980657)},'Uniform':{(0.,.5),(0.,1.),(0.,1.25)}}
++    began=time.perf_counter();rows=[]
++    for family in groups:
++        candidates=[c for c in groups[family] if (c['nu_raw'],c['V_A']) in selected[family]]
++        if len(candidates)!=3:raise ValueError('Smoke candidates missing')
++        for j in (0,9,44,90,99):
++            state=clear_state(settings,positions[j],j)
++            for candidate in candidates:
++                result=saved.evaluate_authenticated(candidate,state['moments'],config,hashes)
++                residual=abs(result['SKR']-cached[family,j,candidate['ensemble_hash']])
++                if residual>1e-11:raise ValueError('Fresh clear evaluator and cache disagree')
++                rows.append(dict(family=family,position_index=j,nu_raw=candidate['nu_raw'],V_A=candidate['V_A'],
++                    ensemble_hash=candidate['ensemble_hash'],SKR=result['SKR'],I_AB=result['I_AB'],chi_BE=result['chi_BE'],residual=residual))
++    saved.write_csv(output/'smoke_evaluations.csv',rows)
++    saved.save(output/'smoke_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',clear_evaluations=len(rows),
++        elapsed_seconds=time.perf_counter()-began,maximum_residual=max(r['residual'] for r in rows),
++        producer_sha256=producers(),protected_changes=verify_protected(output),new_source_moments=0,blocked_evaluations=0),exclusive=True)
++    print('SMOKE_COMPLETE',len(rows),flush=True)
++
++
++def experiment(output,settings):
++    require_stage(output,settings,'smoke_receipt.json')
++    tests=saved.read_json(output/'test_receipt.json')
++    if tests['status']!='CURRENTLY_VERIFIED_PASS' or tests['producers']!=producers():raise ValueError('Current scoped tests required')
++    if (output/'experiment_receipt.json').exists():raise ValueError('Completed experiment is immutable')
++    positions=validate_settings(settings);winners=load_winners(output);scenarios=cloud_scenarios(settings)
++    cloud=settings['cloud'];mission=settings['mission'];opt=settings['optimization'];count=cloud['realizations'];slots=mission['slots']
++    shape=(len(scenarios),count,2,4,slots)
++    clouds=np.zeros((len(scenarios),count,len(positions),slots),dtype=bool);paths=np.zeros(shape,dtype=np.int16)
++    checkpoint=output/'checkpoint.json';summaries=[];demo=[];completed=0;began=time.perf_counter()
++    partial=output/'partial_state.npz';journal=output/'partial_summary.json'
++    if checkpoint.exists():
++        state=saved.read_json(checkpoint)
++        if state['input_sha256']!=saved.hash_json(identity(settings)):raise ValueError('Resume identity changed')
++        saved_state=np.load(partial,allow_pickle=False)
++        if str(saved_state['input_sha256'])!=saved.hash_json(identity(settings)):raise ValueError('Committed partial identity changed')
++        completed=int(saved_state['completed_scenarios'])
++        clouds[:]=saved_state['clouds'];paths[:]=saved_state['paths']
++        summaries=json.loads(str(saved_state['summaries_json']))
++    for scenario in scenarios[completed:]:
++        sid=scenario['scenario_id'];p,ell,rho=scenario['parameters']
++        for realization in range(count):
++            blocked=generate_cloud(positions,slots,p,ell,rho,cloud['seed'],realization);clouds[sid,realization]=blocked
++            for f,family in enumerate(('MB','Uniform')):
++                summary,series=mission_results(settings,positions,winners[family],blocked,include_series=True)
++                for k,scheme in enumerate(('S1','S2','S3','S4')):
++                    group=[r for r in series if r['scheme']==scheme]
++                    paths[sid,realization,f,k]=[r['position_index'] for r in group]
++                meta=dict(scenario_id=sid,probability=p,correlation_length_m=ell,temporal_rho=rho,
++                          realization_id=realization,family=family,cloud_blocked_fraction=float(blocked.mean()))
++                summaries.extend(dict(meta,**r) for r in summary)
++                if sid==0 and realization==0:demo.extend(dict(meta,**r) for r in series)
++        # Checkpoints are at complete scenarios; incomplete scenarios are safely replayed on resume.
++        temp=partial.with_suffix('.tmp.npz')
++        np.savez_compressed(temp,clouds=clouds,paths=paths,completed_scenarios=sid+1,
++            summaries_json=json.dumps(summaries,allow_nan=False),input_sha256=saved.hash_json(identity(settings)))
++        temp.replace(partial)
++        saved.save(checkpoint,dict(status='RUNNING',completed_scenarios=sid+1,total_scenarios=len(scenarios),
++            input_sha256=saved.hash_json(identity(settings)),elapsed_seconds=time.perf_counter()-began))
++        print('SCENARIO',sid+1,'/',len(scenarios),'p/ell/rho',p,ell,rho,flush=True)
++    # Reconstruct the designated first mission even after resuming a checkpoint.
++    if not demo:
++        for family in ('MB','Uniform'):
++            _,series=mission_results(settings,positions,winners[family],clouds[0,0])
++            demo.extend(dict(scenario_id=0,realization_id=0,family=family,**r) for r in series)
++    lambda_rows=[];lambda_paths=np.zeros((count,2,len(settings['sweeps']['lambda_bits_per_use']),slots),dtype=np.int16)
++    penalties=settings['sweeps']['lambda_bits_per_use']
++    default_index={(r['realization_id'],r['family'],r['scheme']):r for r in summaries if r['scenario_id']==0}
++    for realization in range(count):
++        for f,family in enumerate(('MB','Uniform')):
++            table=slot_table([r['K_star_raw'] for r in winners[family]],clouds[0,realization])
++            for k,penalty in enumerate(penalties):
++                if penalty in (0.,opt['positive_lambda_bits_per_use']):
++                    scheme='S3' if penalty==0. else 'S4';scheme_index=2 if penalty==0. else 3
++                    path=paths[0,realization,f,scheme_index];row=default_index[realization,family,scheme]
++                    metrics={name:row[name] for name in METRICS}
++                else:
++                    result=optimize_trajectory(table,positions,slot_duration_s=mission['slot_duration_s'],
++                        max_speed_m_per_s=mission['max_speed_m_per_s'],penalty_bits_per_use=penalty,reference_distance_m=opt['reference_distance_m'])
++                    path=result['path'];metrics=dict(average_skr_bits_per_use=result['average_skr'],availability=float(np.mean(result['rates']>=opt['K_min_bits_per_use'])),
++                        total_flight_distance_m=result['total_flight_distance_m'],penalized_objective_bits_per_use=result['penalized_objective'])
++                lambda_paths[realization,f,k]=path
++                lambda_rows.append(dict(realization_id=realization,family=family,lambda_bits_per_use=penalty,**metrics))
++            own=lambda_rows[-len(penalties):]
++            for a,b in zip(own,own[1:]):
++                if b['total_flight_distance_m']>a['total_flight_distance_m']+1e-8:raise ValueError('Flight increases with lambda')
++    np.savez_compressed(output/'cloud_states.npz',blocked=clouds)
++    np.savez_compressed(output/'trajectories.npz',paths=paths,lambda_paths=lambda_paths)
++    saved.save(output/'cloud_scenarios.json',scenarios)
++    saved.write_csv(output/'summary.csv',summaries);saved.write_csv(output/'scheme_time_series.csv',demo)
++    saved.write_csv(output/'lambda_sweep.csv',lambda_rows)
++    stats=grouped_statistics(summaries,('scenario_id','probability','correlation_length_m','temporal_rho','family','scheme'),METRICS)
++    saved.write_csv(output/'summary_statistics.csv',stats)
++    saved.write_csv(output/'lambda_statistics.csv',grouped_statistics(lambda_rows,('family','lambda_bits_per_use'),METRICS))
++    paired=[]
++    for scenario in scenarios:
++        sid=scenario['scenario_id']
++        lookup={(r['realization_id'],r['family'],r['scheme']):r for r in summaries if r['scenario_id']==sid}
++        for scheme in ('S1','S2','S3','S4'):
++            for realization in range(count):
++                for name,fa,sa,fb,sb in [('MB_minus_Uniform','MB',scheme,'Uniform',scheme),
++                                         ('MB_'+scheme+'_minus_S1','MB',scheme,'MB','S1')]:
++                    paired.append(dict(scenario_id=sid,scheme=scheme,contrast=name,realization_id=realization,
++                        **{metric:lookup[realization,fa,sa][metric]-lookup[realization,fb,sb][metric] for metric in METRICS}))
++    saved.write_csv(output/'paired_statistics.csv',grouped_statistics(paired,('scenario_id','scheme','contrast'),METRICS))
++    saved.save(checkpoint,dict(status='COMPLETE',completed_scenarios=len(scenarios),input_sha256=saved.hash_json(identity(settings))))
++    names=('cloud_states.npz','trajectories.npz','cloud_scenarios.json','summary.csv','scheme_time_series.csv','lambda_sweep.csv',
++           'summary_statistics.csv','lambda_statistics.csv','paired_statistics.csv')
++    receipt=dict(status='COMPUTED_PENDING_INDEPENDENT_VERIFICATION',scientific_status=STATUS,scenarios=len(scenarios),
++        missions_per_scenario=count,missions=len(scenarios)*count,DP_calls=len(scenarios)*count*4+count*2*(len(penalties)-2),
++        source_candidates={'MB':197,'Uniform':30},clear_rows_reused=22700,new_P1_evaluations=0,
++        elapsed_seconds=time.perf_counter()-began,new_source_moments=0,blocked_QKD_evaluations=0,
++        cloud_RNG='PCG64 SeedSequence([20261015,realization_id]); common innovations across configurations',
++        time_series_scope='Default scenario realization 0 only; all mission paths/cloud matrices preserved in NPZ',
++        producers=producers(),input_sha256=saved.hash_json(identity(settings)),protected_changes=verify_protected(output),
++        output_sha256={n:saved.digest(output/n) for n in names},lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS')
++    saved.save(output/'experiment_receipt.json',receipt,exclusive=True)
++    print('EXPERIMENT_COMPLETE',receipt['missions'],'missions',receipt['DP_calls'],'DP',flush=True)
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--stage',required=True,choices=('audit','smoke','experiment','export'))
++    parser.add_argument('--config',type=Path,default=CONFIG);parser.add_argument('--output',type=Path,default=DEFAULT)
++    args=parser.parse_args();output=args.output.resolve();settings=saved.read_json(args.config)
++    import torch
++    torch.set_num_threads(1)
++    try:
++        if args.stage=='audit':audit(output,settings)
++        elif args.stage=='smoke':smoke(output,settings)
++        elif args.stage=='experiment':experiment(output,settings)
++        else:
++            from scripts.plot_binary_cloud_skr_results import export
++            export(output,settings)
++    except Exception as error:
++        output.mkdir(parents=True,exist_ok=True)
++        saved.save(output/(args.stage+'_failure_receipt.json'),dict(status='FAILED',stage=args.stage,error=str(error),producers=producers()))
++        raise
++
++
++if __name__=='__main__':main()
+diff --git a/paper_uav_hap_cvqkd/scripts/verify_binary_cloud_skr_results.py b/paper_uav_hap_cvqkd/scripts/verify_binary_cloud_skr_results.py
+new file mode 100644
+index 0000000..13b85ae
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/verify_binary_cloud_skr_results.py
+@@ -0,0 +1,259 @@
++"""Saved-data verification; no AP, no QKD evaluator, no old-output mutation."""
++from __future__ import annotations
++import argparse
++import json
++import math
++from pathlib import Path
++import re
++import sys
++import zipfile
++import numpy as np
++from scipy.stats import t
++ROOT=Path(__file__).resolve().parents[1]
++if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from scripts.run_binary_cloud_skr_experiment import (DEFAULT,producers,verify_protected,load_winners,METRICS,identity)
++from src.binary_cloud import generate_cloud
++from src.binary_cloud_skr import (read_csv,validate_settings,load_sources,validate_result,covariance_check,
++                                  select_winner,STATUS,cloud_scenarios)
++
++
++def optimal_value(table,distance,feasible,penalty,reference):
++    """Independent value-only Bellman check; does not call the trajectory solver."""
++    values=table[:,0]/table.shape[1]
++    costs=penalty*distance/reference
++    for n in range(1,table.shape[1]):
++        values=table[:,n]/table.shape[1]+np.max(np.where(feasible,values[:,None]-costs,-np.inf),axis=0)
++    return float(values.max())
++
++
++def path_metrics(path,table,positions,distance,speed_limit,threshold,penalty,reference):
++    path=np.asarray(path)
++    if path.ndim!=1 or len(path)!=table.shape[1] or not np.issubdtype(path.dtype,np.integer) or (path<0).any() or (path>=len(positions)).any():
++        raise ValueError('Invalid discrete path')
++    legs=distance[path[:-1],path[1:]]
++    if (legs>speed_limit+1e-10).any():raise ValueError('Speed violation')
++    values=table[path,np.arange(len(path))];flight=float(legs.sum());mean=float(values.mean())
++    return dict(average_skr_bits_per_use=mean,availability=float(np.mean(values>=threshold)),total_flight_distance_m=flight,
++                penalized_objective_bits_per_use=mean-penalty*flight/reference)
++
++
++def stationary_gap(path,means):
++    if not np.all(path==path[0]):raise ValueError('P2 path is not stationary')
++    gap=float(means.max()-means[int(path[0])])
++    # C/F-contiguous summation can differ by a few ULPs for symmetric grid cells.
++    if gap>8*np.spacing(float(means.max())):raise ValueError('P2 stationary maximum failed')
++    return gap
++
++
++def assert_metrics(stored,expected):
++    for name,value in expected.items():
++        if not math.isclose(float(stored[name]),value,abs_tol=2e-12,rel_tol=2e-12):
++            raise ValueError(f'Metric mismatch: {name}: {stored[name]} != {value}')
++
++
++def verify_statistics(path,rows,group_fields):
++    groups={}
++    for row in rows:groups.setdefault(tuple(row[k] for k in group_fields),[]).append(row)
++    stats=read_csv(path)
++    if len(stats)!=len(groups)*len(METRICS):raise ValueError('Statistics coverage incomplete')
++    seen=set()
++    for row in stats:
++        key=tuple(row[k] for k in group_fields);metric=row['metric'];seen_key=(key,metric)
++        if metric not in METRICS or seen_key in seen:raise ValueError('Duplicate/unknown summary statistic')
++        seen.add(seen_key);values=np.array([float(r[metric]) for r in groups[key]])
++        mean=float(values.mean());sd=float(values.std(ddof=1));se=sd/math.sqrt(len(values));half=float(t.ppf(.975,len(values)-1))*se
++        assert_metrics(row,dict(mean=mean,sd=sd,se=se,ci95_low=mean-half,ci95_high=mean+half))
++        if int(row['realizations'])!=len(values):raise ValueError('Wrong independent mission count')
++
++
++def verify_plot_data(output,clouds,paths,winners,scenarios,stats):
++    checked=0;slots=paths.shape[-1];count=paths.shape[1]
++    for name,cumulative in (('figure_2_skr_time.csv',False),('figure_3_cumulative_normalized.csv',True)):
++        rows=read_csv(output/'plot_data'/name)
++        if len(rows)!=4*slots:raise ValueError('Time plotting coverage failed')
++        for row in rows:
++            k=int(row['scheme'][-1])-1;n=int(row['slot'])-1;trace=paths[0,:,0,k]
++            values=(~clouds[0,np.arange(count)[:,None],trace,np.arange(slots)[None,:]])*np.array([r['K_star'] for r in winners['MB']])[trace]
++            if cumulative:values=np.cumsum(values,axis=1)/slots
++            vector=values[:,n];mean=float(vector.mean());sd=float(vector.std(ddof=1));se=sd/math.sqrt(count);half=float(t.ppf(.975,count-1))*se
++            assert_metrics(row,dict(mean=mean,sd=sd,se=se,ci95_low=mean-half,ci95_high=mean+half));checked+=1
++    for row in read_csv(output/'plot_data/figure_1_cloud_paths.csv'):
++        n=int(row['slot'])-1;j=int(row['position_index'])
++        if row['record']=='cloud':
++            if (row['blocked']=='True')!=bool(clouds[0,0,j,n]):raise ValueError('Cloud snapshot plotting differs')
++        elif j!=int(paths[0,0,0,int(row['scheme'][-1])-1,n]):raise ValueError('Trajectory plotting differs')
++        checked+=1
++    default=scenarios[0]
++    expected={
++        'figure_4_lambda_tradeoff.csv':read_csv(output/'lambda_statistics.csv'),
++        'figure_5_probability.csv':[r for r in stats if scenarios[int(r['scenario_id'])]['correlation_length_m']==default['correlation_length_m'] and scenarios[int(r['scenario_id'])]['temporal_rho']==default['temporal_rho']],
++        'figure_6_correlations.csv':[r for r in stats if scenarios[int(r['scenario_id'])]['probability']==default['probability']],
++        'figure_7_uniform_MB.csv':[r for r in stats if r['scenario_id']=='0']}
++    for name,rows in expected.items():
++        if read_csv(output/'plot_data'/name)!=rows:raise ValueError('Plotting subset changed: '+name)
++        checked+=len(rows)
++    for row in read_csv(output/'table_II_performance.csv'):
++        for metric in METRICS:
++            reference=next(r for r in stats if r['scenario_id']=='0' and r['family']==row['family'] and r['scheme']==row['scheme'] and r['metric']==metric)
++            for field in ('mean','sd','se','ci95_low','ci95_high'):
++                assert_metrics(row,{metric+'_'+field:float(reference[field])});checked+=1
++    return checked
++
++
++def verify(output, *, exports=False):
++    output=Path(output);inputs=saved.read_json(output/'inputs.json');settings=inputs['settings']
++    if inputs!=identity(settings):raise ValueError('Current producer/config identity differs')
++    verify_protected(output);audit=saved.read_json(output/'audit_receipt.json')
++    for name,h in audit['output_sha256'].items():
++        if saved.digest(output/name)!=h:raise ValueError('Audit output changed: '+name)
++    if saved.read_json(output/'correlation_audit.json')['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Correlation fixture failed')
++    manifest=saved.read_json(output/'startup_manifest.json')
++    sources,_,_=load_sources(settings,manifest['protected_hashes'])
++    states=saved.read_json(output/'clear_channel_states.json');winners=load_winners(output)
++    rows=read_csv(output/'clear_candidate_evaluations.csv');groups={}
++    numeric={'nu_raw','V_A','C','w','T_eff','xi_eff','N_eff','a','b','Z_star','Z_signal','Z_penalty',
++             'lambda_1','lambda_2','lambda_3','I_AB','beta_I_AB','chi_BE','SKR'}
++    source_lookup={(family,c['ensemble_hash']):c for family,group in sources.items() for c in group}
++    max_spectrum=max_entropy=0.;checked=0
++    for raw in rows:
++        row={k:float(v) if k in numeric else json.loads(v) if k in ('MI_orders','numerical_repairs') else v=='True' if k=='certified_fading_security_lower_bound' else v
++             for k,v in raw.items() if k not in ('family','position_index','objective_key','row_sha256')}
++        if saved.hash_json(row)!=raw['row_sha256']:raise ValueError('Imported numerical row no longer matches historical row hash')
++        family=raw['family'];j=int(raw['position_index']);candidate=source_lookup[family,row['ensemble_hash']]
++        validate_result(row,candidate,states[j]);check=covariance_check(row)
++        max_spectrum=max(max_spectrum,check['spectrum_residual']);max_entropy=max(max_entropy,check['entropy_residual'])
++        groups.setdefault((family,j),[]).append(row);checked+=1
++    if checked!=22700 or len(groups)!=200:raise ValueError('Incomplete clear candidate table')
++    for (family,j),group in groups.items():
++        if len(group)!=len(sources[family]) or len({r['ensemble_hash'] for r in group})!=len(group):raise ValueError('P1 catalog coverage failed')
++        best=select_winner(group);winner=winners[family][j]
++        if best['ensemble_hash']!=winner['ensemble_hash'] or winner['K_star_raw']!=best['SKR'] or winner['K_star']!=max(0.,best['SKR']):
++            raise ValueError('P1 maximum failed')
++    positions=validate_settings(settings);distance=np.linalg.norm(positions[:,None]-positions[None,:],axis=2)
++    mission=settings['mission'];opt=settings['optimization'];cloud=settings['cloud']
++    limit=mission['slot_duration_s']*mission['max_speed_m_per_s'];feasible=distance<=limit
++    scenarios=cloud_scenarios(settings)
++    if saved.read_json(output/'cloud_scenarios.json')!=json.loads(json.dumps(scenarios)):raise ValueError('Scenario specification changed')
++    clouds=np.load(output/'cloud_states.npz',allow_pickle=False)['blocked']
++    data=np.load(output/'trajectories.npz',allow_pickle=False);paths=data['paths'];lambda_paths=data['lambda_paths']
++    count=cloud['realizations'];slots=mission['slots']
++    if clouds.dtype!=np.bool_ or clouds.shape!=(len(scenarios),count,100,slots) or paths.shape!=(len(scenarios),count,2,4,slots):
++        raise ValueError('Cloud/path shapes failed')
++    summary=read_csv(output/'summary.csv');lookup={(int(r['scenario_id']),int(r['realization_id']),r['family'],r['scheme']):r for r in summary}
++    if len(lookup)!=len(scenarios)*count*8 or len(summary)!=len(lookup):raise ValueError('Summary coverage failed')
++    dp_checks=0;correlations=[];maximum_stationary_gap=0.
++    for scenario in scenarios:
++        sid=scenario['scenario_id'];p,ell,rho=scenario['parameters'];fractions=[]
++        for realization in range(count):
++            blocked=clouds[sid,realization]
++            if not np.array_equal(blocked,generate_cloud(positions,slots,p,ell,rho,cloud['seed'],realization)):raise ValueError('Cloud seed replay differs')
++            fractions.append(float(blocked.mean()))
++            for f,family in enumerate(('MB','Uniform')):
++                clear=np.array([r['K_star'] for r in winners[family]]);table=(~blocked)*clear[:,None]
++                if np.any(table[blocked]!=0):raise ValueError('Blocked usable SKR must be zero')
++                means=table.mean(axis=1);stationary=int(np.argmax(means))
++                for k,scheme in enumerate(('S1','S2','S3','S4')):
++                    path=paths[sid,realization,f,k];penalty=opt['positive_lambda_bits_per_use'] if scheme=='S4' else 0.
++                    metrics=path_metrics(path,table,positions,distance,limit,opt['K_min_bits_per_use'],penalty,opt['reference_distance_m'])
++                    stored=lookup[sid,realization,family,scheme];assert_metrics(stored,metrics)
++                    if float(stored['K_min_bits_per_use'])!=opt['K_min_bits_per_use']:raise ValueError('Availability threshold changed')
++                    baseline=float(lookup[sid,realization,family,'S1']['average_skr_bits_per_use']);delta=metrics['average_skr_bits_per_use']-baseline
++                    assert_metrics(stored,dict(improvement_vs_reference_absolute=delta))
++                    if baseline>0:assert_metrics(stored,dict(improvement_vs_reference_percent=100*delta/baseline))
++                    elif stored['improvement_vs_reference_percent']!='' or stored['improvement_percent_status']!='UNDEFINED_ZERO_REFERENCE':raise ValueError('Zero-reference improvement must be undefined')
++                    if k==0 and not (path==settings['geometry']['reference_position_index']).all():raise ValueError('S1 geometry changed')
++                    if k==1:maximum_stationary_gap=max(maximum_stationary_gap,stationary_gap(path,means))
++                    if k>=2:
++                        target=optimal_value(table,distance,feasible,penalty,opt['reference_distance_m']);dp_checks+=1
++                        if abs(metrics['penalized_objective_bits_per_use']-target)>1e-11:raise ValueError('Independent Bellman optimum mismatch')
++                if clear.min()>=opt['K_min_bits_per_use'] and not np.array_equal(table>=opt['K_min_bits_per_use'],~blocked):raise ValueError('Cloud-only availability identity failed')
++        fractions=np.array(fractions);se=float(fractions.std(ddof=1)/math.sqrt(count));residual=abs(float(fractions.mean())-p)
++        if residual>5*se+1e-12:raise ValueError('Mission-level blockage probability check failed')
++        correlations.append(dict(scenario_id=sid,configured_probability=p,empirical_probability=float(fractions.mean()),
++            independent_mission_SE=se,residual=residual,tolerance=5*se+1e-12,passed=True))
++        print('VERIFY_SCENARIO',sid+1,'/',len(scenarios),flush=True)
++    penalties=settings['sweeps']['lambda_bits_per_use'];lambda_rows=read_csv(output/'lambda_sweep.csv')
++    ll={(int(r['realization_id']),r['family'],float(r['lambda_bits_per_use'])):r for r in lambda_rows}
++    if len(ll)!=count*2*len(penalties) or len(ll)!=len(lambda_rows) or lambda_paths.shape!=(count,2,len(penalties),slots):raise ValueError('Lambda coverage failed')
++    for realization in range(count):
++        for f,family in enumerate(('MB','Uniform')):
++            table=(~clouds[0,realization])*np.array([r['K_star'] for r in winners[family]])[:,None];flights=[]
++            for k,penalty in enumerate(penalties):
++                metrics=path_metrics(lambda_paths[realization,f,k],table,positions,distance,limit,opt['K_min_bits_per_use'],penalty,opt['reference_distance_m'])
++                assert_metrics(ll[realization,family,penalty],metrics);flights.append(metrics['total_flight_distance_m'])
++                if penalty not in (0.,opt['positive_lambda_bits_per_use']):
++                    dp_checks+=1
++                    if abs(metrics['penalized_objective_bits_per_use']-optimal_value(table,distance,feasible,penalty,opt['reference_distance_m']))>1e-11:raise ValueError('Lambda Bellman optimum mismatch')
++            if np.any(np.diff(flights)>1e-8):raise ValueError('Penalty-flight monotonicity failed')
++    verify_statistics(output/'summary_statistics.csv',summary,('scenario_id','probability','correlation_length_m','temporal_rho','family','scheme'))
++    verify_statistics(output/'lambda_statistics.csv',lambda_rows,('family','lambda_bits_per_use'))
++    paired=[]
++    for sid in range(len(scenarios)):
++        for scheme in ('S1','S2','S3','S4'):
++            for realization in range(count):
++                for name,fa,sa,fb,sb in [('MB_minus_Uniform','MB',scheme,'Uniform',scheme),('MB_'+scheme+'_minus_S1','MB',scheme,'MB','S1')]:
++                    paired.append(dict(scenario_id=str(sid),scheme=scheme,contrast=name,
++                        **{metric:float(lookup[sid,realization,fa,sa][metric])-float(lookup[sid,realization,fb,sb][metric]) for metric in METRICS}))
++    verify_statistics(output/'paired_statistics.csv',paired,('scenario_id','scheme','contrast'))
++    demo=read_csv(output/'scheme_time_series.csv')
++    if len(demo)!=2*4*slots:raise ValueError('Demonstration time series incomplete')
++    for row in demo:
++        f=0 if row['family']=='MB' else 1;k=int(row['scheme'][-1])-1;n=int(row['slot'])-1;j=int(paths[0,0,f,k,n])
++        source=winners[row['family']][j];blocked=bool(clouds[0,0,j,n]);value=0. if blocked else source['K_star']
++        if int(row['position_index'])!=j or (row['blocked']=='True')!=blocked or (row['source_active']=='True')==blocked:raise ValueError('Time series state/source activity mismatch')
++        assert_metrics(row,dict(usable_skr=value,nu_raw=source['nu_raw'],V_A=source['V_A'],mean_photons=source['V_A']/2))
++        if (row['available']=='True')!=(value>=opt['K_min_bits_per_use']):raise ValueError('Time series availability failed')
++        trace=paths[0,0,f,k,:n+1];values=(~clouds[0,0,trace,np.arange(n+1)])*np.array([winners[row['family']][int(jj)]['K_star'] for jj in trace])
++        assert_metrics(row,dict(cumulative_normalized_skr=float(values.sum()/slots)))
++    receipt=saved.read_json(output/'experiment_receipt.json')
++    for name,h in receipt['output_sha256'].items():
++        if saved.digest(output/name)!=h:raise ValueError('Experiment output changed: '+name)
++    if receipt['producers']!=producers() or receipt['input_sha256']!=saved.hash_json(inputs):raise ValueError('Experiment identity changed')
++    exported=None
++    if exports:
++        from PIL import Image
++        export_receipt=saved.read_json(output/'export_receipt.json')
++        for name,h in export_receipt['producers'].items():
++            if saved.digest(ROOT/name)!=h:raise ValueError('Export producer changed: '+name)
++        plot_checks=verify_plot_data(output,clouds,paths,winners,scenarios,read_csv(output/'summary_statistics.csv'))
++        for name,h in export_receipt['output_sha256'].items():
++            if saved.digest(output/name)!=h:raise ValueError('Export changed: '+name)
++        for size,width in (('single',1050),('double',2148)):
++            for number in range(1,8):
++                stem=f'figure_{number}_{size}';png=output/'figures'/(stem+'.png');pdf=output/'figures'/(stem+'.pdf')
++                with Image.open(png) as picture:
++                    if picture.width!=width or abs(picture.info['dpi'][0]-300)>1:raise ValueError('PNG width/DPI failed')
++                raw=pdf.read_bytes()
++                if b'/Subtype /Image' in raw:raise ValueError('Raster image embedded in vector PDF')
++                box=re.search(rb'/MediaBox\s*\[\s*0\s+0\s+([\d.]+)',raw)
++                if not box or abs(float(box.group(1))-width/300*72)>1e-5:raise ValueError('PDF column width failed')
++        archive=output/'overleaf_binary_cloud.zip'
++        with zipfile.ZipFile(archive) as z:
++            for name in z.namelist():
++                if name.startswith('/') or '..' in Path(name).parts:raise ValueError('Unsafe archive path')
++                if z.read(name)!=(output/'overleaf'/name).read_bytes():raise ValueError('Archive member differs')
++        exported=dict(PNG_layouts=14,vector_PDFs=14,overleaf_members=len(z.namelist()),plot_data_checks=plot_checks,LaTeX_compile=export_receipt['LaTeX_compile'])
++    result=dict(status='CURRENTLY_VERIFIED_PASS',scope='Saved numerical tables and finite DP/export verification only',
++        scientific_status=STATUS,positions=100,clear_candidates_verified=checked,P1_maxima_verified=200,
++        missions=len(scenarios)*count,cloud_seed_replays=len(scenarios)*count,independent_Bellman_checks=dp_checks,
++        maximum_spectrum_residual=max_spectrum,maximum_entropy_residual=max_entropy,maximum_stationary_gap=maximum_stationary_gap,
++        statistical_uncertainty='Independent mission clusters; paired differences; t intervals for Monte Carlo means',
++        cloud_probability_checks=correlations,protected_changes=verify_protected(output),producers=producers(),
++        source_moments_generated=0,blocked_QKD_evaluations=0,new_scientific_evaluations=0,exports=exported,
++        verifier_sha256=saved.digest(Path(__file__)),
++        lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS',frozen_historical_discrepancy=True)
++    saved.save(output/('final_validation.json' if exports else 'saved_data_validation.json'),result)
++    print('VERIFIED',result['status'],dp_checks,'independent Bellman checks',flush=True)
++    return result
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=DEFAULT);parser.add_argument('--exports',action='store_true')
++    args=parser.parse_args()
++    try:verify(args.output,exports=args.exports)
++    except Exception as error:
++        saved.save(args.output/'verification_failure_receipt.json',dict(status='FAILED',error=str(error),exports=args.exports));raise
++
++
++if __name__=='__main__':main()
+diff --git a/paper_uav_hap_cvqkd/scripts/plot_binary_cloud_skr_results.py b/paper_uav_hap_cvqkd/scripts/plot_binary_cloud_skr_results.py
+new file mode 100644
+index 0000000..6331c81
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/plot_binary_cloud_skr_results.py
+@@ -0,0 +1,327 @@
++"""IEEE plots and manuscript assets from verified saved binary-cloud data only."""
++from __future__ import annotations
++import json
++import math
++from pathlib import Path
++import re
++import shutil
++import subprocess
++import zipfile
++import numpy as np
++import matplotlib
++matplotlib.use('Agg')
++import matplotlib.pyplot as plt
++from matplotlib.colors import ListedColormap
++from matplotlib.lines import Line2D
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from scripts.run_binary_cloud_skr_experiment import ROOT,identity,load_winners,verify_protected
++from src.binary_cloud import mean_statistics
++from src.binary_cloud_skr import read_csv,STATUS
++
++COLORS=['#2463a6','#d78019','#368259','#a64175']
++LABELS=['S1 Reference','S2 Stationary','S3 Moving, lambda=0','S4 Moving, penalty']
++CAPTIONS=[
++    'Binary cloud snapshots and MB UAV paths for the preregistered default realization 0. Dark cells are fully blocked links, indexed by UAV position; they are not geometric cloud footprints.',
++    'Mean per-slot diagnostic SKR for MB policies over 100 independent missions; shaded bands are 95% Monte Carlo t intervals for the mean.',
++    'Mean cumulative normalized SKR sum(S)/N_t. The endpoint equals mission-average SKR; it is not a finite-size key yield or a count of secret bits.',
++    'Mean MB SKR versus mean flight distance at the eight evaluated penalties. Lines connect evaluated points only and do not establish a continuous optimum.',
++    'Average MB SKR and threshold availability versus configured blockage probability; all policies share each mission cloud matrix. Bands are mission-level Monte Carlo intervals.',
++    'One-factor sensitivity to Gaussian latent spatial length and temporal AR(1) coefficient. Binary correlations differ from latent parameters; the other parameters retain their default values.',
++    'Paired MB and Uniform comparisons under the same four positioning policies and binary-cloud realizations. Each family optimizes its own exact finite source bank; selected energies can differ.']
++
++
++def column_style(size):
++    plt.rcParams.update({'font.family':'DejaVu Sans','font.size':7 if size=='single' else 9,
++        'axes.labelsize':7 if size=='single' else 9,'axes.titlesize':7 if size=='single' else 9,
++        'legend.fontsize':6 if size=='single' else 8,'xtick.labelsize':6 if size=='single' else 8,
++        'ytick.labelsize':6 if size=='single' else 8,'pdf.fonttype':42,'ps.fonttype':42,
++        'axes.spines.top':False,'axes.spines.right':False,'lines.linewidth':1.15})
++
++
++def export(output,settings):
++    output=Path(output)
++    if (output/'export_receipt.json').exists():raise ValueError('Completed exports are immutable')
++    verified=saved.read_json(output/'saved_data_validation.json')
++    if verified['status']!='CURRENTLY_VERIFIED_PASS' or saved.read_json(output/'inputs.json')!=identity(settings):
++        raise ValueError('Current saved-data verification required before export')
++    verify_protected(output)
++    figures=output/'figures';plots=output/'plot_data';package=output/'overleaf'
++    for path in (figures,plots,package,package/'figures'):path.mkdir(exist_ok=True)
++    cloud=np.load(output/'cloud_states.npz',allow_pickle=False)['blocked']
++    trajectories=np.load(output/'trajectories.npz',allow_pickle=False);paths=trajectories['paths']
++    winners=load_winners(output);positions=np.array([[float(r['x_m']),float(r['y_m'])] for r in read_csv(output/'positions.csv')])
++    scenarios=saved.read_json(output/'cloud_scenarios.json');stats=read_csv(output/'summary_statistics.csv');lambda_stats=read_csv(output/'lambda_statistics.csv')
++    slots=settings['mission']['slots'];dt=settings['mission']['slot_duration_s'];times=np.arange(1,slots+1)*dt
++    def metric(sid,family,scheme,name):
++        row=next(r for r in stats if int(r['scenario_id'])==sid and r['family']==family and r['scheme']==scheme and r['metric']==name)
++        return {k:float(row[k]) for k in ('mean','sd','se','ci95_low','ci95_high')}
++    def rates(sid,f,k):
++        family=('MB','Uniform')[f];indices=paths[sid,:,f,k]
++        blocked=cloud[sid,np.arange(len(indices))[:,None],indices,np.arange(slots)[None,:]]
++        return (~blocked)*np.array([r['K_star'] for r in winners[family]])[indices]
++    time_data=[];cumulative_data=[]
++    for k,scheme in enumerate(('S1','S2','S3','S4')):
++        values=rates(0,0,k);cumulative=np.cumsum(values,axis=1)/slots
++        for n in range(slots):
++            time_data.append(dict(scheme=scheme,slot=n+1,time_s=float(times[n]),**mean_statistics(values[:,n])))
++            cumulative_data.append(dict(scheme=scheme,slot=n+1,time_s=float(times[n]),**mean_statistics(cumulative[:,n])))
++    cloud_rows=[]
++    for n in (0,9,19,29):
++        for j,position in enumerate(positions):cloud_rows.append(dict(record='cloud',slot=n+1,position_index=j,x_m=position[0],y_m=position[1],blocked=bool(cloud[0,0,j,n])))
++        for k,scheme in enumerate(('S1','S2','S3','S4')):
++            for m,j in enumerate(paths[0,0,0,k,:n+1]):cloud_rows.append(dict(record='path',snapshot_slot=n+1,scheme=scheme,slot=m+1,position_index=int(j),x_m=positions[j,0],y_m=positions[j,1]))
++    saved.write_csv(plots/'figure_1_cloud_paths.csv',cloud_rows)
++    saved.write_csv(plots/'figure_2_skr_time.csv',time_data);saved.write_csv(plots/'figure_3_cumulative_normalized.csv',cumulative_data)
++    saved.write_csv(plots/'figure_4_lambda_tradeoff.csv',lambda_stats)
++    p_ids=[r['scenario_id'] for r in scenarios if r['correlation_length_m']==settings['cloud']['correlation_length_m'] and r['temporal_rho']==settings['cloud']['temporal_rho']]
++    correlation_ids=[r['scenario_id'] for r in scenarios if r['probability']==settings['cloud']['probability']]
++    saved.write_csv(plots/'figure_5_probability.csv',[r for r in stats if int(r['scenario_id']) in p_ids])
++    saved.write_csv(plots/'figure_6_correlations.csv',[r for r in stats if int(r['scenario_id']) in correlation_ids])
++    saved.write_csv(plots/'figure_7_uniform_MB.csv',[r for r in stats if int(r['scenario_id'])==0])
++    saved.write_csv(output/'figure_captions.csv',[dict(figure=i+1,caption=c,scientific_status=STATUS) for i,c in enumerate(CAPTIONS)])
++    for size,width in (('single',3.5),('double',7.16)):
++        column_style(size)
++        # Figure 1: binary masks at candidate links, no altitude projection/geometric clouds.
++        fig,axes=plt.subplots(2,2,figsize=(width,4.7 if size=='single' else 5.1))
++        for ax,n in zip(axes.flat,(0,9,19,29)):
++            ax.pcolormesh(np.arange(11)*100,np.arange(11)*100,cloud[0,0,:,n].reshape(10,10),cmap=ListedColormap(['#ecf2f7','#69747c']),vmin=0,vmax=1,shading='flat',rasterized=False)
++            for k in range(4):
++                trace=positions[paths[0,0,0,k,:n+1]]
++                ax.plot(trace[:,0],trace[:,1],color=COLORS[k],alpha=.85,linewidth=.85)
++                ax.scatter(*trace[-1],color=COLORS[k],marker=('s','^','o','x')[k],s=18,zorder=5)
++            ax.set(title=f'Slot {n+1} (t={n*dt:g} s)',xlabel='x (m)',ylabel='y (m)',xticks=[0,500,1000],yticks=[0,500,1000],xlim=(0,1000),ylim=(0,1000))
++            ax.set_aspect('equal')
++        handles=[Line2D([0],[0],color=COLORS[k],marker=('s','^','o','x')[k],label=LABELS[k]) for k in range(4)]
++        fig.legend(handles=handles,loc='lower center',ncol=2,bbox_to_anchor=(.5,.015),frameon=False)
++        fig.subplots_adjust(left=.14,right=.92,top=.94,bottom=.20,hspace=.65,wspace=.5)
++        save_figure(fig,figures,1,size)
++        for number,data,ylabel in ((2,time_data,'Mean SKR (bits/use)'),(3,cumulative_data,'Cumulative normalized SKR (bits/use)')):
++            fig,ax=plt.subplots(figsize=(width,2.9 if size=='single' else 3.1),layout='constrained')
++            for k,scheme in enumerate(('S1','S2','S3','S4')):
++                rows=[r for r in data if r['scheme']==scheme];mean=np.array([r['mean'] for r in rows])
++                ax.plot(times,mean,color=COLORS[k],label=LABELS[k],drawstyle='steps-post' if number==2 else 'default')
++                ax.fill_between(times,[r['ci95_low'] for r in rows],[r['ci95_high'] for r in rows],color=COLORS[k],alpha=.12,step='post' if number==2 else None)
++            ax.set(xlabel='Mission time (s)',ylabel=ylabel,xlim=(20,600));ax.grid(alpha=.18)
++            if number==2:ax.legend(loc='lower center',bbox_to_anchor=(.5,1.02),ncol=2,frameon=False)
++            else:ax.legend(loc='best',frameon=False)
++            save_figure(fig,figures,number,size)
++        fig,ax=plt.subplots(figsize=(width,2.9 if size=='single' else 3.1),layout='constrained')
++        penalties=settings['sweeps']['lambda_bits_per_use'];xs=[];ys=[];xe=[];ye=[]
++        for penalty in penalties:
++            x=next(r for r in lambda_stats if r['family']=='MB' and float(r['lambda_bits_per_use'])==penalty and r['metric']=='total_flight_distance_m')
++            y=next(r for r in lambda_stats if r['family']=='MB' and float(r['lambda_bits_per_use'])==penalty and r['metric']=='average_skr_bits_per_use')
++            xs.append(float(x['mean']));ys.append(float(y['mean']));xe.append(float(x['ci95_high'])-float(x['mean']));ye.append(float(y['ci95_high'])-float(y['mean']))
++        ax.errorbar(xs,ys,xerr=xe,yerr=ye,fmt='o-',markersize=3,capsize=2,color=COLORS[3],label='Eight evaluated penalties')
++        ax.annotate('lambda=0',(xs[0],ys[0]),xytext=(-5,-16),textcoords='offset points',ha='right',fontsize=6 if size=='single' else 8)
++        ax.annotate('lambda=0.05',(xs[-1],ys[-1]),xytext=(6,8),textcoords='offset points',fontsize=6 if size=='single' else 8)
++        ax.set(xlabel='Mean flight distance (m)',ylabel='Mean SKR (bits/use)');ax.grid(alpha=.18);ax.margins(.14);ax.legend(loc='best',frameon=False)
++        save_figure(fig,figures,4,size)
++        fig,axes=plt.subplots(2,1,figsize=(width,4.7 if size=='single' else 4.9),layout='constrained',sharex=True)
++        p_scenarios=sorted([r for r in scenarios if r['scenario_id'] in p_ids],key=lambda r:r['probability'])
++        for ax,name,ylabel in zip(axes,('average_skr_bits_per_use','availability'),('Mean SKR (bits/use)','QKD availability')):
++            for k,scheme in enumerate(('S1','S2','S3','S4')):
++                values=[metric(r['scenario_id'],'MB',scheme,name) for r in p_scenarios];x=[r['probability'] for r in p_scenarios]
++                ax.plot(x,[v['mean'] for v in values],'o-',markersize=2.5,color=COLORS[k],label=LABELS[k])
++                ax.fill_between(x,[v['ci95_low'] for v in values],[v['ci95_high'] for v in values],color=COLORS[k],alpha=.1)
++            ax.set_ylabel(ylabel);ax.grid(alpha=.18)
++        axes[0].legend(loc='best',frameon=False);axes[1].set(xlabel='Configured blockage probability p',ylim=(-.025,1.025))
++        save_figure(fig,figures,5,size)
++        fig,axes=plt.subplots(2,2,figsize=(width,5.5 if size=='single' else 4.9))
++        for col,(parameter,other,default,label) in enumerate((('correlation_length_m','temporal_rho',settings['cloud']['temporal_rho'],'Latent length (m)'),
++                ('temporal_rho','correlation_length_m',settings['cloud']['correlation_length_m'],'Latent AR(1) rho'))):
++            selected=sorted([r for r in scenarios if r['probability']==settings['cloud']['probability'] and r[other]==default],key=lambda r:r[parameter])
++            for row,name in enumerate(('average_skr_bits_per_use','availability')):
++                ax=axes[row,col]
++                for k,scheme in enumerate(('S1','S2','S3','S4')):
++                    values=[metric(r['scenario_id'],'MB',scheme,name) for r in selected];x=[r[parameter] for r in selected]
++                    ax.plot(x,[v['mean'] for v in values],'o-',markersize=2.2,color=COLORS[k])
++                    ax.fill_between(x,[v['ci95_low'] for v in values],[v['ci95_high'] for v in values],color=COLORS[k],alpha=.10)
++                ax.set_xlabel(label);ax.grid(alpha=.18)
++                if row==1:ax.set_ylim(0.,1.025)
++        axes[0,0].set_ylabel('Mean SKR (bits/use)');axes[1,0].set_ylabel('QKD availability')
++        fig.legend(handles=[Line2D([0],[0],color=COLORS[k],label=LABELS[k]) for k in range(4)],loc='lower center',ncol=2,frameon=False)
++        fig.subplots_adjust(left=.16,right=.98,top=.96,bottom=.18,hspace=.46,wspace=.47)
++        save_figure(fig,figures,6,size)
++        fig,axes=plt.subplots(2,1,figsize=(width,4.5 if size=='single' else 4.8),layout='constrained',sharex=True)
++        x=np.arange(4)
++        for ax,name,ylabel in zip(axes,('average_skr_bits_per_use','availability'),('Mean SKR (bits/use)','QKD availability')):
++            for family,offset,color in (('Uniform',-.18,'#929da7'),('MB',.18,COLORS[0])):
++                values=[metric(0,family,s,name) for s in ('S1','S2','S3','S4')]
++                ax.bar(x+offset,[v['mean'] for v in values],width=.34,color=color,label=family,
++                    yerr=[v['ci95_high']-v['mean'] for v in values],capsize=2,error_kw={'linewidth':.7})
++            ax.set_ylabel(ylabel);ax.grid(axis='y',alpha=.18)
++        axes[0].legend(frameon=False);axes[1].set(xticks=x,xticklabels=['Reference','Stationary','Moving 0','Moving penalty'],xlabel='Matched positioning policy',ylim=(0,1.05))
++        save_figure(fig,figures,7,size)
++    # Required clear-sky spatial sensitivity diagnostic, separate from the seven main figures.
++    column_style('double');fig,axes=plt.subplots(1,2,figsize=(7.16,3.2),layout='constrained')
++    for ax,family in zip(axes,('MB','Uniform')):
++        values=np.array([r['K_star'] for r in winners[family]]).reshape(10,10)
++        mesh=ax.pcolormesh(np.arange(11)*100,np.arange(11)*100,values,shading='flat',rasterized=False)
++        ax.set(title=family+' clear-sky SKR',xlabel='x (m)',ylabel='y (m)');ax.set_aspect('equal')
++        fig.colorbar(mesh,ax=ax,label='SKR (bits/use)')
++    fig.savefig(figures/'clear_sky_spatial_diagnostic.pdf');fig.savefig(figures/'clear_sky_spatial_diagnostic.png',dpi=300);plt.close(fig)
++    write_manuscript(output,settings,metric)
++    for path in figures.glob('figure_*.pdf'):shutil.copyfile(path,package/'figures'/path.name)
++    (package/'plot_data').mkdir(exist_ok=True)
++    for path in plots.glob('*.csv'):shutil.copyfile(path,package/'plot_data'/path.name)
++    for name in ('table_I_parameters.csv','table_II_performance.csv'):shutil.copyfile(output/name,package/name)
++    saved.save(package/'provenance.json',dict(scientific_status=STATUS,settings=settings,
++        experiment_receipt_sha256=saved.digest(output/'experiment_receipt.json'),
++        clear_source_audit_sha256=saved.digest(output/'audit_receipt.json'),new_source_moments=0))
++    compile_status='BLOCKED_BY_ENVIRONMENT';compiler=next((shutil.which(name) for name in ('pdflatex','tectonic') if shutil.which(name)),None)
++    compile_detail='No pdflatex or tectonic executable installed; manuscript page layout unverified.'
++    if compiler:
++        args=[compiler,'-interaction=nonstopmode','-halt-on-error','main.tex'] if Path(compiler).stem=='pdflatex' else [compiler,'main.tex']
++        completed=subprocess.run(args,cwd=package,capture_output=True,text=True,timeout=90)
++        (output/'latex_compile.log').write_text(completed.stdout+'\n'+completed.stderr,encoding='utf-8')
++        compile_status='CURRENTLY_VERIFIED_PASS' if completed.returncode==0 else 'FAILED'
++        compile_detail='Compiler exit '+str(completed.returncode)+'; rendered page review remains separate.'
++    for path in package.glob('*.tex'):
++        content=path.read_text(encoding='utf-8')
++        if content.count('{')!=content.count('}'):raise ValueError('Unbalanced TeX braces: '+path.name)
++        for reference in re.findall(r'\\(?:input|includegraphics)(?:\[[^]]*\])?\{([^}]+)\}',content):
++            target=package/reference
++            if not target.exists() and not target.with_suffix('.tex').exists():raise ValueError('Missing TeX path '+reference)
++    archive=output/'overleaf_binary_cloud.zip'
++    with zipfile.ZipFile(archive,'x',compression=zipfile.ZIP_DEFLATED) as z:
++        for path in sorted(package.rglob('*')):
++            if path.is_file():z.write(path,path.relative_to(package).as_posix())
++    names=[p.relative_to(output).as_posix() for folder in (figures,plots,package) for p in folder.rglob('*') if p.is_file()]
++    names+=['figure_captions.csv','table_I_parameters.csv','table_II_performance.csv','overleaf_binary_cloud.zip','NUMERICAL_RESULTS_REPORT_VI.md','tradeoff_metrics.json']
++    receipt=dict(status='CURRENTLY_VERIFIED_PASS',scope='Saved-data figure/table/TeX export only',scientific_status=STATUS,
++        main_figures=7,column_layouts=['single','double'],main_vector_PDFs=14,main_PNGs=14,
++        LaTeX_compile=compile_status,LaTeX_detail=compile_detail,LaTeX_lexical_paths='CURRENTLY_VERIFIED_PASS',
++        producers={n:saved.digest(ROOT/n) for n in ('scripts/plot_binary_cloud_skr_results.py','scripts/verify_binary_cloud_skr_results.py')},
++        output_sha256={n:saved.digest(output/n) for n in names},protected_changes=verify_protected(output))
++    saved.save(output/'export_receipt.json',receipt,exclusive=True)
++    print('EXPORT_COMPLETE',compile_status,flush=True)
++
++
++def save_figure(fig,directory,number,size):
++    fig.savefig(directory/f'figure_{number}_{size}.pdf')
++    fig.savefig(directory/f'figure_{number}_{size}.png',dpi=300)
++    plt.close(fig)
++
++
++def write_manuscript(output,settings,metric):
++    package=output/'overleaf';cloud=settings['cloud'];mission=settings['mission'];opt=settings['optimization']
++    parameters=[('HAP altitude',20000,'m'),('UAV altitude',1000,'m'),('UAV area side',1000,'m'),('Candidate positions',100,'count'),
++        ('MB exact sources',197,'count'),('Uniform exact sources',30,'count'),('Slots',mission['slots'],'count'),
++        ('Slot duration',mission['slot_duration_s'],'s'),('Mission realizations',cloud['realizations'],'count'),
++        ('Blockage probability',cloud['probability'],'probability'),('Latent spatial length',cloud['correlation_length_m'],'m'),
++        ('Latent temporal coefficient',cloud['temporal_rho'],'per slot'),('Maximum UAV speed',mission['max_speed_m_per_s'],'m/s'),
++        ('Reference flight distance',opt['reference_distance_m'],'m'),('Default movement penalty',opt['positive_lambda_bits_per_use'],'bits/use'),
++        ('Availability threshold',opt['K_min_bits_per_use'],'bits/use'),('Clear zenith transmittance',.92,'power ratio'),
++        ('Beam waist',settings['channel']['beam_waist_m'],'m'),('Receiver diameter',.55,'m'),('Reconciliation efficiency',.95,'ratio'),
++        ('Channel excess noise',.0186,'SNU'),('Detector efficiency',1.,'ideal'),('Detector excess noise',0.,'SNU')]
++    saved.write_csv(output/'table_I_parameters.csv',[dict(parameter=n,value=v,unit=u) for n,v,u in parameters])
++    performance=[]
++    for family in ('MB','Uniform'):
++        for scheme in ('S1','S2','S3','S4'):
++            row=dict(family=family,scheme=scheme)
++            for name in ('average_skr_bits_per_use','availability','total_flight_distance_m','penalized_objective_bits_per_use'):
++                for field,value in metric(0,family,scheme,name).items():row[name+'_'+field]=value
++            performance.append(row)
++    saved.write_csv(output/'table_II_performance.csv',performance)
++    table1=r'\begin{table}[t]\caption{Synthetic demonstration settings.}\label{tab:binary_settings}\centering\small\resizebox{\columnwidth}{!}{\begin{tabular}{lrl}\hline Parameter & Value & Unit\\\hline'+'\n'
++    table1+='\n'.join(f'{name} & {value:g} & {unit}'+r'\\' for name,value,unit in parameters)
++    table1+='\n'+r'\hline\end{tabular}}\end{table}'+'\n'
++    (package/'table_I_parameters.tex').write_text(table1,encoding='utf-8')
++    table2=r'\begin{table}[t]\caption{Default binary-cloud results: Monte Carlo mission means; SKR is a preliminary diagnostic functional.}\label{tab:binary_performance}\centering\small\resizebox{\columnwidth}{!}{\begin{tabular}{llrrrr}\hline Source & Policy & SKR & Objective & Avail. & Flight (m)\\\hline'+'\n'
++    table2+='\n'.join(f"{r['family']} & {r['scheme']} & {r['average_skr_bits_per_use_mean']:.5f} & {r['penalized_objective_bits_per_use_mean']:.5f} & {r['availability_mean']:.3f} & {r['total_flight_distance_m_mean']:.1f}"+r'\\' for r in performance)
++    table2+='\n'+r'\hline\end{tabular}}\end{table}'+'\n'
++    (package/'table_II_performance.tex').write_text(table2,encoding='utf-8')
++    method=r'''\section{Mobility-Aware HAP--UAV Source and Position Optimization}
++We use one UAV on 100 cell centers in a $1\,\mathrm{km}\times1\,\mathrm{km}$ region.
++The HAP and UAV altitudes are fixed at 20 km and 1 km. The reference cell is
++$(450,450)$ m and preserves the original 21.9393102292 km slant range.
++\subsection{Correlated Binary Link Blockage}
++Let $d_{ij}=\|\mathbf q_i-\mathbf q_j\|_2$ and $\Sigma_{ij}=\exp(-d_{ij}/\ell)$.
++With $LL^{\mathsf T}=\Sigma$ and independent standard normal vectors,
++\begin{align}
++\mathbf z_1&=L\boldsymbol\xi_1,\\
++\mathbf z_n&=\rho\mathbf z_{n-1}+\sqrt{1-\rho^2}L\boldsymbol\xi_n,\\
++c_{j,n}&=\mathbb{I}\{z_{j,n}<\Phi^{-1}(p)\}.
++\end{align}
++The synthetic default is $p=0.4$, $\ell=250$ m, $\rho=0.9$ per 20 s slot.
++The latent parameters are not Bernoulli correlation coefficients or measured meteorology.
++Complete cloud blockage gives zero usable rate without evaluating QKD formulas at zero transmittance.
++\subsection{Finite-Catalog Source Search and Positioning}
++For each fixed position the existing common-ensemble discrete-input MI and direct-$Z_\star$
++Holevo evaluator gives $K_j(c)=0.95 I_{AB,j}(c)-\chi_{BE,j}(c)$.
++P1 searches all 197 MB exact-source pairs, or the separate 30-source Uniform variance bank:
++\begin{align}
++K_j^\star&=\left[\max_{c\in\mathcal C_{\rm src}} K_j(c)\right]^+,\\
++S_{j,n}&=(1-c_{j,n})K_j^\star.
++\end{align}
++P2 selects the stationary location maximizing $N_t^{-1}\sum_n S_{j,n}$.
++P3 maximizes $N_t^{-1}\sum_n S_{j_n,n}-\lambda D_{\rm fly}/D_{\rm ref}$,
++with $D_{\rm fly}=\sum_{n=2}^{N_t}d_{j_{n-1},j_n}$ and
++$d_{j_{n-1},j_n}\le v_{\max}\Delta t$. Exact finite-grid dynamic programming uses
++\begin{align}
++F_1(j)&=S_{j,1}/N_t,\\
++F_n(j)&=S_{j,n}/N_t+\max_{i\in\mathcal N(j)}\{F_{n-1}(i)-\lambda d_{ij}/D_{\rm ref}\}.
++\end{align}
++Backtracking recovers the trajectory. Initial position is freely chosen before the mission;
++deployment, relocation interruptions, reacquisition and source-switching overhead are excluded.
++Availability $A=N_t^{-1}\sum_n\mathbb{I}\{S_{j_n,n}\ge K_{\min}\}$,
++with $K_{\min}=0.001$ bits/use, is an evaluation metric only.
++\subsection{Scientific Scope}
++All reported rates use the existing effective Gaussian diagnostic with
++$T_{\rm eff}=\mathbb E[\sqrt\eta]^2$ and $\xi_{\rm eff}=0.0186$ SNU.
++It omits fading-induced variance and does not establish a full fading-channel security bound,
++finite-size key yield, or an operational protocol. The distance penalty is not propulsion energy.
++Cloud schedules are known offline; optimality holds only on the finite source catalog and UAV grid.
++'''
++    (package/'optimization_section.tex').write_text(method,encoding='utf-8')
++    mb=[r for r in performance if r['family']=='MB'];s3=mb[2];s4=mb[3]
++    tradeoff=dict(S4_SKR_retained_ratio_of_means_percent=100*s4['average_skr_bits_per_use_mean']/s3['average_skr_bits_per_use_mean'],
++        S4_flight_reduction_ratio_of_means_percent=100*(1-s4['total_flight_distance_m_mean']/s3['total_flight_distance_m_mean']),
++        S4_mean_SKR=s4['average_skr_bits_per_use_mean'],S3_mean_SKR=s3['average_skr_bits_per_use_mean'],
++        S4_mean_flight_m=s4['total_flight_distance_m_mean'],S3_mean_flight_m=s3['total_flight_distance_m_mean'])
++    saved.save(output/'tradeoff_metrics.json',tradeoff)
++    numerical=r'''\section{Numerical Results}
++We evaluate 16 cloud configurations with 100 independent missions each, 30 slots per mission,
++and paired common Gaussian innovations across parameter sweeps. Source searches use 22,700
++authenticated clear-sky records; the different cloud model never reuses old cloud-dependent rates.
++Error bars describe Monte Carlo uncertainty of mission means, with variability computed between missions.
++S2 is selected separately for each mission using the full known cloud schedule; it is a hindsight
++stationary oracle rather than a single location frozen across independent future missions.
++Default mean MB rates for S1--S4 are @MEANS@ bits/use.
++S4 uses $\lambda=0.001$ bits/use and has mean flight distance @FLIGHT@ m.
++Uniform and MB optimize their own finite source banks, so their comparison includes different selected
++modulation energies and does not isolate shaping gain at matched energy.
++These results remain preliminary Gaussian diagnostics ignoring fading variance.
++\input{table_I_parameters}
++\input{table_II_performance}
++'''
++    numerical=numerical.replace('@MEANS@',', '.join(f"{r['average_skr_bits_per_use_mean']:.8f}" for r in mb)).replace('@FLIGHT@',f"{s4['total_flight_distance_m_mean']:.3f}")
++    for i,caption in enumerate(CAPTIONS,1):
++        numerical+='\n'+r'\begin{figure}[t]\centering'+f'\n'+r'\includegraphics[width=\columnwidth]{figures/figure_'+str(i)+r'_single.pdf}'+'\n'+r'\caption{'+caption.replace('_',r'\_')+r'}\label{fig:binary_'+str(i)+r'}\end{figure}'+'\n'
++    (package/'numerical_results_section.tex').write_text(numerical,encoding='utf-8')
++    main=r'''\documentclass[conference]{IEEEtran}
++\usepackage{graphicx,amsmath,amssymb,url}
++\begin{document}
++\title{Preliminary Binary-Cloud-Aware HAP--UAV CV-QKD Numerical Study}
++\author{Diagnostic export for review}
++\maketitle
++\input{optimization_section}
++\input{numerical_results_section}
++\end{document}
++'''
++    (package/'main.tex').write_text(main,encoding='utf-8')
++    (package/'README_VI.md').write_text('Upload toàn bộ thư mục này lên Overleaf; chọn main.tex. Cần IEEEtran, graphicx, amsmath, amssymb và url. Đây là kết quả minh họa sơ bộ, không phải chứng nhận bảo mật fading. Hai cỡ hình single/double được lưu; mặc định dùng single.\n',encoding='utf-8')
++    report='# Binary-cloud-aware joint UAV/source optimization\n\nNgày 2026-10-15. '+STATUS+'.\n\n'
++    report+='Đã dùng 16 cấu hình × 100 mission độc lập, 30 slot × 20 s; tổng 1.600 mission và 7.600 lượt DP. Tái sử dụng 19.700 MB + 3.000 Uniform clear-sky evaluations, không dùng hàng cloud cũ. Smoke 30 clear evaluations khớp cache; không tạo C,w/AP/AO mới.\n\n'
++    report+='| Nguồn | Scheme | Mean SKR (bits/use) | SD | Availability | Mean flight (m) | Mean objective |\n|---|---|---:|---:|---:|---:|---:|\n'
++    for r in performance:report+=f"| {r['family']} | {r['scheme']} | {r['average_skr_bits_per_use_mean']:.10f} | {r['average_skr_bits_per_use_sd']:.6f} | {r['availability_mean']:.6f} | {r['total_flight_distance_m_mean']:.3f} | {r['penalized_objective_bits_per_use_mean']:.10f} |\n"
++    report+='\nS4 giữ '+format(tradeoff['S4_SKR_retained_ratio_of_means_percent'],'.6f')+'% SKR trung bình S3 và giảm '+format(tradeoff['S4_flight_reduction_ratio_of_means_percent'],'.6f')+'% quãng bay trung bình (tỷ số các mean, không phải mean của tỷ số từng mission).\n\n'
++    report+='Cloud tổng hợp: p=0.4, ell=250 m, rho=0.9; PCG64 SeedSequence([20261015, realization_id]). Covariance latent exp(-d/ell), khởi tạo dừng, threshold Phi^-1(p). Ell/rho không phải correlation Bernoulli. Không cloud radius, velocity hoặc phép chiếu độ cao mây. Gong et al. (2020), DOI 10.1109/LWC.2019.2958804, chỉ là bối cảnh network availability, không phải nguồn hiệu chuẩn kernel này.\n\n'
++    report+='P1 tối ưu đúng catalog theo vị trí một lần; P2 chọn mean cao nhất; P3 dùng DP sẵn có. S5 là Uniform ghép đủ bốn chính sách. K_min=0.001 bits/use chỉ dùng đánh giá, không điều khiển quỹ đạo. Vị trí đầu tự chọn; lambda=0.001 bits/use, D_ref=1000 m, tốc độ 15 m/s. Bỏ deployment, travel-time interruption, optical reacquisition và switching overhead. HAP 20 km/UAV 1 km, reference index44=(450,450)m giữ L_ref=21.9393102292km.\n\n'
++    report+='Dữ liệu đầy đủ: [summary.csv](summary.csv), [mission statistics](summary_statistics.csv), [paired differences](paired_statistics.csv), [lambda statistics](lambda_statistics.csv), [cloud matrices](cloud_states.npz), [trajectories](trajectories.npz), [clear sources](clear_winners.csv), [source roster](source_roster.csv), [cache reuse](cache_reuse_audit.csv). CSV per-slot minh họa chỉ cho default realization0; mọi mission khác tái dựng từ NPZ. Realization0 được chọn trước, không chọn theo gain.\n\n'
++    report+='S2 chọn riêng vị trí cố định cho từng mission với toàn bộ lịch cloud biết trước; đây là stationary oracle hindsight, không phải một vị trí được freeze rồi kiểm tra trên mission tương lai. Với horizon30 slot và100 vị trí, selection theo lịch đã biết có thể cho availability rất cao.\n\nKhoảng tin cậy t 95% và SD/SE lấy giữa mission độc lập, không lấy từng cell/slot như mẫu độc lập. Khoảng t không cắt tại0/1 nên cận có thể vượt miền availability; point estimate vẫn nằm trong[0,1]. Common innovations giúp so sánh ghép cặp giữa cấu hình; không gọi 1.600 mission độc lập giữa các cấu hình. Availability dùng >=K_min; nếu mọi clear rate đạt ngưỡng thì bằng tỷ lệ không blockage trên đường đi. Reference bằng0 có improvement phần trăm để trống, vẫn lưu delta tuyệt đối.\n\n'
++    report+='[Clear-sky spatial variation](clear_sky_spatial_variation.csv) và [bản đồ](figures/clear_sky_spatial_diagnostic.png) mô tả độ biến thiên nguồn/kênh trong vùng1km. [Fading omission audit](fading_omission_audit.csv) tách (mean_eta-T_eff)VA và (mean_eta-T_eff)xi_ch bị bỏ. Đánh giá dùng ideal heterodyne, beta=.95, xi=.0186, phase/adaptive optics OFF, cùng ensemble cho MI/Holevo direct Z_star. Đây không phải lower bound bảo mật fading đã xác lập, finite-size yield, matched-energy PS gain, tối ưu liên tục hay năng lượng đẩy.\n\n'
++    report+='Bảy hình có 14 vector PDF/14 PNG 300dpi và plotting CSV. Figure3 là sum(S)/N_t, không phải tổng bit khóa. Figure4 chỉ nối tám penalty đã tính. Không còn hình cloud velocity. LaTeX lexical/path kiểm tra riêng; trạng thái compiler trong export_receipt.json, không mặc nhiên coi bố cục manuscript đã đạt.\n\n'
++    report+='Tests:23 primary tests (20 mới và3 normalization cũ) cộng3 regression tests cho verifier. Sửa verifier chỉ để nhận tie vài ULP giữa các cell đối xứng; không đổi source/kênh/DP hoặc kết quả thí nghiệm.\n\nProvenance: startup_manifest.json, audit_receipt.json, correlation_audit.json, test_receipt.json, smoke_receipt.json, experiment_receipt.json, saved_data_validation.json, export_receipt.json và final_validation.json. LF/CRLF chỉ chấp nhận khi hash chứng minh cùng nội dung, payload/ensemble và historical objective key đều xác minh; không sửa artifacts cũ. Lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen-hash discrepancy và ObjectiveC USER_STOPPED giữ nguyên. Không training/test dataset access, publication evaluation, commit hoặc push.\n\n'
++    report+='Chạy từ root dự án bằng .venv-binary-cloud/Scripts/python.exe -B; runner scripts/run_binary_cloud_skr_experiment.py có --stage audit/smoke/experiment/export và --output. Lượt hoàn tất từ chối ghi đè; resume chỉ cùng input/producer, checkpoint nguyên tử theo scenario. Bộ kiểm tra: scripts/verify_binary_cloud_skr_results.py --exports. Môi trường hiện dùng system-site packages với packaging lấy offline từ pip-vendored copy trong venv riêng; không sửa Python hệ thống.\n'
++    (output/'NUMERICAL_RESULTS_REPORT_VI.md').write_text(report,encoding='utf-8')
+diff --git a/paper_uav_hap_cvqkd/configs/binary_cloud_skr_demo.json b/paper_uav_hap_cvqkd/configs/binary_cloud_skr_demo.json
+new file mode 100644
+index 0000000..2d96b4b
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/configs/binary_cloud_skr_demo.json
+@@ -0,0 +1,92 @@
++{
++  "schema": "binary-cloud-skr-v1",
++  "scientific_model": "effective_channel_no_fading_noise",
++  "scientific_status": "PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE",
++  "geometry": {
++    "h_hap_m": 20000,
++    "h_uav_m": 1000,
++    "grid_side_m": 1000,
++    "grid_cells_per_side": 10,
++    "reference_position_index": 44,
++    "hap_horizontal_m": [
++      11419.65511459133,
++      450
++    ],
++    "coordinate_origin": "Demonstration embedding: reference UAV (450,450) m, HAP along +x; slant distance matches the baseline, horizontal azimuth is not measured.",
++    "baseline_reference_distance_km": 21.9393102292
++  },
++  "channel": {
++    "clear_tau_zen": 0.92,
++    "clear_atmosphere_excludes_added_cloud_loss": true,
++    "receiver_radius_m": 0.275,
++    "beam_waist_m": 0.0986760647169751,
++    "R": 1,
++    "xi_det": 0,
++    "xi_ch": 0.0186,
++    "beta_rec": 0.95,
++    "phase_noise": "OFF",
++    "adaptive_optics": "OFF",
++    "cloud_conditioning": "multiply_raw_channel_then_condition_active_on_0_T_le_1_preserve_outage"
++  },
++  "cloud": {
++    "model": "stationary_gaussian_copula_ar1_complete_blockage",
++    "probability": 0.4,
++    "correlation_length_m": 250,
++    "temporal_rho": 0.9,
++    "seed": 20261015,
++    "realizations": 100,
++    "parameter_origin": "Synthetic link-state correlations indexed by actual UAV distances; not measured meteorology."
++  },
++  "mission": {
++    "slots": 30,
++    "slot_duration_s": 20,
++    "max_speed_m_per_s": 15
++  },
++  "optimization": {
++    "reference_distance_m": 1000,
++    "positive_lambda_bits_per_use": 0.001,
++    "K_min_bits_per_use": 0.001,
++    "initial_position_freely_selectable": true,
++    "deployment_cost_included": false,
++    "source_adaptation": "One exact finite-catalog optimum per position and source family, applied only when unblocked.",
++    "channel_use_rate_per_s": null
++  },
++  "sweeps": {
++    "probability": [
++      0,
++      0.1,
++      0.2,
++      0.4,
++      0.6,
++      0.8,
++      0.9,
++      1
++    ],
++    "correlation_length_m": [
++      50,
++      100,
++      250,
++      500,
++      1000
++    ],
++    "temporal_rho": [
++      0,
++      0.3,
++      0.6,
++      0.9,
++      0.98
++    ],
++    "lambda_bits_per_use": [
++      0,
++      0.0005,
++      0.001,
++      0.002,
++      0.005,
++      0.01,
++      0.02,
++      0.05
++    ]
++  },
++  "source_roster": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv",
++  "source_roster_receipt": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/figure_receipt.json"
++}
+diff --git a/paper_uav_hap_cvqkd/tests/test_binary_cloud.py b/paper_uav_hap_cvqkd/tests/test_binary_cloud.py
+new file mode 100644
+index 0000000..5842fe5
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/tests/test_binary_cloud.py
+@@ -0,0 +1,52 @@
++import unittest
++import numpy as np
++from src.binary_cloud import generate_cloud, spatial_covariance, bernoulli_correlation, correlation_audit, mean_statistics
++from src.uav_mobility import candidate_grid
++
++
++class BinaryCloudTests(unittest.TestCase):
++    def test_seed_binary_and_stationary_initialization(self):
++        p=candidate_grid()
++        first,z=generate_cloud(p,30,.4,250.,.9,return_latent=True)
++        second=generate_cloud(p,30,.4,250.,.9)
++        self.assertEqual(first.shape,(100,30));self.assertEqual(first.dtype,np.bool_)
++        np.testing.assert_array_equal(first,second)
++        self.assertFalse(np.array_equal(first,generate_cloud(p,30,.4,250.,.9,realization_id=1)))
++        _,z2=generate_cloud(p,30,.7,250.,.9,return_latent=True)
++        np.testing.assert_array_equal(z,z2)
++        self.assertTrue((first<=generate_cloud(p,30,.7,250.,.9)).all())
++
++    def test_probability_endpoints(self):
++        for p in (0.,1.):
++            c=generate_cloud([[0,0],[100,0]],3,p,250.,.9)
++            self.assertTrue((c==bool(p)).all())
++            self.assertIsNone(bernoulli_correlation(p,.5))
++
++    def test_covariance_uses_geographic_distances(self):
++        covariance,factor=spatial_covariance([[0,0],[100,0],[0,300]],250)
++        self.assertAlmostEqual(covariance[0,1],np.exp(-.4))
++        self.assertAlmostEqual(covariance[0,2],np.exp(-1.2))
++        np.testing.assert_allclose(factor@factor.T,covariance,atol=1e-14)
++        with self.assertRaises(np.linalg.LinAlgError):spatial_covariance([[0,0],[0,0]],250)
++
++    def test_threshold_correlation_integral(self):
++        self.assertAlmostEqual(bernoulli_correlation(.4,0.),0.,places=12)
++        self.assertAlmostEqual(bernoulli_correlation(.5,.7),2*np.arcsin(.7)/np.pi,places=11)
++        self.assertEqual(bernoulli_correlation(.4,1.),1.)
++        self.assertLess(bernoulli_correlation(.4,.8),.8)
++
++    def test_cluster_uncertainty_checks_512_independent_missions(self):
++        audit=correlation_audit(candidate_grid(),missions=512,slots=64)
++        self.assertEqual(audit['status'],'CURRENTLY_VERIFIED_PASS',audit['checks'])
++        for check in audit['checks']:self.assertTrue(check['passed'])
++
++    def test_invalid_parameters(self):
++        for p,ell,rho in ((-1,1,0),(.4,0,.9),(.4,2,1),(.4,2,-.1),(float('nan'),2,.9)):
++            with self.assertRaises(ValueError):generate_cloud([[0,0]],3,p,ell,rho)
++        for slots in (0,True,2.5):
++            with self.assertRaises(ValueError):generate_cloud([[0,0]],slots,.4,250.,.9)
++        with self.assertRaises(ValueError):generate_cloud([[0,0]],3,.4,250.,.9,realization_id=-1)
++        with self.assertRaises(ValueError):mean_statistics([1.])
++
++
++if __name__=='__main__':unittest.main()
+diff --git a/paper_uav_hap_cvqkd/tests/test_binary_cloud_skr.py b/paper_uav_hap_cvqkd/tests/test_binary_cloud_skr.py
+new file mode 100644
+index 0000000..77384db
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/tests/test_binary_cloud_skr.py
+@@ -0,0 +1,157 @@
++import copy
++import hashlib
++import itertools
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++import numpy as np
++import torch
++from scripts import run_ao_effective_channel_no_fading_noise_reference as saved
++from scripts.run_binary_cloud_skr_experiment import DEFAULT,CONFIG,bind_inputs
++from src.binary_cloud_skr import (load_clear_bank,validate_settings,slot_table,mission_results,
++    select_winner,cloud_scenarios,verify_alias,validate_result,covariance_check)
++from src.uav_mobility import optimize_trajectory,best_stationary
++
++
++def synthetic_winners(values):
++    return [dict(K_star_raw=v,K_star=max(0.,v),nu_raw=.1,V_A=2.,ensemble_hash=str(j),objective_key=str(j)) for j,v in enumerate(values)]
++
++
++def small_settings():
++    return dict(geometry=dict(reference_position_index=0),mission=dict(slot_duration_s=10.,max_speed_m_per_s=10.),
++        optimization=dict(positive_lambda_bits_per_use=.01,reference_distance_m=100.,K_min_bits_per_use=.1))
++
++
++class BinaryOptimizationTests(unittest.TestCase):
++    def test_blocked_short_circuit_and_signed_rates(self):
++        blocked=np.array([[True,False],[False,True]])
++        with patch('src.binary_cloud_skr.saved.evaluate_authenticated',side_effect=AssertionError('No QKD call allowed')):
++            table=slot_table([.4,-.2],blocked)
++            np.testing.assert_array_equal(table,[[0.,.4],[0.,0.]])
++            summary,series=mission_results(small_settings(),np.array([[0.,0.],[100.,0.]]),synthetic_winners([.4,-.2]),blocked)
++        for r in series:
++            if r['blocked']:self.assertEqual(r['usable_skr'],0.);self.assertFalse(r['source_active'])
++
++    def test_threshold_equality_and_objective_independence(self):
++        settings=small_settings();points=np.array([[0.,0.],[100.,0.]])
++        cloud=np.array([[False,True,False],[True,False,True]])
++        first,series=mission_results(settings,points,synthetic_winners([.1,.3]),cloud)
++        self.assertTrue(next(r for r in series if r['scheme']=='S1' and r['slot']==1)['available'])
++        settings['optimization']['K_min_bits_per_use']=.4
++        second,other=mission_results(settings,points,synthetic_winners([.1,.3]),cloud)
++        self.assertTrue(all(r['availability']==0 for r in second))
++        self.assertEqual([r['position_index'] for r in series],[r['position_index'] for r in other])
++        self.assertEqual([r['average_skr_bits_per_use'] for r in first],[r['average_skr_bits_per_use'] for r in second])
++
++    def test_no_cloud_and_all_cloud(self):
++        points=np.array([[0.,0.],[100.,0.]])
++        for blocked in (False,True):
++            c=np.full((2,4),blocked,dtype=bool)
++            summary,series=mission_results(small_settings(),points,synthetic_winners([.2,.3]),c)
++            if blocked:
++                self.assertTrue(all(r['average_skr_bits_per_use']==0 for r in summary))
++                self.assertTrue(all(r['improvement_vs_reference_percent'] is None for r in summary))
++            else:
++                self.assertAlmostEqual(summary[1]['average_skr_bits_per_use'],.3)
++                self.assertTrue(all(r['available']==(not r['blocked']) for r in series))
++                self.assertEqual(summary[3]['total_flight_distance_m'],0.)
++
++    def test_p1_max_and_deterministic_ties(self):
++        rows=[dict(SKR=k,nu_raw=nu,V_A=v,ensemble_hash=str(n)) for n,(k,nu,v) in enumerate([(-.2,.2,2),(-.1,.2,2),(-.1,.1,3)])]
++        self.assertEqual(select_winner(rows),rows[2])
++        with self.assertRaises(ValueError):select_winner([])
++
++    def test_p2_and_dp_exhaustive(self):
++        points=np.array([[0.,0.],[100.,0.],[200.,0.]])
++        rates=np.array([[.8,.1,.2,.4],[.2,.7,.3,.1],[.1,.1,.9,.8]])
++        stationary,means=best_stationary(rates)
++        self.assertEqual(stationary,int(np.argmax(rates.mean(axis=1))))
++        flights=[]
++        for penalty in (0.,.01,.2,1.):
++            result=optimize_trajectory(rates,points,slot_duration_s=10.,max_speed_m_per_s=10.,penalty_bits_per_use=penalty,reference_distance_m=100.)
++            exhaustive=[]
++            for path in itertools.product(range(3),repeat=4):
++                legs=np.linalg.norm(np.diff(points[list(path)],axis=0),axis=1)
++                if (legs<=100.).all():exhaustive.append(rates[list(path),np.arange(4)].mean()-penalty*legs.sum()/100.)
++            self.assertAlmostEqual(result['penalized_objective'],max(exhaustive),places=12)
++            self.assertTrue(np.isin(result['path'],np.arange(3)).all());self.assertLessEqual(result['max_transition_m'],100.)
++            flights.append(result['total_flight_distance_m'])
++        self.assertEqual(flights,sorted(flights,reverse=True))
++        zero=optimize_trajectory(rates,points,slot_duration_s=10.,max_speed_m_per_s=0.,penalty_bits_per_use=.01,reference_distance_m=100.)
++        self.assertEqual(len(set(zero['path'])),1);self.assertAlmostEqual(zero['average_skr'],means.max())
++
++    def test_byte_alias_accepts_only_line_endings(self):
++        with tempfile.TemporaryDirectory(dir=DEFAULT) as folder:
++            path=Path(folder)/'source.txt';original=b'first\nsecond\n'
++            path.write_bytes(original.replace(b'\n',b'\r\n'))
++            expected=hashlib.sha256(original).hexdigest()
++            self.assertEqual(verify_alias(path,expected)['verification'],'VERIFIED_NEWLINE_EQUIVALENT')
++            path.write_bytes(b'first\n second\n')
++            with self.assertRaises(ValueError):verify_alias(path,expected)
++
++    def test_resume_rejects_identity_change(self):
++        settings=saved.read_json(CONFIG)
++        with tempfile.TemporaryDirectory(dir=DEFAULT) as folder:
++            bind_inputs(Path(folder),settings)
++            settings['cloud']['seed']+=1
++            with self.assertRaises(ValueError):bind_inputs(Path(folder),settings)
++
++    def test_settings_and_scenario_count(self):
++        settings=saved.read_json(CONFIG);positions=validate_settings(settings)
++        np.testing.assert_array_equal(positions[44],[450,450]);self.assertEqual(len(cloud_scenarios(settings)),16)
++        settings['cloud']['radius_m']=5
++        with self.assertRaises(ValueError):validate_settings(settings)
++        with self.assertRaises(ValueError):slot_table([1.],np.array([[1,0]]))
++
++
++class ExactClearIntegrationTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        torch.set_num_threads(1)
++        cls.settings=saved.read_json(CONFIG);cls.manifest=saved.read_json(DEFAULT/'startup_manifest.json')
++        cls.bank=load_clear_bank(cls.settings,cls.manifest['protected_hashes'])
++
++    def test_catalog_and_clear_coverage(self):
++        self.assertEqual(len(self.bank['sources']['MB']),197);self.assertEqual(len(self.bank['sources']['Uniform']),30)
++        self.assertEqual(len(self.bank['rows']),22700)
++        self.assertTrue(all(r['blocked'] is False and r['cloud_transmittance']==1 for r in self.bank['reuse']))
++        self.assertEqual(self.bank['audit']['blocked_rows_imported'],0)
++
++    def test_reference_same_scientific_evaluator(self):
++        b=self.bank;candidate=next(c for c in b['sources']['MB'] if (c['nu_raw'],c['V_A'])==(.17,5.046875))
++        result=saved.evaluate_authenticated(candidate,b['states'][44]['moments'],b['config'],self.manifest['protected_hashes'])
++        self.assertAlmostEqual(result['SKR'],.0587348598790054,places=12)
++        self.assertAlmostEqual(result['T_eff'],.16092029098192165,places=12)
++        self.assertFalse(result['certified_fading_security_lower_bound'])
++        self.assertAlmostEqual(b['states'][44]['distance_m']/1000,21.9393102292,places=10)
++
++    def test_every_p1_is_catalog_maximum(self):
++        for family,group in self.bank['winners'].items():
++            for j,winner in enumerate(group):
++                rows=[r for r in self.bank['rows'] if r['family']==family and r['position_index']==j]
++                self.assertEqual(winner['SKR'],max(r['SKR'] for r in rows))
++                self.assertEqual(winner['K_star'],max(0.,winner['SKR']))
++
++    def test_spatial_variation_diagnostic(self):
++        values=np.array([r['K_star'] for r in self.bank['winners']['MB']])
++        self.assertGreater(np.ptp(values),0.)
++        self.assertAlmostEqual(values.min(),.05513095017792946,places=12)
++        self.assertAlmostEqual(values.max(),.06331017962568347,places=12)
++
++    def test_tampered_objective_or_moments_rejected(self):
++        candidate=self.bank['sources']['MB'][0]
++        row=next(r for r in self.bank['rows'] if r['family']=='MB' and r['position_index']==0 and r['ensemble_hash']==candidate['ensemble_hash'])
++        changed=dict(row,I_AB=row['I_AB']+.001)
++        with self.assertRaises(ValueError):validate_result(changed,candidate,self.bank['states'][0])
++        with self.assertRaises(ValueError):covariance_check(dict(row,chi_BE=row['chi_BE']+.001))
++        with self.assertRaises(ValueError):validate_result(dict(row,C=row['C']+.001),candidate,self.bank['states'][0])
++
++    def test_protected_scientific_files_and_old_cloud_outputs_unchanged(self):
++        names=('src/uav_mobility.py','src/mobility_skr.py','src/effective_channel_no_fading_noise.py',
++            'docs/FINAL_MODEL_SPEC.md','results/mobility_aware_skr_20261014/full/summary.csv',
++            'results/mobility_numerical_results_package_20261014/overleaf_numerical_results.zip')
++        for name in names:self.assertEqual(saved.digest(saved.ROOT/name),self.manifest['protected_hashes'][name])
++
++
++if __name__=='__main__':unittest.main()
+diff --git a/paper_uav_hap_cvqkd/tests/test_binary_cloud_verification.py b/paper_uav_hap_cvqkd/tests/test_binary_cloud_verification.py
+new file mode 100644
+index 0000000..e9b0cea
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/tests/test_binary_cloud_verification.py
+@@ -0,0 +1,19 @@
++"""Regression for C/F-order roundoff in otherwise equivalent stationary optima."""
++import unittest
++import numpy as np
++from scripts.verify_binary_cloud_skr_results import stationary_gap
++
++
++class StationaryVerificationTests(unittest.TestCase):
++    def test_two_ulp_symmetric_optimum_is_accepted(self):
++        a=.04711277444659672;b=.047112774446596735
++        self.assertEqual(stationary_gap(np.array([0,0,0]),np.array([a,b])),b-a)
++
++    def test_genuine_suboptimal_stationary_is_rejected(self):
++        with self.assertRaises(ValueError):stationary_gap(np.array([0,0,0]),np.array([.04,.047]))
++
++    def test_nonstationary_path_rejected_even_with_equal_values(self):
++        with self.assertRaises(ValueError):stationary_gap(np.array([0,1,0]),np.array([.047,.047]))
++
++
++if __name__=='__main__':unittest.main()
+diff --git a/paper_uav_hap_cvqkd/docs/BINARY_CLOUD_SKR_REPORT_VI.md b/paper_uav_hap_cvqkd/docs/BINARY_CLOUD_SKR_REPORT_VI.md
+new file mode 100644
+index 0000000..7a0ad3e
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/docs/BINARY_CLOUD_SKR_REPORT_VI.md
+@@ -0,0 +1,55 @@
++# Binary-cloud-aware joint UAV/source optimization
++
++Kiểm tra và bàn giao ngày 2026-10-16; namespace 20261015 giữ theo kế hoạch đã duyệt. PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE.
++
++Đã dùng 16 cấu hình × 100 mission độc lập, 30 slot × 20 s; tổng 1.600 mission và 7.600 lượt DP. Tái sử dụng 19.700 MB + 3.000 Uniform clear-sky evaluations, không dùng hàng cloud cũ. Smoke 30 clear evaluations khớp cache; không tạo C,w/AP/AO mới.
++
++| Nguồn | Scheme | Mean SKR (bits/use) | SD | Availability | Mean flight (m) | Mean objective |
++|---|---|---:|---:|---:|---:|---:|
++| MB | S1 | 0.0341053753 | 0.014699 | 0.580667 | 0.000 | 0.0341053753 |
++| MB | S2 | 0.0612416108 | 0.002633 | 0.992000 | 0.000 | 0.0612416108 |
++| MB | S3 | 0.0631935656 | 0.000314 | 0.999667 | 1417.525 | 0.0631935656 |
++| MB | S4 | 0.0631039218 | 0.000405 | 0.999667 | 216.482 | 0.0628874397 |
++| Uniform | S1 | 0.0026630544 | 0.001148 | 0.580667 | 0.000 | 0.0026630544 |
++| Uniform | S2 | 0.0051498017 | 0.000368 | 0.979000 | 0.000 | 0.0051498017 |
++| Uniform | S3 | 0.0054320294 | 0.000048 | 0.999667 | 1417.525 | 0.0054320294 |
++| Uniform | S4 | 0.0053514393 | 0.000184 | 0.995333 | 90.621 | 0.0052608185 |
++
++S4 giữ 99.858144% SKR trung bình S3 và giảm 84.728161% quãng bay trung bình (tỷ số các mean, không phải mean của tỷ số từng mission).
++
++Cloud tổng hợp: p=0.4, ell=250 m, rho=0.9; PCG64 SeedSequence([20261015, realization_id]). Covariance latent exp(-d/ell), khởi tạo dừng, threshold Phi^-1(p). Ell/rho không phải correlation Bernoulli. Không cloud radius, velocity hoặc phép chiếu độ cao mây. Gong et al. (2020), DOI 10.1109/LWC.2019.2958804, chỉ là bối cảnh network availability, không phải nguồn hiệu chuẩn kernel này.
++
++P1 tối ưu đúng catalog theo vị trí một lần; P2 chọn mean cao nhất; P3 dùng DP sẵn có. S5 là Uniform ghép đủ bốn chính sách. K_min=0.001 bits/use chỉ dùng đánh giá, không điều khiển quỹ đạo. Vị trí đầu tự chọn; lambda=0.001 bits/use, D_ref=1000 m, tốc độ 15 m/s. Bỏ deployment, travel-time interruption, optical reacquisition và switching overhead. HAP 20 km/UAV 1 km, reference index44=(450,450)m giữ L_ref=21.9393102292km.
++
++Dữ liệu đầy đủ: [summary.csv](../results/binary_cloud_skr_20261015/summary.csv), [mission statistics](../results/binary_cloud_skr_20261015/summary_statistics.csv), [paired differences](../results/binary_cloud_skr_20261015/paired_statistics.csv), [lambda statistics](../results/binary_cloud_skr_20261015/lambda_statistics.csv), [cloud matrices](../results/binary_cloud_skr_20261015/cloud_states.npz), [trajectories](../results/binary_cloud_skr_20261015/trajectories.npz), [clear sources](../results/binary_cloud_skr_20261015/clear_winners.csv), [source roster](../results/binary_cloud_skr_20261015/source_roster.csv), [cache reuse](../results/binary_cloud_skr_20261015/cache_reuse_audit.csv). CSV per-slot minh họa chỉ cho default realization0; mọi mission khác tái dựng từ NPZ. Realization0 được chọn trước, không chọn theo gain.
++
++S2 chọn riêng vị trí cố định cho từng mission với toàn bộ lịch cloud biết trước; đây là stationary oracle hindsight, không phải một vị trí được freeze rồi kiểm tra trên mission tương lai. Với horizon30 slot và100 vị trí, selection theo lịch đã biết có thể cho availability rất cao.
++
++Khoảng tin cậy t 95% và SD/SE lấy giữa mission độc lập, không lấy từng cell/slot như mẫu độc lập. Khoảng t không cắt tại0/1 nên cận có thể vượt miền availability; point estimate vẫn nằm trong[0,1]. Common innovations giúp so sánh ghép cặp giữa cấu hình; không gọi 1.600 mission độc lập giữa các cấu hình. Availability dùng >=K_min; nếu mọi clear rate đạt ngưỡng thì bằng tỷ lệ không blockage trên đường đi. Reference bằng0 có improvement phần trăm để trống, vẫn lưu delta tuyệt đối.
++
++[Clear-sky spatial variation](../results/binary_cloud_skr_20261015/clear_sky_spatial_variation.csv) và [bản đồ](../results/binary_cloud_skr_20261015/figures/clear_sky_spatial_diagnostic.png) mô tả độ biến thiên nguồn/kênh trong vùng1km. [Fading omission audit](../results/binary_cloud_skr_20261015/fading_omission_audit.csv) tách (mean_eta-T_eff)VA và (mean_eta-T_eff)xi_ch bị bỏ. Đánh giá dùng ideal heterodyne, beta=.95, xi=.0186, phase/adaptive optics OFF, cùng ensemble cho MI/Holevo direct Z_star. Đây không phải lower bound bảo mật fading đã xác lập, finite-size yield, matched-energy PS gain, tối ưu liên tục hay năng lượng đẩy.
++
++Bảy hình có 14 vector PDF/14 PNG 300dpi và plotting CSV. Figure3 là sum(S)/N_t, không phải tổng bit khóa. Figure4 chỉ nối tám penalty đã tính. Không còn hình cloud velocity. LaTeX lexical/path kiểm tra riêng; trạng thái compiler trong export_receipt.json, không mặc nhiên coi bố cục manuscript đã đạt.
++
++Tests:23 primary tests (20 mới và3 normalization cũ) cộng3 regression tests cho verifier. Sửa verifier chỉ để nhận tie vài ULP giữa các cell đối xứng; không đổi source/kênh/DP hoặc kết quả thí nghiệm.
++
++Provenance: startup_manifest.json, audit_receipt.json, correlation_audit.json, test_receipt.json, smoke_receipt.json, experiment_receipt.json, saved_data_validation.json, export_receipt.json và final_validation.json. LF/CRLF chỉ chấp nhận khi hash chứng minh cùng nội dung, payload/ensemble và historical objective key đều xác minh; không sửa artifacts cũ. Lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen-hash discrepancy và ObjectiveC USER_STOPPED giữ nguyên. Không training/test dataset access, publication evaluation, commit hoặc push.
++
++Chạy từ root dự án bằng .venv-binary-cloud/Scripts/python.exe -B; runner scripts/run_binary_cloud_skr_experiment.py có --stage audit/smoke/experiment/export và --output. Lượt hoàn tất từ chối ghi đè; resume chỉ cùng input/producer, checkpoint nguyên tử theo scenario. Bộ kiểm tra: scripts/verify_binary_cloud_skr_results.py --exports. Môi trường hiện dùng system-site packages với packaging lấy offline từ pip-vendored copy trong venv riêng; không sửa Python hệ thống.
++
++## Trạng thái nghiệm thu hiện tại
++
++CURRENTLY_VERIFIED_PASS cho triển khai và kiểm tra số/xuất bản artifact trong phạm vi diagnostic: 23 primary tests + 3 verifier regression tests, 30 smoke evaluations, 22.700 clear rows, 200 P1 maxima, 1.600 cloud seed replays, 7.600 Bellman checks và 1.684 plotting-data checks. 3.639 file cũ giữ nguyên hash. ZIP có 30 thành viên được so byte; 14 PNG chính và bản đồ clear-sky đã kiểm tra trực quan.
++
++Hai lỗi kiểm tra/bố cục được giữ lịch sử: stationary tie lệch 2 ULP (gap 1.3877787807814457e-17 bits/use) và layout Fig1/Fig2/diagnostic title. Chỉ sửa verifier/export; không chạy lại hoặc đổi kết quả khoa học. Initial failure và các export snapshots vẫn có trong namespace mới.
++
++LaTeX compilation: BLOCKED_BY_ENVIRONMENT vì không có pdflatex/tectonic; chỉ lexical/path và figure layout được xác minh. Chưa kiểm tra bố cục trang manuscript. Không sửa file Downloads, commit hoặc push.
++
++Runner: [run_binary_cloud_skr_experiment.py](../scripts/run_binary_cloud_skr_experiment.py). Verifier: [verify_binary_cloud_skr_results.py](../scripts/verify_binary_cloud_skr_results.py). [ZIP Overleaf](../results/binary_cloud_skr_20261015/overleaf_binary_cloud.zip). [Final validation](../results/binary_cloud_skr_20261015/final_validation.json).
++
++```powershell
++& .venv-binary-cloud/Scripts/python.exe -B -m unittest tests.test_binary_cloud tests.test_binary_cloud_skr tests.test_binary_cloud_verification tests.test_normalization -v
++& .venv-binary-cloud/Scripts/python.exe -B scripts/verify_binary_cloud_skr_results.py --exports
++```
++
++Các lệnh trên chạy từ paper_uav_hap_cvqkd. Không chạy lại audit/smoke/experiment/export vào namespace đã hoàn tất. Cache thiếu hoặc provenance không hợp lệ dừng fail-closed; lượt hiện tại có đủ coverage và không tính P1 bổ sung.

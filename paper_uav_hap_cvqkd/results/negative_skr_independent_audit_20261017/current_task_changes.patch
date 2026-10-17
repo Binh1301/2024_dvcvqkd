@@ -1,0 +1,774 @@
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,4 +1,31 @@
+ # Project State
++
++## Current: independent negative-SKR physical audit COMPLETE; no entropy contradiction; STOP
++
++2026-10-17 EVID-0192/DEC-0175. CURRENTLY_VERIFIED_PASS for bounded independent
++reference/limit physical and numerical checks, not a new security proof. Report
++ docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md and results/negative_skr_independent_audit_20261017/.
++Actual call graph/provenance verified with32 fresh production SKR probes and no
++cached-K substitution. Separate numerical script imports no production helpers.
++
++213 checks PASS, including40 entropy-bound cases with0 actual violations. Current
++mean_eta=.23790886783673015, Wpre=2.2051214223052606, chi_upper=3.061425978931402.
++Reference ideal chi=1.1466344829084623, MI=.4215725849611298, K=-.7461405271953889;
++trusted chi=.7553564386786374, MI=.3184044344168209, K=-.4528722259826576.
++Independent entropy terms/MI/PDF/weak-T/vacuum/source/receiver limits explain these
++negative surrogate rates without a physical contradiction. Current m1 is not1e-4;
++fading accounts for98.87395% of output excess. Max production/independent residual
++9.076073226310655e-15. No production correction is justified by this reference audit.
++
++All4094 protected old files unchanged; source Cw/ensembles/config/default/security
++functional and frozen specs preserved. No source/AP/AO, full catalog/P1-P3, training/
++test access, publication evaluation or baseline/threshold approval. Numerical and
++conditional mathematical consistency do not establish actual DM fading/security,
++Gaussian-surrogate MI lower bounds or full-Z/trusted composability. Keep
++UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen historical
++hash discrepancy and ObjectiveC USER_STOPPED. No external edits/commit/push.
++Deliver and STOP; no automatic continuation of optimization.
++
+ 
+ ## Current: trusted heterodyne diagnostic COMPLETE; primary usable SKR zero; STOP
+ 
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -9112,3 +9112,61 @@
+ probability law preserved. Frozen mismatch/NOT_READY/ObjectiveC STOP remain.
+ No training/test dataset access, publication evaluation, baseline/threshold
+ certification, external manuscript edit or commit/push. Deliver and STOP.
++
++
++## EVID-0192 preparation - independent physical audit of negative SKR
++
++2026-10-17 explicit user attachment d36a98d1 authorizes audit-only reference
++call graph/provenance, independent MI/Holevo/entropy-bound calculations,
++finite limits and report. results/negative_skr_independent_audit_20261017/
++startup_manifest.json protects4094 existing files. No production/source
++changes or full P1-P3 allowed. production_probe.json records32 fresh bounded
++SKR calls for2 exact cached sources/2 detectors/reference and fixed-channel
++limits. Historical producer/result receipts match; reference residuals0.
++actual_call_graph.json confirms src/trusted_heterodyne_skr.trusted_holevo
++and discrete deterministic_mutual_information product GH8/16/32 execute,
++not a stale SKR cache. Independent script imports no production numerical
++helpers. Numerical/physical audit outcome pending. Frozen mismatch and
++NOT_READY remain; no AP/AO/source generation, training/test or publication.
++
++
++## EVID-0192 completion - independent negative-SKR physical audit
++
++2026-10-17 CURRENTLY_VERIFIED_PASS for the bounded independent physical/numerical
++scope, supported by results/negative_skr_independent_audit_20261017/validation_receipt.json
++and docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md. Independent script imports no
++production numerical helpers. Fresh32 production probes confirm the actual
++trusted_heterodyne_skr call graph and prior input/producer/source hashes; no
++cached SKR is reused as a fresh computation. Exact C,w/ensembles authenticated,
++with independent binary64 ensemble/payload hash reconstruction for both sources.
++
++213 checks PASS (201 main,5 self,7 supplemental), including40 physical entropy-bound
++cases with0 actual HOLEVO_PHYSICAL_ENTROPY_BOUND failures. Reference mean_eta is
++.23790886783673015, not order1e-4; Wpre=2.2051214223052606 and upper2S(B1)=
++3.061425978931402. Independent S(AB)=3.6675057447539796; ideal conditional entropy
++2.520871261845518 gives chi1.1466344829084623, I=.4215725849611298 and
++rawK=-.7461405271953889. Trusted(.7,.0135) conditional2.9121493060753423 gives
++chi=.7553564386786374, I=.3184044344168209, rawK=-.4528722259826576.
++Both satisfy the physical upper bound with a large margin. Fading contributes
++98.8739527071424% of effective output excess at this reference.
++
++Independent70-digit closed/matrix symplectic calculations, explicit AppendixA
++AFG blocks and two numerical discrete MI integrations agree with production:
++max compared difference9.076073226310655e-15; direct2D/adaptive MI difference
++3.9898639947466563e-16; conditional-matrix max difference4.440892098500626e-16.
++Independent PDF integration reproduces current active-conditioned law/AoA moments;
++no normalization/model change. Fixed T1e-2..1e-6/0, pure loss, coherent vacuum,
++VA->0 MI, both exact sources and trusted->ideal limits pass. Raw70-digit zero-case
++residuals and the initial diagnostic-export TypeError are preserved. A deliberately
++mixed small-moment/large-Holevo fixture is correctly rejected, not a failure of the
++actual configuration. No tolerance widening or Holevo/MI clipping to force PASS.
++
++No production formula bug is established at the audited points. Passing necessary
++entropy bounds is not proof of true fading MI/security. General Denys constraint
++algebra is consistent with independent phase-tracked fading under stated assumptions;
++full-Z worst case, Gaussian-surrogate MI lower bound/trusted DM composition and
++operational/finite-size/composable security remain UNVALIDATED_SECURITY_MODEL.
++All4094 protected existing files are unchanged. No production/source/config edits,
++new Cw/AP/AO, full catalog/P1-P3, training/test access, publication evaluation,
++production baseline/threshold certification, external edit, commit or push.
++Frozen discrepancy/NOT_READY/ObjectiveC USER_STOPPED remain. Audit complete; STOP.
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -4778,3 +4778,27 @@
+ security or detector operating-point studies need a new explicit task; no
+ automatic AP/AO/search, training/test access, publication, threshold/baseline
+ certification, ObjectiveC restart, external edits, commit or push.
++
++
++## DEC-0175 - independent bounded physical audit only
++
++2026-10-17 user task d36a98d1 supersedes prior STOP solely for independent
++reference physics checks and requested finite limits/source comparison.
++Do not edit production evaluator, source, physical config or historical data.
++No full catalog/P1-P3 rerun, optimizer, source/AP/AO, training/test dataset
++access, publication evaluation, baseline/threshold approval or commit/push.
++Keep UNVALIDATED_SECURITY_MODEL; numerical PASS does not establish a
++security proof. Record every physical FAIL and trace any actual entropy-bound
++contradiction before recommending a change.
++
++
++DEC-0175 completion: accept EVID-0192 as independent numerical/reference physical
++consistency evidence only. No actual entropy-bound contradiction or arithmetic/noise
++bug is established. Do not change production equations to force positive K. Deliver
++independent decomposition, weak-transmission/source comparisons, call graph, CSV and
++report. Keep UNVALIDATED_SECURITY_MODEL; necessary entropy-bound PASS does not prove
++a key-rate lower bound for the actual DM fading protocol. Follow-up security work,
++full-Z/true-mixture estimation or production guard implementation is a proposal,
++not executed or approved by this audit. Preserve all old files and defaults; no
++full-catalog/trajectory rerun, source/AP/AO, training/test/publication, certification,
++ObjectiveC restart, external manuscript edit, commit or push. Deliver and STOP.
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,4 +1,19 @@
+ # Next Actions
++
++## Current: deliver independent negative-SKR audit; STOP
++
++EVID-0192/DEC-0175: deliver docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md and
++results/negative_skr_independent_audit_20261017/ (actual call graph, reference entropy
++CSV/high precision, independent MI/Holevo/PDF/limits, checks and validation receipt).
++213 independent/self/supplemental checks and40 physical entropy bounds pass; no actual
++contradiction at the audited inputs. No production formula change justified. Keep
++UNVALIDATED_SECURITY_MODEL and exact scope; do not treat audit PASS as full security.
++
++No full-catalog/P1-P3, source/AP/AO, training/test/publication, baseline/threshold
++certification, ObjectiveC restart, external manuscript edit or commit/push. Proposed
++future guard/security/true-fading-MI work requires a new task. Preserve all existing
++config/source/results/frozen discrepancy; no automatic rerun of completed diagnostics.
++
+ 
+ ## Current: deliver trusted heterodyne diagnostic; STOP
+ 
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,38 +1,37 @@
+ # Session Handoff
+ 
+-2026-10-16 EVID-0191/DEC-0174. Trusted heterodyne diagnostic COMPLETE; STOP.
+-Branch cloud/implement; HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec.
+-No commit/push. Pre-existing edits/deleted diagnostic JSON retained.
++2026-10-17 EVID-0192/DEC-0175. Independent negative-SKR physical audit COMPLETE; STOP.
++Branch cloud/implement; HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec unchanged.
++Pre-existing dirty state/deleted diagnostic JSON preserved. No commit/push.
+ 
+-Deliver docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md and
+-results/trusted_heterodyne_skr_20261016/. New src/trusted_heterodyne_skr.py,
+-runner/config/tests only; no old scientific source/cache/result edits.4042
+-protected old hashes unchanged. Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B.
++Deliver docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md and
++results/negative_skr_independent_audit_20261017/. New scripts:
++scripts/probe_negative_skr_production.py (bounded live call graph/provenance),
++scripts/audit_negative_skr_independent.py (no production numerical imports).
++Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B. No pending numerical run.
+ 
+-The previous ideal moment evaluator already had correct channel-only noise.
+-New mode separates m_xi/N/Wpre/Z from explicit trusted detector eta_B/nu_B.
+-AppendixA AFG conditional covariance independently matches AB purification;
+-finite ideal/additive-noise limits and low-SNR GH expm1/log1p regrouping tested.
+-Initial numerical failures and version mismatch are documented, not erased.
++32 fresh production probes,2 exact sources,2 detector cases; prior producers,
++source hashes and historical reference match. Independent70dps entropy/spectrum,
++AppendixA blocks, direct256-state 2D GH/adaptive MI, PDF integration and limits:
++213 checks PASS;40 physical entropy-bound cases,0 actual contradictions.
++Current m1=.23790886783673015 and Wpre=2.2051214223052606, not a near-vacuum
++W from order1e-4 moments. chi_upper=3.061425978931402. Ideal S_AB=3.6675057447539796,
++S_cond=2.520871261845518, chi1.1466344829084623, MI.4215725849611298,
++rawK=-.7461405271953889. Trusted S_cond=2.9121493060753423,
++chi.7553564386786374, MI.3184044344168209, rawK=-.4528722259826576.
++Fading is98.87395% of output excess. No production formula bug established.
++Max production-independent residual9.076073226310655e-15. All4094 protected
++old files unchanged. Initial diagnostic serialization error/log and tiny70dps
++zero-case residual retained; no physics/tolerance changed to force PASS.
+ 
+-40 baseline tests;71 scoped tests including14 new;166 boundary covariance
+-checks;60 small evaluations;327680 physical samples/15 moment checks PASS.
+-New22700 clear evaluations and200 P1 maxima, same1600missions/7600Bellman
+-profiles verified; max ideal old/new residual4.574118861455645e-14.
+-Primary config eta_B1/nu_B0 unchanged. Full nonideal catalog NOT_RUN.
+-Reference nu.17/VA5.046875 primary raw=-.74614052719539; alternate trusted
+-R.7/xi_det.0135 diagnostic raw=-.4528722259826575 with identicalWpre/Z.
+-Max catalog rawMB=-.027942008491032552, Uniform=-.027593717758446365;
+-all usable0. No mobility gain, global optimum or operational positive key.
+-
+-Terminal evidence: completion_integrity_receipt.json/final_validation.json,
+-validation/test receipts, reference_full_comparison.csv, noise_audit_complete.json.
+-Every new result UNVALIDATED_SECURITY_MODEL: Gaussian detector numerical
+-correctness does not establish DM fading/Gaussian-surrogate MI security,
+-Denys+trusted composition, full-Z, composable/finite-size or operational yield.
+-Production default/security functional and frozen specs untouched. Historical
+-frozen hash mismatch, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
+-USER_STOPPED remain. No source/AP/AO, training/test dataset access, publication
+-evaluation, baseline/threshold certification, external manuscript edits, commit/push.
+-No pending numerical process. Do not rerun completed stages automatically.
+-Deliver and STOP; await new explicit task.
++Terminal scientific evidence: validation_receipt.json, audit_summary.json,
++independent_audit.json, reference_entropy_decomposition.csv, actual_call_graph.json,
++high_precision_decomposition.json and supplemental_independent_checks.json.
++No new Cw/AP/AO or full catalog/P1-P3. Existing numerical source/config/default,
++security functional, frozen specs and historical outputs unchanged. Necessary
++entropy-bound consistency is not sufficient security certification. Keep
++UNVALIDATED_SECURITY_MODEL: actual fading-mixture MI lower-bound/trusted-DM/full-Z/
++operational/finite-size/composable proof unresolved. Frozen discrepancy,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC USER_STOPPED remain.
++No training/test dataset access, publication evaluation, baseline/threshold
++approval, external PDF edit, commit/push. Deliver and STOP; await new explicit task.
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/probe_negative_skr_production.py
+@@ -0,0 +1,71 @@
++"""Bounded live production probe; independence checks live in a different script."""
++import hashlib,inspect,json,sys
++from collections import Counter
++from pathlib import Path
++import numpy as np
++import torch
++ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
++from src.binary_cloud_skr import load_sources
++from src.trusted_heterodyne_skr import evaluate_candidate
++OUT=ROOT/'results/negative_skr_independent_audit_20261017'
++OLD=ROOT/'results/trusted_heterodyne_skr_20261016'
++read=lambda p:json.loads(p.read_text(encoding='utf-8'))
++sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
++
++def main():
++    if (OUT/'production_probe.json').exists():raise RuntimeError('Completed probe is immutable')
++    start=read(OUT/'startup_manifest.json');prior=read(OLD/'completion_integrity_receipt.json');prior_inputs=read(OLD/'inputs.json')
++    for p,h in prior_inputs['producers'].items():
++        if sha(ROOT/p)!=h:raise RuntimeError('Prior producer changed: '+p)
++    for p,h in prior['receipts_and_report_sha256'].items():
++        if sha(OLD/p)!=h:raise RuntimeError('Prior receipt/output changed: '+p)
++    if sha(ROOT/'docs/TRUSTED_HETERODYNE_SKR_REPORT_VI.md')!=prior['canonical_report_sha256']:raise RuntimeError('Prior report changed')
++    settings=read(ROOT/'configs/binary_cloud_skr_demo.json');groups,config,aliases=load_sources(settings,start['protected_hashes'])
++    reference=read(ROOT/'results/binary_cloud_skr_20261015/clear_channel_states.json')[44]
++    torch.set_num_threads(1)
++    sources=[]
++    for pair in ((.17,5.046875),(.30,.025)):
++        x=next(x for x in groups['MB'] if (x['nu_raw'],x['V_A'])==pair)
++        ens=x['ensemble'];p=ens.probabilities[0].tolist();alpha=ens.amplitudes[0].tolist();payload=read(ROOT/x['source_path'])
++        sources.append(dict(nu_raw=x['nu_raw'],V_A=x['V_A'],C=x['C'],w=x['w'],ensemble_hash=x['ensemble_hash'],source_cache_key=x['source_cache_key'],source_path=x['source_path'],source_payload_sha256=sha(ROOT/x['source_path']),source_metadata=payload,probabilities=p,amplitudes=[[z.real,z.imag] for z in alpha]))
++    inputs=dict(schema='independent-negative-skr-input-v1',reference_state=reference,sources=sources,beta_rec=config['cvqkd']['beta_reconciliation'],primary_detector=dict(eta_B=settings['channel']['R'],nu_B=settings['channel']['xi_det']),trusted_detector={k:v for k,v in zip(('eta_B','nu_B'),(read(ROOT/'configs/manuscript_corrected_3moments.json')['R'],read(ROOT/'configs/manuscript_corrected_3moments.json')['xi_det']))},binary_settings=settings,previous_evaluator_producers=prior_inputs['producers'],source_aliases=aliases,prior_completion_sha256=sha(OLD/'completion_integrity_receipt.json'))
++    (OUT/'audit_inputs.json').write_text(json.dumps(inputs,indent=2,allow_nan=False)+'\n',encoding='utf-8')
++    traced=Counter();entropy_returns=[];mi_calls=[]
++    def profile(frame,event,arg):
++        filename=frame.f_code.co_filename.replace('\\','/');rel=filename[len(ROOT.as_posix())+1:] if filename.startswith(ROOT.as_posix()+'/') else filename
++        if rel not in ('src/trusted_heterodyne_skr.py','src/cvqkd/mutual_information.py','scripts/run_ao_effective_channel_no_fading_noise_reference.py','src/manuscript_literal_3moments.py'):return
++        if event=='call':
++            parent=frame.f_back
++            traced[(rel,frame.f_code.co_name,frame.f_code.co_firstlineno,parent.f_code.co_name if parent else None)]+=1
++            if frame.f_code.co_name=='deterministic_mutual_information':
++                mi_calls.append(dict(implementation=frame.f_locals.get('implementation'),order=frame.f_locals.get('quadrature_order'),transmittance=frame.f_locals['transmittance'].tolist(),epsilon=frame.f_locals['epsilon'].tolist()))
++        if event=='return' and frame.f_code.co_name=='spectral_entropy':
++            entropy_returns.append(dict(eigenvalues=frame.f_locals['values'].tolist(),entropy=arg))
++    results=[];failures=[]
++    for sid,source in enumerate(sources):
++        x=next(x for x in groups['MB'] if x['ensemble_hash']==source['ensemble_hash'])
++        cases=[('reference_fading',reference['moments'])]
++        for t in (.01,.001,.0001,.00001,.000001,0.):
++            cases.append(('fixed_channel_'+str(t),dict(mean_eta=t,mean_sqrt_eta=float(np.sqrt(t)),xi_ch=reference['moments']['xi_ch'],physical_probability_mass=1.,moment_law='deterministic_delta',deterministic_transmissivity=t)))
++        cases.append(('pure_loss_T_0.25',dict(mean_eta=.25,mean_sqrt_eta=.5,xi_ch=0.,physical_probability_mass=1.,moment_law='deterministic_delta',deterministic_transmissivity=.25)))
++        for label,moments in cases:
++            for detector_name in ('primary_detector','trusted_detector'):
++                if label=='reference_fading':sys.setprofile(profile)
++                try:
++                    row=evaluate_candidate(x,moments,config,start['protected_hashes'],**inputs[detector_name])
++                    results.append(dict(source_id=sid,case=label,detector=detector_name,result=row))
++                except Exception as exc:failures.append(dict(source_id=sid,case=label,detector=detector_name,error=repr(exc)))
++                finally:sys.setprofile(None)
++    stored=read(OLD/'reference_decomposition.json')
++    residual={}
++    for name,key in [('primary_detector','corrected_primary'),('trusted_detector','trusted_detector_diagnostic')]:
++        fresh=next(r['result'] for r in results if r['source_id']==0 and r['case']=='reference_fading' and r['detector']==name)
++        residual[name]={k:fresh[k]-stored[key][k] for k in ('I_AB','chi_BE','K_raw','W_pre','Z_star')}
++        if max(abs(x) for x in residual[name].values())>1e-10:raise RuntimeError('Live reference is not the bound historical evaluator')
++    provenance=dict(status='CURRENTLY_VERIFIED_PASS',scope='Source/producer/cache provenance and fresh production probe only; independent numerical validation pending',producer_script_sha256=sha(Path(__file__)),input_sha256=sha(OUT/'audit_inputs.json'),prior_result_residual=residual,prior_model=prior_inputs['config']['scientific_model'],previous_receipts_verified=True,source_moments_recomputed=0,objective_cache_K_reused_for_probe=0,new_SKR_calls=len(results),failures=failures)
++    (OUT/'production_probe.json').write_text(json.dumps(dict(provenance=provenance,results=results),indent=2)+'\n',encoding='utf-8')
++    graph=dict(calls=[dict(file=p,function=f,line=line,parent=parent,count=count) for (p,f,line,parent),count in sorted(traced.items())],actual_MI_calls=mi_calls,actual_Holevo_entropy_returns=entropy_returns,runner_reference_callsite='scripts/run_trusted_heterodyne_skr.py:55',ideal_and_trusted_called_same_module=True,source_and_moment_cache_read=True,SKR_cache_read=False)
++    (OUT/'actual_call_graph.json').write_text(json.dumps(graph,indent=2)+'\n',encoding='utf-8')
++    print(json.dumps(provenance),flush=True)
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/scripts/audit_negative_skr_independent.py
+@@ -0,0 +1,237 @@
++"""Independent physical audit. No imports from src or production numerical helpers."""
++import argparse,csv,hashlib,json,math,time
++from pathlib import Path
++import mpmath as mp
++import numpy as np
++from scipy.integrate import quad
++from scipy.special import erfc,logsumexp
++ROOT=Path(__file__).resolve().parents[1]
++OUT=ROOT/'results/negative_skr_independent_audit_20261017'
++mp.mp.dps=70
++M=lambda x:mp.mpf(str(x))
++TOL=1e-10
++
++
++def g(x):
++    x=mp.mpf(x)
++    if x==0:return mp.mpf(0)
++    if x<0:raise ValueError('Negative bosonic occupation; no entropy clipping')
++    return ((x+1)*mp.log(x+1)-x*mp.log(x))/mp.log(2)
++
++
++def omega(n):
++    result=mp.zeros(2*n)
++    for k in range(n):result[2*k,2*k+1]=1;result[2*k+1,2*k]=-1
++    return result
++
++
++def spectrum(matrix):
++    raw=mp.eig(mp.j*omega(matrix.rows//2)*matrix,left=False,right=False)
++    if max(abs(mp.im(x)) for x in raw)>mp.mpf('1e-55'):raise ValueError('Nonreal high-precision symplectic eigenvalue')
++    values=sorted(abs(mp.re(x)) for x in raw)
++    if max(abs(values[2*k]-values[2*k+1]) for k in range(len(values)//2))>mp.mpf('1e-55'):raise ValueError('Symplectic eigenvalue pairs disagree')
++    return [(values[2*k]+values[2*k+1])/2 for k in range(len(values)//2)]
++
++
++def entropy_spectrum(values):
++    terms=[];vacuum_residuals=[]
++    for value in values:
++        if abs(value-1)<mp.mpf('1e-55'):
++            # A vacuum symplectic mode is an exact algebraic factor, residual retained below.
++            terms.append(mp.mpf(0));vacuum_residuals.append(mp.nstr(value-1,65))
++        else:terms.append(g((value-1)/2))
++    return terms,vacuum_residuals
++
++
++def physical_model(source,m1,mh,xi,efficiency,electronic,deterministic=False):
++    VA,C,w=map(M,(source['V_A'],source['C'],source['w']))
++    m1,mh,xi,e,n=map(M,(m1,mh,xi,efficiency,electronic))
++    t=m1 if deterministic else mh*mh
++    variance=mp.mpf(0) if deterministic else m1-t
++    excess=m1*xi;fading=variance*VA;noise=fading+excess
++    V=1+VA;W=1+m1*VA+excess;Z=2*mp.sqrt(t)*C-mp.sqrt(2*w*noise)
++    matrix=mp.matrix([[V,0,Z,0],[0,V,0,-Z],[Z,0,W,0],[0,-Z,0,W]])
++    delta=V*V+W*W-2*Z*Z;D=(V*W-Z*Z)**2
++    nu1=mp.sqrt((delta+mp.sqrt(delta*delta-4*D))/2);nu2=mp.sqrt((delta-mp.sqrt(delta*delta-4*D))/2)
++    numerical=spectrum(matrix);closed=sorted([nu1,nu2])
++    formula_residual=max(abs(x-y) for x,y in zip(numerical,closed))
++    if formula_residual>mp.mpf('1e-55'):raise ValueError('Independent closed/matrix spectrum disagreement')
++    ab_terms,vac_ab=entropy_spectrum([nu1,nu2]);Sab=sum(ab_terms)
++    Wb=e*W+1-e+2*n
++    if e==1 and n==0:
++        conditional=[V-Z*Z/(W+1)];conditional_matrix=mp.matrix([[conditional[0],0],[0,conditional[0]]])
++    else:
++        if e==1:raise ValueError('Appendix finite-efficiency audit excludes singular electronic-only ancilla')
++        v=1+2*n/(1-e);c=mp.sqrt(v*v-1);u,s=mp.sqrt(e),mp.sqrt(1-e)
++        # Direct analytic A,F,G blocks, not the production beam/purification helpers.
++        afg=mp.zeros(6);corr=mp.zeros(6,2)
++        for q,sign in ((0,1),(1,-1)):
++            afg[q,q]=V;afg[q+2,q+2]=(1-e)*W+e*v;afg[q+4,q+4]=v
++            afg[q,q+2]=afg[q+2,q]=-s*Z*sign
++            afg[q+2,q+4]=afg[q+4,q+2]=u*c*sign
++            corr[q,q]=u*Z*sign;corr[q+2,q]=u*s*(v-W);corr[q+4,q]=s*c*sign
++        conditional_matrix=afg-corr*corr.T/(Wb+1)
++        conditional=spectrum(conditional_matrix)
++    conditional_terms,vac_cond=entropy_spectrum(conditional);Sconditional=sum(conditional_terms)
++    chi=Sab-Sconditional;bound=2*g((W-1)/2)
++    sd=1+n+e*noise/2
++    npmat=np.array(matrix.tolist(),float);npomega=np.kron(np.eye(2),[[0,1],[-1,0]])
++    minimum_uncertainty=float(np.linalg.eigvalsh(npmat+1j*npomega).min())
++    checks=dict(moment_order=0<=t<=m1<=1,W_identity=abs(W-(1+t*VA+noise))<mp.mpf('1e-55'),spectrum=all(x>=1-mp.mpf('1e-55') for x in [nu1,nu2]+conditional),uncertainty=minimum_uncertainty>=-TOL,holevo_physical_entropy_bound=-mp.mpf('1e-55')<=chi<=bound+mp.mpf('1e-55'))
++    result=dict(m1=m1,mhalf=mh,eta_f=t,fading_variance=variance,xi_ch=xi,m_xi=excess,fading_excess_output=fading,N_eff=noise,xi_f=noise/t if t else None,C=C,w=w,V=V,W_pre=W,Z=Z,source_side_Z=2*C,Z_signal=2*mp.sqrt(t)*C,Z_penalty=mp.sqrt(2*w*noise),lambda_1=nu1,lambda_2=nu2,conditional_eigenvalues=conditional,S_AB_terms=ab_terms,S_AB=Sab,conditional_entropy_terms=conditional_terms,conditional_entropy=Sconditional,chi_BE=chi,Bob_entropy_upper=bound/2,chi_upper=bound,chi_bound_margin=bound-chi,signal_output=t*VA,source_modulation_output=m1*VA,V_B2=Wb,sigma2_complex=sd,variance_per_real_quadrature=sd/2,eta_B=e,nu_B=n,closed_matrix_spectrum_residual=formula_residual,minimum_uncertainty_eigenvalue=minimum_uncertainty,checks=checks,exact_vacuum_mode_residuals=vac_ab+vac_cond,Gamma_AB=matrix,conditional_covariance=conditional_matrix)
++    if VA>0:
++        nbar=VA/2;c1=mh*C;c2=mh*nbar;nB=(m1*VA+excess)/2
++        denys=2*c1-2*mp.sqrt(w*(nB-c2*c2/nbar))
++        result.update(nbar=nbar,Denys_c1=c1,Denys_c2=c2,Denys_nB=nB,Denys_residual_variance=nB-c2*c2/nbar,Denys_general_Z=denys,Denys_Z_mapping_residual=abs(denys-Z))
++    return result
++
++
++def to_json(value):
++    if isinstance(value,mp.matrix):return [[float(value[i,j]) for j in range(value.cols)] for i in range(value.rows)]
++    if isinstance(value,mp.mpf):return float(value)
++    if isinstance(value,dict):return {k:to_json(v) for k,v in value.items()}
++    if isinstance(value,(tuple,list)):return [to_json(v) for v in value]
++    if isinstance(value,np.generic):return value.item()
++    return value
++
++
++def high_precision(value):
++    if isinstance(value,mp.mpf):return mp.nstr(value,65)
++    if isinstance(value,mp.matrix):return [[mp.nstr(value[i,j],65) for j in range(value.cols)] for i in range(value.rows)]
++    if isinstance(value,dict):return {k:high_precision(v) for k,v in value.items()}
++    if isinstance(value,(tuple,list)):return [high_precision(x) for x in value]
++    return to_json(value)
++
++
++def full_complex_MI(p,alpha,gain,variance,order):
++    """Direct 256-state two-dimensional GH integration of likelihood ratios."""
++    nodes,w=np.polynomial.hermite.hermgauss(order);z=(nodes[:,None]+1j*nodes[None,:]).reshape(-1)
++    weights=(w[:,None]*w[None,:]/math.pi).reshape(-1);mu=gain*alpha;lp=np.log(p)
++    total=0.
++    for i in range(len(p)):
++        integral=0.
++        for start in range(0,len(z),128):
++            noises=z[start:start+128];y=mu[i]+math.sqrt(variance)*noises
++            distances=np.abs(y[:,None]-mu[None,:])**2/variance
++            denominator=logsumexp(lp[None,:]-distances,axis=1)
++            ratio=-np.abs(noises)**2-denominator
++            integral+=float(np.dot(weights[start:start+128],ratio))
++        total+=p[i]*integral
++    return total/math.log(2)
++
++
++def real_integral_MI(probabilities,levels,variance):
++    """Independent output-noise adaptive quadrature, not an entropy-difference GH helper."""
++    lp=np.log(probabilities);sd=math.sqrt(variance/2);total=0.;error=0.
++    for i,p in enumerate(probabilities):
++        def integrand(z):
++            exponents=-.5*(z+(levels[i]-levels)/sd)**2
++            ratio=-.5*z*z-logsumexp(lp+exponents)
++            return math.exp(-z*z/2)/math.sqrt(2*math.pi)*ratio/math.log(2)
++        value,err=quad(integrand,-12,12,epsabs=1e-12,epsrel=1e-10,limit=160)
++        total+=p*value;error+=p*err
++    return total,error
++
++
++def independent_MI(source,t,noise,efficiency,electronic,full=False):
++    p=np.asarray(source['probabilities']);alpha=np.array([complex(*z) for z in source['amplitudes']]);gain=math.sqrt(float(t)*efficiency)
++    variance=1+electronic+efficiency*float(noise)/2
++    real,ri=np.unique(alpha.real,return_inverse=True);imag,qi=np.unique(alpha.imag,return_inverse=True)
++    grid=np.zeros((len(real),len(imag)));np.add.at(grid,(ri,qi),p)
++    pr,pq=grid.sum(axis=1),grid.sum(axis=0)
++    factor_error=float(np.max(np.abs(grid-pr[:,None]*pq[None,:])))
++    if factor_error>1e-14:raise ValueError('Independent product-QAM factorization failed')
++    if gain==0 or np.all(alpha==alpha[0]):value,error=0.,0.  # One transmitted state has exactly zero MI.
++    else:
++        a,ea=real_integral_MI(pr,gain*real,variance);b,eb=real_integral_MI(pq,gain*imag,variance);value,error=a+b,ea+eb
++    snr=gain*gain*float(np.sum(p*np.abs(alpha)**2))/variance;capacity=math.log1p(snr)/math.log(2)
++    hx=float(-np.sum(p*np.log2(p)))
++    if not -TOL<=value<=min(hx,capacity)+TOL:raise ValueError('Independent MI violates entropy/capacity bound')
++    orders=[]
++    if full:
++        orders=[dict(order=o,I_AB=full_complex_MI(p,alpha,gain,variance,o)) for o in (16,32,48)]
++        if abs(orders[-1]['I_AB']-orders[-2]['I_AB'])>1e-9 or abs(orders[-1]['I_AB']-value)>1e-9:raise ValueError('Independent 2D and adaptive MI disagree')
++    return dict(I_AB=value,quadrature_error=error,H_X=hx,Gaussian_input_capacity_upper=capacity,SNR=snr,capacity_margin=capacity-value,PMF_factorization_residual=factor_error,full_2D_GH=orders,gaussian_surrogate_only=True)
++
++
++def independent_pdf(raw,moments):
++    B=raw['A0']*raw['eta_atm'];d=(raw['w_eq']/(2*raw['sigma_s']))**2
++    logC1=raw['rho']**2/raw['sigma_s']**2+.5*raw['sigma_R2']*d*(1+d)
++    c3=1/math.sqrt(32*raw['rho']**2*raw['sigma_s']**2/raw['w_eq']**4+2*raw['sigma_R2'])
++    mu=6*raw['rho']**2/raw['w_eq']**2+.5*raw['sigma_R2']*(1+2*d)
++    def log_density(y):return math.log(d/2)+logC1-d*math.log(B)+d*y+math.log(erfc(c3*(y-math.log(B)+mu)))
++    def integrate(q):
++        def f(y):
++            x=log_density(y)+q*y
++            return math.exp(x) if x>-745 else 0.
++        return quad(f,-math.inf,0,epsabs=2e-13,epsrel=2e-13,limit=250)
++    mass,em=integrate(0);one,e1=integrate(1);half,eh=integrate(.5)
++    m1=raw['P1']*one/mass;mh=raw['P1']*half/mass
++    return dict(B=B,chi_squared=d,log_C1=logC1,C3=c3,mu=mu,raw_active_retained_mass=mass,raw_total_mass=raw['P0']+raw['P1']*mass,AoA_atom=raw['P0'],physical_mass=raw['P0']+raw['P1'],independent_mean_eta=m1,independent_mean_sqrt_eta=mh,mean_eta_residual=m1-moments['mean_eta'],mean_sqrt_eta_residual=mh-moments['mean_sqrt_eta'],quadrature_error_bounds=dict(mass=em,mean_eta=e1,mean_sqrt_eta=eh),new_renormalization_applied=False,law='Independently integrates existing active-conditioned [0,1] law with unchanged AoA atom')
++
++
++def source_audit(source):
++    p=np.array(source['probabilities']);alpha=np.array([complex(*z) for z in source['amplitudes']]);levels=np.arange(16)-7.5;grid=(levels[:,None]+1j*levels[None,:]).reshape(-1)
++    expected=np.exp(-source['nu_raw']*np.abs(grid)**2);expected/=expected.sum()
++    expected_alpha=grid*math.sqrt(source['V_A']/(2*np.dot(expected,np.abs(grid)**2)))
++    # Compare the actual label ordering as well as normalization and energy.
++    return dict(probability_sum=float(p.sum()),minimum_probability=float(p.min()),normalization_residual=float(p.sum()-1),energy=2*float(np.dot(p,np.abs(alpha)**2)),energy_residual=2*float(np.dot(p,np.abs(alpha)**2))-source['V_A'],mean_amplitude=[float(np.dot(p,alpha).real),float(np.dot(p,alpha).imag)],PMF_reconstruction_residual=float(np.max(np.abs(p-expected))),amplitude_reconstruction_residual=float(np.max(np.abs(alpha-expected_alpha))),H_X=float(-np.dot(p,np.log2(p))),source_payload_sha256=source['source_payload_sha256'],ensemble_hash=source['ensemble_hash'],C=source['C'],w=source['w'],Cw_new_oracle_run=False)
++
++
++def main():
++    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=OUT);args=parser.parse_args();out=args.output
++    if (out/'independent_audit.json').exists():raise RuntimeError('Completed independent audit is immutable')
++    inputs=json.loads((out/'audit_inputs.json').read_text(encoding='utf-8'));probe=json.loads((out/'production_probe.json').read_text(encoding='utf-8'))
++    results=[];high=[];checks=[];comparisons=[];failures=[];start=time.perf_counter()
++    def check(name,condition,detail=None):
++        row=dict(check=name,status='CURRENTLY_VERIFIED_PASS' if condition else 'FAIL',detail=detail);checks.append(row)
++        if not condition:failures.append(row)
++    pmf=[source_audit(x) for x in inputs['sources']]
++    for i,a in enumerate(pmf):check('source_'+str(i),abs(a['energy_residual'])<1e-12 and abs(a['normalization_residual'])<1e-12 and a['PMF_reconstruction_residual']<1e-13 and a['amplitude_reconstruction_residual']<1e-12,a)
++    pdf=independent_pdf(inputs['reference_state']['clear_raw_channel'],inputs['reference_state']['moments'])
++    check('independent_PDF_moments',max(abs(pdf[k]) for k in ('mean_eta_residual','mean_sqrt_eta_residual'))<1e-10,pdf)
++    for entry in probe['results']:
++        sid,label,det=entry['source_id'],entry['case'],entry['detector'];source=inputs['sources'][sid];receiver=inputs[det]
++        if label=='reference_fading':
++            mm=inputs['reference_state']['moments'];m1,mh,xi=mm['mean_eta'],mm['mean_sqrt_eta'],mm['xi_ch'];constant=False
++        else:
++            t=.25 if label.startswith('pure_loss') else float(label.split('fixed_channel_')[1]);m1,mh=t,math.sqrt(t);xi=0. if label.startswith('pure_loss') else inputs['reference_state']['moments']['xi_ch'];constant=True
++        model=physical_model(source,m1,mh,xi,receiver['eta_B'],receiver['nu_B'],constant)
++        mi=independent_MI(source,model['eta_f'],model['N_eff'],receiver['eta_B'],receiver['nu_B'],full=label=='reference_fading')
++        model.update(mi);model['beta_I_AB']=M(inputs['beta_rec'])*M(mi['I_AB']);model['K_raw']=model['beta_I_AB']-model['chi_BE']
++        meta=dict(source_id=sid,case=label,detector=det)
++        for name,status in model['checks'].items():check('_'.join(map(str,(sid,label,det,name))),bool(status))
++        production=entry['result'];residuals={}
++        mapping={'m1':'mean_eta','mhalf':'mean_sqrt_eta','eta_f':'T_eff','W_pre':'W_pre','Z':'Z_star','xi_f':'xi_eff','chi_BE':'chi_BE','I_AB':'I_AB','K_raw':'K_raw'}
++        for k,v in mapping.items():
++            if model[k] is not None:residuals[k]=float(model[k])-production[v]
++        check('_'.join(map(str,(sid,label,det,'production_comparison'))),max(abs(v) for v in residuals.values())<1e-9,residuals)
++        comparisons.append(dict(meta,residuals=residuals));results.append(dict(meta,**to_json(model)));high.append(dict(meta,**high_precision(model)))
++        print('AUDITED',sid,label,det,'CHI',float(model['chi_BE']),'BOUND',float(model['chi_upper']),flush=True)
++    # Exact coherent vacuum boundary, separately for zero and nonzero channel excess.
++    vacuum=dict(V_A=0.,C=0.,w=0.)
++    vacuum_cases=[]
++    for xi in (0.,inputs['reference_state']['moments']['xi_ch']):
++        for name in ('primary_detector','trusted_detector'):
++            receiver=inputs[name];m=physical_model(vacuum,.25,.5,xi,receiver['eta_B'],receiver['nu_B'],True)
++            check('coherent_vacuum_'+str(xi)+'_'+name,all(m['checks'].values()))
++            vacuum_cases.append(dict(detector=name,I_AB=0.,K_raw=-float(m['chi_BE']),**to_json(m)))
++    modulation=[];source=inputs['sources'][0]
++    for VA in (1e-2,1e-4,1e-8,0.):
++        scaled=dict(source,V_A=VA,amplitudes=(np.array(source['amplitudes'])*math.sqrt(VA/source['V_A'])).tolist())
++        for name in ('primary_detector','trusted_detector'):
++            receiver=inputs[name];mm=inputs['reference_state']['moments'];noise=(mm['mean_eta']-mm['mean_sqrt_eta']**2)*VA+mm['mean_eta']*mm['xi_ch']
++            mi=independent_MI(scaled,mm['mean_sqrt_eta']**2,noise,receiver['eta_B'],receiver['nu_B'])
++            modulation.append(dict(V_A=VA,detector=name,scope='MI-only source-amplitude limit; no Cw interpolation or new exact-source claim',**mi))
++    for name in ('primary_detector','trusted_detector'):
++        seq=[r['I_AB'] for r in modulation if r['detector']==name];check('no_modulation_MI_limit_'+name,all(a>=b-TOL for a,b in zip(seq,seq[1:])) and seq[-1]==0.)
++    result=dict(status='CURRENTLY_VERIFIED_PASS' if not failures else 'FAILED',security_status='UNVALIDATED_SECURITY_MODEL',mathematical_scope='Physical entropy bound and covariance/detection identities under stated model assumptions',production_code_edited=False,full_P1_P3_run=False,checks=len(checks),failures=failures,MP_digits=mp.mp.dps,physical_entropy_bound_failures=sum(x['status']=='FAIL' and 'holevo_physical_entropy_bound' in x['check'] for x in checks),independent_imports_exclude_production_helpers=True,elapsed_seconds=time.perf_counter()-start,source_audits=pmf,independent_pdf=pdf,results=results,vacuum_cases=vacuum_cases,no_modulation_MI=modulation,production_comparisons=comparisons,checks_table=checks)
++    (out/'independent_audit.json').write_text(json.dumps(result,indent=2,allow_nan=False)+'\n',encoding='utf-8');(out/'high_precision_decomposition.json').write_text(json.dumps(high,indent=2)+'\n',encoding='utf-8')
++    fields=('source_id','case','detector','m1','mhalf','eta_f','fading_variance','xi_ch','m_xi','fading_excess_output','N_eff','xi_f','C','w','V','W_pre','Z','lambda_1','lambda_2','S_AB','conditional_entropy','chi_BE','Bob_entropy_upper','chi_upper','chi_bound_margin','I_AB','beta_I_AB','K_raw','Gaussian_input_capacity_upper')
++    with (out/'independent_results.csv').open('w',encoding='utf-8',newline='') as f:
++        writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader();writer.writerows({k:r[k] for k in fields} for r in results)
++    with (out/'checks.csv').open('w',encoding='utf-8',newline='') as f:
++        writer=csv.DictWriter(f,fieldnames=('check','status','detail'));writer.writeheader();writer.writerows(checks)
++    print('INDEPENDENT_AUDIT',result['status'],'CHECKS',len(checks),'FAILURES',len(failures),flush=True)
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/paper_uav_hap_cvqkd/docs/NEGATIVE_SKR_INDEPENDENT_AUDIT_VI.md
+@@ -0,0 +1,234 @@
++# Independent Physical Audit of Negative SKR
++
++Ngày2026-10-17. Phạm vi **AUDIT_ONLY**, task d36a98d1. Không sửa production evaluator/config/source, không chạy P1–P3, không commit/push.
++
++**Kết luận:** không phát hiện contradiction entropy vật lý hoặc lỗi MI/Holevo số học tại các điểm đã audit. Hai Holevo reference đều thấp hơn chặn2S(B1). Giả thiết mean eta bậc1e-4 không đúng với cấu hình đang chạy: mean eta hiện tại khoảng.238, W_pre khoảng2.205. Rate âm được giải thích định lượng trong Gaussian surrogate hiện hành; đây chưa là security proof cho protocol DM fading.
++
++**UNVALIDATED_SECURITY_MODEL** và **NOT_READY_FOR_PUBLICATION_SCALE_RUNS** giữ nguyên.
++
++## A. Actual implementation và provenance
++
++### Call graph thực sự chạy
++
++Runner lịch sử scripts/run_trusted_heterodyne_skr.py:45–55 gọi evaluate_candidate cho reference từ đúng config. Probe mới scripts/probe_negative_skr_production.py chạy32 đánh giá có giới hạn, không lấy SKR từ journal. Sys.setprofile ghi lại call graph và entropy returns thật:
++
++1. scripts/probe_negative_skr_production.main -> src/trusted_heterodyne_skr.evaluate_candidate:262 -> evaluate_batch:212.
++2. evaluate_batch -> authenticate: scripts/run_ao_effective_channel_no_fading_noise_reference.py:83. Chỉ tải C,w/source metadata đã xác thực, dựng đúng transmitted ensemble.
++3. effective_channel:26 tạo m_xi/N/W_pre; receiver:71 tách trusted eta_B,nu_B.
++4. trusted_holevo:119 -> symplectic_spectrum:94 và spectral_entropy:111. Production tính S(AB) trừ S(E|Y) qua finite AB purification; khi eta_B<1, đồng thời tạo AFG AppendixA và kiểm tra spectrum. Điều này khác với việc chỉ dùng ideal nu3 cho nonideal receiver.
++5. deterministic_mutual_information trong src/cvqkd/mutual_information.py được gọi với implementation=product, GH8/16/32. Không gọi pooled_fading_mixture_MI hoặc Gaussian-input MI. Không gọi _holevo_from_source_moments của mode cũ ở đường này.
++
++[actual_call_graph.json](../results/negative_skr_independent_audit_20261017/actual_call_graph.json) ghi file/function/line/count, kernel arguments và hai entropy production thực sự trả về. Tại ideal, MI kernel nhận T=.16092029098192165, epsilon≈2.4420588998314914. Tại trusted, MI kernel nhận gain²=.11264420368734515 và epsilon adapter≈2.681751659122871. Epsilon adapter bao gồm detector cho riêng likelihood MI, không phải xi_f để dùng lại cho W_pre/Z.
++
++Những số đang audit thuộc mode channel_only_fading_trusted_heterodyne_v1; global production default không được đổi thành mode này. Audit xác nhận evaluator của chính reference được trích dẫn, không suy luận từ việc hàm tồn tại.
++
++### Cache và inputs
++
++Tất cả4 producer hashes trong receipt của task trước và các receipt/report liên quan khớp checkout hiện tại. Hai source payload/C,w, source roster và saved fading moments được đọc từ cache có provenance. Cả hai ensemble hashes còn được tính lại độc lập từ chính p/alpha/VA binary64, không dùng production hash helper. Probe đọc0 cached SKR để tạo32 kết quả mới; hai reference so với artifact trước có residual0 trên I,chi,K,W,Z.
++
++- Source nu_raw=0.17, VA=5.046875: C=2.9818069279923307, w=6.1909456504525073e-07; ensemble SHA256 b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b; payload SHA256 e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317; path results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json.
++- Source nu_raw=0.3, VA=0.025: C=0.11249999999999999, w=1.0046087943251475e-16; ensemble SHA256 5a7fa49158c69bb9a79174f926b67f8442dceb126f051c3b1800832de2f71b38; payload SHA256 7d12ec26ad71c2b631d8bb2f69c9cf1aea5d20a024a8f54789d776f54dd00f97; path results/exact_mb_test2/exact_source_cache/87349f16fde4b2bf28859071fc222d91fbddcbf402bb5c46c8eb6083c99a8798.json.
++
++Không chạy worker C,w/AP mới. Source cache authenticity không được gọi là một lần independent full-support source-moment certification mới.
++
++### Physical inputs và tài liệu thực tế
++
++HAP20000m, UAV1000m, reference44 ở(450,450)m, L=21939.3102292m; D_r=.55m; beam waist=.0986760647169751m; eta_atm=.9082089654181673. Raw A0=.9977339699934346, w_eq=1.312921595852572m, sigma_s=1.0570182137187947m, sigma_R²=.0539620777961657; phase/AO OFF; xi_ch=.0186, beta=.95.
++
++[Hosseinidehaj v1](https://arxiv.org/pdf/2002.03476.pdf), Eq4–7/AppendixA, được kiểm tra từ primary web text. Local2002.03476v1(1).pdf không tìm thấy trong workspace/Downloads. Bản thảo thực có là C:/Users/admin/Downloads/2026__Binh_s_work (38).pdf, SHA2560c60153cb6dcd4f8a3a2e8ecfe0cb245b473463f051837fb46028916eb6be0a0; requested(38)(3).pdf không tìm thấy. Trang3 được render và xem trực quan; các khác biệt homodyne/total-noise vẫn ghi rõ, không coi hai phiên bản là giống nhau. [Denys–Brown–Leverrier2021](https://quantum-journal.org/papers/q-2021-09-13-540/pdf/) Eq11–14 và footnotes11–12 được đối chiếu riêng.
++
++Luật physical hiện hành là active-conditioned0<eta<=1, giữ atom AoA0. Không áp dụng normalization mới. Script audit tự viết PDF trong log eta từ raw parameters và tích phân bằng SciPy, không import physical density/moments helper. Kết quả independent m1=.23790886783673015, mhalf=.40114871429673277; residual so saved moments0 và1.11e-16. Raw active retained mass=.9841173294426485, raw total mass=.9841200272202844; atom P0=.00016985667656141038. Physical conditioned mass1. Các số này xác nhận coherence với luật đang dùng, không chứng minh mô hình đã được hiệu chuẩn ngoài thực địa.
++
++## B. Reference numerical decomposition
++
++Cùng nguồn nu_raw=.17, VA=5.046875 SNU. Bảng dùng ít nhất16 chữ số có nghĩa khi phù hợp. high_precision_decomposition.json lưu arithmetic70 decimal digits; độ chính xác số học không đồng nghĩa70 chữ số chính xác của tham số vật lý.
++
++| Quantity | Ideal | Trusted(.7,.0135) |
++|---|---:|---:|
++| m1 | 0.23790886783673015 | 0.23790886783673015 |
++| mhalf | 0.40114871429673266 | 0.40114871429673266 |
++| eta_f | 0.16092029098192165 | 0.16092029098192165 |
++| Var(sqrt eta) | 0.076988576854808505 | 0.076988576854808505 |
++| xi_ch | 0.018599999999999998 | 0.018599999999999998 |
++| m_xi | 0.0044251049417631805 | 0.0044251049417631805 |
++| Fading excess output | 0.38855172381411168 | 0.38855172381411168 |
++| Channel excess output | 0.0044251049417631805 | 0.0044251049417631805 |
++| eta_f xi_f | 0.39297682875587486 | 0.39297682875587486 |
++| xi_f | 2.44205889983149 | 2.44205889983149 |
++| C | 2.9818069279923307 | 2.9818069279923307 |
++| w | 6.1909456504525073e-07 | 6.1909456504525073e-07 |
++| V | 6.046875 | 6.046875 |
++| W_pre | 2.2051214223052606 | 2.2051214223052606 |
++| Z | 2.3915984782847097 | 2.3915984782847097 |
++| nu_1 | 5.2830365050269812 | 5.2830365050269812 |
++| nu_2 | 1.4412829273322418 | 1.4412829273322418 |
++| Conditional eigenvalues | [4.262311319657476] | [1, 1.1101285398235259, 4.4990030151947371] |
++| S(AB) terms | [2.8353531905841769, 0.83215255416980305] | [2.8353531905841769, 0.83215255416980305] |
++| S(AB) | 3.6675057447539796 | 3.6675057447539796 |
++| Conditional entropy terms | [2.5208712618455178] | [0, 0.31190856095551323, 2.6002407451198293] |
++| Conditional entropy | 2.5208712618455178 | 2.9121493060753423 |
++| chi_BE | 1.1466344829084623 | 0.75535643867863744 |
++| I_AB | 0.42157258496112981 | 0.31840443441682093 |
++| beta I_AB | 0.40049395571307334 | 0.30248421269597986 |
++| K_raw | -0.74614052719538893 | -0.45287222598265758 |
++| S(B1) upper | 1.530712989465701 | 1.530712989465701 |
++| chi_upper=2S(B1) upper | 3.061425978931402 | 3.061425978931402 |
++| Bound margin | 1.9147914960229395 | 2.3060695402527642 |
++| Complex noise variance | 1.1964884143779375 | 1.1510418900645563 |
++| Variance/real quadrature | 0.59824420718896876 | 0.57552094503227813 |
++| Gaussian capacity upper | 0.42157258540843368 | 0.31840443455836692 |
++
++### Các số hạng tạo W_pre và Z
++
++W_pre = 1 + m1*VA + m_xi = 1 + 1.2006963173634975 + 0.0044251049417631805 = 2.2051214223052606.
++
++Tương đương W_pre = 1 + eta_f*VA + N_eff = 1 + 0.81214459354938584 + 0.39297682875587486.
++
++N_eff = fading 0.38855172381411168 + channel 0.0044251049417631805; fading chiếm98.8739527071% N_eff. Z_signal=2.3922960308904271, Z_penalty=0.00069755260571727532, Z=2.3915984782847097. Source-side2C=5.9636138559846614 không bị dùng nhầm làm Z sau kênh.
++
++
++Không có chi_line/chi_tot/trusted detector trong W_pre hoặc cănZ. Shot noise1 xuất hiện một lần. Fading variance được cộng một lần trong N_eff; regrouping W=1+m1VA+m_xi đã bao gồm nó, không cộng lại fading vào biểu thức này.
++
++### Kiểm tra MI độc lập
++
++Tích phân256-state complex Gaussian likelihood thực hiện trực tiếp ở GH16/32/48. Một implementation khác dùng adaptive quadrature một chiều sau khi tự kiểm tra Cartesian/PMF factorization. Cả hai không gọi production MI. Log-likelihood dùng natural log và chia ln2 đúng một lần.
++
++Max difference adaptive/direct2D=3.9898639947466563e-16 bits/use; max production-independent difference trên tất cả đại lượng so sánh=9.0760732263106547e-15.
++
++Source0: sum p=0.99999999999999978, VA_reconstructed=5.0468749999999982, H(X)=5.6505002234211421<=8, max PMF reconstruction error=2.0816681711721685e-17.
++
++Source1: sum p=1, VA_reconstructed=0.025000000000000001, H(X)=4.8311567491755296<=8, max PMF reconstruction error=1.3877787807814457e-17.
++
++
++Complex likelihood có hệ số1/(pi sigma_c²); tích phân radial độc lập và second moment xác nhận normalization1, E|N|²=sigma_c², Var(ReN)=Var(ImN)=sigma_c²/2. Gain=sqrt(eta_B eta_f), sigma_c²=1+nu_B+eta_B N_eff/2. Vacuum measurement và electronic noise đều chỉ xuất hiện một lần.
++
++Gaussian-input capacity upper là log2(1+SNR) cho một complex use, SNR=eta_B eta_f*(VA/2)/sigma_c². Không có hệ số1/2 bên ngoài log vì cả hai quadrature đều dùng. Hai MI reference nằm dưới capacity với margin tương ứng khoảng4.47e-10 và1.42e-10 bits/use. Với sourceVA=.025, chênh lệch capacity cỡ1e-16 là integration rounding và nhỏ hơn tolerance đã khai báo; không clip MI theo capacity.
++
++## C. Independent physics checks
++
++### Chặn entropy bắt buộc
++
++Cho rho_B1E trước detector và rho_FG trusted độc lập với BE. Thêm ancilla không đổi I(B1FG:E)=I(B1:E). Local measurement/channel và data processing cho chi(Y:E)=I(Y:E)<=I(B1:E). Araki–Lieb cho I(B1:E)<=2S(B1). Với mean displacement0 và covariance W_pre I2, thermal state tối đa entropy tại variance này, nên S(B1)<=g((W_pre-1)/2). Đây là bound cho mọi one-mode state có covariance đó, không cần Bob thực sự Gaussian.
++
++Do đó0<=chi(Y:E)<=2g((W_pre-1)/2), với điều kiện trusted independence/local processing đúng. Audit dùng W_pre trước detector, không dùng V_B2 hoặc variance của dữ liệu heterodyne để tính bound.
++
++| Detector tại reference | Holevo independent | chi_upper | Margin | Kết quả |
++|---|---:|---:|---:|---|
++|Ideal|1.1466344829084623|3.061425978931402|1.9147914960229395|PASS|
++|Trusted|0.75535643867863744|3.061425978931402|2.3060695402527642|PASS|
++
++Các hypothesis được đáp ứng ở mô hình covariance đã khai báo: SNU vacuum1; B1 là mode lượng tử trước detector; F,G ban đầu nằm trong Bob, độc lập Eve; beam splitter và heterodyne là local operations. Sự độc lập trusted là giả định protocol, không phải kết luận từ detector measurements trong task này.
++
++### Spectrum, uncertainty và arithmetic
++
++Independent script tính closed symplectic formula từ Delta/D bằng mpmath70dps, đồng thời diagonalize trực tiếp iOmegaGamma; không import symplectic helper production. Γ+iOmega được kiểm tra riêng. Ideal conditional là V-Z²/(W+1), không phải sqrt(V(V-Z²/W)) homodyne. Entropy được in từng mode trước khi cộng/trừ; không nhầm source-side correlation, dấu trừ conditional hoặc log base.
++
++Reference S(AB) chỉ khoảng3.67 và conditional khoảng2.52/2.91, hiệu khoảng1.15/.76; đây không phải cancellation của hai entropy lớn gây ra số âm giả. Kết quả70dps và binary64 đồng ý ở mức1e-14. Ở T0/source nhỏ, residual chi khoảng-1.4e-70 được lưu nguyên; analytic value là0. Audit không clip Holevo để qua bound. Vacuum symplectic factor1 có residual70dps được lưu riêng, chỉ entropy-limit của mode vacuum được dùng.
++
++### Tổng kiểm tra và FAIL
++
++-201 independent checks PASS: PMF/energy, PDF moments, W/Z identities, physicality, entropy bound và so production cho32 cases; vacuum/no-modulation limits.
++-5 self-checks PASS: g known values, vacuum spectrum, normalized complex likelihood, bound sensitivity và kiểm tra AST không import production numerical helpers.
++-7 supplemental checks PASS: ensemble/payload hashes, ΓAB/conditional AFG matrix ordering, trusted->ideal limit.
++-40 physical entropy-bound evaluations PASS:32 source/channel/detector cases,4 exact-vacuum cases và4 joint detector limits. Không có FAIL–HOLEVO_PHYSICAL_ENTROPY_BOUND ở cấu hình hợp lệ đã chạy.
++
++Các FAIL/exception vẫn được báo: lần chạy diagnostic đầu thất bại khi xuất vacuum row do duplicate xi_ch keyword; script/log nằm trong attempts/initial_independent/. Chỉ sửa script audit rồi chạy lại, production không sửa. Sensitivity self-check cố tình ghép m1=.00026407446657 với Holevo reference1.1466: W=1.0013376626085486, upper=.016037567950527874, nên bị expected rejection. Đây là kiểm tra phát hiện input mismatch, không phải FAIL của cấu hình thực. Không nâng tolerance hoặc đổi bound.
++
++### Weak-transmission scaling, cùng source và detector
++
++Mỗi bảng dùng fixed non-fading channel, cùng C,w/VA và xi_ch=.0186. CSV giữ đầy đủ precision; bảng này làm tròn để đọc. T0 analytic MI/chi=0, residual70dps nếu có vẫn lưu trong CSV.
++
++Source0, primary_detector:
++
++|T|W|Z|I_AB|chi_BE|2S(B1) upper|K_raw|
++|---:|---:|---:|---:|---:|---:|---:|
++| 0.01 | 1.05065475 | 0.5963462099 | 0.03595045448 | 0.03158403148 | 0.3426272697 | 0.002568900276 |
++| 0.001 | 1.005065475 | 0.1885812297 | 0.003635931357 | 0.003232692237 | 0.05100734358 | 0.0002214425525 |
++| 0.0001 | 1.000506547 | 0.05963462099 | 0.0003640088125 | 0.0003268357895 | 0.006782616593 | 1.897258232e-05 |
++| 1e-05 | 1.000050655 | 0.01885812297 | 3.640504496e-05 | 3.300113122e-05 | 0.0008465247682 | 1.583661495e-06 |
++| 1e-06 | 1.000005065 | 0.005963462099 | 3.64054614e-06 | 3.331478445e-06 | 0.0001014795372 | 1.270403881e-07 |
++| 0 | 1 | 0 | 0 | 0 | 0 | 0 |
++
++Source0, trusted_detector:
++
++|T|W|Z|I_AB|chi_BE|2S(B1) upper|K_raw|
++|---:|---:|---:|---:|---:|---:|---:|
++| 0.01 | 1.05065475 | 0.5963462099 | 0.02492621363 | 0.02185951629 | 0.3426272697 | 0.00182038666 |
++| 0.001 | 1.005065475 | 0.1885812297 | 0.002512235828 | 0.00222878062 | 0.05100734358 | 0.0001578434164 |
++| 0.0001 | 1.000506547 | 0.05963462099 | 0.0002514219882 | 0.0002252536986 | 0.006782616593 | 1.359719019e-05 |
++| 1e-05 | 1.000050655 | 0.01885812297 | 2.514418516e-05 | 2.274381162e-05 | 0.0008465247682 | 1.143164287e-06 |
++| 1e-06 | 1.000005065 | 0.005963462099 | 2.514438382e-06 | 2.296035548e-06 | 0.0001014795372 | 9.268091459e-08 |
++| 0 | 1 | 0 | 0 | 0 | 0 | 0 |
++
++Source1, primary_detector:
++
++|T|W|Z|I_AB|chi_BE|2S(B1) upper|K_raw|
++|---:|---:|---:|---:|---:|---:|---:|
++| 0.01 | 1.000436 | 0.02249999981 | 0.0001803088423 | 0.001389650993 | 0.005932319126 | -0.001218357592 |
++| 0.001 | 1.0000436 | 0.007115124674 | 1.803340759e-05 | 0.0001698521952 | 0.0007380618074 | -0.0001527204579 |
++| 0.0001 | 1.00000436 | 0.002249999981 | 1.803365997e-06 | 2.007450996e-05 | 8.828972553e-05 | -1.836131226e-05 |
++| 1e-05 | 1.000000436 | 0.0007115124674 | 1.803368522e-07 | 2.316388945e-06 | 1.027733259e-05 | -2.145068936e-06 |
++| 1e-06 | 1.000000044 | 0.0002249999981 | 1.803368783e-08 | 2.625328094e-07 | 1.172569317e-06 | -2.454008059e-07 |
++| 0 | 1 | 0 | 0 | -1.414949856e-70 | 0 | 1.414949856e-70 |
++
++Source1, trusted_detector:
++
++|T|W|Z|I_AB|chi_BE|2S(B1) upper|K_raw|
++|---:|---:|---:|---:|---:|---:|---:|
++| 0.01 | 1.000436 | 0.02249999981 | 0.000124540957 | 0.0009111615795 | 0.005932319126 | -0.0007928476704 |
++| 0.001 | 1.0000436 | 0.007115124674 | 1.245529949e-05 | 0.0001124438335 | 0.0007380618074 | -0.000100611299 |
++| 0.0001 | 1.00000436 | 0.002249999981 | 1.245541988e-06 | 1.337801591e-05 | 8.828972553e-05 | -1.219475103e-05 |
++| 1e-05 | 1.000000436 | 0.0007115124674 | 1.245543193e-07 | 1.551176793e-06 | 1.027733259e-05 | -1.43285019e-06 |
++| 1e-06 | 1.000000044 | 0.0002249999981 | 1.245543321e-08 | 1.764553519e-07 | 1.172569317e-06 | -1.646226903e-07 |
++| 0 | 1 | 0 | 0 | -1.414949856e-70 | 0 | 1.414949856e-70 |
++
++
++Pure-loss fixed T=.25 có W=1+.25VA, no fading. Exact coherent vacuum với VA0,C0,w0 cho MI0; khi channel excess bằng0, Bob vacuum/chi0. Khi channel noise dương, vacuum input có thể cho Bob thermal noise/chi>0 nhưng MI vẫn0, không được giả định chi0 ở noisy channel có T>0. Với VA->0, kiểm tra MI ở.01,.0001,1e-8,0 bằng scaling coherent amplitudes; đó là MI-only limit, không nội suy C,w hoặc tuyên bố thêm exact source vào catalog. Không vi phạm entropy bound trong các case này.
++
++## D. Ideal so với trusted heterodyne
++
++Audit tự khai triển A,F,G covariance blocks và C_AFG,B2 theo AppendixA, không gọi production trusted_holevo hoặc purification. Quadrature order là(q_A,p_A,q_F,p_F,q_G,p_G); Omega=direct sum[[0,1],[-1,0]]. Beam splitter phases được đối chiếu bằng toàn conditional covariance, không chỉ eigenvalues.
++
++Max conditional AFG element difference với production=4.4408920985006262e-16. Trusted entropy tăng từ2.5208712618455178 lên2.9121493060753423, trong khi S(AB)=3.6675057447539796 giữ nguyên. Holevo giảm0.39127804422982482; beta*MI giảm0.098009743017093476; raw K tăng0.29326830121273134, vẫn âm.
++
++
++Điều này phù hợp với trusted receiver: một phần thông tin không còn truy cập được bởi Eve, song Bob cũng mất tín hiệu/thêm noise. Không thay ideal nu3 vào nonideal spectrum. Giới hạn eta_B=1-delta,nu_B=delta² với delta từ1e-2 tới1e-8 hội tụ về ideal, bound vẫn PASS; bảng trusted_ideal_limit.csv giữ số. Không có thay đổi detector operating point cho thí nghiệm chính.
++
++## E. Root cause
++
++**Không tìm thấy lỗi arithmetic/noise-accounting hoặc physical entropy contradiction tại reference.** Các biểu thức đang chạy đúng ở src/trusted_heterodyne_skr.py:57 (W=1+m1VA+m_xi),:220 (Z),:81 (complex receiver noise),:171 (S_AB-S_E_cond). Independent MI và Appendix entropy tái lập giá trị âm.
++
++Nguyên nhân định lượng là current m1 và fading spread lớn, tạo output excess chủ yếu từ fading. W_pre lớn hơn1 khoảng1.205, không phải khoảng1e-3. Conditional entropy bị trừ đúng nhưng còn để lại chi lớn hơn beta*MI. Không cần một Holevo vượt2S(B1) để làm K âm.
++
++Nếu dùng m1 bậc1e-4, W_pre và entropy bound sẽ thấp hơn nhiều; ghép những moments đó với Holevo1.1466 là sai input/model identity. Đó là nguồn của nghi vấn không tương thích trong task, không phải phép tính của cấu hình thật. Không suy đoán nguồn gốc các con số minh họa nếu chưa có cùng config/hash.
++
++## F. Security validity
++
++Ba trạng thái phải tách riêng:
++
++| Nội dung | Trạng thái | Phạm vi |
++|---|---|---|
++| DPI + Araki–Lieb + maximum entropy tại covariance |MATHEMATICALLY_VALIDATED|Dưới các giả thiết B1 quantum/local/trusted independence đã nêu |
++| Moment/W/Z algebra, Appendix Gaussian receiver |MATHEMATICALLY_VALIDATED|Declared source-independent phase-tracked fading/constant xi_ch và covariance Gaussian model |
++| Reference/boundary numerical MI, spectra/entropy |NUMERICALLY_VALIDATED|Các2 sources/32 cases/giới hạn đã liệt kê |
++| Full DM fading key-rate security |SECURITY_PROOF_VALIDATED=False|UNVALIDATED_SECURITY_MODEL |
++
++### Denys constraints: suy ra riêng cho fading
++
++Với input source độc lập fading, phase tracked và E[b|alpha_k]=mhalf*alpha_k, đặt nbar=VA/2. Từ các first/second-moment constraints của Denys, suy ra c1=mhalf*C, c2=mhalf*nbar, nB=m1*nbar+m_xi/2. Do đó nB-c2²/nbar=((m1-mhalf²)VA+m_xi)/2=N_eff/2. Thay vào general Eq13 cho Zlower=2c1-2sqrt(w(nB-c2²/nbar))=2mhalf*C-sqrt(2wN_eff). Đây là derivation từ general constraint, không phải khẳng định Eq14 của Denys viết trực tiếp cho atmospheric fading.
++
++Quan hệ algebra này phù hợp với mô hình và exact C,w đã xác thực. Covariance tại Zlower đã kiểm physicality. Tuy nhiên nguồn thống kê đó được simulator cung cấp, chưa là parameter estimation thực nghiệm. Denys footnotes11–12 còn yêu cầu maximum Holevo trên physical correlation interval khi không có bảo đảm lower endpoint là worst case. Audit này không chứng nhận full-interval optimum hoặc thay security target hiện hành.
++
++Hosseinidehaj covariance/detector analysis được xây dựng trong Gaussian-modulation protocol. MI tính bằng AWGN moment surrogate không phải true pooled-fading mixture MI của nguồn discrete; chưa có lower-bound/error theorem được kiểm chứng cho việc thay thế cụ thể này. Trusted Gaussian conditional entropy khớp toán/số không tự cấp một proof mới cho DM fading. Operational CSI/binning/leakage, attacks, finite-size và composable claims vẫn mở. Passing the entropy upper bound là necessary consistency check, không phải sufficient security certificate hay tightness guarantee.
++
++## G. Recommendation
++
++Không đề xuất sửa công thức production để làm K dương: audit không xác nhận lỗi cần patch ở reference. Thay đổi tối thiểu hữu ích trong một task implementation sau là thêm regression guard chi<=2g((Wpre-1)/2) và Gaussian-capacity check vào diagnostic validation, cùng input/config identity trên mọi bảng; không clip chi/MI khi guard fail.
++
++Ưu tiên khoa học tiếp theo là xác nhận measurement constraints và estimator cho actual fading-mixture MI, kiểm tra worst-case physical Z interval/trusted DM bound trong đúng security scope. Đây là đề xuất, không chạy thêm optimizer/source/22.700 điểm/P1–P3 trong task audit này. Mọi physical redesign hoặc detector tuning phải là nghiên cứu riêng, không sửa đầu vào để cứu dấu SKR.
++
++### Artifacts và bảo toàn
++
++[Independent results](../results/negative_skr_independent_audit_20261017/independent_audit.json), [16-digit reference table](../results/negative_skr_independent_audit_20261017/reference_entropy_decomposition.csv), [all finite cases](../results/negative_skr_independent_audit_20261017/independent_results.csv), [checks](../results/negative_skr_independent_audit_20261017/checks.csv), [high precision](../results/negative_skr_independent_audit_20261017/high_precision_decomposition.json), [source/ordering/limit checks](../results/negative_skr_independent_audit_20261017/supplemental_independent_checks.json).
++
++Chỉ thêm2 scripts chẩn đoán riêng và report/state/evidence artifacts. Không sửa source/evaluator/Cw/config/normalization/security functional/frozen specs hoặc kết quả lịch sử. Không training/test dataset access, publication evaluation, baseline/threshold certification, ObjectiveC restart, external PDF edit, commit/push. Frozen actual hashdf83ea63...78c15 vẫn khác historical hash trong AGENTS, đã giữ nguyên. NOT_READY và ObjectiveC USER_STOPPED không đổi. Audit complete; STOP.

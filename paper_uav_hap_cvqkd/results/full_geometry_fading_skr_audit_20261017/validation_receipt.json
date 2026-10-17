@@ -1,0 +1,63 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "verification_scope": "Provenance/report/coverage verified; not an all-numerical-checks PASS",
+  "checked_utc": "2026-10-17T02:05:35.708086+00:00",
+  "verdicts": [
+    "CONFIGURATION_MATCH_CONFIRMED",
+    "MOMENT_MISMATCH",
+    "NUMERICALLY_CONSISTENT",
+    "UNVALIDATED_SECURITY_MODEL"
+  ],
+  "strict_numerical_checks": {
+    "passed": 89,
+    "failed": 5,
+    "status": "FAILED"
+  },
+  "supplemental_diagnosis": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "checks": 18
+  },
+  "production_SKRs_recomputed": 8,
+  "independent_geometry_to_SKR_cases": 8,
+  "physical_entropy_bound_cases": 8,
+  "physical_entropy_bound_failures": 0,
+  "protected_files": 4127,
+  "protected_changes": [],
+  "production_files_edited": false,
+  "source_moment_builds": 0,
+  "full_catalog_or_missions_run": false,
+  "training_or_test_access": false,
+  "frozen_model_changed": false,
+  "frozen_historical_discrepancy": true,
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "Objective_C": "USER_STOPPED",
+  "commit_or_push": false,
+  "publication_evaluation": false,
+  "external_edits": false,
+  "producer_sha256": {
+    "scripts/probe_full_geometry_runtime.py": "c70ac7979dff3e3947e447e75e979fd8d96ba504ced6b32b09309ccfea715aae",
+    "scripts/audit_full_geometry_fading_skr.py": "77e2b04c0241e72187634dcfa386aba83a211d1c6ed474ab2a8ae6d5f76e0057"
+  },
+  "artifact_sha256": {
+    "startup_manifest.json": "96e8cf147969fd2f2908bed1f0d97588b586ba8cf3e44880395a7f6223ed7718",
+    "runtime_probe.json": "02da210e4bb26ba6ec6de7f5140245c26655227d66546811f32e620b050a52d4",
+    "independent_geometry_audit.json": "36aaeb965f782b7d5f9f8ad4afb43b5a0bc6c9b724d1005ca103e6788ee72d9f",
+    "quadrature_precision_diagnosis.json": "af4fc393a581d88589826c4c53a10373961121b9113d9593ac60183c87a44f5b",
+    "audit_summary.json": "fe704fbb4da9746cfe163d60d58daa1321c525402a76779cc991b7bd4e2e990a",
+    "high_precision_common_geometry.json": "433493f4449d8f63b4d72384a4ddd18946003337d0f44632c09a180a42222a3b",
+    "high_precision_SKR.json": "0a513f4e401da7f12a958deae09710861febc27d03185e836844bcd8f78903a7",
+    "moments_closed_vs_quadrature.csv": "85ffde489508cd90c9b685b6783e0ffa12e0200acb9f2f5e6ac5a0f6ed219f9d",
+    "runtime_parameters.csv": "1ec8a10cb53149205dd6723660a3703c057c2c1ac6b0f4d3fc7b70575923e532",
+    "configuration_sensitivity.csv": "361f9366d001a75e3e8be9f5af1e9b8120d63d054804e65d92cc396b51d50d00",
+    "SKR_entropy_decomposition.csv": "1bb62c0b93291850bd54f843691a5145eb9b21e8e4dd98ae153feb9cdcaa654d",
+    "FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md": "052cbe44c3f3aece98fdee223ce2781764ab6f991eebb16d45d91683f841046e",
+    "write_full_report.py": "52ec26702cb69c3651f76f44dca590b7ae79050708c75e6aba6da8c6f9c839ee",
+    "diagnose_quadrature_precision.py": "c87c3f952646adb9d2e10ea700d2659b3e2e8bcd35c2d93253b083ff76a9883a"
+  },
+  "canonical_report_sha256": "052cbe44c3f3aece98fdee223ce2781764ab6f991eebb16d45d91683f841046e",
+  "report_QA": {
+    "sections": 9,
+    "math_delimiters_balanced": true,
+    "control_characters": false
+  }
+}

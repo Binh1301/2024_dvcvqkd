@@ -1,0 +1,23 @@
+SOURCE_BATCH 20 /227
+SOURCE_BATCH 40 /227
+SOURCE_BATCH 60 /227
+SOURCE_BATCH 80 /227
+SOURCE_BATCH 100 /227
+SOURCE_BATCH 120 /227
+Traceback (most recent call last):
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_fading_effective_binary_cloud.py", line 453, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_fading_effective_binary_cloud.py", line 448, in main
+    try:{'reference':reference,'mc':monte_carlo,'full':full,'verify':verify,'report':report}[args.stage](output)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_fading_effective_binary_cloud.py", line 205, in full
+    saved.save(output/'checkpoint.json',dict(status='RUNNING_NEW_P1',completed_sources=total,input_sha256=input_hash))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\scripts\run_ao_effective_channel_no_fading_noise_reference.py", line 63, in save
+    temporary.replace(path)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "E:\Python3.13\Lib\pathlib\_local.py", line 780, in replace
+    os.replace(self, target)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied: 'E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\fading_effective_binary_cloud_20261016\\checkpoint.json.tmp' -> 'E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\fading_effective_binary_cloud_20261016\\checkpoint.json'

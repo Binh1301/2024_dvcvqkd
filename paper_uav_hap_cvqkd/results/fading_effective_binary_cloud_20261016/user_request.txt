@@ -1,0 +1,512 @@
+# CODEX TASK — Update SKR Evaluator Using Fading-Channel Moments
+
+## 1. Objective
+
+Modify the existing HAP–UAV 256-state MB-shaped DM-CV-QKD repository to implement the fading-effective SKR formulation described in the manuscript:
+
+**2026__Binh_s_work (37)(3).pdf — Section III-A, equations (11)–(21).**
+
+The new evaluator must consistently account for fading-induced variance in the effective covariance matrix and the Holevo calculation.
+
+After verification, integrate the new evaluator with the existing Binary Cloud P1–P3 optimization framework.
+
+**This is an implementation task. Audit the existing code, make the required changes, test them, and report the numerical differences.**
+
+Do not blindly copy manuscript equations when detector conventions, noise definitions, or covariance normalization are inconsistent.
+
+Do not modify the physical model merely to obtain positive SKR.
+
+---
+
+## 2. Inspect Existing Implementation
+
+Locate and inspect the code responsible for:
+
+- HAP–UAV atmospheric fading and channel geometry.
+- Analytical fading moments.
+- Exact 256-state MB ensemble generation.
+- Exact-source moments C and w.
+- Mutual information I_AB.
+- Holevo information chi_BE.
+- Gaussian covariance construction.
+- Symplectic eigenvalues and conditional covariance.
+- Heterodyne detector efficiency and electronic noise.
+- Existing SKR and Binary Cloud optimization.
+- P1 source search, P2 stationary selection and P3 dynamic programming.
+
+Identify which current implementation omits fading variance.
+
+Record the exact existing formulas and their file locations before editing.
+
+Preserve the source catalog, existing caches, historical results and regression baselines.
+
+---
+
+## 3. Implement the Three Fading Moments
+
+For each candidate UAV position j, evaluate:
+
+\[
+m_{1,j}=\langle T_j\rangle,
+\]
+
+\[
+m_{1/2,j}=\langle\sqrt{T_j}\rangle,
+\]
+
+\[
+m_{\xi,j}=\langle T_j\xi_j(T_j)\rangle.
+\]
+
+These correspond to the analytical fading moments in equations (19)–(21) of the manuscript.
+
+Reuse the existing validated closed-form fading-moment functions wherever possible.
+
+Do not introduce Monte Carlo approximations where verified analytical moments already exist.
+
+Preserve the manuscript's integration interval [0,1], normalization convention and treatment of the probability mass at zero transmittance.
+
+Explicitly distinguish AoA-induced zero-transmittance events from the new binary-cloud blockage states. Do not accidentally change conditional normalization or count outages twice.
+
+Calculate the effective power transmittance:
+
+\[
+T_{\mathrm{eff},j}
+=
+m_{1/2,j}^{2}.
+\]
+
+Calculate the fading-amplitude variance:
+
+\[
+V_{\mathrm{fad},j}
+=
+m_{1,j}-T_{\mathrm{eff},j}.
+\]
+
+Verify:
+
+\[
+V_{\mathrm{fad},j}\geq0
+\]
+
+within numerical precision.
+
+The fading-induced modulation variance contribution is:
+
+\[
+\Delta_{\mathrm{fad},j}
+=
+V_{\mathrm{fad},j}V_A.
+\]
+
+This term must not be silently omitted.
+
+---
+
+## 4. Audit the Effective Noise Definition
+
+The manuscript equation (18) uses:
+
+\[
+T_{\mathrm{eff}}\xi_{\mathrm{eff}}
+=
+\operatorname{Var}(\sqrt T)V_A
++
+\langle T\xi_n\rangle.
+\]
+
+However, the manuscript also defines total input-referred noise using line noise and detector noise.
+
+This creates a potential accounting problem if the channel's vacuum contribution is already included in the covariance matrix.
+
+Before implementing equation (18), audit:
+
+1. Whether xi_n represents excess noise, total input-referred noise, or noise including vacuum loss.
+2. Whether the vacuum term is already represented by the constant 1 in Bob's covariance.
+3. Whether the detector noise is trusted or untrusted.
+4. Whether detector noise is already included elsewhere in I_AB or chi_BE.
+5. Whether any term would be counted twice.
+
+For a pre-detector quadrature covariance under fixed input-referred channel excess noise epsilon_ch, check the reference identity:
+
+\[
+b_{\mathrm{pre}}
+=
+1+\langle T\rangle(V_A+\epsilon_{\mathrm{ch}}).
+\]
+
+Equivalently:
+
+\[
+b_{\mathrm{pre}}
+=
+1+T_{\mathrm{eff}}V_A
++\operatorname{Var}(\sqrt T)V_A
++\langle T\rangle\epsilon_{\mathrm{ch}}.
+\]
+
+If the existing physical model has more general excess noise, use the appropriate moment:
+
+\[
+\langle T\epsilon_{\mathrm{ch}}(T)\rangle.
+\]
+
+Do not blindly implement:
+
+\[
+b=1+T_{\mathrm{eff}}V_A+
+\langle T\chi_{\mathrm{tot}}\rangle
+\]
+
+without checking whether chi_tot already includes vacuum noise or trusted detector contributions.
+
+Document the final implemented noise equation and justify every term.
+
+---
+
+## 5. Preserve the Heterodyne Receiver
+
+IMPORTANT:
+
+The manuscript currently describes a homodyne detector in part of Section III-A.
+
+However, the existing research system uses:
+
+**256-state DM-CV-QKD with heterodyne detection and reverse reconciliation.**
+
+Therefore:
+
+- Preserve heterodyne detection.
+- Preserve beta_rec = 0.95.
+- Preserve detector efficiency and electronic-noise conventions.
+- Do not replace heterodyne with homodyne merely to match the manuscript.
+- Do not silently mix trusted detector noise with Eve-accessible channel noise.
+
+Audit whether the existing conditional symplectic eigenvalues and Holevo implementation correspond to the appropriate heterodyne security model.
+
+If the manuscript's Holevo expression cannot be transferred directly to the current heterodyne model, retain a separately validated heterodyne treatment and clearly document the discrepancy.
+
+Do not declare the updated evaluator validated unless the detector/security consistency checks pass.
+
+---
+
+## 6. Update Mutual Information
+
+Retain the existing exact 256-state MB ensemble:
+
+\[
+\mathcal E=
+\{p_k,\alpha_k\}_{k=1}^{256}.
+\]
+
+Use:
+
+\[
+I_{AB}
+=
+\sum_k p_k
+\int p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_l p_l p(y|\alpha_l)}
+\,dy.
+\]
+
+Inspect the existing MI integration and verify:
+
+- Correct heterodyne likelihood normalization.
+- Correct treatment of both measured quadratures.
+- Correct signal amplitude scaling.
+- Consistent effective transmittance.
+- Consistent measurement noise.
+- Identical source ensemble between MI and Holevo.
+- No unintended change in the modulation-variance convention.
+
+Do not assume the manuscript's scalar Gaussian likelihood is directly equivalent to the existing complex heterodyne likelihood without verification.
+
+Retain exact numerical quadrature and previously validated numerical tolerances wherever appropriate.
+
+---
+
+## 7. Update Holevo Information
+
+Use the effective fading moments to construct the appropriate covariance matrix for the chosen heterodyne security model.
+
+The effective interparty correlation must be consistent with the factor:
+
+\[
+\langle\sqrt T\rangle.
+\]
+
+The Bob variance must be consistent with:
+
+\[
+\langle T\rangle.
+\]
+
+Retain the exact discrete-modulation source correlation calculation and existing C,w moments.
+
+Inspect the manuscript's equations (13)–(17), including its definition of Z, but do not copy the homodyne conditional eigenvalue expression into a heterodyne model without validation.
+
+Preserve the existing validated direct Z-minus and exact-source machinery where compatible.
+
+Recompute:
+
+\[
+\chi_{BE}
+\]
+
+using the corrected covariance/noise parameters and mathematically appropriate conditional covariance.
+
+Perform numerical physicality checks on the resulting covariance and symplectic eigenvalues.
+
+Clearly label the implemented result as an effective fading-moment Gaussian security approximation unless stronger security validity is independently established.
+
+---
+
+## 8. Recompute SKR Without Hiding Negative Results
+
+For each source pair:
+
+\[
+K_{\mathrm{raw}}
+=
+\beta_{\mathrm{rec}}I_{AB}
+-
+\chi_{BE}.
+\]
+
+Store separately:
+
+- I_AB
+- beta_rec I_AB
+- chi_BE
+- signed raw SKR
+- nonnegative usable SKR
+- fading variance
+- effective transmittance
+- effective noise parameters
+- source parameters
+
+Define:
+
+\[
+K_{\mathrm{usable}}=\max(0,K_{\mathrm{raw}}).
+\]
+
+Never silently clip the raw SKR before diagnostics.
+
+If the corrected calculation produces negative raw SKR, report the actual negative value and its decomposition.
+
+Do not reduce fading variance, excess noise or Holevo information to force positive results.
+
+---
+
+## 9. Validate Analytical Moments Against Monte Carlo
+
+Use Monte Carlo to independently estimate:
+
+\[
+\widehat m_1
+=
+\frac1N\sum_iT_i,
+\]
+
+\[
+\widehat m_{1/2}
+=
+\frac1N\sum_i\sqrt{T_i},
+\]
+
+\[
+\widehat m_\xi
+=
+\frac1N\sum_iT_i\xi(T_i).
+\]
+
+Compare these estimates against the analytical moments.
+
+Using both sets of moments, build the SAME effective SKR evaluator and compare:
+
+\[
+K_{\mathrm{MC\ moments}}
+\quad\text{and}\quad
+K_{\mathrm{analytical\ moments}}.
+\]
+
+These should agree within numerical uncertainty.
+
+Separately calculate, for diagnostic purposes:
+
+\[
+\frac1N\sum_iK(T_i)
+\]
+
+and:
+
+\[
+\frac1N\sum_i[K(T_i)]^+.
+\]
+
+Do not assume the per-realization average SKR is equivalent to SKR calculated from the average fading covariance.
+
+Explain any discrepancy and identify the required channel-state-information and postselection assumptions.
+
+---
+
+## 10. Mandatory Regression Tests
+
+Implement tests for:
+
+1. Zero fading variance when T is deterministic.
+2. Correct reduction to the existing deterministic-channel result.
+3. Nonnegative fading variance within numerical tolerance.
+4. Analytical moments versus Monte Carlo moments.
+5. Correct handling of T = 0 events.
+6. No duplicate vacuum contribution.
+7. No duplicate trusted detector noise.
+8. Heterodyne likelihood normalization.
+9. Identical source ensemble used for MI and Holevo.
+10. Valid covariance matrices and symplectic eigenvalues.
+11. Preservation of exact source moments C,w.
+12. Preservation of historical results through the legacy evaluator.
+13. Correct output of signed and clipped SKR.
+14. Numerical stability at very small effective transmittance.
+15. No-cloud and all-blocked binary-cloud limits.
+
+Use existing project test conventions.
+
+If any required scientific validation fails, report the blocker explicitly. Do not mark the evaluator as fully validated.
+
+---
+
+## 11. Integrate With Binary Cloud P1–P3
+
+Once the new evaluator passes the required tests, use it to recompute the clear-sky optimized SKR for every UAV candidate position:
+
+\[
+K_j^*
+=
+\left[
+\max_{(\nu,V_A)\in\mathcal C}
+K_j(\nu,V_A)
+\right]^+.
+\]
+
+Then restore the binary-cloud mapping:
+
+\[
+S_{j,n}=(1-c_{j,n})K_j^*.
+\]
+
+Keep the existing optimization framework unchanged:
+
+**P1:** Exact candidate search over source parameters.
+
+**P2:** Choose the fixed UAV location maximizing average SKR.
+
+**P3:** Use Dynamic Programming to maximize average SKR minus the movement-distance penalty.
+
+Availability remains an evaluation metric.
+
+Keep the binary cloud generator, cloud realizations, movement constraints and DP objective unchanged unless a clearly documented incompatibility is found.
+
+Do not reuse legacy SKR values as though they were computed by the updated evaluator.
+
+---
+
+## 12. Numerical Comparison
+
+Run an initial deterministic reference-point validation, followed by a small-scale binary-cloud regression.
+
+If those pass, rerun the full experimental framework.
+
+Compare:
+
+**Legacy evaluator:**
+
+Gaussian approximation omitting fading-variance contributions.
+
+**New evaluator:**
+
+Effective fading-moment formulation with the correct heterodyne covariance/noise treatment.
+
+Produce a comparison table containing:
+
+| Quantity | Legacy | Updated |
+|---|---|---|
+| Mean T | | |
+| Effective T | | |
+| Fading variance | | |
+| Effective excess noise | | |
+| I_AB | | |
+| chi_BE | | |
+| Signed SKR | | |
+| Usable SKR | | |
+| Optimal nu_MB | | |
+| Optimal V_A | | |
+
+Also compare S1–S4:
+
+- Average SKR.
+- QKD availability.
+- Total flight distance.
+- Optimized MB parameters.
+- Relative improvements.
+
+Use matched cloud realizations and consistent parameters.
+
+If corrected SKR is zero at every candidate position, report this honestly; do not generate misleading mobility-performance claims.
+
+---
+
+## 13. Repository Safety
+
+- Preserve the legacy evaluator as a reproducible comparison mode.
+- Add a clearly named fading-effective evaluator.
+- Keep shared source caches intact.
+- Do not overwrite existing numerical figures or reports.
+- Write new results into a separate versioned directory.
+- Record all physical parameters and noise conventions.
+- Do not commit or push.
+- Do not change the cloud generator or optimization objective unless necessary.
+
+Do not silently switch the production default until scientific and numerical validation passes.
+
+---
+
+## 14. Deliverables
+
+Provide:
+
+1. Exact files modified and new functions added.
+2. Summary of legacy versus updated SKR equations.
+3. A separate description of all fading and detector noise contributions.
+4. Test results and failed checks, if any.
+5. Analytical versus Monte Carlo moment comparisons.
+6. Reference-point SKR decomposition.
+7. Updated P1–P3 numerical comparisons.
+8. Clear-sky and blocked-link checks.
+9. List of scientific limitations that remain.
+10. A Vietnamese Markdown report saved under docs/.
+
+The report must explicitly answer:
+
+**Why was fading variance missing or omitted in the original evaluator?**
+
+**How is fading variance now included?**
+
+**Is the total noise counted exactly once?**
+
+**Is the receiver still heterodyne?**
+
+**Why does the updated SKR differ from the previous Monte Carlo result?**
+
+**Does the updated model produce positive SKR under the original numerical configuration?**
+
+**Are the new results validated sufficiently for publication, or are they still preliminary?**
+
+Stop and report any unresolved scientific inconsistency rather than fabricating a correction.
+
+Proceed with repository inspection and implementation now.

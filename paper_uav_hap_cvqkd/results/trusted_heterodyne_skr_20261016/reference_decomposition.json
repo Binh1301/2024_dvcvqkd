@@ -1,0 +1,634 @@
+{
+  "corrected_primary": {
+    "mean_eta": 0.23790886783673015,
+    "mean_sqrt_eta": 0.40114871429673266,
+    "m_xi": 0.0044251049417631805,
+    "mean_eta_xi_channel": 0.0044251049417631805,
+    "channel_excess_noise": 0.0186,
+    "T_eff": 0.16092029098192165,
+    "variance_sqrt_eta": 0.0769885768548085,
+    "fading_variance": 0.0769885768548085,
+    "fading_excess_output": 0.3885517238141117,
+    "Delta_fad": 0.3885517238141117,
+    "channel_excess_output": 0.0044251049417631805,
+    "effective_excess_output": 0.39297682875587486,
+    "N_eff": 0.39297682875587486,
+    "effective_excess_input": 2.44205889983149,
+    "xi_eff": 2.44205889983149,
+    "a": 6.046875,
+    "b": 2.2051214223052606,
+    "b_pre": 2.2051214223052606,
+    "W_pre": 2.2051214223052606,
+    "W_pre_effective": 2.2051214223052606,
+    "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+    "security_status": "UNVALIDATED_SECURITY_MODEL",
+    "MI_method": "effective_gaussian_MI",
+    "exact_pooled_fading_likelihood": false,
+    "eta_B": 1.0,
+    "nu_B": 0.0,
+    "chi_het": 1.0,
+    "chi_line": 7.6563156222006015,
+    "chi_tot": 13.870572344569712,
+    "detector_gain_squared": 0.16092029098192165,
+    "sigma2_complex": 1.1964884143779375,
+    "V_B2": 2.2051214223052606,
+    "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+    "detector_security_convention": "trusted",
+    "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+    "nu_raw": 0.17,
+    "V_A": 5.046875,
+    "C": 2.9818069279923307,
+    "w": 6.190945650452507e-07,
+    "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+    "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+    "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+    "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+    "Z_star": 2.3915984782847097,
+    "Z_signal": 2.392296030890427,
+    "Z_penalty": 0.0006975526057172753,
+    "Holevo_target": "chi_BE_at_direct_Z_star",
+    "numerical_repairs": [],
+    "chi_BE": 1.1466344829084623,
+    "lambda_1": 5.283036505026984,
+    "lambda_2": 1.4412829273322416,
+    "conditional_symplectic_eigenvalues": [
+      4.262311319657477
+    ],
+    "conditional_eve_symplectic_eigenvalues": [
+      1.0,
+      4.262311319657478
+    ],
+    "conditional_covariance_AFG": null,
+    "conditional_covariance_E": [
+      [
+        4.329296328673261,
+        0.0,
+        -0.5974805123382421,
+        0.0
+      ],
+      [
+        0.0,
+        4.329296328673261,
+        0.0,
+        0.5974805123382421
+      ],
+      [
+        -0.5974805123382421,
+        0.0,
+        1.066985009015785,
+        0.0
+      ],
+      [
+        0.0,
+        0.5974805123382421,
+        0.0,
+        1.066985009015785
+      ]
+    ],
+    "Gamma_AB": [
+      [
+        6.046875,
+        0.0,
+        2.3915984782847097,
+        0.0
+      ],
+      [
+        0.0,
+        6.046875,
+        0.0,
+        -2.3915984782847097
+      ],
+      [
+        2.3915984782847097,
+        0.0,
+        2.2051214223052606,
+        0.0
+      ],
+      [
+        0.0,
+        -2.3915984782847097,
+        0.0,
+        2.2051214223052606
+      ]
+    ],
+    "appendix_purification_spectrum_residual": 0.0,
+    "entropy_roundoff_modes": [],
+    "appendix_covariance_status": "IDEAL_OR_ADDITIVE_NOISE_LIMIT_USING_PURIFICATION",
+    "conditional_measurement": "trusted_heterodyne_Appendix_A",
+    "ideal_conditional_eigenvalue": 4.262311319657477,
+    "MI_low_snr_regrouping": false,
+    "I_AB": 0.4215725849611287,
+    "beta_rec": 0.95,
+    "beta_I_AB": 0.4004939557130722,
+    "SKR": -0.74614052719539,
+    "K_raw": -0.74614052719539,
+    "K_usable": 0.0,
+    "MI_orders": [
+      {
+        "order": 8,
+        "I_AB": 0.42157258494512817,
+        "SKR": -0.7461405272105905
+      },
+      {
+        "order": 16,
+        "I_AB": 0.42157258496112915,
+        "SKR": -0.7461405271953896
+      },
+      {
+        "order": 32,
+        "I_AB": 0.4215725849611287,
+        "SKR": -0.74614052719539
+      }
+    ],
+    "QKD_expressions_evaluated": true,
+    "MI_detector_gain_squared": 0.16092029098192165,
+    "MI_kernel_epsilon": 2.4420588998314914
+  },
+  "trusted_detector_diagnostic": {
+    "mean_eta": 0.23790886783673015,
+    "mean_sqrt_eta": 0.40114871429673266,
+    "m_xi": 0.0044251049417631805,
+    "mean_eta_xi_channel": 0.0044251049417631805,
+    "channel_excess_noise": 0.0186,
+    "T_eff": 0.16092029098192165,
+    "variance_sqrt_eta": 0.0769885768548085,
+    "fading_variance": 0.0769885768548085,
+    "fading_excess_output": 0.3885517238141117,
+    "Delta_fad": 0.3885517238141117,
+    "channel_excess_output": 0.0044251049417631805,
+    "effective_excess_output": 0.39297682875587486,
+    "N_eff": 0.39297682875587486,
+    "effective_excess_input": 2.44205889983149,
+    "xi_eff": 2.44205889983149,
+    "a": 6.046875,
+    "b": 2.2051214223052606,
+    "b_pre": 2.2051214223052606,
+    "W_pre": 2.2051214223052606,
+    "W_pre_effective": 2.2051214223052606,
+    "scientific_model": "channel_only_fading_trusted_heterodyne_v1",
+    "security_status": "UNVALIDATED_SECURITY_MODEL",
+    "MI_method": "effective_gaussian_MI",
+    "exact_pooled_fading_likelihood": false,
+    "eta_B": 0.7,
+    "nu_B": 0.0135,
+    "chi_het": 1.8957142857142857,
+    "chi_line": 7.6563156222006015,
+    "chi_tot": 19.43677086589176,
+    "detector_gain_squared": 0.11264420368734515,
+    "sigma2_complex": 1.1510418900645563,
+    "V_B2": 1.8705849956136822,
+    "electronic_noise_convention": "output-referred variance per detected arm, Appendix A nu_B = repository xi_det",
+    "detector_security_convention": "trusted",
+    "likelihood": "CN(sqrt(eta_B*T_eff)*alpha,1+nu_B+eta_B*N_eff/2)",
+    "nu_raw": 0.17,
+    "V_A": 5.046875,
+    "C": 2.9818069279923307,
+    "w": 6.190945650452507e-07,
+    "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+    "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+    "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+    "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+    "Z_star": 2.3915984782847097,
+    "Z_signal": 2.392296030890427,
+    "Z_penalty": 0.0006975526057172753,
+    "Holevo_target": "chi_BE_at_direct_Z_star",
+    "numerical_repairs": [],
+    "chi_BE": 0.7553564386786364,
+    "lambda_1": 5.283036505026984,
+    "lambda_2": 1.4412829273322416,
+    "conditional_symplectic_eigenvalues": [
+      0.9999999999999998,
+      1.1101285398235259,
+      4.49900301519474
+    ],
+    "conditional_eve_symplectic_eigenvalues": [
+      1.1101285398235266,
+      4.499003015194737
+    ],
+    "conditional_covariance_AFG": [
+      [
+        4.652099961792964,
+        0.0,
+        -0.9537285234337693,
+        0.0,
+        -0.1655853472152466,
+        0.0
+      ],
+      [
+        0.0,
+        4.652099961792964,
+        0.0,
+        0.9537285234337693,
+        0.0,
+        -0.1655853472152466
+      ],
+      [
+        -0.9537285234337693,
+        0.0,
+        1.3335674724328888,
+        0.0,
+        0.4051515401697417,
+        0.0
+      ],
+      [
+        0.0,
+        0.9537285234337693,
+        0.0,
+        1.3335674724328888,
+        0.0,
+        -0.4051515401697417
+      ],
+      [
+        -0.1655853472152466,
+        0.0,
+        0.4051515401697417,
+        0.0,
+        1.070341986011135,
+        0.0
+      ],
+      [
+        0.0,
+        -0.1655853472152466,
+        0.0,
+        -0.4051515401697417,
+        0.0,
+        1.070341986011135
+      ]
+    ],
+    "conditional_covariance_E": [
+      [
+        4.53761452565664,
+        0.0,
+        -0.4669773982313594,
+        0.0
+      ],
+      [
+        0.0,
+        4.53761452565664,
+        0.0,
+        0.4669773982313594
+      ],
+      [
+        -0.4669773982313594,
+        0.0,
+        1.1487400502854297,
+        0.0
+      ],
+      [
+        0.0,
+        0.4669773982313594,
+        0.0,
+        1.1487400502854297
+      ]
+    ],
+    "Gamma_AB": [
+      [
+        6.046875,
+        0.0,
+        2.3915984782847097,
+        0.0
+      ],
+      [
+        0.0,
+        6.046875,
+        0.0,
+        -2.3915984782847097
+      ],
+      [
+        2.3915984782847097,
+        0.0,
+        2.2051214223052606,
+        0.0
+      ],
+      [
+        0.0,
+        -2.3915984782847097,
+        0.0,
+        2.2051214223052606
+      ]
+    ],
+    "appendix_purification_spectrum_residual": 2.6645352591003757e-15,
+    "entropy_roundoff_modes": [
+      0.9999999999999998
+    ],
+    "appendix_covariance_status": "CURRENTLY_VERIFIED_PASS",
+    "conditional_measurement": "trusted_heterodyne_Appendix_A",
+    "ideal_conditional_eigenvalue": null,
+    "MI_low_snr_regrouping": false,
+    "I_AB": 0.31840443441682,
+    "beta_rec": 0.95,
+    "beta_I_AB": 0.30248421269597897,
+    "SKR": -0.4528722259826575,
+    "K_raw": -0.4528722259826575,
+    "K_usable": 0.0,
+    "MI_orders": [
+      {
+        "order": 8,
+        "I_AB": 0.3184044344123569,
+        "SKR": -0.4528722259868974
+      },
+      {
+        "order": 16,
+        "I_AB": 0.31840443441682,
+        "SKR": -0.4528722259826575
+      },
+      {
+        "order": 32,
+        "I_AB": 0.31840443441682,
+        "SKR": -0.4528722259826575
+      }
+    ],
+    "QKD_expressions_evaluated": true,
+    "MI_detector_gain_squared": 0.11264420368734515,
+    "MI_kernel_epsilon": 2.681751659122871
+  },
+  "previous_ideal": {
+    "scientific_model": "fading_effective_gaussian_heterodyne",
+    "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+    "raw_probability_mass": 0.9841200272202841,
+    "physical_probability_mass": 0.9999999999999999,
+    "discarded_raw_mass": 0.015879972779715916,
+    "active_normalization": 0.9841173294426483,
+    "active_retained_mass": 0.9841173294426483,
+    "active_tail_probability": 0.015882670557351587,
+    "discarded_raw_mass_quadrature": 0.015879972779715795,
+    "raw_full_support_probability_mass": 0.9999999999999999,
+    "independent_active_retained_mass": 0.9841173294426482,
+    "independent_normalized_active_mass": 0.9999999999999999,
+    "quadrature_error_retained": 8.45567671700698e-12,
+    "quadrature_error_tail": 1.7908630039555922e-13,
+    "quadrature_error_full_support": 8.690672767403654e-12,
+    "normalization_status": "CURRENTLY_VERIFIED_PASS",
+    "normalization_tolerance": 1e-10,
+    "normalization_identity": "F_active(1)=C1*Q(chi2)",
+    "raw_equation_10_changed": false,
+    "conditioning_is_modeling_choice": true,
+    "outage_atom": 0.00016985667656141038,
+    "active_probability": 0.9998301433234386,
+    "validated_boresight_rho": 0.0,
+    "mean_eta": 0.23790886783673015,
+    "mean_sqrt_eta": 0.40114871429673266,
+    "mean_eta_xi_total": 1.7665162371050331,
+    "mean_eta_xi": 1.7665162371050331,
+    "chi_het": 1.0,
+    "R": 1.0,
+    "xi_det": 0.0,
+    "xi_ch": 0.0186,
+    "detector_efficiency": 1.0,
+    "detector_excess_noise": 0.0,
+    "channel_excess_noise": 0.0186,
+    "independent_mean_eta": 0.23790886783673013,
+    "independent_mean_sqrt_eta": 0.4011487142967326,
+    "independent_mean_eta_xi_total": 1.766516237105033,
+    "moment_quadrature_errors": {
+      "mean_eta": 9.794529453545518e-13,
+      "mean_sqrt_eta": 6.279436243457392e-12,
+      "mean_eta_xi_total": 9.710293922393789e-12
+    },
+    "raw_mean_eta": 0.23413023966620677,
+    "raw_mean_sqrt_eta": 0.39477740142305245,
+    "raw_mean_eta_xi_total": 1.7384646372321528,
+    "third_moment_raw_to_physical_difference": 0.028051599872880306,
+    "third_moment_identity_residual": 0.0,
+    "outage_eta_xi_total_limit": 2.0,
+    "moments_status": "CURRENTLY_VERIFIED_PASS",
+    "VA": 5.046875,
+    "T_eff": 0.16092029098192165,
+    "variance_sqrt_eta": 0.0769885768548085,
+    "effective_transmittance_evaluation_method": "squared_amplitude_moment",
+    "deterministic_channel_handling": false,
+    "amplitude_square_rounding_residual": 0.0,
+    "fading_noise_output": 0.3885517238141117,
+    "mean_channel_excess_noise_output": 0.0044251049417631805,
+    "recovered_channel_excess_noise_output": 0.0044251049417631805,
+    "effective_excess_noise_output": 0.39297682875587486,
+    "output_excess_noise": 0.39297682875587486,
+    "output_excess_noise_from_third": 0.39297682875587486,
+    "xi_eff": 2.44205889983149,
+    "b": 2.2051214223052606,
+    "b_from_third": 2.205121422305261,
+    "noise_consistency_residual": 0.0,
+    "covariance_consistency_residual": -4.440892098500626e-16,
+    "consistency_tolerance": 1e-10,
+    "effective_channel_status": "CURRENTLY_VERIFIED_PASS",
+    "scientific_status": "PRELIMINARY_MOMENT_MATCHED_GAUSSIAN_FADING_APPROXIMATION",
+    "a": 6.046875,
+    "N_eff": 0.39297682875587486,
+    "sigma2_complex": 1.1964884143779375,
+    "b_pre": 2.2051214223052606,
+    "m_xi_total": 1.7665162371050331,
+    "m_excess": 0.0044251049417631805,
+    "fading_variance": 0.0769885768548085,
+    "Delta_fad": 0.3885517238141117,
+    "fading_noise_included": true,
+    "vacuum_Bob": 1.0,
+    "heterodyne_added_vacuum": 1.0,
+    "trusted_detector_excess_output": 0.0,
+    "trusted_detector_security": "IDEAL_ONLY",
+    "total_noise_subtraction": "m_excess=m_xi_total-(1+chi_het-mean_eta)",
+    "likelihood": "CN(sqrt(T_eff)*alpha,1+N_eff/2)",
+    "exact_pooled_fading_likelihood": false,
+    "certified_fading_security_lower_bound": false,
+    "nu_raw": 0.17,
+    "V_A": 5.046875,
+    "C": 2.9818069279923307,
+    "w": 6.190945650452507e-07,
+    "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+    "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+    "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+    "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+    "Z_star": 2.3915984782847097,
+    "Z_signal": 2.392296030890427,
+    "Z_penalty": 0.0006975526057172753,
+    "Gamma_AB": [
+      [
+        6.046874999999998,
+        0.0,
+        2.3915984782847097,
+        0.0
+      ],
+      [
+        0.0,
+        6.046874999999998,
+        0.0,
+        -2.3915984782847097
+      ],
+      [
+        2.3915984782847097,
+        0.0,
+        2.20512142230526,
+        0.0
+      ],
+      [
+        0.0,
+        -2.3915984782847097,
+        0.0,
+        2.20512142230526
+      ]
+    ],
+    "lambda_1": 5.283036505026979,
+    "lambda_2": 1.4412829273322414,
+    "lambda_3": 4.262311319657474,
+    "I_AB": 0.4215725849611287,
+    "beta_rec": 0.95,
+    "beta_I_AB": 0.4004939557130722,
+    "chi_BE": 1.1466344829084618,
+    "SKR": -0.7461405271953896,
+    "K_raw": -0.7461405271953896,
+    "K_usable": 0.0,
+    "MI_orders": [
+      {
+        "order": 8,
+        "I_AB": 0.42157258494512817,
+        "SKR": -0.7461405272105901
+      },
+      {
+        "order": 16,
+        "I_AB": 0.42157258496112826,
+        "SKR": -0.74614052719539
+      },
+      {
+        "order": 32,
+        "I_AB": 0.4215725849611287,
+        "SKR": -0.7461405271953896
+      }
+    ],
+    "numerical_repairs": [],
+    "Holevo_target": "chi_BE_at_direct_Z_star",
+    "QKD_expressions_evaluated": true,
+    "batch_shared_identical_ensemble": true,
+    "status": "NUMERICALLY_EVALUATED_PRELIMINARY"
+  },
+  "legacy_no_fading_variance": {
+    "scientific_model": "effective_channel_no_fading_noise",
+    "physical_fading_law": "active_conditioned_on_0_eta_le_1_preserve_outage",
+    "raw_probability_mass": 0.9841200272202841,
+    "physical_probability_mass": 0.9999999999999999,
+    "discarded_raw_mass": 0.015879972779715916,
+    "active_normalization": 0.9841173294426483,
+    "active_retained_mass": 0.9841173294426483,
+    "active_tail_probability": 0.015882670557351587,
+    "discarded_raw_mass_quadrature": 0.015879972779715795,
+    "raw_full_support_probability_mass": 0.9999999999999999,
+    "independent_active_retained_mass": 0.9841173294426482,
+    "independent_normalized_active_mass": 0.9999999999999999,
+    "quadrature_error_retained": 8.45567671700698e-12,
+    "quadrature_error_tail": 1.7908630039555922e-13,
+    "quadrature_error_full_support": 8.690672767403654e-12,
+    "normalization_status": "CURRENTLY_VERIFIED_PASS",
+    "normalization_tolerance": 1e-10,
+    "normalization_identity": "F_active(1)=C1*Q(chi2)",
+    "raw_equation_10_changed": false,
+    "conditioning_is_modeling_choice": true,
+    "outage_atom": 0.00016985667656141038,
+    "active_probability": 0.9998301433234386,
+    "validated_boresight_rho": 0.0,
+    "mean_eta": 0.23790886783673015,
+    "mean_sqrt_eta": 0.40114871429673266,
+    "mean_eta_xi_total": 1.7665162371050331,
+    "mean_eta_xi": 1.7665162371050331,
+    "chi_het": 1.0,
+    "R": 1.0,
+    "xi_det": 0.0,
+    "xi_ch": 0.0186,
+    "detector_efficiency": 1.0,
+    "detector_excess_noise": 0.0,
+    "channel_excess_noise": 0.0186,
+    "independent_mean_eta": 0.23790886783673013,
+    "independent_mean_sqrt_eta": 0.4011487142967326,
+    "independent_mean_eta_xi_total": 1.766516237105033,
+    "moment_quadrature_errors": {
+      "mean_eta": 9.794529453545518e-13,
+      "mean_sqrt_eta": 6.279436243457392e-12,
+      "mean_eta_xi_total": 9.710293922393789e-12
+    },
+    "raw_mean_eta": 0.23413023966620677,
+    "raw_mean_sqrt_eta": 0.39477740142305245,
+    "raw_mean_eta_xi_total": 1.7384646372321528,
+    "third_moment_raw_to_physical_difference": 0.028051599872880306,
+    "third_moment_identity_residual": 0.0,
+    "outage_eta_xi_total_limit": 2.0,
+    "moments_status": "CURRENTLY_VERIFIED_PASS",
+    "interpretation": "effective Gaussian approximation ignoring fading-induced variance",
+    "VA": 5.046875,
+    "T_eff": 0.16092029098192165,
+    "xi_eff": 0.0186,
+    "N_eff": 0.0029931174122637422,
+    "output_excess_noise": 0.0029931174122637422,
+    "a": 6.046875,
+    "b": 1.8151377109616496,
+    "sigma2_complex": 1.001496558706132,
+    "fading_noise_included": false,
+    "omitted_fading_noise_output": 0.3885517238141117,
+    "matches_full_fading_covariance": false,
+    "physical_Bob_variance_diagnostic": 2.2051214223052606,
+    "validated_fading_security_lower_bound": "NOT_ESTABLISHED",
+    "nu_raw": 0.17,
+    "V_A": 5.046875,
+    "C": 2.9818069279923307,
+    "w": 6.190945650452507e-07,
+    "Z_star": 2.3922351535921544,
+    "Z_signal": 2.392296030890427,
+    "Z_penalty": 6.087729827242316e-05,
+    "Gamma_AB": [
+      [
+        6.046874999999998,
+        0.0,
+        2.3922351535921544,
+        0.0
+      ],
+      [
+        0.0,
+        6.046874999999998,
+        0.0,
+        -2.3922351535921544
+      ],
+      [
+        2.3922351535921544,
+        0.0,
+        1.8151377109616493,
+        0.0
+      ],
+      [
+        0.0,
+        -2.3922351535921544,
+        0.0,
+        1.8151377109616493
+      ]
+    ],
+    "lambda_1": 5.235166952912994,
+    "lambda_2": 1.003429663874646,
+    "lambda_3": 4.014012093223343,
+    "I_AB": 0.4910480331304301,
+    "beta_I_AB": 0.4664956314739086,
+    "chi_BE": 0.4077607715949032,
+    "SKR": 0.0587348598790054,
+    "source_cache_key": "2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f",
+    "source_path": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+    "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+    "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+    "source_moment_route": "ARBITRARY_PRECISION_FALLBACK",
+    "MI_integration_order": 32,
+    "MI_orders": [
+      {
+        "order": 8,
+        "I_AB": 0.4910480331023219,
+        "SKR": 0.05873485985230259
+      },
+      {
+        "order": 16,
+        "I_AB": 0.49104803313042966,
+        "SKR": 0.05873485987900495
+      },
+      {
+        "order": 32,
+        "I_AB": 0.4910480331304301,
+        "SKR": 0.0587348598790054
+      }
+    ],
+    "numerical_repairs": [],
+    "objective": "effective_gaussian_Zstar_diagnostic_SKR",
+    "Holevo_target": "chi_BE_at_direct_Z_star",
+    "certified_fading_security_lower_bound": false
+  }
+}

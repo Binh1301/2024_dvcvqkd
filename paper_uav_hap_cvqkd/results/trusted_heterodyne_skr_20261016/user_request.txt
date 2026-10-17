@@ -1,0 +1,823 @@
+# CODEX TASK — Correct Fading-Channel SKR Evaluator and Trusted Heterodyne Noise
+
+## 1. Mục tiêu
+
+Hãy kiểm tra và sửa bộ tính Secret Key Rate (SKR) trong repository cho hệ thống HAP–UAV, 256-QAM discrete-modulation CV-QKD, Maxwell–Boltzmann shaping, reverse reconciliation và heterodyne detection.
+
+**Mục tiêu chính là tính đúng effective channel excess noise từ ba fading moments và xử lý trusted detection noise riêng biệt.**
+
+Sử dụng hai tài liệu tham chiếu:
+
+1. `2002.03476v1(1).pdf` — Hosseinidehaj, Walk, Ralph, *Composable finite-size effects in free-space CV-QKD systems*. Đặc biệt Section III, Eq. (4)–(7), và Appendix A.
+2. `2026__Binh_s_work (38)(3).pdf` — Bản thảo HAP–UAV hiện tại. Đặc biệt Eq. (10)–(22).
+
+**Quan trọng:** Các giá trị số trong hội thoại trước chỉ là ví dụ. Repository có thể đang sử dụng bộ thông số vật lý, fading moments và source catalog khác. Phải lấy cấu hình thực tế từ repository, tuyệt đối không hard-code các giá trị ví dụ hoặc thay đổi hệ thống để đạt SKR dương.
+
+Không được thay đổi phương pháp optimization, chòm sao 256-QAM, nguồn exact \(C,w\), hoặc pipeline P1–P3 nếu không cần thiết.
+
+---
+
+## 2. Kiểm tra code hiện tại trước khi sửa
+
+Tìm tất cả hàm liên quan đến:
+
+- Channel transmissivity và fading distribution.
+- Ba fading moments.
+- Effective transmissivity và effective excess noise.
+- Channel noise, detector noise và total noise.
+- \(V,W,Z\) của covariance matrix.
+- Exact source quantities \(C,w\).
+- Mutual information \(I_{AB}\).
+- Holevo information \(\chi_{BE}\).
+- SKR và các bài toán P1–P3.
+
+Trước khi sửa, lập bảng xác định mỗi hàm đang sử dụng định nghĩa nhiễu nào.
+
+Phải phát hiện các trường hợp:
+
+- Dùng `chi_line` như `channel_excess_noise`.
+- Dùng `chi_tot` như `effective_excess_noise`.
+- Đưa trusted detection noise vào covariance trước detector.
+- Cộng vacuum noise hai lần.
+- Sử dụng homodyne conditional eigenvalue trong bộ thu heterodyne.
+- Trộn công thức của các nguồn tài liệu có quy ước noise khác nhau.
+
+Lưu kết quả tham chiếu và trạng thái các bài kiểm thử hiện tại trước khi chỉnh sửa.
+
+---
+
+## 3. Ba fading moments — công thức bắt buộc
+
+Theo Hosseinidehaj, Eq. (4)–(7), định nghĩa:
+
+\[
+m_1=\langle\eta\rangle
+\]
+
+\[
+m_{1/2}=\langle\sqrt\eta\rangle
+\]
+
+\[
+m_\xi=\langle\eta\xi_{\rm ch}(\eta)\rangle.
+\]
+
+Trong đó \(\xi_{\rm ch}(\eta)\) là **channel excess noise quy về đầu vào kênh**, không chứa vacuum-loss noise và không chứa trusted detection noise.
+
+Nếu repository giả định channel excess noise không đổi:
+
+\[
+\xi_{\rm ch}(\eta)=\xi_{\rm ch},
+\]
+
+thì:
+
+\[
+\boxed{
+m_\xi=\xi_{\rm ch}m_1.
+}
+\]
+
+Nếu channel excess noise phụ thuộc \(\eta\), phải dùng kỳ vọng thực tế:
+
+\[
+m_\xi
+=
+\int_0^1\eta\xi_{\rm ch}(\eta)f_\eta(\eta)\,d\eta.
+\]
+
+Giữ nguyên phương pháp tính moment exact/closed-form của repository khi phương pháp đó đã được kiểm chứng.
+
+Nếu sử dụng Eq. (19)–(20) của bản thảo, giữ các công thức:
+
+\[
+\langle\eta\rangle
+=
+P_1A_0\eta_{\rm atm}
+\frac{\chi^2C_1}{\chi^2+1}
+\mathcal Q(\chi^2+1)
+\]
+
+và:
+
+\[
+\langle\sqrt\eta\rangle
+=
+P_1\sqrt{A_0\eta_{\rm atm}}
+\frac{\chi^2C_1}{\chi^2+0.5}
+\mathcal Q(\chi^2+0.5).
+\]
+
+Kiểm tra miền tích phân \([0,1]\), xác suất AoA tại \(\eta=0\), chuẩn hóa PDF, và so sánh closed form với numerical integration.
+
+Không được tự ý thay miền tích phân, bỏ atom tại 0, thay hình học kênh hay renormalize phân phối khi chưa chứng minh và báo cáo rõ.
+
+---
+
+## 4. Effective transmissivity và effective channel excess noise
+
+Đây là phần bắt buộc phải triển khai đúng.
+
+Theo Eq. (7) của Hosseinidehaj:
+
+\[
+\boxed{
+\eta_f=\langle\sqrt\eta\rangle^2.
+}
+\]
+
+Phương sai fading:
+
+\[
+\boxed{
+\operatorname{Var}(\sqrt\eta)
+=
+\langle\eta\rangle-\langle\sqrt\eta\rangle^2.
+}
+\]
+
+Effective excess noise:
+
+\[
+\boxed{
+\eta_f\xi_f
+=
+\operatorname{Var}(\sqrt\eta)V_A
++
+\langle\eta\xi_{\rm ch}(\eta)\rangle.
+}
+\]
+
+Với channel excess noise cố định:
+
+\[
+\boxed{
+\eta_f\xi_f
+=
+(\langle\eta\rangle-\eta_f)V_A
++
+\xi_{\rm ch}\langle\eta\rangle.
+}
+\]
+
+Khi \(\eta_f>0\):
+
+\[
+\boxed{
+\xi_f
+=
+\frac{
+(\langle\eta\rangle-\eta_f)V_A
++\xi_{\rm ch}\langle\eta\rangle
+}{\eta_f}.
+}
+\]
+
+**Không được tính \(\xi_f\) từ `chi_line` hoặc `chi_tot`.**
+
+Đối với \(\eta_f=0\), phải xử lý riêng và ổn định về số; không thực hiện phép chia cho 0.
+
+Trong implementation nên phân biệt rõ:
+
+- `channel_excess_noise`
+- `fading_excess_output`
+- `channel_excess_output`
+- `effective_excess_output`
+- `effective_excess_input`
+
+Trong đó:
+
+\[
+\begin{aligned}
+\text{fading\_excess\_output}
+&=(m_1-\eta_f)V_A,\\
+\text{channel\_excess\_output}
+&=m_\xi,\\
+\text{effective\_excess\_output}
+&=(m_1-\eta_f)V_A+m_\xi.
+\end{aligned}
+\]
+
+Tuyệt đối không đặt các đại lượng này bằng `total_noise`.
+
+---
+
+## 5. Covariance matrix trước detector
+
+Theo Hosseinidehaj Eq. (4)–(7), phương sai Bob trước detector phải là:
+
+\[
+\boxed{
+W_{\rm pre}
+=
+1+\eta_fV_A+\eta_f\xi_f.
+}
+\]
+
+Thay công thức effective excess noise:
+
+\[
+\boxed{
+W_{\rm pre}
+=
+1+\langle\eta\rangle V_A
++\langle\eta\xi_{\rm ch}(\eta)\rangle.
+}
+\]
+
+Nếu channel excess noise cố định:
+
+\[
+\boxed{
+W_{\rm pre}
+=
+1+\langle\eta\rangle(V_A+\xi_{\rm ch}).
+}
+\]
+
+Phải triển khai cả hai dạng và kiểm tra chúng bằng nhau tới sai số floating-point.
+
+Hằng số \(1\) đã biểu diễn shot noise theo quy ước vacuum variance = 1 SNU.
+
+Không được cộng thêm:
+
+\[
+1-\eta,\quad
+\chi_{\rm line},\quad
+\chi_{\rm hom},\quad
+\chi_{\rm het},\quad
+\chi_{\rm tot}
+\]
+
+trực tiếp vào \(W_{\rm pre}\).
+
+Nếu thấy code đang cho \(W_{\rm pre}\to2+\chi_{\rm det}\) khi \(\eta\to0\), phải coi đó là lỗi noise accounting.
+
+Với kênh pure loss và không có excess noise, giới hạn bắt buộc là:
+
+\[
+\lim_{\eta\to0}W_{\rm pre}=1.
+\]
+
+---
+
+## 6. Công thức \(Z\) cho 256-QAM theo Denys
+
+Giữ nguyên exact source computation của repository:
+
+\[
+\tau=\sum_{k=1}^{256}p_k|\alpha_k\rangle\langle\alpha_k|
+\]
+
+\[
+C=
+\operatorname{tr}
+\left(\tau^{1/2}a\tau^{1/2}a^\dagger\right)
+\]
+
+và:
+
+\[
+w=
+\sum_kp_k
+\left[
+\langle\alpha_k|a_\tau^\dagger a_\tau|\alpha_k\rangle
+-
+|\langle\alpha_k|a_\tau|\alpha_k\rangle|^2
+\right].
+\]
+
+Không nội suy \(C,w\) và không thay đổi quy ước `nu_raw`, normalization, hash hoặc cache của source catalog.
+
+Đối với Gaussian effective-channel covariance, kiểm tra và sử dụng cận tương quan phù hợp với Denys:
+
+\[
+\boxed{
+Z^*
+=
+2\sqrt{\eta_f}C
+-
+\sqrt{2\eta_f\xi_fw}.
+}
+\]
+
+Tương đương:
+
+\[
+\boxed{
+Z^*
+=
+2\langle\sqrt\eta\rangle C
+-
+\sqrt{
+2w\left[
+(\langle\eta\rangle-\eta_f)V_A
++
+\langle\eta\xi_{\rm ch}\rangle
+\right]
+}.
+}
+\]
+
+Đây là bước áp dụng cận tương quan của Denys cho thống kê fading hiệu dụng; phải kiểm tra tính phù hợp của các ràng buộc covariance cho 256-QAM, không được tuyên bố đây là công thức fading được viết nguyên văn trong Denys Eq. (14).
+
+**Cấm đưa `chi_tot`, `chi_line` hoặc trusted detector noise vào căn bậc hai của \(Z\).**
+
+Đặc biệt, khi không fading:
+
+\[
+\langle\eta\rangle=\eta_f=T,
+\]
+
+thì phải khôi phục:
+
+\[
+\boxed{
+Z^*=2\sqrt TC-\sqrt{2T\xi_{\rm ch}w}.
+}
+\]
+
+Kiểm tra physicality của covariance và xử lý cận tương quan đúng với phương pháp bảo mật, không tự ý clip \(Z\) chỉ để eigenvalues hợp lệ.
+
+---
+
+## 7. Phân biệt channel noise và detector noise
+
+Sử dụng các định nghĩa riêng biệt:
+
+**Channel excess noise:**
+
+\[
+\xi_{\rm ch}.
+\]
+
+**Effective channel excess noise:**
+
+\[
+\xi_f.
+\]
+
+**Line noise quy về đầu vào kênh:**
+
+\[
+\boxed{
+\chi_{\rm line}
+=
+\frac1{\eta_f}-1+\xi_f.
+}
+\]
+
+**Trusted heterodyne detection noise:**
+
+Theo Appendix A của Hosseinidehaj:
+
+\[
+\boxed{
+\chi_{\rm het}
+=
+\frac{1+(1-\eta_B)+2\nu_B}{\eta_B}.
+}
+\]
+
+Trong đó:
+
+- \(\eta_B\): heterodyne detector efficiency.
+- \(\nu_B\): electronic noise theo đúng quy ước normalization của bài báo.
+
+**Total input-referred noise:**
+
+\[
+\boxed{
+\chi_{\rm tot}
+=
+\chi_{\rm line}
++
+\frac{\chi_{\rm het}}{\eta_f}.
+}
+\]
+
+`chi_line` và `chi_tot` chỉ được sử dụng trong những công thức cần noise quy về đầu vào, đặc biệt khi tính Mutual Information theo quy ước tương ứng.
+
+Không dùng chúng để thay thế \(\xi_f\) trong covariance trước detector.
+
+Không sử dụng công thức `chi_hom` của bản thảo cho hệ heterodyne.
+
+Ví dụ chẩn đoán, chỉ khi quy ước \(\nu_B\) trong repo trùng với bài báo:
+
+\[
+\eta_B=0.8,\quad \nu_B=0.0135
+\]
+
+thì:
+
+\[
+\chi_{\rm het}
+=
+\frac{1+0.2+0.027}{0.8}
+=1.53375.
+\]
+
+Nếu repo định nghĩa electronic noise khác, phải chuyển đổi đơn vị/quy ước trước. Không hard-code ví dụ này.
+
+---
+
+## 8. Holevo information — trusted heterodyne
+
+Giữ:
+
+\[
+V=V_A+1
+\]
+
+\[
+W=W_{\rm pre}
+\]
+
+và covariance:
+
+\[
+\gamma_{AB_1}
+=
+\begin{pmatrix}
+V I_2&Z\sigma_z\\
+Z\sigma_z&W I_2
+\end{pmatrix}.
+\]
+
+Tính:
+
+\[
+\Delta=V^2+W^2-2Z^2
+\]
+
+\[
+D=(VW-Z^2)^2
+\]
+
+\[
+\boxed{
+\nu_{1,2}
+=
+\sqrt{
+\frac{\Delta\pm\sqrt{\Delta^2-4D}}2
+}.
+}
+\]
+
+Kiểm tra \(\nu_i\ge1\) trong miền vật lý.
+
+**Quan trọng:** Công thức sau trong bản thảo:
+
+\[
+\nu_3=\sqrt{V(V-Z^2/W)}
+\]
+
+là dạng conditional eigenvalue cho homodyne lý tưởng, không được dùng làm default cho heterodyne.
+
+Đối với **heterodyne lý tưởng**, conditional eigenvalue là:
+
+\[
+\boxed{
+\nu_{3,\rm het}
+=
+V-\frac{Z^2}{W+1}.
+}
+\]
+
+Nếu detector không lý tưởng và detection noise được coi là trusted, phải dùng cách mô hình hóa tương ứng với Appendix A của Hosseinidehaj.
+
+Cụ thể, detector được biểu diễn qua beam splitter hiệu suất \(\eta_B\), trạng thái phụ trợ có:
+
+\[
+\upsilon=1+\frac{2\nu_B}{1-\eta_B},
+\]
+
+và:
+
+\[
+\boxed{
+V_{B_2}
+=
+\eta_BW+(1-\eta_B)\upsilon.
+}
+\]
+
+Khi đó:
+
+\[
+\chi_{BE}
+=
+S(AB_1)-S(AFG|B_2),
+\]
+
+với conditional covariance và các symplectic eigenvalues tính theo Eq. (A1)–(A4) của Hosseinidehaj.
+
+Không được áp dụng công thức entropy ba số hạng của ideal heterodyne cho detector trusted không lý tưởng nếu chưa chứng minh tương đương.
+
+Trong trường hợp lý tưởng \(\eta_B=1,\nu_B=0\), code phải khôi phục công thức ideal heterodyne ổn định, tránh phép chia \(0/0\) ở biểu thức phụ trợ.
+
+Không thay đổi nguồn \(Z\) từ discrete modulation thành \(Z=\sqrt{V^2-1}\) của Gaussian modulation. Các phương trình detector của Hosseinidehaj chỉ được áp dụng cho covariance tương thích; cần xác nhận giới hạn của việc ghép hai mô hình bảo mật.
+
+---
+
+## 9. Mutual Information cho MB-shaped 256-QAM
+
+Giữ nguyên discrete-input mutual information:
+
+\[
+I_{AB}
+=
+\sum_{k=1}^{256}p_k
+\int_{\mathbb C}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_jp_jp(y|\alpha_j)}
+\,d^2y.
+\]
+
+Không thay bằng Gaussian-modulation mutual information.
+
+Kiểm tra:
+
+1. Likelihood heterodyne được chuẩn hóa đúng trên mặt phẳng phức.
+2. Hệ số gain phù hợp với \(T_{\rm eff}\), detector efficiency và quy ước quadrature.
+3. Heterodyne vacuum measurement noise chỉ được cộng một lần.
+4. Electronic noise được đưa vào theo đúng vị trí và normalization.
+5. Hiệu chỉnh fading excess noise được sử dụng nhất quán với effective Gaussian likelihood.
+
+Phải phân biệt rõ hai phương pháp:
+
+- `effective_gaussian_MI`: mutual information sử dụng kênh Gaussian hiệu dụng.
+- `pooled_fading_mixture_MI`: mutual information tính từ likelihood hỗn hợp của các realization fading.
+
+Không được đồng nhất hai phương pháp hoặc thay đổi phương pháp mặc định âm thầm.
+
+Đối với phương pháp effective Gaussian, phải kiểm tra tính phù hợp của giả thiết Gaussian-surrogate MI khi áp dụng cho discrete modulation.
+
+Nếu chưa có cơ sở chứng minh rằng estimator mới tạo ra lower bound bảo mật hợp lệ, ghi rõ trạng thái `UNVALIDATED_SECURITY_MODEL` trong báo cáo; không được tuyên bố hệ thống đã có composable security chỉ vì chạy đúng công thức.
+
+---
+
+## 10. SKR và tích hợp optimization
+
+SKR cuối cùng:
+
+\[
+\boxed{
+K_{\rm raw}
+=
+\beta_{\rm rec}I_{AB}-\chi_{BE}.
+}
+\]
+
+Sử dụng reconciliation efficiency hiện hành trong repository.
+
+Lưu riêng:
+
+\[
+K_{\rm usable}=\max(0,K_{\rm raw}).
+\]
+
+Không được:
+
+- Ép SKR dương.
+- Tự ý giảm Holevo.
+- Bỏ fading variance.
+- Bỏ detector noise khỏi MI.
+- Đổi source parameters để đạt kết quả mong muốn.
+- Dùng clipped SKR để che giấu lỗi số học.
+
+Chỉ sau khi evaluator mới đạt toàn bộ kiểm tra mới tích hợp với P1, P2 và P3.
+
+P1 vẫn tối ưu \((\nu_{\rm MB},V_A)\); P2 vẫn chọn vị trí UAV cố định; P3 vẫn tối ưu quỹ đạo với các ràng buộc mobility đã có.
+
+Giữ nguyên cloud-blockage matrix, stochastic seeds, experiment configurations và source catalog hiện hành để so sánh trước/sau công bằng.
+
+---
+
+## 11. Bộ kiểm thử bắt buộc
+
+Triển khai các test độc lập sau:
+
+**Test A — No fading**
+
+Với \(\eta=T\) không đổi:
+
+\[
+\eta_f=T,\quad
+\operatorname{Var}(\sqrt\eta)=0,\quad
+\xi_f=\xi_{\rm ch}.
+\]
+
+**Test B — Pure loss**
+
+Với \(\xi_{\rm ch}=0\), không fading:
+
+\[
+W_{\rm pre}=1+TV_A.
+\]
+
+Khi \(T\to0\):
+
+\[
+W_{\rm pre}\to1,\quad Z\to0.
+\]
+
+**Test C — Moment identity**
+
+\[
+\eta_f\xi_f
+=
+(\langle\eta\rangle-\eta_f)V_A
++\langle\eta\xi_{\rm ch}\rangle.
+\]
+
+Kiểm tra:
+
+\[
+\langle\eta\rangle\ge\eta_f\ge0.
+\]
+
+**Test D — Bob variance identity**
+
+\[
+1+\eta_fV_A+\eta_f\xi_f
+=
+1+\langle\eta\rangle V_A
++\langle\eta\xi_{\rm ch}\rangle.
+\]
+
+**Test E — Detector independence**
+
+Khi chỉ thay đổi \(\eta_B\) hoặc \(\nu_B\), nhưng giữ nguyên kênh và nguồn:
+
+- \(\eta_f,\xi_f,W_{\rm pre},Z\) không đổi.
+- Mutual information sau detector có thể thay đổi.
+- Conditional Holevo có thể thay đổi.
+
+**Test F — Ideal heterodyne**
+
+Khi \(\eta_B=1,\nu_B=0\):
+
+\[
+\nu_{3,\rm het}
+=
+V-\frac{Z^2}{W+1}.
+\]
+
+**Test G — Nonideal trusted heterodyne**
+
+Đối chiếu Appendix A, Eq. (A1)–(A4), bao gồm trusted ancillary modes và conditional symplectic spectrum.
+
+**Test H — No duplicate noise**
+
+Không tồn tại đường tính nào đưa \(\chi_{\rm tot}\) vào \(W_{\rm pre}\) hoặc \(Z\) rồi tiếp tục cộng detector noise lần nữa.
+
+**Test I — Monte Carlo moments**
+
+Sử dụng cùng PDF fading và cùng mô hình AoA để ước lượng:
+
+\[
+\langle\eta\rangle,\quad
+\langle\sqrt\eta\rangle,\quad
+\langle\eta\xi_{\rm ch}\rangle.
+\]
+
+So sánh với analytical moments bằng uncertainty/tolerance có căn cứ.
+
+**Test J — Exact source preservation**
+
+Với cùng \((\nu_{\rm raw},V_A)\), ensemble hash, \(C,w\) và normalization không thay đổi so với nguồn exact đã xác nhận.
+
+**Test K — Numerical and physical checks**
+
+Kiểm tra entropy, eigenvalues, covariance physicality, trường hợp \(T=0\), \(w\approx0\), \(V_A\to0\), và giới hạn tổn hao mạnh.
+
+Các test độc lập phải báo PASS/FAIL rõ ràng. Không được sửa tolerance quá rộng để ép test PASS.
+
+---
+
+## 12. Kiểm tra số ở điểm tham chiếu
+
+Lấy điểm tham chiếu và các tham số thực từ repository.
+
+In bảng:
+
+| Quantity | Legacy | Corrected | Difference |
+|---|---:|---:|---:|
+| \(V_A,\nu_{\rm raw}\) | | | |
+| \(\langle\eta\rangle\) | | | |
+| \(\langle\sqrt\eta\rangle\) | | | |
+| \(\eta_f\) | | | |
+| \(\operatorname{Var}(\sqrt\eta)\) | | | |
+| \(\langle\eta\xi_{\rm ch}\rangle\) | | | |
+| \(\eta_f\xi_f\) | | | |
+| \(\xi_f\) | | | |
+| \(C,w\) | | | |
+| \(W_{\rm pre}\) | | | |
+| \(Z\) | | | |
+| \(\nu_1,\nu_2\) | | | |
+| Conditional eigenvalues | | | |
+| \(I_{AB}\) | | | |
+| \(\beta I_{AB}\) | | | |
+| \(\chi_{BE}\) | | | |
+| \(K_{\rm raw}\) | | | |
+
+Thêm phần phân rã:
+
+\[
+\eta_f\xi_f
+=
+\underbrace{
+(\langle\eta\rangle-\eta_f)V_A
+}_{\text{Fading contribution}}
++
+\underbrace{
+\langle\eta\xi_{\rm ch}\rangle
+}_{\text{Channel excess contribution}}.
+\]
+
+In riêng `chi_het` và `chi_tot` nhưng không trộn chúng vào bảng tính covariance trước detector.
+
+Nếu muốn dùng điểm kiểm tra minh họa trước đây, chỉ sử dụng khi đúng cùng bộ moment và nguồn:
+
+\[
+\begin{aligned}
+\langle\eta\rangle&=2.6407446657\times10^{-4},\\
+\eta_f&\approx2.4357648533\times10^{-4},\\
+V_A&=0.025,\\
+\xi_{\rm ch}&=0.0186.
+\end{aligned}
+\]
+
+Khi đó các identity dự kiến là:
+
+\[
+\eta_f\xi_f\approx5.4242346092\times10^{-6}
+\]
+
+\[
+W_{\rm pre}\approx1.000011513647.
+\]
+
+**Đây chỉ là unit-test fixture**, không được dùng thay thông số thật của repo.
+
+Đặc biệt không được xuất hiện giá trị \(W_{\rm pre}\approx2.2666\) từ total noise nếu đang chạy fixture này.
+
+---
+
+## 13. Kiểm soát thay đổi và chạy lại
+
+Làm theo thứ tự:
+
+1. Audit evaluator hiện hành và xác định root cause.
+2. Lưu baseline, không xóa dữ liệu lịch sử.
+3. Sửa effective channel excess noise và covariance.
+4. Sửa trusted heterodyne detector/Holevo nếu cần.
+5. Kiểm thử analytical identities và physical limits.
+6. Kiểm thử source catalog và MI.
+7. Kiểm thử trên một điểm tham chiếu rồi một tập nhỏ các điểm.
+8. Chỉ khi đạt yêu cầu mới chạy lại toàn bộ catalog và P1–P3.
+
+Tận dụng cache đã xác minh khi không thay đổi ensemble hay channel moments. Nếu thay đổi logic tính SKR, phải dùng cache/version key mới để không lẫn kết quả.
+
+Không commit hoặc push nếu chưa có yêu cầu.
+
+Không xóa, ghi đè mất khả năng phục hồi hoặc đánh dấu kết quả lịch sử là đã xác thực theo evaluator mới.
+
+---
+
+## 14. Báo cáo cuối cùng
+
+Trả lời bằng tiếng Việt, bao gồm:
+
+**A. Root cause:** Chính xác hàm/file nào trước đây dùng sai loại nhiễu và lỗi ảnh hưởng đến đại lượng nào.
+
+**B. Mathematical audit:** So sánh công thức của repository với Hosseinidehaj Eq. (4)–(7), Appendix A và Denys correlation bound.
+
+**C. Implementation:** Các file và hàm đã sửa, giải thích rõ dữ liệu đi qua từng hàm.
+
+**D. Validation:** Bảng PASS/FAIL tất cả tests; kiểm tra no-fading, pure-loss, detector trusted và Monte Carlo moments.
+
+**E. Numerical decomposition:** Bảng đầy đủ của điểm tham chiếu trước/sau gồm ba moment, \(V,W,Z\), symplectic eigenvalues, MI, Holevo và signed SKR.
+
+**F. Optimization:** Chỉ báo cáo P1–P3 sau khi mô hình được xác nhận. Giải thích nếu SKR âm, không cố điều chỉnh để tạo kết quả dương.
+
+**G. Security assumptions:** Nêu rõ phần nào được hỗ trợ trực tiếp bởi Hosseinidehaj đối với Gaussian modulation, phần nào được áp dụng từ Denys cho discrete modulation và phần nào còn cần xác minh bảo mật.
+
+## Acceptance criteria
+
+Task chỉ được coi là hoàn thành khi:
+
+- Ba fading moments đúng định nghĩa.
+- Effective excess noise không chứa trusted detection noise.
+- Vacuum loss không bị cộng hai lần.
+- \(W_{\rm pre}=1+\langle\eta\rangle V_A+\langle\eta\xi_{\rm ch}\rangle\).
+- \(Z\) dùng effective channel excess noise theo ràng buộc covariance phù hợp.
+- Heterodyne được xử lý đúng, không dùng nhầm homodyne.
+- \(I_{AB}\) và \(\chi_{BE}\) sử dụng mô hình nhất quán.
+- Mọi giới hạn vật lý cơ bản và các regression tests đạt.
+- Các kết quả lịch sử và dữ liệu nguồn vẫn được bảo toàn.
+
+**Scientific priority:** Correct equations, correct noise conventions, correct security assumptions and reproducibility are more important than obtaining positive SKR. Do not modify physics to force a positive result.

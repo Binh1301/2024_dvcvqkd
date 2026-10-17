@@ -1,0 +1,91 @@
+{
+  "status": "AUDIT_COMPLETE",
+  "current_ideal": "src/fading_effective_skr.py already uses correct channel-only output noise and ideal heterodyne Schur complement; no detected total-noise contamination",
+  "root_cause": [
+    {
+      "function": "src/manuscript_literal_3moments.py::LiteralChannel.moments",
+      "noise": "mean_eta_xi includes loss vacuum and detection noise, not <eta xi_ch>"
+    },
+    {
+      "function": "src/manuscript_literal_3moments.py::effective_channel",
+      "issue": "historical literal eta_f=mean_sqrt_eta rather than squared, and total-noise moment used as excess; retained historical mode"
+    },
+    {
+      "function": "src/manuscript_corrected_3moments.py::effective_fading_channel",
+      "noise": "correct m1 xi_ch, subtracts total moment only as redundant check; W_pre excludes detector"
+    },
+    {
+      "function": "src/fading_effective_skr.py::evaluate_batch",
+      "noise": "correct ideal complex MI/direct Z, no nonideal detector support"
+    },
+    {
+      "function": "src/manuscript_corrected_3moments.py::holevo_interval_maximizer",
+      "issue": "explicit rejection of trusted nonideal, not an incorrect ideal substitution"
+    },
+    {
+      "function": "src/manuscript_corrected_mi.py::receiver_parameters",
+      "noise": "xi_det is output-referred per detected arm, matches nu_B in Appendix A; CN variance=1+nu_B+eta_B eta xi_ch/2"
+    },
+    {
+      "function": "src/binary_cloud_skr.py::mission_results",
+      "noise": "none; rates masked for blocked slots; unchanged P1/P2/P3"
+    }
+  ],
+  "references": {
+    "paper": "https://arxiv.org/pdf/2002.03476.pdf",
+    "paper_version": "v1 10 February 2020 verified via browser text, Eq4-7 and AppendixA1-4",
+    "paper_local_requested": "2002.03476v1(1).pdf not located in Downloads or workspace; raw download and screenshot unavailable, web text verified",
+    "manuscript_available": "C:/Users/admin/Downloads/2026__Binh_s_work (38).pdf",
+    "manuscript_sha256": "0c60153cb6dcd4f8a3a2e8ecfe0cb245b473463f051837fb46028916eb6be0a0",
+    "requested_exact_manuscript_variant": "(38)(3).pdf not found; do not assume byte-equivalent",
+    "manuscript_visual_review": "Page3 inspected: scalar real likelihood, homodyne conditional, total-noise xi_n in Eq18/21 conflict with channel-only moment"
+  },
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "changes": "New versioned evaluator only; preserve all existing code, source caches and results",
+  "additional_functions": [
+    {
+      "function": "src/manuscript_corrected_3moments.py::PhysicalFadingDistribution.moments",
+      "noise": "Closed forms and independent quadrature on existing active-conditioned law; historical third moment is total input-referred-noise product, not channel-only"
+    },
+    {
+      "function": "scripts/run_exact_mb_test2.py::build_mb_ensemble",
+      "noise": "none; exact 256-QAM MB PMF, nu conversion and scalar physical energy normalization unchanged"
+    },
+    {
+      "function": "src/cvqkd/gram_moments.py::c4_gram_source_moments",
+      "noise": "none; C,w kernel not called for new builds"
+    },
+    {
+      "function": "scripts/run_ao_effective_channel_no_fading_noise_reference.py::authenticate",
+      "noise": "none; source/ensemble/hash/Cw validation reused"
+    },
+    {
+      "function": "src/cvqkd/holevo.py::_holevo_from_source_moments",
+      "noise": "epsilon is channel excess referred to input; ideal receiver only in current primary path"
+    },
+    {
+      "function": "src/cvqkd/covariance.py::standard_form_covariance",
+      "noise": "b=1+T VA+T epsilon; ideal conditional a-Z^2/(b+1), no trusted detector"
+    },
+    {
+      "function": "src/cvqkd/mutual_information.py::deterministic_mutual_information",
+      "noise": "complex variance 1+T epsilon/2, 2D discrete GH MI; new adapter maps detector gain and output noise to its existing likelihood"
+    },
+    {
+      "function": "src/binary_cloud_skr.py::select_winner",
+      "noise": "none; same finite catalog argmax signed K"
+    },
+    {
+      "function": "src/uav_mobility.py::best_stationary/optimize_trajectory",
+      "noise": "none; P2 mean/P3 reward and distance penalty unchanged"
+    },
+    {
+      "function": "src/trusted_heterodyne_skr.py::effective_channel",
+      "noise": "m_xi channel-only, no total-noise input, explicit optional eta-dependent third moment"
+    },
+    {
+      "function": "src/trusted_heterodyne_skr.py::trusted_holevo",
+      "noise": "pre-detector AB unchanged; trusted detection treated by AFG conditional covariance / equivalent finite purification"
+    }
+  ]
+}

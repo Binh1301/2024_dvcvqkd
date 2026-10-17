@@ -1,0 +1,92 @@
+{
+  "schema": "binary-cloud-skr-v1",
+  "scientific_model": "effective_channel_no_fading_noise",
+  "scientific_status": "PRELIMINARY_EFFECTIVE_GAUSSIAN_IGNORING_FADING_VARIANCE",
+  "geometry": {
+    "h_hap_m": 20000,
+    "h_uav_m": 1000,
+    "grid_side_m": 1000,
+    "grid_cells_per_side": 10,
+    "reference_position_index": 44,
+    "hap_horizontal_m": [
+      11419.65511459133,
+      450
+    ],
+    "coordinate_origin": "Demonstration embedding: reference UAV (450,450) m, HAP along +x; slant distance matches the baseline, horizontal azimuth is not measured.",
+    "baseline_reference_distance_km": 21.9393102292
+  },
+  "channel": {
+    "clear_tau_zen": 0.92,
+    "clear_atmosphere_excludes_added_cloud_loss": true,
+    "receiver_radius_m": 0.275,
+    "beam_waist_m": 0.0986760647169751,
+    "R": 1,
+    "xi_det": 0,
+    "xi_ch": 0.0186,
+    "beta_rec": 0.95,
+    "phase_noise": "OFF",
+    "adaptive_optics": "OFF",
+    "cloud_conditioning": "multiply_raw_channel_then_condition_active_on_0_T_le_1_preserve_outage"
+  },
+  "cloud": {
+    "model": "stationary_gaussian_copula_ar1_complete_blockage",
+    "probability": 0.4,
+    "correlation_length_m": 250,
+    "temporal_rho": 0.9,
+    "seed": 20261015,
+    "realizations": 100,
+    "parameter_origin": "Synthetic link-state correlations indexed by actual UAV distances; not measured meteorology."
+  },
+  "mission": {
+    "slots": 30,
+    "slot_duration_s": 20,
+    "max_speed_m_per_s": 15
+  },
+  "optimization": {
+    "reference_distance_m": 1000,
+    "positive_lambda_bits_per_use": 0.001,
+    "K_min_bits_per_use": 0.001,
+    "initial_position_freely_selectable": true,
+    "deployment_cost_included": false,
+    "source_adaptation": "One exact finite-catalog optimum per position and source family, applied only when unblocked.",
+    "channel_use_rate_per_s": null
+  },
+  "sweeps": {
+    "probability": [
+      0,
+      0.1,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      0.9,
+      1
+    ],
+    "correlation_length_m": [
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "temporal_rho": [
+      0,
+      0.3,
+      0.6,
+      0.9,
+      0.98
+    ],
+    "lambda_bits_per_use": [
+      0,
+      0.0005,
+      0.001,
+      0.002,
+      0.005,
+      0.01,
+      0.02,
+      0.05
+    ]
+  },
+  "source_roster": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv",
+  "source_roster_receipt": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/figure_receipt.json"
+}
