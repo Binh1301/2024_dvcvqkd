@@ -1,0 +1,605 @@
+# TASK: Finalize the IEEE Manuscript and Audit the SKR Security Model for HAP–UAV CV-QKD
+
+## 1. Main Objective
+
+Continue the existing research project:
+
+**"Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP–UAV CV-QKD"**
+
+The numerical optimization of P1, P2, P3, and the Greedy baseline has been completed.
+
+Stage A and Stage B parameter-sensitivity experiments have also been completed and validated.
+
+The next goal is to:
+
+1. Audit the mathematical consistency of the SKR model.
+2. Consolidate the final numerical results.
+3. Integrate the verified results and figures into the IEEEtran LaTeX manuscript.
+4. Improve the scientific explanations and presentation.
+5. Build and inspect the final PDF.
+6. Identify remaining issues before publication.
+
+**Do not rerun the mobility optimization or source calculations.**
+
+Work with the existing repository and numerical results.
+
+---
+
+# PHASE 1 — Inspect the Existing Manuscript and Results
+
+## 2. Repository Inspection
+
+Read the main LaTeX manuscript and identify:
+
+- Current IEEEtran document structure.
+- System model.
+- P1 source optimization.
+- P2 stationary-position optimization.
+- P3 mobility-aware trajectory optimization.
+- Greedy baseline.
+- Dynamic Programming algorithm.
+- Numerical Results section.
+- Existing references and BibTeX entries.
+- Figure placeholders.
+- Mathematical assumptions and limitations.
+
+Inspect these completed result directories:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/`
+
+`results/mobility_parameter_sensitivity_20261020/`
+
+`results/mobility_parameter_sensitivity_stage_b_20261020/`
+
+`results/mobility_parameter_sensitivity_final_20261020/`
+
+Read the final English draft:
+
+`results/mobility_parameter_sensitivity_final_20261020/numerical_results_discussion_en.md`
+
+Read the validation reports and numerical CSV files.
+
+Use the numerical data as the authoritative source for simulation results.
+
+Do not invent missing values.
+
+---
+
+# PHASE 2 — Mathematical Consistency Audit
+
+## 3. Audit the SKR Calculation
+
+The current implementation calculates:
+
+\[
+K=\beta I_{AB}-\chi_{BE}.
+\]
+
+The effective fading-channel parameters are:
+
+\[
+\eta_f=\langle\sqrt{\eta}\rangle^2
+\]
+
+and
+
+\[
+\eta_f\xi_f
+=
+(\langle\eta\rangle-\eta_f)V_A
++\xi_{\rm ch}\langle\eta\rangle.
+\]
+
+The corrected channel excess-noise convention is:
+
+\[
+\xi_n=\xi_{\rm ch}.
+\]
+
+The current numerical evaluator uses:
+
+- Two-dimensional mutual information for 256-QAM.
+- The homodyne conditional symplectic eigenvalue for Holevo information.
+- Trusted-detector assumptions.
+- Exact source moments \(C,w\).
+- The source normalization \(V_A=2\langle n\rangle\).
+
+These conventions must be audited carefully.
+
+### Audit A — Mutual Information
+
+The existing manuscript-style calculation uses:
+
+\[
+I_{AB}^{2D}
+=
+\sum_kp_k
+\int_{\mathbb C}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_jp_jp(y|\alpha_j)}
+\,d^2y.
+\]
+
+Determine whether this corresponds to a physically realizable measurement model under the stated homodyne protocol.
+
+Examine:
+
+- Measurement outcome dimensionality.
+- Gaussian normalization.
+- Shot-noise convention.
+- Signal normalization.
+- Whether Bob measures one or both quadratures.
+- How the selected measurement affects \(I_{AB}\).
+
+Clearly distinguish the existing manuscript-style implementation from a physically consistent homodyne implementation.
+
+### Audit B — Holevo Information
+
+The current evaluator uses:
+
+\[
+\nu_3=
+\sqrt{
+V\left(V-\frac{Z^2}{W}\right)
+}.
+\]
+
+Verify the measurement assumptions under which this expression is valid.
+
+Determine whether combining this expression with the existing 2D mutual information is mathematically and physically justified.
+
+Do not automatically replace any formula.
+
+If the model is inconsistent, identify the exact equations that conflict and provide a proposed correction separately.
+
+### Audit C — Trusted Detector
+
+Verify whether the manuscript consistently models:
+
+- Detector efficiency.
+- Trusted electronic noise.
+- Channel excess noise.
+- Loss-induced vacuum noise.
+- Input-referred versus output-referred noise.
+
+Do not add trusted detector imperfections to the channel excess-noise parameter without a consistent security model.
+
+### Audit D — Source Normalization
+
+Check the relationship between:
+
+\[
+V_A,\quad \langle n\rangle,\quad
+\alpha_k,\quad p_k.
+\]
+
+The verified source cache uses:
+
+\[
+V_A=2\langle n\rangle.
+\]
+
+Identify any conflicting convention in the manuscript.
+
+Verify that the source moments \(C,w\) and numerical SKR calculations use the same normalization.
+
+### Audit E — Fading Security Approximation
+
+Review the replacement of the original fading channel by an effective Gaussian channel.
+
+Determine:
+
+- Which statements are supported by the cited references.
+- Which assumptions are required.
+- Whether the effective covariance treatment supports the stated SKR bound.
+- Whether AoA outage is handled consistently.
+- What limitations must be disclosed.
+
+### Audit Deliverable
+
+Create:
+
+`docs/security_model_consistency_audit.md`
+
+Include a table:
+
+| Component | Current Formula | Source | Status | Issue | Proposed Action |
+|---|---|---|---|---|---|
+
+Classify each item as:
+
+- CONSISTENT
+- NEEDS CLARIFICATION
+- INCONSISTENT
+- NOT VERIFIED
+
+**Do not declare the quantum security model validated merely because numerical tests pass.**
+
+Do not modify the production SKR evaluator during this phase.
+
+If a security-model inconsistency is found, preserve all historical results and mark them as conditional manuscript-style numerical outputs.
+
+---
+
+# PHASE 3 — Select the Final Numerical Figures
+
+## 4. Main Manuscript Figures
+
+Use the four completed figures:
+
+### Figure 1 — Candidate UAV Positions
+
+`results/mobility_parameter_sensitivity_final_20261020/figures/fig1_candidate_positions.pdf`
+
+Explain the effect of increasing the number of candidate UAV positions.
+
+Previously reported result:
+
+Increasing \(J\) from 10 to 100 improves the mean DP objective by approximately 11.41%.
+
+Verify this value against the final CSV.
+
+### Figure 2 — Cloud Blockage Probability
+
+`results/mobility_parameter_sensitivity_final_20261020/figures/fig2_cloud_blockage.pdf`
+
+Compare:
+
+- Stationary.
+- Greedy.
+- Dynamic Programming.
+
+At \(p_{\rm cloud}=0.8\), previously reported unavailability:
+
+- Stationary: 24.60%.
+- Greedy: 16.53%.
+- DP: 4.07%.
+
+Verify all values and distinguish availability improvements from objective improvements.
+
+### Figure 3 — Temporal Cloud Correlation
+
+`results/mobility_parameter_sensitivity_final_20261020/figures/fig3_temporal_correlation.pdf`
+
+Analyze the impact of temporal correlation on:
+
+- Mean objective.
+- UAV travel distance.
+- Mobility gain.
+
+Previously reported results:
+
+\[
+\rho:0\rightarrow0.98
+\]
+
+\[
+D_{\rm DP}:1038.25\rightarrow31.84\ {\rm m}.
+\]
+
+Verify the numbers before including them in the manuscript.
+
+### Figure 4 — SKR–Mobility Tradeoff
+
+`results/mobility_parameter_sensitivity_final_20261020/figures/fig4_skr_mobility_tradeoff.pdf`
+
+Explain how movement penalty affects the tradeoff between average usable SKR and total UAV travel distance.
+
+Previously reported:
+
+At the representative positive penalty, DP travel distance decreases by approximately 88.37% relative to the zero-penalty solution, while average SKR decreases by approximately 0.515%.
+
+Validate these values and clearly state the denominator and comparison conditions.
+
+## 5. Figure Integration
+
+Copy or reference the verified PDF figures using correct relative paths within the LaTeX project.
+
+Maintain:
+
+- IEEE-compatible figure dimensions.
+- Legible fonts.
+- Correct axis units.
+- Accurate captions.
+- References using \label and \ref.
+- Correct placement in the manuscript.
+
+Do not regenerate figures unless a formatting defect requires it.
+
+If a figure must be regenerated, use only the existing saved numerical data.
+
+Do not interpolate simulation results or alter the values.
+
+---
+
+# PHASE 4 — Improve the Optimization Methodology Section
+
+## 6. P1 — Source Optimization
+
+Describe the optimization:
+
+\[
+(\nu_j^\star,V_{A,j}^\star)
+\in
+\arg\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A).
+\]
+
+Explain:
+
+- Finite exact-source catalog.
+- Per-location source optimization.
+- Reuse of source moments.
+- Raw versus usable SKR.
+- Limits of finite-catalog optimality.
+
+Verify that the manuscript accurately describes the existing implementation.
+
+Do not claim continuous global optimality.
+
+## 7. P2 — Stationary UAV Positioning
+
+Describe:
+
+\[
+j_{\rm fix}^\star
+=
+\arg\max_j
+\frac1{N_t}\sum_{n=1}^{N_t}S_{j,n}.
+\]
+
+Explain why the optimal stationary position depends on both clear-sky SKR and the cloud-blockage sequence.
+
+Clarify that P2 is an offline benchmark because the complete cloud sequence is known.
+
+## 8. P3 — Mobility-Aware Optimization
+
+Describe:
+
+\[
+\max_{\{j_n\}}
+\frac1{N_t}\sum_nS_{j_n,n}
+-
+\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}.
+\]
+
+Include:
+
+- Maximum-speed constraint.
+- Free initial position.
+- No terminal-position requirement.
+- Normalized mobility penalty.
+- Bellman recursion.
+- Backtracking.
+- Computational complexity.
+- Finite-grid optimality.
+
+Verify the Dynamic Programming recursion against the implemented code.
+
+## 9. Greedy Baseline
+
+Explain that Greedy uses the current cloud state and a local movement-penalized reward.
+
+DP uses the full cloud sequence over the planning horizon.
+
+Both methods must be compared with identical movement constraints and cloud realizations.
+
+Do not claim that Greedy is globally optimal.
+
+---
+
+# PHASE 5 — Write the Final Numerical Results and Discussion
+
+## 10. Numerical Results
+
+Integrate the completed English numerical-results draft into the manuscript.
+
+Use the following subsection organization:
+
+### A. Simulation Setup
+
+Describe:
+
+- Synthetic HAP–UAV geometry.
+- UAV grid and mission configuration.
+- Exact-source catalog.
+- Cloud-blockage generation.
+- Mobility penalty.
+- Statistical evaluation.
+
+### B. Impact of Candidate UAV Positions
+
+Discuss Figure 1.
+
+### C. Impact of Cloud Blockage Probability
+
+Discuss Figure 2.
+
+### D. Impact of Temporal Cloud Correlation
+
+Discuss Figure 3.
+
+### E. SKR–Mobility Tradeoff
+
+Discuss Figure 4.
+
+### F. Discussion and Limitations
+
+Explain:
+
+- P1 source optimization.
+- Stationary versus mobile UAV performance.
+- Why DP can outperform Greedy.
+- Why future cloud information matters.
+- Limitations of the finite grid and complete-blockage model.
+- Limitations of the manuscript-style quantum security model.
+
+## 11. Scientific Writing Requirements
+
+Use concise and formal IEEE academic English.
+
+Each result discussion must include:
+
+1. The parameter being varied.
+2. The compared methods.
+3. The observed trend.
+4. At least one supporting numerical result where available.
+5. An explanation supported by the data.
+6. Relevant limitations.
+
+Avoid unsupported claims.
+
+Do not confuse:
+
+- Raw SKR with usable SKR.
+- Usable SKR with penalized objective.
+- Availability with average SKR.
+- Distance penalty with actual propulsion energy.
+- Offline DP optimality with online trajectory performance.
+- Numerical convergence with quantum security proof.
+
+Ensure all percentages have a clearly defined reference.
+
+---
+
+# PHASE 6 — IEEE LaTeX Integration
+
+## 12. Manuscript Format
+
+Use the existing:
+
+\documentclass[conference,a4paper]{IEEEtran}
+
+Preserve the established LaTeX package configuration unless a necessary compilation fix is identified.
+
+Do not rewrite unrelated mathematical sections.
+
+Avoid duplicate packages, duplicate equation labels, and unnecessary formatting changes.
+
+Integrate the completed results into the manuscript.
+
+Verify:
+
+- Equations.
+- Equation references.
+- Figure numbering.
+- Subsection organization.
+- Cross-references.
+- Bibliography entries.
+- Tables.
+- Terminology consistency.
+- Correct numerical units.
+
+Preserve the manuscript's existing authorship and affiliations.
+
+Do not invent references.
+
+## 13. Abstract and Conclusion
+
+Revise the abstract and conclusion so that they accurately summarize:
+
+- Source optimization.
+- Stationary positioning.
+- Greedy baseline.
+- DP trajectory optimization.
+- Cloud blockage.
+- Mobility tradeoff.
+- Main verified numerical findings.
+
+Do not claim unconditional secure key generation if the underlying security model remains unvalidated.
+
+Use qualified language where necessary.
+
+If unresolved security inconsistencies prevent an appropriate abstract or conclusion, provide a provisional version clearly marked for internal review.
+
+---
+
+# PHASE 7 — Build and Inspect the Manuscript
+
+## 14. LaTeX Compilation
+
+Compile the manuscript using the available LaTeX environment.
+
+Resolve compilation errors without altering scientific content unnecessarily.
+
+Check:
+
+- Missing references.
+- Undefined labels.
+- Figure overflow.
+- Overfull or underfull equations.
+- Incorrect mathematical symbols.
+- Missing figures.
+- Caption legibility.
+- Bibliography consistency.
+- IEEE two-column layout.
+
+Inspect the rendered PDF visually.
+
+Verify that figure text remains readable at actual manuscript size.
+
+Do not reduce figures to the point where axis labels become illegible.
+
+## 15. Final Validation
+
+Create:
+
+`docs/manuscript_final_validation.md`
+
+Include:
+
+- LaTeX compilation status.
+- Figure verification.
+- Numerical cross-checks.
+- Reference and label checks.
+- Remaining scientific issues.
+- Security-model status.
+- Publication-readiness assessment.
+
+If the model remains inconsistent, keep:
+
+UNVALIDATED_SECURITY_MODEL
+
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+
+Passing compilation or numerical tests does not automatically change these statuses.
+
+---
+
+# PHASE 8 — Deliverables
+
+Produce:
+
+1. Updated IEEEtran LaTeX manuscript.
+2. Compiled PDF for internal review.
+3. Four integrated final figures.
+4. Updated abstract and conclusion.
+5. Updated Numerical Results and Discussion.
+6. Security-model consistency audit.
+7. Manuscript validation report.
+8. List of unresolved issues requiring author approval.
+
+Preserve the original manuscript and historical simulation results.
+
+Work in a separate revision directory or branch without overwriting validated source data.
+
+Do not commit or push.
+
+## Final Response Requirements
+
+Report:
+
+1. Which manuscript sections were modified.
+2. Whether all four figures were integrated successfully.
+3. Whether the PDF compiles correctly.
+4. Which numerical results were verified.
+5. Whether the security model is mathematically consistent.
+6. Which issues remain before publication.
+7. Paths to the revised LaTeX, PDF, and validation reports.
+
+If the physical security model is not validated, clearly distinguish the completed numerical manuscript from a publication-ready security claim.
+
+**Execute the audit and manuscript integration. Do not run new SKR or mobility simulations. Do not silently change the quantum model.**

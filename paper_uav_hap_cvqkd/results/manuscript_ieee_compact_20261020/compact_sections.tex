@@ -1,0 +1,145 @@
+\section{Optimization Problem}
+\label{sec:optimization}
+At each location, the finite exact-source catalog $\mathcal G$ contains
+197 MB-shaped and 36 uniform 256-QAM ensembles. Searching the MB shaping
+parameter $\nu$ and modulation variance $V_A$ gives
+\begin{equation}
+ \mathcal P_1:\quad K_j^\star=
+ \left[\max_{(\nu,V_A)\in\mathcal G}K_j(\nu,V_A)\right]^+.
+ \label{eq:p1}
+\end{equation}
+Each candidate uses its own authenticated source moments; the raw maximum
+is selected before clipping. Channel moments independent of the source can
+be shared, while the modulation-dependent fading noise is evaluated for
+each $V_A$. The optimum is restricted to $\mathcal G$, rather than a
+continuous shaping domain. With complete cloud blockage,
+$S_{j,n}=(1-c_{j,n})K_j^\star$. Offline stationary selection is
+\begin{equation}
+ \mathcal P_2:\quad j_{\rm fix}^\star=
+ \arg\max_j\frac{1}{N_t}\sum_{n=1}^{N_t}S_{j,n}.
+ \label{eq:p2}
+\end{equation}
+The chosen location balances clear-sky rate and the full cloud sequence;
+it need not be the location with the largest clear-sky rate alone.
+For $j_n\in\{1,\ldots,J\}$ and
+$d_{i,j}=\|\mathbf q_i-\mathbf q_j\|_2$, mobility optimization is
+\begin{align}
+ \mathcal P_3:\quad\max_{\{j_n\}}\quad&
+ \underbrace{\frac{1}{N_t}\sum_{n=1}^{N_t}S_{j_n,n}}_{\overline K}
+ -\frac{\lambda}{D_{\rm ref}}
+ \underbrace{\sum_{n=2}^{N_t}d_{j_{n-1},j_n}}_{D}
+ \label{eq:p3}\\
+ \text{s.t.}\quad&d_{j_{n-1},j_n}\le v_{\max}\Delta t,\quad n\ge2.
+ \nonumber
+\end{align}
+The objective is $U=\overline K-\lambda D/D_{\rm ref}$, with
+$D_{\rm ref}>0$ and $\lambda\ge0$ in bit/use. Staying and a free initial
+position are allowed; no terminal, deployment, or return requirement is
+imposed. Distance is a mobility-cost surrogate, not propulsion energy.
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/compact_sensitivity.pdf}
+\caption{Parameter sensitivity at $\lambda_{\rm ref}$: (a) objective versus
+candidate count; (b) zero-SKR unavailability versus blockage probability;
+(c) travel distance versus latent temporal correlation. Curves use 100 paired
+missions; shaded bands are pointwise 95\% whole-mission bootstrap intervals.}
+\label{fig:compact}
+\end{figure*}
+
+\section{Proposed Solution}
+\label{sec:method}
+P1 exhausts the finite catalog once per clear-sky position, reusing exact
+source moments; P2 compares all full-horizon location means. For P3, let
+$\mathcal N(j)=\{i:d_{i,j}\le v_{\max}\Delta t\}$. DP uses
+\begin{align}
+ F_1(j)&=S_{j,1},\label{eq:dp_init}\\
+ F_n(j)&=S_{j,n}+\max_{i\in\mathcal N(j)}
+ \left[F_{n-1}(i)-\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}\right].
+ \label{eq:dp}
+\end{align}
+Every feasible predecessor is considered, including staying, and the
+retained state summarizes the best prefix ending at that location.
+Backtracking saved predecessors from $\arg\max_jF_{N_t}(j)$ recovers the
+finite-grid optimum, with $U^\star=\max_jF_{N_t}(j)/N_t$ and time
+$O(N_tJ^2)$. Backpointers require $O(N_tJ)$ storage, in addition to the
+$O(J^2)$ distance matrix. The stored implementation state $F_n/N_t$
+has reward $S_{j,n}/N_t$ and edge cost $\lambda d_{i,j}/D_{\rm ref}$,
+which is the same normalization. Both P2 and DP know the complete cloud sequence offline.
+Greedy starts at $\arg\max_jS_{j,1}$, then maximizes the current-slot
+score $S_{j,n}-N_t\lambda d_{j_{n-1},j}/D_{\rm ref}$ over feasible moves,
+in $O(N_tJ)$ time. All methods share rates, clouds, and constraints.
+DP dominates their penalized objectives, not necessarily each mission's
+SKR or availability. Their difference also reflects DP's future-state and
+initial-position information, so it does not measure an online control gain.
+Without feasible movement, DP reduces to P2. P2 itself is independent of
+the movement penalty because its path has zero distance.
+
+\section{Numerical Results and Discussion}
+\label{sec:numerical}
+The synthetic HAP/UAV altitudes are 20/1 km; the $1\,\mathrm{km}^2$ grid
+has 100 centers spaced 100 m apart. Missions have $30\times20$ s slots,
+$v_{\max}=15$ m/s, and $D_{\rm ref}=1000$ m. The synthetic deployment
+places the HAP horizontally at $(11419.6551,450)$ m and uses UAV
+coordinates $50,150,\ldots,950$ m along each axis. Saved missions use
+seed 20261015 and realization IDs 0--99. The retained optical settings
+are 1550 nm, full divergence $233\,\mu$rad, receiver diameter 0.08 m,
+$\beta_{\rm rec}=0.95$, $\xi_{\rm ch}=0.0186$ SNU, and ideal detection.
+Saved Gaussian-copula complete-blockage clouds default to
+$(p,\ell,\rho)=(0.4,250\,\mathrm m,0.9)$, with latent spatial covariance
+$\Sigma_{ij}=\exp(-d_{i,j}/\ell)$ and a stationary AR(1) coefficient
+$\rho$. Latent parameters differ from Bernoulli-cloud correlations.
+Each latent state is thresholded at $\Phi^{-1}(p)$, where $\Phi$ is the
+standard-normal distribution function; the marginal blockage probability
+is prescribed, rather than measured meteorology.
+We compare 100 paired missions
+at fixed $\lambda_{\rm ref}=9.468026677248516\times10^{-6}$ bit/use.
+Means and pointwise confidence intervals use independent whole missions,
+not cells or slots; methods share each realization ID and configurations
+use common innovations. No new physical-layer evaluation is required.
+These intervals describe mission variability, rather than finite-key
+parameter-estimation uncertainty or a quantum-security bound.
+Availability means $S>0$, without an engineering threshold. In
+Fig.~\ref{fig:compact}(a), expanding deterministic nested position sets
+from $J=10$ to 100 raises mean DP $U$ by 11.409\% relative to $J=10$.
+The improvement combines more spatial choices and greater connectivity;
+optimal P2/DP objectives cannot decrease as the feasible set expands.
+The comparative presentation follows~\cite{gong2020}.
+
+At $p=0.8$, mean unavailability is 24.60\%, 16.53\%, and 4.07\% for
+P2, Greedy, and DP, respectively [Fig.~\ref{fig:compact}(b)]. Cloud-aware
+movement improves this observed metric, although P3 optimizes $U$.
+Increasing $p$ under nested masks removes rewards, so optimal P2/DP
+objectives cannot increase; no general availability ordering follows.
+As latent $\rho$ increases from 0 to 0.98, DP distance decreases from
+1038.25 to 31.84 m [Fig.~\ref{fig:compact}(c)], while its mean objective
+gain over P2 decreases from 23.712\% to 0.155\%, relative to the
+corresponding P2 mean. Persistent favorable locations make offline
+stationary selection competitive. At the high-correlation endpoint, the
+latent persistence time exceeds the mission horizon, allowing P2 to exploit
+locations favorable throughout the mission. This is not a universal
+monotonic law or a demonstration with forecast errors.
+
+On the same default missions, changing DP from zero penalty to
+$\lambda_{\rm ref}$ reduces mean distance by 88.370\% and mean usable
+SKR by 0.515\%, relative to their respective zero-penalty means. Thus,
+most movement can be avoided with a small numerical rate loss. P1
+selects MB $(\nu,V_A)=(0.125,8)$ everywhere, at the MB catalog's variance
+boundary; positioning gains do not isolate shaping gain. All rates remain
+conditional outputs of the mixed 2D-MI/homodyne-Holevo model in
+Section~\ref{sec:security}, without a validated quantum-security guarantee.
+Finite-key estimation, key aggregation across fading states, tracking
+interruptions, and reacquisition overhead are outside this comparison.
+Trusted receiver imperfections would require a separate
+model~\cite{usenko2016}.
+
+\section{Conclusion}
+\label{sec:conclusion}
+Finite-catalog source selection, offline stationary positioning, and DP
+trajectory optimization jointly characterize cloud-aware HAP--UAV
+performance. Under the evaluated configurations, DP improves the
+mobility-penalized objective over Stationary and Greedy, with observed
+availability benefits. A distance penalty substantially reduces movement
+while preserving most usable rate. Conclusions remain limited to a finite
+grid, synthetic clouds, offline future information, and an uncalibrated
+mobility-cost surrogate. The inconsistent MI/Holevo measurement pairing
+requires correction before interpreting numerical rates as secure keys.

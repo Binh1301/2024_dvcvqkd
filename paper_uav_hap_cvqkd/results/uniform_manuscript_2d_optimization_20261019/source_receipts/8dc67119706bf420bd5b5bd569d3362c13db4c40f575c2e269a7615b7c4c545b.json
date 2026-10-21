@@ -1,0 +1,67 @@
+{
+  "VA": 0.0525,
+  "VA_hex": "0x1.ae147ae147ae1p-5",
+  "elapsed_seconds": 880.4481982999714,
+  "payload_sha256": "0ab9521504017b93e6c2c581cc3dda73a79c11990d92f061128ab01a8f89e711",
+  "diagnostic": {
+    "route": "ARBITRARY_PRECISION_FALLBACK",
+    "fast_path_gate": {
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -3.0859924347150036e-16,
+      "sector_condition_number": "inf",
+      "sector_reconstruction_residual": 5.809101527293999e-15
+    },
+    "fallback_precisions": [
+      1050,
+      1250,
+      1450
+    ],
+    "fallback_rows": [
+      {
+        "C": "0.16401987025425571636597025219960939412918719040168",
+        "digits": 1050,
+        "minimum_eigenvalue": "1.7466224186246334012843005336565514200759932143008e-944",
+        "rank": 256,
+        "resolved": true,
+        "w": "0.0013827678899131086841652427356514289990467241107803"
+      },
+      {
+        "C": "0.16401987025425571636597025219960939412918719040168",
+        "digits": 1250,
+        "minimum_eigenvalue": "1.7466224186246334012843005336565514200759932143008e-944",
+        "rank": 256,
+        "resolved": true,
+        "w": "0.0013827678899131086841652427356514289990467241107803"
+      },
+      {
+        "C": "0.16401987025425571636597025219960939412918719040168",
+        "digits": 1450,
+        "minimum_eigenvalue": "1.7466224186246334012843005336565514200759932143008e-944",
+        "rank": 256,
+        "resolved": true,
+        "w": "0.0013827678899131086841652427356514289990467241107803"
+      }
+    ],
+    "minimum_eigenvalue": 0.0,
+    "support_size": 256,
+    "numerical_retained_rank": 256,
+    "tau_diagnostic": 1e-12,
+    "exact_input_provenance": "float.hex binary64"
+  },
+  "child_backend": {
+    "backend": "gmpy",
+    "mpmath": "1.3.0",
+    "gmpy2": "2.3.2"
+  },
+  "producer_sha256": "24b9a85d6654d64df71c67d38ebee7644f2e2b011d0ef9e96257c2366acc4a06",
+  "precision_ladder": [
+    1050,
+    1250,
+    1450
+  ],
+  "isolated_diagonal_solve_equivalence": true,
+  "additional_producers_sha256": {
+    "source_uniform_diagonal.py": "254bf9d5c9b9774da9d1f37c9fd5c5939c2a9b291d3530502e2bdfaafaaff795",
+    "diagonal_solve_worker.py": "c4c8cd88f4374a6b7bfef04bca6f8275a3c456748f4e935d39f34ba0701ec70f"
+  }
+}

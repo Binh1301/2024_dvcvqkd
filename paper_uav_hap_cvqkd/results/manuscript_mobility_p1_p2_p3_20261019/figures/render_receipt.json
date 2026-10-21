@@ -1,0 +1,73 @@
+{
+  "schema": "saved-mobility-render-v1",
+  "renderer_sha256": "0db35b0511f2abd00cc775c1f8de1235ea24b93b8b866fd5dafcfb768c3193f4",
+  "settings_sha256": "0cfc0d02655a4b9d76b7215b1bf7fdece14c08542eaaeb934c2fe1c09306100c",
+  "input_sha256": {
+    "positions.csv": "e7173a84cbdd149005251d42255b3c8f1e47c9cb49dcde0f1e044aef6acfcddf",
+    "p1/winners.csv": "deb6647e743a700fd7672a9f63edd068ce2e8f8d4e9b44e57afec972f6820362",
+    "p1/family_winners.csv": "867d9a13f17cf58d33879e8bbb6e587334a9e6b7e0eab69a0657fcf8185c919a",
+    "clouds/states.npz": "01c6da33467a41dbe4fb846214f76000aeb3b0c00d3736517c9388c12f40e773",
+    "mobility/lambda_schedule.json": "1de097cbcd4833afab60a2e07787ce360b92d055f3f49ee52aae50445815f255",
+    "mobility/representative_paths.csv": "171f4984d351b14074f2ad8c6056e4be62e7dcc17b8b995b40035d220b8c2d0e",
+    "mobility/representative_metrics.csv": "f73025b8af869497281b5b399989621344e0a1c2d99794bd81f6babda9254564",
+    "mobility/lambda_statistics.csv": "4b7e3017019e3110da0d380f75ea71b85c5353a488eecc31d44804cad0c35ce6",
+    "figures/figure1_distance.csv": "9d5e33d12b8ff8521cbc48c9f2f53f6433d40b85194d5a952585a39aad16e4ab"
+  },
+  "scientific_recalculation": false,
+  "nonpositive_exclusions": {
+    "Uniform_K_raw": 22,
+    "Fixed_MB_K_raw": 12,
+    "Optimized_MB_K_raw": 12
+  },
+  "symlog_linthresh": 3.156008892416172e-07,
+  "png_dpi": 350,
+  "pdf_vector": true,
+  "strategy_colors": {
+    "Stationary": "black",
+    "Greedy": "tab:orange",
+    "DP": "tab:red"
+  },
+  "figure_paths": [
+    "figures/fig1_skr_distance.pdf",
+    "figures/fig1_skr_distance.png",
+    "figures/fig1_skr_distance_linear.pdf",
+    "figures/fig1_skr_distance_linear.png",
+    "figures/fig2_cloud_trajectories.pdf",
+    "figures/fig2_cloud_trajectories.png",
+    "figures/fig3_mobility_tradeoff.pdf",
+    "figures/fig3_mobility_tradeoff.png",
+    "figures/p1_skr_heatmap.pdf",
+    "figures/p1_skr_heatmap.png",
+    "figures/p1_VA_heatmap.pdf",
+    "figures/p1_VA_heatmap.png",
+    "figures/p1_nu_heatmap.pdf",
+    "figures/p1_nu_heatmap.png",
+    "figures/cloud_slot_01.pdf",
+    "figures/cloud_slot_01.png",
+    "figures/cloud_slot_10.pdf",
+    "figures/cloud_slot_10.png",
+    "figures/cloud_slot_20.pdf",
+    "figures/cloud_slot_20.png",
+    "figures/cloud_slot_30.pdf",
+    "figures/cloud_slot_30.png"
+  ],
+  "representative_mission": 0,
+  "representative_lambda_bits_per_use": 9.468026677248516e-06,
+  "captions": {
+    "fig1_skr_distance": "Positive raw saved SKR only; nonpositive values create NaN gaps, no epsilon floor. Linear companion retains all raw values.",
+    "fig2_cloud_trajectories": "Mission 0 cloud-free slot fraction; ordered saved paths without displacement. Start/end may coincide. HAP is outside the map; geometry is recorded below.",
+    "fig3_mobility_tradeoff": "Mean and saved 95% confidence intervals; actual \u03bb axis uses base-10 symlog with threshold at smallest positive \u03bb."
+  },
+  "geometry": {
+    "h_hap_m": 20000,
+    "h_uav_m": 1000,
+    "grid_side_m": 1000,
+    "grid_cells_per_side": 10,
+    "hap_horizontal_m": [
+      11419.65511459133,
+      450
+    ],
+    "reference_position_index": 44,
+    "coordinate_origin": "Synthetic repository embedding; cell centers, x increases first; HAP azimuth is not measured."
+  }
+}

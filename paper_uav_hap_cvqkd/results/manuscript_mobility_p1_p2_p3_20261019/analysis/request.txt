@@ -1,0 +1,457 @@
+# TASK: Analyze P1–P2–P3 Optimization Results and Explain the Mobility Gains
+
+## 1. Objective
+
+Inspect the completed numerical results for the manuscript:
+
+**Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP–UAV CV-QKD**
+
+The P1, P2, P3, and Greedy algorithms have already been implemented and executed.
+
+Your task is to conduct a rigorous quantitative analysis of the existing results, identify the advantages and limitations of each optimization stage, and produce publication-oriented numerical discussions.
+
+**Do not implement the optimization algorithms again. Do not rerun the complete simulation.**
+
+The primary research questions are:
+
+1. How much does probabilistic constellation shaping improve usable SKR compared with Uniform 256-QAM?
+2. How does stationary UAV positioning improve performance under cloud blockage?
+3. How much improvement does Dynamic Programming provide over Stationary and Greedy?
+4. How does the mobility penalty \(\lambda\) affect usable SKR and UAV travel distance?
+5. Under which conditions is UAV mobility beneficial?
+6. Are the numerical improvements sufficiently robust across different cloud realizations?
+
+## 2. Existing Results
+
+The completed simulation includes:
+
+- 233 exact-source candidates.
+- 100 UAV positions in a \(1\,\mathrm{km}\times1\,\mathrm{km}\) region.
+- 100 cloud missions.
+- 10 mobility-penalty values.
+- 24 passing tests.
+- 346 passing validation checks.
+- 11 sets of vector PDF and PNG figures.
+- CSV, NPZ, and numerical reports.
+
+The existing output directory is:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/`
+
+Start by reading:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/report_vi.md`
+
+Also inspect the relevant CSV, NPZ, and figures in this directory.
+
+The existing mobility tradeoff figure is:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/figures/fig3_mobility_tradeoff.png`
+
+Do not assume any numerical performance values before reading the actual result files.
+
+## 3. Analyze P1 — Source Optimization
+
+The source optimization is
+
+\[
+(\nu_j^\star,V_{A,j}^\star)
+=
+\arg\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A).
+\]
+
+The usable SKR is
+
+\[
+K_j^\star
+=
+\left[
+\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A)
+\right]^+.
+\]
+
+Existing observation:
+
+\[
+\boxed{
+(\nu^\star,V_A^\star)=(0.125,8)
+}
+\]
+
+at all 100 UAV positions.
+
+Uniform 256-QAM has zero usable SKR at all 100 positions under the current evaluated catalog.
+
+Investigate:
+
+1. The minimum, maximum, mean, and standard deviation of MB-optimized SKR across positions.
+2. The variation in link distance and zenith angle across the operating region.
+3. Why all positions select the same MB source.
+4. Whether \(V_A=8\) is a catalog boundary.
+5. Whether the top two MB candidates have nearly identical SKR.
+6. Whether the selected source is robust to small changes in channel parameters.
+7. Whether Uniform has negative raw SKR everywhere or whether any numerical values were clipped before reporting.
+
+Do not claim continuous global optimality.
+
+Quantify the shaping gain only where the comparison is mathematically meaningful.
+
+If Uniform has zero usable SKR, report the absolute difference rather than a percentage improvement relative to zero.
+
+Produce a P1 summary table and an interpretation suitable for an IEEE manuscript.
+
+## 4. Analyze P2 — Optimal Stationary UAV Position
+
+The stationary positioning problem is
+
+\[
+j_{\rm fix}^\star
+=
+\arg\max_j
+\frac{1}{N_t}
+\sum_{n=1}^{N_t}S_{j,n},
+\]
+
+where
+
+\[
+S_{j,n}
+=
+(1-c_{j,n})K_j^\star.
+\]
+
+For each cloud mission, extract:
+
+- Optimal stationary position.
+- Coordinates.
+- Cloud-free fraction.
+- Clear-sky SKR.
+- Average usable SKR.
+- Number of blocked slots.
+- Number of usable slots.
+
+Analyze:
+
+1. Whether the best stationary position changes across cloud missions.
+2. Whether it is primarily determined by clear-sky SKR or cloud-free fraction.
+3. How much stationary position selection improves SKR compared with a fixed reference position.
+4. The distribution of stationary SKR across 100 missions.
+5. The sensitivity of P2 to the spatial cloud distribution.
+
+If no predefined fixed-location baseline exists, identify this limitation before proposing one.
+
+Do not invent reference positions or baseline results.
+
+## 5. Analyze P3 — Dynamic Programming Versus Greedy and Stationary
+
+The mobility-aware objective is
+
+\[
+U(\mathbf j)
+=
+\frac{1}{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n}
+-
+\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}
+d_{j_{n-1},j_n}.
+\]
+
+For each method, calculate:
+
+\[
+\overline K
+=
+\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n},
+\]
+
+\[
+D
+=
+\sum_{n=2}^{N_t}
+d_{j_{n-1},j_n},
+\]
+
+\[
+U
+=
+\overline K-\frac{\lambda D}{D_{\rm ref}}.
+\]
+
+Compare:
+
+- Optimal Stationary.
+- Greedy.
+- Dynamic Programming.
+
+Across all 100 missions and 10 values of \(\lambda\), report:
+
+1. Mean and standard deviation of \(\overline K\).
+2. Mean and standard deviation of total travel distance.
+3. Mean and standard deviation of \(U\).
+4. Median and 5th/95th percentiles.
+5. DP minus Stationary improvement.
+6. DP minus Greedy improvement.
+7. Number and proportion of missions where DP strictly outperforms each baseline.
+8. Number of UAV position changes per trajectory.
+9. Fraction of slots with a usable QKD link.
+
+Compare all methods using the same cloud mission and the same mobility-penalty value.
+
+Report both absolute and relative improvements, but calculate percentages only when the reference denominator is strictly positive and numerically meaningful.
+
+Check the theoretical expectation:
+
+\[
+\boxed{
+U_{\rm DP}\geq U_{\rm Greedy}
+}
+\]
+
+and
+
+\[
+\boxed{
+U_{\rm DP}\geq U_{\rm Stationary}.
+}
+\]
+
+These comparisons must use identical initialization and feasibility assumptions.
+
+Do not conclude that DP necessarily maximizes unpenalized average SKR for every \(\lambda>0\), because P3 optimizes the penalized objective.
+
+## 6. Analyze the Impact of Mobility Penalty
+
+For each value of \(\lambda\), aggregate results across all 100 missions.
+
+Create a detailed numerical table:
+
+| \(\lambda\) | Method | Mean SKR | Std SKR | Mean Travel Distance | Mean Objective | Mean Availability |
+|---|---|---|---|---|---|---|
+
+Investigate:
+
+- Whether DP travel distance decreases as \(\lambda\) increases.
+- Whether Greedy exhibits the same trend.
+- How average usable SKR changes with mobility penalty.
+- Whether the DP trajectory approaches the stationary solution for sufficiently large \(\lambda\).
+- Whether any method becomes insensitive to further increases in \(\lambda\).
+- Which \(\lambda\) values produce a meaningful balance between SKR and movement.
+
+Do not declare a universally optimal \(\lambda\) without specifying an external engineering preference or a calibrated mobility cost.
+
+Determine whether any observed non-monotonic behavior is caused by finite-grid changes, trajectory tie-breaking, or statistical variation.
+
+## 7. Statistical Analysis Across Cloud Missions
+
+Treat the 100 cloud missions as paired simulation scenarios.
+
+For each mission and \(\lambda\), calculate:
+
+\[
+\Delta U_{\rm DP,Greedy}
+=
+U_{\rm DP}-U_{\rm Greedy},
+\]
+
+\[
+\Delta U_{\rm DP,Stationary}
+=
+U_{\rm DP}-U_{\rm Stationary}.
+\]
+
+Also calculate corresponding differences in average usable SKR.
+
+Use paired statistics rather than independently comparing unrelated samples.
+
+Report:
+
+- Mean paired improvement.
+- Median paired improvement.
+- Standard deviation.
+- 95% confidence intervals, using a documented approach such as paired bootstrap.
+- Fraction of missions with strict improvement.
+- Fraction of missions with equal performance.
+
+Do not interpret numerical confidence intervals as evidence of physical CV-QKD security.
+
+If the cloud missions are not independently generated, identify this and adjust the statistical interpretation.
+
+## 8. Investigate Representative UAV Trajectories
+
+Select representative missions based on actual numerical results:
+
+1. A mission where DP produces a large improvement.
+2. A mission where Greedy and DP perform similarly.
+3. A mission where mobility provides little benefit.
+
+For each selected mission, analyze:
+
+- Cloud distribution.
+- Stationary position.
+- Greedy trajectory.
+- DP trajectory.
+- Travel distance.
+- Average usable SKR.
+- Mobility penalty.
+- Objective value.
+
+Explain why DP behaves differently from Greedy.
+
+In particular, investigate whether DP makes movements that appear temporarily disadvantageous but provide access to better future cloud-free positions.
+
+Use the actual optimization results, not invented illustrative trajectories.
+
+## 9. Required Diagnostic Figures
+
+Use existing validated data to produce the following figures where useful.
+
+**Figure A — P1 SKR Spatial Distribution**
+
+Heatmap of optimized clear-sky SKR over 100 candidate positions.
+
+**Figure B — Stationary Position Distribution**
+
+Show which UAV positions are selected most frequently as optimal stationary locations across the 100 missions.
+
+**Figure C — Mobility Tradeoff**
+
+Analyze and, if necessary, reproduce the existing two-panel figure:
+
+- Average usable SKR versus \(\lambda\).
+- Total travel distance versus \(\lambda\).
+
+Show Stationary, Greedy, and DP.
+
+**Figure D — Objective Improvement**
+
+Plot:
+
+\[
+U_{\rm DP}-U_{\rm Greedy}
+\]
+
+and
+
+\[
+U_{\rm DP}-U_{\rm Stationary}
+\]
+
+versus \(\lambda\).
+
+**Figure E — Representative Trajectories**
+
+Visualize stationary, Greedy, and DP trajectories for selected cloud missions.
+
+**Figure F — Statistical Distribution**
+
+Use a box plot, violin plot, or confidence-interval plot to show the distribution of paired mobility gains across missions.
+
+For all figures:
+
+- Use publication-quality formatting.
+- Export vector PDF and PNG at 350 dpi or higher.
+- Use the same underlying numerical data across figures and tables.
+- Do not fabricate missing data.
+- Do not force curves to appear monotonic.
+
+## 10. Scientific Interpretation
+
+After completing the quantitative analyses, prepare an evidence-based discussion addressing:
+
+### Probabilistic shaping
+
+Does MB shaping produce usable SKR where Uniform does not?
+
+How sensitive is this result to the finite source catalog and current channel configuration?
+
+### Stationary positioning
+
+Is the stationary solution mostly driven by cloud-free availability or by spatial differences in clear-sky SKR?
+
+### Dynamic mobility
+
+Does cloud-aware movement substantially increase usable SKR?
+
+Does DP outperform Greedy primarily because it uses future cloud-state information?
+
+### Mobility tradeoff
+
+How much additional travel is required to obtain higher average SKR?
+
+When does the mobility penalty make a stationary UAV preferable?
+
+### Practical limitations
+
+Discuss:
+
+- Offline availability of the complete cloud-state matrix.
+- Finite-grid optimality.
+- Finite-source-catalog optimization.
+- Complete cloud-blockage assumption.
+- Neglected travel/reacquisition interruptions.
+- Travel distance as a surrogate for propulsion energy.
+- Synthetic geometry.
+- Manuscript-style mixed 2D MI and homodyne Holevo.
+
+Explicitly preserve the warnings:
+
+`UNVALIDATED_SECURITY_MODEL`
+
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
+
+Do not claim that passing numerical tests proves the physical security of the protocol.
+
+## 11. Output Requirements
+
+Write a detailed analysis report in Vietnamese:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/analysis/report_analysis_vi.md`
+
+Also produce:
+
+- P1 spatial summary table.
+- P2 stationary-position summary.
+- DP/Greedy/Stationary comparison table.
+- Mobility-penalty analysis table.
+- Paired statistical comparison table.
+- Representative-mission analysis.
+- Diagnostic figures.
+- A draft **Numerical Results and Discussion** section in academic English suitable for later manuscript editing.
+
+Save additional figures and tables in a separate analysis subdirectory.
+
+Do not overwrite the original simulation results.
+
+## 12. Restrictions
+
+- Do not rerun P1/P2/P3.
+- Do not recompute exact-source \(C,w\).
+- Do not modify the physical SKR evaluator.
+- Do not change source or channel conventions.
+- Do not overwrite historical results.
+- Do not commit or push.
+- Do not generate new cloud missions unless explicitly approved.
+- Do not assume previously reported improvements are correct without verifying their numerical values.
+- Do not present the mixed 2D-MI/homodyne-Holevo result as a validated homodyne security rate.
+- If a required metric cannot be reconstructed from saved outputs, identify the missing fields and provide a minimal extraction plan instead of fabricating results.
+
+## 13. Final Questions
+
+Finish the report with explicit numerical answers:
+
+1. What is the optimal P1 source configuration, and how stable is it across locations?
+2. Which UAV locations are selected most often by P2?
+3. How much does DP improve average usable SKR compared with Stationary and Greedy?
+4. How much does DP improve the mobility-penalized objective?
+5. How does increasing \(\lambda\) affect flight distance and usable SKR?
+6. Under which cloud conditions does UAV mobility provide the greatest benefit?
+7. Are the improvements robust across the 100 evaluated missions?
+8. Which results can be reported as numerical findings, and which require further model validation?
+
+Provide precise values, tables, plots, and explanations supported by the saved simulation outputs.
+
+**Do not stop after summarizing the existing report. Perform the full quantitative analysis using the saved data, without modifying the verified simulation pipeline.**

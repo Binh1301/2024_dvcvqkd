@@ -1,0 +1,581 @@
+PAGE 1
+Performance Analysis of Probabilistically Shaped
+CV-QKD in Free-space HAP-to-UA V Systems
+Binh Nguyen∗, Cuong T. Nguyen†, Hoang D. Le†, and Trinh Van Chien∗
+∗School of Information and Communications Technology,
+Hanoi University of Science and Technology, Hanoi 100000, Vietnam
+†Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+Abstract—Nam dui ligula, fringilla a, euismod sodales, sol-
+licitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus
+libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet,
+tortor sed accumsan bibendum, erat ligula aliquet magna, vitae
+ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.
+Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum
+sociis natoque penatibus et magnis dis parturient montes, nasce-
+tur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper
+vestibulum turpis. Pellentesque cursus luctus mauris.
+Index Terms—Continuous-variable quantum key distribution
+(CV–QKD), unmanned aerial vehicle (UA V), free-space optics
+(FSO), high-altitude platform (HAP), pulse constellation shaping
+(PCS)
+I. INTRODUCTION
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut
+purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
+Curabitur dictum gravida mauris. Nam arcu libero, nonummy
+eget, consectetuer id, vulputate a, magna. Donec vehicula
+augue eu neque. Pellentesque habitant morbi tristique senectus
+et netus et malesuada fames ac turpis egestas. Mauris ut leo.
+Cras viverra metus rhoncus sem. Nulla et lectus vestibulum
+urna fringilla ultrices. Phasellus eu tellus sit amet tortor
+gravida placerat. Integer sapien est, iaculis in, pretium quis,
+viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum.
+Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at,
+mollis ac, nulla. Curabitur auctor semper nulla. Donec varius
+orci eget risus. Duis nibh mi, congue eu, accumsan eleifend,
+sagittis quis, diam. Duis eget orci sit amet orci dignissim
+rutrum.
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin
+vel, wisi. Morbi auctor lorem non justo. Nam lacus libero,
+pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet,
+tortor sed accumsan bibendum, erat ligula aliquet magna, vitae
+ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.
+Suspendisse ut massa. Cras nec ante. Pellentesque a nulla.
+Cum sociis natoque penatibus et magnis dis parturient montes,
+nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullam-
+corper vestibulum turpis. Pellentesque cursus luctus mauris.
+Nulla malesuada porttitor diam. Donec felis erat, congue
+non, volutpat at, tincidunt tristique, libero. Vivamus viverra
+fermentum felis. Donec nonummy pellentesque ante. Phasellus
+adipiscing semper elit. Proin fermentum massa ac quam. Sed
+diam turpis, molestie vitae, placerat a, molestie nec, leo.
+Maecenas lacinia. Nam ipsum ligula, eleifend at, accumsan
+nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+Pellentesque tincidunt purus vel magna. Integer non enim.
+Praesent euismod nunc eu purus. Donec bibendum quam in
+tellus. Nullam cursus pulvinar lectus. Donec et mi. Nam
+vulputate metus eu enim. Vestibulum pellentesque felis eu
+massa.
+Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel
+justo vitae lacus tincidunt ultrices. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. In hac habitasse platea dictumst.
+Integer tempus convallis augue. Etiam facilisis. Nunc elemen-
+tum fermentum wisi. Aenean placerat. Ut imperdiet, enim sed
+gravida sollicitudin, felis odio placerat quam, ac pulvinar elit
+purus eget enim. Nunc vitae tortor. Proin tempus nibh sit amet
+nisl. Vivamus quis tortor vitae risus porta vehicula.
+Fusce mauris. Vestibulum luctus nibh at lectus. Sed bi-
+bendum, nulla a faucibus semper, leo velit ultricies tellus,
+ac venenatis arcu wisi vel nisl. Vestibulum diam. Aliquam
+pellentesque, augue quis sagittis posuere, turpis lacus congue
+quam, in hendrerit risus eros eget felis. Maecenas eget erat in
+sapien mattis porttitor. Vestibulum porttitor. Nulla facilisi. Sed
+a turpis eu lacus commodo facilisis. Morbi fringilla, wisi in
+dignissim interdum, justo lectus sagittis dui, et vehicula libero
+dui cursus dui. Mauris tempor ligula sed lacus. Duis cursus
+enim ut augue. Cras ac magna. Cras nulla. Nulla egestas.
+Curabitur a leo. Quisque egestas wisi eget nunc. Nam feugiat
+lacus vel est. Curabitur consectetuer.
+Suspendisse vel felis. Ut lorem lorem, interdum eu, tinci-
+dunt sit amet, laoreet vitae, arcu. Aenean faucibus pede eu
+ante. Praesent enim elit, rutrum at, molestie non, nonummy
+vel, nisl. Ut lectus eros, malesuada sit amet, fermentum eu,
+sodales cursus, magna. Donec eu purus. Quisque vehicula,
+urna sed ultricies auctor, pede lorem egestas dui, et convallis
+elit erat sed nulla. Donec luctus. Curabitur et nunc. Aliquam
+dolor odio, commodo pretium, ultricies non, pharetra in, velit.
+Integer arcu est, nonummy in, fermentum faucibus, egestas
+vel, odio.
+II. SYSTEMMODEL
+A. System Description & Signal Model
+Fig. 1 depicts the considered FSO/QKD system between a
+HAP (Alice) and a UA V (Bob) enabling secure IoV applica-
+tions. Therein, we adopt the DM-CV-QKD protocol withM-
+
+PAGE 2
+HAP 
+(Alice)
+FSO channel
+UA V 
+(Bob)
+Atmospheric 
+turbulence
+ℎUAV
+ℎHAP
+𝜉
+Fig. 1. The considered HAP-to-UA V FSO/CV-QKD systems enabling secure
+IoV applications.
+QAM modulation. In this modulation scheme, Alice randomly
+selects a coherent state from a deterministic set{|α k⟩}, where
+k∈K={(i,j) :i,j∈{0,...,m−1}},m=
+√
+M. The value
+αk is given as
+αk = ∆
+(︃
+i− m−1
+2
+)︃
++j c∆
+(︃
+j− m−1
+2
+)︃
+,(1)
+where∆is the symbol spacing, andj c = √−1denotes
+the imaginary unit. The coherent state|α k⟩is selected with
+probabilityp k, which follows the Maxwell–Boltzmann (MB)
+distribution, and is given as [1]
+pk = exp
+(︁
+−γ|k|2)︁
+Z ,(2)
+whereZ= ∑︁
+k∈K exp
+[︁
+−ν|k|2]︁
+is the normalizating factor,
+andγis the shaping parameter. It is observed that setting
+γ= 0results in uniform probability among coherent states.
+Finally, the average photon number of the system,⟨n⟩, can be
+calculated as [2]
+⟨n⟩=
+∑︂
+k∈K
+pk|αk|2,(3)
+whereV A =⟨n⟩/2refer to the modulation variance.
+B. Quantum Channel Model
+The transmittance of the free-space HAP-to-UA V channel
+can be expressed asη=η atmIaηpηAoA, whereη atm is the
+deterministic atmospheric loss,I a is the atmospheric-induced
+turbulence,η p denotes the geometric loss and misequation-
+ment, andη AoA denotes the angle-of-arrival (AoA) fluctuation.
+Regarding the atmospheric loss,it can be given as
+ηatm =τ sec(ζ)
+zen ,(4)
+whereζis the zenith angle, andτ zen∈[0,1]is the atmospheric
+transmittance at zenith.
+For the atmospheric turbulence,by assuming the weak
+turbulence condition, we can modelI a as a log-normal random
+variable, whose probability density function (PDF) is [3]
+fIa (Ia) = 1
+Ia
+√︁
+2πσ2
+R
+exp
+⎡
+⎢⎣−
+(︂
+lnI a + σ2
+R
+2
+)︂2
+2σ2
+R
+⎤
+⎥⎦,(5)
+whereσ 2
+R =2.25
+(︁ 2π
+λ
+)︁ 7
+6 sec
+11
+6 (ξ)
+∫︁hatm
+hUA V
+C2
+n (h) (h−h UA V)
+5
+6 dhis
+the Rytov variance,h atm is the atmospheric altitude,h UA V
+denotes the UA V’s altitude, andλis the optical wavelength. In
+addition,C 2
+n (h)can be computed as a function of the ground
+turbulence level,C 2
+n (0), and the root-mean-square (rms) wind
+speed,v wind, as in [].
+As for geometric loss and misalignment,the fraction of col-
+lected power given the distance between the beam footprint’s
+center and that of the receiver aperture,r, is approximated as
+ηp≈A 0 exp
+(︄
+− 2r2
+w2
+Leq
+)︄
+,(6)
+whereA 0 = [erf(ν)] 2 denotes the maximum fraction of
+collected power,ν= √πDr/
+(︁
+2
+√
+2wL,eff
+)︁
+,D r is the receiver
+aperture’s diameter, andw 2
+Leq =w 2
+L,eff
+√πerf(ν)
+2νexp(−ν 2) is the
+equivalent beam width. Additionally,w L,eff =w L
+√1 +G d is
+the effective beam width,w L =w 0
+√︃(︂
+1− L
+F0
+)︂2
++
+(︂
+Lλ
+πw2
+0
+)︂2
+,
+L= (h HAP−h UA V)sec(ξ)is the slant distance,h HAP is the
+HAP’s altitude,G d can be found in [],F 0 is the radius of
+curvature,w 0 = 2λ
+πθ , andθis the divergence full-angle.
+In this work, we consider two factors that contribute to
+the misalignment model ofr, which are (1) the operation
+and hovering of the UA V within the beam footprint, and (2)
+the satellite’s vibration. For the first factor, the UA V is not
+necessarily at the center of the beam footprint. Thus, the radial
+displacement vector can be expressed asr 1 = (X1,Y 1)where
+X1∼N
+(︁
+ρx,σ 2
+h
+)︁
+, andY 1∼N
+(︁
+ρy,σ 2
+h
+)︁
+. Regarding the second
+factor, the radial displacement vector in this case can be given
+asr 2 = (X2,Y 2), whereX 2∼N
+(︂
+0,σ 2
+jt
+)︂
+,Y 2∼N
+(︂
+0,σ 2
+jt
+)︂
+,
+σjt ≃Lθ jt, andθ jt denotes the jitter angle. As a result,r
+follows the Rician distribution, whose PDF is given as [3]
+fr (r) = r
+σ2s
+exp
+(︃
+−r2 +ρ 2
+2σ2s
+)︃
+I0
+(︃ρr
+σ2s
+)︃
+,(7)
+whereρ=
+√︂
+ρ2x +ρ 2y,σ 2
+s =σ 2
+h +σ2
+jt, andI 0 (·)is the modified
+Bessel function of the first kind with order zero. Combining
+(6) and (7), we obtain the PDF ofη p as []
+fηp(ηp)=χ2
+Aχ2
+0
+exp
+(︃−ρ2
+2σ2s
+)︃
+ηχ2−1
+p I0
+⎛
+⎝ρ
+σ2s
+√︄
+−w2
+Leq
+2 ln ηp
+A0
+⎞
+⎠,(8)
+where0≤η p≤A 0, andχ=w Leq/2σs.
+Regarding the received signal’s AoA fluctuation,it arises
+from the UA V’s angular instability and can cause signal loss
+
+PAGE 3
+due to the receiver’s limited field of view (FOV). Conse-
+quently, the PDF ofη AoA is given as [3]
+fηAoA (ηAoA) =P 0δ(η AoA) +P 1δ(η AoA−1),(9)
+whereP 0 = exp
+(︂
+−θ2
+F oV
+2σ2o
+)︂
+,P 1 = 1−P 0,θ FoV is the detector’s
+FOV half-angle, andσ o denotes the standard deviation (SD)
+of angular fluctuation.
+Utilizing (4), (5), (8), and (9) and applying some mathmat-
+ical transformations, we derive the PDF ofηas [3]
+fη (η)=P 0δ(η)+P 1
+χ2C1
+2 (A0ηatm)χ2ηχ2−1erfc[C 2 (η)],(10)
+whereC 1 = exp
+[︂
+ρ2
+σ2s
++ 0.5σ2
+Rχ2(︁
+1 +χ 2)︁]︂
+,C 2 (η) =
+C3
+[︂
+ln
+(︂
+η
+A0ηatm
+)︂
++µ
+]︂
+,C 3 =
+(︃
+32ρ2σ2
+s
+w4
+Leq
++ 2σ2
+R
+)︃− 1
+2
+andµ=
+6ρ2
+w2
+Leq
++ 0.5σ2
+R
+(︁
+1 + 2χ2)︁
+.
+III. SECRET-KEYRATEANALYSIS& OPTIMIZATION
+A. Secret-key Rate Analysis
+The secret-key rate can be computed as []
+SKR=βI AB−χ BE,(11)
+whereβis the reconciliation efficiency,I AB is the mutual
+information between Alice and Bob, andχ BE is the Holevo
+bound representing the maximum information acquired by
+Eve. The mutual information between Alice and Bob forM-
+ary modulation is generally given as [4]
+IAB =
+∑︂
+k∈K
+pk
+∫︂
+p(y|α k) log2
+[︃ p(y|α k)∑︁
+k′∈Kpk′p(y|α k′)
+]︃
+dy,(12)
+wherep(y|α k) = 1√
+2πσ 2
+ζ
+exp
+[︃
+−|y−2√ηfαk|
+2
+2σ2
+ζ
+]︃
+andσ 2
+ζ =
+1 +ηfξf . Moreover,η f andξ f are the effective transmittance
+and effective excess noise, respectively, whose calculations are
+given at the end of this Section.
+As for the Holevo bound,it can be computed based on the
+symplectic eigenvalues{νi}3
+i=1 of the covariance matrix as [2]
+χBE =g
+(︃ν1−1
+2
+)︃
++g
+(︃ν2−1
+2
+)︃
+−g
+(︃ν3−1
+2
+)︃
+,(13)
+whereg(x) = (x+ 1) log 2 (x+ 1)−xlog 2 (x),ν 1,2 =√︂
+∆±
+√
+∆2−4D
+2 , andν 3 =
+√︂
+V
+(︁
+V− Z2
+W
+)︁
+. Moreover,∆ =
+V 2 +W 2−2Z 2,D=
+(︁
+VW−Z 2)︁2
+,V=V A + 1,
+W= 1 +η fVA +ηfξf , andZis given as
+Z(ηf,ξf) = 2√ηftr
+(︂
+τ 1/2aτ 1/2a†
+)︂
+−
+√︁
+2ηfξfw.(14)
+Therein,τdenotes the density matrix and can be given as [2]
+τ=
+∑︂
+k∈K
+pk|αk⟩⟨αk|,(15)
+where a coherent state can be approximated by a finite
+superposition of Fock states as [2]
+|α⟩≈e
+−|α|2
+2
+Nmax∑︂
+n=0
+αn
+√
+n!
+|n⟩.(16)
+Moreover,aanda † are the annihilation and creation operators,
+respectively, andwis a quantity measuring how far the finite
+constellation is from Gaussian modulation, and is given by [2]
+w=
+∑︂
+k
+pk
+(︂
+⟨αk|a†
+τaτ|αk⟩−|⟨α k|aτ|αk⟩|2
+)︂
+,(17)
+wherea τ =τ 1/2aτ−1/2.
+Regarding the effective transmittance and effective excess
+noise,these parameters are expressed as [5]
+ηf =⟨√η⟩2,
+ηfξf = Var(√η)VA +⟨ηξ n⟩.(18)
+Here,Var(√η) =⟨η⟩−⟨ √η⟩2, where⟨η⟩=
+∫︁ 1
+0 ηfη(η) dη,
+⟨√η⟩=
+∫︁ 1
+0
+√ηfη(η) dη, and⟨ηξ n⟩=
+∫︁ 1
+0 ηξnfη(η) dη. In this
+work, we adopt the trusted-detector model, in which detector
+inefficiency and electronic noise are treated as trusted detection
+imperfections rather than channel excess noise. Accordingly,
+ξn =ξ ch denotes the input-referred channel excess noise,
+excluding the pure-loss contribution and trusted detection
+noise. Assuming thatξ ch is independent of the instantaneous
+channel transmittance, we obtain⟨ηξ n⟩=ξ ch⟨η⟩.
+Lemma 1.The expressions of⟨η⟩,⟨ √η⟩, and⟨ηξ n⟩are
+respectively written as
+⟨η⟩=P 1A0ηatm
+χ2C1
+χ2 + 1Q(χ2 + 1),(19)
+⟨√η⟩=P 1
+√︁
+A0ηatm
+χ2C1
+χ2 + 0.5Q(χ2 + 0.5),(20)
+⟨ηξn⟩=ξ chP1A0ηatm
+χ2C1
+χ2 + 1Q(χ2 + 1).(21)
+whereQ(a) = 0.5[Q 1(a) +Q 2(a)],Q 1(a) = exp(ax 1−
+aµ) erfc(C3x1),x 1 = ln
+(︂
+1
+A0ηatm
+)︂
++µ, andQ 2(a) =
+exp
+(︂
+a2
+4C2
+3
+−aµ
+)︂
+erfc
+(︂
+a
+2C3
+−C 3x1
+)︂
+.
+Proof.LetB=A 0ηatm. By applying some mathematical
+manipulations, we can derive⟨η⟩as
+⟨η⟩=P 1
+χ2C1
+2Bχ2
+∫︂ 1
+0
+ηχ2
+erfc
+[︂
+C3
+(︂
+ln η
+B +µ
+)︂]︂
+dη.(22)
+By applying the change of variablesx= ln η
+B +µ, integrating
+by parts, and utilizing the definition of the complementary
+error function [], we obtain the expression for⟨η⟩as in (19).
+The expressions of⟨√η⟩and⟨ηξ⟩can be derived by applying
+the same approach. This completes the proof.■
+B. Secret-key Rate Optimization
+TBD
+
+PAGE 4
+IV. NUMERICALRESULTS& DISCUSSIONS
+Unless otherwise noted, default parameters used in this
+paper are as follows.At the HAP (Alice):HAP altitude
+hHAP = 20km, zenith angleξ= 30 ◦, divergence full-angle
+θ= 233µrad,F 0 =∞, optical wavelengthλ= 1550nm,
+jitter angleθ jt = 15.61µrad.At the UAV (Bob):UA V altitude
+hUA V= 1km, receiver aperture diameterD r = 8cm, boresight
+offsetsρ x =ρ y = 0m, SD of UA V positionσ h = 1m, SD of
+UA V’s angular fluctuationσo = 1.5mrad, the detector’s FOV
+half-angleθ FoV = 6.25mrad.Regarding the quantum channel:
+atmospheric altitudeh atm = 20km, atmospheric transmittance
+τzen = 0.92, ground turbulence levelC 2
+n (0) = 10−14 m−2/3,
+rms wind speedv wind = 21m/s.
+key reconciliation efficiencyβ= 0.95
+REFERENCES
+[1] M. N. Notarnicola, S. Olivares, E. Forestieri, E. Parente, L. Pot `ı, and
+M. Secondini, “Probabilistic amplitude shaping for continuous-variable
+quantum key distribution with discrete modulation over a wiretap chan-
+nel,”IEEE Trans. Commun., vol. 72, no. 1, pp. 375–386, Jan. 2024.
+[2] A. Denys, P. Brown, and A. Leverrier, “Explicit asymptotic secret key
+rate of continuous-variable quantum key distribution with an arbitrary
+modulation,”Quantum, vol. 5, p. 540, Sep. 2021.
+[3] H. D. Leet al., “Throughput analysis for TCP over the FSO-based
+satellite-assisted internet of vehicles,”IEEE Trans. Veh. Technol., vol. 71,
+no. 2, pp. 1875–1890, Feb. 2022.
+[4] T. K. Moon,Error correction coding: Mathematical Methods and Algo-
+rithms. John Wiley & Sons, 2020.
+[5] N. Hosseinidehaj, N. Walk, and T. C. Ralph, “Composable finite-size
+effects in free-space continuous-variable quantum-key-distribution sys-
+tems,”Phys. Rev. A, vol. 103, no. 1, p. 012605, Jan. 2021.

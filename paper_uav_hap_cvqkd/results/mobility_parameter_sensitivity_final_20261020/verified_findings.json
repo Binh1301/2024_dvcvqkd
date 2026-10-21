@@ -1,0 +1,321 @@
+{
+  "default": {
+    "Stationary": {
+      "K": 0.00015024281866088824,
+      "U": 0.00015024281866088824,
+      "D": 0.0,
+      "availability": 0.9776666666666667,
+      "unavailability_percent": 2.233333333333333,
+      "repositionings": 0.0,
+      "blocked_slots": 0.67,
+      "positive_slots": 29.33
+    },
+    "Greedy": {
+      "K": 0.00015238791176394823,
+      "U": 0.00014831088306140896,
+      "D": 430.61018325352387,
+      "availability": 0.9873333333333334,
+      "unavailability_percent": 1.2666666666666666,
+      "repositionings": 3.21,
+      "blocked_slots": 0.38,
+      "positive_slots": 29.62
+    },
+    "DP": {
+      "K": 0.00015649535266182735,
+      "U": 0.00015486275251456137,
+      "D": 172.4329897790698,
+      "availability": 0.9990000000000001,
+      "unavailability_percent": 0.09999999999999998,
+      "repositionings": 1.12,
+      "blocked_slots": 0.03,
+      "positive_slots": 29.97
+    }
+  },
+  "default_gain_percent": {
+    "Stationary": {
+      "K": 4.161619208603674,
+      "U": 3.0749781552626123
+    },
+    "Greedy": {
+      "K": 2.6953849884376853,
+      "U": 4.4176592559560035
+    }
+  },
+  "P1": {
+    "sources": 233,
+    "MB": 197,
+    "Uniform": 36,
+    "selected_nu": 0.125,
+    "selected_VA": 8,
+    "selected_ensemble_hashes": [
+      "0c762bca0e798dcbca78e2926b643bb1223fa15b606dcd53f8f194db3d85f20c"
+    ],
+    "K_min": 0.00011629627744942274,
+    "K_max": 0.00015780044462080858
+  },
+  "temporal_summary": [
+    {
+      "parameter_value": "0",
+      "metric": "global_blockage_fraction",
+      "valid_missions": "100",
+      "mean": "0.40187000000000006",
+      "sd": "0.03055913275662877",
+      "median": "0.4026666666666667",
+      "ci95_low": "0.39603666666666665",
+      "ci95_high": "0.40777341666666667"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "stationary_clear_fraction",
+      "valid_missions": "100",
+      "mean": "0.7703333333333333",
+      "sd": "0.05378908805014264",
+      "median": "0.7666666666666667",
+      "ci95_low": "0.76",
+      "ci95_high": "0.7806666666666667"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "all_horizon_clear_positions",
+      "valid_missions": "100",
+      "mean": "0.0",
+      "sd": "0.0",
+      "median": "0.0",
+      "ci95_low": "0.0",
+      "ci95_high": "0.0"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "global_temporal_switch_fraction",
+      "valid_missions": "100",
+      "mean": "0.48213448275862064",
+      "sd": "0.02014442949928212",
+      "median": "0.48258620689655174",
+      "ci95_low": "0.4782825862068965",
+      "ci95_high": "0.486048275862069"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "stationary_longest_clear_run_slots",
+      "valid_missions": "100",
+      "mean": "9.08",
+      "sd": "2.848639583160263",
+      "median": "9.0",
+      "ci95_low": "8.540000000000001",
+      "ci95_high": "9.649999999999999"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "stationary_cell_switches",
+      "valid_missions": "100",
+      "mean": "10.61",
+      "sd": "2.6738350621147036",
+      "median": "10.0",
+      "ci95_low": "10.09",
+      "ci95_high": "11.129999999999999"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "DP_repositionings",
+      "valid_missions": "100",
+      "mean": "7.36",
+      "sd": "1.5860503004493758",
+      "median": "7.0",
+      "ci95_low": "7.050000000000001",
+      "ci95_high": "7.670000000000001"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "DP_moving_mission",
+      "valid_missions": "100",
+      "mean": "1.0",
+      "sd": "0.0",
+      "median": "1.0",
+      "ci95_low": "1.0",
+      "ci95_high": "1.0000000000000002"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "DP_distance",
+      "valid_missions": "100",
+      "mean": "1038.25040431866",
+      "sd": "233.39975152558827",
+      "median": "1041.4213562373095",
+      "ci95_low": "993.4811834418798",
+      "ci95_high": "1083.4099819988578"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "DP_minus_P2_U",
+      "valid_missions": "100",
+      "mean": "2.7708110539232732e-05",
+      "sd": "5.7696117479161315e-06",
+      "median": "2.7145481778347304e-05",
+      "ci95_low": "2.6594485750375893e-05",
+      "ci95_high": "2.881481837348135e-05"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "unavoidable_all_sites_blocked_fraction",
+      "valid_missions": "100",
+      "mean": "0.0",
+      "sd": "0.0",
+      "median": "0.0",
+      "ci95_low": "0.0",
+      "ci95_high": "0.0"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "stationary_availability",
+      "valid_missions": "100",
+      "mean": "0.7703333333333333",
+      "sd": "0.05378908805014264",
+      "median": "0.7666666666666667",
+      "ci95_low": "0.76",
+      "ci95_high": "0.7806666666666667"
+    },
+    {
+      "parameter_value": "0",
+      "metric": "DP_availability",
+      "valid_missions": "100",
+      "mean": "0.9956666666666666",
+      "sd": "0.011266588966321035",
+      "median": "1.0",
+      "ci95_low": "0.9933333333333334",
+      "ci95_high": "0.9976666666666668"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "global_blockage_fraction",
+      "valid_missions": "100",
+      "mean": "0.4187133333333333",
+      "sd": "0.15758359810848674",
+      "median": "0.41100000000000003",
+      "ci95_low": "0.3884096666666667",
+      "ci95_high": "0.4500039999999999"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "stationary_clear_fraction",
+      "valid_missions": "100",
+      "mean": "0.9996666666666667",
+      "sd": "0.0033333333333333322",
+      "median": "1.0",
+      "ci95_low": "0.999",
+      "ci95_high": "1.0000000000000002"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "all_horizon_clear_positions",
+      "valid_missions": "100",
+      "mean": "29.56",
+      "sd": "15.949617645269837",
+      "median": "28.0",
+      "ci95_low": "26.48",
+      "ci95_high": "32.650249999999986"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "global_temporal_switch_fraction",
+      "valid_missions": "100",
+      "mean": "0.06346206896551725",
+      "sd": "0.013667217244262418",
+      "median": "0.06344827586206897",
+      "ci95_low": "0.06081034482758621",
+      "ci95_high": "0.0660690517241379"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "stationary_longest_clear_run_slots",
+      "valid_missions": "100",
+      "mean": "29.9",
+      "sd": "1.0000000000000002",
+      "median": "30.0",
+      "ci95_low": "29.699999999999992",
+      "ci95_high": "30.0"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "stationary_cell_switches",
+      "valid_missions": "100",
+      "mean": "0.02",
+      "sd": "0.19999999999999998",
+      "median": "0.0",
+      "ci95_low": "0.0",
+      "ci95_high": "0.06"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "DP_repositionings",
+      "valid_missions": "100",
+      "mean": "0.19",
+      "sd": "0.614554121031474",
+      "median": "0.0",
+      "ci95_low": "0.08",
+      "ci95_high": "0.32"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "DP_moving_mission",
+      "valid_missions": "100",
+      "mean": "0.1",
+      "sd": "0.30151134457776363",
+      "median": "0.0",
+      "ci95_low": "0.05",
+      "ci95_high": "0.16"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "DP_distance",
+      "valid_missions": "100",
+      "mean": "31.843766846610823",
+      "sd": "100.88296517486971",
+      "median": "0.0",
+      "ci95_low": "13.721185033997873",
+      "ci95_high": "52.97932976072228"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "DP_minus_P2_U",
+      "valid_missions": "100",
+      "mean": "2.428871698828623e-07",
+      "sd": "1.0086849674632954e-06",
+      "median": "0.0",
+      "ci95_low": "7.608144265857579e-08",
+      "ci95_high": "4.6148518214231464e-07"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "unavoidable_all_sites_blocked_fraction",
+      "valid_missions": "100",
+      "mean": "0.0",
+      "sd": "0.0",
+      "median": "0.0",
+      "ci95_low": "0.0",
+      "ci95_high": "0.0"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "stationary_availability",
+      "valid_missions": "100",
+      "mean": "0.9996666666666667",
+      "sd": "0.0033333333333333322",
+      "median": "1.0",
+      "ci95_low": "0.999",
+      "ci95_high": "1.0000000000000002"
+    },
+    {
+      "parameter_value": "0.98",
+      "metric": "DP_availability",
+      "valid_missions": "100",
+      "mean": "1.0",
+      "sd": "0.0",
+      "median": "1.0",
+      "ci95_low": "1.0",
+      "ci95_high": "1.0000000000000002"
+    }
+  ],
+  "new_optimizer_calls": 0,
+  "new_clouds": 0,
+  "new_quantum_evaluations": 0
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "manuscript-mobility-v1",
+  "scientific_model": "manuscript_2d_mi_homodyne_holevo",
+  "scope": "SYNTHETIC_MANUSCRIPT_NUMERICAL_COMPARISON",
+  "reference_directory": "results/skr_vs_zenith_angle_20261019",
+  "geometry": {
+    "h_hap_m": 20000,
+    "h_uav_m": 1000,
+    "grid_side_m": 1000,
+    "grid_cells_per_side": 10,
+    "hap_horizontal_m": [11419.65511459133, 450],
+    "reference_position_index": 44,
+    "coordinate_origin": "Synthetic repository embedding; cell centers, x increases first; HAP azimuth is not measured."
+  },
+  "optical": {
+    "wavelength_m": 1.55e-6,
+    "full_divergence_rad": 233e-6,
+    "receiver_diameter_m": 0.08,
+    "h_HAP_m": 20000,
+    "h_UAV_m": 1000,
+    "jitter_rad": 15.61e-6,
+    "sigma_h_m": 1,
+    "boresight_m": 0,
+    "sigma_AoA_rad": 1.5e-3,
+    "FOV_half_angle_rad": 6.25e-3,
+    "tau_zen": 0.92,
+    "wind_m_s": 21,
+    "Cn2_ground": 1e-14
+  },
+  "security": {"beta": 0.95, "xi_ch": 0.0186, "R": 1, "xi_det": 0, "normalization": "VA=2*nbar"},
+  "numerical": {"GH_orders": [16, 32, 64], "GH_absolute_tolerance": 2e-13, "entropy_digits": 80, "DP_absolute_tolerance": 1e-12, "DP_relative_tolerance": 1e-12},
+  "source_rosters": {
+    "MB": {"path": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv", "sha256": "84e86497adca0a730ef719fe812fd957cb9729c5c8a3bd4da61f0498c97e3859", "count": 197},
+    "Uniform": {"path": "results/uniform_manuscript_2d_optimization_20261019/all_candidates.csv", "sha256": "0cc83786433b93db88d9a5b588fc7e629ad978bdad26c1fd41e24a88794d8711", "count": 36}
+  },
+  "cloud": {
+    "model": "stationary_gaussian_copula_ar1_complete_blockage",
+    "probability": 0.4,
+    "correlation_length_m": 250,
+    "temporal_rho": 0.9,
+    "seed": 20261015,
+    "realizations": 100,
+    "archive_directory": "results/binary_cloud_skr_20261015",
+    "scenario_id": 0,
+    "parameter_origin": "Approved synthetic repository scenario; not measured meteorology."
+  },
+  "mission": {"slots": 30, "slot_duration_s": 20, "max_speed_m_per_s": 15},
+  "optimization": {
+    "reference_distance_m": 1000,
+    "initial_position_freely_selectable": true,
+    "deployment_cost_included": false,
+    "lambda_multipliers": [0, 0.0001, 0.0003, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1],
+    "representative_multiplier": 0.003,
+    "lambda_high_rule": "2*max(K_star)*D_ref/d_min",
+    "representative_realization_id": 0,
+    "channel_use_rate_per_s": null
+  },
+  "manuscript_sha256": "c46a74868d8ebbe387952e764bf31b71986995964c1e15e751dccb7e4aeb1557",
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

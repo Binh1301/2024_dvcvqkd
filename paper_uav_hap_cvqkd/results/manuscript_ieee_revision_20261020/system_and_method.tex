@@ -1,0 +1,205 @@
+\section{HAP--UAV CV-QKD System and Problem Formulation}
+\label{sec:system}
+\subsection{Mobility-Aware UAV Positioning and SKR Optimization}
+We consider one UAV at a fixed altitude over a $1\,\mathrm{km}\times
+1\,\mathrm{km}$ area, discretized into $J$ candidate positions
+$\mathcal Q=\{\mathbf q_j\}_{j=1}^J$. The mission has $N_t$ slots of
+duration $\Delta t$. Let $c_{j,n}\in\{0,1\}$ indicate cloud blockage
+(one means blocked). The matrix $\mathbf C=[c_{j,n}]$ contains spatially
+and temporally correlated Bernoulli states. P2 and P3 know the complete
+matrix and are offline benchmarks; Greedy observes only the current slot.
+
+\subsubsection{Source and Stationary-Position Optimization}
+For an unblocked link, the recorded manuscript-style raw rate is
+\begin{equation}
+ K_j(\nu,V_A)=\beta_{\rm rec}I_{AB,j}^{2D}(\nu,V_A)-\chi_{BE,j}(\nu,V_A).
+ \label{eq:raw}
+\end{equation}
+Equation~\eqref{eq:raw} is retained as a conditional numerical metric,
+subject to the measurement-consistency limitations below. For a finite
+exact-source catalog $\mathcal G$, define
+\begin{equation}
+ \mathcal P_1:\quad K_j^\star=
+ \left[\max_{(\nu,V_A)\in\mathcal G}K_j(\nu,V_A)\right]^+,
+ \label{eq:p1}
+\end{equation}
+where $[x]^+=\max\{x,0\}$. The raw maximum is selected before clipping.
+P1 is solved once per location under stationary clear-sky statistics.
+The source associated with the current position is available to every
+method. Complete blockage gives $S_{j,n}=(1-c_{j,n})K_j^\star$ without
+another quantum-channel evaluation. The stationary benchmark is
+\begin{equation}
+ \mathcal P_2:\quad j_{\rm fix}^\star=
+ \arg\max_j\frac{1}{N_t}\sum_{n=1}^{N_t}S_{j,n}.
+ \label{eq:p2}
+\end{equation}
+Thus, the best fixed position depends on both its clear-sky rate and its
+full cloud sequence. Its total travel distance is zero.
+
+\subsubsection{Mobility-Aware Trajectory Optimization}
+Let $j_n$ be the position in slot $n$ and
+$d_{i,j}=\|\mathbf q_i-\mathbf q_j\|_2$. We solve
+\begin{align}
+ \mathcal P_3:\quad\max_{j_1,\ldots,j_{N_t}}\quad&
+ \frac{1}{N_t}\sum_{n=1}^{N_t}S_{j_n,n}
+ -\frac{\lambda}{D_{\rm ref}}\sum_{n=2}^{N_t}d_{j_{n-1},j_n}
+ \label{eq:p3}\\
+ \text{subject to}\quad& d_{j_{n-1},j_n}\le v_{\max}\Delta t,
+ \quad n\ge2.\nonumber
+\end{align}
+Here $D_{\rm ref}>0$ normalizes distance, and $\lambda\ge0$ has units
+bit/use. Staying is permitted. The initial position is free, with no
+terminal constraint, deployment cost, or return travel. Distance is a
+mobility-cost surrogate rather than calibrated propulsion energy.
+
+\subsection{Recorded Physical-Layer Model and Security Boundary}
+\label{sec:security}
+Alice sends the coherent-state ensemble $\{p_k,\alpha_k\}_{k=1}^{256}$.
+With $[\hat x,\hat p]=2i$ and vacuum quadrature variance one, the
+normalization is $V_A=2\sum_kp_k|\alpha_k|^2=2\bar n$.
+The source moments $C_s,w_s$ are computed from this same ensemble;
+the subscript distinguishes them from the cloud matrix.
+For clear-sky power transmittance $\eta$, the saved evaluator uses
+\begin{align*}
+ \eta_f&=\langle\sqrt\eta\rangle^2,\\
+ N=\eta_f\xi_f&=(\langle\eta\rangle-\eta_f)V_A
+                  +\xi_{\rm ch}\langle\eta\rangle,\\
+ V&=1+V_A,\qquad W=1+\eta_fV_A+N,\\
+ Z&=2\sqrt{\eta_f}C_s-\sqrt{2Nw_s}.
+\end{align*}
+The convention is $\xi_n=\xi_{\rm ch}$. The additive $N$ is
+output-referred excess noise; loss-induced vacuum is already included
+in $W$'s unit baseline. The active detector is ideal (efficiency one,
+electronic noise zero). No imperfect trusted-detector claim is made.
+The clear-sky distribution retains a separate angle-of-arrival outage
+atom at $\eta=0$ and its active density on $[0,1]$, without renormalizing.
+Moment reduction at the covariance level has a precedent for Gaussian
+modulation~\cite{usenko2012}; it is not an identity for the full
+discrete-input fading likelihood.
+
+Specifically, the saved MI kernel uses the normalized likelihood
+\[
+ p_{\rm num}(\mathbf y|k)=\frac{
+ \exp[-\|\mathbf y-2\sqrt{\eta_f}(\Re\alpha_k,\Im\alpha_k)\|^2/
+                 (2(1+N))]}{2\pi(1+N)}
+\]
+and integrates both real components to obtain $I_{AB}^{2D}$.
+The Holevo branch uses the standard-form covariance with entries
+$V,W,Z$ and the \emph{homodyne} conditional eigenvalue
+\[
+ \nu_3^{\rm hom}=\sqrt{V(V-Z^2/W)}.
+\]
+These two branches do not specify one consistent single-mode Bob
+measurement: a homodyne outcome has one quadrature, while joint
+measurement of both quadratures adds measurement vacuum. The
+measurement-dependent Holevo expressions are explicitly different
+in~\cite{denys2021}. Consequently, all reported ``usable SKR'' values
+are conditional outputs of the recorded manuscript model, not
+established achievable secret-key rates.
+
+Further, evaluating only $Z_-$ does not establish the worst-case
+Holevo value over all admissible correlations; the general
+interval-maximization caveat in~\cite[Sec.~4, footnotes 11--12]{denys2021}
+also applies. A consistent measurement/noise specification, admissible
+correlation treatment, parameter estimation, and fading/outage
+conditioning protocol require author review. No correction is applied
+to the historical numerical results in this manuscript revision.
+
+\section{Optimization Method}
+\label{sec:method}
+\subsection{Finite-Catalog Search and Stationary Benchmark}
+The selected source parameters satisfy
+\begin{equation}
+ (\nu_j^\star,V_{A,j}^\star)\in
+ \arg\max_{(\nu,V_A)\in\mathcal G}K_j(\nu,V_A).
+ \label{eq:source_choice}
+\end{equation}
+Every catalog candidate is evaluated at each distinct channel state.
+Exact source moments are reused only for their authenticated
+ensembles. Source-independent channel moments can be shared, while
+$N$ and $\xi_f$ are recomputed for each $V_A$. Ties use increasing
+$\nu$, $V_A$, and ensemble hash after decreasing raw rate. The result
+is optimal within $\mathcal G$, with no continuous-source claim.
+P2 compares all $J$ full-horizon means in $O(JN_t)$ time; position
+ties select the smallest index.
+
+\subsection{Greedy Trajectory Baseline}
+The current-slot policy starts at
+\begin{equation}
+ j_1^G\in\arg\max_j S_{j,1}.
+ \label{eq:greedy_init}
+\end{equation}
+For $n\ge2$, it selects
+\begin{equation}
+ j_n^G\in\arg\max_{j:d_{j_{n-1}^G,j}\le v_{\max}\Delta t}
+ \left\{S_{j,n}-\frac{N_t\lambda}{D_{\rm ref}}d_{j_{n-1}^G,j}\right\}.
+ \label{eq:greedy}
+\end{equation}
+The factor $N_t$ makes this score consistent with~\eqref{eq:p3}.
+The decision function receives only the current rate vector and
+previous position, together with the transition graph and fixed
+parameters. It cannot read future clouds. Its worst-case time is
+$O(N_tJ)$, and ties use the smallest index. Greedy and DP use identical
+rate maps, clouds, speed limits, and distance penalties.
+
+\subsection{Dynamic Programming for UAV Trajectory Optimization}
+Define the feasible predecessors
+\begin{equation}
+ \mathcal N(j)=\{i\in\{1,\ldots,J\}:d_{i,j}\le v_{\max}\Delta t\}.
+ \label{eq:neighbors}
+\end{equation}
+Let $F_n(j)$ be the maximum cumulative reward for trajectories ending
+at $j$ in slot $n$. Multiplying~\eqref{eq:p3} by $N_t$ gives
+\begin{equation}
+ F_1(j)=S_{j,1},\qquad j=1,\ldots,J,
+ \label{eq:dp_init}
+\end{equation}
+and, for $n\ge2$,
+\begin{equation}
+ F_n(j)=S_{j,n}+\max_{i\in\mathcal N(j)}
+ \left\{F_{n-1}(i)-\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}\right\}.
+ \label{eq:dp}
+\end{equation}
+Store a maximizing predecessor
+\begin{equation}
+ B_n(j)\in\arg\max_{i\in\mathcal N(j)}
+ \left\{F_{n-1}(i)-\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}\right\}.
+ \label{eq:backpointer}
+\end{equation}
+The optimal objective is
+\begin{equation}
+ U^\star=\frac{1}{N_t}\max_j F_{N_t}(j).
+ \label{eq:terminal}
+\end{equation}
+Starting at a maximizing final position, backtracking uses
+$j_{n-1}^\star=B_n(j_n^\star)$. The implementation stores $F_n/N_t$,
+so its reward is $S_{j,n}/N_t$ and its edge cost is
+$\lambda d_{i,j}/D_{\rm ref}$; this is exactly the same recursion.
+DP is globally optimal for the given finite grid and rate matrix.
+Its time is $O(N_tJ^2)$, backpointers use $O(N_tJ)$ memory, and
+the dense distance/transition matrices additionally use $O(J^2)$.
+Since fixed and Greedy paths are feasible,
+$U_{\rm DP}\ge U_{\rm P2},U_{\rm Greedy}$. This statement concerns
+the penalized objective, not mission-wise SKR or availability.
+
+\begin{algorithm}[t]
+\caption{Source Search and Offline UAV Positioning}
+\label{alg:optimization}
+\begin{algorithmic}[1]
+\Require $\mathcal Q,\mathcal G,\mathbf C,N_t,\Delta t,v_{\max},D_{\rm ref},\lambda$
+\For{each position $j$}
+ \State Select the maximum raw catalog rate in~\eqref{eq:source_choice}.
+ \State Set $K_j^\star$ by~\eqref{eq:p1} and $S_{j,n}=(1-c_{j,n})K_j^\star$.
+\EndFor
+\State Select P2 using~\eqref{eq:p2}.
+\State Compute Greedy with~\eqref{eq:greedy_init}--\eqref{eq:greedy}.
+\State Initialize $F_1$ using~\eqref{eq:dp_init}.
+\For{$n=2,\ldots,N_t$}
+ \For{each position $j$}
+  \State Update $F_n(j)$ and save $B_n(j)$ by~\eqref{eq:dp}--\eqref{eq:backpointer}.
+ \EndFor
+\EndFor
+\State Select the best final position and backtrack.
+\Ensure P1 sources, P2 position, Greedy path, DP path, and metrics.
+\end{algorithmic}
+\end{algorithm}

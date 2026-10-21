@@ -1,0 +1,477 @@
+diff --git a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+index 5223b55c..c90445f8 100644
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,41 +1,40 @@
+ # Session Handoff
+ 
+-2026-10-17 EVID-0193/DEC-0176. Full numerical geometry/fading/SKR audit COMPLETE;
+-5 strict comparison failures retained and diagnosed. STOP. Branch cloud/implement,
+-HEAD fc80c8cd9f70e2c3adb75e79379a058f5fecf1ec unchanged. No commit/push.
++2026-10-19 EVID-0196 completion/DEC-0179. Requested zenith-angle comparison
++COMPLETE; STOP. Branch fix/channel, HEAD49597cd766638bf1ab557776b6ff010dc29eb6e4.
++No commit/push. Deliver results/skr_vs_zenith_angle_20261019/validation_report.md,
++main semilog and linear350dpiPNG/vectorPDF, all requestedCSV and receipts.
+ 
+-Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and
+-results/full_geometry_fading_skr_audit_20261017/. New diagnostic scripts only:
+-scripts/probe_full_geometry_runtime.py and scripts/audit_full_geometry_fading_skr.py.
+-Use .venv-binary-cloud/Scripts/python.exe -X utf8 -B. No pending numerical run.
++31 angles0:2:60deg,36 Uniform+182 MB sources,6758 fresh raw evaluations;
++full233urad/Dr.08 physical/fading channel recomputed each angle. Exact source
++moments reused with authenticated payload/ensemble/normalization; no new AP/Cw.
++Same normalized2D MI with component variance1+N, xi_ch.0186 only, VA=2nbar,
++unchanged imported homodyne security()/nu3. No interpolation/clipping.
+ 
+-Runtime reference confirms Dr.55/radius.275/full-angle10urad/w0.0986760647.
+-Default.yaml has Dr.08/theta223urad; binary overrides win. CaseB explicitly uses
+-233urad old manuscript, not223. FreshA equals saved complete physical state and
+-old/new reference SKRs have residual0.4 states/8 production SKRs recomputed;
+-no objective cache use, source builds or full catalog/missions.
++Reference30deg: UniformVA.0475 K-4.850670994797474e-5;
++fixedMB(.165,5.475) K9.665799737511703e-5. Catalog MB(.125,8)
++K.00013951628857127992,44.340139833267465% above fixed. Both references pass
++before full sweep. Best sources remain finite-catalog only, UniformVA12/MBVA8
++at their respective catalog ceilings at larger angles.
+ 
+-Independent70dps geometry/HV/Gd/PDF CF+quadrature through same exact source to
+-independent MI/Holevo uses no production numerical helper for validation.
+-94 strict comparisons:89 PASS,5 FAIL retained. Main difference comes from
+-mu2 quad in src/channel/pointing_error.py:124-136 (epsabs1e-18 at mu2~5e-14).
+-Original5.0349262917105936e-14, MP5.0349262957777165e-14; difference4.067e-23
+-is inside reported quadrature uncertainty.18 follow-up causal/metric/AoA checks
+-pass. Reusing originalmu2 only reconstructs runtime all4 cases. D xi_f absolute
+-residual5.157e-9 is relative2.184e-11, K residual~9e-15; no tolerance widening.
++Uniform positive sampled44:2:60deg; both MB positive24:2:60deg. Entry brackets
++[42,44]deg Uniform,[22,24]deg MB at initial2deg resolution. All positive at60deg
++(L38km), no positive-to-nonpositive transition, so no upper crossing refinement
++or invented operational bracket.60deg is boundary, not true maximum. Tested
++Uniform peak52deg K.00010662595172733, MB peaks48deg fixed.00024135717567699987,
++optimized.0003421451103002522. Source parameter changes are fully exported.
+ 
+-Runtime m1=.23790886783673015, independent.2379088678213789. Independent ideal
+-K=-.7461405272043098 vs runtime-.74614052719539 (delta-8.92e-12), trusted
+--.4528722259878813 vs-.4528722259826575 (delta-5.22e-12).8 physical bounds pass.
+-OnlyA(.55,10urad) givesm1~.2379;B(.08,233urad)~.000264034,
+-C(.55,233urad)~.0123923,D(.08,10urad)~.000647763. No actual configuration mix.
++7445 producer/9 numerical/280 saved-evidence checks PASS. All6758GH16/32/64
++maxdelta6.062858548538941e-16; uncertainty/spectrum valid. Direct PDF integral,
++full256-mixture and80/110digit controls at0/30/60deg pass. Final figures visually
++reviewed; render_figures.py is layout-only and reads savedCSV unchanged.
++verify_results.py reads saved evidence only; receipt binds all outputs/inputs
++and verifies4802 prior files unchanged,5 authorized ledger docs changed.
++No live task worker or pending scientific run.
+ 
+-Artifacts: validation_receipt.json, independent_geometry_audit.json (raw strict
+-FAILs), quadrature_precision_diagnosis.json, runtime_probe.json, audit_summary.json,
+-configuration_sensitivity.csv and full equation/numerical substitutions in report.
+-All4127 protected old files unchanged. No production/source/config/cache/frozen
+-spec edit. Optional future mu2 scaling/tolerance refinement only proposed;
+-wait for separate user confirmation, do not fix automatically. Keep
+-UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen mismatch/ObjectiveC USER_STOPPED.
+-No source/AP/AO/full22700/1600mission/P1-P3/training/test/publication/baseline or
+-threshold approval/external manuscript edit/commit/push. Deliver and STOP.
++BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY; no global optimum/security proof.
++Production/source/security/config/old cache/frozen preserved. Keep
++UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen
++historical hash conflict and ObjectiveC USER_STOPPED. No automatic source/
++angle expansion, AP/AO, training/test-data/final-test/held-out/publication,
++baseline/threshold certification, external edit, commit or push. STOP.
+diff --git a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+index 9cb70772..1a4988a9 100644
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -1,5 +1,74 @@
+ # Decision Log
+ 
++DEC-0179 completion (2026-10-19): accept EVID-0196 for the explicitly requested
++manuscript-style zenith diagnostic only.31 angles/218 authenticated sources,
++6758 raw evaluations, reference/convergence/covariance/provenance checks and
++both final figures complete. Positive sampled regions Uniform44:2:60deg,
++fixed and optimized MB24:2:60deg; all extend to boundary60deg, no upper crossing
++observed. Do not invent a true maximum angle or continuous/global optimum;
++VA12 Uniform/VA8 MB are catalog boundaries. The mixed2D/homodyne functional
++remains a numerical comparison, not physical security. Keep production/cache/
++frozen/lifecycle/security/ObjectiveC stop unchanged. Deliver then STOP; no
++automatic source expansion, extended angle sweep, AP/AO, training/test access,
++publication/baseline/threshold promotion, external edits, commit or push.
++
++## DEC-0179 - Authorize isolated requested zenith-angle catalog comparison
++
++2026-10-19 direct request874a2276 supersedes DEC-0178 STOP solely for this
++zenith diagnostic: recompute full optical/fading channel each angle; normalized
++2D MI, per-component variance1+N, VA=2nbar, channel-only xi=.0186 and unchanged
++homodyne nu3. Select raw maxima over authenticated Uniform36/MB182 catalogs;
++fixed MB source parameters remain fixed. Numerical positive-region brackets
++are diagnostics, not lifecycle threshold/baseline certification. No new source
++AP/AO needed, no ObjectiveC restart or production/frozen/cache modification,
++training/test-data/final-test/held-out/publication evaluation, commit/push.
++Keep UNVALIDATED_SECURITY_MODEL and NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
++
++DEC-0178 completion (2026-10-19): accept EVID-0195 for the requested Uniform
++numerical comparison only. Best exact-tested(.0475) remains raw negative
++-4.850670994797474e-5; all36 tested values negative. MB fixed reference and
++optics unchanged; gap .00014516470732312103 bits/use, no percent improvement.
++Source/full2D-kernel/covariance/integrity checks pass within recorded scope.
++Do not infer a continuous/global optimum or operational trusted-homodyne key
++rate. No source/evaluator/model promotion follows. Deliver report/table/figures,
++STOP; no automatic MB optimization, source expansion or publication/lifecycle work.
++
++## DEC-0178 - Authorize requested isolated Uniform variance search
++
++2026-10-19 direct user task6b0f6694 supersedes the prior one-point STOP only
++for Uniform VA search with exact source moments, fixed channel/2D MI/homodyne
++Holevo, fixed MB comparison and requested diagnostic figures. Adopt user-explicit
++VA=2nbar for this comparison; no source-unit ambiguity is silently resolved in
++production. Reuse authenticated Uniform sources, generate absent Uniform sources
++separately, retain all negative raw values and best-tested-only scope.
++Accept EVID-0195 preparation; source convergence/parity and final numerical/
++artifact validation are pending. Isolated equivalent diagonal-system arithmetic
++must pass source controls before completion; do not change precision/support.
++No MB optimization, production source/evaluator/config/frozen/cache edits,
++baseline/threshold certification, training/test-data/final-test/held-out/
++publication evaluation, ObjectiveC restart, external edit, commit or push.
++No global optimum or homodyne security proof follows from this diagnostic.
++
++## DEC-0177 - Isolated requested homodyne-style single-point comparison only
++
++2026-10-19 user task fa11cb3c supersedes the previous STOP solely for one
++manuscript comparison at(.165,5.475), physical xi_ch=.0186, ideal detector.
++Accept EVID-0194 as numerical evidence for the explicitly disclosed cache
++VA=2nbar convention, normalized2D MI and unchanged homodyne nu3. Positive
++hybrid raw K is not a trusted-homodyne security conclusion; scalar MI yields
++negative raw K. Printed reference values remain unreproduced within their
++display precision. Retain PDF/source VA and MB notation conflicts; do not
++claim literal PDF compliance, silently relabel Cw, tune channel coefficients
++or promote security/lifecycle status. HV/Gd closure and full-Gram versus
++unspecified finite-Fock convention are identified separately.
++
++Only new diagnostic producer/artifacts/report and task-state documentation.
++Historical evaluators/scientific source/security functional/config/cache/frozen
++specs remain unchanged. No optimization or new Cw/AP/AO, training/test-data/
++final-test/held-out/publication work, baseline/threshold approval, ObjectiveC
++restart, external manuscript edit, commit/push. Deliver one-point evidence,
++STOP. Any source-unit/measurement/model correction requires a separate task.
++
+ ## DEC-0162 - Add only a separate manuscript reproduction mode; STOP after tests
+ 
+ 2026-10-12 explicit attachment aae63626-108b-440d-9b21-ec9a8b92595f plus
+diff --git a/paper_uav_hap_cvqkd/docs/EVIDENCE.md b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+index d9d353b3..6c9d49be 100644
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -1,5 +1,158 @@
+ # Evidence Register
+ 
++## EVID-0196 completion - Fresh zenith-angle exact-catalog comparison
++
++2026-10-19. results/skr_vs_zenith_angle_20261019/validation_report.md and
++required PNG/vectorPDF/CSV outputs complete.31 fresh angles0:2:60deg,
++36 Uniform+182 MB sources,6758 raw candidate evaluations. Source hashes,
++ensemble PMF/geometry/VA=2nbar/support256 validated; no new Cw/AP/AO.
++Channel233urad/Dr.08m recomputed from primitive geometry/HV/Gd and retained
++[0,1] PDF at every angle; no distance-curve relabeling or moment renormalizing.
++Normalized2D MI/component variance1+N, channel-only xi=.0186 and imported
++homodyne nu3 unchanged. No interpolation or negative clipping.
++
++Reference gate30deg precedes sweep: fixed MB K9.665799737511703e-5,
++UniformVA.0475 K-4.850670994797474e-5, matching prior values within2e-13.
++Best catalog MB at30deg(.125,8):K.00013951628857127992,+44.340139833267465%
++versus fixed. Uniform positive at44:2:60deg; both MB schemes positive24:2:60.
++All three remain positive at60deg/L38km. No positive-to-nonpositive transition
++observed; no artificial operational bracket or unnecessary refinement. Negative-
++to-positive entry brackets are[42,44]deg Uniform,[22,24]deg both MB (initial2deg
++resolution, no interpolated crossing). Uniform tested peak52deg K.00010662595172733;
++fixed/optimized MB peak48deg K.00024135717567699987/.0003421451103002522.
++All three subsequently decline.60deg is only the investigated boundary.
++
++7445 producer checks,9 numerical controls,280 saved-evidence checks PASS.
++All6758 evaluations GH16/32/64:maximum MI delta6.062858548538941e-16;
++min eig(Gamma+iOmega)2.150310047812697e-6;matrix spectrum delta<=2.8422e-14.
++Closed-vs-direct PDF quadrature and80/110digit channel/entropy controls at
++0/30/60deg pass. Full256-mixture kernel agrees with product tensor at all
++three representative angles. near_zero_MI_convergence.csv records selected
++near-zero controls. Both350dpi PNG layouts visually reviewed; vectorPDFs
++verified. Layout-only render_figures.py/receipt uses saved CSV unchanged.
++
++validation_receipt.json binds all outputs/producer/input/source roster and
++verifies4802/4807 prior files unchanged; only five authorized task-ledger docs
++changed. Catalog-limited best-tested only: UniformVA12 and MBVA8 reach their
++respective catalog ceilings. No continuous/global or physical homodyne security
++claim. Production/scientific/security source/config/old cache/frozen files
++unchanged. UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen hash conflict/ObjectiveC
++USER_STOPPED remain. No training/test-data/final-test/held-out/publication,
++baseline/threshold certification, external edit, commit or push. COMPLETE;STOP.
++
++## EVID-0196 preparation - Requested zenith-angle finite-catalog comparison
++
++2026-10-19 request874a2276 explicitly requests a fresh 0--60deg/2deg sweep,
++Uniform VA and MB nu/VA finite-catalog selection, fixed MB(.165,5.475), direct
++transition refinement <=.25deg and separate figures/tables. Startup manifest
++protects all pre-existing files including both completed 20261019 diagnostics.
++Reuse exact source moments only after payload/ensemble/hash verification.
++No scientific run completed yet; reference30deg must pass before full sweep.
++Frozen actual df83ea63...db78c15 differs from historical expected561fecc9...a7b1;
++preserved diagnostic-only blocker. Production/lifecycle NOT_READY unchanged.
++
++## EVID-0195 completion - Uniform exact-tested manuscript-style 2D optimization
++
++2026-10-19. Report docs/UNIFORM_MANUSCRIPT_2D_OPTIMIZATION_VI.md; artifacts
++results/uniform_manuscript_2d_optimization_20261019/.36 exact-tested candidates,
++VA .02--12, comprising30 authenticated historical Uniform sources plus6 new
++objective sources. A seventh new payload is the VA.05 source-parity control;
++old/new Cw agree bitwise. New source1250/1450 rows retain256 modes and converge.
++All raw Uniform K are negative. Best tested VA=.0475,
++C=.15583351386208738,w=.0012545586980808594,
++I_AB2D=1.6689494031578547e-5,betaI=1.585501932999962e-5,
++chi=6.436172927797437e-5,K=-4.850670994797474e-5 bits/use.
++Fixed MB reference unchanged K=9.665799737514629e-5;
++DeltaK=MB-Uniform=.00014516470732312103; percentage omitted for negative Uniform.
++
++188 producer checks and6 independent numerical prechecks pass. GH16/32/64
++maximum MI difference3.7868132566308554e-16. Best original MB full tensor2D
++kernel residual<=1.318322079106593e-16; no1D switch or1/2 factor. Independent
++matrix symplectic/uncertainty checks pass for36/36; best entropy80/110dps stable.
++Same fixed channel/moments/noise/normalization at every VA; no Cw/SKR interpolation.
++Four PNG350dpi/vectorPDF figures, three mandatory layouts visually reviewed;
++all negative values/zero lines retained. Full candidate, source, convergence,
++comparison, protocol/environment and saved-result verification artifacts exist.
++
++Scope BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY, no global/continuous certificate
++or physical homodyne security proof. UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen
++hash conflict/ObjectiveC USER_STOPPED remain. Validation protects4702 prior files:
++4697 unchanged, only five task-ledger documents updated. Production/source/
++optics/config/cache/frozen specs and all MB artifacts unchanged. No MB optimization,
++training/test-data/final-test/held-out/publication/baseline-threshold certification,
++ObjectiveC restart, external manuscript edit, commit/push. Deliver and STOP.
++
++## EVID-0195 preparation - Uniform-only exact-tested manuscript 2D search
++
++2026-10-19 user request6b0f6694 explicitly authorizes Uniform VA optimization,
++fresh exact Cw where absent, fixed MB reference and three diagnostic figures.
++results/uniform_manuscript_2d_optimization_20261019/startup_manifest.json
++protects4702 preexisting files including all MB recheck artifacts and dirty
++worktree edits. Fixed channel recomputed once and matches MB at high precision.
++All30 authenticated historical Uniform candidates freshly evaluated; raw K all
++negative, preliminary best VA.05/K-4.8508380437604e-5. Source generation for8/12
++and source-arithmetic parity control are RUNNING; no new Cw accepted yet.
++
++search_protocol.json records adaptive reuse of all historical points, coarse
++extension8/12, local .025/.075 then .0475/.0525. Exact source/kernel/unit checks
++and full candidate/convergence ledger are separate from historical caches.
++Six numerical prechecks pass for 2D-mixture factorization against original MB
++kernel and diagonal-solve identity. Full source parity/convergence remain pending.
++Source AP uses1050/1250/1450 and all256 modes; an isolated diagonal-system
++solve replaces redundant LU only, no source/security/MI equation change.
++Original preliminary12 probe stopped before an accepted result and replaced
++by the isolated path; no partial source accepted. No MB optimization,
++production/frozen/config/cache change or lifecycle/security promotion.
++Numerical optimization only; NOT_READY_FOR_PUBLICATION_SCALE_RUNS remains.
++
++EVID-0195 progress: source_parity_control.json verifies new diagonal-solve
++Uniform VA.05 Cw bit-for-bit equal to the historical cached float64 values;
++all1050/1250/1450 rows resolve256 modes, minimum~6.9e-950. Fresh8/12 sources
++pass support and1250/1450 convergence, identical saved50-digit Cw. Their raw
++K=-.00045325708129059984/-.00043364392506578346. Completed32-candidate
++preflight verifies source hashes, Uniform identity and physical eigenvalues.
++Four fixed refinements .025/.075/.0475/.0525 are being prepared with source
++concurrency2, evaluations serial. An experimental FLINT matrix-kernel trial
++was stopped without accepted output and is NOT_USED_FOR_ANY_CANDIDATE.
++All reported sources retain the validated C4/diagonal-solve path. Orchestration
++restart retained accepted sources and rejected partial work; artifacts record it.
++
++## EVID-0194 - Explicit single-point manuscript homodyne/noise comparison
++
++2026-10-19. User task fa11cb3c and supplied Copy_ (12).pdf SHA256
++84e1ba495d7f57ea1147426eac9a38fbadf59bae5edc6d7f17b9e1b4c9f192cc authorize
++one-point (nu_raw,VA)=(.165,5.475), corrected xi_n=xi_ch=.0186 and ideal R1/xi_det0.
++Separate scripts/recheck_manuscript_homodyne_noise.py freshly computes PDF
++Eq19/20 retained moments, normalized 2D Eq12 tensor GH16/32/64 and literal
++homodyne Eq13/14 at70/100dps. Exact Cw cache/ensemble/catalog authenticated;
++no source generation or interpolated moment/SKR. Report
++docs/MANUSCRIPT_HOMODYNE_NOISE_RECHECK_VI.md; artifacts and validation receipt
++results/manuscript_homodyne_noise_recheck_20261019/.
++
++Numerical17 self-checks PASS; max MI quadrature difference7.915e-17, chi precision
++residual4.435e-70. Primary explicit-cache-normalization hybrid MI=.001922199913607,
++chi=.001729431920551503, raw K=+9.665799737514629e-5. Independent real-quadrature
++MI=.0009610999568034853 gives raw K=-.0008163869615881919 with same homodyne chi.
++Reference sign/magnitude reproduced; printed reference digits NOT reproduced.
++Alternative unbroadened-aperture A0 diagnostic also does not match both numbers.
++No coefficient is tuned to the reference; missing reference provenance remains.
++
++Literal PDF/source compatibility FAILED: PDF VA=nbar/2 versus cache VA=2nbar;
++same ensemble nbar2.7375 corresponds PDF VA1.36875. Relabeling existing Cw gives
++nu2=.997405770245025 and is rejected without entropy clipping. Literal VA5.475
++requires a different ensemble; no literal-point/security claim is made. PDF MB
++gamma/nu and index notation, unspecified finite Nmax versus full-support Gram,
++omitted HV/Gd closure and 2D-MI/homodyne measurement consistency remain explicit.
++Raw retained PDF mass passes; no renormalization or detector/pure-loss noise added.
++
++Startup branch fix/channel HEAD49597cd766638bf1ab557776b6ff010dc29eb6e4 clean;
++4687 existing tracked files hash-bound. Initial receipt verifies all unchanged;
++final receipt permits only five task-ledger documentation updates. Production
++scientific/security source, defaults, source cache and frozen specs unchanged.
++UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen discrepancy/ObjectiveC USER_STOPPED
++remain. No optimization/AP/AO/training/test-dataset/final-test/publication,
++baseline/threshold approval, external edit, commit/push. Deliver and STOP.
++
+ ## EVID-0179 - Separate manuscript-literal three-moment implementation
+ 
+ 2026-10-12. User supplied manuscript (37), SHA256
+diff --git a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+index 3b2e9a92..cc8e8ff9 100644
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,5 +1,58 @@
+ # Next Actions
+ 
++## Current: deliver completed zenith-angle comparison; STOP
++
++EVID-0196 completion/DEC-0179. Deliver results/skr_vs_zenith_angle_20261019/
++figures, CSV, validation_report.md and hash-bound receipts.31 angles/6758
++candidate evaluations complete; no scientific rerun pending. Saved verifier
++reads artifacts only. Positive sampled regions Uniform44:2:60deg, both MB
++24:2:60deg;60deg is sweep boundary, no observed upper transition. Keep finite-
++catalog ceilings, unvalidated mixed2D/homodyne scope, NOT_READY/frozen conflict
++and ObjectiveC STOP explicit. No automatic angle/source expansion, AP/AO,
++production/cache/frozen edits, training/test/publication, baseline/threshold
++certification, external edit, commit or push. Await a new explicit task.
++
++## Current: complete requested zenith-angle comparison
++
++EVID-0196/DEC-0179: verify exact catalog and30deg references before sweep.
++Recalculate all angle-dependent physics, evaluate raw catalog maxima, refine
++sign transitions directly and deliver requested figures/CSV/validation.
++Keep numerical-comparison-only scope, old files and all lifecycle blockers.
++
++## Current: deliver Uniform manuscript 2D optimization evidence; STOP
++
++EVID-0195 completion/DEC-0178. Deliver
++docs/UNIFORM_MANUSCRIPT_2D_OPTIMIZATION_VI.md and
++results/uniform_manuscript_2d_optimization_20261019/ including all36 signed
++candidate rows, best(.0475,K=-4.850670994797474e-5), fixed MB comparison,
++source/convergence/integrity receipts, PNG/vectorPDF and RUN.md replay recipe.
++No positive Uniform candidate; no global/security conclusion. Do not rerun
++accepted source batches or begin MB optimization/source expansion/lifecycle
++work automatically. Existing production, optics, old caches and frozen spec
++remain unchanged. Preserve NOT_READY and UNVALIDATED_SECURITY_MODEL.
++
++## Historical: authorized Uniform-only execution queue
++
++EVID-0195 preparation/DEC-0178. Observe existing source/search processes before
++any resume; do not start duplicates. Finish exact Uniform sources, local refinement,
++same-MB 2D kernel checks, source parity, three requested figures and saved-result
++integrity verification. Preserve all MB/historical data and model conventions.
++Report best exact-tested VA, signed K and MB gap; no global/security claim or
++MB optimization, production edits, training/test/publication/promotion follows.
++
++## Current: deliver single-point manuscript comparison; STOP
++
++2026-10-19 EVID-0194/DEC-0177: deliver
++docs/MANUSCRIPT_HOMODYNE_NOISE_RECHECK_VI.md and
++results/manuscript_homodyne_noise_recheck_20261019/ with full19-field CSV,
++GH16/32/64 convergence, exact source/ensemble verification and integrity receipt.
++Primary normalized2D/homodyne hybrid is positive; literal scalar homodyne
++comparison is negative. Retain unreproduced reference digits and PDF/cache
++variance-convention failure. No optimizer follows from this point check.
++Keep production science/config/cache/frozen specs and lifecycle unchanged;
++no new Cw/AP/AO, training/test-data/final-test/held-out/publication, baseline/
++threshold approval, ObjectiveC restart, external edit, commit or push.
++
+ ## Current: deliver full geometry/fading/SKR audit; STOP
+ 
+ EVID-0193/DEC-0176. Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and
+diff --git a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+index 82f778f7..eeecd5f5 100644
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,5 +1,88 @@
+ # Project State
+ 
++## Current: zenith-angle manuscript comparison COMPLETE; STOP
++
++2026-10-19 EVID-0196 completion/DEC-0179. Deliver results/
++skr_vs_zenith_angle_20261019/validation_report.md, semilog+linear350dpiPNG/
++vectorPDF, selected/decomposed/all-candidate/source/operational CSV and receipts.
++31 angles0:2:60deg x218 sources=6758 evaluations; fresh optical/fading channel
++at each angle.7445 producer/9 numerical/280 saved-evidence checks PASS;
++GH16/32/64 maxdelta6.06286e-16.4802 prior files unchanged;5 task-ledger updates.
++
++30deg references reproduced: fixedMB9.665799737511703e-5;
++UniformVA.0475 -4.850670994797474e-5. Catalog MB(.125,8)1.3951628857127992e-4,
+++44.34014%. Uniform positive sampled44--60deg, both MB24--60deg. Peaks Uniform
++52deg, MB48deg. All positive at60deg/L38km; no positive-to-nonpositive crossing
++observed, so no upper operational bracket or true maximum-angle claim.
++
++BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY. VA12 Uniform and VA8 MB are catalog
++ceilings. UNVALIDATED_SECURITY_MODEL/NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++frozen historical hash discrepancy and ObjectiveC USER_STOPPED remain.
++No production/source/security/config/old cache/frozen changes or new Cw/AP/AO;
++no training/test-data/final-test/held-out/publication/baseline-threshold approval,
++external edit, commit/push. No scientific rerun pending. Deliver and STOP.
++
++## Current: requested zenith-angle comparison authorized; preparation
++
++2026-10-19 EVID-0196 preparation/DEC-0179. User request874a2276 authorizes
++finite exact-catalog Uniform/MB selection in results/skr_vs_zenith_angle_20261019/.
++Reference30deg gate pending; then fresh angle-dependent channel at0:2:60deg
++and direct positive-to-nonpositive refinements <=.25deg. This narrowly supersedes
++prior diagnostic STOP, not ObjectiveC stop or lifecycle/security blockers.
++No production/source/frozen/config/cache edits or publication/test access.
++
++## Current: Uniform manuscript 2D exact-tested search complete; STOP
++
++2026-10-19 EVID-0195 completion/DEC-0178. Report
++docs/UNIFORM_MANUSCRIPT_2D_OPTIMIZATION_VI.md; results/
++uniform_manuscript_2d_optimization_20261019/.36 candidates over .02--12;
++best exact-tested VA=.0475, rawK=-4.850670994797474e-5, no positive Uniform row.
++Fixed MB rawK=9.665799737514629e-5; gap=.00014516470732312103 bits/use.
++30 exact old Uniform sources reused,6 new objective sources and1 parity control.
++188 producer/6 independent checks,36 covariance/uncertainty checks and
++GH16/32/64 convergence pass. Three mandatory figures visually reviewed;
++four PNG350dpi/vectorPDF exports verified. All prior scientific/MB/config/cache/
++frozen files preserved; only five task-ledger docs updated.
++
++BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY; no global/continuous certificate or
++validated homodyne security proof. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen discrepancy and ObjectiveC STOP.
++No MB optimization, training/test/publication, baseline/threshold promotion,
++external edit or commit/push. Deliver and STOP.
++
++## Historical: Uniform-only manuscript 2D execution snapshot
++
++2026-10-19 EVID-0195 preparation/DEC-0178. Request6b0f6694 authorizes exact
++Uniform VA search and absent Uniform source generation in a separate namespace.
++results/uniform_manuscript_2d_optimization_20261019/ records protocol/checkpoint,
++32 completed evaluations, source controls and AP work. Preliminary best.05,
++rawK-4.8508380437604e-5; no optimized conclusion yet. Fresh8/12 source/physical
++checks pass and both K are lower; VA.05 source control matches historical Cw
++bitwise. Four fixed refinement sources are pending with concurrency2.
++Fixed channel matches MB; user explicitly adopts VA=2nbar. Keep original2D
++Gaussian and homodyne nu3. Numerical search only; no MB optimization or
++production/frozen/config/historical-cache change. Source convergence/parity,
++refinement/figures/final integrity checks pending. UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen discrepancy and ObjectiveC STOP remain.
++
++## Current: requested single-point manuscript comparison complete; STOP
++
++2026-10-19 EVID-0194/DEC-0177. Report
++docs/MANUSCRIPT_HOMODYNE_NOISE_RECHECK_VI.md; results/
++manuscript_homodyne_noise_recheck_20261019/. At requested(.165,5.475), xi_n=.0186,
++R1/xi_det0, explicit source-cache VA=2nbar and normalized2D MI plus homodyne
++nu3 give raw K=+9.665799737514629e-5; one-quadrature MI gives
++-.0008163869615881919.17 numerical checks pass, GH16/32/64 max delta7.915e-17;
++70/100dps chi stable. Reference sign/magnitude reproduced, printed digits not.
++
++Literal PDF compatibility FAILED: VA=nbar/2 contradicts authenticated source
++VA=2nbar. No literal-point/physical trusted-homodyne security claim. MB notation,
++finite Nmax, HV/Gd closure and 2D/homodyne consistency remain explicit. Preserve
++UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen historical
++hash discrepancy and ObjectiveC USER_STOPPED. Source/evaluator/security/config/
++cache/frozen model unchanged. No optimization/AP/AO/train/test/publication,
++baseline/threshold promotion, external edit or commit/push. Deliver and STOP.
++
+ ## Current: full geometry/fading/SKR audit COMPLETE with5 strict differences; STOP
+ 
+ 2026-10-17 EVID-0193/DEC-0176. CONFIGURATION_MATCH_CONFIRMED: reference actually

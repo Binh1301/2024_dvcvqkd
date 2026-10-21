@@ -1,0 +1,628 @@
+PAGE 1
+IEEE WIRELESS COMMUNICATIONS LETTERS, VOL. 9, NO. 3, MARCH 2020 411
+Network Availability Maximization for Free-Space
+Optical Satellite Communications
+Shulei Gong , Hong Shen , Member, IEEE, Kanglian Zhao , Member, IEEE,
+Ruhai Wang , Senior Member, IEEE, Xinggan Zhang, Tomaso de Cola , Member, IEEE,
+and Juan A. Fraire , Member, IEEE
+Abstract—This letter considers availability maximized ground
+station (GS) selection for free-space optical (FSO) satellite
+networks, which is a challenging problem in the area of optical
+satellite communications. As a main contribution of this letter,
+we propose to address this problem from a new perspective of
+mathematical optimization. In particular, we advocate a gradi-
+ent projection based algorithm after performing smoothing and
+relaxation on the original problem. Simulation results and com-
+plexity analysis show that, when compared to the conventional GS
+selection methods, the proposed scheme achieves a better tradeoff
+between network availability and computational complexity.
+Index Terms —Network availability, free-space optical (FSO)
+communications, satellite communications, ground station (GS)
+selection.
+I. I NTRODUCTION
+F
+REE-SPACE optical (FSO) communications have
+attracted a lot of attention in both academia and industry.
+As an appealing advantage, FSO communications can achieve
+much higher data rates than conventional radio frequency
+(RF) communications since the optical band provides much
+broader bandwidth. On the other hand, the required data rates
+in modern satellite communications, e.g., in feeder links of
+geostationary Earth orbit (GEO) satellites, have been increas-
+ing tremendously. Among practical wireless solutions, FSO
+communications have turned out to be promising for next-
+generation high-speed satellite networks [1]. For instance, the
+relay link from low Earth orbit (LEO) to GEO in the European
+Data Relay System (EDRS) has been implemented via optical
+Manuscript received October 21, 2019; accepted December 5, 2019. Date
+of publication December 10, 2019; date of current version March 9, 2020.
+This work was supported by the National Natural Science Foundation of
+China under Grant 61871108 and Grant 61801377. The associate editor
+coordinating the review of this article and approving it for publication was
+P. A. Dmochowski. (Corresponding authors: Hong Shen; Kanglian Zhao.)
+S. Gong is with the School of Electronic Science and Engineering, Nanjing
+University, Nanjing 210093, China, and also with the Department of Key
+Accounts, China Mobile Group Jiangsu Company Ltd, Nanjing 210029, China
+(e-mail: gongshulei@smail.nju.edu.cn).
+H. Shen is with the National Mobile Communications Research Laboratory,
+Southeast University, Nanjing 210096, China (e-mail: shhseu@seu.edu.cn).
+K. Zhao and X. Zhang are with the School of Electronic Science
+and Engineering, Nanjing University, Nanjing 210093, China (e-mail:
+zhaokanglian@nju.edu.cn; zhxg@nju.edu.cn).
+R. Wang is with the Phillip M. Drayer Department of Electrical
+Engineering, Lamar University, Beaumont, TX 77710 USA (e-mail:
+rwang@lamar.edu).
+T. de Cola is with the Institute of Communications and Navigation,
+German Aerospace Center (DLR), 82234 Cologne, Germany (e-mail:
+tomaso.decola@dlr.de).
+J. A. Fraire is with the National Scientiﬁc and Technical Research Council
+(CONICET), Córdoba 5000, Argentina (e-mail: juanfraire@unc.edu.ar).
+Digital Object Identiﬁer 10.1109/LWC.2019.2958804
+communications [2]. Moreover, different applications of FSO
+communications to LEO downlinks and GEO feeder links
+have been reported in [3]–[6] and [7]–[10], respectively.
+Despite the high capacity available in the optical band,
+the main drawback of FSO satellite communications, espe-
+cially on space-to-ground links, lies in the sensitivity to cloud
+blockage. Due to the presence of clouds, the outage of opti-
+cal links can seriously deteriorate the system performance. A
+widely adopted strategy to resolve this problem is site diver-
+sity [11]–[17], i.e., increasing the number of optical links
+with multiple ground stations (GSs) (see Fig. 1). In fact,
+owing to the reliability enhancement provided by the site
+diversity, network availability, which refers to the probabil-
+ity that at least one GS is connected to the satellite, can
+be greatly enhanced. Speciﬁcally, the authors of [11] calcu-
+lated both uncorrelated and correlated availabilities for optical
+space-to-ground networks. Moreover, an efﬁcient GS selection
+algorithm was developed by exploiting the single-site avail-
+ability and the correlation between sites. In [12], a two-step
+method was proposed to jointly optimize the GS positioning
+and the satellite operator backbone. In order to avoid com-
+putationally inefﬁcient discrete-time simulations, the authors
+of [13] developed several approximation methods to estimate
+the availability of the optical space-to-ground network. In [14],
+the authors adopted the maximization of the amount of data
+that can be downloaded from a LEO satellite as the GS
+selection criterion. The corresponding problem is formulated
+by a mixed integer program and solved with a hierarchical
+method. The optimal location of GSs was determined for
+LEO satellite networks in [15] where the network availabil-
+ity, the latency between successive contacts, and the network
+cost were considered as performance metrics. Based on the
+monthly statistics of cloud coverage, the authors of a recent
+work [16] minimized the number of GSs while satisfying the
+monthly network availability requirements. In [17], the authors
+studied the problem of minimizing the number of GSs under
+the network availability constraints for medium Earth orbit
+(MEO) satellite communication networks.
+In this letter, we develop an efﬁcient GS selection algorithm
+to maximize the availability of GEO satellite networks. The
+main contributions of this letter are listed as follows:
+• Different from the aforementioned related works, we for-
+mulate the GS selection as a mathematical optimization
+problem with the objective of maximizing the network
+availability, and then solve the resultant problem using
+powerful optimization techniques. To the best of our
+knowledge, this is a novel perspective of studying the
+GS selection for FSO satellite communications.
+• The formulated problem is a difﬁcult non-smooth integer
+program which has not been studied in related literature.
+2162-2345 c© 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+Authorized licensed use limited to: Aizu University. Downloaded on March 31,2026 at 08:56:51 UTC from IEEE Xplore.  Restrictions apply. 
+
+PAGE 2
+412 IEEE WIRELESS COMMUNICATIONS LETTERS, VOL. 9, NO. 3, MARCH 2020
+Fig. 1. Achieving site diversity via multiple GSs in optical satellite networks.
+To address this challenging problem, we ﬁrst smooth the
+objective function and relax the binary constraints, and
+then develop a gradient projection based algorithm.
+• The proposed GS selection method performs close to the
+optimal exhaustive search and the near-optimal site cor-
+relation & single-site availability based method in [11]
+with much reduced computational complexity. Compared
+to the single-site availability based method in [11], the
+proposed approach achieves higher network availability
+with comparable computational complexity.
+The remainder of this letter is organized as follows.
+Section II presents the problem formulation and the proposed
+algorithm. Section III provides the simulation results and the
+complexity analysis. The conclusions are drawn in Section IV.
+II. N ETWORK AV AILABILITY MAXIMIZATION FOR
+OPTICAL GEO S ATELLITE NETWORK
+In this section, we ﬁrst formulate the network availabil-
+ity maximization problem regarding the GS selection for an
+optical GEO satellite network. Then, we propose an efﬁcient
+algorithm to address this problem.
+Assume that there are N GSs in total and K GSs are
+selected to communicate with one GEO satellite. Since the
+FSO communication links can be interrupted by cloud block-
+age, the optical GS is regarded as unavailable if there is a cloud
+between the satellite and the GS [11]–[17]. Denote the cloud
+d a t ab ya nN ×Nsamples matrix C, where Nsamples represents
+the number of data points for each GS. The ( i, j)-th entry of
+C, i.e., ci,j , equals 1 if there exists a cloud between the i-th
+GS and the satellite at time sample j and equals 0 otherwise.
+Therefore, the i-th GS is not available at time sample j when
+ci,j =1 , which means that the number of available stations
+at time sample j is given by aj = K − ∑
+i∈S ci,j . By further
+subtracting the number of required active GSs (denoted by M)
+from aj , we obtain the network availability by [11]
+A = 1
+Nsamples
+Nsamples∑
+j =1
+H
+(
+K −
+∑
+i∈S
+ci,j − M
+)
+, (1)
+where H(·) represents the discrete Heaviside step function and
+the set S consists of the indices of the selected K GSs. Note
+that, following [11], the selected K stations are the same for
+each time slot and the value of K is pre-speciﬁed.
+We aim to ﬁnd the optimal set S such that the network avail-
+ability in (1) is maximized. To achieve this goal, we ﬁrst deﬁne
+a binary variable xi for each GS, which equals 1 if the i-th GS
+is selected and equals 0 otherwise. Based on this deﬁnition,
+we can express the term ∑
+i∈S ci,j in (1) by ∑ N
+i=1 xi ci,j .
+Then, we formulate the GS selection problem as follows:
+maximize
+x=[x1,x2,...,xN ]T
+1
+Nsamples
+Nsamples∑
+j =1
+H
+(
+K −
+N∑
+i=1
+xi ci,j − M
+)
+subject to
+N∑
+i=1
+xi = K,
+xi ∈{ 0, 1}, i =1 ,..., N, (2)
+where the ﬁrst equality constraint is due to the fact that the
+size of the set S is K. Different from [11], we further formulate
+the network availability based GS selection as an optimization
+problem, which allows us to employ powerful mathematical
+optimization techniques to ﬁnd a good GS selection scheme
+in an efﬁcient manner.
+Problem (2) belongs to integer programming, which is gen-
+erally hard to be solved efﬁciently. Although the optimal
+solution can be found by enumerating all possible values of
+x, the computational complexity can be extremely high since
+there are C K
+N possibilities in total. To obtain a more tractable
+form, we relax the binary constraint by a continuous one 0 ≤
+xi ≤ 1, which has been widely adopted in the optimization
+of wireless communication systems, e.g., [18], [19]. Then,
+problem (2) becomes
+maximize
+x=[x1,x2,...,xN ]T
+1
+Nsamples
+Nsamples∑
+j =1
+H
+(
+K −
+N∑
+i=1
+xi ci,j − M
+)
+subject to
+N∑
+i=1
+xi = K,
+0 ≤ xi ≤ 1, i =1 ,..., N. (3)
+The objective function of this problem is a non-smooth
+Heaviside step function, and thus, cannot be readily han-
+dled via commonly used optimization methods. To handle
+this, we consider approximating the objective by a smooth
+sigmoid function, i.e., sigmoid(x )= 1
+1+e−x . According to
+the simulation results in Section III, the proposed method
+achieves near-optimal performance, thus validating the effec-
+tiveness of the proposed smooth approximation. To the best
+of our knowledge, such approximation has not be used in the
+optimization of wireless communications so far. Based on the
+smooth approximation, we update problem (3) by
+maximize
+x=[x1,x2,...,xN ]T
+1
+Nsamples
+Nsamples∑
+j =1
+1
+1+ eM +∑ N
+i=1 xi ci,j −K
+subject to
+N∑
+i=1
+xi = K,
+0 ≤ xi ≤ 1, i =1 ,..., N. (4)
+The above problem is non-convex whose globally optimal
+solution cannot be readily obtained. Here we determine
+its locally optimal solution via the gradient projection
+method [20], which is summarized in Algorithm 1 on the top
+of the next page.
+Authorized licensed use limited to: Aizu University. Downloaded on March 31,2026 at 08:56:51 UTC from IEEE Xplore.  Restrictions apply. 
+
+PAGE 3
+GONG et al.: NETWORK A V AILABILITY MAXIMIZATION FOR FREE-SPACE OPTICAL SATELLITE COMMUNICATIONS 413
+Algorithm 1 Gradient Projection Method for Solving
+Problem (4)
+1: Initialization: set initial point x(1), step sizes s(n) and δ(n),
+convergence accuracy ε, and iteration index n = 1.
+2: repeat
+3: Calculate the gradient vector g(n).
+4: Calculate ˆx(n) = x(n) + s(n)g(n).
+5: Project ˆx(n) onto the feasible set of problem (4) and obtain
+¯x(n).
+6: Calculate x(n+1) = x(n) + δ(n)(¯x(n) − x(n)).
+7: n = n + 1.
+8: until ‖x(n+1) − x(n)‖∞ <ε .
+Speciﬁcally, for Step 3, the i-th entry of g(n) is obtained by
+g(n)
+i = − 1
+Nsamples
+Nsamples∑
+j =1
+ci,j eM +∑ N
+i=1 x (n)
+i ci,j −K
+(
+1+ eM +∑ N
+i=1 x (n)
+i ci,j −K
+) 2 , (5)
+where x (n)
+i denotes the i-th entry of x(n). The projection in
+Step 5 can be expressed by
+minimize
+¯x (n)
+i
+N∑
+i=1
+|¯x (n)
+i − ˆx (n)
+i |2
+subject to
+N∑
+i=1
+¯x (n)
+i = K,
+0 ≤ ¯x (n)
+i ≤ 1, i =1 ,..., N, (6)
+which is a convex problem. Instead of addressing problem (6)
+with convex optimization tools, we derive a semi-closed form
+solution to this problem by analyzing its Karush-Kuhn-Tucher
+(KKT) conditions [21], which is elaborated in the following
+proposition.
+Proposition 1: The optimal solution to problem (6) is
+given by
+¯x (n)
+i =
+⎧
+⎪⎨
+⎪⎩
+0ˆ x (n)
+i − μ
+2 ≤ 0
+ˆx (n)
+i − μ
+2 0 < ˆx (n)
+i − μ
+2 < 1
+1ˆ x (n)
+i − μ
+2 ≥ 1,
+(7)
+where μ is the optimal dual variable corresponding to the
+constraint ∑ N
+i=1 ¯x (n)
+i = K and it is selected such that this
+constraint is fulﬁlled.
+Proof: See the Appendix.
+Note that we can perform a simple bi-section search to
+determine μ in (7). Moreover, ‖·‖∞ in Step 8 denotes the
+inﬁnity vector norm.
+After solving problem (4) via Algorithm 1, we need to fur-
+ther obtain a binary solution to the original problem because
+the solution provided by Algorithm 1 (denoted by x∗ =
+[x ∗
+1 ,..., x ∗
+N ]T ) may be fractional. Note that the value of x ∗
+i
+can be regarded as the probability of xi =1 . Motivated by
+this fact, we propose to ﬁnd the K maximum entries of x∗
+and set them to 1 while the remaining entries are set to 0. The
+detailed procedure is described in Algorithm 2 on the top of
+this page.
+Remark 1: Note that the gradient projection algorithm used
+in this letter is robust to the problem size and also has
+low computational complexity as analyzed in Section III.
+Algorithm 2 Generating Binary Solution to Problem (2)
+1: Sort the entries of x∗ in descending order and obtain ˜x∗ =
+[x ∗
+l1 , ··· , x ∗
+lN ]T .
+2: Set x = 0 and k = 1.
+3: repeat
+4: Set xlk =1 .
+5: k = k + 1.
+6: until k > K.
+Fig. 2. Impact of various parameters on the performance of the proposed
+method.
+We believe that including other physical constraints, e.g.,
+the buffer constraint and the network cost constraint [14], in
+problem (2) is a very interesting topic and worthwhile further
+investigation. We also note that the gradient projection algo-
+rithm can still be adopted as long as the added constraints
+are convex, although the projection step might not admit a
+semi-closed form expression.
+III. P ERFORMANCE AND COMPLEXITY ANALYSIS
+In this section, we validate the effectiveness of the proposed
+GS selection algorithm by comparing with the optimal exhaus-
+tive search method and two other baseline algorithms in [11],
+i.e., the single-site availability (SSA) based method and the
+site correlation & single-site availability (SC & SSA) based
+method, in terms of both performance and computational com-
+plexity. Note that the proposed method consists of two parts,
+i.e., Algorithm 1 and Algorithm 2. Moreover, we adopt the
+low-complexity SSA based method to generate the initial point
+of Algorithm 1.
+We consider a scenario with 100 GSs in total. The number
+of data points for each GS equals 50000. In order to con-
+sider the correlation between the GSs, we generate the binary
+cloud data matrix based on the correlated Bernoulli distri-
+bution. Speciﬁcally, following [13, Sec. II-B], we ﬁrst draw
+samples from an N-dimensional normal distribution N (µ,Γ),
+where the elements of µ follow the uniform distribution over
+[−1, 1] and the ( m, n)-th entry of Γ is 9 × 0.9|m−n|. Then, we
+obtain the correlated Bernoulli distributed samples by truncat-
+ing the normally distributed samples. For each time sample
+j, we repeat the above procedure and ﬁnally obtain the cloud
+data matrix. For the proposed Algorithm 1, the step sizes are
+chosen according to the widely used Armijo rule [20] and the
+convergence accuracy is set to 10−3.
+Authorized licensed use limited to: Aizu University. Downloaded on March 31,2026 at 08:56:51 UTC from IEEE Xplore.  Restrictions apply. 
+
+PAGE 4
+414 IEEE WIRELESS COMMUNICATIONS LETTERS, VOL. 9, NO. 3, MARCH 2020
+Fig. 3. Performance comparison of different GS selection methods.
+We evaluate the impact of various parameters on the
+performance of the proposed method in Fig. 2. From this
+ﬁgure, we observe that the network unavailability decreases
+when N (the number of all the GSs) or K (the number of
+selected GSs) increases. This is because a higher site diver-
+sity gain can be achieved by increasing N or K. It can also
+be found from Fig. 2 that the network unavailability grows
+with the increase of M (the number of required active GSs)
+since the requirement of regarding the network as available
+becomes stricter. The performance comparison of different GS
+selection methods is shown in Fig. 3. For the SC & SSA
+based method, we set the number of preselected sites Nr and
+the number of preselected combinations Nq to 26 and 105,
+respectively. It can be seen from the ﬁgure that, compared
+to the SSA based method that neglects the site correlation,
+the proposed approach achieves better performance since we
+aim to maximize the network availability that considers the
+site correlation. Moreover, the performance of the proposed
+method is close to that of the SC & SSA based method and
+the optimal exhaustive search. In fact, the difference between
+the proposed method and the exhaustive search is zero when
+K = 2 and K = 4. The performance of the exhaustive search
+for K > 4 is not obtained because the computational complex-
+ity is huge. Nevertheless, since the gap between the proposed
+method and the near-optimal SC & SSA based method is
+minor (less than 2 × 10−4 when K ≥ 8), we can infer that
+the proposed method performs close to the exhaustive search
+when K > 4.
+In addition to the performance comparison, we also com-
+pare the computational complexity of the considered meth-
+ods. Speciﬁcally, for the exhaustive search, we need to
+calculate the network availability for C K
+N times. Since
+the complexity of calculating the network availability is
+O(NsamplesK ), the overall complexity of the exhaustive
+search is O(C K
+N NsamplesK ). The major computation of the
+proposed algorithm lies in the calculation of the gradient
+vector, whose complexity is O(NsamplesN ). For the SSA
+based method, the major computation is the calculation of
+the availabilities of all the sites, and the corresponding com-
+plexity is given by O(NsamplesN ). Regarding the SC & SSA
+based method, the complexity of the potential GS preselection
+(including correlation coefﬁcient calculation), the potentially
+optimal combination preselection, and the network availability
+TABLE I
+COMPUTATIONAL COMPLEXITY OF ALL CONSIDERED SCHEMES
+based combination selection is given by O(NsamplesN 2),
+O(C K
+Nr K 2), and O(NsamplesKNq ), respectively. Hence, the
+total complexity is O(Nsamples(N 2 + KNq )+ C K
+Nr K 2).T h e
+complexity analysis results are summarized in Table I. It
+can be found that the complexity of the exhaustive search
+is the highest especially for relatively large K. Moreover,
+the complexity of the proposed method and the SSA based
+method is comparable, which is lower than that of the SC &
+SSA based method. Therefore, we conclude that the proposed
+method achieves a good tradeoff between performance and
+computational complexity.
+IV . CONCLUSION
+Optical satellite communications achieve high data rate
+while suffering from link outages caused by the presence of
+clouds. In this letter, we considered the problem of maximiz-
+ing the network availability for optical GEO satellite networks
+assuming that cloud data and the number of required active
+GSs are given. We proposed an efﬁcient GS selection algo-
+rithm based on the gradient projection method to address
+this problem. Compared to the conventional GS selection
+methods, the proposed method achieves a better performance-
+complexity tradeoff. Future research efforts will be made to
+evaluate the proposed algorithm with the real cloud database.
+APPENDIX
+PROOF OF PROPOSITION 1
+Since problem (6) is convex and satisﬁes the Slater’s con-
+dition, its primal and dual optimal solutions must fulﬁll the
+following KKT conditions [21]:
+N∑
+i=1
+¯x (n)
+i = K, (8a)
+0 ≤ ¯x (n)
+i ≤ 1, i =1 ,..., N, (8b)
+2¯x (n)
+i − 2ˆx (n)
+i + μ + νi − θi =0 , i =1 ,..., N, (8c)
+νi (¯x (n)
+i − 1) = 0, i =1 ,..., N, (8d)
+θi ¯x (n)
+i =0 , i =1 ,..., N, (8e)
+where μ, νi ≥ 0, and θi ≥ 0 are the optimal dual variables
+associated with the constraints ∑ N
+i=1 ¯x (n)
+i = K , ¯x (n)
+i ≤ 1,
+and ¯x (n)
+i ≥ 0, respectively. We consider the subsequent three
+cases:
+1) ˆx (n)
+i − μ
+2 ≤ 0
+It follows from (8c) that ¯x (n)
+i + νi
+2 − θi
+2 ≤ 0. Since 0 ≤
+¯x (n)
+i ≤ 1 and νi ≥ 0,w eh a v eθi > 0. Thus, ¯x (n)
+i =0 holds
+from (8e).
+2) ˆx (n)
+i − μ
+2 ≥ 1
+Authorized licensed use limited to: Aizu University. Downloaded on March 31,2026 at 08:56:51 UTC from IEEE Xplore.  Restrictions apply. 
+
+PAGE 5
+GONG et al.: NETWORK A V AILABILITY MAXIMIZATION FOR FREE-SPACE OPTICAL SATELLITE COMMUNICATIONS 415
+From (8c), we have ¯x (n)
+i + νi
+2 − θi
+2 ≥ 1. Recall that 0 ≤
+¯x (n)
+i ≤ 1 and θi ≥ 0. Hence, νi > 0 must hold which indicates
+that ¯x (n)
+i =1 according to (8d).
+3) 0 < ˆx (n)
+i − μ
+2 < 1
+According to (8c), 0 < ¯x (n)
+i + νi
+2 − θi
+2 < 1 holds. Assume
+that νi > 0. Then, it can be veriﬁed that ¯x (n)
+i =1 and θi =0
+based on (8d) and (8e) which contradicts ¯x (n)
+i + νi
+2 − θi
+2 < 1.
+Therefore, νi must be zero. Similarly, we can also show that
+θi =0 . Then, we obtain ¯x (n)
+i =ˆx (n)
+i − μ
+2 from (8c).
+By summarizing the above three cases, we achieve (7) and
+complete the proof.
+REFERENCES
+[1] H. Kaushal and G. Kaddoum, “Optical communication in space:
+Challenges and mitigation techniques,” IEEE Commun. Surveys Tuts. ,
+vol. 19, no. 1, pp. 57–96, 1st Quart., 2017.
+[2] D. Tröndle et al. , “Alphasat-Sentinel-1A optical inter-satellite links:
+Run-up for the European data relay satellite system,” in Proc. SPIE
+Free Space Laser Commun. Atmospheric Propag. XXVIII , vol. 9739.
+San Francisco, CA, USA, Mar. 2016, Art. no. 973902.
+[3] M. Toyoshima et al., “Ground-to-OICETS laser communication exper-
+iments,” in Proc. SPIE Free Space Laser Commun. VI , vol. 6304.
+San Diego, CA, USA, Sep. 2006, Art. no. 63040B.
+[4] N. Perlot et al. , “Results of the optical downlink experiment KIODO
+from OICETS satellite to optical ground station oberpfaffenhofen
+(OGS-OP),” in Proc. SPIE Free Space Laser Commun. Technol. XIX
+Atmospheric Propag. Electromag. Waves, vol. 6457. San Jose, CA, USA,
+Feb. 2007, Art. no. 645704.
+[5] A. Biswas, B. Oaida, K. S. Andrews, J. M. Kovalik, M. Abrahamson, and
+M. W. Wright, “Optical payload for lasercomm science (OPALS) link
+validation during operations from the ISS,” in Proc. SPIE Free Space
+Laser Commun. Atmospheric Propag. XXVII , vol. 9354. San Francisco,
+CA, USA, Mar. 2015, Art. no. 93540F.
+[6] H. Takenaka et al. , “In-orbit veriﬁcation of small optical
+transponder (SOTA): Evaluation of satellite-to-ground laser communi-
+cation links,” in Proc. SPIE Free Space Laser Commun. Atmospheric
+Propag. XXVIII , vol. 9739. San Francisco, CA, USA, Mar. 2016,
+Art. no. 973903.
+[7] E. Lutz, “Achieving a terabit/s GEO satellite system,” in Proc. Ka
+Broadband Commun. Navig. Earth Observ. Conf. , Florence, Italy,
+Oct. 2013, pp. 509–516.
+[8] D. Giggenbach, E. Lutz, J. Poliak, R. Mata-Calvo, and C. Fuchs, “A
+high-throughput satellite system for serving whole Europe with fast
+Internet service, employing optical feeder links,” in Proc. ITG Symp.
+Broadband Coverage Germany, Berlin, Germany, Apr. 2015, pp. 49–55.
+[9] S. Poulenard, J.-M. Conan, B. Roy, and A. Rissons, “Optical links sizing
+for broadband geostationary satellite feeder link,” in Proc. SPIE Free
+Space Laser Commun. Atmos Propag. XXVIII, vol. 9739. San Francisco,
+CA, USA, Mar. 2016, Art. no. 97390O.
+[10] S. Poulenard, A. Mège, C. Fuchs, N. Perlot, J. Riedi, and J. Perdigues,
+“Digital optical feeder links system for broadband geostationary satel-
+lite,” in Proc. SPIE Free Space Laser Commun. Atmos Propag. XXIX ,
+vol. 10096. San Francisco, CA, USA, Feb. 2017, Art. no. 1009614.
+[11] C. Fuchs and F. Moll, “Ground station network optimization for space-
+to-ground optical communication links,” IEEE/OSA J. Opt. Commun.
+Netw., vol. 7, no. 12, pp. 1148–1159, Dec. 2015.
+[12] S. Poulenard, M. Crosnier, and A. Rissons, “Ground segment design for
+broadband geostationary satellite with optical feeder link,” IEEE/OSA J.
+Opt. Commun. Netw., vol. 7, no. 4, pp. 325–336, Apr. 2015.
+[13] M. S. Net, I. del Portillo, E. Crawley, and B. Cameron, “Approximation
+methods for estimating the availability of optical ground networks,”
+IEEE/OSA J. Opt. Commun. Netw. , vol. 8, no. 10, pp. 800–812,
+Oct. 2016.
+[14] M. Capelle, M.-J. Huguet, N. Jozefowiez, and X. Olive, “A hierarchical
+approach for the selection of optical ground stations maximizing the
+data transfer from low-Earth observation satellites,” in Proc. IEEE Int.
+Conf. Commun. (ICC) , Paris, France, May 2017, pp. 1–6.
+[15] I. del Portillo, M. Sanchez, B. Cameron, and E. Crawley, “Optimal loca-
+tion of optical ground stations to serve LEO spacecraft,” in Proc. IEEE
+Aerosp. Conf., Big Sky, MT, USA, Mar. 2017, pp. 1–16.
+[16] N. K. Lyras, C. N. Efrem, C. I. Kourogiorgas, and A. D. Panagopoulos,
+“Optimum monthly based selection of ground stations for optical satel-
+lite networks,” IEEE Commun. Lett. , vol. 22, no. 6, pp. 1192–1195,
+Jun. 2018.
+[17] N. K. Lyras, C. N. Efrem, C. I. Kourogiorgas, and A. D. Panagopoulos,
+“Medium Earth orbit optical satellite communication networks: Ground
+terminals selection optimization based on the cloud-free line-of-sight
+statistics,” Int. J. Satellite Commun. Netw. , vol. 37, no. 4, pp. 370–384,
+Jul./Aug. 2019.
+[18] W.-K. Ma, T. N. Davidson, K. M. Wong, Z.-Q. Luo, and P.-C. Ching,
+“Quasi-maximum-likelihood multiuser detection using semi-deﬁnite
+relaxation with application to synchronous CDMA,” IEEE Trans. Signal
+Process., vol. 50, no. 4, pp. 912–922, Apr. 2002.
+[19] Q. Ye, B. Rong, Y . Chen, M. Al-Shalash, C. Caramanis, J. G. Andrews,
+“User association for load balancing in heterogeneous cellu-
+lar networks,” IEEE Trans. Wireless Commun. , vol. 12, no. 6,
+pp. 2706–2716, Jun. 2013.
+[20] D. Bertsekas, Nonlinear Programming , 2nd ed. Belmont, MA, USA:
+Athena Sci., 1999.
+[21] S. Boyd and L. Vandenberghe, Convex Optimization. Cambridge, U.K.:
+Cambridge Univ. Press, 2004.
+Authorized licensed use limited to: Aizu University. Downloaded on March 31,2026 at 08:56:51 UTC from IEEE Xplore.  Restrictions apply. 

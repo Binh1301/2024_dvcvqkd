@@ -1,0 +1,132 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "point_count": 117,
+  "figure_width_inches": 7.2,
+  "png_dpi": 350,
+  "style": {
+    "Stationary": {
+      "color": "tab:blue",
+      "linestyle": "-",
+      "marker": "o"
+    },
+    "Greedy": {
+      "color": "tab:orange",
+      "linestyle": "--",
+      "marker": "D"
+    },
+    "DP": {
+      "color": "tab:red",
+      "linestyle": "-",
+      "marker": "^"
+    }
+  },
+  "figures": {
+    "fig1_candidate_positions": {
+      "panels": [
+        {
+          "xlim": [
+            5.0,
+            105.0
+          ],
+          "ylim": [
+            -6.220092302437592e-06,
+            0.00017571760754386196
+          ],
+          "xscale": "linear",
+          "yscale": "linear",
+          "xlabel": "Number of Candidate UAV Positions",
+          "ylabel": "Mobility-Penalized Objective (bits/use)"
+        }
+      ],
+      "layout_issues": []
+    },
+    "fig2_cloud_blockage": {
+      "panels": [
+        {
+          "xlim": [
+            0.07,
+            0.83
+          ],
+          "ylim": [
+            -6.307613661811931e-06,
+            0.00017819008594618704
+          ],
+          "xscale": "linear",
+          "yscale": "linear",
+          "xlabel": "Cloud Blockage Probability",
+          "ylabel": "Mean Usable SKR (bits/use)"
+        },
+        {
+          "xlim": [
+            0.07,
+            0.83
+          ],
+          "ylim": [
+            -1.094666666666667,
+            30.924333333333337
+          ],
+          "xscale": "linear",
+          "yscale": "linear",
+          "xlabel": "Cloud Blockage Probability",
+          "ylabel": "QKD Unavailability (%)"
+        }
+      ],
+      "layout_issues": []
+    },
+    "fig3_temporal_correlation": {
+      "panels": [
+        {
+          "xlim": [
+            -0.04,
+            1.02
+          ],
+          "ylim": [
+            -6.289157783145685e-06,
+            0.00017766870737386559
+          ],
+          "xscale": "linear",
+          "yscale": "linear",
+          "xlabel": "Temporal Cloud Correlation",
+          "ylabel": "Mobility-Penalized Objective (bits/use)"
+        },
+        {
+          "xlim": [
+            -0.04,
+            1.02
+          ],
+          "ylim": [
+            -63.19690761399407,
+            1785.3126400953324
+          ],
+          "xscale": "linear",
+          "yscale": "linear",
+          "xlabel": "Temporal Cloud Correlation",
+          "ylabel": "Total Travel Distance (m)"
+        }
+      ],
+      "layout_issues": []
+    },
+    "fig4_skr_mobility_tradeoff": {
+      "panels": [
+        {
+          "xlim": [
+            -55.0,
+            1791.6948165021993
+          ],
+          "ylim": [
+            -6.299040453451811e-06,
+            0.00017794789281001366
+          ],
+          "xscale": "linear",
+          "yscale": "linear",
+          "xlabel": "Total Travel Distance (m)",
+          "ylabel": "Mean Usable SKR (bits/use)"
+        }
+      ],
+      "layout_issues": []
+    }
+  },
+  "producer_sha256": "693e2fd15fc639fa81f36a6aec9f969f51db626fb91067fe38ea3241cba09fb2",
+  "no_smoothing": true,
+  "true_penalty_order": true
+}

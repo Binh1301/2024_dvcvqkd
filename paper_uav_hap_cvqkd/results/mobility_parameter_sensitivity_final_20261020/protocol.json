@@ -1,0 +1,402 @@
+{
+  "scope": "FINAL_SAVED_DATA_ANALYSIS_ONLY",
+  "selected_figures": [
+    "fig1_candidate_positions",
+    "fig2_cloud_blockage",
+    "fig3_temporal_correlation",
+    "fig4_skr_mobility_tradeoff"
+  ],
+  "settings": {
+    "schema": "manuscript-mobility-v1",
+    "scientific_model": "manuscript_2d_mi_homodyne_holevo",
+    "scope": "SYNTHETIC_MANUSCRIPT_NUMERICAL_COMPARISON",
+    "reference_directory": "results/skr_vs_zenith_angle_20261019",
+    "geometry": {
+      "h_hap_m": 20000,
+      "h_uav_m": 1000,
+      "grid_side_m": 1000,
+      "grid_cells_per_side": 10,
+      "hap_horizontal_m": [
+        11419.65511459133,
+        450
+      ],
+      "reference_position_index": 44,
+      "coordinate_origin": "Synthetic repository embedding; cell centers, x increases first; HAP azimuth is not measured."
+    },
+    "optical": {
+      "wavelength_m": 1.55e-06,
+      "full_divergence_rad": 0.000233,
+      "receiver_diameter_m": 0.08,
+      "h_HAP_m": 20000,
+      "h_UAV_m": 1000,
+      "jitter_rad": 1.561e-05,
+      "sigma_h_m": 1,
+      "boresight_m": 0,
+      "sigma_AoA_rad": 0.0015,
+      "FOV_half_angle_rad": 0.00625,
+      "tau_zen": 0.92,
+      "wind_m_s": 21,
+      "Cn2_ground": 1e-14
+    },
+    "security": {
+      "beta": 0.95,
+      "xi_ch": 0.0186,
+      "R": 1,
+      "xi_det": 0,
+      "normalization": "VA=2*nbar"
+    },
+    "numerical": {
+      "GH_orders": [
+        16,
+        32,
+        64
+      ],
+      "GH_absolute_tolerance": 2e-13,
+      "entropy_digits": 80,
+      "DP_absolute_tolerance": 1e-12,
+      "DP_relative_tolerance": 1e-12
+    },
+    "source_rosters": {
+      "MB": {
+        "path": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv",
+        "sha256": "84e86497adca0a730ef719fe812fd957cb9729c5c8a3bd4da61f0498c97e3859",
+        "count": 197
+      },
+      "Uniform": {
+        "path": "results/uniform_manuscript_2d_optimization_20261019/all_candidates.csv",
+        "sha256": "0cc83786433b93db88d9a5b588fc7e629ad978bdad26c1fd41e24a88794d8711",
+        "count": 36
+      }
+    },
+    "cloud": {
+      "model": "stationary_gaussian_copula_ar1_complete_blockage",
+      "probability": 0.4,
+      "correlation_length_m": 250,
+      "temporal_rho": 0.9,
+      "seed": 20261015,
+      "realizations": 100,
+      "archive_directory": "results/binary_cloud_skr_20261015",
+      "scenario_id": 0,
+      "parameter_origin": "Approved synthetic repository scenario; not measured meteorology."
+    },
+    "mission": {
+      "slots": 30,
+      "slot_duration_s": 20,
+      "max_speed_m_per_s": 15
+    },
+    "optimization": {
+      "reference_distance_m": 1000,
+      "initial_position_freely_selectable": true,
+      "deployment_cost_included": false,
+      "lambda_multipliers": [
+        0,
+        0.0001,
+        0.0003,
+        0.001,
+        0.003,
+        0.01,
+        0.03,
+        0.1,
+        0.3,
+        1
+      ],
+      "representative_multiplier": 0.003,
+      "lambda_high_rule": "2*max(K_star)*D_ref/d_min",
+      "representative_realization_id": 0,
+      "channel_use_rate_per_s": null
+    },
+    "manuscript_sha256": "c46a74868d8ebbe387952e764bf31b71986995964c1e15e751dccb7e4aeb1557",
+    "security_status": "UNVALIDATED_SECURITY_MODEL",
+    "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+  },
+  "representative_lambda": 9.468026677248516e-06,
+  "configurations": [
+    {
+      "figure": 1,
+      "axis": "J",
+      "value": 10,
+      "case_id": "J_10",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_20261020"
+    },
+    {
+      "figure": 1,
+      "axis": "J",
+      "value": 20,
+      "case_id": "J_20",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_20261020"
+    },
+    {
+      "figure": 1,
+      "axis": "J",
+      "value": 40,
+      "case_id": "J_40",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_20261020"
+    },
+    {
+      "figure": 1,
+      "axis": "J",
+      "value": 60,
+      "case_id": "J_60",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_20261020"
+    },
+    {
+      "figure": 1,
+      "axis": "J",
+      "value": 80,
+      "case_id": "J_80",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_20261020"
+    },
+    {
+      "figure": 1,
+      "axis": "J",
+      "value": 100,
+      "case_id": "base",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.1,
+      "case_id": "probability_0p1",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.2,
+      "case_id": "probability_0p2",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.3,
+      "case_id": "probability_0p3",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.4,
+      "case_id": "base",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.5,
+      "case_id": "probability_0p5",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.6,
+      "case_id": "probability_0p6",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.7,
+      "case_id": "probability_0p7",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 2,
+      "axis": "probability",
+      "value": 0.8,
+      "case_id": "probability_0p8",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 3,
+      "axis": "temporal",
+      "value": 0,
+      "case_id": "temporal_0",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 3,
+      "axis": "temporal",
+      "value": 0.3,
+      "case_id": "temporal_0p3",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 3,
+      "axis": "temporal",
+      "value": 0.6,
+      "case_id": "temporal_0p6",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 3,
+      "axis": "temporal",
+      "value": 0.9,
+      "case_id": "base",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 3,
+      "axis": "temporal",
+      "value": 0.98,
+      "case_id": "temporal_0p98",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/mobility_parameter_sensitivity_stage_b_20261020"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 0.0,
+      "case_id": "base",
+      "lambda_index": 0,
+      "lambda_bits_per_use": 0.0,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 3.156008892416172e-07,
+      "case_id": "base",
+      "lambda_index": 1,
+      "lambda_bits_per_use": 3.156008892416172e-07,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 9.468026677248514e-07,
+      "case_id": "base",
+      "lambda_index": 2,
+      "lambda_bits_per_use": 9.468026677248514e-07,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 3.156008892416172e-06,
+      "case_id": "base",
+      "lambda_index": 3,
+      "lambda_bits_per_use": 3.156008892416172e-06,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 9.468026677248516e-06,
+      "case_id": "base",
+      "lambda_index": 4,
+      "lambda_bits_per_use": 9.468026677248516e-06,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 3.156008892416172e-05,
+      "case_id": "base",
+      "lambda_index": 5,
+      "lambda_bits_per_use": 3.156008892416172e-05,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 9.468026677248515e-05,
+      "case_id": "base",
+      "lambda_index": 6,
+      "lambda_bits_per_use": 9.468026677248515e-05,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 0.0003156008892416172,
+      "case_id": "base",
+      "lambda_index": 7,
+      "lambda_bits_per_use": 0.0003156008892416172,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 0.0009468026677248515,
+      "case_id": "base",
+      "lambda_index": 8,
+      "lambda_bits_per_use": 0.0009468026677248515,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    },
+    {
+      "figure": 4,
+      "axis": "lambda",
+      "value": 0.003156008892416172,
+      "case_id": "base",
+      "lambda_index": 9,
+      "lambda_bits_per_use": 0.003156008892416172,
+      "source": "results/manuscript_mobility_p1_p2_p3_20261019"
+    }
+  ],
+  "style": {
+    "Stationary": {
+      "color": "tab:blue",
+      "linestyle": "-",
+      "marker": "o"
+    },
+    "Greedy": {
+      "color": "tab:orange",
+      "linestyle": "--",
+      "marker": "D"
+    },
+    "DP": {
+      "color": "tab:red",
+      "linestyle": "-",
+      "marker": "^"
+    }
+  },
+  "figure_width_inches": 7.2,
+  "png_dpi": 350,
+  "no_solver": true,
+  "no_cloud_generation": true,
+  "no_quantum_evaluation": true,
+  "no_new_parameter_points": true,
+  "uncertainty": "Reuse Stage A/B bootstrap summaries;reconstruct missing tradeoff mean CIs from stored Stage A count vectors;reuse original tradeoff paired CIs(seed20261019)",
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

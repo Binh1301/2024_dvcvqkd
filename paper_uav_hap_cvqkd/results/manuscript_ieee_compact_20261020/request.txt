@@ -1,0 +1,339 @@
+# TASK: Compress Optimization-to-Conclusion Sections into 1.5 IEEE Pages
+
+## Objective
+
+Revise the existing IEEE manuscript:
+
+`results/manuscript_ieee_revision_20261020/main.tex`
+
+The goal is to make the complete manuscript content **from the beginning of the Optimization Problem section to the end of the Conclusion occupy approximately 1.5 pages in the compiled IEEEtran A4 two-column PDF**.
+
+This is a strict manuscript-length requirement.
+
+Do not shorten the earlier Introduction, System Model, Channel Model or SKR Derivation sections.
+
+Only revise the Optimization Problem, Proposed Solution, Numerical Results and Conclusion sections.
+
+## 1. Page Budget
+
+Target a total of approximately 1.5 IEEE pages, equivalent to three IEEE columns.
+
+Suggested allocation:
+
+- Optimization Problem: 0.40 page.
+- Proposed Solution: 0.25 page.
+- Numerical Results and Discussion: 0.70 page.
+- Conclusion: 0.15 page.
+
+This allocation is flexible, but the total must remain close to 1.5 pages, including headings, equations, figures, captions and references occurring inside these sections.
+
+Measure the actual occupied area in the compiled PDF rather than estimating length from word count.
+
+The goal is not simply to produce shorter source text.
+
+## 2. Optimization Problem
+
+Retain the three essential problems.
+
+### P1 — Source Optimization
+
+\[
+K_j^\star
+=
+\left[
+\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A)
+\right]^+.
+\]
+
+Describe the finite exact-source catalog and the optimization of MB shaping and modulation variance.
+
+### P2 — Stationary Position Optimization
+
+\[
+j_{\rm fix}^\star
+=
+\arg\max_j
+\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j,n}.
+\]
+
+### P3 — Mobility-Aware Trajectory Optimization
+
+\[
+\max_{\{j_n\}}
+\frac1{N_t}\sum_{n=1}^{N_t}S_{j_n,n}
+-
+\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}
+\]
+
+subject to
+
+\[
+d_{j_{n-1},j_n}\leq v_{\max}\Delta t.
+\]
+
+Keep the definitions of variables and the principal constraints.
+
+Use compact mathematical notation and combine definitions where appropriate.
+
+Do not change the scientific meaning or objective normalization.
+
+Do not eliminate essential feasibility constraints.
+
+Avoid lengthy explanations already provided in previous sections.
+
+## 3. Proposed Solution
+
+Summarize the solution methodology in compact academic prose.
+
+Retain:
+
+- Finite-catalog search for P1.
+- Offline exhaustive stationary-position evaluation for P2.
+- Dynamic Programming for P3.
+- Greedy as a comparison baseline.
+
+For DP, retain the central Bellman recursion:
+
+\[
+F_n(j)
+=
+S_{j,n}
++
+\max_{i\in\mathcal N(j)}
+\left[
+F_{n-1}(i)
+-
+\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}
+\right].
+\]
+
+State:
+
+\[
+F_1(j)=S_{j,1}.
+\]
+
+Explain that the optimal trajectory is recovered by backtracking.
+
+Avoid including a long pseudocode listing unless it is strictly necessary.
+
+One compact paragraph about DP and Greedy is preferred.
+
+Mention that DP assumes the complete cloud-state sequence is available offline.
+
+## 4. Numerical Results and Discussion
+
+Compress the existing six numerical subsections into approximately two or three concise paragraphs.
+
+Retain only the strongest numerical findings.
+
+### Finding 1 — UAV Candidate Positions
+
+Increasing the number of UAV candidate positions from J = 10 to J = 100 improves the mean DP objective by:
+
+11.409%.
+
+### Finding 2 — Cloud Blockage
+
+At cloud blockage probability p = 0.8, the reported QKD unavailability is:
+
+- Stationary: 24.60%.
+- Greedy: 16.53%.
+- DP: 4.07%.
+
+### Finding 3 — Temporal Correlation
+
+When temporal correlation increases from 0 to 0.98:
+
+- DP travel distance changes from 1038.25 m to 31.84 m.
+- Relative DP objective improvement over P2 changes from 23.712% to 0.155%.
+
+### Finding 4 — Mobility Tradeoff
+
+At the representative positive mobility penalty:
+
+- DP travel distance decreases by 88.370% relative to the zero-penalty solution.
+- Mean usable SKR decreases by only 0.515%.
+
+Verify all values against the original validated CSV data.
+
+Do not introduce unverified numbers.
+
+Explain these results briefly and directly.
+
+Do not repeat the same percentages in several paragraphs.
+
+## 5. Figure Selection and Layout
+
+The existing manuscript contains four main figures:
+
+1. Objective versus Number of UAV Positions.
+2. SKR/Unavailability versus Cloud Blockage Probability.
+3. Objective/Distance versus Temporal Correlation.
+4. SKR versus UAV Travel Distance.
+
+It is not necessary to retain all four figures in the compressed manuscript section.
+
+Prioritize the figures that best demonstrate the research contribution.
+
+Recommended primary figure:
+
+**A single compact multi-panel figure comparing parameter sensitivity.**
+
+Preferred panels:
+
+(a) Objective versus Number of UAV Positions.
+
+(b) QKD Unavailability versus Cloud Blockage Probability.
+
+(c) UAV Travel Distance versus Temporal Correlation.
+
+Compare P2, Greedy and DP where the corresponding data exist.
+
+If combining three panels produces unreadable labels, use only two panels and summarize the remaining findings in the main text.
+
+Use the existing saved numerical data only.
+
+Do not run new simulations or optimizations.
+
+If necessary, regenerate a figure solely for compact IEEE layout.
+
+Export vector PDF.
+
+Ensure axis labels, legends and tick values remain readable at actual IEEE column width.
+
+Do not use tiny text to force the figure to fit.
+
+Use a concise IEEE-style caption.
+
+Move the remaining figures to supplementary material or preserve them as separate results without inserting them into the compressed manuscript.
+
+## 6. Conclusion
+
+Write one concise paragraph of approximately 60–90 words.
+
+The conclusion should mention:
+
+- Joint source, stationary-position and trajectory optimization.
+- Improved usable SKR or availability using cloud-aware positioning.
+- Advantages of Dynamic Programming over Stationary and Greedy under the evaluated configurations.
+- Mobility-performance tradeoff.
+- Important model limitations.
+
+Avoid repeating every numerical result already given.
+
+Do not claim a validated quantum security guarantee.
+
+## 7. Scientific Integrity
+
+Preserve all essential assumptions:
+
+- 256-QAM discrete modulation.
+- Maxwell–Boltzmann shaping.
+- Finite exact-source catalog.
+- Cloud-blockage model.
+- Offline P2 and DP.
+- Finite UAV grid.
+- Distance-based mobility penalty.
+
+The quantum security model currently remains unvalidated.
+
+The existing evaluator combines two-dimensional mutual information with a homodyne-conditioned Holevo expression.
+
+Do not modify these equations or silently replace the underlying security model.
+
+Do not claim that the reported SKR is a proven secure-key rate.
+
+Preserve the warnings:
+
+UNVALIDATED_SECURITY_MODEL
+
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+
+Include a concise security-model limitation in the manuscript where appropriate.
+
+## 8. LaTeX Formatting Constraints
+
+Use IEEEtran A4, two-column layout.
+
+Do not achieve the page reduction by:
+
+- Reducing font sizes below IEEE requirements.
+- Using negative vertical spacing.
+- Shrinking equations excessively.
+- Modifying IEEE page margins.
+- Removing necessary scientific definitions.
+- Making figure labels unreadable.
+- Altering the document class.
+
+Instead:
+
+- Eliminate redundant prose.
+- Combine related equations where mathematically appropriate.
+- Shorten figure captions.
+- Reduce repeated numerical explanations.
+- Replace long algorithm descriptions with concise mathematical definitions.
+- Select fewer figures.
+
+Preserve existing equation labels and references where possible.
+
+Do not modify unrelated sections.
+
+## 9. Compilation and Verification
+
+Create a separate revision directory:
+
+`results/manuscript_ieee_compact_20261020/`
+
+Save:
+
+- `main.tex`
+- `main.pdf`
+- Any compact composite figure.
+- `compression_report.md`
+
+Compile the complete manuscript.
+
+Inspect the PDF visually.
+
+Verify that:
+
+1. The Optimization Problem section starts at the correct location.
+2. The Conclusion ends approximately 1.5 pages later.
+3. All relevant figures are located inside or near the corresponding discussion.
+4. Captions and mathematical expressions remain readable.
+5. No important mathematical content has been removed.
+6. No LaTeX references are broken.
+7. The rest of the paper remains unchanged.
+8. All reported numerical values match the validated CSV data.
+
+Measure and report the exact starting and ending pages/columns of the Optimization-to-Conclusion portion.
+
+If IEEE float placement causes figures to move outside that portion, account for their occupied area and document the placement issue.
+
+## 10. Final Deliverables
+
+Provide:
+
+1. Revised LaTeX file.
+2. Compiled IEEE PDF.
+3. Exact measured page length from Optimization Problem through Conclusion.
+4. List of retained and removed figures.
+5. Summary of retained optimization equations.
+6. Verification of the numerical findings.
+7. Remaining scientific limitations.
+
+Do not rerun P1/P2/P3.
+
+Do not recompute SKR, C or w.
+
+Do not generate new cloud scenarios.
+
+Do not overwrite the original manuscript.
+
+Do not commit or push.
+
+**Execute the manuscript compression and compile the result. Prioritize scientific clarity and IEEE readability while meeting the 1.5-page target.**

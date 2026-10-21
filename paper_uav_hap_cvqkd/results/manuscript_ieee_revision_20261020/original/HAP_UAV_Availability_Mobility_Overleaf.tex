@@ -1,0 +1,289 @@
+\documentclass[conference,a4paper]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Packages retained from the manuscript; duplicate/conflicting imports removed.
+\usepackage{cite}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{nicematrix}
+\usepackage{balance}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{lipsum}
+\usetikzlibrary{shapes.geometric}
+\usepackage[hidelinks]{hyperref}
+
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newtheorem{coro}{Corollary}
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{defin}{Definition}
+\hypersetup{breaklinks=true,citecolor=black,colorlinks=true,
+            linkcolor=black,urlcolor=blue}
+\setcounter{MaxMatrixCols}{30}
+
+\title{TBD}
+\author{\IEEEauthorblockN{TBD\IEEEauthorrefmark{1},
+TBD\IEEEauthorrefmark{2}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}XXX}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Computer Communications Laboratory,
+The University of Aizu, Aizuwakamatsu 965-8580, Japan}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\lipsum[1]
+\end{abstract}
+
+\begin{IEEEkeywords}
+Continuous-variable quantum key distribution (CV--QKD),
+unmanned aerial vehicle (UAV), free-space optics (FSO),
+high-altitude platform (HAP), probabilistic constellation shaping (PCS)
+\end{IEEEkeywords}
+
+\section{AUTOENCODER-BASED HAP--UAV CV-QKD SYSTEM}
+\label{sec:autoencoder}
+
+\subsection{Availability-Aware Joint UAV Position and Source Optimization}
+\label{subsec:availability_aware_uav}
+
+We consider a HAP--UAV MB-shaped DM-CV-QKD system under
+moving-cloud conditions. The UAV flies at a fixed altitude
+within a $1\,\mathrm{km}\times1\,\mathrm{km}$ area, discretized
+into a $10\times10$ grid of $J=100$ candidate cell-center
+positions $\mathcal Q=\{\mathbf q_1,\ldots,\mathbf q_J\}$.
+Only one UAV is deployed; the grid points represent its
+possible locations rather than separate ground stations.
+The mission consists of $N_t$ time slots of duration
+$\Delta t$, where $t_n=(n-1)\Delta t$.
+
+To model moving clouds with low complexity, we consider a
+single circular cloud at a fixed altitude $h_c$. Its
+horizontal center evolves as
+\begin{align}
+\mathbf c_n
+={}&\mathbf c_0+\mathbf v_c t_n,
+\label{eq:availability_cloud_motion}
+\end{align}
+where $\mathbf c_0$ and $\mathbf v_c$ denote the initial center
+and horizontal velocity. Let $\mathbf q_H$ be the HAP's
+horizontal coordinates and let $h_H$ and $h_U$ be the HAP
+and UAV altitudes, with $h_U<h_c<h_H$. The intersection
+of the optical path from candidate position $j$ with the
+cloud-altitude plane is
+\begin{align}
+\boldsymbol\ell_j
+={}&\mathbf q_j+
+\frac{h_c-h_U}{h_H-h_U}(\mathbf q_H-\mathbf q_j).
+\label{eq:availability_cloud_intersection}
+\end{align}
+A cloud-blockage indicator and its additional power
+transmittance are defined as
+\begin{align}
+b_{j,n}
+={}&\mathbb I\!\left\{
+\|\boldsymbol\ell_j-\mathbf c_n\|_2\leq R_c
+\right\},
+\label{eq:availability_blockage}
+\\
+T_{c,j,n}
+={}&10^{-A_c b_{j,n}/10},
+\label{eq:availability_cloud_transmittance}
+\end{align}
+where $R_c$ and $A_c$ are the cloud radius and additional
+attenuation in dB, respectively. The original HAP--UAV
+channel is augmented with $T_{c,j,n}$, without counting
+cloud attenuation twice. The adopted QKD evaluator then
+computes mutual information and Holevo information for
+each updated channel state.
+
+\noindent\textit{Remark 1.}
+For candidate position $j$ and slot $n$, the asymptotic
+secret key rate (SKR) is
+\begin{align}
+K_{j,n}(\nu_{\rm MB},V_A)
+={}&\beta_{\rm rec}I_{AB,j,n}(\nu_{\rm MB},V_A)
+\nonumber\\
+&-\chi_{BE,j,n}(\nu_{\rm MB},V_A).
+\label{eq:availability_skr}
+\end{align}
+Let $\mathcal C$ be the finite catalog of admissible,
+exact-source parameter pairs $(\nu_{\rm MB},V_A)$, with
+$\nu_{\rm MB}\geq0$ and $V_A>0$. At each position and
+slot, the source parameters are chosen according to
+\begin{align}
+\mathcal P_1:\quad
+\underset{(\nu_{\rm MB},V_A)\in\mathcal C}
+{\operatorname{maximize}}\quad&
+K_{j,n}(\nu_{\rm MB},V_A).
+\label{eq:availability_source_optimization}
+\end{align}
+The resulting usable SKR is
+\begin{align}
+S_{j,n}
+={}&\Big[\max_{(\nu_{\rm MB},V_A)\in\mathcal C}
+K_{j,n}(\nu_{\rm MB},V_A)\Big]^+,
+\label{eq:availability_usable_skr}
+\end{align}
+where $[x]^+=\max\{0,x\}$. The maximizing pair
+$(\nu_{j,n}^{\star},V_{A,j,n}^{\star})$ is stored for each
+state. This search does not require gradients of the SKR.
+
+\subsubsection{QKD Availability and Stationary UAV Selection}
+A QKD link is regarded as available when its optimized
+SKR reaches a prescribed positive threshold $K_{\min}>0$.
+Define
+\begin{align}
+a_{j,n}
+={}&\mathbb I\!\left\{S_{j,n}\geq K_{\min}\right\},
+\label{eq:availability_indicator}
+\end{align}
+so that $a_{j,n}\in\{0,1\}$ denotes QKD-link
+availability at position $j$ in time slot $n$.
+For a stationary UAV, its availability is
+\begin{align}
+A_j
+={}&\frac{1}{N_t}\sum_{n=1}^{N_t}a_{j,n}.
+\label{eq:stationary_availability}
+\end{align}
+The best fixed UAV location is determined by
+\begin{align}
+\mathcal P_2:\quad
+\underset{j\in\{1,\ldots,J\}}{\operatorname{maximize}}
+\quad&A_j.
+\label{eq:availability_stationary_opt}
+\end{align}
+A prescribed reference position $j_{\rm ref}$ provides the
+nonoptimized stationary baseline. The average SKR is also
+reported to distinguish configurations with equal
+availability but different key-generation rates.
+
+\subsubsection{Mobility-Aware Availability Optimization}
+For a moving UAV, let $j_n$ be its position index in slot
+$n$ and define $d_{i,j}=\|\mathbf q_i-\mathbf q_j\|_2$.
+The total flight distance and trajectory availability are
+\begin{align}
+D_{\rm fly}
+={}&\sum_{n=2}^{N_t}d_{j_{n-1},j_n},
+\label{eq:availability_flight_distance}
+\\
+A_{\rm UAV}
+={}&\frac{1}{N_t}\sum_{n=1}^{N_t}a_{j_n,n}.
+\label{eq:availability_trajectory}
+\end{align}
+To account for mobility expenditure without a detailed
+propulsion model, we use the approximate incremental
+movement-energy model $E_{\rm mov}=e_{\rm mov}D_{\rm fly}$,
+where $e_{\rm mov}$ is a constant energy-per-distance
+coefficient. With $E_{\rm ref}=e_{\rm mov}D_{\rm ref}$,
+maximizing $A_{\rm UAV}-\lambda E_{\rm mov}/E_{\rm ref}$
+is equivalent to solving
+\begin{align}
+\mathcal P_3:\quad
+\underset{j_1,\ldots,j_{N_t}}{\operatorname{maximize}}
+\quad&\frac{1}{N_t}\sum_{n=1}^{N_t}a_{j_n,n}
+\nonumber\\
+&-\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}
+\label{eq:availability_moving_opt}
+\\
+\text{subject to}\quad&j_n\in\{1,\ldots,J\},\ \forall n,
+\label{eq:availability_grid_constraint}
+\\
+&d_{j_{n-1},j_n}\leq v_{\max}\Delta t,
+\quad n\geq2,
+\label{eq:availability_speed_constraint}
+\end{align}
+where $D_{\rm ref}>0$ is a reference flight distance,
+$\lambda\geq0$ is a dimensionless tradeoff parameter, and
+$v_{\max}$ is the maximum UAV speed. The initial position
+is freely selectable before the mission, and deployment
+costs are excluded from all baseline comparisons. Source
+parameters may be updated once per time slot for all schemes.
+
+\subsubsection{Low-Complexity Numerical Solution}
+After solving $\mathcal P_1$, store $S_{j,n}$ and $a_{j,n}$
+in $J\times N_t$ tables. Problem $\mathcal P_2$ is solved by
+comparing $A_j$ for all $J$ positions. For $\mathcal P_3$,
+let $F_n(j)$ be the maximum accumulated objective up to
+slot $n$, conditioned on ending at location $j$. Set
+$\mathcal N(j)=\{i:d_{i,j}\leq v_{\max}\Delta t\}$. Dynamic
+programming yields
+\begin{align}
+F_1(j)
+={}&\frac{a_{j,1}}{N_t},
+\label{eq:availability_dp_init}
+\\
+F_n(j)
+={}&\frac{a_{j,n}}{N_t}
++\max_{i\in\mathcal N(j)}\!\Bigg\{
+F_{n-1}(i)
+\nonumber\\
+&\hspace{27mm}-\frac{\lambda}{D_{\rm ref}}d_{i,j}
+\Bigg\},\quad n\geq2.
+\label{eq:availability_dp_update}
+\end{align}
+The optimal final position is
+$j_{N_t}^{\star}=\arg\max_jF_{N_t}(j)$. The optimal
+trajectory on the candidate grid is recovered by
+backtracking, as described in
+Algorithm~\ref{alg:availability_joint_uav}.
+
+\noindent\textit{Remark 2.}
+The cloud evolution is assumed known for offline optimization.
+The solution is optimal only over the considered grid and
+source catalog. The linear movement-energy approximation
+is not a calibrated UAV propulsion model. A strictly
+positive $K_{\min}$ is required because setting $K_{\min}=0$
+would classify all nonnegative $S_{j,n}$ values as available.
+The adopted fading-security approximation must be validated
+independently before interpreting numerical SKR results as
+full fading-channel security guarantees.
+
+\begin{algorithm}[t]
+\caption{Availability-Aware Joint Source and UAV Position Optimization}
+\label{alg:availability_joint_uav}
+\begin{algorithmic}[1]
+\Require $\mathcal Q$, $\mathcal C$, cloud parameters,
+$N_t$, $\Delta t$, $v_{\max}$, $K_{\min}$,
+$\lambda$, $D_{\rm ref}$.
+\For{$n=1,\ldots,N_t$}
+  \For{$j=1,\ldots,J$}
+    \State Update the cloud-dependent channel.
+    \State Search $\mathcal C$ and store $S_{j,n}$,
+    $(\nu_{j,n}^{\star},V_{A,j,n}^{\star})$.
+    \State Set $a_{j,n}\gets\mathbb I\{S_{j,n}\geq K_{\min}\}$.
+  \EndFor
+\EndFor
+\State Solve $\mathcal P_2$ by comparing all $A_j$.
+\State Set $F_1(j)\gets a_{j,1}/N_t$ for all $j$.
+\For{$n=2,\ldots,N_t$}
+  \For{$j=1,\ldots,J$}
+    \State Update $F_n(j)$ using
+    \eqref{eq:availability_dp_update}.
+    \State Save the optimal predecessor of $j$.
+  \EndFor
+\EndFor
+\State Select $\arg\max_jF_{N_t}(j)$ and backtrack.
+\Ensure Stationary location, UAV trajectory,
+source parameters, QKD availability, average SKR,
+and flight distance.
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}

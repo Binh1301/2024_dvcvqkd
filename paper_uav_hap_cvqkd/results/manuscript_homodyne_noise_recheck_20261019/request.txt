@@ -1,0 +1,305 @@
+# TASK: Recalculate SKR for the HAP-to-UAV 256-QAM DM-CV-QKD System Using the Manuscript Equations
+
+## 1. Objective
+
+Read the attached manuscript **“Performance Analysis of Probabilistically Shaped CV-QKD in Free-space HAP-to-UAV Systems”** carefully.
+
+Recalculate the asymptotic secret-key rate (SKR) using the mathematical formulation provided in the manuscript.
+
+**The primary objective is to determine whether SKR becomes positive after correcting the effective excess-noise definition to \(\xi_n=\xi_{\rm ch}\).**
+
+Do not redesign the protocol, replace the SKR equations, or introduce alternative formulas from other CV-QKD papers.
+
+The manuscript assumes **homodyne detection with a trusted-detector model**.
+
+For this task, follow the manuscript's specified SKR calculation and evaluate the ideal trusted-detector limit \(R=1\), \(\xi_{\rm det}=0\), unless numerical detector parameters are explicitly available.
+
+## 2. Mandatory Equations
+
+### Secret-key rate — Eq. (11)
+
+\[
+K=\beta I_{AB}-\chi_{BE},
+\qquad \beta=0.95.
+\]
+
+### Mutual information — Eq. (12)
+
+Use the mutual information integral exactly as specified in the manuscript:
+
+\[
+I_{AB}
+=
+\sum_{k\in\mathcal K}p_k
+\int p(y|\alpha_k)
+\log_2
+\left[
+\frac{p(y|\alpha_k)}
+{\sum_{k'\in\mathcal K}p_{k'}p(y|\alpha_{k'})}
+\right]dy.
+\]
+
+The conditional distribution is specified by
+
+\[
+p(y|\alpha_k)
+=
+\frac{1}{\sqrt{2\pi\sigma_\zeta^2}}
+\exp\left[
+-\frac{|y-2\sqrt{\eta_f}\alpha_k|^2}
+{2\sigma_\zeta^2}
+\right],
+\]
+
+where
+
+\[
+\sigma_\zeta^2=1+\eta_f\xi_f.
+\]
+
+**Important numerical implementation requirement:** The previous calculation evaluated the mutual information on both real and imaginary components of the 256-QAM constellation, without inserting an additional factor \(1/2\). Reproduce that calculation as a designated *manuscript-style two-dimensional implementation*. Use the properly normalized two-dimensional Gaussian density when integrating over a complex observation.
+
+Do not silently replace this implementation with a one-quadrature mutual information or divide its result by two.
+
+Because the PDF displays a one-dimensional Gaussian normalization alongside a complex constellation, explicitly identify this notational ambiguity. If necessary, report the literal one-dimensional homodyne interpretation separately, but keep the manuscript-style two-dimensional calculation as the primary requested numerical comparison.
+
+### Holevo information — Eq. (13)
+
+\[
+\chi_{BE}
+=
+g\left(\frac{\nu_1-1}{2}\right)
++
+g\left(\frac{\nu_2-1}{2}\right)
+-
+g\left(\frac{\nu_3-1}{2}\right),
+\]
+
+where
+
+\[
+g(x)=(x+1)\log_2(x+1)-x\log_2x.
+\]
+
+Use the manuscript definitions:
+
+\[
+\nu_{1,2}
+=
+\sqrt{
+\frac{\Delta\pm\sqrt{\Delta^2-4D}}{2}
+},
+\]
+
+\[
+\nu_3
+=
+\sqrt{
+V\left(V-\frac{Z^2}{W}\right)
+},
+\]
+
+\[
+\Delta=V^2+W^2-2Z^2,
+\]
+
+\[
+D=(VW-Z^2)^2,
+\]
+
+\[
+V=V_A+1,
+\]
+
+\[
+W=1+\eta_fV_A+\eta_f\xi_f.
+\]
+
+**Do not replace the manuscript's homodyne expression for \(\nu_3\) with a heterodyne expression.**
+
+### Correlation parameter — Eq. (14)
+
+\[
+Z
+=
+2\sqrt{\eta_f}C
+-
+\sqrt{2\eta_f\xi_fw},
+\]
+
+where
+
+\[
+C=
+\operatorname{Tr}
+\left(
+\tau^{1/2}a\tau^{1/2}a^\dagger
+\right).
+\]
+
+Compute \(C\) and \(w\) using the exact discrete-modulation source model in Eqs. (15)–(17), or load previously verified exact-source moments that match precisely the same constellation, probabilities, modulation variance and truncation convention.
+
+Do not interpolate \(C\), \(w\), or the SKR.
+
+## 3. Corrected Effective Excess Noise — Eqs. (18)–(21)
+
+Use
+
+\[
+\eta_f=\langle\sqrt{\eta}\rangle^2,
+\]
+
+\[
+\boxed{
+\eta_f\xi_f
+=
+\left(
+\langle\eta\rangle-\eta_f
+\right)V_A
++
+\xi_{\rm ch}\langle\eta\rangle.
+}
+\]
+
+The physical channel excess noise is
+
+\[
+\xi_n=\xi_{\rm ch}.
+\]
+
+Use
+
+\[
+\xi_{\rm ch}=0.0186\ \mathrm{SNU}
+\]
+
+for the numerical comparison.
+
+Do not substitute
+
+\[
+\xi_n=\chi_{\rm line}+\frac{\chi_{\rm hom}}{\eta}.
+\]
+
+In particular, do not add the pure-loss contribution \(1/\eta-1\) or trusted detector noise to \(\xi_n\).
+
+Use the closed-form moments in Eqs. (19) and (20) of the PDF, evaluated over the retained interval \([0,1]\).
+
+Eq. (21) is
+
+\[
+\boxed{
+\langle\eta\xi_n\rangle
+=
+\xi_{\rm ch}\langle\eta\rangle.
+}
+\]
+
+Preserve the PDF definitions of \(P_0,P_1,A_0,\eta_{\rm atm},\chi,C_1,C_3,\mu,\mathcal Q(a)\).
+
+## 4. Numerical Configuration
+
+Use the system configuration of the manuscript:
+
+- HAP altitude: 20 km.
+- UAV altitude: 1 km.
+- Zenith angle: \(30^\circ\).
+- Slant distance: \(L=21.9393102292\) km.
+- Optical wavelength: 1550 nm.
+- Beam divergence: \(233\,\mu\mathrm{rad}\).
+- Receiver aperture diameter: \(0.08\) m.
+- Jitter angle: \(15.61\,\mu\mathrm{rad}\).
+- AoA standard deviation: \(1.5\) mrad.
+- FOV half-angle: \(6.25\) mrad.
+- Ground turbulence level: \(C_n^2(0)=10^{-14}\,\mathrm{m}^{-2/3}\).
+- Reconciliation efficiency: \(\beta=0.95\).
+- Channel excess noise: \(\xi_{\rm ch}=0.0186\) SNU.
+
+First evaluate the MB point
+
+\[
+\boxed{
+(\nu_{\rm raw},V_A)=(0.165,5.475).
+}
+\]
+
+The following previously computed exact-source moments are available for cross-checking:
+
+\[
+C=3.1986564642787387,
+\]
+
+\[
+w=9.973886145561931\times10^{-7}.
+\]
+
+Before using them, verify that their modulation normalization, constellation scaling, and MB probability convention match the calculation. If the PDF's definition of \(V_A\) differs from the convention used to obtain these moments, state the mismatch and do not silently mix incompatible conventions.
+
+## 5. Numerical Accuracy
+
+Implement the calculations in Python using NumPy, SciPy, or another high-precision numerical library.
+
+Use stable numerical integration for \(I_{AB}\), preferably Gauss–Hermite quadrature or a suitably converged deterministic quadrature.
+
+Calculate mutual information directly from its defining integral rather than using the Gaussian-modulation formula.
+
+For numerical stability, use log-sum-exp when evaluating the probability mixture.
+
+Compare at least three increasing quadrature orders and report the convergence error.
+
+Calculate the eigenvalues and entropy using sufficient precision to resolve an SKR on the order of \(10^{-5}\) to \(10^{-4}\) bits/use.
+
+Do not clamp negative SKR to zero before reporting the raw result.
+
+## 6. Required Results
+
+Provide a numerical table containing:
+
+| Parameter | Value |
+|---|---|
+| \(\langle\eta\rangle\) | |
+| \(\langle\sqrt{\eta}\rangle\) | |
+| \(\eta_f\) | |
+| \(\operatorname{Var}(\sqrt{\eta})\) | |
+| \(\langle\eta\xi_n\rangle\) | |
+| \(\eta_f\xi_f\) | |
+| \(\xi_f\) | |
+| \(C\) | |
+| \(w\) | |
+| \(V\) | |
+| \(W\) | |
+| \(Z\) | |
+| \(\nu_1\) | |
+| \(\nu_2\) | |
+| \(\nu_3\) | |
+| \(I_{AB}\) | |
+| \(\beta I_{AB}\) | |
+| \(\chi_{BE}\) | |
+| \(K\) (bits/use) | |
+
+Then compare the numerical output with this previously reported manuscript-style reference:
+
+\[
+I_{AB}\approx0.0019224444,
+\]
+
+\[
+\chi_{BE}\approx0.0017299097,
+\]
+
+\[
+K\approx+9.64\times10^{-5}\ \mathrm{bits/use}.
+\]
+
+**These are reference values to verify, not values to force the calculation to reproduce.**
+
+If the recalculated values differ, diagnose whether the difference comes from the channel moments, constellation normalization, source moments, dimensional interpretation of Eq. (12), or numerical integration.
+
+Finally, answer explicitly:
+
+1. Is the raw SKR positive at this point under the requested manuscript-style implementation?
+2. Can the reference numerical result be reproduced independently?
+3. Does that result correspond to a mathematically normalized two-dimensional integral, or to literal one-dimensional homodyne detection?
+4. Which parts of the model remain insufficiently specified for a physical trusted-homodyne security claim?
+
+Do not optimize \((\nu,V_A)\) until the single-point calculation has passed the consistency and convergence checks. Do not change any equations without separately identifying the change.

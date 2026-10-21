@@ -1,0 +1,305 @@
+PAGE 1
+Mobility-Aware UA V Positioning and Secret Key
+Rate Optimization for HAP–UA V CV -QKD
+TBD∗, TBD †
+∗XXX
+†Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+Abstract—This provisional internal-review study examines
+source selection and UA V positioning for a cloud-affected HAP–
+UA V discrete-modulated CV-QKD model. A ﬁnite catalog of
+233 exact-source ensembles deﬁnes a common location-dependent
+numerical rate map. An ofﬂine stationary benchmark, a current-
+slot Greedy policy, and ﬁnite-horizon dynamic programming
+(DP) are compared under identical cloud realizations and speed
+constraints. Across 100 paired missions, expanding the candidate
+set from 10 to 100 raises the mean DP penalized objective by
+11.41%. At blockage probability 0.8, mean zero-rate unavailabil-
+ity is 24.60%, 16.53%, and 4.07% for Stationary, Greedy, and
+DP, respectively. At the representative penalty, DP reduces travel
+by 88.37% relative to zero penalty while reducing mean usable
+rate by 0.515%. These are conditional manuscript-model outputs:
+the recorded two-dimensional mutual information and homodyne
+Holevo expression do not specify a consistent Bob measurement.
+The results characterize the saved numerical optimization and
+do not establish physical quantum security.
+Index Terms—Continuous-variable quantum key distribution,
+UA V , high-altitude platform, cloud blockage, probabilistic shap-
+ing, dynamic programming.
+Internal review only. Security-model correction and author
+review remain pending. Status:
+UNVALIDATED_SECURITY_MODEL;
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+I. HAP–UAV CV-QKD S YSTEM AND PROBLEM
+FORMULATION
+A. Mobility-Aware UA V Positioning and SKR Optimization
+We consider one UA V at a ﬁxed altitude over a 1 km×1 km
+area, discretized into J candidate positions Q = {qj}J
+j=1.
+The mission has Nt slots of duration ∆t. Let cj,n ∈ { 0, 1}
+indicate cloud blockage (one means blocked). The matrix C =
+[cj,n] contains spatially and temporally correlated Bernoulli
+states. P2 and P3 know the complete matrix and are ofﬂine
+benchmarks; Greedy observes only the current slot.
+For an unblocked link, the recorded manuscript-style raw
+rate is
+Kj(ν, VA) = βrecI 2D
+AB,j (ν, VA) − χBE,j (ν, VA). (1)
+Equation ( 1) is retained as a conditional numerical metric,
+subject to the measurement-consistency limitations below.
+B. Recorded Physical-Layer Model and Security Boundary
+Alice sends the coherent-state ensemble {pk, αk}256
+k=1. With
+[ˆx, ˆp] = 2 i and vacuum quadrature variance one, the normal-
+ization is VA = 2 P
+k pk|αk|2 = 2¯n. The source moments
+Cs, ws are computed from this same ensemble; the subscript
+distinguishes them from the cloud matrix. For clear-sky power
+transmittance η, the saved evaluator uses
+ηf = ⟨√η⟩2,
+N = ηf ξf = (⟨η⟩ − ηf )VA + ξch⟨η⟩,
+V = 1 + VA, W = 1 + ηf VA + N,
+Z = 2√ηf Cs −
+p
+2N ws.
+The convention is ξn = ξch. The additive N is output-referred
+excess noise; loss-induced vacuum is already included in W ’s
+unit baseline. The active detector is ideal (efﬁciency one,
+electronic noise zero). No imperfect trusted-detector claim is
+made. The clear-sky distribution retains a separate angle-of-
+arrival outage atom at η = 0 and its active density on [0, 1],
+without renormalizing. Moment reduction at the covariance
+level has a precedent for Gaussian modulation [ 1]; it is not an
+identity for the full discrete-input fading likelihood.
+Speciﬁcally, the saved MI kernel uses the normalized like-
+lihood
+pnum(y|k) = exp[−∥y − 2√ηf (ℜαk, ℑαk)∥2/(2(1 + N ))]
+2π(1 + N )
+and integrates both real components to obtain I 2D
+AB. The
+Holevo branch uses the standard-form covariance with entries
+V, W, Z and the homodyne conditional eigenvalue
+νhom
+3 =
+p
+V (V − Z 2/W ).
+These two branches do not specify one consistent single-mode
+Bob measurement: a homodyne outcome has one quadrature,
+while joint measurement of both quadratures adds measure-
+ment vacuum. The measurement-dependent Holevo expres-
+sions are explicitly different in [ 2]. Consequently, all reported
+“usable SKR” values are conditional outputs of the recorded
+manuscript model, not established achievable secret-key rates.
+Further, evaluating only Z− does not establish the worst-
+case Holevo value over all admissible correlations; the general
+interval-maximization caveat in [ 2, Sec. 4, footnotes 11–12]
+also applies. A consistent measurement/noise speciﬁcation,
+admissible correlation treatment, parameter estimation, and
+fading/outage conditioning protocol require author review. No
+correction is applied to the historical numerical results in this
+manuscript revision.
+
+PAGE 2
+II. O PTIMIZATION PROBLEM
+At each location, the ﬁnite exact-source catalog G contains
+197 MB-shaped and 36 uniform 256-QAM ensembles. Search-
+ing the MB shaping parameter ν and modulation variance VA
+gives
+P1 : K ⋆
+j =
+
+max
+(ν,VA)∈G
+Kj(ν, VA)
++
+. (2)
+Each candidate uses its own authenticated source moments; the
+raw maximum is selected before clipping. Channel moments
+independent of the source can be shared, while the modulation-
+dependent fading noise is evaluated for each VA. The optimum
+is restricted to G, rather than a continuous shaping domain.
+With complete cloud blockage, Sj,n = (1 − cj,n)K ⋆
+j . Ofﬂine
+stationary selection is
+P2 : j⋆
+ﬁx = arg max
+j
+1
+Nt
+NtX
+n=1
+Sj,n. (3)
+The chosen location balances clear-sky rate and the full cloud
+sequence; it need not be the location with the largest clear-
+sky rate alone. For jn ∈ { 1, . . . , J} and di,j = ∥qi − qj∥2,
+mobility optimization is
+P3 : max
+{jn}
+1
+Nt
+NtX
+n=1
+Sjn,n
+| {z }
+K
+− λ
+Dref
+NtX
+n=2
+djn−1,jn
+| {z }
+D
+(4)
+s.t. djn−1,jn ≤ vmax∆t, n ≥ 2.
+The objective is U = K − λD/Dref , with Dref > 0 and
+λ ≥ 0 in bit/use. Staying and a free initial position are allowed;
+no terminal, deployment, or return requirement is imposed.
+Distance is a mobility-cost surrogate, not propulsion energy.
+III. P ROPOSED SOLUTION
+P1 exhausts the ﬁnite catalog once per clear-sky position,
+reusing exact source moments; P2 compares all full-horizon
+location means. For P3, let N (j) = {i : di,j ≤ vmax∆t}. DP
+uses
+F1(j) = Sj,1, (5)
+Fn(j) = Sj,n + max
+i∈N (j)
+
+Fn−1(i) − Ntλ
+Dref
+di,j
+
+. (6)
+Every feasible predecessor is considered, including stay-
+ing, and the retained state summarizes the best preﬁx end-
+ing at that location. Backtracking saved predecessors from
+arg maxj FNt (j) recovers the ﬁnite-grid optimum, with U ⋆ =
+maxj FNt (j)/Nt and time O(NtJ 2). Backpointers require
+O(NtJ) storage, in addition to the O(J 2) distance matrix. The
+stored implementation state Fn/Nt has reward Sj,n/Nt and
+edge cost λdi,j/Dref , which is the same normalization. Both
+P2 and DP know the complete cloud sequence ofﬂine. Greedy
+starts at arg maxj Sj,1, then maximizes the current-slot score
+Sj,n −Ntλdjn−1,j/Dref over feasible moves, in O(NtJ) time.
+All methods share rates, clouds, and constraints. DP dominates
+their penalized objectives, not necessarily each mission’s SKR
+or availability. Their difference also reﬂects DP’s future-state
+and initial-position information, so it does not measure an
+online control gain. Without feasible movement, DP reduces to
+P2. P2 itself is independent of the movement penalty because
+its path has zero distance.
+IV. N UMERICAL RESULTS AND DISCUSSION
+The synthetic HAP/UA V altitudes are 20/1 km; the 1 km2
+grid has 100 centers spaced 100 m apart. Missions have 30×20
+s slots, vmax = 15 m/s, and Dref = 1000 m. The synthetic
+deployment places the HAP horizontally at (11419.6551, 450)
+m and uses UA V coordinates 50, 150, . . . ,950 m along each
+axis. Saved missions use seed 20261015 and realization IDs 0–
+99. The retained optical settings are 1550 nm, full divergence
+233 µrad, receiver diameter 0.08 m, βrec = 0.95, ξch = 0.0186
+SNU, and ideal detection. Saved Gaussian-copula complete-
+blockage clouds default to (p, ℓ, ρ) = (0 .4, 250 m, 0.9), with
+latent spatial covariance Σij = exp( −di,j/ℓ) and a sta-
+tionary AR(1) coefﬁcient ρ. Latent parameters differ from
+Bernoulli-cloud correlations. Each latent state is thresholded at
+Φ−1(p), where Φ is the standard-normal distribution function;
+the marginal blockage probability is prescribed, rather than
+measured meteorology. We compare 100 paired missions at
+ﬁxed λref = 9 .468026677248516 × 10−6 bit/use. Means
+and pointwise conﬁdence intervals use independent whole
+missions, not cells or slots; methods share each realization
+ID and conﬁgurations use common innovations. No new
+physical-layer evaluation is required. These intervals describe
+mission variability, rather than ﬁnite-key parameter-estimation
+uncertainty or a quantum-security bound. Availability means
+S > 0, without an engineering threshold. In Fig. 1(a),
+expanding deterministic nested position sets from J = 10
+to 100 raises mean DP U by 11.409% relative to J = 10 .
+The improvement combines more spatial choices and greater
+connectivity; optimal P2/DP objectives cannot decrease as the
+feasible set expands. The comparative presentation follows [ 3].
+At p = 0 .8, mean unavailability is 24.60%, 16.53%, and
+4.07% for P2, Greedy, and DP , respectively [Fig. 1(b)]. Cloud-
+aware movement improves this observed metric, although
+P3 optimizes U . Increasing p under nested masks removes
+rewards, so optimal P2/DP objectives cannot increase; no
+general availability ordering follows. As latent ρ increases
+from 0 to 0.98, DP distance decreases from 1038.25 to 31.84
+m [Fig. 1(c)], while its mean objective gain over P2 decreases
+from 23.712% to 0.155%, relative to the corresponding P2
+mean. Persistent favorable locations make ofﬂine stationary
+selection competitive. At the high-correlation endpoint, the
+latent persistence time exceeds the mission horizon, allowing
+P2 to exploit locations favorable throughout the mission. This
+is not a universal monotonic law or a demonstration with
+forecast errors.
+On the same default missions, changing DP from zero
+penalty to λref reduces mean distance by 88.370% and mean
+usable SKR by 0.515%, relative to their respective zero-
+penalty means. Thus, most movement can be avoided with a
+small numerical rate loss. P1 selects MB (ν, VA) = (0 .125, 8)
+
+PAGE 3
+10 20 40 60 80 100
+Candidate positions, J
+0.0
+0.5
+1.0
+1.5
+Objective (bit/use)
+×10−4
+ (a) Objective
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8
+Blockage probability, p
+0
+10
+20
+30Unavailability (%)
+(b) Unavailability
+0
+.3
+.6
+.9
+.98
+Latent correlation, ρ
+0
+500
+1000
+1500Travel distance (m)
+(c) Travel distance
+P2 Greedy DP
+Fig. 1. Parameter sensitivity at λref : (a) objective versus candidate count; (b) zero-SKR unavailability versus blockage probability; (c) travel distance versus
+latent temporal correlation. Curves use 100 paired missions; shaded bands are pointwise 95% whole-mission bootstrap intervals.
+everywhere, at the MB catalog’s variance boundary; posi-
+tioning gains do not isolate shaping gain. All rates remain
+conditional outputs of the mixed 2D-MI/homodyne-Holevo
+model in Section I-B, without a validated quantum-security
+guarantee. Finite-key estimation, key aggregation across fading
+states, tracking interruptions, and reacquisition overhead are
+outside this comparison. Trusted receiver imperfections would
+require a separate model [ 4].
+V. C ONCLUSION
+Finite-catalog source selection, ofﬂine stationary position-
+ing, and DP trajectory optimization jointly characterize cloud-
+aware HAP–UA V performance. Under the evaluated conﬁg-
+urations, DP improves the mobility-penalized objective over
+Stationary and Greedy, with observed availability beneﬁts.
+A distance penalty substantially reduces movement while
+preserving most usable rate. Conclusions remain limited to
+a ﬁnite grid, synthetic clouds, ofﬂine future information,
+and an uncalibrated mobility-cost surrogate. The inconsistent
+MI/Holevo measurement pairing requires correction before
+interpreting numerical rates as secure keys.
+REFERENCES
+[1] V . C. Usenko, B. Heim, C. Peuntinger, C. Wittmann, C. Marquardt,
+G. Leuchs, and R. Filip, “Entanglement of gaussian states and the
+applicability to quantum key distribution over fading channels,” New
+Journal of Physics , vol. 14, p. 093048, 2012.
+[2] A. Denys, P . Brown, and A. Leverrier, “Explicit asymptotic secret key
+rate of continuous-variable quantum key distribution with an arbitrary
+modulation,” Quantum, vol. 5, p. 540, 2021.
+[3] S. Gong, H. Shen, K. Zhao, R. Wang, X. Zhang, T. de Cola, and J. A.
+Fraire, “Network availability maximization for free-space optical satellite
+communications,” IEEE Wireless Communications Letters , vol. 9, no. 3,
+pp. 411–415, 2020.
+[4] V . C. Usenko and R. Filip, “Trusted noise in continuous-variable quantum
+key distribution: A threat and a defense,” Entropy, vol. 18, no. 1, p. 20,
+2016.

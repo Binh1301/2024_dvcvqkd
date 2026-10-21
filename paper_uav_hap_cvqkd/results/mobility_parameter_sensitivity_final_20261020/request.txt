@@ -1,0 +1,630 @@
+# TASK: Finalize Parameter Sensitivity Figures and Numerical Results for HAP–UAV CV-QKD
+
+## 1. Objective
+
+Read the existing mobility optimization manuscript and all completed Stage A and Stage B results.
+
+The goal is to produce a coherent, publication-oriented **Numerical Results and Discussion** package for:
+
+"Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP–UAV CV-QKD"
+
+Focus on the numerical performance of:
+
+1. Optimized Stationary UAV Positioning (P2).
+2. Greedy UAV Trajectory.
+3. Dynamic Programming (P3).
+
+Use the experimental presentation style of Gong et al., "Network Availability Maximization for Free-Space Optical Satellite Communications," particularly its multi-curve parameter-sensitivity figures.
+
+**Do not perform additional parameter sweeps. Do not rerun P1, P2, P3, Greedy, cloud generation, or the quantum SKR evaluator.**
+
+Use only completed and verified Stage A and Stage B data.
+
+---
+
+## 2. Existing Result Directories
+
+Inspect:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/`
+
+`results/mobility_parameter_sensitivity_20261020/`
+
+`results/mobility_parameter_sensitivity_stage_b_20261020/`
+
+Read all relevant:
+
+- Numerical CSV files.
+- Saved trajectory arrays.
+- Configuration files.
+- Validation reports.
+- Statistical summaries.
+- Existing PDF/PNG figures.
+- Existing English figure captions.
+- Vietnamese analysis reports.
+
+Establish the provenance of every plotted result.
+
+Do not estimate values visually from figures when numerical CSV files are available.
+
+## 3. Previously Reported Findings
+
+The existing analysis reports the following results.
+
+At the representative mobility penalty:
+
+\[
+\lambda_{\rm ref}
+=
+9.468026677248516\times10^{-6}
+\quad\text{bits/use},
+\]
+
+DP improves:
+
+- Mean usable SKR by 4.16% relative to P2.
+- Mean usable SKR by 2.70% relative to Greedy.
+- Mean objective by 3.07% relative to P2.
+- Mean objective by 4.42% relative to Greedy.
+
+For cloud blockage probability:
+
+| p_cloud | DP mean SKR | DP objective gain over P2 |
+|---|---|---|
+| 0.3 | 1.57027e-4 | 1.520% |
+| 0.5 | 1.55364e-4 | 5.346% |
+| 0.7 | 1.50296e-4 | 14.212% |
+
+For temporal cloud correlation:
+
+\[
+\rho:0\rightarrow0.98,
+\]
+
+the previously reported mean DP travel distance changes from:
+
+\[
+1038.25\ {\rm m}
+\rightarrow31.84\ {\rm m},
+\]
+
+while the objective gain over P2 changes from:
+
+\[
+23.712\%\rightarrow0.155\%.
+\]
+
+For spatial cloud correlation:
+
+\[
+\ell:50\rightarrow1000\ {\rm m},
+\]
+
+the reported relative DP objective gain over P2 changes from:
+
+\[
+1.46\%\rightarrow5.96\%.
+\]
+
+Treat these as reference values to verify against raw outputs, not as values to impose on the analysis.
+
+---
+
+# PHASE 1 — SELECT THE MOST IMPORTANT SCIENTIFIC FIGURES
+
+## 4. Figure Selection
+
+Review every existing Stage A and Stage B figure.
+
+Select the strongest four figures for the main manuscript.
+
+Prioritize:
+
+### Figure 1 — Impact of Candidate UAV Positions
+
+Compare:
+
+- Stationary.
+- Greedy.
+- Dynamic Programming.
+
+Horizontal axis:
+
+\[
+J
+\]
+
+Number of Candidate UAV Positions.
+
+Vertical axis:
+
+\[
+U
+\]
+
+Mean Mobility-Penalized Objective (bits/use).
+
+Use the existing nested UAV-position subsets.
+
+Explain the effect of increasing the number of available UAV positions.
+
+### Figure 2 — Impact of Cloud Blockage Probability
+
+Horizontal axis:
+
+\[
+p_{\rm cloud}
+\]
+
+Use the full available range:
+
+\[
+p_{\rm cloud}
+=
+0.1,0.2,\ldots,0.8.
+\]
+
+Create a two-panel figure.
+
+Panel (a):
+
+Mean Usable SKR versus Cloud Blockage Probability.
+
+Panel (b):
+
+Mean QKD Unavailability versus Cloud Blockage Probability.
+
+Compare Stationary, Greedy and DP.
+
+If useful, add a separate small panel or companion figure showing the relative DP objective gain over Stationary.
+
+Do not mix SKR gain with objective gain.
+
+### Figure 3 — Impact of Temporal Cloud Correlation
+
+Horizontal axis:
+
+\[
+\rho
+\]
+
+Use the existing temporal correlation configurations.
+
+Create two panels.
+
+Panel (a):
+
+Mean DP, Greedy and Stationary Objective versus Temporal Correlation.
+
+Panel (b):
+
+Mean UAV Travel Distance versus Temporal Correlation.
+
+If an objective comparison is more informative than an SKR comparison, explain why.
+
+Include numerical annotations only for important endpoints.
+
+Investigate why DP travel distance and mobility gain decrease as temporal persistence increases.
+
+Distinguish physical interpretation from findings directly demonstrated by the numerical data.
+
+### Figure 4 — SKR–Mobility Tradeoff
+
+Horizontal axis:
+
+Average Total Travel Distance (m).
+
+Vertical axis:
+
+Mean Usable SKR (bits/use).
+
+Compare:
+
+- Greedy.
+- Dynamic Programming.
+- Stationary as a reference point.
+
+Use the existing mobility-penalty results.
+
+Connect points in their true penalty order.
+
+Annotate selected penalty values where useful.
+
+Do not call the resulting curves globally optimal Pareto frontiers.
+
+## 5. Supplementary Figures
+
+Review the following existing plots for supplementary material:
+
+- SKR versus Maximum UAV Velocity.
+- Objective versus Maximum UAV Velocity.
+- QKD Availability versus Number of UAV Positions.
+- Mission Duration Sensitivity.
+- Spatial Cloud Correlation Sensitivity.
+- Objective Improvement versus Mobility Penalty.
+- Representative Stationary/Greedy/DP Trajectories.
+
+Recommend which should remain supplementary and explain why.
+
+Do not generate redundant figures.
+
+---
+
+# PHASE 2 — UNIFY FIGURE PRESENTATION
+
+## 6. IEEE-Style Figures
+
+Use Matplotlib and the existing data.
+
+All selected figures must share:
+
+- Consistent figure width and typography.
+- White background.
+- Light scientific grid lines.
+- High-contrast line styles.
+- Distinct markers.
+- Readable axis labels.
+- Consistent legends.
+- Scientifically appropriate axis scales.
+- Vector PDF output.
+- PNG at 350 dpi.
+
+Use consistent line conventions:
+
+Stationary:
+- Blue.
+- Solid line.
+- Circle markers.
+
+Greedy:
+- Orange.
+- Dashed line.
+- Diamond markers.
+
+Dynamic Programming:
+- Red.
+- Solid line.
+- Triangle markers.
+
+Ensure the figures remain distinguishable when printed in grayscale.
+
+Do not apply smoothing or interpolation.
+
+Do not fabricate additional data points.
+
+### Logarithmic scales
+
+Use logarithmic axes only when justified.
+
+For unavailability percentages, preserve genuine zero values.
+
+Do not replace zero with an arbitrary positive number.
+
+If the positive range spans several orders of magnitude, consider an additional semilog presentation, while retaining an accurate linear-scale version for values including zero.
+
+### Scientific labels
+
+Use the exact quantity names:
+
+- Mean Usable SKR (bits/use).
+- Mobility-Penalized Objective (bits/use).
+- QKD Unavailability (%).
+- Total Travel Distance (m).
+- Cloud Blockage Probability.
+- Temporal Cloud Correlation.
+- Number of Candidate UAV Positions.
+
+Do not call the penalized objective "SKR".
+
+Do not label cumulative SKR as secret-bit throughput without a channel-use rate.
+
+---
+
+# PHASE 3 — QUANTITATIVE SCIENTIFIC ANALYSIS
+
+## 7. Explain the Cloud Blockage Results
+
+Use the actual saved data to explain:
+
+1. Why average usable SKR decreases as cloud blockage becomes more severe.
+2. Why relative DP objective gain over Stationary can increase with cloud blockage probability.
+3. Whether DP also improves QKD availability.
+4. Whether the improvements remain meaningful in absolute bits/use.
+5. Whether Greedy exhibits the same trend.
+
+Distinguish:
+
+\[
+\Delta U_{\rm absolute}
+=
+U_{\rm DP}-U_{\rm P2}
+\]
+
+from
+
+\[
+\Delta U_{\rm relative}
+=
+100
+\frac{U_{\rm DP}-U_{\rm P2}}{U_{\rm P2}}.
+\]
+
+Compute relative gains only when the denominator is positive and numerically meaningful.
+
+Use the full range p = 0.1–0.8, not only the three new Stage B points.
+
+## 8. Explain the Temporal Correlation Results
+
+Analyze the observed decrease in DP mobility gain as temporal correlation increases.
+
+Investigate the hypothesis:
+
+When cloud states remain persistent over longer periods, the offline stationary optimizer may identify a consistently favorable position, reducing the incremental value of mobility.
+
+Verify this explanation using:
+
+- Stationary cloud-free fractions.
+- Temporal cloud-state persistence.
+- DP trajectory movement frequency.
+- Total travel distance.
+- Difference between DP and P2 objectives.
+
+Do not assert this explanation as established unless the saved data support it.
+
+Also discuss that DP assumes future cloud states are known, whereas Greedy does not look ahead.
+
+## 9. Explain Spatial Correlation
+
+Analyze how spatial cloud correlation length changes the difference between P2, Greedy and DP.
+
+Explain whether mobility can exploit spatial diversity under each correlation setting.
+
+Do not assume that larger cloud correlation must always improve or reduce mobility gain.
+
+Discuss the observed behavior using saved numerical evidence.
+
+## 10. Explain Source Optimization and Mobility
+
+Summarize the role of P1:
+
+\[
+K_j^\star
+=
+\left[
+\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A)
+\right]^+.
+\]
+
+The previous study selected:
+
+\[
+(\nu^\star,V_A^\star)=(0.125,8)
+\]
+
+at all 100 candidate UAV positions.
+
+Explain that the stationary and mobility optimizations use the P1-optimized clear-sky SKR map.
+
+Do not attribute gains caused by cloud avoidance to changes in source shaping if the selected source parameters remain identical across positions.
+
+Separate:
+
+- Gain from source shaping.
+- Gain from stationary position selection.
+- Gain from UAV mobility.
+
+---
+
+# PHASE 4 — STATISTICAL VERIFICATION
+
+## 11. Paired Statistical Analysis
+
+Use the existing 100 paired cloud missions.
+
+For each selected figure and configuration, report:
+
+- Mean.
+- Sample standard deviation.
+- Median.
+- 95% confidence interval when available.
+- Number of valid missions.
+- Absolute DP–P2 improvement.
+- Absolute DP–Greedy improvement.
+
+Use matched realization IDs.
+
+Where bootstrap confidence intervals are available from verified results, reuse them.
+
+Do not mistake standard deviation for a confidence interval.
+
+If confidence intervals must be reconstructed, use only the stored mission-level outputs. No mobility optimization or new cloud generation is permitted.
+
+Verify that the resulting numerical conclusions are consistent with the existing reports.
+
+## 12. Mathematical Validation
+
+Check:
+
+\[
+U_{\rm DP}\geq U_{\rm Greedy}
+\]
+
+and
+
+\[
+U_{\rm DP}\geq U_{\rm P2}
+\]
+
+for each matched mission and configuration, within documented numerical tolerance.
+
+These conditions apply to the penalized objective under identical assumptions.
+
+Do not assume DP necessarily maximizes unpenalized SKR or QKD availability for every positive penalty.
+
+Retain all original validation receipts.
+
+Do not modify results to force agreement with theoretical expectations.
+
+---
+
+# PHASE 5 — WRITE NUMERICAL RESULTS AND DISCUSSION
+
+## 13. English Academic Writing
+
+Write a complete draft of:
+
+**III. Numerical Results and Discussion**
+
+Use a concise IEEE academic style.
+
+Organize it as:
+
+### A. Simulation Setup
+
+Describe:
+
+- HAP–UAV geometry.
+- UAV candidate positions.
+- Cloud missions.
+- Spatial and temporal cloud correlations.
+- Source catalog.
+- Three comparison schemes.
+- Mobility penalty.
+- Performance metrics.
+
+Do not repeat the entire system model.
+
+### B. Impact of Candidate UAV Positions
+
+Explain Figure 1 using actual numerical results.
+
+### C. Impact of Cloud Blockage Probability
+
+Explain Figure 2.
+
+Include the distinction between absolute usable SKR and relative objective improvement.
+
+### D. Impact of Temporal Cloud Correlation
+
+Explain Figure 3.
+
+Discuss movement reduction and changing mobility gain.
+
+### E. SKR–Mobility Tradeoff
+
+Explain Figure 4.
+
+Discuss the relationship between additional UAV movement and usable SKR improvements.
+
+### F. Discussion and Limitations
+
+Summarize the findings and identify limitations:
+
+- Offline future cloud-state knowledge.
+- Finite source catalog.
+- Finite UAV grid.
+- Synthetic geometry.
+- Complete cloud blockage.
+- Neglected link reacquisition and flight interruptions.
+- Mobility penalty as a distance surrogate.
+- Mixed two-dimensional MI and homodyne Holevo model.
+
+Avoid unsupported statements that the optimization establishes physical quantum security.
+
+## 14. Writing Rules
+
+For each subsection:
+
+1. State what parameter is varied.
+2. Identify the compared algorithms.
+3. Describe the actual trend.
+4. Provide numerical evidence.
+5. Explain the mathematical or physical mechanism where supported.
+6. State the limitation when needed.
+
+Use English suitable for an IEEE communications paper.
+
+Avoid exaggerated phrases such as:
+
+- Dramatically outperforms.
+- Universally optimal.
+- Guarantees secure communication.
+- Always improves SKR.
+
+Use precise expressions such as:
+
+- Under the considered simulation configuration.
+- Across the evaluated cloud realizations.
+- Within the finite UAV grid.
+- For the investigated parameter range.
+- Under the manuscript-style SKR evaluator.
+
+Do not invent citations or numerical values.
+
+---
+
+# PHASE 6 — FINAL DELIVERABLES
+
+## 15. Output Directory
+
+Create:
+
+`results/mobility_parameter_sensitivity_final_20261020/`
+
+Save:
+
+1. Four selected final manuscript figures in vector PDF.
+2. Four high-resolution PNG figures.
+3. Corresponding figure-source CSV files.
+4. Final English IEEE figure captions.
+5. Numerical Results and Discussion draft in English.
+6. Detailed Vietnamese explanation of the selected figures.
+7. Statistical comparison table.
+8. Figure-to-source provenance mapping.
+9. Final consistency and validation report.
+
+Do not overwrite Stage A or Stage B outputs.
+
+## 16. Required Final Report
+
+Provide a concise Vietnamese summary answering:
+
+1. Which parameters have the greatest observed effect on average usable SKR?
+2. Under which cloud configurations is DP most advantageous relative to Stationary?
+3. How much does temporal correlation change UAV movement?
+4. How do Greedy and DP differ in objective and usable SKR?
+5. Which four figures should appear in the manuscript?
+6. Which results are suitable for numerical discussion but not yet suitable for physical security claims?
+
+Report values from actual saved results.
+
+Distinguish observations, explanations, and limitations.
+
+## 17. Strict Restrictions
+
+Do not rerun:
+
+- P1 source optimization.
+- Quantum SKR calculations.
+- Exact C,w computations.
+- Physical channel modeling.
+- Cloud-state generation.
+- Greedy trajectory optimization.
+- DP trajectory optimization.
+
+Do not modify any production evaluator.
+
+Do not commit or push.
+
+Preserve:
+
+UNVALIDATED_SECURITY_MODEL
+
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+
+Do not change these status flags based on numerical validation alone.
+
+The task is to consolidate, verify, visualize and explain the already completed numerical experiments.
+
+**Execute this final analysis and manuscript-preparation task using existing saved data only.**

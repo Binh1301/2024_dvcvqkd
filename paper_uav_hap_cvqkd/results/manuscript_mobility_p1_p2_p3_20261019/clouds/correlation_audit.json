@@ -1,0 +1,65 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "checks": [
+    {
+      "metric": "blockage_probability",
+      "target": 0.4,
+      "mean": 0.41186000000000006,
+      "sd": 0.11637142228090733,
+      "se": 0.011637142228090733,
+      "ci95_low": 0.3887693851230003,
+      "ci95_high": 0.4349506148769998,
+      "realizations": 100,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "tolerance": 0.058185711240453665,
+      "passed": true
+    },
+    {
+      "metric": "binary_spatial_near",
+      "target": 0.4640966923997424,
+      "mean": 0.5402777777777779,
+      "sd": 0.33539334924167863,
+      "se": 0.033539334924167864,
+      "ci95_low": 0.47372846087630965,
+      "ci95_high": 0.6068270946792461,
+      "realizations": 100,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "tolerance": 0.16769667472083932,
+      "passed": true
+    },
+    {
+      "metric": "binary_spatial_far",
+      "target": 0.0038260918996403893,
+      "mean": -0.026388888888888903,
+      "sd": 0.3634105113718275,
+      "se": 0.03634105113718275,
+      "ci95_low": -0.09849741859375576,
+      "ci95_high": 0.045719640815977944,
+      "realizations": 100,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "tolerance": 0.18170525578591376,
+      "passed": true
+    },
+    {
+      "metric": "binary_temporal",
+      "target": 0.7105106548340915,
+      "mean": 0.716683908045977,
+      "sd": 0.08627419893047461,
+      "se": 0.008627419893047461,
+      "ci95_low": 0.6995652352457384,
+      "ci95_high": 0.7338025808462156,
+      "realizations": 100,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "tolerance": 0.04313709956523731,
+      "passed": true
+    }
+  ],
+  "tau_latent_s": 189.8244316205981,
+  "seed_replays": [
+    0,
+    1,
+    99
+  ],
+  "independent_missions": 100,
+  "latent_parameters_are_not_Bernoulli_correlations": true
+}

@@ -1,0 +1,46 @@
+{
+  "scope": "Uniform-only exact-tested manuscript-style numerical optimization",
+  "authorized_request_sha256": "7a79c0a3b4b31b2ce0c4e4206b0b71e57e660e734c644108818986c098591d08",
+  "coarse_grid": [
+    0.1,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    3.0,
+    4.0,
+    5.0,
+    8.0,
+    12.0
+  ],
+  "historical_inventory_reused": true,
+  "fine_grid": [
+    0.025,
+    0.05,
+    0.075,
+    0.1
+  ],
+  "local_refinement": {
+    "method": "exact_grid_near_catalog_maximum",
+    "candidates": [
+      0.0475,
+      0.0525
+    ],
+    "local_spacing": 0.0025
+  },
+  "coarse_adaptation": "All 30 historical Uniform points plus 8 and 12; concentrate new exact sources near the observed low-VA maximum",
+  "global_optimality_certificate": false,
+  "reference": "fixed MB point only; no MB source/evaluation/optimization",
+  "source_method": "full-support C4 Gram; exact diagonal-system solve; ladder 1050/1250/1450",
+  "coarse_source_concurrency": 2,
+  "fixed_refinement_source_concurrency": 2,
+  "per_source_wall_limit_seconds": 3720,
+  "MI": "same normalized2D Gaussian/tensor GH16/32/64; exact Cartesian mixture factorization",
+  "beta": 0.95,
+  "xi_ch": 0.0186,
+  "R": 1,
+  "xi_det": 0,
+  "VA_normalization": "VA=2*nbar",
+  "historical_frozen_hash_conflict": "preserved; diagnostic only",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

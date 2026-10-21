@@ -1,5 +1,230 @@
 # Next Actions
 
+## Current: deliver219 classic IEEE figure pairs and ZIP; STOP
+
+EVID-0207/DEC-0190 complete. New folder results/
+ieee_classic_restyled_figures_20261021/. Start with figures/00_final/
+compact_sensitivity.pdf and figures/06_zenith/skr_vs_zenith_angle.pdf.
+All figure paths in figure_index.csv;old copies mapped in figure_inventory.csv.
+Use the ZIP for delivery;do not rerun the completed renderer. The read-only
+validation/verify_restyled.py can check preserved results without any solver.
+No new scientific work,external manuscript edit or publication promotion
+authorized;all previous security/frozen/lifecycle/ObjectiveC restrictions stay.
+
+## Current: deliver single-file LaTeX and Overleaf ZIP; STOP
+
+EVID-0206/DEC-0189 complete. User-facing files in results/
+manuscript_ieee_overleaf_20261021/:main.tex,overleaf_compact.zip and localmain.pdf.
+Sections/bibliography inlined;only figurePDF asset required. ZIP ready for user
+upload;no Overleaf account access or upload performed. Local3page pixel/text
+identity checked,13 artifact hashes bound. Preserve original compact package
+and all model/security/lifecycle restrictions. No further numerical or document
+change pending;no automatic external upload,simulations,commit/push.
+
+## Current: deliver compact IEEE revision and measured compression report; STOP
+
+EVID-0205/DEC-0188 complete. Output results/manuscript_ieee_compact_20261020/:
+main.tex/main.pdf,compact_sections.tex,protected system_model.tex,vector3panel
+figure,compression_report.md and receipt.17368 scoped checks/35 artifacts;
+actualOptimization-through-Conclusion area1.484223823 IEEEpages including full
+figure/caption,not reading-flow-only1.342198649. FullPDF3pages;all viewed.
+Use this revision's validation/verify_compact.py for immutable read-only
+rechecks. Do not rerun renderer/compiler/finalizer after receipt,or old
+verifiers that evaluate science/solvers. Original manuscripts/results intact.
+
+No additional simulation or security correction authorized. Author decisions
+on consistent measurement,Z-domain,fading/outage estimation,original author
+placeholders,venue and frozen provenance remain as before. Keep all security/
+lifecycle/ObjectiveC limitations,no production/cache/frozen changes,training/
+test/held-out,baseline/threshold promotion,external edits,commit/push. STOP.
+
+## Current: deliver internal-review IEEE manuscript and security audit; STOP
+
+EVID-0204/DEC-0187 complete. Deliver results/manuscript_ieee_revision_20261020/
+main.pdf,main.tex,method/results includes,four figures,README and finalreceipt;
+docs/security_model_consistency_audit.md and docs/manuscript_final_validation.md.
+47271 current scoped checks pass,44 artifacts bound,6 PDF pages viewed. Use
+the revision's validation/verify_revision.py for immutable read-only rechecks;
+never invoke old verifiers that rerun solvers/clouds. Keep original files intact.
+
+Author decisions remain:choose consistent homodyne/heterodyne model,approve
+correlation-domain/fading/outage/estimation/aggregation treatment,resolve frozen
+hash conflict,supply latest matching TeX and actual authors/affiliation,confirm
+venue/page limit. No correction implemented;no follow-up simulations authorized
+by document completion. Mixed measurement pairing remains inconsistent and all
+rates conditional. Preserve UNVALIDATED_SECURITY_MODEL,NOT_READY and ObjectiveC
+USER_STOPPED. No production/cache/frozen edits,training/test/held-out,baseline/
+threshold/lifecycle promotion,external manuscript overwrite,commit/push.
+
+## Current: deliver final numerical-results manuscript package; STOP
+
+EVID-0203/DEC-0186 complete. Deliver results/
+mobility_parameter_sensitivity_final_20261020/report_vi.md,English sectionIII A-F,
+four finalPDF/PNG350dpi figures,English captions,CSV/statistics/source mapping,
+supplementary recommendations and validation/final_receipt.json.54866 named
+checks pass;all original/StageA/StageB bytes preserved except authorized ledgers.
+
+For read-only arithmetic verification use project Python and
+results/mobility_parameter_sensitivity_final_20261020/validation/verify_final_package.py.
+Do not invoke historical verifiers that replay solvers/clouds or old recursive
+coverage;new verifier authenticates historical receipt members directly.
+Do not rerun immutable final renderer or change completed artifacts.
+
+Keep numerical versus security claims,absolute versus relative gains,offline
+information,CI origins,zero-unavailability and source-optimization scope explicit.
+No new sweeps/optimizers/evaluators/cloud/RNG,training/test/held-out,baseline/
+threshold/lifecycle promotion,external manuscript edit,commit/push. Preserve all
+security/frozen/ObjectiveC limits. Await a new explicit user task.
+
+## Current: deliver completed Stage B cloud sensitivity; STOP
+
+EVID-0202/DEC-0185 complete. Deliver results/
+mobility_parameter_sensitivity_stage_b_20261020/report_vi.md,four figure pairs,
+English captions,all CSV/cloud/path outputs and final receipt.47978 named checks,
+9 current tests pass. Emphasize B1 probability completion and B3 temporal results.
+
+Recheck using project Python and scripts/run_mobility_cloud_sensitivity.py
+--stage verify. Original Stage A/report verifiers predate this new namespace;
+Stage B verifies historical receipt members directly. Do not overwrite old
+receipts or rerun immutable cloud/compute/aggregate/render stages.
+
+No additional cloud grid or physical/source work authorized. Keep all scope,
+security/lifecycle/frozen/Objective C limits. No training/test/held-out,baseline/
+threshold promotion,external edit,commit/push. Await a new explicit task.
+
+## Current: deliver Stage A figure/report review; STOP
+
+EVID-0201/DEC-0184 complete. Deliver Stage A analysis/figure_report_review_20261020/
+report_review_vi.md,discussion_en.md,S1 PDF/PNG350dpi and saved-data CSV/receipt.
+319 named checks pass; six original figures and all old bound artifacts unchanged.
+Prefer A1,A2,B,C for the main manuscript; S1,D,E are supplementary.
+
+Recheck using project Python and the child's verify_review.py. The original
+Stage A full verifier passed before extension but assumes exact recursive file
+coverage; authenticate its members directly with the new verifier after the child
+was added. Do not modify original receipts/verifiers or rerun their renderers.
+
+No remaining numerical or drawing task. Stage B/new clouds remain unauthorized.
+Keep all security/lifecycle/frozen/Objective C limits and no source/channel/cache,
+training/test/held-out,external edit,commit/push. Await a new explicit task.
+
+## Current: deliver completed Stage A sensitivity; STOP
+
+EVID-0200/DEC-0183 complete. Deliver results/mobility_parameter_sensitivity_20261020/
+report_vi.md,six PDF/PNG350dpi pairs,all CSVs and validation/final_receipt.json.
+7445 independent assertions and18 current deterministic tests pass. Recommend
+A1,A2,B,C. No numerical rerun remains pending.
+
+For saved-data verification use project Python with
+scripts/run_mobility_parameter_sensitivity.py --stage verify. Completed receipts
+and stage artifacts refuse silent overwrite; do not rerun compute/aggregate or
+the immutable renderer. Keep exact fixed lambdas,paired100mission statistics,
+nonzero-SKR availability and method-specific finite-range conclusions explicit.
+Stage B and new clouds remain unauthorized. No new quantum/source/cache/frozen
+work,final-test/held-out,promotion,Objective C restart,external edit,commit/push.
+Await a new explicit user request.
+
+## Current: deliver eight comparative figures; STOP
+
+EVID-0199/DEC-0182 complete. Deliver analysis/comparison_figures/
+comparison_report_vi.md under results/manuscript_mobility_p1_p2_p3_20261019/;
+it links all eight PDF/PNG pairs, numerical CSVs, English captions and the
+independent 737-assertion validation. Recommend Figures 2,4,5,8 for the paper.
+No physical/source/cloud or P1/P2/P3/Greedy rerun is pending.
+
+For saved-data verification use comparison_figures/verify_figures.py with
+the project Python environment. It authenticates the 145 original and 57
+analysis receipt members directly and permits only the five authorized
+ledger updates. Earlier recursive verifiers predate this new child directory;
+do not interpret their directory-coverage assumptions as new scientific runs.
+The completed figure renderer refuses overwrite once its receipt exists.
+
+Keep exact saved lambda, disclosed post-hoc mission84, pointwise paired CIs,
+raw-negative Uniform and cumulative-sum units explicit. No security/readiness
+promotion, final-test/held-out, old scientific/cache/frozen edits, Objective C
+restart, new optimization/perturbation work, external edit, commit or push.
+Await a new explicit request.
+
+## Current: deliver quantitative mobility analysis; STOP
+
+EVID-0198/DEC-0181 complete. Deliver analysis/report_analysis_vi.md,
+numerical_results_discussion_en.md,19CSV tables,13PDF/PNG figure pairs and
+analysis_receipt.json under results/manuscript_mobility_p1_p2_p3_20261019/.
+No simulation/optimization/source/cloud work pending. For verification use
+analysis/verify_analysis.py,which checks original receipt members directly;
+the old recursive result verifier predates the new analysis child namespace.
+Keep posthoc case selection,reference44 reconstruction,paired pointwiseCIs,
+finitecatalog/grid and unvalidated security/energy/forecast scope explicit.
+No automatic perturbation/scenario/source/lambda sweeps,training/test/final-test/
+held-out/publication evaluation,old scientific/cache/frozen edits,ObjectiveC
+restart,external manuscript edits,commit or push. Await a new explicit request.
+
+## Current: deliver completed manuscript mobility comparison; STOP
+
+EVID-0197 completion/DEC-0180. All approved stages and independent verification
+complete: results/manuscript_mobility_p1_p2_p3_20261019/report_vi.md,11 figure
+pairs,CSV/NPZ,24-test and346-check receipts. No simulation or source work pending.
+If verification is requested,use RUN.md saved-artifact verify command only.
+Preserve fixed mission0/lambda even though DP/P2 coincide there; report100mission
+means/CIs rather than selecting a different illustration. Keep finite-catalog/
+grid,offline-vs-causal and UNVALIDATED_SECURITY_MODEL/NOT_READY limits explicit.
+No automatic catalog/geometry/cloud/lambda expansion,Cw/AP/AO,old-file edits,
+training/test/final-test/held-out/publication evaluation,threshold approval,
+ObjectiveC restart,external edits,commit or push. Await a new explicit task.
+
+## Current: deliver completed zenith-angle comparison; STOP
+
+EVID-0196 completion/DEC-0179. Deliver results/skr_vs_zenith_angle_20261019/
+figures, CSV, validation_report.md and hash-bound receipts.31 angles/6758
+candidate evaluations complete; no scientific rerun pending. Saved verifier
+reads artifacts only. Positive sampled regions Uniform44:2:60deg, both MB
+24:2:60deg;60deg is sweep boundary, no observed upper transition. Keep finite-
+catalog ceilings, unvalidated mixed2D/homodyne scope, NOT_READY/frozen conflict
+and ObjectiveC STOP explicit. No automatic angle/source expansion, AP/AO,
+production/cache/frozen edits, training/test/publication, baseline/threshold
+certification, external edit, commit or push. Await a new explicit task.
+
+## Current: complete requested zenith-angle comparison
+
+EVID-0196/DEC-0179: verify exact catalog and30deg references before sweep.
+Recalculate all angle-dependent physics, evaluate raw catalog maxima, refine
+sign transitions directly and deliver requested figures/CSV/validation.
+Keep numerical-comparison-only scope, old files and all lifecycle blockers.
+
+## Current: deliver Uniform manuscript 2D optimization evidence; STOP
+
+EVID-0195 completion/DEC-0178. Deliver
+docs/UNIFORM_MANUSCRIPT_2D_OPTIMIZATION_VI.md and
+results/uniform_manuscript_2d_optimization_20261019/ including all36 signed
+candidate rows, best(.0475,K=-4.850670994797474e-5), fixed MB comparison,
+source/convergence/integrity receipts, PNG/vectorPDF and RUN.md replay recipe.
+No positive Uniform candidate; no global/security conclusion. Do not rerun
+accepted source batches or begin MB optimization/source expansion/lifecycle
+work automatically. Existing production, optics, old caches and frozen spec
+remain unchanged. Preserve NOT_READY and UNVALIDATED_SECURITY_MODEL.
+
+## Historical: authorized Uniform-only execution queue
+
+EVID-0195 preparation/DEC-0178. Observe existing source/search processes before
+any resume; do not start duplicates. Finish exact Uniform sources, local refinement,
+same-MB 2D kernel checks, source parity, three requested figures and saved-result
+integrity verification. Preserve all MB/historical data and model conventions.
+Report best exact-tested VA, signed K and MB gap; no global/security claim or
+MB optimization, production edits, training/test/publication/promotion follows.
+
+## Current: deliver single-point manuscript comparison; STOP
+
+2026-10-19 EVID-0194/DEC-0177: deliver
+docs/MANUSCRIPT_HOMODYNE_NOISE_RECHECK_VI.md and
+results/manuscript_homodyne_noise_recheck_20261019/ with full19-field CSV,
+GH16/32/64 convergence, exact source/ensemble verification and integrity receipt.
+Primary normalized2D/homodyne hybrid is positive; literal scalar homodyne
+comparison is negative. Retain unreproduced reference digits and PDF/cache
+variance-convention failure. No optimizer follows from this point check.
+Keep production science/config/cache/frozen specs and lifecycle unchanged;
+no new Cw/AP/AO, training/test-data/final-test/held-out/publication, baseline/
+threshold approval, ObjectiveC restart, external edit, commit or push.
+
 ## Current: deliver full geometry/fading/SKR audit; STOP
 
 EVID-0193/DEC-0176. Deliver docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md and

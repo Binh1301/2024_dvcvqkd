@@ -1,0 +1,287 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "producer_sha256": "e0d4a929587e7393ccdb7dcfc1bccffda5d1fb3c356e9709a35d63ff77757cd1",
+  "png_dpi": 350,
+  "vector_pdf": true,
+  "point_count": 344,
+  "layout_issues": [],
+  "confidence_intervals": "20,000 paired whole-mission percentile bootstrap; seed20261020; unmodified",
+  "performance_axes_include_zero": true,
+  "no_smoothing": true,
+  "no_simulation_interpolation": true,
+  "figures": {
+    "fig_A1_positions_objective_skr": {
+      "dimensions_inches": [
+        7.2,
+        3.25
+      ],
+      "panels": [
+        {
+          "xlim": [
+            5.95,
+            104.05
+          ],
+          "ylim": [
+            -7.086420510133288e-06,
+            0.00017952265292337665
+          ],
+          "xscale": "linear",
+          "xlabel": "Candidate positions J",
+          "ylabel": "Mean objective U\n(bits/use)"
+        },
+        {
+          "xlim": [
+            5.95,
+            104.05
+          ],
+          "ylim": [
+            -6.9976038402422905e-06,
+            0.00017727263061947135
+          ],
+          "xscale": "linear",
+          "xlabel": "Candidate positions J",
+          "ylabel": "Mean objective U\n(bits/use)"
+        },
+        {
+          "xlim": [
+            5.95,
+            104.05
+          ],
+          "ylim": [
+            -7.058415674664435e-06,
+            0.00017881319709149902
+          ],
+          "xscale": "linear",
+          "xlabel": "Candidate positions J",
+          "ylabel": "Mean usable SKR\n(bits/use)"
+        }
+      ]
+    },
+    "fig_A2_positions_unavailability": {
+      "dimensions_inches": [
+        7.2,
+        3.25
+      ],
+      "panels": [
+        {
+          "xlim": [
+            5.95,
+            104.05
+          ],
+          "ylim": [
+            -1.5795,
+            40.014
+          ],
+          "xscale": "linear",
+          "xlabel": "Candidate positions J",
+          "ylabel": "Zero-SKR unavailability\n(%)"
+        },
+        {
+          "xlim": [
+            5.95,
+            104.05
+          ],
+          "ylim": [
+            -1.5615000000000003,
+            39.558000000000014
+          ],
+          "xscale": "linear",
+          "xlabel": "Candidate positions J",
+          "ylabel": "Zero-SKR unavailability\n(%)"
+        }
+      ]
+    },
+    "fig_B_speed_sensitivity": {
+      "dimensions_inches": [
+        7.2,
+        3.25
+      ],
+      "panels": [
+        {
+          "xlim": [
+            -1.125,
+            26.125
+          ],
+          "ylim": [
+            -7.0908945401089295e-06,
+            0.00017963599501609289
+          ],
+          "xscale": "linear",
+          "xlabel": "UAV speed limit\n(m/s)",
+          "ylabel": "Mean usable SKR\n(bits/use)"
+        },
+        {
+          "xlim": [
+            -1.125,
+            26.125
+          ],
+          "ylim": [
+            -7.0908945401089295e-06,
+            0.00017963599501609289
+          ],
+          "xscale": "linear",
+          "xlabel": "UAV speed limit\n(m/s)",
+          "ylabel": "Mean objective U\n(bits/use)"
+        },
+        {
+          "xlim": [
+            -1.125,
+            26.125
+          ],
+          "ylim": [
+            -92.58246627618007,
+            2345.422478996562
+          ],
+          "xscale": "linear",
+          "xlabel": "UAV speed limit\n(m/s)",
+          "ylabel": "Mean travel distance\n(m)"
+        }
+      ]
+    },
+    "fig_C_cloud_probability_sensitivity": {
+      "dimensions_inches": [
+        7.2,
+        3.25
+      ],
+      "panels": [
+        {
+          "xlim": [
+            0.0685,
+            0.8315
+          ],
+          "ylim": [
+            -7.096065369538422e-06,
+            0.00017976698936164002
+          ],
+          "xscale": "linear",
+          "xlabel": "Cloud-blockage\nprobability",
+          "ylabel": "Mean usable SKR\n(bits/use)"
+        },
+        {
+          "xlim": [
+            0.0685,
+            0.8315
+          ],
+          "ylim": [
+            -4.500000000000003,
+            114.00000000000009
+          ],
+          "xscale": "linear",
+          "xlabel": "Cloud-blockage\nprobability",
+          "ylabel": "Nonzero-SKR availability\n(%)"
+        },
+        {
+          "xlim": [
+            0.0685,
+            0.8315
+          ],
+          "ylim": [
+            -1.2792206232205694,
+            32.406922454921094
+          ],
+          "xscale": "linear",
+          "xlabel": "Cloud-blockage\nprobability",
+          "ylabel": "DP gain in mean U\n(%)"
+        }
+      ]
+    },
+    "fig_E_spatial_correlation_sensitivity": {
+      "dimensions_inches": [
+        7.2,
+        3.25
+      ],
+      "panels": [
+        {
+          "xlim": [
+            43.47826086956522,
+            1150.0
+          ],
+          "ylim": [
+            -7.0851439074413095e-06,
+            0.0001794903123218465
+          ],
+          "xscale": "log",
+          "xlabel": "Correlation length\n(m; log scale)",
+          "ylabel": "Mean usable SKR\n(bits/use)"
+        },
+        {
+          "xlim": [
+            43.47826086956522,
+            1150.0
+          ],
+          "ylim": [
+            -4.500000000000003,
+            114.00000000000009
+          ],
+          "xscale": "log",
+          "xlabel": "Correlation length\n(m; log scale)",
+          "ylabel": "Nonzero-SKR availability\n(%)"
+        },
+        {
+          "xlim": [
+            43.47826086956522,
+            1150.0
+          ],
+          "ylim": [
+            -6.779816759062371e-07,
+            1.7175535789624674e-05
+          ],
+          "xscale": "log",
+          "xlabel": "Correlation length\n(m; log scale)",
+          "ylabel": "Mean DP objective gain\n(bits/use)"
+        }
+      ]
+    },
+    "fig_D_duration_sensitivity": {
+      "dimensions_inches": [
+        7.2,
+        3.25
+      ],
+      "panels": [
+        {
+          "xlim": [
+            3.875,
+            31.125
+          ],
+          "ylim": [
+            -7.090608747891756e-06,
+            0.00017962875494659117
+          ],
+          "xscale": "linear",
+          "xlabel": "Number of time slots",
+          "ylabel": "Mean usable SKR\n(bits/use)"
+        },
+        {
+          "xlim": [
+            3.875,
+            31.125
+          ],
+          "ylim": [
+            -7.088399263765046e-06,
+            0.0001795727813487145
+          ],
+          "xscale": "linear",
+          "xlabel": "Number of time slots",
+          "ylabel": "Mean objective U\n(bits/use)"
+        },
+        {
+          "xlim": [
+            3.875,
+            31.125
+          ],
+          "ylim": [
+            -22.4497724408934,
+            568.7275685026328
+          ],
+          "xscale": "linear",
+          "xlabel": "Number of time slots",
+          "ylabel": "Mean travel distance\n(m)"
+        }
+      ]
+    }
+  },
+  "input_sha256": {
+    "aggregate_statistics.csv": "5e17ec8406d8f259354b37ff5b8e4032a9f3cea630fb499de19fb5d280ea33c2",
+    "paired_improvements.csv": "5c34dd497d4c3afc6a1c625ccdb7d4a1df7eb8ff12413b5061e7059b62d214ad"
+  }
+}

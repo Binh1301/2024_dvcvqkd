@@ -1,5 +1,275 @@
 # Decision Log
 
+## DEC-0190 - Accept renderer-only IEEE style copies
+
+2026-10-21 accept EVID-0207 and final receipt 88498f3f1ea6ca946d4ed84a1e9a8f8868923694f6dd2c81fd00aa2fa9b3ab45.
+Deliver219 PDF/PNG pairs and ZIP in the isolated classic-restyling namespace.
+Use saved inputs and audited plotting functions only;never rerun immutable
+experiment/verifier entry points that execute science or solvers. Preserve
+log/symlog,all raw/CI values,source-specific assumptions and historical bytes.
+Formatting and nine authenticated result receipts do not validate quantum
+security or authorize further numerical work. Keep all flags,frozen conflict
+and ObjectiveC USER_STOPPED;no production/cache/TeX edit,commit/push. STOP.
+
+## DEC-0189 - Export compact manuscript as one Overleaf LaTeX file
+
+2026-10-21 accept EVID-0206 and receipt
+f2ca45dc16a474f149208c465a143471e48d10abd6ab0e3a638240996b79c8c4.
+Attachment is a complete-document format reference;retain the current compact
+content rather than restoring old placeholders/pseudocode. Inline sections and
+bibliography,copy figure and package ZIP. Local3page pixel/text identity proves
+unchanged content/layout;Overleaf account build NOT_RUN. No science/model or
+security/publication authorization follows. Preserve all historical outputs,
+flags,frozen conflict,ObjectiveC restrictions;no external upload/commit/push.
+
+## DEC-0188 - Accept approximately 1.5-page compact manuscript portion
+
+2026-10-20 accept EVID-0205 and receipt
+c16293a4ef6820661f0813af1ed8a30bb321bdd93fcf3c3cd8e60531f2799da0.
+17368 scoped checks/35 artifacts support document completion. Measured actual
+area1.484223823pages/2.968447646columns includes both columns of the three-panel
+figure andcaption;do not report the1.342198649 reading-flow-only span as total.
+FullPDF3pages,Optimization page2left toConclusion page3left;bib afterward.
+Preserve frontmatter,physical/security text,original bib/bbl and all oldfiles.
+Select J-U,p-unavailability,rho-D composite with57savedpoints;retain otherfigures
+outside compact manuscript. KeepP1/P2/P3 constraints,normalized DP/Greedy,
+offline caveat,three results paragraphs and76wordConclusion. No new numerical
+experiment or security correction follows from editorial compression. All
+model/security/frozen/cache/lifecycle/ObjectiveC limits remain;no production
+change,training/test/held-out,baseline/threshold approval,commit/push. STOP.
+
+## DEC-0187 - Accept internal-review IEEE revision; retain security blockers
+
+2026-10-20 accept EVID-0204 and immutable receipt
+9e181aa6ccaf14841d22884effb632df93318fb12461b63a68fd84d78a107bd7.
+47271 scoped checks/44 artifacts support saved-data and document completion
+only. Four final figures remain unchanged;6-page IEEEtran PDF compiles and
+all pages reviewed. Latest matching TeX unavailable: disclose reconstruction
+from authenticated PDF and older preamble,retain TBD/XXX and original files.
+
+Classify current hybrid MI/Holevo as INCONSISTENT_MEASUREMENT_PAIRING,while
+distinguishing consistent source/noise bookkeeping from security proof.
+Keep all historical numerical outputs conditional;propose measurement,
+correlation-domain and fading/outage corrections separately without applying
+them or running science. No automatic approval for follow-up simulations,
+production changes,security validation or publication promotion. Author must
+choose measurement,approve security assumptions,resolve frozen provenance,
+provide latest TeX/authors and confirm venue constraints. Keep current flags
+and Objective C USER_STOPPED. No training/test/held-out,baseline/threshold
+approval,external manuscript overwrite,commit or push. Deliver and STOP.
+
+## DEC-0186 - Accept final saved-data manuscript consolidation
+
+2026-10-20 accept EVID-0203 and immutable receipt
+893ad90809c64c8d2ed742c374bf02dda2169842b71b6cef499fa3bb00960a09.54866 arithmetic/provenance checks,
+42 bound artifacts;four requested final figures,English sectionIII A-F,
+VI discussion,statistical/source tables and supplementary recommendations complete.
+Select J/objective,p/SKR-unavailability,rho/objective-distance and ten-penalty
+K-D tradeoff. Source/figure selection is editorial,not a new scientific baseline
+or threshold approval. Keep Greedy diamond styling,zero values,true penalty order,
+pointwise CI provenance and numerical/security distinction. Do not call tested
+policies global physical Pareto frontiers or infer shaping gain from fixedsource.
+No optimizer/evaluator/cloud/RNG runs authorized or performed. Preserve all
+scientific/security/frozen/cache/lifecycle/ObjectiveC limits. No external edit,
+commit/push. Deliver and STOP.
+
+## DEC-0185 - Accept user-authorized Stage B cloud-only sensitivity
+
+Completion2026-10-20:accept EVID-0202 and immutable final receipt
+32e0c6abce8448806cecf7b22fee66e6a4a65d489d3894cb8a327d2e812083fe.47978 named checks,9 current tests,
+four vector/350dpiPNG figures and complete9600-record CSV/cloud/path outputs.
+Only three missing p profiles generated;existing masks/current-P1 data reused.
+Keep p/ell/rho and lambda sweeps exactly as preregistered;no favorable-scenario
+selection. Interpret temporal persistence against offline stationary selection,
+not as an online/cloud-prediction guarantee. Keep distinct empirical/nominalp,
+latent/Bernoulli correlation and scope-dependent effect spans. Deliver and STOP.
+No quantum/source/security/frozen/cache/baseline/threshold/lifecycle changes;
+all prior warnings and Objective C STOP remain. No external edits,commit/push.
+
+Historical execution authorization:
+
+2026-10-20 explicit user Stage B request supersedes the earlier Stage B stop
+only for controlled additional cloud scenarios and lightweight mobility.
+Accept EVID-0202 pre-run design; no need to regenerate archived scenarios or
+quantum/source values. Temporal grid comes from the existing archive,selected
+before current-P1 outcomes. Keep exact two lambdas and paired IDs. Fail closed
+on provenance,baseline,replay,cloud calibration or DP validation failures.
+No scientific/security/frozen/cache/baseline/threshold/lifecycle change. Preserve
+NOT_READY,UNVALIDATED_SECURITY_MODEL,frozen conflict and Objective C STOP.
+Proceed audit -> cloud -> compute -> aggregate -> plots -> independent verify.
+
+## DEC-0184 - Accept saved-data Stage A figure/report continuation only
+
+2026-10-20 accept EVID-0201 and receipt 5851b59219c96f5bbf307d57aaa6440bd2b4294743e6b4fc52b5aa7ab40f36ad.
+User clarified continuation of Stage A figures/report, not Stage B. Retain all
+original results byte-for-byte; add one supplementary paired-gap figure and
+Vietnamese/English discussion under the Stage A analysis child. Keep A1,A2,B,C
+as the four main-figure recommendations; no new simulations or scenario choices.
+319 checks pass. Authenticate old receipt members directly after the append-only
+extension; do not rewrite its exact-coverage verifier or immutable receipt.
+Report objective advantage separately from SKR/availability and offline information
+advantage. Preserve all security/lifecycle/frozen/Objective C limits. Stage B
+remains unauthorized; no new cloud/source/physical/optimizer work or external edit,
+commit/push. Deliver the completed report/figure continuation and STOP.
+
+## DEC-0183 - Execute explicitly approved Stage A sensitivity only
+
+Completion2026-10-20: accept EVID-0200 and immutable final receipt
+e6086960e7d0e84f28cda02d689da399930910dab1e378791a1bf6e8c14330af.
+7445 independent assertions,18 current tests,six vector/350dpiPNG figure pairs,
+15600 complete mission metrics and detailed Vietnamese interpretation complete.
+Recommend A1,A2,B,C as planned. Preserve method-specific observed-range rankings,
+J10 connectivity limitation,offline initial-position effect at zero speed,
+Nt normalization caveat and ell trend contrary to a presumed decreasing gain.
+No Stage B or additional cloud scenario authorized or executed. No further
+scientific work pending;deliver and STOP. All security/lifecycle/frozen/Objective C
+limits below remain;no external manuscript edit,commit/push.
+
+Historical authorization/preparation:
+
+2026-10-20 user explicitly approves Stage A and requests execution. Accept
+EVID-0200 preparation:18 current tests and complete3000-record/path baseline
+replay. Proceed with approved26 unique parameter configurations, archived masks,
+current P1 rates and two fixed absolute penalties. Use deterministic nested
+quadrant-balanced subsets, paired100 missions, prefix reoptimization and
+whole-mission bootstrap. Separate producer identities for mobility and plotting.
+No cloud generation or Stage B; no source/channel/security/cache/frozen changes,
+publication/final-test/held-out access or lifecycle/baseline/threshold promotion.
+Keep UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen conflict and Objective C STOP.
+Deliver six figure pairs, complete CSVs, Vietnamese interpretation and independent
+validation, then STOP. No external manuscript edit,commit or push.
+
+## DEC-0182 - Accept eight saved-data comparison figures; STOP
+
+2026-10-20 accept EVID-0199 for direct request 276fe769 and continuation:
+post-processing and plotting only, from the authenticated 100 missions and
+ten penalties. Deliver comparison_figures/comparison_report_vi.md, eight
+vector-PDF/350dpi-PNG pairs, data/caption/source-map files and the 737-assertion
+receipt. Reuse stored paired bootstrap intervals after input-hash and exact
+arithmetic checks; do not regenerate sources, clouds, SKR or trajectories.
+Use the exact saved representative lambda rather than its absent rounded
+value; disclose mission84 selection as post hoc. Keep raw negative Uniform
+values, lambda zero, K versus U and cumulative sums versus physical bits clear.
+Recommend Figures 2,4,5,8 without claiming these figures contain a Fixed44
+comparison. Publication-quality formatting does not change publication or
+security readiness. Keep finite-catalog/grid, offline-information, synthetic
+cloud and uncalibrated-energy limits, frozen conflict, UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED. No final-test,
+held-out, threshold/baseline promotion, external edit, commit or push. Deliver
+and STOP; any new scientific or optimization work requires a new request.
+
+## DEC-0181 - Accept saved-result mobility analysis only; STOP
+
+2026-10-19 direct request ff757cb9 authorizes EVID-0198: postprocess existing
+candidate/mission/path/cloud arrays,paired bootstrap,diagnostic plots and
+Vietnamese/English discussions in the requested analysis child directory.
+No optimization/evaluator/cloud/source rerun. Accept883analysis checks and
+145original hash matches;old24tests remain historical,not rerun evidence.
+Use existing protocol reference44 only as an explicitly reconstructed
+post-analysis fixed-location comparison,not operational baseline certification.
+Preserve prechosen primarylambda/mission0;mark84/9/0 examples as posthoc.
+SeparateKfromU,ratio-of-means frommeanper-mission ratios,and matchedVA from
+family-wiseVAselection. Uniform usable0 has no percentage shaping gain.
+No physicalsecurity/continuousoptimum/energy/forecast claim or readiness
+promotion. Frozen conflict,UNVALIDATED_SECURITY_MODEL,NOT_READY andObjectiveC
+USER_STOPPED stay. Deliver report/tables/figures/receipts,thenSTOP. Newperturbation,
+scenario,source,trajectory or held-out work requires a new explicit request.
+No external manuscript edit,commit/push.
+
+DEC-0180 completion (2026-10-19): accept EVID-0197 and the immutable final
+verification receipt for the explicitly approved manuscript numerical
+comparison. Full233-source P1,shared100mission clouds,P2/Greedy/DP and10
+penalties complete;24 tests and346 named saved-evidence checks pass. Deliver
+report_vi.md,11 figure pairs,CSV/NPZ and receipts; no rerun remains pending.
+Preserve mission0 DP/P2 overlap and Uniform nonpositive raw results. Do not
+infer continuous/global source optimality,validated homodyne security,propulsion
+energy performance or publication readiness. BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY;
+finite-grid DP optimum conditional on the supplied offline S. All existing
+security/lifecycle/frozen/ObjectiveC blockers stay. No automatic catalog/grid/
+seed/lambda expansion,AP/AO,training/test/held-out/publication access,external
+edits,commit/push. Deliver and STOP pending a new explicit request.
+
+## DEC-0180 - Implement the explicitly approved manuscript mobility plan
+
+2026-10-19 direct implementation request supersedes prior STOP only for the
+approved233-source P1, correlated complete-blockage P2/Greedy/DP, prescribed
+lambda sweep and figures in results/manuscript_mobility_p1_p2_p3_20261019/.
+Retain the normalized2D-MI/homodyne-Holevo numerical comparison, xi_ch.0186
+and VA=2nbar; no physical-security/global-continuous claim. Existing dirty
+checkout contains required untracked verified inputs; work in place using
+new files/namespace and a full prior-file manifest. No worktree relocation
+or commits. Preserve UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen discrepancy
+and ObjectiveC USER_STOPPED; no lifecycle threshold/baseline certification.
+
+DEC-0179 completion (2026-10-19): accept EVID-0196 for the explicitly requested
+manuscript-style zenith diagnostic only.31 angles/218 authenticated sources,
+6758 raw evaluations, reference/convergence/covariance/provenance checks and
+both final figures complete. Positive sampled regions Uniform44:2:60deg,
+fixed and optimized MB24:2:60deg; all extend to boundary60deg, no upper crossing
+observed. Do not invent a true maximum angle or continuous/global optimum;
+VA12 Uniform/VA8 MB are catalog boundaries. The mixed2D/homodyne functional
+remains a numerical comparison, not physical security. Keep production/cache/
+frozen/lifecycle/security/ObjectiveC stop unchanged. Deliver then STOP; no
+automatic source expansion, extended angle sweep, AP/AO, training/test access,
+publication/baseline/threshold promotion, external edits, commit or push.
+
+## DEC-0179 - Authorize isolated requested zenith-angle catalog comparison
+
+2026-10-19 direct request874a2276 supersedes DEC-0178 STOP solely for this
+zenith diagnostic: recompute full optical/fading channel each angle; normalized
+2D MI, per-component variance1+N, VA=2nbar, channel-only xi=.0186 and unchanged
+homodyne nu3. Select raw maxima over authenticated Uniform36/MB182 catalogs;
+fixed MB source parameters remain fixed. Numerical positive-region brackets
+are diagnostics, not lifecycle threshold/baseline certification. No new source
+AP/AO needed, no ObjectiveC restart or production/frozen/cache modification,
+training/test-data/final-test/held-out/publication evaluation, commit/push.
+Keep UNVALIDATED_SECURITY_MODEL and NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+
+DEC-0178 completion (2026-10-19): accept EVID-0195 for the requested Uniform
+numerical comparison only. Best exact-tested(.0475) remains raw negative
+-4.850670994797474e-5; all36 tested values negative. MB fixed reference and
+optics unchanged; gap .00014516470732312103 bits/use, no percent improvement.
+Source/full2D-kernel/covariance/integrity checks pass within recorded scope.
+Do not infer a continuous/global optimum or operational trusted-homodyne key
+rate. No source/evaluator/model promotion follows. Deliver report/table/figures,
+STOP; no automatic MB optimization, source expansion or publication/lifecycle work.
+
+## DEC-0178 - Authorize requested isolated Uniform variance search
+
+2026-10-19 direct user task6b0f6694 supersedes the prior one-point STOP only
+for Uniform VA search with exact source moments, fixed channel/2D MI/homodyne
+Holevo, fixed MB comparison and requested diagnostic figures. Adopt user-explicit
+VA=2nbar for this comparison; no source-unit ambiguity is silently resolved in
+production. Reuse authenticated Uniform sources, generate absent Uniform sources
+separately, retain all negative raw values and best-tested-only scope.
+Accept EVID-0195 preparation; source convergence/parity and final numerical/
+artifact validation are pending. Isolated equivalent diagonal-system arithmetic
+must pass source controls before completion; do not change precision/support.
+No MB optimization, production source/evaluator/config/frozen/cache edits,
+baseline/threshold certification, training/test-data/final-test/held-out/
+publication evaluation, ObjectiveC restart, external edit, commit or push.
+No global optimum or homodyne security proof follows from this diagnostic.
+
+## DEC-0177 - Isolated requested homodyne-style single-point comparison only
+
+2026-10-19 user task fa11cb3c supersedes the previous STOP solely for one
+manuscript comparison at(.165,5.475), physical xi_ch=.0186, ideal detector.
+Accept EVID-0194 as numerical evidence for the explicitly disclosed cache
+VA=2nbar convention, normalized2D MI and unchanged homodyne nu3. Positive
+hybrid raw K is not a trusted-homodyne security conclusion; scalar MI yields
+negative raw K. Printed reference values remain unreproduced within their
+display precision. Retain PDF/source VA and MB notation conflicts; do not
+claim literal PDF compliance, silently relabel Cw, tune channel coefficients
+or promote security/lifecycle status. HV/Gd closure and full-Gram versus
+unspecified finite-Fock convention are identified separately.
+
+Only new diagnostic producer/artifacts/report and task-state documentation.
+Historical evaluators/scientific source/security functional/config/cache/frozen
+specs remain unchanged. No optimization or new Cw/AP/AO, training/test-data/
+final-test/held-out/publication work, baseline/threshold approval, ObjectiveC
+restart, external manuscript edit, commit/push. Deliver one-point evidence,
+STOP. Any source-unit/measurement/model correction requires a separate task.
+
 ## DEC-0162 - Add only a separate manuscript reproduction mode; STOP after tests
 
 2026-10-12 explicit attachment aae63626-108b-440d-9b21-ec9a8b92595f plus

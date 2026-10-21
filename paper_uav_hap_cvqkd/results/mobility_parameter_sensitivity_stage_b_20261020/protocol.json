@@ -1,0 +1,460 @@
+{
+  "settings": {
+    "schema": "mobility-cloud-sensitivity-stage-b-v1",
+    "stage": "B",
+    "reference_directory": "results/manuscript_mobility_p1_p2_p3_20261019",
+    "stage_a_directory": "results/mobility_parameter_sensitivity_20261020",
+    "archive_directory": "results/binary_cloud_skr_20261015",
+    "output_directory": "results/mobility_parameter_sensitivity_stage_b_20261020",
+    "probabilities": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8
+    ],
+    "spatial_lengths_m": [
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "temporal_rhos": [
+      0,
+      0.3,
+      0.6,
+      0.9,
+      0.98
+    ],
+    "defaults": {
+      "probability": 0.4,
+      "spatial_length_m": 250,
+      "temporal_rho": 0.9
+    },
+    "missions": 100,
+    "positions": 100,
+    "slots": 30,
+    "slot_duration_s": 20,
+    "max_speed_m_per_s": 15,
+    "reference_distance_m": 1000,
+    "lambda_values": [
+      0,
+      9.468026677248516e-06
+    ],
+    "cloud_seed": 20261015,
+    "rng": "PCG64 SeedSequence([20261015, realization_id]); common innovations across all configurations",
+    "new_cloud_parameters": [
+      [
+        0.3,
+        250,
+        0.9
+      ],
+      [
+        0.5,
+        250,
+        0.9
+      ],
+      [
+        0.7,
+        250,
+        0.9
+      ]
+    ],
+    "availability_rule": "S > 0; no engineering threshold",
+    "bootstrap": {
+      "resamples": 20000,
+      "seed": 20261020,
+      "reuse_stage_a_counts": true,
+      "unit": "whole paired mission",
+      "interval": "pointwise percentile 95%"
+    },
+    "correlation_diagnostic": {
+      "missions": 100,
+      "slots": 30,
+      "tolerance": "5 times mission-cluster standard error + 1e-10; fixed before outcomes"
+    },
+    "absolute_tolerance": 1e-12,
+    "relative_tolerance": 1e-12,
+    "new_cloud_generation_allowed": true,
+    "new_physical_skr_allowed": false,
+    "security_status": "UNVALIDATED_SECURITY_MODEL",
+    "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+  },
+  "cases": [
+    {
+      "case_id": "base",
+      "parameters": [
+        0.4,
+        250,
+        0.9
+      ],
+      "archive_id": 0,
+      "stage_a_case_id": "base"
+    },
+    {
+      "case_id": "probability_0p1",
+      "parameters": [
+        0.1,
+        250,
+        0.9
+      ],
+      "archive_id": 2,
+      "stage_a_case_id": "probability_0p1"
+    },
+    {
+      "case_id": "probability_0p2",
+      "parameters": [
+        0.2,
+        250,
+        0.9
+      ],
+      "archive_id": 3,
+      "stage_a_case_id": "probability_0p2"
+    },
+    {
+      "case_id": "probability_0p3",
+      "parameters": [
+        0.3,
+        250,
+        0.9
+      ],
+      "archive_id": null,
+      "stage_a_case_id": null
+    },
+    {
+      "case_id": "probability_0p5",
+      "parameters": [
+        0.5,
+        250,
+        0.9
+      ],
+      "archive_id": null,
+      "stage_a_case_id": null
+    },
+    {
+      "case_id": "probability_0p6",
+      "parameters": [
+        0.6,
+        250,
+        0.9
+      ],
+      "archive_id": 4,
+      "stage_a_case_id": "probability_0p6"
+    },
+    {
+      "case_id": "probability_0p7",
+      "parameters": [
+        0.7,
+        250,
+        0.9
+      ],
+      "archive_id": null,
+      "stage_a_case_id": null
+    },
+    {
+      "case_id": "probability_0p8",
+      "parameters": [
+        0.8,
+        250,
+        0.9
+      ],
+      "archive_id": 5,
+      "stage_a_case_id": "probability_0p8"
+    },
+    {
+      "case_id": "spatial_50",
+      "parameters": [
+        0.4,
+        50,
+        0.9
+      ],
+      "archive_id": 8,
+      "stage_a_case_id": "spatial_50"
+    },
+    {
+      "case_id": "spatial_100",
+      "parameters": [
+        0.4,
+        100,
+        0.9
+      ],
+      "archive_id": 9,
+      "stage_a_case_id": "spatial_100"
+    },
+    {
+      "case_id": "spatial_500",
+      "parameters": [
+        0.4,
+        500,
+        0.9
+      ],
+      "archive_id": 10,
+      "stage_a_case_id": "spatial_500"
+    },
+    {
+      "case_id": "spatial_1000",
+      "parameters": [
+        0.4,
+        1000,
+        0.9
+      ],
+      "archive_id": 11,
+      "stage_a_case_id": "spatial_1000"
+    },
+    {
+      "case_id": "temporal_0",
+      "parameters": [
+        0.4,
+        250,
+        0
+      ],
+      "archive_id": 12,
+      "stage_a_case_id": null
+    },
+    {
+      "case_id": "temporal_0p3",
+      "parameters": [
+        0.4,
+        250,
+        0.3
+      ],
+      "archive_id": 13,
+      "stage_a_case_id": null
+    },
+    {
+      "case_id": "temporal_0p6",
+      "parameters": [
+        0.4,
+        250,
+        0.6
+      ],
+      "archive_id": 14,
+      "stage_a_case_id": null
+    },
+    {
+      "case_id": "temporal_0p98",
+      "parameters": [
+        0.4,
+        250,
+        0.98
+      ],
+      "archive_id": 15,
+      "stage_a_case_id": null
+    }
+  ],
+  "memberships": [
+    {
+      "axis": "probability",
+      "value": 0.1,
+      "case_id": "probability_0p1"
+    },
+    {
+      "axis": "probability",
+      "value": 0.2,
+      "case_id": "probability_0p2"
+    },
+    {
+      "axis": "probability",
+      "value": 0.3,
+      "case_id": "probability_0p3"
+    },
+    {
+      "axis": "probability",
+      "value": 0.4,
+      "case_id": "base"
+    },
+    {
+      "axis": "probability",
+      "value": 0.5,
+      "case_id": "probability_0p5"
+    },
+    {
+      "axis": "probability",
+      "value": 0.6,
+      "case_id": "probability_0p6"
+    },
+    {
+      "axis": "probability",
+      "value": 0.7,
+      "case_id": "probability_0p7"
+    },
+    {
+      "axis": "probability",
+      "value": 0.8,
+      "case_id": "probability_0p8"
+    },
+    {
+      "axis": "spatial",
+      "value": 50,
+      "case_id": "spatial_50"
+    },
+    {
+      "axis": "spatial",
+      "value": 100,
+      "case_id": "spatial_100"
+    },
+    {
+      "axis": "spatial",
+      "value": 250,
+      "case_id": "base"
+    },
+    {
+      "axis": "spatial",
+      "value": 500,
+      "case_id": "spatial_500"
+    },
+    {
+      "axis": "spatial",
+      "value": 1000,
+      "case_id": "spatial_1000"
+    },
+    {
+      "axis": "temporal",
+      "value": 0,
+      "case_id": "temporal_0"
+    },
+    {
+      "axis": "temporal",
+      "value": 0.3,
+      "case_id": "temporal_0p3"
+    },
+    {
+      "axis": "temporal",
+      "value": 0.6,
+      "case_id": "temporal_0p6"
+    },
+    {
+      "axis": "temporal",
+      "value": 0.9,
+      "case_id": "base"
+    },
+    {
+      "axis": "temporal",
+      "value": 0.98,
+      "case_id": "temporal_0p98"
+    }
+  ],
+  "parent_protocol": {
+    "schema": "manuscript-mobility-v1",
+    "scientific_model": "manuscript_2d_mi_homodyne_holevo",
+    "scope": "SYNTHETIC_MANUSCRIPT_NUMERICAL_COMPARISON",
+    "reference_directory": "results/skr_vs_zenith_angle_20261019",
+    "geometry": {
+      "h_hap_m": 20000,
+      "h_uav_m": 1000,
+      "grid_side_m": 1000,
+      "grid_cells_per_side": 10,
+      "hap_horizontal_m": [
+        11419.65511459133,
+        450
+      ],
+      "reference_position_index": 44,
+      "coordinate_origin": "Synthetic repository embedding; cell centers, x increases first; HAP azimuth is not measured."
+    },
+    "optical": {
+      "wavelength_m": 1.55e-06,
+      "full_divergence_rad": 0.000233,
+      "receiver_diameter_m": 0.08,
+      "h_HAP_m": 20000,
+      "h_UAV_m": 1000,
+      "jitter_rad": 1.561e-05,
+      "sigma_h_m": 1,
+      "boresight_m": 0,
+      "sigma_AoA_rad": 0.0015,
+      "FOV_half_angle_rad": 0.00625,
+      "tau_zen": 0.92,
+      "wind_m_s": 21,
+      "Cn2_ground": 1e-14
+    },
+    "security": {
+      "beta": 0.95,
+      "xi_ch": 0.0186,
+      "R": 1,
+      "xi_det": 0,
+      "normalization": "VA=2*nbar"
+    },
+    "numerical": {
+      "GH_orders": [
+        16,
+        32,
+        64
+      ],
+      "GH_absolute_tolerance": 2e-13,
+      "entropy_digits": 80,
+      "DP_absolute_tolerance": 1e-12,
+      "DP_relative_tolerance": 1e-12
+    },
+    "source_rosters": {
+      "MB": {
+        "path": "results/skr_vs_distance_effective_channel_no_fading_noise_cache_20261014/source_roster.csv",
+        "sha256": "84e86497adca0a730ef719fe812fd957cb9729c5c8a3bd4da61f0498c97e3859",
+        "count": 197
+      },
+      "Uniform": {
+        "path": "results/uniform_manuscript_2d_optimization_20261019/all_candidates.csv",
+        "sha256": "0cc83786433b93db88d9a5b588fc7e629ad978bdad26c1fd41e24a88794d8711",
+        "count": 36
+      }
+    },
+    "cloud": {
+      "model": "stationary_gaussian_copula_ar1_complete_blockage",
+      "probability": 0.4,
+      "correlation_length_m": 250,
+      "temporal_rho": 0.9,
+      "seed": 20261015,
+      "realizations": 100,
+      "archive_directory": "results/binary_cloud_skr_20261015",
+      "scenario_id": 0,
+      "parameter_origin": "Approved synthetic repository scenario; not measured meteorology."
+    },
+    "mission": {
+      "slots": 30,
+      "slot_duration_s": 20,
+      "max_speed_m_per_s": 15
+    },
+    "optimization": {
+      "reference_distance_m": 1000,
+      "initial_position_freely_selectable": true,
+      "deployment_cost_included": false,
+      "lambda_multipliers": [
+        0,
+        0.0001,
+        0.0003,
+        0.001,
+        0.003,
+        0.01,
+        0.03,
+        0.1,
+        0.3,
+        1
+      ],
+      "representative_multiplier": 0.003,
+      "lambda_high_rule": "2*max(K_star)*D_ref/d_min",
+      "representative_realization_id": 0,
+      "channel_use_rate_per_s": null
+    },
+    "manuscript_sha256": "c46a74868d8ebbe387952e764bf31b71986995964c1e15e751dccb7e4aeb1557",
+    "security_status": "UNVALIDATED_SECURITY_MODEL",
+    "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+  },
+  "equations": {
+    "S": "(1-C)*K_star",
+    "U": "mean(S_path)-lambda*D/1000",
+    "Greedy": "S_now-Nt*lambda*d/1000",
+    "latent": "Z_t=rho*Z_(t-1)+sqrt(1-rho^2)*epsilon_t; Cov(epsilon)=exp(-d/ell)",
+    "cloud": "C=(Z<Phi_inverse(p)); True=blocked"
+  },
+  "scope": "User-approved Stage B; cloud-only additions and lightweight mobility; no quantum/source recalculation",
+  "temporal_design": "Existing archive grid0,.3,.6,.9,.98; treats persistence relative to mission600s without presupposing trend",
+  "preregistration": "Parameters,seed,IDs,penalties,figure roles and tolerances fixed before Stage B outcomes",
+  "figures": [
+    "probability K/availability/paired-U-gap",
+    "spatial K/availability/paired-U-gap",
+    "temporal K/availability/paired-U-gap",
+    "travel distance at both penalties"
+  ]
+}

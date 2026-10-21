@@ -1,0 +1,960 @@
+{
+  "representative_lambda": 9.468026677248516e-06,
+  "observations": {
+    "J": {
+      "values": [
+        10,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "methods": {
+        "Stationary": {
+          "K": {
+            "first": 0.00013634830245401293,
+            "last": 0.00015024281866088824,
+            "minimum": 0.00013634830245401293,
+            "maximum": 0.00015024281866088824,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.00013634830245401293,
+            "last": 0.00015024281866088824,
+            "minimum": 0.00013634830245401293,
+            "maximum": 0.00015024281866088824,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 0.0,
+            "last": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "argmin": 10,
+            "argmax": 10,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 5
+          },
+          "availability": {
+            "first": 0.9053333333333333,
+            "last": 0.9776666666666667,
+            "minimum": 0.9053333333333333,
+            "maximum": 0.9776666666666667,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          }
+        },
+        "Greedy": {
+          "K": {
+            "first": 0.00010916583894820679,
+            "last": 0.00015238791176394823,
+            "minimum": 0.00010916583894820679,
+            "maximum": 0.00015238791176394823,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.00010780007815114753,
+            "last": 0.00014831088306140896,
+            "minimum": 0.00010780007815114753,
+            "maximum": 0.00014831088306140896,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 144.24978336205572,
+            "last": 430.61018325352387,
+            "minimum": 144.24978336205572,
+            "maximum": 566.3418216932434,
+            "argmin": 10,
+            "argmax": 20,
+            "increasing_segments": 1,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 0.7043333333333333,
+            "last": 0.9873333333333334,
+            "minimum": 0.7043333333333333,
+            "maximum": 0.9873333333333334,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          }
+        },
+        "DP": {
+          "K": {
+            "first": 0.0001403426836905077,
+            "last": 0.00015649535266182735,
+            "minimum": 0.0001403426836905077,
+            "maximum": 0.00015649535266182735,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.0001390037025169202,
+            "last": 0.00015486275251456137,
+            "minimum": 0.0001390037025169202,
+            "maximum": 0.00015486275251456137,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 141.4213562373095,
+            "last": 172.4329897790698,
+            "minimum": 141.4213562373095,
+            "maximum": 353.5622598670915,
+            "argmin": 10,
+            "argmax": 20,
+            "increasing_segments": 1,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 0.9259999999999999,
+            "last": 0.9990000000000001,
+            "minimum": 0.9259999999999999,
+            "maximum": 0.9990000000000001,
+            "argmin": 10,
+            "argmax": 100,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          }
+        }
+      },
+      "DP_mean_K_ge_Greedy_points": 6,
+      "DP_mean_availability_ge_Greedy_points": 6,
+      "positive_paired_U_CI_vs_Stationary": [
+        10,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "max_relative_U_gain_vs_Stationary": 5.374442627933166,
+      "positive_paired_U_CI_vs_Greedy": [
+        10,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "max_relative_U_gain_vs_Greedy": 28.945827221035728
+    },
+    "speed": {
+      "values": [
+        0,
+        2.5,
+        5,
+        7.5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "methods": {
+        "Stationary": {
+          "K": {
+            "first": 0.00015024281866088824,
+            "last": 0.00015024281866088824,
+            "minimum": 0.00015024281866088824,
+            "maximum": 0.00015024281866088824,
+            "argmin": 0,
+            "argmax": 0,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 7
+          },
+          "U": {
+            "first": 0.00015024281866088824,
+            "last": 0.00015024281866088824,
+            "minimum": 0.00015024281866088824,
+            "maximum": 0.00015024281866088824,
+            "argmin": 0,
+            "argmax": 0,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 7
+          },
+          "D": {
+            "first": 0.0,
+            "last": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "argmin": 0,
+            "argmax": 0,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 7
+          },
+          "availability": {
+            "first": 0.9776666666666667,
+            "last": 0.9776666666666667,
+            "minimum": 0.9776666666666667,
+            "maximum": 0.9776666666666667,
+            "argmin": 0,
+            "argmax": 0,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 7
+          }
+        },
+        "Greedy": {
+          "K": {
+            "first": 9.944699223675009e-05,
+            "last": 0.00015397238726128106,
+            "minimum": 9.944699223675009e-05,
+            "maximum": 0.00015397238726128106,
+            "argmin": 0,
+            "argmax": 25,
+            "increasing_segments": 6,
+            "decreasing_segments": 0,
+            "tied_segments": 1
+          },
+          "U": {
+            "first": 9.944699223675009e-05,
+            "last": 0.0001496623314969762,
+            "minimum": 9.944699223675009e-05,
+            "maximum": 0.0001496623314969762,
+            "argmin": 0,
+            "argmax": 25,
+            "increasing_segments": 6,
+            "decreasing_segments": 0,
+            "tied_segments": 1
+          },
+          "D": {
+            "first": 0.0,
+            "last": 455.22218211127665,
+            "minimum": 0.0,
+            "maximum": 455.22218211127665,
+            "argmin": 0,
+            "argmax": 25,
+            "increasing_segments": 6,
+            "decreasing_segments": 0,
+            "tied_segments": 1
+          },
+          "availability": {
+            "first": 0.6313333333333333,
+            "last": 0.9983333333333334,
+            "minimum": 0.6313333333333333,
+            "maximum": 0.9983333333333334,
+            "argmin": 0,
+            "argmax": 25,
+            "increasing_segments": 6,
+            "decreasing_segments": 0,
+            "tied_segments": 1
+          }
+        },
+        "DP": {
+          "K": {
+            "first": 0.00015024281866088824,
+            "last": 0.00015658451175742767,
+            "minimum": 0.00015024281866088824,
+            "maximum": 0.00015658451175742767,
+            "argmin": 0,
+            "argmax": 25,
+            "increasing_segments": 6,
+            "decreasing_segments": 0,
+            "tied_segments": 1
+          },
+          "U": {
+            "first": 0.00015024281866088824,
+            "last": 0.00015491192383246732,
+            "minimum": 0.00015024281866088824,
+            "maximum": 0.00015491192383246732,
+            "argmin": 0,
+            "argmax": 25,
+            "increasing_segments": 6,
+            "decreasing_segments": 0,
+            "tied_segments": 1
+          },
+          "D": {
+            "first": 0.0,
+            "last": 176.65644404863775,
+            "minimum": 0.0,
+            "maximum": 177.33578564143315,
+            "argmin": 0,
+            "argmax": 20,
+            "increasing_segments": 5,
+            "decreasing_segments": 1,
+            "tied_segments": 1
+          },
+          "availability": {
+            "first": 0.9776666666666667,
+            "last": 0.9993333333333334,
+            "minimum": 0.9776666666666667,
+            "maximum": 0.9993333333333334,
+            "argmin": 0,
+            "argmax": 20,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 2
+          }
+        }
+      },
+      "DP_mean_K_ge_Greedy_points": 8,
+      "DP_mean_availability_ge_Greedy_points": 8,
+      "positive_paired_U_CI_vs_Stationary": [
+        5,
+        7.5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "max_relative_U_gain_vs_Stationary": 3.1077060542359063,
+      "positive_paired_U_CI_vs_Greedy": [
+        0,
+        2.5,
+        5,
+        7.5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "max_relative_U_gain_vs_Greedy": 51.07829335170866
+    },
+    "horizon": {
+      "values": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        30
+      ],
+      "methods": {
+        "Stationary": {
+          "K": {
+            "first": 0.0001569904144042524,
+            "last": 0.00015024281866088824,
+            "minimum": 0.00015024281866088824,
+            "maximum": 0.0001569904144042524,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.0001569904144042524,
+            "last": 0.00015024281866088824,
+            "minimum": 0.00015024281866088824,
+            "maximum": 0.0001569904144042524,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 0.0,
+            "last": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "argmin": 5,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 5
+          },
+          "availability": {
+            "first": 1.0,
+            "last": 0.9776666666666667,
+            "minimum": 0.9776666666666667,
+            "maximum": 1.0,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          }
+        },
+        "Greedy": {
+          "K": {
+            "first": 0.000155241133904144,
+            "last": 0.00015238791176394823,
+            "minimum": 0.00015238791176394823,
+            "maximum": 0.000155241133904144,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.00015453921641674038,
+            "last": 0.00014831088306140896,
+            "minimum": 0.00014831088306140896,
+            "maximum": 0.00015453921641674038,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 74.13556291411145,
+            "last": 430.61018325352387,
+            "minimum": 74.13556291411145,
+            "maximum": 430.61018325352387,
+            "argmin": 5,
+            "argmax": 30,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 0.988,
+            "last": 0.9873333333333334,
+            "minimum": 0.9846666666666667,
+            "maximum": 0.988,
+            "argmin": 15,
+            "argmax": 5,
+            "increasing_segments": 3,
+            "decreasing_segments": 2,
+            "tied_segments": 0
+          }
+        },
+        "DP": {
+          "K": {
+            "first": 0.00015725229731994626,
+            "last": 0.00015649535266182735,
+            "minimum": 0.00015649535266182735,
+            "maximum": 0.00015725229731994626,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.000157134148573412,
+            "last": 0.00015486275251456137,
+            "minimum": 0.00015486275251456137,
+            "maximum": 0.000157134148573412,
+            "argmin": 30,
+            "argmax": 5,
+            "increasing_segments": 0,
+            "decreasing_segments": 5,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 12.478708664619075,
+            "last": 172.4329897790698,
+            "minimum": 12.478708664619075,
+            "maximum": 172.4329897790698,
+            "argmin": 5,
+            "argmax": 30,
+            "increasing_segments": 5,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 1.0,
+            "last": 0.9990000000000001,
+            "minimum": 0.9990000000000001,
+            "maximum": 1.0,
+            "argmin": 20,
+            "argmax": 5,
+            "increasing_segments": 1,
+            "decreasing_segments": 3,
+            "tied_segments": 1
+          }
+        }
+      },
+      "DP_mean_K_ge_Greedy_points": 6,
+      "DP_mean_availability_ge_Greedy_points": 6,
+      "positive_paired_U_CI_vs_Stationary": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        30
+      ],
+      "max_relative_U_gain_vs_Stationary": 3.074978155262622,
+      "positive_paired_U_CI_vs_Greedy": [
+        5,
+        10,
+        15,
+        20,
+        25,
+        30
+      ],
+      "max_relative_U_gain_vs_Greedy": 4.4176592559559955
+    },
+    "probability": {
+      "values": [
+        0.1,
+        0.2,
+        0.4,
+        0.6,
+        0.8
+      ],
+      "methods": {
+        "Stationary": {
+          "K": {
+            "first": 0.0001574946817413303,
+            "last": 0.00010894075223623809,
+            "minimum": 0.00010894075223623809,
+            "maximum": 0.0001574946817413303,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.0001574946817413303,
+            "last": 0.00010894075223623809,
+            "minimum": 0.00010894075223623809,
+            "maximum": 0.0001574946817413303,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 0.0,
+            "last": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "argmin": 0.1,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 4
+          },
+          "availability": {
+            "first": 1.0,
+            "last": 0.754,
+            "minimum": 0.754,
+            "maximum": 1.0,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          }
+        },
+        "Greedy": {
+          "K": {
+            "first": 0.00015675060387991758,
+            "last": 0.0001247981449148517,
+            "minimum": 0.0001247981449148517,
+            "maximum": 0.00015675060387991758,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.00015581596974123137,
+            "last": 0.00011748235185147748,
+            "minimum": 0.00011748235185147748,
+            "maximum": 0.00015581596974123137,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 98.71477664211886,
+            "last": 772.6840357298468,
+            "minimum": 98.71477664211886,
+            "maximum": 772.6840357298468,
+            "argmin": 0.1,
+            "argmax": 0.8,
+            "increasing_segments": 4,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 0.9993333333333334,
+            "last": 0.8346666666666667,
+            "minimum": 0.8346666666666667,
+            "maximum": 0.9993333333333334,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 3,
+            "tied_segments": 1
+          }
+        },
+        "DP": {
+          "K": {
+            "first": 0.00015766270530474688,
+            "last": 0.00014347523411099332,
+            "minimum": 0.00014347523411099332,
+            "maximum": 0.00015766270530474688,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.00015760589714468342,
+            "last": 0.00013622130907601788,
+            "minimum": 0.00013622130907601788,
+            "maximum": 0.00015760589714468342,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 6.0,
+            "last": 766.1496193717417,
+            "minimum": 6.0,
+            "maximum": 766.1496193717417,
+            "argmin": 0.1,
+            "argmax": 0.8,
+            "increasing_segments": 4,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 1.0,
+            "last": 0.9593333333333334,
+            "minimum": 0.9593333333333334,
+            "maximum": 1.0,
+            "argmin": 0.8,
+            "argmax": 0.1,
+            "increasing_segments": 0,
+            "decreasing_segments": 3,
+            "tied_segments": 1
+          }
+        }
+      },
+      "DP_mean_K_ge_Greedy_points": 5,
+      "DP_mean_availability_ge_Greedy_points": 5,
+      "positive_paired_U_CI_vs_Stationary": [
+        0.1,
+        0.2,
+        0.4,
+        0.6,
+        0.8
+      ],
+      "max_relative_U_gain_vs_Stationary": 25.041645371258234,
+      "positive_paired_U_CI_vs_Greedy": [
+        0.1,
+        0.2,
+        0.4,
+        0.6,
+        0.8
+      ],
+      "max_relative_U_gain_vs_Greedy": 15.950444410774493
+    },
+    "spatial": {
+      "values": [
+        50,
+        100,
+        250,
+        500,
+        1000
+      ],
+      "methods": {
+        "Stationary": {
+          "K": {
+            "first": 0.0001544270498676596,
+            "last": 0.0001360686411208204,
+            "minimum": 0.0001360686411208204,
+            "maximum": 0.0001544270498676596,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.0001544270498676596,
+            "last": 0.0001360686411208204,
+            "minimum": 0.0001360686411208204,
+            "maximum": 0.0001544270498676596,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 0.0,
+            "last": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "argmin": 50,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 0,
+            "tied_segments": 4
+          },
+          "availability": {
+            "first": 0.993,
+            "last": 0.9086666666666667,
+            "minimum": 0.9086666666666667,
+            "maximum": 0.993,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          }
+        },
+        "Greedy": {
+          "K": {
+            "first": 0.0001561497096830946,
+            "last": 0.00013639388560995221,
+            "minimum": 0.00013639388560995221,
+            "maximum": 0.0001561497096830946,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.00015351855886604774,
+            "last": 0.0001318226668204344,
+            "minimum": 0.0001318226668204344,
+            "maximum": 0.00015351855886604774,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 277.8985428261924,
+            "last": 482.80586286288747,
+            "minimum": 277.8985428261924,
+            "maximum": 482.80586286288747,
+            "argmin": 50,
+            "argmax": 1000,
+            "increasing_segments": 4,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 1.0,
+            "last": 0.8943333333333334,
+            "minimum": 0.8943333333333334,
+            "maximum": 1.0,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          }
+        },
+        "DP": {
+          "K": {
+            "first": 0.00015736845265417384,
+            "last": 0.0001478058178657366,
+            "minimum": 0.0001478058178657366,
+            "maximum": 0.00015736845265417384,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "U": {
+            "first": 0.0001566799249785061,
+            "last": 0.00014417695222728485,
+            "minimum": 0.00014417695222728485,
+            "maximum": 0.0001566799249785061,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 4,
+            "tied_segments": 0
+          },
+          "D": {
+            "first": 72.72134935173837,
+            "last": 383.2758147135188,
+            "minimum": 72.72134935173837,
+            "maximum": 383.2758147135188,
+            "argmin": 50,
+            "argmax": 1000,
+            "increasing_segments": 4,
+            "decreasing_segments": 0,
+            "tied_segments": 0
+          },
+          "availability": {
+            "first": 1.0,
+            "last": 0.9600000000000002,
+            "minimum": 0.9600000000000002,
+            "maximum": 1.0,
+            "argmin": 1000,
+            "argmax": 50,
+            "increasing_segments": 0,
+            "decreasing_segments": 3,
+            "tied_segments": 1
+          }
+        }
+      },
+      "DP_mean_K_ge_Greedy_points": 5,
+      "DP_mean_availability_ge_Greedy_points": 5,
+      "positive_paired_U_CI_vs_Stationary": [
+        50,
+        100,
+        250,
+        500,
+        1000
+      ],
+      "max_relative_U_gain_vs_Stationary": 5.958985876301051,
+      "positive_paired_U_CI_vs_Greedy": [
+        50,
+        100,
+        250,
+        500,
+        1000
+      ],
+      "max_relative_U_gain_vs_Greedy": 9.371897644643417
+    }
+  },
+  "strongest_observed_spans": {
+    "SKR": {
+      "axis": "J",
+      "method": "DP",
+      "metric": "K",
+      "minimum": 0.0001403426836905077,
+      "maximum": 0.00015649535266182735,
+      "span": 1.6152668971319655e-05,
+      "argmin": 10.0,
+      "argmax": 100.0,
+      "endpoint_change": 1.6152668971319655e-05,
+      "baseline_mean": 0.00015649535266182735,
+      "span_percent_of_default": 10.32150073250044
+    },
+    "availability": {
+      "axis": "J",
+      "method": "DP",
+      "metric": "availability",
+      "minimum": 0.9259999999999999,
+      "maximum": 0.9990000000000001,
+      "span": 0.07300000000000018,
+      "argmin": 10.0,
+      "argmax": 100.0,
+      "endpoint_change": 0.07300000000000018,
+      "baseline_mean": 0.9990000000000001,
+      "span_percent_of_default": 7.307307307307324
+    },
+    "mobility_gain_vs_P2": {
+      "axis": "probability",
+      "method": "DP-minus-Stationary",
+      "metric": "U",
+      "minimum": 1.1121540335308239e-07,
+      "maximum": 2.7280556839779815e-05,
+      "span": 2.7169341436426733e-05,
+      "argmin": 0.1,
+      "argmax": 0.8,
+      "endpoint_change": 2.7169341436426733e-05,
+      "baseline_mean": 4.6199338536731476e-06,
+      "span_percent_of_default": 588.0894033758804
+    },
+    "gain_vs_Greedy": {
+      "axis": "speed",
+      "method": "DP-minus-Greedy",
+      "metric": "U",
+      "minimum": 5.2495923354911355e-06,
+      "maximum": 5.079582642413815e-05,
+      "span": 4.554623408864701e-05,
+      "argmin": 25.0,
+      "argmax": 0.0,
+      "endpoint_change": -4.554623408864701e-05,
+      "baseline_mean": 6.551869453152406e-06,
+      "span_percent_of_default": 695.1639438837205
+    }
+  },
+  "method_specific_strongest_spans": {
+    "Stationary": {
+      "K": {
+        "axis": "probability",
+        "span": 4.8553929505092206e-05,
+        "minimum": 0.00010894075223623809,
+        "maximum": 0.0001574946817413303
+      },
+      "availability": {
+        "axis": "probability",
+        "span": 0.246,
+        "minimum": 0.754,
+        "maximum": 1.0
+      }
+    },
+    "Greedy": {
+      "K": {
+        "axis": "speed",
+        "span": 5.452539502453097e-05,
+        "minimum": 9.944699223675009e-05,
+        "maximum": 0.00015397238726128106
+      },
+      "availability": {
+        "axis": "speed",
+        "span": 0.3670000000000001,
+        "minimum": 0.6313333333333333,
+        "maximum": 0.9983333333333334
+      }
+    },
+    "DP": {
+      "K": {
+        "axis": "J",
+        "span": 1.6152668971319655e-05,
+        "minimum": 0.0001403426836905077,
+        "maximum": 0.00015649535266182735
+      },
+      "availability": {
+        "axis": "J",
+        "span": 0.07300000000000018,
+        "minimum": 0.9259999999999999,
+        "maximum": 0.9990000000000001
+      }
+    }
+  },
+  "interpretation": "Descriptive spans over different approved domains, not universal normalized or causal parameter sensitivities",
+  "recommended_figures": [
+    "fig_A1_positions_objective_skr",
+    "fig_A2_positions_unavailability",
+    "fig_B_speed_sensitivity",
+    "fig_C_cloud_probability_sensitivity"
+  ],
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

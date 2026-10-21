@@ -1,0 +1,901 @@
+# CODEX PLAN MODE — Implement P1, P2, and P3 for Mobility-Aware HAP–UAV CV-QKD
+
+## 1. Objective
+
+Read the attached manuscript:
+
+**"Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP–UAV CV-QKD"**
+
+Inspect the existing research repository and prepare a complete implementation plan for the three optimization problems defined in the manuscript:
+
+- **P1:** Source optimization at each candidate UAV location.
+- **P2:** Optimal stationary UAV positioning under cloud blockage.
+- **P3:** Mobility-aware UAV trajectory optimization using Dynamic Programming.
+
+Also implement the Greedy trajectory baseline described in Section II-B for comparison with P3.
+
+The goal is to reproduce the numerical optimization framework in the manuscript and generate its required simulation results and figures.
+
+**IMPORTANT: THIS IS PLAN MODE ONLY.**
+
+Do not write code, execute simulations, modify files, or generate new numerical results yet.
+
+First inspect the repository and produce an implementation plan that can be reviewed before execution.
+
+---
+
+## 2. Existing Research Context
+
+The project studies 256-QAM discrete-modulated CV-QKD over a free-space optical HAP-to-UAV channel.
+
+Existing components include:
+
+- Physical HAP–UAV optical channel model.
+- Atmospheric attenuation.
+- Atmospheric turbulence.
+- Geometric loss and pointing error.
+- AoA blockage model.
+- Composite fading-channel moments.
+- Uniform 256-QAM.
+- Maxwell–Boltzmann probabilistic constellation shaping.
+- Exact-source calculation of \(C\) and \(w\).
+- Numerical mutual-information evaluation.
+- Holevo information and SKR evaluation.
+- Validated exact-source catalogs.
+- Previous optimization and zenith-angle sweep results.
+
+Reuse the existing verified implementations wherever possible.
+
+Do not rebuild the physical-layer evaluator unnecessarily.
+
+The current manuscript-style SKR calculation uses:
+
+\[
+K=\beta I_{AB}^{2D}-\chi_{BE}
+\]
+
+with the corrected excess-noise convention:
+
+\[
+\xi_n=\xi_{\rm ch}.
+\]
+
+Maintain the same numerical conventions as the latest verified calculations.
+
+Explicitly document that the 2D-MI/homodyne-Holevo combination is a manuscript-style numerical model and is not yet a complete physical homodyne security validation.
+
+Do not change the SKR formulas during this optimization project.
+
+---
+
+## 3. System Model
+
+Follow Section I of the attached manuscript.
+
+### UAV operating region
+
+Consider a single UAV operating at a fixed altitude over a square horizontal region:
+
+\[
+1\,\mathrm{km}\times1\,\mathrm{km}.
+\]
+
+Discretize the region into:
+
+\[
+J=100
+\]
+
+candidate UAV positions:
+
+\[
+\mathcal Q=\{\mathbf q_1,\ldots,\mathbf q_J\}.
+\]
+
+Use a \(10\times10\) grid unless the repository already defines the positions differently.
+
+Inspect the existing coordinate conventions before assigning coordinates.
+
+The HAP horizontal position, UAV altitude, coordinate origin, and geographic geometry must be consistent with the existing optical channel model.
+
+Do not arbitrarily assume that the HAP is directly above the center of the grid if this has not been specified.
+
+### Mission horizon
+
+The mission contains \(N_t\) time slots.
+
+Each slot has duration:
+
+\[
+\Delta t.
+\]
+
+The UAV position in slot \(n\) is represented by:
+
+\[
+j_n\in\{1,\ldots,J\}.
+\]
+
+Inspect the manuscript and repository for the intended values of:
+
+- \(N_t\).
+- \(\Delta t\).
+- Maximum UAV velocity \(v_{\max}\).
+- Reference travel distance \(D_{\rm ref}\).
+- Mobility penalty \(\lambda\).
+
+If values are not specified, propose justified simulation configurations in the plan and identify them as assumptions requiring approval.
+
+---
+
+# PHASE 1 — P1: SOURCE OPTIMIZATION
+
+## 4. Optimize Source Parameters at Each UAV Position
+
+The clear-sky SKR at position \(j\) is
+
+\[
+K_j(\nu,V_A)
+=
+\beta_{\rm rec}I_{AB,j}(\nu,V_A)
+-
+\chi_{BE,j}(\nu,V_A).
+\]
+
+The source optimization is
+
+\[
+\boxed{
+(\nu_j^\star,V_{A,j}^\star)
+\in
+\arg\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A).
+}
+\]
+
+The usable clear-sky SKR is
+
+\[
+\boxed{
+K_j^\star=
+\left[
+\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A)
+\right]^+.
+}
+\]
+
+Here,
+
+\[
+[x]^+=\max(x,0).
+\]
+
+### Requirements
+
+For every UAV position:
+
+1. Determine its three-dimensional geometry relative to the HAP.
+2. Calculate the corresponding link distance and zenith angle.
+3. Recalculate the physical optical channel.
+4. Calculate \(\langle\eta\rangle\), \(\langle\sqrt\eta\rangle\), \(\eta_f\), and \(\xi_f\).
+5. Evaluate SKR for every relevant exact-source candidate.
+6. Find the optimal source parameters.
+7. Save the maximum raw SKR and the usable nonnegative SKR separately.
+
+Perform this optimization independently for all \(J=100\) candidate positions.
+
+### Source catalog
+
+Use the verified source catalog already present in the repository.
+
+Identify the available Uniform and MB candidates and check their exact-source provenance.
+
+Reuse matching \(C,w\) moments.
+
+Do not interpolate source moments.
+
+Do not regenerate the entire exact-source catalog if the necessary candidates are already available.
+
+For each candidate, ensure consistency between:
+
+- Constellation geometry.
+- Source probabilities.
+- Modulation variance.
+- Exact \(C,w\) values.
+- Source normalization conventions.
+
+### Important optimization rule
+
+Maximize raw SKR first.
+
+Apply
+
+\[
+[x]^+
+\]
+
+only after selecting the largest raw SKR.
+
+Do not clip individual negative candidates before recording the optimization results.
+
+### Expected P1 outputs
+
+Generate a table containing:
+
+| UAV position | Link distance | Zenith angle | Optimal \(\nu\) | Optimal \(V_A\) | Raw SKR | Usable SKR |
+|---|---|---|---|---|---|---|
+
+Also plan spatial heatmaps of:
+
+- Optimal SKR.
+- Optimal \(V_A\).
+- Optimal MB shaping parameter \(\nu\).
+
+Compare optimized MB with optimized Uniform where appropriate.
+
+---
+
+# PHASE 2 — CLOUD BLOCKAGE MODEL
+
+## 5. Generate Spatially and Temporally Correlated Cloud States
+
+Follow the manuscript's cloud-blockage model.
+
+Define:
+
+\[
+c_{j,n}\in\{0,1\},
+\]
+
+where:
+
+- \(c_{j,n}=1\): optical link blocked.
+- \(c_{j,n}=0\): optical link clear.
+
+The cloud-state matrix is
+
+\[
+\boxed{
+\mathbf C=[c_{j,n}]
+\in\{0,1\}^{J\times N_t}.
+}
+\]
+
+Cloud states must be spatially and temporally correlated.
+
+### Planning requirements
+
+Inspect the repository for any existing correlated cloud generator.
+
+If one exists, reuse it.
+
+Otherwise, propose a reproducible model capable of generating:
+
+- Spatially correlated cloud blockage.
+- Temporal persistence between consecutive slots.
+- Configurable cloud coverage probability.
+- Reproducible random realizations.
+
+Do not assume independent Bernoulli cloud states unless implementing an explicitly labeled baseline.
+
+Specify how correlation length, correlation time, and blockage probability are parameterized.
+
+The implementation must satisfy the manuscript's complete-blockage assumption.
+
+### Usable SKR
+
+For each position and time slot:
+
+\[
+\boxed{
+S_{j,n}
+=
+(1-c_{j,n})K_j^\star.
+}
+\]
+
+Thus,
+
+\[
+S_{j,n}=0
+\]
+
+whenever the link is blocked.
+
+### Expected outputs
+
+Generate:
+
+1. Cloud blockage matrix.
+2. Spatial cloud-free fraction map.
+3. Time-dependent cloud visualizations.
+4. Usable SKR matrix \(S_{j,n}\).
+5. Statistical diagnostics of spatial and temporal correlations.
+
+Use the same cloud realization for all optimization and baseline methods.
+
+---
+
+# PHASE 3 — P2: OPTIMAL STATIONARY UAV POSITIONING
+
+## 6. Find the Best Fixed UAV Position
+
+The stationary UAV remains at one location throughout the mission.
+
+The optimization problem is:
+
+\[
+\boxed{
+j_{\rm fix}^\star
+=
+\arg\max_{j\in\{1,\ldots,J\}}
+\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j,n}.
+}
+\]
+
+### Implementation requirements
+
+For every candidate position:
+
+1. Retrieve the optimized clear-sky SKR from P1.
+2. Apply its cloud-blockage sequence.
+3. Calculate the average usable SKR.
+4. Compare all 100 candidate positions.
+5. Select the best stationary UAV location.
+
+Report:
+
+- Optimal stationary grid index.
+- Coordinates.
+- Optimal source parameters.
+- Average usable SKR.
+- Fraction of clear-sky slots.
+- Number of usable QKD slots.
+
+The stationary UAV must have zero travel distance and zero mobility penalty.
+
+Do not optimize the source independently in every slot if the manuscript assumes stationary clear-sky channel statistics.
+
+### Expected figure
+
+Plot a map showing:
+
+- UAV operating region.
+- Candidate grid positions.
+- Cloud-free fraction.
+- Optimal stationary location.
+
+This result will serve as the fixed-position benchmark against P3.
+
+---
+
+# PHASE 4 — P3: MOBILITY-AWARE TRAJECTORY OPTIMIZATION
+
+## 7. Dynamic UAV Trajectory Optimization
+
+Let the UAV trajectory be:
+
+\[
+\mathbf j=(j_1,\ldots,j_{N_t}).
+\]
+
+Define the horizontal travel distance between candidate positions:
+
+\[
+d_{i,j}
+=
+\|\mathbf q_i-\mathbf q_j\|_2.
+\]
+
+The UAV must satisfy:
+
+\[
+\boxed{
+d_{j_{n-1},j_n}
+\leq v_{\max}\Delta t.
+}
+\]
+
+The P3 optimization objective is:
+
+\[
+\boxed{
+\begin{aligned}
+\max_{j_1,\ldots,j_{N_t}}\quad
+&\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n}\\
+&-\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}.
+\end{aligned}
+}
+\]
+
+Do not remove or redefine the mobility penalty.
+
+Keep units consistent:
+
+- \(S_{j,n}\): bits/use.
+- \(d_{i,j}\) and \(D_{\rm ref}\): same distance unit.
+- \(\lambda\): bits/use.
+
+The initial UAV position is freely selectable, as assumed in the manuscript.
+
+No initial deployment cost is included.
+
+The optimization is an offline problem with the cloud-state matrix known over the mission horizon.
+
+## 8. Dynamic Programming Algorithm
+
+Use the exact DP formulation in the manuscript.
+
+Define feasible predecessors:
+
+\[
+\boxed{
+\mathcal N(j)
+=
+\{i:d_{i,j}\leq v_{\max}\Delta t\}.
+}
+\]
+
+Use the cumulative reward convention:
+
+\[
+F_1(j)=S_{j,1}.
+\]
+
+For \(n\geq2\):
+
+\[
+\boxed{
+F_n(j)
+=
+S_{j,n}
++
+\max_{i\in\mathcal N(j)}
+\left[
+F_{n-1}(i)
+-
+\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}
+\right].
+}
+\]
+
+Store the maximizing predecessor:
+
+\[
+B_n(j)
+=
+\arg\max_{i\in\mathcal N(j)}
+\left[
+F_{n-1}(i)
+-
+\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}
+\right].
+\]
+
+Recover the optimal path through backtracking.
+
+The optimal objective value is
+
+\[
+\boxed{
+U^\star=
+\frac1{N_t}\max_jF_{N_t}(j).
+}
+\]
+
+### Mandatory validation
+
+Check that the scaling factor \(N_t\) in the movement penalty is consistent with the original P3 objective.
+
+Verify:
+
+1. Every transition satisfies the speed constraint.
+2. The DP trajectory remains within the candidate grid.
+3. The backtracked path matches the optimal DP score.
+4. The cumulative travel distance is calculated correctly.
+5. The direct evaluation of P3 matches the DP objective.
+6. Zero movement is always feasible.
+7. The DP solution is no worse than the best stationary trajectory in terms of the same P3 objective.
+
+For small synthetic test cases, compare the DP solution against exhaustive enumeration.
+
+Confirm optimality only on the finite grid under the specified cloud realization.
+
+---
+
+# PHASE 5 — GREEDY BASELINE
+
+## 9. Implement Greedy UAV Positioning
+
+Follow Section II-B and Algorithm 1 of the manuscript.
+
+Initialize:
+
+\[
+j_1^{G}
+\in
+\arg\max_j S_{j,1}.
+\]
+
+For each subsequent slot:
+
+\[
+\boxed{
+j_n^G
+\in
+\arg\max_{j:
+d_{j_{n-1}^G,j}\leq v_{\max}\Delta t}
+\left[
+S_{j,n}
+-
+\frac{N_t\lambda}{D_{\rm ref}}
+d_{j_{n-1}^G,j}
+\right].
+}
+\]
+
+The Greedy algorithm uses only the cloud state of the current slot.
+
+It does not look ahead to future clouds.
+
+Use deterministic tie-breaking and document the rule.
+
+The Greedy and DP methods must have:
+
+- Identical channel statistics.
+- Identical source optimization results.
+- Identical cloud-state matrix.
+- Identical UAV speed constraints.
+- Identical mobility penalty.
+- Identical initial-position assumptions.
+
+Do not allow Greedy to access future cloud states.
+
+---
+
+# PHASE 6 — PERFORMANCE COMPARISON
+
+## 10. Compare Stationary, Greedy, and DP
+
+Evaluate three mobility strategies:
+
+1. Optimal stationary UAV.
+2. Greedy UAV positioning.
+3. Dynamic Programming UAV trajectory.
+
+For each strategy, calculate:
+
+### Average usable SKR
+
+\[
+\boxed{
+\overline K
+=
+\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n}.
+}
+\]
+
+### Total travel distance
+
+\[
+\boxed{
+D=
+\sum_{n=2}^{N_t}
+d_{j_{n-1},j_n}.
+}
+\]
+
+### Mobility-penalized objective
+
+\[
+\boxed{
+U=
+\overline K-\frac{\lambda D}{D_{\rm ref}}.
+}
+\]
+
+Also calculate:
+
+- Number of cloud-blocked slots.
+- Number of positive-SKR slots.
+- QKD availability.
+- Relative improvement in average SKR.
+- Relative improvement in objective value, when the comparison is mathematically meaningful.
+
+Use the same cloud realization for all methods.
+
+If reporting average performance over multiple cloud realizations, keep the scenario parameters identical and use paired random seeds.
+
+## 11. Mobility Penalty Sweep
+
+Investigate the impact of \(\lambda\).
+
+Plan a sweep over several nonnegative penalty values, including:
+
+\[
+\lambda=0.
+\]
+
+Choose the remaining values based on the numerical scale of SKR and normalized travel distance.
+
+Do not arbitrarily choose penalty values that make all trajectories stationary or excessively mobile.
+
+For each \(\lambda\), calculate:
+
+- Stationary average SKR.
+- Greedy average SKR.
+- DP average SKR.
+- Travel distance.
+- Penalized objective value.
+
+Identify how increasing \(\lambda\) changes:
+
+1. The selected UAV trajectory.
+2. The frequency of repositioning.
+3. Average usable SKR.
+4. Total flight distance.
+5. The relative performance of Greedy and DP.
+
+Acknowledge that flight distance is a mobility-cost surrogate rather than a physically calibrated UAV propulsion-energy model.
+
+---
+
+# PHASE 7 — REQUIRED FIGURES
+
+## 12. Figure 1 — SKR Versus Link Distance
+
+Reproduce the three-curve comparison from the manuscript:
+
+- Optimized Uniform 256-QAM.
+- Fixed MB-PCS 256-QAM.
+- Optimized MB-PCS 256-QAM.
+
+Prefer verified existing numerical results if their channel parameters and SKR conventions match.
+
+Do not unnecessarily repeat previous exact-source computations.
+
+Report the positive-SKR operating regions without inventing zero crossings.
+
+## 13. Figure 2 — Cloud-Aware UAV Trajectories
+
+Generate a publication-quality spatial plot showing:
+
+- The \(1\,\mathrm{km}\times1\,\mathrm{km}\) operating region.
+- Cloud-free fraction as a background heatmap.
+- All candidate UAV positions.
+- Best stationary UAV position.
+- Greedy UAV trajectory.
+- DP-optimal UAV trajectory.
+- Initial and final positions.
+
+Use distinct colors and markers.
+
+The trajectory plot must reflect actual feasible movements, not a schematic or invented path.
+
+Include an informative legend and consistent distance units.
+
+## 14. Figure 3 — SKR–Mobility Tradeoff
+
+Generate the two-panel figure specified in the manuscript.
+
+### Figure 3(a)
+
+Average usable SKR versus mobility penalty:
+
+\[
+\overline K\ \text{versus}\ \lambda.
+\]
+
+Show Stationary, Greedy, and DP.
+
+### Figure 3(b)
+
+Total UAV travel distance versus mobility penalty:
+
+\[
+D\ \text{versus}\ \lambda.
+\]
+
+Show Stationary, Greedy, and DP.
+
+Use identical \(\lambda\) values and cloud scenarios across the two panels.
+
+Output vector PDF and high-resolution PNG suitable for IEEE conference publication.
+
+---
+
+# PHASE 8 — COMPUTATIONAL DESIGN
+
+## 15. Reuse Existing Results
+
+Before proposing new simulations, inspect:
+
+- Existing physical-channel evaluator.
+- Exact-source catalog and cache.
+- MB and Uniform candidate lists.
+- Existing position-dependent SKR calculations.
+- Previous zenith-angle and distance-sweep results.
+- Current cloud-state generator, if any.
+- Existing optimization scripts.
+- Current results directory structure.
+
+Identify which results can be reused without recomputation.
+
+For \(J=100\) positions and a source catalog of approximately 218 candidates, estimate the workload for P1 and identify possible exact reuse of channel moments and source moments.
+
+Avoid redundant quantum source evaluations.
+
+Channel moments should be computed once per position and shared across source candidates where valid.
+
+Source moments should be cached by exact ensemble identity.
+
+The implementation should be reproducible and computationally efficient without changing the underlying numerical model.
+
+## 16. Proposed Software Architecture
+
+Prepare a modular implementation plan with components for:
+
+1. UAV candidate-grid generation.
+2. Position-dependent optical-channel evaluation.
+3. Exact-source catalog loading.
+4. P1 finite-catalog source optimization.
+5. Correlated cloud-state generation.
+6. Usable SKR matrix construction.
+7. P2 stationary-location optimization.
+8. Greedy positioning.
+9. P3 Dynamic Programming.
+10. Performance comparison.
+11. Figures and result export.
+12. Numerical validation.
+
+Inspect the repository before deciding whether new files or functions are necessary.
+
+Prefer reusing tested functions rather than duplicating them.
+
+Do not modify the original SKR evaluator merely to support the mobility optimization.
+
+---
+
+# PHASE 9 — VALIDATION AND ACCEPTANCE CRITERIA
+
+## 17. Required Validation
+
+The implementation plan must include tests for:
+
+**P1**
+
+- Correct source catalog selection.
+- Exact source-moment consistency.
+- Correct maximization of raw SKR.
+- Correct application of nonnegative clipping.
+- Correct location-dependent channel calculations.
+
+**Cloud model**
+
+- Correct Bernoulli state values.
+- Correct cloud-blockage mapping.
+- Reproducible random seeds.
+- Spatial and temporal correlation diagnostics.
+
+**P2**
+
+- Correct stationary location.
+- Correct time-averaged SKR.
+- Zero travel distance.
+
+**P3**
+
+- Feasible speed-constrained transitions.
+- Correct Bellman recursion.
+- Correct backtracking.
+- Correct objective scaling.
+- Agreement with exhaustive search on small cases.
+
+**Greedy**
+
+- Feasible transitions.
+- No future-cloud information.
+- Same objective and penalty convention.
+
+**Overall**
+
+- DP objective is at least as large as that of feasible Greedy and stationary trajectories under identical assumptions.
+- No negative raw SKR is silently discarded before source selection.
+- No historical results or caches are overwritten.
+- All numerical outputs are reproducible.
+
+---
+
+# 18. Expected Deliverables
+
+Plan the following outputs:
+
+### Numerical results
+
+- P1 optimized source parameters for all UAV positions.
+- P2 optimal stationary UAV position.
+- P3 optimal DP trajectory.
+- Greedy trajectory.
+- Cloud-blockage matrix.
+- Position-dependent SKR matrix.
+- Performance comparison tables.
+- Mobility penalty sweep results.
+
+### Figures
+
+- Figure 1: SKR versus link distance.
+- Figure 2: Cloud-aware UAV trajectories.
+- Figure 3(a): Average SKR versus mobility penalty.
+- Figure 3(b): Travel distance versus mobility penalty.
+
+### Documentation
+
+Prepare a numerical experiment report describing:
+
+- Model assumptions.
+- Parameter values.
+- Source catalog.
+- Cloud correlation model.
+- Optimization method.
+- Computational complexity.
+- Validation results.
+- Main numerical findings.
+- Limitations of the security and mobility models.
+
+Save all outputs in a separate directory without overwriting existing research data.
+
+---
+
+# 19. PLAN MODE — Final Instructions
+
+For now, do not implement any of the above.
+
+Produce a concrete development plan with the following phases:
+
+**Phase 1:** Inspect manuscript, repository, and reusable components.
+
+**Phase 2:** Construct UAV grid and evaluate the channel at each position.
+
+**Phase 3:** Implement P1 source optimization.
+
+**Phase 4:** Construct the correlated cloud-state matrix and usable SKR.
+
+**Phase 5:** Implement P2 stationary positioning.
+
+**Phase 6:** Implement Greedy and P3 Dynamic Programming.
+
+**Phase 7:** Run the mobility-penalty comparison.
+
+**Phase 8:** Generate IEEE-style figures and numerical tables.
+
+**Phase 9:** Validate results and document scientific limitations.
+
+For each phase, report:
+
+- Repository files that will be read.
+- Existing functions that can be reused.
+- New functions or files that may be needed.
+- Required numerical inputs.
+- Expected outputs.
+- Computational cost.
+- Acceptance criteria.
+- Dependencies on earlier phases.
+
+Clearly distinguish between parameters specified by the manuscript and additional simulation assumptions requiring approval.
+
+Do not invent missing physical or mobility parameters.
+
+At the end, provide:
+
+1. Recommended implementation order.
+2. Estimated computational workload.
+3. Proposed output-file structure.
+4. Scientific and technical risks.
+5. Questions requiring clarification before implementation.
+
+**STOP AFTER PRODUCING THE PLAN. DO NOT EXECUTE IT UNTIL APPROVAL.**

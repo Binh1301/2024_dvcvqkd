@@ -1,5 +1,664 @@
 # Evidence Register
 
+## EVID-0207 - Saved-data IEEE classic restyling COMPLETE
+
+2026-10-21 user requests all existing SKR/optimization figures in classic IEEE
+Matplotlib style, without scientific reruns or historical overwrites. New
+results/ieee_classic_restyled_figures_20261021/ contains219 vector-PDF/350dpi-PNG
+pairs (49 current-manuscript layouts,170 historical layouts),Times New Roman,
+thin lines/distinct markers,dotted grids,inside legends and black axes. Keep
+original log/symlog transformations,raw signs,point order,CI and all saved data.
+Same-unit curves share one Y-axis;the one retained twin-axis plot has SKR and
+distance. Spatial/distribution/categorical figures retain their semantics.
+
+7399 scoped artifact checks PASS;219 numeric-artist/scale fingerprints match
+before/after,all PDFs have no raster Image XObjects and every PNG is350dpi.
+Nine historical receipts/505 members authenticate;5051 protected old files
+unchanged apart from five authorized ledgers. Inventory maps415 direct old
+image files and324 copies/typography aliases;86 channel-only/reference files
+are outside this plot scope. Representative figures/contact sheets reviewed;
+old dense annotations/inset labels cleaned without changing their values.
+Initial rasterization and verifier path-resolution issues resolved;logs kept.
+
+README/index/inventory/VI validation report,19 review contact sheets and ZIP
+(443 members,33329848bytes) delivered. Final receipt 88498f3f1ea6ca946d4ed84a1e9a8f8868923694f6dd2c81fd00aa2fa9b3ab45
+binds478 artifacts. No SKR/channel/Cw/source optimization,DP/Greedy/cloud
+rerun,training/test/held-out access,production/cache/config/frozen/TeX change,
+security/lifecycle/baseline/threshold promotion,commit or push. Keep existing
+UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen discrepancy and ObjectiveC STOP.
+
+## EVID-0206 - Single-file Overleaf export COMPLETE
+
+2026-10-21 user requested LaTeX in the attached complete-document style.
+New results/manuscript_ieee_overleaf_20261021/main.tex inlines both compact
+section files and the four-item bibliography;no input/bib dependencies.
+overleaf_compact.zip contains main.tex,figures/compact_sensitivity.pdf and
+README_vi.txt. Original compact manuscript/35 receipt members unchanged.
+Local Tectonic build succeeds with3pages,all page pixels identical to original
+at150dpi and extracted text identical. ZIP integrity/member bytes,figure hash,
+labels/citations and no errors/undefined/overfull/underfull/font substitutions
+checked. Existing vendor comment-encoding warning retained. Actual Overleaf
+account build NOT_RUN. validation/final_receipt.json binds13 artifacts;
+SHA256 f2ca45dc16a474f149208c465a143471e48d10abd6ab0e3a638240996b79c8c4.
+Packaging only,no new science,renderer,optimizer,cache/frozen/security/lifecycle
+change,training/test/held-out,external upload,commit/push. Preserve flags and
+ObjectiveC USER_STOPPED. Deliver singlefile/ZIP and STOP.
+
+## EVID-0205 - Compact Optimization-to-Conclusion IEEE revision COMPLETE
+
+2026-10-20 user request e5da92aa. Separate output
+results/manuscript_ieee_compact_20261020/:main.tex/main.pdf (3 A4 IEEEtran pages),
+protected system_model.tex,compact_sections.tex,one three-panel vector figure,
+saved plot rows,compression_report.md and validation artifacts. No overwrite.
+Receipt validation/final_receipt.json CURRENTLY_VERIFIED_PASS:17368 scoped
+provenance/saved-data/document checks,35 bound artifacts. SHA256:
+c16293a4ef6820661f0813af1ed8a30bb321bdd93fcf3c3cd8e60531f2799da0.
+
+Actual rendered area Optimization-through-Conclusion=1.4842238232351483 IEEE
+pages/2.9684476464702967 columns INCLUDING full figure andcaption. Starts page2
+left at52.00635 PDFpt fromtop;Conclusion ends page3left at510.20309pt. Figure
+spans page3top;right-column portion outside sequential end-column flow is
+explicitly union-counted,not omitted. Reading-flow-only span1.342198649pages
+is not used as total. Bibliography follows Conclusion/outside target boundary.
+PDFium glyph/form bounds and actual TeX672pt columnheight/252pt width measure
+layout;no word-count estimate,margin/font reduction,negative spacing or equation
+scaling. Three current PDF pages rendered150dpi and visually inspected. No
+errors/undefined/overfull/underfull/font warnings;preexisting algorithm.sty
+Latin1 copyright-comment warning retained. Body10pt;figureminactual8.4763pt.
+
+Frontmatter/preamble/title/authors/abstract/keywords unchanged. Geometry/rawSKR
+and complete physical/security section preserved verbatim;only P1-P3 material
+moved out of System/Problem into compactOptimization. Original bib and compiled
+bbl byte-identical. Six essential numbered equations retain labels;long
+pseudocode/auxiliary repeats removed. Numerical discussion has3 paragraphs;
+Conclusion76words. Composite retains J-U,p-unavailability,rho-distance for all
+3 methods,57 saved points with identicalCI rows. Other4 originalfigures/panels
+remain in old results;tradeoff retained numerically. No new simulation points.
+
+Verified J DP U+11.409%;p.8 unavailableP2/G/DP24.60/16.53/4.07%;rho0-to.98
+DPdistance1038.25-to31.84m,Ugain/P223.712%-to.155%;lambda0-to-ref DPdistance
+-88.370%,K-.515%,with correct respective denominators. Means checked against
+stored100 pairedmissions;no P1/P2/P3/Greedy/Bellman,SKR/C/w/channel/cloud/RNG.
+All7870 startup files preserved except authorized ledgers,including original
+manuscript and102-image copy package. Prior44/42-member receipts authenticated
+directly;no oldverifier/scientific test replay. Source/cache/config/frozen,
+security functional,baseline/threshold/lifecycle unchanged;no final-test/held-out,
+external edit,commit/push. KeepUNVALIDATED_SECURITY_MODEL,NOT_READY,frozen hash
+conflict,ObjectiveC USER_STOPPED. Document completion only;deliver andSTOP.
+
+## EVID-0204 - IEEE manuscript revision and read-only security audit COMPLETE
+
+2026-10-20 user request 3726068f. Isolated output:
+results/manuscript_ieee_revision_20261020/. Deliver main.tex/main.pdf (6 A4
+IEEEtran pages), system/method and numerical III.A-F includes, provisional
+abstract/conclusion, verified bibliography and four unchanged final vector
+PDF figures. New docs/security_model_consistency_audit.md and
+docs/manuscript_final_validation.md record the audit and document validation.
+
+validation/final_receipt.json CURRENTLY_VERIFIED_PASS for document/saved-data
+scope:47271 named arithmetic/provenance/build checks,44 bound artifacts.
+SHA256:9e181aa6ccaf14841d22884effb632df93318fb12461b63a68fd84d78a107bd7.
+All7720 startup files protected except five authorized ledgers;four historical
+receipts/318 members authenticated directly,233 source payloads and their
+existing LF/CRLF producer identities checked. No historical verifier invoked.
+8700 saved mission records/696 statistical rows and117 plotted values checked;
+U reconstruction,paired IDs and saved DP objective dominance pass. These are
+saved-data checks,not new scientific tests or Bellman/optimizer evaluations.
+
+Verified J10-to100 DP U gain11.4090846%;p.8 unavailability P2/G/DP
+24.60/16.5333/4.0667%;rho0-to.98 DP distance1038.2504-to31.8438m;default
+lambda0-to-ref distance reduction88.3702432%,K reduction.5147744%,with respective
+zero-penalty means as denominators. Numerical/source/channel/cloud/solver/RNG
+calls all zero. Historical rates/figures/caches/evaluators remain byte intact.
+
+Primary-paper-supported measurement audit finds INCONSISTENT_MEASUREMENT_PAIRING:
+MI integrates both quadratures at variance1+N and means2sqrt(t)alpha;Holevo
+uses homodyne conditional nu3. SourceVA=2nbar and ideal-detector/noise bookkeeping
+are internally consistent in the stated scope,but do not validate security.
+DBL footnotes11-12 require general correlation-interval caution;endpoint
+sufficiency,effective-fading MI/outage/estimation/aggregation remain unverified.
+Homodyne/heterodyne correction options documented separately,NOT_APPLIED.
+
+Latest corresponding TeX unavailable after scoped search;system/optimization
+chain reconstructed from authenticated three-page PDF,with verbatim older
+available preamble/authorship. Exact-source merge fidelity NOT_VERIFIED;
+TBD/XXX retained. No original overwritten. Portable Tectonic0.17.0 official
+release digest verified;T1 encoding fixes XeTeX fonts,bibliography basename avoids
+Windows directory collision,existing balance package used. Final build has
+no errors,undefined refs,overfull boxes or font substitutions. Two underfull
+vboxes and vendor algorithm.sty Latin1 copyright-comment warning retained and
+disclosed. All6 current PDF pages rendered at150dpi and viewed;four figures
+legible at full two-column width. PDF/source/inspection hashes bound.
+
+Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen
+historical-hash discrepancy,Objective C USER_STOPPED. No scientific/security/
+frozen/cache/config/baseline/threshold/lifecycle change,training/test/held-out,
+external manuscript overwrite,commit/push. Completed internal-review document,
+not a publication-ready quantum-security claim. Deliver and STOP.
+
+## EVID-0203 - Final saved-data numerical-results package COMPLETE
+
+2026-10-20 explicit user request0dc017fa. New output only in results/
+mobility_parameter_sensitivity_final_20261020/:four final main vectorPDF/350dpiPNG
+figures,source CSVs,696-row statistical table,232 paired summaries,8700 selected
+records,figure/source mapping,23-figure inventory,English captions,complete
+sectionIII A-F draft and detailed VI report with six requested answers.
+validation/final_receipt.json CURRENTLY_VERIFIED_PASS:54866 independent checks,
+42 artifact hashes. SHA256:893ad90809c64c8d2ed742c374bf02dda2169842b71b6cef499fa3bb00960a09.
+All5283 startup files preserved except five authorized ledgers;Git branch/HEAD
+unchanged. Six original/StageA/StageA-review/StageB receipts authenticated directly.
+No old recursive verifier invoked because those can replay optimization/clouds
+or predate the new namespace. No old tests counted as current tests.
+
+Final Figures1-4:U versusJ;K/unavailability versus fullp.1:.1:.8;U/distance
+versusrho;K-D tradeoff at all10saved penalties in true order. Consistent width
+7.2inch,blue circleP2,orange dashed diamondGreedy,red triangleDP,linear axes
+retain genuinezero,117 actual points/CIs checked and actual finalPNGs viewed.
+No extra supplementary rendering. Fig4 stationary reference outlined at its
+true coordinates,not jittered,when coincident with DP.
+
+22200 unique original mission-method records agree across overlaps;14800 unique
+mission-wise DP U dominance comparisons passat1e-12. Selected261000slot rewards
+reconstructed from existing paths/masks/currentP1;no P1/P2/P3/Greedy rerun or
+Bellman calculation. Stats mean/sampleSD/median/N and paired signs/ratios/CIs
+verified. Existing count vectors20261020 reused for missing mean/diagnostic CIs;
+original tradeoff pairedK/U intervals retainseed20261019. No new RNG draws.
+
+Verified default DP K gains4.16162%vsP2/2.69538%vsGreedy,U gains3.07498%/4.41766%.
+At rho0 to.98,P2 clear fraction77.033% to99.967%,always-clear candidates0 to29.56,
+cell-slot switches48.213% to6.346%,DP moves7.36 to.19,missions withDP motion100
+to10. These support persistent favorable offline stationary choices without
+causal/online claims. Saved-mask spatial full-grid blockage0 to2.70% forell50
+to1000;relative mobility gain increases while absolute performance falls.
+Greedy-minus-P2 U CI includeszero atp.5/.7,so no positive-confidence claim.
+P1 fixedMB(.125,8) at all100 positions;do not call cloud-avoidance gain changing
+source shaping. No matched-energy or fixed-deployment ablation added.
+
+No quantum/channel/source/Cw,cloud generation,new parameter points,optimizers,
+production code or old-result edits. Preserve UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen hash discrepancy,Objective C STOP,
+finitecatalog/grid,syntheticgeometry/weather,offlineinformation,noenergy/
+reacquisition/transit and mixed2DMI/homodyne limits. No training/test/held-out,
+baseline/threshold/lifecycle promotion,external manuscript edit,commit/push.
+Deliver completed package and STOP.
+
+## EVID-0202 - User-authorized Stage B cloud sensitivity COMPLETE
+
+2026-10-20 completion: results/mobility_parameter_sensitivity_stage_b_20261020/
+report_vi.md,four vector-PDF/350dpi-PNG multi-panel figures,English captions,
+complete CSVs,cloud masks/latents,paths and validation/final_receipt.json.
+CURRENTLY_VERIFIED_PASS:47978 independent named checks,9 current boundary tests,
+56 artifact hashes. Receipt SHA256: 32e0c6abce8448806cecf7b22fee66e6a4a65d489d3894cb8a327d2e812083fe.
+All5221 startup files preserved except five authorized ledgers;Stage A and its
+report continuation remain byte-identical,Git branch/HEAD unchanged.
+
+16 unique configurations,100 paired IDs,two fixed absolute penalties;9600
+metric records and288000 selected-slot values reconstructed. Only300 new
+masks at p.3/.5/.7;1300 archived masks replayed exactly. Independent SciPy
+Cholesky/PCG64 AR reconstruction and112 mission-cluster calibration checks pass;
+Bernoulli targets independently agree using Plackett integration. Baseline600
+records/paths reproduce exactly. Reuse5400 Stage A metric records and recompute
+4200 records via1400 new DP/Greedy pairs;200 baseline audit pairs separately.
+3200 independent cumulative Bellman optima and6400 U dominance comparisons pass;
+nested-p optimal-U monotonicity,P2 lambda invariance,DP distance monotonicity in
+lambda,Greedy current-slot replay,all means/SD/median/paired signs/ratios/CIs,
+234 actual artist points and four actual reviewed PNG hashes verified.
+Reuse original20000 whole-mission bootstrap count vectors;no new draws.
+Audit11.370s,cloud8.819s,compute19.376s,aggregate1.752s.
+
+At lambda_ref,new p.3/.5/.7 have DP U gainvsP2 1.52004/5.34622/14.21236%.
+CI95% respectively[1.03313,2.05522]/[4.34323,6.41568]/[12.18282,16.42194]%.
+At p.8 gain25.04165%,DP availability95.9333%. Temporal rho0 to.98 raises
+DP K1.54389454e-4 to1.57107776e-4 andU1.44559271e-4 to1.56806279e-4,
+whileD falls1038.250m to31.844m;gainvsP2 falls23.71231% to.15514%.
+Persistent clear locations make offline stationary selection competitive in
+this sample;no causal isolation or monotone theorem claimed forrho/ell.
+Rho.98 latent time989.966s exceeds600s mission;binary lag1 correlation.871359
+is distinct fromrho.98. Finite observed blockage varies and is reported with
+mission-cluster intervals,not forced to nominalp.4. Among cloud-only tested
+ranges,p gives the largest K spans for all methods and DP availability;rho
+gives largest absolute DP-minus-P2 U span2.7465223e-5,not a normalized universal
+sensitivity index. Figures B1 andB3 are the strongest Stage B additions.
+
+No physical SKR,MI,Holevo,Cw,source/cache/scientific/frozen/security change;
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen historical
+hash conflict,Objective C USER_STOPPED remain. No training/test/held-out,
+baseline/threshold/readiness promotion,external manuscript edit,commit/push.
+User-authorized Stage B cloud-only scope complete;deliver and STOP.
+
+Historical pre-run preparation:
+
+2026-10-20 user explicitly requests Stage B. New artifacts only in results/
+mobility_parameter_sensitivity_stage_b_20261020/ and four dedicated config/
+runner/plotter/test files. startup_manifest.json protects5221 prior files;
+pre_run_protocol.json fixes p.1:.1:.8,ell50/100/250/500/1000m,rho0/.3/.6/.9/.98,
+100 paired IDs,seed20261015,two absolute lambdas0 and9.468026677248516e-6.
+Only p.3/.5/.7 need new masks(300 missions);13 other configurations already
+archived. Reuse nine Stage A mobility cases;compute seven current-P1 cases,
+1400 solver pairs plus200 baseline-audit pairs. Four figures planned.
+This is preparation,not completion evidence; numerical validation pending.
+Preserve frozen hash discrepancy,UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+and Objective C USER_STOPPED. No quantum/source/cache/model/frozen changes,
+training/test/held-out,readiness promotion,external edits,commit/push.
+
+## EVID-0201 - Stage A figure/report continuation from saved data
+
+2026-10-20 user selected continued Stage A figures/report, not Stage B.
+New append-only child: results/mobility_parameter_sensitivity_20261020/
+analysis/figure_report_review_20261020/. Includes report_review_vi.md,
+discussion_en.md, figure_review.csv,17 derived metrics and supplementary
+S1 paired-objective-gap figure (vector PDF/350 dpi PNG,38 actual artist points).
+Retain six original figures unchanged and main-figure selection A1,A2,B,C.
+
+validation_receipt.json CURRENTLY_VERIFIED_PASS:319 named checks,15 artifact
+hashes. SHA256: 5851b59219c96f5bbf307d57aaa6440bd2b4294743e6b4fc52b5aa7ab40f36ad.
+All5205 startup files preserved except five authorized ledgers; original Stage A
+receipt e6086960e7d0e84f28cda02d689da399930910dab1e378791a1bf6e8c14330af
+and all75 bound members/producer hashes unchanged. Original full verifier passed
+7445 checks before child creation; after extension use verify_review.py to
+check receipt members directly because the older verifier assumes exact recursive
+coverage. No old receipt or verifier edited. Git branch/HEAD unchanged.
+
+Baseline at lambda_ref: DP objective+3.074978%vsP2,+4.417659%vsGreedy;
+paired relative CI95%[2.350120,3.854171]% and[3.324728,5.787795]%.
+DP distance172.433m versus Greedy430.610m,59.956128% lower. Changing DP
+lambda0 to lambda_ref reduces mean distance1482.688 to172.433m (88.370243%)
+with meanK loss.514774%; no new cross-lambda CI assigned. At positive lambda,
+K_DP<K_Greedy in486/2600 unique case-mission pairs at tolerance1e-12, despite
+objective dominance. Offline initial-position selection and future-information
+advantage separated from motion benefit; horizon normalization and J10
+connectivity caveats retained. S1 uses saved paired CIs without new bootstrap.
+Seven actual PNGs visually reviewed and hash-bound, all report links checked.
+
+No new mobility optimization, source/channel/SKR/Cw, cloud or bootstrap draw;
+Stage B NOT_RUN. Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+frozen hash discrepancy,Objective C USER_STOPPED,finite-catalog/grid/synthetic
+limits. No scientific/security/cache/frozen/baseline/threshold/lifecycle changes,
+training/test/held-out,external manuscript edit,commit/push. Deliver and STOP.
+
+## EVID-0200 - Approved Stage A parameter sensitivity COMPLETE
+
+2026-10-20 completion: results/mobility_parameter_sensitivity_20261020/report_vi.md,
+six vector-PDF/PNG350dpi multi-panel figures,complete mission/aggregate/paired/
+incremental/range CSVs,global-index paths and protocol/source map/English captions.
+validation/final_receipt.json CURRENTLY_VERIFIED_PASS:7445 independent named
+assertions,18 current deterministic tests,75 output hashes. Receipt SHA256:
+e6086960e7d0e84f28cda02d689da399930910dab1e378791a1bf6e8c14330af.
+
+26 unique configurations,100 paired missions,two fixed absolute penalties;
+15600 metrics and423000 selected-slot values independently reconstructed.
+5200 cumulative Bellman optima and10400 mission-wise DP-versus-baseline objective
+comparisons pass;5000 guaranteed monotonic inequalities checked for nested J,
+relaxed speed and nested p masks. Every Greedy decision independently replays
+its current-slot Nt-lambda score. All344 primary plotted points and CIs bind
+to saved statistics; actual final images reviewed and hashed. No forced trends
+for Greedy,availability,distance versus speed,Nt or ell. Bootstrap20000 paired
+whole-mission resamples,seed20261020; pointwise,not security confidence bounds.
+
+At fixedlambda_ref9.468026677248516e-6,J10→100 DP meanK1.403426836905077e-4
+→1.5649535266182735e-4(+11.50945%),meanU+11.40908%,availability92.6→99.9%.
+J10 graph has8components/7isolates,J20 connected; geometry/connectivity effect
+is explicit. Speed15→25m/s raises meanU DP only.03175155%;v0 DP=P2 and its
+51.0783% gain over Greedy is offline initial-position selection,not mobility.
+p.8 DP meanU gain25.04165%vsP2/15.95044%vsGreedy,availability95.9333%;no
+interior peak or beyond-.8 inference. Nt5→30 U gainvsP2 .091556→3.074978%
+despite lower absoluteK/U; normalization/lookahead effects not conflated.
+ell50→1000 lowers DP K/U but raises U gainvsP2 1.45886→5.95899%;no assumed
+monotone mobility-gain law. Full finite-range effect rankings are method-specific:
+P2 most affected by p,Greedy by speed,DP by J for K/availability. DP−P2 gain
+span largest for p; no universal normalized-sensitivity or causal claim.
+
+Audit11.663s,compute27.333s,aggregation3.156s from actual receipts.1000baseline
+solver pairs+4 archived deterministic controls,5000new pairs; no new P1/channel/
+SKR/Cw/cloud calls. All240 old receipt members and exact-source payloads match;
+5118 old files protected except five task-ledger paths. Scientific source,
+production evaluator,detector,cache,config and frozen bytes unchanged. Preserve
+UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen conflict,Objective C USER_STOPPED.
+Stage B NOT_RUN; no final-test/held-out,promotion,external edits,commit/push.
+Recommend A1,A2,B,C; complete deliverables and STOP.
+
+Historical preparation for the same approved task follows:
+
+2026-10-20 explicit user approval authorizes Stage A implementation and execution
+only in results/mobility_parameter_sensitivity_20261020/. Startup protects5118
+pre-existing project files and records the dirty fix/channel checkout and unchanged
+HEAD49597cd766638bf1ab557776b6ff010dc29eb6e4. Four new implementation files;
+no old scientific/source/cache/config/frozen changes. Stage B and new clouds prohibited.
+
+validation/test_receipt.json:18 current deterministic mobility tests pass, including
+small exhaustive DP checks, current-slot Greedy, Nt-lambda scaling, subset nesting,
+configuration boundaries and no physical/cloud evaluator calls. validation/audit.json:
+CURRENTLY_VERIFIED_PASS; all3000 baseline metric records and3000 paths reproduce
+at all10 saved penalties;1000 independent cumulative Bellman checks. Input manifest
+authenticates current233-source P1 and archived mask provenance; transfer boolean
+masks only, never old optical SKR. Batch/plots/final independent verification pending.
+
+Approved J10/20/40/60/80/100;v0/2.5/5/7.5/10/15/20/25;Nt5/10/15/20/25/30;
+p.1/.2/.4/.6/.8;ell50/100/250/500/1000. Freeze absolute lambda0 and
+9.468026677248516e-6,100 paired mission IDs,20s slots,Dref1000m,availability S>0.
+Only lightweight P2/Greedy/DP; preserve UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,Objective C USER_STOPPED.
+No Stage B,weather generation,physical SKR/Cw,final-test/held-out,external edits,
+readiness/baseline/threshold promotion,commit or push.
+
+## EVID-0199 - Eight saved-data comparative mobility figures
+
+2026-10-20 completion of direct request 276fe769 and its continuation. New
+artifacts only in results/manuscript_mobility_p1_p2_p3_20261019/analysis/
+comparison_figures/: eight vector PDFs and PNGs at 350 dpi, actual-data
+inventory, aggregate and paired CSVs, slot/cumulative/P1 data, plotted-point
+trace, source map, English captions, Vietnamese interpretations and the
+eight-question comparison_report_vi.md. Render and independent verification
+sources are included. CURRENTLY_VERIFIED_PASS: 737 named assertions, 38 output
+hashes and all 202 members of the original and analysis receipts unchanged.
+Receipt validation_receipt.json SHA256:
+89e3510949650756df66fc874671ff49f8d8fce7fdec848cb2893ba9df7cb05f.
+
+Independent arithmetic verifies all 3000 mission metrics, 90000 selected-slot
+values and all 514 primary plotted points against original arrays. All 2000
+mission-wise DP objective comparisons pass within 1e-12; P2 distance is zero
+and DP distance is non-increasing at the tested penalties. Means, sample SDs,
+medians and Student-t95% intervals are checked; paired intervals reuse the
+authenticated 20000 whole-mission bootstrap resamples, not a fresh simulation.
+Actual images were viewed; visual_review.json binds the reviewed PNG hashes.
+Styles are blue/circle Stationary, orange/dashed/square Greedy, red/triangle DP.
+Lambda zero and all negative Uniform raw rates are retained; no smoothing.
+
+Requested rounded lambda 9.46803e-6 is not exactly in the saved schedule. Use
+the unchanged representative 9.468026677248516e-6; difference is
+3.32275148422e-12 bits/use. Mean K gains are 4.1616192% over P2 and 2.695385%
+over Greedy; mean U gains 3.0749782% and 4.4176593%, using ratio of paired
+mission means. Strict U wins are 61/100 and 89/100. Figures 6/7 disclose
+post-hoc mission 84; cumulative SKR sums are not physical secret-bit counts.
+Recommend Figures 2,4,5,8. These eight figures do not include Fixed44 and do
+not independently establish the earlier P2 versus fixed-reference gain.
+
+Startup protects 5076 pre-existing project files; only the five task-ledger
+paths may change. Scientific sources, evaluator, detector, configs, cached
+moments, frozen model and old results remain byte-identical. No new physical
+SKR, source moments, clouds or P1/P2/P3/Greedy calls. Prior 24/346/883 evidence
+is historical and was not rerun or counted among the 737 current assertions.
+UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen hash
+conflict and Objective C USER_STOPPED remain. No final-test/held-out access,
+lifecycle/baseline/threshold promotion, external manuscript edit, commit/push.
+
+## EVID-0198 - Saved-artifact quantitative mobility analysis
+
+2026-10-19 request ff757cb9 authorizes analysis only,without optimizer/SKR/
+source/cloud reruns. Deliver results/manuscript_mobility_p1_p2_p3_20261019/
+analysis/report_analysis_vi.md,numerical_results_discussion_en.md,19CSV tables,
+13vectorPDF/PNG350dpi pairs and analysis_receipt.json. CURRENTLY_VERIFIED_PASS:
+883 independent arithmetic/coverage/bootstrap/provenance/figure/link checks.
+57 output hashes;receipt SHA256 f95d5a3ee989c015b7677831d949e1f47b517955e4abce3e2b7bc6ab6d1fe798.
+All145 original result hashes remain exact. Analysis startup protects5016 prior
+project files;only five documentation ledgers may change. No physics imports
+or optimizer calls;newSKR/newCw/newcloud counts all0. Old24tests/346checks are
+hash-verified historical evidence,not tests rerun during this analysis.
+
+P1 all100 locations retain MB(.125,8);meanK .00013724245947223157,
+population spatialSD1.308760671071471e-5. MB runnerup(.15,8) everywhere;
+gap4.3329612063554073e-7--4.5018478198787177e-7,or .2745848541--.3871016269%.
+VA8 is catalog ceiling;small numerical gap is not a continuous optimum or
+robustness proof for unswept optical parameters. Uniform best raw negative
+everywhere;usable gain absolute only. Equal-VA8 saved comparison is separated
+from independently VA-optimized family comparison.
+
+P2 reference44 already exists in protocol as geometric reference(450,450)m;
+its fixed-location metric is a clearly labeled post-analysis reconstruction,
+not a preregistered operational baseline. MeanK .00008101245823018964 to
+.00015024281866088824,+85.45643712475275% ratio of means;mean paired difference
+.00006923036043069859. P2 selects34 locations;index40(50,450) and90(50,950)
+each8/100. Mean availability .5806666667 to .9776666667;67 missions fully clear.
+Symmetric algebraic decomposition attributes84.034519927% of mean gain to
+availability,descriptive only. P2 is offline and uses complete cloud horizon.
+
+At unchanged representative lambda9.468026677248516e-6: DP meanK gain over
+P2=6.252534000939099e-6(+4.1616192086%),overGreedy=4.107440897879122e-6
+(+2.6953849884%). MeanU gains4.6199338536731476e-6(+3.0749781553%) and
+6.551869453152406e-6(+4.4176592560%). StrictU wins61/100 and89/100;rest tied
+within1e-12. DP unpenalizedK lower thanGreedy in25/100,consistent with penalty.
+Paired whole-mission percentile bootstrap20000,seed20261019,pointwise95% CI:
+DeltaU/P2[3.577323009604003e-6,5.736504878817311e-6];DeltaU/Greedy
+[4.9992010713305755e-6,8.460481589743572e-6]. No multiplicity/security inference.
+
+DP travel nonincreasing for every mission;all stationary from testedlambda
+.0003156008892416172=.1lambda_hi. Greedy has31 increasing-distance adjacent
+transitions over25 missions;first-divergence saved local scores explain
+finite-grid policy switching,not fresh cloud sampling. No universal bestlambda.
+Post-hoc explanatory cases84(maxDP-P2U),9(equalmovingDP/Greedy),0(noDPUgain)
+at fixedrepresentativelambda preserve the original mission0 illustration.
+52/112DPmoves across38missions are immediately disadvantageous vsstaying;
+all stored continuations have nonnegative residual gain versus freezing at
+the previous point. InID84slot2,clear81→clear80 moves before21future blocked
+slots at81. These are saved-path counterfactual sums,not new optimization.
+
+33 missions with blockedP2 slots all have positiveDPUgain;mean9.8515249315e-6
+versus2.0431800392e-6 among67fully-clearP2 missions. Seven zero-headroom cases
+have no mobilitygain. Grouping/correlations/examples are exploratory,not
+held-out/causal validation. Keep finitecatalog/grid,syntheticcompleteblockage,
+neglectedtransit/reacquisition,uncalibrateddistancecost,offlineinformation and
+mixed2D-MI/homodyne limitations. Preserve UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
+No original simulation/pipeline/cache/frozen/external manuscript edits or
+training/test/final-test/held-out/publication evaluation,commit/push.
+
+## EVID-0197 completion - Manuscript P1/P2/P3 and causal Greedy comparison
+
+2026-10-19. CURRENTLY_VERIFIED_PASS in results/
+manuscript_mobility_p1_p2_p3_20261019/validation/final_verification.json:
+346 named saved-evidence checks plus exhaustive row/path assertions;145 hashed
+artifacts. Receipt SHA256 f7615f65d174d7c2de34186fe5f2ac174994598937e7fd8286f8ba0acf015f0f.
+Report report_vi.md, RUN.md, source/config/input/startup manifests and per-stage
+producer byte snapshots provide implementation and execution traceability.
+
+233 authenticated sources (197MB+36Uniform),100 positions,60 exact geometry
+identities. P1 evaluated13980 distinct source/channel pairs,expanded23300 rows,
+stored100 union maxima and200 family maxima; raw maximum before clipping.
+Both30deg references reproduced before batch. Candidate-dependent noise,
+GH16/32/64 and covariance checks passed; P1 max MI delta5.828670879282072e-16,
+min uncertainty eigenvalue5.344268129729361e-6,max spectrum residual2.3092638912203256e-14.
+Representative direct-PDF/full256-mixture/80vs110-digit entropy controls pass.
+All100 selected sources are MB(nu=.125,VA=8); rawK range
+.00011629627744942274--.00015780044462080858 bits/use. Uniform family usable
+K=0 at100/100 positions; retain negative raw rates and catalog-boundary limits.
+
+Scenario0 archived100 boolean cloud missions reused exactly, generator/input
+hashes checked and seed IDs0,1,99 replayed. S=(~C)*Kstar exactly; complete
+blockage does not call quantum evaluator. Penalties locked afterP1 before
+trajectory solving: lambda_hi=.003156008892416172,representative
+9.468026677248516e-6;missionID0 prechosen.1000DP+1000Greedy produce3000 metrics,
+90000 slot rows,210 ordinary and60 paired statistics rows. All key sets,
+source identities,metrics and Student-t95% CIs independently reconstructed.
+Literal cumulative Nt-lambda Bellman1000 checks,max residual1.0842021724855044e-19;
+DP objective dominance and nonincreasing flight with lambda passed.
+
+At representative lambda,100mission meanK: P2=.00015024281866088824,
+Greedy=.00015238791176394823,DP=.00015649535266182735 bits/use;mean distance
+0,430.61018325352387,172.4329897790698m respectively. CIs and paired differences
+are saved; positive mobility gain is not assumed mission by mission. In chosen
+mission0 DP/P2 coincide stationary at index80;Greedy90→80 travels100m and has
+higher meanSKR but lower penalized objective. No seed/lambda/path reselection.
+
+Figure1 reuses6758 verified rows and adds465 evaluations for15 existing MB
+sources:7223 source-angle rows at31 physical distances19--38km. GH winner
+identity stable for Union/MB/Uniform at every angle. No newCw/AP/AO. Eleven
+350dpiPNG/vectorPDF pairs and plot-dataCSV exported; all11 actual PNGs visually
+reviewed, PDF raster-image absence/DPI and input/renderer hashes verified.
+24 current scoped tests pass (18 manuscript+6 existing cloud); independent
+backend,runner,plots and whole-change reviews approved. P1 runtime388.563s;
+1000-pair comparison20.033s, excluding import/preflight/figure export overhead.
+
+Preservation:4845 prior files unchanged;only five allowed task-ledger docs
+changed out of4850 protected. Scientific helpers,old caches/results,external
+manuscript and frozen spec unchanged. Retain UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen historical hash discrepancy and
+ObjectiveC USER_STOPPED. Finite catalog/grid synthetic numerical evidence only;
+P2/DP are offline benchmarks,Greedy causal. No training/test-data/final-test/
+held-out/publication evaluation,baseline/threshold approval,commit or push.
+
+## EVID-0197 preparation - Approved manuscript P1/P2/P3 and Greedy implementation
+
+2026-10-19 direct user PLEASE IMPLEMENT THIS PLAN authorizes the previously
+reviewed isolated diagnostic. Startup manifest protects all prior files and
+the dirty worktree.233 exact sources,100 positions/60 unique geometries,
+100 paired synthetic cloud missions and10 prescribed scaled penalties.
+No numerical run has completed yet. Frozen hash conflict is preserved.
+No production/scientific-kernel/old cache edit, new Cw/AP/AO, training/test-
+data/final-test/held-out/publication access, ObjectiveC restart, commit/push.
+
+## EVID-0196 completion - Fresh zenith-angle exact-catalog comparison
+
+2026-10-19. results/skr_vs_zenith_angle_20261019/validation_report.md and
+required PNG/vectorPDF/CSV outputs complete.31 fresh angles0:2:60deg,
+36 Uniform+182 MB sources,6758 raw candidate evaluations. Source hashes,
+ensemble PMF/geometry/VA=2nbar/support256 validated; no new Cw/AP/AO.
+Channel233urad/Dr.08m recomputed from primitive geometry/HV/Gd and retained
+[0,1] PDF at every angle; no distance-curve relabeling or moment renormalizing.
+Normalized2D MI/component variance1+N, channel-only xi=.0186 and imported
+homodyne nu3 unchanged. No interpolation or negative clipping.
+
+Reference gate30deg precedes sweep: fixed MB K9.665799737511703e-5,
+UniformVA.0475 K-4.850670994797474e-5, matching prior values within2e-13.
+Best catalog MB at30deg(.125,8):K.00013951628857127992,+44.340139833267465%
+versus fixed. Uniform positive at44:2:60deg; both MB schemes positive24:2:60.
+All three remain positive at60deg/L38km. No positive-to-nonpositive transition
+observed; no artificial operational bracket or unnecessary refinement. Negative-
+to-positive entry brackets are[42,44]deg Uniform,[22,24]deg both MB (initial2deg
+resolution, no interpolated crossing). Uniform tested peak52deg K.00010662595172733;
+fixed/optimized MB peak48deg K.00024135717567699987/.0003421451103002522.
+All three subsequently decline.60deg is only the investigated boundary.
+
+7445 producer checks,9 numerical controls,280 saved-evidence checks PASS.
+All6758 evaluations GH16/32/64:maximum MI delta6.062858548538941e-16;
+min eig(Gamma+iOmega)2.150310047812697e-6;matrix spectrum delta<=2.8422e-14.
+Closed-vs-direct PDF quadrature and80/110digit channel/entropy controls at
+0/30/60deg pass. Full256-mixture kernel agrees with product tensor at all
+three representative angles. near_zero_MI_convergence.csv records selected
+near-zero controls. Both350dpi PNG layouts visually reviewed; vectorPDFs
+verified. Layout-only render_figures.py/receipt uses saved CSV unchanged.
+
+validation_receipt.json binds all outputs/producer/input/source roster and
+verifies4802/4807 prior files unchanged; only five authorized task-ledger docs
+changed. Catalog-limited best-tested only: UniformVA12 and MBVA8 reach their
+respective catalog ceilings. No continuous/global or physical homodyne security
+claim. Production/scientific/security source/config/old cache/frozen files
+unchanged. UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen hash conflict/ObjectiveC
+USER_STOPPED remain. No training/test-data/final-test/held-out/publication,
+baseline/threshold certification, external edit, commit or push. COMPLETE;STOP.
+
+## EVID-0196 preparation - Requested zenith-angle finite-catalog comparison
+
+2026-10-19 request874a2276 explicitly requests a fresh 0--60deg/2deg sweep,
+Uniform VA and MB nu/VA finite-catalog selection, fixed MB(.165,5.475), direct
+transition refinement <=.25deg and separate figures/tables. Startup manifest
+protects all pre-existing files including both completed 20261019 diagnostics.
+Reuse exact source moments only after payload/ensemble/hash verification.
+No scientific run completed yet; reference30deg must pass before full sweep.
+Frozen actual df83ea63...db78c15 differs from historical expected561fecc9...a7b1;
+preserved diagnostic-only blocker. Production/lifecycle NOT_READY unchanged.
+
+## EVID-0195 completion - Uniform exact-tested manuscript-style 2D optimization
+
+2026-10-19. Report docs/UNIFORM_MANUSCRIPT_2D_OPTIMIZATION_VI.md; artifacts
+results/uniform_manuscript_2d_optimization_20261019/.36 exact-tested candidates,
+VA .02--12, comprising30 authenticated historical Uniform sources plus6 new
+objective sources. A seventh new payload is the VA.05 source-parity control;
+old/new Cw agree bitwise. New source1250/1450 rows retain256 modes and converge.
+All raw Uniform K are negative. Best tested VA=.0475,
+C=.15583351386208738,w=.0012545586980808594,
+I_AB2D=1.6689494031578547e-5,betaI=1.585501932999962e-5,
+chi=6.436172927797437e-5,K=-4.850670994797474e-5 bits/use.
+Fixed MB reference unchanged K=9.665799737514629e-5;
+DeltaK=MB-Uniform=.00014516470732312103; percentage omitted for negative Uniform.
+
+188 producer checks and6 independent numerical prechecks pass. GH16/32/64
+maximum MI difference3.7868132566308554e-16. Best original MB full tensor2D
+kernel residual<=1.318322079106593e-16; no1D switch or1/2 factor. Independent
+matrix symplectic/uncertainty checks pass for36/36; best entropy80/110dps stable.
+Same fixed channel/moments/noise/normalization at every VA; no Cw/SKR interpolation.
+Four PNG350dpi/vectorPDF figures, three mandatory layouts visually reviewed;
+all negative values/zero lines retained. Full candidate, source, convergence,
+comparison, protocol/environment and saved-result verification artifacts exist.
+
+Scope BEST_CURRENT_EXACT_TESTED_CANDIDATE_ONLY, no global/continuous certificate
+or physical homodyne security proof. UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen
+hash conflict/ObjectiveC USER_STOPPED remain. Validation protects4702 prior files:
+4697 unchanged, only five task-ledger documents updated. Production/source/
+optics/config/cache/frozen specs and all MB artifacts unchanged. No MB optimization,
+training/test-data/final-test/held-out/publication/baseline-threshold certification,
+ObjectiveC restart, external manuscript edit, commit/push. Deliver and STOP.
+
+## EVID-0195 preparation - Uniform-only exact-tested manuscript 2D search
+
+2026-10-19 user request6b0f6694 explicitly authorizes Uniform VA optimization,
+fresh exact Cw where absent, fixed MB reference and three diagnostic figures.
+results/uniform_manuscript_2d_optimization_20261019/startup_manifest.json
+protects4702 preexisting files including all MB recheck artifacts and dirty
+worktree edits. Fixed channel recomputed once and matches MB at high precision.
+All30 authenticated historical Uniform candidates freshly evaluated; raw K all
+negative, preliminary best VA.05/K-4.8508380437604e-5. Source generation for8/12
+and source-arithmetic parity control are RUNNING; no new Cw accepted yet.
+
+search_protocol.json records adaptive reuse of all historical points, coarse
+extension8/12, local .025/.075 then .0475/.0525. Exact source/kernel/unit checks
+and full candidate/convergence ledger are separate from historical caches.
+Six numerical prechecks pass for 2D-mixture factorization against original MB
+kernel and diagonal-solve identity. Full source parity/convergence remain pending.
+Source AP uses1050/1250/1450 and all256 modes; an isolated diagonal-system
+solve replaces redundant LU only, no source/security/MI equation change.
+Original preliminary12 probe stopped before an accepted result and replaced
+by the isolated path; no partial source accepted. No MB optimization,
+production/frozen/config/cache change or lifecycle/security promotion.
+Numerical optimization only; NOT_READY_FOR_PUBLICATION_SCALE_RUNS remains.
+
+EVID-0195 progress: source_parity_control.json verifies new diagonal-solve
+Uniform VA.05 Cw bit-for-bit equal to the historical cached float64 values;
+all1050/1250/1450 rows resolve256 modes, minimum~6.9e-950. Fresh8/12 sources
+pass support and1250/1450 convergence, identical saved50-digit Cw. Their raw
+K=-.00045325708129059984/-.00043364392506578346. Completed32-candidate
+preflight verifies source hashes, Uniform identity and physical eigenvalues.
+Four fixed refinements .025/.075/.0475/.0525 are being prepared with source
+concurrency2, evaluations serial. An experimental FLINT matrix-kernel trial
+was stopped without accepted output and is NOT_USED_FOR_ANY_CANDIDATE.
+All reported sources retain the validated C4/diagonal-solve path. Orchestration
+restart retained accepted sources and rejected partial work; artifacts record it.
+
+## EVID-0194 - Explicit single-point manuscript homodyne/noise comparison
+
+2026-10-19. User task fa11cb3c and supplied Copy_ (12).pdf SHA256
+84e1ba495d7f57ea1147426eac9a38fbadf59bae5edc6d7f17b9e1b4c9f192cc authorize
+one-point (nu_raw,VA)=(.165,5.475), corrected xi_n=xi_ch=.0186 and ideal R1/xi_det0.
+Separate scripts/recheck_manuscript_homodyne_noise.py freshly computes PDF
+Eq19/20 retained moments, normalized 2D Eq12 tensor GH16/32/64 and literal
+homodyne Eq13/14 at70/100dps. Exact Cw cache/ensemble/catalog authenticated;
+no source generation or interpolated moment/SKR. Report
+docs/MANUSCRIPT_HOMODYNE_NOISE_RECHECK_VI.md; artifacts and validation receipt
+results/manuscript_homodyne_noise_recheck_20261019/.
+
+Numerical17 self-checks PASS; max MI quadrature difference7.915e-17, chi precision
+residual4.435e-70. Primary explicit-cache-normalization hybrid MI=.001922199913607,
+chi=.001729431920551503, raw K=+9.665799737514629e-5. Independent real-quadrature
+MI=.0009610999568034853 gives raw K=-.0008163869615881919 with same homodyne chi.
+Reference sign/magnitude reproduced; printed reference digits NOT reproduced.
+Alternative unbroadened-aperture A0 diagnostic also does not match both numbers.
+No coefficient is tuned to the reference; missing reference provenance remains.
+
+Literal PDF/source compatibility FAILED: PDF VA=nbar/2 versus cache VA=2nbar;
+same ensemble nbar2.7375 corresponds PDF VA1.36875. Relabeling existing Cw gives
+nu2=.997405770245025 and is rejected without entropy clipping. Literal VA5.475
+requires a different ensemble; no literal-point/security claim is made. PDF MB
+gamma/nu and index notation, unspecified finite Nmax versus full-support Gram,
+omitted HV/Gd closure and 2D-MI/homodyne measurement consistency remain explicit.
+Raw retained PDF mass passes; no renormalization or detector/pure-loss noise added.
+
+Startup branch fix/channel HEAD49597cd766638bf1ab557776b6ff010dc29eb6e4 clean;
+4687 existing tracked files hash-bound. Initial receipt verifies all unchanged;
+final receipt permits only five task-ledger documentation updates. Production
+scientific/security source, defaults, source cache and frozen specs unchanged.
+UNVALIDATED_SECURITY_MODEL/NOT_READY/frozen discrepancy/ObjectiveC USER_STOPPED
+remain. No optimization/AP/AO/training/test-dataset/final-test/publication,
+baseline/threshold approval, external edit, commit/push. Deliver and STOP.
+
 ## EVID-0179 - Separate manuscript-literal three-moment implementation
 
 2026-10-12. User supplied manuscript (37), SHA256

@@ -1,0 +1,800 @@
+# TASK: Publication-Quality Comparative Figures for HAP–UAV CV-QKD Mobility Optimization
+
+## 1. Main Objective
+
+Inspect the existing HAP-to-UAV CV-QKD research repository and generate a comprehensive set of publication-quality comparison figures for the completed P1–P2–P3 optimization study.
+
+The primary goal is to visualize and quantitatively compare:
+
+1. Optimal Stationary UAV Positioning (P2).
+2. Greedy UAV Positioning.
+3. Dynamic Programming (P3).
+
+Use the existing results from 100 cloud missions and 10 mobility-penalty values.
+
+**Prioritize multi-curve line plots that clearly demonstrate differences between the three methods.**
+
+The figures should be suitable for inclusion in an IEEE conference or journal manuscript.
+
+Do not rerun any physical-layer simulations, source optimizations, cloud generation, or mobility optimization.
+
+This task is strictly for **post-processing, statistical aggregation, visualization, and verification of existing results**.
+
+---
+
+## 2. Existing Results and Data Discovery
+
+The completed numerical study includes:
+
+- 233 exact-source candidates.
+- 100 UAV candidate locations.
+- 100 cloud missions.
+- 10 mobility-penalty values.
+- P1 source optimization.
+- P2 stationary positioning.
+- Greedy trajectory baseline.
+- P3 Dynamic Programming.
+- 24 passing tests.
+- 346 initial validation checks.
+- 883 subsequent analysis checks.
+
+The main results directory is:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/`
+
+The existing analysis directory is:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/analysis/`
+
+Before generating any figure, inspect:
+
+- `report_vi.md`
+- `analysis/report_analysis_vi.md`
+- `analysis/numerical_results_discussion_en.md`
+- Existing CSV files.
+- Existing NPZ files.
+- Existing figures.
+- Simulation metadata and configuration files.
+
+Determine the exact source files containing:
+
+- Per-mission average usable SKR.
+- Per-mission total travel distance.
+- Per-mission objective value.
+- Mobility penalty values.
+- Algorithm names.
+- P1 optimized source information.
+- P2 stationary-position results.
+- Greedy trajectories.
+- DP trajectories.
+- Cloud-state realizations.
+- Per-slot usable SKR.
+
+Do not assume CSV filenames or column names.
+
+Print a concise data inventory containing the actual file paths, number of rows, available columns, dimensions, and units.
+
+If a metric is already available, reuse it.
+
+If a metric can be calculated exactly from stored per-slot or per-trajectory data, reconstruct it without rerunning the optimization.
+
+If essential data are missing, explicitly report the missing fields and do not fabricate values.
+
+---
+
+## 3. Mathematical Definitions
+
+For a UAV trajectory
+
+\[
+\mathbf j=(j_1,\ldots,j_{N_t}),
+\]
+
+the average usable secret-key rate is
+
+\[
+\boxed{
+\overline K
+=
+\frac{1}{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n}.
+}
+\]
+
+The total UAV travel distance is
+
+\[
+\boxed{
+D=
+\sum_{n=2}^{N_t}
+\|\mathbf q_{j_n}-\mathbf q_{j_{n-1}}\|_2.
+}
+\]
+
+The mobility-penalized objective is
+
+\[
+\boxed{
+U=
+\overline K-\frac{\lambda D}{D_{\rm ref}}.
+}
+\]
+
+The three methods must be compared using the same:
+
+- Cloud realization.
+- UAV position grid.
+- Mission duration.
+- Physical channel model.
+- Source catalog.
+- Mobility penalty.
+- Flight constraints.
+
+Use raw unrounded numerical data when calculating statistics.
+
+Do not calculate statistics using rounded values copied from reports.
+
+---
+
+# FIGURE 1 — Average Usable SKR Versus Mobility Penalty
+
+## 4. Purpose
+
+This figure demonstrates how the average usable SKR changes as the cost of UAV mobility increases.
+
+### Horizontal axis
+
+\[
+\lambda
+\]
+
+Label:
+
+**Mobility penalty \(\lambda\) (bits/use)**
+
+### Vertical axis
+
+\[
+\mathbb E[\overline K]
+\]
+
+Label:
+
+**Average usable SKR (bits/use)**
+
+### Curves
+
+Plot exactly three methods:
+
+- **Stationary (P2)** — blue solid line with circle markers.
+- **Greedy** — orange dashed line with square markers.
+- **Dynamic Programming (P3)** — red solid line with triangle markers.
+
+Use the actual 10 values of \(\lambda\) found in the saved results.
+
+Sort them numerically before plotting.
+
+For each method and penalty value, calculate the arithmetic mean over all 100 paired cloud missions.
+
+Do not aggregate over time slots and missions inconsistently.
+
+### Statistical uncertainty
+
+If the 100 cloud missions are independent realizations, calculate 95% confidence intervals for the mean.
+
+Use a paired bootstrap when comparing methods.
+
+Display small error bars or a lightly shaded confidence band only if they improve clarity.
+
+Do not use standard deviation as though it were a confidence interval.
+
+### Expected behavior to investigate
+
+- Stationary SKR should be independent of \(\lambda\) because it has zero travel distance and the P2 optimization does not use \(\lambda\).
+- Greedy and DP may change their trajectories as \(\lambda\) changes.
+- DP may have a higher or lower unpenalized average usable SKR than Greedy for a particular positive \(\lambda\); DP is guaranteed to optimize the penalized objective \(U\), not necessarily \(\overline K\).
+
+Do not force the DP SKR curve to be above every baseline unless supported by the data.
+
+### Required output
+
+`fig1_average_skr_vs_lambda.pdf`
+
+`fig1_average_skr_vs_lambda.png`
+
+---
+
+# FIGURE 2 — Objective Value Versus Mobility Penalty
+
+## 5. Purpose
+
+This is the most important figure for evaluating the mathematical effectiveness of P3.
+
+The P3 optimization directly maximizes
+
+\[
+U=\overline K-\frac{\lambda D}{D_{\rm ref}}.
+\]
+
+### Horizontal axis
+
+Mobility penalty \(\lambda\) (bits/use).
+
+### Vertical axis
+
+Mean mobility-penalized objective \(U\) (bits/use).
+
+### Curves
+
+- Stationary (P2).
+- Greedy.
+- Dynamic Programming (P3).
+
+Use the same colors and markers as Figure 1.
+
+### Requirements
+
+For each mission and method, verify:
+
+\[
+U=\overline K-\frac{\lambda D}{D_{\rm ref}}.
+\]
+
+Calculate mean objective values across the same 100 cloud missions.
+
+Check the following inequalities for every mission and every \(\lambda\):
+
+\[
+\boxed{
+U_{\rm DP}\geq U_{\rm Greedy}
+}
+\]
+
+and
+
+\[
+\boxed{
+U_{\rm DP}\geq U_{\rm Stationary}.
+}
+\]
+
+Use a small numerical tolerance consistent with floating-point calculations.
+
+These inequalities should hold because DP solves the finite-horizon discrete optimization exactly under the shared assumptions.
+
+If any violation is found, stop and report the violating mission and penalty value.
+
+Do not silently alter data or omit problematic cases.
+
+### Scientific interpretation
+
+Use this figure to show whether the benefit of cloud-aware DP trajectory planning remains after accounting for mobility penalties.
+
+### Required output
+
+`fig2_objective_vs_lambda.pdf`
+
+`fig2_objective_vs_lambda.png`
+
+---
+
+# FIGURE 3 — Travel Distance Versus Mobility Penalty
+
+## 6. Purpose
+
+Show how the three methods trade UAV movement against QKD performance.
+
+### Horizontal axis
+
+Mobility penalty \(\lambda\) (bits/use).
+
+### Vertical axis
+
+**Average total UAV travel distance (m)**
+
+### Curves
+
+- Stationary (P2).
+- Greedy.
+- Dynamic Programming (P3).
+
+Calculate the travel distance for every mission and then average across the same 100 missions.
+
+The Stationary method must satisfy
+
+\[
+D_{\rm Stationary}=0.
+\]
+
+Do not assume Greedy necessarily travels more than DP or vice versa.
+
+### Important interpretation
+
+For a fixed mission and finite set of feasible trajectories, increasing \(\lambda\) favors solutions with smaller travel distance.
+
+Check whether the exact DP travel distance is non-increasing with \(\lambda\), allowing for numerical tolerance and tie-breaking.
+
+Greedy does not have the same global monotonicity guarantee.
+
+### Required output
+
+`fig3_travel_distance_vs_lambda.pdf`
+
+`fig3_travel_distance_vs_lambda.png`
+
+---
+
+# FIGURE 4 — Improvement of DP Over Stationary and Greedy
+
+## 7. Purpose
+
+Rather than comparing three absolute performance curves, directly show how much DP improves the objective.
+
+Create a line chart with two curves:
+
+\[
+\Delta U_{\rm DP,P2}
+=
+U_{\rm DP}-U_{\rm P2},
+\]
+
+\[
+\Delta U_{\rm DP,Greedy}
+=
+U_{\rm DP}-U_{\rm Greedy}.
+\]
+
+### Horizontal axis
+
+Mobility penalty \(\lambda\) (bits/use).
+
+### Vertical axis
+
+**Mean objective improvement (bits/use)**
+
+### Curves
+
+- DP minus Stationary.
+- DP minus Greedy.
+
+Calculate paired differences within each mission before averaging.
+
+Do not subtract averages calculated over different mission sets.
+
+If useful, display confidence intervals for the paired mean improvements.
+
+Add a horizontal reference line at zero.
+
+All observed differences should be nonnegative within the numerical tolerance.
+
+### Additional requirement
+
+At
+
+\[
+\lambda=9.46803\times10^{-6},
+\]
+
+verify whether the saved results support the previously reported:
+
+- 3.07% objective improvement over P2.
+- 4.42% objective improvement over Greedy.
+
+Recalculate these percentages from the stored data using clearly defined denominators.
+
+Do not force the results to match the rounded report.
+
+### Required output
+
+`fig4_dp_objective_gain_vs_lambda.pdf`
+
+`fig4_dp_objective_gain_vs_lambda.png`
+
+---
+
+# FIGURE 5 — SKR Versus Total UAV Travel Distance
+
+## 8. Purpose
+
+Produce a direct performance–mobility tradeoff comparison.
+
+This figure should help the reader answer:
+
+**How much additional UAV movement is required to increase the average usable SKR?**
+
+### Horizontal axis
+
+Average total UAV travel distance (m).
+
+### Vertical axis
+
+Average usable SKR (bits/use).
+
+### Curves
+
+- Greedy.
+- Dynamic Programming.
+
+For each \(\lambda\), create one point:
+
+\[
+\left(
+\mathbb E[D],
+\mathbb E[\overline K]
+\right).
+\]
+
+Connect points in increasing order of \(\lambda\), not by travel distance unless explicitly stated.
+
+Use markers with sufficiently distinguishable shapes.
+
+Include the Stationary method as one reference point at:
+
+\[
+D=0.
+\]
+
+Optionally annotate selected points with their \(\lambda\) values.
+
+Do not claim a globally optimal physical Pareto frontier.
+
+The figure only represents the evaluated trajectory policies and penalty values.
+
+### Required output
+
+`fig5_skr_vs_travel_distance.pdf`
+
+`fig5_skr_vs_travel_distance.png`
+
+---
+
+# FIGURE 6 — Per-Slot Usable SKR Along a Representative Mission
+
+## 9. Purpose
+
+Show how cloud-aware mobility affects the achievable SKR over time.
+
+Select one representative mission based on actual saved data.
+
+Prefer a mission where DP strictly outperforms Greedy and P2 in the objective.
+
+Use the representative penalty:
+
+\[
+\lambda=9.46803\times10^{-6}
+\]
+
+if this value exists exactly in the stored configuration.
+
+### Horizontal axis
+
+Time slot \(n\).
+
+### Vertical axis
+
+**Usable SKR (bits/use)**
+
+### Curves
+
+- Stationary (P2).
+- Greedy.
+- DP.
+
+Calculate each curve from the saved position trajectories and the same usable-SKR matrix:
+
+\[
+S_{j_n,n}.
+\]
+
+Use step plots or line plots with markers.
+
+Indicate blocked slots only when supported by the selected trajectory's cloud states.
+
+Report the mission ID and \(\lambda\) in the caption.
+
+Do not construct synthetic per-slot sequences.
+
+### Required output
+
+`fig6_per_slot_skr_comparison.pdf`
+
+`fig6_per_slot_skr_comparison.png`
+
+---
+
+# FIGURE 7 — Cumulative Secret-Key Reward Versus Time
+
+## 10. Purpose
+
+Show how benefits accumulate throughout the mission.
+
+For each method, compute:
+
+\[
+R_m(n)
+=
+\sum_{t=1}^{n}S_{j_t^{(m)},t}.
+\]
+
+Plot the three cumulative curves:
+
+- Stationary.
+- Greedy.
+- DP.
+
+The curves must be non-decreasing if each usable-SKR value is nonnegative.
+
+Use the same representative mission as Figure 6.
+
+The quantity \(R_m(n)\) is a cumulative sum of SKR values expressed in bits/use per slot, not a physical number of secret bits unless a pulse rate and the number of channel uses per slot are supplied.
+
+If a physical secret-bit count is not available, use the label:
+
+**Cumulative usable-SKR sum**
+
+Do not label it "Total secret bits."
+
+### Required output
+
+`fig7_cumulative_skr_vs_time.pdf`
+
+`fig7_cumulative_skr_vs_time.png`
+
+---
+
+# FIGURE 8 — P1: Uniform Versus MB Across UAV Positions
+
+## 11. Purpose
+
+Demonstrate the influence of probabilistic constellation shaping before mobility optimization.
+
+### Horizontal axis
+
+UAV candidate position index \(j\), from 1 to 100.
+
+### Vertical axis
+
+**Optimized clear-sky SKR (bits/use)**
+
+### Curves
+
+- Optimized Uniform 256-QAM.
+- Optimized MB-shaped 256-QAM.
+
+Use the evaluated raw SKR for the main comparison.
+
+If Uniform raw SKR is negative at all 100 positions, retain those negative values.
+
+Do not clip raw negative SKR to zero when showing the underlying source performance.
+
+Optionally create a second panel showing usable SKR:
+
+\[
+K_j^+=[K_j]^+.
+\]
+
+This makes the distinction between raw SKR and usable SKR explicit.
+
+Do not claim a percentage shaping gain relative to a zero or negative Uniform reference.
+
+### Required output
+
+`fig8_uniform_vs_mb_positions.pdf`
+
+`fig8_uniform_vs_mb_positions.png`
+
+---
+
+# 12. Publication-Quality Visual Requirements
+
+Use Python with Matplotlib.
+
+All figures must have consistent formatting:
+
+- White background.
+- Clean scientific style.
+- IEEE-compatible typography.
+- Clear tick labels.
+- Subtle major and minor grid lines.
+- Line width approximately 2–2.5 pt.
+- Marker size approximately 5–7 pt.
+- Consistent color assignments:
+  - Stationary: blue.
+  - Greedy: orange.
+  - DP: red.
+- No distracting decorative elements.
+- Legends must not obscure important data.
+- Appropriate axis limits.
+- Scientific notation for small SKR values.
+- No clipping of nonpositive values on linear plots.
+- No artificial smoothing or interpolated data points.
+- Avoid misleading truncated axes.
+
+Prefer compact figures suitable for IEEE two-column documents.
+
+Recommended sizes:
+
+- Single-column figures: approximately 3.5 inches wide.
+- Double-column figures: approximately 7.2 inches wide.
+
+Use vector PDF and PNG at 350 dpi.
+
+For all plotted points, verify that the values originate from saved numerical results.
+
+If a selected x-axis variable spans several orders of magnitude and includes \(\lambda=0\), use a suitable linear or symmetric logarithmic presentation without dropping zero.
+
+Do not invent an arbitrary positive \(\lambda\) merely to enable logarithmic scaling.
+
+---
+
+# 13. Statistical Aggregation
+
+Use all 100 paired cloud missions unless there are documented invalid records.
+
+For each method and \(\lambda\), compute:
+
+\[
+\mu_K=\frac1M\sum_{m=1}^{M}\overline K_m,
+\]
+
+\[
+\mu_D=\frac1M\sum_{m=1}^{M}D_m,
+\]
+
+\[
+\mu_U=\frac1M\sum_{m=1}^{M}U_m,
+\]
+
+where \(M=100\).
+
+Also compute sample standard deviation, median, and optional confidence intervals.
+
+Use consistent mission ordering and verify that each method has the same mission IDs for each penalty value.
+
+If any mission or method is missing, report it and do not silently substitute a value.
+
+Distinguish clearly between:
+
+- Mean SKR.
+- Mean penalized objective.
+- Travel distance.
+- Availability.
+
+These are different performance metrics and must not be treated as interchangeable.
+
+---
+
+# 14. Validation Against Existing Results
+
+Before finalizing the figures, verify the previously reported findings.
+
+At the representative penalty:
+
+\[
+\lambda=9.46803\times10^{-6},
+\]
+
+check:
+
+- DP increases average usable SKR by approximately 4.16% relative to P2.
+- DP increases average usable SKR by approximately 2.70% relative to Greedy.
+- DP improves the objective by approximately 3.07% relative to P2.
+- DP improves the objective by approximately 4.42% relative to Greedy.
+- DP strictly improves objective in 61/100 missions relative to P2.
+- DP strictly improves objective in 89/100 missions relative to Greedy.
+
+All figures must use values reconstructed from original saved numerical arrays.
+
+If any discrepancy is detected, report it explicitly.
+
+Do not modify data merely to reproduce the rounded percentages.
+
+---
+
+# 15. Figure Captions
+
+Create IEEE-style English captions for every figure.
+
+Captions must:
+
+1. Identify the measured quantity.
+2. Explain which methods are compared.
+3. State whether values are averaged over 100 cloud missions.
+4. Identify any representative mission or penalty used.
+5. Avoid unsupported interpretations.
+6. Avoid describing a trend that is not present in the actual figure.
+
+Examples of suitable wording:
+
+**Figure 1:**
+
+"Average usable SKR versus mobility penalty for stationary, Greedy, and DP-based UAV positioning, averaged over 100 cloud-blockage realizations."
+
+**Figure 2:**
+
+"Average mobility-penalized objective versus the mobility penalty for the stationary, Greedy, and DP-based positioning strategies."
+
+**Figure 3:**
+
+"Average UAV travel distance versus mobility penalty under the three positioning strategies."
+
+Generate final captions from actual results rather than blindly reusing examples.
+
+---
+
+# 16. Output Directory
+
+Create a new directory:
+
+`results/manuscript_mobility_p1_p2_p3_20261019/analysis/comparison_figures/`
+
+Save:
+
+- All eight figure PDFs.
+- All eight figure PNGs.
+- A CSV containing aggregated values used in the figures.
+- A CSV containing paired DP improvements.
+- A figure-source mapping table.
+- IEEE-style English captions.
+- A Vietnamese interpretation of each figure.
+- A validation report.
+
+Suggested files:
+
+`figure_data_summary.csv`
+
+`paired_improvements.csv`
+
+`figure_captions_en.md`
+
+`figure_interpretation_vi.md`
+
+`figure_validation.md`
+
+Do not overwrite previous simulation or analysis outputs.
+
+---
+
+# 17. Final Report
+
+After generating the figures, provide a concise but quantitative analysis in Vietnamese.
+
+Organize the report around the following questions:
+
+1. Does DP achieve higher average usable SKR than Greedy and Stationary?
+2. Does DP always achieve the highest penalized objective?
+3. How does the UAV travel distance change with mobility penalty?
+4. At what penalty values does mobility become less advantageous?
+5. What is the relationship between travel distance and SKR gain?
+6. How do the trajectories behave over individual cloud missions?
+7. Does MB shaping improve the source SKR compared with Uniform?
+8. Which figures provide the strongest evidence of the benefits of P2 and P3?
+
+Identify the **three or four most informative figures for the IEEE manuscript**, and explain why those are preferable to including every diagnostic figure.
+
+If an improvement is statistically uncertain or too small to see clearly, explain this rather than exaggerating it.
+
+---
+
+# 18. Mandatory Restrictions
+
+- Do not rerun P1, P2, P3 or Greedy.
+- Do not recalculate quantum source moments \(C,w\).
+- Do not recompute physical SKR.
+- Do not generate additional cloud missions.
+- Do not modify the SKR evaluator.
+- Do not alter the trusted-detector convention.
+- Do not overwrite previous results.
+- Do not commit or push.
+- Do not fabricate missing data.
+- Do not present the mixed 2D-MI/homodyne-Holevo result as a validated quantum-security rate.
+
+Preserve the project warnings:
+
+`UNVALIDATED_SECURITY_MODEL`
+
+`NOT_READY_FOR_PUBLICATION_SCALE_RUNS`
+
+The deliverable is a complete collection of scientifically interpretable comparison figures based exclusively on verified existing numerical results.
+
+**Execute the plotting and post-processing tasks, verify the figures, and provide links or paths to all generated outputs.**

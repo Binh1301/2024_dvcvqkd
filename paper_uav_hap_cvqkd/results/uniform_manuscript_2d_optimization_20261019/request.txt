@@ -1,0 +1,518 @@
+# TASK: Exact Numerical Optimization of Uniform 256-QAM SKR Using the Manuscript-Style 2D Mutual Information
+
+## 1. Objective
+
+Read the attached manuscript **“Performance Analysis of Probabilistically Shaped CV-QKD in Free-space HAP-to-UAV Systems”** and inspect the existing project repository and exact-source cache.
+
+Calculate and optimize the asymptotic secret-key rate (SKR) for **Uniform 256-QAM** over the HAP-to-UAV fading channel.
+
+The primary objective is
+
+\[
+\boxed{
+V_A^\star=\underset{V_A>0}{\arg\max}\ K_{\rm Uniform}(V_A)
+}
+\]
+
+with
+
+\[
+K_{\rm Uniform}(V_A)
+=
+\beta I_{AB}^{\rm 2D}(V_A)-\chi_{BE}(V_A).
+\]
+
+Determine whether the **optimized Uniform SKR is positive** at the reference link distance.
+
+**Important: Reproduce the exact same manuscript-style 2D mutual-information implementation used in the previously verified MB calculation. Do not switch to 1D homodyne MI or introduce a factor of \(1/2\).**
+
+This is a numerical comparison following the manuscript equations. Do not present the resulting 2D-MI/homodyne-Holevo combination as a fully validated homodyne security proof.
+
+## 2. Fixed Numerical Configuration
+
+Use the same physical channel configuration as the most recent MB recheck.
+
+| Parameter | Value |
+|---|---|
+| Modulation | Uniform 256-QAM |
+| Constellation size | \(M=256\) |
+| Shaping parameter | \(\nu=0\) |
+| HAP altitude | 20 km |
+| UAV altitude | 1 km |
+| Zenith angle | \(30^\circ\) |
+| Reference distance | \(21.9393102292\) km |
+| Wavelength | 1550 nm |
+| Beam divergence | \(233\,\mu\mathrm{rad}\) |
+| Receiver diameter | \(0.08\) m |
+| Jitter angle | \(15.61\,\mu\mathrm{rad}\) |
+| AoA standard deviation | 1.5 mrad |
+| FOV half-angle | 6.25 mrad |
+| Channel excess noise | \(\xi_{\rm ch}=0.0186\) SNU |
+| Reconciliation efficiency | \(\beta=0.95\) |
+
+Use the same atmospheric, pointing-error, turbulence, and wind parameters as the verified MB recheck.
+
+Do not change the optical configuration to obtain a positive SKR.
+
+Assume ideal trusted detection for this numerical comparison, \(R=1\) and \(\xi_{\rm det}=0\), so that unspecified detector imperfections do not introduce additional parameters.
+
+## 3. Uniform 256-QAM Source
+
+Use the constellation defined in the manuscript:
+
+\[
+\alpha_{i,j}
+=
+\Delta\left(i-\frac{15}{2}\right)
++
+\mathrm{i}\Delta\left(j-\frac{15}{2}\right),
+\]
+
+where
+
+\[
+i,j\in\{0,\ldots,15\}.
+\]
+
+For Uniform modulation:
+
+\[
+\boxed{p_{i,j}=\frac1{256}}
+\]
+
+and
+
+\[
+\boxed{\nu=0.}
+\]
+
+The source normalization must match the previously verified MB exact-source cache:
+
+\[
+\boxed{
+V_A=2\sum_{i,j}p_{i,j}|\alpha_{i,j}|^2.
+}
+\]
+
+Thus,
+
+\[
+\Delta
+=
+\sqrt{\frac{3V_A}{255}}.
+\]
+
+Verify explicitly that
+
+\[
+\sum_{i,j}p_{i,j}=1,
+\qquad
+2\sum_{i,j}p_{i,j}|\alpha_{i,j}|^2=V_A.
+\]
+
+The manuscript currently contains a conflicting \(V_A/\langle n\rangle\) convention. For comparability with the verified MB recheck, use the existing exact-source convention \(V_A=2\langle n\rangle\) and clearly document this choice.
+
+Do not use MB source moments \(C,w\) for Uniform.
+
+Every candidate \(V_A\) must use exact Uniform source moments corresponding to that particular constellation.
+
+## 4. Mutual Information: Mandatory 2D Implementation
+
+Use Eq. (12) of the manuscript:
+
+\[
+I_{AB}^{\rm 2D}
+=
+\sum_{k=1}^{256}p_k
+\int_{\mathbb C}
+p(y|\alpha_k)
+\log_2
+\left[
+\frac{p(y|\alpha_k)}
+{\sum_{j=1}^{256}p_jp(y|\alpha_j)}
+\right]d^2y.
+\]
+
+The conditional density must be the normalized two-dimensional Gaussian:
+
+\[
+\boxed{
+p(y|\alpha_k)
+=
+\frac{1}{2\pi\sigma_\zeta^2}
+\exp\left[
+-\frac{|y-2\sqrt{\eta_f}\alpha_k|^2}
+{2\sigma_\zeta^2}
+\right].
+}
+\]
+
+Use
+
+\[
+\boxed{
+\sigma_\zeta^2=1+\eta_f\xi_f.
+}
+\]
+
+Here, the real and imaginary components each have variance \(\sigma_\zeta^2\).
+
+**Mandatory requirements:**
+
+- Integrate over both real and imaginary components of the complex observation.
+- Do not divide the resulting MI by two.
+- Do not replace it with the Gaussian-modulation MI formula.
+- Do not switch to a single-quadrature homodyne implementation.
+- Do not use a heterodyne variance correction.
+- Use the same 2D Gaussian convention as the previous MB recheck.
+- Use numerically stable log-sum-exp calculations.
+- Verify Gauss–Hermite convergence at orders 16, 32, and 64.
+
+The result must be directly comparable with the previous MB 2D mutual-information calculation.
+
+## 5. Corrected Effective Channel Noise
+
+Use the corrected trusted-detector channel-excess-noise convention:
+
+\[
+\boxed{\xi_n=\xi_{\rm ch}=0.0186.}
+\]
+
+Calculate
+
+\[
+\eta_f=\langle\sqrt{\eta}\rangle^2
+\]
+
+and
+
+\[
+\boxed{
+\eta_f\xi_f
+=
+\left(\langle\eta\rangle-\eta_f\right)V_A
++\xi_{\rm ch}\langle\eta\rangle.
+}
+\]
+
+Do not use
+
+\[
+\xi_n=\chi_{\rm line}+\frac{\chi_{\rm hom}}{\eta}.
+\]
+
+Do not count pure channel loss or trusted detector noise as physical channel excess noise.
+
+Use the same validated channel-moment expressions and integration domain \([0,1]\) as in the MB recheck.
+
+For fixed link geometry, channel moments must remain independent of \(V_A\). Compute and cache them once.
+
+Before optimizing, compare the channel moments with the verified MB calculation:
+
+\[
+\langle\eta\rangle
+=0.000264033937028,
+\]
+
+\[
+\eta_f
+=0.000243545488773.
+\]
+
+Any discrepancy must be explained before proceeding.
+
+## 6. Exact Uniform Source Moments
+
+For each tested \(V_A\), calculate
+
+\[
+\tau=\sum_{k=1}^{256}p_k
+|\alpha_k\rangle\langle\alpha_k|,
+\]
+
+\[
+C
+=
+\operatorname{Tr}
+\left(
+\tau^{1/2}a\tau^{1/2}a^\dagger
+\right),
+\]
+
+and
+
+\[
+w
+=
+\sum_kp_k
+\left(
+\langle\alpha_k|a_\tau^\dagger a_\tau|\alpha_k\rangle
+-
+|\langle\alpha_k|a_\tau|\alpha_k\rangle|^2
+\right),
+\]
+
+where
+
+\[
+a_\tau=\tau^{1/2}a\tau^{-1/2}.
+\]
+
+Use the exact-source evaluation method and numerical truncation conventions already validated in the repository.
+
+If a candidate is already available in the Uniform exact-source cache, reuse it after verifying its ensemble identity.
+
+Otherwise, compute \(C,w\) directly.
+
+**Do not interpolate \(C,w\) between modulation variances.**
+
+Use appropriate numerical checks for the Fock-space truncation and source-moment convergence.
+
+## 7. Holevo Information: Keep the PDF Equations
+
+Use
+
+\[
+V=V_A+1,
+\]
+
+\[
+W=1+\eta_fV_A+\eta_f\xi_f,
+\]
+
+\[
+Z
+=
+2\sqrt{\eta_f}C
+-
+\sqrt{2\eta_f\xi_fw}.
+\]
+
+Calculate
+
+\[
+\Delta=V^2+W^2-2Z^2,
+\]
+
+\[
+D=(VW-Z^2)^2,
+\]
+
+\[
+\nu_{1,2}
+=
+\sqrt{
+\frac{\Delta\pm\sqrt{\Delta^2-4D}}2
+},
+\]
+
+\[
+\boxed{
+\nu_3
+=
+\sqrt{V\left(V-\frac{Z^2}{W}\right)}.
+}
+\]
+
+Use
+
+\[
+\chi_{BE}
+=
+g\left(\frac{\nu_1-1}{2}\right)
++
+g\left(\frac{\nu_2-1}{2}\right)
+-
+g\left(\frac{\nu_3-1}{2}\right),
+\]
+
+where
+
+\[
+g(x)
+=
+(x+1)\log_2(x+1)-x\log_2x.
+\]
+
+Keep this homodyne conditional symplectic eigenvalue exactly as written in the manuscript, solely for the requested manuscript-style numerical comparison.
+
+Do not change the Holevo evaluator to force a positive key rate.
+
+Check the physical validity of all symplectic eigenvalues before calculating entropy.
+
+## 8. Numerical Optimization of \(V_A\)
+
+Optimize only \(V_A\).
+
+First inspect the historical Uniform exact-source catalog and identify the available modulation variances.
+
+Reuse existing validated exact-source candidates rather than recomputing them.
+
+Then perform a coarse-to-fine search.
+
+Suggested initial range:
+
+\[
+0.1\leq V_A\leq12.
+\]
+
+Suggested coarse grid:
+
+\[
+V_A=0.1,0.5,1.0,1.5,\ldots,12.0.
+\]
+
+Use exact-source evaluation at each candidate.
+
+After finding the most promising region, refine with smaller steps, for example
+
+\[
+\Delta V_A=0.1,
+\]
+
+followed by
+
+\[
+\Delta V_A=0.025
+\]
+
+near the maximum.
+
+Adapt the search range if the maximum appears at a boundary.
+
+Do not assume that the best Uniform \(V_A\) is the same as the best MB \(V_A\).
+
+Do not use interpolation of \(C,w\), MI, Holevo, or SKR to claim an exact evaluated optimum.
+
+An interpolated curve may only be used as a visualization or candidate-selection aid, followed by exact evaluation.
+
+Report the best tested candidate and the explored domain. Do not claim a global optimum over all continuous \(V_A>0\) unless a valid global-optimality certificate is available.
+
+## 9. Required Results
+
+### A. Uniform Optimization Table
+
+Report at least the following columns:
+
+| \(V_A\) | \(C\) | \(w\) | \(I_{AB}^{2D}\) | \(\beta I_{AB}\) | \(\chi_{BE}\) | SKR |
+|---|---|---|---|---|---|---|
+
+Include all evaluated candidates, not only the positive ones.
+
+### B. Best Uniform Candidate
+
+Report:
+
+\[
+V_A^\star,
+\quad
+C^\star,
+\quad
+w^\star,
+\quad
+\eta_f,
+\quad
+\xi_f,
+\quad
+W,
+\quad
+Z,
+\]
+
+\[
+\nu_1,\nu_2,\nu_3,
+\quad
+I_{AB}^{2D},
+\quad
+\beta I_{AB},
+\quad
+\chi_{BE},
+\quad
+K_{\rm Uniform}^\star.
+\]
+
+Explicitly determine whether
+
+\[
+\boxed{K_{\rm Uniform}^\star>0.}
+\]
+
+If all tested Uniform candidates are negative, report the largest raw SKR and its corresponding \(V_A\), rather than simply reporting zero.
+
+### C. Comparison with the Verified MB Result
+
+Use the following MB result as a fixed reference:
+
+\[
+(\nu_{\rm raw},V_A)_{\rm MB}
+=(0.165,5.475),
+\]
+
+\[
+K_{\rm MB}
+=
++9.66579973751\times10^{-5}
+\quad\text{bits/use}.
+\]
+
+Compare:
+
+| Scheme | \(\nu\) | Optimal/tested \(V_A\) | \(I_{AB}^{2D}\) | \(\chi_{BE}\) | SKR |
+|---|---|---|---|---|---|
+| Uniform optimized | 0 | To calculate | | | |
+| MB reference | 0.165 | 5.475 | 0.001922199913607 | 0.001729431920552 | \(+9.66579974\times10^{-5}\) |
+
+Report the absolute SKR difference:
+
+\[
+\Delta K=K_{\rm MB}-K_{\rm Uniform}^\star.
+\]
+
+Only calculate a percentage improvement if the Uniform reference SKR is strictly positive.
+
+### D. Figures
+
+Generate:
+
+1. Uniform SKR versus \(V_A\).
+2. \(I_{AB}^{2D}\), \(\beta I_{AB}^{2D}\), and \(\chi_{BE}\) versus \(V_A\).
+3. A comparison of optimized Uniform SKR and the fixed MB reference at the same link distance.
+
+Show the zero-SKR line clearly.
+
+## 10. Validation Requirements
+
+Perform the following checks:
+
+1. Uniform probabilities sum to one.
+2. Constellation normalization gives the requested \(V_A\).
+3. Channel moments match the earlier MB recheck.
+4. \(C,w\) correspond to the exact Uniform ensemble.
+5. MI integration converges at GH orders 16/32/64.
+6. All symplectic eigenvalues are physically valid.
+7. SKR equals \(\beta I_{AB}-\chi_{BE}\) to numerical precision.
+8. No interpolation is used for the exact-source evaluation.
+9. All candidates use identical channel and noise conventions.
+10. No previous MB source moments are accidentally reused for Uniform.
+
+## 11. Deliverables and Restrictions
+
+Produce a reproducible numerical report, complete candidate table, convergence diagnostics, and plots.
+
+Save the results separately from historical verified data.
+
+Do not overwrite existing exact-source caches, modify the production evaluator, or delete previous results.
+
+**Do not run MB optimization. Only optimize Uniform \(V_A\).**
+
+Do not modify the underlying physical channel configuration.
+
+Do not change the mutual-information or Holevo equations.
+
+Do not force SKR to be positive.
+
+Finish with a direct answer:
+
+**"Does optimized Uniform 256-QAM achieve positive SKR at \(L=21.9393102292\) km under the manuscript-style 2D calculation with corrected channel excess noise?"**
+
+Report the best numerically evaluated \(V_A\), the exact raw SKR, and the difference relative to the MB reference.

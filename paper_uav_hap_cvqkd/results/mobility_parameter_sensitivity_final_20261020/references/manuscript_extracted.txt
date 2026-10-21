@@ -1,0 +1,296 @@
+PAGE 1
+Mobility-Aware UA V Positioning and Secret Key
+Rate Optimization for HAP–UA V CV-QKD
+TBD∗, TBD†
+∗XXX
+†Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+Abstract—This paper investigates mobility-aware unmanned
+aerial vehicle (UA V) positioning in a high-altitude-platform
+(HAP)-to-UA V free-space optical continuous-variable quantum
+key distribution (CV-QKD) system under cloud blockage. Prob-
+abilistic constellation shaping is optimized over a finite source
+catalog to maximize the clear-sky secret key rate (SKR) at each
+candidate UA V position. We first identify the best stationary
+position and then formulate a mobility-aware trajectory opti-
+mization problem that balances the average usable SKR against
+a normalized flight-distance penalty subject to a per-slot speed
+constraint. The resulting finite-horizon discrete problem is solved
+exactly by dynamic programming on the candidate-position grid.
+The evaluation compares source shaping, stationary positioning,
+and cloud-aware UA V mobility, using greedy positioning as a
+low-complexity trajectory baseline.
+Index Terms—Continuous-variable quantum key distribution
+(CV–QKD), unmanned aerial vehicle (UA V), free-space optics
+(FSO), high-altitude platform (HAP), probabilistic constellation
+shaping (PCS), dynamic programming (DP).
+I. HAP–UAV CV-QKD SYSTEM ANDPROBLEM
+FORMULATION
+A. Mobility-Aware UA V Positioning and SKR Optimization
+We consider one UA V at a fixed altitude over a1 km×1 km
+area, discretized intoJ= 100candidate positionsQ=
+{qj}J
+j=1. The mission hasN t slots of duration∆t. Let
+cj,n∈{0,1}indicate whether the link at positionjis blocked
+by clouds in slotn(1: blocked), whereC= [c j,n]follows
+spatially and temporally correlated Bernoulli states. The full
+cloud-state matrix is assumed known over the optimization
+horizon; therefore, the trajectory solution is an offline bench-
+mark.
+1) Source and Stationary-Position Optimization:For an
+unblocked link, the asymptotic SKR is
+Kj(ν,VA) =β recIAB,j(ν,VA)−χ BE,j (ν,VA).(1)
+Using a finite source catalogG, the best source at positionj
+is obtained from
+P1 :K ⋆
+j =
+[︂
+max
+(ν,VA)∈G
+Kj(ν,VA)
+]︂+
+,(2)
+where[x] + = max{x,0}. ProblemP 1 is solved once per
+position under stationary clear-sky statistics. This model as-
+sumes that the transmitter can select the pre-optimized source
+associated with the UA V’s current position. The usable SKR
+isS j,n = (1−c j,n)K⋆
+j , and the best stationary position is
+P2 :j ⋆
+fix = arg max
+j
+1
+Nt
+Nt∑︂
+n=1
+Sj,n.(3)
+2) Mobility-Aware Trajectory Optimization:Letj n be the
+UA V position in slotnandd i,j =∥q i−qj∥2. We solve
+P3 : max
+j1,...,jNt
+1
+Nt
+Nt∑︂
+n=1
+Sjn,n− λ
+Dref
+Nt∑︂
+n=2
+djn−1,jn (4)
+s.t.d jn−1,jn≤v max∆t, n≥2.
+HereD ref >0normalizes distance andλ≥0(bits/use) sets
+the mobility penalty. The initial position is free, and flight
+distance is only a surrogate for mobility cost, not a calibrated
+propulsion-energy model.
+II. OPTIMIZATIONMETHOD
+A. Finite-Catalog Search and Stationary Benchmark
+BecauseGandQare finite,P 1 is solved by evaluating the
+SKR of each catalog source at each position and selecting its
+maximum. The selected source parameters are
+(ν⋆
+j,V ⋆
+A,j)∈arg max
+(ν,VA)∈G
+Kj(ν,VA).(5)
+This search is globally optimal overG, without claiming
+optimality over continuous source parameters. OnceK ⋆
+j has
+been obtained,P 2 is solved by evaluating the average usable
+SKR at allJcandidate positions.
+B. Greedy Trajectory Baseline
+For comparison, we adopt a feasible one-step greedy policy
+that uses only the cloud states in the current slot. Since the
+initial position is free, it is initialized by
+jG
+1 ∈arg max
+j=1,...,J
+Sj,1.(6)
+For each subsequent slotn= 2,...,N t, the UA V selects
+jG
+n ∈arg max
+j:d jG
+n−1 ,j≤vmax∆t
+{︃
+Sj,n− Ntλ
+Dref
+djG
+n−1,j
+}︃
+.(7)
+The factorN t ensures consistency with the objective in
+(4). Unlike dynamic programming, the greedy policy does
+not account for future cloud states or subsequent movement
+opportunities and therefore is not guaranteed to be optimal.
+Its worst-case complexity isO(N tJ).
+
+PAGE 2
+Insertfigures/fig1_skr_distance.pdf
+SKR versus HAP–UA V link distance
+Uniform / fixed MB-PCS / optimized MB-PCS
+Fig. 1. Secret key rate versus HAP–UA V link distance for uniform, fixed
+MB-PCS, and optimized MB-PCS source configurations.
+Insert
+figures/fig2_cloud_trajectories.pdf
+Cloud-free fraction map, stationary UA V position,
+greedy trajectory, and DP trajectory
+Fig. 2. Cloud-aware UA V positioning over the operating area, including the
+best stationary position and feasible greedy and DP-based trajectories.
+C. Dynamic Programming for UA V Trajectory Optimization
+Define the set of feasible predecessor positions for location
+jas
+N(j) ={i∈{1,...,J}:d i,j≤v max∆t}.(8)
+LetF n(j)be the maximum cumulative reward over the first
+nslots among all feasible trajectories ending at positionj.
+Multiplying the objective in (4) byN t gives the initialization
+F1(j) =S j,1, j= 1,...,J,(9)
+and the recursion, forn= 2,...,N t,
+Fn(j) =S j,n + max
+i∈N(j)
+{︄
+Fn−1(i)− Ntλ
+Dref
+di,j
+}︄
+.(10)
+The maximizer at each step is stored as
+Bn(j)∈arg max
+i∈N(j)
+{︃
+Fn−1(i)− Ntλ
+Dref
+di,j
+}︃
+.(11)
+The optimal objective value is
+U⋆ = 1
+Nt
+max
+j=1,...,J
+FNt(j).(12)
+Starting fromj ⋆
+Nt∈arg maxjFNt(j), we recover the optimal
+trajectory by backward substitutionj ⋆
+n−1 =B n(j⋆
+n). The
+Bellman recursion considers every feasible predecessor, so it
+yields a globally optimal solution toP 3 on the discretized
+grid for the given cloud states. The worst-case running time
+isO(N tJ2), and storing all backpointers requiresO(N tJ)
+memory.
+Algorithm 1Source Search, Greedy Baseline, and DP-Based
+UA V Positioning
+Input:Q,G,C,N t,∆t,v max,D ref,λ
+Output:{K ⋆
+j}J
+j=1,j ⋆
+fix,{j G
+n}Nt
+n=1,{j ⋆
+n}Nt
+n=1
+1:forj= 1,...,Jdo
+2:EvaluateK j(ν,VA)for all(ν,V A)∈G
+3:K ⋆
+j←[max (ν,VA)∈GKj(ν,VA)]+
+4:forn= 1,...,N t do
+5:S j,n←(1−c j,n)K⋆
+j
+6:end for
+7:end for
+8:j ⋆
+fix←arg maxj
+∑︁Nt
+n=1Sj,n
+9:j G
+1 ←arg maxjSj,1
+10:forn= 2,...,N t do
+11:j G
+n ←arg maxj:d jG
+n−1 ,j≤vmax∆t
+{︂
+Sj,n− Ntλ
+Dref
+djG
+n−1,j
+}︂
+12:end for
+13:forj= 1,...,Jdo
+14:F 1(j)←S j,1
+15:end for
+16:forn= 2,...,N t do
+17:forj= 1,...,Jdo
+18:B n(j)←arg max i∈N(j){︂
+Fn−1(i)− Ntλ
+Dref
+di,j
+}︂
+19:F n(j)←S j,n +Fn−1(Bn(j))
+−Ntλ
+Dref
+dBn(j),j
+20:end for
+21:end for
+22:j ⋆
+Nt←arg maxjFNt(j)
+23:forn=N t,Nt−1,...,2do
+24:j ⋆
+n−1←B n(j⋆
+n)
+25:end for
+Insertfigures/fig3_mobility_tradeoff.pdf
+(a) Average SKR versusλ
+(b) Travel distance versusλ
+Stationary / greedy / DP
+Fig. 3. SKR–mobility tradeoff versus the distance penaltyλ: (a) average
+usable SKR and (b) total UA V travel distance.
+III. NUMERICALEVALUATION
+We compare (i) a stationary UA V atj ⋆
+fix, (ii) a feasible
+greedy policy that selects the next position using the current-
+slot SKR and movement penalty as defined in (7), and (iii) the
+globally optimal offline DP trajectory. All mobility methods
+use the same cloud realization, source catalog, and speed
+
+PAGE 3
+constraint. For a trajectoryj= (j 1,...,j Nt), we report
+K(j) = 1
+Nt
+Nt∑︂
+n=1
+Sjn,n,(13)
+D(j) =
+Nt∑︂
+n=2
+djn−1,jn,(14)
+U(j) = K(j)− λ
+Dref
+D(j).(15)
+A. Impact of Probabilistic Constellation Shaping
+Fig. 1 is intended to compare optimized uniform 256-QAM,
+fixed MB-shaped 256-QAM, and optimized MB-shaped 256-
+QAM under the same physical channel assumptions. The
+operational transmission range can be identified from the
+positive-SKR region.
+B. UA V Trajectories under Correlated Cloud Blockage
+Fig. 2 is intended to show the spatial cloud-free fraction
+N−1
+t
+∑︁Nt
+n=1(1−c j,n), the best stationary position, and the
+greedy and DP trajectories over the1 km×1 kmoperating
+region.
+C. SKR–Mobility Tradeoff
+Fig. 3 is intended to quantify the impact of the mobility
+penaltyλon average usable SKR and flight distance. The
+stationary, greedy, and DP methods should be evaluated using
+the same cloud states and physical parameters.
+IV. CONCLUSION
+This work formulates a finite-catalog source optimization
+and mobility-aware positioning framework for cloud-affected
+HAP–UA V CV-QKD. Source parameters and stationary po-
+sitioning are selected by finite search, while the discrete
+trajectory is optimized exactly by dynamic programming for a
+known cloud-state horizon. The proposed evaluation separates
+shaping gain from mobility gain and explicitly accounts for the
+tradeoff between usable SKR and UA V travel distance. Online
+decision-making with uncertain future cloud states remains an
+extension beyond the present model.

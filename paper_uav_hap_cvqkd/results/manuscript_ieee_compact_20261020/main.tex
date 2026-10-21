@@ -1,0 +1,65 @@
+% Load before IEEEtran to avoid XeTeX TU/Times font substitutions.
+\RequirePackage[T1]{fontenc}
+\documentclass[conference,a4paper]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Packages retained from the manuscript; duplicate/conflicting imports removed.
+\usepackage{cite}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{nicematrix}
+\usepackage{balance}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{lipsum}
+\usetikzlibrary{shapes.geometric}
+\usepackage[hidelinks]{hyperref}
+
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newtheorem{coro}{Corollary}
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{defin}{Definition}
+\hypersetup{breaklinks=true,citecolor=black,colorlinks=true,
+            linkcolor=black,urlcolor=blue}
+\setcounter{MaxMatrixCols}{30}
+
+\title{Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP--UAV CV-QKD}
+\author{\IEEEauthorblockN{TBD\IEEEauthorrefmark{1},
+TBD\IEEEauthorrefmark{2}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}XXX}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Computer Communications Laboratory,
+The University of Aizu, Aizuwakamatsu 965-8580, Japan}}
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This provisional internal-review study examines source selection and UAV positioning for a cloud-affected HAP--UAV discrete-modulated CV-QKD model. A finite catalog of 233 exact-source ensembles defines a common location-dependent numerical rate map. An offline stationary benchmark, a current-slot Greedy policy, and finite-horizon dynamic programming (DP) are compared under identical cloud realizations and speed constraints. Across 100 paired missions, expanding the candidate set from 10 to 100 raises the mean DP penalized objective by 11.41\%. At blockage probability 0.8, mean zero-rate unavailability is 24.60\%, 16.53\%, and 4.07\% for Stationary, Greedy, and DP, respectively. At the representative penalty, DP reduces travel by 88.37\% relative to zero penalty while reducing mean usable rate by 0.515\%. These are conditional manuscript-model outputs: the recorded two-dimensional mutual information and homodyne Holevo expression do not specify a consistent Bob measurement. The results characterize the saved numerical optimization and do not establish physical quantum security.
+\end{abstract}
+\begin{IEEEkeywords}
+Continuous-variable quantum key distribution, UAV, high-altitude platform, cloud blockage, probabilistic shaping, dynamic programming.
+\end{IEEEkeywords}
+\noindent\textbf{Internal review only.} Security-model correction and author review remain pending. Status:\\
+{\footnotesize\texttt{UNVALIDATED\_SECURITY\_MODEL};}\\
+{\footnotesize\texttt{NOT\_READY\_FOR\_PUBLICATION\_SCALE\_RUNS}.}
+\typeout{COMPACT_LAYOUT textheight=\the\textheight;columnwidth=\the\columnwidth;textwidth=\the\textwidth;topmargin=\the\topmargin;headheight=\the\headheight;headsep=\the\headsep;voffset=\the\voffset}
+\input{system_model}
+\input{compact_sections}
+\bibliographystyle{IEEEtran}
+\bibliography{manuscript_refs}
+\end{document}

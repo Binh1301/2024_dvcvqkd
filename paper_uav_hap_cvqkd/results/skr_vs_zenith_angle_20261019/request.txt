@@ -1,0 +1,544 @@
+# TASK: SKR Versus Zenith Angle for HAP-to-UAV 256-QAM DM-CV-QKD
+
+## 1. Objective
+
+Read the latest HAP-to-UAV DM-CV-QKD manuscript and inspect the existing project repository, exact-source catalog, channel evaluator, and previous numerical results.
+
+Compute and plot the **Secret Key Rate (SKR) versus Zenith Angle** for three transmission schemes:
+
+1. Optimized Uniform 256-QAM
+2. Fixed MB-shaped 256-QAM
+3. Optimized MB-shaped 256-QAM
+
+The plot must closely resemble the previously generated figure **"SKR versus Link Distance"**, but the horizontal axis must represent the zenith angle.
+
+**Important:** Recalculate the physical channel parameters for each zenith angle. Do not simply relabel the horizontal axis of the previous distance-sweep results.
+
+Use the manuscript-style 2D mutual information, the existing homodyne Holevo expression, and the corrected channel excess-noise definition.
+
+Do not introduce a different SKR calculation method.
+
+## 2. Zenith Angle Sweep
+
+Sweep the zenith angle over
+
+\[
+\boxed{\zeta\in[0^\circ,60^\circ]}
+\]
+
+with an initial step size of
+
+\[
+\Delta\zeta=2^\circ.
+\]
+
+This gives 31 evaluation points, including the reference angle \(\zeta=30^\circ\).
+
+The HAP and UAV altitudes remain fixed:
+
+\[
+h_{\rm HAP}=20\ {\rm km},
+\qquad
+h_{\rm UAV}=1\ {\rm km}.
+\]
+
+For each zenith angle, calculate the corresponding slant distance:
+
+\[
+\boxed{
+L(\zeta)
+=
+\frac{h_{\rm HAP}-h_{\rm UAV}}{\cos\zeta}
+=
+19\sec(\zeta)\ {\rm km}.
+}
+\]
+
+Check the following values:
+
+\[
+\begin{aligned}
+L(0^\circ)&=19\ {\rm km},\\
+L(30^\circ)&=21.9393102292\ {\rm km},\\
+L(60^\circ)&=38\ {\rm km}.
+\end{aligned}
+\]
+
+Recalculate all zenith-angle-dependent optical channel quantities at every point, including:
+
+- Slant distance \(L(\zeta)\).
+- Atmospheric transmittance \(\eta_{\rm atm}(\zeta)\).
+- Rytov variance and turbulence-related parameters.
+- Beam propagation and effective beam width.
+- Pointing-error and jitter parameters.
+- Geometric collection efficiency \(A_0\).
+- Composite fading-channel distribution and its parameters.
+- Effective channel moments.
+
+Use the exact physical equations from the manuscript and the validated repository implementation.
+
+In particular,
+
+\[
+\eta_{\rm atm}(\zeta)
+=
+\tau_{\rm zen}^{\sec(\zeta)}.
+\]
+
+Do not keep atmospheric loss, turbulence, beam width, or pointing-loss statistics constant when they depend on zenith angle.
+
+## 3. Fixed System Parameters
+
+Use the same numerical configuration as the latest manuscript-style SKR recheck:
+
+| Parameter | Value |
+|---|---|
+| Modulation | 256-QAM |
+| Optical wavelength | 1550 nm |
+| Beam divergence | \(233\,\mu{\rm rad}\) |
+| Receiver aperture diameter | 0.08 m |
+| HAP altitude | 20 km |
+| UAV altitude | 1 km |
+| Jitter angle | \(15.61\,\mu{\rm rad}\) |
+| AoA standard deviation | 1.5 mrad |
+| FOV half-angle | 6.25 mrad |
+| Channel excess noise | 0.0186 SNU |
+| Reconciliation efficiency | 0.95 |
+| Detector model | Ideal trusted-detector limit |
+
+Keep the remaining environmental and optical parameters identical to the latest verified MB/Uniform comparison.
+
+Do not substitute the optical configuration from the older distance-sweep figure, since that figure may use different beam divergence or receiver aperture values.
+
+## 4. Corrected Effective Excess Noise
+
+For every zenith angle, calculate
+
+\[
+\eta_f(\zeta)
+=
+\left\langle\sqrt{\eta(\zeta)}\right\rangle^2.
+\]
+
+Use the corrected noise definition
+
+\[
+\boxed{
+\xi_n=\xi_{\rm ch}=0.0186.
+}
+\]
+
+The effective excess noise is
+
+\[
+\boxed{
+\eta_f\xi_f
+=
+\left(
+\langle\eta\rangle-\eta_f
+\right)V_A
++
+\xi_{\rm ch}\langle\eta\rangle.
+}
+\]
+
+All channel moments must be recalculated using the relevant fading distribution at each zenith angle.
+
+Use the closed-form expressions from Eqs. (19)–(21), maintaining the integration domain \([0,1]\).
+
+Do not add pure-loss noise \(1/\eta-1\) or trusted detector noise to \(\xi_n\).
+
+## 5. SKR Calculation — Preserve the Manuscript Implementation
+
+Calculate
+
+\[
+\boxed{
+K=\beta I_{AB}^{2D}-\chi_{BE}.
+}
+\]
+
+### Mutual Information
+
+Use the manuscript-style normalized 2D Gaussian implementation:
+
+\[
+I_{AB}^{2D}
+=
+\sum_{k=1}^{256}p_k
+\int_{\mathbb C}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_jp_jp(y|\alpha_j)}
+\,d^2y.
+\]
+
+With
+
+\[
+p(y|\alpha_k)
+=
+\frac{1}{2\pi\sigma_\zeta^2}
+\exp\left[
+-\frac{|y-2\sqrt{\eta_f}\alpha_k|^2}
+{2\sigma_\zeta^2}
+\right],
+\]
+
+and
+
+\[
+\sigma_\zeta^2=1+\eta_f\xi_f.
+\]
+
+Mandatory:
+
+- Use both real and imaginary components.
+- Do not divide MI by two.
+- Do not switch to 1D homodyne MI.
+- Do not introduce heterodyne noise corrections.
+- Use Gauss–Hermite quadrature with convergence checks.
+- Preserve the source normalization used in the verified exact-source cache, \(V_A=2\langle n\rangle\).
+
+### Holevo Information
+
+Keep the manuscript equations:
+
+\[
+V=V_A+1,
+\]
+
+\[
+W=1+\eta_fV_A+\eta_f\xi_f,
+\]
+
+\[
+Z=
+2\sqrt{\eta_f}C
+-\sqrt{2\eta_f\xi_fw}.
+\]
+
+Compute
+
+\[
+\Delta=V^2+W^2-2Z^2,
+\]
+
+\[
+D=(VW-Z^2)^2,
+\]
+
+\[
+\nu_{1,2}
+=
+\sqrt{
+\frac{\Delta\pm\sqrt{\Delta^2-4D}}2
+},
+\]
+
+\[
+\nu_3
+=
+\sqrt{
+V\left(V-\frac{Z^2}{W}\right)
+}.
+\]
+
+Finally,
+
+\[
+\chi_{BE}
+=
+g\left(\frac{\nu_1-1}{2}\right)
++
+g\left(\frac{\nu_2-1}{2}\right)
+-
+g\left(\frac{\nu_3-1}{2}\right).
+\]
+
+Do not alter the Holevo evaluator.
+
+The resulting mixed 2D-MI/homodyne-Holevo computation must be labeled as a manuscript-style numerical comparison, not a validated homodyne security rate.
+
+## 6. Three Transmission Schemes
+
+### Scheme A: Optimized Uniform 256-QAM
+
+Use
+
+\[
+\nu=0,
+\qquad
+p_k=\frac1{256}.
+\]
+
+For each zenith angle, optimize the modulation variance:
+
+\[
+\boxed{
+V_{A,\rm Uni}^{\star}(\zeta)
+=
+\underset{V_A\in\mathcal C_{\rm Uni}}
+{\arg\max}
+K_{\rm Uni}(V_A,\zeta).
+}
+\]
+
+Use the validated Uniform exact-source catalog.
+
+Recalculate the SKR for each source candidate under the channel corresponding to the current zenith angle.
+
+Do not interpolate \(C,w\), mutual information, Holevo information, or SKR.
+
+Report the best evaluated candidate, even when its raw SKR is negative.
+
+### Scheme B: Fixed MB-Shaped 256-QAM
+
+Use the previously validated fixed MB source:
+
+\[
+\boxed{
+\nu_{\rm raw}=0.165,
+\qquad
+V_A=5.475.
+}
+\]
+
+Keep both source parameters fixed throughout the entire zenith-angle sweep.
+
+The associated verified exact-source moments are
+
+\[
+C=3.1986564642787387,
+\]
+
+\[
+w=9.973886145561931\times10^{-7}.
+\]
+
+Verify ensemble consistency before using these moments.
+
+Only the physical channel changes with zenith angle.
+
+Calculate
+
+\[
+\boxed{
+K_{\rm MB,fixed}(\zeta)
+=
+K(0.165,5.475,\zeta).
+}
+\]
+
+Do not optimize this scheme.
+
+### Scheme C: Optimized MB-Shaped 256-QAM
+
+For each zenith angle, jointly optimize the MB shaping parameter and modulation variance:
+
+\[
+\boxed{
+(\nu^\star,V_A^\star)(\zeta)
+=
+\underset{(\nu,V_A)\in\mathcal C_{\rm MB}}
+{\arg\max}
+K_{\rm MB}(\nu,V_A,\zeta).
+}
+\]
+
+Use the existing validated MB exact-source catalog.
+
+Do not assume that the previously optimal source parameters remain optimal at other zenith angles.
+
+Reuse available exact \(C,w\) moments whenever possible.
+
+If additional source candidates are needed, calculate their moments exactly, following the verified source evaluator.
+
+The selected optimized SKR must be the maximum of the raw SKRs over the evaluated candidates, without clipping negative values to zero before optimization.
+
+## 7. Operational Zenith Angle
+
+For each scheme, determine the zenith-angle region in which
+
+\[
+K(\zeta)>0.
+\]
+
+Define
+
+\[
+\zeta_{\rm op}
+=
+\sup\{\zeta:K(\zeta)>0\}
+\]
+
+within the investigated interval.
+
+If a positive-to-nonpositive transition is detected, refine the angle grid near that transition, preferably with
+
+\[
+\Delta\zeta=0.25^\circ
+\]
+
+or smaller.
+
+Evaluate the SKR directly at each refined angle.
+
+Do not determine the reported operational angle using interpolation alone.
+
+If all tested angles are negative, report that no positive SKR was found in the tested interval.
+
+If the SKR stays positive through \(60^\circ\), report that the positive region extends to the sweep boundary, not that \(60^\circ\) is the true maximum operational angle.
+
+## 8. Plot Requirements
+
+Create a figure matching the supplied reference image.
+
+**Figure title:**
+
+SKR versus Zenith Angle
+
+**Horizontal axis:**
+
+Zenith Angle (deg)
+
+**Vertical axis:**
+
+Secret Key Rate (bits/use)
+
+Use three curves:
+
+- Blue: Optimized Uniform 256-QAM.
+- Orange: Fixed MB-shaped 256-QAM.
+- Red: Optimized MB-shaped 256-QAM.
+
+Use the following visual style:
+
+- High-resolution publication-quality figure.
+- Semilogarithmic y-axis for positive SKR.
+- Circular markers at each evaluated zenith angle.
+- Solid connecting lines.
+- Light gray major and minor grid lines.
+- White background.
+- Upper-right legend.
+- Readable axis labels and tick marks.
+- Consistent colors and line widths.
+- Similar aspect ratio to the provided reference plot.
+
+**Important:** A logarithmic y-axis cannot display nonpositive SKR.
+
+Therefore:
+
+1. Plot only strictly positive SKR values on the semilog figure.
+2. Do not replace negative SKR with a small artificial positive number.
+3. Do not connect the line across missing or nonpositive regions.
+4. Preserve all negative raw SKR values in the numerical CSV.
+5. Additionally generate a linear-scale SKR plot showing the negative regions and the zero-SKR crossing.
+
+If Uniform has no positive SKR throughout the sweep, state this explicitly rather than fabricating a blue positive curve to match the example.
+
+Optionally annotate the operational zenith angle for each scheme when a transition has been numerically bracketed.
+
+## 9. Numerical Validation
+
+Perform the following checks:
+
+1. At \(\zeta=30^\circ\), verify \(L=21.9393102292\) km.
+2. Verify the channel moments against the previous MB recheck.
+3. Reproduce the fixed MB reference:
+
+\[
+K_{\rm MB,fixed}(30^\circ)
+\approx
++9.66579973751\times10^{-5}.
+\]
+
+4. Reproduce the previous best tested Uniform result at \(30^\circ\):
+
+\[
+V_A=0.0475,
+\]
+
+\[
+K_{\rm Uniform}
+\approx
+-4.85067099480\times10^{-5}.
+\]
+
+5. If the Uniform catalog has been expanded, do not assume the same candidate remains optimal; report the new best tested result.
+
+6. Verify all calculations use exactly the same channel-noise convention.
+
+7. Verify source moments match the correct candidate constellation.
+
+8. Test GH16, GH32, and GH64 convergence for representative points and near-zero SKR values.
+
+9. Check the physical validity of the covariance matrix and symplectic eigenvalues.
+
+10. Do not change numerical formulas or source data to force any curve to become positive.
+
+If either reference value cannot be reproduced, investigate the discrepancy before proceeding with the full sweep.
+
+## 10. Required Numerical Output
+
+Create a complete table:
+
+| Zenith (deg) | Distance (km) | Uniform optimal \(V_A\) | Uniform SKR | Fixed MB SKR | MB optimal \(\nu\) | MB optimal \(V_A\) | Optimized MB SKR |
+|---|---|---|---|---|---|---|---|
+
+Also save the MI and Holevo decomposition for all three schemes at every angle.
+
+Report the operational-angle results:
+
+| Scheme | Maximum tested positive zenith angle | First tested nonpositive angle | Operational-angle bracket |
+|---|---|---|---|
+| Optimized Uniform | | | |
+| Fixed MB | | | |
+| Optimized MB | | | |
+
+Report the corresponding slant distance for each operational-angle bracket.
+
+Do not invent a crossing when one has not been observed.
+
+## 11. Deliverables
+
+Save all new output under a separate results directory:
+
+`results/skr_vs_zenith_angle_20261019/`
+
+Generate:
+
+1. `skr_vs_zenith_angle.png` — main semilog plot.
+2. `skr_vs_zenith_angle.pdf` — publication-quality vector figure.
+3. `skr_vs_zenith_angle_linear.png` — linear-scale diagnostic plot.
+4. `skr_vs_zenith_angle.csv` — complete sweep results.
+5. `skr_vs_zenith_angle_detailed.csv` — MI, Holevo and source parameters.
+6. `operational_zenith_angles.csv` — operational-angle brackets.
+7. `validation_report.md` — channel consistency and numerical convergence.
+
+## 12. Restrictions
+
+- Do not overwrite existing validated results.
+- Do not modify or invalidate historical source caches.
+- Do not reuse distance-sweep SKR values unless every physical parameter and the calculation convention are identical.
+- Do not interpolate \(C,w\) or SKR.
+- Do not use the old total-noise definition.
+- Do not switch from manuscript-style 2D MI to 1D MI.
+- Do not change the manuscript Holevo expression.
+- Do not assume Uniform has positive SKR.
+- Do not claim continuous global optimality from a finite catalog.
+- Do not claim that the manuscript-style 2D-MI/homodyne-Holevo computation establishes physical homodyne security.
+
+## 13. Final Report
+
+Answer the following questions explicitly:
+
+1. How does SKR change with zenith angle for all three schemes?
+2. Does optimized Uniform 256-QAM achieve positive SKR at any tested zenith angle?
+3. How much improvement does optimized MB provide over fixed MB?
+4. What are the operational zenith-angle limits of the three schemes?
+5. At which zenith angles do the optimized source parameters change?
+6. Are the SKR results consistent with the previous calculation at \(\zeta=30^\circ\)?
+
+Finish by presenting the three-curve **SKR versus Zenith Angle** figure and the numerical operational-angle comparison.

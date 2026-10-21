@@ -1,0 +1,564 @@
+PAGE 1
+Mobility-Aware UA V Positioning and Secret Key
+Rate Optimization for HAP–UA V CV -QKD
+TBD∗, TBD †
+∗XXX
+†Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+Abstract—This provisional internal-review study examines
+source selection and UA V positioning for a cloud-affected HAP–
+UA V discrete-modulated CV-QKD model. A ﬁnite catalog of
+233 exact-source ensembles deﬁnes a common location-dependent
+numerical rate map. An ofﬂine stationary benchmark, a current-
+slot Greedy policy, and ﬁnite-horizon dynamic programming
+(DP) are compared under identical cloud realizations and speed
+constraints. Across 100 paired missions, expanding the candidate
+set from 10 to 100 raises the mean DP penalized objective by
+11.41%. At blockage probability 0.8, mean zero-rate unavailabil-
+ity is 24.60%, 16.53%, and 4.07% for Stationary, Greedy, and
+DP, respectively. At the representative penalty, DP reduces travel
+by 88.37% relative to zero penalty while reducing mean usable
+rate by 0.515%. These are conditional manuscript-model outputs:
+the recorded two-dimensional mutual information and homodyne
+Holevo expression do not specify a consistent Bob measurement.
+The results characterize the saved numerical optimization and
+do not establish physical quantum security.
+Index Terms—Continuous-variable quantum key distribution,
+UA V , high-altitude platform, cloud blockage, probabilistic shap-
+ing, dynamic programming.
+Internal review only. Security-model correction and author
+review remain pending. Status:
+UNVALIDATED_SECURITY_MODEL;
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
+I. HAP–UAV CV-QKD S YSTEM AND PROBLEM
+FORMULATION
+A. Mobility-Aware UA V Positioning and SKR Optimization
+We consider one UA V at a ﬁxed altitude over a 1 km×1 km
+area, discretized into J candidate positions Q = {qj}J
+j=1.
+The mission has Nt slots of duration ∆t. Let cj,n ∈ { 0, 1}
+indicate cloud blockage (one means blocked). The matrix C =
+[cj,n] contains spatially and temporally correlated Bernoulli
+states. P2 and P3 know the complete matrix and are ofﬂine
+benchmarks; Greedy observes only the current slot.
+1) Source and Stationary-Position Optimization: For an
+unblocked link, the recorded manuscript-style raw rate is
+Kj(ν, VA) = βrecI 2D
+AB,j (ν, VA) − χBE,j (ν, VA). (1)
+Equation ( 1) is retained as a conditional numerical metric,
+subject to the measurement-consistency limitations below. For
+a ﬁnite exact-source catalog G, deﬁne
+P1 : K ⋆
+j =
+[
+max
+(ν,VA)∈G
+Kj(ν, VA)
+]+
+, (2)
+where [x]+ = max {x, 0}. The raw maximum is selected
+before clipping. P1 is solved once per location under stationary
+clear-sky statistics. The source associated with the current
+position is available to every method. Complete blockage
+gives Sj,n = (1 − cj,n)K ⋆
+j without another quantum-channel
+evaluation. The stationary benchmark is
+P2 : j⋆
+ﬁx = arg max
+j
+1
+Nt
+Nt∑
+n=1
+Sj,n. (3)
+Thus, the best ﬁxed position depends on both its clear-sky rate
+and its full cloud sequence. Its total travel distance is zero.
+2) Mobility-Aware Trajectory Optimization: Let jn be the
+position in slot n and di,j = ∥qi − qj∥2. We solve
+P3 : max
+j1,...,jNt
+1
+Nt
+Nt∑
+n=1
+Sjn,n − λ
+Dref
+Nt∑
+n=2
+djn−1,jn (4)
+subject to djn−1,jn ≤ vmax∆t, n ≥ 2.
+Here Dref > 0 normalizes distance, and λ ≥ 0 has units
+bit/use. Staying is permitted. The initial position is free,
+with no terminal constraint, deployment cost, or return travel.
+Distance is a mobility-cost surrogate rather than calibrated
+propulsion energy.
+B. Recorded Physical-Layer Model and Security Boundary
+Alice sends the coherent-state ensemble {pk, αk}256
+k=1. With
+[ˆx, ˆp] = 2 i and vacuum quadrature variance one, the normal-
+ization is VA = 2 ∑
+k pk|αk|2 = 2¯n. The source moments
+Cs, ws are computed from this same ensemble; the subscript
+distinguishes them from the cloud matrix. For clear-sky power
+transmittance η, the saved evaluator uses
+ηf = ⟨√η⟩2,
+N = ηf ξf = (⟨η⟩ − ηf )VA + ξch⟨η⟩,
+V = 1 + VA, W = 1 + ηf VA + N,
+Z = 2√ηf Cs −
+√
+2N ws.
+The convention is ξn = ξch. The additive N is output-referred
+excess noise; loss-induced vacuum is already included in W ’s
+unit baseline. The active detector is ideal (efﬁciency one,
+electronic noise zero). No imperfect trusted-detector claim is
+made. The clear-sky distribution retains a separate angle-of-
+arrival outage atom at η = 0 and its active density on [0, 1],
+without renormalizing. Moment reduction at the covariance
+level has a precedent for Gaussian modulation [ 1]; it is not an
+identity for the full discrete-input fading likelihood.
+
+PAGE 2
+Speciﬁcally, the saved MI kernel uses the normalized like-
+lihood
+pnum(y|k) = exp[−∥y − 2√ηf (ℜαk, ℑαk)∥2/(2(1 + N ))]
+2π(1 + N )
+and integrates both real components to obtain I 2D
+AB. The
+Holevo branch uses the standard-form covariance with entries
+V, W, Z and the homodyne conditional eigenvalue
+νhom
+3 =
+√
+V (V − Z 2/W ).
+These two branches do not specify one consistent single-mode
+Bob measurement: a homodyne outcome has one quadrature,
+while joint measurement of both quadratures adds measure-
+ment vacuum. The measurement-dependent Holevo expres-
+sions are explicitly different in [ 2]. Consequently, all reported
+“usable SKR” values are conditional outputs of the recorded
+manuscript model, not established achievable secret-key rates.
+Further, evaluating only Z− does not establish the worst-
+case Holevo value over all admissible correlations; the general
+interval-maximization caveat in [ 2, Sec. 4, footnotes 11–12]
+also applies. A consistent measurement/noise speciﬁcation,
+admissible correlation treatment, parameter estimation, and
+fading/outage conditioning protocol require author review. No
+correction is applied to the historical numerical results in this
+manuscript revision.
+II. O PTIMIZATION METHOD
+A. Finite-Catalog Search and Stationary Benchmark
+The selected source parameters satisfy
+(ν⋆
+j , V ⋆
+A,j) ∈ arg max
+(ν,VA)∈G
+Kj(ν, VA). (5)
+Every catalog candidate is evaluated at each distinct channel
+state. Exact source moments are reused only for their authen-
+ticated ensembles. Source-independent channel moments can
+be shared, while N and ξf are recomputed for each VA. Ties
+use increasing ν, VA, and ensemble hash after decreasing raw
+rate. The result is optimal within G, with no continuous-source
+claim. P2 compares all J full-horizon means in O(J Nt) time;
+position ties select the smallest index.
+B. Greedy Trajectory Baseline
+The current-slot policy starts at
+jG
+1 ∈ arg max
+j
+Sj,1. (6)
+For n ≥ 2, it selects
+jG
+n ∈ arg max
+j:djG
+n−1 ,j ≤vmax∆t
+{
+Sj,n − Ntλ
+Dref
+djG
+n−1,j
+}
+. (7)
+The factor Nt makes this score consistent with ( 4). The
+decision function receives only the current rate vector and
+previous position, together with the transition graph and ﬁxed
+parameters. It cannot read future clouds. Its worst-case time
+is O(NtJ), and ties use the smallest index. Greedy and DP
+use identical rate maps, clouds, speed limits, and distance
+penalties.
+Algorithm 1 Source Search and Ofﬂine UA V Positioning
+Input: Q, G, C, Nt, ∆t, vmax, Dref , λ
+1: for each position j do
+2: Select the maximum raw catalog rate in ( 5).
+3: Set K ⋆
+j by ( 2) and Sj,n = (1 − cj,n)K ⋆
+j .
+4: end for
+5: Select P2 using ( 3).
+6: Compute Greedy with ( 6)–(7).
+7: Initialize F1 using ( 9).
+8: for n = 2, . . . , Nt do
+9: for each position j do
+10: Update Fn(j) and save Bn(j) by ( 10)–(11).
+11: end for
+12: end for
+13: Select the best ﬁnal position and backtrack.
+Output: P1 sources, P2 position, Greedy path, DP path, and
+metrics.
+C. Dynamic Programming for UA V Trajectory Optimization
+Deﬁne the feasible predecessors
+N (j) = {i ∈ {1, . . . , J} : di,j ≤ vmax∆t}. (8)
+Let Fn(j) be the maximum cumulative reward for trajectories
+ending at j in slot n. Multiplying ( 4) by Nt gives
+F1(j) = Sj,1, j = 1, . . . , J, (9)
+and, for n ≥ 2,
+Fn(j) = Sj,n + max
+i∈N (j)
+{
+Fn−1(i) − Ntλ
+Dref
+di,j
+}
+. (10)
+Store a maximizing predecessor
+Bn(j) ∈ arg max
+i∈N (j)
+{
+Fn−1(i) − Ntλ
+Dref
+di,j
+}
+. (11)
+The optimal objective is
+U ⋆ = 1
+Nt
+max
+j
+FNt (j). (12)
+Starting at a maximizing ﬁnal position, backtracking uses
+j⋆
+n−1 = Bn(j⋆
+n). The implementation stores Fn/Nt, so its re-
+ward is Sj,n/Nt and its edge cost is λdi,j/Dref ; this is exactly
+the same recursion. DP is globally optimal for the given ﬁnite
+grid and rate matrix. Its time is O(NtJ 2), backpointers use
+O(NtJ) memory, and the dense distance/transition matrices
+additionally use O(J 2). Since ﬁxed and Greedy paths are
+feasible, UDP ≥ UP2, UGreedy. This statement concerns the
+penalized objective, not mission-wise SKR or availability.
+III. N UMERICAL RESULTS AND DISCUSSION
+A. Simulation Setup
+The synthetic HAP altitude is 20 km and its horizontal
+position is (11419.6551, 450) m. The UA V ﬂies at 1 km over
+100 cell centers, with coordinates 50, 150, . . . ,950 m along
+each axis (the x index changes ﬁrst). The reference mission
+has 30 slots of 20 s and vmax = 15 m/s, permitting transitions
+
+PAGE 3
+TABLE I
+RETAINED SYNTHETIC SIMULATION PARAMETERS
+Parameter V alue
+Wavelength; full beam divergence 1550 nm; 233 µrad
+Receiver diameter; zenith transmission 0.08 m; 0.92
+Angular jitter; horizontal jitter 15.61 µrad; 1 m
+Boresight displacement 0 m
+AoA standard deviation; FOV half angle 1.5 mrad; 6.25 mrad
+Hufnagel–V alley wind speed 21 m/s
+Ground-level C2
+n(0) 10−14 m−2/3
+βrec; ξch 0.95; 0.0186 SNU
+Detector efﬁciency; electronic noise 1; 0
+Default p; ℓ; latent ρ 0.4; 250 m; 0.9
+Independent mission IDs 0, . . . ,99
+Reference distance Dref 1000 m
+up to 300 m. These are simulation assumptions rather than
+measured deployment data.
+The common P1 catalog contains 233 authenticated sources:
+197 Maxwell–Boltzmann (MB) and 36 uniform ensembles.
+P1 selects (ν, VA) = (0 .125, 8) at all 100 positions, where
+VA = 8 is the upper MB-catalog boundary. Thus, differences
+among positioning methods do not arise from changing the
+selected shaping parameters. The saved clear-sky rates range
+from 1.16296 × 10−4 to 1.57800 × 10−4 bit/use. Table I lists
+the retained optical and noise parameters. No numerical model
+or source calculation is rerun for this revision.
+The saved complete-blockage model thresholds a stationary
+Gaussian ﬁeld: its spatial covariance is Σij = exp( −di,j/ℓ)
+and zn = ρzn−1 +
+√
+1 − ρ2ϵn, where ϵn ∼ N (0, Σ) and
+z1 ∼ N (0, Σ). Blockage is cj,n = I{zj,n < Φ−1(p)}.
+The seed is 20261015 with mission IDs 0–99. Conﬁgurations
+share innovations for paired comparisons. Latent ρ and ℓ
+are distinct from binary-cloud correlations. Unless varied,
+(p, ℓ, ρ) = (0 .4, 250 m, 0.9).
+For a path j = (j1, . . . , jNt ), we report
+K(j) = 1
+Nt
+Nt∑
+n=1
+Sjn,n, (13)
+D(j) =
+Nt∑
+n=2
+djn−1,jn , (14)
+U (j) = K(j) − λD(j)/Dref . (15)
+Availability is N −1
+t
+∑
+n I{Sjn,n > 0}; unavailability is its
+complement, expressed in percent. This nonzero-rate deﬁnition
+has no positive engineering threshold. The reference penalty
+is the ﬁxed absolute value λref = 9.468026677248516 × 10−6
+bit/use. The ten saved penalties have multipliers {0, 10−4, 3 ×
+10−4, 10−3, 3 × 10−3, 10−2, 3 × 10−2, 0.1, 0.3, 1} of λhi =
+0.003156008892416172 bit/use; thus λref = 0.003λhi.
+Means use 100 independent missions per conﬁguration.
+Pointwise 95% percentile-bootstrap intervals resample whole
+missions with 20000 replicates; paired method contrasts use
+the same mission IDs. Saved intervals are retained, and miss-
+ing tradeoff intervals use saved metrics and existing resam-
+pling counts. These intervals quantify mission variability, not
+quantum-security uncertainty. The multi-curve presentation is
+informed by [ 3]; its satellite model and numerical results are
+not transferred to this experiment.
+B. Impact of Candidate UA V Positions
+Figure 1 compares deterministic nested subsets J =
+10, 20, 40, 60, 80, 100 at λref . The mean DP objective increases
+from 1.39004 × 10−4 to 1.54863 × 10−4 bit/use, an 11.41%
+increase relative to J = 10. P2 increases from 1.36348×10−4
+to 1.50243 × 10−4, and Greedy from 1.07800 × 10−4 to
+1.48311 × 10−4 bit/use. Adding positions preserves existing
+feasible paths, so optimal P2 and DP objectives cannot de-
+crease; Greedy has no such general guarantee.
+At J = 20 , DP reaches 96.71% of its J = 100 objective.
+However, the J = 10 transition graph has eight connected
+components and seven isolated positions, whereas the sampled
+subsets are connected from J = 20 onward. The initial
+improvement combines expanded spatial choices and connec-
+tivity changes; it does not identify an economically optimal
+grid size or isolate candidate density alone.
+C. Impact of Cloud Blockage Probability
+Figure 2(a) shows decreasing mean usable SKR as p in-
+creases from 0.1 to 0.8 for all three methods. DP decreases
+from 1.57663 × 10−4 to 1.43475 × 10−4 bit/use. The proba-
+bility masks are nested under common innovations: increasing
+p removes usable rewards. Therefore, the optimal P2 and DP
+objectives cannot increase; a general availability or Greedy
+ordering does not follow.
+The DP-minus-P2 mean objective difference grows from
+1.11215 × 10−7 to 2.72806 × 10−5 bit/use. Dividing each
+difference by its corresponding P2 mean gives gains of 0.071%
+and 25.042%. At p = 0 .8, the paired 95% interval for the
+absolute difference is [2.46760, 2.99896] × 10−5 bit/use. The
+larger relative gain is consequently accompanied by a larger
+absolute gain. No interior maximum occurs on the evaluated
+probability grid, and no claim is made beyond p = 0.8.
+In Fig. 2(b), unavailability at p = 0 .8 is 24.60% for P2,
+16.53% for Greedy, and 4.07% for DP . These observed avail-
+ability beneﬁts do not mean that P3 maximizes availability.
+Greedy’s mean objective is below P2 at p = 0.1–0.4; its paired
+differences at p = 0.5 and 0.7 have intervals containing zero.
+At p = 0.8, its objective exceeds P2 by 8.54160×10−6 bit/use,
+less than DP’s improvement.
+D. Impact of Temporal Cloud Correlation
+Figure 3 varies latent ρ ∈ {0, 0.3, 0.6, 0.9, 0.98} at p = 0.4,
+ℓ = 250 m, and λref . From ρ = 0 to 0.98, DP’s mean objective
+increases from 1.44559 × 10−4 to 1.56806 × 10−4 bit/use,
+while its mean distance decreases from 1038.25 to 31.84 m. Its
+relative objective gain over P2 falls from 23.712% to 0.155%.
+Saved-mask diagnostics support a persistence explanation.
+The cloud-free fraction at the selected P2 location rises from
+77.03% to 99.97%, and the mean number of locations clear
+throughout the 30-slot mission rises from zero to 29.56. The
+global fraction of adjacent cell-slot states that change falls
+
+PAGE 4
+10 20 40 60 80 100
+Number of Candidate UAV Positions
+0.0
+0.5
+1.0
+1.5
+Mobility-Penalized Objective (bits/use)
+×10−4
+100 paired missions; pointwise 95% bootstrap CI; λ = λref
+Stationary (P2) Greedy Dynamic Programming (P3)
+Fig. 1. Mean mobility-penalized objective versus the number of candidate UA V positions at λref . Stationary (P2), Greedy, and DP use deterministic nested
+subsets of the original coordinates and common cloud missions. Shaded bands show pointwise 95% whole-mission bootstrap intervals. The objective includes
+a distance penalty and is distinct from average usable SKR.
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8
+Cloud Blockage Probability
+0.0
+0.5
+1.0
+1.5
+Mean Usable SKR (bits/use)
+×10−4 (a) Mean Usable SKR
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8
+Cloud Blockage Probability
+0
+5
+10
+15
+20
+25
+30QKD Unavailability (%)
+(b) QKD Unavailability
+100 paired missions; pointwise 95% bootstrap CI; λ = λref
+Stationary (P2) Greedy Dynamic Programming (P3)
+Fig. 2. Cloud-blockage sensitivity at λref : (a) mean usable SKR and (b) zero-SKR unavailability for P2, Greedy, and DP . All eight probabilities p =
+0.1, 0.2, . . . ,0.8 use 100 paired missions with common innovations. Bands are pointwise 95% whole-mission bootstrap intervals. Unavailability counts zero
+usable SKR, without an engineering threshold; neither panel is the optimized penalized objective.
+from 48.21% to 6.35%. DP’s mean number of moves decreases
+from 7.36 to 0.19; missions containing DP movement decrease
+from 100 to 10 out of 100.
+Persistent favorable locations therefore make ofﬂine sta-
+tionary selection more competitive in this experiment. This
+is a supported mechanism, not an isolated causal result or
+universal monotonic law. P2 and DP choose initial positions
+using future clouds, whereas Greedy does not. At ρ = 0.98, the
+latent correlation time −20/ log ρ ≃ 990 s exceeds the 600-s
+mission. Empirical blockage varies across the ﬁnite samples
+despite ﬁxed nominal p.
+
+PAGE 5
+0.00
+0.30
+0.60
+0.90
+0.98
+Temporal Cloud Correlation
+0.0
+0.5
+1.0
+1.5
+Mobility-Penalized Objective (bits/use)
+×10−4 (a) Objective
+0.00
+0.30
+0.60
+0.90
+0.98
+Temporal Cloud Correlation
+0
+500
+1000
+1500Total Travel Distance (m)
+DP: 1038.3 m
+DP: 31.8 m
+(b) Travel distance
+100 paired missions; pointwise 95% bootstrap CI; λ = λref
+Stationary (P2) Greedy Dynamic Programming (P3)
+Fig. 3. Latent temporal-correlation sensitivity: (a) mean penalized objective and (b) mean total travel distance at p = 0.4, ℓ = 250 m, and λref . P2, Greedy,
+and DP share 100 mission IDs and common innovations. P2 and DP know the full horizon; Greedy uses the current slot. The latent coefﬁcient differs from
+binary blockage correlation. Bands are pointwise 95% whole-mission bootstrap intervals.
+E. SKR–Mobility Tradeoff
+Figure 4 connects saved policies in the original order of
+ten increasing penalties. At λ = 0 , DP achieves mean usable
+SKR 1.57305 × 10−4 bit/use and distance 1482.69 m. At λref ,
+distance falls to 172.43 m and mean SKR to 1.56495 × 10−4
+bit/use. Relative to the respective zero-penalty means on the
+same 100 default missions, these changes are an 88.37%
+distance reduction and a 0.515% SKR reduction.
+At λref , Greedy travels 430.61 m, while DP has both higher
+mean SKR and higher objective. DP’s SKR gains relative to
+P2 and Greedy are 4.162% and 2.695%; its objective gains
+are 3.075% and 4.418%, respectively. The paired DP-minus-
+P2 objective interval is [3.56503, 5.73139] × 10−6 bit/use. The
+distinction matters because movement is penalized only in U .
+At sampled penalties 0.1λhi and above, all saved DP paths
+are stationary and coincide with P2 in objective. This does not
+identify a continuous stopping threshold. Greedy can stop at
+a worse location because it chooses its initial position from
+the ﬁrst slot. Optimal DP distance is nonincreasing with λ
+for the same feasible set and rewards; the plotted points are
+evaluated numerical operating choices, not global physical
+Pareto frontiers.
+F . Discussion and Limitations
+Across the investigated parameter ranges, the largest mean-
+SKR span occurs for candidate count in DP , speed in Greedy,
+and blockage probability in P2. These are descriptive ranges
+over unequal domains, not normalized sensitivity indices.
+Among cloud sweeps, the largest relative DP-versus-P2 ob-
+jective gain occurs at p = 0 .8, while the largest absolute
+difference occurs at ρ = 0 . The supplementary spatial sweep
+also distinguishes absolute performance from mobility gain:
+increasing ℓ from 50 to 1000 m reduces absolute perfor-
+mance but increases the DP-minus-P2 objective difference
+from 2.25288 × 10−6 to 8.10831 × 10−6 bit/use. Full-grid
+blockage grows from zero to 2.70% of slots. A larger relative
+gain therefore does not imply increasing spatial diversity.
+P1 provides the common catalog-selected map, P2 captures
+ofﬂine ﬁxed-position selection, and DP-minus-P2 measures the
+extra value of permitting movement in that setting. Since all
+positions select the same source, cloud-avoidance gains cannot
+be assigned to adaptive shaping. These three methods do not
+isolate matched-energy shaping gain or stationary-selection
+gain relative to a ﬁxed deployment. DP-minus-Greedy includes
+differences in future-state and initial-position information.
+Objective dominance does not imply higher SKR in every
+positive-penalty mission.
+The study is restricted to a ﬁnite source catalog and UA V
+grid, synthetic weather and geometry, and complete cloud
+blockage. Tracking interruptions, reacquisition, deployment,
+return travel, and calibrated propulsion energy are omitted. The
+mixed 2D-MI/homodyne model in Section I-B, the effective-
+likelihood approximation, and correlation-domain treatment
+prevent a validated physical SKR interpretation. Trusted re-
+ceiver noise would require a separate consistent model [ 4].
+Asymptotic rate arithmetic and mission conﬁdence intervals
+establish neither operational nor ﬁnite-key, composable, or
+unconditional security.
+
+PAGE 6
+0 250 500 750 1000 1250 1500 1750
+Total Travel Distance (m)
+0.0
+0.5
+1.0
+1.5
+Mean Usable SKR (bits/use)
+×10−4
+λ = 0
+λ = λref
+100 paired missions; points connected in saved λ order; pointwise 95% CI
+Stationary (P2) Greedy Dynamic Programming (P3)
+Fig. 4. Evaluated usable-SKR–distance tradeoff for Greedy and DP , with P2 as the stationary reference, under default clouds. Curves connect the ten saved
+penalties in their original increasing order; DP annotations identify zero and representative penalties. Error bars are pointwise 95% intervals for each mean,
+not joint conﬁdence regions. Coincident high-penalty DP points and the P2 reference are retained. These conditional model outputs are not claimed to be
+global physical Pareto frontiers.
+IV. C ONCLUSION
+Finite-catalog source selection and ﬁnite-grid position-
+ing provide a reproducible optimization framework for the
+recorded HAP–UA V numerical model. Ofﬂine DP maximizes
+the stated SKR–distance objective for known clouds, while
+P2 selects a ﬁxed location and Greedy uses current-slot
+information. Increasing candidate count improves the opti-
+mal objective, strong blockage increases the observed beneﬁt
+of mobility, and persistent favorable cloud states reduce its
+incremental value over ofﬂine stationary selection. At the
+representative penalty, DP gains 3.075% in mean objective
+over P2 and 4.418% over Greedy on the default missions;
+relative to zero-penalty DP it reduces travel by 88.37% with
+a 0.515% decrease in mean usable rate. These conclusions
+apply to the ﬁnite catalog, synthetic clouds, and distance sur-
+rogate. A measurement-consistent MI/Holevo model, justiﬁed
+correlation-domain bound, and operational fading/outage secu-
+rity analysis are prerequisites for interpreting these conditional
+numerical rates as secure key generation. This manuscript
+remains provisional for internal review.
+REFERENCES
+[1] V . C. Usenko, B. Heim, C. Peuntinger, C. Wittmann, C. Marquardt,
+G. Leuchs, and R. Filip, “Entanglement of gaussian states and the
+applicability to quantum key distribution over fading channels,” New
+Journal of Physics , vol. 14, p. 093048, 2012.
+[2] A. Denys, P . Brown, and A. Leverrier, “Explicit asymptotic secret key
+rate of continuous-variable quantum key distribution with an arbitrary
+modulation,” Quantum, vol. 5, p. 540, 2021.
+[3] S. Gong, H. Shen, K. Zhao, R. Wang, X. Zhang, T. de Cola, and J. A.
+Fraire, “Network availability maximization for free-space optical satellite
+communications,” IEEE Wireless Communications Letters , vol. 9, no. 3,
+pp. 411–415, 2020.
+[4] V . C. Usenko and R. Filip, “Trusted noise in continuous-variable quantum
+key distribution: A threat and a defense,” Entropy, vol. 18, no. 1, p. 20,
+2016.
