@@ -1,0 +1,131 @@
+{
+  "status": "BLOCKED_POINTING_MODEL_INCONSISTENCY",
+  "search_status": "NOT_RUN",
+  "inputs": {
+    "L_m": 21939.3102292,
+    "Dr_m": 0.55,
+    "h_HAP_m": 20000.0,
+    "h_UAV_m": 1000.0,
+    "sigma_h_m": 1.0,
+    "theta_jt_rad": 1.561e-05,
+    "theta_div_full_rad": 1e-05,
+    "tau_zen": 0.92
+  },
+  "geometry": {
+    "w0_m": 0.0986760647169751,
+    "wL_m": 0.1475476163187859,
+    "G_d": 0.029985462263114982,
+    "w_eff_m": 0.14974341909718897,
+    "sigma_s_m": 1.0570182137187947,
+    "sigma_R2": 0.05396207779616573,
+    "eta_atm": 0.9082089654181673,
+    "P0": 0.00016985667656141038,
+    "A0_approx": 0.9977339699931295,
+    "w_eq_m": 1.3129215957938423
+  },
+  "comparison": {
+    "mean_Hp_approx": 0.2777137319309177,
+    "mean_Hp_reference": 0.03311350682836657,
+    "approx_over_reference": 8.386720662669747,
+    "raw_m1": 0.2341302396514297,
+    "active_retained_mass": 0.9841173294440377,
+    "conditioned_m1": 0.23790886782137863,
+    "independent_product_unit_mean_scintillation_m1": 0.030068875511022736
+  },
+  "checks": [
+    {
+      "name": "diffraction_only_centered",
+      "residual": 0.0,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_mean_identity",
+      "residual": -1.3877787807814457e-17,
+      "error_estimate": 1.7048448495278622e-15,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_Bessel_r0.0",
+      "residual": 1.1102230246251565e-16,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_Bessel_r0.1",
+      "residual": 0.0,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_Bessel_r0.275",
+      "residual": 1.1102230246251565e-16,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_Bessel_r0.5",
+      "residual": -6.505213034913027e-19,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_Bessel_r1.0",
+      "residual": -3.2032221059907335e-36,
+      "passed": true
+    },
+    {
+      "name": "diffraction_only_Bessel_r2.0",
+      "residual": -1.1947354912096254e-121,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_centered",
+      "residual": 0.0,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_mean_identity",
+      "residual": -6.938893903907228e-18,
+      "error_estimate": 1.5395105396955773e-15,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_Bessel_r0.0",
+      "residual": 1.1102230246251565e-16,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_Bessel_r0.1",
+      "residual": 3.3306690738754696e-16,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_Bessel_r0.275",
+      "residual": -5.551115123125783e-17,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_Bessel_r0.5",
+      "residual": -3.2526065174565133e-19,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_Bessel_r1.0",
+      "residual": -5.936246471652552e-36,
+      "passed": true
+    },
+    {
+      "name": "HV_broadened_Gaussian_Bessel_r2.0",
+      "residual": -3.466376303218124e-118,
+      "passed": true
+    }
+  ],
+  "all_numerical_checks_pass": true,
+  "scientific_scope": "Aperture reference is exact only for the specified Gaussian intensity; HV broadening is retained as a Gaussian-width approximation. No joint scintillation/pointing model or security proof is validated.",
+  "missing_task1_files": [
+    "docs/FULL_GEOMETRY_FADING_SKR_AUDIT_VI.md",
+    "src/trusted_heterodyne_skr.py",
+    "results/full_geometry_fading_skr_audit_20261017"
+  ],
+  "source_sha256": {
+    "configs/default.yaml": "4e2272fc80203278b80bd0a81dea90bb8b30793452395024d367fbe8796c01c7",
+    "docs/FINAL_MODEL_SPEC.md": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+    "src/manuscript_literal_3moments.py": "93d18693f0d0b6e8b72d0b8ebcede886da5285197ceec2c703a61375227a4213"
+  }
+}

@@ -1,0 +1,303 @@
+   Performance Analysis of Probabilistically Shaped
+    CV-QKD in Free-space HAP-to-UAV Systems
+                          Binh Nguyen∗ , Cuong T. Nguyen† , Hoang D. Le† , and Trinh Van Chien∗
+                                       ∗ School of Information and Communications Technology,
+
+                                Hanoi University of Science and Technology, Hanoi 100000, Vietnam
+               † Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+
+
+
+
+   Abstract—Nam dui ligula, fringilla a, euismod sodales, sol-             nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+licitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus               Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet,   Pellentesque tincidunt purus vel magna. Integer non enim.
+tortor sed accumsan bibendum, erat ligula aliquet magna, vitae
+ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.            Praesent euismod nunc eu purus. Donec bibendum quam in
+Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum             tellus. Nullam cursus pulvinar lectus. Donec et mi. Nam
+sociis natoque penatibus et magnis dis parturient montes, nasce-           vulputate metus eu enim. Vestibulum pellentesque felis eu
+tur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper               massa.
+vestibulum turpis. Pellentesque cursus luctus mauris.                         Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel
+   Index Terms—Continuous-variable quantum key distribution
+(CV–QKD), unmanned aerial vehicle (UAV), free-space optics                 justo vitae lacus tincidunt ultrices. Lorem ipsum dolor sit amet,
+(FSO), high-altitude platform (HAP), pulse constellation shaping           consectetuer adipiscing elit. In hac habitasse platea dictumst.
+(PCS)                                                                      Integer tempus convallis augue. Etiam facilisis. Nunc elemen-
+                                                                           tum fermentum wisi. Aenean placerat. Ut imperdiet, enim sed
+                        I. I NTRODUCTION                                   gravida sollicitudin, felis odio placerat quam, ac pulvinar elit
+   Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut            purus eget enim. Nunc vitae tortor. Proin tempus nibh sit amet
+purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.           nisl. Vivamus quis tortor vitae risus porta vehicula.
+Curabitur dictum gravida mauris. Nam arcu libero, nonummy                     Fusce mauris. Vestibulum luctus nibh at lectus. Sed bi-
+eget, consectetuer id, vulputate a, magna. Donec vehicula                  bendum, nulla a faucibus semper, leo velit ultricies tellus,
+augue eu neque. Pellentesque habitant morbi tristique senectus             ac venenatis arcu wisi vel nisl. Vestibulum diam. Aliquam
+et netus et malesuada fames ac turpis egestas. Mauris ut leo.              pellentesque, augue quis sagittis posuere, turpis lacus congue
+Cras viverra metus rhoncus sem. Nulla et lectus vestibulum                 quam, in hendrerit risus eros eget felis. Maecenas eget erat in
+urna fringilla ultrices. Phasellus eu tellus sit amet tortor               sapien mattis porttitor. Vestibulum porttitor. Nulla facilisi. Sed
+gravida placerat. Integer sapien est, iaculis in, pretium quis,            a turpis eu lacus commodo facilisis. Morbi fringilla, wisi in
+viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum.             dignissim interdum, justo lectus sagittis dui, et vehicula libero
+Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at,             dui cursus dui. Mauris tempor ligula sed lacus. Duis cursus
+mollis ac, nulla. Curabitur auctor semper nulla. Donec varius              enim ut augue. Cras ac magna. Cras nulla. Nulla egestas.
+orci eget risus. Duis nibh mi, congue eu, accumsan eleifend,               Curabitur a leo. Quisque egestas wisi eget nunc. Nam feugiat
+sagittis quis, diam. Duis eget orci sit amet orci dignissim                lacus vel est. Curabitur consectetuer.
+rutrum.                                                                       Suspendisse vel felis. Ut lorem lorem, interdum eu, tinci-
+   Nam dui ligula, fringilla a, euismod sodales, sollicitudin              dunt sit amet, laoreet vitae, arcu. Aenean faucibus pede eu
+vel, wisi. Morbi auctor lorem non justo. Nam lacus libero,                 ante. Praesent enim elit, rutrum at, molestie non, nonummy
+pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet,           vel, nisl. Ut lectus eros, malesuada sit amet, fermentum eu,
+tortor sed accumsan bibendum, erat ligula aliquet magna, vitae             sodales cursus, magna. Donec eu purus. Quisque vehicula,
+ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.            urna sed ultricies auctor, pede lorem egestas dui, et convallis
+Suspendisse ut massa. Cras nec ante. Pellentesque a nulla.                 elit erat sed nulla. Donec luctus. Curabitur et nunc. Aliquam
+Cum sociis natoque penatibus et magnis dis parturient montes,              dolor odio, commodo pretium, ultricies non, pharetra in, velit.
+nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullam-               Integer arcu est, nonummy in, fermentum faucibus, egestas
+corper vestibulum turpis. Pellentesque cursus luctus mauris.               vel, odio.
+   Nulla malesuada porttitor diam. Donec felis erat, congue
+                                                                                                II. S YSTEM M ODEL
+non, volutpat at, tincidunt tristique, libero. Vivamus viverra
+fermentum felis. Donec nonummy pellentesque ante. Phasellus                A. System Description & Signal Model
+adipiscing semper elit. Proin fermentum massa ac quam. Sed                    Fig. 1 depicts the considered FSO/QKD system between a
+diam turpis, molestie vitae, placerat a, molestie nec, leo.                HAP (Alice) and a UAV (Bob) enabling secure IoV applica-
+Maecenas lacinia. Nam ipsum ligula, eleifend at, accumsan                  tions. Therein, we adopt the DM-CV-QKD protocol with M -
+                       HAP            FSO channel
+                                                                          For the atmospheric turbulence, by assuming the weak
+                      (Alice)                                          turbulence condition, we can model Ia as a log-normal random
+                                                                       variable, whose probability density function (PDF) is
+                                                                                                                        2 
+                                                                                                                      σR2
+                                                                                              1              ln Ia +   2
+                                                                               fIa (Ia ) = p        exp −                   ,  (5)
+                                                                                                                            
+                                                                                                  2                 2
+                                                                                                                  2σR
+                           𝜉                                                              Ia 2πσR
+                 ℎHAP                     Atmospheric
+                                                                                               67          R hatm 2                  5
+                                           turbulence                                                 11
+                                      UAV                              where σR2 = 2.25 2π λ       sec 6 (ξ) hUAV  Cn (h) (h − hUAV ) 6 dh is
+                                      (Bob)                            the Rytov variance, hatm is the atmospheric altitude, hUAV
+                                ℎUAV                                   denotes the UAV’s altitude, and λ is the optical wavelength. In
+                                                                       addition, Cn2 (h) can be computed as a function of the ground
+                                                                       turbulence level, Cn2 (0), and the root-mean-square (rms) wind
+                                                                       speed, vwind , as in [].
+Fig. 1. The considered HAP-to-UAV FSO/CV-QKD systems enabling secure
+                                                                          As for geometric loss and misalignment, the fraction of col-
+IoV applications.                                                      lected power given the distance between the beam footprint’s
+                                                                       center and that of the receiver aperture, r, is approximated as
+                                                                                                                       !
+QAM modulation. In this modulation scheme, Alice randomly                                                         2r2
+                                                                                           ηp ≈ A0 exp − 2               ,                (6)
+selects a coherent state from a deterministic set√{|αk ⟩}, where                                                  wLeq
+k ∈ K = {(i, j) : i, j ∈ {0, . . . , m−1}}, m = M . The value
+                                                                                                 2
+αk is given as                                                         where A0 = [erf (ν)] √ denotes√ the maximum
+                                                                                                                          fraction of
+                                                                   collected power, ν = πDr / 2 2wL,eff , D√r is the receiver
+                        m−1                       m−1                                             2          2        πerf(ν)
+        αk = ∆ i −                  + jc ∆ j −          ,    (1)       aperture’s diameter, and wL     = wL,eff                  is the
+                           2                       2                                                eq                    √2 )
+                                                                                                                  2ν exp(−ν
+                                                                       equivalent beam width. Additionally,rwL,eff = wL 1 + Gd is
+                                                    √                                                                 2           2
+where ∆ is the symbol spacing, and jc = −1 denotes                     the effective beam width, wL = w0       1 − FL0 + πw     Lλ
+                                                                                                                                        ,
+                                                                                                                                   2
+the imaginary unit. The coherent state |αk ⟩ is selected with                                                                          0
+
+probability pk , which follows the Maxwell–Boltzmann (MB)              L = (hHAP − hUAV ) sec (ξ) is the slant distance, hHAP is the
+distribution, and is given as [1]                                      HAP’s altitude, Gd can be found in [], F0 is the radius of
+                                                                                          2λ
+                                                                       curvature, w0 = πθ    , and θ is the divergence full-angle.
+                                             
+                             exp −γ|k|2                                   In this work, we consider two factors that contribute to
+                      pk =                      ,            (2)       the misalignment model of r, which are (1) the operation
+                                     Z
+                                                                     and hovering of the UAV within the beam footprint, and (2)
+where Z = k∈K exp −ν|k|2 is the normalizating factor,
+              P
+                                                                       the satellite’s vibration. For the first factor, the UAV is not
+and γ is the shaping parameter. It is observed that setting            necessarily at the center of the beam footprint. Thus, the radial
+γ = 0 results in uniform probability among coherent states.            displacement vector
+                                                                                          can be expressed as   r1 = (X1 , Y1 ) where
+Finally, the average photon number of the system, ⟨n⟩, can be          X1 ∼ N ρx , σh2 , and Y1 ∼ N ρy , σh2 . Regarding the second
+calculated as [2]                                                      factor, the radial displacement vector in this
+                                                                                                                      case can    be given
+                                                                                                                                           
+                              X                                        as r2 = (X2 , Y2 ), where X2 ∼ N 0, σjt , Y2 ∼ N 0, σjt2 ,
+                                                                                                                   2
+                      ⟨n⟩ =          pk |αk |2 ,             (3)
+                                k∈K
+                                                                       σjt ≃ Lθjt , and θjt denotes the jitter angle. As a result, r
+                                                                       follows the Rician distribution, whose PDF is given as []
+where VA = ⟨n⟩/2 refer to the modulation variance.                                                   2
+                                                                                                         r + ρ2
+                                                                                                                   
+                                                                                              r                           ρr
+                                                                                  fr (r) = 2 exp −                  I0          ,         (7)
+B. Quantum Channel Model                                                                     σs            2σs2           σs2
+                                                                                    q
+   The transmittance of the free-space HAP-to-UAV channel              where ρ = ρ2x + ρ2y , σs2 = σh2 +σjt2 , and I0 (·) is the modified
+can be expressed as η = ηatm Ia ηp ηAoA , where ηatm is the            Bessel function of the first kind with order zero. Combining
+deterministic atmospheric loss, Ia is the atmospheric-induced          (6) and (7), we obtain the PDF of ηp as []
+turbulence, ηp denotes the geometric loss and misequation-                                                   s                      
+ment, and ηAoA denotes the angle-of-arrival (AoA) fluctuation.                      χ2
+                                                                                            2
+                                                                                             −ρ               ρ     −w  2
+                                                                                                                                η
+                                                                                                      2                 L         p
+Regarding the atmospheric loss, it can be given as                       fηp(ηp )= χ2 exp          η χ −1I0  2           eq
+                                                                                                                             ln       , (8)
+                                                                                   A0         2σs2 p         σs        2        A0
+                                 sec(ζ)
+                         ηatm = τzen    ,                       (4)
+                                                                       where 0 ≤ ηp ≤ A0 , and χ = wLeq /2σs .
+where ζ is the zenith angle, and τzen ∈ [0, 1] is the atmospheric         Regarding the received signal’s AoA fluctuation, it arises
+transmittance at zenith.                                               from the UAV’s angular instability and can cause signal loss
+due to the receiver’s limited field of view (FOV). Conse-               where a coherent state can be approximated by a finite
+quently, the PDF of ηAoA is given as []                                 superposition of Fock states as [2]
+
+         fηAoA (ηAoA ) = P0 δ (ηAoA ) + P1 δ (ηAoA − 1) ,     (9)                                           N
+                                                                                                    −|α|2   X   αn
+                                                                                                              max
+
+                                                                                          |α⟩ ≈ e     2         √ |n⟩ .              (16)
+                                                                                                                 n!
+                    2 
+                       θFoV
+where P0 = exp − 2σ       2  , P1 = 1−P0 , θFoV is the detector’s                                           n=0
+                          o
+FOV half-angle, and σo denotes the standard deviation (SD)              Moreover, a and a† are the annihilation and creation operators,
+of angular fluctuation.                                                 respectively, and w is a quantity measuring how far the finite
+   Utilizing (4), (5), (8), and (9) and applying some mathmat-          constellation is from Gaussian modulation, and is written as
+ical transformations, we derive the PDF of η as []                      [2]
+                            χ2 C 1          2                                      X                                          
+ fη (η) = P0 δ (η)+P1                χ2
+                                          η χ −1 erfc [C2 (η)] , (10)        w=
+                                                                                                                             2
+                                                                                       pk ⟨αk |a†τ aτ |αk ⟩ − |⟨αk |aτ |αk ⟩| ,   (17)
+                      2 (A0 ηatm )                                                  k
+                     h 2                        i
+where C1 = exp σρ 2 + 0.5σR2 χ2 1 + χ2 , C2 (η) =                       where aτ = τ 1/2 aτ −1/2 .
+                        s
+                                                − 12                    Regarding the effective transmittance and effective excess
+                                 32ρ2 σs2
+    h             i
+          η                                    2
+C3 ln A0 ηatm + µ , C3 =            4
+                                   wL
+                                          + 2σ R       and µ =          noise, these parameters are expressed as [4]
+                                      eq
+6ρ 2                  
+     + 0.5σR2 1 + 2χ2 .                                                                √                          √
+w2
+ Leq
+                                                                                 ηf = ⟨ η⟩2 ,       ηf ξf = Var( η)VA + ⟨ηξn ⟩        (18)
+                                                                                    √                √              R1              √
+   III. S ECRET- KEY R ATE A NALYSIS & O PTIMIZATION                    where Var( η) = ⟨η⟩ − ⟨ η⟩2 , ⟨η⟩ = 0 ηfη (η) dη, ⟨ η⟩ =
+                                                                        R1√                                 R1
+A. Secret-key Rate Analysis                                               0
+                                                                              ηfη (η) dη, and ⟨ηξn ⟩ = 0 ηξn fη (η) dη. Furthermore,
+                                                                        ξn = χline + χhom  η   is the total excess noise, where χline =
+  The secret-key rate can be computed as []                              1
+                                                                            − 1 + ξch  is  the channel   noise, ξch is the channel excess
+                                                                        η
+                                                                                          (1−R)+ξdet
+                     SKR = βIAB − χBE ,                         (11)    noise, χhom =          R      is the detection noise for homodyne
+                                                                        detector, R denotes the detector efficiency and ξdet represents
+where β is the reconciliation efficiency, IAB is the mutual             the detector excess noise
+information between Alice and Bob, and χBE is the Holevo                                                              √
+                                                                        Lemma 1. The expressions of ⟨η⟩, ⟨ η⟩, and ⟨ηξ⟩ are
+bound representing the maximum information acquired by
+                                                                        respectively written as
+Eve. The mutual information between Alice and Bob for M -
+ary modulation is generally given as [3]                                                       χ2 C1
+                                                                                                     Q χ2 + 1 ,
+                                                                                                              
+                                                                              ⟨η⟩ = P1 A0 ηatm  2
+                                                                                                                                     (19)
+                                                                                              χ +1
+        X Z                                        
+                                     p (y|αk )
+  IAB =    pk p (y|αk ) log2 P                        dy, (12)               √                    χ2 C 1
+                                 k′ ∈K pk p (y|αk )
+                                                                                       p
+                                                                                                          Q χ2 + 0.5 ,
+                                          ′      ′
+                                                                                                                    
+       k∈K                                                                  ⟨ η⟩ = P1 A0 ηatm 2                                      (20)
+                                                                                                 χ + 0.5
+                                   |y−2√ηf αk |                              ⟨ηξ⟩ = ⟨η⟩(ξch−1)+(χhom+1) P0+P1 C1 Q χ2 ,
+                                               2
+                                                                                                                     
+                                                                                                                                     (21)
+where p (y|αk ) = √ 1      2
+                             exp −     2σ 2
+                                                    and σζ2 =
+                        2πσζ                    ζ
+
+1 + ηf ξf . Moreover, ηf and ξf are the effective transmittance         where Q (a)       =     0.5 [Q1 (a) + Q2(a)], Q1 (a) =
+and effective excess noise, respectively, whose calculations are        exp (ax1 − aµ) erfc (C3 x1 ), x1 = ln A01ηatm + µ, and
+given at the end of this Section.                                                     2
+                                                                                        a
+                                                                                                       
+                                                                                                          a
+                                                                                                                        
+   As for the Holevo bound, it can be computed based on the             Q2 (a) = exp 4C   2 − aµ    erfc 2C 3
+                                                                                                              − C 3 x 1   .
+                                                                                           3
+                             3
+symplectic eigenvalues {νi }i=1 of the covariance matrix as [2]         Proof. Let B = A0 ηatm . By applying some mathematical
+             
+               ν1 − 1
+                            
+                               ν2 − 1
+                                           
+                                              ν3 − 1
+                                                                       manipulations, we can derive ⟨η⟩ as
+    χBE = g             +g              −g             ,    (13)
+                  2               2              2                                   χ2 C1 1 χ2
+                                                                                           Z          h  η      i
+                                                                            ⟨η⟩ = P1 χ2       η erfc C3 ln + µ dη.       (22)
+where g (x) = (x + 1) logq     2 (x + 1) − x log2 (x), ν1,2 =
+                                                                                     2B     0               B
+q     √
+   ∆± ∆2 −4D                               2
+        2        , and ν3 =      V V − ZW . Moreover, ∆ =               By applying the change of variables x = ln B η
+                                                                                                                       + µ, integrating
+                                           2
+V 2 + W 2 − 2Z 2 , D = V W − Z 2 , V = VA + 1,                          by parts, and utilizing the definition of the complementary
+W = 1 + ηf VA + ηf ξf , and Z is given as                               error function [], we obtain the expression for ⟨η⟩ as in (19).
+                                                                                             √
+                                                                        The expressions of ⟨ η⟩ and ⟨ηξ⟩ can be derived by applying
+                     √                    p
+    Z (ηf , ξf ) = 2 ηf tr τ 1/2 aτ 1/2 a† − 2ηf ξf w. (14)             the same approach. This completes the proof.                 ■
+
+Therein, τ denotes the density matrix and can be given as [2]
+                         X                                              B. Secret-key Rate Optimization
+                    τ=       pk |αk ⟩⟨αk |,              (15)
+                          k∈K
+                                                                          TBD
+          IV. N UMERICAL R ESULTS & D ISCUSSIONS
+    Unless otherwise noted, default parameters used in this
+paper are as follows. At the HAP (Alice): HAP altitude
+hHAP = 20 km, zenith angle ξ = 30◦ , divergence full-angle
+θ = 233 µrad, F0 = ∞, optical wavelength λ = 1550 nm,
+jitter angle θjt = 15.61 µrad. At the UAV (Bob): UAV altitude
+hUAV = 1 km, receiver aperture diameter Dr = 8 cm, boresight
+offsets ρx = ρy = 0 m, SD of UAV position σh = 1 m, SD of
+UAV’s angular fluctuation σo = 1.5 mrad, the detector’s FOV
+half-angle θFoV = 6.25 mrad. Regarding the quantum channel:
+atmospheric altitude hatm = 20 km, atmospheric transmittance
+τzen = 0.92, ground turbulence level Cn2 (0) = 10−14 m−2/3 ,
+rms wind speed vwind = 21 m/s.
+    key reconciliation efficiency β = 0.95
+                             R EFERENCES
+[1] M. N. Notarnicola, S. Olivares, E. Forestieri, E. Parente, L. Potı̀, and
+    M. Secondini, “Probabilistic amplitude shaping for continuous-variable
+    quantum key distribution with discrete modulation over a wiretap chan-
+    nel,” IEEE Trans. Commun., vol. 72, no. 1, pp. 375–386, Jan. 2024.
+[2] A. Denys, P. Brown, and A. Leverrier, “Explicit asymptotic secret key
+    rate of continuous-variable quantum key distribution with an arbitrary
+    modulation,” Quantum, vol. 5, p. 540, Sep. 2021.
+[3] T. K. Moon, Error correction coding: Mathematical Methods and Algo-
+    rithms. John Wiley & Sons, 2020.
+[4] N. Hosseinidehaj, N. Walk, and T. C. Ralph, “Composable finite-size
+    effects in free-space continuous-variable quantum-key-distribution sys-
+    tems,” Phys. Rev. A, vol. 103, no. 1, p. 012605, Jan. 2021.
+

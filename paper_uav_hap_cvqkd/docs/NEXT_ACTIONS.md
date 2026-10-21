@@ -1,5 +1,23 @@
 # Next Actions
 
+## Corrected full fading: deliver, resolve exact manuscript version, then review
+
+Deliver docs/CORRECTED_FULL_FADING_MODEL_VI.md and released_run/decomposition.csv,
+released_verification/validation.json under corrected_full_fading_20261017.
+Implementation numerical checks pass; full task cannot close before requested
+Binh (38)(7) is located and equation mapping verified. Do not silently replace
+it by available (38). Await user review of optical conditioning/calibration and
+security scope. Do not optimize pointing or MB, restart Objective C, or access
+training/final-test/publication data. Preserve historical branches/results.
+
+## Task2: resolve optical model before SKR sweep
+
+Read POINTING_APERTURE_TASK2_VI.md. Supply matching corrected Task1 evaluator,
+tests and provenance; define/validate joint aperture-integrated pointing,
+scintillation and AoA law including dependence and physical support. Then
+validate full-noise moments/MI/Holevo before Experiments A/B/C. No automatic
+search using old inconsistent pointing or NO_FADING_NOISE branch.
+
 ## Current: deliver IEEE numerical package, then STOP
 
 EVID-0188/DEC-0171. Deliver the completed seven-figure/two-table numerical package

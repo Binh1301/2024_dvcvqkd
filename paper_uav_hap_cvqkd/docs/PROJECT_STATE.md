@@ -1,5 +1,33 @@
 # Project State
 
+## Current: corrected full-fading code validated; exact reference version pending
+
+2026-10-17 attachment f5f45a58. IMPLEMENTED_NUMERICALLY_VALIDATED_REFERENCE_VERSION_PENDING.
+New full_fading_channel/evaluator modules and corrected manuscript CLI implement
+two named optical modes, complete fading noise, ideal heterodyne interval Holevo
+and distinct Gaussian/actual-mixture MI. Four fixed-source comparisons saved in
+results/corrected_full_fading_20261017/released_run/. released_verification has
+32 unit tests and 40 stricter numerical checks CURRENTLY_VERIFIED_PASS.
+Mode B mixture K≈-.000752322973 (233urad/Dr08), -.325876200679 (10urad/Dr55).
+No positive rate, parameter optimization, new C,w/AP, training/test/publication
+access, baseline/threshold promotion, commit/push. Optical active conditioning
+is explicit, physical calibration/security certificate unestablished. Requested
+Binh (38)(7) unavailable; available (38) is comparison-only. Frozen historical
+hash discrepancy, NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED
+unchanged. Report docs/CORRECTED_FULL_FADING_MODEL_VI.md; await reference/review.
+
+## Current: Task2 optical gate FAILED; SKR search NOT_RUN
+
+2026-10-17. BLOCKED_POINTING_MODEL_INCONSISTENCY: independent circular aperture
+mean Hp=.03311350682836657; equivalent Gaussian mean=.2777137319309177.
+16 reference numerical checks CURRENTLY_VERIFIED_PASS; this does not validate
+the old approximate law. Old conditioned m1≈.2379089 reproduced. Task1 files
+referenced in supplied chat unavailable in this checkout; full Task2 incomplete.
+Report docs/POINTING_APERTURE_TASK2_VI.md; machine evidence in
+results/pointing_aperture_task2_20261017/. No SKR sweep/source optimization,
+training/final-test/publication access or model edits. NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+Objective C USER_STOPPED and historical frozen-hash discrepancy unchanged.
+
 ## Current: IEEE numerical-results package COMPLETE; STOP
 
 2026-10-14 EVID-0188/DEC-0171. CURRENTLY_VERIFIED_PASS for scoped numerical

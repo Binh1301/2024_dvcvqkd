@@ -1,0 +1,129 @@
+{
+  "MI": 0.45244364721558733,
+  "security": {
+    "lower": 2.391598478163919,
+    "upper": 2.3929935833753606,
+    "theoretical_lower": 2.391598478163919,
+    "theoretical_upper": 2.3929935833753606,
+    "Z_star": 2.391598478163919,
+    "Z_lower": 2.391598478163919,
+    "Z_upper": 2.3929935833753606,
+    "Z_physical_cap": 2.914161975982014,
+    "c1": 1.1961480153848199,
+    "c2": 1.0122737086820515,
+    "n_B": 0.6025607111137486,
+    "average_photon_number": 2.5234375,
+    "correlation_bound_status": "THEORETICALLY_IDENTIFIED_NUMERICALLY_EVALUATED",
+    "status": "NUMERICALLY_VERIFIED",
+    "theorem_reference": "Denys-Brown-Leverrier arXiv:2103.13945v3 Eqs.(11)-(13)",
+    "assumptions": [
+      "fixed validated centered C4 ensemble",
+      "phase-compensated independent fading",
+      "unconditioned pooled outcomes including outage",
+      "asymptotic observed moment interpretation"
+    ],
+    "chi_BE": 1.1466344828816992,
+    "Z_worst": 2.391598478163919,
+    "diagnostic_best_chi": 1.1466344828816992,
+    "lambda_1": 5.28303650510407,
+    "lambda_2": 1.4412829273315677,
+    "conditional_symplectic_eigenvalues": [
+      4.262311319794443
+    ],
+    "covariance_physicality_status": "CURRENTLY_VERIFIED_PASS",
+    "detector_security_convention": "ideal",
+    "grid_size": 513,
+    "dense_grid_size": 1027,
+    "dense_grid_best_Z": 2.391598478163919,
+    "dense_grid_best_chi": 1.1466344828816992,
+    "grid_verification_shortfall": 0.0,
+    "tolerance": 1e-11,
+    "refinements": [
+      {
+        "success": true,
+        "evaluations": 21,
+        "Z": 2.3915985349166125,
+        "message": "Solution found."
+      }
+    ],
+    "endpoint_chi": [
+      1.1466344828816992,
+      1.1458527799662828
+    ],
+    "invalid_covariance_evaluations": [],
+    "numerical_repairs": [],
+    "numerical_convergence_status": "CURRENTLY_VERIFIED_PASS",
+    "rigorous_global_error_enclosure": false,
+    "monotonicity_assumed": false,
+    "covariance": {
+      "a": 6.046875,
+      "b": 2.2051214222274975,
+      "Z": 2.391598478163919,
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          2.391598478163919,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -2.391598478163919
+        ],
+        [
+          2.391598478163919,
+          0.0,
+          2.2051214222274975,
+          0.0
+        ],
+        [
+          0.0,
+          -2.391598478163919,
+          0.0,
+          2.2051214222274975
+        ]
+      ],
+      "Delta": 29.987771190879673,
+      "D": 57.9783307846574,
+      "discriminant": 667.3530978579236,
+      "direct_discriminant_diagnostic": 667.3530978579233,
+      "lambda_1": 5.28303650510407,
+      "lambda_2": 1.4412829273315677,
+      "lambda_3": 4.262311319794443,
+      "conditional_symplectic_eigenvalues": [
+        4.262311319794443
+      ],
+      "minimum_covariance_eigenvalue": 1.058505600065121,
+      "covariance_physicality_status": "CURRENTLY_VERIFIED_PASS",
+      "numerical_repairs": [],
+      "conditional_measurement": "ideal_heterodyne_only"
+    },
+    "Z_minus": 2.391598478163919,
+    "Z_plus": 2.3929935833753606,
+    "lambda_3": 4.262311319794443
+  },
+  "physical_quadrature": {
+    "order": 64,
+    "errors": {
+      "mass": 1.3322676295501878e-15,
+      "m1": 2.498001805406602e-16,
+      "mhalf": 5.551115123125783e-16
+    },
+    "normal_tail_bound": 4e-33,
+    "AoA_atom_weight": 0.00016985667656141038,
+    "active_numerical_underflow_weight": 0.0,
+    "numerical_zero_nodes_are_not_additional_physical_outages": true,
+    "radial_tail_bound": "r>rho+12sigma, negligible under stated Rician law"
+  },
+  "compression": {
+    "order": 72,
+    "nodes": 73,
+    "m1_error": 1.3877787807814457e-16,
+    "mhalf_error": 5.551115123125783e-17,
+    "source_support_reduced": false,
+    "zero_weight": 0.00016985667656141038
+  },
+  "min_uncertainty_eigenvalue": 0.3509135105261675
+}

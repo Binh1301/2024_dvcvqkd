@@ -1,4 +1,4 @@
-"""Explicit one-existing-source entry; no source oracle, sweep or optimization."""
+"""Corrected full-fading entry; explicit legacy model retains old CLI semantics."""
 import argparse
 import json
 import math
@@ -15,7 +15,7 @@ from src.manuscript_corrected_3moments import PhysicalFadingDistribution
 from src.manuscript_corrected_evaluator import MODEL, evaluate_candidate, validate_settings
 
 
-def main():
+def legacy_main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--scientific-model', choices=[MODEL], required=True)
     parser.add_argument('--source-payload', type=Path, required=True)
@@ -51,6 +51,18 @@ def main():
         stream.write('\n')
     print(out)
     return 2 if record['status'] == 'BLOCKED_BY_SCIENTIFIC_MODEL' else 0
+
+
+def main():
+    # An explicit historical model identifier retains the original CLI semantics.
+    # All unqualified corrected runs use the new two-mode full-fading pipeline.
+    selector = argparse.ArgumentParser(add_help=False)
+    selector.add_argument('--scientific-model')
+    selected, _ = selector.parse_known_args()
+    if selected.scientific_model == MODEL:
+        return legacy_main()
+    from scripts.run_full_fading_model import main as corrected_main
+    return corrected_main()
 
 
 if __name__ == '__main__':

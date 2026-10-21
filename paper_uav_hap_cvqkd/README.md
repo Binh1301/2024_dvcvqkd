@@ -167,3 +167,22 @@ no training and cannot construct the held-out test realization.
 This is an asymptotic covariance-based lower-bound calculation, not a finite-key or composable security proof. Distribution matching, reconciliation feasibility, estimator/feedback overhead, trusted detector imperfections, and arbitrary-asymmetric discrete-modulation security are not supplied by the paper. See [KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
 
 The original repository remains intact. See [LEGACY_MAPPING.md](docs/LEGACY_MAPPING.md) for the read-only source audit.
+
+## Corrected full-fading single-source comparison
+
+The corrected manuscript entry now defaults to two explicitly named optical
+modes and includes fading-induced noise. Run from this project directory:
+
+```powershell
+.\.venv-binary-cloud\Scripts\python.exe scripts/run_manuscript_corrected_3moments.py --output results/my_corrected_run
+.\.venv-binary-cloud\Scripts\python.exe scripts/verify_full_fading_model.py --input results/my_corrected_run --output results/my_corrected_verification
+```
+
+Each output directory must be new. See
+[Vietnamese model audit](docs/CORRECTED_FULL_FADING_MODEL_VI.md) for reference
+version limitations, passive-support conditioning, security scope, source
+provenance, and separate actual-mixture versus effective-Gaussian MI results.
+This is a fixed-source numerical comparison; it does not run optimization or
+establish a composable security claim. The historical no-fading-noise path
+remains an explicitly named diagnostic. Historical model CLI invocation stays
+available with `--scientific-model manuscript_corrected_3moments`.

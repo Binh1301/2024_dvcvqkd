@@ -1,5 +1,23 @@
 # Decision Log
 
+## Corrected full fading 2026-10-17: new explicit model, no optimization
+
+Attachment f5f45a58 authorizes actual code correction: Mode B uses circular
+aperture integration, Mode A is comparison-only; both explicitly retain current
+active-conditioning/passive-support convention and AoA atom. New corrected CLI
+uses full fading noise and ideal heterodyne with interval Holevo. Historical
+explicit model CLI and no-fading diagnostics remain distinct. Numerical tests
+pass but do not resolve optical calibration, security proof, frozen historical
+hash or requested (38)(7) absence. STOP after report; no pointing/MB optimization.
+
+## Task2 optical gate 2026-10-17: stop before inconsistent SKR search
+
+User attachment explicitly requires validated pointing before search and no
+continuation with inconsistent transmittance. Aperture reference differs by
+8.38672x in mean pointing collection. Preserve old source/config/results;
+do not silently substitute a new joint fading law. Task2 remains incomplete,
+pending Task1 evaluator/provenance and consistent bounded-transmission law.
+
 ## DEC-0162 - Add only a separate manuscript reproduction mode; STOP after tests
 
 2026-10-12 explicit attachment aae63626-108b-440d-9b21-ec9a8b92595f plus

@@ -1,5 +1,28 @@
 # Evidence Register
 
+## Corrected full-fading implementation 2026-10-17
+
+User request f5f45a58: new two-mode optical law, full-noise ideal heterodyne,
+full admissible Z-interval Holevo, separate Gaussian and actual-mixture MI.
+results/corrected_full_fading_20261017/released_run/ contains four fixed-source
+comparisons; released_verification/validation.json records 32 tests and 40
+stricter replay/spectrum/entropy checks CURRENTLY_VERIFIED_PASS, zero failures.
+Mode B mixture K: 233urad/Dr08=-.0007523229732755086; 10urad/Dr55=-.32587620067908907.
+Both negative. Conditioning at T<=1 preserves AoA and is an explicit surrogate
+choice. 123 pre-existing source/config file hashes unchanged; new source/config
+added, corrected CLI redirected. No optimization/source builds or publication.
+Requested Binh (38)(7) missing: full reference-version audit remains pending.
+See docs/CORRECTED_FULL_FADING_MODEL_VI.md and final_integrity.json.
+
+## Task2 optical gate 2026-10-17
+
+CURRENTLY_VERIFIED_PASS for 16 independent aperture CDF/Bessel/mean checks,
+not for the approximate pointing law. results/pointing_aperture_task2_20261017/
+optical_checks.json records mean_Hp .03311350682836657 versus approximate
+.2777137319309177 (8.38672x). Old conditioned m1 .23790886782137863 reproduced.
+BLOCKED_POINTING_MODEL_INCONSISTENCY; all SKR sweeps/source optimization NOT_RUN.
+See docs/POINTING_APERTURE_TASK2_VI.md. No production/model/security promotion.
+
 ## EVID-0179 - Separate manuscript-literal three-moment implementation
 
 2026-10-12. User supplied manuscript (37), SHA256

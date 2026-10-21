@@ -1,0 +1,84 @@
+{
+  "scientific_model": "corrected_full_fading_v1",
+  "settings": {
+    "scientific_model": "corrected_full_fading_v1",
+    "primary_optical_mode": "APERTURE_CORRECTED",
+    "optical_modes": [
+      "PDF_ORIGINAL",
+      "APERTURE_CORRECTED"
+    ],
+    "support_policy": "condition_active_on_T_le_1_preserve_AoA_atom",
+    "baselines": [
+      {
+        "name": "BINH_PDF_233urad_D08",
+        "divergence_full_rad": 0.000233,
+        "receiver_diameter_m": 0.08
+      },
+      {
+        "name": "NARROW_10urad_D55",
+        "divergence_full_rad": 1e-05,
+        "receiver_diameter_m": 0.55,
+        "zenith_rad": 0.5235987755978426
+      }
+    ],
+    "nu_raw": 0.17,
+    "V_A": 5.046875,
+    "source_payload": "results/ao_effective_channel_no_fading_noise_reference_continuation/exact_source_cache/2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+    "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+    "xi_ch": 0.0186,
+    "beta": 0.95,
+    "detector": "ideal_heterodyne",
+    "R": 1.0,
+    "xi_det": 0.0,
+    "phase_noise": "OFF",
+    "AO": "OFF",
+    "physical_quadrature_order": 48,
+    "gaussian_orders": [
+      16,
+      32,
+      48
+    ],
+    "mixture_orders": [
+      24,
+      40,
+      56
+    ],
+    "mi_tolerance": 1e-08,
+    "holevo_grid_size": 257,
+    "holevo_tolerance": 1e-09,
+    "reference_status": "REQUESTED_BINH_38_7_NOT_LOCATED_USER_EQUATIONS_IMPLEMENTED",
+    "requested_manuscript": "2026__Binh_s_work (38)(7).pdf",
+    "available_comparison_manuscript": "C:/Users/admin/Downloads/2026__Binh_s_work (38).pdf",
+    "Denys_primary": "https://arxiv.org/pdf/2103.13945v3",
+    "Hosseinidehaj_primary": "https://arxiv.org/pdf/2002.03476v1"
+  },
+  "config_sha256": "993590c687b00042bfcd8359c458c2dab160ffc5b651763fae8bd845932a5c5f",
+  "producer_hashes": {
+    "src/full_fading_channel.py": "c71395c4defbca339ba518a1df62675df447558657c471f6fff3ce39af520ec6",
+    "src/full_fading_evaluator.py": "0bf97793c335e02a7e8f2f51febfda4ab46c0024f865639ca35929ac859e54d0",
+    "scripts/run_full_fading_model.py": "c7ea9e8b554011f153c036149cecbecdb0c0b25b2882263e427706bd42a0ade9",
+    "scripts/run_manuscript_corrected_3moments.py": "4179f41238eef10f3763b7a2f257cf2ea5342a28637911696a56aa0fa9394aa9",
+    "src/manuscript_corrected_3moments.py": "0ed460958086cfe369ae7167e238eebc1622133e77bd1fcd3638eefca217a978",
+    "src/manuscript_literal_3moments.py": "93d18693f0d0b6e8b72d0b8ebcede886da5285197ceec2c703a61375227a4213",
+    "src/cvqkd/mutual_information.py": "4c7d38d7f796dde0e24155117d17ca5758e9561527f4acb29fc24d9bb7e947b4",
+    "scripts/exact_cache_provenance.py": "f42d8de17f66e0711f4b3d22c219aa9bf9a5e19bdfe042aee5ca03e5a5088456",
+    "src/cvqkd/gram_moments.py": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+    "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+    "scripts/full_support_c4_worker.py": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+    "src/modulation/qam256.py": "a4e1bd83b70fdb9f45a8804f0ceaaa035f1c6307882c16edb4cf8552cccc0dd7",
+    "src/modulation/joint_ps_gs.py": "ca1c4f97bf19d08b8735289b59129aa829988ba5c397c995b6d4ab87912c100b",
+    "src/modulation/normalization.py": "af8aee6bbaec42101aa620ca222df0d23ca7991fd4f7f77ef99c88889801ae5a"
+  },
+  "outputs": {
+    "BINH_PDF_233urad_D08_APERTURE_CORRECTED.json": "71811b02b588faaaea5424239e6b0941a8fdfe8e57c2d49ed8aa6a4eb9f50068",
+    "BINH_PDF_233urad_D08_PDF_ORIGINAL.json": "9091942a1fda5c851f1d9b4e4f3f125df90c3421cf0a0ab0659ed7713abf09f8",
+    "decomposition.csv": "3e9f0ccc002831838b841e6b0cc1ad7f2d9fb8de96103bfe9fe08448803f222c",
+    "NARROW_10urad_D55_APERTURE_CORRECTED.json": "4fbba64e9cbd1a6d0504c227222c9d34f67c329181f7b3355ff45d8dff7078cd",
+    "NARROW_10urad_D55_PDF_ORIGINAL.json": "6779ad64d5b611769d9632d84a13838ed06bef420e0579c7c6b8aaa5b112ee19"
+  },
+  "numerical_convergence_pass": true,
+  "reference_status": "REQUESTED_BINH_38_7_NOT_LOCATED_USER_EQUATIONS_IMPLEMENTED",
+  "publication_readiness": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "optimization_run": false,
+  "new_source_moments_built": false
+}

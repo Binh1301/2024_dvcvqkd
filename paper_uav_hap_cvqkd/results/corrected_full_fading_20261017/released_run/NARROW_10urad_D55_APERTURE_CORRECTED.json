@@ -1,0 +1,289 @@
+{
+  "scientific_model": "corrected_full_fading_v1",
+  "nu_raw": 0.17,
+  "VA": 5.046875,
+  "C": 2.9818069279923307,
+  "w": 6.190945650452507e-07,
+  "ensemble_hash": "b2dde0f1bdf8c14fefedc304926b6524b79e0628d577af2b387a55e975f9205b",
+  "source_path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\ao_effective_channel_no_fading_noise_reference_continuation\\exact_source_cache\\2f882cd70090cf960b9df07d66291c049da8546c0c06a517e0714fdfb6bc308f.json",
+  "source_payload_sha256": "e6e1b9ef8be95c72e3328966edde7b7c9e3d9bb885d3171e4927cbcb13d70317",
+  "effective": {
+    "optical_mode": "APERTURE_CORRECTED",
+    "configuration": {
+      "name": "NARROW_10urad_D55",
+      "divergence_full_rad": 1e-05,
+      "receiver_diameter_m": 0.55,
+      "h_hap_m": 20000.0,
+      "h_uav_m": 1000.0,
+      "zenith_rad": 0.5235987755978426,
+      "wavelength_m": 1.55e-06,
+      "tau_zen": 0.92,
+      "sigma_h_m": 1.0,
+      "theta_jt_rad": 1.561e-05,
+      "boresight_m": 0.0,
+      "sigma_o_rad": 0.0015,
+      "fov_half_rad": 0.00625,
+      "wind_m_s": 21.0,
+      "cn2_ground": 1e-14,
+      "support_policy": "condition_active_on_T_le_1_preserve_AoA_atom"
+    },
+    "geometry": {
+      "L_m": 21939.310229200004,
+      "w0_m": 0.0986760647169751,
+      "wL_m": 0.1475476163187859,
+      "w_eff_m": 0.14974341909718897,
+      "G_d": 0.029985462263114982,
+      "sigma_R2": 0.05396207779616573,
+      "eta_atm": 0.9082089654181673,
+      "sigma_s_m": 1.0570182137187947,
+      "radius_m": 0.275,
+      "A0": 0.9977339699931295,
+      "w_eq_m": 1.3129215957938423,
+      "P0": 0.00016985667656141038,
+      "broadening_assumption": "HV_Gd_effective_Gaussian_width_raw_Rytov_scintillation"
+    },
+    "mean_eta": 0.02572155276616495,
+    "mean_sqrt_eta": 0.04114328382856268,
+    "physical_probability_mass": 1.0,
+    "outage_atom": 0.00016985667656141038,
+    "active_retained_mass": 0.9961286990319674,
+    "raw_active_tail_mass": 0.003871300968032559,
+    "raw_active_tail_log_probability": -5.55416466098179,
+    "raw_total_mass_on_0_1": 0.9961293565982838,
+    "raw_full_positive_support_mass": 1.0,
+    "physical_support": [
+      0.0,
+      1.0
+    ],
+    "support_policy": "condition_active_on_T_le_1_preserve_AoA_atom",
+    "conditioning_is_modeling_choice": true,
+    "independence_assumptions": [
+      "displacement",
+      "lognormal_scintillation",
+      "AoA"
+    ],
+    "moment_quadrature_errors": {
+      "0.0": 6.641588965099077e-14,
+      "0.5": 5.632721396420665e-14,
+      "1.0": 6.240101740797074e-14
+    },
+    "mean_eta_xi_total": 1.9747568681152856,
+    "chi_het": 1.0,
+    "R": 1.0,
+    "xi_det": 0.0,
+    "xi_ch": 0.0186,
+    "VA": 5.046875,
+    "T_eff": 0.0016927698041976672,
+    "eta_f": 0.0016927698041976672,
+    "variance_sqrt_eta": 0.024028782961967282,
+    "N_eff": 0.1217486848926293,
+    "output_excess_noise": 0.1217486848926293,
+    "output_excess_noise_from_third": 0.1217486848926293,
+    "xi_eff": 71.92276503912196,
+    "R_f": 15.194950135796141,
+    "a": 6.046875,
+    "b": 1.1302918824981893,
+    "fading_noise_output": 0.12127026401117863,
+    "channel_noise_output": 0.000478420881450668,
+    "sigma2_complex": 1.0608743424463147,
+    "fading_noise_included": true
+  },
+  "security": {
+    "lower": 0.2449743948541756,
+    "upper": 0.2457509201872765,
+    "theoretical_lower": 0.2449743948541756,
+    "theoretical_upper": 0.2457509201872765,
+    "Z_star": 0.2449743948541756,
+    "Z_lower": 0.2449743948541756,
+    "Z_upper": 0.2457509201872765,
+    "Z_physical_cap": 0.9582017582322775,
+    "c1": 0.12268132876036303,
+    "c2": 0.10382250528613864,
+    "n_B": 0.0651459412490947,
+    "average_photon_number": 2.5234375,
+    "correlation_bound_status": "THEORETICALLY_IDENTIFIED_NUMERICALLY_EVALUATED",
+    "status": "NUMERICALLY_VERIFIED",
+    "theorem_reference": "Denys-Brown-Leverrier arXiv:2103.13945v3 Eqs.(11)-(13)",
+    "assumptions": [
+      "fixed validated centered C4 ensemble",
+      "phase-compensated independent fading",
+      "unconditioned pooled outcomes including outage",
+      "asymptotic observed moment interpretation"
+    ],
+    "chi_BE": 0.34139211280894033,
+    "Z_worst": 0.2449743948541756,
+    "diagnostic_best_chi": 0.34139211280894033,
+    "lambda_1": 6.038503655914009,
+    "lambda_2": 1.1219205384121986,
+    "conditional_symplectic_eigenvalues": [
+      6.018703999290091
+    ],
+    "covariance_physicality_status": "CURRENTLY_VERIFIED_PASS",
+    "detector_security_convention": "ideal",
+    "grid_size": 257,
+    "dense_grid_size": 515,
+    "dense_grid_best_Z": 0.2449743948541756,
+    "dense_grid_best_chi": 0.34139211280894033,
+    "grid_verification_shortfall": 0.0,
+    "tolerance": 1e-09,
+    "refinements": [
+      {
+        "success": true,
+        "evaluations": 25,
+        "Z": 0.24497439867677495,
+        "message": "Solution found."
+      }
+    ],
+    "endpoint_chi": [
+      0.34139211280894033,
+      0.3413128859127559
+    ],
+    "invalid_covariance_evaluations": [],
+    "numerical_repairs": [],
+    "numerical_convergence_status": "CURRENTLY_VERIFIED_PASS",
+    "rigorous_global_error_enclosure": false,
+    "monotonicity_assumed": false,
+    "covariance": {
+      "a": 6.046875,
+      "b": 1.1302918824981893,
+      "Z": 0.2449743948541756,
+      "Gamma_AB": [
+        [
+          6.046875,
+          0.0,
+          0.2449743948541756,
+          0.0
+        ],
+        [
+          0.0,
+          6.046875,
+          0.0,
+          -0.2449743948541756
+        ],
+        [
+          0.2449743948541756,
+          0.0,
+          1.1302918824981893,
+          0.0
+        ],
+        [
+          0.0,
+          -0.2449743948541756,
+          0.0,
+          1.1302918824981893
+        ]
+      ],
+      "Delta": 37.722232096997956,
+      "D": 45.89684832476661,
+      "discriminant": 1239.379401080717,
+      "direct_discriminant_diagnostic": 1239.3794010807164,
+      "lambda_1": 6.038503655914009,
+      "lambda_2": 1.1219205384121986,
+      "lambda_3": 6.018703999290091,
+      "conditional_symplectic_eigenvalues": [
+        6.018703999290091
+      ],
+      "minimum_covariance_eigenvalue": 1.1181159061537385,
+      "covariance_physicality_status": "CURRENTLY_VERIFIED_PASS",
+      "numerical_repairs": [],
+      "conditional_measurement": "ideal_heterodyne_only"
+    },
+    "Z_minus": 0.2449743948541756,
+    "Z_plus": 0.2457509201872765,
+    "lambda_3": 6.018703999290091
+  },
+  "gaussian_effective": {
+    "MI_method": "DISCRETE_256_GAUSSIAN_EFFECTIVE",
+    "I_AB": 0.005797331990952337,
+    "beta_I_AB": 0.00550746539140472,
+    "chi_BE": 0.34139211280894033,
+    "K_raw": -0.3358846474175356,
+    "numerical_status": "CURRENTLY_VERIFIED_PASS",
+    "security_classification": "ASYMPTOTIC_DIAGNOSTIC_NOT_COMPOSABLE_CERTIFICATE"
+  },
+  "actual_fading_mixture": {
+    "MI_method": "DISCRETE_256_ACTUAL_POOLED_FADING_MIXTURE",
+    "I_AB": 0.016332539084053983,
+    "beta_I_AB": 0.015515912129851282,
+    "chi_BE": 0.34139211280894033,
+    "K_raw": -0.32587620067908907,
+    "numerical_status": "CURRENTLY_VERIFIED_PASS",
+    "security_classification": "ASYMPTOTIC_DIAGNOSTIC_NOT_COMPOSABLE_CERTIFICATE"
+  },
+  "gaussian_refinement": [
+    {
+      "order": 16,
+      "I_AB": 0.005797331990952337
+    },
+    {
+      "order": 32,
+      "I_AB": 0.005797331990952337
+    },
+    {
+      "order": 48,
+      "I_AB": 0.005797331990952337
+    }
+  ],
+  "mixture_refinement": [
+    {
+      "order": 24,
+      "I_AB": 0.016332531429479408,
+      "compression": {
+        "order": 24,
+        "nodes": 25,
+        "m1_error": 1.734723475976807e-17,
+        "mhalf_error": 4.85722573273506e-17,
+        "source_support_reduced": false,
+        "zero_weight": 0.2645846268044666
+      }
+    },
+    {
+      "order": 40,
+      "I_AB": 0.016332539100949204,
+      "compression": {
+        "order": 40,
+        "nodes": 41,
+        "m1_error": 2.7755575615628914e-17,
+        "mhalf_error": 7.632783294297951e-17,
+        "source_support_reduced": false,
+        "zero_weight": 0.2645846268044666
+      }
+    },
+    {
+      "order": 56,
+      "I_AB": 0.016332539084053983,
+      "compression": {
+        "order": 56,
+        "nodes": 57,
+        "m1_error": 6.938893903907228e-18,
+        "mhalf_error": 5.551115123125783e-17,
+        "source_support_reduced": false,
+        "zero_weight": 0.2645846268044666
+      }
+    }
+  ],
+  "mixture_last_difference": 1.6895221333079746e-11,
+  "physical_quadrature": {
+    "order": 48,
+    "errors": {
+      "mass": 2.3081536681957004e-13,
+      "m1": 5.551115123125783e-17,
+      "mhalf": 1.2351231148954867e-15
+    },
+    "normal_tail_bound": 4e-33,
+    "AoA_atom_weight": 0.00016985667656141038,
+    "active_numerical_underflow_weight": 0.2644147701279052,
+    "numerical_zero_nodes_are_not_additional_physical_outages": true,
+    "radial_tail_bound": "r>rho+12sigma, negligible under stated Rician law"
+  },
+  "mixture_convergence_pass": true,
+  "security_limitations": [
+    "fixed centered C4 source independent of fading; phase tracked",
+    "pooled stationary iid channel uses including AoA outage; Eve may purify fading label",
+    "no temporal-correlation, finite-size, composable, calibration or reconciliation-code proof",
+    "numerical interval maximization is not a rigorous continuous supremum enclosure",
+    "active conditioning is an explicit optical surrogate assumption"
+  ],
+  "baseline": "NARROW_10urad_D55",
+  "elapsed_s": 4.022093399998994
+}
