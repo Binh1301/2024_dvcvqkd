@@ -1,0 +1,836 @@
+# TASK: Root-Cause Investigation of the Non-Monotonic SKR versus Zenith Angle in HAP–UAV 256-QAM DM-CV-QKD
+
+## 1. Main Objective
+
+Investigate why the existing **SKR versus Zenith Angle** figure increases initially, reaches a maximum at an intermediate zenith angle, and then decreases.
+
+The plot compares:
+
+1. Optimized Uniform 256-QAM.
+2. Fixed MB-shaped 256-QAM.
+3. Optimized MB-shaped 256-QAM.
+
+The surprising observation is that SKR increases with zenith angle over part of the evaluated range, even though the HAP–UAV propagation distance increases.
+
+The goal is to establish the actual mathematical and numerical cause of this behavior.
+
+**Do not assume in advance that the increase is physically correct or caused by reduced pointing-error fluctuations.**
+
+Investigate and distinguish:
+
+- Atmospheric attenuation.
+- Geometric beam spreading.
+- Scintillation.
+- Pointing-error fading.
+- AoA outage.
+- Effective Gaussian-channel transmittance.
+- Fading-induced excess noise.
+- Mutual information.
+- Holevo information.
+- MB source optimization.
+- Potential security-model inconsistencies.
+- Potential numerical or implementation errors.
+
+Produce a quantitative, reproducible explanation of the observed SKR curve.
+
+---
+
+## 2. Existing Results and Repository
+
+Inspect the actual repository and locate:
+
+- The script that generated `skr_vs_zenith_angle.png`.
+- Its source CSV/NPZ files.
+- Configuration files.
+- Physical-channel evaluator.
+- Mutual-information evaluator.
+- Holevo evaluator.
+- Exact-source catalog.
+- Source-optimization results.
+- Relevant validation reports.
+
+The historical zenith-angle study evaluated approximately:
+
+\[
+\zeta=0^\circ,2^\circ,\ldots,60^\circ.
+\]
+
+The system geometry uses:
+
+\[
+H_{\rm HAP}=20\ {\rm km},
+\]
+
+\[
+H_{\rm UAV}=1\ {\rm km}.
+\]
+
+Therefore,
+
+\[
+\Delta H=19\ {\rm km}
+\]
+
+and
+
+\[
+\boxed{
+L(\zeta)=\frac{19}{\cos\zeta}\ {\rm km}.
+}
+\]
+
+Check that the code uses the correct degree-to-radian conversion.
+
+Do not assume that the historical sweep was generated with the current default physical configuration.
+
+Read the actual historical config and identify all physical assumptions before performing the diagnosis.
+
+Do not silently substitute parameters from another experiment.
+
+---
+
+# PHASE 1 — REPRODUCE THE ORIGINAL SKR CURVES
+
+## 3. Recover the Original Numerical Data
+
+Recover the exact data for all three curves:
+
+- Uniform optimized.
+- Fixed MB.
+- MB optimized.
+
+For each angle, extract:
+
+\[
+\zeta,\quad L,\quad \nu,\quad V_A,\quad K.
+\]
+
+Also recover, if available:
+
+\[
+I_{AB},\quad \beta I_{AB},\quad \chi_{BE}.
+\]
+
+Verify:
+
+\[
+\boxed{
+K=\beta I_{AB}-\chi_{BE}.
+}
+\]
+
+Check whether the historical results use:
+
+- Raw signed SKR.
+- Clipped usable SKR.
+- Positive-only values for logarithmic plotting.
+
+**Important:** The original plot uses a logarithmic Y-axis. Negative or zero SKR values are not displayed.
+
+Therefore, missing points at smaller angles may simply correspond to nonpositive SKR.
+
+Do not interpret missing logarithmic points as missing simulation results.
+
+### Required outputs
+
+Create a table containing every evaluated zenith angle and all three raw SKR values.
+
+Generate two diagnostic plots:
+
+1. Original positive-SKR semilog plot.
+2. Raw signed SKR versus zenith angle on a linear axis.
+
+If signed values span very different magnitudes, optionally add a symmetric-logarithmic presentation.
+
+Do not replace negative or zero SKR with artificial small positive values.
+
+Check the approximate peak positions observed previously:
+
+- Fixed MB: near 48 degrees.
+- Optimized MB: near 48 degrees.
+- Uniform optimized: near 52 degrees.
+
+Use the exact stored numerical values to identify the actual discrete maxima.
+
+---
+
+# PHASE 2 — ANALYZE THE PHYSICAL CHANNEL
+
+## 4. Propagation Distance and Atmospheric Attenuation
+
+For every zenith angle, calculate or extract:
+
+\[
+L(\zeta),
+\]
+
+\[
+\eta_{\rm atm}(\zeta).
+\]
+
+Check whether propagation distance increases monotonically.
+
+Check the actual atmospheric-attenuation formula implemented in the repository.
+
+Determine whether attenuation increases or decreases with zenith angle and whether the formula is physically consistent with the assumed atmospheric geometry.
+
+Do not impose an external attenuation model.
+
+Use the model originally employed for the zenith sweep.
+
+### Plot A
+
+**Propagation Distance and Atmospheric Transmittance versus Zenith Angle**
+
+Use a two-panel figure or a well-labeled dual-Y-axis figure.
+
+Show:
+
+- \(L(\zeta)\).
+- \(\eta_{\rm atm}(\zeta)\).
+
+Explain whether either quantity can account for the observed SKR increase.
+
+---
+
+## 5. Beam Spreading and Pointing Error
+
+Inspect how the repository computes:
+
+- Beam radius at the receiver.
+- Equivalent beam radius.
+- Pointing displacement variance.
+- Pointing-error parameters.
+- Maximum pointing collection fraction \(A_0\).
+- Pointing-error fading statistics.
+
+Investigate the dependence of:
+
+\[
+w_L(\zeta),
+\]
+
+\[
+w_{L,\rm eq}(\zeta),
+\]
+
+\[
+\sigma_s^2(\zeta),
+\]
+
+\[
+A_0(\zeta)
+\]
+
+on zenith angle.
+
+In particular, check the implemented pointing-displacement model, including terms such as:
+
+\[
+\sigma_s^2
+=
+\sigma_h^2+
+(L\theta_{\rm jt})^2
+\]
+
+if this is the formula used in the historical experiment.
+
+Do not introduce an unimplemented pointing model.
+
+### Main question
+
+Does increasing propagation distance reduce the relative sensitivity of received power to pointing displacement under the implemented beam and jitter model?
+
+If yes, quantify it.
+
+If no, reject the pointing-error explanation.
+
+### Plot B
+
+**Beam and Pointing Statistics versus Zenith Angle**
+
+Show the most relevant beam and pointing parameters using separate panels.
+
+Do not combine unrelated dimensional quantities on one unlabeled axis.
+
+---
+
+## 6. Scintillation and AoA Outage
+
+Extract the zenith-angle dependence of:
+
+- Rytov variance.
+- Log-normal scintillation variance.
+- Relevant turbulence parameters.
+- AoA outage probability.
+- AoA in-FOV probability.
+
+Determine which quantities are fixed and which are recalculated at every zenith angle.
+
+Check whether any parameter is accidentally held constant when it should vary according to the implemented model.
+
+Also verify whether outage probability is included consistently in the channel moments.
+
+### Plot C
+
+**Scintillation and AoA Outage versus Zenith Angle**
+
+Plot the quantities actually computed by the historical model.
+
+Report whether their changes improve or degrade the optical channel.
+
+---
+
+# PHASE 3 — ANALYZE EFFECTIVE FADING-CHANNEL MOMENTS
+
+## 7. Calculate Effective Channel Statistics
+
+For every zenith angle, extract:
+
+\[
+\langle T\rangle,
+\]
+
+\[
+\langle\sqrt T\rangle,
+\]
+
+\[
+T_f=\langle\sqrt T\rangle^2.
+\]
+
+Calculate:
+
+\[
+\boxed{
+\operatorname{Var}(\sqrt T)
+=
+\langle T\rangle-T_f.
+}
+\]
+
+Also calculate the normalized fading fluctuation measure:
+
+\[
+\boxed{
+R_f=
+\frac{\langle T\rangle-T_f}{T_f}.
+}
+\]
+
+When \(T_f>0\), this quantity characterizes the relative fading-induced covariance penalty in the effective-channel treatment.
+
+Verify that:
+
+\[
+\langle T\rangle\geq T_f\geq0
+\]
+
+within numerical tolerance.
+
+### Plot D
+
+**Channel Moments versus Zenith Angle**
+
+Show:
+
+- \(\langle T\rangle\).
+- \(T_f\).
+- \(\operatorname{Var}(\sqrt T)\).
+- \(R_f\).
+
+Use separate panels when necessary.
+
+### Critical questions
+
+1. Does \(T_f\) decrease monotonically?
+2. Does the relative fading fluctuation \(R_f\) increase or decrease?
+3. Is there a change around the angle where SKR reaches its maximum?
+4. Can the SKR increase be attributed to fading statistics even when optical transmittance decreases?
+
+Use numerical evidence.
+
+---
+
+# PHASE 4 — DECOMPOSE EFFECTIVE EXCESS NOISE
+
+## 8. Separate Physical Excess Noise and Fading-Induced Noise
+
+Use the effective-channel equation:
+
+\[
+\boxed{
+T_f\xi_f
+=
+(\langle T\rangle-T_f)V_A
++
+\langle T\rangle\xi_{\rm ch}.
+}
+\]
+
+For fixed physical channel excess noise:
+
+\[
+\xi_{\rm ch}=0.0186
+\]
+
+if confirmed by the historical configuration.
+
+Therefore,
+
+\[
+\boxed{
+\xi_f=
+\xi_{\rm fading}+\xi_{\rm physical},
+}
+\]
+
+where
+
+\[
+\boxed{
+\xi_{\rm fading}
+=
+\frac{\langle T\rangle-T_f}{T_f}V_A
+}
+\]
+
+and
+
+\[
+\boxed{
+\xi_{\rm physical}
+=
+\frac{\langle T\rangle}{T_f}\xi_{\rm ch}.
+}
+\]
+
+If the historical experiment includes other physically justified excess-noise components, identify and report them separately.
+
+Do not insert detector noise or vacuum loss into \(\xi_{\rm ch}\) incorrectly.
+
+For each zenith angle, calculate:
+
+- \(\xi_{\rm fading}\).
+- \(\xi_{\rm physical}\).
+- \(\xi_f\).
+- \(T_f\xi_f\).
+
+### Plot E
+
+**Excess-Noise Decomposition versus Zenith Angle**
+
+Plot all noise components.
+
+Use the same fixed source parameters across angles for the principal diagnostic.
+
+### Questions
+
+1. Does the fading-induced noise decrease with zenith angle?
+2. If yes, over which angle range?
+3. Does it explain the initial increase in SKR?
+4. Does the noise begin increasing near the SKR maximum?
+5. If noise continues decreasing, what other mechanism causes SKR to decrease?
+
+Do not conclude that fading reduction explains the SKR peak unless the numerical evidence supports it.
+
+---
+
+# PHASE 5 — DECOMPOSE MUTUAL INFORMATION AND HOLEVO
+
+## 9. Evaluate the Components of SKR
+
+For every zenith angle, extract:
+
+\[
+I_{AB}(\zeta),
+\]
+
+\[
+\beta I_{AB}(\zeta),
+\]
+
+\[
+\chi_{BE}(\zeta),
+\]
+
+\[
+K(\zeta).
+\]
+
+For the principal comparison, use **Fixed MB** with the same:
+
+\[
+\nu=\nu_{\rm fixed},
+\]
+
+\[
+V_A=V_{A,\rm fixed}
+\]
+
+at every zenith angle.
+
+Recover the actual fixed source parameters from the historical configuration.
+
+Do not assume they equal the most recent source optimum.
+
+### Plot F — Most Important Diagnostic Figure
+
+**Mutual Information, Holevo Information, and SKR versus Zenith Angle**
+
+Create three panels:
+
+(a) \(\beta I_{AB}\) versus zenith angle.
+
+(b) \(\chi_{BE}\) versus zenith angle.
+
+(c) \(K=\beta I_{AB}-\chi_{BE}\) versus zenith angle.
+
+Use the original fixed MB source.
+
+Do not smooth the curves.
+
+### Required mathematical analysis
+
+For consecutive zenith-angle points, calculate:
+
+\[
+\Delta K
+=
+\beta\Delta I_{AB}
+-
+\Delta\chi_{BE}.
+\]
+
+Determine:
+
+- Whether mutual information increases or decreases.
+- Whether Holevo information increases or decreases.
+- Whether Holevo decreases faster than mutual information in the rising-SKR region.
+- Whether mutual information loss dominates after the SKR peak.
+
+Identify the actual dominant contribution using differences between adjacent evaluated points.
+
+If both quantities are close and their subtraction produces a small SKR, investigate numerical cancellation sensitivity.
+
+Do not confuse a reduction in Eve's Holevo information with an automatically improved security bound.
+
+---
+
+# PHASE 6 — DISTINGUISH CHANNEL EFFECTS FROM SOURCE OPTIMIZATION
+
+## 10. Compare Fixed MB and Optimized MB
+
+The existing figure shows:
+
+- Fixed MB.
+- Optimized MB.
+
+For every zenith angle, compare:
+
+\[
+K_{\rm fixed}(\zeta)
+\]
+
+with
+
+\[
+K_{\rm optimized}(\zeta).
+\]
+
+Calculate:
+
+\[
+\boxed{
+\Delta K_{\rm shaping}(\zeta)
+=
+K_{\rm optimized}(\zeta)
+-
+K_{\rm fixed}(\zeta).
+}
+\]
+
+Extract the optimal source parameters:
+
+\[
+\nu^\star(\zeta),
+\]
+
+\[
+V_A^\star(\zeta).
+\]
+
+### Plot G
+
+Create two panels:
+
+(a) Fixed MB and Optimized MB SKR versus zenith angle.
+
+(b) Source optimization gain versus zenith angle.
+
+Optionally create another figure showing:
+
+- Optimal \(V_A\) versus zenith angle.
+- Optimal \(\nu\) versus zenith angle.
+
+### Questions
+
+1. Does Fixed MB independently exhibit the same non-monotonic shape?
+2. How much does optimization shift the location of the maximum?
+3. Is the initial increase already present with fixed parameters?
+4. Does the source optimizer switch between different candidates?
+5. Could abrupt source changes explain any discontinuities?
+
+Do not attribute the entire non-monotonic trend to source optimization if Fixed MB shows the same behavior.
+
+---
+
+# PHASE 7 — NUMERICAL AND IMPLEMENTATION DIAGNOSTICS
+
+## 11. Check for Programming Errors
+
+Inspect the relevant source code and verify:
+
+- Correct degree-to-radian conversion.
+- Correct link geometry.
+- Correct atmospheric attenuation.
+- Correct beam-radius calculation.
+- Correct pointing-error parameterization.
+- Correct scintillation parameterization.
+- Correct AoA outage mixture.
+- Correct fading moments.
+- Correct input-referred excess-noise calculation.
+- Correct source normalization.
+- Correct mutual-information evaluation.
+- Correct Holevo evaluation.
+- Correct plotting transformations.
+- No accidental clipping of raw SKR before data analysis.
+- No accidental reuse of channel parameters from a different zenith angle.
+- No stale source-cache or configuration mismatch.
+
+For every angle, independently reconstruct:
+
+\[
+K=\beta I_{AB}-\chi_{BE}
+\]
+
+from the stored components.
+
+Check the numerical residual.
+
+---
+
+## 12. Controlled Diagnostic Checks
+
+If the original per-angle component values are not stored, reconstruct them using the historical fixed-source and historical channel parameters.
+
+Recompute only the missing intermediate diagnostics necessary to explain the existing plot.
+
+This is not a new optimization campaign.
+
+Do not modify the production SKR evaluator.
+
+Where computationally feasible, perform isolated diagnostic experiments:
+
+### Check A — Fixed Fading Statistics
+
+Hold the fading-related moments fixed at a reference angle while varying the deterministic attenuation according to the historical model.
+
+Determine how the SKR trend changes.
+
+Clearly label this as a controlled numerical diagnostic, not a physical trajectory.
+
+### Check B — Fixed Source Parameters
+
+Use the same exact MB source at every angle.
+
+This removes source switching from the explanation.
+
+### Check C — Idealized Fixed-Transmittance Channel
+
+Examine a deterministic, non-fading channel:
+
+\[
+\langle T\rangle=T_f=T.
+\]
+
+Then:
+
+\[
+\xi_{\rm fading}=0.
+\]
+
+Use this check to detect whether the unexpected SKR behavior persists without fading.
+
+Do not replace the original fading model with this simplified channel in the manuscript.
+
+### Check D — Numerical Accuracy
+
+Inspect quadrature convergence and floating-point cancellation where the two SKR terms are nearly equal.
+
+If historical convergence data already exist, reuse them.
+
+Do not conduct an expensive full sweep unless necessary and separately approved.
+
+---
+
+# PHASE 8 — SECURITY-MODEL CAVEAT
+
+## 13. Distinguish Numerical Behavior from Physical Security
+
+The current evaluator uses:
+
+- Two-dimensional I/Q mutual information.
+- A homodyne-conditioned Holevo calculation.
+
+The consistency audit has identified a measurement-model mismatch.
+
+Therefore, the observed SKR curve is not yet established as a physically validated secret-key-rate curve.
+
+Keep the warnings:
+
+UNVALIDATED_SECURITY_MODEL
+
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+
+The investigation must distinguish:
+
+1. Why the **implemented numerical formula** produces a peak.
+2. Whether the channel statistics exhibit the proposed physical tradeoff.
+3. Whether the same qualitative result can be justified by a consistent homodyne or heterodyne security model.
+
+Do not claim that the third point is established without a separate validated security derivation.
+
+Do not silently switch the MI or Holevo formulas.
+
+Do not overwrite the historical zenith-angle results.
+
+---
+
+# PHASE 9 — FINAL FIGURES
+
+## 14. Required Visualization Style
+
+Use Matplotlib classic IEEE-style line plots with markers.
+
+Follow:
+
+- Serif fonts.
+- Compact figures.
+- Distinct circle, triangle, square and diamond markers.
+- Solid, dashed and dash-dot lines.
+- Light dotted grids.
+- Scientific notation.
+- Vector PDF.
+- PNG 350 dpi.
+- No oversized plot titles.
+- No artificial smoothing.
+
+Use a single Y-axis when quantities have the same units and comparable scales.
+
+Use separate panels when scales differ substantially.
+
+Use logarithmic axes only when mathematically appropriate.
+
+Preserve zero and negative values in signed SKR plots.
+
+### Priority Figures
+
+Generate:
+
+1. Channel moments versus zenith angle.
+2. Effective excess-noise decomposition versus zenith angle.
+3. Mutual information, Holevo and SKR decomposition versus zenith angle.
+4. Fixed MB versus Optimized MB versus zenith angle.
+
+Additional beam, scintillation and outage figures may be placed in the diagnostic appendix.
+
+---
+
+# PHASE 10 — DETAILED OUTPUT REPORT
+
+## 15. Output Directory
+
+Create a separate directory:
+
+`results/zenith_angle_root_cause_diagnostic_20261021/`
+
+Save:
+
+- `report_vi.md`
+- `diagnostic_summary.csv`
+- `channel_moments.csv`
+- `noise_decomposition.csv`
+- `skr_decomposition.csv`
+- `source_optimization_effect.csv`
+- Diagnostic PDF/PNG figures.
+- `validation_report.md`
+- `figure_captions_en.md`
+
+Do not overwrite any historical results.
+
+## 16. Required Numerical Table
+
+Prepare a detailed table for representative angles:
+
+\[
+\zeta=
+0^\circ,\,
+20^\circ,\,
+24^\circ,\,
+30^\circ,\,
+40^\circ,\,
+48^\circ,\,
+52^\circ,\,
+60^\circ.
+\]
+
+Use only angles actually present in the original sweep.
+
+For each angle, report:
+
+| Zenith | Distance | Mean T | T_eff | xi_fading | xi_f | beta I_AB | chi_BE | Raw SKR |
+|---|---|---|---|---|---|---|---|---|
+
+Create additional tables if needed for beam spreading, pointing statistics and source parameters.
+
+Preserve sufficient numerical precision to explain cancellation effects.
+
+## 17. Final Questions to Answer
+
+The Vietnamese report must explicitly answer:
+
+1. Why does SKR increase when zenith angle increases from the first positive region toward the peak?
+2. Why does SKR decrease after approximately 48 degrees for MB?
+3. Does effective channel transmittance increase or decrease with zenith angle?
+4. Does fading-induced excess noise decrease over the SKR-increasing interval?
+5. How do mutual information and Holevo information vary?
+6. Which contribution dominates the rise and fall of SKR?
+7. Is the effect still present when the MB source parameters are held constant?
+8. Is the trend caused by physical channel effects, source optimization, numerical artifacts or a combination?
+9. Are there any errors in the channel and SKR implementation?
+10. What conclusions are supported by the current model, and what remains unresolved because of the security-model mismatch?
+
+For questions 1 and 2, provide a quantitative explanation rather than general speculation.
+
+Use numerical differences and exact evaluated angles.
+
+If the available evidence does not establish a unique cause, state which hypotheses remain unresolved.
+
+## 18. Strict Restrictions
+
+- Do not run a new source-optimization sweep.
+- Do not generate new C,w values.
+- Do not modify the production physical-layer evaluator.
+- Do not modify the manuscript equations.
+- Do not overwrite historical results.
+- Do not change the source normalization convention.
+- Do not change the detector or security assumptions.
+- Do not launch a new large-scale simulation.
+- Do not commit or push.
+
+Limited diagnostic reconstruction of missing intermediate quantities is permitted only when it uses the exact historical parameters and cached source data.
+
+Document every diagnostic calculation and distinguish newly reconstructed quantities from original saved outputs.
+
+**Execute the investigation and determine the actual cause of the non-monotonic SKR curve. Do not stop at hypotheses or generic physical explanations.**

@@ -1,0 +1,865 @@
+# TASK: Rewrite Optimization and Numerical Results in the Style of the Attached IEEE GLOBECOM Paper
+
+## 1. Main Objective
+
+Revise the existing HAP–UAV 256-QAM DM-CV-QKD manuscript using the attached reference paper:
+
+**"Sensing-Aided FSO Beam Tracking for UAV-Based QKD Systems" (IEEE GLOBECOM reference).**
+
+Also use the attached current manuscript:
+
+**"Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP–UAV CV-QKD".**
+
+Focus specifically on the content from:
+
+**Optimization Problem → Proposed Solution → Numerical Results and Discussion → Conclusion.**
+
+The goal is to reproduce the reference paper's academic organization, equation presentation, algorithm description, figure placement, and concise results-discussion style.
+
+Do not copy its scientific formulas, BB84 protocol, sensing-time optimization, or numerical results.
+
+Our research concerns:
+
+- 256-QAM discrete-modulated CV-QKD.
+- Maxwell–Boltzmann probabilistic shaping.
+- HAP-to-UAV FSO fading channels.
+- Cloud blockage.
+- Stationary UAV positioning.
+- Greedy trajectory planning.
+- Dynamic Programming (DP).
+
+**IMPORTANT: Replace the existing figures with the latest corrected/restyled figures already generated in the repository.**
+
+Do not reuse old figures when a newer verified version exists.
+
+Do not run new simulations or recalculate SKR.
+
+---
+
+# PART A — STUDY THE GLOBECOM REFERENCE
+
+## 2. Analyze the Reference Paper
+
+Inspect the GLOBECOM PDF carefully, particularly:
+
+### Page 4 — Section III.B: SKR Performance Optimization
+
+Observe how the authors:
+
+1. Start by explaining the physical tradeoff motivating optimization.
+2. Define the optimization problem mathematically.
+3. Present the objective and constraints using numbered equations.
+4. Explain the optimization strategy concisely.
+5. Provide a compact algorithm description.
+6. Avoid unnecessarily repeating the preceding channel model.
+
+### Pages 4–5 — Section IV: Numerical Results & Discussions
+
+Observe how the authors:
+
+1. Introduce the numerical configuration and simulation parameters.
+2. Present an appropriate system-parameter table.
+3. Use multi-curve scientific line plots.
+4. Place figures close to their first discussion.
+5. Describe the numerical trends using "Fig. X illustrates...".
+6. Explain the physical or algorithmic reason for each trend.
+7. Compare competing configurations using numerical evidence.
+8. Use a compact runtime/performance table when relevant.
+9. Avoid creating separate lengthy subsections for every individual figure.
+
+### Page 6 — Conclusions
+
+Observe the concise conclusion style:
+
+- Revisit the research objective.
+- Summarize the proposed optimization strategy.
+- State the main findings.
+- Mention limitations and future research.
+
+Produce a short comparison of the structure of the reference paper and our current manuscript before editing.
+
+Then apply its presentation style to our manuscript.
+
+Do not transplant reference-paper mathematics or metrics such as QBER, BB84, sensing time, or Mbps into our CV-QKD model.
+
+---
+
+# PART B — INSPECT THE CURRENT MANUSCRIPT
+
+## 3. Locate the Latest Manuscript
+
+Search the repository for the most recent complete LaTeX manuscript.
+
+Known previous revision:
+
+`results/manuscript_ieee_revision_20261020/main.tex`
+
+Known compact-manuscript candidate:
+
+`results/manuscript_ieee_compact_20261020/`
+
+Do not assume the compact revision exists.
+
+Inspect actual available files and identify the newest verified version.
+
+Read:
+
+- The existing Optimization Problem.
+- Proposed Solution.
+- Numerical Results and Discussion.
+- Conclusion.
+- Existing equations and labels.
+- Figure declarations.
+- Figure filenames and captions.
+- Bibliography entries.
+- Compilation warnings.
+
+Determine which parts should be preserved and which should be rewritten.
+
+Preserve the original Introduction, System Model, FSO Channel Model, fading statistics, and SKR derivation unless a very small transition sentence is necessary.
+
+**Do not rewrite or correct unrelated equations.**
+
+If the original source matching the most recent PDF cannot be located, use the latest internal-review LaTeX as a provisional base and report its provenance.
+
+Do not claim that a reconstructed LaTeX file is the authenticated original source.
+
+---
+
+# PART C — RESTRUCTURE THE OPTIMIZATION SECTION
+
+## 4. Desired Style
+
+Follow the GLOBECOM paper's Section III.B writing style:
+
+- Begin with motivation.
+- Introduce the optimization variables.
+- Formulate the mathematical problems.
+- Explain why numerical optimization is used.
+- Present the proposed solution.
+- Summarize the algorithm efficiently.
+
+Instead of three disconnected descriptions, write one logically connected optimization framework.
+
+Use a suitable heading such as:
+
+**SKR and UAV Positioning Optimization**
+
+or:
+
+**Joint Source and Mobility Optimization**
+
+Use the existing section hierarchy and automatic IEEE section numbering.
+
+Do not hard-code section numbers.
+
+### 4.1 Optimization Motivation
+
+Write a short academic paragraph explaining:
+
+Cloud blockage causes temporal variations in usable SKR. Selecting the modulation parameters alone does not account for spatial differences in channel quality or the changing blockage state.
+
+A stationary UAV can be placed at the best location over the entire mission, whereas a mobile UAV can adapt its position to avoid blocked links.
+
+However, mobility involves additional travel distance.
+
+Consequently, source optimization and UAV positioning must be considered jointly.
+
+Keep this paragraph concise, similar to the GLOBECOM paper's motivation for sensing-time optimization.
+
+### 4.2 P1 — Source Optimization
+
+Introduce the finite source catalog:
+
+\[
+\mathcal G=\{(\nu,V_A)\}.
+\]
+
+Define:
+
+\[
+K_j^\star=
+\left[
+\max_{(\nu,V_A)\in\mathcal G}
+K_j(\nu,V_A)
+\right]^+.
+\]
+
+Explain that:
+
+- The catalog contains 233 exact-source candidates in the mobility study.
+- Maxwell–Boltzmann shaping and modulation variance are selected.
+- Each candidate uses its own exact source moments.
+- Optimization is finite-catalog, not continuous-global.
+- Raw SKR is maximized before clipping.
+
+Do not introduce gradient-based optimization.
+
+### 4.3 P2 — Stationary UAV Position Optimization
+
+Define:
+
+\[
+S_{j,n}=(1-c_{j,n})K_j^\star.
+\]
+
+Then formulate:
+
+\[
+\boxed{
+\mathrm{P2}:
+\quad
+\max_j
+\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j,n}.
+}
+\]
+
+Explain that P2 finds the best fixed UAV location under the complete cloud-blockage sequence.
+
+This is an offline stationary benchmark.
+
+### 4.4 P3 — Mobility-Aware Trajectory Optimization
+
+Formulate:
+
+\[
+\boxed{
+\mathrm{P3}:
+\quad
+\max_{\{j_n\}}
+\left[
+\frac1{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n}
+-
+\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}
+\right]
+}
+\]
+
+subject to:
+
+\[
+d_{j_{n-1},j_n}
+\leq v_{\max}\Delta t.
+\]
+
+Define:
+
+- \(j_n\): selected UAV position at slot n.
+- \(S_{j,n}\): usable SKR.
+- \(d_{i,j}\): travel distance between positions.
+- \(v_{\max}\): maximum UAV speed.
+- \(\Delta t\): time-slot duration.
+- \(\lambda\): mobility penalty.
+- \(D_{\rm ref}\): reference distance.
+
+Explain that the objective balances usable SKR and travel distance.
+
+Use the same compact numbered optimization-problem format as the GLOBECOM reference.
+
+Avoid excessively long equations that overflow IEEE columns.
+
+Do not change the normalization or movement constraints.
+
+---
+
+# PART D — PRESENT THE PROPOSED ALGORITHMS
+
+## 5. Greedy and Dynamic Programming
+
+Write a concise proposed-solution subsection using the GLOBECOM optimization-algorithm presentation style.
+
+### Greedy Baseline
+
+At the initial slot:
+
+\[
+j_1^{\mathrm G}
+\in
+\arg\max_jS_{j,1}.
+\]
+
+For later slots:
+
+\[
+j_n^{\mathrm G}
+\in
+\arg\max_{j\in\mathcal N(j_{n-1})}
+\left[
+S_{j,n}
+-
+\frac{N_t\lambda}{D_{\rm ref}}
+d_{j_{n-1},j}
+\right].
+\]
+
+Explain that Greedy chooses the best immediate reward among feasible next positions.
+
+It does not account for future cloud states when selecting the current action.
+
+### Dynamic Programming
+
+Define:
+
+\[
+F_1(j)=S_{j,1}.
+\]
+
+Use the Bellman recursion:
+
+\[
+F_n(j)=S_{j,n}
++
+\max_{i\in\mathcal N(j)}
+\left[
+F_{n-1}(i)
+-
+\frac{N_t\lambda}{D_{\rm ref}}d_{i,j}
+\right].
+\]
+
+The optimal trajectory is recovered through backtracking.
+
+State the complexity:
+
+\[
+O(N_tJ^2)
+\]
+
+in the dense-transition worst case.
+
+Explain that DP optimizes the finite-horizon penalized objective under the given spatial grid and complete cloud-state information.
+
+### Algorithm Layout
+
+The GLOBECOM paper presents a compact algorithm box.
+
+Consider using a short IEEE-compatible algorithm environment titled:
+
+**Algorithm 1: Dynamic Programming for Mobility-Aware UAV Positioning**
+
+Include only essential steps:
+
+1. Input candidate locations, usable-SKR matrix, lambda and speed constraints.
+2. Initialize the first slot.
+3. Evaluate feasible predecessor transitions.
+4. Store the best score and predecessor.
+5. Select the best terminal state.
+6. Backtrack to recover the optimal trajectory.
+
+Avoid an excessively long pseudocode block.
+
+If a full algorithm box makes the Optimization-to-Conclusion portion exceed the allowed page budget, prioritize the Bellman recursion and a short algorithmic paragraph.
+
+Do not sacrifice essential equations to accommodate decorative pseudocode.
+
+---
+
+# PART E — REPLACE THE FIGURES WITH THE NEW CORRECTED VERSIONS
+
+## 6. Mandatory Figure Discovery
+
+This is a critical part of the task.
+
+The current manuscript contains a compact three-panel figure showing:
+
+- Objective versus number of UAV positions.
+- Unavailability versus cloud blockage probability.
+- UAV travel distance versus temporal correlation.
+
+This figure should be replaced or redesigned using the newest verified figures.
+
+Inspect the following existing result directories:
+
+`results/mobility_parameter_sensitivity_final_20261020/figures/`
+
+`results/mobility_parameter_sensitivity_stage_b_20261020/figures/`
+
+`results/mobility_parameter_sensitivity_20261020/`
+
+`results/zenith_angle_root_cause_diagnostic_20261021/figures/`
+
+Also search for newer restyled figures created after these runs.
+
+Known validated figure candidates include:
+
+- `fig1_candidate_positions.pdf`
+- `fig2_cloud_blockage.pdf`
+- `fig3_temporal_correlation.pdf`
+- `fig4_skr_mobility_tradeoff.pdf`
+- `fig_B1_cloud_probability.pdf`
+- `fig_B3_temporal_correlation.pdf`
+- `fig_F_MI_Holevo_SKR.pdf`
+
+Do not assume all these figures belong in the final manuscript.
+
+Identify the newest correct figure for each result by checking:
+
+1. Associated source CSV.
+2. Figure creation script.
+3. Validation receipt.
+4. Figure caption.
+5. Physical configuration.
+6. Axes and units.
+7. Whether the figure has been restyled.
+8. Whether it depicts the same metric as the manuscript statement.
+
+Create a small inventory:
+
+| Scientific result | Old figure | New verified figure | Data source | Action |
+|---|---|---|---|---|
+
+**Prefer the newer, validated, already-restyled vector PDF rather than regenerating figures unnecessarily.**
+
+If the newest figure contains different numerical data or a different configuration, do not silently substitute it.
+
+Flag the difference before replacement.
+
+## 7. Required Visual Style
+
+The final figures should resemble the scientific line graphs of the GLOBECOM reference.
+
+Use:
+
+- Classic Matplotlib line plots.
+- Solid, dashed and dash-dot lines.
+- Distinct markers for different methods.
+- Small readable legends.
+- White background.
+- Light dotted grid.
+- Serif or Times-style fonts.
+- Clear axis labels.
+- Correct physical units.
+- No oversized chart titles.
+- No unnecessary decoration.
+- Vector PDF.
+
+The preferred comparison methods are:
+
+- Stationary/P2.
+- Greedy.
+- Dynamic Programming.
+
+Keep a consistent visual identity across figures.
+
+Do not force dual-Y-axis plots.
+
+Use two Y-axes only when two distinct quantities with different units must appear together.
+
+For SKR versus Zenith Angle, retain the logarithmic Y-axis when showing positive values spanning several orders of magnitude.
+
+Never hide negative SKR by incorrectly replacing it with a positive number.
+
+## 8. Figure Selection for the Manuscript
+
+Prioritize two compact, scientifically informative figures.
+
+### Figure A — Cloud Blockage Sensitivity
+
+Use the latest corrected figure for:
+
+**Usable SKR and/or QKD Unavailability versus Cloud Blockage Probability.**
+
+Compare Stationary, Greedy and DP.
+
+At p = 0.8, the verified unavailability is:
+
+- P2: 24.60%.
+- Greedy: 16.53%.
+- DP: 4.07%.
+
+This figure illustrates the advantage of mobility under strong blockage.
+
+### Figure B — Temporal Correlation or Mobility Tradeoff
+
+Select the stronger of:
+
+1. Objective and travel distance versus temporal cloud correlation.
+2. Mean usable SKR versus UAV travel distance.
+
+Use the newest validated figure.
+
+The temporal-correlation result is:
+
+\[
+\rho:0\rightarrow0.98
+\]
+
+\[
+D_{\rm DP}:1038.25\rightarrow31.84\ {\rm m}.
+\]
+
+The mobility tradeoff result is:
+
+- Distance reduction: 88.370%.
+- Mean usable SKR reduction: 0.515%.
+
+Explain the selection.
+
+### Optional Figure C — Candidate UAV Positions
+
+If the page budget allows, include a compact line graph showing:
+
+**Mean Objective versus Number of Candidate UAV Positions.**
+
+Verified improvement from J = 10 to 100:
+
+11.409%.
+
+### Optional SKR versus Zenith Angle Figure
+
+If the broader manuscript requires a physical-layer numerical comparison, inspect the most recent corrected:
+
+**SKR versus Zenith Angle**
+
+figure and its source CSV.
+
+The historically evaluated curves show:
+
+- Uniform optimized peak: 52 degrees.
+- Fixed MB peak: 48 degrees.
+- Optimized MB peak: 48 degrees.
+
+Do not use the zenith diagnostic plots as mobility-performance evidence.
+
+Do not include the diagnostic MI–Holevo decomposition unless the surrounding text explicitly discusses the measurement-model limitation and numerical root cause.
+
+## 9. Figure Layout
+
+Follow the GLOBECOM paper's approach:
+
+- Main figures placed near their discussions.
+- Single-column line figures when suitable.
+- Double-column figures only when needed for two readable panels.
+- Short, informative captions.
+- Consistent panel labels (a), (b).
+- Legends must not obscure curves.
+- Do not shrink a three-panel figure until its text becomes unreadable.
+
+Prefer two clearly legible figures rather than four extremely small figures.
+
+Use IEEE-compatible LaTeX figure and figure* environments.
+
+Do not force floats using aggressive negative spacing.
+
+---
+
+# PART F — REWRITE NUMERICAL RESULTS LIKE THE GLOBECOM PAPER
+
+## 10. Section Structure
+
+Use the heading:
+
+**Numerical Results and Discussion**
+
+or:
+
+**Numerical Results & Discussions**
+
+according to the established manuscript style.
+
+Unlike the current lengthy version, do not divide every figure into a separate long subsection.
+
+Follow the GLOBECOM reference:
+
+1. One short introductory paragraph.
+2. A compact system-parameter summary.
+3. Figures.
+4. Short paragraphs interpreting the figures.
+5. One concise comparison of algorithm performance.
+6. A brief limitation statement.
+
+### 10.1 Simulation Setup
+
+Describe the evaluated baseline:
+
+- HAP altitude: 20 km.
+- UAV altitude: 1 km.
+- Flight region: 1 km × 1 km.
+- Candidate positions: 100.
+- Time slots: 30.
+- Slot duration: 20 seconds.
+- Maximum speed: 15 m/s.
+- Cloud missions: 100 paired realizations.
+- Source catalog: 233 exact-source candidates.
+- Default cloud probability: 0.4.
+- Spatial cloud correlation length: 250 m.
+- Latent temporal correlation: 0.9.
+- Reference distance: 1000 m.
+- Reconciliation efficiency: 0.95.
+
+Verify every numerical parameter against the saved manuscript configuration.
+
+If space permits, create a compact IEEE-style system-parameter table similar to Table I in the GLOBECOM reference.
+
+Do not invent hardware settings or calibration values.
+
+### 10.2 Numerical Results
+
+Use concise paragraphs built around the figures.
+
+Example writing pattern:
+
+"Fig. X illustrates the impact of cloud blockage probability on the performance of the considered UAV positioning schemes. As the blockage probability increases, the available optical links become less reliable. Nevertheless, the DP-based strategy can exploit temporal and spatial variations in cloud states to reduce the observed unavailability..."
+
+Continue with the actual verified numbers.
+
+Do not use this example verbatim without validating it against the data.
+
+Explain:
+
+- What parameter changes.
+- Which schemes are compared.
+- What trend is observed.
+- Why the trend occurs under the implemented model.
+- The main numerical evidence.
+
+Do not repeat parameter definitions already given in the System Model.
+
+### 10.3 Algorithm Comparison
+
+Briefly compare:
+
+- Stationary.
+- Greedy.
+- DP.
+
+At the representative mobility penalty:
+
+\[
+\lambda_{\rm ref}
+=
+9.468026677248516\times10^{-6}.
+\]
+
+Previously verified:
+
+- DP SKR improvement over P2: 4.16%.
+- DP SKR improvement over Greedy: 2.70%.
+- DP objective improvement over P2: 3.07%.
+- DP objective improvement over Greedy: 4.42%.
+
+If an algorithm-comparison table can fit without overcrowding the manuscript, include one compact table.
+
+Do not reproduce the unrelated Brent-versus-exhaustive-search results from the reference paper.
+
+Avoid claiming that DP always improves unpenalized SKR or availability.
+
+### 10.4 Physical Interpretation
+
+Keep the discussion focused on cloud avoidance and UAV positioning.
+
+Relevant explanations:
+
+- P2 exploits the full cloud sequence to find one stationary position.
+- Greedy selects each feasible move from the current reward.
+- DP plans over the full horizon and can accept short-term losses for later gains.
+- A mobility penalty discourages unnecessarily long trajectories.
+- High temporal persistence can make a favorable stationary position more competitive.
+
+Explain only trends verified by the current numerical experiments.
+
+Do not make unsupported causal claims.
+
+---
+
+# PART G — PAGE-LENGTH REQUIREMENT
+
+## 11. Compact IEEE Presentation
+
+The previous manuscript revision requested a compact presentation.
+
+Target approximately **1.5 IEEE A4 two-column pages from the beginning of the Optimization Problem through the end of the Conclusion**, counting:
+
+- Optimization equations.
+- Algorithm.
+- Tables.
+- Figures.
+- Captions.
+- Numerical Results.
+- Conclusion.
+
+This is a target, not permission to make the text unreadable.
+
+Prioritize:
+
+1. Mathematical correctness.
+2. Readable scientific figures.
+3. Clear description of optimization.
+4. Concise results.
+5. Page length.
+
+If the 1.5-page target cannot be satisfied with readable figures, report the actual length and the least disruptive layout alternatives.
+
+Do not modify IEEE margins, document font size or column widths to force the page count.
+
+Do not use negative vspace hacks.
+
+Do not remove indispensable constraints or variables.
+
+Do not remove security-model limitations.
+
+---
+
+# PART H — CONCLUSION
+
+## 12. Rewrite the Conclusion
+
+Follow the style of the GLOBECOM paper's conclusion.
+
+Write one short academic paragraph.
+
+Cover:
+
+1. Finite-catalog probabilistic shaping optimization.
+2. Stationary and mobility-aware UAV positioning.
+3. Dynamic Programming versus Greedy.
+4. Observed performance advantages under cloud blockage.
+5. Mobility-performance tradeoff.
+6. Main limitations.
+
+Avoid repeating all numerical percentages.
+
+Clearly state that the current numerical rates are conditional on the existing manuscript-style SKR model.
+
+The existing two-dimensional MI and homodyne-conditioned Holevo expressions are not yet measurement-consistent.
+
+Do not describe these numerical outputs as proven physically secure keys.
+
+---
+
+# PART I — LATEX IMPLEMENTATION
+
+## 13. Editing Rules
+
+Preserve:
+
+- IEEEtran document class.
+- Author and affiliation information.
+- Existing scientific references.
+- System and channel equations outside the requested scope.
+- Source normalization.
+- Detector conventions.
+- Security-model status.
+
+Do not add citations without verifiable source support.
+
+Preserve equation labels where possible.
+
+Use \label, \ref and \eqref consistently.
+
+Replace broken references such as "Section ??".
+
+Do not rename or renumber equations manually.
+
+If a mathematical formula does not fit the IEEE column, format it with align, aligned or split without changing its meaning.
+
+Do not copy the GLOBECOM paper's optimization problem, algorithm or figures.
+
+The reference is for structure and presentation only.
+
+## 14. New Revision Directory
+
+Create:
+
+`results/manuscript_globecom_style_revision_20261021/`
+
+Save:
+
+- `main.tex`
+- `main.pdf`
+- `figures/`
+- `figure_replacement_manifest.csv`
+- `revision_report_vi.md`
+- `validation_report.md`
+
+Do not overwrite earlier manuscript revisions.
+
+Copy only verified figures actually used by the revised manuscript.
+
+---
+
+# PART J — COMPILE AND INSPECT
+
+## 15. Build and Verify
+
+Compile the complete IEEE manuscript.
+
+Perform visual inspection of every page.
+
+Specifically verify:
+
+- The Optimization Problem section reads like the GLOBECOM optimization section in terms of presentation.
+- The mathematical problems remain scientifically correct.
+- P1, P2 and P3 are clearly distinguishable.
+- Greedy and DP are explained adequately.
+- The Numerical Results section follows the GLOBECOM presentation style.
+- All old figures intended for replacement have been replaced.
+- The new figures use correct, verified numerical values.
+- Figure legends and axes remain legible.
+- No text overlaps.
+- No overfull mathematical expressions.
+- No undefined references.
+- No missing figures.
+- The conclusion is concise.
+- The page budget is measured.
+- The PDF is suitable for internal review.
+
+Compare the old and new PDF visually.
+
+Do not alter unrelated manuscript content.
+
+## 16. Final Validation
+
+Validate the selected manuscript values using existing CSV files.
+
+Check at least:
+
+- Objective improvement when J increases from 10 to 100.
+- Unavailability at p = 0.8.
+- Travel-distance change when temporal correlation increases.
+- Mobility tradeoff between zero and representative penalty.
+- DP performance relative to P2 and Greedy.
+
+Do not substitute rounded numbers as numerical inputs.
+
+Record the exact provenance of the replacement figures.
+
+Retain the flags:
+
+UNVALIDATED_SECURITY_MODEL
+
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+
+Compilation success does not resolve these issues.
+
+---
+
+# PART K — FINAL DELIVERABLES
+
+Return:
+
+1. Revised IEEE LaTeX manuscript.
+2. Compiled PDF.
+3. List of modified sections.
+4. List of original and replacement figures.
+5. A short explanation of how the revised presentation follows the GLOBECOM reference.
+6. Actual measured length from Optimization Problem through Conclusion.
+7. Numerical validation results.
+8. Remaining scientific or formatting issues.
+
+Do not:
+
+- Rerun P1, P2, P3 or Greedy.
+- Recompute exact source moments C,w.
+- Recompute SKR.
+- Generate new cloud missions.
+- Change the quantum security model.
+- Overwrite historical figures.
+- Commit or push.
+
+**Execute the manuscript restructuring, replace the old figures with the latest verified restyled figures, compile the IEEE PDF, and inspect the final layout.**
+
+The final manuscript should have the concise academic style of the GLOBECOM reference while preserving our original HAP–UAV CV-QKD optimization framework and verified numerical results.

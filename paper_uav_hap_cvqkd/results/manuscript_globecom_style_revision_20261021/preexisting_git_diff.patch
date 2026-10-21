@@ -1,0 +1,207 @@
+diff --git a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+index 266cfd4b..4502e127 100644
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,28 +1,43 @@
+ # Session Handoff
+ 
+-2026-10-21 EVID-0207/DEC-0190. COMPLETE: user requested classic IEEE plotting
+-style for all existing SKR and optimization figures, with no numerical rerun.
+-Deliver results/ieee_classic_restyled_figures_20261021/ and its
+-ieee_classic_figures_20261021.zip.219 PDF-vector/PNG350dpi pairs;49 current
+-manuscript layouts and170 older layouts. Times New Roman,thin lines,distinct
+-markers,dotted grids,small inside legends,black axes,white background.
++2026-10-21 EVID-0208/DEC-0191 COMPLETE: investigate the historical zenith-angle
++rate peak, user attachment3e709e3c. Deliver results/
++zenith_angle_root_cause_diagnostic_20261021/report_vi.md,validation_report.md,
++all CSV decompositions,English captions and12 vector-PDF/PNG350dpi figures.
++Start with fig_F_MI_Holevo_SKR,then D/E/G;I/J show controls/factorization.
+ 
+-7399 checks PASS;all219 numeric-artist/scales fingerprints match before/after,
+-all PDFs vector/no Image XObject,PNGs350dpi,Times embedded. Nine old receipts/
+-505 members authenticate;5051 old files unchanged except five ledgers. Index
+-maps415 direct old image files+324 aliases;86 channel/reference files excluded.
+-419? Use actual219 pairs/438 exports;ZIP443 members. No scientific evaluation,
+-solver,cloud generation,RNG experiment,source building or production modification.
++Receipt f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669
++binds64 artifacts.8408 producer checks and6689 independent saved-artifact
++checks PASS;5539 startup files preserved except five authorized ledgers.
++Old218-source/233urad/8cm sweep authenticated;6758 candidates and93 selected
++rows checked without a new source search. All raw signs retained.
+ 
+-Main links: figures/00_final/compact_sensitivity.pdf;
+-figures/06_zenith/skr_vs_zenith_angle.pdf;README_vi.md;figure_index.csv.
+-Old TeX and old figures unchanged. Do not rerun immutable producers. For a
+-read-only recheck use global Python plus validation/verify_restyled.py;it reads
+-PIL from the already installed manuscript-pdf-20261020 tool directory.
++Fixed/optimized MB discrete peaks48deg,Uniform52deg. Tf decreases throughout;
++relative pointing improves while scintillation worsens. Rf/input-noise minima
++56deg,not48deg. FixedMB24->48deg betaMI loss6.68450e-4 is smaller than Holevo
++reduction9.02207e-4;after48deg MI loss wins.48->50deg coordinate decomposition
++Tf -1.76862e-5 plus Rf +1.31292e-5 equals K -4.55696e-6 bit/use. Frozen-shape
++30deg and nonfading matched-mean controls both decrease over all30 intervals.
++No source switches near either positive-rate peak.
+ 
+-Final receipt SHA256: 88498f3f1ea6ca946d4ed84a1e9a8f8868923694f6dd2c81fd00aa2fa9b3ab45.
+-All UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen hash
+-discrepancy and ObjectiveC USER_STOPPED remain. No physics/security/cache/config/
+-frozen/baseline/threshold/lifecycle change,training/test/held-out,external upload,
+-commit or push. Branchfix/channel,HEAD49597cd766638bf1ab557776b6ff010dc29eb6e4.
+-No required work remains;deliver and STOP.
++Canonical78 fixed-source rate calls (62 controls,4 probes,12 coordinate corners).
++Initial diagnostic sqrt-square inequality failed at2deg from4.06e-115 rounding,
++covariance physical;failure and four-ulp guard resolution retained,scientific
++tolerances unchanged. Initial attempt adds3 duplicate rate calls and1 security-
++only call;execution_history.json records81 total completed rate calls.
++Four stored fixed-source K values replay exactly;independent entropy80/110digits
++and five-angle PDF integration pass. No source generation/AP/AO/caches changed.
++
++This establishes the numerical mechanism of the mixed2DMI/homodyne-Holevo
++functional only. Consistent measurement/security,true-fading MI,full-Z worst
++case and operational/finite-key claims remain unestablished. Keep
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen hash
++discrepancy and ObjectiveC USER_STOPPED. No production/config/source/cache/
++frozen/TeX/security/lifecycle changes,training/test/held-out,publication,
++baseline/threshold promotion,commit/push.
++
++Read-only recheck: .venv/Scripts/python.exe -X utf8 -B results/
++zenith_angle_root_cause_diagnostic_20261021/verify_results.py. Do not rerun
++sealed numerical/render/report producers. Startup branch feat/image,
++HEAD401b1d5c3f1c507152e5d87787af757b61d5c15a;prior restyling handoff's
++fix/channel commit is historical. No required work remains;deliver and STOP.
+diff --git a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+index c4bd5d05..ece4ea1f 100644
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -1,5 +1,22 @@
+ # Decision Log
+ 
++## DEC-0191 - Accept bounded historical zenith root-cause diagnosis
++
++2026-10-21 accept EVID-0208 solely as explanation/verification of the saved
++historical numerical model. User task3e709e3c supersedes prior STOP only for
++saved decomposition and explicit fixed-source controls. Deliver the separate
++zenith_angle_root_cause_diagnostic_20261021 namespace and64-artifact receipt
++f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669.
++The evidence supports relative-pointing/scintillation and Tf/Rf competition
++within the recorded functional;do not infer physically achievable secure
++rates,a continuous optimal angle or a consistent receiver security theorem.
++Numerical coordinate attribution is a declared symmetric decomposition,
++not a unique physical intervention. No production/equation correction is made.
++Keep original218-source/233urad/8cm study separate from other hardware/catalogs,
++all raw signs and outage mass intact,UNVALIDATED_SECURITY_MODEL,NOT_READY,
++frozen conflict and ObjectiveC USER_STOPPED. No automatic additional controls,
++optimization,new Cw,training/test/held-out,publication,commit/push. STOP.
++
+ ## DEC-0190 - Accept renderer-only IEEE style copies
+ 
+ 2026-10-21 accept EVID-0207 and final receipt 88498f3f1ea6ca946d4ed84a1e9a8f8868923694f6dd2c81fd00aa2fa9b3ab45.
+diff --git a/paper_uav_hap_cvqkd/docs/EVIDENCE.md b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+index f1bb7808..ca4aac81 100644
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -1,5 +1,49 @@
+ # Evidence Register
+ 
++## EVID-0208 - Zenith-angle non-monotonic-rate root cause COMPLETE
++
++2026-10-21 explicit user task 3e709e3c authorizes saved-data analysis and bounded
++historical fixed-source controls only. New results/zenith_angle_root_cause_diagnostic_20261021/
++contains Vietnamese report answering all ten questions,31-angle/93-selected-rate
++decompositions,channel/pointing/fading/noise/source tables,representative angles,
++coordinate attribution,English captions and12 vector-PDF/PNG350dpi pairs.
++Branch feat/image,startup HEAD401b1d5c3f1c507152e5d87787af757b61d5c15a,clean.
++Final receipt f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669
++binds64 artifacts;8408 producer and6689 independent saved-artifact checks PASS.
++All5539 startup files protected except five authorized ledgers;original sweep,
++production,source cache/config/frozen files and manuscripts unchanged.
++
++Authenticated original218-source catalog (182MB+36Uniform),6758 stored candidates,
++all31 angles and93 selected components;no new source search or Cw. Fixed/optimized
++MB peak48deg atK .000241357175677/.000342145110300252;Uniform52deg .00010662595172733.
++All original signed values retained;semilog omits nonpositive display points only.
++Reconstructed K subtraction residual max6.844026213814747e-19 bit/use.
++
++Tf and meanT decrease at all30 intervals. With zero boresight,1+Rf factors as
++(1/P1)*((d+.5)^2/[d(d+1)])*exp(sigmaR2/4),up to the retained-tail correction
++<8.18e-118 at sampled moments. Relative pointing improves while scintillation
++worsens;Rf/xi minima56deg,not48deg. FixedMB24->48deg loses betaI6.684498663e-4
++while chi falls9.022072606e-4,givingK+2.337573942e-4. After48deg MI loss dominates.
++48->50deg symmetric numerical attribution:Tf -1.768617803e-5,Rf +1.312921455e-5,
++sum -4.556963478e-6. Source remains constant around both positive-rate peaks.
++
++Canonical78 fixed-source calls only:31 frozen-shape controls,31 deterministic
++matched-mean controls,4 accuracy probes and12 coordinate corners. Both controls
++decrease at every interval. Four original K probes replay exactly;independent
++80/110-digit entropy and five-angle PDF integrals pass. Initial deterministic
++sqrt-square guard failed on4.06e-115 rounding at2deg with physical covariance;
++failure/resolution retained,guard admits four arithmetic ulps,no scientific
++tolerance or historical formula changed. Aborted attempt added3 duplicate rate
++calls and1 security-only call;execution history discloses81 total completed calls.
++
++Explains the implemented formula,not physical secure keys:mixed2DMI/homodyne
++Holevo pairing remains inconsistent;true-fading MI,full-Z worst case,protocol/
++finite-size/composable security unestablished. No correction or new consistent
++receiver evaluation performed. UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++frozen discrepancy and ObjectiveC USER_STOPPED remain. No catalog sweep/AP/AO,
++mobility/cloud simulation,training/test/held-out access,publication promotion,
++manuscript equation change,commit or push. Complete;deliver and STOP.
++
+ ## EVID-0207 - Saved-data IEEE classic restyling COMPLETE
+ 
+ 2026-10-21 user requests all existing SKR/optimization figures in classic IEEE
+diff --git a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+index 99b62f38..3aebf06e 100644
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,5 +1,17 @@
+ # Next Actions
+ 
++## Current: deliver zenith-angle root-cause figures/report; STOP
++
++EVID-0208/DEC-0191 complete. Open results/zenith_angle_root_cause_diagnostic_20261021/
++report_vi.md and figures/fig_F_MI_Holevo_SKR.pdf;priority D/E/G supplement it,
++I/J show the controlled mechanism. All31 signed angles,noise/moment/source
++tables,representative values and captions are included. For read-only verification
++run its verify_results.py with project Python -B;never rerun sealed producers.
++Explain conditional numerical cause and unresolved measurement pairing separately.
++No automatic source search,security-model correction,extra diagnostic,sweep,
++training/test/held-out,publication promotion,commit/push. All previous flags,
++frozen conflict and ObjectiveC USER_STOPPED remain. Await a new scoped request.
++
+ ## Current: deliver219 classic IEEE figure pairs and ZIP; STOP
+ 
+ EVID-0207/DEC-0190 complete. New folder results/
+diff --git a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+index 5a636980..96473ba6 100644
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,5 +1,28 @@
+ # Project State
+ 
++## Current: zenith-angle root-cause diagnostic COMPLETE; STOP
++
++2026-10-21 EVID-0208/DEC-0191. Deliver results/
++zenith_angle_root_cause_diagnostic_20261021/:report_vi.md,all decomposition CSVs,
++English captions,12 vector-PDF/PNG350dpi pairs and validation/final_receipt.json.
++ReceiptSHA256 f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669
++binds64 artifacts;8408 producer/6689 independent checks PASS;5539 prior files
++protected except five ledgers. Startup feat/image,HEAD401b1d5c3f1c507152e5d87787af757b61d5c15a.
++
++Historical MB peaks48deg,Uniform52deg;all31 raw signed points retained.
++Tf decreases throughout;relative pointing improves,scintillation worsens;
++Rf/xi minimum56deg occurs after the48deg MB peak. FixedMB24->48deg Holevo
++reduction exceeds betaMI loss;after48deg MI loss dominates. Fixed-shape and
++nonfading controls decrease throughout.78 canonical fixed-source calls,
++plus3 duplicate completed calls/1 security-only call in recorded initial
++rounding-guard failure. No new source optimization/Cw or historical rerun.
++
++This diagnoses the unchanged mixed2DMI/homodyne-Holevo functional only;
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen
++discrepancy and ObjectiveC USER_STOPPED remain. No production/source/cache/
++config/frozen/TeX or security/lifecycle change;no training/test/held-out,
++publication evaluation,baseline/threshold promotion,commit/push. Complete;STOP.
++
+ ## Current: IEEE classic figure copies COMPLETE; STOP
+ 
+ 2026-10-21 EVID-0207/DEC-0190. Deliver results/

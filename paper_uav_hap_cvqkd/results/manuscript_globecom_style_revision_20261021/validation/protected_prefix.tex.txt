@@ -1,0 +1,132 @@
+% Load before IEEEtran to avoid XeTeX TU/Times font substitutions.
+\RequirePackage[T1]{fontenc}
+\documentclass[conference,a4paper]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Packages retained from the manuscript; duplicate/conflicting imports removed.
+\usepackage{cite}
+\usepackage{float}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{nicematrix}
+\usepackage{balance}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{lipsum}
+\usetikzlibrary{shapes.geometric}
+\usepackage[hidelinks]{hyperref}
+
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newtheorem{coro}{Corollary}
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{defin}{Definition}
+\hypersetup{breaklinks=true,citecolor=black,colorlinks=true,
+            linkcolor=black,urlcolor=blue}
+\setcounter{MaxMatrixCols}{30}
+
+\title{Mobility-Aware UAV Positioning and Secret Key Rate Optimization for HAP--UAV CV-QKD}
+\author{\IEEEauthorblockN{TBD\IEEEauthorrefmark{1},
+TBD\IEEEauthorrefmark{2}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}XXX}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Computer Communications Laboratory,
+The University of Aizu, Aizuwakamatsu 965-8580, Japan}}
+
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This provisional internal-review study examines source selection and UAV positioning for a cloud-affected HAP--UAV discrete-modulated CV-QKD model. A finite catalog of 233 exact-source ensembles defines a common location-dependent numerical rate map. An offline stationary benchmark, a current-slot Greedy policy, and finite-horizon dynamic programming (DP) are compared under identical cloud realizations and speed constraints. Across 100 paired missions, expanding the candidate set from 10 to 100 raises the mean DP penalized objective by 11.41\%. At blockage probability 0.8, mean zero-rate unavailability is 24.60\%, 16.53\%, and 4.07\% for Stationary, Greedy, and DP, respectively. At the representative penalty, DP reduces travel by 88.37\% relative to zero penalty while reducing mean usable rate by 0.515\%. These are conditional manuscript-model outputs: the recorded two-dimensional mutual information and homodyne Holevo expression do not specify a consistent Bob measurement. The results characterize the saved numerical optimization and do not establish physical quantum security.
+\end{abstract}
+\begin{IEEEkeywords}
+Continuous-variable quantum key distribution, UAV, high-altitude platform, cloud blockage, probabilistic shaping, dynamic programming.
+\end{IEEEkeywords}
+\noindent\textbf{Internal review only.} Security-model correction and author review remain pending. Status:\\
+{\footnotesize\texttt{UNVALIDATED\_SECURITY\_MODEL};}\\
+{\footnotesize\texttt{NOT\_READY\_FOR\_PUBLICATION\_SCALE\_RUNS}.}
+\section{HAP--UAV CV-QKD System and Problem Formulation}
+\label{sec:system}
+\subsection{Mobility-Aware UAV Positioning and SKR Optimization}
+We consider one UAV at a fixed altitude over a $1\,\mathrm{km}\times
+1\,\mathrm{km}$ area, discretized into $J$ candidate positions
+$\mathcal Q=\{\mathbf q_j\}_{j=1}^J$. The mission has $N_t$ slots of
+duration $\Delta t$. Let $c_{j,n}\in\{0,1\}$ indicate cloud blockage
+(one means blocked). The matrix $\mathbf C=[c_{j,n}]$ contains spatially
+and temporally correlated Bernoulli states. P2 and P3 know the complete
+matrix and are offline benchmarks; Greedy observes only the current slot.
+
+For an unblocked link, the recorded manuscript-style raw rate is
+\begin{equation}
+ K_j(\nu,V_A)=\beta_{\rm rec}I_{AB,j}^{2D}(\nu,V_A)-\chi_{BE,j}(\nu,V_A).
+ \label{eq:raw}
+\end{equation}
+Equation~\eqref{eq:raw} is retained as a conditional numerical metric,
+subject to the measurement-consistency limitations below.
+
+\subsection{Recorded Physical-Layer Model and Security Boundary}
+\label{sec:security}
+Alice sends the coherent-state ensemble $\{p_k,\alpha_k\}_{k=1}^{256}$.
+With $[\hat x,\hat p]=2i$ and vacuum quadrature variance one, the
+normalization is $V_A=2\sum_kp_k|\alpha_k|^2=2\bar n$.
+The source moments $C_s,w_s$ are computed from this same ensemble;
+the subscript distinguishes them from the cloud matrix.
+For clear-sky power transmittance $\eta$, the saved evaluator uses
+\begin{align*}
+ \eta_f&=\langle\sqrt\eta\rangle^2,\\
+ N=\eta_f\xi_f&=(\langle\eta\rangle-\eta_f)V_A
+                  +\xi_{\rm ch}\langle\eta\rangle,\\
+ V&=1+V_A,\qquad W=1+\eta_fV_A+N,\\
+ Z&=2\sqrt{\eta_f}C_s-\sqrt{2Nw_s}.
+\end{align*}
+The convention is $\xi_n=\xi_{\rm ch}$. The additive $N$ is
+output-referred excess noise; loss-induced vacuum is already included
+in $W$'s unit baseline. The active detector is ideal (efficiency one,
+electronic noise zero). No imperfect trusted-detector claim is made.
+The clear-sky distribution retains a separate angle-of-arrival outage
+atom at $\eta=0$ and its active density on $[0,1]$, without renormalizing.
+Moment reduction at the covariance level has a precedent for Gaussian
+modulation~\cite{usenko2012}; it is not an identity for the full
+discrete-input fading likelihood.
+
+Specifically, the saved MI kernel uses the normalized likelihood
+\[
+ p_{\rm num}(\mathbf y|k)=\frac{
+ \exp[-\|\mathbf y-2\sqrt{\eta_f}(\Re\alpha_k,\Im\alpha_k)\|^2/
+                 (2(1+N))]}{2\pi(1+N)}
+\]
+and integrates both real components to obtain $I_{AB}^{2D}$.
+The Holevo branch uses the standard-form covariance with entries
+$V,W,Z$ and the \emph{homodyne} conditional eigenvalue
+\[
+ \nu_3^{\rm hom}=\sqrt{V(V-Z^2/W)}.
+\]
+These two branches do not specify one consistent single-mode Bob
+measurement: a homodyne outcome has one quadrature, while joint
+measurement of both quadratures adds measurement vacuum. The
+measurement-dependent Holevo expressions are explicitly different
+in~\cite{denys2021}. Consequently, all reported ``usable SKR'' values
+are conditional outputs of the recorded manuscript model, not
+established achievable secret-key rates.
+
+Further, evaluating only $Z_-$ does not establish the worst-case
+Holevo value over all admissible correlations; the general
+interval-maximization caveat in~\cite[Sec.~4, footnotes 11--12]{denys2021}
+also applies. A consistent measurement/noise specification, admissible
+correlation treatment, parameter estimation, and fading/outage
+conditioning protocol require author review. No correction is applied
+to the historical numerical results in this manuscript revision.
+
+

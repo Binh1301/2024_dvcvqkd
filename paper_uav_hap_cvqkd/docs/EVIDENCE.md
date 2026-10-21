@@ -1,5 +1,49 @@
 # Evidence Register
 
+## EVID-0208 - Zenith-angle non-monotonic-rate root cause COMPLETE
+
+2026-10-21 explicit user task 3e709e3c authorizes saved-data analysis and bounded
+historical fixed-source controls only. New results/zenith_angle_root_cause_diagnostic_20261021/
+contains Vietnamese report answering all ten questions,31-angle/93-selected-rate
+decompositions,channel/pointing/fading/noise/source tables,representative angles,
+coordinate attribution,English captions and12 vector-PDF/PNG350dpi pairs.
+Branch feat/image,startup HEAD401b1d5c3f1c507152e5d87787af757b61d5c15a,clean.
+Final receipt f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669
+binds64 artifacts;8408 producer and6689 independent saved-artifact checks PASS.
+All5539 startup files protected except five authorized ledgers;original sweep,
+production,source cache/config/frozen files and manuscripts unchanged.
+
+Authenticated original218-source catalog (182MB+36Uniform),6758 stored candidates,
+all31 angles and93 selected components;no new source search or Cw. Fixed/optimized
+MB peak48deg atK .000241357175677/.000342145110300252;Uniform52deg .00010662595172733.
+All original signed values retained;semilog omits nonpositive display points only.
+Reconstructed K subtraction residual max6.844026213814747e-19 bit/use.
+
+Tf and meanT decrease at all30 intervals. With zero boresight,1+Rf factors as
+(1/P1)*((d+.5)^2/[d(d+1)])*exp(sigmaR2/4),up to the retained-tail correction
+<8.18e-118 at sampled moments. Relative pointing improves while scintillation
+worsens;Rf/xi minima56deg,not48deg. FixedMB24->48deg loses betaI6.684498663e-4
+while chi falls9.022072606e-4,givingK+2.337573942e-4. After48deg MI loss dominates.
+48->50deg symmetric numerical attribution:Tf -1.768617803e-5,Rf +1.312921455e-5,
+sum -4.556963478e-6. Source remains constant around both positive-rate peaks.
+
+Canonical78 fixed-source calls only:31 frozen-shape controls,31 deterministic
+matched-mean controls,4 accuracy probes and12 coordinate corners. Both controls
+decrease at every interval. Four original K probes replay exactly;independent
+80/110-digit entropy and five-angle PDF integrals pass. Initial deterministic
+sqrt-square guard failed on4.06e-115 rounding at2deg with physical covariance;
+failure/resolution retained,guard admits four arithmetic ulps,no scientific
+tolerance or historical formula changed. Aborted attempt added3 duplicate rate
+calls and1 security-only call;execution history discloses81 total completed calls.
+
+Explains the implemented formula,not physical secure keys:mixed2DMI/homodyne
+Holevo pairing remains inconsistent;true-fading MI,full-Z worst case,protocol/
+finite-size/composable security unestablished. No correction or new consistent
+receiver evaluation performed. UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+frozen discrepancy and ObjectiveC USER_STOPPED remain. No catalog sweep/AP/AO,
+mobility/cloud simulation,training/test/held-out access,publication promotion,
+manuscript equation change,commit or push. Complete;deliver and STOP.
+
 ## EVID-0207 - Saved-data IEEE classic restyling COMPLETE
 
 2026-10-21 user requests all existing SKR/optimization figures in classic IEEE

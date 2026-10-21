@@ -1,5 +1,22 @@
 # Decision Log
 
+## DEC-0191 - Accept bounded historical zenith root-cause diagnosis
+
+2026-10-21 accept EVID-0208 solely as explanation/verification of the saved
+historical numerical model. User task3e709e3c supersedes prior STOP only for
+saved decomposition and explicit fixed-source controls. Deliver the separate
+zenith_angle_root_cause_diagnostic_20261021 namespace and64-artifact receipt
+f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669.
+The evidence supports relative-pointing/scintillation and Tf/Rf competition
+within the recorded functional;do not infer physically achievable secure
+rates,a continuous optimal angle or a consistent receiver security theorem.
+Numerical coordinate attribution is a declared symmetric decomposition,
+not a unique physical intervention. No production/equation correction is made.
+Keep original218-source/233urad/8cm study separate from other hardware/catalogs,
+all raw signs and outage mass intact,UNVALIDATED_SECURITY_MODEL,NOT_READY,
+frozen conflict and ObjectiveC USER_STOPPED. No automatic additional controls,
+optimization,new Cw,training/test/held-out,publication,commit/push. STOP.
+
 ## DEC-0190 - Accept renderer-only IEEE style copies
 
 2026-10-21 accept EVID-0207 and final receipt 88498f3f1ea6ca946d4ed84a1e9a8f8868923694f6dd2c81fd00aa2fa9b3ab45.

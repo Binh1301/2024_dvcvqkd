@@ -1,5 +1,28 @@
 # Project State
 
+## Current: zenith-angle root-cause diagnostic COMPLETE; STOP
+
+2026-10-21 EVID-0208/DEC-0191. Deliver results/
+zenith_angle_root_cause_diagnostic_20261021/:report_vi.md,all decomposition CSVs,
+English captions,12 vector-PDF/PNG350dpi pairs and validation/final_receipt.json.
+ReceiptSHA256 f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669
+binds64 artifacts;8408 producer/6689 independent checks PASS;5539 prior files
+protected except five ledgers. Startup feat/image,HEAD401b1d5c3f1c507152e5d87787af757b61d5c15a.
+
+Historical MB peaks48deg,Uniform52deg;all31 raw signed points retained.
+Tf decreases throughout;relative pointing improves,scintillation worsens;
+Rf/xi minimum56deg occurs after the48deg MB peak. FixedMB24->48deg Holevo
+reduction exceeds betaMI loss;after48deg MI loss dominates. Fixed-shape and
+nonfading controls decrease throughout.78 canonical fixed-source calls,
+plus3 duplicate completed calls/1 security-only call in recorded initial
+rounding-guard failure. No new source optimization/Cw or historical rerun.
+
+This diagnoses the unchanged mixed2DMI/homodyne-Holevo functional only;
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen
+discrepancy and ObjectiveC USER_STOPPED remain. No production/source/cache/
+config/frozen/TeX or security/lifecycle change;no training/test/held-out,
+publication evaluation,baseline/threshold promotion,commit/push. Complete;STOP.
+
 ## Current: IEEE classic figure copies COMPLETE; STOP
 
 2026-10-21 EVID-0207/DEC-0190. Deliver results/

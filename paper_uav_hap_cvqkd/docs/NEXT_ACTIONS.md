@@ -1,5 +1,17 @@
 # Next Actions
 
+## Current: deliver zenith-angle root-cause figures/report; STOP
+
+EVID-0208/DEC-0191 complete. Open results/zenith_angle_root_cause_diagnostic_20261021/
+report_vi.md and figures/fig_F_MI_Holevo_SKR.pdf;priority D/E/G supplement it,
+I/J show the controlled mechanism. All31 signed angles,noise/moment/source
+tables,representative values and captions are included. For read-only verification
+run its verify_results.py with project Python -B;never rerun sealed producers.
+Explain conditional numerical cause and unresolved measurement pairing separately.
+No automatic source search,security-model correction,extra diagnostic,sweep,
+training/test/held-out,publication promotion,commit/push. All previous flags,
+frozen conflict and ObjectiveC USER_STOPPED remain. Await a new scoped request.
+
 ## Current: deliver219 classic IEEE figure pairs and ZIP; STOP
 
 EVID-0207/DEC-0190 complete. New folder results/
