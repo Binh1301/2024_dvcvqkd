@@ -1,0 +1,105 @@
+{
+  "source_results_recovered": 16,
+  "receipts_before": 5,
+  "receipts_now": 21,
+  "receipt_not_located": 191,
+  "pilot_evidence_pending": 74,
+  "full_Cw_recomputations": 0,
+  "producer_evidence": [
+    {
+      "path": "scripts/run_exact_mb_test2.py",
+      "sha256": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf",
+      "finding": "Lines 256-270 save C,w,route,support but discard diagnostic fallback_rows in cache payload."
+    },
+    {
+      "path": "src/cvqkd/gram_moments.py",
+      "sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+      "finding": "Lines 184-188 require FULL_SUPPORT_CONVERGED for fallback; diagnostics retain fallback_rows in memory."
+    },
+    {
+      "path": "scripts/full_support_c4_worker.py",
+      "sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+      "finding": "Lines 230-270 validate the final two levels before emitting FULL_SUPPORT_CONVERGED; this source-level guard is not a substitute for a per-ensemble saved receipt."
+    }
+  ],
+  "legacy_artifacts": [
+    {
+      "source_path": "results/exact_mb_test2/exact_source_cache/eef503568945785109af539b319c7675f93aa0eb7d9db59d7b8046cfb3f90097.json",
+      "legacy_path": "results/mb_sweep_fixed_zeta30_VA2_sources/source_nu_0.13.json",
+      "actual_sha256": "68bd6c110dff5ef1d3ef03438c26bff7b9f8d55d6bc0c224ff48d6b63853c4f6",
+      "recorded_sha256": "3c5abc3c2b88ffc910dd5417bb3f8289d80e6cc8679194eb926e0ea88f846b7a",
+      "CRLF_sha256": "3c5abc3c2b88ffc910dd5417bb3f8289d80e6cc8679194eb926e0ea88f846b7a",
+      "binding": "CRLF_EQUIVALENCE_VERIFIED_NOT_RAW_BYTE_MATCH",
+      "keys": [
+        "nu_mb",
+        "rank",
+        "C",
+        "w",
+        "route",
+        "input_hashes",
+        "minimum_eigenvalue"
+      ],
+      "Cw_equal": true,
+      "full_precision_ladder_present": false
+    },
+    {
+      "source_path": "results/exact_mb_test2/exact_source_cache/ba88675f213b42881e735fa7e82fca95d65f4a5007f9bd6cbff5013047bb6e42.json",
+      "legacy_path": "results/mb_sweep_fixed_zeta30_VA2_sources/source_nu_0.14.json",
+      "actual_sha256": "ffa18b65ea301d4fa470684668da54e825b42cea3481176e8c7c58f2bb42d26b",
+      "recorded_sha256": "9daaa1cb65bd22426f8e51752c779f5f9bcc5558de32d4fdf58ec4da1d319d5b",
+      "CRLF_sha256": "9daaa1cb65bd22426f8e51752c779f5f9bcc5558de32d4fdf58ec4da1d319d5b",
+      "binding": "CRLF_EQUIVALENCE_VERIFIED_NOT_RAW_BYTE_MATCH",
+      "keys": [
+        "nu_mb",
+        "rank",
+        "C",
+        "w",
+        "route",
+        "input_hashes",
+        "minimum_eigenvalue"
+      ],
+      "Cw_equal": true,
+      "full_precision_ladder_present": false
+    },
+    {
+      "source_path": "results/exact_mb_test2/exact_source_cache/93b2d2f2bd03776eb0716b899670cada2f5261c1d6d24cc0c0fa5505c0028b3f.json",
+      "legacy_path": "results/mb_sweep_fixed_zeta30_VA2_sources/source_nu_0.15.json",
+      "actual_sha256": "c07d796e78503f1eee28a9f402c82ced2d853ab3e5bc361371d2337f112ee8ea",
+      "recorded_sha256": "fea67f72ef0c5e3b555c913d9b755985d004999aad2f7be502c3c96465dc7ab1",
+      "CRLF_sha256": "fea67f72ef0c5e3b555c913d9b755985d004999aad2f7be502c3c96465dc7ab1",
+      "binding": "CRLF_EQUIVALENCE_VERIFIED_NOT_RAW_BYTE_MATCH",
+      "keys": [
+        "nu_mb",
+        "rank",
+        "C",
+        "w",
+        "route",
+        "input_hashes",
+        "minimum_eigenvalue"
+      ],
+      "Cw_equal": true,
+      "full_precision_ladder_present": false
+    },
+    {
+      "source_path": "results/exact_mb_test2/exact_source_cache/13d081519b2cedeb335af9dc724d24f2a6c8842d93123dd8cd6ff5b2b8997581.json",
+      "legacy_path": "results/mb_sweep_fixed_zeta30_VA2_sources/source_nu_0.16.json",
+      "actual_sha256": "5875a8f6ad96bb0b42cceb330ff961ee4b92b0a6a6c2c004b2436fabf10e3354",
+      "recorded_sha256": "d4e88793c4752d993feb025c0b7477b396e82ad62a7bef771bfc4524d494e4c3",
+      "CRLF_sha256": "d4e88793c4752d993feb025c0b7477b396e82ad62a7bef771bfc4524d494e4c3",
+      "binding": "CRLF_EQUIVALENCE_VERIFIED_NOT_RAW_BYTE_MATCH",
+      "keys": [
+        "nu_mb",
+        "rank",
+        "C",
+        "w",
+        "route",
+        "input_hashes",
+        "minimum_eigenvalue"
+      ],
+      "Cw_equal": true,
+      "full_precision_ladder_present": false
+    }
+  ],
+  "scope": "15 source-producing roots plus four hash-linked legacy artifacts; not a global nonexistence claim",
+  "Cw_verdict": "NO_INCORRECT_CW_INFERRED_FROM_MISSING_RECEIPTS"
+}

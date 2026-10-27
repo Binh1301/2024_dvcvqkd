@@ -1,0 +1,107 @@
+{
+  "scope": "PARAMETER_ONLY_SWAP_DIAGNOSTIC",
+  "adapter_sha256": "9e09b18a307021ae2cabf57118a0f833d4ff33835728904a5587be0fb77ebfb2",
+  "producer_sha256": "949d52f24a49c0fc00031e89c33bfabe0329e23ad09da4095c5a4fc51db36774",
+  "receiver_primary_m": [
+    0.08,
+    0.12,
+    0.15,
+    0.2,
+    0.25,
+    0.3
+  ],
+  "receiver_fallback_m": [
+    0.32,
+    0.35,
+    0.38,
+    0.4,
+    0.45
+  ],
+  "benchmark_only_m": 0.55,
+  "detector_efficiencies": [
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "detector_noise_scenarios": [
+    0.0135,
+    0.005
+  ],
+  "h_hap_km": 20,
+  "h_uav_km": 1,
+  "tau_zen": 0.92,
+  "beta": 0.95,
+  "epsilon_ch": 0.0186,
+  "angles_deg": [
+    0,
+    15,
+    30
+  ],
+  "divergence_full_angle_urad": [
+    15,
+    20,
+    25,
+    35,
+    50
+  ],
+  "pointing_tiers_urad_m": [
+    [
+      15.61,
+      1
+    ],
+    [
+      10,
+      0.5
+    ],
+    [
+      5,
+      0.3
+    ],
+    [
+      3,
+      0.2
+    ],
+    [
+      3,
+      0.1
+    ],
+    [
+      1.561,
+      0.1
+    ]
+  ],
+  "source_catalog_count": 233,
+  "receiver_measurement": "homodyne_1D",
+  "detector_trust": "untrusted",
+  "MI": "Identical saved bytecode, diameter-aware quadrature input; no formula change",
+  "Holevo": "Unchanged full-Z numerical maximum",
+  "collector": "Unchanged passive random-width exact Gaussian circular aperture CDF",
+  "screen_orders": [
+    128,
+    16
+  ],
+  "final_orders": [
+    [
+      256,
+      32
+    ],
+    [
+      512,
+      48
+    ],
+    [
+      1024,
+      64
+    ]
+  ],
+  "observed_MI_tolerance": 2e-06,
+  "positive_observed_margin": "K > 2 * beta * observed MI change",
+  "engineering_margin_K": 0.0001,
+  "source_interpolation": false,
+  "new_source_moments": false,
+  "model_change": false,
+  "security_change": false,
+  "hardware_validated": false,
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

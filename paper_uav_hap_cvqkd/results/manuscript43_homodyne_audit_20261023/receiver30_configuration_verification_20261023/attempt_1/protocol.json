@@ -1,0 +1,61 @@
+{
+  "scope": "FIXED_RECEIVER30_INSPECTION_AND_REPRODUCTION_ONLY",
+  "source_hash": "01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754",
+  "geometry": {
+    "Dr": 0.3,
+    "hH_km": 20.0,
+    "hU_km": 1.0,
+    "zenith_deg": 0.0,
+    "L_km": 19.0,
+    "full_divergence_urad": 35.0,
+    "jitter_urad": 1.561,
+    "sigma_h_m": 0.1,
+    "wavelength_m": 1.55e-06,
+    "tau_zen": 0.92
+  },
+  "source": {
+    "VA": 1.6249995399703647,
+    "nu_raw": 0.25,
+    "M": 256
+  },
+  "model_A": {
+    "law": "power_conserving_random_width",
+    "eta_det": 0.95,
+    "epsilon_det": 0.005,
+    "measurement": "homodyne_1D_Gaussian_effective",
+    "detector_trust": "untrusted"
+  },
+  "model_B": {
+    "law": "manuscript43_Eq10_retained_0_to_1",
+    "xi_det": 0.005,
+    "detector_efficiency_parameter_present": false,
+    "zero_atom_noise_extension": "limit",
+    "measurement": "real_homodyne_1D_Gaussian_effective"
+  },
+  "xi_ch": 0.0186,
+  "beta": 0.95,
+  "mass_tolerance": 1e-10,
+  "regression_tolerance": 5e-12,
+  "MI_tolerance": 2e-10,
+  "Holevo_tolerance": 2e-08,
+  "GH_orders": [
+    64,
+    128
+  ],
+  "Z_grids": [
+    33,
+    129
+  ],
+  "entropy_digits": [
+    80,
+    110
+  ],
+  "no_optimization": true,
+  "no_AP_source_moments": true,
+  "no_source_interpolation": true,
+  "secure_default": null,
+  "implementation_sha256": {
+    "inspect_receiver30.py": "40ccd2eab83f732fc5772737d0e4390e5648a29e9411aa9226a27b67859fd3ab",
+    "verify.py": "5d3ffdc26d6fcffecd0a4d4d7518fbd82d68a8c38ac406ff21ac2109495d5b1e"
+  }
+}

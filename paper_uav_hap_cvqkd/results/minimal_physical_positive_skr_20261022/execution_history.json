@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-22",
+  "python": "paper_uav_hap_cvqkd/.venv/Scripts/python.exe -X utf8 -B",
+  "steps": [
+    {"producer": "search.py", "status": "CURRENTLY_VERIFIED_PASS", "logged_evaluations_at_completion": 3316},
+    {"producer": "inline boundary_context_probe", "parameters": {"D_r": 0.4, "divergences_urad": [10, 15, 25, 35, 50], "jitter_urad": 1.561, "sigma_h_m": 0.1}, "source": "best row catalog_receiver_7.csv", "quadrature": [128, 16], "artifact": "boundary_context_probe.json", "status": "CURRENTLY_VERIFIED_PASS"},
+    {"producer": "inline boundary_divergence_refinement", "method": "scipy.optimize.minimize_scalar bounded [15,35], xatol=1e-5; every objective calls numeric.evaluate", "parameters": {"D_r": 0.4, "jitter_urad": 1.561, "sigma_h_m": 0.1}, "source": "best row catalog_receiver_7.csv", "quadrature": [256, 32], "artifact": "boundary_divergence_refinement.json", "status": "CURRENTLY_VERIFIED_PASS"},
+    {"producer": "inline balanced_pointing_probe", "source": "best row catalog_receiver_8.csv", "artifact": "balanced_pointing_probe.json", "status": "CURRENTLY_VERIFIED_PASS"},
+    {"producer": "refine.py", "status": "CURRENTLY_VERIFIED_PASS", "logged_evaluations_at_completion": 4527},
+    {"producer": "checks.py", "status": "CURRENTLY_VERIFIED_PASS", "checks": 26},
+    {"producer": "finish.py first import", "status": "FAILED", "reason": "pypdf not installed", "resolution": "Removed optional dependency; standard-library PDF page/header checks and vector-object checks in verify.py. No dependency installed and no numerical evaluator changed."},
+    {"producer": "finish.py", "status": "CURRENTLY_VERIFIED_PASS", "figures": 7, "layout_revisions": "Moved figure1 note away from data; separated heatmap title and explanation; full data range on color scales; inspected all seven PNGs and revised figure1/5."},
+    {"producer": "verify.py", "mode": "Read-only after one-time --seal", "scope": "Hash, table, figure and input-preservation verification only; no numerical evaluation"}
+  ],
+  "not_run": ["new source moments or AP", "production baseline selection", "threshold certification", "training", "final test", "held-out publication evaluation", "experimental hardware or security validation"],
+  "historical_source_model_cache_config_changes": false
+}

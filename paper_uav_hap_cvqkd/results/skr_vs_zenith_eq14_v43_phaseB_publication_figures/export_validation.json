@@ -1,0 +1,189 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "render_backend": "pypdfium2 (Poppler unavailable)",
+  "validation_backends": [
+    "pypdf",
+    "pdfplumber",
+    "Pillow"
+  ],
+  "files": [
+    {
+      "figure": "skr_vs_zenith_publication",
+      "pdf_open": "PASS",
+      "pdf_pages": 1,
+      "pdf_page_points": [
+        252.47952,
+        194.87952
+      ],
+      "pdf_font_details": [
+        {
+          "font": "/FHXFSG+TimesNewRomanPSMT",
+          "subtype": "/Type0",
+          "embedded": true
+        }
+      ],
+      "raster_image_xobjects": [],
+      "vector_move_operations": 38,
+      "vector_line_operations": 226,
+      "native_text_operations": 17,
+      "PDF_text_outside_page": 0,
+      "png_dimensions": [
+        2103,
+        1623
+      ],
+      "png_dpi": [
+        599.9988,
+        599.9988
+      ],
+      "pdf_rendered_preview": "qa_pdf/skr_vs_zenith_publication.png",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "pdf_sha256": "c7eb5fc6152eea34b356b5a297756da5f561c1f5578d4bb7e0debb490e308f14",
+      "png_sha256": "3d6f6a6b23488bf28ff02ad45ad60d32e3195be35a0cbeeec66ce7b8baa1422a"
+    },
+    {
+      "figure": "skr_vs_zenith_zoom",
+      "pdf_open": "PASS",
+      "pdf_pages": 1,
+      "pdf_page_points": [
+        252.47952,
+        194.87952
+      ],
+      "pdf_font_details": [
+        {
+          "font": "/CZRBLR+STIXGeneral-Regular",
+          "subtype": "/Type0",
+          "embedded": true
+        },
+        {
+          "font": "/FTXWZA+STIXGeneral-Italic",
+          "subtype": "/Type0",
+          "embedded": true
+        },
+        {
+          "font": "/FHXFSG+TimesNewRomanPSMT",
+          "subtype": "/Type0",
+          "embedded": true
+        }
+      ],
+      "raster_image_xobjects": [],
+      "vector_move_operations": 39,
+      "vector_line_operations": 84,
+      "native_text_operations": 43,
+      "PDF_text_outside_page": 0,
+      "png_dimensions": [
+        2103,
+        1623
+      ],
+      "png_dpi": [
+        599.9988,
+        599.9988
+      ],
+      "pdf_rendered_preview": "qa_pdf/skr_vs_zenith_zoom.png",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "pdf_sha256": "3c1adb2e962e2201be85224dce1dab30047d7a3fd42c92bdb99c83b8bcfb63c0",
+      "png_sha256": "64c880e2a09b2fde8ea3f3a99184c0d2d6183689896af666d42550789f066a42"
+    },
+    {
+      "figure": "skr_vs_zenith_two_panel",
+      "pdf_open": "PASS",
+      "pdf_pages": 1,
+      "pdf_page_points": [
+        515.99952,
+        212.8798600771
+      ],
+      "pdf_font_details": [
+        {
+          "font": "/CZRBLR+STIXGeneral-Regular",
+          "subtype": "/Type0",
+          "embedded": true
+        },
+        {
+          "font": "/FTXWZA+STIXGeneral-Italic",
+          "subtype": "/Type0",
+          "embedded": true
+        },
+        {
+          "font": "/FHXFSG+TimesNewRomanPSMT",
+          "subtype": "/Type0",
+          "embedded": true
+        }
+      ],
+      "raster_image_xobjects": [],
+      "vector_move_operations": 76,
+      "vector_line_operations": 307,
+      "native_text_operations": 62,
+      "PDF_text_outside_page": 0,
+      "png_dimensions": [
+        4299,
+        1773
+      ],
+      "png_dpi": [
+        599.9988,
+        599.9988
+      ],
+      "pdf_rendered_preview": "qa_pdf/skr_vs_zenith_two_panel.png",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "pdf_sha256": "3639262550c611748485bfb9f9cacee3b2a74b8ae8578e35be17cba5917975ec",
+      "png_sha256": "1713cc80c2baedf0ba5451e7e8b3beabbe1c4ff8caaf99f6420d314967156177"
+    }
+  ],
+  "visual_review": "CURRENTLY_VERIFIED_PASS",
+  "QA_history": [
+    {
+      "initial_check": "pdfplumber flattened text did not preserve rotated y-axis phrase order",
+      "resolution": "Use pypdf native text extraction for label content and pdfplumber character boxes for clipping; PDF/data unchanged"
+    }
+  ],
+  "visual_review_details": "All three PDFs rendered at 200 dpi and inspected at intended IEEE column sizes; no overlapping labels/legends, clipped axes or missing symbols. Final PNGs use the same plotted artists.",
+  "nominal_png_dpi": 600,
+  "PNG_DPI_note": "599.9988 metadata is the standard integer pixels-per-metre rounding of 600 dpi.",
+  "script_sha256": "c5e1f89cec51ba214599f79fecb403ad81f9977693ce505bbdf361812ca6b207",
+  "caption_sha256": "e343d66fd5d5d77bbdcae2f03964c98507fc39fa5a48d13a410c997965ca2c26",
+  "renderer_import_roots": [
+    "ast",
+    "collections",
+    "csv",
+    "hashlib",
+    "json",
+    "math",
+    "matplotlib",
+    "numpy",
+    "pathlib"
+  ],
+  "extracted_ranking_builtin_calls": [
+    "dict",
+    "len",
+    "max",
+    "sorted"
+  ],
+  "new_Cw_MI_Holevo_SKR_computations": 0,
+  "selected_raw_sign_counts": {
+    "negative": 161,
+    "positive": 22
+  },
+  "git_diff_check": "PASS",
+  "prior_ledger_bodies": [
+    {
+      "path": "docs/EVIDENCE.md",
+      "prior_body_preserved": true,
+      "sha256": "22ee7177b17e4960ed4f8147f846a6aba169d3c7d52b373e357c4f3a23a857a0"
+    },
+    {
+      "path": "docs/DECISION_LOG.md",
+      "prior_body_preserved": true,
+      "sha256": "9c060a5f74d239468f0d763236b905c5b3428012568807b3780e72ef44901354"
+    },
+    {
+      "path": "docs/PROJECT_STATE.md",
+      "prior_body_preserved": true,
+      "sha256": "580b0cb7ccd2101cb0a82fe38f174c699b4a355a34eccd64444653703f8afd40"
+    },
+    {
+      "path": "docs/NEXT_ACTIONS.md",
+      "prior_body_preserved": true,
+      "sha256": "e4f1b47a065085456a4fd2876012f8ccbe6994c0337ed33d577feb7b471e706b"
+    }
+  ],
+  "source_artifacts_unchanged": true
+}

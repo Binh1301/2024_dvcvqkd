@@ -1,0 +1,64 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "ensemble_hash": "421664627da51107f1420322c7992ba5f12d9bd6af0ff767a473b8b93ffd00d7",
+  "VA_hex": "0x1.9ffff84830112p+0",
+  "backend": "python",
+  "mpmath_version": "1.3.0",
+  "float64_gate": {
+    "minimum_eigenvalue": -1.0951711763191722e-16,
+    "positive_modes_by_sector": [
+      36,
+      35,
+      35,
+      35
+    ],
+    "max_eigenvalue": 0.5007709819240741,
+    "elapsed_seconds": 0.0034383999882265925,
+    "qualification": "Float64 fallback-gate diagnostic only; NOT a full-support oracle or C,w evaluation"
+  },
+  "mathematical_full_rank_not_inferred_from_float64": true,
+  "worker_function_lines": {
+    "_lu_solve_matrix": 11,
+    "_sectors": 25,
+    "_row": 64,
+    "main": 208
+  },
+  "worker_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+  "planned_rows": [
+    1050,
+    1250,
+    1450
+  ],
+  "static_eigendecomposition_calls_if_all_rows_completed": 12,
+  "static_complex_exp_calls_if_all_rows_completed": 49152,
+  "exact_attempt_profile_available": false,
+  "exact_bottleneck_within_worker": "UNKNOWN",
+  "saved_cpu_observations": 9,
+  "last_recorded_user_cpu_seconds": 2380.421875,
+  "prior_python_timings": [
+    {
+      "path": "results/uniform_positive_skr_manuscript43_20261023/new_exact_source/source_receipts/3d2d495384976c30752fb94b006233bd295e502c40052b99fbef24be80c7825c.json",
+      "sha256": "09e8f255adf5abae4708b9f739a7e0eaf435d5dfaf4ca9643317297e9a8fde5e",
+      "VA": 0.25,
+      "elapsed_seconds": 1930.0355889999773,
+      "backend": {
+        "backend": "python",
+        "mpmath": "1.3.0"
+      }
+    },
+    {
+      "path": "results/uniform_positive_skr_manuscript43_20261023/new_exact_source/source_receipts/7df9782ddf003da937cee4fa84cc02dcb608099c587da5b9e212339ede067dc1.json",
+      "sha256": "bba9d31bb444273d31b6f5a51514d10185979267b9b38197cbf4cf56c97a41c3",
+      "VA": 10.0,
+      "elapsed_seconds": 1916.5985888000578,
+      "backend": {
+        "backend": "python",
+        "mpmath": "1.3.0"
+      }
+    }
+  ],
+  "synthetic_diagonal_identity_check": "PASS_3_BY_3_80_DIGITS",
+  "expensive_Cw_calls": 0,
+  "pilot_executed": false,
+  "full_sweep_executed": false
+}

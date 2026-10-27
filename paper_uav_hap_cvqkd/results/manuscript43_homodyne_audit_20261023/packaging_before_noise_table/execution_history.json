@@ -1,0 +1,54 @@
+{
+  "UTC": "2026-10-23T03:23:13.986873+00:00",
+  "status": "COMPLETED_WITH_MODEL_BLOCKERS",
+  "request": "7944a7e7-5bcc-43d9-8f85-c514f9d2fb92",
+  "ordered_phases": [
+    "preserved historical regressions",
+    "initial 17-test validation then KeyError B",
+    "correct original PDF factory and add 18th unit test",
+    "18-test component validation",
+    "fixed-source focused comparisons",
+    "inventory/notation/Rician diagnostics",
+    "report and saved-evidence packaging"
+  ],
+  "attempts": {
+    "initial": "attempt_1/failure.json",
+    "tolerances_changed": false,
+    "metadata_only_fix": "252 entries were mislabeled as directories; now 107 directories plus 145 root files; originals in inventory_metadata_before_fix"
+  },
+  "numerical_replay_in_packaging": false,
+  "new_AP": false,
+  "new_optimization": false,
+  "heldout_test_publication": false,
+  "producer_sha256": {
+    "audit_inventory.py": "653e560632b4bb57bdce0053dd7d93f9bac6ae59ca3ee8ccf4896b77c70e9495",
+    "audit_model.py": "2a4e463bd89a884193512eead27503a83a43d0153134d6d1dfd23b60f79c206e",
+    "build_report.py": "e06b106006510cad66ca62a6afa85def6bec5f0b0e5be12c313f9f70f0a6fea6",
+    "capture_pdf.py": "e4baa18a8bad49a2c628800b974f9fbb8b1c9b33a247c8e8ad307780bbb0fd25",
+    "compare.py": "b85bb79940535065310b26589a48ee87823178004a37c82f2b0af634b36cc754",
+    "run_audit.py": "39359e99561fafd952673265f84c71c86c1718cb31fbffe46801c602aa3252ab",
+    "test_audit_model.py": "d4614ada6152b1b37f4f48973d824249121a2b13def483fccdda17a63ab110d2",
+    "verify.py": "41d71d7e10aa95eccc6f37892591043998d9a510d0e10f8a0a074a0a03bde841"
+  },
+  "protocol_sha256": "9030faa8ff8afa91965ba51043def0cb824253587ba7154b22003783ddb24b43",
+  "comparison_plan_sha256": "5c808bdf0ae74a2b3a04d447c39d99e2103513f3f25f6a4d1e1e15e7810afe11",
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.5.2",
+      "scipy": "1.18.1",
+      "mpmath": "1.3.0"
+    },
+    "PDF_tool": "PyMuPDF1.26.5 outside project venv"
+  },
+  "manuscript_pages_visually_checked": [
+    2,
+    3,
+    4
+  ],
+  "PDF_modified": false,
+  "production_default_changed": false,
+  "scientific_status": "UNVALIDATED_SECURITY_MODEL",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

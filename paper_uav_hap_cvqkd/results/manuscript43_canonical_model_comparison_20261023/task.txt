@@ -1,0 +1,494 @@
+# CODEX TASK — Make Manuscript v43(2) the Single Source of Truth for the HAP–UAV CV-QKD Model
+
+## 1. Objective
+
+I want to STANDARDIZE the research repository around the mathematical model explicitly defined in the attached paper:
+
+`2026__Binh_s_work (43)(2).pdf`
+
+**The manuscript is now the canonical mathematical specification.**
+
+Previously, the repository evaluated several different channel models:
+
+- Original manuscript Eq. (10) fading PDF.
+- Historical `power_conserving_random_width` channel.
+- An independently constructed physically bounded channel.
+- Historical and corrected homodyne MI implementations.
+
+These variants have produced significantly different SKR results.
+
+The recent bounded-channel search produced:
+
+- Uniform 256-QAM SKR = +0.107883 bits/use.
+- Receiver diameter = 0.30 m.
+- Zenith angle = 0°.
+- Full-angle divergence = 10 µrad.
+- Pointing jitter = 0.5 µrad.
+- UAV position SD = 0.03 m.
+- Modulation variance VA = 3 SNU.
+
+However, that result is NOT automatically valid under the original manuscript PDF.
+
+**Your task is to systematically identify every mathematical and numerical difference between the manuscript and the current repository implementations.**
+
+Do not perform any optimization until the model comparison is completed.
+
+## 2. Repository
+
+Work in:
+
+C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd
+
+Inspect:
+
+- The attached manuscript v43(2).
+- Existing channel PDF and moment modules.
+- Exact 256-QAM source and MB shaping modules.
+- Homodyne MI evaluator.
+- Holevo and covariance evaluator.
+- Manuscript43 audit results.
+- Zenith-angle sweep results.
+- Uniform-positive-SKR search results.
+- Independent bounded-channel implementation.
+
+Preserve all existing results and exact C,w caches.
+
+Do not modify production code during the initial audit.
+
+## 3. Canonical channel specification
+
+Follow the mathematical model in manuscript Section II-B.
+
+The total transmittance is:
+
+\[
+\eta=\eta_{\rm atm}I_a\eta_p\eta_{\rm AoA}.
+\]
+
+Atmospheric attenuation:
+
+\[
+\eta_{\rm atm}=\tau_{\rm zen}^{\sec(\zeta)}.
+\]
+
+Atmospheric turbulence:
+
+Use the manuscript's log-normal PDF, Eq. (5).
+
+Pointing/geometric loss:
+
+\[
+\eta_p=A_0\exp\left(-\frac{2r^2}{w_{L,\rm eq}^2}\right).
+\]
+
+Use the manuscript's Rician-distributed displacement, Eq. (7), and pointing-loss PDF, Eq. (8).
+
+AoA outage:
+
+\[
+P_0=\exp\left(-\frac{\theta_{\rm FOV}^2}{2\sigma_o^2}\right),
+\qquad P_1=1-P_0.
+\]
+
+The combined fading PDF MUST be compared against Eq. (10) in the manuscript, including:
+
+- Its continuous density.
+- Its Dirac atom at zero.
+- Its coefficients C1, C3 and mu.
+- Its stated support and integration interval [0,1].
+- Its assumptions about boresight offset rho.
+
+Do not replace Eq. (10) with the independently bounded model merely because the bounded model produces positive SKR.
+
+## 4. Compare three channel implementations
+
+Identify the actual code implementing:
+
+A. The original manuscript Eq. (10) model.
+
+B. Historical `power_conserving_random_width`.
+
+C. The new independent bounded channel used in the Uniform-positive search.
+
+For each model, report:
+
+- Exact mathematical PDF or probability law.
+- Physical random variables and their distributions.
+- Support of transmittance.
+- Treatment of eta > 1.
+- Treatment of the AoA outage atom.
+- Whether mass is clipped, truncated, conditioned, renormalized or transferred to another point.
+- Whether any parameters are transformed or approximated.
+- Whether it is mathematically equivalent to manuscript Eq. (10).
+
+IMPORTANT:
+
+A distribution with total mass equal to 1 is not necessarily the same distribution as Eq. (10).
+
+If the bounded implementation performs clipping, conditional truncation or renormalization, identify the exact mathematical operation and prove how it changes the distribution.
+
+Do not treat different channel laws as interchangeable.
+
+## 5. Verify the PDF and its three moments
+
+Use manuscript Eqs. (17)–(20).
+
+The three moments are:
+
+\[
+m_1=\langle\eta\rangle,
+\]
+
+\[
+m_h=\langle\sqrt{\eta}\rangle,
+\]
+
+\[
+m_\xi=\langle\eta\xi\rangle.
+\]
+
+Effective channel:
+
+\[
+\eta_f=m_h^2,
+\]
+
+\[
+\eta_f\xi_f=(m_1-\eta_f)V_A+m_\xi.
+\]
+
+Noise definition from manuscript v43(2):
+
+\[
+\xi(\eta)=\xi_{\rm ch}+\frac{\xi_{\rm det}}{\eta}.
+\]
+
+Use xi_det as the explicitly defined manuscript parameter.
+
+Do not introduce a separate detector efficiency eta_det into the canonical model.
+
+For the canonical model, verify:
+
+\[
+m_\xi
+=
+\xi_{\rm ch}m_1+
+\xi_{\rm det}
+[P_0+P_1C_1\mathcal Q(\chi^2)].
+\]
+
+Audit the convention at eta = 0 and state whether the expression uses a continuous limiting extension or a specific detector-noise model during outage.
+
+For all three channel implementations, compute:
+
+1. Total probability mass.
+2. AoA outage probability.
+3. Continuous probability mass on (0,1].
+4. Probability mass above eta = 1, if present.
+5. E[eta].
+6. E[sqrt(eta)].
+7. E[eta xi].
+8. eta_f.
+9. xi_f.
+
+Compare results using identical geometry and parameters.
+
+Check closed forms against independent numerical integration.
+
+Do not silently increase tolerance or normalize a defective PDF.
+
+If manuscript Eq. (10) fails normalization, identify the mathematical reason and preserve the original result as BLOCKED.
+
+Explicitly distinguish a numerical-integration failure from a genuine modeling incompatibility.
+
+## 6. Audit manuscript equations for internal consistency
+
+The PDF is authoritative about the intended model, but mathematical errors or inconsistent notation must be identified rather than reproduced blindly.
+
+Pay particular attention to:
+
+### Modulation variance
+
+The manuscript states:
+
+\[
+V_{\rm mod}=\langle n\rangle/2.
+\]
+
+However, the repository uses centered 256-QAM with:
+
+\[
+V_A=2\sum_kp_k|\alpha_k|^2.
+\]
+
+Determine whether the manuscript and repository use different quadrature normalizations or whether the manuscript contains an error.
+
+### Maxwell–Boltzmann shaping
+
+The manuscript uses gamma in the PMF numerator and nu in the normalization constant.
+
+Check whether these parameters should be identical.
+
+Check that constellation indices are centered before computing symbol energy.
+
+### Homodyne likelihood
+
+Manuscript Eq. (12) uses a complex alpha_k in its Gaussian likelihood.
+
+Since Bob performs one-dimensional HOMODYNE detection, check the corrected real-quadrature expression:
+
+\[
+p(y|\alpha_k)=
+\frac{1}{\sqrt{2\pi\sigma_\xi^2}}
+\exp\left[
+-\frac{
+(y-2\sqrt{\eta_f}\operatorname{Re}\alpha_k)^2
+}{2\sigma_\xi^2}
+\right].
+\]
+
+Check:
+
+\[
+\sigma_\xi^2=1+\eta_f\xi_f.
+\]
+
+Use discrete-input mutual information, not Gaussian-input Shannon capacity.
+
+### Holevo information
+
+Verify manuscript Eqs. (13)–(16), including:
+
+- The covariance matrix.
+- V and W.
+- Correlation parameter Z.
+- Denys–Brown–Leverrier source moments.
+- Homodyne conditional symplectic eigenvalue.
+- Physical covariance and uncertainty constraints.
+- The treatment of admissible correlation bounds.
+
+Do not combine heterodyne MI with homodyne Holevo.
+
+### Nonzero boresight
+
+Determine whether the closed-form PDF Eq. (10) remains valid for rho != 0 or requires an additional approximation.
+
+Compare the manuscript PDF with the original Rician pointing model at representative nonzero rho.
+
+Document any discrepancy.
+
+## 7. Critical fixed-configuration experiment
+
+Use the recent Uniform-positive configuration:
+
+\[
+D_r=0.30\ {\rm m},
+\]
+
+\[
+\zeta=0^\circ,
+\]
+
+\[
+\theta_{\rm div}=10\ \mu{\rm rad},
+\]
+
+\[
+\theta_{\rm jt}=0.5\ \mu{\rm rad},
+\]
+
+\[
+\sigma_h=0.03\ {\rm m},
+\]
+
+\[
+V_A=3.
+\]
+
+Use:
+
+- HAP altitude = 20 km.
+- UAV altitude = 1 km.
+- Wavelength = 1550 nm.
+- xi_ch = 0.0186 SNU.
+- xi_det = 0.005 SNU.
+- beta = 0.95.
+- Uniform 256-QAM.
+- Homodyne detection.
+- Reverse reconciliation.
+
+Recover all other parameters from the exact scenario provenance.
+
+Evaluate the SAME configuration under:
+
+A. Manuscript Eq. (10).
+
+B. Historical random-width model.
+
+C. Independent bounded model.
+
+For each channel, calculate or report BLOCKED for:
+
+\[
+\langle\eta\rangle,
+\quad
+\eta_f,
+\quad
+\langle\eta\xi\rangle,
+\quad
+\xi_f,
+\]
+
+\[
+I_{AB},
+\quad
+\beta I_{AB},
+\quad
+\chi_{BE},
+\quad
+K.
+\]
+
+The historical bounded result is:
+
+\[
+K_{\rm Uniform}=0.107883\ {\rm bits/use}.
+\]
+
+Determine precisely which mathematical differences explain why this value differs from the original manuscript-channel result.
+
+Do not attribute the difference to PDF normalization alone without numerical evidence.
+
+Keep the source ensemble and all physically comparable parameters identical.
+
+## 8. Isolate each cause of disagreement
+
+Perform controlled diagnostic comparisons, without mixing multiple model changes in a single step.
+
+Investigate separately:
+
+1. Channel distribution changes.
+2. Channel moment changes.
+3. Detector-noise conventions.
+4. Modulation-variance normalization.
+5. Gaussian effective MI versus historical fading-mixture MI.
+6. Covariance and Holevo conventions.
+7. Numerical integration or optimization precision.
+
+For the Gaussian effective-channel MI comparison, keep the same exact 256-QAM source.
+
+Use the manuscript-consistent 1D homodyne evaluator as the primary method.
+
+If a particular implementation cannot be compared consistently without changing its physical definition, mark the comparison NON-EQUIVALENT rather than forcing it.
+
+Provide a numerical attribution of the SKR differences whenever an isolated comparison is meaningful.
+
+## 9. Final canonical-model decision
+
+After completing the audit, classify every repository component into one of four categories:
+
+- EXACT_MATCH: identical to the manuscript.
+- EQUIVALENT: mathematically equivalent under documented parameter or normalization conversions.
+- DIFFERENT: a genuinely different physical or statistical model.
+- BLOCKED: cannot be validated or compared due to missing information or mathematical inconsistency.
+
+Do not automatically promote the bounded model to canonical status.
+
+If the original manuscript Eq. (10) cannot be used as a normalized, physical probability law for the desired operating regime, explicitly report that contradiction.
+
+Recommend the smallest defensible correction to the manuscript and repository, but keep that correction as a separately versioned PROPOSAL.
+
+Do not silently change the canonical mathematical law.
+
+Do not manufacture positive SKR.
+
+## 10. Required deliverables
+
+Create:
+
+results/manuscript43_canonical_model_comparison_20261023/
+
+Produce:
+
+### A. Detailed Vietnamese report
+
+Include an equation-by-equation comparison between manuscript and repository.
+
+For each discrepancy, report:
+
+- Manuscript equation number.
+- Manuscript expression.
+- Repository expression.
+- Implementation file and function.
+- Whether the expressions are equivalent.
+- Whether the discrepancy affects channel moments, MI, Holevo or SKR.
+- Exact numerical difference when available.
+- Recommended action.
+
+### B. Three-model numerical comparison CSV
+
+Columns:
+
+- scenario
+- channel_model
+- manuscript_equivalent
+- pdf_mass
+- mass_above_one
+- E_eta
+- E_sqrt_eta
+- eta_f
+- E_eta_xi
+- xi_f
+- I_AB
+- beta_I_AB
+- chi_BE
+- raw_SKR
+- validation_status
+- difference_reason
+
+### C. Parameter provenance table
+
+List each physical and numerical parameter, its value, unit, origin and whether it matches the manuscript.
+
+### D. Mathematical-differences report
+
+Write a separate Markdown file listing every confirmed mathematical difference.
+
+Distinguish:
+
+- Notation-only differences.
+- Equivalent parameter transformations.
+- Implementation defects.
+- Actual mathematical-model changes.
+- Manuscript errors requiring correction.
+- Unresolved security assumptions.
+
+### E. Final recommendation
+
+Answer in Vietnamese:
+
+1. Is the new bounded channel mathematically identical to manuscript Eq. (10)?
+2. If not, exactly how is it different?
+3. Can the current Uniform-positive configuration produce valid positive SKR under the manuscript's original law?
+4. Which equations or implementations must change to make the repo match manuscript v43(2)?
+5. Can the existing exact C,w catalog be preserved?
+6. What should be the canonical evaluator for future SKR-versus-zenith and SKR-versus-distance plots?
+
+## 11. Strict constraints
+
+- No new global optimization.
+- No modification of production code during this audit.
+- No overwriting historical results.
+- No modification of existing exact source caches.
+- No interpolation of C,w or SKR.
+- HOMODYNE only.
+- Gaussian effective-channel MI as the primary approach.
+- Keep manuscript-v43 detector-noise convention.
+- No separate eta_det in canonical calculations.
+- Do not silently substitute a bounded PDF.
+- Do not force positive SKR.
+- Do not approve a secure-SKR model without the necessary security justification.
+
+Perform the mathematical audit, run focused reproducibility checks and produce the complete Vietnamese comparison report.
+
+The goal is ONE consistent, reproducible mathematical model matching the manuscript, not maximizing SKR by switching between different channel laws.

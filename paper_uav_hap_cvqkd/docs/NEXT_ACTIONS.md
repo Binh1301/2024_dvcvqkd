@@ -1,5 +1,357 @@
 # Next Actions
 
+## Current: deliver E2 diagnostic and controlled-run plan; STOP
+
+EVID-0231/DEC-0214. Read results/phaseE2_winning_source_spectral_validation_20261026/
+validation_report_vi.md, unresolved_spectrum_error_analysis.md and
+controlled_run_authorization_plan.md. C,w remain INCONCLUSIVE despite the
+rigorous scalar positivity bound and 186 matching spectral modes. Checkpoints
+are tested; the heavy 400/500-digit job is only prepared. No authorization file
+exists and no target source/mobility/zenith calculation may start automatically.
+
+Read-only check from project root:
+.venv/Scripts/python.exe -X utf8 -B results/phaseE2_winning_source_spectral_validation_20261026/verification.py
+
+Any future separately approved one-source run must use its own output namespace,
+the bound plan/resources and compatible checkpoints. Review all256 positive
+eigenpairs at two precisions and inverse-sensitive functional error; rank or
+displayed-digit agreement alone does not certify C,w. Do not rerun the catalog
+or missing Uniform. Original strict Phase B/evidence/security/lifecycle gates,
+frozen discrepancy and Objective C USER_STOPPED remain. Deliver and STOP.
+
+## Current: deliver independent source comparison and STOP
+
+EVID-0230/DEC-0213. Read results/phaseE_Cw_fock_gram_repo_comparison_20261026/
+README.md,validation_report_vi.md and Cw_numerical_stability.md. Overall
+INCONCLUSIVE despite best-tested C,w matching cache atbinary64 rounding.
+Do not rerun completed controller,auto-escalate precision above260,retry
+Gramtimeouts,runUniform/fullcatalog or alter evidence/security. Sourceprecision
+checkpointing and a separatelybudgeted one-source fullsupport study are future
+proposals only. Defaultread-only verification: .venv/Scripts/python.exe -X utf8 -B
+results/phaseE_Cw_fock_gram_repo_comparison_20261026/verify_results.py
+No alternativeHolevo/SKR untilindependent-source readiness;strictPhaseBfalse.
+Deliver reports andSTOP;await explicitnewtask.
+
+
+## Current: deliver Phase D diagnostics and isolated IEEE drafts; STOP
+
+EVID-0229/DEC-0212. Read results/phaseD_cloud_validation_robustness_20261025/README.md
+andphaseD_validation_report_vi.md. SixnewPDF/PNG pairs,paired t/bootstrap,cloud
+math/indexing robustness,audit/sensitivity andfourIEEE fragments complete.
+Read-only verify: .venv/Scripts/python.exe -X utf8 -B
+results/phaseD_cloud_validation_robustness_20261025/reproduce_phaseD.py --phase verify
+Preserve sealed data. No further source/MC/channel calculations are automatic.
+Source-recovery plan is proposed only;receipt gaps andoriginalmissingUniform
+remain. TeX compile needs available engine. No security/publication/lifecycle
+promotion or ObjectiveC restart. Await an explicit new task after delivery.
+
+
+## Current: deliver completed new-cloud DP/Greedy/Stationary diagnostic and STOP
+
+EVID-0228/DEC-0211. Open results/phaseC_new_cloud_dp_greedy_stationary_20261025/
+validation_report_vi.md,figure_index.md andfullCSV/NPZ data. Centeredprimary vs
+oldgeometrysecondary,zero/calibratedp.1..8,10lambda andcontrolledOLDmodel allrun.
+Keep DIAGNOSTIC_ONLY,sourceclasses andstrictPhaseB BLOCKED. verify_results.py
+checks saved data only,no physical/source evaluation. Isolated LaTeX/add-file
+patch awaits author integration;no frozen manuscript edit or automatic further
+sourcejob/retuning/training/test/publication/default/threshold promotion.
+Deliver and STOP.
+
+## Current: deliver saved-data IEEE figure package and STOP
+
+EVID-0227/DEC-0210. Open results/skr_vs_zenith_eq14_v43_phaseB_publication_figures/:
+skr_vs_zenith_publication.pdf,skr_vs_zenith_zoom.pdf,skr_vs_zenith_two_panel.pdf
+and600dpiPNG companions. figure_captions.tex andfigure_validation_report_vi.md
+record sampled brackets,diagnostic/evidence limitations. plot_skr_vs_zenith.py
+regenerates figures from saved CSVs only;rerendering does not need/effect any
+scientific evaluation. Preserve all historical experiment files and strict gates.
+No automatic source jobs,model/rate reruns,training/test/heldout/publication,
+default/baseline/threshold approval or ObjectiveC restart. Deliver and STOP.
+
+## Current: deliver completed 61-angle diagnostic and STOP
+
+EVID-0226/DEC-0209. Open results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/
+validation_report_vi.md,diagnostic_skr_61_angles.csv,best_scheme_by_angle.csv and
+four PNG/PDF figures.12932 pairs complete,1908reused,0new C,w. Saved sign brackets:
+FixedMB[5,6]deg,OptimizedMB[15,16]deg;Uniform none positive in available catalog.
+All positive rates remain conditional on INSUFFICIENT_EVIDENCE sources. No
+continuous operational threshold or global optimum. Strict Phase B remains
+BLOCKED:73 pilot convergence-evidence gaps and exact-VA Uniform payload/receipt.
+Do not launch source jobs,rerun matching rates,relax evidence/pool,or promote
+publication/security/default/baseline/threshold state. No automatic continuation.
+Read-only check from project root:
+.venv/Scripts/python.exe -X utf8 -B results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/verify.py
+Historical nine-angle/current frozen experiment evidence remains unchanged.
+
+## Current: deliver completed historical-source reuse diagnostic and STOP
+
+EVID-0225/DEC-0208. Open results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/
+validation_report_vi.md and diagnostic_results.csv. Eight requested outputs are
+complete.80/81 original sources reused;one exactUniform still missing.212-source
+within-domain catalog diagnostic evaluates9 angles;720 pilot results reused,
+1188 extra unique pairs,total1908. No new C,w. All positive rows are conditional
+on insufficient-evidence sources;do not promote source evidence or security.
+For strict Phase B,73 existing pilot convergence records(including FixedMB) and
+one exactUniform payload/receipt still needed. No automatic recomputation,
+evidence waiver,pool substitution,strict pilot,full61,optimizer or lifecycle
+promotion. No checkpoint/progress infrastructure is required for this delivery.
+Read-only verifier: .venv/Scripts/python.exe -X utf8 -B
+results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/verify.py.
+Preserve historical packages and all final mathematical conventions.
+
+## Current: deliver Phase B unblocking reports and STOP
+
+EVID-0224/DEC-0207. Read results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/:
+validation_report_vi.md,pilot_source_evidence.csv,uniform_timeout_diagnosis.md,
+uniform_recovery_plan.md,readiness_summary.json,artifact_integrity_report.md.
+0 source upgrades;strict readiness false. Remaining2 dependency families are
+73 existing exact-ensemble convergence evidence gaps(including FixedMB),and one
+missing Uniform at VAhex0x1.9ffff84830112p+0/nu0. Missing evidence is not wrong C,w.
+Safest future next action:prepare/test observability and row-checkpoint wrapper
+with stub data,then agree a bounded single-source attempt. The wrapper/budget
+in recovery plan is proposed only; do not execute the reference command now.
+Do not automatically retry sources,rebuild catalog,alter evidence/pool/conventions,
+launch pilot/full61,optimizer,training/test/heldout/publication or promote defaults.
+Read-only verifier: .venv/Scripts/python.exe -X utf8 -B
+results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/verify.py.
+Keep all old sealed packages,current experiment binding and ObjectiveC stop.
+
+## Current: deliver completed readiness report and STOP; Phase B remains BLOCKED
+
+EVID-0223/DEC-0206. Read results/
+skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/validation_report_vi.md,
+readiness.json and remaining_source_gaps.csv.81 classified:6 exact/1 alternative/
+74 insufficient/0 invalid. The74 gaps are73 existing convergence-evidence gaps
+plus one exact-VA Uniform job that timed out without payload after3600s.
+Do not retry or increase its budget automatically. No worker remains active.
+Frozen history/versioned specification and isolated pilot runner are prepared;
+10 readiness checks pass,source-job receipt check NOT_RUN. Previous entries
+below describe earlier snapshots and are superseded for current readiness.
+
+Minimum future prerequisites: restore exact-ensemble convergence evidence for
+73 existing sources (26Uniform/47MB,including Fixed MB), obtain the missing
+Uniform VA hex0x1.9ffff84830112p+0/nu0 payload plus receipt, then revalidate gate.
+Missing receipts do not mean wrong C,w; do not recompute the whole catalog or
+quietly shrink the81-source pool. Any new job/budget or evidence-policy/pool
+decision must be explicit. Do not reopen FINAL mathematical conventions.
+
+Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B
+results/skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/run.py --verify-only.
+No nine-angle pilot or61-angle sweep,optimization,training/test/heldout/publication,
+production/default/baseline/threshold promotion or ObjectiveC restart.
+
+## Current: approved Phase A conventions validated; resolve pilot dependencies
+
+EVID-0222/DEC-0205. Read results/skr_vs_zenith_eq14_v43_20261024/
+validation_report_vi.md and gate.json. Exact-normalization and VA mapping stops
+are resolved for this approved baseline; do not ask the author to approve again.
+Keep unnormalized mass/deficit metadata, exact Eq14, VA=Vmod=2*nbar and X_A=2Re(alpha).
+
+Minimum remaining work before a nine-angle pilot:
+- Recover/authenticate the74 pilot receipts listed in pilot_evidence_gaps.csv,
+  including Fixed MB. Missing receipts are evidence gaps, not incorrect C,w.
+  If unavailable, obtain a separate decision on diagnostic evidence policy or
+  bounded convergence checks; no waiver/recomputation was applied here.
+- Generate exactly one Uniform at VA hex0x1.9ffff84830112p+0 with full receipt,
+  in a new cache, only when dependencies permit. Do not use rounded VA1.625.
+- Resolve/explicitly scope the frozen-spec hash provenance conflict.
+- Implement the Phase B source-job/orchestration after those dependencies.
+Do not automatically run sources, pilot, optimization or full61 sweep.
+
+Read-only verifier: .venv/Scripts/python.exe -X utf8 -B
+results/skr_vs_zenith_eq14_v43_20261024/run.py --verify-only.
+Preserve both sealed Phase A snapshots, all old caches and current lifecycle/
+security/ObjectiveC limits. Current update is complete; deliver readiness report.
+
+## Historical 2026-10-23: Eq14 Phase A dependency report before user convention approval
+
+EVID-0221/DEC-0204. Open results/skr_vs_zenith_eq14_v43_20261023/
+validation_report_vi.md for parameters, exact Eq14 implementation and blockers;
+gate.json and source_catalog_coverage.csv provide machine-readable evidence.
+Read-only verification: .venv/Scripts/python.exe -X utf8 -B
+results/skr_vs_zenith_eq14_v43_20261023/run.py --verify-only.
+Do not rerun the sealed Phase A producer or historical producers.
+
+Required review: Eq10 support/normalization, VA-to-printed-Vmod mapping,
+and payload-bound precision receipts unlocated for207 identity-valid sources.
+Do not alter equations, renormalize/clip PDF, optimize/project Z, or replace
+missing evidence with new AP without a newly authorized scope.
+Phase B-F remains unimplemented beyond dependency guards; no automatic pilot,
+optimization, source generation, figure or lifecycle promotion.
+Keep all existing security/frozen/ObjectiveC constraints. Deliver and STOP.
+
+## Current: PDF identity resolved; deliver confirmed-reference audit and STOP
+
+EVID-0220/DEC-0203 resolves the prior request for v43(2) path. User explicitly
+confirms the available hash-bound (43).pdf; do not ask again or seek another
+file merely for its filename. Open docs/MANUSCRIPT43_CANONICAL_REFERENCE.md and
+results/manuscript43_canonical_model_comparison_20261023/reference_binding_user_confirmed/report_vi.md.
+Use that addendum's read-only verify.py; original audit seals are historical
+snapshots and must not be overwritten for updated ledger hashes.
+
+No dependent scientific rerun is needed: confirmed PDF hash equals audited
+input,all numerical values unchanged. Eq10 support/normalization and manuscript
+notation/receiver/security issues remain; correction_proposal_v1 is not adopted.
+No automatic production correction,optimization,new AP,training/test/heldout/
+publication,baseline/default/threshold approval. Preserve all existing
+security/lifecycle/frozen blockers,ObjectiveC USER_STOPPED.
+
+## Current: bind missing v43(2) PDF; do not optimize or promote provisional model
+
+EVID-0219/DEC-0202,user544a73ad. Fixed comparison artifacts and six answers are
+in results/manuscript43_canonical_model_comparison_20261023/report_vi.md.
+Audit numerical evidence passes; exact requested (43)(2).pdf is missing.
+Obtain its path or explicit author designation of the available hash-bound43,
+then compare equation/version differences and update reference binding.
+Do not infer identical contents from filename,rename available43 as target,
+approve corrections from a PROPOSAL,or silently use bounded positiveK as Eq10.
+Current production/frozen/caches/history preserved; no optimization/new AP,
+training/test/heldout/publication,baseline/default/threshold work authorized.
+Read-only verify.py checks saved artifacts; do not rerun completed producers.
+Keep security/lifecycle/frozen blockers and ObjectiveC USER_STOPPED.
+
+## Current: deliver Uniform staged diagnostic and law/coverage qualifications; STOP
+
+EVID-0218/DEC-0201 complete. Open results/
+uniform_positive_skr_manuscript43_20261023/report_vi.md for Q1-Q6 and parameter
+tables,candidate_comparison.csv and figures. verify.py reads saved evidence only.
+Do not rerun completed producers,overwrite old caches/receipts,repair raw PDF,
+mix channel laws,call finite exact-tested argmax global,or label secondary
+positive secure/flight-validated. Source gaps and OS blocker remain explicit.
+No automatic retry/optimization/publication/default/baseline/threshold work.
+Keep lifecycle/security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+
+## Current: deliver manuscript43 zenith plot and exclusions; STOP
+
+EVID-0217/DEC-0200 complete. Open results/skr_vs_zenith_manuscript43_20261023/
+skr_vs_zenith.png or vectorPDF,report_vi.md and183-row skr_vs_zenith.csv.
+Use verify.py only for read-only saved artifacts; do not rerun completed
+source-catalog sweep or overwrite receipts. Positive optimizedMB5-15deg,
+fixedMB only5deg,Uniform none. Angles0-4 remain blocked by PDF normalization.
+Do not manufacture missing curves,renormalize the PDF,interpolate source
+moments or call finite-catalog source selection global optimization.
+No automatic follow-up AP,optimization,training/test/heldout/publication,
+production baseline/default/threshold approval. Keep existing security,
+lifecycle/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+
+## Current: deliver fixed receiver30 parameter verification; STOP
+
+EVID-0216/DEC-0199 complete. Open results/manuscript43_homodyne_audit_20261023/
+receiver30_configuration_verification_20261023/report_vi.md and parameters.csv.
+Use that subdirectory's verify.py for saved-evidence checks only. Do not rerun
+the completed fixed-point producer or overwrite historical receipts.
+A Gaussian random-width K=.005392532654035664 reproduces; B with explicit
+xi_det=.005/no eta_det remains BLOCKED by raw PDF mass. No secure-positive
+claim under manuscript43 and no automatic optimization/model repair.
+124 rows/39 scoped checks;source/old artifacts unchanged. Keep security,
+lifecycle and frozen-identity blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+
+## Current: deliver manuscript43 audit with explicit blockers; STOP
+
+EVID-0215/DEC-0198 complete. Open results/
+manuscript43_homodyne_audit_20261023/report_vi.md and manuscript_corrections_vi.md.
+Use verify.py only for read-only hashes/recorded checks; do not rerun sealed
+numerical producers.18 tests,10 regressions and233 unchanged source payloads
+support the isolated component audit,not final security or a new default.
+
+Do not carry the old28.1cm positive claim into requested Gaussian MI.
+Keep passive-law30/40/55cm positives distinct from raw-PDF unavailable rates.
+Before any future default/model promotion, resolve detector reference-plane
+definition,raw-PDF support/normalization,nonzero-Rician approximation and
+operational/parameter-estimation/security scope under new scoped authorization.
+No silent renormalization,source/cache edits,optimization or lifecycle promotion.
+Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+historical frozen discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
+
+## Current: deliver fragile receiver/detector candidates; STOP
+
+EVID-0214/DEC-0197 complete. Open results/uav_skwap_aware_positive_skr_20261022/
+report_vi.md for parameters/Q1-Q8,selected_designs.csv,TablesA-D,hardware evidence
+and nine figure pairs. Use verify.py only for read-only saved-artifact hashes;
+do not rerun completed numerical producers or overwrite sealed outputs.
+28.1cm has small nominal positive K,30cm has higher K; neither survivesjoint10.
+Balanced B is explicitly unmet and its reference duplicatesC. No15-20cm or
+preferredjitter>=3positive found through30cm in the tested finite catalog.
+Mass/power/rate/energy/flight claims remain unsupported; unknowns are explicit.
+Further research requires a new scoped request. Preserve all historical data,
+source/cache/frozen/model/security conventions and lifecycle blockers,including
+ObjectiveC USER_STOPPED. No automatic AP,test/heldout/publication or production
+baseline/threshold approval. Deliver and STOP.
+
+## Current: deliver lightweight8cm negative result; STOP
+
+EVID-0213/DEC-0196 complete. Open results/lightweight_uav_positive_skr_20261022/
+report_vi.md,table_1_recommended_parameters.csv,table_2_engineering_comparison.csv,
+detector_scenario_best.csv and eight figure pairs. Use verify.py for read-only
+saved-artifact receipt checks; no evaluator run. No positive candidate found
+with noise>=.005 and Dr8cm in the staged exact-source study. Closest C K=-.02367849;
+A/B/C references are not working designs. Do not reuse excluded oldnoise.0005
+positives, claim hardware mass/power savings or silently extend physics/domain.
+Further work requires a new scoped request; keep model/source/caches/history,
+UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen discrepancy,ObjectiveC USER_STOPPED.
+No automatic AP,training/test/heldout/publication,baseline/threshold promotion.
+Deliver and STOP.
+
+## Current: deliver fixed8cm report; STOP
+
+EVID-0212/DEC-0195 complete. Read results/
+positive_skr_without_receiver_enlargement_20261022/report_vi.md,selection.json,
+necessity.json,tables1-4,eight figure pairs and final_receipt.json. Run its
+verify.py only for saved-artifact checks; do not rerun numerical producers.
+Original detector remains negative in tested domain; B/C positives require
+strongPAT/centering and noise.0005. C0 preserves originalgeometry with tiny
+positiveK,not operational margin. Neither selected positive survives joint
+20percent pointing degradation. Validate measured optics/PAT/detector/SNU,
+phase/coupling and protocol assumptions before physical/deployment claims.
+User supplied weatherpairs but not vertical extinction; no calibrated altitude
+claim or unsupportedLcrit. No automatic newsourceAP,baseline/threshold approval,
+training/test/heldout/publication or lifecycle promotion. Keep all prior
+blockers and ObjectiveC USER_STOPPED. Deliver;STOP.
+
+## Current: deliver minimal physical-change report; STOP
+
+EVID-0211/DEC-0194 complete. Read results/
+minimal_physical_positive_skr_20261022/report_vi.md and final_selection.json;
+inspect tablesA/B/C, seven figures, source/coverage/roots/robustness receipts.
+Use its verify.py for saved-artifact checks only; no evaluator runs. Preserve
+selection.json as the earlier shortlist and do not confuse it with final.
+8-30cm tested points remain negative; local rounded40.1cm point has tiny margin.
+55cm/35urad/3urad/.1m is the sampled pointing-tolerant scenario, not certified
+ordinary-UAV hardware or secure-key generation. Future requested work should
+first establish platform SWaP, measured optics/coupling/PAT and protocol inputs.
+Do not automatically expand the catalog/AP, optimize missing physical models,
+approve baseline/thresholds,train,test,accessheldout or promote publication
+readiness. All previous blockers and ObjectiveC USER_STOPPED remain. STOP.
+
+## Current: deliver untrusted feasibility report; STOP
+
+EVID-0210/DEC-0193 complete. Read results/
+untrusted_positive_skr_feasibility_20261022/report_vi.md and figure_captions.md;
+inspect final tablesA/B/C, selected_convergence, boundary_validation,
+actual_pooled_fading_MI, positive_MI_verification and final_receipt.
+Run its verify.py for read-only hash/table checks; it never calls evaluators.
+Do not rerun sealed numerical producers. Positive values belong to a new
+passive uncalibrated width surrogate; no operational-security/hardware claim.
+Original link remains negative in tested exact catalog. Future work, if
+requested, should validate measured aperture/pointing/turbulence and protocol
+assumptions before new AP/global optimization or hardware recommendations.
+No automatic source generation,baseline/threshold approval,training/test/
+held-out/publication or lifecycle promotion. Preserve all prior flags; STOP.
+
+## Current: deliver corrected noise trial; STOP
+
+EVID-0209/DEC-0192 complete. Read results/corrected_excess_noise_trial_20261022/
+report_vi.md and result.json. Manuscript homodyne trial is raw negative; numerical
+checks do not validate fading security. Reference corrected numbers are only
+algebra: retained PDF normalization/moment compatibility FAILED. Do not silently
+normalize or replace saved moments. Actual historical replays differ in receiver/
+detector/fading treatment; matched total-to-excess reformulation gives delta0.
+Producer refuses overwrite. Use receipts/stored artifacts for inspection, no
+rerun/new law/optimization/source generation or security claim. No training/test/
+held-out/publication/baseline/threshold promotion. Preserve all existing flags;
+wait for a new scoped task. No commit/push.
+
 ## Current: deliver zenith-angle root-cause figures/report; STOP
 
 EVID-0208/DEC-0191 complete. Open results/zenith_angle_root_cause_diagnostic_20261021/

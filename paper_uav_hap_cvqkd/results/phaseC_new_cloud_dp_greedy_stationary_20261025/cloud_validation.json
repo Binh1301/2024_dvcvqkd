@@ -1,0 +1,194 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "audit_missions": 512,
+  "slots": 30,
+  "seed": 20261025,
+  "covariance_checks": [
+    {
+      "kind": "conditional_residual",
+      "max_abs_error": 0.35551519200803483,
+      "max_mission_cluster_standardized_error": 3.690246654709401,
+      "acceptance": "<=6 cluster SE per entry",
+      "passed": true
+    },
+    {
+      "kind": "unconditional_mixture",
+      "max_abs_error": 0.3221364952424999,
+      "max_mission_cluster_standardized_error": 3.9486621267490554,
+      "acceptance": "<=6 cluster SE per entry",
+      "passed": true
+    }
+  ],
+  "checks": [
+    {
+      "metric": "blockage",
+      "theoretical_target": 0.5,
+      "mean": 0.4992825520833334,
+      "sd": 0.031852700082431205,
+      "se": 0.0014077037642117754,
+      "ci95_low": 0.4965169530242236,
+      "ci95_high": 0.5020481511424432,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "mission statistic"
+    },
+    {
+      "metric": "mean_mu",
+      "theoretical_target": 0.0,
+      "mean": 5.052508723318264e-06,
+      "sd": 0.010462449822397846,
+      "se": 0.00046237932607759414,
+      "ci95_low": -0.0009033458785382485,
+      "ci95_high": 0.0009134508959848851,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "mission statistic"
+    },
+    {
+      "metric": "mu_second",
+      "theoretical_target": 0.3333333333333333,
+      "mean": 0.3333847955065332,
+      "sd": 0.0054007138205005465,
+      "se": 0.00023868008535774018,
+      "ci95_low": 0.3329158805002121,
+      "ci95_high": 0.33385371051285434,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "mission statistic"
+    },
+    {
+      "metric": "G_temporal",
+      "theoretical_target": 0.0,
+      "mean": -0.004171229775038017,
+      "sd": 0.05509567048066786,
+      "se": 0.002434907638181233,
+      "ci95_low": -0.008954891255792713,
+      "ci95_high": 0.0006124317057166805,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    },
+    {
+      "metric": "epsilon_temporal",
+      "theoretical_target": 0.0,
+      "mean": -0.004423036562854164,
+      "sd": 0.057022963264192955,
+      "se": 0.002520082750466389,
+      "ci95_low": -0.009374034536118205,
+      "ci95_high": 0.0005279614104098758,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    },
+    {
+      "metric": "binary_temporal",
+      "theoretical_target": 0.0,
+      "mean": -0.0043696120689655175,
+      "sd": 0.041053151663681155,
+      "se": 0.0018143101206542962,
+      "ci95_low": -0.007934036978651299,
+      "ci95_high": -0.0008051871592797354,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    },
+    {
+      "metric": "G_horizontal",
+      "theoretical_target": 0.8678571428571428,
+      "mean": 0.8731681086447101,
+      "sd": 0.07260715996018978,
+      "se": 0.0032088134481591604,
+      "ci95_low": 0.8668640184812112,
+      "ci95_high": 0.8794721988082089,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    },
+    {
+      "metric": "G_vertical",
+      "theoretical_target": 0.3362256386678572,
+      "mean": 0.3403207004409201,
+      "sd": 0.0654096049249564,
+      "se": 0.002890723449823104,
+      "ci95_low": 0.3346415353664033,
+      "ci95_high": 0.34599986551543693,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    },
+    {
+      "metric": "binary_horizontal",
+      "theoretical_target": null,
+      "mean": 0.6691652199074074,
+      "sd": 0.021206922656044583,
+      "se": 0.0009372224261367345,
+      "ci95_low": 0.6673239365878649,
+      "ci95_high": 0.6710065032269499,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    },
+    {
+      "metric": "binary_vertical",
+      "theoretical_target": null,
+      "mean": 0.21936342592592592,
+      "sd": 0.03788530480880598,
+      "se": 0.0016743097461016266,
+      "ci95_low": 0.216074048163219,
+      "ci95_high": 0.22265280368863283,
+      "realizations": 512,
+      "uncertainty_scope": "independent_missions_not_cells_or_slots",
+      "passed": true,
+      "interpretation": "known-marginal normalized cross-moment"
+    }
+  ],
+  "pooled_Pearson_correlations": [
+    {
+      "variable": "G",
+      "direction": "horizontal",
+      "empirical_Pearson": 0.8686107995203985
+    },
+    {
+      "variable": "G",
+      "direction": "vertical",
+      "empirical_Pearson": 0.3385812299375509
+    },
+    {
+      "variable": "G",
+      "direction": "temporal",
+      "empirical_Pearson": -0.004145729707702143
+    },
+    {
+      "variable": "binary",
+      "direction": "horizontal",
+      "empirical_Pearson": 0.6691646705000188
+    },
+    {
+      "variable": "binary",
+      "direction": "vertical",
+      "empirical_Pearson": 0.2193631712172712
+    },
+    {
+      "variable": "binary",
+      "direction": "temporal",
+      "empirical_Pearson": -0.0043706249172815
+    }
+  ],
+  "mean_uniform_KS_D": 0.0004234397523457112,
+  "mean_uniform_DKW_bound_alpha_1e_minus6": 0.0021732165924252737,
+  "conditional_diagonal": 9,
+  "unconditional_diagonal": 9.333333333333334,
+  "mean_resampled_every_position_and_slot": true,
+  "previous_state_parameter": false,
+  "binary_correlations_not_equal_to_Gaussian_correlations": true
+}

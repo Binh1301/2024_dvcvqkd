@@ -1,0 +1,40 @@
+test_correlation_and_holevo_are_the_canonical_function_objects (__main__.ReuseChecks.test_correlation_and_holevo_are_the_canonical_function_objects) ... ok
+test_diagnostic_matches_canonical_on_two_verified_sources (__main__.ReuseChecks.test_diagnostic_matches_canonical_on_two_verified_sources) ... ERROR
+test_explicit_diagnostic_permission_does_not_change_source_class (__main__.ReuseChecks.test_explicit_diagnostic_permission_does_not_change_source_class) ... ERROR
+test_inventory_retains81_and_missing_uniform (__main__.ReuseChecks.test_inventory_retains81_and_missing_uniform) ... ok
+test_negative_values_and_evidence_separation (__main__.ReuseChecks.test_negative_values_and_evidence_separation) ... ERROR
+
+======================================================================
+ERROR: test_diagnostic_matches_canonical_on_two_verified_sources (__main__.ReuseChecks.test_diagnostic_matches_canonical_on_two_verified_sources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024\test_reuse.py", line 29, in test_diagnostic_matches_canonical_on_two_verified_sources
+    _,sources=run.load_sources();protocol=read(PRIOR/'protocol.json')
+              ^^^^^^^^^^^^^^^^^^
+TypeError: load_sources() missing 1 required positional argument: 'protocol'
+
+======================================================================
+ERROR: test_explicit_diagnostic_permission_does_not_change_source_class (__main__.ReuseChecks.test_explicit_diagnostic_permission_does_not_change_source_class)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024\test_reuse.py", line 41, in test_explicit_diagnostic_permission_does_not_change_source_class
+    _,sources=run.load_sources();protocol=read(PRIOR/'protocol.json')
+              ^^^^^^^^^^^^^^^^^^
+TypeError: load_sources() missing 1 required positional argument: 'protocol'
+
+======================================================================
+ERROR: test_negative_values_and_evidence_separation (__main__.ReuseChecks.test_negative_values_and_evidence_separation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024\test_reuse.py", line 56, in test_negative_values_and_evidence_separation
+    normal=run.select(data,protocol);strict=run.select(data,protocol,strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_vs_zenith_eq14_v43_phaseB_readiness_20261024\run.py", line 85, in select
+    valid = [r for r in candidates if r["status"] == "CURRENTLY_VERIFIED_PASS"]
+                                      ~^^^^^^^^^^
+KeyError: 'status'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+FAILED (errors=3)

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-22",
+  "request": "599ac194-fdec-45ec-a570-61588bd2a669",
+  "weather_input": "User supplied visibility/tau pairs23/.92,15/.89,5/.75; no vertical extinction profile",
+  "phases": [
+    {
+      "producer": "search.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "logged_rows": 1911,
+      "historical_regression": "Exact saved trial reproduced before search"
+    },
+    {
+      "producer": "probe_detector.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "artifact": "detector_probe.json"
+    },
+    {
+      "producer": "finish_search.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "logged_rows": 9234
+    },
+    {
+      "producer": "extend_geometry.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "logged_rows": 9848,
+      "note": "Updated A to final same-channel catalog winner; earlier selection saved"
+    },
+    {
+      "producer": "necessity.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "logged_rows": 9849,
+      "note": "New original-geometry positive point refined; one new exact evaluation, other reversions reuse saved nodes"
+    },
+    {
+      "producer": "checks.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "checks": 34,
+      "logged_rows": 9849
+    },
+    {
+      "producer": "report.py",
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "vector_PDF_and_PNG_pairs": 8
+    }
+  ],
+  "metadata_note": "hardware_validated=false was added to the reused-node loader after phase1 launch; numeric.py and the numerical model did not change. Missing metadata is never interpreted as hardware validation.",
+  "unchanged": "Historical source/model/security/config/cache/frozen artifacts; five authorized ledgers excepted",
+  "not_run": [
+    "receiver-aperture sweep",
+    "source moment generation/AP",
+    "production baseline or threshold approval",
+    "training",
+    "final test",
+    "heldout publication evaluation",
+    "experimental hardware/security validation",
+    "full project test suite"
+  ]
+}

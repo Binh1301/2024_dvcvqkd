@@ -1,0 +1,2350 @@
+diff --git a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+index 4502e127..bc24bf00 100644
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,43 +1,56 @@
+ # Session Handoff
+ 
+-2026-10-21 EVID-0208/DEC-0191 COMPLETE: investigate the historical zenith-angle
+-rate peak, user attachment3e709e3c. Deliver results/
+-zenith_angle_root_cause_diagnostic_20261021/report_vi.md,validation_report.md,
+-all CSV decompositions,English captions and12 vector-PDF/PNG350dpi figures.
+-Start with fig_F_MI_Holevo_SKR,then D/E/G;I/J show controls/factorization.
++2026-10-25 EVID-0228/DEC-0211. New-cloud mobility comparison COMPLETE;deliver STOP.
++Namespace:results/phaseC_new_cloud_dp_greedy_stationary_20261025/.
++Read validation_report_vi.md,experiment_config.jsonv2,scientific_validation.json,
++execution_summary.json,execution_overview.json,cloud_validation.json andfinalseal.
++Data:simulation_results.csv,summary_comparison.csv,paired_mission_results.csv,
++relative_improvements.csv,table_B_probability_sweep.csv,
++primary_secondary_model_comparison.csv,algorithm_trajectories.csv,
++cloud_realizations.npz,clear_sky_map_centered.csv,clear_sky_map_historical.csv.
++EightPNG600dpi/vectorPDFs andcaptions listed infigure_index.md.
+ 
+-Receipt f497f1382a9704b4ddac1466756320b5ba29ff000452b7650b2c51d3b292a669
+-binds64 artifacts.8408 producer checks and6689 independent saved-artifact
+-checks PASS;5539 startup files preserved except five authorized ledgers.
+-Old218-source/233urad/8cm sweep authenticated;6758 candidates and93 selected
+-rows checked without a new source search. All raw signs retained.
++User option3:primaryHAP(500,500)m;secondaryHAP(11419.65511459133,450)m. Existing
++100cell centers50..950m,altitudes20/1km,30slots*20s,vmax15m/s,<=300m Euclidean
++steps incldiagonal/stay,freeinitial,no terminal,Dref1000m,reference lambda
++9.468026677248516e-6 and10historical values. NewGamma9*.9^indexlag,mu iid
++Uniform(-1,1) everyposition/slot,no AR. ZeroG>0 andcalibratedp.1..8 separate
++conventions;conditional covarianceGamma,marginalGamma+I/3. Rowmajor anisotropic,
++not a physical movingcloud or atmospheric forecast. Locallettertruncation has
++no numericcutoff;ref13fulltext unavailable. Canonicalv43PDF3pages lackscloud
++subsection. Isolated replacement/addfilepatch,integration.md only,no manuscript edit.
+ 
+-Fixed/optimized MB discrete peaks48deg,Uniform52deg. Tf decreases throughout;
+-relative pointing improves while scintillation worsens. Rf/input-noise minima
+-56deg,not48deg. FixedMB24->48deg betaMI loss6.68450e-4 is smaller than Holevo
+-reduction9.02207e-4;after48deg MI loss wins.48->50deg coordinate decomposition
+-Tf -1.76862e-5 plus Rf +1.31292e-5 equals K -4.55696e-6 bit/use. Frozen-shape
+-30deg and nonfading matched-mean controls both decrease over all30 intervals.
+-No source switches near either positive-rate peak.
++212oldC,w reused,0newsource jobs.74contexts/15688newSKR pairs (2968primary,
++12720secondary). Unchangedv43Eq14/MI/Holevo/VA2nbar/nurepo42.5nuraw/noise/moments.
++Primary100positiveKstar.0007862304058480207..0007959663284000662 atzenith
++.2132318272752531..1.9183781209699686deg. Secondaryallrawnegative near30deg,Kstar0.
++AllwinnersevidenceINSUFFICIENT_EVIDENCE;no source/security/lifecycle upgrade.
+ 
+-Canonical78 fixed-source rate calls (62 controls,4 probes,12 coordinate corners).
+-Initial diagnostic sqrt-square inequality failed at2deg from4.06e-115 rounding,
+-covariance physical;failure and four-ulp guard resolution retained,scientific
+-tolerances unchanged. Initial attempt adds3 duplicate rate calls and1 security-
+-only call;execution_history.json records81 total completed rate calls.
+-Four stored fixed-source K values replay exactly;independent entropy80/110digits
+-and five-angle PDF integration pass. No source generation/AP/AO/caches changed.
++100missionIDs0..99/case,seed20261015;512cloud-audit missionsseed20261025.
++3800caseviews(2geoms*19cases*100),3600triplets/10800algorithmcalls;200zero/cal.p.5
++aliasviews reused. Same G thresholds acrossp,old/new sign-aligned whiteCRN,
++sameC acrossgeometry,sameC/S acrosspolicies. Originalsecondary run/config/
++producer/archive preserved undersecondary_historical_completed/,5700 numeric
++records unchanged. Originalarchivearrays unchanged when centered was added.
++Primaryp.4:U Stat.0006294008348850402/Greedy.0007814064579119457/
++DP.0007881014696328393;DPdistance687.564754vsGreedy1352.811763m(-49.1751%).
++Primaryp.8:DP U+13.5131%vsGreedy;unavailability5.0667%vs16.3333%;distance+12.0013%.
++Zero-modeU Stat.0005580560648916586/Greedy.0007703471876932658/DP.0007839802873877614.
++Secondaryallrate/U/distance0,availability0. Offline DP/Stationary vscurrentGreedy;
++not an onlineweatherpredictor. Old/new combinedspatial/temporal lawchange is not
++an isolatedAR ablation. Paired95%CI,SD,zero-denominatorabsolute differences stored.
++Zero observed outages is not populationrisk0;0/100mission upperone-sided95=2.9513%.
+ 
+-This establishes the numerical mechanism of the mixed2DMI/homodyne-Holevo
+-functional only. Consistent measurement/security,true-fading MI,full-Z worst
+-case and operational/finite-key claims remain unestablished. Keep
+-UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen hash
+-discrepancy and ObjectiveC USER_STOPPED. No production/config/source/cache/
+-frozen/TeX/security/lifecycle changes,training/test/held-out,publication,
+-baseline/threshold promotion,commit/push.
+-
+-Read-only recheck: .venv/Scripts/python.exe -X utf8 -B results/
+-zenith_angle_root_cause_diagnostic_20261021/verify_results.py. Do not rerun
+-sealed numerical/render/report producers. Startup branch feat/image,
+-HEAD401b1d5c3f1c507152e5d87787af757b61d5c15a;prior restyling handoff's
+-fix/channel commit is historical. No required work remains;deliver and STOP.
++4unitmethods PASS(initial+postgeometry),512missioncloud auditPASS,7600DP
++inequalities/342000trajectoryrows/movement checks PASS,0failures. Primarymission0
++G/mu/epsilon/C andalgorithmmetrics replaybit-exact;3verificationcalls separate.
++9645historicalfiles and238sourcepayloads intact. EightPDFsopened/rendered/native
++vectors+text+heatmaps/fonts embedded/no rasterXObjects/clipping;visualPASS.
++Actualphase durations inexecution_overview.json(~208.46s measured kernels,
++excludes authoring/waiting/QA/initialdraft rendering). Source/evaluator/oldcloud
++production files hash-bound anduntouched;oldhelper onlyOLDcontrol,NEWprimary
++module is new_cloud_model.py. strictPhaseB BLOCKED,UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED unchanged. No C,w
++receiptfabrication,training/test/heldout/publication,default/baseline/threshold
++approval,commit/push. verify_results.py is read-only(saved-record checks).
++Deliver and STOP;future work needs explicit request.
+diff --git a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+index ece4ea1f..1f32ecf2 100644
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -1,5 +1,424 @@
+ # Decision Log
+ 
++## DEC-0211 - Scope new-cloud mobility diagnostic with centered primary
++
++2026-10-25 EVID-0228,user c6df5d65 plus explicit option3. Adopt index covariance
++9*.9^indexlag and independent percell/perslot Uniform means/innovations only for
++this DIAGNOSTIC_ONLY experiment. Zero threshold convention andcalibratedp
++extension separated,not falsely cited. PrimaryHAP(500,500)m;oldHAPsecondary.
++Rebuild noninteger channel/SKR values with existing212C,w and unchangedv43
++Eq14/MI/Holevo/normalization/noise. SameC/S and normalizedobjective perpolicy.
++DP/Stationaryoffline;Greedycurrentonly. Preserve historical production/frozen
++hashes/sourceclasses;oldcloudhelper onlyOLDcontrolledcomparison. No publication,
++security/sourceconvergence,defaultadoption or baseline/threshold promotion.
++Isolated manuscript proposal only. Deliver and STOP.
++
++## DEC-0210 - Publication-quality formatting does not promote diagnostic evidence
++
++2026-10-25 EVID-0227,user attachment c2d16c60. Authorize only new Matplotlib
++figures/captions from sealed61-angle saved CSVs. Reuse existing pure raw-rate
++ranking and match exact saved winners;no model/source/MI/Holevo/SKR calls.
++Preserve negative rates and source classes. Use requested IEEE typography,
++600dpi/vectorPDF,MB-only zoom and two-panel layout. Put DIAGNOSTIC_ONLY in
++captions/metadata instead of a large watermark; no security/publication/source
++convergence approval follows from visual quality. Historical results/frozen
++specifications/production remain unchanged. Original strict Phase B blockers,
++missing Uniform and all security/lifecycle gates remain. Deliver and STOP.
++
++## DEC-0209 - Allow original-grid 61-angle historical-source diagnostic only
++
++2026-10-24 EVID-0226. Explicit current user request supersedes the prior
++no61 stop only for this separate DIAGNOSTIC_ONLY experiment. Recover the
++original 0..60 by1deg grid; hold the212 compatible historical-source catalog
++fixed at every angle; reuse1908 matching saved rate pairs, calculate only11024
++missing rate pairs. No C,w job, approximation/interpolation or source substitution.
++Keep manuscript v43/directEq14,homodyne MI,Holevo,VA2*nbar,nu conversion,
++[0,1] truncation with recorded deficit and all shared channel/noise conventions.
++Separate rawK and operational max(0,K); rank rawK and retain failures/negatives.
++Do not alter strict evaluator, frozen specs, production, historical artifacts or
++evidence taxonomy. New versioned protocol binds the expanded diagnostic scope.
++Finite-catalog winners/sign brackets do not prove global optima or continuous
++operational angles. Missing exact-VA Uniform remains disclosed. All positive
++candidate rates still depend on insufficient source-convergence evidence;
++strict Phase B and security/publication gates stay BLOCKED. No lifecycle,
++default/baseline/threshold approval or automatic follow-up source computation.
++Deliver all requested tables/plots/reports and STOP.
++
++## DEC-0208 - Authorize historical-payload diagnostics without relaxing strict gates
++
++2026-10-24 EVID-0225,user3aadec7f. Explicitly accept compatible saved exact C,w
++with incomplete convergence evidence ONLY for separately labeled diagnostics.
++Retain INSUFFICIENT_EVIDENCE on73 existing pilot sources and strict readiness
++false;passing MI/Holevo/SKR does not prove source convergence. Do not recompute
++C,w,interpolate moments,substitute sources,modify physics/equations or generate
++progress/checkpoint infrastructure. Existing strict evaluator remains untouched.
++
++Accept reuse of80/81 pilot sources at9 angles and separate212-source historical
++catalog diagnostic inside originalVA/nu domain to maximize reuse. Keep720 pilot
++records separate;additional132 sources do not replace missing Uniform. Exclude
++23 outside-domain sources explicitly. Record restricted/best-tested catalog
++scope,not original complete81 pool,continuous optimum or strict Phase B complete.
++All positive diagnostic rows rely on insufficient-evidence sources;source classes
++and lifecycle/security remain unchanged. Preserve negative raw K and diagnostic
++versus strict-source-evidence views. Frozen hash provenance/binding unchanged.
++Task ends at eight requested outputs and verification;no61sweep,source job,
++production/default/baseline/threshold promotion or automatic continuation.
++
++## DEC-0207 - Preserve strict evidence policy; diagnose timeout without recomputation
++
++2026-10-24 EVID-0224,user e53c2464. Permit read-only historical/Git/archive/tool
++record recovery and bounded deterministic diagnostics only. No expensive source
++job,pilot or61-angle sweep. Keep final Eq14,homodyne MI,Holevo,RR,beta.95,
++VA=2*nbar,nu_repo=42.5*nu_raw,[0,1] truncation and exact source identities.
++New findings do not justify source-status upgrades:retain6exact/1alternative/
++74insufficient/0invalid. FixedMB remains identity-valid but convergence-evidence
++insufficient; missing receipts do not establish wrong C,w. Do not broaden the
++alternative-evidence category or use producer guards as precision histories.
++UserCPU growth in one worker confirms activity only; internal numerical stage
++remains unknown. Do not label eighe or memory as proven dominant bottleneck.
++Recovery plan is a proposal for observability/checkpoint preparation,then a
++separately approved single-source budget. No new attempt,budget,wrapper adoption,
++evidence waiver,pool substitution or lifecycle/production promotion is authorized.
++Frozen history and experiment binding stay intact. PHASE_B_STRICT_READY=false;
++report the two source-dependency families and STOP after diagnosis/reports.
++
++## DEC-0206 - Complete readiness preparation; block pilot on remaining source gaps
++
++2026-10-24 EVID-0223. Explicit current user request supersedes the earlier stop
++only for recovery/classification of81 pilot sources, one exact Uniform source
++at VA1.6249995399703647/nu0, frozen history/versioned experimental specification,
++and pilot runner preparation. Preserve the FINAL approved Eq10[0,1] truncation,
++VA=Vmod=2*nbar, discrete homodyne MI, direct Eq14 and manuscript Holevo formulas.
++Alternative evidence must identify exact inputs, numerical checks, tolerances
++and limitations. Missing receipt never automatically means INVALID C,w.
++No full source recomputation campaign, manuscript/production/cache edits,
++pilot launch/full61 sweep or lifecycle/security/baseline promotion.
++Stop after a traceable Phase B readiness PASS/BLOCKED report.
++
++Final EVID-0223/readiness.json decision BLOCKED. Accept recovered exact-input
++full-ladder evidence for Uniform VA2 under the existing source tolerance, with
++saved method/limitations. Do not upgrade73 existing sources solely from cache
++route/settings or producer guards; missing per-precision data remains insufficient,
++not INVALID. The one authorized exact-VA Uniform job timed out at3600s without
++payload; no automatic retry, increased budget or replacement ensemble.
++
++User Task3 authorizes a distinct versioned experimental specification for the
++approved homodyne/direct-Eq14/30cm baseline. Bind experiment_spec_v1.json and both
++recovered historical/current frozen hashes. Keep original frozen specification,
++AGENTS historical expected hash and global lifecycle checks unchanged. Git history
++resolves this experiment's provenance dependency; it does not promote production.
++
++Runner readiness10/10 PASS is separate from source-job receipt NOT_RUN and the
++overall BLOCKED gate. Preserve all81 exact candidate identities; no silent subset,
++C,w interpolation, new source campaign or pilot/full61 launch. Next minimum work
++requires the73 existing convergence records and exact Uniform payload/receipt,
++then fresh readiness validation. End this task with the report; no further job.
++
++## DEC-0205 - Apply explicit truncation and VA conventions to isolated Phase A
++
++2026-10-24 EVID-0222. User approval supersedes DEC-0204's exact-normalization
++and unresolved-VA stops solely for the selected numerical baseline. Keep Eq10
++and Eqs18-20 unchanged on[0,1], ignore outside probability in evaluator, retain
++deficit metadata, never renormalize/clip/replace law or claim normalized density.
++Use VA=Vmod=2*sum(p*abs(alpha)^2),X_A=2Re(alpha); printed nbar/2 is metadata only.
++Preserve exact ensemble C,w and manuscript bytes. Keep Eq14 direct and Eq13/MI/
++effective-channel equations unchanged; no Z optimization/endpoint/cap repair.
++
++Accept focused numerical convention checks in results/skr_vs_zenith_eq14_v43_20261024/.
++Do not reinterpret missing receipts as incorrect C,w or fabricate convergence
++receipts from cached final values. Expanded search recovers16 receipts;74 pilot
++sources still need evidence under the existing strict gate. No evidence waiver
++was requested or applied. Restore evidence first; any alternative diagnostic
++evidence policy or recomputation budget requires a separate explicit decision.
++
++The exact-VA Uniform source is still missing; do not substitute rounded VA1.625
++or MB moments. No source job, nine-angle pilot, optimization or full61 sweep
++is launched by this update. B-F orchestration remains a later implementation.
++Frozen hash discrepancy remains an independent provenance dependency, not an
++Eq10/variance blocker. No production adoption, manuscript/frozen correction,
++security/lifecycle/baseline/threshold promotion or ObjectiveC restart.
++
++## DEC-0204 - Bind direct Eq14 Phase A only; stop at mathematical dependencies
++
++2026-10-23 EVID-0221. The user-approved implementation plan requires the exact
++manuscript Eq14 Z and Eq13 homodyne calculation. Implement those components in
++results/skr_vs_zenith_eq14_v43_20261023/, preserving all historical evaluators,
++full-Z artifacts and source caches. Z is not an optimization variable; no interval,
++endpoint selection, projection, alternative formula or Holevo modification.
++No peak30 constraint is added to the explicitly selected rectangular VA/nu domain.
++
++Phase A produces fresh angle0 probability-law evidence and exact-source identity
++checks, then stops: positive eta>1 mass cannot be accepted as a valid retained
++law merely because some angles pass a tolerance. VA-to-printed-Vmod mapping
++also remains unresolved. Missing payload-bound convergence receipts are a
++separate evidence dependency, not permission to regenerate sources.
++
++Authorize no automatic Phase B-F continuation from component-test PASS.
++The183 blocked rows are a dependency report, not a completed SKR sweep.
++Next scientific decision is author review of Eq10 support/normalization and
++VA mapping, followed by source-receipt provenance resolution. Any mathematical
++change requires explicit approval and a new bound protocol; no correction is
++adopted here. Lifecycle/security/frozen discrepancy and ObjectiveC stop remain.
++
++## DEC-0203 - Bind user-confirmed PDF without approving mathematical corrections
++
++2026-10-23 EVID-0220. User explicitly identifies available (43).pdf as the
++requested v43(2). Bind intended manuscript source to SHA256 f970cd6d...fc27b
++via docs/MANUSCRIPT43_CANONICAL_REFERENCE.md. The identity dependency in
++DEC-0202 is resolved; audit equation references now concern the confirmed
++source. Preserve old receipt/seal snapshots and publish metadata-only bound
++views in append-only reference_binding_user_confirmed/.
++
++Source authority does not repair its mathematical contradictions. Keep Eq10
++normalization failure,real1D likelihood/Vmod/MB/rho corrections as findings,
++proposal not adopted, and production evaluator adoption/security BLOCKED.
++No scientific code/cache/numerical changes or optimization authorization.
++Historical frozen experiments remain scoped to their snapshots; preserve
++frozen hash discrepancy and all lifecycle/security/ObjectiveC blockers.
++
++## DEC-0202 - Preserve manuscript authority intent; do not invent v43(2) identity
++
++2026-10-23 EVID-0219,user544a73ad. Accept fixed diagnostic comparison package
++against hash-bound available43 and explicit task equations as reviewable audit
++evidence. User designates v43(2) as intended canonical source, but that PDF
++has not been located/authenticated: canonical binding/evaluator adoption
++remain BLOCKED. Do not silently rename/promote available43,alter frozen
++authority,repair original Eq10 or substitute bounded law.
++
++B=C is one random-width law; positive .10788256029424448 belongs to it only.
++Original Eq10 critical mass .9013297245653482 blocks information/rates.
++Keep manuscript inconsistencies,production protocol differences and numerical
++precision limits explicit. Corrections are versioned PROPOSAL_NOT_ADOPTED;
++same actual p,alpha preserves authenticated C,w,model/noise changes do not
++authorize cache relabeling or interpolation. No production edits/optimization
++were performed or automatically authorized by this audit.
++Next: bind exact PDF or explicit author designation,then review equation delta;
++keep security/lifecycle/frozen blockers,ObjectiveC USER_STOPPED. No training/
++test/heldout/publication,baseline/default/threshold approval,commit/push.
++
++## DEC-0201 - Retain primary Uniform nonpositive result and separate bounded-law evidence
++
++2026-10-23 EVID-0218 accepts user9f6181d7 finite staged diagnostic artifacts.
++Primary raw Eq10 retains strict mass1e-10 gate; no positive Uniform claim
++from blocked PDFs or a secondary law. Secondary receiver30 Uniform
++K=0.10788256029424448 is numerical/model-provisional only,with explicit
++10urad divergence/.5urad jitter/.03m position engineering assumptions.
++Compare shaping only within the same law,geometry and noise convention.
++Requested exact-source gaps [] remain coverage limits; finite-catalog
++selection is not continuous/global optimization or security certification.
++OS ApplicationControl is respected; no automatic source retry or broader search.
++Keep scientific production/frozen/cache history untouched and all lifecycle/
++security/frozen blockers,ObjectiveC USER_STOPPED. No publication/default/
++baseline/threshold approval. Deliver and STOP; new scope requires new request.
++
++## DEC-0200 - Accept exact-catalog zenith diagnostic; preserve omitted-curve meaning
++
++2026-10-23 EVID-0217 completes userf84ac5ba. The three requested legend labels
++refer to finite authenticated exact-source catalog comparisons,not continuous
++or globally certified optima. Fixed MB stays at the documented receiver30 pair.
++Only the task-specific manuscript43/no-eta-detector homodyne Gaussian model is
++used in the primary figure; no legacy random-width/pooled/heterodyne substitute.
++
++Accept61-angle/183-row coverage and13048 candidate evaluations as scoped
++diagnostic evidence. Angles0-4 fail the unchanged PDF-mass gate and remain
++blocked before source search/rate evaluation. Do not repair the model or
++relax tolerance to extend curves. Preserve all negative raw rates inCSV,
++omit nonpositive values from log-axis and break lines at excluded nodes.
++Uniform has no positive curve; fixed MB has one marker5deg; optimized MB
++has positive5-15deg. Do not fabricate three visible positive curves.
++
++Optimized-MB peak7.281372514840734e-4 at5deg is the best evaluable sampled
++point,not evidence5deg is physically better than blocked0-4. Styling and
++vector export do not authorize publication evaluation or security promotion.
++No new exact-source generation/interpolation,production baseline/threshold/
++default approval or lifecycle change. Preserve historical source/cache/result
++bytes,security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## DEC-0199 - Keep receiver30 A positive separate from explicitly defined B blocker
++
++2026-10-23 EVID-0216 completes user843d84ac fixed-point inspection. Accept39
++scoped checks and124 provenance-bound parameter rows as numerical-component
++evidence. No source/VA/nu/aperture search or model/default promotion.
++
++A reproduces historical Gaussian random-width K=.005392532654035664 with
++eta_det.95 and output epsilon_det.005. This remains model-specific numerical
++positivity,not operational/security certification. Preserve the different
++historical actual-fading MI/rate instead of replacing or mixing values.
++
++For this task only,the user explicitly defines independent xi_det=.005 for B
++without an eta_det parameter. This resolves that coefficient for the diagnostic,
++not the general manuscript/hardware interpretation. Do not reinsert efficiency,
++divide .005 by .95 or combine B with A's detector convention.
++
++The raw Eq10 mass deficit1.056995513649377e-10 fails unchanged1e-10.
++Keep B rates unavailable/BLOCKED before MI/Holevo,with all unnormalized
++coefficient diagnostics and outage contribution visible. No repair or
++relaxation because the deficit is close to tolerance.
++
++Source,production/frozen/history bytes preserved. Old ledger-hash receipts
++remain historical snapshots; new ledger updates do not invalidate old numeric
++artifact bytes. No lifecycle/security/default/baseline/threshold promotion.
++Keep existing blockers,ObjectiveC USER_STOPPED; deliver and STOP.
++
++## DEC-0198 - Accept isolated physical homodyne component; no secure default
++
++2026-10-23 EVID-0215 completes user7944a7e7 manuscript43 audit. Keep three
++controlled namespaces: A preserved legacy; B literal manuscript diagnostic
++with invalid complex-mean density made explicit; C physical-output untrusted
++homodyne Gaussian component. Do not combine variants or promote C into the
++frozen production protocol. No secure default is designated.
++
++Keep VA=2*nbar, centered MB PMF and authenticated exact C,w unchanged.
++Propose manuscript-only corrections separately. Preserve xi_det definitions
++A=epsilon_det/eta_det, B=chi_hom and independently undefined parameter.
++Physical untrusted detector loss must appear in quantum Ttotal; classical
++measurement scaling must not rescale standard-form quantum covariance.
++Do not describe matching MI under conventionB as matching Holevo.
++
++Accept18 unit tests,10 matched regressions and focused checks as scoped
++numerical evidence only. The historical28.1cm positive is not positive under
++requested Gaussian MI; retain both values with channel/likelihood context.
++Positive30/40/55cm passive-law values cannot bypass raw-PDF mass failures.
++Preserve1e-10 mass tolerance,no renormalization/clipping/tail reassignment,
++explicit zero atom and raw unavailable rates. Nonzero-Rician exact-product
++discrepancy also requires a manuscript derivation/domain decision.
++
++All old results/caches remain unchanged and only selected cases reevaluated.
++No new search to force positive rate, source interpolation/AP or production
++baseline/threshold approval. Keep security/lifecycle/frozen-identity blockers
++and ObjectiveC USER_STOPPED. Further model/default changes require new scoped
++authorization and physical/security resolution. Deliver artifacts and STOP.
++
++## DEC-0197 - Accept fragile parameter-only positives; balanced UAV objective unmet
++
++2026-10-23 EVID-0214 completes user17217c3e without changing scientific formulas,
++source moments or security assumptions. Receiver28.1cm is the smallest refined
++positive candidate found, not a global minimum or practical UAV certification.
++Its nominal K is below1e-4 and loses positivity at10percent residual degradation.
++Receiver30cm has higher nominal K but also fails centering/joint10percent.
++No tested positive through30cm meets the preferred jitter>=3urad objective.
++
++Do not manufacture a balanced design: B is a conditional reference, sharesC's
++physical/source point and retains balanced_objective_met=false. Three roles
++represent two physical configurations. Do not describe nominal positives as
++robust or infer mass/power savings from area or detector efficiency. Keep the
++common-source detector roots separate from selected-source minimum refinement.
++All bounds are fixed-source/local/finite-catalog, not certified thresholds.
++
++Accept46 scoped checks and nine reviewed figures only. Total hardware mass,
++operating power,compatible repetition rate,energy efficiency and sortie yield
++remain UNKNOWN. No lower noise, altered distributions/trust/measurement,
++source interpolation/new AP,production baseline/threshold approval or lifecycle
++promotion. Preserve history/caches/frozen identity,security limitations and
++ObjectiveC USER_STOPPED. Deliver the scoped artifacts and STOP.
++
++## DEC-0196 - Accept parameter-only negative evidence; no lightweight positive design
++
++2026-10-22 EVID-0213 completes user b4a0546e with unchanged existing diagnostic
++model. Restrict this task toDr8cm, epsilon_det .0135/.005 and eta .8/.85/.9/.95;
++retain untrusted homodyne/full-Z, old passive optical law and exact source caches.
++The old noise.0005/jitter1urad/centering.05m positives are not admissible results
++for this task. Do not relax the detector-noise floor or change formulas to get K>0.
++
++All tested candidates remain negative. A/B/C are closest-tested references,
++not three working positive designs or purchase/deployment recommendations.
++C50urad/1.561urad/.1m/0deg/eta.95/noise.005 with MB(.25,VA1.62499954)
++gives K=-.0236784908824; no robust positive candidate exists in sampled evidence.
++Prioritize actual positive raw rate before claimed payload/energy benefits;
++without supported mass/power data, engineering burden is qualitative only.
++No global no-key theorem follows from a finite catalog and staged physical grid.
++
++Accept33 scoped numerical checks only, not hardware or security validation.
++Preserve current evaluator/source/frozen identity and all lifecycle blockers.
++No automatic source expansion/AP, model correction, altitude extrapolation,
++production baseline/threshold selection,training/test/heldout/publication,
++commit or push. Deliver the isolated report/CSVs/eight figures and STOP.
++
++## DEC-0195 - Accept fixed8cm positives as fragile conditional diagnostics
++
++2026-10-22 EVID-0212 completes user599ac194. Receiver remains.08m and detector
++UNTRUSTED. Original hardware cases remain negative in tested region; numerical
++positivity requires substantially betterPAT/centering and lowerdetectornoise,
++with geometry shortening or additional efficiency improvement. Keep all
++negative/ideal/height-uncalibrated evidence; never switch detector trust.
++
++Deliver B15deg/25urad/1urad/.05m/eta.8/noise.0005 and Csame/eta.95,MB(.25,
++VA1.6249995399703647),K=.0001780292353/.0009622585344. Keep original-geometry
++C0 K=.00001230214724 as near-zero comparison only. B is onset/minimum-change
++sensitivity,C extra-margin sensitivity; neither is operational hardware advice
++or jointly20percent robust. No publication or production baseline selection.
++
++Use user weather pairs23/.92,15/.89,5/.75 without double-countingKruse. Missing
++vertical extinction blocks calibrated altitude feasibility claims; exclude
++height-changed points from primary recommendations and distance thresholds.
++Keep existing homodyne/full-Z/passive model,exactCw catalogs and security limits;
++no source interpolation/AP,training/test/heldout/publication or readiness
++promotion. Frozen discrepancy and ObjectiveC USER_STOPPED remain. Deliver;STOP.
++
++## DEC-0194 - Accept local minimum/robustness shortlist only as diagnostics
++
++2026-10-22 EVID-0211 completes userf1566258 staged minimal-change request.
++Use final_selection.json, not the preserved automated selection.json. No
++positive8-30cm node was found; retain that negative evidence and incomplete
++coverage. Local40cm branch gives a rounded40.1cm positive candidate with
++strong PAT, not a universal minimum or robust hardware design.
++
++Use55cm/35urad/3urad/.1m MB(.22,2.15) as the bounded-model engineering
++sensitivity scenario with joint20percent sampled pointing margin. It trades
++nominal optimum for robustness. Keep40.1cm onset and55cm/15urad higher-rate
++scenarios as comparisons; do not default to old75cm/10urad regression.
++All are large optical payloads needing platform SWaP and measured optics/PAT;
++no ordinary-UAV feasibility or validated secure-key claim is authorized.
++
++Preserve previous optical/security decisions and exact caches. Actual pooled
++MI is primary; Fourier acceleration checked against identical direct mixture.
++Do not reopen detector/Cw/fading theory, silently change active233/223 baseline
++semantics, interpolate exact moments, generate AP, certify thresholds, promote
++production baseline or enter training/test/heldout/publication. All previous
++security/lifecycle blockers and ObjectiveC USER_STOPPED remain. Deliver and STOP.
++
++## DEC-0193 - Accept untrusted feasibility candidates only as diagnostics
++
++2026-10-22 EVID-0210 accepts user64840f73 bounded investigation. Positive
++functionals are demonstrated under the separately named passive random-width
++surrogate with exact circular collection and untrusted detector throughout;
++they do not validate the old equivalent-beam/lognormal channel or establish
++secure key generation. Keep all negative/historical/coarse/refined evidence.
++
++Deliver largest-tested .75m/10urad/.1m/1.561urad MB(.125,8) and the smaller
++transmitter candidate .55m/25urad/samepointing MB(.2,3.5). Report surrogate and
++actual-mixture MI values separately. Do not interpret source/catalog or
++fixed-source boundary roots as global physical/hardware thresholds. Actual
++receiver-aperture/transmitter-aperture/jitter capability remains unverified;
++no hardware purchase recommendation from this surrogate alone.
++
++Do not broaden numerical diagnostics into source AP expansion, production
++baseline selection, threshold certification, training/test/held-out/publication
++or readiness promotion. No trusted-detector substitution or vacuum double
++counting. Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++frozen discrepancy and ObjectiveC USER_STOPPED. Work complete; deliver and STOP.
++
++## DEC-0192 - Accept isolated noise trial only; reject reference PDF acceptance
++
++2026-10-22 EVID-0209 executes user ead53cdc fixed-source trial. Keep all output
++in corrected_excess_noise_trial_20261022; preserve historical/source/config/
++frozen/production/manuscript bytes. User authorizes this diagnostic only.
++Use explicitly untrusted detector loss/excess and matching receiver MI/Holevo;
++report both zero-limit and active-only detector assumptions without conditioning.
++Do not silently identify epsilon_det with historical xi_det or electronic v_el.
++Do not double-count total loss/measurement vacuum as channel excess.
++
++Accept manuscript noise-moment/numerical checks only, not secure-key validity.
++Reject historical55cm reference as a consistent [0,1] result: raw moments and
++retained mass fail the common-law requirement. Preserve its algebraic numbers
++with retained_law_compatible=false, never promote them to accepted SKR. Further
++law/support changes require a new scoped task. Actual historical replays are
++not matched-detector/noise-only causal comparisons; declared physically matched
++total-to-excess reformulation is algebraically/numerically identical.
++Keep UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, historical
++frozen discrepancy and ObjectiveC USER_STOPPED. No source/optimization/training/
++test/held-out/publication or baseline/threshold promotion. Deliver report; STOP.
++
+ ## DEC-0191 - Accept bounded historical zenith root-cause diagnosis
+ 
+ 2026-10-21 accept EVID-0208 solely as explanation/verification of the saved
+diff --git a/paper_uav_hap_cvqkd/docs/EVIDENCE.md b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+index ca4aac81..5859ef2a 100644
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -1,5 +1,1045 @@
+ # Evidence Register
+ 
++## EVID-0228 - New-cloud centered-primary mobility comparison executed
++
++2026-10-25 user c6df5d65 plus explicit option3 geometry approval. Package:
++results/phaseC_new_cloud_dp_greedy_stationary_20261025/. Read validation_report_vi.md,
++scientific_validation.json,cloud_validation.json,execution_overview.json,
++summary_comparison.csv,primary_secondary_model_comparison.csv,relative_improvements.csv,
++figure_index.md and final verification.json. New conditional Gaussian covariance
++9*.9^indexlag,mu iidUniform(-1,1) everycell/slot;no temporalAR in primary generator.
++Zero threshold is an explicit convention,calibratedp.1..8 separate extension.
++ConditionalGamma/marginalGamma+I/3 tested separately;512mission audit and4unit
++methods PASS. Binary/G correlations measured separately;rowmajor anisotropy noted.
++No numeric threshold falsely attributed to inaccessible ref13 or local FSO letter.
++
++Centered HAP(500,500)m primary100positivepositions,Kstar.0007862304..0007959663.
++Historical HAP(11419.65511459133,450)m secondaryallrawnegative,Kstar0. Same old
++v43 Eq14/MI/Holevo/noise/normalization/retained moments;212historical C,w reused,
++0newsource jobs/interpolation/evidenceupgrades.74nonintegercontexts/15688SKR pairs.
++100paired missionIDs/case,30slots*20s,100positions,vmax15m/s,Dref1000m,
++lambda_ref9.468026677248516e-6 and10historical numeric penalties. Freeinitial,
++no terminal cost,Euclidean300m incldiagonals/stay. Same C/S perpolicy/mission;
++old/new whiteinnovations coupled and sameclouds acrossgeometry.3800caseviews,
++3600actualtriplets/10800algorithmcalls;200zero/p.5aliasviews reused.19cases pergeom.
++7600DP inequalities/342000trajectory rows checked;0failures. Actualmission replay
++exact,3additional verification calls.5700secondarynumeric records and original
++archive arrays unchanged when adding primary;producer stages preserved.
++
++Primaryp.4 U:Stationary.000629400835,Greedy.000781406458,DP.000788101470;
++DP U+.85679% vsGreedy and+25.21456% vsStationary;distance687.565 vs1352.812m.
++Atp.8 DP unavailability5.0667% vsGreedy16.3333%,U+13.5131%,butdistance+12.0013%.
++Zero modeDP U.000783980287 vsGreedy.000770347188 vsStationary.000558056065.
++Allsecondarypolicies U/rate/distance0,availability0. OfflineDP/Stationary are not
++online forecasters. Old/new comparison changes both spatial and temporal laws;
++no isolatedAR causality or individuallybestmetric guarantee. SD/missionStudent-t
++CIs andpaired deltas saved;zero denominators useabsolute differences.0/100outage
++missions doesnotcertifyzero risk;one-sided95upper any-outage probability2.9513%.
++
++9645historicalfiles unchanged.8PNG600dpi/vectorPDF pairs opened/visually checked,
++fonts embedded/native curves-text-heatmaps/no rasterXObjects or clipped text.
++IsolatedLaTeX replacement/addfilepatch only;canonical3pagePDF has noeditablecloud
++subsection. Productioncloudhelper remains frozen-hash-bound and used only inOLD
++control;new_cloud_model.py is the primary generator in this namespace. Allwinners
++remain INSUFFICIENT_EVIDENCE;strictPhaseB BLOCKED,UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED unchanged. No source
++job,production/frozen/cache/manuscript edit,training/test/heldout/publication,
++baseline/default/threshold approval,commit/push. Deliver and STOP.
++
++## EVID-0227 - IEEE SKR-versus-zenith figure formatting from sealed CSVs only
++
++2026-10-25 user attachment c2d16c60. New package:
++results/skr_vs_zenith_eq14_v43_phaseB_publication_figures/.
++Three requested PNG600dpi/vectorPDF pairs complete:skr_vs_zenith_publication,
++skr_vs_zenith_zoom,skr_vs_zenith_two_panel. Read figure_validation_report_vi.md,
++figure_data_validation.json,export_validation.json,figure_captions.tex and
++plot_skr_vs_zenith.py. Styling only;all data remain DIAGNOSTIC_ONLY.
++Actual183 selected CSV rows match pure historical select function ranking over
++12932 saved candidates at61angles. Source/VA/nu/C/w/K binary64 identities match.
++Existing select function extracted via AST without importing historical runner;
++only dict/max/sorted/len builtins called. Renderer imports standard library,
++NumPy,Matplotlib only. Zero channel/MI/Holevo/SKR/C,w evaluations;no sources added.
++Full figure retains183 raw samples,including161 negative selected values;
++zoom uses19 saved samples per MB scheme(0..18deg),Uniform explicitly omitted.
++No clipping,smoothing,interpolated values or artificial points. Expected reported
++maxima/sign ranges/crossing brackets matched as checks,not plotted substitutes.
++Uniform best-.030747146463279806 at60deg;FixedMB best6.522377066492391e-5 at0deg,
++positive0..5;bracket[5,6]. OptimizedMB best.0007960878080861267 at0deg,positive
++0..15;bracket[15,16]. No continuous threshold/global optimum/security claim.
++
++Times New Roman/STIX embedded(Type0),axis9.5pt,ticks8.5pt,legend8pt,line1.65pt.
++Single-column3.5in anddouble-column7.16in layouts,no decorative title or large
++watermark. DIAGNOSTIC_ONLY retained in PDF/PNG metadata,English captions/report.
++PDFs opened with pypdf,pdfplumber,rendered via bundled pypdfium2(Poppler absent)
++and visually inspected. Native vector paths/text present,no raster image
++XObjects,no characters outside page,no visible label/legend overlap/clipping.
++PNG sizes2103x1623(single)and4299x1773(two-panel),nominal600dpi. Initial rotated
++PDFplumber text-order check replaced by pypdf content plus character-box checks;
++no data/figure correction caused by that extraction issue. QA history recorded.
++9621 protected historical files unchanged. User/worktree changes preserved.
++Only new figure namespace/plan and current project ledgers changed. No historical
++figure/cache/PDF/manuscript/frozen/source-production edit or lifecycle promotion.
++All positive rates remain INSUFFICIENT_EVIDENCE;missing exactUniform unchanged.
++Strict Phase B BLOCKED,UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS
++and ObjectiveC USER_STOPPED remain. No LaTeX/manuscript compilation,training,
++test/heldout/publication evaluation,commit/push. Deliver figures and STOP.
++
++## EVID-0226 - Historical-exact 61-angle diagnostic complete; strict gate unchanged
++
++2026-10-24 explicit user task authorizes extending the completed nine-angle
++historical-source diagnostic to the original 61-angle grid, without C,w jobs.
++New isolated package: results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/.
++Read protocol.json, diagnostic_summary.json, diagnostic_skr_61_angles.csv,
++best_scheme_by_angle.csv, validation_report_vi.md, numerical_validation.md,
++artifact_integrity_report.md, preseal_verification.json and final verification.json.
++Original /angles_deg in results/skr_vs_zenith_eq14_v43_20261023/protocol.json
++is 0..60 inclusive by 1 degree; all nine prior angles are members. Same fixed
++212-source pool (33 Uniform,179 MB) at every angle, exact identities and original
++VA[.05,10]/nu_raw[0,.4] domain. 12932 unique candidate pairs:1908 historical
++values/9 contexts reused unchanged;11024 new rate evaluations/52 new contexts.
++All12932 numerical PASS,47 positive/12885 negative/0zero; no failed row omitted.
++Raw K preserved; separate K_operational=max(0,K_raw). No C,w calculation,
++interpolation, source-generation attempt, new source payload or duplicate pair.
++
++Canonical diagnostic Eq14/Eq13 function objects and homodyne MI reused unchanged;
++VA=2*nbar,nu_repo=42.5*nu_raw,[0,1] moments/atom/truncation diagnostic, common
++physical/noise assumptions and frozen experiment binding preserved. Three focused
++checks PASS before execution;235 independent selected checks PASS(35 reused,
++200new), adaptive MI maxdiff1.366962099069724e-15, covariance maxdiff6.217248937900877e-15.
++All selected winners and sampled crossing/switch points checked, including
++strict-source subset. All1908 old numerical fields preserved, arithmetic residual0.
++Initial preparation current-only run.py hash assertion failed before evaluations;
++producer snapshot was then checked as in baseline verifier. Difference is only
++stdout JSON cleaning, not mathematical code. preparation_history.json records it.
++
++Best sampled raw K:Uniform -.030747146463279806 at60deg(VA.06);FixedMB
++.00006522377066492391 at0deg;OptimizedMB .0007960878080861267 at0deg.
++Fixed positive sampled0..5deg,nonpositive starts6;crossing bracket[5,6]deg.
++OptimizedMB positive sampled0..15deg,nonpositive starts16;bracket[15,16]deg.
++Uniform has no positive sampled available-catalog rate. These are sampled sign
++brackets, not continuous-angle limits. OptimizedMB selected VA/nu:
++0..47:1.358333319784304/.30;48..55:1.116666359980243/.25;
++56..59:.9388888798562025/.30;60:.7416615151490328/.20.
++Fixed source remains VAhex0x1.9ffff84830112p+0,nu.25,original ensemble hash.
++Missing Uniform at that exact VA/nu0 remains explicit; no global Uniform claim.
++
++212 source classes retained:21exact/1alternative/190insufficient. All47 positive
++candidate rows and every Fixed/OptimizedMB selection rely on INSUFFICIENT_EVIDENCE.
++Strict-source subset has no positive selection. No evidence promotion from SKR.
++Strict Phase B remains BLOCKED by73 pilot convergence-evidence gaps and missing
++exact-VA Uniform payload/receipt. Diagnostic scope only, not strict pilot completion.
++9456 protected historical files unchanged,238 old source payload files unchanged.
++Four requested PNGs350dpi and vectorPDFs rendered from checked CSV, inspected.
++Production/manuscript/frozen/cache bytes untouched; all pre-existing edits kept.
++No training/test/heldout/publication, baseline/default/threshold approval, source
++job, ObjectiveC restart or commit/push. UNVALIDATED_SECURITY_MODEL and
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain. Deliver diagnostic and STOP.
++
++## EVID-0225 - Historical exact-source reuse diagnostic completed at nine angles
++
++2026-10-24 user3aadec7f explicitly permits compatible historical insufficient-
++evidence payloads for labeled diagnostics while preserving strict source classes.
++New package:results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/.
++Read validation_report_vi.md,exact_source_inventory.csv,pilot_source_coverage.csv,
++nine_angle_coverage.csv,historical_source_reuse_report.md,missing_uniform_source.md,
++diagnostic_results.csv,artifact_integrity_report.md and diagnostic_summary.json.
++238 historical exact payloads verified;235 distinct canonical sources(38Uniform,
++197MB),3 proven duplicate aliases.245 catalog/source tables and59439 bound rows
++cross-check without conflict. Canonicalization is preserved LF-only code alias
++policy;VA/nu hex,source arrays/hash and C,w values unchanged. No source job.
++
++Pilot81 coverage:80 available(33Uniform/47MB),7 with prior adequate evidence,
++73 compatible but INSUFFICIENT_EVIDENCE,one Uniform missing at exactVAhex
++0x1.9ffff84830112p+0/nu0. Existing taxonomy6exact/1alternative/74insufficient/0invalid
++unchanged. Do not substitute roundedVA1.625 or FixedMB C,w.
++720 pilot candidate results retained. To reuse all available historical sources
++inside approvedVA[.05,10]/nu[0,.4],a separately bound catalog diagnostic adds132
++sources(1188unique pairs),total212sources(33Uniform/179MB) at9 common angles.
++23 outside-domain inventory sources excluded explicitly. nine_angle_coverage.csv
++has236 rows including missing Uniform; pilot_nine_angle_coverage.csv retains81.
++All1908 unique candidate records numerical PASS;12 positive/1896 negative raw K,
++no clipping. All12 positive rows use source evidence INSUFFICIENT_EVIDENCE.
++Full catalog views split198 strict-source-evidence rows(22sources) and1710
++incomplete-evidence rows(190sources). Strict source subset still has no positive K.
++FixedMB remains insufficient. No strict gate/evidence category upgraded.
++
++Finite-catalog MB best sampled0deg K=.0007960878080861267,VA1.358333319784304,
++nu_raw.30;positive sampled0/5/10/15deg. FixedMB positive0/5deg,Uniform none.
++HISTORICAL_EXACT_RESTRICTED_CATALOG_DIAGNOSTIC labels bind every result;
++not original full81 optimum,continuous threshold or security/operational claim.
++Canonical directEq14/Eq13 function objects reused,discretehomodyneMI/RR/beta.95,
++[0,1] moments/deficit andVA2*nbar unchanged. No full-Z/search/interpolation.
++5 focused reuse and2 postprocessing checks PASS;36 independent MI/covariance
++checks PASS(27 reused,9 new). Initial import-path,NumPy JSON and saved CSV numeric
++ranking errors are preserved;formulas/tolerances unchanged.1188 additional rate
++attempts were repeated once after unsaved postprocessing failure;720 pilot
++rates reused unchanged. Execution history records3096 candidate attempts plus
++4 regression calls,1908 unique records,zero source C,w computations.
++
++9388 historical files verified unchanged;final manifest/verification cover package,
++source invariance and saved-record arithmetic. Frozen spec/current experiment
++binding intact. Strict Phase B remainsfalse due73 pilot evidence gaps and one
++missing Uniform payload/receipt. No strict pilot,61sweep,source generation,
++production/frozen/manuscript/cache changes,training/test/heldout/publication or
++baseline/threshold promotion. Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED. Diagnostic complete;deliver and STOP.
++
++## EVID-0224 - Phase B unblocking forensics complete; no source upgrades
++
++2026-10-24 explicit user task e53c2464. New isolated package:
++results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/.
++Read validation_report_vi.md,pilot_source_evidence.csv,uniform_timeout_diagnosis.md,
++uniform_recovery_plan.md,readiness_summary.json,artifact_integrity_report.md.
++Expanded saved-evidence recovery scanned2826 reachable Git text blobs(829979370
++bytes),7ZIP archives and133 relevant tool-output records in3 execution files.
++Two immutable Git artifacts corroborate already accepted Uniform VA2 full-ladder
++proof; no new source upgraded. Four exact-array metadata matches lack precision
++rows. Existing strict receipt/alternative checkers reused unchanged.
++81-source inventory:6 VERIFIED_EXACT,1 VERIFIED_BY_ALTERNATIVE_EVIDENCE,
++74 INSUFFICIENT_EVIDENCE,0 INVALID.80 payload identities/C,w preserved;73 existing
++sources(26Uniform/47MB,including FixedMB) still lack convergence evidence,plus
++one missing Uniform. CSV includes nu_repo=42.5*nu_raw,exact identities,cache key,
++artifact/log/diagnostic references and unresolved requirements. Original job IDs
++not recorded are marked missing,not inferred from a copied cache namespace.
++
++Uniform timeout confirmed in child diagonal_solve_worker after3600s; no payload
++or row checkpoint. Newly recovered9 process snapshots show samePID33676 and
++userCPU535.4375->2380.421875s. This proves CPU activity,not precision/convergence.
++Exact internal bottleneck,memory pressure and last precision remain UNKNOWN.
++Static worker inspection finds no progress/checkpoint output before all rows,
++12 planned eigensystems across3precisions,many matrix operations. Diagonal solve
++optimization was already active. No source-worker restart found. Lightweight
++float64 gate reproduces fallback need; no rank/C,w inferred from rounding modes.
++5 new forensic tests CURRENTLY_VERIFIED_PASS. Initial CPU-line parser assertion
++failed on absent trailing whitespace; corrected and retained in execution history.
++Two float64 gate checks and one synthetic3x3 MP identity check; zero expensive
++C,w/source jobs,pilot or61sweep. No recovered profile is assigned to this job.
++
++9346 protected files verified unchanged; previous49-artifact readiness package
++read-only verifier also passes. Current/historical frozen and versioned experiment
++hashes preserved. Final manifest/verification record package and protection checks.
++PHASE_B_STRICT_READY=false;2 blocker families:73 existing evidence gaps and one
++missing Uniform payload/receipt. Future recovery plan recommends tested row
++checkpoint/profiling wrapper before any separately authorized bounded attempt;
++wrapper is proposed,not implemented or executed. Production/manuscript/source
++caches/formulas/security/lifecycle unchanged. Deliver and STOP.
++
++## EVID-0223 - Phase B readiness assessed; source dependencies remain BLOCKED
++
++2026-10-24. Explicit readiness-only task completed in
++results/skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/.
++Read validation_report_vi.md, readiness.json, pilot_source_verification.csv,
++source_verification_evidence.json, remaining_source_gaps.csv and source_job_outcome.json.
++All81 proposed pilot sources classified:6 VERIFIED_EXACT,1
++VERIFIED_BY_ALTERNATIVE_EVIDENCE,74 INSUFFICIENT_EVIDENCE,0 INVALID.
++Read-only recovery inspected1956 historical identity records and138 precision
++candidates. Uniform VA2 alternative evidence binds exact PMF/amplitude digests
++and full1050/1250/1450 support256 ladders; C,w residual tolerance is the existing
++1e-7+1e-6*abs(reference). Limitations and supporting records are saved explicitly.
++No C,w recomputation in provenance audit; missing receipts never imply bad C,w.
++73 existing sources remain evidence-insufficient (26Uniform/47MB,including Fixed
++MB); guarded producer/cache labels alone do not restore missing precision rows.
++
++The single authorized Uniform VA1.6249995399703647/nu0 job preserves VA hex
++0x1.9ffff84830112p+0 and exact ensemble42166462...ffd00d7. Python/diagonal
++producer with1050/1250/1450 ladder timed out after3600.0956285999855 seconds:
++BLOCKED_BY_ENVIRONMENT,no payload/C,w/receipt. No retry or GMP policy bypass.
++source_job_cleanup.json confirms no remaining worker. This missing source is
++the74th insufficient entry, not INVALID.
++
++Frozen historical hash561fecc...a2a7b1 recovered byte-exact from Git commit
++169791dc624df790914de109233d8a6824551374. Current df83ea63...c15 matches HEAD
++after four committed content changes; AGENTS retained the old snapshot hash.
++Full Git history/diff and specification_comparison.csv trace formula, physical,
++precision, correlation and source differences. Separate experiment_spec_v1.json
++SHA2564868392f68af9be5b52b684dac1a23d4242e4cf44a871d4e66944349aa874d21
++binds this explicitly approved experiment; historical/current checks stay active.
++
++Isolated gated nine-angle runner prepared with exact81-source identity checks,
++shared channel/noise, direct Eq14/Eq13 and discrete homodyne MI.10 readiness
++tests CURRENTLY_VERIFIED_PASS; source-job receipt test NOT_RUN because no payload.
++Final focused run has2 passes/1 dependency skip,no failures/errors. Phase A9
++sealed checks reused by hash, not rerun. Raw negative K preserved in mock tests;
++zero operational channel/SKR candidate evaluations,pilot NOT_RUN,full61 NOT_RUN.
++readiness.json: BLOCKED,phase_B_ready=false. Minimum dependencies are the73
++existing convergence evidence gaps and one exact Uniform payload/receipt.
++
++9295 protected historical files verified unchanged against startup_manifest.json.
++artifact_manifest.json and verification.json record final package/protection checks.
++Production scientific/security code,manuscript,frozen spec,historical caches,
++training/test access,baseline and threshold approvals unchanged. Preserve
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED.
++
++## EVID-0222 - Approved Phase A conventions validated; pilot evidence remains incomplete
++
++2026-10-24. User explicitly accepts [0,1] truncation for the selected baseline,
++with deficit recorded and no renormalization, and fixes VA=Vmod=2*nbar,
++X_A=2Re(alpha). Append-only revision: results/skr_vs_zenith_eq14_v43_20261024/.
++Read validation_report_vi.md, protocol.json, gate.json, receipt_investigation.json,
++receipt_root_cause.json and pilot_evidence_gaps.csv. Previous Phase A is preserved.
++
++9 focused tests CURRENTLY_VERIFIED_PASS: eight initial passes and one focused
++retry after correcting an exact binary64 export assertion differing by one ULP.
++Initial failed assertion is preserved in attempt_01; unchanged test AST checked.
++No scientific tolerance/formula changed. Exact Eq14/Eq13 function objects reused.
++All212 source ensembles/payloads/settings/implementation identities rechecked;
++33Uniform/179MB satisfy the approved VA/Vmod/quadrature convention.
++Fresh channel checks only0/60deg pass closed/direct and80/110digit checks.
++Deficits1.056995513649377e-10/2.5885985333934575e-12 are diagnostics, not blockers.
++No claim that the truncated law is mathematically normalized. Two existing,
++receipt-verified Uniform/MB end-to-end fixtures at0deg pass MI/spectrum checks;
++both signed negative K values are retained, with no search or optimum claim.
++
++Expanded receipt search:93 files in15 source roots;16 additional source_result
++receipts recovered, total21/212.191 not located; pilot has6/80 receipts,74 gaps
++(27Uniform/47MB), including Fixed MB. Missing evidence is NOT incorrect C,w.
++Producer inspection shows fallback_rows discarded by historical cache writer;
++its FULL_SUPPORT_CONVERGED guard is not a per-ensemble saved receipt. Four legacy
++artifacts match recorded CRLF hashes/C,w but also lack full ladders.
++
++gate.json: phase_A_model_conventions_ready=true;phase_B_ready=false.
++Remaining:74 pilot receipts, one Uniform at exact fixed-MB VA hex
++0x1.9ffff84830112p+0, frozen-spec hash discrepancy, and pilot orchestration.
++No gate waiver or C,w recomputation. B-F guards return2 without writes.
++Read-only verifier checks30 revision artifacts and9263 protected historical
++files unchanged. Production/frozen/PDF/old source caches unchanged; zero source
++jobs or operational pilot/sweep candidates. No training/test/heldout/publication,
++baseline/threshold approval, ObjectiveC restart, commit or push.
++Keep UNVALIDATED_SECURITY_MODEL and NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
++
++## EVID-0221 - Direct Eq14 Phase A implemented; mathematical gate remains BLOCKED
++
++2026-10-23. User requests implementation of the accepted three-scheme zenith
++plan, explicitly starting with Phase A and stopping at unresolved mathematical
++dependencies. Isolated package: results/skr_vs_zenith_eq14_v43_20261023/.
++Canonical PDF remains f970cd6d...fc27b. protocol.json fixes the receiver30
++35urad/1.561urad/0.10m baseline, xi_ch=.0186, xi_det=.005, no eta_det,
++homodyne/RR, correlation_policy=manuscript_eq14_direct. No peak30 constraint
++is introduced into the user-selected VA[.05,10],nu_raw[0,.40] domain.
++
++model.py implements the exact Eq14 scalar and printed Eq13 homodyne components;
++no full-Z search, endpoint choice, cap branch, projection or eigenvalue repair.
++Operational evaluate() fails closed on channel-law/VA mapping/source-evidence
++gates. Synthetic component/gate tests:13 CURRENTLY_VERIFIED_PASS (unit_tests.json).
++These are not physical HAP-UAV SKR evaluations or a security certification.
++
++Fresh angle0 preflight: M0=.9999999998943004; stable positive eta>1 tail
++1.056995513649377e-10. Closed/direct moments and precision80/110 checks pass;
++the probability law remains BLOCKED_PDF_SUPPORT_NORMALIZATION independently
++of numerical tolerance. No further angle or operational candidate was evaluated.
++VA=2*nbar versus printed Vmod=nbar/2 remains unresolved; no formula correction.
++
++All212 sources(33Uniform/179MB) pass reconstructed p,alpha,ensemble hash,
++payload/source-code/settings and C,w identity checks. Only5 have located,
++payload-bound precision-ladder receipts in the inspected source directories;
++207 marked NOT_LOCATED_PAYLOAD_BOUND_RECEIPT, not claimed nonexistent globally.
++source_catalog_coverage.csv includes the missing Uniform at the fixed MB VA;
++no new source was generated. Pilot existing80/proposed81; full proposed213.
++
++gate.json: phase_B_ready=false; operational_candidate_evaluations=0;source_jobs=0.
++skr_vs_zenith.csv contains183 BLOCKED rows, with blank Z/MI/Holevo/K, not zeros.
++Only angle0 has diagnostic unnormalized moments; this is not a completed sweep.
++CLI B-F guards return2 without file mutations. No source_job.py/plot.py is built
++before the corresponding dependencies pass. Read-only run.py --verify-only
++checks23 sealed artifacts and9238 protected historical files unchanged.
++
++Report: validation_report_vi.md; protocol/source/equation/parameter tables,
++execution_history.json and artifact_manifest.json retain traceability.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++frozen hash df83ea63...c15 versus561f...,ObjectiveC USER_STOPPED.
++No manuscript/production/frozen/old C,w/history changes, optimization, AP,
++training/test/heldout/publication evaluation, baseline/threshold approval,
++commit or push. Phase A dependency report complete; B-F NOT_RUN.
++
++## EVID-0220 - User confirms canonical PDF identity; prior audit remains unchanged
++
++2026-10-23 user clarification: "đúng cái đấy rồi" explicitly confirms that
++Downloads/2026__Binh_s_work (43).pdf is the v43(2) document intended in user544a73ad.
++Fresh SHA256 matches audited copy:
++f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b.
++Reference identity is USER_CONFIRMED_AVAILABLE_REFERENCE; canonical source
++binding CONFIRMED_BY_USER. This resolves EVID-0219's missing-reference blocker;
++it is not a claim of byte comparison between two separate PDFs.
++
++Current registry: docs/MANUSCRIPT43_CANONICAL_REFERENCE.md.
++Append-only addendum results/manuscript43_canonical_model_comparison_20261023/
++reference_binding_user_confirmed/ has binding.json,user_confirmation.txt,
++report_vi.md, four bound CSV metadata views,preledger_verification.json and
++read-only verify.py. Verification CURRENTLY_VERIFIED_PASS:9164 protected old
++files and51 sealed prior audit artifacts unchanged;9 comparison rows keep
++all numeric values/statuses. No evaluator/AP/optimization rerun.
++Historical report/manifest/seal remain exact snapshots before confirmation;
++use addendum verifier for current state after ledger changes.
++
++Eq10 critical normalization remains BLOCKED (.9013297245653482 retained mass).
++B=C bounded positiveK belongs to DIFFERENT law. Corrections PROPOSAL_NOT_ADOPTED;
++no canonical production evaluator or secure-SKR approval. Production,security
++functional,frozen specs,exact C,w and old results unchanged. Keep frozen-hash
++conflict,UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED. No further PDF request; no automatic optimization,
++training/test/heldout/publication,baseline/default/threshold,commit/push.
++
++## EVID-0219 - Fixed manuscript channel audit passes; v43(2) binding BLOCKED
++
++2026-10-23 user544a73ad authorizes mathematical comparison only, no optimization
++or production edits. New isolated results/manuscript43_canonical_model_comparison_20261023/
++contains report_vi.md, three_model_comparison.csv,54-parameter provenance,
++22-row equation comparison,35-component classification with function/line/hash,
++separate mathematical differences and correction_proposal_v1 PROPOSAL_NOT_ADOPTED.
++preledger_verification.json SHA256
++a0a6059ec4fbd0ac2763bcc58ccb71232268f7fe53fcd5739bddad18109deb55
++records CURRENTLY_VERIFIED_PASS for saved fixed diagnostics only.
++9164 pre-existing protected files and actual source cache unchanged.
++
++Requested 2026__Binh_s_work (43)(2).pdf is NOT LOCATED; user path clarification
++pending. Available (43).pdf SHA256
++f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b
++is explicitly not assumed identical. All equation labels/findings provisional
++against available43 plus formulas explicitly supplied by user. Canonical
++binding/evaluator adoption BLOCKED, not a completion of v43(2) standardization.
++
++Three labels represent TWO laws: B historical random-width and C Uniform
++bounded invoke same module/function object, function-source SHA256
++08cf06f0607607f631c067803e2747b53a0cc9896c21c0700b7c84c1959207d6.
++AtDr.30m,zenith0,L19km,fullDiv10urad,jitter.5urad,positionSD.03m,
++Uniform VA3, beta.95, xi_ch.0186/xi_det.005, real1D homodyne/RR, no eta_det:
++A raw Eq10 retained mass=.9013297245653482,tail=.09867027543465177,
++rates BLOCKED. B=C mass1,T=.7782215745755737,N=.023658546444018845,
++I=.8378901900472914,chi=.6881131202506823,K=.10788256029424448.
++Do not attribute positive result to Eq10 or normalization alone.
++Conditional-active moment control remains different from random width.
++
++3 fixed scenarios/9 rows,84 selected check records; no optimization/new AP.
++Closed/direct moments,GH64/128,adaptiveMI,16/256 and X/P/scaling,
++physical Gamma/homodyne spectrum,Z33/129,entropy80/110 checked.
++Old pooled MI quadrature precision failure retained. Prospective addendum
++uses equivalent radial variable, unrenormalized tail<=exp(-40), two levels;
++MI=.8381949725693328,deltaI=.00030478252204146905,
++deltaK=.0002895433959393956 at held-fixed chi; convergence delta1.06e-13.
++This mixture comparison is diagnostic only,not new security approval.
++
++Confirmed available43 issues: printed Vmod=nbar/2 versus vacuum1/VA=2nbar;
++complex-alpha real-y likelihood not normalized; gamma/nu and centering;
++Eq10 rho!=0 differs from exact Rice product by analytic q-moment ratio.
++Production optical nu uses wL rather than printed weff; finite-aperture
++scintillation mapping differs from raw Rytov. Production heterodyne spectrum/
++MI, active-resampling law and historical v37/noise modes stay separate.
++Tiny-tail subtraction floors are not physical-tail relative precision.
++
++No scientific production/security functional/frozen config/cache or historical
++result changes; proposed corrections not adopted. Preserve frozen-hash
++discrepancy,UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED. No training/test/heldout/publication,default/baseline/
++threshold approval,commit/push. Only next dependency: obtain/bind exact PDF
++and review version differences; do not launch optimization automatically.
++
++## EVID-0218 - Uniform v43 staged search; primary no positive, bounded law separate
++
++2026-10-23 user9f6181d7. Completed isolated results/
++uniform_positive_skr_manuscript43_20261023/ with report_vi.md, candidate_comparison.csv,
++StageA/B/C, explicit channel/source exclusion catalogs, same-law three-scheme tables,
++matched aperture/parameter/law comparisons and three vectorPDF/350dpiPNG pairs.
++Prospective protocol and outcome-adaptive completion plan are hash-bound.
++Verification CURRENTLY_VERIFIED_PASS applies to saved finite diagnostic only;
++verification.json SHA256 844b896a8d475cb906355653efdd0bd722c428de8fd6c1501dc9f1a04665a623.
++7051 pre-existing protected files unchanged; branch/HEAD/frozen identity preserved.
++
++Only Uniform p=1/256,VA=2*nbar,real1D Gaussian-effective homodyne/RR,beta.95;
++v43 xi_ch.0186/xi_det.005 and NO eta_det. Same Tf=mh^2 and
++N=(m1-Tf)VA+.0186m1+.005M0 in MI/DBL/covariance/full-Z homodyne Holevo.
++Keep raw Eq10 [0,1] mass1e-10 gate,explicit AoA atom and true eta>1 tail;
++no normalization/clipping/tail reassignment/interpolation or source substitution.
++33 exact Uniform and197 MB sources; 18373 CSV rows,
++1889 channel contexts,0 covariance/information failures.
++1620 saved selected MI/Holevo/covariance checks plus guard/source/PDF/moment checks.
++
++Primary Uniform positive found=False; strongest raw
++K=-0.024464166579485941 atDr0.4m,fullDiv50.0urad,
++jitter0.5urad,positionSD0.03m,
++zenith0.0deg,VA0.6.
++Failed-mass geometries have unavailable rates,not0. StageC extends divergence60
++without relaxing the gate; larger receiver is not automatically normalized.
++
++Independently defined bounded random-width/circular-aperture law is SECONDARY,
++not Eq10 repair/replacement. AtDr.30,fullDiv10urad,jitter.5urad,positionSD.03m,
++zenith0,L19km,Uniform VA3.0 has K=0.10788256029424448.
++All secondary contexts checked GH32/64; best channel also independent GH96/radial
++Legendre512. Same-law MB shaping gain at this receiver30 geometry is
++0.4027029148361031 bit/use.
++Larger-aperture secondary results are separately tabulated; Dr.30 is smallest
++tested positive aperture,not a proven global/hardware minimum.
++
++GMP launch failed before source computation: Windows ApplicationControl blocked
++gmpy2 DLL. Standard Python MP fallback retained full-support/kernel and fixed
++1050/1250/1450-digit ladder,3600s budget,versioned new cache.
++Requested initial exact-source gaps=[]; full requested initial-point
++availability=True. Failures/timeouts and
++coverage limits explicit,no invented C,w. No policy bypass.
++
++All maxima best exact-tested; no global-Z enclosure,operational/finite-key/
++composable security,flight/PAT/payload verification or secure-default claim.
++Production/security functional/frozen config/old caches/history unchanged.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No training/test/
++heldout/publication,baseline/default/threshold approval,commit/push. STOP.
++
++## EVID-0217 - Manuscript43 zenith figure COMPLETE; finite exact catalog and exclusions
++
++2026-10-23 userf84ac5ba authorizes one diagnostic sweep and figure under
++results/skr_vs_zenith_manuscript43_20261023/. Deliver skr_vs_zenith.png(350dpi),
++skr_vs_zenith.pdf(vector),183-row skr_vs_zenith.csv,report_vi.md,source catalog,
++61 angle checkpoints,protocol/receipts/read-only verifier and final seal.
++Startup6959 historical/scientific files unchanged; five relevant ledgers only.
++Branchfeat/image,HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
++
++Base receiver30: HAP20/UAV1km,Dr.30m,lambda1550nm,full divergence35urad,
++jitter1.561urad,positionSD.1m,rho0,tau.92,wind21,Cn2-ground1e-14,
++AoA halfFOV6.25mrad/sigma1.5mrad,AO/phaseOFF,beta.95,xi_ch.0186.
++Original Eq10 retained PDF and xi_det=.005 independent,NO eta_det.
++Real homodyne1D Gaussian-effective MI and matching Tf=mh^2,N effective
++in source correlation interval,quantum covariance and full-Z homodyne Holevo.
++No random-width substitution,pooled legacy MI or production heterodyne calls.
++
++61 angles0:1:60; all distance/optical/turbulence/pointing/atmospheric terms
++recomputed. Exhaustive catalog argmax at each normalized angle:36 Uniform VA
++points and197 MB(nu_raw,VA),233 authenticated source payloads,VA=2*nbar.
++Fixed MB(.25,VA1.6249995399703647),source
++01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754
++is the current receiver30 reference. No new AP/interpolation/cache changes,
++continuous/global optimum claim or unrelated optimization.
++
++Angles0-4 fail unchanged mass tolerance1e-10; at0 deficit
++1.056995513649377e-10 reproduces prior diagnostic. No candidate/MI/Holevo
++evaluation at those angles;15 scheme rows blocked/unavailable,not0.
++Angles5-60 pass within tolerance;233 sources each=13048 candidate evaluations,
++zero candidate or selected-numerical failures.168 numerical scheme rows:
++12 positive plotted,156 nonpositive omitted from log plot and kept raw inCSV.
++No renormalization,clipping,tail/outage reassignment or positive-rate forcing.
++
++Optimized MB is best exact-tested at all56 evaluable angles. Positive5-15deg,
++peakK=.0007281372514840734 at5deg,nu_raw.3,VA1.358333319784304,
++sourceb083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214.
++FixedMB positive only5deg,K=1.259549660342918e-05. OptimizedUniform has
++no positive point; its largest rawK=-.030747146463279043 at60deg,
++VA.06,nu0,source9d90d825de1266050f27136524206ae9048a70390ed683cdeffac9fa4750ee5a.
++The maximum at5 is among evaluable1deg-grid points,not proof5 beats0-4,
++whose rates remain blocked. Positive optimized-MB values decrease with angle.
++
++All candidates have independent covariance/uncertainty/symplectic checks and
++finite discrete-MI/entropy/capacity domain checks. Every selected source
++also passes GH64/128,independent adaptive MI,256/16,X/P,scaling,
++16conditional Gaussian integrals,full-Z33/129,entropy80/110 and physical
++quantum-plane consistency. Closed/direct PDF moments and explicit atom/noise
++moment identities checked at all61 angles. Raw negatives retained.
++
++One log-axis figure with exact title/labels and three specified legend labels;
++Uniform omitted with explicit no-positive annotation,fixed MB isolated marker
++visible,and optimized-MB line5-15deg. NaN gaps exclude bad/nonpositive points;
++no connection through omitted nodes. PNG and independent PDF render visually
++inspected:readable,no overlap/clipping. PDF has one page,98 vector drawing
++paths,zero embedded raster images. PDF SHA256
++3371745050e818de49b00e2e850904a37e09b09a428b9acd1e343034b84f9c53.
++CSV SHA256f5ced54765583bbbbe6d63dbcca442fb8fb01b4f7d643157d8285fb6d13d673f.
++Verification SHA256e571eac86a5f030854fe6c66fe91d4d0b81395384c92123de2c4e304d5e32f79.
++Source and checkpoint producer/protocol/input hashes in receipts. Reference
++image was not attached; style follows user's explicit figure instructions.
++
++Read-only verifier imports no evaluator. Historical receipt ledger hashes are
++snapshots; new task ledgers do not alter old numerical artifacts. No production
++code/security functional/frozen/source/cache changes,training/test/heldout/
++publication evaluation,production baseline/threshold approval or commit/push.
++Finite catalog and numeric full-Z checks do not certify global optimum,
++operational/finite-key/composable security or a secure default.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## EVID-0216 - Fixed receiver30 parameter provenance and A/B verification COMPLETE
++
++2026-10-23 user843d84ac authorizes one fixed configuration only. Deliver results/
++manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/
++report_vi.md,parameters.csv,results.json,moments.csv,conditional_normalization.csv,
++numerical_checks.json,verification.json,protocol/startup/producers and final seal.
++124 parameter rows record value,unit,source file/function-line or artifact field,
++specified/derived status and model applicability. No production code,historical
++artifacts or exact-source cache modified;6934 startup-protected files unchanged.
++
++Fresh A uses original power_conserving_random_width moments and fixed source,
++Gaussian real homodyne/RR/untrusted detector eta=.95,epsilon=.005.
++Same20/1km,0deg/L19km,Dr.30m,full divergence35urad,jitter1.561urad,centering.1m,
++lambda1550nm,tau.92,xi_ch.0186,beta.95,VA1.6249995399703647,nu_raw.25.
++Source identity01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754;
++C=1.2135302410613147,w=2.856493276891121e-10,payloadSHA
++f50b7253bc19791fa5e652832fdcb903fc198094e3cc871733a5855977a95018.
++nu_repo10.625,nbar.8124997699851825,VA=2*nbar unchanged. No AP/interpolation.
++
++A: m1=.22893092877019486,mh=.472859898131668,Tf=.22359648326109144,
++Tq=.21241665909803686,Npost=.017280257434744876,
++sigma2=1.0172802574347448,xi_f=.08135076367418763.
++I_AB=.21074687539663958,betaI=.2002095316268076,
++chi_BE=.19481699897277194,K=.005392532654035664 bits/transmitted-use.
++This exactly reproduces the Gaussian receiver30 target. Original pooled MI
++.210784854649766/K=.0054286129445057785 remains a separate historical result.
++
++B is explicitly authorized xi_det=.005 in xi(eta)=.0186+.005/eta,
++with NO eta_det parameter or epsilon/.95 conversion. Same physical geometry,
++original Eq10 retained PDF,real1D Gaussian likelihood and matching Tf/N in
++the gated homodyne Holevo path. M0=.9999999998943004;
++missing mass1.056995513649377e-10 exceeds fixed1e-10. Closed/direct moments
++and independent tail quadrature agree. B m1=.23006036312239064,
++mh=.4727226598544017,Tf=.22346671313982036,
++E_eta_xi=.009279122753547968,N=.01999380094195028,
++sigma2=1.0199938009419502,xi_f=.08947104766086754 are unnormalized
++diagnostic coefficients only. MI,betaI,Holevo and rawK unavailable/BLOCKED;
++no information-rate evaluation occurs after the failed mass gate.
++AtomP0 remains explicit; zero-limit electronic contribution8.492833828070532e-7.
++No renormalization,clipping,tail reassignment or surrogate substitution.
++
++39 scoped checks PASS: exact requested point/source identity, fresh optical/
++channel and Gaussian matching,GH64/128,adaptive MI,256/16/X/P/scaling,
++16 normalized conditional PDFs,full-Z33/129,entropy80/110,independent
++uncertainty and symplectic matrices,raw-PDF/noise moment integration,
++no-efficiency B API and expected blocked-rate behavior. Verification SHA256
++326e6d130787b8da33fd129e80839450b0e3c8bcc6cdcb229fbc948c4312efbf.
++First table-render attempt hit inspect/lru_cache TypeError; attempt_1 retains
++producer/protocol/failure. Corrected inspect.unwrap only; equations/tolerances
++unchanged; all checks rerun. PDF mass FAILED is retained as a model finding.
++
++Actual w0=.028193161347707173m,wL=.3336931290074428m,
++w_eff=.3345668706829517m. Raw B A0=.3285476076954618,w_eq=.3725066351663425m.
++A has no fixed A0/equivalent-beam collector; its nominal circular collection
++at w_eff is .3310320058798557. Launch curvature is implicit waist-plane
++propagation,not a passed R input; receiver curvature NOT_STORED_NOT_USED.
++Cn2 ground coefficient1e-14 differs from full HV Cn2(0)=1.027e-14.
++AO/phaseOFF; additional optical/hardware losses and repetition rate unmodeled.
++
++Parent seal passed before new authorized ledger updates. Its artifact bytes
++stay intact; historical ledger hashes are snapshots and need not match this
++later task. New verifier protects all old artifacts and current-task seal.
++No optimization of aperture/VA/nu,source generation,training/test/heldout/
++publication,baseline/threshold approval or security/default promotion.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## EVID-0215 - Manuscript43 homodyne audit COMPLETE WITH MODEL BLOCKERS
++
++2026-10-23 user7944a7e7 authorizes an isolated mathematical-consistency patch,
++not positive-SKR optimization or production model promotion. Deliver results/
++manuscript43_homodyne_audit_20261023/report_vi.md,manuscript_corrections_vi.md,
++README.md,variants.json,protocol.json,old_vs_new.csv and convention/PDF/source/
++covariance/independent-check artifacts. Manuscript four-page SHA256:
++f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b.
++Original PDF and exact byte copy unchanged; equation pages2-3 and references
++page4 visually checked. All mathematical changes live in this new namespace.
++
++Fresh original evaluator regressions preceded corrected comparisons:10 PASS.
++18 unit tests PASS;233 authenticated source payloads retain identical ensemble,
++VA,C,w and SHA. Repository source uses VA=2*nbar with X=2Re(alpha), whereas
++the manuscript nbar/2 differs by factor4 under these units. Centered MB PMF
++mapping nu_repo=42.5*nu_raw is retained. No new AP, interpolation or cache edits.
++Initial17-test harness integration failed KeyErrorB from passing passive-channel
++geometry to the raw PDF audit; attempt_1 preserves producer/tests/failure.
++Caller uses the preserved original lognormal/Rician factory after correction,
++with a guard and18th test. No acceptance criterion or tolerance changed.
++
++New C: homodyne1D/RR/untrusted, Tq=eta_det*mh^2 and
++Npost=eta_det*((m1-mh^2)*VA+.0186*m1)+epsilon_det. Same quantum Tq/Npost in
++DBL correlation interval,covariance and homodyne nu3. Classical rescaling only
++changes likelihood units; MI invariant and quantum covariance unchanged.
++The DBL reference supports homodyne; frozen repository production heterodyne
++is a different protocol,not a restriction of that theorem. C is a numerically
++validated Gaussian component with guards,not an approved secure protocol.
++Literal complex-mean1D density fails normalization; B-as-printed has no rate.
++B real projection remains diagnostic. Explicit xi_det A=epsilon/eta and
++B=chi_hom plus unresolved independent parameter are preserved separately.
++144 convention rows cover two geometries and all eight efficiency/noise pairs.
++ConventionB matches classically rescaled MI when M0=1 but not physical quantum
++Holevo: baseline MI residual3.73e-17,chi difference+.53397618734.
++
++Nine focused fixed-source Gaussian checks: GH64/128,adaptive integration,
++full-Z33/129 and entropy80/110 agree within preregistered audit tolerances.
++All historical-noise/Holevo helpers match the new C; old main MI was actual
++pooled fading MI,not the requested Gaussian approximation. At28.1cm,
++K_old=2.1077487381976345e-05 becomes K_Gaussian=-3.04873940221162e-06
++with the SAME historical passive law/source/Holevo. Do not transfer the old
++minimum-positive claim. At30cm passive-law Gaussian K=.005392532654035664;
++40.1cm=.00017446109490709683;55cm=.03509327539937468. These numbers
++are not raw manuscript-PDF results. Eight-cm recent K=-.023678535864695302
++under the same passive law; the original raw-trial rate also reproduces.
++
++Original Eq10 closed/direct bounded moments agree; no PDF normalization repair.
++noise_moment_checks.csv explicitly compares288 detector/context/definition/outage
++noise moments by linearity of the saved independent zeroth/first quadratures;
++max residual3.3306690738754696e-16. scenario_parameters.csv and the report
++provide the fixed-point parameter table. No additional MI/Holevo rerun.
++Mass tolerance1e-10 stays fixed. Raw-PDF M0 at40.1cm=.9987766103198625,
++55cm=.9985195274888609,30cm=.9999999998943004 FAIL. Their C rates
++are unavailable,not zero. Tail loss at30cm=1.056995513649377e-10 remains
++blocked despite proximity to tolerance. At28.1cm tail3.33608e-12 is within
++tolerance; raw-law Gaussian K=-.005357291084005428. AtomP0 explicit;
++zero-limit noise moment xi_ch*m1+xi_det*M0 versus active-only removes
++xi_det*P0. No gating/postselection substitution. Rician rho!=0 whole-support
++product counterexample reaches2.1468percent at fixture rho.5m,q1; Eq10 is
++not an exact general product there. Eq5 variance/log-amplitude distinction
++is recorded without changing atmospheric parameters or distributions.
++
++repository_map.csv locates37 files/functions; cache_impact.csv287 entries;
++affected_results.csv252 entries =107 directories plus145 root files. Only
++selected historical scenarios were reevaluated; other results NOT_REEVALUATED.
++Metadata count correction is preserved separately; no numeric rerun.
++startup manifest6867 files includes five allowed ledgers;6862 other protected
++files are byte-identical. Branchfeat/image and HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
++Saved-artifact verifier imports no evaluator. Completion checks SHA256
++734d50f6ff2d373b26f053f864325f14ddc724f91fd0f149246ee4f5310f9f47;
++validation SHA256 c8326b836faaab173456ea62650a9e94fa0c70e3fc6fa5e4f811a004898e61de;
++comparison receipt SHA25669b9ae06326be30b80b7a9f5a7fa15fc4770830ea15f20aa1f10cb3eae8b8f4e.
++Producer/input hashes and execution history are in the isolated artifacts.
++
++No production scientific/security functional,frozen spec,config,source/cache
++or historical artifact edits. No secure default because raw-PDF failures,
++manuscript detector definition and operational/security interpretation remain
++unresolved; finite numerical maximization is not rigorous global certification.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy and ObjectiveC USER_STOPPED. No new
++optimization,training/test/heldout/publication,baseline/threshold approval,
++commit or push. Audit complete with explicit model blockers; deliver and STOP.
++
++## EVID-0214 - Receiver/detector SWaP diagnostic COMPLETE; positive but fragile
++
++2026-10-23 continuation of user attachment17217c3e. Authorized namespace:
++results/uav_skwap_aware_positive_skr_20261022/. Deliver report_vi.md with a
++readable parameter table at the start, TablesA-D, source/threshold/PAT and
++robustness CSVs, ten primary manufacturer/prototype hardware references,
++nine vectorPDF/350dpiPNG pairs, reproducible scripts and sealed hash receipt.
++Startup protects6548 old files except five task ledgers; imported
++historical model/source/cache/config/frozen/results and old receipt hashes
++remain intact. Branch feat/image, HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
++
++Same existing passive collector/propagation, pooled homodyne1D MI bytecode,
++untrusted detector noise/covariance/full-Z Holevo and exact233 sources
++(197MB/36Uniform). Adapter exposes onlyDr to the same aperture CDF. Four fresh
++matching regressions(8cm baseline/recent,40.1cm,55cm) passed before search.
++HAP20/UAV1km,tau.92,beta.95,epsilon_ch.0186,AO/phaseOFF retained. Noise only
++.0135/.005SNU, eta.8/.85/.9/.95; no below-floor noise, new AP or interpolation.
++Cached Stage-A metadata excluded2/90 physical points in initial coordinates;
++separate completion includes90/90 across24 branches, preserves phase1 snapshot
++and original hash-bound producer. No equation/model/security/source change.
++
++28093 logged nodes=26747new+1346 authenticated exact reuse;
++96 catalog-context files, logged four-start P1/P2 ascent,
++16 fixed-common-source local roots(target0/1e-4) and bounded selected-source
++aperture refinement. No global optimum/minimum or production threshold claim.
++Minimum refined positive A:Dr0.281m,full div35urad,jitter1.561urad,
++centering.1m,zenith0deg/L19km,eta.95/noise.005,MB(nu0.2,VA1.3833230302980657).
++I=0.16562822490366971,betaI=0.15734681365848621,chi=0.15732573617110424,K=2.1077487381976345e-05.
++A is below1e-4 engineering margin; joint10 K=-0.0087927339075128397.
++C:Dr.30m,same optics/PAT/detector/geometry,MB(nu.25,VA1.6249995399703647),
++K=0.0054286129445057785; joint10=-0.0054985719238148101,joint20=-0.017079510449498847.
++B is an explicit unmet-balanced-objective reference at the same configuration
++asC, not a third independent successful design. No jitter>=3 positive found
++through30cm;15-20cm remains negative in tested catalog/domain. No fallback
++source optimization needed; above30cm common-source curves are comparisons.
++
++46 CURRENTLY_VERIFIED_PASS scoped numerical/provenance checks, including
++all source/node constraints, exact reuse line hashes, mass/outage/passivity,
++noise once/covariance/spectrum, same MI dependency, full-Z33/129,entropy110,
++width32/64,direct mixture/Fourier MI,half spacing,observed nominal/robustness
++convergence and phase1 preservation. All seven positive shortlisted rows have
++seven requested perturbation/noise cases. validation.json SHA256
++2b16fca27e483358773825080ad2eafa4f1979c5d668572d74ddf3dbd781c59f. Figure review in visual_review.json;
++current AST,UTF-8 labels,table/receipt consistency and Git whitespace checked
++at packaging. Read-only verify.py imports no evaluator and reruns no science.
++
++Grounded component examples do not establish a compatible UAV BOM or total
++mass/power. f_rep,external availability,flight energy/time/duty UNKNOWN; no
++invented bit/s,J/bit or sortie yield; no sum of incompatible components or
++integrated-terminal double counting. Detector.005 remains an assumption.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,historical
++frozen-hash discrepancy and ObjectiveC USER_STOPPED. No hardware/security
++validation,training/test/heldout/publication,new AP,baseline/threshold approval,
++commit or push. Deliver and STOP.
++
++## EVID-0213 - Lightweight8cm parameter-only diagnostic COMPLETE; no positive found
++
++2026-10-22 user attachment b4a0546e-1cbb-4ddd-b603-d3205df15e57 authorizes
++results/lightweight_uav_positive_skr_20261022/. Vietnamese report, parameter
++and engineering tables, full stage/catalog/coordinate/robustness CSVs, eight
++vectorPDF/350dpiPNG pairs, reproducible staging/validation/report scripts and
++read-only verify.py. startup_manifest.json protects6445 old files except five
++relevant task ledgers. All prior receipt artifact hashes authenticated.
++
++Imports the preceding numeric.py and its passive circular-Gaussian/full-Z/
++homodyne/untrusted implementation unchanged. No PDF/moment/security/MI/source
++normalization or collection/propagation equation changes. Dr=.08m everywhere;
++epsilon_det only .0135/.005, eta .8/.85/.9/.95. Fresh current bounded baseline
++matches saved baseline before search: K=-.05869636307980502. Historical trial
++-.058724314679977559 authenticated separately, not substituted across laws.
++Manuscript233urad and config223urad are full-angle divergence; jitter15.61urad.
++
++Staged physical screening: eight beams, six coupled PAT tiers, three angles,
++eight detectors, plus independent pointing/divergence/detector scans. Primary
++heights remain20/1km; no altitude attenuation model/profile invented. Full
++catalog233(197MB/36Uniform) ranked at26 targeted contexts, exact P1/P2 ascent
++and one source/physical coordinate step. No Cw/SKR interpolation/new AP.
++9923 logged nodes=9821 new+102 authenticated exact reused; no positive found.
++Finite coverage does not establish a global optimum or no-key theorem.
++
++Closest refined references share Dr8cm, full div50urad, jitter1.561urad,
++residual optical centering SD.1m, zenith0deg/L19km, MB(nu.25,VA1.62499953997),
++ideal Gaussian Tx99=.059893495049m. A detector(.8,.0135) K=-.0569672629018;
++B(.9,.005) K=-.0237609202135; C(.95,.005) K=-.0236784908824.
++C I=.0116489199771,betaI=.0110664739783,chi=.0347449648607; gap=.0236784908824.
++Tf=.0106030752956,epsilon_f=.540475890731; Ndet=.005263157895 dominates
++Nchannel=.0002002764404 and Nfading=.0002672722297 at that point.
++C joint+20percent pointing K=-.0242248336829; nominal negative, not robust.
++Previous positive points atnoise.0005/jitter1urad/centering.05m are excluded.
++
++validation.json SHA256
++350cd48011756521b93222a72860e8c7b04529e09732448c6d9b65d7a86ed71f:
++33 CURRENTLY_VERIFIED_PASS scoped checks across all9923 rows. Exact source/
++parameter/line-hash reuse, detector floor, mass/outage/passive support, noise
++once, raw rate, PSD/symplectic, selected full-Z33/129, entropy110digits,
++width32/64, direct-mixture/Fourier and halfspacing checks pass. Eight selected
++MI256x32/512x48 changes <=5.155e-9. Protocol JSON recorded during physical phase,
++after baseline and before source/refinement; plan/producer existed before run.
++All8 figures inspected; source-comparison bars changed to markers for legibility.
++
++No implemented payload mass/electrical-power/flight-time model found in src or
++configs. Engineering proxies only, no kg/W/flight-time saving or hardware advice.
++Residual optical centering is not UAV GPS precision. No scientific source,
++security/config/cache/frozen/historical result changes; no production baseline/
++threshold approval,training/test/heldout/publication/newAP. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen historical discrepancy,ObjectiveC
++USER_STOPPED. Completed numerical producers must not be rerun for inspection.
++Deliver report and STOP.
++
++## EVID-0212 - Fixed8cm positive-rate geometry/detector DIAGNOSTIC COMPLETE
++
++2026-10-22 user599ac194 authorizes results/
++positive_skr_without_receiver_enlargement_20261022/. Dr=.08m at every node;
++no receiver sweep. Outputs: VietnameseQ1-Q10 report,executive conclusion,
++tables1-4,eight vectorPDF/350dpiPNG figures,source/alternating/threshold/
++reversion/robustness/weather logs and final_receipt.json. Historical inputs
++and model/source/cache files preserved; only five task ledgers updated.
++
++Exact historical trial regression reproduced before search:
++I=.0007587634870959417,chi=.0594451399927187034,K=-.0587243146799775588.
++Bounded-model actual-MI baseline separately K=-.05869636307980502. Generalized
++geometry matches all9 original primitives exactly at20/1km/30deg; all changed
++geometries recompute HV integrals,diffraction,Gd,pointing and passive fading.
++233urad manuscript/223urad config are FULL divergence;15.61urad is pointing.
++
++User supplied weather pairs visibility/tau_zen23/.92,15/.89,5/.75. Use tau
++directly,not an additional Kruse factor. No vertical extinction profile was
++provided: changed-height cases retain fixed zenith optical depth as explicitly
++uncalibrated sensitivity,excluded from primary recommendations and L roots.
++All final primary candidates keep HAP20/UAV1km,homodyne1D,untrusted detector,
++epsilon_ch.0186,beta.95,AO/phaseOFF,previous full-Z/circular-Gaussian model.
++
++No original-detector positive point found in sampled domain. Final A (same
++source winner as final catalog) at0deg/19km,25urad,jitter1urad,sigma_h.05m,
++eta.8/epsilon.0135,MB(nu.21,VA1.8): K=-.052613115773571605. Detector-only
++source ranking stays negative even atzero noise (-.00004000792378778014).
++
++Selected B:15deg,L19.6702474278km,div25urad,jitter1urad,sigma_h.05m,
++eta.8,epsilon_det.0005,MB(nu.25,VA1.6249995399703647),Tx99.119786990098m:
++I=.0346549889958,chi=.0327442103107,K=.00017802923529202513.
++C same geometry/PAT/source/noise,eta.95:
++I=.0409617503498,chi=.0379514042980,K=.0009622585343795273.
++Original geometry30deg/L21.9393102292km with C detector/PAT/source also gives
++refined K=.000012302147235361549; explicitly near-zero,not robust/not selected.
++Eleven coordinate reversions show all5 B physical changes necessary on that
++fixed-source branch; C geometry shortening and efficiency improvement are
++alternative margin contributions,not both logically required for K>0.
++
++Source catalog233 (197MB,36Uniform),exact-hash reuse,no moment/SKR interpolation
++or new AP. Alternating4starts/delta1e-8 remains finite-catalog only. Uniform/
++fixedMB/bestMB and same-VA comparisons separate energy from shaping effects.
++All rates use actual pooled fading-likelihood MI,not the separately saved
++surrogate MI. Full-Z is numerical,not a rigorous global/security enclosure.
++
++Fixed-source B roots:eta_crit=.7651237072,epsilon_crit=.000534930401,
++jitter_crit=1.172440187urad,sigma_h_crit=.05142903759m,
++zenith_crit=19.86219753deg,L_crit=20.20175177km. DivcritB27.18371909urad,
++DivcritC32.01342558urad. Roots scoped to fixed source/other coordinates;
++NO_SIGN_CHANGE recorded rather than invented thresholds. K1e-4 is only an
++engineering comparison target,not security definition. B needs5 physical
++changes plus source adaptation; C6. Both require divergence9.32x,angularSD
++15.61x,horizontalSD20x,noisevariance27x improvements; no modest-hardware claim.
++
++Joint+10percent pointing: B K=-.0005908454722,C=.00005534415366 (below1e-4).
++Joint+20percent fine: B=-.0014913737441,C=-.0010051967452. No selected candidate
++is robust to joint20percent. All weather/source/pointing cases retain signedK.
++
++validation.json SHA256
++f7a43481cb202f605bb98078777a0947f7509bf41f0333aa6e746f2a167fbe7d:
++34 CURRENTLY_VERIFIED_PASS checks,9849 logged evaluations (9792 new,57 exact
++reused). Selected MI256x32/512x48 observed changes<2e-8; entropy110digits,
++full-Z33/129,width32/64,direct mixture/Fourier,half spacing,independent HV,
++passive support/outage,noise-once,PSD/spectrum and reused-line hashes checked.
++6291 startup inputs protected except5 authorized ledgers. Read-only verify.py
++binds artifacts/current HEAD and calls no evaluator. All8 PNGs inspected;
++distance/zenith legends moved off curves,zero-angle root marker unclipped.
++
++No operational secure-key,hardware/PAT,coupling,finite-key or platform claim.
++No production source/security/config/cache/frozen/baseline/threshold changes,
++training/test/heldout/publication or lifecycle promotion. Keep NOT_READY,
++UNVALIDATED_SECURITY_MODEL,historical frozen discrepancy,ObjectiveC USER_STOPPED.
++Deliver and STOP; further numerical work requires a new scoped request.
++
++## EVID-0211 - Minimal physical-change SKR DIAGNOSTIC COMPLETE
++
++2026-10-22 userf1566258 authorizes the isolated result namespace
++results/minimal_physical_positive_skr_20261022/. Artifacts: report_vi.md Q1-Q8,
++executive conclusion, tablesA/B/C, seven vectorPDF/350dpiPNG figures,
++final_selection.json, source/alternating/coverage logs, 26 fixed-source roots,
++25-point pointing perturbations per candidate and final_receipt.json.
++
++Primary baseline is manuscript233urad full divergence, not config223urad and
++not pointing15.61urad. Same previous passive random-width/exact circular
++collection model, untrusted(.8,.0135),channel.0186,beta.95,homodyne1D,
++30deg/21.9393102292km,AO/phaseOFF. Actual pooled fading-likelihood MI throughout;
++Fourier inversion is a checked acceleration of the same mixture, not a new
++channel. Prior A/B regressions match within3e-15; historical files untouched.
++
++All independent baseline sensitivities remain negative. Reducing horizontal
++residual from1m to.1m gives the largest one-variable gain, deltaK=.000245478868.
++No positive8-30cm node found in the staged domain; this is not an all-source/
++all-channel no-key theorem. At40cm/25urad/1.561urad/.1m, catalog-best
++K=-.0002160003975. Fixed-source local divergence refinement25.0785813719urad
++is still negative; Rx roots .4004323905m forK0 and .4006325197m forK1e-4.
++
++Final three numerical candidates, after refined actual-MI checks:
++1) Rx.401m/div25.0785813719urad/jitter1.561urad/sigma_h.1m,
++   MB(nu.3,VA1.7777777597124051),Tx99.1194116489m,K=.0002836738804036787.
++2) Rx.55m/div35urad/jitter3urad/sigma_h.1m,MB(.22,2.15),
++   Tx99.0855621358m,K=.03514983766504004. All25 sampled perturbations survive;
++   joint+20percent fine K=.0009378242616157606.
++3) Rx.55m/div15urad/jitter3urad/sigma_h.1m,MB(.22,2.15),
++   Tx99.1996449835m,K=.08045681491664947. Higher nominal rate, pointing-sensitive.
++Worst+20percent fine K for1/3 is -.04181146525/-.04127408969.
++
++233 authenticated sources reused (197MB,36Uniform), no Cw/SKR interpolation or
++new AP. Same-energy comparisons have separate exact hashes. Source catalogs
++and numerical roots are best-tested/local only; rounded40.1cm is not a global
++minimum or millimetre hardware tolerance. Nominal Pareto and robustness guard
++are distinguished. Prior75cm/10urad and55cm/25urad stay regression/comparison.
++
++checks.json:26 CURRENTLY_VERIFIED_PASS checks over4527 logged evaluations;
++SHA256 b87e98bc8412291ce8cb4e1392a3843250ba2384d247600b90c244f7ecf60c82.
++Selected MI256x32/512x48 observed changes <=2.135e-7; full-Z33/129,
++entropy110digits,width32/64,direct-mixture vs Fourier and half output spacing
++checked. These are numerical checks, not rigorous global/security enclosures.
++All7 PNGs inspected; figure1/5 label spacing revised. Optional pypdf import
++failed and was replaced with standard-library/vector-object checks, no install.
++Read-only verify.py binds artifacts,6193 startup inputs (five ledgers excepted),
++producer/config/source hashes and current HEAD. No numerical rerun in verifier.
++
++All selected Rx exceed30cm; platform SWaP, hard-pupil diffraction/coupling,
++phase tracking and measured PAT remain unvalidated. Tx99 is ideal encircled
++power, not a certified aperture. Security_valid=false/hardware_validated=false.
++No scientific source,production config/cache/security/frozen changes; no new
++baseline/threshold approval,training/test/heldout/publication or lifecycle
++promotion. Keep prior frozen discrepancy,NOT_READY,UNVALIDATED_SECURITY_MODEL,
++ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## EVID-0210 - Untrusted positive-rate feasibility DIAGNOSTIC COMPLETE
++
++2026-10-22 explicit user64840f73 authorizes bounded physical/detector/source
++investigation. Results/untrusted_positive_skr_feasibility_20261022 contains
++reproducible scripts, Vietnamese Q1-Q7 report, tablesA/B/C, thresholds, source/
++coordinate logs, actual pooled-fading MI, five vectorPDF/350dpiPNG figures,
++validation and final receipt. Prior trial and all caches/results preserved.
++
++Exact historical diagnostic regression I=.0007587634870959417,
++chi=.0594451399927187034,K=-.0587243146799775588 PASS; detector/channel
++noise ratio3436.1418639, fading/channel22.8412830. Same original link catalog
++ranking remains negative (-.0584489853); even zero detector noise does not
++make the tested original-link catalog positive. No trusted-detector switch.
++
++Audit finds full-Z/homodyne and passive normalization necessary but not enough
++for operational security. The equivalent-beam large-aperture pointing law can
++substantially overestimate collection; old conditional-active and tail-erasure
++models remain comparison-only. New explicitly declared passive Gaussian
++random-width surrogate integrates exact circular Gaussian collection and
++Rayleigh jitter; each beam has unit total power, T<=eta_atm<=1, no clipping or
++silent renormalization. Its atmospheric closure/hardware are unvalidated.
++
++Primary detector .8/.0135, beta.95, epsilon_ch.0186, AO/phaseOFF. Best exact
++tested .75m/10urad, position/angular jitter .1m/1.561urad, MB(.125,8):
++0deg/19km K_surrogate=.4240680742;30deg/21.9393102292km K=.4025681221.
++Actual pooled-MI functionals are .4242466625 and .4027555073 respectively.
++Smaller-transmitter candidate .55m/25urad at30deg,same pointing/detector,
++MB(.2,3.5): eta_f=.6285534706,epsilon_f=.08799081575,I=.7125629079,
++chi=.5756128574,K_surrogate=.1013219051;actual pooled-MI K=.1015473738.
++Required ideal99%-power transmitter diameter .119787m (.299467m for10urad),
++not verified hardware. VA8 catalog boundary is not a global optimum.
++
++140 fixed-source optical configurations across3 models; authenticated233-source
++catalog ranking at selected/adaptive contexts, finite-catalog alternating
++P1/P2 with4 starts/tol1e-8; detector5x5 grids, targeted aperture/divergence
++catalog refinements, bracketed fixed-source zeros. Minimum tested positive
++diameter .55m at improved pointing; .4m remains negative. Widest tested
++positive divergence50urad atD.75m;100urad remains negative. Fixed-source roots
++D=.4503850896m andtheta=75.61341893urad are scoped, not globally optimized
++thresholds. Bright-link detector roots .1392143726SNU/.1869946793 efficiency;
++joint pointing-factor root .1479534462 at0deg. At38km K=.2411912611 remains
++positive: maximum tested distance only, not a maximum range.
++
++51 named validation checks over19370 saved rows plus boundary checks; independent
++Gaussian aperture convolution, covariance uncertainty/symplectic spectrum,
++DBL moment identity, full-Z33/65/129, width32/64, entropy80/110, actual-mixture
++quadrature128/256/512. All5932 distinct positive nodes checked:208 coarseGH64
++failed2e-13 convergence (max1.4024e-9), retained and refined throughGH512;
++final adjacent difference<=2.776e-14. Final tables/recommendations unaffected.
++All headline/selected convergence passed; no tolerance relaxation. Actual-MI
++quadrature uses explicit diagnostic2e-5 tolerance, not a rigorous enclosure.
++
++Initial q0 d/d rounding failure and numpy-int64 final-summary serialization
++failure retained; numerical stages reused rather than rerun after serialization.
++Additional bright-link search corrects the initial negative-K darkest-link
++selection bias; all earlier negatives remain. No AP/source generation,
++interpolation, production/frozen/config/cache/manuscript change, training/test/
++held-out/publication, baseline/threshold approval, commit/push. Preserve
++UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen historical conflict,ObjectiveC STOP.
++
++## EVID-0209 - Fixed-source corrected excess-noise trial COMPLETE
++
++2026-10-22 user attachment ead53cdc authorizes an isolated trial, no optimization
++or source generation. Producer scripts/run_corrected_excess_noise_trial.py;
++results/corrected_excess_noise_trial_20261022/ contains result.json, comparison.csv,
++quadrature_convergence.csv, report_vi.md, proposed noise LaTeX, startup/protected
++manifest, validation.json, independent_review.json and receipt.json. Startup
++feat/image HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2, initially clean.
++
++Two exact MB sources verified, VA/nu=(5.475,.165) at 8cm/233urad/30deg and
++(5.5,.165) at historical55cm/10urad/21.9393102292km. epsilon_ch=.0186,
++epsilon_det=.0135 outputSNU, eta_det=.8, beta=.95. Detector loss/excess assigned
++untrusted before ideal measurement; homodyne1D and heterodyne kept distinct.
++Boxed zero-limit and active-only unconditioned variants evaluated separately.
++Manuscript boxed I=.0007587634870959417, chi=.0594451399927187034,
++rawK=-.0587243146799775588; active-only K=-.0587160460775980431.
++Historical mixed manuscript replay K=.0000966579973751190; reference ideal
++heterodyne direct-Zminus replay K=.07798099387393764. These are not matched
++nonideal/noise-only comparisons. Declared total-to-excess matched convention
++recalculates identical MI/Holevo/K; literal total noise is not inserted into
++an excess covariance and xi_det is not identified with epsilon_det/v_el.
++
++Manuscript retained law/moments agree. Reference retained mass
++.9999634640362218031 FAILS1e-10 normalization; saved raw moments differ from
++[0,1] integrals. Reference boxed K=-.703985971297380418 and active-only
++K=-.703982727380193183 are incompatible-input algebra ONLY, NOT accepted
++SKR for the requested PDF. No renormalization/moment replacement performed.
++111 producer numerical/provenance checks and27 additional checks PASS;
++reference PDF acceptance remains FAILED, security acceptance NOT_ESTABLISHED.
++Source/fading/uncertainty/spectrum/entropy80-110/GH convergence checked;
++epsilon_det=0 evaluated through actual covariance;6108 tracked input hashes
++protected before ledger updates. Final receipt records only5 allowed ledger
++changes. Gaussian surrogate MI, direct endpoint worst case, outage/operational
++security remain unvalidated. Frozen hash matches recorded experiment re-freeze;
++historical hash discrepancy, NOT_READY and ObjectiveC USER_STOPPED retained.
++No production/config/frozen/cache/manuscript change, training/test/held-out,
++publication run, optimizer/source generation, commit or push.
++
+ ## EVID-0208 - Zenith-angle non-monotonic-rate root cause COMPLETE
+ 
+ 2026-10-21 explicit user task 3e709e3c authorizes saved-data analysis and bounded
+diff --git a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+index 3aebf06e..80ba67a0 100644
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,5 +1,311 @@
+ # Next Actions
+ 
++## Current: deliver completed new-cloud DP/Greedy/Stationary diagnostic and STOP
++
++EVID-0228/DEC-0211. Open results/phaseC_new_cloud_dp_greedy_stationary_20261025/
++validation_report_vi.md,figure_index.md andfullCSV/NPZ data. Centeredprimary vs
++oldgeometrysecondary,zero/calibratedp.1..8,10lambda andcontrolledOLDmodel allrun.
++Keep DIAGNOSTIC_ONLY,sourceclasses andstrictPhaseB BLOCKED. verify_results.py
++checks saved data only,no physical/source evaluation. Isolated LaTeX/add-file
++patch awaits author integration;no frozen manuscript edit or automatic further
++sourcejob/retuning/training/test/publication/default/threshold promotion.
++Deliver and STOP.
++
++## Current: deliver saved-data IEEE figure package and STOP
++
++EVID-0227/DEC-0210. Open results/skr_vs_zenith_eq14_v43_phaseB_publication_figures/:
++skr_vs_zenith_publication.pdf,skr_vs_zenith_zoom.pdf,skr_vs_zenith_two_panel.pdf
++and600dpiPNG companions. figure_captions.tex andfigure_validation_report_vi.md
++record sampled brackets,diagnostic/evidence limitations. plot_skr_vs_zenith.py
++regenerates figures from saved CSVs only;rerendering does not need/effect any
++scientific evaluation. Preserve all historical experiment files and strict gates.
++No automatic source jobs,model/rate reruns,training/test/heldout/publication,
++default/baseline/threshold approval or ObjectiveC restart. Deliver and STOP.
++
++## Current: deliver completed 61-angle diagnostic and STOP
++
++EVID-0226/DEC-0209. Open results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/
++validation_report_vi.md,diagnostic_skr_61_angles.csv,best_scheme_by_angle.csv and
++four PNG/PDF figures.12932 pairs complete,1908reused,0new C,w. Saved sign brackets:
++FixedMB[5,6]deg,OptimizedMB[15,16]deg;Uniform none positive in available catalog.
++All positive rates remain conditional on INSUFFICIENT_EVIDENCE sources. No
++continuous operational threshold or global optimum. Strict Phase B remains
++BLOCKED:73 pilot convergence-evidence gaps and exact-VA Uniform payload/receipt.
++Do not launch source jobs,rerun matching rates,relax evidence/pool,or promote
++publication/security/default/baseline/threshold state. No automatic continuation.
++Read-only check from project root:
++.venv/Scripts/python.exe -X utf8 -B results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/verify.py
++Historical nine-angle/current frozen experiment evidence remains unchanged.
++
++## Current: deliver completed historical-source reuse diagnostic and STOP
++
++EVID-0225/DEC-0208. Open results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/
++validation_report_vi.md and diagnostic_results.csv. Eight requested outputs are
++complete.80/81 original sources reused;one exactUniform still missing.212-source
++within-domain catalog diagnostic evaluates9 angles;720 pilot results reused,
++1188 extra unique pairs,total1908. No new C,w. All positive rows are conditional
++on insufficient-evidence sources;do not promote source evidence or security.
++For strict Phase B,73 existing pilot convergence records(including FixedMB) and
++one exactUniform payload/receipt still needed. No automatic recomputation,
++evidence waiver,pool substitution,strict pilot,full61,optimizer or lifecycle
++promotion. No checkpoint/progress infrastructure is required for this delivery.
++Read-only verifier: .venv/Scripts/python.exe -X utf8 -B
++results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/verify.py.
++Preserve historical packages and all final mathematical conventions.
++
++## Current: deliver Phase B unblocking reports and STOP
++
++EVID-0224/DEC-0207. Read results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/:
++validation_report_vi.md,pilot_source_evidence.csv,uniform_timeout_diagnosis.md,
++uniform_recovery_plan.md,readiness_summary.json,artifact_integrity_report.md.
++0 source upgrades;strict readiness false. Remaining2 dependency families are
++73 existing exact-ensemble convergence evidence gaps(including FixedMB),and one
++missing Uniform at VAhex0x1.9ffff84830112p+0/nu0. Missing evidence is not wrong C,w.
++Safest future next action:prepare/test observability and row-checkpoint wrapper
++with stub data,then agree a bounded single-source attempt. The wrapper/budget
++in recovery plan is proposed only; do not execute the reference command now.
++Do not automatically retry sources,rebuild catalog,alter evidence/pool/conventions,
++launch pilot/full61,optimizer,training/test/heldout/publication or promote defaults.
++Read-only verifier: .venv/Scripts/python.exe -X utf8 -B
++results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/verify.py.
++Keep all old sealed packages,current experiment binding and ObjectiveC stop.
++
++## Current: deliver completed readiness report and STOP; Phase B remains BLOCKED
++
++EVID-0223/DEC-0206. Read results/
++skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/validation_report_vi.md,
++readiness.json and remaining_source_gaps.csv.81 classified:6 exact/1 alternative/
++74 insufficient/0 invalid. The74 gaps are73 existing convergence-evidence gaps
++plus one exact-VA Uniform job that timed out without payload after3600s.
++Do not retry or increase its budget automatically. No worker remains active.
++Frozen history/versioned specification and isolated pilot runner are prepared;
++10 readiness checks pass,source-job receipt check NOT_RUN. Previous entries
++below describe earlier snapshots and are superseded for current readiness.
++
++Minimum future prerequisites: restore exact-ensemble convergence evidence for
++73 existing sources (26Uniform/47MB,including Fixed MB), obtain the missing
++Uniform VA hex0x1.9ffff84830112p+0/nu0 payload plus receipt, then revalidate gate.
++Missing receipts do not mean wrong C,w; do not recompute the whole catalog or
++quietly shrink the81-source pool. Any new job/budget or evidence-policy/pool
++decision must be explicit. Do not reopen FINAL mathematical conventions.
++
++Read-only verification from project root:
++.venv/Scripts/python.exe -X utf8 -B
++results/skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/run.py --verify-only.
++No nine-angle pilot or61-angle sweep,optimization,training/test/heldout/publication,
++production/default/baseline/threshold promotion or ObjectiveC restart.
++
++## Current: approved Phase A conventions validated; resolve pilot dependencies
++
++EVID-0222/DEC-0205. Read results/skr_vs_zenith_eq14_v43_20261024/
++validation_report_vi.md and gate.json. Exact-normalization and VA mapping stops
++are resolved for this approved baseline; do not ask the author to approve again.
++Keep unnormalized mass/deficit metadata, exact Eq14, VA=Vmod=2*nbar and X_A=2Re(alpha).
++
++Minimum remaining work before a nine-angle pilot:
++- Recover/authenticate the74 pilot receipts listed in pilot_evidence_gaps.csv,
++  including Fixed MB. Missing receipts are evidence gaps, not incorrect C,w.
++  If unavailable, obtain a separate decision on diagnostic evidence policy or
++  bounded convergence checks; no waiver/recomputation was applied here.
++- Generate exactly one Uniform at VA hex0x1.9ffff84830112p+0 with full receipt,
++  in a new cache, only when dependencies permit. Do not use rounded VA1.625.
++- Resolve/explicitly scope the frozen-spec hash provenance conflict.
++- Implement the Phase B source-job/orchestration after those dependencies.
++Do not automatically run sources, pilot, optimization or full61 sweep.
++
++Read-only verifier: .venv/Scripts/python.exe -X utf8 -B
++results/skr_vs_zenith_eq14_v43_20261024/run.py --verify-only.
++Preserve both sealed Phase A snapshots, all old caches and current lifecycle/
++security/ObjectiveC limits. Current update is complete; deliver readiness report.
++
++## Historical 2026-10-23: Eq14 Phase A dependency report before user convention approval
++
++EVID-0221/DEC-0204. Open results/skr_vs_zenith_eq14_v43_20261023/
++validation_report_vi.md for parameters, exact Eq14 implementation and blockers;
++gate.json and source_catalog_coverage.csv provide machine-readable evidence.
++Read-only verification: .venv/Scripts/python.exe -X utf8 -B
++results/skr_vs_zenith_eq14_v43_20261023/run.py --verify-only.
++Do not rerun the sealed Phase A producer or historical producers.
++
++Required review: Eq10 support/normalization, VA-to-printed-Vmod mapping,
++and payload-bound precision receipts unlocated for207 identity-valid sources.
++Do not alter equations, renormalize/clip PDF, optimize/project Z, or replace
++missing evidence with new AP without a newly authorized scope.
++Phase B-F remains unimplemented beyond dependency guards; no automatic pilot,
++optimization, source generation, figure or lifecycle promotion.
++Keep all existing security/frozen/ObjectiveC constraints. Deliver and STOP.
++
++## Current: PDF identity resolved; deliver confirmed-reference audit and STOP
++
++EVID-0220/DEC-0203 resolves the prior request for v43(2) path. User explicitly
++confirms the available hash-bound (43).pdf; do not ask again or seek another
++file merely for its filename. Open docs/MANUSCRIPT43_CANONICAL_REFERENCE.md and
++results/manuscript43_canonical_model_comparison_20261023/reference_binding_user_confirmed/report_vi.md.
++Use that addendum's read-only verify.py; original audit seals are historical
++snapshots and must not be overwritten for updated ledger hashes.
++
++No dependent scientific rerun is needed: confirmed PDF hash equals audited
++input,all numerical values unchanged. Eq10 support/normalization and manuscript
++notation/receiver/security issues remain; correction_proposal_v1 is not adopted.
++No automatic production correction,optimization,new AP,training/test/heldout/
++publication,baseline/default/threshold approval. Preserve all existing
++security/lifecycle/frozen blockers,ObjectiveC USER_STOPPED.
++
++## Current: bind missing v43(2) PDF; do not optimize or promote provisional model
++
++EVID-0219/DEC-0202,user544a73ad. Fixed comparison artifacts and six answers are
++in results/manuscript43_canonical_model_comparison_20261023/report_vi.md.
++Audit numerical evidence passes; exact requested (43)(2).pdf is missing.
++Obtain its path or explicit author designation of the available hash-bound43,
++then compare equation/version differences and update reference binding.
++Do not infer identical contents from filename,rename available43 as target,
++approve corrections from a PROPOSAL,or silently use bounded positiveK as Eq10.
++Current production/frozen/caches/history preserved; no optimization/new AP,
++training/test/heldout/publication,baseline/default/threshold work authorized.
++Read-only verify.py checks saved artifacts; do not rerun completed producers.
++Keep security/lifecycle/frozen blockers and ObjectiveC USER_STOPPED.
++
++## Current: deliver Uniform staged diagnostic and law/coverage qualifications; STOP
++
++EVID-0218/DEC-0201 complete. Open results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md for Q1-Q6 and parameter
++tables,candidate_comparison.csv and figures. verify.py reads saved evidence only.
++Do not rerun completed producers,overwrite old caches/receipts,repair raw PDF,
++mix channel laws,call finite exact-tested argmax global,or label secondary
++positive secure/flight-validated. Source gaps and OS blocker remain explicit.
++No automatic retry/optimization/publication/default/baseline/threshold work.
++Keep lifecycle/security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## Current: deliver manuscript43 zenith plot and exclusions; STOP
++
++EVID-0217/DEC-0200 complete. Open results/skr_vs_zenith_manuscript43_20261023/
++skr_vs_zenith.png or vectorPDF,report_vi.md and183-row skr_vs_zenith.csv.
++Use verify.py only for read-only saved artifacts; do not rerun completed
++source-catalog sweep or overwrite receipts. Positive optimizedMB5-15deg,
++fixedMB only5deg,Uniform none. Angles0-4 remain blocked by PDF normalization.
++Do not manufacture missing curves,renormalize the PDF,interpolate source
++moments or call finite-catalog source selection global optimization.
++No automatic follow-up AP,optimization,training/test/heldout/publication,
++production baseline/default/threshold approval. Keep existing security,
++lifecycle/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## Current: deliver fixed receiver30 parameter verification; STOP
++
++EVID-0216/DEC-0199 complete. Open results/manuscript43_homodyne_audit_20261023/
++receiver30_configuration_verification_20261023/report_vi.md and parameters.csv.
++Use that subdirectory's verify.py for saved-evidence checks only. Do not rerun
++the completed fixed-point producer or overwrite historical receipts.
++A Gaussian random-width K=.005392532654035664 reproduces; B with explicit
++xi_det=.005/no eta_det remains BLOCKED by raw PDF mass. No secure-positive
++claim under manuscript43 and no automatic optimization/model repair.
++124 rows/39 scoped checks;source/old artifacts unchanged. Keep security,
++lifecycle and frozen-identity blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## Current: deliver manuscript43 audit with explicit blockers; STOP
++
++EVID-0215/DEC-0198 complete. Open results/
++manuscript43_homodyne_audit_20261023/report_vi.md and manuscript_corrections_vi.md.
++Use verify.py only for read-only hashes/recorded checks; do not rerun sealed
++numerical producers.18 tests,10 regressions and233 unchanged source payloads
++support the isolated component audit,not final security or a new default.
++
++Do not carry the old28.1cm positive claim into requested Gaussian MI.
++Keep passive-law30/40/55cm positives distinct from raw-PDF unavailable rates.
++Before any future default/model promotion, resolve detector reference-plane
++definition,raw-PDF support/normalization,nonzero-Rician approximation and
++operational/parameter-estimation/security scope under new scoped authorization.
++No silent renormalization,source/cache edits,optimization or lifecycle promotion.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## Current: deliver fragile receiver/detector candidates; STOP
++
++EVID-0214/DEC-0197 complete. Open results/uav_skwap_aware_positive_skr_20261022/
++report_vi.md for parameters/Q1-Q8,selected_designs.csv,TablesA-D,hardware evidence
++and nine figure pairs. Use verify.py only for read-only saved-artifact hashes;
++do not rerun completed numerical producers or overwrite sealed outputs.
++28.1cm has small nominal positive K,30cm has higher K; neither survivesjoint10.
++Balanced B is explicitly unmet and its reference duplicatesC. No15-20cm or
++preferredjitter>=3positive found through30cm in the tested finite catalog.
++Mass/power/rate/energy/flight claims remain unsupported; unknowns are explicit.
++Further research requires a new scoped request. Preserve all historical data,
++source/cache/frozen/model/security conventions and lifecycle blockers,including
++ObjectiveC USER_STOPPED. No automatic AP,test/heldout/publication or production
++baseline/threshold approval. Deliver and STOP.
++
++## Current: deliver lightweight8cm negative result; STOP
++
++EVID-0213/DEC-0196 complete. Open results/lightweight_uav_positive_skr_20261022/
++report_vi.md,table_1_recommended_parameters.csv,table_2_engineering_comparison.csv,
++detector_scenario_best.csv and eight figure pairs. Use verify.py for read-only
++saved-artifact receipt checks; no evaluator run. No positive candidate found
++with noise>=.005 and Dr8cm in the staged exact-source study. Closest C K=-.02367849;
++A/B/C references are not working designs. Do not reuse excluded oldnoise.0005
++positives, claim hardware mass/power savings or silently extend physics/domain.
++Further work requires a new scoped request; keep model/source/caches/history,
++UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen discrepancy,ObjectiveC USER_STOPPED.
++No automatic AP,training/test/heldout/publication,baseline/threshold promotion.
++Deliver and STOP.
++
++## Current: deliver fixed8cm report; STOP
++
++EVID-0212/DEC-0195 complete. Read results/
++positive_skr_without_receiver_enlargement_20261022/report_vi.md,selection.json,
++necessity.json,tables1-4,eight figure pairs and final_receipt.json. Run its
++verify.py only for saved-artifact checks; do not rerun numerical producers.
++Original detector remains negative in tested domain; B/C positives require
++strongPAT/centering and noise.0005. C0 preserves originalgeometry with tiny
++positiveK,not operational margin. Neither selected positive survives joint
++20percent pointing degradation. Validate measured optics/PAT/detector/SNU,
++phase/coupling and protocol assumptions before physical/deployment claims.
++User supplied weatherpairs but not vertical extinction; no calibrated altitude
++claim or unsupportedLcrit. No automatic newsourceAP,baseline/threshold approval,
++training/test/heldout/publication or lifecycle promotion. Keep all prior
++blockers and ObjectiveC USER_STOPPED. Deliver;STOP.
++
++## Current: deliver minimal physical-change report; STOP
++
++EVID-0211/DEC-0194 complete. Read results/
++minimal_physical_positive_skr_20261022/report_vi.md and final_selection.json;
++inspect tablesA/B/C, seven figures, source/coverage/roots/robustness receipts.
++Use its verify.py for saved-artifact checks only; no evaluator runs. Preserve
++selection.json as the earlier shortlist and do not confuse it with final.
++8-30cm tested points remain negative; local rounded40.1cm point has tiny margin.
++55cm/35urad/3urad/.1m is the sampled pointing-tolerant scenario, not certified
++ordinary-UAV hardware or secure-key generation. Future requested work should
++first establish platform SWaP, measured optics/coupling/PAT and protocol inputs.
++Do not automatically expand the catalog/AP, optimize missing physical models,
++approve baseline/thresholds,train,test,accessheldout or promote publication
++readiness. All previous blockers and ObjectiveC USER_STOPPED remain. STOP.
++
++## Current: deliver untrusted feasibility report; STOP
++
++EVID-0210/DEC-0193 complete. Read results/
++untrusted_positive_skr_feasibility_20261022/report_vi.md and figure_captions.md;
++inspect final tablesA/B/C, selected_convergence, boundary_validation,
++actual_pooled_fading_MI, positive_MI_verification and final_receipt.
++Run its verify.py for read-only hash/table checks; it never calls evaluators.
++Do not rerun sealed numerical producers. Positive values belong to a new
++passive uncalibrated width surrogate; no operational-security/hardware claim.
++Original link remains negative in tested exact catalog. Future work, if
++requested, should validate measured aperture/pointing/turbulence and protocol
++assumptions before new AP/global optimization or hardware recommendations.
++No automatic source generation,baseline/threshold approval,training/test/
++held-out/publication or lifecycle promotion. Preserve all prior flags; STOP.
++
++## Current: deliver corrected noise trial; STOP
++
++EVID-0209/DEC-0192 complete. Read results/corrected_excess_noise_trial_20261022/
++report_vi.md and result.json. Manuscript homodyne trial is raw negative; numerical
++checks do not validate fading security. Reference corrected numbers are only
++algebra: retained PDF normalization/moment compatibility FAILED. Do not silently
++normalize or replace saved moments. Actual historical replays differ in receiver/
++detector/fading treatment; matched total-to-excess reformulation gives delta0.
++Producer refuses overwrite. Use receipts/stored artifacts for inspection, no
++rerun/new law/optimization/source generation or security claim. No training/test/
++held-out/publication/baseline/threshold promotion. Preserve all existing flags;
++wait for a new scoped task. No commit/push.
++
+ ## Current: deliver zenith-angle root-cause figures/report; STOP
+ 
+ EVID-0208/DEC-0191 complete. Open results/zenith_angle_root_cause_diagnostic_20261021/
+diff --git a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+index 96473ba6..7b6c90a5 100644
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,5 +1,452 @@
+ # Project State
+ 
++## Current: new-cloud centered-primary mobility diagnostic COMPLETE
++
++2026-10-25 EVID-0228/DEC-0211. Results:
++results/phaseC_new_cloud_dp_greedy_stationary_20261025/validation_report_vi.md,
++scientific_validation.json,execution_summary.json andverification.json.
++User selected centeredHAPprimary100positiveclear-sky positions;oldgeometrysecondary0.
++212historicalC,w reused,0newC,w;74contexts/15688SKR pairs. New indexGamma9*.9^lag,
++mu iid percell/slot,no temporalAR;zero andcalibratedp modes explicit.100IDs/case,
++3800mission-caseviews/10800MC algorithmcalls. Atp.4 DP U.00078810147 vsGreedy
++.00078140646 vsStationary.00062940083;distance687.565 vs1352.812m. Atp.8 DP U
+++13.513% overGreedy,unavailability5.0667%vs16.3333%,butdistance+12%. Secondary
++rate/U/distance0.7600 DP inequalities/allmovement checks PASS;4unit methods,
++512missioncloud audit,8figurepairs and9645protected hashes PASS. AllwinnerC,w
++source evidence stillinsufficient. StrictPhaseB/security/publication gates stay
++BLOCKED/UNVALIDATED;no frozen/production/cache/manuscript edit or training/test/
++publication,sourcejob,ObjectiveC restart,default/baseline promotion,commit/push.
++Deliver and STOP. Previous entries are historical snapshots.
++
++## Current: IEEE saved-data SKR figures COMPLETE; diagnostic status unchanged
++
++2026-10-25 EVID-0227/DEC-0210. Latest figure package:
++results/skr_vs_zenith_eq14_v43_phaseB_publication_figures/figure_validation_report_vi.md.
++ThreePNG600dpi/vectorPDF pairs:full0..60deg,MB-only0..18deg zoom,two-panelIEEE.
++183 selected records match12932 saved candidates via pure historical ranking.
++No new physical/MI/Holevo/SKR/C,w computation.9621 historical files intact;
++Times/STIX fonts embedded,PDF vector/native text/no raster images,visualQA PASS.
++Plots/captions retain raw negatives and DIAGNOSTIC_ONLY;styling is not scientific
++certification. Strict Phase B BLOCKED,UNVALIDATED_SECURITY_MODEL and
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS unchanged. Missing exactUniform and all
++source evidence classes preserved. No production/frozen/manuscript/cache edit,
++training/test/heldout/publication evaluation,baseline/default/threshold promotion,
++ObjectiveC restart or commit/push. Deliver figures and STOP;prior entries snapshots.
++
++## Current: 61-angle historical-source diagnostic COMPLETE; strict Phase B BLOCKED
++
++2026-10-24 EVID-0226/DEC-0209. Latest explicit task authorizes this61-angle
++diagnostic, superseding earlier no61 statements only within this scope. Current:
++results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/validation_report_vi.md,
++diagnostic_summary.json and verification.json. Earlier entries are snapshots.
++Original grid0..60deg by1;212fixed sources(33Uniform179MB).12932 unique numerical
++PASS pairs,1908 old rates reused unchanged,11024 new rate pairs;C,w jobs0.
++47positive/12885negative;all positive source classes INSUFFICIENT_EVIDENCE.
++Uniform no sampled positive;FixedMB positive0..5,crossing bracket[5,6]deg;
++OptimizedMB positive0..15,bracket[15,16]deg. No continuous-limit/global-optimum
++claim. BestMB sampled0deg K.0007960878080861267,VA1.358333319784304,nu.30.
++OptimizedMB switches48deg toVA1.116666359980243/nu.25,56deg to
++VA.9388888798562025/nu.30,60deg toVA.7416615151490328/nu.20 (all rawK negative).
++Source classes21exact/1alternative/190insufficient unchanged. Strict subset no
++positive selection. Originalpilot still missing UniformVA1.6249995399703647/nu0
++and73 existing convergence records. Strict_Phase_B_ready=false.
++3 focused tests,235 independent checks(35reused200new) PASS.9456 protected prior
++files and238 source payloads unchanged. RawK retained;operational max0 separate.
++DirectEq14/MI/Holevo/physics/numerical conventions and historical/versioned
++frozen bindings intact;no production/manuscript/cache change. Deliver and STOP;
++no new source job,training/test/heldout/publication,default/baseline/threshold
++promotion or ObjectiveC restart. UNVALIDATED_SECURITY_MODEL and
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS remain.
++
++## Current: exact-source reuse nine-angle diagnostic COMPLETE; strict Phase B BLOCKED
++
++2026-10-24 EVID-0225/DEC-0208,user3aadec7f. Current package:
++results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/validation_report_vi.md,
++diagnostic_summary.json and diagnostic_results.csv. Prior entries are snapshots.
++235 canonical historical sources consolidated from238payloads;212 insideapproved
++domain reused at9 angles,1908unique numerical-PASS candidate rows.80/81 original
++pilot sources available;720 pilot rows preserved separately. One exactUniform
++VA1.6249995399703647/nu0 remains missing. No C,w calculation or source job.
++Pilot taxonomy6exact/1alternative/74insufficient/0invalid unchanged;73 existing
++pilot convergence evidence gaps remain. Diagnostic use explicitly authorized,
++strict_Phase_B_ready=false. All12 positive candidate rows rely on INSUFFICIENT_EVIDENCE.
++MB finite-catalog best sampled0deg K.0007960878080861267;positive0/5/10/15deg,
++FixedMB positive0/5deg,Uniform none in sampled catalog. No continuous threshold,
++global optimum or security-positive claim. Strict-source-evidence subset has
++no positive rate.36 independent checks and5+2 focused tests PASS.
++9388 prior files unchanged;production/manuscript/frozen/caches retained. Current
++reference/spec binding unchanged. Keep finaldirectEq14/MI/Holevo,[0,1] truncation,
++VA2*nbar,nu_repo42.5*nu_raw and all physical parameters. No strict pilot or61sweep,
++training/test/heldout/publication,baseline/default/threshold or ObjectiveC restart.
++UNVALIDATED_SECURITY_MODEL andNOT_READY_FOR_PUBLICATION_SCALE_RUNS remain.
++Deliver diagnostic reports and STOP;future scope requires a new explicit request.
++
++## Current: Phase B unblocking diagnosis COMPLETE; strict pilot BLOCKED
++
++2026-10-24 EVID-0224/DEC-0207. Current report and inventory:
++results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/validation_report_vi.md,
++pilot_source_evidence.csv,readiness_summary.json. Prior entries below are snapshots.
++Expanded Git/archive/execution evidence adds0 source upgrades.81-source counts
++remain6exact/1alternative/74insufficient/0invalid;73 existing convergence gaps,
++including FixedMB,plus missing exact-VA Uniform. No identity conflicts found.
++Uniform old timeout is confirmed in AP subprocess;9 historical CPU observations
++show samePID with increasing CPU,but exact worker stage/bottleneck and memory
++remain unknown. No new source job.5 focused forensic tests PASS;9346 old protected
++files unchanged. Prior runner10 checks hash-verified,not rerun as new tests.
++Frozen/current/versioned experiment hashes intact;original resolution unchanged.
++PHASE_B_STRICT_READY=false. Recovery plan specifies profiling/checkpoint tests
++before any future separately authorized bounded attempt; recovery wrapper is not
++implemented or executed. Current readiness gate/package not overwritten.
++Minimum future work:73 exact-source convergence records,missing Uniform payload
++and receipt,then fresh strict readiness. Do not retry automatically or reopen
++approved mathematical conventions. No pilot,full61,optimization,training/test/
++heldout/publication,production/default/baseline/threshold approval or ObjectiveC
++restart. Preserve UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS.
++
++## Current: Phase B readiness preparation COMPLETE; nine-angle pilot BLOCKED
++
++2026-10-24 EVID-0223/DEC-0206. Current readiness addendum:
++results/skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/validation_report_vi.md
++and readiness.json. Prior entries below are historical snapshots of their dates.
++81-source audit:6 VERIFIED_EXACT,1 VERIFIED_BY_ALTERNATIVE_EVIDENCE (Uniform VA2),
++74 INSUFFICIENT_EVIDENCE,0 INVALID.73 existing payloads still lack adequate
++convergence evidence,including Fixed MB. Missing receipts do not imply wrong C,w.
++The single authorized Uniform source at exact VA hex0x1.9ffff84830112p+0/nu0
++timed out after3600.0956285999855s:BLOCKED_BY_ENVIRONMENT,no payload or receipt,
++no retry,no remaining worker. No C,w recomputation campaign.
++
++Frozen discrepancy traced to four committed updates after the historical hash;
++current bytes equal HEAD. Distinct experiment_spec_v1.json SHA2564868392f...874d21
++binds approved formulas/parameters/81 identities and both historical/current
++frozen hashes. No frozen-file edit or hash-check bypass. Pilot runner prepared,
++10/10 focused readiness checks PASS; new-source receipt check NOT_RUN. Approved
++Phase A9 checks reused by sealed hash. phase_B_ready=false; pilot/full61 NOT_RUN.
++9295 protected files unchanged. No operational channel/SKR candidate evaluation.
++
++Minimum remaining action: recover adequate convergence evidence for73 existing
++sources and obtain the exact Uniform payload/receipt, then revalidate readiness.
++Any new source attempt/budget or evidence-policy/pool change needs a separate
++explicit decision; do not automatically launch work from this completed task.
++Keep FINAL [0,1] truncation/deficit metadata,VA=2*nbar,direct Eq14 and manuscript
++MI/Holevo conventions. Production/manuscript/historical caches unchanged.
++Preserve UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
++ObjectiveC USER_STOPPED; no training/test/heldout/publication or baseline promotion.
++
++## Current: approved Phase A conventions PASS; Phase B dependencies pending
++
++2026-10-24 EVID-0222/DEC-0205. Current experiment revision:
++results/skr_vs_zenith_eq14_v43_20261024/validation_report_vi.md and gate.json.
++User accepts selected-baseline truncation on[0,1] with deficit metadata and
++VA=Vmod=2*nbar,X_A=2Re(alpha). Exact normalization and VA mapping no longer block
++this numerical experiment. Truncated density is NOT claimed normalized.
++Exact Eq14/Eq13 and MI/channel equations preserved; PDF/production unchanged.
++
++9 focused tests pass;212 existing source identities/conventions pass.
++Only0/60deg channel checks and two0deg Uniform/MB fixtures were evaluated;
++no source AP/job, pilot/optimization/full61 sweep. No positive/optimum claim.
++21/212 convergence receipts now located (16 recovered),191 unlocated.
++Pilot80 existing sources:6 receipts,74 evidence gaps; missing receipts do not
++mean incorrect C,w. One additional Uniform at exact fixed-MB VA is still needed.
++phase_A_model_conventions_ready=true;phase_B_ready=false.
++Remaining dependencies: pilot receipt evidence, exact-VA Uniform source,
++frozen-spec provenance conflict and unimplemented pilot orchestration.
++30 sealed revision artifacts and9263 protected files verified unchanged.
++
++Next: resolve those recorded dependencies, without reopening approved Eq10/VA
++decisions or automatically generating sources/running B-F. Keep
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED and frozen hash discrepancy. No manuscript correction,
++production/baseline/threshold promotion, training/test/heldout/publication work.
++
++## Historical 2026-10-23: direct Eq14 Phase A COMPLETE WITH BLOCKERS
++
++2026-10-23 EVID-0221/DEC-0204. User-approved plan implemented up to its required
++mathematical stop in results/skr_vs_zenith_eq14_v43_20261023/.
++Read validation_report_vi.md,gate.json,source_catalog_coverage.csv.
++13 component/gate tests pass;212 existing sources reconstruct exact p,alpha/hash
++and match C,w payloads.5 payload-bound convergence receipts found;207 unlocated
++in the inspected source directories. No source AP or source generation.
++
++Fresh angle0 Eq10 mass.9999999998943004,stable eta>1 tail1.056995513649377e-10.
++Numerical checks pass but probability-law validity remains BLOCKED.
++VA=2*nbar versus printed Vmod=nbar/2 unresolved. Direct Eq14 and printed
++homodyne Eq13 components implemented; primary rate calls remain gated.
++183 status-only BLOCKED rows;zero operational SKR evaluations;no figures.
++Phase B-F NOT_RUN and explicitly refused by CLI. No full-Z/endpoint/cap repair.
++23 sealed package artifacts and9238 protected historical files verified unchanged.
++
++Only next dependency is mathematical review and missing source-receipt evidence;
++do not start pilot/optimization/new sources or treat this as a completed sweep.
++Preserve manuscript/production/frozen/old caches and all lifecycle/security limits:
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++frozen hash discrepancy,ObjectiveC USER_STOPPED.
++
++## Current: canonical manuscript PDF CONFIRMED; mathematical/model blockers remain
++
++2026-10-23 EVID-0220/DEC-0203. User confirms "đúng cái đấy rồi":
++C:/Users/HP/Downloads/2026__Binh_s_work (43).pdf is the v43(2) reference intended
++in user544a73ad. SHA256 f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b
++matches the PDF already audited. Missing-PDF blocker RESOLVED; do not ask again.
++Current canonical-reference registry: docs/MANUSCRIPT43_CANONICAL_REFERENCE.md.
++Current binding/report/metadata tables and verifier: results/
++manuscript43_canonical_model_comparison_20261023/reference_binding_user_confirmed/.
++
++Identity verification passes;9164 prior protected files and51 prior sealed audit
++artifacts unchanged. All9 comparison rows preserve numerical values/statuses.
++No scientific evaluator rerun. Previous BLOCKED_REFERENCE_NOT_LOCATED records
++below are historical before user confirmation,not the current identity state.
++Eq10 critical mass.9013297245653482 still blocks SKR. B=C bounded
++K=.10788256029424448 remains DIFFERENT,not Eq10. Proposal not adopted;
++no canonical production evaluator or validated secure-SKR model approved.
++Keep scientific production/frozen/C,w/results unchanged,UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen hash discrepancy,ObjectiveC USER_STOPPED.
++Audit and reference binding delivered; no further automatic optimization or
++training/test/heldout/publication/default/baseline/threshold work.
++
++## Current: fixed manuscript comparison COMPLETE; v43(2) canonical binding BLOCKED
++
++2026-10-23 EVID-0219/DEC-0202,user544a73ad. Review results/
++manuscript43_canonical_model_comparison_20261023/report_vi.md,
++three_model_comparison.csv,parameter/equation/component tables,
++mathematical_differences_vi.md and correction_proposal_v1.md.
++Saved fixed checks CURRENTLY_VERIFIED_PASS:3 scenarios,9 rows,
++84 selected check records,54 parameters,35 components,22 equation rows;
++9164 old protected files unchanged. Read-only verify.py; no evaluator rerun.
++
++Exact requested 2026__Binh_s_work (43)(2).pdf NOT LOCATED; path clarification
++pending. Available43 hashf970cd6d...fc27b is not assumed identical.
++Canonical binding/evaluator adoption BLOCKED; full v43(2) standardization
++not complete. Corrections PROPOSAL_NOT_ADOPTED,not scientific defaults.
++B and C invoke same random-width function. Critical30cm/10urad/.5urad/.03m/
++VA3 Uniform raw Eq10 mass.9013297245653482 blocks rates;
++boundedB=C K=.10788256029424448 cannot transfer to Eq10.
++Paper Vmod/likelihood/MB/rho/support issues and production optical/receiver
++differences documented separately. No optimization,new AP,production/frozen/
++cache/history changes. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
++Next permitted dependency: authenticate exact PDF and review version delta,
++without automatic optimization/publication/default/baseline/threshold approval.
++
++## Current: Uniform positive-SKR investigation COMPLETE WITH EXPLICIT MODEL/COVERAGE LIMITS; STOP
++
++2026-10-23 EVID-0218/DEC-0201,user9f6181d7. Deliver results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md,candidate_comparison.csv,
++stage/per-angle/aperture/ablation/source/law tables,three figure pairs and
++read-only verify.py/final_seal.json. Numeric saved-artifact checks pass;
++7051 protected historical/scientific files unchanged.
++Primary Eq10 Uniform no positive found in valid tested points; best
++K=-0.024464166579485941,Dr0.4,div50.0,
++jitter0.5,sigma0.03,angle0.0,VA0.6.
++Secondary bounded random-width law is independent,not a PDF repair;receiver30
++Uniform VA3.0,K=0.10788256029424448,div10/jitter.5/sigma.03/zenith0.
++Same v43 xi_det.005/no eta_det,homodyne/RR/same Tf,N throughout.
++Initial exact-source gaps=[]; no interpolation/global/secure-positive claim.
++All new source attempts use separate cache; GMP policy blocker respected.
++No production/frozen/old-source/history changes,training/test/heldout/publication
++or default/baseline/threshold promotion. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
++
++## Current: manuscript43 zenith sweep COMPLETE; STOP
++
++2026-10-23 EVID-0217/DEC-0200,userf84ac5ba. Deliver results/
++skr_vs_zenith_manuscript43_20261023/skr_vs_zenith.png(350dpi),skr_vs_zenith.pdf
++(vector),183-row CSV,report_vi.md,61 angle checkpoints,source/protocol/receipt
++artifacts and read-only verifier. Exact receiver30 optics; raw Eq10 PDF,
++xi_det.005 with NO eta_det;homodyne Gaussian MI/RR/matching full-Z Holevo.
++233 exact sources(36Uniform/197MB),13048 candidate evaluations at56 normalized
++angles; no source/candidate/numerical failure. Angles0-4 mass FAILED and rates
++blocked.12 positive plotted points,156 raw nonpositive rows omitted from log.
++
++OptimizedMB best exact-tested at all56 evaluable angles;positive5-15deg,
++peakK=.0007281372514840734 at5deg,MB(.3,VA1.358333319784304).
++FixedMB(.25,VA1.6249995399703647) positive only5deg,K=1.259549660342918e-05.
++Uniform has no positive point. Maximum5deg is conditional on omitted0-4,
++not a physical/global optimum. Exact legend labels;single fixed-MB marker
++and Uniform no-positive annotation are deliberate. PNG/PDF visually checked.
++
++6959 protected old files unchanged; five relevant ledgers updated. No production/
++frozen/cache/source/history changes or new AP/interpolation. No default/
++baseline/threshold/security promotion. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
++No training/test/heldout/publication evaluation,commit/push. Deliver and STOP.
++
++## Current: fixed receiver30 configuration verification COMPLETE; STOP
++
++2026-10-23 EVID-0216/DEC-0199,user843d84ac. Deliver results/
++manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/
++report_vi.md and124-row parameters.csv,results/moments/conditional PDFs,
++39 scoped checks,verification/provenance and read-only verifier/final seal.
++Model A fixed random-width Gaussian homodyne/RR/untrusted reproduces
++I=.21074687539663958,chi=.19481699897277194,K=.005392532654035664.
++Detector remains eta.95/epsilon.005; no source/geometry optimization.
++
++Model B explicitly xi_det=.005 with NO separate efficiency,raw Eq10 PDF.
++Deficit1.056995513649377e-10 exceeds unchanged1e-10; noise/moment diagnostics
++saved but MI/Holevo/K BLOCKED,not0. No renormalization or surrogate substitution.
++Source exact C,w and all6934 protected old files unchanged. Parent ledger
++hashes are historical snapshots; its numerical artifact bytes remain intact.
++No production/frozen/cache changes or default/security approval.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen discrepancy,ObjectiveC USER_STOPPED. No AP,training/test/
++heldout/publication,baseline/threshold approval,commit/push. Deliver and STOP.
++
++## Current: manuscript43 homodyne audit COMPLETE WITH MODEL BLOCKERS; STOP
++
++2026-10-23 EVID-0215/DEC-0198,user7944a7e7. Deliver results/
++manuscript43_homodyne_audit_20261023/report_vi.md,manuscript_corrections_vi.md,
++README.md,old_vs_new.csv,144-row detector comparison,source/PDF/covariance checks,
++variants/protocol,isolated patch,execution history and hash receipts. Read-only
++verify.py imports no evaluator.18 unit tests,10 fresh matching regressions,
++233 authenticated sources;6862 historical/scientific files unchanged. Only
++five relevant ledgers may change; audit patch stays separate from production.
++
++C physical Gaussian component uses homodyne1D/RR/untrusted with
++Tq=eta_det*mh^2,Npost=eta_det*((m1-mh^2)*VA+.0186*m1)+epsilon_det.
++Classical rescaling leaves MI invariant and quantum covariance unchanged.
++VA=2*nbar,MB PMF,exact C,w preserved. Manuscript factor4/complex-density/
++detector-plane/PDF/Rician findings are documented. All security-critical
++variants remain explicit; recommended_secure_default=null.
++
++Same-passive-law Gaussian reevaluation changes28.1cm K from
++2.1077487382e-05 to -3.0487394022e-06.30cm K=.00539253265404 remains
++positive only in that historical law. Raw manuscript PDF fails mass1e-10
++at30/40/55cm; C rates unavailable, no repair.28.1cm raw-law K=-.005357291084.
++No new optimization or fabricated positive. Full-Z numeric checks are not
++global proof; operational/finite-key security remains unvalidated.
++
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No source AP,
++training/test/heldout/publication,baseline/threshold approval or commit/push.
++Deliver and STOP; further model/default action requires a new scoped request.
++
++## Current: receiver/detector SWaP diagnostic COMPLETE; STOP
++
++2026-10-23 EVID-0214/DEC-0197,user17217c3e. Deliver results/
++uav_skwap_aware_positive_skr_20261022/report_vi.md,selected_designs.csv,
++TablesA-D,hardware/robustness/source/root CSVs,nine vectorPDF/350dpiPNG pairs,
++validation.json,execution_history.json and final_receipt.json. Parameter table
++is at the beginning of the Vietnamese report. verify.py is read-only/no evaluator.
++28093 nodes(26747new/1346exact reuse),233sources,46scoped checks PASS.
++Minimum refined A Dr.281m K=2.1077487382e-05,below1e-4; C Dr.30m
++K=0.00542861294451. Both35urad/1.561urad/.1m/0deg,eta.95/noise.005,
++HAP20/UAV1km/tau.92. A MB(.2,VA1.3833230303); C MB(.25,VA1.62499953997).
++Both negative atjoint10; C=-0.00549857192381. No positive found15-20cm
++orpreferredjitter>=3through30cm in tested region. B balanced objective UNMET,
++conditional reference identical toC; onlytwo distinct physical configurations.
++No source-optimized fallback; fixed-common-source curves/roots above30cm are
++comparison only. Selected-source local roots are separate,nonglobal.
++Model/MI/Holevo/untrusted/homodyne/source cache/frozen/history unchanged.
++Hardware totalmass/power,f_rep,availability,energy and sortie yield UNKNOWN.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,historical
++frozen discrepancy,ObjectiveC USER_STOPPED. No productionbaseline/threshold
++approval,AP,training/test/heldout/publication,commit/push. Deliver and STOP.
++
++## Current: lightweight8cm parameter-only diagnostic COMPLETE; STOP
++
++2026-10-22 EVID-0213/DEC-0196,user b4a0546e. Deliver results/
++lightweight_uav_positive_skr_20261022/report_vi.md,parameter/engineering tables,
++stage/source/robustness CSVs,eight vectorPDF/350dpiPNG figures and final receipt.
++Read-only verify.py imports no evaluator. Same previous optical/full-Z/homodyne/
++untrusted model bytes; Dr=.08m, noise only .0135/.005, eta .8/.85/.9/.95.
++Fresh baseline K=-.05869636307980502 reproduced before optimization.
++9923 nodes(9821new/102exact reused),233sources,26catalog contexts;33checks PASS.
++No positive found. Shared closest physical point50urad/1.561urad/.1m/0deg,
++HAP20/UAV1km/L19km,MB(.25,VA1.62499954). A(.8,.0135) K=-.0569672629018;
++B(.9,.005)=-.0237609202135; C(.95,.005)=-.0236784908824. C gap=.0236784908824,
++nominal negative and joint20percent negative; no positive/robust hardware design.
++No below-floor noise, Rx enlargement, altitude extrapolation or mathematical/
++security change. No implemented mass/power model: proxies only, no flight-time
++claim. Historical outputs/caches and pre-existing dirty edits preserved.
++No production baseline/threshold approval,AP,training/test/heldout/publication.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,historical
++frozen discrepancy and ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## Current: fixed8cm geometry/detector diagnostic COMPLETE; STOP
++
++2026-10-22 EVID-0212/DEC-0195,user599ac194. Deliver results/
++positive_skr_without_receiver_enlargement_20261022/report_vi.md,selection.json,
++tables1-4,eight vectorPDF/350dpiPNG figures,threshold/necessity/robustness/weather
++receipts and final_receipt.json. Read-only verify.py calls no evaluator.
++34 scoped checks PASS;9849logged nodes,9792new/57exact-reused;233exact sources.
++Dr=.08m throughout,no aperture sweep. Historical trial K=-.05872431468 replayed;
++bounded actual-MI baseline=-.05869636308 separately. No original-detector
++positive found; nearest selected A=-.05261311577. B at20/1km,15deg/L19.6702474km,
++div25urad,jitter1urad,sigma_h.05m,eta.8/noise.0005,MB(.25,1.62499953997)
++givesK=.0001780292353; Csame/eta.95 gives.0009622585344. Original-geometry
++30deg C detector/PAT gives tiny.00001230214724,comparison only. B fails joint
++10percent pointing; C stillpositive at10percent(.00005534415,below1e-4),
++both negative at20percent. No robust practical/hardware/security claim.
++User visibility/tau pairs23/.92,15/.89,5/.75 adopted without anotherKrusefactor.
++Vertical extinction stillmissing; changed heights onlyuncalibrated sensitivity,
++not selected or used foraltitude-distance certification. Full-Z/homodyne,
++untrusted assignment,passive model,channel.0186,beta.95,AO/phaseOFF retained.
++No historical/source/security/config/cache/frozen changes,productionbaseline/
++threshold approval,newAP,training/test/heldout/publication or lifecycle promotion.
++Keep NOT_READY_FOR_PUBLICATION_SCALE_RUNS,UNVALIDATED_SECURITY_MODEL,
++historical frozen discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++## Current: minimal physical-change diagnostic COMPLETE; STOP
++
++2026-10-22 EVID-0211/DEC-0194, userf1566258. Deliver results/
++minimal_physical_positive_skr_20261022/report_vi.md, tablesA/B/C, seven
++vectorPDF/350dpiPNG figures and final_receipt.json. Use final_selection.json;
++selection.json is the earlier automated shortlist, preserved for provenance.
++233 exact sources;4527 logged evaluations;26 scoped numerical checks PASS.
++Original233urad baseline actual-mixture K=-.05869636307980502; config223urad
++is separately reported and pointing baseline is15.61urad. No positive sampled
++8-30cm point; coverage staged/incomplete, not a no-key theorem. Fixed-source
++local40cm-branch roots D=.4004323905m(K0),.4006325197m(K1e-4).
++Rounded.401m/25.0785813719urad/1.561urad/.1m MB(.3,1.7777777597) gives
++K=.0002836738804; .55m/35urad/3urad/.1m MB(.22,2.15) gives.0351498376650,
++joint20percent degraded pointing still.0009378242616; .55m/15urad/samepointing
++gives.0804568149166 but loses positivity under joint20percent degradation.
++The40.1cm candidate is also pointing-sensitive. All Rx>30cm SWaP unverified;
++Tx99 is ideal Gaussian geometry only. No operational hardware/security claim.
++Detector untrusted(.8,.0135),epsilon_ch.0186,beta.95,homodyne1D,AO/phaseOFF;
++previous bounded channel/full-Z/security scope retained. Fourier MI accelerates
++the same checked actual likelihood. No historical source/cache/config/security/
++frozen changes; no production baseline/threshold approval,AP,training/test/
++heldout/publication or lifecycle promotion. Keep NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++UNVALIDATED_SECURITY_MODEL,frozen discrepancy,ObjectiveC USER_STOPPED. STOP.
++
++## Current: untrusted feasibility numerical investigation COMPLETE; STOP
++
++2026-10-22 EVID-0210/DEC-0193; deliver results/
++untrusted_positive_skr_feasibility_20261022/report_vi.md, tablesA/B/C, five
++PDF/350dpiPNG figures, source/threshold/actual-MI logs and final receipt.
++Original trial regression exact; detector noise dominates. Original optical
++link catalog and detector improvements alone remain negative in tested domain.
++New passive random-width/exact-circular-collection surrogate finds positive
++functionals with untrusted detector(.8,.0135), improved pointing .1m/1.561urad:
++.75m/10urad MB(.125,8) gives K=.4240680742 at0deg or.4025681221 at30deg;
++actual pooled-MI values .4242466625/.4027555073. Smaller-transmitter candidate
++.55m/25urad MB(.2,3.5) gives .1013219051 (.1015473738 actual-MI) at30deg.
++These are DIAGNOSTIC_ONLY; no validated physical secure-rate/hardware claim.
++51 named checks/19370 saved rows plus boundary checks;5932 positive nodes
++verified,208 coarse nodes explicitly refined toGH512 without tolerance change.
++No global optimum/range/threshold certificate. Preserve all prior uncommitted
++work and cache/results; no production/config/frozen/manuscript or lifecycle
++changes. Keep UNVALIDATED_SECURITY_MODEL,NOT_READY,frozen conflict,ObjectiveC
++USER_STOPPED. No source/AP,training/test/held-out/publication,commit/push.
++
++## Current: corrected excess-noise fixed-source trial COMPLETE; STOP
++
++2026-10-22 EVID-0209/DEC-0192; results/corrected_excess_noise_trial_20261022/.
++Deliver report_vi.md, result.json, comparison.csv and receipt.json. Two exact
++fixed MB sources; no search/newCw. Untrusted eta_det=.8/epsilon_det=.0135,
++epsilon_ch=.0186,beta=.95. Manuscript8cm/233urad/30deg homodyne1D boxed
++rawK=-.0587243146799775588; active-only K=-.0587160460775980431.
++111 producer plus27 additional numerical/provenance checks pass, not security.
++Reference55cm/10urad retained mass=.9999634640362218031 and raw/truncated
++moments conflict: PDF acceptance FAILED. Reference corrected numbers are
++incompatible-input algebra only, NOT accepted SKR. Actual historical replays
++remain ideal/mixed-or-heterodyne; not matched-detector/noise-only comparisons.
++Full report separates those from identical matched total-to-excess calculations.
++Keep UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen discrepancy and ObjectiveC USER_STOPPED. No production,
++cache/config/frozen/manuscript changes; no training/test/held-out/publication,
++optimization, baseline/threshold promotion, commit/push. Complete; STOP.
++
+ ## Current: zenith-angle root-cause diagnostic COMPLETE; STOP
+ 
+ 2026-10-21 EVID-0208/DEC-0191. Deliver results/

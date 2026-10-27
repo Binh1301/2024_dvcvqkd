@@ -1,0 +1,707 @@
+--- /dev/null
++++ results/skr_vs_zenith_manuscript43_20261023/render_and_report.py
+@@ -0,0 +1,152 @@
++"""Figure and Vietnamese report from saved, checked sweep rows; no evaluator."""
++import csv
++import hashlib
++import json
++from pathlib import Path
++
++import matplotlib
++matplotlib.use('Agg')
++import matplotlib.pyplot as plt
++from matplotlib.ticker import LogLocator,NullFormatter
++import numpy as np
++
++OUT=Path(__file__).resolve().parent
++LABELS=['Optimized Uniform 256-QAM','Fixed MB-shaped 256-QAM','Optimized MB-shaped 256-QAM']
++
++
++def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
++def read(name):return json.loads((OUT/name).read_text(encoding='utf-8'))
++def save(name,value):(OUT/name).write_text(json.dumps(value,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
++def fmt(value):return 'Không có' if value is None else f'{value:.12g}'
++def ranges(intervals):return '; '.join(str(a)+'°' if a==b else str(a)+'–'+str(b)+'°' for a,b in intervals) or 'Không có'
++
++
++def main():
++    if (OUT/'final_receipt.json').exists() or (OUT/'figure_receipt.json').exists():
++        raise FileExistsError('Preserve completed figure')
++    summary=read('summary.json');protocol=read('protocol.json')
++    with (OUT/'skr_vs_zenith.csv').open(encoding='utf-8',newline='') as f:rows=list(csv.DictReader(f))
++    line_data=[];all_positive=[]
++    with plt.rc_context({'font.family':'DejaVu Serif','font.size':11,'axes.labelsize':12,
++        'axes.titlesize':14,'legend.fontsize':9,'pdf.fonttype':42,'ps.fonttype':42,
++        'axes.linewidth':.8,'xtick.direction':'in','ytick.direction':'in'}):
++        fig,ax=plt.subplots(figsize=(6.8,4.5),layout='constrained')
++        for label,color,marker in zip(LABELS,['#1f77b4','#ff7f0e','#2ca02c'],['o','s','^']):
++            data=sorted([x for x in rows if x['scheme']==label],key=lambda x:int(x['zenith_deg']))
++            xx=np.array([int(x['zenith_deg']) for x in data])
++            yy=np.array([float(x['SKR']) if x['valid_point']=='True' and x['SKR'] and float(x['SKR'])>0 else np.nan for x in data])
++            assert len(xx)==61 and np.array_equal(xx,np.arange(61))
++            valid_indices=np.flatnonzero(np.isfinite(yy))
++            marker_indices=np.unique(np.r_[valid_indices[::3],valid_indices[-1:]]).astype(int).tolist()
++            ax.plot(xx,yy,color=color,marker=marker,markersize=3.6,markevery=marker_indices or None,
++                linewidth=1.7,label=label)
++            all_positive.extend(yy[np.isfinite(yy)].tolist())
++            line_data.append(dict(scheme=label,positive_points=int(np.isfinite(yy).sum()),
++                excluded_angles=xx[~np.isfinite(yy)].tolist(),excluded_points_rendered_as='NaN gaps',
++                legend_label=label))
++        ax.set(title='SKR versus Zenith Angle',xlabel='Zenith Angle (deg)',ylabel='Secret Key Rate (bits/use)')
++        ax.set_yscale('log');ax.set_xlim(0,60);ax.set_xticks(np.arange(0,61,10))
++        if all_positive:
++            ax.set_ylim(min(all_positive)*.72,max(all_positive)*1.65)
++        else:
++            ax.set_ylim(1e-6,1e-1)
++            ax.text(.5,.48,'No positive valid SKR points',transform=ax.transAxes,ha='center',va='center')
++        if line_data[0]['positive_points']==0 and all_positive:
++            ax.text(.025,.035,'Uniform: no positive valid points',transform=ax.transAxes,fontsize=8.5,color='.35')
++        ax.yaxis.set_major_locator(LogLocator(base=10))
++        ax.yaxis.set_minor_locator(LogLocator(base=10,subs=np.arange(2,10)*.1))
++        ax.yaxis.set_minor_formatter(NullFormatter())
++        ax.grid(True,which='major',linestyle='--',linewidth=.6,color='.80')
++        ax.grid(True,which='minor',linestyle=':',linewidth=.4,color='.88')
++        ax.tick_params(which='both',top=True,right=True)
++        ax.legend(loc='upper right',framealpha=.95,edgecolor='.8')
++        fig.savefig(OUT/'skr_vs_zenith.png',dpi=350)
++        fig.savefig(OUT/'skr_vs_zenith.pdf',metadata={'Title':'SKR versus Zenith Angle',
++            'Subject':'Finite exact-source catalog; homodyne Gaussian-effective manuscript43 diagnostic; no secure-default claim'})
++        plt.close(fig)
++    table='| Scheme | Số điểm dương | Max raw SKR (bits/use) | Góc max | Khoảng dương trên grid1° |\n| --- | --- | --- | --- | --- |\n'
++    for label in LABELS:
++        x=summary['schemes'][label]
++        table+='| '+label+' | '+str(len(x['positive_angles']))+' | '+fmt(x['maximum_raw_SKR'])+' | '+fmt(x['maximum_angle_deg'])+'° | '+ranges(x['positive_intervals_deg'])+' |\n'
++    raw_winner=max((s for s in LABELS if summary['schemes'][s]['maximum_raw_SKR'] is not None),
++        key=lambda s:summary['schemes'][s]['maximum_raw_SKR'],default=None)
++    peaks='| Scheme | VA tại peak | nu_raw tại peak | Source hash |\n| --- | --- | --- | --- |\n'
++    for label in LABELS:
++        peak=summary['schemes'][label]['maximum_source']
++        peaks+='| '+label+' | '+('Không có | Không có | Không có' if peak is None else
++            fmt(peak['V_mod_or_VA'])+' | '+fmt(peak['nu_raw'])+' | '+peak['source_hash'])+' |\n'
++    mb_positive=[x for x in rows if x['scheme']==LABELS[2] and x['valid_point']=='True']
++    decreasing=all(float(b['SKR'])<float(a['SKR']) for a,b in zip(mb_positive,mb_positive[1:]))
++    trend='SKR của Optimized MB giảm theo góc trên khoảng dương.' if decreasing and len(mb_positive)>1 else 'Xem từng giá trị raw trong CSV để theo dõi thay đổi theo góc.'
++    body=f'''# SKR theo góc zenith — manuscript43, receiver30
++
++Đã quét đủ **61 góc0°–60°,bước1°**, lưu183 dòng cho ba scheme. Hình PNG350dpi và vectorPDF dùng đúng title/labels/legend yêu cầu,trục log và line+marker. Không có file ảnh tham chiếu trong đính kèm hiện tại; styling theo mô tả đã cung cấp.
++
++## Kết quả
++
++{table}
++
++Scheme có peak raw cao nhất trong khảo sát: **{raw_winner or 'Không có scheme đánh giá được'}**. Đây là so sánh trong catalog exact đã có,không là chứng minh optimum liên tục hoặc toàn cục. Góc maximum chỉ xác định trên grid1°. Khoảng dương chỉ gồm các góc đạt kiểm tra số học và K>0,không ngoại suy qua khoảng loại.
++
++{trend} Optimized MB tốt nhất tại cả56 góc có PDF đạt gate. Fixed MB chỉ có một điểm dương nên hình biểu diễn bằng marker riêng; Uniform giữ legend theo yêu cầu nhưng không vẽ các giá trị âm. Cực đại tại5° chỉ là maximum trong các điểm đủ điều kiện đánh giá; chưa thể so sánh rate với0°–4° bị BLOCKED.
++
++{peaks}
++
++Tổng {summary['positive_plotted_points']} điểm được vẽ. Các góc bị loại do PDF normalization: **{summary['PDF_failed_angles']}**. Candidate-source failures: {summary['candidate_failures']}; selected numerical-check failures: {summary['selected_numerical_failures']}. Raw SKR âm vẫn giữ nguyên trongCSV; không zero clipping. valid_point và plot_point nghĩa là đủ điều kiện xuất hiện trên trục log. numerically_valid riêng cho biết điểm âm có tính hợp lệ số học hay không. NaN dùng để ngắt đường tại điểm bị loại,không nối xuyên các khoảng đó.
++
++## Tham số và evaluator
++
++| Đại lượng | Giá trị | Nguồn |
++| --- | --- | --- |
++| HAP/UAV | 20/1km | receiver30_configuration_verification_20261023/protocol.json |
++| Dr / wavelength | .30m /1550nm | receiver30 và actual optical factory |
++| Full divergence / jitter | 35µrad /1.561µrad | receiver30 overrides |
++| Position SD / boresight | .1m per axis /0m | receiver30; Rayleigh pointing |
++| tau_zen / atmosphere | .92 /tau_zen^sec(zenith) | preserved actual channel code |
++| HV wind / ground coefficient | 21m/s /1e-14m^(-2/3) | preserved HV primitives |
++| AoA half-FOV / angular SD | 6.25mrad /1.5mrad | preserved P0 formula |
++| beta /xi_ch /xi_det | .95 /.0186 /.005SNU | task.txt và protocol.json |
++| Detection / reconciliation | real1D homodyne /reverse | Gaussian effective MI |
++| Fixed MB | nu_raw=.25,VA=1.6249995399703647 | current receiver30 exact source |
++| Optimized Uniform | best trong36 authenticated Uniform VA points | source_catalog.csv |
++| Optimized MB | best trong197 authenticated MB(nu_raw,VA) points | source_catalog.csv |
++| Source units | VA=2nbar,X=2Re(alpha) | giữ nguyên source/cache convention |
++| AO /phase | OFF /OFF | receiver30 historical assumptions |
++
++Không dùng eta_det trong bất kỳ curve nào. Không dùng random-width surrogate hay historical pooled MI. channel_at_angle và optical factory tái tính L,wL,w_eff,Gd,rawRytov,sigma_s,A0,w_eq,atmospheric transmittance cho từng góc; hai HV integrals được gọi lại theo cùng geometry. AtomP0 được bảo toàn.
++
++Với m1=E[eta],mh=E[sqrt(eta)],Tf=mh²:
++
++    E[eta*xi] = .0186*m1 + .005*M0
++    N = (m1-Tf)*VA + E[eta*xi]
++    xi_f = N/Tf
++    sigma_N² = 1+N
++    T_Holevo = Tf
++    a = 1+VA; b = 1+Tf*VA+N
++    Z± = 2*sqrt(Tf)*C ± sqrt(2*N*w)
++    nu3_homodyne = sqrt(a*(a-Z²/b))
++
++Cùng T,N và exact source ở MI/bound/covariance/Holevo. Source catalog được xác thực hash và payload trước sweep. Không nội suy C,w hoặc SKR; không newAP và không ghi cache mới. Optimization là exhaustive argmax rawK trong tập exact đã khai báo. Scheme legend giữ nguyên yêu cầu; từ “Optimized” ở đây nghĩa best exact-tested trong catalog. Giá trị nằm trên biên catalog không phải chứng minh optimum theo VA/nu liên tục.
++
++## Loại điểm và kiểm tra
++
++Mass tolerance1e-10 được giữ từ audit trước,không điều chỉnh theo dấu SKR. Góc0 tái lập deficit1.056995513649377e-10; PDF lognormal-product bị thiếu mass do retained support[0,1]. Không renormalize,clipping,chuyển tail sang atom hoặc thay law. Tại góc failed mass,không chạy source optimization/MI/Holevo; rate để trống/BLOCKED,không phải0. Optimized VA/nu để trống khi chưa thể chọn nguồn; Fixed MB vẫn giữ pair đã chỉ định.
++
++Từng angle checkpoint trong angles/ lưu optical coefficients,M0,m1,mh,closed/direct quadrature,upper tail,candidate ranks/failures và selected checks. Mọi candidate được kiểm tra covariance/symplectic/entropy/capacity; selected sources có GH64/128,adaptive MI,256/16,X/P,scaling,16conditional density integrals,full-Z33/129,entropy80/110 và independent quantum matrix checks.
++
++PNG/PDF được render từ đúng CSV đã lưu. No negative/invalid point trên log-axis. source_catalog.csv,protocol.json,startup_manifest.json,execution_history.json,sweep_receipt.json,figure_receipt.json và final_receipt.json giữ producer/input/output hashes. verify.py chỉ đọc saved artifacts; không import evaluator hoặc chạy lại optimization.
++
++Không khẳng định secure default,finite-key/composable security,hardware validation hoặc global optimum. Numeric full-Z max không là rigorous interval enclosure. Gaussian effective MI là moment-matched approximation,không phải exact conditional likelihood của fading. Giữ UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,historical frozen-hash discrepancy và ObjectiveC USER_STOPPED. Hình “publication-friendly” nói về trình bày,không phải lifecycle approval.
++
++Không sửa production code,frozen model,old results hoặc exact caches; không training/test/heldout/publication evaluation,production baseline/threshold approval hay commit/push. Old ledger hashes là snapshot lịch sử; numerical artifacts trước vẫn được bảo vệ bằng hash.
++'''
++    (OUT/'report_vi.md').write_text(body,encoding='utf-8')
++    save('figure_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',renderer_sha256=sha(Path(__file__)),
++        CSV_sha256=sha(OUT/'skr_vs_zenith.csv'),PNG_sha256=sha(OUT/'skr_vs_zenith.png'),
++        PDF_sha256=sha(OUT/'skr_vs_zenith.pdf'),plot_type='one axes,line+markers,log_y',curves=line_data,
++        positive_values_rendered=len(all_positive),negative_or_invalid_values_rendered=0,PNG_dpi=350,
++        PDF_vector=True,legend_location='upper right',labels=LABELS))
++    print('FIGURE/REPORT COMPLETE',len(all_positive),'positive points',flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/skr_vs_zenith_manuscript43_20261023/run_sweep.py
+@@ -0,0 +1,265 @@
++"""61-angle homodyne-v43 diagnostic; exhaustive unchanged exact-source catalog."""
++import csv
++from datetime import datetime,timezone
++import importlib.util
++import inspect
++import json
++import math
++from pathlib import Path
++import sys
++
++OUT=Path(__file__).resolve().parent
++ROOT=OUT.parents[1]
++AUDIT=ROOT/'results/manuscript43_homodyne_audit_20261023'
++sys.path.insert(0,str(AUDIT))
++import audit_model as a
++import run_audit as r
++from compare import independent_entropy
++import numpy as np
++from scipy.integrate import quad
++
++spec=importlib.util.spec_from_file_location('_preserved_receiver30_literal',
++    AUDIT/'receiver30_configuration_verification_20261023/inspect_receiver30.py')
++literal=importlib.util.module_from_spec(spec);spec.loader.exec_module(literal)
++SCHEMES=['Optimized Uniform 256-QAM','Fixed MB-shaped 256-QAM','Optimized MB-shaped 256-QAM']
++OMEGA=np.kron(np.eye(2),[[0.,1.],[-1.,0.]])
++
++
++def read(path):
++    return json.loads(path.read_text(encoding='utf-8-sig'))
++
++
++def save(path,data):
++    path.write_text(json.dumps(r.clean(data),indent=2,ensure_ascii=False,allow_nan=False)+'\n',encoding='utf-8')
++
++
++def write(path,rows):
++    fields=list(dict.fromkeys(k for x in rows for k in x))
++    with path.open('w',encoding='utf-8',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(r.clean(rows))
++
++
++def covariance(value,va):
++    aa=1+va;bb=1+value['eta_f']*va+value['N_effective'];z=value['Z_worst']
++    gamma=np.array([[aa,0,z,0],[0,aa,0,-z],[z,0,bb,0],[0,-z,0,bb]])
++    minimum=float(np.linalg.eigvalsh(gamma+1j*OMEGA).min())
++    eigen=np.sort(abs(np.linalg.eigvals(1j*OMEGA@gamma)))[::2]
++    error=float(max(abs(eigen-np.sort([value['nu_1'],value['nu_2']]))))
++    if minimum < -1e-11 or error > 1e-10 or min(value[k] for k in ['nu_1','nu_2','nu_3'])<1:
++        raise ValueError('Invalid independent quantum covariance/spectrum; no repair')
++    return dict(a=aa,b=bb,uncertainty_min_eigenvalue=minimum,matrix_spectrum_residual=error)
++
++
++def evaluate(c,raw):
++    result=literal.literal_model_B(c,raw,.005,1e-10)
++    if result['I_AB'] is None:raise ValueError('Channel normalization gate prevents candidate evaluation')
++    _,px=a.marginal(c['p'],c['alpha'])
++    entropy=-float(px@np.log2(px))
++    capacity=.5*math.log2(1+result['eta_f']*c['VA']/result['sigma2_MI'])
++    if (not all(math.isfinite(result[k]) for k in ['I_AB','chi_BE','K_raw'])
++        or result['I_AB'] < -2e-12 or result['I_AB']>min(entropy,capacity)+2e-10 or result['chi_BE']<0):
++        raise ValueError('Invalid discrete homodyne MI/Holevo domain')
++    return {**result,**covariance(result,c['VA']),**{k:c[k] for k in [
++        'family','VA','nu_raw','ensemble_hash','source_path','source_sha256','C','w']},
++        'quadrature_entropy':entropy,'Gaussian_capacity_reference':capacity}
++
++
++def selected_checks(c,value,raw):
++    records=[]
++    def check(name,ok,**detail):
++        records.append(dict(check=name,status='CURRENTLY_VERIFIED_PASS' if bool(ok) else 'FAILED',**detail))
++    p,alpha=a.validate_source(c);t=value['eta_f'];variance=value['sigma2_MI']
++    i64=a.homodyne_mi(p,alpha,t,variance,order=64)
++    separate,error=a.independent_mi(p,alpha,t,variance)
++    check('MI_GH64_128',abs(i64-value['I_AB'])<2e-10,coarse=i64,fine=value['I_AB'])
++    check('MI_independent_adaptive',abs(separate-value['I_AB'])<2e-10 and error<2e-10,MI=separate,error=error)
++    i256=a.homodyne_mi(p,alpha,t,variance,order=128,grouped=False)
++    ip=a.homodyne_mi(p,alpha,t,variance,order=128,axis='P')
++    scaled=a.homodyne_mi(p,alpha,t,variance,order=128,scale=1.7)
++    check('MI_256_equals_16',abs(i256-value['I_AB'])<2e-12,MI256=i256)
++    check('MI_X_P_symmetry',abs(ip-value['I_AB'])<2e-12,MI_P=ip)
++    check('MI_classical_scaling',abs(scaled-value['I_AB'])<2e-12,MI_scaled=scaled)
++    center=2*math.sqrt(t)*c['C'];radius=math.sqrt(2*value['N_effective']*c['w'])
++    coarse=a.legacy.full_holevo(value['a'],value['b'],center,radius,33)
++    check('Holevo_full_Z33_129',abs(coarse['chi_BE']-value['chi_BE'])<2e-8,
++        chi33=coarse['chi_BE'],chi129=value['chi_BE'])
++    for digits in [80,110]:
++        entropy=independent_entropy(value,digits)
++        check('Holevo_independent_entropy_'+str(digits),abs(entropy-value['chi_BE'])<2e-11,chi=entropy)
++    masses=[]
++    for level in np.unique(2*alpha.real):
++        mean=math.sqrt(t)*level
++        mass,err=quad(lambda y:a.conditional_pdf(y,mean,variance),-math.inf,math.inf,epsabs=1e-12,epsrel=1e-12)
++        masses.append(dict(X=float(level),mass=mass,error=err))
++    check('All_16_conditional_PDFs_normalized',all(abs(x['mass']-1)<2e-10 and x['error']<2e-10 for x in masses),
++        max_mass_residual=max(abs(x['mass']-1) for x in masses),max_error=max(x['error'] for x in masses))
++    check('Physical_covariance_and_spectrum',value['uncertainty_min_eigenvalue']>=-1e-11
++        and value['matrix_spectrum_residual']<1e-10,
++        minimum=value['uncertainty_min_eigenvalue'],spectrum_residual=value['matrix_spectrum_residual'])
++    check('Same_v43_effective_quantum_channel',
++        value['T_Holevo']==t and abs(value['b']-(1+t*c['VA']+value['N_effective']))<1e-14
++        and value['xi_det']==.005 and 'eta_det' not in value)
++    check('Raw_SKR_unclipped',abs(value['K_raw']-(.95*value['I_AB']-value['chi_BE']))<1e-14)
++    return dict(status='CURRENTLY_VERIFIED_PASS' if all(x['status']=='CURRENTLY_VERIFIED_PASS' for x in records) else 'FAILED',
++        checks=records,conditional_masses=masses,source_hash=c['ensemble_hash'])
++
++
++def row(angle,scheme,ch,raw,c,value,verification,reason):
++    va=None if c is None else c['VA']
++    tf=raw['mh']**2;mn=.0186*raw['m1']+.005*raw['M0']
++    noise=None if va is None else (raw['m1']-tf)*va+mn
++    numerical=value is not None and verification is not None and verification['status']=='CURRENTLY_VERIFIED_PASS'
++    positive=numerical and value['K_raw']>0
++    if numerical and not positive:reason='NON_POSITIVE_RAW_SKR'
++    return dict(zenith_deg=angle,scheme=scheme,slant_distance_km=ch['L_km'],
++        Dr_m=.30,divergence_urad=35.,jitter_urad=1.561,xi_det=.005,xi_ch=.0186,
++        V_mod_or_VA=va,nu_raw=None if c is None else c['nu_raw'],
++        E_eta=raw['m1'],E_sqrt_eta=raw['mh'],eta_f=tf,E_eta_xi=mn,
++        xi_f=None if noise is None else noise/tf,
++        I_AB=None if value is None else value['I_AB'],
++        beta_I_AB=None if value is None else value['beta_I_AB'],
++        chi_BE=None if value is None else value['chi_BE'],
++        SKR=None if value is None else value['K_raw'],
++        valid_point=positive,exclusion_reason='' if positive else reason,
++        numerically_valid=numerical,plot_point=positive,
++        M0=raw['M0'],PDF_mass_decimal=raw['M0_decimal'],
++        mass_deficit=raw['raw_upper_tail_mass'],mass_deficit_decimal=raw['upper_tail_decimal'],
++        PDF_normalization_status='CURRENTLY_VERIFIED_PASS' if raw['normalized_within_tolerance'] else 'FAILED',
++        conditional_noise_variance=None if noise is None else 1+noise,
++        quantum_transmittance=tf,source_hash=None if c is None else c['ensemble_hash'],
++        C=None if c is None else c['C'],w=None if c is None else c['w'],
++        source_path=None if c is None else c['source_path'],source_sha256=None if c is None else c['source_sha256'],
++        optimization_scope='FIXED_SOURCE' if scheme==SCHEMES[1] else 'BEST_VALID_EXACT_CATALOG_POINT_ONLY',
++        source_search_status='EVALUATED' if value is not None else 'NOT_RUN_OR_NO_VALID_CANDIDATE',
++        sigma_h_m=.1,w0_m=ch['w0_m'],wL_m=ch['wL_m'],w_eff_m=ch['w_eff_m'],
++        w_eq_m=ch['w_eq_m'],G_d=ch['G_d'],eta_atm=ch['eta_atm'],tau_zen=.92,
++        sigma_s_m=ch['sigma_s_m'],Rytov_variance=float(ch['v']),P0=raw['P0'],
++        nu_1=None if value is None else value['nu_1'],nu_2=None if value is None else value['nu_2'],
++        nu_3=None if value is None else value['nu_3'],
++        uncertainty_min_eigenvalue=None if value is None else value['uncertainty_min_eigenvalue'],
++        matrix_spectrum_residual=None if value is None else value['matrix_spectrum_residual'],
++        validation_status='NOT_RUN' if verification is None else verification['status'],
++        channel_law=raw['law'],measurement='homodyne_1D_Gaussian_effective',security_valid=False)
++
++
++def intervals(values):
++    output=[]
++    for n in values:
++        if output and n==output[-1][1]+1:output[-1][1]=n
++        else:output.append([n,n])
++    return output
++
++
++def aggregate(protocol):
++    data=[read(OUT/'angles'/f'angle_{n:03d}.json') for n in protocol['angles_deg']]
++    rows=[x for block in data for x in block['selected_rows']]
++    write(OUT/'skr_vs_zenith.csv',rows)
++    source=read(OUT/'source_catalog_receipt.json')
++    schemes={}
++    for label in SCHEMES:
++        values=[x for x in rows if x['scheme']==label]
++        numeric=[x for x in values if x['numerically_valid']]
++        positive=[x['zenith_deg'] for x in values if x['valid_point']]
++        best=max(numeric,key=lambda x:x['SKR']) if numeric else None
++        schemes[label]=dict(numerically_valid_angles=len(numeric),positive_angles=positive,
++            positive_intervals_deg=intervals(positive),excluded_angles=[x['zenith_deg'] for x in values if not x['valid_point']],
++            maximum_raw_SKR=None if best is None else best['SKR'],
++            maximum_angle_deg=None if best is None else best['zenith_deg'],
++            maximum_source=None if best is None else {k:best[k] for k in ['V_mod_or_VA','nu_raw','source_hash']})
++    winners={s:0 for s in SCHEMES};ties=0
++    for angle in protocol['angles_deg']:
++        evaluated=[x for x in rows if x['zenith_deg']==angle and x['numerically_valid']]
++        if not evaluated:continue
++        top=max(x['SKR'] for x in evaluated);best=[x for x in evaluated if abs(x['SKR']-top)<2e-12]
++        if len(best)>1:ties+=1
++        for value in best:winners[value['scheme']]+=1
++    summary=dict(status='COMPLETED_DIAGNOSTIC_WITH_EXCLUSIONS',schemes=schemes,
++        PDF_failed_angles=[x['zenith_deg'] for x in data if not x['raw_PDF']['normalized_within_tolerance']],
++        candidate_evaluations=sum(len(x['candidates'])+len(x['candidate_failures']) for x in data),
++        candidate_failures=sum(len(x['candidate_failures']) for x in data),source_counts=source['counts'],
++        selected_rows=len(rows),positive_plotted_points=sum(x['valid_point'] for x in rows),
++        selected_numerical_failures=sum(x['validation_status']=='FAILED' for x in rows),
++        per_angle_best_counts_including_ties=winners,tied_angles=ties,
++        security_valid=False,optimization_domain='Finite existing exact catalog; no interpolation/new source AP',
++        recommended_secure_default=None)
++    save(OUT/'summary.json',summary)
++    save(OUT/'sweep_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',angles=len(data),rows=len(rows),
++        producer_sha256=a.sha(Path(__file__)),protocol_sha256=a.sha(OUT/'protocol.json'),
++        summary_sha256=a.sha(OUT/'summary.json'),CSV_sha256=a.sha(OUT/'skr_vs_zenith.csv'),
++        scientific_PDF_failures=summary['PDF_failed_angles'],new_source_AP=False,optimization_is_catalog_only=True))
++
++
++def main():
++    if (OUT/'sweep_receipt.json').exists():raise FileExistsError('Preserve completed sweep')
++    protocol=read(OUT/'protocol.json')
++    assert a.sha(Path(__file__))==protocol['implementation_sha256']['run_sweep.py']
++    assert 'eta_det' not in inspect.signature(literal.literal_model_B).parameters
++    catalog=r.catalog()
++    fixed=next(c for c in catalog if c['ensemble_hash']==protocol['fixed_MB']['ensemble_hash'])
++    for c in catalog:a.validate_source(c)
++    source_rows=[{**{k:c[k] for k in ['family','VA','nu_raw','ensemble_hash','C','w','source_path','source_sha256']},
++        'normalization':'VA=2*nbar','nu_repo':42.5*c['nu_raw'],'source_changed':False} for c in catalog]
++    write(OUT/'source_catalog.csv',source_rows)
++    save(OUT/'source_catalog_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        counts={f:sum(c['family']==f for c in catalog) for f in ['Uniform','MB']},sources=len(catalog),
++        all_source_payloads_authenticated=True,source_C_w_recomputed=False,interpolation=False,
++        fixed_source_hash=fixed['ensemble_hash']))
++    (OUT/'angles').mkdir(exist_ok=True)
++    started=datetime.now(timezone.utc).isoformat()
++    for angle in protocol['angles_deg']:
++        path=OUT/'angles'/f'angle_{angle:03d}.json'
++        if path.exists():
++            saved=read(path)
++            assert saved['producer_sha256']==a.sha(Path(__file__)) and saved['protocol_sha256']==a.sha(OUT/'protocol.json')
++            print('EXACT CHECKPOINT REUSE',angle,flush=True);continue
++        ch=a.legacy.optical(.3,35.,angle,.1,.1)
++        raw=a.raw_pdf_moments(ch)
++        if max(abs(x['residual']) for x in raw['direct'].values())>2e-10:
++            raise ValueError('Raw PDF closed/direct moments disagree')
++        if not 0<=raw['mh']**2<=raw['m1']<=1:raise ValueError('Invalid bounded moments')
++        if angle==0:
++            previous=read(AUDIT/'receiver30_configuration_verification_20261023/results.json')['model_B_PDF']
++            assert abs(raw['raw_upper_tail_mass']-previous['raw_upper_tail_mass'])<1e-20
++        candidates=[];failures=[];selected=[];validation={}
++        byhash={c['ensemble_hash']:c for c in catalog}
++        if not raw['normalized_within_tolerance']:
++            for label in SCHEMES:selected.append(row(angle,label,ch,raw,fixed if label==SCHEMES[1] else None,
++                None,None,'FAILED_CHANNEL_PDF_NORMALIZATION'))
++        else:
++            for c in catalog:
++                try:candidates.append(evaluate(c,raw))
++                except ValueError as error:failures.append(dict(source_hash=c['ensemble_hash'],family=c['family'],
++                    VA=c['VA'],nu_raw=c['nu_raw'],status='FAILED',reason=str(error)))
++            chosen=[]
++            for label,family in [(SCHEMES[0],'Uniform'),(SCHEMES[1],'MB'),(SCHEMES[2],'MB')]:
++                admissible=[v for v in candidates if v['family']==family and
++                    (label!=SCHEMES[1] or v['ensemble_hash']==fixed['ensemble_hash'])]
++                best=min(admissible,key=lambda v:(-v['K_raw'],v['nu_raw'],v['VA'],v['ensemble_hash'])) if admissible else None
++                chosen.append((label,best))
++            for label,best in chosen:
++                if best is None:
++                    selected.append(row(angle,label,ch,raw,fixed if label==SCHEMES[1] else None,None,None,'NO_VALID_EXACT_SOURCE_CANDIDATE'))
++                    continue
++                identity=best['ensemble_hash'];c=byhash[identity]
++                if identity not in validation:validation[identity]=selected_checks(c,best,raw)
++                result=validation[identity]
++                selected.append(row(angle,label,ch,raw,c,best,result,
++                    '' if result['status']=='CURRENTLY_VERIFIED_PASS' else 'FAILED_SELECTED_NUMERICAL_CHECKS'))
++            mb=[x for x in selected if x['scheme']==SCHEMES[2] and x['numerically_valid']]
++            fixed_rows=[x for x in selected if x['scheme']==SCHEMES[1] and x['numerically_valid']]
++            if mb and fixed_rows:assert mb[0]['SKR']>=fixed_rows[0]['SKR']-2e-12
++        save(path,dict(zenith_deg=angle,producer_sha256=a.sha(Path(__file__)),
++            protocol_sha256=a.sha(OUT/'protocol.json'),channel=ch,raw_PDF=raw,candidates=candidates,
++            candidate_failures=failures,selected_rows=selected,selected_checks=validation))
++        print('ANGLE',angle,'Lkm',round(ch['L_km'],5),'mass deficit',raw['raw_upper_tail_mass'],
++            'positive',sum(x['valid_point'] for x in selected),'candidates',len(candidates),'failed',len(failures),flush=True)
++    aggregate(protocol)
++    save(OUT/'execution_history.json',dict(started_UTC=started,completed_UTC=datetime.now(timezone.utc).isoformat(),
++        numerical_producer_sha256=a.sha(Path(__file__)),protocol_sha256=a.sha(OUT/'protocol.json'),
++        shared_model='Preserved receiver30 literal_model_B; no detector efficiency',
++        source_generation=False,source_interpolation=False,optimization='Finite source catalog only at61angles',
++        training_final_test_heldout_publication=False,security_valid=False))
++    print('SWEEP COMPLETE',read(OUT/'summary.json')['positive_plotted_points'],'positive plotted points',flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/skr_vs_zenith_manuscript43_20261023/verify.py
+@@ -0,0 +1,145 @@
++"""Saved zenith-sweep evidence and hashes only; no evaluator imports."""
++import ast
++import csv
++from datetime import datetime,timezone
++import difflib
++import hashlib
++import json
++import math
++from pathlib import Path
++import struct
++import subprocess
++import sys
++
++OUT=Path(__file__).resolve().parent
++ROOT=OUT.parents[1]
++REPO=ROOT.parent
++LABELS=['Optimized Uniform 256-QAM','Fixed MB-shaped 256-QAM','Optimized MB-shaped 256-QAM']
++
++
++def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
++def read(name):return json.loads((OUT/name).read_text(encoding='utf-8-sig'))
++def rows(name):
++    with (OUT/name).open(encoding='utf-8',newline='') as f:return list(csv.DictReader(f))
++
++
++def check():
++    start=read('startup_manifest.json')
++    assert all((REPO/p).is_file() and sha(REPO/p)==h for p,h in start['protected'].items()),'Protected historical file changed'
++    assert sha(ROOT/'docs/FINAL_MODEL_SPEC.md')==start['frozen_sha256']
++    assert sha(Path(start['request_path']))==sha(OUT/'task.txt')==start['request_sha256']
++    assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip()==start['HEAD']
++    assert subprocess.check_output(['git','branch','--show-current'],cwd=REPO,text=True).strip()==start['branch']
++    allowed={'paper_uav_hap_cvqkd/'+n for n in start['allowed_ledger_changes']}
++    assert set(subprocess.check_output(['git','diff','--name-only'],cwd=REPO,text=True).splitlines())<=allowed
++    subprocess.run(['git','diff','--check'],cwd=REPO,capture_output=True,check=True)
++    protocol=read('protocol.json');sweep=read('sweep_receipt.json');figure=read('figure_receipt.json')
++    for name,h in protocol['implementation_sha256'].items():assert sha(OUT/name)==h
++    assert sweep['producer_sha256']==sha(OUT/'run_sweep.py') and sweep['protocol_sha256']==sha(OUT/'protocol.json')
++    assert sweep['CSV_sha256']==figure['CSV_sha256']==sha(OUT/'skr_vs_zenith.csv')
++    assert figure['renderer_sha256']==sha(OUT/'render_and_report.py')
++    assert figure['PNG_sha256']==sha(OUT/'skr_vs_zenith.png') and figure['PDF_sha256']==sha(OUT/'skr_vs_zenith.pdf')
++    assert protocol['mass_tolerance']==1e-10 and protocol['xi_det']==.005
++    assert protocol['measurement']=='homodyne_1D_Gaussian_effective' and not protocol['source_interpolation']
++    catalog=rows('source_catalog.csv');byhash={x['ensemble_hash']:x for x in catalog}
++    assert len(byhash)==233 and sum(x['family']=='Uniform' for x in catalog)==36 and sum(x['family']=='MB' for x in catalog)==197
++    assert all(sha(ROOT/x['source_path'])==x['source_sha256'] for x in catalog)
++    data=rows('skr_vs_zenith.csv');assert len(data)==183 and {x['scheme'] for x in data}==set(LABELS)
++    assert sorted({int(x['zenith_deg']) for x in data})==list(range(61))
++    evaluations=0;failure_count=0;plot_points=0;failed_angles=[]
++    for angle in range(61):
++        block=read(f'angles/angle_{angle:03d}.json')
++        assert block['producer_sha256']==sweep['producer_sha256'] and block['protocol_sha256']==sweep['protocol_sha256']
++        raw=block['raw_PDF'];selection=[x for x in data if int(x['zenith_deg'])==angle]
++        assert len(selection)==3
++        assert abs(block['channel']['L_km']-19/math.cos(math.radians(angle)))<1e-11
++        assert not raw['renormalized'] and not raw['clipped'] and 0<=raw['mh']**2<=raw['m1']<=1
++        assert max(abs(x['residual']) for x in raw['direct'].values())<2e-10
++        direct_noise=.0186*raw['direct']['1.0']['value']+.005*(raw['P0']+raw['direct']['0.0']['value'])
++        assert abs(direct_noise-(.0186*raw['m1']+.005*raw['M0']))<2e-10
++        assert abs(raw['upper_tail_quadrature']-raw['raw_upper_tail_mass'])<2e-10
++        evaluations+=len(block['candidates'])+len(block['candidate_failures']);failure_count+=len(block['candidate_failures'])
++        if not raw['normalized_within_tolerance']:
++            failed_angles.append(angle)
++            assert not block['candidates'] and not block['candidate_failures']
++            assert all(not x['I_AB'] and not x['SKR'] and x['exclusion_reason']=='FAILED_CHANNEL_PDF_NORMALIZATION' for x in selection)
++        for candidate in block['candidates']:
++            identity=candidate['ensemble_hash'];source=byhash[identity]
++            assert all(candidate[k]==float(source[k]) for k in ['C','w','VA','nu_raw'])
++            assert candidate['source_sha256']==source['source_sha256']
++            assert 'eta_det' not in candidate and candidate['xi_det']==.005
++            assert candidate['T_Holevo']==raw['mh']**2
++            assert candidate['matrix_spectrum_residual']<=1e-10 and candidate['uncertainty_min_eigenvalue']>=-1e-11
++            assert min(candidate[k] for k in ['nu_1','nu_2','nu_3'])>=1
++            assert abs(candidate['K_raw']-(.95*candidate['I_AB']-candidate['chi_BE']))<1e-13
++        for value in selection:
++            assert value['Dr_m']=='0.3' and value['divergence_urad']=='35.0' and value['jitter_urad']=='1.561'
++            assert float(value['xi_det'])==.005 and float(value['xi_ch'])==.0186
++            if value['scheme']==LABELS[1]:
++                assert float(value['nu_raw'])==.25 and float(value['V_mod_or_VA'])==1.6249995399703647
++                assert value['source_hash']==protocol['fixed_MB']['ensemble_hash']
++            if value['SKR']:
++                assert math.isfinite(float(value['SKR'])) and abs(float(value['SKR'])-(.95*float(value['I_AB'])-float(value['chi_BE'])))<1e-13
++                assert abs(float(value['E_eta_xi'])-(.0186*raw['m1']+.005*raw['M0']))<1e-14
++                if value['scheme']!=LABELS[1]:
++                    family='Uniform' if value['scheme']==LABELS[0] else 'MB'
++                    domain=[x for x in block['candidates'] if x['family']==family]
++                    assert float(value['SKR'])>=max(x['K_raw'] for x in domain)-2e-12
++                    if family=='Uniform':assert float(value['nu_raw'])==0
++            positive=value['valid_point']=='True'
++            assert positive==(value['numerically_valid']=='True' and value['SKR']!='' and float(value['SKR'])>0)
++            if value['numerically_valid']=='True':
++                proof=block['selected_checks'][value['source_hash']]
++                assert proof['status']=='CURRENTLY_VERIFIED_PASS' and all(x['status']=='CURRENTLY_VERIFIED_PASS' for x in proof['checks'])
++            if positive:
++                plot_points+=1;proof=block['selected_checks'][value['source_hash']]
++                assert proof['status']=='CURRENTLY_VERIFIED_PASS' and all(x['status']=='CURRENTLY_VERIFIED_PASS' for x in proof['checks'])
++                assert all(abs(x['mass']-1)<2e-10 for x in proof['conditional_masses'])
++                assert value['exclusion_reason']==''
++            else:assert value['exclusion_reason']
++    summary=read('summary.json')
++    assert summary['candidate_evaluations']==evaluations and summary['candidate_failures']==failure_count
++    assert summary['positive_plotted_points']==plot_points==figure['positive_values_rendered']
++    assert summary['PDF_failed_angles']==failed_angles and summary['selected_rows']==183
++    assert figure['labels']==LABELS and figure['negative_or_invalid_values_rendered']==0
++    assert sum(x['positive_points'] for x in figure['curves'])==plot_points
++    png=(OUT/'skr_vs_zenith.png').read_bytes();width,height=struct.unpack('>II',png[16:24])
++    assert width>=2000 and height>=1400 and png[:8]==b'\x89PNG\r\n\x1a\n'
++    assert (OUT/'skr_vs_zenith.pdf').read_bytes().startswith(b'%PDF')
++    assert read('visual_review.json')['status']=='CURRENTLY_VERIFIED_PASS'
++    for p in OUT.glob('*.py'):ast.parse(p.read_text(encoding='utf-8-sig'))
++    text=(OUT/'report_vi.md').read_text(encoding='utf-8')
++    assert '\ufffd' not in text and 'Không dùng eta_det' in text and 'Không nội suy' in text
++    return dict(status='CURRENTLY_VERIFIED_PASS',protected_files=len(start['protected']),angles=61,
++        selected_rows=183,candidate_evaluations=evaluations,candidate_failures=failure_count,
++        positive_plotted_points=plot_points,PDF_failed_angles=failed_angles,security_valid=False,
++        optimization='Finite authenticated exact-source catalog only',numerical_rerun_by_verifier=False)
++
++
++def main():
++    args=sys.argv[1:]
++    if args not in [[],['--seal']]:raise ValueError('Use no argument for read-only verification, or --seal once')
++    receipt=OUT/'final_receipt.json'
++    if args:
++        if receipt.exists():raise FileExistsError('Preserve sealed result')
++        result=check();start=read('startup_manifest.json');diff=[]
++        for name in start['allowed_ledger_changes']:
++            before=(OUT/'startup_ledgers'/Path(name).name).read_text(encoding='utf-8')
++            after=(ROOT/name).read_text(encoding='utf-8')
++            diff.extend(difflib.unified_diff(before.splitlines(keepends=True),after.splitlines(keepends=True),
++                fromfile='startup/'+name,tofile='current/'+name))
++        (OUT/'scoped_ledger_changes.diff').write_text(''.join(diff),encoding='utf-8')
++        result.update(UTC=datetime.now(timezone.utc).isoformat(),
++            artifact_sha256={p.relative_to(OUT).as_posix():sha(p) for p in sorted(OUT.rglob('*')) if p.is_file()},
++            current_task_ledger_sha256={n:sha(ROOT/n) for n in start['allowed_ledger_changes']})
++        receipt.write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
++    else:
++        saved=read('final_receipt.json')
++        assert all((OUT/n).is_file() and sha(OUT/n)==h for n,h in saved['artifact_sha256'].items())
++        assert all(sha(ROOT/n)==h for n,h in saved['current_task_ledger_sha256'].items())
++        result=check()
++    print('CURRENTLY_VERIFIED_PASS',result['angles'],'angles;',result['candidate_evaluations'],
++        'candidate evaluations;',result['positive_plotted_points'],'positive points; no numerical rerun',flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/skr_vs_zenith_manuscript43_20261023/protocol.json
+@@ -0,0 +1,133 @@
++{
++  "scope": "AUTHORIZED_ISOLATED_61_ANGLE_EXACT_CATALOG_DIAGNOSTIC",
++  "angles_deg": [
++    0,
++    1,
++    2,
++    3,
++    4,
++    5,
++    6,
++    7,
++    8,
++    9,
++    10,
++    11,
++    12,
++    13,
++    14,
++    15,
++    16,
++    17,
++    18,
++    19,
++    20,
++    21,
++    22,
++    23,
++    24,
++    25,
++    26,
++    27,
++    28,
++    29,
++    30,
++    31,
++    32,
++    33,
++    34,
++    35,
++    36,
++    37,
++    38,
++    39,
++    40,
++    41,
++    42,
++    43,
++    44,
++    45,
++    46,
++    47,
++    48,
++    49,
++    50,
++    51,
++    52,
++    53,
++    54,
++    55,
++    56,
++    57,
++    58,
++    59,
++    60
++  ],
++  "geometry": {
++    "h_hap_km": 20.0,
++    "h_uav_km": 1.0,
++    "Dr_m": 0.3,
++    "wavelength_m": 1.55e-06,
++    "divergence_full_urad": 35.0,
++    "jitter_urad": 1.561,
++    "sigma_h_m": 0.1,
++    "tau_zen": 0.92,
++    "rho_m": 0.0,
++    "wind_m_s": 21.0,
++    "Cn2_ground": 1e-14,
++    "FOV_half_rad": 0.00625,
++    "sigma_AoA_rad": 0.0015,
++    "AO": "OFF",
++    "phase_noise": "OFF"
++  },
++  "channel_law": "manuscript43_Eq10_retained_0_to_1",
++  "detector_convention": "xi(eta)=.0186+.005/eta; no separate detector efficiency",
++  "xi_det": 0.005,
++  "xi_ch": 0.0186,
++  "beta": 0.95,
++  "measurement": "homodyne_1D_Gaussian_effective",
++  "reconciliation": "reverse_asymptotic",
++  "zero_atom_noise_extension": "limit",
++  "source_normalization": "VA=2*nbar; X=2Re(alpha)",
++  "fixed_MB": {
++    "nu_raw": "0.25",
++    "VA": "1.6249995399703647",
++    "ensemble_hash": "01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754",
++    "source_path": "results/exact_mb_test2/exact_source_cache/9ebda470cd3cb1050a9f15a5b943141c82dafe113226c5f1e62b5eaccf308463.json",
++    "source_sha256": "f50b7253bc19791fa5e652832fdcb903fc198094e3cc871733a5855977a95018"
++  },
++  "catalog_counts": {
++    "Uniform": 36,
++    "MB": 197
++  },
++  "optimization_domain": "Existing authenticated exact catalog only; exhaustive argmax at each valid angle; not continuous/global optimum",
++  "source_generation": false,
++  "source_interpolation": false,
++  "GH_primary": 128,
++  "GH_check": 64,
++  "Z_primary": 129,
++  "Z_check": 33,
++  "entropy_digits": [
++    80,
++    110
++  ],
++  "mass_tolerance": 1e-10,
++  "MI_tolerance": 2e-10,
++  "MI_scaling_tolerance": 2e-12,
++  "Holevo_tolerance": 2e-08,
++  "entropy_tolerance": 2e-11,
++  "covariance_tolerance": 1e-10,
++  "uncertainty_tolerance": 1e-11,
++  "source_tolerance": 2e-12,
++  "plot_only_positive_numerically_valid": true,
++  "negative_SKR_clipped": false,
++  "recommended_secure_default": null,
++  "publication_training_test": false,
++  "reference_image_available": false,
++  "reference_style": "Use user-specified labels,title,log scale,lines+markers,upper-right legend,clean grid",
++  "figure_png_dpi": 350,
++  "implementation_sha256": {
++    "run_sweep.py": "7c8de84718a7c6a5b9eaebe0c5476a69887b489757f7545a67a09e0c009e1c27"
++  },
++  "initial_presentation_producer_sha256": "e5de2f61951eaa7b3243d22701e91970615e33b2ddf6ab487ec89be3acd38f81"
++}

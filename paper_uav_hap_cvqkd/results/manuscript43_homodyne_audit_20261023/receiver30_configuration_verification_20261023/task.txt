@@ -1,0 +1,197 @@
+# CODEX TASK — Inspect and Verify the Current 30 cm HAP–UAV Configuration
+
+Work in the repository:
+
+C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd
+
+I want to inspect the complete physical and numerical parameter configuration of the previously positive 30 cm receiver scenario.
+
+Do NOT perform any new optimization.
+
+## 1. Locate the exact existing scenario
+
+Find `receiver30` in:
+
+results/manuscript43_homodyne_audit_20261023/
+
+Historical parameters:
+
+- Receiver diameter Dr = 0.30 m
+- HAP altitude = 20 km
+- UAV altitude = 1 km
+- Zenith angle = 0 degrees
+- Link distance = 19 km
+- Full-angle divergence = 35 microrad
+- Angular jitter = 1.561 microrad
+- UAV centering SD = 0.1 m
+- Wavelength = 1550 nm
+- Atmospheric zenith transmittance = 0.92
+- Channel excess noise = 0.0186 SNU
+- Detector efficiency in the historical audit = 0.95
+- Detector excess noise = 0.005 SNU
+- Modulation VA = 1.6249995399703647
+- MB nu_raw = 0.25
+- Reconciliation efficiency beta = 0.95
+- 256-QAM
+- Homodyne detection
+- Reverse reconciliation
+
+Source hash:
+
+01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754
+
+Historical Gaussian effective-channel results:
+
+- I_AB = 0.21074687539663958
+- chi_BE = 0.19481699897277194
+- SKR = 0.005392532654035664 bits/use
+
+Channel law: `power_conserving_random_width`.
+
+## 2. Print the FULL actual parameter table
+
+Read the actual configuration and source code used to generate this result.
+
+Do not assume manuscript baseline values for parameters that were overridden.
+
+Extract:
+
+A. Geometry:
+- HAP/UAV altitudes
+- Zenith angle
+- Slant distance
+
+B. Optical:
+- Wavelength
+- Receiver aperture diameter and radius
+- Beam waist w0
+- Full-angle divergence
+- Beam width at receiver
+- Effective beam width
+- A0
+- Pointing jitter
+- Position variance and boresight offsets
+- Radius of curvature
+- Any optical losses or AO parameters
+
+C. Atmospheric and AoA:
+- tau_zen and eta_atm
+- Cn2(0)
+- Wind speed
+- Rytov variance
+- Log-normal parameters
+- AoA FOV half-angle
+- AoA angular SD
+- Outage probability P0
+- Active probability P1
+
+D. Detector and noise:
+- Detector model
+- eta_det used in the historical scenario
+- epsilon_det
+- xi_ch
+- Exact reference plane and noise units
+
+E. Modulation and protocol:
+- M
+- VA
+- Mean photon number
+- nu_raw and nu_repo
+- Ensemble normalization
+- Source hash
+- Exact source moments C,w
+- beta
+- Detection type and reconciliation direction
+
+F. Effective channel:
+- E[eta]
+- E[sqrt(eta)]
+- eta_f
+- E[eta*xi]
+- xi_f
+- Noise variance used for MI
+- Effective transmittance used in Holevo
+
+For every parameter report its value, unit, configuration source, and whether it was directly specified or derived.
+
+## 3. Keep two models separate
+
+MODEL A — Historical validated numerical component
+
+Reproduce the current receiver30 result with its original:
+
+- power_conserving_random_width channel law
+- detector convention
+- Gaussian effective-channel HOMODYNE MI
+- source ensemble and Holevo convention
+
+Do not change anything.
+
+MODEL B — Literal manuscript version 43
+
+Separately evaluate the same 30 cm geometry using:
+
+xi(eta) = xi_ch + xi_det / eta
+
+with:
+
+xi_det = 0.005 SNU
+
+and NO separate eta_det parameter.
+
+Use:
+
+eta_f = E[sqrt(eta)]^2
+
+eta_f*xi_f = (E[eta]-eta_f)*VA + E[eta*xi]
+
+sigma_N^2 = 1 + eta_f*xi_f
+
+Use Gaussian effective-channel HOMODYNE MI as the primary method.
+
+Use the matching effective channel consistently in the homodyne Holevo calculation.
+
+Do not introduce detector efficiency back into Model B.
+
+Do not confuse the detector convention of Model A with Model B.
+
+## 4. Check channel PDF normalization
+
+For Model B, use the manuscript-v43 channel law on the retained interval [0,1].
+
+Compute:
+
+- Total probability mass
+- Probability outside the retained interval
+- The three exact moments
+- Difference between analytical closed forms and numerical integration
+
+The previous audit reported a probability deficit of approximately 1.0569955e-10 at Dr = 30 cm.
+
+Reproduce and explain this result.
+
+Do not silently renormalize, clip, truncate beyond the stated law, or replace the PDF with the historical surrogate.
+
+If the model fails the predeclared physical or normalization criteria, report the SKR as BLOCKED, not as zero or a validated positive result.
+
+## 5. Required output
+
+Produce one Vietnamese report containing:
+
+1. Complete parameter table for receiver30.
+2. Exact source/configuration provenance for every parameter.
+3. Model A versus Model B comparison.
+4. E[eta], eta_f, effective noise and conditional noise variance.
+5. I_AB, beta*I_AB, chi_BE and raw SKR for each evaluable model.
+6. Clear explanation of which model produces the historical positive result.
+7. Explicit numerical and security limitations.
+
+Save results in a new subdirectory under:
+
+results/manuscript43_homodyne_audit_20261023/
+
+Do not modify production code, old results or exact C,w caches.
+
+Do not optimize VA, nu or receiver diameter.
+
+Do not claim that the 30 cm configuration is secure or positive under manuscript v43 unless that result is independently evaluated and all relevant model checks pass.

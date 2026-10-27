@@ -1,0 +1,64 @@
+{
+  "status": "CERTIFIED_ANALYTIC_SCALAR_LOWER_BOUND",
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "source_ensemble_hash": "b083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214",
+  "input_sha256": "f02dad8e2442714f27282921df03ec5bd28f88ca3ccc65b6590e67f5405edb3d",
+  "input_p_alpha": "Exact Fraction.from_float binary64 values; no rounding of nodes/distances",
+  "method": "Lagrange inverse norm majorant; correctly directed Decimal arithmetic; e<3",
+  "sectors": [
+    {
+      "Fock_photon_sector": 0,
+      "Gram_sector": 0,
+      "inverse_Frobenius_squared_upper_bound": "2.0357960978946257925421786946414275783052860603973953391754887415485789459502688E+301",
+      "certified_lambda_min_lower_bound": "1e-302",
+      "bound_decimal_digits": 80
+    },
+    {
+      "Fock_photon_sector": 1,
+      "Gram_sector": 3,
+      "inverse_Frobenius_squared_upper_bound": "3.1883968761575135468393084456729440594418569727085234813843114051666459153860831E+304",
+      "certified_lambda_min_lower_bound": "1e-305",
+      "bound_decimal_digits": 80
+    },
+    {
+      "Fock_photon_sector": 2,
+      "Gram_sector": 2,
+      "inverse_Frobenius_squared_upper_bound": "7.0224259991146546502556091003215521600536186766025759671039589821353676263970465E+307",
+      "certified_lambda_min_lower_bound": "1e-308",
+      "bound_decimal_digits": 80
+    },
+    {
+      "Fock_photon_sector": 3,
+      "Gram_sector": 1,
+      "inverse_Frobenius_squared_upper_bound": "1.7112617002332236930928666605285991575896913020835854757331929762207350169748808E+311",
+      "certified_lambda_min_lower_bound": "1e-312",
+      "bound_decimal_digits": 80
+    }
+  ],
+  "certified_Fock_Gram_tail": {
+    "Fock_cutoff": 256,
+    "maximum_coherent_tail_upper_bound": "2.1439422202495474507286770297838822345642233612253828158683979683750375645554422E-159",
+    "weighted_Gram_tail_trace_upper_bound": "1.8022112076481497068603398394259899999812759654460051851384653798267027304767579E-174",
+    "spectral_norm_G_minus_G_Fock_upper_bound": "1.8022112076481497068603398394259899999812759654460051851384653798267027304767579E-174",
+    "method": "Positive Poisson geometric tail; exp(-energy)<=1; directed Decimal rounding",
+    "numerical_precision": 80,
+    "Cw_truncation_error_certified": false
+  },
+  "small_saved_spectrum_sanity": [
+    {
+      "source": "Uniform_4",
+      "comparison": "PASS; independent saved Fock eigenspectrum"
+    },
+    {
+      "source": "MB_16",
+      "comparison": "PASS; independent saved Fock eigenspectrum"
+    }
+  ],
+  "full_support_Cw_certified": false,
+  "unresolved_Cw_error_bound": null,
+  "new_eigendecompositions": 0,
+  "new_Cw_computations": 0,
+  "wall_seconds": 0.7152943999972194,
+  "CPU_seconds": 0.609375,
+  "producer_sha256": "f12af24ae8ef10bff5db3ea1981b7373d88486b04a4102edbb9fd9d53a3afa22"
+}

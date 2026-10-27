@@ -1,0 +1,67 @@
+{
+  "VA": 10.0,
+  "VA_hex": "0x1.4000000000000p+3",
+  "elapsed_seconds": 1916.5985888000578,
+  "diagnostic": {
+    "route": "ARBITRARY_PRECISION_FALLBACK",
+    "fast_path_gate": {
+      "all_sectors_positive": false,
+      "minimum_eigenvalue": -5.601839235180152e-17,
+      "sector_condition_number": "inf",
+      "sector_reconstruction_residual": 1.3584870271501402e-15
+    },
+    "fallback_precisions": [
+      1050,
+      1250,
+      1450
+    ],
+    "fallback_rows": [
+      {
+        "C": "5.4567930358267633015592499738824802767390372980904",
+        "digits": 1050,
+        "minimum_eigenvalue": "3.7647213608495434621443485853520573809594325661997e-363",
+        "rank": 256,
+        "resolved": true,
+        "w": "0.026369441157575120841828852230953058313870894114246"
+      },
+      {
+        "C": "5.4567930358267633015592499738824802767390372980904",
+        "digits": 1250,
+        "minimum_eigenvalue": "3.7647213608495434621443485853520573809594325661997e-363",
+        "rank": 256,
+        "resolved": true,
+        "w": "0.026369441157575120841828852230953058313870894114246"
+      },
+      {
+        "C": "5.4567930358267633015592499738824802767390372980904",
+        "digits": 1450,
+        "minimum_eigenvalue": "3.7647213608495434621443485853520573809594325661997e-363",
+        "rank": 256,
+        "resolved": true,
+        "w": "0.026369441157575120841828852230953058313870894114246"
+      }
+    ],
+    "minimum_eigenvalue": 0.0,
+    "support_size": 256,
+    "numerical_retained_rank": 256,
+    "tau_diagnostic": 1e-12,
+    "exact_input_provenance": "float.hex binary64"
+  },
+  "child_backend": {
+    "backend": "python",
+    "mpmath": "1.3.0"
+  },
+  "precision_ladder": [
+    1050,
+    1250,
+    1450
+  ],
+  "isolated_diagonal_solve_equivalence": true,
+  "additional_producers_sha256": {
+    "results\\uniform_positive_skr_manuscript43_20261023\\source_python_job.py": "3f37cf9a89e5a626081deaa5cef2f85b988872a53ac09b20d782ee9264241b8f",
+    "results\\uniform_manuscript_2d_optimization_20261019\\source_uniform_diagonal.py": "254bf9d5c9b9774da9d1f37c9fd5c5939c2a9b291d3530502e2bdfaafaaff795",
+    "results\\uniform_manuscript_2d_optimization_20261019\\diagonal_solve_worker.py": "c4c8cd88f4374a6b7bfef04bca6f8275a3c456748f4e935d39f34ba0701ec70f"
+  },
+  "producer_sha256": "3f37cf9a89e5a626081deaa5cef2f85b988872a53ac09b20d782ee9264241b8f",
+  "payload_file_sha256": "e3245988bab4f4ad9049307d96bd020fc3e951c50173be7017d41be036b6d10a"
+}

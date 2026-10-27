@@ -1,0 +1,277 @@
+# CODEX — Publication-Quality SKR vs. Zenith Angle Figures
+
+## 1. Objective
+
+Create publication-quality figures showing **Secret Key Rate (SKR) versus Zenith Angle** for the HAP–UAV 256-QAM DM-CV-QKD system.
+
+Compare three schemes:
+
+1. Uniform
+2. Fixed Maxwell–Boltzmann (Fixed MB)
+3. Optimized Maxwell–Boltzmann (Optimized MB)
+
+**Use ONLY the previously computed and saved 61-angle diagnostic results. Do not rerun any physical model, SKR calculation, or exact-source computation.**
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Input directory:
+
+`results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/`
+
+Read:
+
+- `best_scheme_by_angle.csv`
+- `diagnostic_skr_61_angles.csv`
+- `validation_report_vi.md`
+
+Inspect the actual CSV column names and data structures before writing plotting code. Do not assume a particular CSV schema.
+
+## 2. Verified Experimental Configuration
+
+Use the existing results corresponding to:
+
+| Parameter | Value |
+|---|---|
+| HAP altitude | 20 km |
+| UAV altitude | 1 km |
+| Zenith angle | 0°–60°, step 1° |
+| Link distance | L = 19 sec(ζ) km |
+| Receiver diameter | 0.30 m |
+| Wavelength | 1550 nm |
+| Full-angle divergence | 35 µrad |
+| Angular jitter per axis | 1.561 µrad |
+| Position SD per axis | 0.10 m |
+| Atmospheric zenith transmittance | 0.92 |
+| Channel noise | 0.0186 SNU |
+| Detector noise | 0.005 SNU |
+| Reconciliation efficiency | 0.95 |
+| Detection | Homodyne |
+| Reconciliation | Reverse reconciliation |
+| AO | OFF |
+| Additional phase noise | OFF |
+
+The approved numerical model uses direct Eq. (14).
+
+Do not modify any physical parameters or mathematical conventions.
+
+## 3. Expected Results for Validation
+
+Use these reported values only as independent consistency checks, not as substitutes for the CSV data.
+
+| Scheme | Maximum raw SKR (bits/use) | Angle | Positive-SKR samples |
+|---|---:|---:|---|
+| Uniform | -0.03074714646 | 60° | None |
+| Fixed MB | 0.00006522377 | 0° | 0°–5° |
+| Optimized MB | 0.0007960878080861267 | 0° | 0°–15° |
+
+Observed zero-crossing intervals:
+
+- Fixed MB: between 5° and 6°.
+- Optimized MB: between 15° and 16°.
+
+These intervals refer to sampled angles, not independently established continuous-angle operational limits.
+
+At 0°, the best Optimized MB source is:
+
+- `nu_raw = 0.30`
+- `V_A = 1.358333319784304`
+- `C = 1.067911050328646`
+- `w = 5.700303183579203e-10`
+
+The reported maximum SKR is:
+
+`0.0007960878080861267 bits/use`
+
+## 4. Data Processing Requirements
+
+Read all 61 zenith angles from 0° to 60°.
+
+Extract the best **raw SKR** for each scheme and each angle using the existing evaluated results.
+
+Requirements:
+
+1. Use the original saved numerical values.
+2. Preserve negative SKR.
+3. Do not replace negative raw SKR with zero.
+4. Do not interpolate missing SKR values.
+5. Do not smooth the curves.
+6. Do not generate artificial numerical points.
+7. Do not recompute MI, Holevo, C, w, or SKR.
+8. Do not select arbitrary source rows when multiple candidates exist at one angle.
+9. Use the existing best-source selection logic and validate against `best_scheme_by_angle.csv`.
+10. Check that all three schemes have complete and correctly ordered angular data.
+
+If a required value is missing, report the issue instead of fabricating it.
+
+## 5. Figure 1 — Complete SKR vs. Zenith Angle
+
+Create:
+
+`skr_vs_zenith_publication.png`
+
+`skr_vs_zenith_publication.pdf`
+
+Plot:
+
+- X-axis: `Zenith angle (deg)`
+- Y-axis: `Secret key rate (bits/use)`
+- Range: 0°–60°.
+- Three curves: Uniform, Fixed MB, Optimized MB.
+- Include a horizontal dashed line at SKR = 0.
+
+Suggested visual styling:
+
+- Uniform: gray or red dashed line.
+- Fixed MB: blue line with square markers.
+- Optimized MB: green or dark teal solid line with circular markers.
+- White background.
+- Clear legend.
+- Readable tick labels.
+- Light grid.
+- Consistent line widths and marker sizes.
+- No decorative title inside the figure.
+
+Use a font configuration appropriate for IEEE publication.
+
+**Important:** Uniform has significantly more negative raw SKR than the two MB schemes. Do not artificially rescale or clip the data to make all three schemes appear comparable. If a common y-axis visually compresses the MB curves, address this with Figure 2.
+
+## 6. Figure 2 — Zoomed Positive-SKR Region
+
+Create:
+
+`skr_vs_zenith_zoom.png`
+
+`skr_vs_zenith_zoom.pdf`
+
+Focus on the positive-SKR operating region.
+
+Suggested x-axis:
+
+`0°–18°`
+
+Show the Fixed MB and Optimized MB curves clearly, including their transition through SKR = 0.
+
+Requirements:
+
+- Use raw SKR values.
+- Show the horizontal zero-SKR reference.
+- Clearly distinguish Fixed MB and Optimized MB.
+- Use scientific notation on the y-axis where appropriate.
+- Highlight the sampled zero-crossing intervals [5°, 6°] and [15°, 16°] without suggesting that the exact crossing has been computed.
+- Annotate the maximum Optimized MB SKR at 0°.
+- Do not use operational SKR clipping.
+
+Uniform may be excluded from this zoom if including it would obscure the differences between the two MB schemes. If excluded, make the scope explicit in the legend or caption.
+
+## 7. Figure 3 — Two-Panel IEEE Figure
+
+Create a combined figure:
+
+`skr_vs_zenith_two_panel.png`
+
+`skr_vs_zenith_two_panel.pdf`
+
+Panel (a):
+
+Full-angle raw SKR comparison, 0°–60°, including all three schemes.
+
+Panel (b):
+
+Magnified comparison of Fixed MB and Optimized MB, 0°–18°.
+
+Requirements:
+
+- Match colors and line styles across panels.
+- Label panels `(a)` and `(b)`.
+- Avoid overlapping labels and legends.
+- Preserve all original data.
+- Use sensible figure dimensions for an IEEE two-column paper.
+- Export PNG at 600 dpi and vector PDF.
+
+Use Matplotlib.
+
+## 8. IEEE Publication Formatting
+
+Apply:
+
+- Consistent serif or Times-compatible typography.
+- Axis labels approximately 9–10 pt.
+- Tick labels approximately 8–9 pt.
+- Legend approximately 8–9 pt.
+- Line widths approximately 1.5–2 pt.
+- Readable markers.
+- Tight bounding boxes.
+- Vector PDF output.
+- High-resolution PNG output.
+
+Ensure the figures remain legible when inserted into an IEEE double-column paper.
+
+Do not include the label `DIAGNOSTIC_ONLY` as a large watermark. Preserve this scientific limitation in the caption and reporting metadata instead.
+
+## 9. Scientific Interpretation
+
+Generate a short English IEEE-style caption for each figure.
+
+The captions should state:
+
+- The compared schemes.
+- The zenith-angle range.
+- The positive-SKR sampled ranges.
+- The fact that the numerical results are diagnostic rather than fully source-convergence validated.
+
+Do not claim that the exact continuous zero-crossing angles have been established.
+
+Do not claim unconditional information-theoretic security from these diagnostic results.
+
+## 10. Output Files
+
+Create a new directory:
+
+`results/skr_vs_zenith_eq14_v43_phaseB_publication_figures/`
+
+Save:
+
+1. `skr_vs_zenith_publication.png`
+2. `skr_vs_zenith_publication.pdf`
+3. `skr_vs_zenith_zoom.png`
+4. `skr_vs_zenith_zoom.pdf`
+5. `skr_vs_zenith_two_panel.png`
+6. `skr_vs_zenith_two_panel.pdf`
+7. `plot_skr_vs_zenith.py`
+8. `figure_captions.tex`
+9. `figure_validation_report_vi.md`
+
+The Python script must regenerate all figures directly from the saved CSV files without recomputing SKR.
+
+## 11. Validation
+
+Before finishing, verify:
+
+- All 61 angles are included.
+- Maximum SKR values match the saved results.
+- The reported positive-SKR sample ranges are reproduced.
+- Negative raw SKR values are preserved.
+- No source moment or SKR calculation has been executed.
+- No historical file has been overwritten.
+- All exported figures can be opened successfully.
+- No axes, labels, or legends are clipped.
+- PDF files contain vector-rendered curves and text wherever supported.
+
+If there is any discrepancy between the source CSV and the stated expected results, investigate and report it rather than silently modifying the data.
+
+## 12. Final Response
+
+Report in Vietnamese:
+
+1. Confirmation that all three schemes were plotted from saved results.
+2. Links or paths to all generated figures.
+3. Maximum SKR values for the three schemes.
+4. Positive-SKR sampled ranges and zero-crossing intervals.
+5. Verification that no new C,w or SKR calculation was performed.
+6. Any discrepancies or plotting limitations.
+
+Keep the original results labeled `DIAGNOSTIC_ONLY`.
+
+**The final figures must be scientifically faithful to the stored numerical data and visually suitable for inclusion in an IEEE paper.**

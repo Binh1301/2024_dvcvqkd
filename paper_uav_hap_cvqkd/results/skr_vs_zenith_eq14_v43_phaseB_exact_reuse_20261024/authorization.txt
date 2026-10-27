@@ -1,0 +1,209 @@
+# CODEX — Phase B: Reuse All Previously Computed Exact Sources
+
+## Objective
+
+Continue the HAP–UAV 256-QAM DM-CV-QKD SKR-versus-zenith Phase B workflow.
+
+**PRIMARY REQUIREMENT: REUSE ALL PREVIOUSLY COMPUTED EXACT C,w VALUES. DO NOT RECOMPUTE THEM.**
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Read the existing Phase B readiness and unblocking reports before proceeding.
+
+Current source inventory:
+
+- 81 required source pairs.
+- 6 VERIFIED_EXACT.
+- 1 VERIFIED_BY_ALTERNATIVE_EVIDENCE.
+- 73 existing exact C,w payloads with insufficient convergence evidence.
+- 1 Uniform source without a recovered payload.
+
+Do not confuse missing convergence receipts with evidence of incorrect C,w values.
+
+## Task 1 — Recover and Consolidate Existing Exact Results
+
+Search all historical source catalogs, exact-source databases, caches, numerical outputs, and prior optimization results.
+
+Include historical exact-source catalogs from the previous 256-QAM MB-shaping optimization work.
+
+For each source, recover:
+
+- nu_raw
+- nu_repo
+- V_A
+- C
+- w
+- Ensemble/source hash
+- Original mathematical conventions
+- Source file path
+- Numerical provenance
+- Existing convergence evidence, if available
+
+Deduplicate only when mathematically identical source identities can be demonstrated.
+
+Check all 81 required source pairs against the historical exact catalog.
+
+**Do not calculate any new C,w.**
+
+## Task 2 — Reuse Existing Exact C,w for Zenith Evaluation
+
+The exact source moments C,w are properties of the discrete constellation and source parameters.
+
+They must not be recomputed merely because the channel zenith angle changes.
+
+For a given compatible exact source:
+
+\[
+(\nu,V_A)\longrightarrow(C,w),
+\]
+
+reuse the same C,w when evaluating the approved physical channel at different zenith angles.
+
+For every angle, recompute only angle-dependent quantities required by the frozen SKR evaluator, such as:
+
+- Channel transmittance and applicable fading moments.
+- Channel-dependent noise quantities.
+- Mutual information.
+- Holevo information.
+- Resulting SKR.
+
+Follow the existing canonical evaluator and its approved numerical integration rules.
+
+Preserve the direct Eq. (14):
+
+\[
+Z(\eta_f,\xi_f)
+=
+2\sqrt{\eta_f}C-\sqrt{2\eta_f\xi_fw}.
+\]
+
+Do not introduce alternative Z prescriptions, source-moment interpolation, or modified security formulas.
+
+Before reusing an existing payload, verify compatibility of:
+
+- Constellation size M=256.
+- Constellation geometry.
+- Probability distribution and shaping convention.
+- V_A normalization.
+- nu_raw/nu_repo conversion.
+- Definitions of C and w.
+- Exact source identity.
+
+A matching or nearby numerical parameter value is not sufficient when source identity differs.
+
+## Task 3 — Handle the 73 Existing Sources Without Recalculation
+
+For the 73 existing sources lacking convergence receipts:
+
+1. Preserve their original exact C,w payloads.
+2. Preserve the classification INSUFFICIENT_EVIDENCE.
+3. Check compatibility with the current frozen mathematical conventions.
+4. Label compatible results as historical exact-source payloads whose convergence evidence remains incomplete.
+5. Permit their use in a separately labeled diagnostic analysis, without claiming VERIFIED_EXACT status.
+
+Do not change readiness status merely because SKR evaluations using those payloads succeed.
+
+Do not repeat expensive source generation.
+
+## Task 4 — Resolve the Missing Uniform Source Using Historical Data
+
+Required source:
+
+- nu_raw = 0
+- V_A = 1.6249995399703647
+
+Search all available historical Uniform catalogs and results.
+
+Attempt recovery using the exact parameter identity and approved canonicalization rules.
+
+If an identical source already exists, reuse its exact C,w and validate provenance.
+
+If no identical source exists:
+
+- Mark the source as missing.
+- Do not interpolate.
+- Do not use a neighboring V_A.
+- Do not substitute another Uniform constellation.
+- Do not launch another expensive calculation.
+
+Explain precisely which evaluations or comparisons are affected by this missing source.
+
+## Task 5 — Prepare a Reuse-Based Nine-Angle Diagnostic
+
+Determine whether existing exact-source payloads are sufficient to evaluate the planned nine zenith angles.
+
+Construct the evaluation matrix:
+
+- Rows: exact source pairs.
+- Columns: nine zenith angles.
+- Each entry: availability of compatible exact C,w and ability to evaluate SKR.
+
+Where source coverage permits, use the existing frozen evaluator to generate a clearly labeled **DIAGNOSTIC-ONLY** nine-angle result, without recomputing C,w.
+
+Do not silently remove a missing source from an optimization while describing the result as the original full-catalog optimum.
+
+If a restricted available-source optimization is performed, label it explicitly:
+
+`HISTORICAL_EXACT_RESTRICTED_CATALOG_DIAGNOSTIC`
+
+Report which source pairs were excluded and how that limits the conclusions.
+
+Keep results based on insufficient convergence evidence separate from strictly validated results.
+
+Do not claim the strict Phase B pilot is complete.
+
+Do not run the 61-angle sweep.
+
+## Task 6 — Preserve the Existing Implementation
+
+Do not modify:
+
+- Manuscript v43.
+- Canonical mathematical reference.
+- Direct Eq. (14).
+- Source definitions.
+- MI or Holevo formulas.
+- Physical channel model.
+- Frozen specifications.
+- Production caches.
+- Historical exact-source artifacts.
+
+Avoid implementing progress wrappers or checkpoint systems unless directly necessary for lightweight retrieval or verification of historical data.
+
+The immediate priority is **source reuse, not new exact-source computation infrastructure**.
+
+## Task 7 — Deliverables
+
+Create a new directory:
+
+`results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/`
+
+Produce:
+
+1. `exact_source_inventory.csv` — recovered exact C,w sources and identities.
+2. `pilot_source_coverage.csv` — coverage of all 81 required sources.
+3. `nine_angle_coverage.csv` — source availability across nine angles.
+4. `historical_source_reuse_report.md` — how existing source moments were reused.
+5. `missing_uniform_source.md` — results of the historical Uniform search.
+6. `diagnostic_results.csv` — diagnostic SKR evaluations, if permitted by source coverage.
+7. `validation_report_vi.md` — full Vietnamese analysis.
+8. `artifact_integrity_report.md` — evidence that production and historical artifacts remain unchanged.
+
+## Final Report
+
+Report in Vietnamese:
+
+1. How many of the 81 sources were recovered from historical exact results?
+2. How many existing C,w pairs can be reused without new source computations?
+3. Was the missing Uniform exact source found?
+4. How many of the nine angles can be evaluated with existing data?
+5. What diagnostic SKR results can be produced?
+6. What limitations remain because convergence receipts are missing?
+7. What specifically prevents strict Phase B readiness?
+8. How many new exact C,w computations were performed? This must be zero.
+
+Maintain the original strict validation rules.
+
+**The goal is to maximize reuse of already computed exact results, avoid unnecessary numerical work, and obtain as much valid diagnostic information as the historical data supports.**

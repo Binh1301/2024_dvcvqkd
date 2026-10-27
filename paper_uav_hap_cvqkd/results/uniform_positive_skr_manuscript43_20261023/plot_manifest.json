@@ -1,0 +1,71 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "positive_only": true,
+  "no_connection_across_invalid": true,
+  "one_law_per_curve": true,
+  "curves": [
+    {
+      "label": "Primary Eq. (10), baseline: no positive points",
+      "positive": 0,
+      "excluded": 31,
+      "channel_laws": [
+        "manuscript43_Eq10_retained_0_to_1"
+      ],
+      "x_field": "zenith_deg"
+    },
+    {
+      "label": "Independent bounded law, improved optics",
+      "positive": 31,
+      "excluded": 0,
+      "channel_laws": [
+        "power_conserving_random_width"
+      ],
+      "x_field": "zenith_deg"
+    },
+    {
+      "label": "Primary Eq. (10): PDF mass blocked",
+      "positive": 0,
+      "excluded": 7,
+      "channel_laws": [
+        "manuscript43_Eq10_retained_0_to_1"
+      ],
+      "x_field": "Dr_m"
+    },
+    {
+      "label": "Independent bounded law (secondary)",
+      "positive": 7,
+      "excluded": 0,
+      "channel_laws": [
+        "power_conserving_random_width"
+      ],
+      "x_field": "Dr_m"
+    },
+    {
+      "label": "Optimized Uniform 256-QAM",
+      "positive": 31,
+      "excluded": 0,
+      "channel_laws": [
+        "power_conserving_random_width"
+      ],
+      "x_field": "zenith_deg"
+    },
+    {
+      "label": "Fixed MB-shaped 256-QAM",
+      "positive": 31,
+      "excluded": 0,
+      "channel_laws": [
+        "power_conserving_random_width"
+      ],
+      "x_field": "zenith_deg"
+    },
+    {
+      "label": "Optimized MB-shaped 256-QAM",
+      "positive": 31,
+      "excluded": 0,
+      "channel_laws": [
+        "power_conserving_random_width"
+      ],
+      "x_field": "zenith_deg"
+    }
+  ]
+}

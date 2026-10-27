@@ -1,0 +1,106 @@
+{
+  "ensemble_hash": "b083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214",
+  "source_path": "results/exact_mb_test2/exact_source_cache/dac498f0bd2082d12225b96aa057fb8541f04c48e011f4e6b3795f325f4b62a4.json",
+  "source_sha256": "f835e47731891c935fceab522cddc1e7e9875629fd9166ec0532273e7b694f32",
+  "canonical_source_identity": "5692cc57eb1e764c8d4f5ee9645daabc4405ab67c0e974eaf92bfeecfc9f59fd",
+  "payload_cache_key": "dac498f0bd2082d12225b96aa057fb8541f04c48e011f4e6b3795f325f4b62a4",
+  "VA": 1.358333319784304,
+  "VA_hex": "0x1.5bbbbb818a6b0p+0",
+  "nu_raw": 0.3,
+  "nu_repo": 12.75,
+  "C": 1.067911050328646,
+  "w": 5.700303183579203e-10,
+  "normalization_error": 4.440892098500626e-16,
+  "homodyne_quadrature_variance_error": 2.220446049250313e-16,
+  "source_settings": {
+    "density_eigenvalue_tolerance": 1e-12,
+    "physicality_tolerance": 1e-10,
+    "precision_ladder": [
+      1050,
+      1250,
+      1450
+    ]
+  },
+  "source_implementation": {
+    "scripts/full_support_c4_worker.py": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+    "src/cvqkd/gram_moments.py": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+    "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388"
+  },
+  "classification_before": "INSUFFICIENT_EVIDENCE",
+  "classification_after": "INSUFFICIENT_EVIDENCE",
+  "convergence_receipts": "",
+  "payload_keys": [
+    "C",
+    "V_A_hex",
+    "cache_key",
+    "cache_origin",
+    "ensemble_hash",
+    "mb_convention",
+    "nu_mb_raw_hex",
+    "nu_mb_repo_hex",
+    "schema",
+    "source_implementation",
+    "source_moment_route",
+    "source_settings",
+    "support_size",
+    "w"
+  ],
+  "provenance_proof": {
+    "status": "VERIFIED",
+    "policy": "LF_ONLY_WITH_PROVEN_HISTORICAL_RAW_ALIAS_V1",
+    "historical_cache_key": "dac498f0bd2082d12225b96aa057fb8541f04c48e011f4e6b3795f325f4b62a4",
+    "canonical_source_cache_key": "5692cc57eb1e764c8d4f5ee9645daabc4405ab67c0e974eaf92bfeecfc9f59fd",
+    "source_settings_sha256": "a924b9dc4e67beadf59f2e46440cd0698c92ac0ecb48d140ac28e87432768292",
+    "implementation": {
+      "src/cvqkd/gram_moments.py": {
+        "historical_raw_sha256": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+        "raw_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "canonical_lf_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "crlf_sha256": "f55c47589422a52224db8798e0c910ceb093eb06d6863b0107e9fd62d2466d48",
+        "verification": "VERIFIED_NEWLINE_EQUIVALENT"
+      },
+      "src/cvqkd/spectral_frechet.py": {
+        "historical_raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "raw_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "canonical_lf_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "crlf_sha256": "8e6bdd05543fd1e5815ddf348d3fbe9e88cdd156c4c80c3266c8886140a96e1d",
+        "verification": "RAW_BYTE_MATCH"
+      },
+      "scripts/full_support_c4_worker.py": {
+        "historical_raw_sha256": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+        "raw_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "canonical_lf_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1",
+        "crlf_sha256": "fe4be5e4b9ce8075f4553f296e32e8f59723bbcfe0b244ab9f6b24886c827ff3",
+        "verification": "VERIFIED_NEWLINE_EQUIVALENT"
+      }
+    },
+    "canonical_source_identity": {
+      "schema": "exact-mb-source-cache-v1",
+      "ensemble_hash": "b083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214",
+      "nu_mb_raw_hex": "0x1.3333333333333p-2",
+      "nu_mb_repo_hex": "0x1.9800000000000p+3",
+      "V_A_hex": "0x1.5bbbbb818a6b0p+0",
+      "mb_convention": "nu_mb_repo=42.5*nu_mb_raw; raw grid is square_qam256(alpha0=sqrt(30))",
+      "source_implementation": {
+        "src/cvqkd/gram_moments.py": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551",
+        "src/cvqkd/spectral_frechet.py": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388",
+        "scripts/full_support_c4_worker.py": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+      },
+      "source_settings": {
+        "density_eigenvalue_tolerance": 1e-12,
+        "physicality_tolerance": 1e-10,
+        "precision_ladder": [
+          1050,
+          1250,
+          1450
+        ]
+      }
+    }
+  },
+  "scanned_artifacts": 2722,
+  "oversize_artifacts_not_scanned": 11,
+  "evidence_matches": 202,
+  "new_Cw_computations": 0,
+  "solver_called": false,
+  "limitation": "Identity and conventions verified; no source-bound per-precision C,w/eigenvalue/residual receipt recovered. No numerical convergence upgrade."
+}

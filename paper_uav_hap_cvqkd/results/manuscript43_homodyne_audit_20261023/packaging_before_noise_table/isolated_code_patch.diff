@@ -1,0 +1,1462 @@
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/audit_inventory.py
+@@ -0,0 +1,141 @@
++"""Repository traceability, cache impact and source/channel notation checks."""
++import ast
++import math
++import re
++from collections import defaultdict
++import numpy as np
++from scipy.integrate import quad
++from scipy.stats import rice
++import audit_model as a
++import run_audit as r
++
++
++def main():
++    if (a.OUT/'inventory_receipt.json').exists():raise FileExistsError('Preserve completed inventory')
++    paths={
++        'scripts/hap_uav_channel_pdf.py':'mixed channel PDF and Rician pointing',
++        'scripts/calculate_channel_pdf_and_moments.py':'geometry/HV/closed moments',
++        'src/manuscript_literal_3moments.py':'historical37 literal mode, not v43',
++        'src/manuscript_corrected_3moments.py':'explicit historical conditional-active law; not raw v43 PDF',
++        'src/manuscript_corrected_evaluator.py':'trusted/ideal configuration gate; not new untrusted mode',
++        'src/manuscript_corrected_mi.py':'historical complex fading measurement',
++        'src/cvqkd/mutual_information.py':'frozen production complex heterodyne MI',
++        'scripts/recheck_manuscript_homodyne_noise.py':'shared GH dimension1 helper; historical script uses mixed primary pairing',
++        'src/modulation/qam256.py':'C4 square QAM and canonical MB PMF',
++        'src/modulation/normalization.py':'VA=2*nbar physical amplitudes',
++        'src/cvqkd/gram_moments.py':'exact source correlation implementation',
++        'scripts/exact_cache_provenance.py':'authenticated source/cache identities',
++        'src/manuscript_mobility.py':'233-source authenticated catalog and historical mixed evaluator',
++        'src/cvqkd/covariance.py':'frozen production heterodyne conditional spectrum',
++        'src/cvqkd/holevo.py':'production correlation interval/Holevo',
++        'src/cvqkd/protocol.py':'frozen ideal heterodyne assumptions',
++        'src/optimization/trainer.py':'production learning caller; NOT_RUN',
++        'scripts/run_theta10_D55_alt_opt.py':'historical finite exact-source parameter optimizer; NOT_RUN',
++        'scripts/optimize_uniform_manuscript_2d.py':'historical 2D MI optimizer; not homodyne reuse',
++        'results/untrusted_positive_skr_feasibility_20261022/model.py':'preserved strict real homodyne/Gaussian component and passive surrogate',
++        'results/uav_skwap_aware_positive_skr_20261022/parameter_adapter.py':'preserved pooled fading likelihood and aperture adapter',
++        'configs/default.yaml':'production protocol/defaults preserved',
++        'configs/channel.yaml':'unresolved production channel inputs preserved',
++        'configs/manuscript_corrected_3moments.json':'historical alternative convention preserved',
++        'configs/manuscript_mobility.json':'authenticated source roster preserved',
++        'tests/test_mutual_information.py':'historical production MI tests',
++        'tests/test_holevo.py':'historical production security tests',
++        'tests/test_manuscript_corrected_mi.py':'historical complex fading test',
++    }
++    inventory=[]
++    for path,role in paths.items():
++        f=a.ROOT/path
++        if not f.exists():
++            inventory.append(dict(path=path,role=role,status='MISSING_NOT_ASSUMED',modified=False));continue
++        symbols=[]
++        if f.suffix=='.py':
++            tree=ast.parse(f.read_text(encoding='utf-8-sig'))
++            symbols=[f'{n.name}:{n.lineno}' for n in tree.body if isinstance(n,(ast.FunctionDef,ast.ClassDef))]
++        inventory.append(dict(path=path,role=role,status='LOCATED',symbols=';'.join(symbols),sha256=a.sha(f),modified=False))
++    r.write('repository_inventory.csv',inventory)
++    start=a.read(a.OUT/'startup_manifest.json');sources={c['source_path']:c for c in r.catalog()}
++    cache=[];folders=defaultdict(list)
++    for path,digest in start['protected'].items():
++        if not path.startswith('paper_uav_hap_cvqkd/results/'):continue
++        relative=path[len('paper_uav_hap_cvqkd/'):];parts=relative.split('/');folders[parts[1]].append(relative)
++        kind=None
++        if relative in sources:kind='AUTHENTICATED_SOURCE_CW_REUSABLE_IDENTICAL_ENSEMBLE'
++        elif any(x in path.lower() for x in ['/exact_source_cache/','/source_cache/','/source_checkpoints/']):kind='SOURCE_CACHE_PRESERVED_NOT_REVALIDATED_IN_THIS_AUDIT'
++        elif 'cache' in path.lower() and path.endswith('.json'):kind='CHANNEL_OR_OBJECTIVE_CACHE_REQUIRES_NEW_CONTEXT_FOR_VARIANT_C'
++        if kind:
++            cache.append(dict(path=relative,sha256=digest,classification=kind,modified=False,
++                ensemble_hash=sources[relative]['ensemble_hash'] if relative in sources else '',
++                underlying_source_convention_changed=False,old_objective_interchangeable=False))
++    r.write('cache_impact.csv',cache)
++    recent={'corrected_excess_noise_trial_20261022','untrusted_positive_skr_feasibility_20261022',
++        'minimal_physical_positive_skr_20261022','positive_skr_without_receiver_enlargement_20261022',
++        'lightweight_uav_positive_skr_20261022','uav_skwap_aware_positive_skr_20261022'}
++    result_folders=[]
++    for name,files in sorted(folders.items()):
++        note='NOT_REEVALUATED_PROTOCOL_AND_CHANNEL_DEPENDENT; DO_NOT_TRANSFER_TO_NEW_VARIANT'
++        if name in recent:note='SELECTED_MATCHED_REGRESSIONS_OR_INPUTS_AUDITED; REST_NOT_REEVALUATED'
++        if name in ['skr_vs_zenith_angle_20261019','zenith_angle_root_cause_diagnostic_20261021','manuscript_mobility_p1_p2_p3_20261019']:
++            note='HISTORICAL_MIXED_2D_MI_HOMODYNE_HOLEVO; NOT_A_CONSISTENT_NEW_HOMODYNE_RATE'
++        result_folders.append(dict(result_directory='results/'+name,entry_kind='directory' if (a.ROOT/'results'/name).is_dir() else 'file',
++            protected_file_count=len(files),assessment=note,
++            historical_bytes_changed=False,all_points_reoptimized_or_revalidated=False))
++    r.write('affected_results.csv',result_folders)
++    notation=[]
++    for c in [next(c for c in r.catalog() if c['nu_raw']==.165 and c['VA']==5.475),
++              next(c for c in r.catalog() if c['nu_raw']==.25 and c['VA']==1.6249995399703647)]:
++        p,alpha=a.validate_source(c);indices=np.indices((16,16)).reshape(2,-1).T
++        energy=np.sum(indices**2,axis=1);uncentered=np.exp(-c['nu_raw']*energy);uncentered/=uncentered.sum()
++        center_energy=np.sum((indices-7.5)**2,axis=1)
++        expected=np.exp(-c['nu_raw']*center_energy);expected/=expected.sum()
++        assert np.max(abs(expected-p))<2e-14
++        spacing=float(np.diff(np.unique(alpha.real)).mean())
++        notation.append(dict(source_hash=c['ensemble_hash'],nu_raw=c['nu_raw'],nu_repo=42.5*c['nu_raw'],
++            spacing=spacing,nu_physical_energy=c['nu_raw']/spacing**2,centered_PMF_residual=float(np.max(abs(expected-p))),
++            uncentered_weighted_alpha_real=float((uncentered@alpha).real),uncentered_weighted_alpha_imag=float((uncentered@alpha).imag),
++            old_cache_reusable_for_uncentered_PMF=False))
++    r.write('MB_notation_checks.csv',notation)
++    gamma,nu=.165,.25
++    grid=np.indices((16,16));raw_energy=grid[0]**2+grid[1]**2
++    mismatch=float(np.exp(-gamma*raw_energy).sum()/np.exp(-nu*raw_energy).sum())
++    r.save('notation_findings.json',dict(raw_index_gamma=gamma,raw_index_denominator_nu=nu,literal_probability_sum=mismatch,
++        fixture_only_not_assumed_manuscript_values=True,gamma_nu_relationship='UNDEFINED_IN_MANUSCRIPT',
++        centered_probability_rule_required_for_existing_sources=True,source_cache_changes=False))
++    ch=r.raw_channel((20.,1.,30.,233.,15.61,1.,.8,.0135,.92,.08));v=float(ch['v'])
++    turbulence=[]
++    for q in [0.,1.,2.]:
++        value,error=quad(lambda s:math.exp(q*s-(s+v/2)**2/(2*v))/math.sqrt(2*math.pi*v),
++            -math.inf,math.inf,epsabs=2e-12,epsrel=2e-12)
++        target=math.exp(.5*v*(q*q-q));assert abs(value-target)<2e-10
++        turbulence.append(dict(power=q,direct=value,closed=target,error=error,log_irradiance_variance=v,log_amplitude_variance=v/4,
++            model='Eq5_LN_minus_v_over2_v',raw_Rytov_used_as_log_irradiance_variance='WEAK_TURBULENCE_APPROXIMATION'))
++    r.write('turbulence_variance_checks.csv',turbulence)
++    rician=[]
++    with mp_context():
++        for rho in [0.,.1,.5]:
++            c=a.raw_coefficients(ch,rho);B,d,sigma,lc,c3,mu=[float(c[k]) for k in ['B','d','sigma','logC1','C3','mu']]
++            for q in [.5,1.]:
++                exact=float(ch['P1'])*B**q*math.exp(.5*v*(q*q-q))*d/(d+q)*math.exp(-rho*rho*q/(2*sigma*sigma*(d+q)))
++                cf=float(ch['P1'])*B**q*d/(d+q)*math.exp(lc+(d+q)**2/(4*c3*c3)-(d+q)*mu)
++                direct,error=quad(lambda rr:math.exp(-2*q*rr*rr/ch['w_eq_m']**2)*rice.pdf(rr,rho/sigma,scale=sigma),
++                    0.,math.inf,epsabs=2e-12,epsrel=2e-12)
++                direct*=float(ch['P1'])*B**q*math.exp(.5*v*(q*q-q))
++                assert abs(direct-exact)<2e-10
++                rician.append(dict(rho_m=rho,power=q,full_support_exact_product_moment=exact,
++                    full_support_Eq10_moment=cf,direct_Rice_integral=direct,relative_Eq10_difference=cf/exact-1,
++                    scope='UNTRUNCATED_PRODUCT_DIAGNOSTIC_NOT_BOUNDED_MOMENT_REPLACEMENT'))
++    r.write('Rician_product_checks.csv',rician)
++    r.save('inventory_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',located_files=sum(x['status']=='LOCATED' for x in inventory),
++        missing_paths=[x['path'] for x in inventory if x['status']!='LOCATED'],cache_rows=len(cache),
++        result_entries=len(result_folders),result_directories=sum(x['entry_kind']=='directory' for x in result_folders),
++        result_root_files=sum(x['entry_kind']=='file' for x in result_folders),
++        authenticated_catalog_source_paths=len(sources),MB_notation_fixtures=len(notation),
++        nonzero_rho_Eq10_exact_product_discrepancy_detected=any(abs(x['relative_Eq10_difference'])>1e-8 for x in rician),
++        whole_model_or_all_historical_results_validated=False))
++    print('INVENTORY/NOTATION COMPLETE',len(inventory),len(cache),len(result_folders),flush=True)
++
++
++def mp_context():
++    return a.mp.workdps(90)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/audit_model.py
+@@ -0,0 +1,257 @@
++"""Isolated v43 audit: real homodyne MI, explicit noise planes, unchanged sources."""
++import hashlib
++import importlib.util
++import json
++import math
++from pathlib import Path
++import sys
++
++import mpmath as mp
++import numpy as np
++from scipy.integrate import quad
++from scipy.special import log_ndtr, logsumexp, roots_hermitenorm
++
++OUT = Path(__file__).resolve().parent
++ROOT = OUT.parents[1]
++sys.path.insert(0, str(ROOT))
++spec = importlib.util.spec_from_file_location('_v43_preserved_homodyne',
++    ROOT/'results/untrusted_positive_skr_feasibility_20261022/model.py')
++legacy = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(legacy)
++
++
++def read(path):
++    return json.loads(Path(path).read_text(encoding='utf-8-sig'))
++
++
++def sha(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
++
++
++def finite(value, name, nonnegative=False):
++    value = float(value)
++    if not math.isfinite(value) or (nonnegative and value < 0):
++        raise ValueError('Invalid '+name)
++    return value
++
++
++def validate_source(c):
++    p = np.asarray(c['p'], dtype=float)
++    alpha = np.asarray(c['alpha'], dtype=complex)
++    if p.shape != (256,) or alpha.shape != (256,) or not np.isfinite(alpha).all():
++        raise ValueError('256 finite physical amplitudes required')
++    if not np.isfinite(p).all() or np.any(p <= 0) or abs(p.sum()-1) > 1e-13:
++        raise ValueError('Invalid source probabilities')
++    va = finite(c['VA'], 'source VA', True)
++    if abs(2*np.dot(p, abs(alpha)**2)-va) > 2e-12 or abs(np.dot(p, alpha)) > 1e-12:
++        raise ValueError('Source normalization/origin mismatch')
++    if abs(np.dot(p, alpha**2)) > 1e-12:
++        raise ValueError('Scalar covariance requires C4 symmetry')
++    payload_path = ROOT/c['source_path']
++    payload = read(payload_path)
++    if sha(payload_path) != c['source_sha256'] or payload['ensemble_hash'] != c['ensemble_hash']:
++        raise ValueError('Source payload identity changed')
++    if any(payload[k] != c[k] for k in ['C', 'w']) or payload['V_A_hex'] != va.hex():
++        raise ValueError('Exact source moments/VA mismatch')
++    if c['C'] < 0 or c['w'] < 0:
++        raise ValueError('Invalid exact correlation moments')
++    return p, alpha
++
++
++def marginal(p, alpha, axis='X'):
++    if axis not in ['X', 'P']:
++        raise ValueError('Only one real homodyne quadrature is allowed')
++    x = 2*(alpha.real if axis == 'X' else alpha.imag)
++    levels, inverse = np.unique(x, return_inverse=True)
++    return levels, np.bincount(inverse, weights=p)
++
++
++def homodyne_mi(p, alpha, t, variance, *, order=64, axis='X', grouped=True, scale=1.):
++    """Defining real discrete-input Gaussian MI; invertible scaling is classical."""
++    p, alpha = np.asarray(p, float), np.asarray(alpha, complex)
++    t = finite(t, 'MI signal gain squared', True)
++    variance = finite(variance, 'conditional variance')
++    scale = finite(scale, 'classical scale')
++    if variance <= 0 or scale == 0 or np.any(p <= 0) or abs(p.sum()-1) > 1e-13:
++        raise ValueError('Invalid real conditional likelihood')
++    if grouped:
++        levels, p = marginal(p, alpha, axis)
++    else:
++        if axis not in ['X', 'P']:
++            raise ValueError('HOMODYNE ONLY')
++        levels = 2*(alpha.real if axis == 'X' else alpha.imag)
++    means = scale*math.sqrt(t)*levels
++    sigma = abs(scale)*math.sqrt(variance)
++    nodes, weights = roots_hermitenorm(order)
++    weights /= math.sqrt(2*math.pi)
++    result = 0.
++    for probability, mean in zip(p, means):
++        y = mean+sigma*nodes
++        mixture = logsumexp(np.log(p)[None, :]
++            -.5*((y[:, None]-means[None, :])/sigma)**2, axis=1)
++        result += probability*float(weights@(-.5*nodes**2-mixture))/math.log(2)
++    if not math.isfinite(result) or result < -2e-12:
++        raise ValueError('Invalid MI; no clipping')
++    return result
++
++
++def independent_mi(p, alpha, t, variance):
++    """Adaptive output-density entropy integration, independent of GH expectation."""
++    x, px = marginal(np.asarray(p), np.asarray(alpha))
++    means = math.sqrt(t)*x
++    sigma = math.sqrt(variance)
++    normalizer = math.log(sigma*math.sqrt(2*math.pi))
++    def integrand(y):
++        log_density = float(logsumexp(np.log(px)-.5*((y-means)/sigma)**2)-normalizer)
++        return -math.exp(log_density)*log_density/math.log(2)
++    points = np.unique(np.r_[means.min()-12*sigma, means, means.max()+12*sigma])
++    values = [quad(integrand, a, b, epsabs=2e-12, epsrel=2e-12, limit=200)
++              for a, b in zip(points, points[1:])]
++    return sum(v for v, _ in values)-.5*math.log2(2*math.pi*math.e*variance), sum(e for _, e in values)
++
++
++def conditional_pdf(y, mean, variance):
++    if np.iscomplexobj(y) or np.iscomplexobj(mean) or variance <= 0:
++        raise ValueError('Normalized homodyne density requires a real mean and variance>0')
++    return np.exp(-.5*((np.asarray(y)-mean)**2)/variance)/math.sqrt(2*math.pi*variance)
++
++
++def xi_detector(eta_det, epsilon_det, definition, independent=None):
++    eta_det = finite(eta_det, 'eta_det')
++    epsilon_det = finite(epsilon_det, 'epsilon_det', True)
++    if not 0 < eta_det <= 1:
++        raise ValueError('0<eta_det<=1 required')
++    if definition == 'A_epsilon_over_eta':
++        return epsilon_det/eta_det
++    if definition == 'B_chi_hom':
++        return (1-eta_det+epsilon_det)/eta_det
++    if definition == 'independent_explicit' and independent is not None:
++        return finite(independent, 'independent xi_det', True)
++    raise ValueError('xi_det definition/value unresolved; no epsilon_det alias')
++
++
++def effective(moments, va, eta_det, epsilon_det, *, tolerance=1e-10):
++    eta_det = finite(eta_det, 'eta_det')
++    epsilon_det = finite(epsilon_det, 'epsilon_det', True)
++    va = finite(va, 'VA', True)
++    m0, m1, mh, p0 = [finite(moments[k], k, True) for k in ['M0', 'm1', 'mh', 'P0']]
++    if abs(m0-1) > tolerance:
++        raise ValueError('UNNORMALIZED_CHANNEL_PDF: no automatic renormalization')
++    if not 0 < eta_det <= 1 or not 0 <= p0 <= 1 or va <= 0:
++        raise ValueError('Invalid detector/source/outage parameters')
++    tf = mh*mh
++    if moments.get('law') == 'deterministic_delta':
++        if mh != math.sqrt(m1):
++            raise ValueError('Tagged delta-law moments do not match')
++        tf = m1  # Exact delta-law identity avoids squaring a rounded square root.
++    if not 0 <= tf <= m1 <= 1:
++        raise ValueError('Invalid bounded moments; no clipping')
++    nf = (m1-tf)*va
++    nc = m1*.0186
++    noise = eta_det*(nf+nc)+epsilon_det
++    return dict(eta_f=tf, T_quantum=eta_det*tf, N_fading_pre=nf, N_channel_pre=nc,
++        N_detector_pre=epsilon_det/eta_det, N_post=noise, sigma2_output=1+noise,
++        sigma2_rescaled=(1+noise)/eta_det, signal_gain2_rescaled=tf,
++        a=1+va, b=1+eta_det*tf*va+noise, eta_det=eta_det, epsilon_det=epsilon_det,
++        vacuum_output=1., detector_loss_vacuum_already_in_unit_vacuum=True,
++        quantum_covariance_plane='physical_output_after_untrusted_loss_and_noise')
++
++
++def evaluate_physical(c, moments, eta_det, epsilon_det, *, order=64, grid=33):
++    p, alpha = validate_source(c)
++    e = effective(moments, c['VA'], eta_det, epsilon_det)
++    center = 2*math.sqrt(e['T_quantum'])*c['C']
++    radius = math.sqrt(2*e['N_post']*c['w'])
++    # Existing strict homodyne/full-Z routine: exact boundary identities, no spectrum clipping.
++    h = legacy.full_holevo(e['a'], e['b'], center, radius, grid)
++    iab = homodyne_mi(p, alpha, e['T_quantum'], e['sigma2_output'], order=order)
++    scaled = homodyne_mi(p, alpha, e['T_quantum'], e['sigma2_output'], order=order,
++                         scale=1/math.sqrt(eta_det))
++    if abs(iab-scaled) > 2e-12 or min(h[k] for k in ['nu_1', 'nu_2', 'nu_3']) < 1 or h['chi_BE'] < 0:
++        raise ValueError('MI scaling or homodyne covariance failure')
++    _, px = marginal(p, alpha)
++    entropy = -float(px@np.log2(px))
++    capacity = .5*math.log2(1+e['T_quantum']*c['VA']/e['sigma2_output'])
++    if iab > min(entropy, capacity)+2e-10:
++        raise ValueError('MI exceeds quadrature entropy/Gaussian reference bound')
++    return dict(**e, **h, I_AB=iab, I_AB_rescaled=scaled, beta_I_AB=.95*iab,
++        K_raw=.95*iab-h['chi_BE'], quadrature_entropy=entropy, gaussian_capacity_reference=capacity,
++        source_hash=c['ensemble_hash'], C=c['C'], w=c['w'], VA=c['VA'], nu_raw=c['nu_raw'],
++        receiver='homodyne_1D', detector_security='untrusted', model='C_physical_output_gaussian_effective',
++        channel_law=moments['law'], approximation='moment_matched_Gaussian_not_exact_fading_likelihood',
++        security_valid=False, recommended_secure_default=False, GH_order=order)
++
++
++def literal_noise(moments, va, eta_det, epsilon_det, definition, *, outage='limit', independent=None):
++    xd = xi_detector(eta_det, epsilon_det, definition, independent)
++    if outage not in ['limit', 'active_only']:
++        raise ValueError('Outage contribution must be explicit')
++    mass = moments['M0']-(moments['P0'] if outage == 'active_only' else 0.)
++    nf = (moments['m1']-moments['mh']**2)*va
++    mn = .0186*moments['m1']+xd*mass
++    return dict(xi_det=xd, xi_det_definition=definition, M0=moments['M0'],
++        third_noise_moment=mn, outage_extension=outage, detector_mass_factor=mass,
++        eta_f=moments['mh']**2, N_literal=nf+mn, sigma2_literal=1+nf+mn,
++        signal_gain2_literal=moments['mh']**2)
++
++
++def evaluate_literal(c, moments, eta_det, epsilon_det, definition, *, real_projection=False, outage='limit'):
++    p, alpha = validate_source(c)
++    e = literal_noise(moments, c['VA'], eta_det, epsilon_det, definition, outage=outage)
++    # The printed modulus-square with complex alpha is not a real Gaussian density.
++    masses = np.exp(-2*e['eta_f']*alpha.imag**2/e['sigma2_literal'])
++    record = dict(**e, model='B_literal_v43_as_printed', I_AB=None, chi_BE=None, K_raw=None,
++        minimum_printed_conditional_mass=float(masses.min()), maximum_printed_conditional_mass=float(masses.max()),
++        security_valid=False, receiver='homodyne_1D', detector_security='untrusted',
++        channel_law=moments['law'], VA=c['VA'], nu_raw=c['nu_raw'], source_hash=c['ensemble_hash'])
++    if not real_projection:
++        return {**record, 'status':'FAILED_COMPLEX_MEAN_IN_REAL_PDF'}
++    if abs(moments['M0']-1)>1e-10:
++        return {**record, 'status':'FAILED_CHANNEL_NORMALIZATION', 'model':'B_v43_noise_real_projection_diagnostic'}
++    t, noise = e['eta_f'], e['N_literal']
++    h = legacy.full_holevo(1+c['VA'], 1+t*c['VA']+noise,
++        2*math.sqrt(t)*c['C'], math.sqrt(2*noise*c['w']))
++    mi = homodyne_mi(p, alpha, t, 1+noise)
++    return {**record, **h, 'I_AB':mi, 'K_raw':.95*mi-h['chi_BE'],
++        'status':'DIAGNOSTIC_REAL_PROJECTION_NOT_LITERAL_PRINTED_DENSITY',
++        'model':'B_v43_noise_real_projection_diagnostic', 'quantum_T':t, 'sigma2':1+noise,
++        'detector_loss_omitted_from_literal_signal':True}
++
++
++def raw_coefficients(ch, rho=0.):
++    if not {'B','d','v','sigma_s_m','w_eq_m','P0','P1'}<=ch.keys():
++        raise ValueError('Original lognormal/pointing optical coefficients required; channel laws are not interchangeable')
++    with mp.workdps(90):
++        B, d, v, sigma, rho = [mp.mpf(str(v)) for v in [ch['B'], ch['d'], ch['v'], ch['sigma_s_m'], rho]]
++        weq = mp.mpf(str(ch['w_eq_m']))
++        lc = rho*rho/(sigma*sigma)+v*d*(1+d)/2
++        c3 = (32*rho*rho*sigma*sigma/weq**4+2*v)**(-mp.mpf('.5'))
++        mu = 6*rho*rho/weq**2+v*(1+2*d)/2
++        return dict(B=B, d=d, v=v, logC1=lc, C3=c3, mu=mu, P0=mp.mpf(str(ch['P0'])), P1=mp.mpf(str(ch['P1'])), rho=rho, sigma=sigma)
++
++
++def raw_pdf_moments(ch, rho=0.):
++    """Literal Eqs18-20, explicit zero atom; integrate the same Eq10 without repair."""
++    with mp.workdps(90):
++        c = raw_coefficients(ch, rho)
++        B, d, c3, mu, lc = [c[k] for k in ['B', 'd', 'C3', 'mu', 'logC1']]
++        x1 = -mp.log(B)+mu
++        def Q(a):
++            return (mp.exp(a*x1-a*mu)*mp.erfc(c3*x1)+mp.exp(a*a/(4*c3*c3)-a*mu)*mp.erfc(a/(2*c3)-c3*x1))/2
++        closed = {q: c['P1']*B**mp.mpf(str(q))*d*mp.exp(lc)/(d+mp.mpf(str(q)))*Q(d+mp.mpf(str(q))) for q in [0., .5, 1.]}
++        mass = c['P0']+closed[0.]
++        missing = 1-mass
++        p1, bf, df, cf, mf, lf = [float(c[k]) for k in ['P1', 'B', 'd', 'C3', 'mu', 'logC1']]
++        def log_density(y):
++            return math.log(p1*df/2)+lf-df*math.log(bf)+df*y+math.log(2)+float(log_ndtr(-math.sqrt(2)*cf*(y-math.log(bf)+mf)))
++        direct = {}
++        for q in [0., .5, 1.]:
++            value, error = quad(lambda y: math.exp(log_density(y)+q*y), -math.inf, 0., epsabs=2e-12, epsrel=2e-12, limit=400)
++            direct[q] = dict(value=value, error=error, closed=float(closed[q]), residual=value-float(closed[q]))
++        tail, tail_error = quad(lambda y: math.exp(log_density(y)), 0., math.inf, epsabs=2e-12, epsrel=2e-12, limit=400)
++        return dict(M0=float(mass), M0_decimal=mp.nstr(mass, 80), m1=float(closed[1.]), mh=float(closed[.5]),
++            P0=float(c['P0']), active_retained_mass=float(closed[0.]), raw_upper_tail_mass=float(missing),
++            upper_tail_decimal=mp.nstr(missing, 80), upper_tail_quadrature=tail, upper_tail_error=tail_error,
++            direct=direct, probability_residual=float(mass-1), normalized_within_tolerance=abs(mass-1)<=mp.mpf('1e-10'),
++            renormalized=False, clipped=False, law='manuscript43_Eq10_retained_0_to_1', rho_m=rho,
++            coefficients={k:float(v) for k,v in c.items()})
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/build_report.py
+@@ -0,0 +1,257 @@
++"""Vietnamese audit and manuscript corrections from saved evidence only."""
++import ast
++import csv
++import difflib
++import hashlib
++import json
++from pathlib import Path
++
++OUT=Path(__file__).resolve().parent;ROOT=OUT.parents[1]
++def read(name):return json.loads((OUT/name).read_text(encoding='utf-8'))
++def rows(name):
++    with (OUT/name).open(encoding='utf-8',newline='') as f:return list(csv.DictReader(f))
++def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
++def fmt(x):
++    if x is None or x=='':return '—'
++    if isinstance(x,(bool,str)):return str(x)
++    return f'{x:.12g}'
++def table(headers,data):
++    return '| '+' | '.join(headers)+' |\n| '+' | '.join(['---']*len(headers))+' |\n'+''.join('| '+' | '.join(fmt(x) for x in row)+' |\n' for row in data)+'\n'
++def write(name,data):
++    fields=list(dict.fromkeys(k for row in data for k in row))
++    with (OUT/name).open('w',encoding='utf-8',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(data)
++
++
++def main():
++    if (OUT/'final_receipt.json').exists():raise FileExistsError('Preserve sealed audit')
++    validation=read('validation.json');comparison=read('comparison_receipt.json')
++    oldnew=rows('old_vs_new.csv');conv=rows('detector_convention_comparison.csv');source=rows('source_normalization.csv')
++    raw=read('channel_pdf_audit.json')['contexts'];raw_results=read('raw_manuscript43_results.json')
++    plane=rows('classical_quantum_plane_checks.csv');notation=read('notation_findings.json');rician=rows('Rician_product_checks.csv')
++    source0=next(x for x in source if x['family']=='MB' and float(x['VA'])==5.475 and float(x['nu_raw'])==.165)
++    extra=[]
++    for rel in ['src/channel/fso_channel.py','src/channel/geometry.py','src/channel/turbulence.py',
++        'src/channel/scintillation.py','src/channel/pointing_error.py','src/channel/aoa.py',
++        'src/channel/atmospheric_loss.py','src/cvqkd/secret_key_rate.py','src/modulation/joint_ps_gs.py']:
++        path=ROOT/rel;assert path.exists()
++        tree=ast.parse(path.read_text(encoding='utf-8-sig'))
++        extra.append(dict(path=rel,role='Production channel/source/rate caller; frozen behavior preserved',status='LOCATED',
++            symbols=';'.join(f'{n.name}:{n.lineno}' for n in tree.body if isinstance(n,(ast.FunctionDef,ast.ClassDef))),
++            sha256=sha(path),modified=False))
++    mapping=rows('repository_inventory.csv')+extra;write('repository_map.csv',mapping)
++    write('production_call_sites.csv',extra)
++    variants=dict(A_historical=dict(implementation='preserved original modules; fresh matching regressions',historical_files_modified=False),
++        B_literal_v43=dict(xi_det_definition='REQUIRED_EXPLICIT_A_B_OR_INDEPENDENT',printed_complex_mean_density='FAILED',SKR=None),
++        B_real_projection_diagnostic=dict(change='Re(alpha) explicitly applied; original noise/covariance convention retained',physically_interchangeable_with_C=False),
++        C_physical_homodyne_untrusted=dict(implementation='audit_model.evaluate_physical',measurement='homodyne_1D',
++            T_quantum='eta_det*mean_sqrt_eta**2',N_post='eta_det*((m1-mh**2)*VA+.0186*m1)+epsilon_det',
++            Gaussian_component_numerically_validated=True,raw_PDF_normalization_guard=True,secure_default=False),
++        production_default_changed=False,recommended_secure_default=None,source_cache_namespace_changed=False)
++    (OUT/'variants.json').write_text(json.dumps(variants,indent=2)+'\n',encoding='utf-8')
++    selected_conv=[x for x in conv if x['scenario']=='baseline8' and float(x['eta_det'])==.8 and float(x['epsilon_det'])==.0135]
++    convtable=table(['Biến thể','ηdet','εdet','ξdet / định nghĩa','Outage extension','Gain² MI','Variance MI','MI','Holevo','K / trạng thái'],
++        [[x['model'],x['eta_det'],x['epsilon_det'],
++          (x.get('xi_det_definition') or '')+(' = '+x['xi_det'] if x.get('xi_det') else ''),
++          x.get('outage_extension') or 'physical output',
++          x.get('effective_MI_signal_gain2'),x.get('noise_variance'),
++          x.get('I_AB'),x.get('chi_BE'),x.get('K_raw') or x['status']] for x in selected_conv])
++    oldtable=table(['Scenario / cùng law lịch sử','MI cũ','MI Gaussian','Holevo cũ','Holevo mới','K cũ','K mới'],
++        [[x[k] for k in ['scenario','Legacy_MI','Corrected_MI','Legacy_Holevo','Corrected_Holevo','Legacy_SKR','Corrected_SKR']] for x in oldnew])
++    pdftable=table(['Scenario','M0','Khối lượng η>1','Eη','E√η','Chuẩn hóa ≤1e-10','K theo PDF gốc'],
++        [[x['context'],x['M0'],x['raw_upper_tail_mass'],x['m1'],x['mh'],x['normalization_status'],
++          next(v.get('K_raw') for v in raw_results if v['scenario']==x['context'])] for x in raw])
++    sources=table(['Nguồn','VA cache','n̄','E[X]','E[X²]','Var(X)','n̄/2 theo PDF'],
++        [[x['family']+' ν='+x['nu_raw'],*[x[k] for k in ['VA','nbar','mean_X','second_X','variance_X','manuscript_nbar_over2']]]
++         for x in source if x['ensemble_hash']==source0['ensemble_hash'] or (x['family']=='MB' and float(x['nu_raw'])==.25 and float(x['VA'])==1.6249995399703647)
++         or (x['family']=='Uniform' and abs(float(x['VA'])-1)<1e-12)])
++    symbolmap=table(['Tệp / nhóm','Vai trò','Hàm : dòng'],[[x['path'],x['role'],x.get('symbols','')] for x in mapping])
++    old_A=next(x for x in oldnew if x['scenario']=='receiver28p1');old_C=next(x for x in oldnew if x['scenario']=='receiver30')
++    baseline_plane=plane[0]
++    body=rf'''# Audit HAP–UAV DM-CV-QKD theo manuscript43 — 2026-10-23
++
++**Đã hoàn tất audit và patch cô lập; chưa có mô hình secure-SKR được phê chuẩn làm default.** Có {validation['unit_tests']} unit tests đạt, 10 regression lịch sử khớp và 233 nguồn exact được kiểm tra. Ba trong chín context của PDF gốc không đạt mass tolerance đã đặt trước. Không sửa PDF, nguồn exact, cache, production evaluator hoặc đặc tả frozen.
++
++Phạm vi dùng **homodyne một quadrature thực, reverse reconciliation, detector untrusted**. Các kết quả mới không có finite-key/composable-security claim. audit_model.py, protocol.json, variants.json và isolated_code_patch.diff là patch riêng trong thư mục này; branch cũ được giữ nguyên. Code mới từ chối nguồn/cache không đúng identity, PDF mất chuẩn hóa, covariance không vật lý và variance sai miền.
++
++Ứng viên 28,1 cm trước đây có K={old_A['Legacy_SKR']} từ **actual pooled fading MI**. Khi giữ đúng channel moments, nguồn và Holevo đó nhưng dùng **Gaussian effective MI** theo yêu cầu hiện tại, K={old_A['Corrected_SKR']}, tức âm. 30 cm vẫn có K={old_C['Corrected_SKR']} trong **random-width surrogate lịch sử**; không được chuyển con số này sang PDF log-normal của bản43. Không thực hiện tối ưu mới để khôi phục dấu dương.
++
++## 1. Tệp, phương trình và phạm vi sửa
++
++Nguồn PDF: inputs/manuscript_v43.pdf, SHA256 {read('pdf_capture.json')['manuscript_sha256']}, bốn trang. Trang2 chứa Eqs.(1)–(8); trang3 chứa Eqs.(9)–(21); trang4 là tài liệu tham khảo. Các PNG trang2–4 đã được kiểm tra trực quan. PDF gốc ở Downloads và bản sao đầu vào không bị chỉnh sửa.
++
++| Vấn đề | Bản43 | Repo thực tế | Kết luận / patch |
++| --- | --- | --- | --- |
++| Modulation | Sau(3): Vmod=n̄/2 | Normalization VA=2n̄ | Bản thảo lệch hệ số4 so với X=2Reα; giữ nguồn/caches |
++| MB | γ ở tử, ν ở Z; norm của chỉ sốk | PMF centered; νrepo=42,5νraw | Thiếu định nghĩa/notation; giữ PMF hiện có |
++| MI | Gaussian1D dùng αphức trong modulus | Production frozen heterodyne; diagnostic có cả2D/1D | Dùng Reα trong patch; không ghép MI2D với Holevo homodyne |
++| Detector | ξ=ξch+ξdet/η | Nhiều biến ξdet/εdet/R ở các namespace | Giữ ηdet/εdet riêng; explicit A/B/independent |
++| Noise | σ²=1+ηfξf | Recent untrusted helper đã có Npost đúng | C giữ đúng signal/loss/noise; B giữ literal để audit |
++| Holevo | ν3 homodyne; T=ηf | Production heterodyne; recent helper homodyne/full-Z | C dùng Ttotal=ηdetηf cùng Npost trong Z,Γ,χ |
++| PDF | Eq.(10), moments trên[0,1] | Raw literal, conditional-active và random-width riêng | Không thay law cho nhau; fail closed trên mass lỗi |
++
++repository_map.csv ghi đường dẫn, hàm:dòng và hash của {len(mapping)} tệp. production_call_sites.csv bổ sung chín caller/channel/source file vào inventory gốc28 tệp. Đây không phải tuyên bố đã chạy toàn bộ pipeline cũ.
++
++## 2. Nguồn, Vmod và MB
++
++Đặt \(X_k=2\operatorname{{Re}}\alpha_k\), \(P_k=2\operatorname{{Im}}\alpha_k\), vacuum variance1. Với ensemble centered/C4:
++
++\[
++\operatorname{{Var}}X=\operatorname{{Var}}P=2\sum_kp_k|\alpha_k|^2=2\bar n=V_A.
++\]
++
++Vì vậy sửa Vmod=n̄/2 thành Vmod=2n̄ nếu giữ quadrature này. Không sửa VA, amplitude hoặc C,w của cache để khớp phương trình sai. source_normalization.csv kiểm tra đủ233 nguồn:
++
++{sources}
++
++Raw centered indices là \(u_i=i-7.5\). Nguồn hiện có dùng \(p_{{ij}}\propto\exp[-\nu_{{raw}}(u_i^2+u_j^2)]\); canonical constellation có mean energy42,5 nên \(\nu_{{repo}}=42.5\nu_{{raw}}\). Với physical energy \(|\alpha|^2=\Delta^2(u_i^2+u_j^2)\), \(\nu_{{phys}}=\nu_{{raw}}/\Delta^2\). Đây là đổi biến của cùng PMF.
++
++Nếu γ vàν khác nhau, tử/mẫu(2) không bảo đảm tổng1. Fixture γ=.165/ν=.25 cho tổng {notation['literal_probability_sum']:.12g}; đây là counterexample, không phải giá trị được suy đoán cho manuscript. Khi γ=ν, weighting bằng i²+j² chưa centered vẫn cho meanα≠0; MB_notation_checks.csv ghi cụ thể. Cache cũ không dùng được dưới PMF thay đổi đó.
++
++## 3. Detector và bốn mặt phẳng tham chiếu
++
++Đặt \(m_1=\langle\eta\rangle\), \(m_h=\langle\sqrt\eta\rangle\), \(T_f=m_h^2\), \(N_f=(m_1-T_f)V_A\), \(N_c=m_1\xi_{{ch}}\).
++
++| Mặt phẳng | Mean homodyne | Variance noise Gaussian hiệu dụng | Vai trò |
++| --- | --- | --- | --- |
++| Alice | Xk=2Reαk | Vacuum1 | Classical displacement variance VA=2n̄ |
++| Channel output trước detector | √Tf Xk | 1+Nf+Nc | Detectorloss chưa tác động |
++| Physical detector output YB | √(ηdet Tf) Xk | 1+ηdet(Nf+Nc)+εdet | Plane quantumΓ trongC |
++| Classical Y′=YB/√ηdet | √Tf Xk | 1/ηdet+Nf+Nc+εdet/ηdet | MI invariant; Γ lượng tử giữ nguyên |
++
++Với \(Y_B=\sqrt{{\eta_{{det}}}}Y_{{ch}}+\sqrt{{1-\eta_{{det}}}}V_0+E_{{el}}\), vacuum cộng thành \(\eta_{{det}}+(1-\eta_{{det}})=1\). Không thêm loss vacuum lần nữa vào output excess. C dùng
++
++\[
++T_{{total}}=\eta_{{det}}T_f,\quad
++N_{{post}}=\eta_{{det}}[(m_1-T_f)V_A+m_1\xi_{{ch}}]+\epsilon_{{det}},\quad
++\sigma^2_{{N,B}}=1+N_{{post}}.
++\]
++
++ConventionA là \(\xi_{{det}}=\epsilon_{{det}}/\eta_{{det}}\): v42 vàv43 trùng đại số ởη>0 nếu chuyển tham số đúng. ConventionB là \(\chi_{{hom}}=(1-\eta_{{det}}+\epsilon_{{det}})/\eta_{{det}}\), có cả loss vacuum trong noise budget quy về trước detector; không phải electronic excess đơn thuần.
++
++**Nếu M0=1, literal σ² với conventionB đúng bằng variance của classically rescaled measurement, nên MI có thể trùngC.** Nhưng dùng Wrescaled như quantum variance với vacuum/CCR cũ và áp lạiZ không phải phép đổi biến cổ điển hợp lệ cho Holevo. Baselineη=.8/ε=.0135: MI lệch {float(baseline_plane['MI_difference']):.4g}, nhưng Holevo lệch {float(baseline_plane['Holevo_difference']):.12g}. classical_quantum_plane_checks.csv kiểm tra đủ16 detector/context pairs. Manuscript chưa chọn A/B/independent; independent chưa có giá trị nên BLOCKED.
++
++Tham khảo receiver/noise framework trong [Laudenbach et al.](https://arxiv.org/pdf/1703.09278). Các plane equations ở đây được suy ra trực tiếp từ loss/vacuum, không dùng Gaussian-modulation SKR thay DM source bound.
++
++## 4. MI homodyne và conditional variance
++
++Patch tính discrete-input MI với real mean \(2\sqrt{{T_{{total}}}}\operatorname{{Re}}\alpha_k\). Tổng256 labels bằng marginal16 levels vì cùng Reα cho cùng density. Không nhân MI lên2; entropy measured quadrature≤4bit/use. \(\frac12\log_2(1+T_{{total}}V_A/\sigma_N^2)\) chỉ là Gaussian reference bound.
++
++Với complex mean như bản in vày∈R, conditional mass là \(\exp[-2\eta_f(\operatorname{{Im}}\alpha_k)^2/\sigma_\xi^2]\), khác1. B-as-printed có MI/Holevo/SKR unavailable. B_real_projection_diagnostic sửa mean thành Reα và giữ noise/covariance literal để so sánh; không phải nguyên density in trong PDF.
++
++Fading thực cho \(\operatorname{{Var}}(Y_B\mid X=x)=1+\eta_{{det}}m_1\xi_{{ch}}+\epsilon_{{det}}+\eta_{{det}}(m_1-T_f)x^2\), phụ thuộc symbol. C thay x² bằngVA để tạo **moment-matched Gaussian approximation**, không phải exact fading likelihood. Unconditional Bob variance là \(b=\sigma_N^2+T_{{total}}V_A=1+\eta_{{det}}m_1(V_A+\xi_{{ch}})+\epsilon_{{det}}\), khác conditional noise. Đổi actual pooled MI thành Gaussian MI có thể đổi SKR dù noise/Holevo không đổi.
++
++Unit tests kiểm tra conditional normalization, finite/nonnegative MI trong tolerance, T→0, entropy≤4, X/P symmetry,256/16 equality, adaptive quadrature, invertible scaling, source tampering, noise planes, covariance và low-T stability. Các số nằm trong conditional_pdf_normalization.csv, MI_independent_checks.csv, unit_tests.json và focused_independent_checks.csv. Raw negativeK giữ nguyên.
++
++## 5. PDF, outage và ba moments
++
++Giữ Eq.(10), closed forms(18)–(19). channel_moment_checks.csv đối chiếu closed form với direct integration đổi biếnη=exp(y) trên[0,1]; atomP0 cộng riêng ởpower0. Residuals đạt tolerance đã đặt trước.
++
++{pdftable}
++
++M0=P0+P1 C1 Q(χ²). Zero-limit extension \(g(0)=\lim_{{\eta\to0}}\eta\xi(\eta)=\xi_{{det}}\) cho Eq.(20) là \(\xi_{{ch}}m_1+\xi_{{det}}M_0\). Active-only cho \(\xi_{{ch}}m_1+\xi_{{det}}(M_0-P_0)\). Chênh lệch ξdetP0; không phải conditioning lại PMF. C giữ electronics trên mọi transmitted use; gating/postselection là protocol khác.
++
++40/55cm mất mass do lognormal gain unbounded trong khi tích phân chỉ tới1. 30cm hơi vượt1e-10 nên vẫn bị chặn; không nới tolerance vì gần ngưỡng. 28,1cm mất3,34e-12, được chấp nhận trong tolerance nhưng residual/tail vẫn lưu. Không renormalize, chuyển tail sang outage, clipping hoặc thêm atomη=1. Raw-PDF C cho40/55/30cm có K unavailable, không phải0.
++
++**Rician:** Eq.(10) khớp product lognormal×pointing ởρ=0. Vớiρ≠0, untruncated moments từ Eq.(8) cho counterexample:ρ=.5m/power1 tại fixture baseline có lệch {100*float(rician[-1]['relative_Eq10_difference']):.6g}%. Rician_product_checks.csv ghi analytic Laplace/directRice checks. Đây là whole-support supplementary check, không thay truncated moments ở trên. Manuscript cần nêu approximation/domain hoặc derivation choρ≠0.
++
++Eq.(5) dùng lnIa∼N(−v/2,v). Code dùng rawRytov làmv dưới weak-turbulence approximation. turbulence_variance_checks.csv xác nhận mass1,E[Ia]=1,E[Ia²]=exp(v). Log-amplitude variance=v/4. Không đổi atmospheric model hoặc lẫn rawRytov/aperture-averaged variance. Gd/Cn² còn chỗ thiếu citation[] trong PDF.
++
++## 6. Holevo và scope bảo mật
++
++C dùng cùng \(T_{{total}}\), \(N_{{post}}=T_{{total}}\xi_{{total}}\) trong \(Z_\pm=2\sqrt{{T_{{total}}}}C\pm\sqrt{{2N_{{post}}w}}\), \(a=1+V_A\), \(b=1+T_{{total}}V_A+N_{{post}}\). Intersect physical correlation interval rồi numerical-maxχ. Conditional eigenvalue là homodyne \(\nu_3=\sqrt{{a(a-Z^2/b)}}\).
++
++[Denys–Brown–Leverrier](https://arxiv.org/html/2103.13945v3) nêu công thức homodyne trên và áp dụng bound cho homodyne. Production protocol frozen của repo vẫn là idealheterodyne; đó là khác biệt protocol, không phải giới hạn “DBL chỉ heterodyne”. Exact C,w hiện có được dùng nguyên.
++
++Full-Z33/129, independent symplectic matrix/uncertainty và entropy80/110digits đã kiểm tra. Không clip eigenvalues dưới1. Exact uncertainty-boundary identity của helper không phải numerical repair. Numerical max chưa là rigorous global enclosure. [Hosseinidehaj–Walk–Ralph](https://arxiv.org/abs/2002.03476) là reference effective fading/finite-sizeGaussian; không tự chuyển proof sang256-QAM ở đây. Parameter estimation, operational fading protocol và finite/composable proof vẫn chưa xác lập.
++
++## 7. Detector-convention comparison
++
++Ví dụ geometry gốc,ηdet=.8,εdet=.0135,fixedMB(.165,VA5.475). CSV đầy đủ144 rows cho hai geometry×tám detector pairs×các variant/extension:
++
++{convtable}
++
++## 8. Old versus new — cùng historical channel law
++
++{oldtable}
++
++baseline8/recent8/15–55cm dùng đúng passive random-width moments lịch sử; chỉ thay actual fading likelihood MI bằng Gaussian effective MI. C new MI khớp I_AB_surrogate đã tồn tại; Holevo cùng convention khớp helper cũ. **Không phát hiện double-count εdet trong recent untrusted helper.** Đổi dấu28,1cm là đổi approximation; không chứng minh source cache sai hoặc phủ nhận legacy value trong chính model cũ.
++
++original_manuscript_trial8 giữ đúng rawlognormal law: K mới={comparison['original_trial_corrected_K']:.17g}, khớp số cũ ở độ chính xác số học. 30/40/55cm còn dương trong passive-surrogate table, nhưng chuyển sang rawPDF bị chặn tại các context mất mass. raw_manuscript43_results.json ghi riêng các giá trị/blocked fields. Không quy chênh lệch hai laws thành hiệu ứng detector riêng.
++
++**Không chuyển tiếp kết luận “minimum28,1cm positive” sang Gaussian model.** Không re-ranking/optimization catalog mới; chỉ re-evaluate source cũ. affected_results.csv liệt kê252 result entries (thư mục và tệp ở root, có entry_kind riêng): chỉ scenario ghi rõ được tính lại; phần khác NOT_REEVALUATED. Old2DMI/homodyneHolevo zenith/mobility outputs giữ nguyên, không dùng làm consistent new homodyne SKR.
++
++cache_impact.csv liệt kê287 cache entries:233 authenticated source payloads còn dùng được với đúng ensemble/VA; cache khác chỉ được bảo toàn, không coi là tái thẩm định. Objective/SKR cache phải có contextID mới khi dùngC. Không đổi namespace hoặc bytes source cache.
++
++## 9. Thay đổi, verification và blocker
++
++Chỉ thêm patch riêng cùng năm task ledgers. Không sửa src/, frozen spec, production configs, exact caches hoặc artifacts cũ. repository_map.csv và isolated_code_patch.diff chỉ rõ code/traceability; verify.py kiểm tra saved artifacts bằng hash, không gọi evaluator.
++
++Lần tích hợp đầu tiên, harness dùng passive-collector geometry để đọc hệ số PDF cũ, gây KeyErrorB sau17 tests đạt. attempt_1/ giữ nguyên producer/failure. Caller đã sửa sang đúng preserved lognormal/Rician factory, thêm guard/test;18 tests sau đó đạt. Không đổi tolerance hoặc scientific source.
++
++Không designate secure default do PDF mass failures,ξdet manuscript chưa định nghĩa,caveatρ≠0,Gaussian-MI approximation và operational/security scope chưa hoàn tất. C chỉ là **numerically validated physical homodyne/untrusted Gaussian component** khi input guards đạt. Giữ UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,historical frozen-hash discrepancy,ObjectiveC USER_STOPPED.
++
++Không newAP, optimization sweep, training, final-test/heldout/publication, production baseline/threshold approval hoặc commit/push. Đề xuất sửa PDF nằm riêng ở manuscript_corrections_vi.md; PDF không bị chỉnh sửa.
++
++## Appendix: bản đồ repo đã kiểm tra
++
++{symbolmap}
++'''
++    (OUT/'report_vi.md').write_text(body,encoding='utf-8')
++    corrections=r'''# Đề xuất sửa manuscript43 — không chỉnh sửa PDF
++
++| ID | Equation / nội dung | Loại phát hiện | Đề xuất |
++| --- | --- | --- | --- |
++| M01 | Sau(3),Vmod=n̄/2 | Confirmed mathematical error dưới X=2Reα | Sửa Vmod=2n̄; giữ exact source/caches |
++| M02 | (12),complexα trong Gaussian1D | Confirmed mathematical error | Real mean2√T Reα;y∈R;không nhân MI lên2 |
++| M03 | (2),γ ở tử/ν ởZ | Missing definition/notation; lỗi normalization nếu khác nhau | Dùng cùng shaping symbol ở numerator/denominator |
++| M04 | (2),norm indexk không centered | Missing convention; khác source hiện có | Ghi centered raw energy hoặc physical-energy mapping rõ |
++| M05 | ξdet sau(17),(20) | Missing reference-plane definition | Phân biệt εdet/ηdet,χhom và independentξdet |
++| M06 | σξ² sau(12) | Missing measurement-plane definition | Physical output dùng1+ηdet[(m1−mh²)VA+m1ξch]+εdet và signalTtotal=ηdetmh² |
++| M07 | W,Z ở(13),(14) | Security-model ambiguity với untrusted detector | Cùng physical quantumTtotal,Npost cho Z,Γ,χ;rescale measurement không rescale quantumΓ tùy ý |
++| M08 | (10),(18)–(20),support[0,1] | Confirmed normalization failure tại context đã lưu | BáoM0,tail,atom0;quyết định model trước fullprotocol;không silent renormalization |
++| M09 | (8)→(10) khiρ≠0 | Confirmed exact-product inconsistency bằng moment counterexample | Ghi approximation/domain hoặc bổ sung derivation choρ≠0 |
++| M10 | (5),σR² | Missing approximation/variance convention | v=Var(logIa)≈rawRytov khi weak;Var(log amplitude)=v/4 |
++| M11 | Gaussian effective MI | Missing approximation statement | Constant noise là moment matching;fading conditional noise phụ thuộcX² |
++| M12 | (14),lowerZ vs worstχ | Security/numerical scope | Physical interval và full-Zmax nếu dùng;finite-grid không là global proof |
++| M13 | Homodyne claim vs production2D path | Numerical protocol-pairing issue khi dùng sai caller | Dùng homodyne1D;old2DMI+homodyneHolevo không là consistentnew rate |
++| M14 | [] choGd,Cn²;OptimizationTBD | Notation/writing và missing provenance | Bổ sung nguồn/derivation;không mô tảTBD như đã triển khai |
++
++Với y thực nhưng mean phứcμ=2√ηfα:
++
++\[
++\int_{\mathbb R}\frac{e^{-|y-\mu|^2/(2\sigma^2)}}{\sqrt{2\pi\sigma^2}}\,dy
++=e^{-(\operatorname{Im}\mu)^2/(2\sigma^2)}.
++\]
++
++Với centeredC4, \(E[X^2]=2E|\alpha|^2=2\bar n\). Vì vậy lỗi Vmod là hệ số4; không đổi C,w để khớp cách viết đó.
++
++ConventionB (\(\xi_{\rm det}=\chi_{\rm hom}\)) có thể tái tạo MI của measurementrescaled. Nó không cho phép dùng quantumΓrescaled standard form với CCR/vacuum cũ. Physical detectorloss là quantumloss; electronics làεdet; đều untrusted trongC.
++
++Exact untruncated product moments từ Eq.(8) và lognormal Eq.(5):
++
++\[
++P_1 B^q e^{v(q^2-q)/2}\frac{d}{d+q}
++\exp\left[-\frac{\rho^2q}{2\sigma_s^2(d+q)}\right],\quad d=\chi^2.
++\]
++
++Whole-support moment của Eq.(10):
++
++\[
++P_1B^q\frac{d}{d+q}
++\exp\left[\log C_1+\frac{(d+q)^2}{4C_3^2}-(d+q)\mu\right].
++\]
++
++Chúng trùng khiρ=0, không trùng tổng quát. Rician_product_checks.csv là bằng chứng định lượng; không thay truncated moments trong audit.
++
++Tài liệu: [Denys–Brown–Leverrier](https://arxiv.org/html/2103.13945v3) cho DM correlation/homodyne; [Laudenbach et al.](https://arxiv.org/pdf/1703.09278) cho receiver/noise framework. Các reference không tự phê chuẩn protocol/security scope của repo. Số liệu và trạng thái code/cache nằm trong report_vi.md cùng CSV/receipts.
++'''
++    (OUT/'manuscript_corrections_vi.md').write_text(corrections,encoding='utf-8')
++    files=sorted(OUT.glob('*.py'))+[OUT/'protocol.json',OUT/'variants.json']
++    patch=''.join(''.join(difflib.unified_diff([],p.read_text(encoding='utf-8-sig').splitlines(keepends=True),
++        fromfile='/dev/null',tofile='results/'+OUT.name+'/'+p.name)) for p in files)
++    (OUT/'isolated_code_patch.diff').write_text(patch,encoding='utf-8')
++    print('REPORT/CORRECTIONS/MAP/PATCH COMPLETE',len(mapping),flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/capture_pdf.py
+@@ -0,0 +1,23 @@
++"""Read-only manuscript extraction and page rendering; source PDF stays unchanged."""
++import hashlib
++import json
++from pathlib import Path
++import fitz
++
++OUT = Path(__file__).resolve().parent
++path = OUT/'inputs/manuscript_v43.pdf'
++before = hashlib.sha256(path.read_bytes()).hexdigest()
++doc = fitz.open(path)
++pages = []
++for index, page in enumerate(doc):
++    text_path = OUT/'inputs'/f'page_{index+1}.txt'
++    text_path.write_text(page.get_text(sort=True), encoding='utf-8')
++    png = OUT/'inputs'/f'page_{index+1}.png'
++    page.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False).save(png)
++    pages.append(dict(page=index+1, text=text_path.name, png=png.name))
++assert len(pages) == 4
++assert hashlib.sha256(path.read_bytes()).hexdigest() == before
++(OUT/'pdf_capture.json').write_text(json.dumps(dict(status='CURRENTLY_VERIFIED_PASS',
++    manuscript_sha256=before, pages=pages, renderer='PyMuPDF1.26.5', source_modified=False),
++    indent=2)+'\n', encoding='utf-8')
++print('PDF READ-ONLY CAPTURE', len(pages), before)
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/compare.py
+@@ -0,0 +1,129 @@
++"""Focused, source-authenticated Gaussian reevaluation after component tests pass."""
++import math
++import mpmath as mp
++import numpy as np
++import audit_model as a
++import run_audit as r
++
++
++def independent_entropy(row, digits):
++    with mp.workdps(digits):
++        aa,bb,z=[mp.mpf(str(row[k])) for k in ['a','b','Z_worst']]
++        if abs(row['Z_worst'])==row['Z_physical_cap']:
++            z=mp.sqrt(min((aa-1)*(bb+1),(aa+1)*(bb-1)))
++            n1,n2=1+abs(aa-bb),mp.mpf(1)
++        else:
++            delta=aa*aa+bb*bb-2*z*z
++            root=mp.sqrt(delta*delta-4*(aa*bb-z*z)**2)
++            n1,n2=mp.sqrt((delta+root)/2),mp.sqrt((delta-root)/2)
++        n3=mp.sqrt(aa*(aa-z*z/bb))
++        if min(n1,n2,n3)<1:raise ValueError('High-precision covariance is nonphysical')
++        def g(nu):
++            x=(nu-1)/2
++            return ((x+1)*mp.log1p(x)-x*mp.log(x))/mp.log(2) if x else mp.mpf(0)
++        return float(g(n1)+g(n2)-g(n3))
++
++
++def main():
++    if (a.OUT/'comparison_receipt.json').exists():raise FileExistsError('Preserve completed comparison')
++    assert a.read(a.OUT/'validation.json')['status']=='CURRENTLY_VERIFIED_PASS'
++    regressions=a.read(a.OUT/'historical_regressions.json')['records']
++    pdf=a.read(a.OUT/'channel_pdf_audit.json')['contexts']
++    bylabel={v['context']:v for v in pdf}
++    corrected=[];oldnew=[];checks=[];raw_results=[]
++    for ref in regressions:
++        if ref['label']=='original_manuscript_trial8':continue
++        old=ref['fresh'];c=r.source(old)
++        mo=dict(M0=old['physical_mass'],m1=old['m1'],mh=old['mh'],P0=old['P0'],law=old['treatment'])
++        eta,epsilon=old['eta_det'],old['epsilon_det']
++        fine=a.evaluate_physical(c,mo,eta,epsilon,order=128,grid=129)
++        coarse=a.evaluate_physical(c,mo,eta,epsilon,order=64,grid=33)
++        separate,error=a.independent_mi(c['p'],c['alpha'],fine['T_quantum'],fine['sigma2_output'])
++        entropy80=independent_entropy(fine,80);entropy110=independent_entropy(fine,110)
++        assert abs(coarse['I_AB']-fine['I_AB'])<2e-10
++        assert abs(coarse['chi_BE']-fine['chi_BE'])<2e-8
++        assert abs(separate-fine['I_AB'])<2e-10 and error<2e-10
++        assert max(abs(entropy80-fine['chi_BE']),abs(entropy110-fine['chi_BE']))<2e-11
++        assert abs(coarse['I_AB']-old['I_AB_surrogate'])<2e-12
++        assert abs(coarse['chi_BE']-old['chi_BE'])<2e-12
++        fine.update(scenario=ref['label'],eta_det=eta,epsilon_det=epsilon,
++            D_r=old['D_r'],zenith_deg=old['zenith_deg'],divergence_urad=old['divergence_urad'],
++            jitter_urad=old['jitter_urad'],sigma_h_m=old['sigma_h_m'],
++            status='PHYSICAL_GAUSSIAN_COMPONENT_CHECKS_PASS_SECURITY_UNVALIDATED')
++        corrected.append(fine)
++        checks.append(dict(scenario=ref['label'],MI_GH64=coarse['I_AB'],MI_GH128=fine['I_AB'],
++            MI_adaptive=separate,adaptive_error=error,chi_Z33=coarse['chi_BE'],chi_Z129=fine['chi_BE'],
++            chi_entropy80=entropy80,chi_entropy110=entropy110,
++            historical_Gaussian_MI_residual=coarse['I_AB']-old['I_AB_surrogate'],
++            historical_Holevo_residual=coarse['chi_BE']-old['chi_BE'],
++            covariance_b_residual=coarse['b']-old['b']))
++        oldnew.append(dict(scenario=ref['label'],channel_law=mo['law'],source_hash=c['ensemble_hash'],VA=c['VA'],nu_raw=c['nu_raw'],
++            eta_det=eta,epsilon_det=epsilon,Dr=old['D_r'],Legacy_MI=old['I_AB'],Corrected_MI=fine['I_AB'],
++            Legacy_Holevo=old['chi_BE'],Corrected_Holevo=fine['chi_BE'],Legacy_SKR=old['K_raw'],Corrected_SKR=fine['K_raw'],
++            delta_MI=fine['I_AB']-old['I_AB'],delta_Holevo=fine['chi_BE']-old['chi_BE'],delta_SKR=fine['K_raw']-old['K_raw'],
++            change='exact_fading_likelihood_to_requested_Gaussian_effective_MI; physical_noise_and_homodyne_Holevo_unchanged',
++            remains_positive=fine['K_raw']>0,security_valid=False,historical_files_overwritten=False))
++        raw=bylabel[ref['label']]
++        try:
++            value=a.evaluate_physical(c,raw,eta,epsilon,order=128,grid=129)
++            raw_results.append(dict(**value,scenario=ref['label'],status='RAW_V43_PDF_WITHIN_DECLARED_TOLERANCE',
++                M0=raw['M0'],channel_comparison='Different_law_from_passive_historical_result_not_a_detector_only_correction'))
++        except ValueError as error:
++            raw_results.append(dict(scenario=ref['label'],channel_law=raw['law'],source_hash=c['ensemble_hash'],
++                M0=raw['M0'],I_AB=None,chi_BE=None,K_raw=None,status='BLOCKED_BY_SCIENTIFIC_MODEL',failure=str(error)))
++        print('GAUSSIAN',ref['label'],'old',old['K_raw'],'new',fine['K_raw'],flush=True)
++    baseline=next(c for c in r.catalog() if c['family']=='MB' and c['nu_raw']==.165 and c['VA']==5.475)
++    recent=next(c for c in r.catalog() if c['family']=='MB' and c['nu_raw']==.25 and c['VA']==1.6249995399703647)
++    conventions=[];noise_checks=[]
++    for context,c in [('baseline8',baseline),('recent8',recent)]:
++        raw=bylabel[context]
++        for eta in [.8,.85,.9,.95]:
++            for epsilon in [.0135,.005]:
++                common=dict(scenario=context,eta_det=eta,epsilon_det=epsilon,
++                    source_hash=c['ensemble_hash'],channel_law=raw['law'],VA=c['VA'],nu_raw=c['nu_raw'])
++                physical=a.evaluate_physical(c,raw,eta,epsilon,order=128,grid=129)
++                for plane in ['output','classically_rescaled_output']:
++                    conventions.append({**common,**physical,'model':'C_physical_'+plane,
++                        'xi_det_definition':'epsilon_det_output_separate_from_efficiency',
++                        'noise_variance':physical['sigma2_output'] if plane=='output' else physical['sigma2_rescaled'],
++                        'effective_MI_signal_gain2':physical['T_quantum'] if plane=='output' else physical['eta_f'],
++                        'status':'COMPONENTS_VALIDATED_SAME_QUANTUM_COVARIANCE'})
++                for definition in ['A_epsilon_over_eta','B_chi_hom']:
++                    literal=a.evaluate_literal(c,raw,eta,epsilon,definition)
++                    conventions.append({**common,**literal,'noise_variance':literal['sigma2_literal'],
++                        'effective_MI_signal_gain2':literal['eta_f']})
++                    for outage in ['limit','active_only']:
++                        projected=a.evaluate_literal(c,raw,eta,epsilon,definition,real_projection=True,outage=outage)
++                        conventions.append({**common,**projected,'noise_variance':projected['sigma2_literal'],
++                            'effective_MI_signal_gain2':projected['eta_f']})
++                        if definition=='B_chi_hom' and outage=='limit':
++                            difference=projected['I_AB']-physical['I_AB']
++                            assert abs(difference)<2e-10
++                            noise_checks.append(dict(**common,convention='B_chi_hom_classical_MI_matches_C_but_quantum_channel_different',
++                                MI_difference=difference,quantum_T_literal=raw['mh']**2,quantum_T_physical=physical['T_quantum'],
++                                b_literal=1+raw['mh']**2*c['VA']+projected['N_literal'],b_physical=physical['b'],
++                                Holevo_difference=projected['chi_BE']-physical['chi_BE']))
++                conventions.append({**common,'model':'B_independent_xi_det_unresolved','xi_det_definition':'independent_explicit',
++                    'xi_det':None,'I_AB':None,'chi_BE':None,'K_raw':None,'status':'BLOCKED_MISSING_DEFINITION_OR_VALUE'})
++    # Same original lognormal law/source, not the later passive collector baseline.
++    raw=bylabel['baseline8'];value=a.evaluate_physical(baseline,raw,.8,.0135,order=128,grid=129)
++    original=next(v for v in regressions if v['label']=='original_manuscript_trial8')['fresh']
++    oldnew.append(dict(scenario='original_manuscript_trial8',channel_law=raw['law'],source_hash=baseline['ensemble_hash'],
++        VA=baseline['VA'],nu_raw=baseline['nu_raw'],eta_det=.8,epsilon_det=.0135,Dr=.08,
++        Legacy_MI=original['I_AB'],Corrected_MI=value['I_AB'],Legacy_Holevo=original['chi_BE'],Corrected_Holevo=value['chi_BE'],
++        Legacy_SKR=original['K_raw'],Corrected_SKR=value['K_raw'],delta_MI=value['I_AB']-original['I_AB'],
++        delta_Holevo=value['chi_BE']-original['chi_BE'],delta_SKR=value['K_raw']-original['K_raw'],
++        change='matched_physical_noise_convention; full_Z_instead_of_fixed_lower_endpoint',remains_positive=value['K_raw']>0,
++        security_valid=False,historical_files_overwritten=False))
++    r.write('old_vs_new.csv',oldnew);r.write('corrected_same_channel.csv',corrected)
++    r.write('detector_convention_comparison.csv',conventions);r.write('classical_quantum_plane_checks.csv',noise_checks)
++    r.write('focused_independent_checks.csv',checks);r.save('raw_manuscript43_results.json',raw_results)
++    r.save('comparison_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',same_channel_scenarios=len(oldnew),
++        detector_convention_rows=len(conventions),focused_checks=len(checks),raw_PDF_blocked=sum(v['K_raw'] is None for v in raw_results),
++        original_trial_corrected_K=value['K_raw'],source_cache_modified=False,old_results_modified=False,new_optimization=False,
++        recommended_Gaussian_component='C_physical_output_gaussian_effective',recommended_secure_default=False,
++        security_valid=False,whole_manuscript_model_validated=False))
++    print('FOCUSED COMPARISONS COMPLETE',len(oldnew),len(conventions),flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/run_audit.py
+@@ -0,0 +1,181 @@
++"""Fresh preserved regressions -> audit tests/findings -> focused corrected comparisons."""
++import copy
++import csv
++from functools import lru_cache
++import importlib.util
++import json
++import math
++from pathlib import Path
++import sys
++from types import FunctionType
++import unittest
++
++import mpmath as mp
++import numpy as np
++from scipy.integrate import quad
++import audit_model as a
++
++OUT, ROOT = a.OUT, a.ROOT
++
++
++def clean(x):
++    if isinstance(x, dict):return {k:clean(v) for k,v in x.items()}
++    if isinstance(x, (list,tuple)):return [clean(v) for v in x]
++    if isinstance(x, np.ndarray):return x.tolist()
++    if isinstance(x, np.generic):return x.item()
++    if isinstance(x, mp.mpf):return float(x)
++    return x
++
++
++def save(name, value):
++    (OUT/name).write_text(json.dumps(clean(value),indent=2,allow_nan=False)+'\n',encoding='utf-8')
++
++
++def write(name, rows):
++    fields=list(dict.fromkeys(k for r in rows for k in r))
++    with (OUT/name).open('w',encoding='utf-8',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(clean(rows))
++
++
++def csvrows(path):
++    with Path(path).open(encoding='utf-8',newline='') as f:return list(csv.DictReader(f))
++
++
++@lru_cache(1)
++def catalog():
++    start=a.read(OUT/'startup_manifest.json')
++    for p in ['src/manuscript_mobility.py','src/manuscript_literal_3moments.py',
++              'results/untrusted_positive_skr_feasibility_20261022/model.py',
++              'results/uav_skwap_aware_positive_skr_20261022/parameter_adapter.py']:
++        assert a.sha(ROOT/p)==start['protected']['paper_uav_hap_cvqkd/'+p]
++    return a.legacy.load_catalog(a.read(ROOT/'configs/manuscript_mobility.json'))
++
++
++def source(r):return next(c for c in catalog() if c['ensemble_hash']==r['ensemble_hash'])
++
++
++@lru_cache(1)
++def adapter():
++    spec=importlib.util.spec_from_file_location('_v43_preserved_aperture_adapter',
++        ROOT/'results/uav_skwap_aware_positive_skr_20261022/parameter_adapter.py')
++    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
++    return module
++
++
++def parameters(r):
++    return (20.,1.,float(r['zenith_deg']),float(r['divergence_urad']),float(r['jitter_urad']),
++        float(r['sigma_h_m']),float(r['eta_det']),float(r['epsilon_det']),.92,float(r['D_r']))
++
++
++def raw_channel(p):
++    return a.legacy.optical(p[9],p[3],p[2],p[5],mp.mpf(str(p[4]))/mp.mpf('15.61'))
++
++
++def references():
++    latest=ROOT/'results/uav_skwap_aware_positive_skr_20261022'
++    refs=[dict(label=x['label'],saved=x['result']) for x in a.read(latest/'regression.json')['records']]
++    sel=a.read(latest/'selection.json')['recommendations']
++    refs += [dict(label='receiver28p1',saved=sel[0]),dict(label='receiver30',saved=sel[2])]
++    rows=csvrows(latest/'aperture_best_exact_tested.csv')
++    for diameter in [.15,.20,.25]:
++        candidates=[r for r in rows if float(r['D_r'])==diameter]
++        refs.append(dict(label=f'receiver{diameter*100:g}',saved=max(candidates,key=lambda r:float(r['K_raw']))))
++    return refs
++
++
++def regress():
++    if (OUT/'historical_regressions.json').exists():raise FileExistsError('Preserve completed regressions')
++    records=[]
++    for item in references():
++        old=item['saved'];c=source(old);p=parameters(old)
++        now=adapter().evaluate(c,p,int(old['radial_order']),int(old['width_order']))
++        delta={k:now[k]-float(old[k]) for k in ['m1','mh','I_AB','chi_BE','K_raw']}
++        assert max(abs(v) for v in delta.values())<5e-12,(item['label'],delta)
++        records.append(dict(label=item['label'],status='CURRENTLY_VERIFIED_PASS',saved=old,fresh=now,differences=delta,
++            producer='preserved_parameter_adapter_same_orders',source_sha256=c['source_sha256']))
++        print('LEGACY MATCH',item['label'],now['K_raw'],flush=True)
++    from scripts import run_corrected_excess_noise_trial as trial
++    from scripts.recheck_manuscript_homodyne_noise import channel, mi_gh
++    c=next(c for c in catalog() if c['family']=='MB' and c['nu_raw']==.165 and c['VA']==5.475)
++    def guard(name,ok,detail=None):
++        if not ok:raise ValueError((name,detail))
++    original_check=trial.covariance.__globals__['check']
++    covariance=FunctionType(trial.covariance.__code__,{**trial.covariance.__globals__,'check':guard},
++        trial.covariance.__name__,trial.covariance.__defaults__)
++    with mp.workdps(110):
++        ch=channel();eta=mp.mpf('.8');va=mp.mpf('5.475')
++        tf=ch['mean_sqrt_eta']**2;noise=eta*((ch['mean_eta']-tf)*va+mp.mpf('.0186')*ch['mean_eta'])+mp.mpf('.0135')
++        h=covariance(va,mp.sqrt(eta)*ch['mean_sqrt_eta'],eta*tf,noise,mp.mpf(str(c['C'])),mp.mpf(str(c['w'])),'homodyne')
++        x,px=a.legacy.source_factors(c)
++        i=mi_gh(px,x.astype(complex),float(eta*tf),float(noise),64,dimension=1)
++        now=dict(I_AB=i,chi_BE=float(h['chi_BE']),K_raw=.95*i-float(h['chi_BE']))
++    expected=a.read(ROOT/'results/corrected_excess_noise_trial_20261022/result.json')['results'][0]
++    delta={k:now[k]-float(expected[k]) for k in now}
++    assert max(abs(v) for v in delta.values())<5e-12
++    assert trial.covariance.__globals__['check'] is original_check
++    records.append(dict(label='original_manuscript_trial8',status='CURRENTLY_VERIFIED_PASS',saved=expected,fresh=now,differences=delta,
++        producer='identical_preserved_covariance_bytecode_no_old_file_writes',source_sha256=c['source_sha256']))
++    save('historical_regressions.json',dict(status='CURRENTLY_VERIFIED_PASS',records=records,new_source_moments=False))
++    print('HISTORICAL REGRESSIONS COMPLETE',len(records),flush=True)
++
++
++def validation():
++    if (OUT/'validation.json').exists():raise FileExistsError('Preserve completed validation')
++    assert a.read(OUT/'historical_regressions.json')['status']=='CURRENTLY_VERIFIED_PASS'
++    suite=unittest.defaultTestLoader.discover(str(OUT),pattern='test_audit_model.py')
++    result=unittest.TextTestRunner(verbosity=2).run(suite)
++    save('unit_tests.json',dict(status='CURRENTLY_VERIFIED_PASS' if result.wasSuccessful() else 'FAILED',tests=result.testsRun,
++        failures=[dict(test=str(t),traceback=s) for t,s in result.failures],errors=[dict(test=str(t),traceback=s) for t,s in result.errors]))
++    if not result.wasSuccessful():raise AssertionError('Unit tests failed; corrected comparisons blocked')
++    source_rows=[]
++    for c in catalog():
++        p,alpha=a.validate_source(c);x=2*alpha.real;y=2*alpha.imag
++        nbar=float(p@abs(alpha)**2);mean=float(p@x);second=float(p@x**2)
++        row={k:c[k] for k in ['family','nu_raw','VA','C','w','ensemble_hash','source_path','source_sha256']}
++        row.update(nbar=nbar,mean_alpha_real=float((p@alpha).real),mean_alpha_imag=float((p@alpha).imag),
++            mean_X=mean,second_X=second,variance_X=second-mean**2,variance_P=float(p@y**2-(p@y)**2),
++            PMF_sum=float(p.sum()),repo_VA_identity_residual=2*nbar-c['VA'],manuscript_nbar_over2=nbar/2,
++            manuscript_VA_factor=4.,raw_to_repo_nu=42.5*c['nu_raw'],cache_changed=False)
++        assert abs(second-mean**2-c['VA'])<2e-12
++        source_rows.append(row)
++    write('source_normalization.csv',source_rows)
++    contexts=[(r['label'],parameters(r['saved'])) for r in references()]
++    pdf=[];mom=[]
++    for label,p in contexts:
++        ch=raw_channel(p)
++        raw=a.raw_pdf_moments(ch)
++        assert max(abs(r['residual']) for r in raw['direct'].values())<2e-10,(label,raw['direct'])
++        assert abs(raw['upper_tail_quadrature']-(1-raw['M0']))<2e-10
++        ordering=0<=raw['mh']**2<=raw['m1']<=1
++        raw.update(context=label,parameters=p,geometry=a.read(OUT/'protocol.json')['scope'],moment_ordering=ordering,
++            normalization_status='CURRENTLY_VERIFIED_PASS' if raw['normalized_within_tolerance'] else 'FAILED',
++            root_cause='Lognormal gain has unbounded upper support; retaining eta<=1 discards probability without renormalizing')
++        pdf.append(raw)
++        for q,info in raw['direct'].items():mom.append(dict(context=label,power=q,**info))
++        print('PDF',label,'M0',repr(raw['M0']),'tail',raw['raw_upper_tail_mass'],flush=True)
++    save('channel_pdf_audit.json',dict(status='AUDIT_COMPLETE',contexts=pdf,normalization_failures=sum(not r['normalized_within_tolerance'] for r in pdf),silent_model_replacement=False))
++    write('channel_moment_checks.csv',mom)
++    conditionals=[];mi=[];cov=[]
++    for c in [catalog()[0],next(c for c in catalog() if c['family']=='Uniform')]:
++        p,alpha=a.validate_source(c);e=a.effective(dict(M0=1.,m1=.11,mh=.3,P0=.01,law='normalized_unit_fixture'),c['VA'],.8,.0135)
++        for level in np.unique(2*alpha.real):
++            mean=math.sqrt(e['T_quantum'])*level
++            value,error=quad(lambda y:a.conditional_pdf(y,mean,e['sigma2_output']),-math.inf,math.inf,epsabs=1e-12,epsrel=1e-12)
++            conditionals.append(dict(source_hash=c['ensemble_hash'],X=level,mean=mean,variance=e['sigma2_output'],mass=value,error=error))
++        i64=a.homodyne_mi(p,alpha,e['T_quantum'],e['sigma2_output'],order=64)
++        i128=a.homodyne_mi(p,alpha,e['T_quantum'],e['sigma2_output'],order=128)
++        independent,error=a.independent_mi(p,alpha,e['T_quantum'],e['sigma2_output'])
++        mi.append(dict(source_hash=c['ensemble_hash'],I_GH64=i64,I_GH128=i128,I_adaptive=independent,adaptive_error=error,
++            I_256=a.homodyne_mi(p,alpha,e['T_quantum'],e['sigma2_output'],grouped=False),
++            I_rescaled=a.homodyne_mi(p,alpha,e['T_quantum'],e['sigma2_output'],scale=1/math.sqrt(.8))))
++        r=a.evaluate_physical(c,dict(M0=1.,m1=.11,mh=.3,P0=.01,law='normalized_unit_fixture'),.8,.0135)
++        cov.append(r)
++    write('conditional_pdf_normalization.csv',conditionals);write('MI_independent_checks.csv',mi);save('covariance_unit_checks.json',cov)
++    save('validation.json',dict(status='CURRENTLY_VERIFIED_PASS',unit_tests=result.testsRun,source_checks=len(source_rows),
++        PDF_contexts=len(pdf),PDF_normalization_failures=sum(not r['normalized_within_tolerance'] for r in pdf),
++        PDF_equations_not_renormalized=True,model_scientifically_validated=False,recommended_secure_default=False))
++    print('COMPONENT VALIDATION PASS; MODEL FINDINGS RETAINED',result.testsRun,flush=True)
++
++
++if __name__=='__main__':
++    {'regress':regress,'validate':validation}[sys.argv[1]]()
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/test_audit_model.py
+@@ -0,0 +1,156 @@
++"""Outcome-independent checks of homodyne normalization, planes and fail-closed guards."""
++import copy
++import math
++import unittest
++
++import mpmath as mp
++import numpy as np
++from scipy.integrate import quad
++import audit_model as a
++
++
++class AuditTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.catalog = a.legacy.load_catalog(a.read(a.ROOT/'configs/manuscript_mobility.json'))
++        cls.mb = next(c for c in cls.catalog if c['nu_raw']==.25 and c['VA']==1.6249995399703647)
++        cls.uniform = next(c for c in cls.catalog if c['family']=='Uniform' and 1<=c['VA']<=3)
++        cls.moments = dict(M0=1., m1=.11, mh=.3, P0=.01, law='normalized_unit_fixture')
++
++    def test_source_units_and_identity(self):
++        for c in [self.mb, self.uniform]:
++            p, alpha = a.validate_source(c)
++            x=2*alpha.real
++            self.assertLess(abs(p@x), 1e-12)
++            self.assertAlmostEqual(float(p@(x*x)), c['VA'], delta=2e-12)
++            self.assertAlmostEqual(2*float(p@(abs(alpha)**2)), c['VA'], delta=2e-12)
++
++    def test_tampered_source_rejected(self):
++        c=copy.deepcopy(self.mb);c['C']+=.01
++        with self.assertRaises(ValueError):a.validate_source(c)
++        c=copy.deepcopy(self.mb);c['alpha']*=2
++        with self.assertRaises(ValueError):a.validate_source(c)
++
++    def test_centered_MB_mapping(self):
++        for c in [self.mb,self.uniform]:
++            p,alpha=a.validate_source(c);raw=np.arange(16)-7.5
++            q=np.exp(-c['nu_raw']*raw**2);q/=q.sum()
++            _,px=a.marginal(p,alpha)
++            self.assertLess(float(max(abs(px-q))),2e-14)
++            self.assertAlmostEqual(c['nu_raw']*42.5, c['nu_raw']*float(np.mean(raw[:,None]**2+raw[None,:]**2)))
++
++    def test_each_conditional_PDF_normalized(self):
++        for c in [self.mb,self.uniform]:
++            p,alpha=a.validate_source(c);e=a.effective(self.moments,c['VA'],.8,.0135)
++            for x in np.unique(2*alpha.real):
++                mean=math.sqrt(e['T_quantum'])*x
++                mass,error=quad(lambda y:a.conditional_pdf(y,mean,e['sigma2_output']),-math.inf,math.inf,epsabs=1e-12,epsrel=1e-12)
++                self.assertAlmostEqual(mass,1.,delta=2e-10)
++                self.assertLess(error,2e-10)
++        with self.assertRaises(ValueError):a.conditional_pdf(0.,1j,1.)
++
++    def test_256_symbols_equal_16_levels(self):
++        for c in [self.mb,self.uniform]:
++            p,alpha=a.validate_source(c)
++            i=a.homodyne_mi(p,alpha,.3,1.02)
++            self.assertAlmostEqual(i,a.homodyne_mi(p,alpha,.3,1.02,grouped=False),delta=2e-12)
++
++    def test_real_MI_bounds_and_X_P_symmetry(self):
++        for c in [self.mb,self.uniform]:
++            p,alpha=a.validate_source(c);i=a.homodyne_mi(p,alpha,.3,1.02)
++            self.assertGreaterEqual(i,0.)
++            _,px=a.marginal(p,alpha);entropy=-float(px@np.log2(px))
++            self.assertLessEqual(i,entropy+2e-12)
++            self.assertLessEqual(i,4.+2e-12)
++            self.assertLessEqual(i,.5*math.log2(1+.3*c['VA']/1.02)+2e-10)
++            self.assertAlmostEqual(i,a.homodyne_mi(p,alpha,.3,1.02,axis='P'),delta=2e-12)
++
++    def test_zero_and_low_signal_limits(self):
++        p,alpha=a.validate_source(self.mb)
++        self.assertAlmostEqual(a.homodyne_mi(p,alpha,0.,1.01),0.,delta=2e-12)
++        self.assertLess(abs(a.homodyne_mi(p,alpha,1e-12,1.01)),2e-10)
++
++    def test_equal_16_level_entropy_ceiling(self):
++        # MI-only high-SNR fixture; no new source moments or security evaluation.
++        x=np.arange(16)-7.5;alpha=(20*x).astype(complex);p=np.full(16,1/16)
++        self.assertAlmostEqual(a.homodyne_mi(p,alpha,1.,1.),4.,delta=2e-10)
++
++    def test_independent_output_integration(self):
++        for c in [self.mb,self.uniform]:
++            p,alpha=a.validate_source(c);other,error=a.independent_mi(p,alpha,.3,1.02)
++            self.assertAlmostEqual(a.homodyne_mi(p,alpha,.3,1.02,order=128),other,delta=2e-10)
++            self.assertLess(error,2e-10)
++
++    def test_invertible_classical_rescaling(self):
++        p,alpha=a.validate_source(self.mb);i=a.homodyne_mi(p,alpha,.3,1.02)
++        for scale in [.37,-2.,1/math.sqrt(.8)]:
++            self.assertAlmostEqual(i,a.homodyne_mi(p,alpha,.3,1.02,scale=scale),delta=2e-12)
++
++    def test_noise_reference_planes_and_no_double_count(self):
++        e=a.effective(self.moments,self.mb['VA'],.8,.005)
++        expected=.8*((.11-.09)*self.mb['VA']+.11*.0186)+.005
++        self.assertAlmostEqual(e['N_post'],expected,delta=1e-15)
++        self.assertAlmostEqual(e['T_quantum'],.8*.09,delta=1e-15)
++        self.assertAlmostEqual(e['sigma2_rescaled'],1/.8+(.11-.09)*self.mb['VA']+.11*.0186+.005/.8,delta=1e-15)
++        self.assertEqual(e['vacuum_output'],1.)
++        self.assertAlmostEqual(e['b'],1+e['T_quantum']*self.mb['VA']+expected,delta=1e-15)
++
++    def test_xi_conventions_and_outage_extension(self):
++        self.assertEqual(a.xi_detector(.8,.0135,'A_epsilon_over_eta'),.0135/.8)
++        self.assertEqual(a.xi_detector(.8,.0135,'B_chi_hom'),(1-.8+.0135)/.8)
++        with self.assertRaises(ValueError):a.xi_detector(.8,.0135,'independent_explicit')
++        full=a.literal_noise(self.moments,self.mb['VA'],.8,.0135,'A_epsilon_over_eta')
++        active=a.literal_noise(self.moments,self.mb['VA'],.8,.0135,'A_epsilon_over_eta',outage='active_only')
++        self.assertAlmostEqual(full['third_noise_moment']-active['third_noise_moment'],self.moments['P0']*.0135/.8,delta=1e-15)
++
++    def test_invalid_mass_and_moments_fail_closed(self):
++        for changes in [dict(M0=.98),dict(mh=.5),dict(m1=1.1)]:
++            with self.assertRaises(ValueError):a.effective({**self.moments,**changes},self.mb['VA'],.8,.005)
++        for eta,epsilon in [(0.,.005),(1.1,.005),(.8,-.01)]:
++            with self.assertRaises(ValueError):a.effective(self.moments,self.mb['VA'],eta,epsilon)
++
++    def test_literal_complex_mean_failure_visible(self):
++        r=a.evaluate_literal(self.mb,self.moments,.8,.005,'A_epsilon_over_eta')
++        self.assertEqual(r['status'],'FAILED_COMPLEX_MEAN_IN_REAL_PDF')
++        self.assertIsNone(r['K_raw'])
++        self.assertLess(r['maximum_printed_conditional_mass'],1.)
++
++    def test_literal_real_projection_is_distinct_variant(self):
++        literal=a.evaluate_literal(self.mb,self.moments,.8,.005,'A_epsilon_over_eta',real_projection=True)
++        physical=a.evaluate_physical(self.mb,self.moments,.8,.005)
++        self.assertAlmostEqual(literal['quantum_T'],physical['eta_f'],delta=1e-15)
++        self.assertNotEqual(literal['quantum_T'],physical['T_quantum'])
++        self.assertAlmostEqual(physical['sigma2_rescaled']-literal['sigma2'],1/.8-1,delta=1e-14)
++        self.assertFalse(literal['security_valid'])
++
++    def test_quantum_covariance_and_untrusted_loss(self):
++        r=a.evaluate_physical(self.mb,self.moments,.8,.005)
++        gamma=np.array([[r['a'],0,r['Z_worst'],0],[0,r['a'],0,-r['Z_worst']],
++                        [r['Z_worst'],0,r['b'],0],[0,-r['Z_worst'],0,r['b']]])
++        omega=np.kron(np.eye(2),[[0.,1.],[-1.,0.]])
++        self.assertGreaterEqual(float(np.linalg.eigvalsh(gamma+1j*omega).min()),-1e-11)
++        spectrum=np.sort(abs(np.linalg.eigvals(1j*omega@gamma)))[::2]
++        self.assertLess(float(max(abs(spectrum-np.sort([r['nu_1'],r['nu_2']])))),1e-10)
++        self.assertAlmostEqual(r['nu_3'],math.sqrt(r['a']*(r['a']-r['Z_worst']**2/r['b'])),delta=1e-13)
++        self.assertAlmostEqual(r['I_AB'],r['I_AB_rescaled'],delta=2e-12)
++        self.assertAlmostEqual(r['K_raw'],.95*r['I_AB']-r['chi_BE'],delta=1e-13)
++
++    def test_low_transmittance_security_stability(self):
++        for t in [1e-12,1e-8,.1]:
++            moments=dict(M0=1.,m1=t,mh=math.sqrt(t),P0=0.,law='deterministic_delta')
++            r=a.evaluate_physical(self.mb,moments,.95,.005)
++            self.assertTrue(math.isfinite(r['chi_BE']) and r['chi_BE']>=0)
++            self.assertGreaterEqual(min(r[k] for k in ['nu_1','nu_2','nu_3']),1.)
++            self.assertFalse(r['security_valid'])
++
++    def test_original_PDF_factory_and_independent_moments(self):
++        import run_audit as runner
++        p=(20.,1.,30.,233.,15.61,1.,.8,.0135,.92,.08)
++        raw=a.raw_pdf_moments(runner.raw_channel(p))
++        self.assertLess(max(abs(r['residual']) for r in raw['direct'].values()),2e-10)
++        self.assertTrue(raw['normalized_within_tolerance'])
++        passive_geometry,_=runner.adapter().optical(.08,233.,15.61,1.,30.)
++        with self.assertRaises(ValueError):a.raw_pdf_moments(passive_geometry)
++
++
++if __name__=='__main__':unittest.main()
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/verify.py
+@@ -0,0 +1,198 @@
++"""Saved-evidence verification only. --prepare and --seal package this audit once."""
++import ast
++import csv
++from datetime import datetime, timezone
++import hashlib
++from importlib.metadata import version
++import json
++import math
++from pathlib import Path
++import platform
++import subprocess
++import sys
++
++OUT=Path(__file__).resolve().parent
++ROOT=OUT.parents[1]
++REPO=ROOT.parent
++
++
++def sha(path):
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def read(name):
++    return json.loads((OUT/name).read_text(encoding='utf-8-sig'))
++
++
++def rows(name):
++    with (OUT/name).open(encoding='utf-8',newline='') as f:
++        return list(csv.DictReader(f))
++
++
++def save(name,data):
++    (OUT/name).write_text(json.dumps(data,indent=2,ensure_ascii=False,allow_nan=False)+'\n',encoding='utf-8')
++
++
++def git(*args):
++    return subprocess.check_output(['git',*args],cwd=REPO,text=True,encoding='utf-8').strip()
++
++
++def check():
++    checks=[]
++    def require(ok,label):
++        if not ok:raise AssertionError(label)
++        checks.append(label)
++    start=read('startup_manifest.json')
++    allowed={'paper_uav_hap_cvqkd/'+p for p in start['allowed_ledger_changes']}
++    protected={k:v for k,v in start['protected'].items() if k not in allowed}
++    require(all((REPO/p).is_file() and sha(REPO/p)==h for p,h in protected.items()),
++        'Protected historical/source/config/frozen files unchanged')
++    require(git('rev-parse','HEAD')==start['HEAD'] and git('branch','--show-current')==start['branch'],
++        'Repository branch and HEAD unchanged')
++    require(set(git('diff','--name-only').splitlines())<=allowed,'Tracked changes limited to five ledgers')
++    subprocess.run(['git','diff','--check'],cwd=REPO,check=True,capture_output=True)
++    require(True,'Git whitespace check')
++    require(sha(ROOT/'docs/FINAL_MODEL_SPEC.md')==start['frozen_current_sha256'],
++        'Frozen current hash unchanged; historical discrepancy retained')
++    for key,target in [('request','inputs/task.txt'),('manuscript','inputs/manuscript_v43.pdf')]:
++        require(sha(Path(start[key+'_path']))==sha(OUT/target)==start[key+'_sha256'],key+' original and input copy unchanged')
++    protocol=read('protocol.json');plan=read('comparison_plan.json')
++    require(plan['protocol_sha256']==sha(OUT/'protocol.json') and plan['producer_sha256']==sha(OUT/'compare.py'),
++        'Comparison producer and outcome-independent protocol hashes')
++    require(all(sha(OUT/'attempt_1'/n)==h for n,h in protocol['initial_implementation_sha256'].items()),
++        'Initial producer snapshots retained')
++    require(protocol['mass_tolerance']==1e-10 and protocol['primary_secure_default'] is None,
++        'Original mass tolerance and no secure default')
++    for n in ['unit_tests.json','historical_regressions.json','validation.json','comparison_receipt.json','inventory_receipt.json']:
++        require(read(n)['status']=='CURRENTLY_VERIFIED_PASS',n+' recorded scoped pass')
++    unit=read('unit_tests.json');reg=read('historical_regressions.json')['records']
++    require(unit['tests']==18 and not unit['failures'] and not unit['errors'],'18 unit tests without recorded failure')
++    require(len(reg)==10 and all(x['status']=='CURRENTLY_VERIFIED_PASS' and max(abs(v) for v in x['differences'].values())<5e-12 for x in reg),
++        '10 fresh matched historical regressions')
++    expected={'source_normalization.csv':233,'channel_moment_checks.csv':27,
++        'conditional_pdf_normalization.csv':32,'MI_independent_checks.csv':2,
++        'old_vs_new.csv':10,'corrected_same_channel.csv':9,
++        'detector_convention_comparison.csv':144,'classical_quantum_plane_checks.csv':16,
++        'focused_independent_checks.csv':9,'repository_map.csv':37,
++        'cache_impact.csv':287,'affected_results.csv':252}
++    for n,count in expected.items():require(len(rows(n))==count,n+' row count')
++    source=rows('source_normalization.csv');byhash={x['ensemble_hash']:x for x in source}
++    require(len(byhash)==233 and {'MB','Uniform'}=={x['family'] for x in source},'233 distinct MB/Uniform source identities')
++    for x in source:
++        payload=ROOT/x['source_path']
++        require(sha(payload)==x['source_sha256'],'Source payload '+x['ensemble_hash'])
++        d=json.loads(payload.read_text(encoding='utf-8'))
++        require(all(float(x[k])==d[k] for k in ['C','w']) and float(x['VA']).hex()==d['V_A_hex']
++            and x['ensemble_hash']==d['ensemble_hash'],'Exact C,w,VA identity '+x['ensemble_hash'])
++        require(abs(float(x['PMF_sum'])-1)<1e-13 and abs(float(x['repo_VA_identity_residual']))<2e-12
++            and abs(float(x['variance_X'])-float(x['VA']))<2e-12
++            and abs(float(x['mean_X']))<1e-12,'Source normalization '+x['ensemble_hash'])
++    pdf=read('channel_pdf_audit.json')['contexts']
++    bad={x['context'] for x in pdf if x['normalization_status']=='FAILED'}
++    require(len(pdf)==9 and bad=={'historical40cm','historical55cm','receiver30'},
++        'Nine raw PDF contexts; three explicit mass failures')
++    require(all(not x['renormalized'] and not x['clipped'] and x['moment_ordering'] for x in pdf),
++        'PDF law, outage atom, no normalization or clipping repair')
++    require(all(abs(float(x['residual']))<2e-10 for x in rows('channel_moment_checks.csv')),
++        'Closed-form bounded moments match independent integration')
++    require(all(abs(float(x['mass'])-1)<2e-10 for x in rows('conditional_pdf_normalization.csv')),
++        'Real conditional Gaussian densities normalized')
++    comparison=rows('detector_convention_comparison.csv')
++    require({float(x['eta_det']) for x in comparison}=={.8,.85,.9,.95} and
++        {float(x['epsilon_det']) for x in comparison}=={.0135,.005},'Separate hardware efficiency and electronic noise grids')
++    for x in comparison:
++        if x['model'] in ['B_literal_v43_as_printed','B_independent_xi_det_unresolved']:
++            require(all(x[k]=='' for k in ['I_AB','chi_BE','K_raw']),'Invalid/undefined literal model has no numerical SKR')
++        else:
++            require(all(math.isfinite(float(x[k])) for k in ['I_AB','chi_BE','K_raw']), 'Finite explicitly projected/physical diagnostics')
++    for x in rows('focused_independent_checks.csv'):
++        require(abs(float(x['MI_GH64'])-float(x['MI_GH128']))<2e-10 and
++            abs(float(x['MI_adaptive'])-float(x['MI_GH128']))<2e-10 and float(x['adaptive_error'])<2e-10
++            and abs(float(x['chi_Z33'])-float(x['chi_Z129']))<2e-8
++            and max(abs(float(x[k])-float(x['chi_Z129'])) for k in ['chi_entropy80','chi_entropy110'])<2e-11,
++            'Independent MI/full-Z/entropy checks '+x['scenario'])
++    require(all(abs(float(x['MI_difference']))<2e-10 for x in rows('classical_quantum_plane_checks.csv')),
++        'Classical MI invariant; Holevo kept at physical quantum plane')
++    old={x['scenario']:x for x in rows('old_vs_new.csv')}
++    require(float(old['receiver28p1']['Legacy_SKR'])>0>float(old['receiver28p1']['Corrected_SKR'])
++        and float(old['receiver30']['Corrected_SKR'])>0,'28.1cm Gaussian sign reversal; 30cm passive-law positive only')
++    raw=read('raw_manuscript43_results.json')
++    require({x['scenario'] for x in raw if x['K_raw'] is None}==bad
++        and all(all(x[k] is None for k in ['I_AB','chi_BE','K_raw']) for x in raw if x['scenario'] in bad),
++        'Raw PDF failed contexts return unavailable MI/Holevo/K')
++    physical=rows('corrected_same_channel.csv')+read('covariance_unit_checks.json')
++    require(all(float(x['chi_BE'])>=0 and min(float(x[k]) for k in ['nu_1','nu_2','nu_3'])>=1-1e-11 for x in physical),
++        'Saved physical covariance spectra and finite nonnegative Holevo')
++    for x in rows('corrected_same_channel.csv'):
++        s=byhash[x['source_hash']]
++        require(all(float(x[k])==float(s[k]) for k in ['C','w','VA']), 'Focused result uses unchanged source '+x['scenario'])
++    for x in rows('repository_map.csv')+rows('cache_impact.csv'):
++        require(sha(ROOT/x['path'])==x['sha256'],'Inventory path/hash '+x['path'])
++    inv=read('inventory_receipt.json');entries=rows('affected_results.csv')
++    require(inv['result_entries']==252 and inv['result_directories']==107 and inv['result_root_files']==145
++        and sum(x['entry_kind']=='directory' for x in entries)==107,'Inventory distinguishes directories and root files')
++    require(read('variants.json')['recommended_secure_default'] is None
++        and not read('comparison_receipt.json')['security_valid']
++        and not read('validation.json')['model_scientifically_validated'],'No whole-model or secure-default approval')
++    for path in OUT.glob('*.py'):ast.parse(path.read_text(encoding='utf-8-sig'))
++    require(True,'All new Python scripts parse')
++    for name in ['report_vi.md','manuscript_corrections_vi.md','README.md']:
++        text=(OUT/name).read_text(encoding='utf-8')
++        require('\ufffd' not in text and 'không' in text.lower(),name+' UTF-8 text')
++    report=(OUT/'report_vi.md').read_text(encoding='utf-8')
++    require(all(old[k]['Corrected_SKR'] in report for k in old),'Report agrees with saved old-versus-new results')
++    require('verify.py' in (OUT/'isolated_code_patch.diff').read_text(encoding='utf-8'),'Patch contains read-only verifier')
++    return dict(status='CURRENTLY_VERIFIED_PASS',scope='SAVED_COMPONENT_AND_PROVENANCE_EVIDENCE_ONLY',
++        protected_files=len(protected),checks=len(checks),check_names=checks,
++        tests=18,historical_regressions=10,exact_sources=233,raw_PDF_contexts=9,
++        scientific_PDF_failures=sorted(bad),model_security_valid=False,recommended_secure_default=None)
++
++
++def main():
++    mode=sys.argv[1:] or ['--verify']
++    if mode not in [['--verify'],['--prepare'],['--seal']]:raise ValueError('Use --prepare, --seal, or no argument')
++    receipt=OUT/'final_receipt.json'
++    if mode==['--prepare']:
++        if receipt.exists() or (OUT/'completion_checks.json').exists():raise FileExistsError('Preserve completed packaging')
++        result=check()
++        history=dict(UTC=datetime.now(timezone.utc).isoformat(),status='COMPLETED_WITH_MODEL_BLOCKERS',
++            request='7944a7e7-5bcc-43d9-8f85-c514f9d2fb92',
++            ordered_phases=['preserved historical regressions','initial 17-test validation then KeyError B',
++                'correct original PDF factory and add 18th unit test','18-test component validation',
++                'fixed-source focused comparisons','inventory/notation/Rician diagnostics','report and saved-evidence packaging'],
++            attempts=dict(initial='attempt_1/failure.json',tolerances_changed=False,
++                metadata_only_fix='252 entries were mislabeled as directories; now 107 directories plus 145 root files; originals in inventory_metadata_before_fix'),
++            numerical_replay_in_packaging=False,new_AP=False,new_optimization=False,heldout_test_publication=False,
++            producer_sha256={p.name:sha(p) for p in sorted(OUT.glob('*.py'))},
++            protocol_sha256=sha(OUT/'protocol.json'),comparison_plan_sha256=sha(OUT/'comparison_plan.json'),
++            environment=dict(python=platform.python_version(),platform=platform.platform(),
++                packages={n:version(n) for n in ['numpy','scipy','mpmath']},PDF_tool='PyMuPDF1.26.5 outside project venv'),
++            manuscript_pages_visually_checked=[2,3,4],PDF_modified=False,production_default_changed=False,
++            scientific_status='UNVALIDATED_SECURITY_MODEL',lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS')
++        save('execution_history.json',history);save('completion_checks.json',result)
++    elif mode==['--seal']:
++        if receipt.exists():raise FileExistsError('Preserve existing seal')
++        result=check()
++        require_paths=['execution_history.json','completion_checks.json','scoped_ledger_changes.diff']
++        if not all((OUT/n).exists() for n in require_paths):raise FileNotFoundError(require_paths)
++        files={p.relative_to(OUT).as_posix():sha(p) for p in sorted(OUT.rglob('*')) if p.is_file()}
++        start=read('startup_manifest.json')
++        save('final_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',audit_outcome='COMPLETED_WITH_MODEL_BLOCKERS',
++            UTC=datetime.now(timezone.utc).isoformat(),security_valid=False,recommended_secure_default=None,
++            scientific_PDF_failures=result['scientific_PDF_failures'],protected_files=result['protected_files'],
++            saved_evidence_checks=result['checks'],artifact_sha256=files,
++            ledger_sha256={n:sha(ROOT/n) for n in start['allowed_ledger_changes']},
++            branch=start['branch'],HEAD=start['HEAD'],numerical_evaluation_performed_by_verifier=False))
++    else:
++        saved=read('final_receipt.json')
++        if not all((OUT/n).is_file() and sha(OUT/n)==h for n,h in saved['artifact_sha256'].items()):
++            raise AssertionError('Sealed audit artifact changed')
++        if not all(sha(ROOT/n)==h for n,h in saved['ledger_sha256'].items()):
++            raise AssertionError('Sealed task ledger changed')
++        result=check()
++        if result['checks']!=saved['saved_evidence_checks']:raise AssertionError('Verification schema changed')
++    print('CURRENTLY_VERIFIED_PASS',mode[0],'; saved evidence only; secure default = NONE',flush=True)
++
++
++if __name__=='__main__':
++    main()
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/protocol.json
+@@ -0,0 +1,63 @@
++{
++  "scope": "ISOLATED_MATHEMATICAL_CONSISTENCY_AUDIT",
++  "manuscript_sha256": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b",
++  "frozen_reference_unchanged": true,
++  "measurement": "homodyne_1D",
++  "reconciliation": "reverse_asymptotic",
++  "detector": "untrusted",
++  "hardware_eta_det": [
++    0.8,
++    0.85,
++    0.9,
++    0.95
++  ],
++  "hardware_epsilon_det_SNU": [
++    0.0135,
++    0.005
++  ],
++  "xi_ch": 0.0186,
++  "beta": 0.95,
++  "xi_det_definitions": [
++    "A_epsilon_over_eta",
++    "B_chi_hom",
++    "independent_explicit"
++  ],
++  "independent_xi_det_value": null,
++  "literal_complex_density_policy": "REPORT_FAILED_NORMALIZATION_NO_SKR",
++  "original_PDF_policy": "NO_RENORMALIZATION_NO_CLIPPING",
++  "Gaussian_effective_C": "T=eta_det*mh^2; sigma2=1+eta_det*((m1-mh^2)*VA+.0186*m1)+epsilon_det",
++  "classical_rescaling": "MI_only; quantum_covariance_unchanged",
++  "primary_secure_default": null,
++  "mass_tolerance": 1e-10,
++  "source_tolerance": 2e-12,
++  "MI_absolute_tolerance": 2e-10,
++  "MI_scaling_tolerance": 2e-12,
++  "GH_orders": [
++    32,
++    64,
++    128
++  ],
++  "full_Z_grids": [
++    33,
++    129
++  ],
++  "full_Z_Holevo_tolerance": 2e-08,
++  "entropy_digits": [
++    80,
++    110
++  ],
++  "entropy_tolerance": 2e-11,
++  "independent_covariance_tolerance": 1e-10,
++  "uncertainty_tolerance": 1e-11,
++  "exact_sources": 233,
++  "new_AP_source_moments": false,
++  "source_interpolation": false,
++  "optimization_sweep": false,
++  "training_test_heldout_publication": false,
++  "initial_implementation_sha256": {
++    "audit_model.py": "4468643b7ebd9b8524cefdd1da5a0be9c02e4cd557d4f9a30a3e507e9896db5d",
++    "test_audit_model.py": "c024e1076c3d79149169092a4181a17670c5fd9ceb22386d14db2dfc441532f9",
++    "run_audit.py": "c9cb61483a329c375130ba2d40cb28c7b9bb995dfdae5167ab26a9552c840d7e"
++  },
++  "pre_evaluation_review": "Duplicate-key return construction repaired and explicit literal-real-projection test added before first numerical call; no criterion changed"
++}
+--- /dev/null
++++ results/manuscript43_homodyne_audit_20261023/variants.json
+@@ -0,0 +1,27 @@
++{
++  "A_historical": {
++    "implementation": "preserved original modules; fresh matching regressions",
++    "historical_files_modified": false
++  },
++  "B_literal_v43": {
++    "xi_det_definition": "REQUIRED_EXPLICIT_A_B_OR_INDEPENDENT",
++    "printed_complex_mean_density": "FAILED",
++    "SKR": null
++  },
++  "B_real_projection_diagnostic": {
++    "change": "Re(alpha) explicitly applied; original noise/covariance convention retained",
++    "physically_interchangeable_with_C": false
++  },
++  "C_physical_homodyne_untrusted": {
++    "implementation": "audit_model.evaluate_physical",
++    "measurement": "homodyne_1D",
++    "T_quantum": "eta_det*mean_sqrt_eta**2",
++    "N_post": "eta_det*((m1-mh**2)*VA+.0186*m1)+epsilon_det",
++    "Gaussian_component_numerically_validated": true,
++    "raw_PDF_normalization_guard": true,
++    "secure_default": false
++  },
++  "production_default_changed": false,
++  "recommended_secure_default": null,
++  "source_cache_namespace_changed": false
++}

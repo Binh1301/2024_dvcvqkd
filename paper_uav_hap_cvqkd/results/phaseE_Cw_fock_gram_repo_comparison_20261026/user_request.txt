@@ -1,0 +1,603 @@
+# CODEX — Independent C,w Verification: Fock vs. Gram vs. Repository
+
+## 1. Objective
+
+Perform a rigorous mathematical and numerical comparison of the exact-source moments C and w used in the HAP–UAV 256-QAM DM-CV-QKD project.
+
+Compare:
+
+- Method A: Independent Fock-space density-operator implementation.
+- Method B: Independent coherent-state Gram-matrix implementation.
+- Method R: Existing repository exact-source implementation.
+
+All three must evaluate the SAME mathematical quantities for the SAME constellation ensemble.
+
+The purpose is to identify mathematical, normalization, truncation, precision, or numerical-stability differences and determine whether the existing source moments are reliable.
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Scientific references:
+
+1. Sayat et al., IEEE Transactions on Communications, 2024, Section II-C, Eqs. (20)–(22).
+   DOI: 10.1109/TCOMM.2024.3359295
+
+2. Denys, Brown and Leverrier, Quantum 5, 540 (2021), particularly the definition of a_tau and the analytical covariance bound.
+   DOI: 10.22331/q-2021-09-13-540
+
+3. The approved v43 manuscript and canonical mathematical reference.
+
+Do not change the physical-layer model or source definitions.
+
+## 2. Canonical Mathematical Definitions
+
+For an ensemble of M coherent states:
+
+\[
+\mathcal E=\{p_k,\alpha_k\}_{k=1}^{M},
+\]
+
+construct the density operator:
+
+\[
+\tau=\sum_{k=1}^{M}p_k
+|\alpha_k\rangle\langle\alpha_k|.
+\]
+
+Define:
+
+\[
+a_\tau=\tau^{1/2}a\tau^{-1/2},
+\]
+
+where tau^(-1/2) is the Moore–Penrose inverse square root on the support of tau.
+
+The canonical source moments are:
+
+\[
+\boxed{
+C=\operatorname{Tr}
+(\tau^{1/2}a\tau^{1/2}a^\dagger)
+}
+\]
+
+and:
+
+\[
+\boxed{
+w=\sum_k p_k
+\left[
+\langle\alpha_k|a_\tau^\dagger a_\tau|\alpha_k\rangle
+-
+|\langle\alpha_k|a_\tau|\alpha_k\rangle|^2
+\right].
+}
+\]
+
+These definitions must be identical for all three implementations.
+
+The approved v43 correlation formula remains:
+
+\[
+Z(\eta_f,\xi_f)
+=
+2\sqrt{\eta_f}C-
+\sqrt{2\eta_f\xi_f w}.
+\]
+
+Do not change Eq. (14), optimize Z, choose alternative correlation endpoints, or introduce clipping.
+
+The source calculations must remain independent of eta_f, xi_f and zenith angle.
+
+## 3. Task A — Audit the Existing Repository
+
+Before implementing any alternative method, identify exactly how the repository currently calculates C and w.
+
+Search for:
+
+- Source ensemble generation.
+- Coherent-state amplitude construction.
+- MB probability distribution.
+- nu_raw and nu_repo conversion.
+- Modulation variance normalization.
+- Fock basis generation.
+- Density matrix construction.
+- Gram/overlap matrix construction.
+- Eigenvalue decomposition.
+- Matrix square root.
+- Pseudoinverse square root.
+- a_tau construction.
+- Computation of C.
+- Computation of w.
+- Numerical precision and convergence controls.
+- Source-moment caches and receipts.
+
+For each relevant function, report:
+
+1. File path and line numbers.
+2. Input arguments.
+3. Mathematical expression implemented.
+4. Numerical library and precision.
+5. Matrix dimensions.
+6. Eigenvalue cutoff or rank-selection rule.
+7. How convergence is tested.
+8. Whether the result is cached or recomputed.
+
+Do not assume the repository implements either Method A or Method B before inspecting the source.
+
+Determine whether the existing implementation uses an equivalent algebraic reformulation.
+
+Distinguish mathematical equivalence from numerical equivalence.
+
+## 4. Task B — Method A: Direct Fock-Space Calculation
+
+Implement an independent numerical reference using the truncated Fock basis.
+
+For each coherent state:
+
+\[
+|\alpha_k\rangle
+=
+e^{-|\alpha_k|^2/2}
+\sum_{n=0}^{N_F-1}
+\frac{\alpha_k^n}{\sqrt{n!}}|n\rangle.
+\]
+
+Construct:
+
+\[
+\tau_F=\sum_k p_k
+|\alpha_k\rangle_F\langle\alpha_k|_F.
+\]
+
+Define the annihilation matrix:
+
+\[
+a_{n-1,n}=\sqrt n.
+\]
+
+Compute the Hermitian eigendecomposition:
+
+\[
+\tau_F=U\Lambda U^\dagger.
+\]
+
+Use it to construct:
+
+\[
+\tau_F^{1/2}
+=
+U\Lambda^{1/2}U^\dagger,
+\]
+
+\[
+\tau_F^{-1/2}
+=
+U\Lambda_{\rm MP}^{-1/2}U^\dagger.
+\]
+
+Then calculate:
+
+\[
+C_A=
+\operatorname{Tr}
+(\tau_F^{1/2}a\tau_F^{1/2}a^\dagger).
+\]
+
+Construct:
+
+\[
+a_{\tau,F}
+=
+\tau_F^{1/2}a\tau_F^{-1/2}.
+\]
+
+Calculate w both ways:
+
+1. The direct weighted variance formula.
+2. A numerically stable orthogonal-residual formula.
+
+For normalized coherent-state vectors v_k:
+
+\[
+w_A=
+\sum_k p_k
+\left\|
+(I-v_kv_k^\dagger)
+a_{\tau,F}v_k
+\right\|^2.
+\]
+
+The latter avoids subtracting two nearly equal positive numbers.
+
+Explicitly check that the residual formula and direct variance expression are algebraically equivalent under the normalization assumptions.
+
+Record:
+
+- Fock cutoff
+- Coherent-state truncation norm
+- Density matrix trace
+- Eigenvalue spectrum
+- Effective numerical rank
+- Eigenvalue threshold
+- C_A
+- w_A
+- Runtime
+
+Do not silently renormalize truncated states without documenting the convention.
+
+Use a controlled Fock-cutoff convergence study.
+
+Do not assume that a short Fock truncation preserves the full mathematical rank of a 256-state ensemble.
+
+## 5. Task C — Method B: Coherent-State Gram Matrix
+
+Build an independent implementation using the coherent-state overlap identity:
+
+\[
+\langle\alpha_i|\alpha_j\rangle
+=
+\exp\left[
+-\frac{|\alpha_i|^2+|\alpha_j|^2}{2}
++\alpha_i^*\alpha_j
+\right].
+\]
+
+Construct the weighted Gram matrix:
+
+\[
+H_{ij}
+=
+\sqrt{p_ip_j}
+\langle\alpha_i|\alpha_j\rangle.
+\]
+
+Also construct the weighted annihilation matrix elements using:
+
+\[
+\langle\alpha_i|a|\alpha_j\rangle
+=
+\alpha_j\langle\alpha_i|\alpha_j\rangle.
+\]
+
+Use a Hermitian spectral decomposition of H to obtain the nonzero spectrum of tau and an orthonormal basis for its support.
+
+Compute the source moment C from:
+
+\[
+\boxed{
+C_B=
+\sum_{r,s}
+\sqrt{\lambda_r\lambda_s}
+\left|
+\langle\phi_r|a|\phi_s\rangle
+\right|^2.
+}
+\]
+
+Here lambda_r and phi_r are the eigenvalues and orthonormal eigenstates of tau.
+
+Construct a_tau on the support using the exact Moore–Penrose convention.
+
+Calculate w using the weighted variance of a_tau in the coherent states.
+
+Implement a stable residual-norm version as an independent check.
+
+Avoid rebuilding a large Fock-space density matrix in Method B.
+
+If the Gram matrix is severely ill-conditioned, report its condition number, eigenvalue spectrum and precision limitations.
+
+Do not discard eigenvalues solely because doing so brings the result closer to the repository.
+
+Any rank truncation or precision change must be explicitly justified.
+
+## 6. Task D — Use Identical Source Ensembles
+
+Comparison is valid only if the methods receive identical complex amplitudes alpha_k and probabilities p_k.
+
+Reuse the canonical repository ensemble generator as the frozen input source.
+
+After obtaining the ensemble arrays, independent Methods A and B must not call the repository's C,w evaluator.
+
+Preserve:
+
+- M = 256.
+- Exact constellation geometry.
+- Source probability ordering.
+- Maxwell–Boltzmann normalization.
+- V_A = 2 average photon number.
+- nu_repo = 42.5 * nu_raw.
+- Existing ensemble hashing.
+- Existing numerical conventions.
+
+Before comparing moments, verify:
+
+\[
+\sum_k p_k=1,
+\]
+
+\[
+\sum_k p_k\alpha_k\approx0,
+\]
+
+\[
+2\sum_k p_k|\alpha_k|^2=V_A.
+\]
+
+If any identity fails, determine whether the cause is numerical error, a different source convention, or incorrect input mapping.
+
+Do not silently alter the ensemble to force agreement.
+
+## 7. Task E — Target Test Sources
+
+Run comparisons in increasing order of difficulty.
+
+### E1. Small sanity-check ensembles
+
+Use independently constructed small constellations:
+
+- 4-QAM
+- 16-QAM
+- 64-QAM
+
+Test Uniform and MB-shaped distributions where applicable.
+
+These are numerical implementation checks, not replacements for the actual 256-QAM source.
+
+### E2. Winning Phase C source
+
+Use the existing exact ensemble identity:
+
+\[
+\nu_{\rm raw}=0.30,
+\]
+
+\[
+V_A=1.358333319784304.
+\]
+
+Saved results:
+
+\[
+C_{\rm repo}=1.067911050328646,
+\]
+
+\[
+w_{\rm repo}=5.700303183579203\times10^{-10}.
+\]
+
+This is the highest-priority comparison.
+
+### E3. Fixed MB
+
+Use:
+
+\[
+\nu_{\rm raw}=0.25,
+\]
+
+\[
+V_A=1.6249995399703647.
+\]
+
+Retrieve the actual stored C,w values from the repository.
+
+Do not invent them.
+
+### E4. Other historical sources
+
+Optionally test a small number of additional previously computed exact sources, chosen to cover different modulation variances and shaping strengths.
+
+Do not scan the entire catalog.
+
+Do not regenerate the previously missing Uniform exact source unless separately authorized.
+
+## 8. Task F — Numerical Accuracy and Convergence
+
+This section is critical because w can be extremely small.
+
+Compare:
+
+- Direct variance evaluation.
+- Stable residual-norm evaluation.
+- Fock spectral decomposition.
+- Gram spectral decomposition.
+- Existing repository output.
+
+For each source and method, report:
+
+\[
+\Delta C_A=C_A-C_{\rm repo},
+\]
+
+\[
+\Delta C_B=C_B-C_{\rm repo},
+\]
+
+\[
+\Delta w_A=w_A-w_{\rm repo},
+\]
+
+\[
+\Delta w_B=w_B-w_{\rm repo}.
+\]
+
+Also compare Method A directly against Method B.
+
+Report absolute errors and relative errors separately.
+
+Do not rely only on relative error for very small w.
+
+Do not use `np.allclose` default tolerances as proof of agreement at the 1e-10 scale.
+
+Perform controlled tests of:
+
+1. Fock cutoff.
+2. Spectral precision.
+3. Eigenvalue thresholds.
+4. Effective matrix rank.
+5. Cancellation in w.
+6. Hermitian eigensolver residuals.
+7. Trace and normalization errors.
+8. Repeatability.
+
+Use higher precision for independent spot checks where computationally feasible.
+
+Do not treat float64 eigendecomposition as automatically sufficient for extremely small eigenvalues.
+
+If a source cannot be evaluated reliably with a given method, mark the result INCONCLUSIVE instead of forcing a numerical agreement.
+
+Do not clip negative intermediate w values or silently take absolute values.
+
+A significant negative w indicates a numerical or implementation issue that requires diagnosis.
+
+Separate:
+
+- Fock truncation error.
+- Floating-point rounding.
+- Spectral-conditioning error.
+- Algorithmic differences.
+- Source convention differences.
+
+Do not claim a convergence certificate from agreement between two implementations if both share an unresolved truncation or precision limitation.
+
+## 9. Task G — Impact on Eq. (14) and SKR
+
+For the winning source, investigate how any observed C,w differences propagate into:
+
+\[
+Z(\eta_f,\xi_f)
+=
+2\sqrt{\eta_f}C-
+\sqrt{2\eta_f\xi_f w}.
+\]
+
+Use the existing stored primary channel context and approved evaluator.
+
+Compare:
+
+- Z using repository moments.
+- Z using Method A moments.
+- Z using Method B moments.
+
+If both independent methods produce numerically reliable moments, use diagnostic read-only copies of the evaluator to compare:
+
+- I_AB
+- beta I_AB
+- chi_BE
+- Raw SKR
+- Sign of SKR
+
+Do not change Eq. (14), MI or Holevo.
+
+Do not overwrite cached SKR results.
+
+Do not expand this check into a 61-angle or 100-position sweep.
+
+Label all alternative-source SKR evaluations DIAGNOSTIC_ONLY.
+
+## 10. Execution Safety
+
+This task authorizes bounded numerical cross-checks of selected source pairs.
+
+It does NOT authorize:
+
+- Recomputing the entire 212/235-source catalog.
+- Restarting the previous 3,600-second Uniform job.
+- Long-running unbounded precision searches.
+- Modifying production C,w code.
+- Replacing existing cache values.
+- Reclassifying INSUFFICIENT_EVIDENCE sources without sufficient numerical proof.
+- Editing the manuscript's physics.
+
+Start with small constellations and low-cost diagnostics.
+
+Before any expensive 256-QAM calculation, inspect expected memory and matrix size.
+
+Use explicit runtime and memory limits.
+
+If an independent calculation exceeds the safe execution budget, save intermediate diagnostics and report the blocker.
+
+Do not invent missing results.
+
+## 11. Deliverables
+
+Create:
+
+`results/phaseE_Cw_fock_gram_repo_comparison_20261026/`
+
+Produce:
+
+1. `mathematical_derivation.md`
+   - Equations from Sayat and Denys.
+   - Mathematical relationship between Fock and Gram methods.
+   - Conventions and rank requirements.
+
+2. `repository_Cw_audit.md`
+   - Actual repository functions and line numbers.
+   - Data flow.
+   - Precision, truncation and convergence logic.
+
+3. `independent_fock_Cw.py`
+   - Method A.
+
+4. `independent_gram_Cw.py`
+   - Method B.
+
+5. `Cw_comparison.csv`
+   - Source-by-source values and differences.
+
+6. `convergence_diagnostics.csv`
+   - Cutoff and numerical-precision checks.
+
+7. `Cw_numerical_stability.md`
+   - Detailed analysis of tiny w and eigenvalue conditioning.
+
+8. `Z_SKR_sensitivity.csv`
+   - Limited downstream diagnostic comparison.
+
+9. `validation_report_vi.md`
+   - Main Vietnamese report.
+
+10. `artifact_integrity_report.md`
+    - Preservation of historical source files and cached results.
+
+Generate numerical comparison figures only if they improve interpretation.
+
+## 12. Required Final Report
+
+Report in Vietnamese.
+
+Start with:
+
+`PHASE E C,w COMPARISON: PASS / MISMATCH / INCONCLUSIVE`
+
+Provide the table:
+
+| Source | Method | C | w | ΔC vs repo | Δw vs repo | Numerical status |
+|---|---|---|---|---|---|---|
+| Winner MB | Repository | | | | | |
+| Winner MB | Fock | | | | | |
+| Winner MB | Gram | | | | | |
+| Fixed MB | Repository | | | | | |
+| Fixed MB | Fock | | | | | |
+| Fixed MB | Gram | | | | | |
+
+Then answer explicitly:
+
+1. Which mathematical equations are actually implemented in the repository?
+2. Is the repository method equivalent to Sayat/Denys?
+3. Do independent Fock and Gram implementations agree?
+4. Is w numerically stable at the reported 1e-10 scale?
+5. Which precision or cutoff controls the disagreement, if any?
+6. Is the existing winning C,w source numerically validated or still missing evidence?
+7. Does any observed difference materially affect Eq. (14) or the sign of SKR?
+8. What is the safest next step?
+9. How many existing catalog sources were modified? This must be ZERO.
+
+Maintain `PHASE_B_STRICT_READY = FALSE` unless the original strict evidence requirements are independently satisfied.
+
+Preserve `DIAGNOSTIC_ONLY` for conclusions still depending on insufficient evidence.
+
+**Perform the independent comparisons. Do not stop after explaining the equations or writing scripts. Report actual numerical values and numerical limitations.**

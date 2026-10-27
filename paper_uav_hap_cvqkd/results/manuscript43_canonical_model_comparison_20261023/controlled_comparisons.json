@@ -1,0 +1,86 @@
+[
+  {
+    "diagnostic": "canonical_noise_Gaussian_homodyne_reference",
+    "classification": "REFERENCE",
+    "I_AB": 0.8378901900472914,
+    "chi_BE": 0.6881131202506823,
+    "raw_SKR": 0.10788256029424448,
+    "delta_I_AB": 0.0,
+    "delta_chi_BE": 0.0,
+    "delta_K": 0.0,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "Same source and bounded channel; NOT canonical Eq10"
+  },
+  {
+    "diagnostic": "historical_eta0.95_output_epsilon0.005",
+    "classification": "DIFFERENT",
+    "I_AB": 0.8142818487687629,
+    "chi_BE": 0.6834508796230128,
+    "raw_SKR": 0.09011687670731194,
+    "delta_I_AB": -0.02360834127852851,
+    "delta_chi_BE": -0.004662240627669512,
+    "delta_K": -0.017765683586932535,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "Change detector convention only; explicit untrusted physical output, same source/channel"
+  },
+  {
+    "diagnostic": "active_only_noise_at_outage",
+    "classification": "DIFFERENT",
+    "I_AB": 0.8378905814107496,
+    "chi_BE": 0.6881089990642566,
+    "raw_SKR": 0.10788705327595549,
+    "delta_I_AB": 3.913634581964587e-07,
+    "delta_chi_BE": -4.121186425676271e-06,
+    "delta_K": 4.492981711012867e-06,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "Only eta*xi at outage changes from xi_det to zero; detector-noise moment delta=-xi_det*P0"
+  },
+  {
+    "diagnostic": "invertible_classical_scaling_y_over2",
+    "classification": "EQUIVALENT",
+    "I_AB": 0.8378901900472914,
+    "chi_BE": 0.6881131202506823,
+    "raw_SKR": 0.10788256029424448,
+    "delta_I_AB": 0.0,
+    "delta_chi_BE": 0.0,
+    "delta_K": 0.0,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "Scale means/noise consistently; quantum covariance/source unchanged"
+  },
+  {
+    "diagnostic": "Eq14_Zminus_if_unclipped",
+    "classification": "EQUIVALENT_AT_THIS_FIXTURE",
+    "I_AB": 0.8378901900472914,
+    "chi_BE": 0.6881131202506823,
+    "raw_SKR": 0.10788256029424448,
+    "delta_I_AB": 0.0,
+    "delta_chi_BE": 0.0,
+    "delta_K": 0.0,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "Only compare when physical lower equals actual printed Zminus"
+  },
+  {
+    "diagnostic": "literal_Vmod_nbar_over2_same_source",
+    "classification": "NON_EQUIVALENT",
+    "I_AB": null,
+    "chi_BE": null,
+    "raw_SKR": null,
+    "delta_I_AB": null,
+    "delta_chi_BE": null,
+    "delta_K": null,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "NON-EQUIVALENT: VA3 source has nbar1.5, printed Vmod.75; cannot relabel covariance/source at fixed vacuum1"
+  },
+  {
+    "diagnostic": "pooled_fading_homodyne_MI_same_no_eta_detector",
+    "classification": "BLOCKED_NUMERICAL_PRECISION",
+    "I_AB": null,
+    "chi_BE": null,
+    "raw_SKR": null,
+    "delta_I_AB": null,
+    "delta_chi_BE": null,
+    "delta_K": null,
+    "source_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522",
+    "description": "Replace Gaussian effective likelihood by actual fading mixture only; hold source, moments and Holevo"
+  }
+]

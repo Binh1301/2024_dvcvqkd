@@ -1,0 +1,733 @@
+# CODEX TASK — Audit and Update the HAP–UAV DM-CV-QKD Repository According to Manuscript Version 43
+
+## 1. Objective
+
+Audit and update the existing HAP–UAV 256-QAM DM-CV-QKD numerical repository against the latest manuscript:
+
+`2026__Binh_s_work (43).pdf`
+
+The system uses:
+
+- 256-QAM discrete modulation.
+- Maxwell–Boltzmann probabilistic shaping.
+- HOMODYNE detection, NOT heterodyne.
+- Reverse reconciliation.
+- Untrusted detector assumptions for the main numerical study.
+- The existing fading-channel PDF with AoA outage.
+- The existing Gaussian effective-channel treatment.
+- The existing exact-source correlation-moment methodology.
+
+**This is a mathematical-consistency and repository-correction task, not a search for artificially positive SKR.**
+
+The new manuscript contains changes to the detector-noise definition and effective noise moment, but several expressions require validation before implementation.
+
+Do not automatically assume that every expression in version 43 is correct.
+
+The primary goal is to obtain a mathematically consistent HOMODYNE MI–Holevo implementation and establish which historical numerical results remain valid.
+
+## 2. Repository discovery and preservation
+
+Locate the existing repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Inspect the actual directory structure rather than assuming module names.
+
+Identify:
+
+1. Channel PDF and fading-moment implementations.
+2. Closed-form moment calculators.
+3. Homodyne mutual-information evaluator.
+4. Source constellation and MB shaping modules.
+5. Exact source \(C,w\) calculations and caches.
+6. Covariance, symplectic eigenvalues and Holevo evaluators.
+7. Existing trusted/untrusted detector configurations.
+8. Parameter-optimization scripts.
+9. Historical numerical experiments and regression tests.
+
+Read the reports from the recent untrusted-detector and lightweight-UAV studies.
+
+Preserve all original numerical results and exact-source caches.
+
+Create a separate implementation branch or a clearly isolated patch.
+
+Do not overwrite historical results.
+
+## 3. Reproduce the manuscript v43 equations
+
+Use the following as the literal manuscript-v43 model to be audited.
+
+For the fading channel:
+
+\[
+\eta=\eta_{\rm atm}I_a\eta_p\eta_{\rm AoA}.
+\]
+
+For the effective channel:
+
+\[
+\eta_f=\langle\sqrt{\eta}\rangle^2,
+\]
+
+\[
+\eta_f\xi_f
+=
+(\langle\eta\rangle-\eta_f)V_{\rm mod}
++\langle\eta\xi\rangle.
+\]
+
+Version 43 defines:
+
+\[
+\xi(\eta)=\xi_{\rm ch}+\frac{\xi_{\rm det}}{\eta}.
+\]
+
+Its closed-form noise moment is:
+
+\[
+\boxed{
+\langle\eta\xi\rangle
+=
+\xi_{\rm ch}\langle\eta\rangle
++\xi_{\rm det}
+\left[
+P_0+P_1C_1\mathcal Q(\chi^2)
+\right].
+}
+\]
+
+Preserve the existing closed-form expressions for:
+
+\[
+\langle\eta\rangle,\qquad
+\langle\sqrt{\eta}\rangle.
+\]
+
+Check the expressions against direct numerical integration of the PDF on \([0,1]\).
+
+Explicitly verify the probability mass:
+
+\[
+M_0=P_0+P_1C_1\mathcal Q(\chi^2).
+\]
+
+Report whether:
+
+\[
+M_0=1
+\]
+
+within numerical tolerance.
+
+If it is not normalized, identify the cause and do not silently renormalize or replace the channel model.
+
+Handle the Dirac probability atom at \(\eta=0\) explicitly.
+
+Distinguish the mathematical limiting contribution of \(\eta\xi(\eta)\) at outage from an active-link-only treatment.
+
+## 4. Critical audit — Detector excess-noise convention
+
+Version 42 used:
+
+\[
+\xi^{(42)}(\eta)
+=
+\xi_{\rm ch}
++
+\frac{\epsilon_{\rm det}}{\eta\eta_{\rm det}}.
+\]
+
+Version 43 uses:
+
+\[
+\xi^{(43)}(\eta)
+=
+\xi_{\rm ch}
++
+\frac{\xi_{\rm det}}{\eta}.
+\]
+
+Determine whether the new parameter \(\xi_{\rm det}\) is intended to mean:
+
+**Convention A**
+
+\[
+\xi_{\rm det}
+=
+\frac{\epsilon_{\rm det}}{\eta_{\rm det}},
+\]
+
+or **Convention B**
+
+\[
+\xi_{\rm det}
+=
+\chi_{\rm hom}
+=
+\frac{1-\eta_{\rm det}+\epsilon_{\rm det}}
+{\eta_{\rm det}},
+\]
+
+or an independently defined input-referred detector-noise parameter.
+
+These definitions must never be silently equated.
+
+Document all parameter reference planes:
+
+- Alice input.
+- Channel output before detector.
+- Actual detector output.
+- Detector output after classical rescaling.
+
+Determine where detector inefficiency appears as physical signal attenuation, where vacuum noise appears, and where electronic excess noise appears.
+
+Avoid double counting detector loss or excess noise.
+
+Do not automatically set:
+
+\[
+\xi_{\rm det}=\epsilon_{\rm det}.
+\]
+
+For the hardware parameter study, retain:
+
+\[
+\epsilon_{\rm det}\in\{0.0135,0.005\}\ {\rm SNU},
+\]
+
+and:
+
+\[
+\eta_{\rm det}\in\{0.8,0.85,0.9,0.95\}.
+\]
+
+Keep the two variables separately identifiable.
+
+Implement the literal manuscript-v43 convention as an explicit diagnostic variant.
+
+Only designate a convention as the primary physically consistent untrusted-detector implementation after the complete signal, noise and Holevo audit passes.
+
+## 5. Critical audit — Modulation variance
+
+The manuscript states:
+
+\[
+\langle n\rangle=\sum_kp_k|\alpha_k|^2,
+\]
+
+followed by:
+
+\[
+V_{\rm mod}=\frac{\langle n\rangle}{2}.
+\]
+
+However, the homodyne conditional mean uses the quadrature normalization:
+
+\[
+X_k=2\operatorname{Re}(\alpha_k).
+\]
+
+For a centered, symmetric square-QAM ensemble with equal quadrature variances, this leads to:
+
+\[
+V_{\rm mod}
+=
+\operatorname{Var}(X)
+=
+2\sum_kp_k|\alpha_k|^2.
+\]
+
+Audit the exact normalization implemented in the repository.
+
+For representative uniform and MB-shaped constellations, calculate:
+
+\[
+\sum_kp_k|\alpha_k|^2,
+\]
+
+\[
+\sum_kp_kX_k,
+\]
+
+\[
+\sum_kp_kX_k^2,
+\]
+
+and:
+
+\[
+\operatorname{Var}(X).
+\]
+
+Check whether the numerical code already implements the consistent convention even though the manuscript does not.
+
+Do not change the existing exact-source normalization without proving that it is wrong.
+
+If the manuscript equation contains a factor-of-four error, record the recommended manuscript correction separately.
+
+Do not invalidate historical exact \(C,w\) caches by silently changing the source convention.
+
+## 6. Critical audit — Maxwell–Boltzmann shaping
+
+Version 43 writes a probability numerator involving \(\gamma\) and a normalization involving \(\nu\).
+
+It also defines constellation indices as:
+
+\[
+(i,j)\in\{0,\ldots,15\}^2.
+\]
+
+Audit:
+
+- Whether \(\gamma\) and \(\nu\) are the same shaping parameter.
+- Whether the weighting uses centered constellation coordinates.
+- Whether the weighting is proportional to physical symbol energy.
+- Whether MB probabilities are symmetric around the constellation origin.
+- Whether the normalization constant is calculated consistently.
+- Whether the exact \(C,w\) source modules use the same constellation and probabilities as MI and Holevo.
+
+Verify:
+
+\[
+\sum_kp_k=1,
+\]
+
+and:
+
+\[
+\sum_kp_k\alpha_k\approx0
+\]
+
+for the centered symmetric constellation.
+
+Recover the existing raw-to-repository MB shaping-parameter mapping, if one exists.
+
+Do not change shaping parameters or reuse existing source-moment cache entries under a changed probability distribution.
+
+Any changed source convention must have a new cache namespace and complete regression validation.
+
+## 7. Correct and validate HOMODYNE mutual information
+
+The manuscript's general MI expression is:
+
+\[
+I_{AB}
+=
+\sum_kp_k
+\int_{\mathbb R}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_{k'}p_{k'}p(y|\alpha_{k'})}
+\,dy.
+\]
+
+Keep this exact discrete-input mutual-information formulation.
+
+The manuscript currently uses a complex \(\alpha_k\) in a one-dimensional Gaussian PDF.
+
+This is not a normalized homodyne conditional density as written.
+
+For X-quadrature homodyne detection, use:
+
+\[
+X_k=2\operatorname{Re}(\alpha_k).
+\]
+
+For a Gaussian effective channel, the conditional density should have the generic form:
+
+\[
+p(y|\alpha_k)
+=
+\frac{1}{\sqrt{2\pi\sigma_N^2}}
+\exp\left[
+-\frac{(y-\mu_k)^2}{2\sigma_N^2}
+\right].
+\]
+
+Determine \(\mu_k\) and \(\sigma_N^2\) from the same explicitly selected detector reference-plane convention.
+
+Do not treat the complex QAM output as a two-dimensional heterodyne variable.
+
+Do not use the heterodyne MI evaluator for homodyne SKR.
+
+Do not multiply the homodyne MI by two.
+
+Check that summation over 256 QAM symbols gives the same MI as using the correctly marginalized 16-level quadrature distribution for the Gaussian model.
+
+### Validation tests
+
+Require:
+
+1. Each conditional Gaussian PDF integrates to 1.
+2. Mutual information is finite and nonnegative.
+3. MI approaches zero as effective signal transmittance approaches zero.
+4. MI does not exceed the entropy of the measured discrete quadrature.
+5. With equal 16-level quadrature probabilities, MI does not exceed 4 bits per channel use.
+6. X- and P-quadrature MI agree for a symmetric source.
+7. Numerical quadrature agrees with an independent integration method at selected points.
+8. MI is unchanged under a consistent invertible classical scaling of Bob's measurement.
+9. The Gaussian-input capacity expression is used only as a reference bound, not as the exact MI of discrete QAM.
+
+Report any failure.
+
+## 8. Audit the conditional-noise variance
+
+Version 43 currently uses:
+
+\[
+\sigma_\xi^2=1+\eta_f\xi_f.
+\]
+
+Determine whether this quantity is a variance at the physical detector output or an equivalent variance referred to a different measurement plane.
+
+For the physical-detector-output convention, test the model:
+
+\[
+T_{\rm sig}=\eta_{\rm det}\eta_f,
+\]
+
+\[
+\mu_k=2\sqrt{T_{\rm sig}}\operatorname{Re}(\alpha_k).
+\]
+
+Assuming output-referred electronic noise with variance \(\epsilon_{\rm det}\) in the same SNU convention, the Gaussian effective noise variance is:
+
+\[
+\boxed{
+\begin{aligned}
+\sigma_{N,B}^2
+={}&1
++\eta_{\rm det}
+(\langle\eta\rangle-\eta_f)V_{\rm mod}\\
+&+\eta_{\rm det}
+\langle\eta\rangle\xi_{\rm ch}
++\epsilon_{\rm det}.
+\end{aligned}
+}
+\]
+
+Audit this candidate expression against the repository's exact noise conventions.
+
+It is a moment-matched Gaussian approximation, not the exact conditional PDF of a general fading channel.
+
+Also test the equivalent convention obtained by rescaling Bob's output by \(1/\sqrt{\eta_{\rm det}}\).
+
+The MI from both conventions must agree numerically when they represent the same physical measurement.
+
+Do not add detector excess noise twice.
+
+Do not confuse:
+
+\[
+\operatorname{Var}(Y\mid X)
+\]
+
+with:
+
+\[
+\operatorname{Var}(Y).
+\]
+
+Document all noise contributions independently:
+
+- Vacuum/shot noise.
+- Fading-induced effective noise.
+- Channel excess noise.
+- Detector inefficiency.
+- Electronic detector excess noise.
+
+## 9. Audit the Holevo evaluator
+
+The protocol is HOMODYNE.
+
+Preserve the homodyne conditional symplectic-eigenvalue structure:
+
+\[
+\nu_3=
+\sqrt{
+V\left(V-\frac{Z^2}{W}\right)
+}.
+\]
+
+Do not replace this with the heterodyne expression.
+
+Check the consistency of:
+
+\[
+V=V_{\rm mod}+1,
+\]
+
+\[
+W=1+TV_{\rm mod}+T\xi,
+\]
+
+and the existing Denys–Brown–Leverrier correlation bound \(Z\).
+
+Here \(T\) and \(\xi\) must correspond to the same physically defined effective untrusted quantum channel.
+
+For the detector-untrusted model, examine:
+
+\[
+T_{\rm total}=\eta_{\rm det}\eta_f
+\]
+
+and the output noise arising from channel fading, channel excess noise and detector electronic noise.
+
+If detector inefficiency is attributed to Eve, incorporate it as the corresponding quantum loss rather than omitting its effect from the covariance matrix.
+
+Use the same quantum-channel parameters in the correlation bound, covariance matrix and Holevo calculation.
+
+Important: a classical rescaling of Bob's homodyne samples does not justify arbitrarily rescaling the quantum covariance matrix used for security analysis.
+
+Validate:
+
+- Physical covariance matrix.
+- Symplectic eigenvalues not smaller than 1, up to numerical tolerance.
+- Real-valued correlation bound.
+- Consistent source moments.
+- Numerical stability near low transmittance.
+- Nonnegative and finite Holevo quantity.
+
+Do not clip invalid symplectic eigenvalues or force negative raw SKR to zero inside the evaluator.
+
+Instead, report diagnostic failures.
+
+## 10. Audit the fading PDF and closed-form moments
+
+Preserve the existing log-normal turbulence, pointing loss, Rician misalignment and AoA-outage model.
+
+Check:
+
+\[
+\langle\eta\rangle,
+\quad
+\langle\sqrt{\eta}\rangle,
+\quad
+\langle\eta\xi\rangle.
+\]
+
+Compare closed forms against numerical quadrature on the specified interval \([0,1]\).
+
+Also inspect the log-normal variance convention in manuscript equation (5), including whether its parameter is the irradiance log-variance, Rytov variance or log-amplitude variance.
+
+Check consistency with the existing turbulence implementation and historical baseline.
+
+Do not silently change the assumed atmospheric model.
+
+Explicitly report any probability mass outside the retained interval and distinguish truncation, clipping and normalization.
+
+Preserve the point mass at zero due to AoA outage.
+
+Verify:
+
+\[
+0\leq\eta_f\leq\langle\eta\rangle\leq1
+\]
+
+for a physically normalized bounded-transmittance model.
+
+If a check fails, report the underlying cause rather than hiding the discrepancy.
+
+## 11. Controlled implementations
+
+Provide separate, clearly named implementations or configuration variants where necessary:
+
+**A. Historical legacy evaluator**
+
+Preserve the original equations and historical behavior strictly for reproducibility.
+
+**B. Literal manuscript-v43 evaluator**
+
+Implement the stated equation:
+
+\[
+\xi(\eta)=\xi_{\rm ch}+\frac{\xi_{\rm det}}{\eta}
+\]
+
+with \(\xi_{\rm det}\) explicitly defined in the configuration.
+
+Label this implementation as a manuscript-convention diagnostic until physical consistency is established.
+
+**C. Validated physical homodyne/untrusted evaluator**
+
+Implement the fully audited detector-loss, detector-noise, MI and Holevo conventions.
+
+Make this the recommended default only if all mathematical validation tests pass.
+
+Do not label the results from these variants as interchangeable.
+
+Do not combine MI from one variant with Holevo from another.
+
+## 12. Regression experiments
+
+First reproduce the exact historical scenarios without modifying the original implementations.
+
+Then run the corrected evaluator for:
+
+### Original HAP–UAV geometry
+
+\[
+h_{\rm HAP}=20\ {\rm km},
+\]
+
+\[
+h_{\rm UAV}=1\ {\rm km},
+\]
+
+\[
+\zeta=30^\circ,\quad D_r=0.08\ {\rm m},
+\]
+
+\[
+\lambda=1550\ {\rm nm},
+\]
+
+\[
+\beta=0.95,
+\]
+
+\[
+\xi_{\rm ch}=0.0186.
+\]
+
+### Detector parameters
+
+Test:
+
+\[
+\eta_{\rm det}\in\{0.8,0.95\},
+\]
+
+\[
+\epsilon_{\rm det}\in\{0.0135,0.005\}.
+\]
+
+### Optical parameters
+
+Preserve the original 233 µrad full-angle divergence and 15.61 µrad pointing jitter.
+
+Also test the previously reported best 8 cm geometry:
+
+- Zenith angle 0°.
+- Link distance 19 km.
+- Full-angle divergence 50 µrad.
+- Angular jitter 1.561 µrad.
+- Residual centering SD 0.1 m.
+- \(V_{\rm mod}\) corresponding to the previously tested 1.62499954 under its actual normalization.
+- Raw MB parameter 0.25.
+
+Historical diagnostic result:
+
+\[
+I_{AB}=0.01164892,
+\]
+
+\[
+\beta I_{AB}=0.01106647,
+\]
+
+\[
+\chi_{BE}=0.03474496,
+\]
+
+\[
+K=-0.02367849.
+\]
+
+Use this only as a historical regression reference.
+
+Do not force the new evaluator to reproduce the old numerical values if the corrected physical model differs.
+
+Report and explain all differences.
+
+## 13. Re-evaluate existing optimization results
+
+After implementing and validating the corrected evaluator:
+
+1. Re-evaluate selected historical MB-optimal configurations.
+2. Re-evaluate the 8 cm negative-SKR candidates.
+3. Re-evaluate selected 15–30 cm receiver candidates.
+4. Re-evaluate any positive 40–55 cm receiver benchmarks.
+5. Identify results invalidated by changes in MI, detector normalization or Holevo.
+6. Preserve exact-source points whenever their underlying constellation and \(V_{\rm mod}\) conventions remain unchanged.
+
+Do not launch a new massive optimization sweep before correctness tests pass.
+
+Do not assert that a historical positive SKR remains positive under the corrected evaluator without recalculation.
+
+## 14. Required deliverables
+
+Save all new outputs under:
+
+`results/manuscript43_homodyne_audit_20261023/`
+
+Provide:
+
+### A. Vietnamese audit report
+
+Include:
+
+- Manuscript equation.
+- Repository implementation.
+- Validation finding.
+- Corrected equation, if justified.
+- References or derivation.
+- Whether the repository was modified.
+- Whether historical SKR values remain valid.
+
+### B. Detector-convention comparison
+
+| Model | eta_det | epsilon_det | xi_det definition | Effective transmittance | Noise variance | MI | Holevo | SKR |
+|---|---|---|---|---|---|---|---|---|
+
+### C. Old versus new numerical comparison
+
+| Scenario | Legacy MI | Corrected MI | Legacy Holevo | Corrected Holevo | Legacy SKR | Corrected SKR |
+|---|---|---|---|---|---|---|
+
+### D. Verification files
+
+- Unit and regression tests.
+- Exact numerical checks.
+- Conditional PDF normalization results.
+- Source-normalization checks.
+- Channel PDF normalization and moment checks.
+- Physical covariance checks.
+- Reproducible scripts.
+- Clear code diff.
+- Complete list of affected results and caches.
+
+### E. Manuscript corrections
+
+Produce a separate Markdown file listing recommended changes to manuscript version 43.
+
+Do not edit the manuscript PDF itself.
+
+For each issue, state whether it is:
+
+- Confirmed mathematical error.
+- Missing definition or convention.
+- Security-model ambiguity.
+- Numerical implementation error.
+- Merely a notation or writing issue.
+
+## 15. Hard requirements
+
+- HOMODYNE ONLY.
+- Keep 256-QAM and MB shaping.
+- Keep reverse reconciliation.
+- Keep untrusted detector as the main security assumption.
+- Do not switch to heterodyne.
+- Do not silently change the fading-channel PDF.
+- Do not double count detector efficiency or noise.
+- Do not treat \(\epsilon_{\rm det}\) and \(\xi_{\rm det}\) as identical without a derivation.
+- Do not automatically adopt \(V_{\rm mod}=\langle n\rangle/2\).
+- Do not modify old exact-source caches without explicit versioning.
+- Do not interpolate exact \(C,w\) or SKR.
+- Do not force positive SKR.
+- Do not suppress failed physics checks.
+- Do not claim global optimality from a finite sweep.
+- Do not replace an unresolved theoretical issue with an undocumented numerical assumption.
+
+**Execute the audit, implement validated corrections, run the focused regressions and produce the Vietnamese report. If a security-critical convention cannot be resolved, preserve the conflicting variants, identify the blocker explicitly and do not designate an unvalidated implementation as the final secure-SKR model.**

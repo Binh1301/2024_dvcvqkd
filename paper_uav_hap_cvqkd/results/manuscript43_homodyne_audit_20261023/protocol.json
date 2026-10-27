@@ -1,0 +1,63 @@
+{
+  "scope": "ISOLATED_MATHEMATICAL_CONSISTENCY_AUDIT",
+  "manuscript_sha256": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b",
+  "frozen_reference_unchanged": true,
+  "measurement": "homodyne_1D",
+  "reconciliation": "reverse_asymptotic",
+  "detector": "untrusted",
+  "hardware_eta_det": [
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "hardware_epsilon_det_SNU": [
+    0.0135,
+    0.005
+  ],
+  "xi_ch": 0.0186,
+  "beta": 0.95,
+  "xi_det_definitions": [
+    "A_epsilon_over_eta",
+    "B_chi_hom",
+    "independent_explicit"
+  ],
+  "independent_xi_det_value": null,
+  "literal_complex_density_policy": "REPORT_FAILED_NORMALIZATION_NO_SKR",
+  "original_PDF_policy": "NO_RENORMALIZATION_NO_CLIPPING",
+  "Gaussian_effective_C": "T=eta_det*mh^2; sigma2=1+eta_det*((m1-mh^2)*VA+.0186*m1)+epsilon_det",
+  "classical_rescaling": "MI_only; quantum_covariance_unchanged",
+  "primary_secure_default": null,
+  "mass_tolerance": 1e-10,
+  "source_tolerance": 2e-12,
+  "MI_absolute_tolerance": 2e-10,
+  "MI_scaling_tolerance": 2e-12,
+  "GH_orders": [
+    32,
+    64,
+    128
+  ],
+  "full_Z_grids": [
+    33,
+    129
+  ],
+  "full_Z_Holevo_tolerance": 2e-08,
+  "entropy_digits": [
+    80,
+    110
+  ],
+  "entropy_tolerance": 2e-11,
+  "independent_covariance_tolerance": 1e-10,
+  "uncertainty_tolerance": 1e-11,
+  "exact_sources": 233,
+  "new_AP_source_moments": false,
+  "source_interpolation": false,
+  "optimization_sweep": false,
+  "training_test_heldout_publication": false,
+  "initial_implementation_sha256": {
+    "audit_model.py": "4468643b7ebd9b8524cefdd1da5a0be9c02e4cd557d4f9a30a3e507e9896db5d",
+    "test_audit_model.py": "c024e1076c3d79149169092a4181a17670c5fd9ceb22386d14db2dfc441532f9",
+    "run_audit.py": "c9cb61483a329c375130ba2d40cb28c7b9bb995dfdae5167ab26a9552c840d7e"
+  },
+  "pre_evaluation_review": "Duplicate-key return construction repaired and explicit literal-real-projection test added before first numerical call; no criterion changed"
+}

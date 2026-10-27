@@ -1,0 +1,223 @@
+{
+  "row": {
+    "stage": "SECONDARY_zenith",
+    "zenith_deg": 15.0,
+    "distance_km": 19.670247427791576,
+    "Dr_m": 0.3,
+    "divergence_urad": 10.0,
+    "jitter_urad": 0.5,
+    "sigma_h_m": 0.03,
+    "VA": 8.0,
+    "source_hash": "0c762bca0e798dcbca78e2926b643bb1223fa15b606dcd53f8f194db3d85f20c",
+    "channel_law": "power_conserving_random_width",
+    "pdf_mass": 1.0,
+    "mass_deficit": 0.0,
+    "E_eta": 0.7687959688410777,
+    "E_sqrt_eta": 0.8759650435117146,
+    "eta_f": 0.76731475745448,
+    "E_eta_xi": 0.019299605020444043,
+    "xi_f": 0.04059520009306458,
+    "I_AB": 1.3988132963279427,
+    "beta_I_AB": 1.3288726315115456,
+    "chi_BE": 0.8380696305742683,
+    "raw_SKR": 0.49080300093727725,
+    "validation_status": "CURRENTLY_VERIFIED_PASS_SECURITY_PROVISIONAL",
+    "exclusion_reason": "",
+    "context_id": "eab5d14a42883f8c6ada57c21fc58dd832effc0abd972dadab32bd2bf74db841",
+    "source_path": "results/theta10_D55_objective_B_numerical_skr_optimization/full_51_grid_exact_completion/exact_source_cache/2eddbe98cc932ff24e6ebd4de725593c5f27c18de8f52add0710de4af727544d.json",
+    "source_sha256": "a238d3a7098abe39f51d4dd2a012613b5f65d7123e66e30c10c2fd702b4fe834",
+    "xi_ch": 0.0186,
+    "xi_det": 0.005,
+    "security_valid": false,
+    "scheme": "Optimized MB-shaped 256-QAM",
+    "nu_raw": 0.125,
+    "K_coarse": 0.49080300093727747,
+    "K_fine_minus_coarse": -2.220446049250313e-16
+  },
+  "value": {
+    "chi_BE": 0.8380696305742683,
+    "Z_worst": 7.834008835698946,
+    "Z_lower": 7.834008835698946,
+    "Z_upper": 7.83570671227299,
+    "Z_physical_cap": 7.854723009596879,
+    "chi_at_lower": 0.8380696305742683,
+    "nu_1": 2.91337581091414,
+    "nu_2": 1.0830431666632054,
+    "nu_3": 1.990182438790554,
+    "full_Z_grid": 129,
+    "rigorous_global_enclosure": false,
+    "I_AB": 1.3988132963279427,
+    "beta_I_AB": 1.3288726315115456,
+    "K_raw": 0.49080300093727725,
+    "eta_f": 0.76731475745448,
+    "N_effective": 0.031149296113225932,
+    "mean_eta_xi": 0.019299605020444043,
+    "xi_f": 0.04059520009306458,
+    "sigma2_MI": 1.031149296113226,
+    "T_Holevo": 0.76731475745448,
+    "xi_det": 0.005,
+    "family": "MB",
+    "VA": 8.0,
+    "nu_raw": 0.125,
+    "ensemble_hash": "0c762bca0e798dcbca78e2926b643bb1223fa15b606dcd53f8f194db3d85f20c",
+    "C": 4.4721292430667585,
+    "w": 1.1568418954834532e-05,
+    "source_path": "results/theta10_D55_objective_B_numerical_skr_optimization/full_51_grid_exact_completion/exact_source_cache/2eddbe98cc932ff24e6ebd4de725593c5f27c18de8f52add0710de4af727544d.json",
+    "source_sha256": "a238d3a7098abe39f51d4dd2a012613b5f65d7123e66e30c10c2fd702b4fe834",
+    "a": 9.0,
+    "b": 7.169667355749065,
+    "uncertainty_min_eigenvalue": 0.0201231139911174,
+    "matrix_spectrum_residual": 1.2878587085651816e-14
+  },
+  "validation": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "checks": [
+      {
+        "check": "MI_GH64_128",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "coarse": 1.398813296327943,
+        "fine": 1.3988132963279427
+      },
+      {
+        "check": "MI_independent_adaptive",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI": 1.3988132963279427,
+        "error": 4.0638549516611805e-14
+      },
+      {
+        "check": "MI_256_equals_16",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI256": 1.3988132963279423
+      },
+      {
+        "check": "MI_X_P_symmetry",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI_P": 1.3988132963279427
+      },
+      {
+        "check": "MI_classical_scaling",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI_scaled": 1.3988132963279427
+      },
+      {
+        "check": "Holevo_full_Z33_129",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "chi33": 0.8380696305742683,
+        "chi129": 0.8380696305742683
+      },
+      {
+        "check": "Holevo_independent_entropy_80",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "chi": 0.8380696305742643
+      },
+      {
+        "check": "Holevo_independent_entropy_110",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "chi": 0.8380696305742643
+      },
+      {
+        "check": "All_16_conditional_PDFs_normalized",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "max_mass_residual": 2.220446049250313e-16,
+        "max_error": 8.250198021617197e-13
+      },
+      {
+        "check": "Physical_covariance_and_spectrum",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "minimum": 0.0201231139911174,
+        "spectrum_residual": 1.2878587085651816e-14
+      },
+      {
+        "check": "Same_v43_effective_quantum_channel",
+        "status": "CURRENTLY_VERIFIED_PASS"
+      },
+      {
+        "check": "Raw_SKR_unclipped",
+        "status": "CURRENTLY_VERIFIED_PASS"
+      }
+    ],
+    "conditional_masses": [
+      {
+        "X": -10.611561460674645,
+        "mass": 1.0000000000000002,
+        "error": 2.6469687742824633e-13
+      },
+      {
+        "X": -9.19668659925136,
+        "mass": 1.0000000000000002,
+        "error": 5.456159512651855e-13
+      },
+      {
+        "X": -7.781811737828073,
+        "mass": 1.0000000000000002,
+        "error": 7.737965963922193e-14
+      },
+      {
+        "X": -6.366936876404788,
+        "mass": 1.0000000000000002,
+        "error": 8.250198021617197e-13
+      },
+      {
+        "X": -4.952062014981501,
+        "mass": 1.0,
+        "error": 3.750424634477242e-13
+      },
+      {
+        "X": -3.537187153558215,
+        "mass": 1.0,
+        "error": 4.1971955700805337e-13
+      },
+      {
+        "X": -2.122312292134929,
+        "mass": 1.0000000000000002,
+        "error": 2.4609444618332762e-14
+      },
+      {
+        "X": -0.7074374307116431,
+        "mass": 1.0,
+        "error": 7.63740311302515e-13
+      },
+      {
+        "X": 0.7074374307116431,
+        "mass": 1.0,
+        "error": 7.63740311302515e-13
+      },
+      {
+        "X": 2.122312292134929,
+        "mass": 1.0000000000000002,
+        "error": 2.4609444618332762e-14
+      },
+      {
+        "X": 3.537187153558215,
+        "mass": 1.0,
+        "error": 4.1971955700805337e-13
+      },
+      {
+        "X": 4.952062014981501,
+        "mass": 1.0,
+        "error": 3.750424634477242e-13
+      },
+      {
+        "X": 6.366936876404788,
+        "mass": 1.0000000000000002,
+        "error": 8.250198021617197e-13
+      },
+      {
+        "X": 7.781811737828073,
+        "mass": 1.0000000000000002,
+        "error": 7.737965963922193e-14
+      },
+      {
+        "X": 9.19668659925136,
+        "mass": 1.0000000000000002,
+        "error": 5.456159512651855e-13
+      },
+      {
+        "X": 10.611561460674645,
+        "mass": 1.0000000000000002,
+        "error": 2.6469687742824633e-13
+      }
+    ],
+    "source_hash": "0c762bca0e798dcbca78e2926b643bb1223fa15b606dcd53f8f194db3d85f20c"
+  }
+}

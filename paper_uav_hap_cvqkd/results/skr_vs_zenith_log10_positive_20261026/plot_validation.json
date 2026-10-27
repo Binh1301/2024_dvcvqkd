@@ -1,0 +1,181 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "source_csv": "results\\skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024\\best_scheme_by_angle.csv",
+  "source_csv_sha256": "0c693fdc8bf90c28bf647058413a696c37926bb4ef91310f339436efe6353274",
+  "helper_sha256": "c5e1f89cec51ba214599f79fecb403ad81f9977693ce505bbdf361812ca6b207",
+  "renderer_sha256": "78bc0cb385eb41e7d58036db42ad7689e49c104f6df8ce8349f774849920d13a",
+  "original_selection_validation": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "result_scope": "DIAGNOSTIC_ONLY",
+    "candidate_rows_read": 12932,
+    "selected_rows_matched": 183,
+    "angles_per_scheme": 61,
+    "statistics": {
+      "Uniform": {
+        "maximum_raw_SKR": -0.030747146463279806,
+        "maximum_angle_deg": 60,
+        "positive_sampled_angles_deg": [],
+        "zero_crossing_brackets_deg": [],
+        "negative_samples": 61,
+        "selected_source_evidence_counts": {
+          "INSUFFICIENT_EVIDENCE": 52,
+          "VERIFIED_EXACT": 9
+        }
+      },
+      "Fixed MB": {
+        "maximum_raw_SKR": 6.522377066492391e-05,
+        "maximum_angle_deg": 0,
+        "positive_sampled_angles_deg": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "zero_crossing_brackets_deg": [
+          [
+            5,
+            6
+          ]
+        ],
+        "negative_samples": 55,
+        "selected_source_evidence_counts": {
+          "INSUFFICIENT_EVIDENCE": 61
+        }
+      },
+      "Optimized MB": {
+        "maximum_raw_SKR": 0.0007960878080861267,
+        "maximum_angle_deg": 0,
+        "positive_sampled_angles_deg": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "zero_crossing_brackets_deg": [
+          [
+            15,
+            16
+          ]
+        ],
+        "negative_samples": 45,
+        "selected_source_evidence_counts": {
+          "INSUFFICIENT_EVIDENCE": 61
+        }
+      }
+    },
+    "ranking_function_path": "results/skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024/run.py",
+    "ranking_file_sha256": "f19cafa574b38d7926fac5c6a1aeac1c11ad77d66ac0a315bfb3f4601662aec6",
+    "ranking_function_sha256": "42a5bc8d88602553e355022967ff21fb225acf30b65402fa3c4cdf582d000679",
+    "physical_protocol_sha256": "bac73f66e6d803bc8cb27454f69caa515d79eaa440cd751af2967497dde41632",
+    "expected_values_used_only_as_checks": true,
+    "negative_values_preserved": true,
+    "interpolation": false,
+    "smoothing": false,
+    "new_numerical_points": 0,
+    "new_channel_evaluations": 0,
+    "new_MI_evaluations": 0,
+    "new_Holevo_evaluations": 0,
+    "new_SKR_evaluations": 0,
+    "new_Cw_computations": 0,
+    "strict_Phase_B_ready": false
+  },
+  "statistics": {
+    "Uniform": {
+      "total_samples": 61,
+      "displayed_positive": 0,
+      "hidden_negative": 61,
+      "hidden_zero": 0,
+      "displayed_angles_deg": [],
+      "source_raw_values_unchanged": true
+    },
+    "Fixed MB": {
+      "total_samples": 61,
+      "displayed_positive": 6,
+      "hidden_negative": 55,
+      "hidden_zero": 0,
+      "displayed_angles_deg": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "source_raw_values_unchanged": true
+    },
+    "Optimized MB": {
+      "total_samples": 61,
+      "displayed_positive": 16,
+      "hidden_negative": 45,
+      "hidden_zero": 0,
+      "displayed_angles_deg": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0
+      ],
+      "source_raw_values_unchanged": true
+    }
+  },
+  "y_scale": "log",
+  "log_base": 10,
+  "y_limits": [
+    1e-05,
+    0.001
+  ],
+  "x_limits_deg": [
+    0,
+    60
+  ],
+  "displayed_samples": 22,
+  "hidden_nonpositive_samples": 161,
+  "negative_source_data_preserved": true,
+  "zero_clipping": false,
+  "interpolation": false,
+  "smoothing": false,
+  "new_SKR_Cw_channel_MI_Holevo_evaluations": 0,
+  "font": {
+    "family": "Times New Roman",
+    "path": "C:\\Windows\\Fonts\\times.ttf",
+    "sha256": "931c5de5c70401d9324d5014c123802b4fb753000360ceb2f56c589403cd58c5"
+  },
+  "png_dpi": 600,
+  "protected_historical_files": 10274,
+  "outputs": {
+    "pdf": {
+      "path": "skr_vs_zenith_log10_positive.pdf",
+      "sha256": "330095d28179ecce0c93ba6ed24bc8f2796dafb06c5511ad13022bd3b37ee97b"
+    },
+    "png": {
+      "path": "skr_vs_zenith_log10_positive.png",
+      "sha256": "d9f3e12ea74ceb4ac1b14d2c270f6ee0caa2742d1ca05ccc3c749719160d761f"
+    }
+  }
+}

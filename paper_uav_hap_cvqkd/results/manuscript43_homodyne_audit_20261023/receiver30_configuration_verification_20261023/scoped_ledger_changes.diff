@@ -1,0 +1,261 @@
+--- startup/docs/EVIDENCE.md
++++ current/docs/EVIDENCE.md
+@@ -1,4 +1,71 @@
+ # Evidence Register
++
++## EVID-0216 - Fixed receiver30 parameter provenance and A/B verification COMPLETE
++
++2026-10-23 user843d84ac authorizes one fixed configuration only. Deliver results/
++manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/
++report_vi.md,parameters.csv,results.json,moments.csv,conditional_normalization.csv,
++numerical_checks.json,verification.json,protocol/startup/producers and final seal.
++124 parameter rows record value,unit,source file/function-line or artifact field,
++specified/derived status and model applicability. No production code,historical
++artifacts or exact-source cache modified;6934 startup-protected files unchanged.
++
++Fresh A uses original power_conserving_random_width moments and fixed source,
++Gaussian real homodyne/RR/untrusted detector eta=.95,epsilon=.005.
++Same20/1km,0deg/L19km,Dr.30m,full divergence35urad,jitter1.561urad,centering.1m,
++lambda1550nm,tau.92,xi_ch.0186,beta.95,VA1.6249995399703647,nu_raw.25.
++Source identity01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754;
++C=1.2135302410613147,w=2.856493276891121e-10,payloadSHA
++f50b7253bc19791fa5e652832fdcb903fc198094e3cc871733a5855977a95018.
++nu_repo10.625,nbar.8124997699851825,VA=2*nbar unchanged. No AP/interpolation.
++
++A: m1=.22893092877019486,mh=.472859898131668,Tf=.22359648326109144,
++Tq=.21241665909803686,Npost=.017280257434744876,
++sigma2=1.0172802574347448,xi_f=.08135076367418763.
++I_AB=.21074687539663958,betaI=.2002095316268076,
++chi_BE=.19481699897277194,K=.005392532654035664 bits/transmitted-use.
++This exactly reproduces the Gaussian receiver30 target. Original pooled MI
++.210784854649766/K=.0054286129445057785 remains a separate historical result.
++
++B is explicitly authorized xi_det=.005 in xi(eta)=.0186+.005/eta,
++with NO eta_det parameter or epsilon/.95 conversion. Same physical geometry,
++original Eq10 retained PDF,real1D Gaussian likelihood and matching Tf/N in
++the gated homodyne Holevo path. M0=.9999999998943004;
++missing mass1.056995513649377e-10 exceeds fixed1e-10. Closed/direct moments
++and independent tail quadrature agree. B m1=.23006036312239064,
++mh=.4727226598544017,Tf=.22346671313982036,
++E_eta_xi=.009279122753547968,N=.01999380094195028,
++sigma2=1.0199938009419502,xi_f=.08947104766086754 are unnormalized
++diagnostic coefficients only. MI,betaI,Holevo and rawK unavailable/BLOCKED;
++no information-rate evaluation occurs after the failed mass gate.
++AtomP0 remains explicit; zero-limit electronic contribution8.492833828070532e-7.
++No renormalization,clipping,tail reassignment or surrogate substitution.
++
++39 scoped checks PASS: exact requested point/source identity, fresh optical/
++channel and Gaussian matching,GH64/128,adaptive MI,256/16/X/P/scaling,
++16 normalized conditional PDFs,full-Z33/129,entropy80/110,independent
++uncertainty and symplectic matrices,raw-PDF/noise moment integration,
++no-efficiency B API and expected blocked-rate behavior. Verification SHA256
++326e6d130787b8da33fd129e80839450b0e3c8bcc6cdcb229fbc948c4312efbf.
++First table-render attempt hit inspect/lru_cache TypeError; attempt_1 retains
++producer/protocol/failure. Corrected inspect.unwrap only; equations/tolerances
++unchanged; all checks rerun. PDF mass FAILED is retained as a model finding.
++
++Actual w0=.028193161347707173m,wL=.3336931290074428m,
++w_eff=.3345668706829517m. Raw B A0=.3285476076954618,w_eq=.3725066351663425m.
++A has no fixed A0/equivalent-beam collector; its nominal circular collection
++at w_eff is .3310320058798557. Launch curvature is implicit waist-plane
++propagation,not a passed R input; receiver curvature NOT_STORED_NOT_USED.
++Cn2 ground coefficient1e-14 differs from full HV Cn2(0)=1.027e-14.
++AO/phaseOFF; additional optical/hardware losses and repetition rate unmodeled.
++
++Parent seal passed before new authorized ledger updates. Its artifact bytes
++stay intact; historical ledger hashes are snapshots and need not match this
++later task. New verifier protects all old artifacts and current-task seal.
++No optimization of aperture/VA/nu,source generation,training/test/heldout/
++publication,baseline/threshold approval or security/default promotion.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
+ 
+ ## EVID-0215 - Manuscript43 homodyne audit COMPLETE WITH MODEL BLOCKERS
+ 
+--- startup/docs/DECISION_LOG.md
++++ current/docs/DECISION_LOG.md
+@@ -1,4 +1,30 @@
+ # Decision Log
++
++## DEC-0199 - Keep receiver30 A positive separate from explicitly defined B blocker
++
++2026-10-23 EVID-0216 completes user843d84ac fixed-point inspection. Accept39
++scoped checks and124 provenance-bound parameter rows as numerical-component
++evidence. No source/VA/nu/aperture search or model/default promotion.
++
++A reproduces historical Gaussian random-width K=.005392532654035664 with
++eta_det.95 and output epsilon_det.005. This remains model-specific numerical
++positivity,not operational/security certification. Preserve the different
++historical actual-fading MI/rate instead of replacing or mixing values.
++
++For this task only,the user explicitly defines independent xi_det=.005 for B
++without an eta_det parameter. This resolves that coefficient for the diagnostic,
++not the general manuscript/hardware interpretation. Do not reinsert efficiency,
++divide .005 by .95 or combine B with A's detector convention.
++
++The raw Eq10 mass deficit1.056995513649377e-10 fails unchanged1e-10.
++Keep B rates unavailable/BLOCKED before MI/Holevo,with all unnormalized
++coefficient diagnostics and outage contribution visible. No repair or
++relaxation because the deficit is close to tolerance.
++
++Source,production/frozen/history bytes preserved. Old ledger-hash receipts
++remain historical snapshots; new ledger updates do not invalidate old numeric
++artifact bytes. No lifecycle/security/default/baseline/threshold promotion.
++Keep existing blockers,ObjectiveC USER_STOPPED; deliver and STOP.
+ 
+ ## DEC-0198 - Accept isolated physical homodyne component; no secure default
+ 
+--- startup/docs/PROJECT_STATE.md
++++ current/docs/PROJECT_STATE.md
+@@ -1,4 +1,24 @@
+ # Project State
++
++## Current: fixed receiver30 configuration verification COMPLETE; STOP
++
++2026-10-23 EVID-0216/DEC-0199,user843d84ac. Deliver results/
++manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/
++report_vi.md and124-row parameters.csv,results/moments/conditional PDFs,
++39 scoped checks,verification/provenance and read-only verifier/final seal.
++Model A fixed random-width Gaussian homodyne/RR/untrusted reproduces
++I=.21074687539663958,chi=.19481699897277194,K=.005392532654035664.
++Detector remains eta.95/epsilon.005; no source/geometry optimization.
++
++Model B explicitly xi_det=.005 with NO separate efficiency,raw Eq10 PDF.
++Deficit1.056995513649377e-10 exceeds unchanged1e-10; noise/moment diagnostics
++saved but MI/Holevo/K BLOCKED,not0. No renormalization or surrogate substitution.
++Source exact C,w and all6934 protected old files unchanged. Parent ledger
++hashes are historical snapshots; its numerical artifact bytes remain intact.
++No production/frozen/cache changes or default/security approval.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen discrepancy,ObjectiveC USER_STOPPED. No AP,training/test/
++heldout/publication,baseline/threshold approval,commit/push. Deliver and STOP.
+ 
+ ## Current: manuscript43 homodyne audit COMPLETE WITH MODEL BLOCKERS; STOP
+ 
+--- startup/docs/NEXT_ACTIONS.md
++++ current/docs/NEXT_ACTIONS.md
+@@ -1,4 +1,16 @@
+ # Next Actions
++
++## Current: deliver fixed receiver30 parameter verification; STOP
++
++EVID-0216/DEC-0199 complete. Open results/manuscript43_homodyne_audit_20261023/
++receiver30_configuration_verification_20261023/report_vi.md and parameters.csv.
++Use that subdirectory's verify.py for saved-evidence checks only. Do not rerun
++the completed fixed-point producer or overwrite historical receipts.
++A Gaussian random-width K=.005392532654035664 reproduces; B with explicit
++xi_det=.005/no eta_det remains BLOCKED by raw PDF mass. No secure-positive
++claim under manuscript43 and no automatic optimization/model repair.
++124 rows/39 scoped checks;source/old artifacts unchanged. Keep security,
++lifecycle and frozen-identity blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+ 
+ ## Current: deliver manuscript43 audit with explicit blockers; STOP
+ 
+--- startup/.agent/SESSION_HANDOFF.md
++++ current/.agent/SESSION_HANDOFF.md
+@@ -1,60 +1,54 @@
+ # Session Handoff
+ 
+-2026-10-23 EVID-0215/DEC-0198 COMPLETE WITH MODEL BLOCKERS: user7944a7e7
+-manuscript43 homodyne audit. Deliver results/manuscript43_homodyne_audit_20261023/
+-report_vi.md,manuscript_corrections_vi.md,README.md,old_vs_new.csv,detector/source/
+-PDF/covariance CSVs,variants/protocol,isolated_code_patch.diff and sealed receipts.
++2026-10-23 EVID-0216/DEC-0199 COMPLETE: user843d84ac fixed receiver30
++parameter inspection and independent A/B verification. Deliver results/
++manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/
++report_vi.md,124-row parameters.csv,results.json,moments.csv,conditional
++normalization,numerical_checks.json,verification/protocol/startup and final seal.
+ Read-only from project: .venv/Scripts/python.exe -X utf8 -B
+-results/manuscript43_homodyne_audit_20261023/verify.py. Verifier imports no
+-scientific evaluator. Do not rerun completed numerical producers or overwrite
+-sealed outputs. No remaining authorized computation; deliver and STOP.
++results/manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/verify.py
++No evaluator import in verifier; do not rerun completed producer or overwrite
++old results. Further work requires a new scoped request; deliver and STOP.
+ 
+-Branch feat/image, HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
+-Startup6867 files includes five relevant allowed ledgers;6862 others unchanged.
+-Pre-existing dirty ledgers/results preserved. All equation changes are confined
+-to the new isolated namespace; production src/config/frozen/cache/history unchanged.
+-Original manuscript SHA256 f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b;
+-PDF original and copy unchanged, pages2-4 visually checked. No project dependency
+-change; temporary PDF tool is outside project. No subagents used.
++Branch feat/image,HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
++6934 protected old files unchanged; five allowed relevant ledgers updated.
++No production source/security functional/frozen/config/cache/historical changes.
++Parent seal passed before task ledger updates; old ledger hashes are historical
++snapshots,not current-task hashes. All parent artifact bytes remain protected.
+ 
+-Ten fresh original-evaluator matching regressions preceded corrected comparisons.
+-18 unit tests PASS,233 authenticated source payloads preserve VA=2*nbar, centered
+-MB PMF and exact C,w. Raw-to-repo nu=42.5*nu_raw. No new AP or interpolation.
+-Initial harness KeyErrorB and17-test receipt remain in attempt_1; fixed caller
+-uses original lognormal/Rician factory and adds18th guard test. No tolerance change.
+-Inventory252 entries=107 directories/145 root files; metadata fix preserved,
+-no numerical replay.37 mapped files,287 cache entries; untested history remains
+-NOT_REEVALUATED,not blanket validated or invalidated.
++Fixed source01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754,
++VA1.6249995399703647,nu_raw.25,nu_repo10.625,nbar.8124997699851825.
++C1.2135302410613147,w2.856493276891121e-10;existing AP source payload reused.
++No new AP,source interpolation,VA/nu/aperture optimization or broad sweep.
++Geometry20/1km,0deg,L19km,Dr.30m,35uradfull,1.561uradjitter,.1mcentering,
++lambda1550nm,tau.92,beta.95,xi_ch.0186. Actual overrides preserved.
+ 
+-A historical behavior preserved. B literal complex mean in real1D density is
+-unnormalized and has no rate; B real projection is a separate diagnostic.
+-xi_det A=epsilon/eta, B=chi_hom and undefined independent value remain explicit.
+-C numerically validated physical-output Gaussian homodyne/RR/untrusted component:
+-Tq=eta_det*mh^2;Npost=eta_det*((m1-mh^2)*VA+.0186*m1)+epsilon_det.
+-Quantum Tq/Npost consistent through Z,covariance and homodyne nu3. Classical
+-scaling preserves MI but never changes standard-form quantum covariance.
+-ConventionB matches rescaled MI at M0=1,not physical Holevo. DBL supports
+-homodyne; production frozen heterodyne is a separate protocol. No secure default.
++A historical power_conserving_random_width Gaussian homodyne/RR/untrusted
++eta.95/epsilon.005: m1=.22893092877019486,mh=.472859898131668,
++Tf=.22359648326109144,Tq=.21241665909803686,Npost=.017280257434744876,
++sigma2=1.0172802574347448. I=.21074687539663958,betaI=.2002095316268076,
++chi=.19481699897277194,K=.005392532654035664 bits/all transmitted uses.
++Separate original pooled MI=.210784854649766,K=.0054286129445057785 retained.
+ 
+-Same passive historical law/source/Holevo:28.1cm old K=2.1077487381976345e-05,
+-Gaussian K=-3.04873940221162e-06.30cm Gaussian K=.005392532654035664,
+-40.1cm=.00017446109490709683,55cm=.03509327539937468. Recent8cm
+-K=-.023678535864695302. Gaussian MI matches old stored surrogate,physical
+-noise/Holevo match old helper. Do not call old pooled MI a universal bug or
+-transfer passive-law positivity to raw-PDF law. No optimization/re-ranking run.
++B has explicitly independent xi_det=.005 and NO eta_det parameter. Original
++Eq10 retained PDF M0=.9999999998943004,tail1.056995513649377e-10 fails1e-10.
++m1=.23006036312239064,mh=.4727226598544017,Tf=.22346671313982036,
++mean_eta_xi=.009279122753547968,N=.01999380094195028,sigma2=1.0199938009419502.
++These are unnormalized diagnostic coefficients only; MI/betaI/Holevo/K blocked
++before evaluation,not0. No efficiency reinserted,no renormalization/clipping/
++tail reassignment or channel-law substitution. AoA atom explicit.
+ 
+-Raw Eq10 bounded closed/direct moments match but mass tolerance1e-10 fails
+-40.1cm M0=.9987766103198625,55cm=.9985195274888609 and30cm=.9999999998943004.
+-Their raw-PDF C rates unavailable,not0. No renormalization/clipping/tail atom
+-repair; P0 explicit.28.1cm raw-law K=-.005357291084005428,tail3.33608e-12.
+-Rician rho!=0 exact-product inconsistency up to2.1468percent fixture documented.
+-Eq5 log-irradiance/log-amplitude variance distinction kept without model changes.
+-Finite numeric full-Z checks are not rigorous global bounds or finite-key proof.
++39 scoped checks PASS including fresh A matching,MI quadrature/scaling/256vs16,
++X/P,16 conditional PDFs,full-Z/entropy,independent covariance,saved source,
++raw PDF integration/deficit and expected B failure. Verification SHA256
++326e6d130787b8da33fd129e80839450b0e3c8bcc6cdcb229fbc948c4312efbf.
++Initial provenance helper failed on lru_cache wrapper; attempt_1 preserves
++code/protocol/failure. inspect.unwrap fixed lookup only; all numeric criteria
++unchanged. Parameter rows distinguish B-only A0/w_eq from A circular collection,
++implicit launch curvature from absent receiver curvature and HV ground
++coefficient from full Cn2(0). No hardware loss/rate calibration claimed.
+ 
+-scenario_parameters.csv supplies fixed-point parameters;noise_moment_checks.csv
+-compares288 moments by linearity of saved independent PDF quadratures. No rerun.
+-Completion checks SHA256734d50f6ff2d373b26f053f864325f14ddc724f91fd0f149246ee4f5310f9f47.
+-Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,historical
+-frozen-hash discrepancy,ObjectiveC USER_STOPPED. No production default/baseline/
+-threshold approval,AP,training/test/heldout/publication,commit/push. Future model
+-or security decisions require a new scoped request. Ponytail full; deliver and STOP.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No production
++baseline/threshold/default approval,training/test/heldout/publication or
++commit/push. Ponytail full; no subagents/dependencies. Deliver and STOP.

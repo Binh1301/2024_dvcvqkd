@@ -1,0 +1,52 @@
+due to the receiver’s limited  field of view (FOV). Conse-   [2]. Moreover, a and a† are the annihilation and creation
+quently, the PDF of ηAoA is given as [3]                         operators, respectively, and w  is a quantity measuring how
+                                                                        far the finite constellation is from Gaussian modulation, and
+         fηAoA (ηAoA) = P0δ (ηAoA) + P1δ (ηAoA −1) ,      (9)                                                                               is given by [2]
+where P0 = exp −θ2FoV                                           , P1 = 1−P0, θFoV is the detector’s     w = X pk  ⟨αk|a†τaτ|αk⟩−|⟨αk|aτ|αk⟩|2   ,     (16)                            2σ2o
+FOV half-angle, and σo denotes the standard deviation (SD)              k
+of angular fluctuation.                                                      where aτ = τ 1/2aτ −1/2.
+   Utilizing (4), (5), (8), and (9) and applying some mathmat-                                                           Regarding the effective transmittance and effective excess
+ical transformations, we derive the PDF of η as [3]                                                                   noise, these parameters are expressed as [6]
+                    χ2C1                                                                   ⟨√η⟩2,   ηfξf = Var(√η)Vmod + ⟨ηξ⟩,     (17)  fη (η)=P0δ (η)+P1                                 ηχ2−1erfc [C2 (η)] ,  (10)             ηf =
+                   2 (A0ηatm)χ2                                                                       1                                                      where Var(√η) = ⟨η⟩−⟨√η⟩2, ⟨η⟩= R 0 ηfη (η) dη, ⟨√η⟩=
+                          ρ2                   hwhere C1 =  exp                                                                     (η) dη, and ⟨ηξ⟩= R 01 ηξfη (η) dη. Furthermore, ξ =              + 0.5σ2Rχ2 1 + χ2 i , C2 (η) =   R 01 √ηfη                                   σ2s                                                                                        ξdet
+                                    −12              ξch +  η   is the total excess noise, ξch is the channel excess
+   h       η        i           32ρ2σ2s                                        R     and µ =   noise, and ξdet represents the detector excess noise [4].C3  ln  A0ηatm + µ  , C3 =    w4Leq + 2σ2
+ 6ρ2                                                                                         ⟨√η⟩, and ⟨ηξ⟩are   + 0.5σ2R 1 + 2χ2  .                         Lemma  1. The expressions  of  ⟨η⟩,w2
+  Leq                                                               respectively written as
+    III. SECRET-KEY RATE ANALYSIS & OPTIMIZATION                          χ2C1
+                                                    ⟨η⟩= P1A0ηatm         χ2 + 1  ,          (18)A. Secret-key Rate Analysis                                                   χ2 + 1Q
+  The secret-key rate can be computed as [4]                 ⟨√η⟩= P1 p A0ηatm  χ2C1    χ2 + 0.5  ,    (19)                                                                           χ2 + 0.5Q
+             SKR = βIAB −χBE,                (11)                                                     ⟨ηξ⟩= ξch⟨η⟩+ ξdet P0 + P1C1Q χ2    ,     (20)
+where β is the key reconciliation efficiency, IAB is the mutual                                                       where Q (a)  =    0.5 [Q1 (a) + Q2 (a)],  Q1 (a)  =
+information between Alice and Bob, and χBE is the Holevo                                                 1
+                                                    exp (ax1 −aµ) erfc (C3x1), x1 =  ln  A0ηatm  + µ, andbound representing the maximum information acquired by
+                                                                                                 erfc                                                                                             a −C3x1   .                                                                                           2C3Eve. The mutual information between Alice and Bob for M-  Q2 (a) = exp  4C2a23 −aµ
+ary modulation is generally given as [5]
+                                                                Proof. Let B = A0ηatm. By applying some mathematical
+          Z                              p (y|αk)                                                              manipulations, we can derive ⟨η⟩as                                                dy, (12) IAB = X pk             p (y|αk) log2
+            Pk′∈K pk′p (y|αk′)      k∈K                                                          χ2C1 Z 1       h      η      i                                                ⟨η⟩= P1          ηχ2erfc C3  ln  + µ   dη.    (21)
+                                                        2                       2Bχ2  0          B                         1                       exp −|y−2√ηfαk|where p (y|αk) = √                                           and σ2ξ =                      2πσ2                                        2σ2ξ                                 ξ                                             By applying the change of variables x = ln Bη +µ, integrating
+1 + ηfξf. Moreover, ηf and ξf are the effective transmittance  by parts, and utilizing the definition of the complementary
+and effective excess noise, respectively, whose calculations are   error function [], we obtain the expression for ⟨η⟩as in (18).
+given at the end of this Section.                         The expressions of ⟨√η⟩and ⟨ηξ⟩can be derived by applying
+  As for the Holevo bound, it can be computed based on the   the same approach. This completes the proof.       ■
+symplectic eigenvalues {νi}3i=1 of the covariance matrix as [2]                                                             B. Secret-key Rate Optimization
+             ν1 −1        ν2 −1        ν3 −1          TBD   χBE = g      + g      −g                ,    (13)
+              2           2           2
+                                                                      IV. NUMERICAL RESULTS & DISCUSSIONS
+where      g (x) =  (x + 1) log2 (x + 1) −x log2 (x),  ν1,2 =     Unless otherwise noted, default parameters used in  this    √
+q ∆± ∆2−4D      q
+        2         , and ν3 =   V V −Z2W   . Moreover, ∆=   paper  are as  follows. At  the HAP  (Alice): HAP  altitude
+  2       2                                             hHAP = 20 km, zenith angle ζ = 30◦, divergence full-angleV + W  −2Z2, D =  V W −Z2 2, V =  Vmod + 1,
+                                                        θ = 233 µrad, F0 = ∞, optical wavelength λ = 1550 nm,W = 1 + ηfVmod + ηfξf, and Z is given as
+                                                                                    jitter angle θjt = 15.61 µrad. At the UAV (Bob): UAV altitude
+   Z (ηf, ξf) = 2√ηftr τ 1/2aτ 1/2a† − p 2ηfξfw.     (14)  hUAV = 1 km, receiver aperture diameter Dr = 8 cm, boresight
+                                                                      offsets ρx = ρy = 0 m, SD of UAV position σh = 1 m, SD of
+Therein, τ denotes the density matrix and can be given as [2]  UAV’s angular fluctuation σo = 1.5 mrad, the detector’s FOV
+                                                                 half-angle θFoV = 6.25 mrad. Regarding the quantum channel:                   τ = X pk|αk⟩⟨αk|,                (15)
+                                                           atmospheric altitude hatm = 20 km, atmospheric transmittance
+                   k∈K
+                                                                           τzen = 0.92, ground turbulence level C2n (0) = 10−14 m−2/3,
+where a coherent  state can be approximated                                         by a  finite  rms wind speed vwind = 21 m/s.                                                −|α|2
+                                  √αn                                                         |n⟩     key reconciliation efficiency β = 0.95superposition of Fock states as |α⟩≈e   2  PNmaxn=0                                                                n!

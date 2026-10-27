@@ -1,0 +1,223 @@
+{
+  "row": {
+    "stage": "MATCHED_DIAMETER",
+    "zenith_deg": 0.0,
+    "distance_km": 19.0,
+    "Dr_m": 0.35,
+    "divergence_urad": 10.0,
+    "jitter_urad": 0.5,
+    "sigma_h_m": 0.03,
+    "VA": 5.0,
+    "source_hash": "c98fff2c52d0cba3cfd39b8aa19c6313e786496b397bdfebbdeb45e4cb5812e2",
+    "channel_law": "power_conserving_random_width",
+    "pdf_mass": 1.0,
+    "mass_deficit": 0.0,
+    "E_eta": 0.8470390127998125,
+    "E_sqrt_eta": 0.9199672801571824,
+    "eta_f": 0.8463397965598037,
+    "E_eta_xi": 0.020754925638076512,
+    "xi_f": 0.028653983821505035,
+    "I_AB": 1.1379354178029681,
+    "beta_I_AB": 1.0810386469128197,
+    "chi_BE": 0.9162015786737765,
+    "raw_SKR": 0.1648370682390432,
+    "validation_status": "CURRENTLY_VERIFIED_PASS_SECURITY_PROVISIONAL",
+    "exclusion_reason": "",
+    "context_id": "7fda878c8a02e8993c99989c354ba771e132d1996fbc910282a492222feae530",
+    "source_path": "results/exact_mb_test2/exact_source_cache/a15d35a2d1e9e62d893deba89e87f6869ad0fcdf4fea41db46d9a20457ecbb7e.json",
+    "source_sha256": "4dd6ceb9d29488f6888831465efbd6e87faa464990a182fbfc1e535c6c6a09fd",
+    "xi_ch": 0.0186,
+    "xi_det": 0.005,
+    "security_valid": false,
+    "scheme": "Optimized Uniform 256-QAM",
+    "nu_raw": 0.0,
+    "K_coarse": 0.1648370682390432,
+    "K_fine_minus_coarse": 0.0
+  },
+  "value": {
+    "chi_BE": 0.9162015786737765,
+    "Z_worst": 5.369578020854777,
+    "Z_lower": 5.369578020854777,
+    "Z_upper": 5.4451706327518705,
+    "Z_physical_cap": 5.458172764530267,
+    "chi_at_lower": 0.9162015786737765,
+    "nu_1": 2.0577694758104683,
+    "nu_2": 1.3137194654476079,
+    "nu_3": 1.7567084523996934,
+    "full_Z_grid": 129,
+    "rigorous_global_enclosure": false,
+    "I_AB": 1.1379354178029681,
+    "beta_I_AB": 1.0810386469128197,
+    "K_raw": 0.1648370682390432,
+    "eta_f": 0.8463397965598037,
+    "N_effective": 0.024251006838120478,
+    "mean_eta_xi": 0.020754925638076512,
+    "xi_f": 0.028653983821505035,
+    "sigma2_MI": 1.0242510068381205,
+    "T_Holevo": 0.8463397965598037,
+    "xi_det": 0.005,
+    "family": "Uniform",
+    "VA": 5.0,
+    "nu_raw": 0.0,
+    "ensemble_hash": "c98fff2c52d0cba3cfd39b8aa19c6313e786496b397bdfebbdeb45e4cb5812e2",
+    "C": 2.938894916936306,
+    "w": 0.02945363779928856,
+    "source_path": "results/exact_mb_test2/exact_source_cache/a15d35a2d1e9e62d893deba89e87f6869ad0fcdf4fea41db46d9a20457ecbb7e.json",
+    "source_sha256": "4dd6ceb9d29488f6888831465efbd6e87faa464990a182fbfc1e535c6c6a09fd",
+    "a": 6.0,
+    "b": 5.2559499896371396,
+    "uncertainty_min_eigenvalue": 0.085879656691499,
+    "matrix_spectrum_residual": 1.3322676295501878e-15
+  },
+  "validation": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "checks": [
+      {
+        "check": "MI_GH64_128",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "coarse": 1.1379354178029681,
+        "fine": 1.1379354178029681
+      },
+      {
+        "check": "MI_independent_adaptive",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI": 1.1379354178029688,
+        "error": 5.148248691901656e-13
+      },
+      {
+        "check": "MI_256_equals_16",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI256": 1.1379354178029657
+      },
+      {
+        "check": "MI_X_P_symmetry",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI_P": 1.1379354178029681
+      },
+      {
+        "check": "MI_classical_scaling",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "MI_scaled": 1.1379354178029681
+      },
+      {
+        "check": "Holevo_full_Z33_129",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "chi33": 0.9162015786737765,
+        "chi129": 0.9162015786737765
+      },
+      {
+        "check": "Holevo_independent_entropy_80",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "chi": 0.9162015786737756
+      },
+      {
+        "check": "Holevo_independent_entropy_110",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "chi": 0.9162015786737756
+      },
+      {
+        "check": "All_16_conditional_PDFs_normalized",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "max_mass_residual": 2.220446049250313e-16,
+        "max_error": 8.243574857303865e-13
+      },
+      {
+        "check": "Physical_covariance_and_spectrum",
+        "status": "CURRENTLY_VERIFIED_PASS",
+        "minimum": 0.085879656691499,
+        "spectrum_residual": 1.3322676295501878e-15
+      },
+      {
+        "check": "Same_v43_effective_quantum_channel",
+        "status": "CURRENTLY_VERIFIED_PASS"
+      },
+      {
+        "check": "Raw_SKR_unclipped",
+        "status": "CURRENTLY_VERIFIED_PASS"
+      }
+    ],
+    "conditional_masses": [
+      {
+        "X": -3.6380343755449944,
+        "mass": 1.0,
+        "error": 5.030040280001159e-13
+      },
+      {
+        "X": -3.1529631254723287,
+        "mass": 1.0,
+        "error": 5.002015463039501e-13
+      },
+      {
+        "X": -2.6678918753996625,
+        "mass": 1.0,
+        "error": 2.0039067514405555e-13
+      },
+      {
+        "X": -2.182820625326997,
+        "mass": 1.0000000000000002,
+        "error": 4.1622160152204154e-14
+      },
+      {
+        "X": -1.697749375254331,
+        "mass": 1.0,
+        "error": 4.3208071913861305e-14
+      },
+      {
+        "X": -1.2126781251816647,
+        "mass": 1.0,
+        "error": 1.3952159040143687e-13
+      },
+      {
+        "X": -0.7276068751089989,
+        "mass": 1.0,
+        "error": 8.243574857303865e-13
+      },
+      {
+        "X": -0.24253562503633297,
+        "mass": 1.0,
+        "error": 5.085582057823202e-13
+      },
+      {
+        "X": 0.24253562503633297,
+        "mass": 1.0,
+        "error": 5.085582057823202e-13
+      },
+      {
+        "X": 0.7276068751089989,
+        "mass": 1.0,
+        "error": 8.243574857303865e-13
+      },
+      {
+        "X": 1.2126781251816647,
+        "mass": 1.0,
+        "error": 1.3952159040143687e-13
+      },
+      {
+        "X": 1.697749375254331,
+        "mass": 1.0,
+        "error": 4.3208071913861305e-14
+      },
+      {
+        "X": 2.182820625326997,
+        "mass": 1.0000000000000002,
+        "error": 4.1622160152204154e-14
+      },
+      {
+        "X": 2.6678918753996625,
+        "mass": 1.0,
+        "error": 2.0039067514405555e-13
+      },
+      {
+        "X": 3.1529631254723287,
+        "mass": 1.0,
+        "error": 5.002015463039501e-13
+      },
+      {
+        "X": 3.6380343755449944,
+        "mass": 1.0,
+        "error": 5.030040280001159e-13
+      }
+    ],
+    "source_hash": "c98fff2c52d0cba3cfd39b8aa19c6313e786496b397bdfebbdeb45e4cb5812e2"
+  }
+}

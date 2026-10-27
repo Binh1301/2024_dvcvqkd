@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED_BY_ENVIRONMENT",
+  "attempted_VA": [10.0, 0.25],
+  "launcher": "source_job.py",
+  "failure_stage": "backend precheck before source evaluation",
+  "exception": "ImportError: DLL load failed while importing gmpy2: An Application Control policy has blocked this file.",
+  "exit_codes": [1, 1],
+  "source_payloads_created": 0,
+  "policy_bypassed": false,
+  "safe_followup": "source_python_job.py uses standard Python arbitrary precision; no DLL override or policy change"
+}

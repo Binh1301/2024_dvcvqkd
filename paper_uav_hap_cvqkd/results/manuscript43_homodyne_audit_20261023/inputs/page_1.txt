@@ -1,0 +1,57 @@
+ Performance Analysis of Probabilistically Shaped
+  CV-QKD in Free-space HAP-to-UAV Systems
+
+                 Binh Nguyen∗, Cuong T. Nguyen†, Hoang D. Le†, and Trinh Van Chien∗
+                              ∗School of Information and Communications Technology,
+                       Hanoi University of Science and Technology, Hanoi 100000, Vietnam
+           †Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+
+
+
+
+  Abstract—Nam dui ligula, fringilla a, euismod sodales, sol-   nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
+licitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus  Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim.
+libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet,                                                               Pellentesque tincidunt purus vel magna. Integer non enim.
+tortor sed accumsan bibendum, erat ligula aliquet magna, vitae
+                                                              Praesent euismod nunc eu purus. Donec bibendum quam inornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.
+Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum   tellus. Nullam cursus pulvinar  lectus. Donec  et mi. Nam
+sociis natoque penatibus et magnis dis parturient montes, nasce-   vulputate metus eu enim. Vestibulum pellentesque  felis eu
+tur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper   massa.
+vestibulum turpis. Pellentesque cursus luctus mauris.                                                          Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel
+  Index Terms—Continuous-variable quantum key distribution
+                                                                    justo vitae lacus tincidunt ultrices. Lorem ipsum dolor sit amet,(CV–QKD), unmanned aerial vehicle (UAV), free-space optics
+(FSO), high-altitude platform (HAP), pulse constellation shaping   consectetuer adipiscing elit. In hac habitasse platea dictumst.
+(PCS)                                                            Integer tempus convallis augue. Etiam facilisis. Nunc elemen-
+                                                   tum fermentum wisi. Aenean placerat. Ut imperdiet, enim sed
+                           I. INTRODUCTION                       gravida sollicitudin, felis odio placerat quam, ac pulvinar elit
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut   purus eget enim. Nunc vitae tortor. Proin tempus nibh sit amet
+purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.    nisl. Vivamus quis tortor vitae risus porta vehicula.
+Curabitur dictum gravida mauris. Nam arcu libero, nonummy     Fusce mauris. Vestibulum luctus nibh at lectus. Sed bi-
+eget, consectetuer  id, vulputate  a, magna. Donec vehicula  bendum, nulla a faucibus semper, leo velit ultricies  tellus,
+augue eu neque. Pellentesque habitant morbi tristique senectus   ac venenatis arcu wisi vel nisl. Vestibulum diam. Aliquam
+et netus et malesuada fames ac turpis egestas. Mauris ut leo.   pellentesque, augue quis sagittis posuere, turpis lacus congue
+Cras viverra metus rhoncus sem. Nulla et lectus vestibulum  quam, in hendrerit risus eros eget felis. Maecenas eget erat in
+urna  fringilla  ultrices. Phasellus eu  tellus  sit amet  tortor   sapien mattis porttitor. Vestibulum porttitor. Nulla facilisi. Sed
+gravida placerat. Integer sapien est, iaculis in, pretium quis,   a turpis eu lacus commodo facilisis. Morbi fringilla, wisi in
+viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum.   dignissim interdum, justo lectus sagittis dui, et vehicula libero
+Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at,   dui cursus dui. Mauris tempor ligula sed lacus. Duis cursus
+mollis ac, nulla. Curabitur auctor semper nulla. Donec varius  enim ut augue. Cras ac magna. Cras nulla. Nulla egestas.
+orci eget risus. Duis nibh mi, congue eu, accumsan eleifend,   Curabitur a leo. Quisque egestas wisi eget nunc. Nam feugiat
+sagittis quis, diam. Duis eget orci  sit amet orci dignissim   lacus vel est. Curabitur consectetuer.
+rutrum.                                                       Suspendisse vel felis. Ut lorem lorem, interdum eu, tinci-
+  Nam dui ligula, fringilla a, euismod sodales, sollicitudin   dunt sit amet, laoreet vitae, arcu. Aenean faucibus pede eu
+vel, wisi. Morbi auctor lorem non justo. Nam lacus libero,   ante. Praesent enim elit, rutrum at, molestie non, nonummy
+pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet,   vel, nisl. Ut lectus eros, malesuada sit amet, fermentum eu,
+tortor sed accumsan bibendum, erat ligula aliquet magna, vitae   sodales cursus, magna. Donec eu purus. Quisque vehicula,
+ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis.   urna sed ultricies auctor, pede lorem egestas dui, et convallis
+Suspendisse ut massa. Cras nec ante. Pellentesque a nulla.    elit erat sed nulla. Donec luctus. Curabitur et nunc. Aliquam
+Cum sociis natoque penatibus et magnis dis parturient montes,   dolor odio, commodo pretium, ultricies non, pharetra in, velit.
+nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullam-   Integer arcu est, nonummy in, fermentum faucibus, egestas
+corper vestibulum turpis. Pellentesque cursus luctus mauris.     vel, odio.
+  Nulla malesuada porttitor diam. Donec felis erat, congue
+                                                                                                      II. SYSTEM MODEL
+non, volutpat at, tincidunt tristique, libero. Vivamus viverra
+                                                             A. System Description & Signal Modelfermentum felis. Donec nonummy pellentesque ante. Phasellus
+adipiscing semper elit. Proin fermentum massa ac quam. Sed      Fig. 1 depicts the considered FSO/QKD system between a
+diam  turpis, molestie  vitae, placerat  a, molestie nec,  leo.  HAP (Alice) and a UAV (Bob) enabling secure IoV applica-
+Maecenas lacinia. Nam ipsum ligula, eleifend at, accumsan   tions. Therein, we adopt the DM-CV-QKD protocol with M-

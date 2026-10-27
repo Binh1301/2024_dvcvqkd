@@ -1,0 +1,87 @@
+{
+  "study": "lightweight_uav_positive_skr_20261022",
+  "scope": "PARAMETER_ONLY_NUMERICAL_DIAGNOSTIC",
+  "model_change": false,
+  "security_change": false,
+  "receiver_m": 0.08,
+  "h_hap_km": 20,
+  "h_uav_km": 1,
+  "tau_zen": 0.92,
+  "channel_excess_noise": 0.0186,
+  "beta": 0.95,
+  "detector_noise_scenarios": [
+    0.0135,
+    0.005
+  ],
+  "detector_efficiencies": [
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "divergence_full_angle_urad": [
+    233,
+    100,
+    75,
+    50,
+    35,
+    25,
+    20,
+    15
+  ],
+  "jitter_per_axis_urad": [
+    15.61,
+    10,
+    7.5,
+    5,
+    3,
+    1.561
+  ],
+  "centering_residual_SD_m": [
+    1,
+    0.5,
+    0.3,
+    0.2,
+    0.1
+  ],
+  "zenith_deg": [
+    0,
+    15,
+    30
+  ],
+  "receiver_measurement": "homodyne_1D",
+  "detector_trust": "untrusted",
+  "AO": "OFF",
+  "phase_noise": "OFF_HISTORICAL_ASSUMPTION",
+  "primary_MI": "actual_pooled_fading_likelihood; imported unchanged",
+  "Holevo": "existing full-Z numerical maximum over physical interval",
+  "optical_law": "previous passive Gaussian random-width exact circular collection; unchanged",
+  "source_catalog_count": 233,
+  "source_interpolation": false,
+  "new_source_moments": false,
+  "baseline_recompute_order": [
+    512,
+    48
+  ],
+  "screen_MI_orders": [
+    128,
+    16
+  ],
+  "selected_MI_orders": [
+    256,
+    32,
+    512,
+    48
+  ],
+  "observed_MI_convergence_tolerance": 2e-06,
+  "positive_observed_margin_rule": "K > 2 * .95 * observed MI change; numerical diagnostic only",
+  "optimization": "targeted coupled PAT tiers; physical then exact-source catalog and one source/physical coordinate refinement",
+  "altitude_sweep": "NOT_RUN; missing vertical extinction profile",
+  "noise_literature_note": "0.005 is a user-assumed value of existing epsilon_det, not an equivalence to Villasenor v_el",
+  "literature_url": "https://arxiv.org/pdf/2005.10465",
+  "producer_sha256": "3f1e51ed411604e72b5da8ebc5e35af5111b934ff6402248500c2e81ab35bd1e",
+  "python_version": "3.12.10",
+  "security_valid": false,
+  "hardware_validated": false,
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+}

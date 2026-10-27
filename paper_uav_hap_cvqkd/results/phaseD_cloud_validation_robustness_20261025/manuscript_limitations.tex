@@ -1,0 +1,19 @@
+% Diagnostic conclusions require separate source/security validation.
+\subsection{Limitations}
+The cloud field is synthetic and correlated by cell index, with no
+distance-isotropy or temporal cloud motion. Threshold calibration and
+independently resampled means are simulation conventions. Only two random
+index assignments are tested; they do not characterize every permutation.
+DP is an offline oracle with future blockage knowledge, and Stationary
+is also selected offline; the comparison does not establish online gains.
+Travel distance is a mobility surrogate rather than a calibrated propulsion
+energy model. Mission-level intervals are pointwise and quantify synthetic
+cloud variation, not physical-channel or source-moment uncertainty.
+The winning historical source remains \texttt{INSUFFICIENT\_EVIDENCE} for
+numerical convergence. Identity/normalization checks and arbitrary moment
+perturbations do not certify its error; the finite catalog is not a continuous
+global optimum. No new exact source calculation is performed. The security
+model, homodyne-related consistency, fading protocol and operational key
+aggregation require separate validation. Consequently these are
+\texttt{DIAGNOSTIC\_ONLY} rate-function calculations, not independently
+certified secure key rates or publication-ready security conclusions.

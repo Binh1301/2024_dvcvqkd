@@ -1,0 +1,29 @@
+{
+  "read_only_forensic_scans": 3,
+  "forensic_rerun_reasons": [
+    "Initial expanded search",
+    "Explicit zero-category output and expected Uniform hash; narrower traceback extraction",
+    "Clarify missing job IDs versus artifact namespace and add exact cache key"
+  ],
+  "bounded_diagnostic_attempts": [
+    {
+      "attempt": 1,
+      "status": "FAILED",
+      "stage": "Historical CPU parser",
+      "reason": "Numeric column without trailing whitespace was not accepted",
+      "expensive_source_calls": 0
+    },
+    {
+      "attempt": 2,
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "reason": "Accept end-of-line after numeric CPU field; numerical criteria unchanged",
+      "expensive_source_calls": 0
+    }
+  ],
+  "float64_gate_evaluations": 2,
+  "synthetic_matrix_check": "3x3,80digits,not source Cw",
+  "source_jobs": 0,
+  "source_Cw_evaluations": 0,
+  "pilot_executed": false,
+  "full_sweep_executed": false
+}

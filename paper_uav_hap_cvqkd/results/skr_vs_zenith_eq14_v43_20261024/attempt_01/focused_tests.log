@@ -1,0 +1,22 @@
+test_all_existing_uniform_and_mb_sources_use_approved_variance (test_model.ApprovedConventionTests.test_all_existing_uniform_and_mb_sources_use_approved_variance) ... ok
+test_end_to_end_uniform_and_mb_same_effective_channel_in_mi_and_covariance (test_model.ApprovedConventionTests.test_end_to_end_uniform_and_mb_same_effective_channel_in_mi_and_covariance) ... ok
+test_equations_reused_without_replacement (test_model.ApprovedConventionTests.test_equations_reused_without_replacement) ... ok
+test_failed_or_unbound_context_still_blocks (test_model.ApprovedConventionTests.test_failed_or_unbound_context_still_blocks) ... ok
+test_missing_receipt_is_evidence_gap_not_incorrect_cw (test_model.ApprovedConventionTests.test_missing_receipt_is_evidence_gap_not_incorrect_cw) ... ok
+test_receipt_binding_and_full_ladder_still_required (test_model.ApprovedConventionTests.test_receipt_binding_and_full_ladder_still_required) ... ok
+test_source_tampering_rejected (test_model.ApprovedConventionTests.test_source_tampering_rejected) ... ok
+test_truncation_accepted_without_normalizing_or_moving_atom (test_model.ApprovedConventionTests.test_truncation_accepted_without_normalizing_or_moving_atom) ... FAIL
+test_unapproved_variance_policy_or_physics_rejected (test_model.ApprovedConventionTests.test_unapproved_variance_policy_or_physics_rejected) ... ok
+
+======================================================================
+FAIL: test_truncation_accepted_without_normalizing_or_moving_atom (test_model.ApprovedConventionTests.test_truncation_accepted_without_normalizing_or_moving_atom)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_vs_zenith_eq14_v43_20261024\test_model.py", line 50, in test_truncation_accepted_without_normalizing_or_moving_atom
+    self.assertEqual(hi["atom_noise"], .005*hi["P0"])
+AssertionError: 8.492833828070533e-07 != 8.492833828070532e-07
+
+----------------------------------------------------------------------
+Ran 9 tests in 9.167s
+
+FAILED (failures=1)

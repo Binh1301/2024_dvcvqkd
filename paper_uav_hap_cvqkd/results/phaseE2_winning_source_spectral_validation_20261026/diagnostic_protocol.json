@@ -1,0 +1,19 @@
+{
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "PHASE_B_STRICT_READY": false,
+  "winning_source_status": "INSUFFICIENT_EVIDENCE",
+  "permitted_execution": "saved-spectrum analysis; float64 C4 matrix/spectrum diagnostics; checkpoint fault injections; AP source moments only M<=16 at50/70digits; Fock small NF48/dps70",
+  "forbidden_execution": [
+    "target 256-source C,w recomputation",
+    "260digit target retry",
+    "whole catalog",
+    "missing Uniform",
+    "new channel/SKR/mobility/zenith sweep"
+  ],
+  "lightweight_test_wall_cap_seconds": 90,
+  "source_ensemble_unchanged": true,
+  "target_precision_execution_authorized": false,
+  "checkpoint_backend": "isolated weighted Gram C4",
+  "mathematical_equations_changed": false,
+  "additional_lightweight_scope": "Explicit task Route B: exact-rational input geometry and directed Decimal scalar bounds; no new target eigensolve or C,w. Final bound script wall<1second."
+}

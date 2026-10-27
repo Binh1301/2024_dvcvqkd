@@ -1,0 +1,274 @@
+# CODEX — Phase E2: Full-Support Spectral Convergence of the Winning C,w Source
+
+## Objective
+
+Continue the HAP–UAV 256-QAM DM-CV-QKD exact-source validation.
+
+Primary goal: determine whether the winning source moments C,w can be numerically certified over the full 256-dimensional ensemble support, or whether a rigorous bound on unresolved spectral contributions can establish sufficient accuracy.
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Read:
+
+`results/phaseE_Cw_fock_gram_repo_comparison_20261026/`
+
+Use the existing Phase E Fock, Gram and repository comparison code.
+
+Do not restart the entire catalog.
+
+## 1. Target Source
+
+Focus on the Phase C/D winning MB source:
+
+- `nu_raw = 0.30`
+- `V_A = 1.358333319784304`
+- `M = 256`
+
+Cached values:
+
+\[
+C=1.067911050328646
+\]
+
+\[
+w=5.700303183579203\times10^{-10}.
+\]
+
+This source currently has status:
+
+`INSUFFICIENT_EVIDENCE`
+
+Preserve its original payload and evidence classification until convergence is genuinely established.
+
+## 2. Diagnose the Unresolved Spectrum
+
+The previous comparison produced:
+
+- Fock: 231/256 resolved modes
+- Gram: 186/256 resolved modes
+
+Investigate why the remaining modes were unresolved.
+
+Determine:
+
+1. Are they mathematically zero or numerically unresolved positive eigenvalues?
+2. What are their estimated magnitudes?
+3. What precision is required to resolve them?
+4. Is the issue caused by spectral conditioning, Fock truncation, eigensolver accuracy, or rank thresholding?
+5. Does C4 sector decomposition preserve the complete source spectrum?
+6. Are there near-degenerate eigenvalues?
+7. Are the Gram and Fock effective-rank definitions consistent?
+
+Do not treat an eigenvalue smaller than the numerical cutoff as mathematically zero.
+
+Report eigenvalue scales by sector, effective rank and precision level.
+
+## 3. Implement Checkpointed Spectral Diagnostics
+
+Build an isolated checkpoint system around the existing numerical methods.
+
+Record:
+
+- Source and ensemble identity
+- C4 sector identifier
+- Numerical precision
+- Matrix dimension
+- Eigenvalue spectrum
+- Eigenpair residuals
+- Reconstruction errors
+- Effective rank
+- Fock cutoff, where applicable
+- C and w contributions
+- Wall-clock and CPU time
+
+Save completed sector results atomically.
+
+A checkpoint must not be marked complete before its consistency checks pass.
+
+Implement safe resume from compatible checkpoints.
+
+Test checkpoint writing, loading, interrupted execution and resume with inexpensive stub jobs before any expensive calculation.
+
+Do not modify production code or historical caches.
+
+## 4. Develop Two Independent Convergence Routes
+
+### Route A — Full-Support Evaluation
+
+Investigate a numerically controlled full-support calculation using:
+
+- Weighted Gram matrix
+- C4 sector decomposition
+- Arbitrary precision
+- Explicit spectral residual checks
+- Stable evaluation of w
+- Reproducible precision selection
+
+Determine whether all 256 nonzero modes can be resolved reliably.
+
+If two different precision levels are used, require independent agreement together with residual and conditioning checks.
+
+Do not claim that matching displayed digits alone proves convergence.
+
+### Route B — Certified Unresolved-Spectrum Bound
+
+Investigate whether the contributions of unresolved spectral modes to C and w can be bounded.
+
+Any proposed bound must account for:
+
+- Spectral truncation
+- Eigenvector errors
+- The inverse square root of tau in a_tau
+- Small eigenvalues
+- Numerical rounding
+- Finite Fock truncation, where applicable
+
+A bound on discarded eigenvalue mass alone is not automatically a valid error bound for w because a_tau contains tau^(-1/2).
+
+Provide a mathematical justification for any claimed error bound.
+
+If a rigorous bound cannot be obtained, explicitly report that the result remains INCONCLUSIVE.
+
+## 5. Precision and Resource Control
+
+The previous 260-digit Gram jobs reached a 180-second cap.
+
+First analyze existing performance logs and identify optimization opportunities.
+
+Prioritize:
+
+- Reusing already validated sector computations
+- Avoiding redundant matrix construction
+- Avoiding repeated high-precision eigendecompositions
+- Safe checkpoint/restart
+- Correct precision propagation
+- Memory-aware numerical operations
+
+Do not launch another expensive 260-digit calculation automatically.
+
+After preparation, produce an authorization-ready plan stating:
+
+- Exact command
+- Precision levels
+- Expected matrix dimensions
+- Checkpoint locations
+- Maximum wall time
+- Maximum memory
+- Success criteria
+- Stop conditions
+
+Run only lightweight diagnostics in this phase.
+
+## 6. Validate Mathematical Consistency
+
+Preserve the definitions from Sayat/Denys:
+
+\[
+C=\operatorname{Tr}
+(\tau^{1/2}a\tau^{1/2}a^\dagger)
+\]
+
+\[
+w=\sum_k p_k
+\left(
+\langle a_\tau^\dagger a_\tau\rangle_k
+-
+|\langle a_\tau\rangle_k|^2
+\right).
+\]
+
+Compare direct-variance and stable residual-norm implementations.
+
+Do not introduce a new source-moment definition or modify the approved correlation equation.
+
+Use identical source amplitudes and probabilities in all methods.
+
+## 7. Downstream Error Requirements
+
+For the selected primary channel context, determine how a justified uncertainty in C,w would affect:
+
+\[
+Z(\eta_f,\xi_f)
+=
+2\sqrt{\eta_f}C-
+\sqrt{2\eta_f\xi_f w}.
+\]
+
+Distinguish:
+
+- Arbitrary sensitivity perturbations
+- Estimated numerical errors
+- Rigorous error bounds
+
+Do not interpret sensitivity perturbations as certified numerical uncertainty.
+
+If no defensible C,w error interval exists, do not produce a certified SKR interval.
+
+## 8. Preservation
+
+Do not:
+
+- Modify manuscript v43.
+- Modify Eq. (14), MI, or Holevo.
+- Overwrite historical exact-source caches.
+- Recompute the whole catalog.
+- Launch the missing Uniform source job.
+- Upgrade source evidence without a valid convergence certificate.
+- Run new zenith or mobility sweeps.
+
+Keep:
+
+`DIAGNOSTIC_ONLY`
+
+and:
+
+`PHASE_B_STRICT_READY = FALSE`
+
+unless the applicable validation gates have genuinely been satisfied.
+
+## 9. Deliverables
+
+Create:
+
+`results/phaseE2_winning_source_spectral_validation_20261026/`
+
+Produce:
+
+1. `full_support_spectral_audit.md`
+2. `sector_spectrum_diagnostics.csv`
+3. `checkpoint_wrapper.py`
+4. `checkpoint_stub_tests.md`
+5. `precision_feasibility.md`
+6. `unresolved_spectrum_error_analysis.md`
+7. `source_convergence_status.json`
+8. `controlled_run_authorization_plan.md`
+9. `validation_report_vi.md`
+10. `artifact_integrity_report.md`
+
+## 10. Final Report
+
+Report in Vietnamese:
+
+- Number of modes verified.
+- Number of modes unresolved.
+- Eigenvalue range and conditioning by sector.
+- Whether a rigorous bound on the missing modes is feasible.
+- Whether checkpoint/resume is operational and tested.
+- Whether numerical precision is the limiting factor.
+- Whether the current C,w values can be certified.
+- Exact remaining blocker, if any.
+- Recommended precision and resource budget for a separately authorized calculation.
+
+Conclude with one of:
+
+`FULL_SUPPORT_CERTIFIED`
+
+`TRUNCATION_ERROR_CERTIFIED`
+
+`INCONCLUSIVE`
+
+Do not claim certification without adequate mathematical and numerical evidence.
+
+**Stop after the diagnostic, checkpoint validation and controlled-run preparation. Do not automatically launch expensive source calculations.**

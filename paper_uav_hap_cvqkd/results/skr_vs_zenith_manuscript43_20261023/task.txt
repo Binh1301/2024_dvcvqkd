@@ -1,0 +1,212 @@
+Work in the repository:
+
+C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd
+
+I want to generate a figure of **SKR versus zenith angle** in the same style as the provided reference plot.
+
+## 1. Objective
+
+Produce one scientific plot:
+
+- x-axis: zenith angle (deg)
+- y-axis: secret key rate (bits/use)
+- y-axis in logarithmic scale
+- three curves:
+  1. Optimized Uniform 256-QAM
+  2. Fixed MB-shaped 256-QAM
+  3. Optimized MB-shaped 256-QAM
+
+Use the **current primary modeling choice**:
+
+- HOMODYNE detection
+- Gaussian effective-channel MI as the primary MI evaluator
+- reverse reconciliation
+- manuscript-v43 detector-noise convention:
+  
+  xi(eta) = xi_ch + xi_det / eta
+
+- effective fading channel:
+  
+  eta_f = E[sqrt(eta)]^2
+
+  eta_f * xi_f = (E[eta] - eta_f) * V_mod + E[eta xi]
+
+- conditional Gaussian PDF for MI:
+  
+  p(y|alpha_k) = 1 / sqrt(2 pi sigma_xi^2)
+                 * exp(-(y - 2 sqrt(eta_f) Re(alpha_k))^2 / (2 sigma_xi^2))
+
+  with
+
+  sigma_xi^2 = 1 + eta_f xi_f
+
+Keep the homodyne Holevo calculation consistent with the same effective channel model already adopted in the manuscript43 audit workflow.
+
+## 2. Plot style
+
+Match the style of the reference figure as closely as practical:
+
+- title: "SKR versus Zenith Angle"
+- x-label: "Zenith Angle (deg)"
+- y-label: "Secret Key Rate (bits/use)"
+- use line+marker style for each curve
+- legend in upper right
+- clean grid
+- logarithmic y-scale
+- do not plot negative SKR values
+- if a scheme is non-positive at a zenith angle, omit that point from the plotted curve
+- if needed, break the curve where SKR <= 0 instead of forcing values on the log axis
+
+## 3. Physical configuration
+
+Use the current 30 cm receiver configuration as the base scenario unless the repository contains a more recent explicitly approved zenith-sweep baseline.
+
+Use:
+
+- HAP altitude = 20 km
+- UAV altitude = 1 km
+- receiver diameter Dr = 0.30 m
+- wavelength = 1550 nm
+- beta = 0.95
+- xi_ch = 0.0186 SNU
+- xi_det = 0.005 SNU
+- 256-QAM
+- homodyne
+- reverse reconciliation
+
+Use the same remaining optical/channel parameters as the current approved receiver30 scenario where available, including divergence, jitter, pointing statistics, atmospheric law, and source conventions.
+
+If the receiver30 scenario parameters are explicitly stored in the audit results, recover them exactly.
+If not, extract them from the scenario generation code and report the source.
+
+## 4. Zenith-angle sweep
+
+Sweep zenith angle over:
+
+- 0 deg to 60 deg
+- step size 1 deg
+
+For each zenith angle:
+
+1. recompute slant distance
+2. recompute all dependent channel parameters consistently
+3. evaluate the three schemes below
+
+## 5. Three schemes to compare
+
+### Scheme A — Optimized Uniform 256-QAM
+At each zenith angle, optimize over V_mod (or VA, following the repository’s actual naming convention) for **uniform** 256-QAM.
+Do not use MB shaping for this curve.
+
+### Scheme B — Fixed MB-shaped 256-QAM
+Use a fixed MB-shaped source across all zenith angles.
+Choose the fixed MB source as follows:
+- first preference: use the currently approved reference source from the chosen base configuration
+- if there is a documented fixed-MB benchmark in the repository or audit reports, use that exact source
+- report clearly which fixed pair (nu_raw, V_mod/VA) is used
+
+### Scheme C — Optimized MB-shaped 256-QAM
+At each zenith angle, optimize over both:
+- V_mod (or VA)
+- nu_raw
+
+Use the repository’s exact source machinery.
+Do not interpolate C,w or SKR if the current exact policy forbids it.
+
+## 6. Source and optimization rules
+
+Preserve the existing exact-source policy:
+
+- keep exact source moments
+- do not overwrite existing caches
+- do not modify production code
+- do not silently switch source normalization
+- do not mix historical legacy MI with the new Gaussian effective-channel MI
+
+If needed, create isolated result files under a new output directory.
+
+If exact-source catalog reuse is possible, use it.
+If new exact points are needed, version them cleanly without overwriting old caches.
+
+## 7. Numerical validity checks
+
+For every zenith angle and every plotted point, verify:
+
+- channel PDF normalization status
+- E[eta], E[sqrt(eta)], E[eta xi]
+- eta_f and xi_f
+- finite MI
+- finite Holevo
+- valid covariance / symplectic checks
+- raw SKR value
+
+If a point fails physics or normalization checks, exclude it from the plot and record the failure in the output table.
+
+Do not force invalid points into the figure.
+
+## 8. Required outputs
+
+Save results under a new directory such as:
+
+results/skr_vs_zenith_manuscript43_20261023/
+
+Produce:
+
+1. One PNG figure:
+   - skr_vs_zenith.png
+
+2. One PDF figure:
+   - skr_vs_zenith.pdf
+
+3. One CSV table containing for each zenith angle and each scheme:
+   - zenith_deg
+   - scheme
+   - slant_distance_km
+   - Dr_m
+   - divergence_urad
+   - jitter_urad
+   - xi_det
+   - xi_ch
+   - V_mod_or_VA
+   - nu_raw
+   - E_eta
+   - E_sqrt_eta
+   - eta_f
+   - E_eta_xi
+   - xi_f
+   - I_AB
+   - beta_I_AB
+   - chi_BE
+   - SKR
+   - valid_point
+   - exclusion_reason
+
+4. One short Vietnamese report:
+   - summarize which scheme performs best
+   - identify the zenith angle giving maximum SKR for each curve
+   - identify the positive zenith-angle range for each curve
+   - state clearly whether any points were excluded due to normalization or security/model blockers
+
+## 9. Figure conventions
+
+Use these legend labels exactly:
+
+- Optimized Uniform 256-QAM
+- Fixed MB-shaped 256-QAM
+- Optimized MB-shaped 256-QAM
+
+Use a log-scale y-axis.
+Use markers on top of lines.
+Make the plot publication-friendly.
+
+## 10. Important constraints
+
+- HOMODYNE ONLY
+- Gaussian effective-channel MI is the primary MI evaluator
+- manuscript-v43 detector-noise convention only
+- do not use eta_det in the manuscript-v43 curve calculations unless the code path absolutely requires reproducing a legacy baseline; if so, keep that separate and do not mix it into the main plot
+- do not run a giant unrelated optimization
+- do not overwrite historical results
+- do not claim secure default if blockers remain
+
+Please execute the sweep, generate the figure, save all outputs, and summarize the main trend in Vietnamese.

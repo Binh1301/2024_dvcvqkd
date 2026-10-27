@@ -1,0 +1,262 @@
+--- startup/docs/EVIDENCE.md
++++ current/docs/EVIDENCE.md
+@@ -1,4 +1,74 @@
+ # Evidence Register
++
++## EVID-0217 - Manuscript43 zenith figure COMPLETE; finite exact catalog and exclusions
++
++2026-10-23 userf84ac5ba authorizes one diagnostic sweep and figure under
++results/skr_vs_zenith_manuscript43_20261023/. Deliver skr_vs_zenith.png(350dpi),
++skr_vs_zenith.pdf(vector),183-row skr_vs_zenith.csv,report_vi.md,source catalog,
++61 angle checkpoints,protocol/receipts/read-only verifier and final seal.
++Startup6959 historical/scientific files unchanged; five relevant ledgers only.
++Branchfeat/image,HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
++
++Base receiver30: HAP20/UAV1km,Dr.30m,lambda1550nm,full divergence35urad,
++jitter1.561urad,positionSD.1m,rho0,tau.92,wind21,Cn2-ground1e-14,
++AoA halfFOV6.25mrad/sigma1.5mrad,AO/phaseOFF,beta.95,xi_ch.0186.
++Original Eq10 retained PDF and xi_det=.005 independent,NO eta_det.
++Real homodyne1D Gaussian-effective MI and matching Tf=mh^2,N effective
++in source correlation interval,quantum covariance and full-Z homodyne Holevo.
++No random-width substitution,pooled legacy MI or production heterodyne calls.
++
++61 angles0:1:60; all distance/optical/turbulence/pointing/atmospheric terms
++recomputed. Exhaustive catalog argmax at each normalized angle:36 Uniform VA
++points and197 MB(nu_raw,VA),233 authenticated source payloads,VA=2*nbar.
++Fixed MB(.25,VA1.6249995399703647),source
++01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754
++is the current receiver30 reference. No new AP/interpolation/cache changes,
++continuous/global optimum claim or unrelated optimization.
++
++Angles0-4 fail unchanged mass tolerance1e-10; at0 deficit
++1.056995513649377e-10 reproduces prior diagnostic. No candidate/MI/Holevo
++evaluation at those angles;15 scheme rows blocked/unavailable,not0.
++Angles5-60 pass within tolerance;233 sources each=13048 candidate evaluations,
++zero candidate or selected-numerical failures.168 numerical scheme rows:
++12 positive plotted,156 nonpositive omitted from log plot and kept raw inCSV.
++No renormalization,clipping,tail/outage reassignment or positive-rate forcing.
++
++Optimized MB is best exact-tested at all56 evaluable angles. Positive5-15deg,
++peakK=.0007281372514840734 at5deg,nu_raw.3,VA1.358333319784304,
++sourceb083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214.
++FixedMB positive only5deg,K=1.259549660342918e-05. OptimizedUniform has
++no positive point; its largest rawK=-.030747146463279043 at60deg,
++VA.06,nu0,source9d90d825de1266050f27136524206ae9048a70390ed683cdeffac9fa4750ee5a.
++The maximum at5 is among evaluable1deg-grid points,not proof5 beats0-4,
++whose rates remain blocked. Positive optimized-MB values decrease with angle.
++
++All candidates have independent covariance/uncertainty/symplectic checks and
++finite discrete-MI/entropy/capacity domain checks. Every selected source
++also passes GH64/128,independent adaptive MI,256/16,X/P,scaling,
++16conditional Gaussian integrals,full-Z33/129,entropy80/110 and physical
++quantum-plane consistency. Closed/direct PDF moments and explicit atom/noise
++moment identities checked at all61 angles. Raw negatives retained.
++
++One log-axis figure with exact title/labels and three specified legend labels;
++Uniform omitted with explicit no-positive annotation,fixed MB isolated marker
++visible,and optimized-MB line5-15deg. NaN gaps exclude bad/nonpositive points;
++no connection through omitted nodes. PNG and independent PDF render visually
++inspected:readable,no overlap/clipping. PDF has one page,98 vector drawing
++paths,zero embedded raster images. PDF SHA256
++3371745050e818de49b00e2e850904a37e09b09a428b9acd1e343034b84f9c53.
++CSV SHA256f5ced54765583bbbbe6d63dbcca442fb8fb01b4f7d643157d8285fb6d13d673f.
++Verification SHA256e571eac86a5f030854fe6c66fe91d4d0b81395384c92123de2c4e304d5e32f79.
++Source and checkpoint producer/protocol/input hashes in receipts. Reference
++image was not attached; style follows user's explicit figure instructions.
++
++Read-only verifier imports no evaluator. Historical receipt ledger hashes are
++snapshots; new task ledgers do not alter old numerical artifacts. No production
++code/security functional/frozen/source/cache changes,training/test/heldout/
++publication evaluation,production baseline/threshold approval or commit/push.
++Finite catalog and numeric full-Z checks do not certify global optimum,
++operational/finite-key/composable security or a secure default.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen discrepancy,ObjectiveC USER_STOPPED. Deliver and STOP.
+ 
+ ## EVID-0216 - Fixed receiver30 parameter provenance and A/B verification COMPLETE
+ 
+--- startup/docs/DECISION_LOG.md
++++ current/docs/DECISION_LOG.md
+@@ -1,4 +1,27 @@
+ # Decision Log
++
++## DEC-0200 - Accept exact-catalog zenith diagnostic; preserve omitted-curve meaning
++
++2026-10-23 EVID-0217 completes userf84ac5ba. The three requested legend labels
++refer to finite authenticated exact-source catalog comparisons,not continuous
++or globally certified optima. Fixed MB stays at the documented receiver30 pair.
++Only the task-specific manuscript43/no-eta-detector homodyne Gaussian model is
++used in the primary figure; no legacy random-width/pooled/heterodyne substitute.
++
++Accept61-angle/183-row coverage and13048 candidate evaluations as scoped
++diagnostic evidence. Angles0-4 fail the unchanged PDF-mass gate and remain
++blocked before source search/rate evaluation. Do not repair the model or
++relax tolerance to extend curves. Preserve all negative raw rates inCSV,
++omit nonpositive values from log-axis and break lines at excluded nodes.
++Uniform has no positive curve; fixed MB has one marker5deg; optimized MB
++has positive5-15deg. Do not fabricate three visible positive curves.
++
++Optimized-MB peak7.281372514840734e-4 at5deg is the best evaluable sampled
++point,not evidence5deg is physically better than blocked0-4. Styling and
++vector export do not authorize publication evaluation or security promotion.
++No new exact-source generation/interpolation,production baseline/threshold/
++default approval or lifecycle change. Preserve historical source/cache/result
++bytes,security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+ 
+ ## DEC-0199 - Keep receiver30 A positive separate from explicitly defined B blocker
+ 
+--- startup/docs/PROJECT_STATE.md
++++ current/docs/PROJECT_STATE.md
+@@ -1,4 +1,28 @@
+ # Project State
++
++## Current: manuscript43 zenith sweep COMPLETE; STOP
++
++2026-10-23 EVID-0217/DEC-0200,userf84ac5ba. Deliver results/
++skr_vs_zenith_manuscript43_20261023/skr_vs_zenith.png(350dpi),skr_vs_zenith.pdf
++(vector),183-row CSV,report_vi.md,61 angle checkpoints,source/protocol/receipt
++artifacts and read-only verifier. Exact receiver30 optics; raw Eq10 PDF,
++xi_det.005 with NO eta_det;homodyne Gaussian MI/RR/matching full-Z Holevo.
++233 exact sources(36Uniform/197MB),13048 candidate evaluations at56 normalized
++angles; no source/candidate/numerical failure. Angles0-4 mass FAILED and rates
++blocked.12 positive plotted points,156 raw nonpositive rows omitted from log.
++
++OptimizedMB best exact-tested at all56 evaluable angles;positive5-15deg,
++peakK=.0007281372514840734 at5deg,MB(.3,VA1.358333319784304).
++FixedMB(.25,VA1.6249995399703647) positive only5deg,K=1.259549660342918e-05.
++Uniform has no positive point. Maximum5deg is conditional on omitted0-4,
++not a physical/global optimum. Exact legend labels;single fixed-MB marker
++and Uniform no-positive annotation are deliberate. PNG/PDF visually checked.
++
++6959 protected old files unchanged; five relevant ledgers updated. No production/
++frozen/cache/source/history changes or new AP/interpolation. No default/
++baseline/threshold/security promotion. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
++No training/test/heldout/publication evaluation,commit/push. Deliver and STOP.
+ 
+ ## Current: fixed receiver30 configuration verification COMPLETE; STOP
+ 
+--- startup/docs/NEXT_ACTIONS.md
++++ current/docs/NEXT_ACTIONS.md
+@@ -1,4 +1,17 @@
+ # Next Actions
++
++## Current: deliver manuscript43 zenith plot and exclusions; STOP
++
++EVID-0217/DEC-0200 complete. Open results/skr_vs_zenith_manuscript43_20261023/
++skr_vs_zenith.png or vectorPDF,report_vi.md and183-row skr_vs_zenith.csv.
++Use verify.py only for read-only saved artifacts; do not rerun completed
++source-catalog sweep or overwrite receipts. Positive optimizedMB5-15deg,
++fixedMB only5deg,Uniform none. Angles0-4 remain blocked by PDF normalization.
++Do not manufacture missing curves,renormalize the PDF,interpolate source
++moments or call finite-catalog source selection global optimization.
++No automatic follow-up AP,optimization,training/test/heldout/publication,
++production baseline/default/threshold approval. Keep existing security,
++lifecycle/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+ 
+ ## Current: deliver fixed receiver30 parameter verification; STOP
+ 
+--- startup/.agent/SESSION_HANDOFF.md
++++ current/.agent/SESSION_HANDOFF.md
+@@ -1,54 +1,59 @@
+ # Session Handoff
+ 
+-2026-10-23 EVID-0216/DEC-0199 COMPLETE: user843d84ac fixed receiver30
+-parameter inspection and independent A/B verification. Deliver results/
+-manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/
+-report_vi.md,124-row parameters.csv,results.json,moments.csv,conditional
+-normalization,numerical_checks.json,verification/protocol/startup and final seal.
++2026-10-23 EVID-0217/DEC-0200 COMPLETE: userf84ac5ba manuscript43 zenith plot.
++Deliver results/skr_vs_zenith_manuscript43_20261023/skr_vs_zenith.png(350dpi),
++skr_vs_zenith.pdf(vector),skr_vs_zenith.csv(183rows),report_vi.md,source_catalog,
++61 angle checkpoints,protocol/execution/validation/visual receipts and final seal.
+ Read-only from project: .venv/Scripts/python.exe -X utf8 -B
+-results/manuscript43_homodyne_audit_20261023/receiver30_configuration_verification_20261023/verify.py
+-No evaluator import in verifier; do not rerun completed producer or overwrite
+-old results. Further work requires a new scoped request; deliver and STOP.
++results/skr_vs_zenith_manuscript43_20261023/verify.py. No evaluator import or
++numerical rerun in verifier. Do not rerun completed producers or overwrite
++old receipts. No further authorized work; deliver and STOP.
+ 
+ Branch feat/image,HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
+-6934 protected old files unchanged; five allowed relevant ledgers updated.
+-No production source/security functional/frozen/config/cache/historical changes.
+-Parent seal passed before task ledger updates; old ledger hashes are historical
+-snapshots,not current-task hashes. All parent artifact bytes remain protected.
++6959 old files protected; only five relevant ledgers updated. Production code,
++security functional,frozen specs/configs/source caches/history unchanged.
++Historical ledger hashes remain snapshots; old numerical artifact bytes intact.
+ 
+-Fixed source01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754,
+-VA1.6249995399703647,nu_raw.25,nu_repo10.625,nbar.8124997699851825.
+-C1.2135302410613147,w2.856493276891121e-10;existing AP source payload reused.
+-No new AP,source interpolation,VA/nu/aperture optimization or broad sweep.
+-Geometry20/1km,0deg,L19km,Dr.30m,35uradfull,1.561uradjitter,.1mcentering,
+-lambda1550nm,tau.92,beta.95,xi_ch.0186. Actual overrides preserved.
++Model ONLY: original manuscript43 Eq10 retained[0,1] with explicit AoA atom,
++xi(eta)=.0186+.005/eta,independent xi_det.005 and NO eta_det. Gaussian-effective
++real1D homodyne/RR; same Tf=mh^2,N in MI,DBL Z interval,covariance and full-Z
++homodyne Holevo. No legacy random-width/pooled-MI/heterodyne substitution.
++Receiver30:20/1km,Dr.30m,lambda1550nm,full35urad,jitter1.561urad,.1mposition,
++rho0,tau.92,wind21,Cn2ground1e-14,AoA6.25mrad/1.5mrad,AO/phaseOFF,beta.95.
++All angle-dependent optical/turbulence/pointing/atmospheric terms recomputed.
+ 
+-A historical power_conserving_random_width Gaussian homodyne/RR/untrusted
+-eta.95/epsilon.005: m1=.22893092877019486,mh=.472859898131668,
+-Tf=.22359648326109144,Tq=.21241665909803686,Npost=.017280257434744876,
+-sigma2=1.0172802574347448. I=.21074687539663958,betaI=.2002095316268076,
+-chi=.19481699897277194,K=.005392532654035664 bits/all transmitted uses.
+-Separate original pooled MI=.210784854649766,K=.0054286129445057785 retained.
++61 angles0to60 step1,36 Uniform VA+197 MB(nu,VA) existing authenticated sources.
++Finite catalog argmax only,no continuous/global optimum claim,new AP or
++interpolation. FixedMB(.25,VA1.6249995399703647),source
++01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754.
++Angles0-4 fail unchanged1e-10 mass gate; at0 deficit1.056995513649377e-10.
++Their15 scheme rows have unavailable rates,not0; no candidate search there.
++Angles5-60:13048 candidate evaluations,zero source/candidate/selected-numerical
++failures.168 numerical rows=12 positive plotted+156 nonpositive raw rows.
++No normalization/clipping/tail assignment or positive forcing.
+ 
+-B has explicitly independent xi_det=.005 and NO eta_det parameter. Original
+-Eq10 retained PDF M0=.9999999998943004,tail1.056995513649377e-10 fails1e-10.
+-m1=.23006036312239064,mh=.4727226598544017,Tf=.22346671313982036,
+-mean_eta_xi=.009279122753547968,N=.01999380094195028,sigma2=1.0199938009419502.
+-These are unnormalized diagnostic coefficients only; MI/betaI/Holevo/K blocked
+-before evaluation,not0. No efficiency reinserted,no renormalization/clipping/
+-tail reassignment or channel-law substitution. AoA atom explicit.
++OptimizedMB best exact-tested at all56 evaluable angles;positive5-15deg,
++peakK=.0007281372514840734 at5deg,nu.3,VA1.358333319784304,
++sourceb083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214.
++FixedMB positive only5deg,K=1.259549660342918e-05. Uniform no positives;
++maxraw=-.030747146463279043 at60deg,VA.06. Maximum5deg is among evaluable
++sampled points,not proof5beats blocked0-4. Positive optimizedMB decreases.
+ 
+-39 scoped checks PASS including fresh A matching,MI quadrature/scaling/256vs16,
+-X/P,16 conditional PDFs,full-Z/entropy,independent covariance,saved source,
+-raw PDF integration/deficit and expected B failure. Verification SHA256
+-326e6d130787b8da33fd129e80839450b0e3c8bcc6cdcb229fbc948c4312efbf.
+-Initial provenance helper failed on lru_cache wrapper; attempt_1 preserves
+-code/protocol/failure. inspect.unwrap fixed lookup only; all numeric criteria
+-unchanged. Parameter rows distinguish B-only A0/w_eq from A circular collection,
+-implicit launch curvature from absent receiver curvature and HV ground
+-coefficient from full Cn2(0). No hardware loss/rate calibration claimed.
++Every candidate has independent covariance/uncertainty/symplectic/domain
++checks. Selected sources:GH64/128,adaptive MI,256/16,X/P,scaling,16conditional
++PDFs,full-Z33/129,entropy80/110 and same quantum plane. All angles have
++closed/direct PDF and explicit-noise moment checks; no invalid plot points.
++Plot shows green line5-15,orange isolated square5deg and Uniform no-positive
++annotation with all three exact legend labels. NaN breaks,log-y,x0-60.
++PNG and independent PDF render visually inspected; no clipping/overlap.
++PDF one page,98vector drawing paths,no raster image. Reference image absent;
++style follows task's exact labels/title/markers/grid/legend instructions.
++Verification SHA256e571eac86a5f030854fe6c66fe91d4d0b81395384c92123de2c4e304d5e32f79.
++CSV SHA256f5ced54765583bbbbe6d63dbcca442fb8fb01b4f7d643157d8285fb6d13d673f.
+ 
++No secure-default/global-optimum/operational/finite-key/composable claim.
+ Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+ historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No production
+-baseline/threshold/default approval,training/test/heldout/publication or
+-commit/push. Ponytail full; no subagents/dependencies. Deliver and STOP.
++baseline/threshold approval,training/test/heldout/publication,commit/push.
++Ponytail full; PDF skill used for vector export/render QA; no agents or new
++project dependencies. Deliver and STOP; furtherwork needs a new scoped request.

@@ -1,0 +1,27 @@
+% DIAGNOSTIC_ONLY draft fragment; author integration required.
+\subsection{Spatially Correlated Cloud Blockage Model}
+Let $j\in\{1,\ldots,J\}$ index the $J=100$ UAV locations and
+$n\in\{1,\ldots,N_t\}$ index equal-duration time slots. We adopt
+\begin{align}
+ \boldsymbol G_n\mid\boldsymbol\mu_n&\sim\mathcal N(\boldsymbol\mu_n,\boldsymbol\Gamma),
+ &\mu_{j,n}&\overset{\mathrm{iid}}\sim\mathcal U(-1,1),\label{eq:phaseD_cloud}\\
+ \Gamma_{ij}&=9(0.9)^{|i-j|}.\label{eq:phaseD_gamma}
+\end{align}
+The means and Gaussian innovations are independently resampled in every
+slot; no temporal AR(1) or physical cloud motion is modeled. Row-major
+indexing is used. Thus equally spaced horizontal and vertical neighbors
+have index separations one and ten, respectively: this model is not
+distance-isotropic. Conditional covariance is $\boldsymbol\Gamma$, whereas
+the law of total covariance gives
+$\operatorname{Cov}(\boldsymbol G_n)=\boldsymbol\Gamma+\boldsymbol I/3$.
+As an explicit simulation convention, blockage is
+$c_{j,n}=\mathbb I\{G_{j,n}>0\}$, yielding marginal probability $1/2$.
+For a prescribed probability $p$, the separate calibrated extension uses
+\begin{equation}
+ c_{j,n}=\mathbb I\{G_{j,n}>t_p\},\qquad
+ \frac12\int_{-1}^{1}\left[1-\Phi\!\left(\frac{t_p-u}{3}\right)\right]du=p.
+ \label{eq:phaseD_threshold}
+\end{equation}
+Here $\Phi$ is the standard normal CDF. These threshold and mean-resampling
+conventions are not attributed verbatim to prior references. Complete cloud
+blockage gives $S_{j,n}=(1-c_{j,n})K_j^\star$.

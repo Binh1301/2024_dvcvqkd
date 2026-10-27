@@ -1,0 +1,62 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "PHASE_B_STRICT_READY": false,
+  "producer_sha256": "0bd3999ea0c51d87e7559a894604166e5b3e8f2dff40ab7f369132866818176b",
+  "input_path": "results/phaseE_Cw_fock_gram_repo_comparison_20261026/inputs/Winner_MB.npz",
+  "input_sha256": "f02dad8e2442714f27282921df03ec5bd28f88ca3ccc65b6590e67f5405edb3d",
+  "source_ensemble_hash": "b083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214",
+  "source_payload_path": "results/exact_mb_test2/exact_source_cache/dac498f0bd2082d12225b96aa057fb8541f04c48e011f4e6b3795f325f4b62a4.json",
+  "source_payload_sha256": "f835e47731891c935fceab522cddc1e7e9875629fd9166ec0532273e7b694f32",
+  "precision_levels": [
+    400,
+    500
+  ],
+  "matrix_dimensions": "four independent 64x64 Hermitian weighted-Gram C4 sectors at each precision",
+  "checkpoint_root": "../phaseE2_winning_source_controlled_run_v1/controlled_checkpoints",
+  "maximum_total_wall_seconds": 3600,
+  "per_stage_wall_seconds": 600,
+  "maximum_worker_working_set_MiB": 1024,
+  "threads_per_worker": 1,
+  "sequential": true,
+  "stages_per_precision": [
+    0,
+    1,
+    2,
+    3,
+    "moments"
+  ],
+  "budget_scope": "3600s active controller wall per initial invocation, prior recorded worker time deducted on manual resume; polling/kill/serialization overshoot reported. No automatic retry. Sampled working-set limit, not a Windows job-object allocation limit.",
+  "expected_runtime": "NOT_BENCHMARKED_AT_TARGET_PRECISIONS; resource cap is not a completion promise",
+  "selection_basis": "Retained-spectrum extrapolation ~1e-274..1e-284, plus certified global lambda_min>=1e-312. The 400/500-digit builds are independent; no high-precision eigensolve has been launched.",
+  "automated_stop_conditions": [
+    "missing or incompatible authorization/source/code/precision identity",
+    "sector consistency checks fail",
+    "effective sector rank !=64",
+    "lambda_min/nominal_rounding_plus_residual_margin <1e20",
+    "wall or memory cap reached",
+    "worker failure"
+  ],
+  "numerical_success_criteria": [
+    "all256 strictly positive modes retained at BOTH independently built precisions",
+    "eigenpair/orthogonality/reconstruction checks <=10**(-digits+10)",
+    "all256 sector-matched eigenvalues agree to relative1e-20; use cluster projector comparisons if necessary",
+    "C agreement <=2e-11; w agreement <=2e-12 AND relative0.001 (local Phase E diagnostic targets)",
+    "direct variance agrees with norm residual at the declared precision; all finite physical inputs"
+  ],
+  "certification_boundary": "The controller only saves numerical diagnostics. A separate assessment must justify input rounding, inverse-square-root amplification, eigenvector/cluster errors and the resulting C,w uncertainty. Displayed-digit agreement or sector completion cannot automatically certify C,w or upgrade source evidence.",
+  "additional_review_required": [
+    "rigorous matrix/functional enclosure if a rigorous C,w error claim is made",
+    "cross-precision spectral/eigenvector and observable assessment; no automatic certification",
+    "independent assessment that observed uncertainties satisfy the declared local tolerance scope"
+  ],
+  "prohibited": [
+    "catalog rerun",
+    "missing Uniform",
+    "historical/production edits",
+    "new channel/MI/Holevo/SKR/mobility/zenith sweeps",
+    "automatic evidence/lifecycle promotion"
+  ],
+  "future_result_namespace": "results/phaseE2_winning_source_controlled_run_v1",
+  "authorization_receipt_planned_path": "results/phaseE2_winning_source_controlled_run_v1/authorization.json"
+}

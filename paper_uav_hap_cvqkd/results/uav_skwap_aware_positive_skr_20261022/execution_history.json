@@ -1,0 +1,98 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "packaged_UTC": "2026-10-22T17:34:52.148401+00:00",
+  "timezone": "Asia/Bangkok",
+  "continuation_date": "2026-10-23",
+  "requested_folder_date_preserved": "20261022",
+  "HEAD": "9cc25e9f8320542b61adaec05c755e98fe93cdc2",
+  "branch": "feat/image",
+  "request_sha256": "13a95672c3bbec59c471969d79f7a0164d522140b0f2f738bbe17db3da62356f",
+  "phases": [
+    {
+      "name": "historical_regressions",
+      "fresh_matching_checks": 4,
+      "before_search": true
+    },
+    {
+      "name": "primary_physical",
+      "logged_nodes": 2260
+    },
+    {
+      "name": "source_phase1",
+      "logged_nodes": 25676,
+      "catalog_contexts": 86
+    },
+    {
+      "name": "complete_source_coverage",
+      "logged_nodes": 27081,
+      "catalog_contexts": 88,
+      "branches": 24,
+      "physical_nodes_per_branch": 90,
+      "reason": "Include two cached Stage-A points omitted by initial stage-label filter; preserve optimization_phase1.json; initial producer/model unchanged"
+    },
+    {
+      "name": "shortlist_robustness",
+      "logged_nodes": 27828,
+      "phase1_snapshot": "selection_phase1/"
+    },
+    {
+      "name": "source_local_minimum",
+      "logged_nodes": 28093,
+      "initial_D_m": 0.283,
+      "final_D_m": 0.281,
+      "root_iterations": 2,
+      "maximum_iterations": 3,
+      "common_detector_thresholds_unchanged": true
+    },
+    {
+      "name": "validation",
+      "scoped_checks": 46,
+      "status": "CURRENTLY_VERIFIED_PASS"
+    },
+    {
+      "name": "report_figures",
+      "vector_PDFs": 9,
+      "PNG_dpi": 350,
+      "visual_review": "visual_review.json"
+    }
+  ],
+  "evaluations": {
+    "total": 28093,
+    "new": 26747,
+    "authenticated_reuse": 1346
+  },
+  "final_catalog_context_files": 96,
+  "exact_sources": 233,
+  "MB": 197,
+  "Uniform": 36,
+  "positive_shortlist": 7,
+  "balanced_objective_met": false,
+  "moderate_PAT_positive_found": false,
+  "distinct_recommended_physical_points": 2,
+  "fallback_optimization_used": false,
+  "producer_sha256": {
+    "build_report.py": "b6432ae9d09403e0e32af17b60d6fb73caa0a94e6bc4b706675f2d2cb66a3a44",
+    "complete_source_coverage.py": "e1bb1d5f5bc8b24d7f628cfedda020d86130735c2e1646de71cc73adc2c77d20",
+    "parameter_adapter.py": "9e09b18a307021ae2cabf57118a0f833d4ff33835728904a5587be0fb77ebfb2",
+    "refine.py": "8ccbcc6e37c257d80b76ed7664b72b60af09c2c26adbcb1de37c85fcb880a653",
+    "refine_minimum.py": "b5a97e747e42ea5148144f7669c6f4ffc47cafd2b37c70b32a6c9e65208c728c",
+    "run_study.py": "949d52f24a49c0fc00031e89c33bfabe0329e23ad09da4095c5a4fc51db36774",
+    "validate_study.py": "66f50384abc698f6811316f0847dd9521ee4fec5ba66ac3d8f470923e8967a3e",
+    "verify.py": "b91aa6cc94733f32a1422a0c3a605a926204b4cb5e77f63981dd7203aac89972"
+  },
+  "validation_sha256": "2b16fca27e483358773825080ad2eafa4f1979c5d668572d74ddf3dbd781c59f",
+  "report_sha256": "b0cab40c3b8b3d89ff0c62a3bb63d26bb6be2529909de4ae3d4b8b7e73ca94ec",
+  "historical_sources_security_config_cache_frozen_changed": false,
+  "hardware_validated": false,
+  "security_valid": false,
+  "global_minimum_certified": false,
+  "mass_power_f_rep_availability_energy_sortie": "UNKNOWN",
+  "training_test_heldout_publication_new_AP": "NOT_RUN",
+  "full_repository_test_suite": "NOT_RUN",
+  "report_render_history": {
+    "passes": 3,
+    "first_pass_issue": "Unicode corruption in new table labels; detected before delivery and repaired",
+    "final_layout_fix": "Baseline marker/line lower margin in figures8/9",
+    "numerical_rerun": false
+  }
+}

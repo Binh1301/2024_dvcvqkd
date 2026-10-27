@@ -1,5 +1,482 @@
 # Decision Log
 
+## DEC-0215 - Allow positive-only display; preserve raw results and old figures
+
+2026-10-26 EVID-0232. The user's explicit display request permits masking K<=0
+only in a new true-log10 figure. This does not authorize deleting raw data,
+clipping to zero, fabricating a positive Uniform curve, changing ranking,
+recomputing science or overwriting sealed historical figures. Preserve the
+reference style and0..60deg X range; disclose Uniform's absence in the legend.
+Source classifications, E2 INCONCLUSIVE, strictPhaseBfalse and security/lifecycle
+limits are unchanged. No source job or controlled400/500-digit run follows.
+
+
+## DEC-0214 - Prepare checkpointed winning-source study; no heavy E2 execution
+
+2026-10-26, EVID-0231, user attachment 4645f53f. Authorize only saved-spectrum
+forensics, lightweight matrix/scalar diagnostics, checkpoint fault-injection
+and small M<=16 source-equivalence checks. Preserve the original ensemble,
+C,w definitions, direct Eq. (14), MI/Holevo, production and historical evidence.
+The new directed scalar eigenvalue lower bound is not a source-functional
+convergence certificate and cannot upgrade INSUFFICIENT_EVIDENCE.
+
+Accept the 14-test checkpoint preparation and INCONCLUSIVE diagnostic report.
+The 400/500-digit one-source plan with explicit 3600s/1024MiB budget is a proposal,
+not permission to execute. Require separate explicit user approval bound to the
+prepared plan before any heavy run. No automatic retry/escalation, missing
+Uniform, catalog or zenith/mobility sweep. Even a future rank256 result must
+include precision/residual/conditioning and functional-error assessment before
+any source certification; strict Phase B has additional original dependencies.
+Keep security/lifecycle and Objective C stop unchanged. Deliver and STOP.
+
+## DEC-0213 - Bound independent C,w checks; no evidence or security promotion
+
+2026-10-26 EVID-0230,user929b2f88. Explicitly allow independent Fock/Gram
+calculations for onlytwo existing MB source ensembles and small4/16/64sanity
+cases. This supersedes prior no-new-C,w rule onlyfor this selected diagnostic,
+not production caches or a catalog campaign. Freeze exactinputarrays and same
+canonicalmoments,VA2nbar/nuconversion;use explicit finite-budget/rank/precision
+records. No Zendpoint/MI/Holevo/formula changes or missingUniform attempt.
+Observed agreement is not a full-support certificate when both computations
+omit positive modes. Keep source classifications/strictPhaseB unchanged.
+AlternativeHolevo/SKR conditional gate remains closed;Eq14-only Z comparison
+is allowed from savedprimarycontext. Stop at budget;preserve all partiallogs.
+Deliver INCONCLUSIVE report,not a convergence claim or automatic heavier job.
+
+
+## DEC-0212 - Authorize bounded Phase D diagnostics only; preserve all strict gates
+
+2026-10-26 EVID-0229,user e8b1b3eb. Reuse Phase C maps/mission fields and exact
+source values. Permit only cloud mathematics/paired statistics,index-permutation
+robustness and labeled source-moment sensitivity using unchanged mathematical
+components; do not relax primary source-identity guards. Artificial perturbations
+are not error estimates or newly computed moments. Conditional/marginal covariance
+and row/column transpose-equivalence/tie-order effects must be distinguished.
+Prepare isolated IEEE drafts/figures;no frozen manuscript changes. Retain source
+INSUFFICIENT_EVIDENCE,strictPhaseB false and security/publication boundaries.
+A single-source recovery plan is proposed only,NOT_RUN;requires separate approval.
+Deliver and STOP;no automatic sourcejob/full experiment or lifecycle promotion.
+
+
+## DEC-0211 - Scope new-cloud mobility diagnostic with centered primary
+
+2026-10-25 EVID-0228,user c6df5d65 plus explicit option3. Adopt index covariance
+9*.9^indexlag and independent percell/perslot Uniform means/innovations only for
+this DIAGNOSTIC_ONLY experiment. Zero threshold convention andcalibratedp
+extension separated,not falsely cited. PrimaryHAP(500,500)m;oldHAPsecondary.
+Rebuild noninteger channel/SKR values with existing212C,w and unchangedv43
+Eq14/MI/Holevo/normalization/noise. SameC/S and normalizedobjective perpolicy.
+DP/Stationaryoffline;Greedycurrentonly. Preserve historical production/frozen
+hashes/sourceclasses;oldcloudhelper onlyOLDcontrolledcomparison. No publication,
+security/sourceconvergence,defaultadoption or baseline/threshold promotion.
+Isolated manuscript proposal only. Deliver and STOP.
+
+## DEC-0210 - Publication-quality formatting does not promote diagnostic evidence
+
+2026-10-25 EVID-0227,user attachment c2d16c60. Authorize only new Matplotlib
+figures/captions from sealed61-angle saved CSVs. Reuse existing pure raw-rate
+ranking and match exact saved winners;no model/source/MI/Holevo/SKR calls.
+Preserve negative rates and source classes. Use requested IEEE typography,
+600dpi/vectorPDF,MB-only zoom and two-panel layout. Put DIAGNOSTIC_ONLY in
+captions/metadata instead of a large watermark; no security/publication/source
+convergence approval follows from visual quality. Historical results/frozen
+specifications/production remain unchanged. Original strict Phase B blockers,
+missing Uniform and all security/lifecycle gates remain. Deliver and STOP.
+
+## DEC-0209 - Allow original-grid 61-angle historical-source diagnostic only
+
+2026-10-24 EVID-0226. Explicit current user request supersedes the prior
+no61 stop only for this separate DIAGNOSTIC_ONLY experiment. Recover the
+original 0..60 by1deg grid; hold the212 compatible historical-source catalog
+fixed at every angle; reuse1908 matching saved rate pairs, calculate only11024
+missing rate pairs. No C,w job, approximation/interpolation or source substitution.
+Keep manuscript v43/directEq14,homodyne MI,Holevo,VA2*nbar,nu conversion,
+[0,1] truncation with recorded deficit and all shared channel/noise conventions.
+Separate rawK and operational max(0,K); rank rawK and retain failures/negatives.
+Do not alter strict evaluator, frozen specs, production, historical artifacts or
+evidence taxonomy. New versioned protocol binds the expanded diagnostic scope.
+Finite-catalog winners/sign brackets do not prove global optima or continuous
+operational angles. Missing exact-VA Uniform remains disclosed. All positive
+candidate rates still depend on insufficient source-convergence evidence;
+strict Phase B and security/publication gates stay BLOCKED. No lifecycle,
+default/baseline/threshold approval or automatic follow-up source computation.
+Deliver all requested tables/plots/reports and STOP.
+
+## DEC-0208 - Authorize historical-payload diagnostics without relaxing strict gates
+
+2026-10-24 EVID-0225,user3aadec7f. Explicitly accept compatible saved exact C,w
+with incomplete convergence evidence ONLY for separately labeled diagnostics.
+Retain INSUFFICIENT_EVIDENCE on73 existing pilot sources and strict readiness
+false;passing MI/Holevo/SKR does not prove source convergence. Do not recompute
+C,w,interpolate moments,substitute sources,modify physics/equations or generate
+progress/checkpoint infrastructure. Existing strict evaluator remains untouched.
+
+Accept reuse of80/81 pilot sources at9 angles and separate212-source historical
+catalog diagnostic inside originalVA/nu domain to maximize reuse. Keep720 pilot
+records separate;additional132 sources do not replace missing Uniform. Exclude
+23 outside-domain sources explicitly. Record restricted/best-tested catalog
+scope,not original complete81 pool,continuous optimum or strict Phase B complete.
+All positive diagnostic rows rely on insufficient-evidence sources;source classes
+and lifecycle/security remain unchanged. Preserve negative raw K and diagnostic
+versus strict-source-evidence views. Frozen hash provenance/binding unchanged.
+Task ends at eight requested outputs and verification;no61sweep,source job,
+production/default/baseline/threshold promotion or automatic continuation.
+
+## DEC-0207 - Preserve strict evidence policy; diagnose timeout without recomputation
+
+2026-10-24 EVID-0224,user e53c2464. Permit read-only historical/Git/archive/tool
+record recovery and bounded deterministic diagnostics only. No expensive source
+job,pilot or61-angle sweep. Keep final Eq14,homodyne MI,Holevo,RR,beta.95,
+VA=2*nbar,nu_repo=42.5*nu_raw,[0,1] truncation and exact source identities.
+New findings do not justify source-status upgrades:retain6exact/1alternative/
+74insufficient/0invalid. FixedMB remains identity-valid but convergence-evidence
+insufficient; missing receipts do not establish wrong C,w. Do not broaden the
+alternative-evidence category or use producer guards as precision histories.
+UserCPU growth in one worker confirms activity only; internal numerical stage
+remains unknown. Do not label eighe or memory as proven dominant bottleneck.
+Recovery plan is a proposal for observability/checkpoint preparation,then a
+separately approved single-source budget. No new attempt,budget,wrapper adoption,
+evidence waiver,pool substitution or lifecycle/production promotion is authorized.
+Frozen history and experiment binding stay intact. PHASE_B_STRICT_READY=false;
+report the two source-dependency families and STOP after diagnosis/reports.
+
+## DEC-0206 - Complete readiness preparation; block pilot on remaining source gaps
+
+2026-10-24 EVID-0223. Explicit current user request supersedes the earlier stop
+only for recovery/classification of81 pilot sources, one exact Uniform source
+at VA1.6249995399703647/nu0, frozen history/versioned experimental specification,
+and pilot runner preparation. Preserve the FINAL approved Eq10[0,1] truncation,
+VA=Vmod=2*nbar, discrete homodyne MI, direct Eq14 and manuscript Holevo formulas.
+Alternative evidence must identify exact inputs, numerical checks, tolerances
+and limitations. Missing receipt never automatically means INVALID C,w.
+No full source recomputation campaign, manuscript/production/cache edits,
+pilot launch/full61 sweep or lifecycle/security/baseline promotion.
+Stop after a traceable Phase B readiness PASS/BLOCKED report.
+
+Final EVID-0223/readiness.json decision BLOCKED. Accept recovered exact-input
+full-ladder evidence for Uniform VA2 under the existing source tolerance, with
+saved method/limitations. Do not upgrade73 existing sources solely from cache
+route/settings or producer guards; missing per-precision data remains insufficient,
+not INVALID. The one authorized exact-VA Uniform job timed out at3600s without
+payload; no automatic retry, increased budget or replacement ensemble.
+
+User Task3 authorizes a distinct versioned experimental specification for the
+approved homodyne/direct-Eq14/30cm baseline. Bind experiment_spec_v1.json and both
+recovered historical/current frozen hashes. Keep original frozen specification,
+AGENTS historical expected hash and global lifecycle checks unchanged. Git history
+resolves this experiment's provenance dependency; it does not promote production.
+
+Runner readiness10/10 PASS is separate from source-job receipt NOT_RUN and the
+overall BLOCKED gate. Preserve all81 exact candidate identities; no silent subset,
+C,w interpolation, new source campaign or pilot/full61 launch. Next minimum work
+requires the73 existing convergence records and exact Uniform payload/receipt,
+then fresh readiness validation. End this task with the report; no further job.
+
+## DEC-0205 - Apply explicit truncation and VA conventions to isolated Phase A
+
+2026-10-24 EVID-0222. User approval supersedes DEC-0204's exact-normalization
+and unresolved-VA stops solely for the selected numerical baseline. Keep Eq10
+and Eqs18-20 unchanged on[0,1], ignore outside probability in evaluator, retain
+deficit metadata, never renormalize/clip/replace law or claim normalized density.
+Use VA=Vmod=2*sum(p*abs(alpha)^2),X_A=2Re(alpha); printed nbar/2 is metadata only.
+Preserve exact ensemble C,w and manuscript bytes. Keep Eq14 direct and Eq13/MI/
+effective-channel equations unchanged; no Z optimization/endpoint/cap repair.
+
+Accept focused numerical convention checks in results/skr_vs_zenith_eq14_v43_20261024/.
+Do not reinterpret missing receipts as incorrect C,w or fabricate convergence
+receipts from cached final values. Expanded search recovers16 receipts;74 pilot
+sources still need evidence under the existing strict gate. No evidence waiver
+was requested or applied. Restore evidence first; any alternative diagnostic
+evidence policy or recomputation budget requires a separate explicit decision.
+
+The exact-VA Uniform source is still missing; do not substitute rounded VA1.625
+or MB moments. No source job, nine-angle pilot, optimization or full61 sweep
+is launched by this update. B-F orchestration remains a later implementation.
+Frozen hash discrepancy remains an independent provenance dependency, not an
+Eq10/variance blocker. No production adoption, manuscript/frozen correction,
+security/lifecycle/baseline/threshold promotion or ObjectiveC restart.
+
+## DEC-0204 - Bind direct Eq14 Phase A only; stop at mathematical dependencies
+
+2026-10-23 EVID-0221. The user-approved implementation plan requires the exact
+manuscript Eq14 Z and Eq13 homodyne calculation. Implement those components in
+results/skr_vs_zenith_eq14_v43_20261023/, preserving all historical evaluators,
+full-Z artifacts and source caches. Z is not an optimization variable; no interval,
+endpoint selection, projection, alternative formula or Holevo modification.
+No peak30 constraint is added to the explicitly selected rectangular VA/nu domain.
+
+Phase A produces fresh angle0 probability-law evidence and exact-source identity
+checks, then stops: positive eta>1 mass cannot be accepted as a valid retained
+law merely because some angles pass a tolerance. VA-to-printed-Vmod mapping
+also remains unresolved. Missing payload-bound convergence receipts are a
+separate evidence dependency, not permission to regenerate sources.
+
+Authorize no automatic Phase B-F continuation from component-test PASS.
+The183 blocked rows are a dependency report, not a completed SKR sweep.
+Next scientific decision is author review of Eq10 support/normalization and
+VA mapping, followed by source-receipt provenance resolution. Any mathematical
+change requires explicit approval and a new bound protocol; no correction is
+adopted here. Lifecycle/security/frozen discrepancy and ObjectiveC stop remain.
+
+## DEC-0203 - Bind user-confirmed PDF without approving mathematical corrections
+
+2026-10-23 EVID-0220. User explicitly identifies available (43).pdf as the
+requested v43(2). Bind intended manuscript source to SHA256 f970cd6d...fc27b
+via docs/MANUSCRIPT43_CANONICAL_REFERENCE.md. The identity dependency in
+DEC-0202 is resolved; audit equation references now concern the confirmed
+source. Preserve old receipt/seal snapshots and publish metadata-only bound
+views in append-only reference_binding_user_confirmed/.
+
+Source authority does not repair its mathematical contradictions. Keep Eq10
+normalization failure,real1D likelihood/Vmod/MB/rho corrections as findings,
+proposal not adopted, and production evaluator adoption/security BLOCKED.
+No scientific code/cache/numerical changes or optimization authorization.
+Historical frozen experiments remain scoped to their snapshots; preserve
+frozen hash discrepancy and all lifecycle/security/ObjectiveC blockers.
+
+## DEC-0202 - Preserve manuscript authority intent; do not invent v43(2) identity
+
+2026-10-23 EVID-0219,user544a73ad. Accept fixed diagnostic comparison package
+against hash-bound available43 and explicit task equations as reviewable audit
+evidence. User designates v43(2) as intended canonical source, but that PDF
+has not been located/authenticated: canonical binding/evaluator adoption
+remain BLOCKED. Do not silently rename/promote available43,alter frozen
+authority,repair original Eq10 or substitute bounded law.
+
+B=C is one random-width law; positive .10788256029424448 belongs to it only.
+Original Eq10 critical mass .9013297245653482 blocks information/rates.
+Keep manuscript inconsistencies,production protocol differences and numerical
+precision limits explicit. Corrections are versioned PROPOSAL_NOT_ADOPTED;
+same actual p,alpha preserves authenticated C,w,model/noise changes do not
+authorize cache relabeling or interpolation. No production edits/optimization
+were performed or automatically authorized by this audit.
+Next: bind exact PDF or explicit author designation,then review equation delta;
+keep security/lifecycle/frozen blockers,ObjectiveC USER_STOPPED. No training/
+test/heldout/publication,baseline/default/threshold approval,commit/push.
+
+## DEC-0201 - Retain primary Uniform nonpositive result and separate bounded-law evidence
+
+2026-10-23 EVID-0218 accepts user9f6181d7 finite staged diagnostic artifacts.
+Primary raw Eq10 retains strict mass1e-10 gate; no positive Uniform claim
+from blocked PDFs or a secondary law. Secondary receiver30 Uniform
+K=0.10788256029424448 is numerical/model-provisional only,with explicit
+10urad divergence/.5urad jitter/.03m position engineering assumptions.
+Compare shaping only within the same law,geometry and noise convention.
+Requested exact-source gaps [] remain coverage limits; finite-catalog
+selection is not continuous/global optimization or security certification.
+OS ApplicationControl is respected; no automatic source retry or broader search.
+Keep scientific production/frozen/cache history untouched and all lifecycle/
+security/frozen blockers,ObjectiveC USER_STOPPED. No publication/default/
+baseline/threshold approval. Deliver and STOP; new scope requires new request.
+
+## DEC-0200 - Accept exact-catalog zenith diagnostic; preserve omitted-curve meaning
+
+2026-10-23 EVID-0217 completes userf84ac5ba. The three requested legend labels
+refer to finite authenticated exact-source catalog comparisons,not continuous
+or globally certified optima. Fixed MB stays at the documented receiver30 pair.
+Only the task-specific manuscript43/no-eta-detector homodyne Gaussian model is
+used in the primary figure; no legacy random-width/pooled/heterodyne substitute.
+
+Accept61-angle/183-row coverage and13048 candidate evaluations as scoped
+diagnostic evidence. Angles0-4 fail the unchanged PDF-mass gate and remain
+blocked before source search/rate evaluation. Do not repair the model or
+relax tolerance to extend curves. Preserve all negative raw rates inCSV,
+omit nonpositive values from log-axis and break lines at excluded nodes.
+Uniform has no positive curve; fixed MB has one marker5deg; optimized MB
+has positive5-15deg. Do not fabricate three visible positive curves.
+
+Optimized-MB peak7.281372514840734e-4 at5deg is the best evaluable sampled
+point,not evidence5deg is physically better than blocked0-4. Styling and
+vector export do not authorize publication evaluation or security promotion.
+No new exact-source generation/interpolation,production baseline/threshold/
+default approval or lifecycle change. Preserve historical source/cache/result
+bytes,security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+
+## DEC-0199 - Keep receiver30 A positive separate from explicitly defined B blocker
+
+2026-10-23 EVID-0216 completes user843d84ac fixed-point inspection. Accept39
+scoped checks and124 provenance-bound parameter rows as numerical-component
+evidence. No source/VA/nu/aperture search or model/default promotion.
+
+A reproduces historical Gaussian random-width K=.005392532654035664 with
+eta_det.95 and output epsilon_det.005. This remains model-specific numerical
+positivity,not operational/security certification. Preserve the different
+historical actual-fading MI/rate instead of replacing or mixing values.
+
+For this task only,the user explicitly defines independent xi_det=.005 for B
+without an eta_det parameter. This resolves that coefficient for the diagnostic,
+not the general manuscript/hardware interpretation. Do not reinsert efficiency,
+divide .005 by .95 or combine B with A's detector convention.
+
+The raw Eq10 mass deficit1.056995513649377e-10 fails unchanged1e-10.
+Keep B rates unavailable/BLOCKED before MI/Holevo,with all unnormalized
+coefficient diagnostics and outage contribution visible. No repair or
+relaxation because the deficit is close to tolerance.
+
+Source,production/frozen/history bytes preserved. Old ledger-hash receipts
+remain historical snapshots; new ledger updates do not invalidate old numeric
+artifact bytes. No lifecycle/security/default/baseline/threshold promotion.
+Keep existing blockers,ObjectiveC USER_STOPPED; deliver and STOP.
+
+## DEC-0198 - Accept isolated physical homodyne component; no secure default
+
+2026-10-23 EVID-0215 completes user7944a7e7 manuscript43 audit. Keep three
+controlled namespaces: A preserved legacy; B literal manuscript diagnostic
+with invalid complex-mean density made explicit; C physical-output untrusted
+homodyne Gaussian component. Do not combine variants or promote C into the
+frozen production protocol. No secure default is designated.
+
+Keep VA=2*nbar, centered MB PMF and authenticated exact C,w unchanged.
+Propose manuscript-only corrections separately. Preserve xi_det definitions
+A=epsilon_det/eta_det, B=chi_hom and independently undefined parameter.
+Physical untrusted detector loss must appear in quantum Ttotal; classical
+measurement scaling must not rescale standard-form quantum covariance.
+Do not describe matching MI under conventionB as matching Holevo.
+
+Accept18 unit tests,10 matched regressions and focused checks as scoped
+numerical evidence only. The historical28.1cm positive is not positive under
+requested Gaussian MI; retain both values with channel/likelihood context.
+Positive30/40/55cm passive-law values cannot bypass raw-PDF mass failures.
+Preserve1e-10 mass tolerance,no renormalization/clipping/tail reassignment,
+explicit zero atom and raw unavailable rates. Nonzero-Rician exact-product
+discrepancy also requires a manuscript derivation/domain decision.
+
+All old results/caches remain unchanged and only selected cases reevaluated.
+No new search to force positive rate, source interpolation/AP or production
+baseline/threshold approval. Keep security/lifecycle/frozen-identity blockers
+and ObjectiveC USER_STOPPED. Further model/default changes require new scoped
+authorization and physical/security resolution. Deliver artifacts and STOP.
+
+## DEC-0197 - Accept fragile parameter-only positives; balanced UAV objective unmet
+
+2026-10-23 EVID-0214 completes user17217c3e without changing scientific formulas,
+source moments or security assumptions. Receiver28.1cm is the smallest refined
+positive candidate found, not a global minimum or practical UAV certification.
+Its nominal K is below1e-4 and loses positivity at10percent residual degradation.
+Receiver30cm has higher nominal K but also fails centering/joint10percent.
+No tested positive through30cm meets the preferred jitter>=3urad objective.
+
+Do not manufacture a balanced design: B is a conditional reference, sharesC's
+physical/source point and retains balanced_objective_met=false. Three roles
+represent two physical configurations. Do not describe nominal positives as
+robust or infer mass/power savings from area or detector efficiency. Keep the
+common-source detector roots separate from selected-source minimum refinement.
+All bounds are fixed-source/local/finite-catalog, not certified thresholds.
+
+Accept46 scoped checks and nine reviewed figures only. Total hardware mass,
+operating power,compatible repetition rate,energy efficiency and sortie yield
+remain UNKNOWN. No lower noise, altered distributions/trust/measurement,
+source interpolation/new AP,production baseline/threshold approval or lifecycle
+promotion. Preserve history/caches/frozen identity,security limitations and
+ObjectiveC USER_STOPPED. Deliver the scoped artifacts and STOP.
+
+## DEC-0196 - Accept parameter-only negative evidence; no lightweight positive design
+
+2026-10-22 EVID-0213 completes user b4a0546e with unchanged existing diagnostic
+model. Restrict this task toDr8cm, epsilon_det .0135/.005 and eta .8/.85/.9/.95;
+retain untrusted homodyne/full-Z, old passive optical law and exact source caches.
+The old noise.0005/jitter1urad/centering.05m positives are not admissible results
+for this task. Do not relax the detector-noise floor or change formulas to get K>0.
+
+All tested candidates remain negative. A/B/C are closest-tested references,
+not three working positive designs or purchase/deployment recommendations.
+C50urad/1.561urad/.1m/0deg/eta.95/noise.005 with MB(.25,VA1.62499954)
+gives K=-.0236784908824; no robust positive candidate exists in sampled evidence.
+Prioritize actual positive raw rate before claimed payload/energy benefits;
+without supported mass/power data, engineering burden is qualitative only.
+No global no-key theorem follows from a finite catalog and staged physical grid.
+
+Accept33 scoped numerical checks only, not hardware or security validation.
+Preserve current evaluator/source/frozen identity and all lifecycle blockers.
+No automatic source expansion/AP, model correction, altitude extrapolation,
+production baseline/threshold selection,training/test/heldout/publication,
+commit or push. Deliver the isolated report/CSVs/eight figures and STOP.
+
+## DEC-0195 - Accept fixed8cm positives as fragile conditional diagnostics
+
+2026-10-22 EVID-0212 completes user599ac194. Receiver remains.08m and detector
+UNTRUSTED. Original hardware cases remain negative in tested region; numerical
+positivity requires substantially betterPAT/centering and lowerdetectornoise,
+with geometry shortening or additional efficiency improvement. Keep all
+negative/ideal/height-uncalibrated evidence; never switch detector trust.
+
+Deliver B15deg/25urad/1urad/.05m/eta.8/noise.0005 and Csame/eta.95,MB(.25,
+VA1.6249995399703647),K=.0001780292353/.0009622585344. Keep original-geometry
+C0 K=.00001230214724 as near-zero comparison only. B is onset/minimum-change
+sensitivity,C extra-margin sensitivity; neither is operational hardware advice
+or jointly20percent robust. No publication or production baseline selection.
+
+Use user weather pairs23/.92,15/.89,5/.75 without double-countingKruse. Missing
+vertical extinction blocks calibrated altitude feasibility claims; exclude
+height-changed points from primary recommendations and distance thresholds.
+Keep existing homodyne/full-Z/passive model,exactCw catalogs and security limits;
+no source interpolation/AP,training/test/heldout/publication or readiness
+promotion. Frozen discrepancy and ObjectiveC USER_STOPPED remain. Deliver;STOP.
+
+## DEC-0194 - Accept local minimum/robustness shortlist only as diagnostics
+
+2026-10-22 EVID-0211 completes userf1566258 staged minimal-change request.
+Use final_selection.json, not the preserved automated selection.json. No
+positive8-30cm node was found; retain that negative evidence and incomplete
+coverage. Local40cm branch gives a rounded40.1cm positive candidate with
+strong PAT, not a universal minimum or robust hardware design.
+
+Use55cm/35urad/3urad/.1m MB(.22,2.15) as the bounded-model engineering
+sensitivity scenario with joint20percent sampled pointing margin. It trades
+nominal optimum for robustness. Keep40.1cm onset and55cm/15urad higher-rate
+scenarios as comparisons; do not default to old75cm/10urad regression.
+All are large optical payloads needing platform SWaP and measured optics/PAT;
+no ordinary-UAV feasibility or validated secure-key claim is authorized.
+
+Preserve previous optical/security decisions and exact caches. Actual pooled
+MI is primary; Fourier acceleration checked against identical direct mixture.
+Do not reopen detector/Cw/fading theory, silently change active233/223 baseline
+semantics, interpolate exact moments, generate AP, certify thresholds, promote
+production baseline or enter training/test/heldout/publication. All previous
+security/lifecycle blockers and ObjectiveC USER_STOPPED remain. Deliver and STOP.
+
+## DEC-0193 - Accept untrusted feasibility candidates only as diagnostics
+
+2026-10-22 EVID-0210 accepts user64840f73 bounded investigation. Positive
+functionals are demonstrated under the separately named passive random-width
+surrogate with exact circular collection and untrusted detector throughout;
+they do not validate the old equivalent-beam/lognormal channel or establish
+secure key generation. Keep all negative/historical/coarse/refined evidence.
+
+Deliver largest-tested .75m/10urad/.1m/1.561urad MB(.125,8) and the smaller
+transmitter candidate .55m/25urad/samepointing MB(.2,3.5). Report surrogate and
+actual-mixture MI values separately. Do not interpret source/catalog or
+fixed-source boundary roots as global physical/hardware thresholds. Actual
+receiver-aperture/transmitter-aperture/jitter capability remains unverified;
+no hardware purchase recommendation from this surrogate alone.
+
+Do not broaden numerical diagnostics into source AP expansion, production
+baseline selection, threshold certification, training/test/held-out/publication
+or readiness promotion. No trusted-detector substitution or vacuum double
+counting. Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+frozen discrepancy and ObjectiveC USER_STOPPED. Work complete; deliver and STOP.
+
+## DEC-0192 - Accept isolated noise trial only; reject reference PDF acceptance
+
+2026-10-22 EVID-0209 executes user ead53cdc fixed-source trial. Keep all output
+in corrected_excess_noise_trial_20261022; preserve historical/source/config/
+frozen/production/manuscript bytes. User authorizes this diagnostic only.
+Use explicitly untrusted detector loss/excess and matching receiver MI/Holevo;
+report both zero-limit and active-only detector assumptions without conditioning.
+Do not silently identify epsilon_det with historical xi_det or electronic v_el.
+Do not double-count total loss/measurement vacuum as channel excess.
+
+Accept manuscript noise-moment/numerical checks only, not secure-key validity.
+Reject historical55cm reference as a consistent [0,1] result: raw moments and
+retained mass fail the common-law requirement. Preserve its algebraic numbers
+with retained_law_compatible=false, never promote them to accepted SKR. Further
+law/support changes require a new scoped task. Actual historical replays are
+not matched-detector/noise-only causal comparisons; declared physically matched
+total-to-excess reformulation is algebraically/numerically identical.
+Keep UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, historical
+frozen discrepancy and ObjectiveC USER_STOPPED. No source/optimization/training/
+test/held-out/publication or baseline/threshold promotion. Deliver report; STOP.
+
 ## DEC-0191 - Accept bounded historical zenith root-cause diagnosis
 
 2026-10-21 accept EVID-0208 solely as explanation/verification of the saved

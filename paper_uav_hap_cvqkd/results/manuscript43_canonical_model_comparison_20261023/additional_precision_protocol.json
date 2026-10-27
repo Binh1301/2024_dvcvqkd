@@ -1,0 +1,16 @@
+{
+  "reason":"Original historical u=exp(-x) quadrature failed fixed2e-8 MI tolerance at128/256/512; investigate integration, not model changes",
+  "parent_protocol":"protocol.json",
+  "law_and_source_unchanged":true,
+  "radial_variable":"x=R^2/(2*sigma_s^2); integral exp(-x)dx",
+  "radial_interval":[0,40],
+  "omitted_probability_upper_bound":4.248354255291589e-18,
+  "quadrature_levels":[[128,32,160],[256,64,320]],
+  "level_fields":["radial_Legendre","width_GH","output_Legendre"],
+  "MI_absolute_tolerance":2e-10,
+  "conditional_mass_tolerance":2e-10,
+  "channel_moment_tolerance":2e-10,
+  "weights_renormalized":false,
+  "tiny_tail_check":"Stable survival-function formula rather than subtracting M0 from1",
+  "no_optimization_or_production_edit":true
+}

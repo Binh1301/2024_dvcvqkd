@@ -1,0 +1,99 @@
+{
+  "result_scope": "DIAGNOSTIC_ONLY",
+  "PHASE_B_STRICT_READY": false,
+  "target_sources": [
+    "Winner_MB",
+    "Fixed_MB"
+  ],
+  "small_sources": [
+    {
+      "name": "Uniform_4",
+      "M": 4,
+      "VA": 1.0,
+      "nu_small_grid": 0.0,
+      "geometry": "independent odd-integer square grid then common energy scale",
+      "no_repository_moments_called": true
+    },
+    {
+      "name": "MB_4",
+      "M": 4,
+      "VA": 1.0,
+      "nu_small_grid": 0.3,
+      "geometry": "independent odd-integer square grid then common energy scale",
+      "no_repository_moments_called": true
+    },
+    {
+      "name": "Uniform_16",
+      "M": 16,
+      "VA": 1.0,
+      "nu_small_grid": 0.0,
+      "geometry": "independent odd-integer square grid then common energy scale",
+      "no_repository_moments_called": true
+    },
+    {
+      "name": "MB_16",
+      "M": 16,
+      "VA": 1.0,
+      "nu_small_grid": 0.3,
+      "geometry": "independent odd-integer square grid then common energy scale",
+      "no_repository_moments_called": true
+    },
+    {
+      "name": "Uniform_64",
+      "M": 64,
+      "VA": 1.0,
+      "nu_small_grid": 0.0,
+      "geometry": "independent odd-integer square grid then common energy scale",
+      "no_repository_moments_called": true
+    },
+    {
+      "name": "MB_64",
+      "M": 64,
+      "VA": 1.0,
+      "nu_small_grid": 0.3,
+      "geometry": "independent odd-integer square grid then common energy scale",
+      "no_repository_moments_called": true
+    }
+  ],
+  "float_thresholds": [
+    1e-10,
+    1e-12,
+    1e-14,
+    1e-16
+  ],
+  "fock_cutoffs": [
+    24,
+    32,
+    48,
+    64,
+    96,
+    128,
+    256
+  ],
+  "MP_policy": "Declared positive spectral floor; no eigenvalue clipping. Rank limitations retained.",
+  "independent_AP_digits": [
+    80,
+    100,
+    140,
+    180,
+    260
+  ],
+  "maximum_AP_digits": 260,
+  "per_job_timeout_seconds": 180,
+  "total_worker_wall_seconds": 1200,
+  "worker_working_set_limit_MiB": 1024,
+  "maximum_matrix_dimension": 256,
+  "estimated_float_matrix_MiB": 1.0,
+  "estimated_AP_sector_storage_MiB_under": 128,
+  "threads_per_worker": 1,
+  "selected_source_comparison_tolerances": {
+    "C_abs": 2e-11,
+    "w_abs": 2e-12,
+    "w_rel_diagnostic": 0.001
+  },
+  "tolerance_scope": "Prospective local diagnostic agreement targets, not production certification; full rank/precision/cutoff limitations assessed separately",
+  "repository_method": "Read authenticated existing C,w; no production fallback invocation",
+  "manuscript_equations_unchanged": true,
+  "existing_catalog_sources_modified": 0,
+  "missing_uniform_not_authorized": true
+}

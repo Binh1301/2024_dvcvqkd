@@ -1,0 +1,457 @@
+# CODEX TASK — Find Positive SKR for Uniform 256-QAM in HAP–UAV CV-QKD
+
+## 1. Main objective
+
+Find physically reasonable HAP–UAV configurations where **Uniform 256-QAM produces a strictly positive secret key rate** under the current manuscript-v43 modeling convention.
+
+The previous zenith-angle sweep found:
+
+- Optimized MB-shaped 256-QAM: positive over 5°–15°.
+- Fixed MB-shaped 256-QAM: positive at 5°.
+- Optimized Uniform 256-QAM: no positive points.
+
+I want to investigate whether Uniform 256-QAM can achieve positive SKR by optimizing modulation variance and improving physically meaningful optical/channel parameters.
+
+Do not artificially force positive SKR.
+
+Do not declare a positive result secure if the security-model validation is still unresolved.
+
+## 2. Repository and previous results
+
+Repository:
+
+C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd
+
+Read the existing results:
+
+- results/manuscript43_homodyne_audit_20261023/
+- results/skr_vs_zenith_manuscript43_20261023/
+- receiver30 configuration verification report
+- existing exact source catalog and optimization scripts
+
+Reuse validated implementations and exact-source caches wherever applicable.
+
+Do not overwrite historical data or modify production code.
+
+## 3. Mandatory mathematical model
+
+Use:
+
+- 256-QAM discrete modulation.
+- HOMODYNE detection.
+- Reverse reconciliation.
+- Gaussian effective-channel mutual information.
+- Homodyne Holevo bound.
+- Reconciliation efficiency beta = 0.95.
+- Manuscript-v43 detector-noise convention.
+
+The uniform constellation must satisfy:
+
+\[
+p_k=\frac{1}{256},\qquad k=1,\ldots,256.
+\]
+
+For uniform modulation, there is NO MB shaping optimization.
+
+Only optimize the modulation variance VA and physical channel parameters.
+
+Effective channel:
+
+\[
+\eta_f=\langle\sqrt{\eta}\rangle^2.
+\]
+
+\[
+\eta_f\xi_f=
+(\langle\eta\rangle-\eta_f)V_A
++\langle\eta\xi\rangle.
+\]
+
+Detector-noise convention:
+
+\[
+\xi(\eta)=\xi_{\rm ch}+\frac{\xi_{\rm det}}{\eta}.
+\]
+
+Use:
+
+\[
+\xi_{\rm ch}=0.0186,
+\qquad
+\xi_{\rm det}=0.005.
+\]
+
+Do NOT introduce eta_det into the manuscript-v43 calculations.
+
+Use:
+
+\[
+\sigma_\xi^2=1+\eta_f\xi_f.
+\]
+
+For homodyne measurement:
+
+\[
+p(y|\alpha_k)=
+\frac{1}{\sqrt{2\pi\sigma_\xi^2}}
+\exp\left[
+-\frac{
+(y-2\sqrt{\eta_f}\operatorname{Re}\alpha_k)^2
+}{2\sigma_\xi^2}
+\right].
+\]
+
+Mutual information:
+
+\[
+I_{AB}=
+\sum_kp_k\int_{\mathbb R}
+p(y|\alpha_k)
+\log_2
+\frac{p(y|\alpha_k)}
+{\sum_jp_jp(y|\alpha_j)}
+\,dy.
+\]
+
+Evaluate:
+
+\[
+K=\beta I_{AB}-\chi_{BE}.
+\]
+
+Use the same effective-channel parameters consistently in MI, covariance, correlation bound and Holevo.
+
+Keep the uniform source normalization:
+
+\[
+V_A=2\sum_kp_k|\alpha_k|^2.
+\]
+
+Do not use Gaussian-input Shannon capacity as the actual discrete-QAM MI.
+
+## 4. Baseline geometry
+
+Start with the previous 30 cm configuration:
+
+| Parameter | Value |
+|---|---|
+| HAP altitude | 20 km |
+| UAV altitude | 1 km |
+| Wavelength | 1550 nm |
+| Receiver diameter | 0.30 m |
+| Full-angle divergence | 35 µrad |
+| Pointing jitter | 1.561 µrad |
+| UAV position SD | 0.1 m |
+| Atmospheric zenith transmittance | 0.92 |
+| Channel excess noise | 0.0186 SNU |
+| Detector excess noise | 0.005 SNU |
+| Reconciliation efficiency | 0.95 |
+
+Use the actual remaining parameters recovered from the verified receiver30 scenario.
+
+Do not invent missing values.
+
+## 5. Stage A — Optimize Uniform VA with receiver fixed at 30 cm
+
+First KEEP:
+
+- Dr = 0.30 m
+- Full-angle divergence = 35 µrad
+- Pointing jitter = 1.561 µrad
+- UAV position SD = 0.1 m
+
+Sweep zenith angles:
+
+\[
+\zeta\in\{0,1,\ldots,30\}^{\circ}.
+\]
+
+Optimize Uniform modulation variance over an initial coarse range:
+
+\[
+V_A\in[0.05,10].
+\]
+
+Use an adaptive coarse-to-fine numerical search.
+
+Recommended:
+
+1. Evaluate coarse VA candidates.
+2. Identify promising intervals.
+3. Refine around local maxima.
+4. Verify the best candidates using exact source moments.
+
+Do not claim global optimality without a justified global bound.
+
+For every zenith angle, report:
+
+\[
+V_A^*(\zeta)=\arg\max_{V_A}K_{\rm Uniform}.
+\]
+
+and:
+
+\[
+K_{\rm Uniform}^*(\zeta).
+\]
+
+Check whether any valid point satisfies:
+
+\[
+K_{\rm Uniform}>0.
+\]
+
+If yes, record the first positive configuration and continue to identify the best tested one.
+
+If no, proceed to Stage B.
+
+## 6. Stage B — Optimize optical parameters while keeping receiver 30 cm
+
+Keep:
+
+\[
+D_r=0.30\ {\rm m}.
+\]
+
+Investigate combinations of:
+
+### Beam divergence
+
+\[
+\theta_{\rm div}\in
+\{10,15,20,25,30,35,40,50,60\}
+\ \mu{\rm rad}.
+\]
+
+### Angular pointing jitter
+
+\[
+\theta_{\rm jt}\in
+\{0.5,1.0,1.561,2.0,3.0\}
+\ \mu{\rm rad}.
+\]
+
+### UAV position standard deviation
+
+\[
+\sigma_h\in
+\{0.03,0.05,0.10,0.15,0.20\}
+\ {\rm m}.
+\]
+
+### Zenith angle
+
+Initially prioritize:
+
+\[
+0^\circ\leq\zeta\leq20^\circ.
+\]
+
+For each geometry, optimize Uniform VA.
+
+Use coarse screening first, followed by targeted refinement. Do not perform a large brute-force Cartesian sweep if a more efficient exact-source search is possible.
+
+When changing divergence, recompute beam waist, beam radius, pointing statistics and all associated channel parameters consistently with the repository's optical model.
+
+Do not reduce jitter or UAV motion without explicitly reporting that the configuration assumes improved tracking/stabilization.
+
+Rank all candidates by raw SKR.
+
+Identify configurations with:
+
+\[
+K_{\rm Uniform}>0.
+\]
+
+## 7. Stage C — Increase receiver diameter if Uniform remains non-positive
+
+If Stage A and Stage B cannot find a valid positive Uniform configuration, search:
+
+\[
+D_r\in
+\{0.35,0.40,0.45,0.50,0.55,0.60\}
+\ {\rm m}.
+\]
+
+For each receiver diameter:
+
+- Optimize Uniform VA.
+- Search promising divergence settings.
+- Search pointing-jitter settings.
+- Recompute channel moments.
+- Recompute homodyne MI and Holevo.
+
+Identify the **smallest tested receiver diameter giving positive Uniform SKR**.
+
+Do not assume a larger aperture is automatically feasible for a UAV. Flag mass, size, pointing and payload implications as engineering considerations unless actual hardware evidence is available.
+
+Do not use historical positive Uniform results produced by heterodyne MI or incompatible detector conventions as valid results for this study.
+
+## 8. PDF normalization and physical consistency
+
+The previous manuscript-v43 zenith sweep excluded angles 0°–4° because the retained PDF mass failed the established normalization tolerance.
+
+This issue must not be ignored.
+
+For each candidate, verify:
+
+\[
+M_0=P_0+P_1C_1\mathcal Q(\chi^2).
+\]
+
+and:
+
+\[
+0\leq\eta_f\leq\langle\eta\rangle\leq1.
+\]
+
+Distinguish:
+
+- Numerical integration error.
+- Genuine probability mass above eta = 1.
+- Invalid covariance or Holevo calculations.
+- Missing exact source moments.
+
+Do not silently change tolerances or renormalize invalid PDFs.
+
+If needed, investigate an independently defined physically bounded and normalized channel variant, but label it separately and derive its moments consistently.
+
+Never mix channel laws within one optimization curve.
+
+A candidate that fails its model checks is NOT a positive-SKR result.
+
+## 9. Exact-source and computational requirements
+
+Reuse the existing exact Uniform 256-QAM source moments where the ensemble is identical.
+
+If new VA candidates require new C,w calculations, compute them exactly using the established numerical source-moment pipeline.
+
+Do NOT interpolate C,w or SKR.
+
+Use source hashes to verify MI/Holevo ensemble consistency.
+
+Use high numerical precision for SKR values near zero.
+
+Report:
+
+\[
+I_{AB},\quad
+\beta I_{AB},\quad
+\chi_{BE},\quad K.
+\]
+
+Do not clip negative raw SKR values to zero.
+
+## 10. Compare Uniform against MB shaping
+
+Once a valid positive Uniform configuration is found:
+
+Evaluate three schemes under EXACTLY the same physical channel and detector-noise model:
+
+1. Optimized Uniform 256-QAM.
+2. Fixed MB-shaped 256-QAM.
+3. Optimized MB-shaped 256-QAM.
+
+Uniform must use equal symbol probabilities.
+
+Fixed MB must use one documented fixed pair of nu_raw and VA.
+
+Optimized MB may optimize both VA and nu_raw using existing exact sources and targeted refinements.
+
+Calculate:
+
+\[
+G_{\rm shaping}
+=
+K_{\rm MB,opt}-K_{\rm Uniform,opt}.
+\]
+
+Report whether optimized MB still outperforms Uniform and by how much.
+
+Do not combine SKR values from different physical channel laws.
+
+## 11. Required outputs
+
+Create:
+
+results/uniform_positive_skr_manuscript43_20261023/
+
+Generate:
+
+### A. Vietnamese report
+
+Explain:
+
+- Whether positive Uniform SKR was found.
+- Minimum tested receiver diameter giving positive Uniform SKR.
+- Best tested VA for Uniform.
+- Best zenith angle.
+- Best divergence.
+- Best pointing jitter.
+- Best UAV position SD.
+- Best raw SKR.
+- Physical and mathematical validity of each result.
+- Remaining security-proof limitations.
+
+### B. Candidate comparison CSV
+
+Columns:
+
+- stage
+- zenith_deg
+- distance_km
+- Dr_m
+- divergence_urad
+- jitter_urad
+- sigma_h_m
+- VA
+- source_hash
+- channel_law
+- pdf_mass
+- E_eta
+- E_sqrt_eta
+- eta_f
+- E_eta_xi
+- xi_f
+- I_AB
+- beta_I_AB
+- chi_BE
+- raw_SKR
+- validation_status
+- exclusion_reason
+
+### C. Figures
+
+Figure 1:
+Uniform optimized SKR versus zenith angle.
+
+Figure 2:
+Uniform SKR versus receiver diameter for comparable geometry assumptions.
+
+Figure 3:
+Optimized Uniform versus Fixed MB versus Optimized MB, if comparable valid candidates are available.
+
+Use logarithmic y-axis for positive-SKR values only.
+
+Do not visually connect points across invalid or negative intervals.
+
+Save PNG and PDF figures.
+
+## 12. Final conclusions
+
+Answer explicitly:
+
+1. Can Uniform 256-QAM produce positive SKR under the adopted Gaussian effective-channel homodyne model?
+2. If yes, what is the smallest tested physically reasonable configuration?
+3. Is positive SKR possible while retaining Dr = 30 cm?
+4. Which improvement matters most: divergence, pointing stability, UAV position stability, or aperture size?
+5. How much advantage does optimized MB shaping retain?
+6. Which results pass numerical and physical checks, and which remain security-model provisional?
+
+Do not change the mathematical model merely to obtain a positive result.
+
+If Uniform stays non-positive throughout the valid search region, report the strongest negative candidate and explain what would need to change.
+
+Preserve production code, previous results, and exact C,w caches.
+
+Execute the staged search and produce reproducible outputs.

@@ -1,0 +1,19 @@
+{
+  "preparation_attempts": [
+    {
+      "status": "FAILED_BEFORE_EVALUATION",
+      "cause": "Initial current-file-only hash assertion did not select the preserved original run.py producer snapshot",
+      "source_jobs": 0,
+      "candidate_evaluations": 0
+    },
+    {
+      "status": "CURRENTLY_VERIFIED_PASS",
+      "resolution": "Verify original hash using execution_producers/run.py, as the baseline read-only verifier does; exact numerical evaluator hash still required to match current bytes",
+      "source_jobs": 0,
+      "candidate_evaluations": 0
+    }
+  ],
+  "historical_run_py_difference": "Only stdout json.dumps(clean(summary)) vs json.dumps(summary), independently inspected with git diff --no-index",
+  "source_classifications_changed": false,
+  "mathematical_equations_changed": false
+}

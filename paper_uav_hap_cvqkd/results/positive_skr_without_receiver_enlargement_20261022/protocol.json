@@ -1,0 +1,62 @@
+{
+  "receiver_fixed_m": 0.08,
+  "baseline": [
+    20.0,
+    1.0,
+    30.0,
+    233.0,
+    15.61,
+    1.0,
+    0.8,
+    0.0135,
+    0.92
+  ],
+  "parameter_fields": [
+    "h_hap_km",
+    "h_uav_km",
+    "zenith_deg",
+    "divergence_urad",
+    "jitter_urad",
+    "sigma_h_m",
+    "eta_det",
+    "epsilon_det",
+    "tau_zen"
+  ],
+  "source_catalog": 233,
+  "primary_MI": "ACTUAL_POOLED_FADING_LIKELIHOOD",
+  "source_fixed_stageA": {
+    "VA": 5.475,
+    "nu_raw": 0.165
+  },
+  "user_weather": {
+    "provenance": "User response during this task on 2026-10-22",
+    "pairs": [
+      {
+        "visibility_km": 23,
+        "tau_zen": 0.92
+      },
+      {
+        "visibility_km": 15,
+        "tau_zen": 0.89
+      },
+      {
+        "visibility_km": 5,
+        "tau_zen": 0.75
+      }
+    ],
+    "interpretation": "Use tau_zen directly as the zenith path transmission; visibility is a scenario label. Do not multiply an additional Kruse transmission.",
+    "vertical_extinction_profile": "NOT_PROVIDED",
+    "height_changed_points": "Fixed-tau sensitivity only; no vertically calibrated atmospheric or platform feasibility claim."
+  },
+  "screen_quadrature": [
+    128,
+    16
+  ],
+  "selected_MI_change_tolerance": 2e-06,
+  "source_coordinate_stop_deltaK": 1e-08,
+  "engineering_K_target": 0.0001,
+  "threshold_scope": "FIXED_SOURCE_LOCAL; distance roots via original-height zenith only",
+  "height_extinction": "MISSING_VERTICAL_PROFILE; changed heights sensitivity only",
+  "security_valid": false,
+  "hardware_validated": false
+}

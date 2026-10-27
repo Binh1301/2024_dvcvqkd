@@ -1,0 +1,57 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "artifact_files": 23,
+  "protected_historical_files": 9238,
+  "blocked_rows": 183,
+  "source_identity_pass": 212,
+  "phase_B_ready": false,
+  "phase_A_mathematical_status": "BLOCKED_PDF_SUPPORT_NORMALIZATION",
+  "evaluator_rerun": false,
+  "command": [
+    ".venv\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    "results\\skr_vs_zenith_eq14_v43_20261023\\run.py",
+    "--verify-only"
+  ],
+  "UTC": "2026-10-23T16:48:56.079889+00:00",
+  "phase_guard_checks": [
+    {
+      "phase": "B",
+      "exit_code": 2,
+      "status": "BLOCKED_PHASE_DEPENDENCY"
+    },
+    {
+      "phase": "C",
+      "exit_code": 2,
+      "status": "BLOCKED_PHASE_DEPENDENCY"
+    },
+    {
+      "phase": "D",
+      "exit_code": 2,
+      "status": "BLOCKED_PHASE_DEPENDENCY"
+    },
+    {
+      "phase": "E",
+      "exit_code": 2,
+      "status": "BLOCKED_PHASE_DEPENDENCY"
+    },
+    {
+      "phase": "F",
+      "exit_code": 2,
+      "status": "BLOCKED_PHASE_DEPENDENCY"
+    }
+  ],
+  "blocked_phase_file_mutations": false,
+  "prior_ledger_bodies_preserved": true,
+  "ledger_sha256": {
+    "docs/EVIDENCE.md": "5c5125bb88797a3bbdac68590f3c2938fed5f842ffcbf75fca5f717fc3a5c01c",
+    "docs/DECISION_LOG.md": "d206421e40a89a437f5b0460cc3a92aac1bb4b0e8378731a2c14311e1cda4092",
+    "docs/PROJECT_STATE.md": "f9fe21bb1e5712e9a7f03c49a4108ea94ba2105263dc7b853d3906e37122aa04",
+    "docs/NEXT_ACTIONS.md": "da0652231ddcf35831fa77301dac1c5839add2b7bac2a528a83ca28e76df2567",
+    ".agent/SESSION_HANDOFF.md": "5ab3460382b21545d842ae3c390cb26b1c46a7899dcd8499fd12672abb67630d"
+  },
+  "new_python_static_checks": "CURRENTLY_VERIFIED_PASS",
+  "git_diff_check": "CURRENTLY_VERIFIED_PASS"
+}

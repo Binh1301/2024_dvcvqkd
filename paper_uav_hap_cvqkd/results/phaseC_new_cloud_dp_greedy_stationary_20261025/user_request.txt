@@ -1,0 +1,777 @@
+# CODEX — Replace Cloud Blockage Model and Compare DP, Greedy, Stationary
+
+## 1. Objective
+
+Update the cloud-blockage simulation for the HAP–UAV 256-QAM DM-CV-QKD system according to the new Gaussian model provided in the manuscript.
+
+Then **execute a reproducible numerical comparison of three UAV positioning algorithms**:
+
+1. Dynamic Programming (DP)
+2. Greedy
+3. Optimal Stationary Positioning
+
+Use previously computed exact-source C,w values and the current approved SKR evaluator.
+
+Produce numerical results, comparison tables, trajectory illustrations, and publication-quality figures.
+
+This is an execution task. Do not stop after preparing scripts if the required computations can be performed using existing data.
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Read the current manuscript, canonical mathematical reference, previous mobility experiments, and latest 61-angle SKR results before making changes.
+
+## 2. New Cloud Model — Mandatory Replacement
+
+Replace the previous spatial exponential-distance covariance and temporal Gaussian AR(1) model.
+
+The NEW cloud-blockage model is:
+
+\[
+\mathbf G_n\sim\mathcal N(\boldsymbol\mu,\boldsymbol\Gamma),
+\]
+
+where:
+
+\[
+\mu_j\sim\mathcal U(-1,1),
+\]
+
+and:
+
+\[
+\boxed{\Gamma_{ij}=9(0.9)^{|i-j|}}.
+\]
+
+Here:
+
+- J = 100 candidate UAV positions.
+- G_n is a J-dimensional Gaussian vector.
+- mu is the Gaussian mean vector.
+- Gamma is the J-by-J covariance matrix.
+- i,j are candidate-position indices.
+- n is the time-slot index.
+- c[j,n] = 1 denotes complete cloud blockage.
+- c[j,n] = 0 denotes an unblocked optical path.
+
+The Gaussian samples are converted into binary cloud-blockage states by a truncation/thresholding operation.
+
+Generate a new cloud realization at every time slot.
+
+**Do not use the previous Gaussian AR(1) time update.**
+
+In particular, remove the dependency on:
+
+\[
+\mathbf G_{n-1},\quad \rho_t,\quad
+\sqrt{1-\rho_t^2}\boldsymbol\varepsilon_n
+\]
+
+from the NEW primary cloud generator.
+
+### 2.1 Important: Preserve the Exact Spatial Covariance
+
+Use:
+
+\[
+\Gamma_{ij}=9(0.9)^{|i-j|}
+\]
+
+exactly as specified.
+
+Do NOT silently replace it with:
+
+\[
+\exp(-d_{ij}/\ell_c).
+\]
+
+These are different statistical models.
+
+The new covariance depends on index separation, not physical Euclidean distance.
+
+Specify a deterministic mapping between 2-D grid coordinates and indices j = 1,...,100.
+
+Use row-major ordering unless the existing source manuscript defines another ordering.
+
+Explicitly disclose that the index-based model is not spatially isotropic on the 2-D grid.
+
+For example, with row-major ordering:
+
+- Horizontally neighboring cells may have index separation 1.
+- Vertically neighboring cells have index separation 10.
+
+Thus the corresponding latent Gaussian correlations differ despite equal physical distances.
+
+Do not describe this covariance as distance-isotropic.
+
+### 2.2 Resolve the Binary Truncation Rule
+
+Before implementation, inspect the source manuscript and available references for the exact Gaussian-to-binary conversion rule.
+
+The supplied manuscript states that Gaussian samples are converted into correlated binary cloud-blockage states through truncation but does not explicitly provide the numerical threshold.
+
+Do not falsely attribute an undocumented threshold to the references.
+
+If no exact rule is recoverable, implement and clearly document the following operational choice:
+
+\[
+c_{j,n}=\mathbb I\{G_{j,n}>0\}.
+\]
+
+Label this as an explicit simulation convention, not a verbatim equation from the cited paper.
+
+With symmetric mean sampling, this produces marginal blockage probability approximately 0.5 across the ensemble, not an arbitrarily selected p.
+
+If a blockage-probability sweep is required, implement an additional documented threshold-calibration mode:
+
+\[
+c_{j,n}=\mathbb I\{G_{j,n}>t_p\},
+\]
+
+where t_p is numerically calibrated so that:
+
+\[
+\mathbb E_{\mu\sim U(-1,1)}
+\left[
+1-\Phi\left(\frac{t_p-\mu}{3}\right)
+\right]=p.
+\]
+
+The calibrated threshold is an extension of the proposed model, not an equation explicitly specified in the uploaded PDF.
+
+Keep the thresholding modes clearly separated in code and results.
+
+Do not force exactly pJ blocked cells in every slot.
+
+### 2.3 Temporal Independence
+
+The new model does not explicitly include temporal correlation.
+
+For the PRIMARY experiment, independently generate the Gaussian mean vector and innovation for every slot:
+
+\[
+\mu_{j,n}\sim\mathcal U(-1,1),
+\]
+
+\[
+\mathbf G_n\mid\boldsymbol\mu_n
+\sim\mathcal N(\boldsymbol\mu_n,\boldsymbol\Gamma).
+\]
+
+This is the documented independent-slot implementation choice.
+
+Do not reuse a common randomly sampled mean vector across all slots if claiming unconditional temporal independence, since doing so could introduce dependence through that shared mean.
+
+Verify the absence of an explicit temporal AR(1) mechanism.
+
+Report empirical temporal and spatial correlations of both the latent Gaussian values and the resulting binary cloud states.
+
+Do not assume the binary correlations equal the Gaussian correlations.
+
+## 3. Preserve the Exact-Source SKR Model
+
+**Do not recompute any existing exact C,w source moments.**
+
+Reuse the existing historical exact-source catalog, subject to verified identity compatibility.
+
+The current zenith study uses:
+
+- 212 compatible historical sources in the approved domain.
+- 61 sampled zenith angles.
+- 12,932 saved diagnostic SKR evaluations.
+
+Source catalog:
+
+`results/skr_vs_zenith_eq14_v43_phaseB_61angle_diagnostic_20261024/`
+
+Approved physical parameters include:
+
+- HAP altitude: 20 km.
+- UAV altitude: 1 km.
+- Receiver diameter: 0.30 m.
+- Wavelength: 1550 nm.
+- Full-angle divergence: 35 microrad.
+- Angular jitter: 1.561 microrad per axis.
+- Position SD: 0.10 m per axis.
+- Zenith atmospheric transmittance: 0.92.
+- Channel noise: 0.0186 SNU.
+- Detector noise: 0.005 SNU.
+- Reconciliation efficiency: 0.95.
+- Homodyne detection.
+- Reverse reconciliation.
+- AO OFF.
+- Additional phase noise OFF.
+
+Preserve the frozen physical-layer model and direct Eq. (14):
+
+\[
+Z(\eta_f,\xi_f)
+=
+2\sqrt{\eta_f}C-\sqrt{2\eta_f\xi_fw}.
+\]
+
+Do not change mutual information, Holevo information, modulation normalization, or source conventions.
+
+Preserve:
+
+\[
+V_A=V_{\mathrm{mod}}=2\bar n,
+\qquad
+\nu_{\mathrm{repo}}=42.5\nu_{\mathrm{raw}}.
+\]
+
+### 3.1 Clear-Sky Position-Dependent SKR
+
+For each UAV candidate position j, evaluate:
+
+\[
+K_j^\star=
+\left[
+\max_{(\nu,V_A)\in\mathcal C}
+K_j(\nu,V_A)
+\right]^+.
+\]
+
+Reuse existing exact C,w values.
+
+Compute any necessary position-dependent channel and SKR quantities using the approved evaluator, without generating new source moments.
+
+Do not simply assign the zenith-0 SKR to all positions.
+
+The existing 61-angle SKR table contains samples at integer angles. For UAV positions with noninteger zenith angles, evaluate the approved channel-dependent SKR directly using existing exact C,w; do not substitute the nearest integer-angle value or interpolate source moments.
+
+Use the same clear-sky SKR map for all three positioning algorithms.
+
+The primary comparison should use Optimized MB.
+
+Fixed MB and Uniform may be analyzed separately as supplementary modulation comparisons, but do not confuse source-shaping schemes with the three UAV positioning algorithms.
+
+Keep all results labeled DIAGNOSTIC_ONLY while source-convergence evidence remains incomplete.
+
+## 4. UAV Grid and Geometry
+
+Use the existing mobility configuration where consistent with the current manuscript.
+
+The primary domain contains:
+
+\[
+J=100
+\]
+
+candidate locations on a 10-by-10 grid within a 1 km by 1 km square.
+
+Use the existing canonical HAP and grid geometry if available.
+
+If no origin convention is documented, center the square directly beneath the HAP:
+
+\[
+x,y\in[-500,500]\ \mathrm m.
+\]
+
+Then calculate each candidate's horizontal displacement r_j, zenith angle and link distance:
+
+\[
+\zeta_j=
+\arctan\left(\frac{r_j}{19000}\right),
+\]
+
+\[
+L_j=\sqrt{19000^2+r_j^2}.
+\]
+
+Check units carefully.
+
+Read and preserve the existing settings for:
+
+- N_t
+- Delta t
+- Maximum UAV speed
+- Initial-position convention
+- D_ref
+- Mobility penalty lambda
+
+Do not invent undocumented mobility parameters if valid settings exist in previous experiment manifests.
+
+If the previous results used a different physical-layer configuration, do not silently mix those historical SKR maps with the current v43 model.
+
+Rebuild only the inexpensive position-dependent SKR values that are necessary.
+
+## 5. Cloud-Dependent SKR
+
+Use complete cloud blockage:
+
+\[
+T_{c,j,n}=1-c_{j,n}.
+\]
+
+The usable SKR is:
+
+\[
+\boxed{
+S_{j,n}=(1-c_{j,n})K_j^\star.
+}
+\]
+
+All three algorithms must receive exactly the same S matrix for each simulation mission.
+
+Save the complete cloud-state matrix C and corresponding SKR matrix S for reproducibility.
+
+## 6. Compare Three Positioning Algorithms
+
+Use the identical mobility constraints and objective for all algorithms.
+
+The optimization objective is:
+
+\[
+\boxed{
+U=
+\frac{1}{N_t}\sum_{n=1}^{N_t}S_{j_n,n}
+-
+\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}.
+}
+\]
+
+Subject to:
+
+\[
+d_{j_{n-1},j_n}\leq v_{\max}\Delta t.
+\]
+
+Use:
+
+\[
+d_{ij}=\|\mathbf q_i-\mathbf q_j\|_2.
+\]
+
+The initial UAV location is freely selected, unless the canonical baseline explicitly requires otherwise.
+
+The UAV may remain in the same position.
+
+No terminal-return penalty is applied unless already part of the approved baseline.
+
+### Algorithm A — Stationary
+
+Choose a single fixed UAV position maximizing average usable SKR over the mission:
+
+\[
+j_{\rm fix}^\star
+=
+\arg\max_j
+\frac{1}{N_t}
+\sum_{n=1}^{N_t}S_{j,n}.
+\]
+
+The UAV remains at that position for all slots.
+
+Travel distance is zero.
+
+This is an offline optimal stationary benchmark because the entire cloud sequence is used for choosing the fixed location.
+
+### Algorithm B — Greedy
+
+At the first time slot:
+
+\[
+j_1^G=\arg\max_j S_{j,1}.
+\]
+
+For every subsequent slot:
+
+\[
+j_n^G=
+\arg\max_{j\in\mathcal N(j_{n-1}^G)}
+\left[
+\frac{S_{j,n}}{N_t}
+-\frac{\lambda}{D_{\rm ref}}
+d_{j_{n-1}^G,j}
+\right].
+\]
+
+Greedy uses current-slot cloud information only when choosing its next location.
+
+It must not use future cloud states.
+
+Use deterministic tie-breaking.
+
+### Algorithm C — Dynamic Programming
+
+Use finite-horizon DP with the full cloud sequence available offline.
+
+Initialization:
+
+\[
+F_1(j)=\frac{S_{j,1}}{N_t}.
+\]
+
+Recursion:
+
+\[
+\boxed{
+F_n(j)=
+\frac{S_{j,n}}{N_t}
++
+\max_{i\in\mathcal N(j)}
+\left[
+F_{n-1}(i)
+-
+\frac{\lambda}{D_{\rm ref}}d_{ij}
+\right].
+}
+\]
+
+Store backpointers and reconstruct the optimal grid trajectory.
+
+Confirm DP solves the same penalized objective used to evaluate Greedy and Stationary.
+
+The DP outcome must satisfy:
+
+\[
+U_{\rm DP}\geq U_{\rm Greedy},
+\]
+
+\[
+U_{\rm DP}\geq U_{\rm Stationary}
+\]
+
+for each identical simulation instance, within numerical tolerance, provided all three policies use the same feasible initial-position and movement conventions.
+
+If these inequalities fail, investigate a potential implementation or objective-scaling error.
+
+DP's superiority in this penalized objective does not imply it must individually achieve the largest unpenalized mean rate, smallest distance, or highest availability.
+
+## 7. Numerical Experiments
+
+### Experiment 1 — Primary Comparison
+
+Compare DP, Greedy and Stationary using the NEW cloud model.
+
+Use the canonical mission duration and mobility parameters.
+
+Use at least 100 reproducible paired Monte Carlo missions, consistent with the previous mobility comparison.
+
+Use the same cloud realizations for all three algorithms.
+
+For the initial thresholded baseline, use the model's zero-threshold convention if no stronger reference-backed truncation rule has been established.
+
+Also perform a clearly labeled calibrated p = 0.4 experiment to remain comparable with the previous probability-based study.
+
+Do not claim these two threshold conventions are identical.
+
+For each algorithm, measure:
+
+1. Average usable SKR (bits/use).
+2. Penalized objective U.
+3. Total UAV travel distance (m).
+4. Fraction of blocked or zero-rate time slots.
+5. QKD availability.
+6. Number of position changes.
+7. Algorithm runtime.
+
+Report mean, standard deviation and 95% confidence interval across missions.
+
+### Experiment 2 — Cloud Blockage Probability
+
+Using the explicitly calibrated threshold mode, evaluate:
+
+\[
+p\in\{0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8\}.
+\]
+
+For each p:
+
+- Generate paired missions.
+- Run Stationary.
+- Run Greedy.
+- Run DP.
+- Calculate all comparison metrics.
+
+Report the empirical blockage fraction and compare it against the target p, accounting for statistical uncertainty.
+
+Do not claim that arbitrary blockage probabilities follow directly from the original zero-threshold formula.
+
+### Experiment 3 — Mobility Penalty Sensitivity
+
+Compare the three algorithms under different mobility penalties.
+
+Include:
+
+\[
+\lambda=0
+\]
+
+and the previously used representative penalty, if compatible with the current normalization:
+
+\[
+\lambda_{\rm ref}
+=
+9.468026677248516\times10^{-6}
+\ \mathrm{bits/use}.
+\]
+
+Choose additional values from the existing experiment specification where available.
+
+Evaluate the tradeoff between:
+
+- Average usable SKR.
+- Total travel distance.
+- Penalized objective.
+- Unavailability.
+
+Do not mix normalized and unnormalized DP or Greedy objectives.
+
+### Experiment 4 — Model Comparison
+
+For a controlled secondary diagnostic, compare:
+
+- OLD cloud model: spatial distance-exponential covariance plus temporal AR(1).
+- NEW cloud model: Gamma_ij = 9(0.9)^|i-j|, no explicit temporal AR(1).
+
+Use identical grid, physical-layer SKR map, mobility settings, nominal cloud-blockage probability, and paired random-number conventions where practicable.
+
+Run DP, Greedy and Stationary under both models.
+
+Clearly separate the NEW primary results from this OLD-vs-NEW sensitivity comparison.
+
+Do not use historical algorithm outcomes directly as though they were generated under the new cloud model.
+
+If runtime is constrained, prioritize Experiments 1 and 2 before Experiments 3 and 4.
+
+## 8. Required Figures
+
+Create publication-quality plots using Matplotlib.
+
+### Figure 1 — Spatial Cloud Realizations
+
+Show the same 10-by-10 grid at several time slots.
+
+Clearly identify blocked and clear positions.
+
+### Figure 2 — Cloud Covariance Matrix
+
+Plot the actual 100-by-100 covariance matrix Gamma.
+
+Also show or explain the row-major indexing effect on horizontal versus vertical neighbors.
+
+### Figure 3 — Zero-Rate Unavailability vs. Blockage Probability
+
+Plot three curves:
+
+- Stationary
+- Greedy
+- DP
+
+X-axis: Cloud blockage probability.
+
+Y-axis: Zero-rate unavailability (%).
+
+Use paired-run uncertainty intervals.
+
+### Figure 4 — Average Usable SKR vs. Blockage Probability
+
+Plot the mean usable SKR for all three algorithms.
+
+Units: bits/use.
+
+### Figure 5 — Penalized Objective vs. Blockage Probability
+
+Plot U for Stationary, Greedy and DP.
+
+### Figure 6 — Total Travel Distance vs. Blockage Probability
+
+Plot average travel distance in meters.
+
+Stationary should have zero travel distance.
+
+### Figure 7 — Representative UAV Trajectories
+
+For one identical cloud mission, overlay:
+
+- Stationary position.
+- Greedy trajectory.
+- DP trajectory.
+
+Display the cloud map or cloud-blockage information relevant to the selected illustration.
+
+Explain that DP has future cloud knowledge and Greedy does not.
+
+### Figure 8 — Mobility Penalty Tradeoff
+
+Show the rate-distance relationship as lambda changes.
+
+Export figures as:
+
+- PNG at 350 or 600 dpi.
+- Vector PDF.
+
+Ensure plots are legible in IEEE double-column format.
+
+## 9. Mandatory Validation
+
+### Cloud Model Tests
+
+Verify:
+
+1. Gamma is symmetric.
+2. Diagonal entries equal 9.
+3. Gamma is positive definite.
+4. Off-diagonal entries match 9(0.9)^|i-j|.
+5. Gaussian sample covariance approaches Gamma within Monte Carlo uncertainty.
+6. The mean samples follow the specified Uniform(-1,1) law.
+7. No AR(1) state carries over between slots.
+8. The binary mask contains only 0 and 1.
+9. The Gaussian-to-binary threshold convention is explicitly documented.
+10. The measured blockage statistics are consistent with the selected threshold convention.
+11. A fixed shared mean is not mistakenly used while claiming unconditional temporal independence.
+
+### Algorithm Tests
+
+Verify:
+
+1. All three algorithms share the same mission cloud states.
+2. All three algorithms share the same clear-sky SKR map.
+3. Every selected UAV movement respects the maximum-speed constraint.
+4. The UAV may stay at its current position.
+5. Stationary travel distance is zero.
+6. Greedy never accesses future cloud states.
+7. DP backtracking reconstructs a feasible trajectory.
+8. DP matches brute-force enumeration on a small toy problem.
+9. DP's penalized objective is not lower than the feasible Greedy or Stationary objective on any identical mission.
+10. Results are deterministic when replayed with the same random seeds.
+
+### Scientific Integrity
+
+Do not:
+
+- Recompute C,w.
+- Interpolate exact-source moments.
+- Modify Eq. (14), MI, or Holevo.
+- Alter the security evaluator.
+- Fabricate missing source-convergence receipts.
+- Upgrade source evidence status based on successful SKR calculations.
+- Present this synthetic-cloud experiment as a verified atmospheric forecast.
+- Claim publication-ready QKD security certification.
+
+All outputs remain DIAGNOSTIC_ONLY.
+
+## 10. Update the Manuscript Cloud Subsection
+
+Prepare a concise IEEE-style LaTeX replacement for the previous cloud-model subsection.
+
+It must describe:
+
+\[
+\mathbf G_n\sim\mathcal N(\boldsymbol\mu,\boldsymbol\Gamma),
+\]
+
+\[
+\mu_j\sim\mathcal U(-1,1),
+\]
+
+\[
+\Gamma_{ij}=9(0.9)^{|i-j|},
+\]
+
+followed by the explicitly documented binary-thresholding convention.
+
+State that no explicit temporal AR(1) correlation is modeled.
+
+Define every variable and explain the index-based nature of the covariance.
+
+Do not claim that an arbitrary calibrated threshold or the independently resampled mean is a verbatim statement from a reference unless directly verified.
+
+Preserve all unrelated manuscript expressions, equation labels, and optimization problems.
+
+If direct manuscript editing could disturb frozen material, produce an isolated LaTeX replacement and a proposed patch instead.
+
+## 11. Deliverables
+
+Create:
+
+`results/phaseC_new_cloud_dp_greedy_stationary_20261025/`
+
+Include:
+
+- `new_cloud_model.py`
+- `compare_algorithms.py`
+- `cloud_model_validation.md`
+- `experiment_config.json`
+- `simulation_results.csv`
+- `paired_mission_results.csv`
+- `summary_comparison.csv`
+- `cloud_realizations.npz`
+- `algorithm_trajectories.csv`
+- `cloud_model_replacement.tex`
+- `figure_captions.tex`
+- All eight figures in PNG and PDF.
+- `validation_report_vi.md`
+- `artifact_integrity_report.md`
+
+Avoid overwriting old experiments.
+
+Keep random seeds, source hashes, simulation parameters and code revision identifiers.
+
+## 12. Final Report in Vietnamese
+
+Present the actual numerical results.
+
+### Table A — Main Comparison
+
+| Metric | Stationary | Greedy | DP |
+|---|---:|---:|---:|
+| Average usable SKR | | | |
+| Penalized objective | | | |
+| Total travel distance | | | |
+| Zero-rate unavailability | | | |
+| QKD availability | | | |
+| Position changes | | | |
+| Execution time | | | |
+
+### Table B — Results for p = 0.1 to 0.8
+
+Include numerical averages and uncertainty for all three algorithms.
+
+### Table C — Relative Improvement
+
+Report DP improvement relative to both Greedy and Stationary in:
+
+- Penalized objective.
+- Average usable SKR.
+- Unavailability.
+- Travel distance.
+
+Use correct metric-specific directions and denominators.
+
+If a baseline denominator is zero, report the absolute difference rather than an undefined percentage.
+
+### Required Discussion
+
+Explain:
+
+1. Whether DP outperforms Greedy and Stationary in penalized objective.
+2. Whether its future cloud knowledge creates a measurable advantage.
+3. How the new cloud model changes spatial blockage patterns.
+4. How independent time-slot sampling affects mobility decisions.
+5. Whether the advantage of DP shrinks or grows as blockage probability increases.
+6. How mobility cost changes the selected trajectories.
+7. Whether all algorithms use positive clear-sky SKR in the 1 km area.
+8. How the findings differ from the previous AR(1) cloud experiment.
+9. Which conclusions remain conditional on source convergence evidence.
+
+### Execution Summary
+
+Report:
+
+- Number of simulated missions.
+- Number of time slots.
+- Number of candidate positions.
+- Number of reused exact C,w sources.
+- Number of new C,w calculations — expected ZERO.
+- Number of new channel-dependent SKR evaluations.
+- Monte Carlo seeds.
+- Total runtime.
+- Passed and failed validation tests.
+- Paths to all figures and CSV outputs.
+
+**Do not return only code or a proposed plan. Execute the experiments, inspect the resulting figures, validate the algorithms, and report the actual DP–Greedy–Stationary comparison.**

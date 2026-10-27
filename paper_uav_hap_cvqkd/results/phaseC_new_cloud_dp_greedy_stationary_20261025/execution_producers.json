@@ -1,0 +1,18 @@
+{
+  "producer_stages": [
+    {
+      "stage": "secondary-before-user-geometry-steering",
+      "producer": "secondary_historical_completed/compare_algorithms.py",
+      "sha256": "7f638d17e84f6d7fb59f142d88b67437d84e7132c3de0a148b4ca964b3258c07"
+    },
+    {
+      "stage": "centered-primary incremental completion",
+      "producer": "compare_algorithms.py",
+      "sha256": "5d741601b97e6e10a990d080f596aa8106d2102c03f7fb62402870d652b22a29"
+    }
+  ],
+  "scientific_algorithm_functions_unchanged_between_stages": true,
+  "completed_secondary_records_reused_without_reexecution": 5700,
+  "cloud_archive_reused_without_resampling": true,
+  "geometry_decision": "geometry_user_approval.json"
+}

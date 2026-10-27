@@ -1,0 +1,33 @@
+% DIAGNOSTIC_ONLY draft fragment; existing physical-layer equations unchanged.
+\subsection{Mobility-Aware SKR Optimization}
+For each physical location $\boldsymbol q_j$, the approved v43 evaluator
+is evaluated at its actual zenith angle, using the same finite historical
+catalog $\mathcal C$ of 212 compatible source ensembles:
+\begin{equation}
+ K_j^\star=\left[\max_{(\nu_{\rm raw},V_A)\in\mathcal C}
+ K_j(\nu_{\rm raw},V_A)\right]^+ .\label{eq:phaseD_catalog}
+\end{equation}
+The previously computed $C,w$ and the direct manuscript Eq.~(14),
+discrete-input homodyne MI, and manuscript Holevo expressions are preserved.
+No interpolation or new source-moment calculation is performed.
+For a trajectory $j_1,\ldots,j_{N_t}$, define
+\begin{equation}
+ U=\frac1{N_t}\sum_{n=1}^{N_t}S_{j_n,n}
+ -\frac{\lambda}{D_{\rm ref}}\sum_{n=2}^{N_t}d_{j_{n-1},j_n},\quad
+ d_{ij}=\|\boldsymbol q_i-\boldsymbol q_j\|_2 .\label{eq:phaseD_objective}
+\end{equation}
+Feasible transitions satisfy $d_{ij}\le v_{\max}\Delta t$; staying is
+allowed, the initial position is free, and no terminal-return cost is used.
+The offline Stationary benchmark selects the location maximizing
+$N_t^{-1}\sum_n S_{j,n}$. Greedy starts at $\arg\max_j S_{j,1}$ and
+subsequently maximizes $S_{j,n}/N_t-\lambda d_{j_{n-1},j}/D_{\rm ref}$
+over feasible current locations, without future blockage information.
+With full offline knowledge, DP initializes $F_1(j)=S_{j,1}/N_t$ and uses
+\begin{equation}
+ F_n(j)=\frac{S_{j,n}}{N_t}+\max_{i:d_{ij}\le v_{\max}\Delta t}
+ \left[F_{n-1}(i)-\frac{\lambda d_{ij}}{D_{\rm ref}}\right].
+ \label{eq:phaseD_dp}
+\end{equation}
+Backpointers recover a feasible maximizer. All methods share the same
+$S$, grid and constraints; DP maximizes this finite-instance objective,
+which does not require it to maximize every individual performance metric.

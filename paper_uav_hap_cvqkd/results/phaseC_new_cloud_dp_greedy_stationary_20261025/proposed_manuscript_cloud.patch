@@ -1,0 +1,45 @@
+--- /dev/null
++++ b/manuscript_cloud_model_replacement.tex
+@@ -0,0 +1,42 @@
++% Isolated replacement only; no existing manuscript or frozen equation is edited.
++\subsection{Synthetic correlated cloud blockage}
++Let $j=1,\ldots,J$ index $J=100$ UAV candidate positions and let
++$n=1,\ldots,N_t$ index equal-duration slots. For the $10\times10$ grid,
++we use row-major indexing $j=10r+c+1$, where $r,c\in\{0,\ldots,9\}$.
++At each slot we independently generate
++\begin{equation}
++ \mu_{j,n}\overset{\mathrm{iid}}{\sim}\mathcal U(-1,1),\qquad
++ \mathbf G_n\mid\boldsymbol\mu_n\sim\mathcal N(\boldsymbol\mu_n,\boldsymbol\Gamma),
++ \quad \Gamma_{ij}=9(0.9)^{|i-j|}.
++ \label{eq:phasec_cloud_gaussian}
++\end{equation}
++The independently resampled means and Gaussian innovations are a simulation
++convention; no temporal AR(1) law or previous-slot Gaussian state is used.
++The primary binary conversion is the explicit operational choice
++\begin{equation}
++ c_{j,n}=\mathbb I\{G_{j,n}>0\},\qquad c_{j,n}\in\{0,1\},
++ \label{eq:phasec_cloud_threshold}
++\end{equation}
++where $c_{j,n}=1$ denotes complete blockage and $c_{j,n}=0$ a clear path.
++This threshold is not asserted to be a numerical cutoff specified by the
++reference; symmetry gives unconditional blockage probability $1/2$.
++For a separate calibrated-probability sensitivity experiment, we replace
++zero by $t_p$, found numerically from
++\begin{equation}
++ \frac12\int_{-1}^{1}\left[1-\Phi\!\left(\frac{t_p-\mu}{3}\right)\right]
++ \,\mathrm d\mu=p.
++ \label{eq:phasec_cloud_calibration}
++\end{equation}
++This calibration is an additional simulation convention. We do not fix the
++number of blocked positions in a slot. The covariance is index-based, rather
++than distance-isotropic: horizontal and vertical nearest neighbors have
++conditional Gaussian correlations $0.9$ and $0.9^{10}$, respectively. Averaging
++over independently resampled means adds $1/3$ to the unconditional covariance
++diagonal; binary correlations need not equal the Gaussian correlations.
++Complete blockage gives $T_{c,j,n}=1-c_{j,n}$ and usable rate
++$S_{j,n}=(1-c_{j,n})K_j^\star$, where $K_j^\star$ is the nonnegative
++available-catalog clear-sky rate computed with the unchanged physical-layer
++model. These synthetic fields do not represent a measured atmospheric forecast
++or a cloud with a physical center, shape, or velocity. The same realized matrix
++$S$ is supplied to every positioning algorithm. DP and optimal Stationary
++use the full mission offline; Greedy uses only current-slot cloud information.

@@ -1,0 +1,81 @@
+{
+  "complete": true,
+  "identity": {
+    "algorithm": "E2_exact_C4_overlap_sector_row_column_scaling_v1",
+    "input_sha256": "04e0104cfdca115c3242828858282aecade3212d9667adc02d49fe6a6279b6e9",
+    "probability_sha256": "5073e61eafb5e090b20e50cfa38e1505dbb9a00d659ef6cd6659298674226ad7",
+    "amplitude_sha256": "b3766e41ef4ec43040056137fc73516c26bb75e3a85b1c1af72355e47e75b7da",
+    "canonical_ensemble_hash": null,
+    "producer_sha256": "0bd3999ea0c51d87e7559a894604166e5b3e8f2dff40ab7f369132866818176b",
+    "prior_gram_sha256": "850b6282bdddd87a933f299cbe5ad3a224c51f5377bca45041ef1c3aad1abc06",
+    "mpmath_version": "1.3.0",
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "digits": 50,
+    "sector": 3,
+    "matrix_dimension": 1,
+    "source_size": 4,
+    "Fock_cutoff": null,
+    "route": "weighted_Gram_exact_C4",
+    "floor_policy": "10**(-digits+20); diagnostic, never mathematical rank",
+    "tolerance_policy": "relative Frobenius residual/reconstruction/orthogonality <=10**(-digits+10)"
+  },
+  "payload": {
+    "matrix": [
+      [
+        [
+          "0.30342328381348531020614489967889063747419301213343870511412",
+          "0.0"
+        ]
+      ]
+    ],
+    "eigenvalues": [
+      "0.30342328381348531020614489967889063747419301213343870511412"
+    ],
+    "eigenvectors": [
+      [
+        [
+          "1.0",
+          "0.0"
+        ]
+      ]
+    ],
+    "diagnostics": {
+      "eigenpair_absolute_residuals": [
+        "0.0"
+      ],
+      "eigenpair_residual_over_abs_lambda": [
+        "0.0"
+      ],
+      "relative_Frobenius_residual": "0.0",
+      "reconstruction_error": "0.0",
+      "orthogonality_error": "0.0",
+      "Hermitian_error": "0.0",
+      "matrix_Frobenius_norm": "0.30342328381348531020614489967889063747419301213343870511412",
+      "tolerance": "9.9999999999999999999999999999999999999999999999999938605103e-41",
+      "minimum_eigenvalue": "0.30342328381348531020614489967889063747419301213343870511412",
+      "maximum_eigenvalue": "0.30342328381348531020614489967889063747419301213343870511412",
+      "minimum_retained_eigenvalue": "0.30342328381348531020614489967889063747419301213343870511412",
+      "retained_condition": "1.0",
+      "minimum_lambda_over_nominal_error": "10000000000000000000000000000000000000000.0",
+      "nominal_error_status": "HEURISTIC_ROUNDING_ALLOWANCE_PLUS_MEASURED_RESIDUAL; NOT_AN_ENCLOSURE",
+      "effective_rank": 1,
+      "positive_count": 1,
+      "numerical_checks": "CURRENTLY_VERIFIED_PASS",
+      "rigorous_roundoff_enclosure": false
+    },
+    "pre_symmetrization_Hermitian_error": "0.0",
+    "timing": {
+      "build_wall_seconds": 0.0005708999233320355,
+      "build_CPU_seconds": 0.0,
+      "eig_wall_seconds": 4.6200002543628216e-05,
+      "eig_CPU_seconds": 0.0,
+      "total_wall_seconds": 0.0010065999813377857,
+      "total_CPU_seconds": 0.0
+    },
+    "C_contribution": null,
+    "w_contribution": null,
+    "moment_status": "NOT_RUN_REQUIRES_ALL_FOUR_SECTORS"
+  },
+  "payload_sha256": "4bc0ecd79da3807aea4f3e3675d3f5139112b675d8aee2b0ed7e7224daed6a19",
+  "completion_scope": "VALIDATED_NUMERICAL_SECTOR; NOT_A_FULL_SUPPORT_CERTIFICATE"
+}

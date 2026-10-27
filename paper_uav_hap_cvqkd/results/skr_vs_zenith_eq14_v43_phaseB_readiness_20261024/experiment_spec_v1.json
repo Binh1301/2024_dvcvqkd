@@ -1,0 +1,634 @@
+{
+  "schema": "manuscript43-eq14-nine-angle-pilot-spec-v1",
+  "authority": "EXPLICIT_USER_APPROVED_DISTINCT_NUMERICAL_EXPERIMENT_20261024",
+  "scope": "NINE_ANGLE_DIAGNOSTIC_PILOT_ONLY; READINESS_PREPARATION_DOES_NOT_AUTHORIZE_LAUNCH",
+  "canonical_pdf": {
+    "path": "results/manuscript43_canonical_model_comparison_20261023/inputs/available_v43.pdf",
+    "sha256": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b"
+  },
+  "historical_spec": {
+    "path": "results/skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/inputs/historical_frozen_spec.md",
+    "sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+    "git_commit": "169791dc624df790914de109233d8a6824551374"
+  },
+  "current_repository_spec": {
+    "path": "docs/FINAL_MODEL_SPEC.md",
+    "sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+    "comparison": "Current document preserved; this versioned pilot specification applies only to the explicitly approved experiment and does not replace the repository frozen specification."
+  },
+  "equations": {
+    "channel_law": "Manuscript v43 Eq10 unchanged, with the separate Eq9 zero atom",
+    "moments": "Eqs18-20 integrated over [0,1] only; outside probability ignored and recorded; no clipping, renormalization, PDF replacement or transfer into atom",
+    "source": "VA=Vmod=2*sum(p_k*abs(alpha_k)**2); X_A=2*Re(alpha_k)",
+    "eta_f": "E[sqrt(eta)]**2",
+    "N_effective": "(E[eta]-eta_f)*VA + xi_ch*E[eta] + xi_det*M0",
+    "xi_f": "N_effective/eta_f",
+    "zero_atom_noise": "limit eta*xi(eta)=xi_det; atom contribution xi_det*P0 retained",
+    "I_AB": "Sum_k p_k integral_R p(y|k) log2(p(y|k)/sum_j p_j p(y|j)) dy; real Gaussian mean=sqrt(eta_f)*2*Re(alpha_k), variance=1+eta_f*xi_f",
+    "Z": "2*sqrt(eta_f)*C - sqrt(2*eta_f*xi_f*w)",
+    "V": "1+VA",
+    "W": "1+eta_f*VA+eta_f*xi_f",
+    "Delta": "V**2+W**2-2*Z**2",
+    "D": "(V*W-Z**2)**2",
+    "nu_1_2": "sqrt((Delta +/- sqrt(Delta**2-4*D))/2)",
+    "nu_3": "sqrt(V*(V-Z**2/W))",
+    "g": "(x+1)*log2(x+1)-x*log2(x), continuous g(0)=0",
+    "chi_BE": "g((nu_1-1)/2)+g((nu_2-1)/2)-g((nu_3-1)/2)",
+    "K_raw": "beta*I_AB-chi_BE; retain negative values",
+    "numerical_domain": "Recheck invalid radicals, covariance and entropy at high precision; report failure, never repair Z/eigenvalues"
+  },
+  "physical": {
+    "h_hap_km": 20.0,
+    "h_uav_km": 1.0,
+    "h_atm_km": 20.0,
+    "Dr_m": 0.3,
+    "wavelength_m": 1.55e-06,
+    "divergence_full_urad": 35.0,
+    "jitter_urad": 1.561,
+    "sigma_h_m": 0.1,
+    "rho_x_m": 0.0,
+    "rho_y_m": 0.0,
+    "F0": "Infinity",
+    "tau_zen": 0.92,
+    "Cn2_ground": 1e-14,
+    "wind_m_s": 21.0,
+    "FOV_half_rad": 0.00625,
+    "sigma_AoA_rad": 0.0015,
+    "AO": "OFF",
+    "phase_noise": "OFF"
+  },
+  "xi_ch": 0.0186,
+  "xi_det": 0.005,
+  "beta": 0.95,
+  "measurement": "homodyne_1D_Gaussian_effective",
+  "reconciliation": "reverse_asymptotic",
+  "correlation_policy": "manuscript_eq14_direct",
+  "truncation_policy": {
+    "integration_domain": [
+      0,
+      1
+    ],
+    "outside_mass": "IGNORED_IN_NUMERICAL_EVALUATOR_RECORDED_AS_DIAGNOSTIC",
+    "renormalize": false,
+    "clip": false,
+    "replace_pdf": false,
+    "normalization_is_blocker": false,
+    "claim_mathematically_normalized": false,
+    "scope": "SELECTED_PHYSICAL_BASELINE_ONLY"
+  },
+  "numerical": {
+    "digits": [
+      80,
+      110
+    ],
+    "mass_tolerance": 1e-10,
+    "moment_tolerance": 2e-10,
+    "MI_tolerance": 2e-10,
+    "entropy_tolerance": 2e-11,
+    "covariance_tolerance": 1e-10,
+    "uncertainty_tolerance": 1e-11,
+    "source_tolerance": 2e-12,
+    "near_zero_and_tie": 1e-08,
+    "GH_orders": [
+      64,
+      128
+    ],
+    "mass_tolerance_role": "DIAGNOSTIC_ONLY_NOT_A_GATE_FOR_THIS_APPROVED_EXPERIMENT"
+  },
+  "source_precision_ladder": [
+    1050,
+    1250,
+    1450
+  ],
+  "source_tolerance": "1e-7 + 1e-6*abs(reference) for C,w, retained from existing worker/preregistration; normalization tolerance2e-12",
+  "source_evidence_policy": {
+    "VERIFIED_EXACT": "Exact source identity and payload-bound full-support precision receipt",
+    "VERIFIED_BY_ALTERNATIVE_EVIDENCE": "Exact PMF and amplitude digests bind saved full-support precision ladder, with numerical residuals and limitations documented",
+    "INSUFFICIENT_EVIDENCE": "Identity alone, metadata, guarded producer code or repeated C,w is insufficient to recover precision history",
+    "INVALID": "Actual identity, payload, source-convention or physical-source-value contradiction",
+    "accepted_for_pilot": [
+      "VERIFIED_EXACT",
+      "VERIFIED_BY_ALTERNATIVE_EVIDENCE"
+    ]
+  },
+  "pilot_angles_deg": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    30,
+    40,
+    50,
+    60
+  ],
+  "source_identities": [
+    {
+      "family": "MB",
+      "VA_hex": "0x1.999999999999ap-4",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "277212717482da1a4f671fa223687ee2bbfb74d651b4293f5698245622c315fc"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.999999999999ap-4",
+      "nu_raw_hex": "0x1.999999999999ap-3",
+      "ensemble_hash": "14d6d17218fc38a16ce27f3bac75d4f0609a460b260762f9f424edaa5ece9a2a"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.999999999999ap-4",
+      "nu_raw_hex": "0x1.0000000000000p-2",
+      "ensemble_hash": "85a13b91542e14d1fabb870260cdf9426d0d5b99c827ad44b599065586fe7744"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.999999999999ap-4",
+      "nu_raw_hex": "0x1.3333333333333p-2",
+      "ensemble_hash": "5fc4c0b637be129d79d6eb4a055f42d26ae1c046b2a6414cbe8793a9beddcc56"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.1333333333333p+0",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "40eaa00b63ae2e4841d3d8e3c11aafd441364e4d9ac513195a61eee1e6d6489c"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.9ffff84830112p+0",
+      "nu_raw_hex": "0x1.0000000000000p-2",
+      "ensemble_hash": "01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "5840a1d5af3bd78be85149cdc5c46efcd691e7f93bb43c672b0a7324ca37be1e"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.0000000000000p-3",
+      "ensemble_hash": "6ecd3f5818c8dd5c29b2bc412197e50ba84dc1fabc9293c7371902f3054dbcbf"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.0a3d70a3d70a4p-3",
+      "ensemble_hash": "8b53da5dd19108adb21ee591c9615f2b86dadeb04ac6ebeb92223bdbe0c39095"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.1eb851eb851ecp-3",
+      "ensemble_hash": "6d6c2c681b40f566e03b2ccec1edfd3e9472bc2ec88a335cffc191a6aa78d7df"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.3333333333333p-3",
+      "ensemble_hash": "2c087219043f41e748088025acc68d84771657e80423791ae6007c9c34d0736b"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.3d70a3d70a3d7p-3",
+      "ensemble_hash": "6ea775c93540c995d21e6cfe2721036f88f6b9a8f0ef52f6f9a2f52dbe7cad2b"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.47ae147ae147bp-3",
+      "ensemble_hash": "65424faffba8a64c3a5183cfba8159d9a64c66f8b2534d3a14e92588961250de"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "ensemble_hash": "e39dd7580927506b3a6cd2b94f6ef901cd1cf5534416370b4f3254e58d940379"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.5c28f5c28f5c3p-3",
+      "ensemble_hash": "f57f899712c06715a1a873c59282fb04f4f5fce4b19f5752ecaeca83bffa9116"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.6666666666666p-3",
+      "ensemble_hash": "1052fd71da0f6153993318e6cadbabe633b904a6e1730a2cb0e3cf18ec14bd5e"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.70a3d70a3d70ap-3",
+      "ensemble_hash": "51e7ffcc1cc455d4ee9dac396718e6a6b3a89b0829e47ab782473538be6415d1"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.851eb851eb852p-3",
+      "ensemble_hash": "97e6e571b1c65d59a9a68c36c876aeac80bac1a328abc4565c3e502836b4ce54"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.999999999999ap-3",
+      "ensemble_hash": "f348a3af4e2b46f754dfae60cf33158fd05cdfb15c27cda8e24c6a858c53a055"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.ae147ae147ae1p-3",
+      "ensemble_hash": "f135ec46af3c3f9903d84865248e24d5e080421c312d8b5cb26fc9200c0635bc"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.c28f5c28f5c29p-3",
+      "ensemble_hash": "b8e634bc89de6f5cfc2184721570b93e27b0610df7d003598d90551cb6b3fee7"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.d70a3d70a3d71p-3",
+      "ensemble_hash": "d48e4840fbb19ae50912096a44e9cb40832aa0eecf2d3e15a6e752bae0566d5b"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.eb851eb851eb8p-3",
+      "ensemble_hash": "b3aeaffbc07044ea941bac7533903c5647ebbe3ae46c73d0d5ec93e28aff7bed"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x1.0000000000000p-2",
+      "ensemble_hash": "1cda0c3249eed698d0091b06994cb07d5e6128e4cc97179f4d19a5fdc3fd8f85"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0666666666666p+1",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "dcb4e5a37324dfd73dac3524880ceb17bac6dc648e2b47939c4614a6b064784d"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0666666666666p+1",
+      "nu_raw_hex": "0x1.999999999999ap-3",
+      "ensemble_hash": "863418a0c06c2522507ba270ff98a7182233f8c2c5a25844b2a3eb5c0f1c73a7"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0666666666666p+1",
+      "nu_raw_hex": "0x1.ae147ae147ae1p-3",
+      "ensemble_hash": "45329e9e753a9011b99f26353af5a7a975fb7bce9fceb2d2bf7b6b1593710039"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0666666666666p+1",
+      "nu_raw_hex": "0x1.c28f5c28f5c29p-3",
+      "ensemble_hash": "749c4de82caae1296be93bd3fd638b8e5dbd4f39af6bc6f2f162552dc13c0213"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.8000000000000p+1",
+      "nu_raw_hex": "0x1.999999999999ap-2",
+      "ensemble_hash": "6a0094dc24f0874794b3574cf7dc48692ff53314368254e6b490e4536208c778"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.8333333333333p+1",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "67ca175857ad2eb0427e2dc3ef878a0f7c3ac23fe30fdd44cb12a0191323d5ef"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+2",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "8e1d79ce54c3c66b6632b18ae55b4440ba1645f5e596f776ddae5e5e51d21995"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "37dc27ef6363346b7e5b41552bf4156c1b156eaa644cedceb69ad52c73aeab71"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.0000000000000p-3",
+      "ensemble_hash": "ea08b3c638c66e5765336b9d68c866a42776dd6554c83ca4a22c8730eb53251c"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.3333333333333p-3",
+      "ensemble_hash": "49904b5400c31d4c61b83b2a65ed01c241a8e84a97e08d6a264473ba0f6ce22b"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.47ae147ae147bp-3",
+      "ensemble_hash": "3c2cb90119e251cbaee3609623432f065c19f2935a7a47288c12a34a9093c14b"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "ensemble_hash": "f66de1aa8c35b69925ebc966144988431b16374c4782c3fe5dd044ea6bfb361b"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.5c28f5c28f5c3p-3",
+      "ensemble_hash": "65a38efb871f9d600cd823a022c66593fbf22785998b8af5699a5c210e9525fa"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.6666666666666p-3",
+      "ensemble_hash": "758bc5637a4664c6703ca05aed6e9ac406d72bf57e3dd0bcb547d450347e7677"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.999999999999ap-3",
+      "ensemble_hash": "2f217a1eb0b9f4ba43d619bfdaa9605689fbd737a6ad490492d7154cfeccb867"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x1.0000000000000p-2",
+      "ensemble_hash": "f4ca63082fbd92ad709c04f7522c635cddadb1707b107f04f9f4532e85cf25cb"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.999999999999ap-4",
+      "ensemble_hash": "141672541599eea2ee7e7c8a3bc3043e2ddecc5dcd48c92dc3c9070946fcec39"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.0000000000000p-3",
+      "ensemble_hash": "0c762bca0e798dcbca78e2926b643bb1223fa15b606dcd53f8f194db3d85f20c"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.3333333333333p-3",
+      "ensemble_hash": "b946492fc19b2e26479148260e71843092e0f1d53762f59c72fc9708436ef109"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.51eb851eb851fp-3",
+      "ensemble_hash": "8e802ef45e7c6bd0422ac088ea170de5c49345aefda86819eff51498e36ad38e"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.6666666666666p-3",
+      "ensemble_hash": "6e0c3ae0add07567f8c94903341c6ecfa1c6a60e19190a428e838ead92190aec"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.999999999999ap-3",
+      "ensemble_hash": "c998973302c1f2fa969b31cae3dc7892463d8602b3953d221a5b7ab823cd0287"
+    },
+    {
+      "family": "MB",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x1.0000000000000p-2",
+      "ensemble_hash": "e319fcd2f8fdea028ffa753428659c2a7db4832bd163eb18804af3c67ac32647"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.999999999999ap-5",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "6aa36cdd2b9a907035fab26ba744fca3b06bfa489f48fd296891bdc51cab2077"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.ae147ae147ae1p-5",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "8dc67119706bf420bd5b5bd569d3362c13db4c40f575c2e269a7615b7c4c545b"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.eb851eb851eb8p-5",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "9d90d825de1266050f27136524206ae9048a70390ed683cdeffac9fa4750ee5a"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.3333333333333p-4",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "0c59e72c7a214ef2b5377f33f4c5a12ecd9c62b9756b4a3cc0950b8a7acb49ed"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.47ae147ae147bp-4",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "2a770665ce34849e478104db083c97bfc7d62f6d66d5479b2a238aae644400cb"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.999999999999ap-4",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "ccd5dfd54a3405070ab3f519d65c8e6cbbff0a9de45e95dd5b7924a86f233ff4"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.c28f5c28f5c29p-4",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "faffae079d3eeead94e2bd1b813869e43a34b4627438e27689c21b5842f1fbb5"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.eb851eb851eb8p-4",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "97158777d3d151034a1dade5b84320f2bce56d9b2cec40e1c7eeb081f31bfde9"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0a3d70a3d70a4p-3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "a623dda546208dc3206b9a55057d7ee836b1c3b79fc2518f565082ec0739bcfa"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.1eb851eb851ecp-3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "f1c80920600226778d3ad7ad684efbb221069a4a76564ef134f7fcdc8d3fc416"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.3333333333333p-3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "f6425e57be6a90f9fc7e9fffb28caf4ef57f84ec0e0e95f7dee0226a7e1b0a53"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.70a3d70a3d70ap-3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "88938e5697597216e51ab699600bb996c6bc2fa77573dd5f59d6c95022225afc"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.999999999999ap-3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "71801c152c407aa0601ba9e0418df739eddc30b11d24ae67c9366a0243a2478f"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0000000000000p-2",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "3d2d495384976c30752fb94b006233bd295e502c40052b99fbef24be80c7825c"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.3333333333333p-2",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "329752ea8ea32cbf60b6bf51574ea69398bf284c6ee0e1808f4a36ee6899cb1e"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0000000000000p-1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "cb00a1943d58ac9154b62e30482acb3a774c8d97e5d527666a76df9407aa6328"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.3333333333333p-1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "8da2a5e6c7d4340434d7de3176fc3da14d4bc5df06f281d0e9a38d2451a61ece"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.6666666666666p-1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "e885de080da68cc4d58adeb2546ab89d23025db3bbc82f634ae2acca32c1f22b"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.8000000000000p-1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "597af71d3aff9a2e39b820edf68549a4ea39674a4cae2630d1717668488ed35d"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.999999999999ap-1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "51cbbae1c5cf8cc864749f63d879ce4e1f8a28a4f6e22c863ee22510bc091308"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.ccccccccccccdp-1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "34a241424ce5fdfa685361b6ac1db14898ee792341d31e4aaa27a3b2a18a2df4"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0000000000000p+0",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "d54d126e3e5748529afd6fcb128ea48b49826d302d66ad994f970733fac0ada1"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.1333333333333p+0",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "58ceb118407aefed1b68f45de5422e33943f4e26dd5b37251c4f99329e7f2589"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.4000000000000p+0",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "9a505b57359bb5683e0586f7febb31d3f9454547af16a36476d408544e15e5c1"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.8000000000000p+0",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "c08a161102d9a2020005d58856eb8b0259c1af8916e7a97cdf514c93e2ce0d8c"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0000000000000p+1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "bb78529d69b136fcead347ea7eb2cfa7b2feb34832ef6e78ba4cf719cc0abb13"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0666666666666p+1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "8d303f7d212d659b1fe65c118d47c8db14ca9272f38b2d4bdec29a7066660fac"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.8000000000000p+1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "d06c6c3560dcc1173a60c6043f5e4e6d44aee0c64ad465fc624e0f3fc98a5522"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.8333333333333p+1",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "21eb9ee54e50812a4bccd65bc524c7df01f5ce357b77af9d4054da3f54013023"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0000000000000p+2",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "24a4742d2afbea298d653b004f7c62c0e602b59c8127a2fef7ca601238f8a6f7"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.4000000000000p+2",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "c98fff2c52d0cba3cfd39b8aa19c6313e786496b397bdfebbdeb45e4cb5812e2"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.0000000000000p+3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "afff2d4ee3a4eecea457a151b942cfd75345c7da2534b4d059d11ed0db47bdf6"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.4000000000000p+3",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "7df9782ddf003da937cee4fa84cc02dcb608099c587da5b9e212339ede067dc1"
+    },
+    {
+      "family": "Uniform",
+      "VA_hex": "0x1.9ffff84830112p+0",
+      "nu_raw_hex": "0x0.0p+0",
+      "ensemble_hash": "421664627da51107f1420322c7992ba5f12d9bd6af0ff767a473b8b93ffd00d7"
+    }
+  ],
+  "fixed_MB": {
+    "VA": 1.6249995399703647,
+    "VA_hex": "0x1.9ffff84830112p+0",
+    "nu_raw": 0.25,
+    "ensemble_hash": "01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754"
+  },
+  "optimization_variables": {
+    "Uniform": [
+      "VA"
+    ],
+    "Fixed_MB": [],
+    "Optimized_MB": [
+      "VA",
+      "nu_raw"
+    ]
+  },
+  "pool_policy": "Same immutable81-source pool for all nine angles; optimized MB includes Uniform and Fixed MB; no source interpolation, no Z optimization",
+  "security_status": "UNVALIDATED_SECURITY_MODEL",
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "global_frozen_file_changed": false,
+  "production_model_adoption": false
+}

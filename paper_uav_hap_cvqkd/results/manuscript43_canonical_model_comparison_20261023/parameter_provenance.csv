@@ -1,0 +1,55 @@
+parameter,value,unit,origin,classification,requested_v43_2_match
+h_HAP,20000,m,task and available v43 Section IV,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+h_UAV,1000,m,task and available v43 Section IV,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+lambda,1.55e-06,m,task and available v43 Section IV,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+Dr,0.3,m,task recent-positive fixture; manuscript default .08,DIFFERENT,BLOCKED_REFERENCE_NOT_LOCATED
+zenith,0,degree,task fixture; manuscript default30,DIFFERENT,BLOCKED_REFERENCE_NOT_LOCATED
+L,19000,m,Eq6 flat-Earth altitude difference /cos0,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+full_divergence,10,urad,task fixture; manuscript default233,DIFFERENT,BLOCKED_REFERENCE_NOT_LOCATED
+jitter_per_axis,0.5,urad,task fixture; manuscript default15.61,DIFFERENT,BLOCKED_REFERENCE_NOT_LOCATED
+sigma_h_per_axis,0.03,m,task fixture; manuscript default1,DIFFERENT,BLOCKED_REFERENCE_NOT_LOCATED
+rho,0,m,both offsets0; available v43 default,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+F0,infinity,m,available v43 Section IV and historical optics,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+tau_zen,0.92,dimensionless,fixed1->20km available v43 and historical protocol; user visibility23km,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+visibility_reference,23,km,"user table:23->.92,15->.89,5->.75; not altitude extinction profile",BLOCKED,BLOCKED_REFERENCE_NOT_LOCATED
+wind,21,m/s,available v43 Section IV; repository HV closure,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+Cn2_ground,1e-14,m^(-2/3),available v43 Section IV; repository HV closure,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+HV_profile,0.00594*(21/27)^2*(1e-5*h)^10*exp(-h/1000)+2.7e-16*exp(-h/1500)+1e-14*exp(-h/100),m^(-2/3),repository; available PDF leaves citation[],BLOCKED,BLOCKED_REFERENCE_NOT_LOCATED
+Gd_closure,4.35*(2L/(k*wL^2))^(5/6)*k^(7/6)*dh^(5/6)*sec^(11/6)*integral Cn2*((h-hUAV)/dh)^(5/3) dh,dimensionless,legacy optical; missing explicit PDF formula[],BLOCKED,BLOCKED_REFERENCE_NOT_LOCATED
+theta_FOV_half_angle,6.25,mrad,available v43 Section IV and fixed provenance,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+sigma_o,1.5,mrad,available v43 Section IV and fixed provenance,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+xi_ch,0.0186,SNU,task; previous v43 protocol; PDF defines symbol but no numeric value,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+xi_det,0.005,SNU,task explicit parameter; PDF defines symbol but no numeric value,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+beta,0.95,dimensionless,task and available v43 Section IV,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+VA,3,SNU,task; physical actual source VA=2nbar,BLOCKED,BLOCKED_REFERENCE_NOT_LOCATED
+nbar,1.5,photons/use,authenticated actual Uniform ensemble,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+printed_Vmod,0.75,printed SNU,available v43 nbar/2; inconsistent with unit vacuum convention,BLOCKED,BLOCKED_REFERENCE_NOT_LOCATED
+M,256,states,task and source catalog,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+p_k,0.00390625,probability,Uniform gamma=nu=0,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+measurement,homodyne real1D,type,task and printed nu3,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+reconciliation,reverse,type,task,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+eta_det,ABSENT,parameter,task requires no separate detector efficiency,EXACT_MATCH,BLOCKED_REFERENCE_NOT_LOCATED
+eta_xi_at_outage,0.005,SNU,continuous limiting extension of xi_ch*eta+xi_det,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+AO,OFF,state,saved fixture; no AO closure changed,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+extra_phase_noise,OFF_HISTORICAL_ASSUMPTION,state,"saved fixture, not hardware validation",BLOCKED,BLOCKED_REFERENCE_NOT_LOCATED
+w0_m,0.09867606471697511,m,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+wL_m,0.13697432514171648,m,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+w_eff_m,0.1385492760193391,m,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+w_eq_m,0.27329146062176857,m,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+G_d,0.02312850067429351,dimensionless,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+B,0.8215975603461577,dimensionless,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+d,18.85590064346874,dimensionless,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+v,0.04145352708218998,dimensionless,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+P0,0.00016985667656141065,dimensionless,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+P1,0.9998301433234386,dimensionless,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+sigma_s_m,0.031468237955119126,m,recomputed fixed optics; fixed_contexts.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+mass_tolerance,1e-10,numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+moment_integration_tolerance,2e-10,numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+source_tolerance,2e-12,numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+MI_tolerance,2e-10,numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+Holevo_tolerance,2e-08,numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+entropy_tolerance,2e-11,numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+GH_orders,"[64, 128]",numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+full_Z_grids,"[33, 129]",numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+entropy_digits,"[80, 110]",numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED
+bounded_width_orders,"[32, 64]",numerical,prospective protocol.json,EQUIVALENT,BLOCKED_REFERENCE_NOT_LOCATED

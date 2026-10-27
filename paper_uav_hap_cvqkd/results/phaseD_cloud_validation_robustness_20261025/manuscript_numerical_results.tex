@@ -1,0 +1,42 @@
+% DIAGNOSTIC_ONLY; paired intervals are pointwise exploratory intervals.
+\subsection{Numerical Results and Discussion}
+The centered primary geometry places the HAP at $(500,500)$ m and 20 km
+altitude, above a 1 km square containing a 10-by-10 UAV grid at 1 km altitude.
+The zenith angles range from $0.213^\circ$ to $1.918^\circ$; all 100 locations
+have positive diagnostic clear-sky rates, ranging from $7.86230\times10^{-4}$
+to $7.95966\times10^{-4}$ bits/use. The catalog winner is
+$(\nu_{\rm raw},V_A)=(0.30,1.358333319784304)$ throughout the grid.
+The historical off-center geometry has no positive clear-sky location.
+We reuse 100 paired 30-slot missions, with $\Delta t=20$ s,
+$v_{\max}=15$ m/s, $D_{\rm ref}=1000$ m and
+$\lambda=9.468026677248516\times10^{-6}$ bits/use.
+
+At calibrated $p=0.4$, the DP-minus-Greedy mean-rate difference is
+$3.96435\times10^{-7}$ bits/use, with paired 95\% Student-$t$ interval
+$[-6.51912\times10^{-7},1.44478\times10^{-6}]$.
+A 10000-replicate paired mission bootstrap also includes zero. Therefore
+the $0.0499\%$ rate difference is not statistically resolved in this sample.
+The objective increase is $6.69501\times10^{-6}$ bits/use
+(95\% interval $[5.50954,7.88048]\times10^{-6}$), and mean travel distance
+decreases by $665.247$ m (95\% interval $[599.594,730.900]$ m).
+At $p=0.8$, DP increases mean objective and rate by $13.513\%$ and $13.450\%$,
+reduces unavailability from $16.333\%$ to $5.067\%$, and increases distance
+by $12.001\%$. The corresponding paired intervals exclude zero.
+These gains include the value of future blockage information available
+to the offline DP oracle, which is unavailable to Greedy.
+
+No DP zero-rate slot was observed at $p=0.5$ across 3000 slots in 100 missions.
+This does not establish zero risk: the one-sided 95\% upper bound for the
+probability of a mission containing any outage is $2.9513\%$ under independent
+missions. We do not treat the optimized slots as independent Bernoulli trials.
+
+Indexing robustness uses the same latent draws and physical rate map for
+row-major, column-major, serpentine and two fixed random permutations,
+with 100 paired missions at each of $p=0.4,0.5,0.8$.
+Row/column cloud laws are transpose-equivalent on this centered grid;
+their DP and Stationary objectives agree exactly. Greedy differences
+disappear under transpose-equivariant tie ordering. Other assignments
+change physical correlation patterns: at $p=0.8$, DP's objective advantage
+over Greedy is $13.51\%$ for row-major, $13.60\%$ for serpentine, and $5.59\%$
+and $7.00\%$ for the random assignments. Thus finite-instance objective
+dominance persists, while gain magnitude is sensitive to arbitrary indexing.

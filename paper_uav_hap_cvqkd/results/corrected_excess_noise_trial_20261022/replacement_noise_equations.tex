@@ -1,0 +1,20 @@
+% Proposed excess-noise equations only; not a validated full security model.
+\begin{align}
+\epsilon(\eta)&=\epsilon_{\rm ch}+\frac{\epsilon_{\rm det}}{\eta\eta_{\rm det}},\quad \eta>0,\\
+M_A&=P_1 C_1 Q(\chi^2),\qquad M=P_0+M_A,\\
+\langle\eta\epsilon\rangle_{\rm all}
+ &=\epsilon_{\rm ch}m_1+\frac{\epsilon_{\rm det}}{\eta_{\rm det}}M,\\
+\langle\eta\epsilon\rangle_{\rm active}
+ &=\epsilon_{\rm ch}m_1+\frac{\epsilon_{\rm det}}{\eta_{\rm det}}M_A,\\
+\eta_f&=m_{1/2}^2,\\
+N_{\rm pre}=\eta_f\epsilon_f
+ &=(m_1-m_{1/2}^2)V_A+\langle\eta\epsilon\rangle,\\
+t&=\eta_{\rm det}\eta_f,\qquad N_{\rm post}=\eta_{\rm det}N_{\rm pre},\\
+b&=1+tV_A+N_{\rm post},\\
+Z_-&=2\sqrt{\eta_{\rm det}}m_{1/2}C-\sqrt{2N_{\rm post}w}.
+\end{align}
+% all: extend g(eta)=eta*epsilon(eta) by its finite limit at zero.
+% active: g(0)=0; detector excess is disabled at outage, no conditioning.
+% Detector loss/excess are untrusted; no second receiver noise term.
+% m1,mhalf and M must come from the SAME retained probability law.
+% The 55cm historical raw moments do NOT satisfy the [0,1] requirement.

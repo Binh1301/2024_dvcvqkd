@@ -1,0 +1,39 @@
+{
+  "unique_candidate_pairs": 1908,
+  "pilot_unique_candidates": 720,
+  "additional_unique_candidates": 1188,
+  "completed_candidate_attempts": 3096,
+  "repeated_additional_candidate_attempts": 1188,
+  "reference_rate_regression_calls": 2,
+  "diagnostic_rate_regression_calls": 2,
+  "channel_context_computations": 9,
+  "source_Cw_computations": 0,
+  "source_generation_attempts": 0,
+  "independent_adaptive_MI_checks": 36,
+  "independent_covariance_checks": 36,
+  "numerical_formulas_or_tolerances_changed": false,
+  "issues": [
+    {
+      "stage": "initial5tests",
+      "outcome": "2PASS3ERROR",
+      "cause": "Historical runner shadowed local import",
+      "preserved": "test_reuse_attempt01.log"
+    },
+    {
+      "stage": "pilot final summary",
+      "outcome": "720 candidates and27 checks saved; JSON summary failed",
+      "cause": "NumPy int64 serialization",
+      "resolution": "Preserved clean helper; no720 rate rerun"
+    },
+    {
+      "stage": "first catalog extension",
+      "outcome": "1188 candidate attempts completed; postprocessing failed before save",
+      "cause": "K_raw missing from numeric CSV conversion",
+      "resolution": "Convert K_raw, persist additional table before ranking, bounded repeat1188; original failure retained"
+    }
+  ],
+  "strict_Phase_B_executed": false,
+  "strict_Phase_B_ready": false,
+  "full61_sweep_executed": false,
+  "total_rate_function_attempts": 3100
+}

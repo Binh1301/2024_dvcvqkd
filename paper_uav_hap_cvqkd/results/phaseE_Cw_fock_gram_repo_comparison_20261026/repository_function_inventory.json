@@ -1,0 +1,218 @@
+[
+  {
+    "path": "scripts/run_exact_mb_test2.py",
+    "function": "nu_mb_repo",
+    "line": 57,
+    "end_line": 61,
+    "arguments": "nu_mb_raw: float",
+    "file_sha256": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf"
+  },
+  {
+    "path": "scripts/run_exact_mb_test2.py",
+    "function": "ensemble_hash",
+    "line": 82,
+    "end_line": 90,
+    "arguments": "ensemble: Ensemble",
+    "file_sha256": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf"
+  },
+  {
+    "path": "scripts/run_exact_mb_test2.py",
+    "function": "build_mb_ensemble",
+    "line": 93,
+    "end_line": 113,
+    "arguments": "config: dict, nu_mb_raw: float, va: float",
+    "file_sha256": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf"
+  },
+  {
+    "path": "scripts/run_exact_mb_test2.py",
+    "function": "ExactMBEvaluator",
+    "line": 135,
+    "end_line": 374,
+    "arguments": "class methods; see source",
+    "file_sha256": "a66c084845cbe931e26e8ad9fdd1b08742e2de8d97e5fa29e2a6b27d809038bf"
+  },
+  {
+    "path": "src/modulation/qam256.py",
+    "function": "c4_orbit_indices",
+    "line": 16,
+    "end_line": 42,
+    "arguments": "*, device: torch.device | str | None=None",
+    "file_sha256": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+  },
+  {
+    "path": "src/modulation/qam256.py",
+    "function": "square_qam256",
+    "line": 84,
+    "end_line": 98,
+    "arguments": "alpha0: float=1.0, *, dtype: torch.dtype=torch.complex128, device: torch.device | str | None=None",
+    "file_sha256": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+  },
+  {
+    "path": "src/modulation/qam256.py",
+    "function": "canonical_square_qam256",
+    "line": 101,
+    "end_line": 109,
+    "arguments": "*, dtype: torch.dtype=torch.complex128, device: torch.device | str | None=None",
+    "file_sha256": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+  },
+  {
+    "path": "src/modulation/qam256.py",
+    "function": "maxwell_boltzmann_pmf",
+    "line": 129,
+    "end_line": 140,
+    "arguments": "nu_mb: float, *, dtype: torch.dtype=torch.float64, device: torch.device | str | None=None",
+    "file_sha256": "34238f2958943016fac82766e464c3dbacb797a60a2df55566d41afee4a145fa"
+  },
+  {
+    "path": "src/modulation/normalization.py",
+    "function": "physical_amplitudes",
+    "line": 22,
+    "end_line": 69,
+    "arguments": "probabilities: torch.Tensor, relative_constellation: torch.Tensor, modulation_variance: torch.Tensor, *, minimum_energy: float=1e-15",
+    "file_sha256": "88dd777f6ce2f64117dc64cbcebc1335337aaa73f5b597410618d0581fd47ce2"
+  },
+  {
+    "path": "src/modulation/joint_ps_gs.py",
+    "function": "Ensemble",
+    "line": 69,
+    "end_line": 139,
+    "arguments": "class methods; see source",
+    "file_sha256": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f"
+  },
+  {
+    "path": "src/modulation/joint_ps_gs.py",
+    "function": "reference_ensemble",
+    "line": 294,
+    "end_line": 319,
+    "arguments": "kind: str, *, batch_size: int, modulation_variance: float, nu_mb: float | None=None, v_min: float | None=None, v_max: float | None=None, n_peak_photons: float | None=None, device: torch.device | str | None=None",
+    "file_sha256": "3760b7c2677c9c88361eb444778f5955beff4529a69472df927647cfac384d8f"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "coherent_state_vectors",
+    "line": 44,
+    "end_line": 53,
+    "arguments": "amplitudes: torch.Tensor, fock_cutoff: int",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "density_operator",
+    "line": 56,
+    "end_line": 63,
+    "arguments": "ensemble: Ensemble, fock_cutoff: int",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "annihilation_operator",
+    "line": 66,
+    "end_line": 70,
+    "arguments": "fock_cutoff: int, device: torch.device",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "support_restricted_source_moments",
+    "line": 73,
+    "end_line": 153,
+    "arguments": "tau: torch.Tensor, fock: torch.Tensor, probabilities: torch.Tensor, *, density_eigenvalue_tolerance: float, eigenvalues: torch.Tensor | None=None, eigenvectors: torch.Tensor | None=None",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "dense_fock_holevo_information",
+    "line": 590,
+    "end_line": 666,
+    "arguments": "ensemble: Ensemble, transmittance: torch.Tensor, epsilon: torch.Tensor, *, fock_cutoff: int, require_supported_symmetry: bool=True, symmetry_tolerance: float=1e-08, density_trace_tolerance: float=1e-08, density_eigenvalue_tolerance: float=1e-12, physicality_tolerance: float=1e-10, maximize_full_interval: bool=False, z_grid_size: int=DEFAULT_Z_GRID_SIZE, z_refinement_steps: int=DEFAULT_Z_REFINEMENT_STEPS",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "c4_gram_holevo_information",
+    "line": 669,
+    "end_line": 738,
+    "arguments": "ensemble: Ensemble, transmittance: torch.Tensor, epsilon: torch.Tensor, *, density_eigenvalue_tolerance: float, require_supported_symmetry: bool=True, symmetry_tolerance: float=1e-08, density_trace_tolerance: float=1e-10, physicality_tolerance: float=1e-10, maximize_full_interval: bool=False, z_grid_size: int=DEFAULT_Z_GRID_SIZE, z_refinement_steps: int=DEFAULT_Z_REFINEMENT_STEPS",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/holevo.py",
+    "function": "holevo_information",
+    "line": 741,
+    "end_line": 792,
+    "arguments": "ensemble: Ensemble, transmittance: torch.Tensor, epsilon: torch.Tensor, *, backend: HolevoBackend, density_eigenvalue_tolerance: float, fock_cutoff: int | None=None, require_supported_symmetry: bool=True, symmetry_tolerance: float=1e-08, density_trace_tolerance: float=1e-08, physicality_tolerance: float=1e-10, maximize_full_interval: bool=False, z_grid_size: int=DEFAULT_Z_GRID_SIZE, z_refinement_steps: int=DEFAULT_Z_REFINEMENT_STEPS",
+    "file_sha256": "9871eac234b79eb9d6f90b2225044a760143bf17afd1b86a1e06dfbc77014fd2"
+  },
+  {
+    "path": "src/cvqkd/gram_moments.py",
+    "function": "_sectors",
+    "line": 28,
+    "end_line": 37,
+    "arguments": "p: torch.Tensor, z: torch.Tensor",
+    "file_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551"
+  },
+  {
+    "path": "src/cvqkd/gram_moments.py",
+    "function": "_fast_from_sectors",
+    "line": 43,
+    "end_line": 124,
+    "arguments": "p: torch.Tensor, z: torch.Tensor, sectors: list[torch.Tensor]",
+    "file_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551"
+  },
+  {
+    "path": "src/cvqkd/gram_moments.py",
+    "function": "_fallback",
+    "line": 126,
+    "end_line": 133,
+    "arguments": "p: torch.Tensor, z: torch.Tensor",
+    "file_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551"
+  },
+  {
+    "path": "src/cvqkd/gram_moments.py",
+    "function": "c4_gram_source_moments",
+    "line": 135,
+    "end_line": 257,
+    "arguments": "ensemble: Ensemble, *, density_eigenvalue_tolerance: float, physicality_tolerance: float=1e-10",
+    "file_sha256": "bbad4c303a71ae69be99a4fffba90d968de35f34242977bad03dc1b3e6c5c551"
+  },
+  {
+    "path": "src/cvqkd/spectral_frechet.py",
+    "function": "hermitian_inverse_sqrt",
+    "line": 67,
+    "end_line": 70,
+    "arguments": "matrix: torch.Tensor",
+    "file_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388"
+  },
+  {
+    "path": "src/cvqkd/spectral_frechet.py",
+    "function": "hermitian_sqrt",
+    "line": 73,
+    "end_line": 76,
+    "arguments": "matrix: torch.Tensor",
+    "file_sha256": "1c1f252b17b47692081156ada526492c2fa6db32682b6d2b0d9190e43a898388"
+  },
+  {
+    "path": "scripts/full_support_c4_worker.py",
+    "function": "_row",
+    "line": 64,
+    "end_line": 205,
+    "arguments": "p, z, digits",
+    "file_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+  },
+  {
+    "path": "scripts/full_support_c4_worker.py",
+    "function": "main",
+    "line": 208,
+    "end_line": 277,
+    "arguments": "",
+    "file_sha256": "2cd1feeb3e1d6e734fd36df9928878f378a55dc3b1a5d58c7f816302c26859e1"
+  },
+  {
+    "path": "scripts/exact_cache_provenance.py",
+    "function": "verify_source_payload",
+    "line": 42,
+    "end_line": 73,
+    "arguments": "payload, settings, implementations=None",
+    "file_sha256": "7067f39d8582859ab3c4a069980f0a0d2814a165456a9e15a4781dadfe04804a"
+  }
+]

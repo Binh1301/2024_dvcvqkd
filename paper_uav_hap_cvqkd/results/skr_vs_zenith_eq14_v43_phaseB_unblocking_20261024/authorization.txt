@@ -1,0 +1,361 @@
+# CODEX — Phase B Unblocking: Evidence Recovery & Uniform Timeout Diagnosis
+
+## 1. Objective
+
+Continue the HAP–UAV 256-QAM DM-CV-QKD SKR-versus-zenith project from the existing Phase B readiness results.
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Primary readiness report:
+
+`results/skr_vs_zenith_eq14_v43_phaseB_readiness_20261024/validation_report_vi.md`
+
+The current Phase B readiness gate is **BLOCKED**.
+
+Your task is to recover historical convergence evidence, diagnose the timed-out Uniform exact-source calculation, and prepare the safest path to the nine-angle pilot.
+
+**This is an execution and forensic-validation task, not a request to redesign the QKD model.**
+
+## 2. Verified Starting State
+
+The previous execution reported:
+
+| Item | Status |
+|---|---|
+| Total pilot sources | 81 |
+| VERIFIED_EXACT | 6 |
+| VERIFIED_BY_ALTERNATIVE_EVIDENCE | 1 |
+| INSUFFICIENT_EVIDENCE | 74 |
+| INVALID | 0 |
+| Existing sources missing sufficient evidence | 73 |
+| Missing Uniform source | 1 |
+| Pilot runner checks | 10/10 PASS |
+| Frozen-spec mismatch | Resolved through Git provenance |
+| Historical files checked | 9,295 |
+| Nine-angle pilot | NOT RUN |
+| Full 61-angle sweep | NOT RUN |
+
+Missing Uniform source:
+
+- `nu_raw = 0`
+- `V_A = 1.6249995399703647`
+- Previous exact-source calculation timed out after 3,600 seconds.
+- No validated `C,w` payload or convergence receipt was produced.
+
+Do not interpret missing convergence evidence as proof that previously calculated `C,w` values are incorrect.
+
+## 3. Non-Negotiable Constraints
+
+1. The canonical mathematical reference is manuscript v43:
+
+   `docs/MANUSCRIPT43_CANONICAL_REFERENCE.md`
+
+2. Do not modify any mathematical expression, convention, or physical assumption from the approved evaluator.
+
+3. In particular, preserve the direct Eq. (14):
+
+   \[
+   Z(\eta_f,\xi_f)
+   =2\sqrt{\eta_f}C-\sqrt{2\eta_f\xi_f w}.
+   \]
+
+   Do not introduce alternative Z endpoints, Z optimization, clipping, or other correlation prescriptions.
+
+4. Preserve:
+   - Homodyne detection.
+   - Discrete-input mutual information.
+   - Existing Holevo expressions.
+   - Reverse reconciliation.
+   - \(\beta=0.95\).
+   - Approved \(V_A=V_{\rm mod}=2\bar n\) evaluator convention.
+   - `nu_repo = 42.5 * nu_raw`.
+   - Exact ensemble and source hash identities.
+   - Approved channel law and integration interval \([0,1]\).
+
+5. Do not interpolate or approximate missing `C,w` using neighboring constellation parameters.
+
+6. Do not substitute a different Uniform source for the missing exact source.
+
+7. Preserve production code, historical caches, canonical source catalogs, and frozen specifications.
+
+8. All new reports, indices, and diagnostic results must be stored in a new versioned output directory.
+
+9. **Do not launch any expensive exact-source recomputation.**
+
+10. **Do not run the nine-angle pilot or 61-angle sweep in this task.**
+
+11. Never fabricate convergence evidence or silently upgrade source validation status.
+
+## 4. Task A — Recover Historical Convergence Evidence
+
+Investigate the 73 existing pilot sources currently classified as `INSUFFICIENT_EVIDENCE`.
+
+### A1. Build a complete source inventory
+
+For each source, record:
+
+- `nu_raw`
+- `nu_repo`
+- `V_A`
+- Source ensemble hash
+- Exact source identity
+- Existing `C`
+- Existing `w`
+- Source artifact location
+- Original computation job or run ID, if available
+- Available logs
+- Available convergence diagnostics
+- Existing receipts
+- Evidence status
+- Reason for any unresolved status
+
+Pay particular attention to the Fixed MB source:
+
+- `nu_raw = 0.25`
+- `V_A = 1.6249995399703647`
+
+Its exact source and convergence evidence are important for the fixed-MB benchmark.
+
+### A2. Search historical evidence
+
+Inspect existing:
+
+- Source-generation outputs
+- Numerical convergence reports
+- Solver logs
+- Terminal logs
+- Checkpoints
+- Intermediate result artifacts
+- Precision-comparison results
+- Validation summaries
+- Metadata and manifests
+- Git history
+- Archived execution records
+
+Prioritize reusing existing evidence. Avoid recomputing expensive matrix operations.
+
+Search historical results even if filenames or output conventions differ from the current Phase B runner.
+
+### A3. Verify evidence integrity
+
+For each recovered artifact, establish:
+
+1. Which exact constellation ensemble was evaluated?
+2. Does its hash match the pilot source?
+3. Are the reported `C,w` values associated with that ensemble?
+4. What numerical convergence test was performed?
+5. What tolerance or convergence criterion was used?
+6. Is the evidence sufficient to support the claimed numerical accuracy?
+7. Can it be independently traced to an immutable historical artifact?
+
+A matching source hash alone is not proof of numerical convergence.
+
+Likewise, a stored `C,w` pair without numerical accuracy evidence must not automatically be classified as `VERIFIED_EXACT`.
+
+### A4. Validation classification
+
+Use the existing readiness taxonomy:
+
+- `VERIFIED_EXACT`
+- `VERIFIED_BY_ALTERNATIVE_EVIDENCE`
+- `INSUFFICIENT_EVIDENCE`
+- `INVALID`
+
+Preserve the previously approved meaning of each category.
+
+Do not silently broaden the definition of `VERIFIED_BY_ALTERNATIVE_EVIDENCE`.
+
+Where recovered artifacts support a conclusion, record the precise evidence path and verification method.
+
+Where evidence remains insufficient, preserve that status and identify exactly what is missing.
+
+## 5. Task B — Diagnose Uniform Exact-Source Timeout
+
+Investigate only the missing source:
+
+\[
+(\nu_{\rm raw},V_A)
+=
+(0,1.6249995399703647).
+\]
+
+The previous attempt reached the 3,600-second timeout without a usable exact `C,w` payload.
+
+### B1. Identify the bottleneck
+
+Determine:
+
+- Which function or computation stage consumed the most time?
+- Was execution making numerical progress before timeout?
+- Was the job blocked by numerical convergence, memory, or implementation overhead?
+- Were intermediate results or checkpoints saved?
+- Did expensive computations restart unnecessarily?
+- Were eigendecompositions or matrix functions repeatedly evaluated?
+- Are there avoidable duplicate operations?
+- Does the Uniform source contain mathematical or numerical properties that make this specific calculation difficult?
+
+Use existing logs, source inspection, and bounded lightweight diagnostics.
+
+Do not launch another full exact-source job.
+
+### B2. Examine safe acceleration opportunities
+
+Evaluate whether the exact calculation could be accelerated through:
+
+- Reusing verified intermediate quantities
+- Memoization of identical operations
+- Avoiding redundant decompositions
+- Reusing source-invariant structures
+- More efficient matrix operations
+- Checkpoint and resume
+- Profiling-guided performance improvements
+
+Any proposed optimization must preserve the original mathematical definitions of `C,w` and their numerical accuracy requirements.
+
+Do not silently replace the existing evaluator with an approximate method.
+
+### B3. Produce a reproducible recovery plan
+
+Recommend a concrete procedure for a future authorized source calculation:
+
+- Exact command
+- Required inputs
+- Checkpoint strategy
+- Convergence criteria
+- Verification steps
+- Expected artifacts
+- Failure and timeout handling
+
+If the exact computation remains intrinsically expensive, report that explicitly.
+
+**Do not execute the expensive calculation in this task.**
+
+## 6. Task C — Reassess Phase B Readiness
+
+Using the recovered evidence, regenerate the full 81-source readiness inventory.
+
+Report the updated counts for each validation category.
+
+Separately identify:
+
+1. Existing sources with adequate convergence evidence.
+2. Existing sources still missing evidence.
+3. The missing Uniform source.
+4. Fixed MB source status.
+5. Any source-identity or provenance conflicts.
+
+Confirm that the previously resolved frozen-spec issue remains resolved and that the versioned specification has not been overwritten.
+
+Do not rerun unrelated production validation or historical sweeps.
+
+### Readiness rules
+
+The strict pilot is ready only when all required sources meet the approved evidence standard, the missing Uniform source has a valid exact payload and receipt, and all relevant runner checks pass.
+
+If any requirement is unmet, report:
+
+`PHASE_B_STRICT_READY = FALSE`
+
+Do not change this outcome merely because the pilot runner itself passes.
+
+Optionally describe a separate, explicitly labeled diagnostic-pilot pathway using weaker evidence standards, but do not authorize or execute it.
+
+## 7. Task D — Outputs
+
+Create:
+
+`results/skr_vs_zenith_eq14_v43_phaseB_unblocking_20261024/`
+
+Include:
+
+### A. `validation_report_vi.md`
+
+A Vietnamese report containing:
+
+1. Starting state
+2. Historical evidence recovery results
+3. Source-status changes
+4. Fixed MB evidence status
+5. Uniform timeout root-cause analysis
+6. Safe computational acceleration opportunities
+7. Remaining blockers
+8. Updated strict readiness decision
+9. Recommended next execution step
+
+### B. `pilot_source_evidence.csv`
+
+One row for each of the 81 pilot sources, including source identity, `C,w` availability, evidence references, status, and unresolved issues.
+
+### C. `uniform_timeout_diagnosis.md`
+
+A detailed technical diagnosis of the 3,600-second Uniform failure.
+
+Separate verified findings from hypotheses.
+
+### D. `uniform_recovery_plan.md`
+
+An actionable, reproducible plan for obtaining the missing exact Uniform source in a future authorized execution.
+
+### E. `readiness_summary.json`
+
+A machine-readable summary of:
+
+- Validation-category counts
+- Missing source count
+- Fixed MB status
+- Missing Uniform status
+- Strict readiness
+- Unresolved blockers
+
+### F. `artifact_integrity_report.md`
+
+Record the Git state and preservation checks for historical source artifacts, production files, caches, and frozen specifications.
+
+Do not claim preservation checks passed without performing them.
+
+## 8. Execution Boundaries
+
+You may:
+
+- Read repository code and reports.
+- Search Git history.
+- Inspect existing computation artifacts.
+- Validate hashes and source identities.
+- Run lightweight deterministic tests.
+- Create isolated diagnostic scripts and reports.
+- Propose performance improvements.
+
+You must not:
+
+- Modify manuscript equations.
+- Modify primary SKR physics.
+- Rebuild the entire source catalog.
+- Launch an expensive source-moment calculation.
+- Launch the nine-angle pilot.
+- Launch the 61-angle sweep.
+- Replace missing values with approximations.
+- Change convergence criteria without documenting and obtaining approval.
+- Overwrite historical evidence.
+
+## 9. Required Final Response
+
+Report in Vietnamese.
+
+Start with:
+
+`PHASE B UNBLOCKING RESULT: READY / BLOCKED`
+
+Then provide:
+
+1. Number of sources upgraded after evidence recovery.
+2. Updated breakdown of all 81 sources.
+3. Fixed MB source status.
+4. Exact reason for the Uniform timeout, or explicitly state if the root cause remains uncertain.
+5. Best safe next action for obtaining the missing Uniform source.
+6. Number and nature of remaining blockers.
+7. Paths to all created artifacts.
+8. Confirmation that no pilot, full sweep, or expensive source recomputation was performed.
+
+**Stop after producing the unblocking diagnosis and reports. Do not automatically proceed to pilot execution.**

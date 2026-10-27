@@ -1,0 +1,727 @@
+# CODEX — PHASE D: Cloud Model Validation, Robustness Analysis and IEEE Manuscript Preparation
+
+## 1. Objective
+
+Continue the HAP–UAV 256-QAM DM-CV-QKD project from the completed Phase C results.
+
+The main objective is to validate the NEW cloud-blockage model, investigate the robustness of the DP–Greedy–Stationary comparison, audit the winning exact-source moments, and prepare scientifically defensible IEEE manuscript content.
+
+Repository:
+
+`C:\Users\HP\Documents\GitHub\2024_dvcvqkd\paper_uav_hap_cvqkd`
+
+Primary input directory:
+
+`results/phaseC_new_cloud_dp_greedy_stationary_20261025/`
+
+First read:
+
+- `validation_report_vi.md`
+- `summary_comparison.csv`
+- `table_B_probability_sweep.csv`
+- `primary_secondary_model_comparison.csv`
+- `figure_index.md`
+- Existing cloud generation code
+- Existing trajectory optimization code
+- Current manuscript v43 and canonical mathematical reference
+- Source evidence inventories from Phase B
+
+Do not assume file schemas or function interfaces. Inspect them directly.
+
+This is a continuation of the existing verified workflow, not a new physical-layer model.
+
+## 2. Confirm the Frozen Phase C Baseline
+
+The current PRIMARY geometry is:
+
+- HAP horizontal projection: (500, 500) m
+- HAP altitude: 20 km
+- UAV altitude: 1 km
+- Operating region: 1 km × 1 km
+- Candidate positions: 10 × 10 grid, J = 100
+- Zenith-angle range: 0.213°–1.918°
+- Positive clear-sky SKR: 100/100 positions
+
+The SECONDARY geometry uses:
+
+- HAP horizontal projection: (11419.655, 450) m
+- Zenith-angle range: 28.856°–30.921°
+- Positive clear-sky SKR: 0/100 positions
+
+Primary source parameters:
+
+\[
+\nu_{\rm raw}=0.30,\qquad
+V_A=1.358333319784304.
+\]
+
+Experimental baseline:
+
+- 100 paired Monte Carlo missions
+- 30 time slots per mission
+- Slot duration: 20 s
+- Maximum UAV speed: 15 m/s
+- Maximum displacement per slot: 300 m
+- Random seed: 20261015
+- Mobility penalty: \(\lambda_{\rm ref}=9.468026677248516\times10^{-6}\) bits/use
+
+Existing primary results at approximately p = 0.5:
+
+| Metric | Stationary | Greedy | DP |
+|---|---:|---:|---:|
+| Average SKR | 0.000558056 | 0.000787470 | 0.000794312 |
+| Penalized objective | 0.000558056 | 0.000770347 | 0.000783980 |
+| Travel distance (m) | 0 | 1808.45 | 1091.21 |
+| Unavailability (%) | 29.633 | 0.933 | 0 observed |
+| Availability (%) | 70.367 | 99.067 | 100 observed |
+
+Do not overwrite or alter these historical results.
+
+Reproduce summary statistics directly from the saved mission-level data before beginning new experiments.
+
+Report any mismatch.
+
+## 3. Task A — Mathematical Validation of the New Cloud Model
+
+The new cloud model is:
+
+\[
+\mathbf G_n\mid\boldsymbol\mu_n
+\sim\mathcal N(\boldsymbol\mu_n,\boldsymbol\Gamma),
+\]
+
+where:
+
+\[
+\mu_{j,n}\overset{\rm iid}{\sim}\mathcal U(-1,1),
+\]
+
+and:
+
+\[
+\Gamma_{ij}=9(0.9)^{|i-j|}.
+\]
+
+The mean vector and Gaussian innovations are independently regenerated at each time slot.
+
+No temporal Gaussian AR(1) is used.
+
+### A1. Conditional covariance
+
+Verify that:
+
+\[
+\operatorname{Cov}
+(\mathbf G_n\mid\boldsymbol\mu_n)
+=\boldsymbol\Gamma.
+\]
+
+Test the covariance using samples with a fixed mean vector, or subtract the sampled mean vector from each realization.
+
+Check:
+
+- Diagonal variance = 9
+- Off-diagonal covariance = \(9(0.9)^{|i-j|}\)
+- Symmetry
+- Positive definiteness
+- Numerical Cholesky reconstruction accuracy
+
+### A2. Unconditional covariance
+
+Because the Gaussian mean vector is independently sampled using Uniform(-1,1):
+
+\[
+\operatorname{Var}(\mu_{j,n})=\frac13.
+\]
+
+Therefore:
+
+\[
+\boxed{
+\operatorname{Cov}(\mathbf G_n)
+=
+\boldsymbol\Gamma+\frac13\mathbf I.
+}
+\]
+
+Explicitly derive and numerically verify this expression.
+
+In particular:
+
+\[
+\operatorname{Var}(G_{j,n})
+=
+9+\frac13.
+\]
+
+For i ≠ j:
+
+\[
+\operatorname{Cov}(G_{i,n},G_{j,n})
+=
+9(0.9)^{|i-j|}.
+\]
+
+Distinguish conditional covariance from unconditional covariance in all reports.
+
+Do not report Gamma as the unconditional covariance when mu is independently randomized.
+
+### A3. Temporal independence
+
+Verify that the new cloud generator does not reuse previous Gaussian fields or share a persistent random mean across slots.
+
+Measure empirical temporal correlations at several lags.
+
+Under the documented independent-slot model, the theoretical temporal covariance is zero for nonzero slot lags.
+
+Use confidence intervals or Monte Carlo uncertainty when interpreting empirical correlations.
+
+Do not mistake a small nonzero empirical correlation for proof of a temporal process.
+
+### A4. Binary threshold validation
+
+The baseline uses:
+
+\[
+c_{j,n}=\mathbb I\{G_{j,n}>0\}.
+\]
+
+Verify the theoretical marginal blockage probability:
+
+\[
+P(c_{j,n}=1)=0.5
+\]
+
+under the symmetric random-mean model.
+
+For experiments with a prescribed p, inspect and independently verify the implemented threshold-calibration procedure.
+
+The calibrated threshold must satisfy:
+
+\[
+\mathbb E_{\mu\sim U(-1,1)}
+\left[
+1-\Phi\left(\frac{t_p-\mu}{3}\right)
+\right]=p.
+\]
+
+Compare predicted and empirical blockage probabilities for:
+
+\[
+p=0.1,0.2,\ldots,0.8.
+\]
+
+Report calibration error and sampling uncertainty.
+
+Do not claim the threshold-calibration extension appears verbatim in Gong et al. or Sanchez Net et al. without direct evidence.
+
+### A5. Binary spatial correlation
+
+Measure the correlation between the binary blockage states for selected cell pairs.
+
+Compare it against the latent Gaussian correlation.
+
+Explain why the two are not identical after thresholding.
+
+Produce a quantitative validation table.
+
+## 4. Task B — Sensitivity to Spatial Grid Indexing
+
+The current model uses:
+
+\[
+\Gamma_{ij}=9(0.9)^{|i-j|}.
+\]
+
+This correlation is based on index separation rather than physical distance.
+
+Therefore, the mapping between 2-D UAV positions and one-dimensional indices can influence spatial cloud patterns.
+
+Investigate this explicitly.
+
+### B1. Compare index assignments
+
+Test:
+
+1. Row-major indexing — current baseline.
+2. Column-major indexing.
+3. Serpentine indexing.
+4. One or more reproducible randomized index assignments.
+
+Keep the physical UAV grid and source-dependent SKR map fixed.
+
+Construct the covariance for each mapping without changing its mathematical rule.
+
+Note that row-major and column-major may be equivalent under a rotation or transposition of a symmetric centered grid. Do not claim a meaningful robustness difference if results are invariant under that symmetry.
+
+### B2. Controlled Monte Carlo comparison
+
+For each indexing method:
+
+- Generate reproducible cloud missions.
+- Use identical missions for DP, Greedy and Stationary within each configuration.
+- Preserve p, speed constraints, mission length, lambda and physical-layer SKR.
+- Report available pairing or coupling across indexing configurations.
+- Use at least the existing 100-mission baseline, subject to computational feasibility.
+
+Measure:
+
+- Mean usable SKR
+- Penalized objective
+- Unavailability
+- Travel distance
+- Position changes
+- Relative DP improvement
+
+Use paired uncertainty estimates for within-configuration algorithm comparisons.
+
+Do not represent different index assignments as physically equivalent unless their induced joint cloud distributions are equivalent under the relevant grid symmetry.
+
+### B3. Scientific interpretation
+
+Determine whether the DP advantage depends strongly on the arbitrary indexing of the spatial covariance.
+
+If results are sensitive to indexing, identify this as a modeling limitation.
+
+Do not replace the covariance model in this experiment.
+
+A physical-distance covariance model may be discussed separately as a future extension.
+
+## 5. Task C — Robustness of DP versus Greedy versus Stationary
+
+Use the saved Phase C results whenever possible.
+
+Focus on p = 0.4, p = 0.5 and p = 0.8.
+
+### C1. Paired statistical analysis
+
+Compute mission-level paired differences:
+
+\[
+\Delta U
+=
+U_{\rm DP}-U_{\rm Greedy},
+\]
+
+\[
+\Delta K
+=
+\bar K_{\rm DP}-\bar K_{\rm Greedy},
+\]
+
+and analogous differences relative to Stationary.
+
+Provide:
+
+- Mean difference
+- Standard deviation
+- 95% confidence interval
+- Relative improvement, where mathematically defined
+
+Use mission-level paired bootstrap or another justified paired confidence interval method.
+
+Do not treat 30 slots within one mission as 30 independent missions.
+
+Distinguish numerical optimality of DP on each instance from statistical uncertainty about expected performance across random missions.
+
+### C2. Check small improvements
+
+At p = 0.4, previously reported:
+
+- DP penalized objective improvement: 0.857%
+- DP average SKR improvement: 0.050%
+- DP travel distance reduction: 49.18%
+
+Determine whether the SKR improvement is statistically distinguishable from zero across missions.
+
+Do not describe the 0.050% SKR advantage as practically substantial without statistical support.
+
+### C3. High-blockage performance
+
+At p = 0.8:
+
+- DP objective improvement: 13.51%
+- DP mean SKR improvement: 13.45%
+- DP unavailability reduction: 68.98%
+- DP travel distance increase: 12.00%
+
+Verify these percentages using the saved data.
+
+Assess the statistical stability of the improvements.
+
+Explain the tradeoff between additional mobility and improved link availability.
+
+### C4. Zero-outage interpretation
+
+The baseline reported no observed DP outages at approximately p = 0.5.
+
+Do not conclude that the true outage probability equals zero.
+
+Report the actual number of observed zero-rate slots, sample size, and a suitable uncertainty bound.
+
+Account for the fact that slots within a mission may not constitute independent performance observations after offline optimization.
+
+Use mission-level uncertainty where appropriate.
+
+## 6. Task D — Audit the Winning Exact-Source Moments
+
+The winning source used across the 100 primary UAV locations is:
+
+\[
+(\nu_{\rm raw},V_A)
+=
+(0.30,1.358333319784304).
+\]
+
+The stored source moments are:
+
+\[
+C=1.067911050328646,
+\]
+
+\[
+w=5.700303183579203\times10^{-10}.
+\]
+
+The source currently has:
+
+`INSUFFICIENT_EVIDENCE`
+
+for exact numerical convergence.
+
+### D1. Historical source audit
+
+Inspect:
+
+- Exact source identity
+- Source and ensemble hashes
+- Original solver settings
+- Precision configuration
+- Stored C,w
+- Historical convergence diagnostics
+- Numerical residuals
+- Existing receipts
+- Source normalization conventions
+- nu_raw to nu_repo conversion
+
+Determine which numerical convergence evidence is missing.
+
+### D2. Low-cost verification feasibility
+
+Investigate whether existing intermediate artifacts permit an independent convergence check without repeating the full source calculation.
+
+If practical, run only bounded low-cost consistency checks.
+
+Do not equate a successful hash check or SKR computation with a numerical convergence proof.
+
+### D3. Sensitivity assessment
+
+Determine whether the existing evaluator supports controlled diagnostic sensitivity tests around the stored C,w values.
+
+If yes, quantify how small controlled perturbations to C,w affect:
+
+- Raw SKR
+- Positive-SKR classification
+- Position-dependent SKR
+- Source ranking
+
+Use explicitly labeled perturbations, not invented numerical error bounds.
+
+Do not treat arbitrary perturbations as certified solver uncertainty.
+
+Distinguish sensitivity from a genuine convergence certificate.
+
+### D4. Hard execution boundary
+
+DO NOT:
+
+- Recompute the exact C,w source.
+- Launch an expensive high-precision source job.
+- Fabricate convergence receipts.
+- Upgrade the source evidence classification without valid evidence.
+- Modify production source catalog entries.
+
+If full recomputation is necessary, provide a separate authorization-ready execution plan instead.
+
+## 7. Task E — Revalidate the Optimization Algorithms
+
+Perform focused correctness checks using the existing code.
+
+### E1. Dynamic Programming
+
+Confirm the recursion optimizes the exact objective:
+
+\[
+U=
+\frac{1}{N_t}
+\sum_{n=1}^{N_t}S_{j_n,n}
+-
+\frac{\lambda}{D_{\rm ref}}
+\sum_{n=2}^{N_t}d_{j_{n-1},j_n}.
+\]
+
+Verify:
+
+- Correct reward scaling
+- Correct movement penalty
+- Correct feasible predecessor sets
+- Correct backtracking
+- Valid initial-position convention
+
+Compare DP against exhaustive enumeration on a small toy grid.
+
+### E2. Greedy
+
+Verify that Greedy uses current-slot information only.
+
+Confirm that the one-step selection uses exactly the same objective normalization.
+
+Ensure no future cloud-state leakage occurs.
+
+### E3. Stationary
+
+Verify that Stationary selects the best fixed position using the complete mission.
+
+Confirm travel distance equals zero.
+
+Clearly identify Stationary as an offline fixed-location benchmark.
+
+### E4. Common comparison
+
+For each mission, confirm:
+
+\[
+U_{\rm DP}\geq U_{\rm Greedy},
+\]
+
+\[
+U_{\rm DP}\geq U_{\rm Stationary},
+\]
+
+within numerical tolerance.
+
+Do not assume DP must have shorter travel distance or better unpenalized SKR in every individual mission.
+
+## 8. Task F — Prepare IEEE Manuscript Content
+
+Prepare publication-style LaTeX material without directly modifying the frozen manuscript.
+
+Use the established IEEEtran notation and equation conventions.
+
+Produce four draft subsections:
+
+### F1. Spatially Correlated Cloud Blockage Model
+
+Describe:
+
+- Multivariate Gaussian cloud field
+- Uniformly distributed means
+- Index-based covariance
+- Binary thresholding
+- Independent time slots
+- Complete cloud blockage assumption
+
+Define all variables clearly.
+
+Keep this subsection concise and technically precise.
+
+### F2. Mobility-Aware SKR Optimization
+
+Describe:
+
+- Clear-sky source optimization
+- Cloud-affected usable SKR
+- Stationary benchmark
+- Greedy algorithm
+- DP algorithm
+- Speed and mobility constraints
+
+Preserve the approved objective and equations.
+
+### F3. Numerical Results and Discussion
+
+Explain:
+
+- Positive clear-sky SKR throughout the primary grid
+- DP–Greedy–Stationary comparisons
+- Unavailability versus blockage probability
+- Rate–distance tradeoff
+- Effect of cloud indexing
+- Statistical uncertainty
+- Difference between primary and secondary geometry
+
+Use actual validated Phase C/D results only.
+
+### F4. Limitations
+
+Explicitly state:
+
+- The cloud model is synthetic and index-correlated.
+- No temporal cloud motion is modeled.
+- DP uses future blockage states and is therefore an offline oracle.
+- The Gaussian-to-binary calibration is a simulation convention unless directly sourced.
+- Flight distance is a mobility surrogate, not a calibrated propulsion-energy model.
+- Exact-source convergence evidence remains incomplete.
+- The security model and homodyne-related consistency require separate validation before strong security claims.
+
+Do not present diagnostic results as independently certified secure key rates.
+
+Do not introduce unsupported claims or invented references.
+
+## 9. Figures
+
+Reuse the existing Phase C figures whenever scientifically appropriate.
+
+Create additional figures only where they provide new information:
+
+1. Conditional vs. unconditional Gaussian covariance validation.
+2. Binary blockage correlation vs. latent Gaussian correlation.
+3. Spatial cloud maps for different index assignments.
+4. DP–Greedy objective improvement with 95% confidence intervals.
+5. DP–Greedy SKR and travel-distance tradeoff.
+6. Indexing robustness comparison.
+
+Use Matplotlib.
+
+Export:
+
+- PNG at 600 dpi
+- Vector PDF
+
+All plots must remain readable in IEEE two-column format.
+
+Do not smooth or interpolate simulated data.
+
+## 10. Execution and Computational Limits
+
+Prioritize reusing all existing Phase C records.
+
+Do not rerun the original primary and secondary experiments unnecessarily.
+
+Run new Monte Carlo experiments only for the specifically requested indexing robustness configurations or missing statistical checks.
+
+Use bounded, reproducible workloads.
+
+If computational time is limited:
+
+Priority 1: Cloud mathematics and code validation.
+
+Priority 2: Paired statistical analysis of existing results.
+
+Priority 3: Indexing robustness experiments.
+
+Priority 4: Winning-source evidence audit.
+
+Priority 5: Manuscript drafting and figures.
+
+Preserve all historical files.
+
+No new C,w calculations are authorized.
+
+Do not edit frozen-spec or canonical SKR physics.
+
+## 11. Required Deliverables
+
+Create a NEW directory:
+
+`results/phaseD_cloud_validation_robustness_20261025/`
+
+Include:
+
+- `cloud_mathematical_validation.md`
+- `cloud_validation_metrics.csv`
+- `binary_threshold_validation.csv`
+- `indexing_robustness_results.csv`
+- `paired_algorithm_statistics.csv`
+- `winning_source_evidence_audit.md`
+- `source_sensitivity_report.md`
+- `algorithm_correctness_tests.md`
+- `phaseD_validation_report_vi.md`
+- `artifact_integrity_report.md`
+- `reproduce_phaseD.py`
+- `manuscript_cloud_model.tex`
+- `manuscript_mobility_optimization.tex`
+- `manuscript_numerical_results.tex`
+- `manuscript_limitations.tex`
+- `figure_captions.tex`
+
+Include generated figures in PNG and PDF.
+
+If a check cannot be completed, retain a clearly labeled unresolved item instead of fabricating results.
+
+## 12. Final Report in Vietnamese
+
+Start with:
+
+`PHASE D RESULT: COMPLETE / PARTIAL / BLOCKED`
+
+Then report:
+
+### A. Cloud Model Validation
+
+- Conditional covariance test
+- Unconditional covariance test
+- Temporal independence test
+- Binary threshold calibration
+- Binary spatial correlation
+
+### B. Algorithm Robustness
+
+Provide a table:
+
+| Metric | Stationary | Greedy | DP |
+|---|---:|---:|---:|
+| Average SKR | | | |
+| Penalized objective | | | |
+| Unavailability | | | |
+| Travel distance | | | |
+
+Report paired confidence intervals for DP improvements.
+
+### C. Indexing Sensitivity
+
+State whether changing the cell-index mapping materially changes the cloud patterns or algorithm performance.
+
+Explain any symmetry-related equivalence.
+
+### D. Exact-Source Evidence
+
+Report:
+
+- Winning source identity
+- Recovered convergence evidence
+- Remaining numerical uncertainty
+- Whether the exact source status can legitimately be upgraded
+
+Do not claim VERIFIED_EXACT without valid convergence evidence.
+
+### E. Manuscript Readiness
+
+State which subsections and figures are ready for author review.
+
+Separate formatting readiness from mathematical/security validation readiness.
+
+### F. Preservation
+
+Report:
+
+- Number of new C,w calculations: ZERO
+- Number of newly executed channel evaluations
+- Number of new Monte Carlo missions
+- All tests passed or failed
+- Historical artifact integrity
+- Paths to generated reports and figures
+
+Maintain:
+
+`PHASE_B_STRICT_READY = FALSE`
+
+unless all original Phase B evidence requirements have genuinely been met.
+
+Maintain:
+
+`DIAGNOSTIC_ONLY`
+
+for all SKR-derived conclusions that still depend on insufficient convergence evidence.
+
+**Execute the validation and necessary bounded robustness experiments, prepare the IEEE LaTeX subsections, and return actual numerical findings. Do not merely prepare an execution plan.**

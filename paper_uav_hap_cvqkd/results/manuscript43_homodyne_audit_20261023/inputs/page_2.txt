@@ -1,0 +1,62 @@
+                                                           For the atmospheric turbulence, by assuming the weak                HAP     FSO channel
+                         (Alice)                                     turbulence condition, we can model Ia as a log-normal random
+                                                                     variable, whose probability density function (PDF) is [3]
+
+                                                                       σ2R  2 
+                                                                                                     ln Ia + 2                                                                       1
+                                                                                   fIa (Ia) =         exp                            (5)                                                                                       2σ2R      ,                                                                                          Ia p 2πσ2R    −                      𝜁
+
+                                         Atmospheric                                                                                                       7             ℎHAP
+                                                                                                       6 sec 116 (ζ)R                                                                                                                                                6 dh is                                                                                                                                   hatm C2n (h) (h −hUAV) 5                                              turbulence                 where σ2R =2.25 2πλ                                                                                                            hUAV                       UAV
+                                                                 the Rytov variance, hatm  is the atmospheric altitude, hUAV                                  (Bob)
+                                                            denotes the UAV’s altitude, and λ is the optical wavelength. In                       ℎUAV
+                                                                   addition, C2n (h) can be computed as a function of the ground
+                                                               turbulence level, C2n (0), and the root-mean-square (rms) wind
+                                                               speed, vwind, as in [].
+                                                       As for geometric loss and misalignment, the fraction of col-
+Fig. 1. The considered HAP-to-UAV FSO/CV-QKD systems enabling secure   lected power given the distance between the beam footprint’s
+IoV applications.
+                                                                 center and that of the receiver aperture, r, is approximated as
+
+                                                      !
+QAM modulation. In this modulation scheme, Alice randomly                     ηp ≈A0 exp  −2r2     ,                (6)
+                                                                        w2Leqselects a coherent state from a deterministic set                       √{|αk⟩}, where
+k ∈K = {(i, j) : i, j ∈{0, . . . , m−1}}, m =  M. The value
+                                                      where A0 =  [erf (ν)]2 denotes√ the maximum fraction ofαk is given as                                                                  collected power, ν = √πDr/ 2  2wL,eff  , Dr is the receiver
+                                                                                                                       √πerf(ν)
+                                                                                                                Leq = w2L,eff 2ν exp(−ν2)  is  the      αk = ∆   i −m −1 + jc∆  j −m −1    ,     (1)   aperture’s  diameter, and w2                    2                 2                equivalent beam width. Additionally, wL,eff = wL √1 + Gd is
+                                         r          2          2
+                                                                                                Lλ                                                            +                                                                                                                                                                                                             ,                                                                                                      πw2where ∆is the symbol spacing, and jc = √−1 denotes   the effective beam width, wL = w0   1 −LF0                                                                                                                                                  0
+the imaginary unit. The coherent state |αk⟩is selected with  L = (hHAP −hUAV) sec (ζ) is the slant distance, hHAP is the
+probability pk, which follows the Maxwell–Boltzmann (MB)  HAP’s altitude, Gd can be found in [], F0 is the radius of
+distribution, and is given as [1]                                  curvature, w0 = πθ,2λ  and θ is the divergence full-angle.
+                                                                  In this work, we consider two factors that contribute to
+                     exp −γ|k|2
+                 pk =                      ,                   (2)   the misalignment model of r, which are (1) the operation
+                  Z                                                       and hovering of the UAV within the beam footprint, and (2)
+                                                                 the satellite’s vibration. For the first factor, the UAV is notwhere Z = Pk∈K exp −ν|k|2   is the normalization factor,
+                                                                 necessarily at the center of the beam footprint. Thus, the radialand γ  is the shaping parameter.  It is observed that setting
+                                                            displacement vector can be expressed as r1 = (X1, Y1) whereγ = 0 results in uniform probability among coherent states.
+                                           X1 ∼N  ρx, σ2h  , and Y1 ∼N  ρy, σ2h  . Regarding the secondFinally, the average photon number of the system, ⟨n⟩, can be
+                                                                         factor, the radial displacement vector in this case can be givencalculated as [2]
+                                                               as r2 = (X2, Y2), where X2 ∼N  0, σ2jt   , Y2 ∼N  0, σ2jt   ,
+              ⟨n⟩= X pk|αk|2,                   (3)    σjt ≃Lθjt, and  θjt denotes the  jitter angle. As a  result,
+                     k∈K                              r = ∥r1 + r2∥2 follows the Rician distribution, whose PDF is
+                                                            given as [3]
+where Vmod = ⟨n⟩/2 refer to the modulation variance.
+                                                                             r
+                                                                       fr (r) =                                                                      exp  −r2 + ρ2   I0  ρr    ,        (7)
+B. Quantum Channel Model                                                                   σ2s            2σ2s           σ2s
+
+  The transmittance of the free-space HAP-to-UAV channel                               q                                                      where ρ =                                                                                                         ρ2x + ρ2y, σ2s = σ2h +σ2jt, and I0 (·) is the modified
+can be expressed as η = ηatmIaηpηAoA, where ηatm  is the
+                                                             Bessel function of the first kind with order zero. Combining
+deterministic atmospheric loss, Ia is the atmospheric-induced
+                                                                    (6) and (7), we obtain the PDF of ηp as [3]
+turbulence, ηp denotes the geometric loss and misequation-
+ment, and ηAoA denotes the angle-of-arrival (AoA) fluctuation.                  s                                                                  χ2    −ρ2           −w2Leq    ηp
+Regarding the atmospheric loss, it can be given as              fηp(ηp)=   exp      ηχ2−1p    I0              ln         (8)                                                       ρ                                                                         ,                                                                                                                          σ2s     2    A0                                                          Aχ20       2σ2s
+                    ηatm = τzensec(ζ) ,                     (4)
+                                                      where 0 ≤ηp ≤A0, and χ = wLeq/2σs.
+where ζ is the zenith angle, and τzen ∈[0, 1] is the atmospheric     Regarding the received signal’s AoA fluctuation,  it arises
+transmittance at zenith.                                   from the UAV’s angular instability and can cause signal loss

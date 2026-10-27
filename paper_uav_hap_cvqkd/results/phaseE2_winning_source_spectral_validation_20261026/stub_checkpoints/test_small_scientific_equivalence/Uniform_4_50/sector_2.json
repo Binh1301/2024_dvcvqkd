@@ -1,0 +1,74 @@
+{
+  "complete": true,
+  "identity": {
+    "algorithm": "E2_exact_C4_overlap_sector_row_column_scaling_v1",
+    "input_sha256": "04e0104cfdca115c3242828858282aecade3212d9667adc02d49fe6a6279b6e9",
+    "probability_sha256": "5073e61eafb5e090b20e50cfa38e1505dbb9a00d659ef6cd6659298674226ad7",
+    "amplitude_sha256": "b3766e41ef4ec43040056137fc73516c26bb75e3a85b1c1af72355e47e75b7da",
+    "producer_sha256": "777803cbd9ef90922929e3dc76d561d85ef230529f0c6c22d43d59320326dc4a",
+    "prior_gram_sha256": "850b6282bdddd87a933f299cbe5ad3a224c51f5377bca45041ef1c3aad1abc06",
+    "mpmath_version": "1.3.0",
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "digits": 50,
+    "sector": 2,
+    "matrix_dimension": 1,
+    "source_size": 4,
+    "Fock_cutoff": null,
+    "route": "weighted_Gram_exact_C4",
+    "floor_policy": "10**(-digits+20); diagnostic, never mathematical rank",
+    "tolerance_policy": "relative Frobenius residual/reconstruction/orthogonality <=10**(-digits+10)"
+  },
+  "payload": {
+    "matrix": [
+      [
+        [
+          "0.075829495185025197712615607269715420864262630927467559134355",
+          "0.0"
+        ]
+      ]
+    ],
+    "eigenvalues": [
+      "0.075829495185025197712615607269715420864262630927467559134355"
+    ],
+    "eigenvectors": [
+      [
+        [
+          "1.0",
+          "0.0"
+        ]
+      ]
+    ],
+    "diagnostics": {
+      "eigenpair_absolute_residuals": [
+        "0.0"
+      ],
+      "eigenpair_residual_over_abs_lambda": [
+        "0.0"
+      ],
+      "relative_Frobenius_residual": "0.0",
+      "reconstruction_error": "0.0",
+      "orthogonality_error": "0.0",
+      "Hermitian_error": "0.0",
+      "matrix_Frobenius_norm": "0.075829495185025197712615607269715420864262630927467559134355",
+      "tolerance": "9.9999999999999999999999999999999999999999999999999938605103e-41",
+      "effective_rank": 1,
+      "positive_count": 1,
+      "numerical_checks": "CURRENTLY_VERIFIED_PASS",
+      "rigorous_roundoff_enclosure": false
+    },
+    "pre_symmetrization_Hermitian_error": "0.0",
+    "timing": {
+      "build_wall_seconds": 0.00040820008143782616,
+      "build_CPU_seconds": 0.0,
+      "eig_wall_seconds": 3.5100034438073635e-05,
+      "eig_CPU_seconds": 0.0,
+      "total_wall_seconds": 0.0006923000328242779,
+      "total_CPU_seconds": 0.0
+    },
+    "C_contribution": null,
+    "w_contribution": null,
+    "moment_status": "NOT_RUN_REQUIRES_ALL_FOUR_SECTORS"
+  },
+  "payload_sha256": "f050f4f9405852f8a6bc7edcf14ec875a193cbe2fd148b47b7a383517f24d457",
+  "completion_scope": "VALIDATED_NUMERICAL_SECTOR; NOT_A_FULL_SUPPORT_CERTIFICATE"
+}

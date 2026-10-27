@@ -1,0 +1,1600 @@
+--- startup/docs/EVIDENCE.md
++++ docs/EVIDENCE.md
+@@ -1,4 +1,54 @@
+ # Evidence Register
++
++## EVID-0218 - Uniform v43 staged search; primary no positive, bounded law separate
++
++2026-10-23 user9f6181d7. Completed isolated results/
++uniform_positive_skr_manuscript43_20261023/ with report_vi.md, candidate_comparison.csv,
++StageA/B/C, explicit channel/source exclusion catalogs, same-law three-scheme tables,
++matched aperture/parameter/law comparisons and three vectorPDF/350dpiPNG pairs.
++Prospective protocol and outcome-adaptive completion plan are hash-bound.
++Verification CURRENTLY_VERIFIED_PASS applies to saved finite diagnostic only;
++verification.json SHA256 844b896a8d475cb906355653efdd0bd722c428de8fd6c1501dc9f1a04665a623.
++7051 pre-existing protected files unchanged; branch/HEAD/frozen identity preserved.
++
++Only Uniform p=1/256,VA=2*nbar,real1D Gaussian-effective homodyne/RR,beta.95;
++v43 xi_ch.0186/xi_det.005 and NO eta_det. Same Tf=mh^2 and
++N=(m1-Tf)VA+.0186m1+.005M0 in MI/DBL/covariance/full-Z homodyne Holevo.
++Keep raw Eq10 [0,1] mass1e-10 gate,explicit AoA atom and true eta>1 tail;
++no normalization/clipping/tail reassignment/interpolation or source substitution.
++33 exact Uniform and197 MB sources; 18373 CSV rows,
++1889 channel contexts,0 covariance/information failures.
++1620 saved selected MI/Holevo/covariance checks plus guard/source/PDF/moment checks.
++
++Primary Uniform positive found=False; strongest raw
++K=-0.024464166579485941 atDr0.4m,fullDiv50.0urad,
++jitter0.5urad,positionSD0.03m,
++zenith0.0deg,VA0.6.
++Failed-mass geometries have unavailable rates,not0. StageC extends divergence60
++without relaxing the gate; larger receiver is not automatically normalized.
++
++Independently defined bounded random-width/circular-aperture law is SECONDARY,
++not Eq10 repair/replacement. AtDr.30,fullDiv10urad,jitter.5urad,positionSD.03m,
++zenith0,L19km,Uniform VA3.0 has K=0.10788256029424448.
++All secondary contexts checked GH32/64; best channel also independent GH96/radial
++Legendre512. Same-law MB shaping gain at this receiver30 geometry is
++0.4027029148361031 bit/use.
++Larger-aperture secondary results are separately tabulated; Dr.30 is smallest
++tested positive aperture,not a proven global/hardware minimum.
++
++GMP launch failed before source computation: Windows ApplicationControl blocked
++gmpy2 DLL. Standard Python MP fallback retained full-support/kernel and fixed
++1050/1250/1450-digit ladder,3600s budget,versioned new cache.
++Requested initial exact-source gaps=[]; full requested initial-point
++availability=True. Failures/timeouts and
++coverage limits explicit,no invented C,w. No policy bypass.
++
++All maxima best exact-tested; no global-Z enclosure,operational/finite-key/
++composable security,flight/PAT/payload verification or secure-default claim.
++Production/security functional/frozen config/old caches/history unchanged.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No training/test/
++heldout/publication,baseline/default/threshold approval,commit/push. STOP.
+ 
+ ## EVID-0217 - Manuscript43 zenith figure COMPLETE; finite exact catalog and exclusions
+ 
+--- startup/docs/DECISION_LOG.md
++++ docs/DECISION_LOG.md
+@@ -1,4 +1,19 @@
+ # Decision Log
++
++## DEC-0201 - Retain primary Uniform nonpositive result and separate bounded-law evidence
++
++2026-10-23 EVID-0218 accepts user9f6181d7 finite staged diagnostic artifacts.
++Primary raw Eq10 retains strict mass1e-10 gate; no positive Uniform claim
++from blocked PDFs or a secondary law. Secondary receiver30 Uniform
++K=0.10788256029424448 is numerical/model-provisional only,with explicit
++10urad divergence/.5urad jitter/.03m position engineering assumptions.
++Compare shaping only within the same law,geometry and noise convention.
++Requested exact-source gaps [] remain coverage limits; finite-catalog
++selection is not continuous/global optimization or security certification.
++OS ApplicationControl is respected; no automatic source retry or broader search.
++Keep scientific production/frozen/cache history untouched and all lifecycle/
++security/frozen blockers,ObjectiveC USER_STOPPED. No publication/default/
++baseline/threshold approval. Deliver and STOP; new scope requires new request.
+ 
+ ## DEC-0200 - Accept exact-catalog zenith diagnostic; preserve omitted-curve meaning
+ 
+--- startup/docs/PROJECT_STATE.md
++++ docs/PROJECT_STATE.md
+@@ -1,4 +1,23 @@
+ # Project State
++
++## Current: Uniform positive-SKR investigation COMPLETE WITH EXPLICIT MODEL/COVERAGE LIMITS; STOP
++
++2026-10-23 EVID-0218/DEC-0201,user9f6181d7. Deliver results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md,candidate_comparison.csv,
++stage/per-angle/aperture/ablation/source/law tables,three figure pairs and
++read-only verify.py/final_seal.json. Numeric saved-artifact checks pass;
++7051 protected historical/scientific files unchanged.
++Primary Eq10 Uniform no positive found in valid tested points; best
++K=-0.024464166579485941,Dr0.4,div50.0,
++jitter0.5,sigma0.03,angle0.0,VA0.6.
++Secondary bounded random-width law is independent,not a PDF repair;receiver30
++Uniform VA3.0,K=0.10788256029424448,div10/jitter.5/sigma.03/zenith0.
++Same v43 xi_det.005/no eta_det,homodyne/RR/same Tf,N throughout.
++Initial exact-source gaps=[]; no interpolation/global/secure-positive claim.
++All new source attempts use separate cache; GMP policy blocker respected.
++No production/frozen/old-source/history changes,training/test/heldout/publication
++or default/baseline/threshold promotion. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
+ 
+ ## Current: manuscript43 zenith sweep COMPLETE; STOP
+ 
+--- startup/docs/NEXT_ACTIONS.md
++++ docs/NEXT_ACTIONS.md
+@@ -1,4 +1,15 @@
+ # Next Actions
++
++## Current: deliver Uniform staged diagnostic and law/coverage qualifications; STOP
++
++EVID-0218/DEC-0201 complete. Open results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md for Q1-Q6 and parameter
++tables,candidate_comparison.csv and figures. verify.py reads saved evidence only.
++Do not rerun completed producers,overwrite old caches/receipts,repair raw PDF,
++mix channel laws,call finite exact-tested argmax global,or label secondary
++positive secure/flight-validated. Source gaps and OS blocker remain explicit.
++No automatic retry/optimization/publication/default/baseline/threshold work.
++Keep lifecycle/security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
+ 
+ ## Current: deliver manuscript43 zenith plot and exclusions; STOP
+ 
+--- startup/.agent/SESSION_HANDOFF.md
++++ .agent/SESSION_HANDOFF.md
+@@ -1,59 +1,31 @@
+ # Session Handoff
+ 
+-2026-10-23 EVID-0217/DEC-0200 COMPLETE: userf84ac5ba manuscript43 zenith plot.
+-Deliver results/skr_vs_zenith_manuscript43_20261023/skr_vs_zenith.png(350dpi),
+-skr_vs_zenith.pdf(vector),skr_vs_zenith.csv(183rows),report_vi.md,source_catalog,
+-61 angle checkpoints,protocol/execution/validation/visual receipts and final seal.
+-Read-only from project: .venv/Scripts/python.exe -X utf8 -B
+-results/skr_vs_zenith_manuscript43_20261023/verify.py. No evaluator import or
+-numerical rerun in verifier. Do not rerun completed producers or overwrite
+-old receipts. No further authorized work; deliver and STOP.
++2026-10-23 EVID-0218/DEC-0201,user9f6181d7: staged Uniform diagnostic COMPLETE
++WITH MODEL/COVERAGE LIMITS. Deliver results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md,candidate_comparison.csv,
++three PNG350dpi/vectorPDF pairs,source/channel/matched tables,validation and seal.
++Read-only: .venv/Scripts/python.exe -X utf8 -B
++results/uniform_positive_skr_manuscript43_20261023/verify.py.
++No evaluator rerun; no further automatic authorized work. Deliver and STOP.
++
++Primary raw Eq10 Uniform Kmax=-0.024464166579485941 atDr0.4,div50.0,
++jitter0.5,positionSD0.03,zenith0.0,VA0.6.
++Secondary independently bounded random-width law receiver30 Uniform
++K=0.10788256029424448,VA3.0,div10urad,jitter.5urad,positionSD.03m,zenith0.
++Same v43 .0186/.005,no eta_det,homodyne1D/RR/beta.95,Tf=mh^2,
++same effective N in MI,DBL,covariance/full-Z Holevo. Do not mix laws or
++transfer positive to Eq10. Dr.30 smallest tested positive only in secondary;
++engineering feasibility and security provisional.
++GMP DLL blocked by ApplicationControl; standard Python exact fallback keeps
++precision1050/1250/1450 and3600s bound,separate new cache. Gaps=[].
++No source interpolation,normalizationrepair/eigenclipping/positive forcing.
+ 
+ Branch feat/image,HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
+-6959 old files protected; only five relevant ledgers updated. Production code,
+-security functional,frozen specs/configs/source caches/history unchanged.
+-Historical ledger hashes remain snapshots; old numerical artifact bytes intact.
+-
+-Model ONLY: original manuscript43 Eq10 retained[0,1] with explicit AoA atom,
+-xi(eta)=.0186+.005/eta,independent xi_det.005 and NO eta_det. Gaussian-effective
+-real1D homodyne/RR; same Tf=mh^2,N in MI,DBL Z interval,covariance and full-Z
+-homodyne Holevo. No legacy random-width/pooled-MI/heterodyne substitution.
+-Receiver30:20/1km,Dr.30m,lambda1550nm,full35urad,jitter1.561urad,.1mposition,
+-rho0,tau.92,wind21,Cn2ground1e-14,AoA6.25mrad/1.5mrad,AO/phaseOFF,beta.95.
+-All angle-dependent optical/turbulence/pointing/atmospheric terms recomputed.
+-
+-61 angles0to60 step1,36 Uniform VA+197 MB(nu,VA) existing authenticated sources.
+-Finite catalog argmax only,no continuous/global optimum claim,new AP or
+-interpolation. FixedMB(.25,VA1.6249995399703647),source
+-01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754.
+-Angles0-4 fail unchanged1e-10 mass gate; at0 deficit1.056995513649377e-10.
+-Their15 scheme rows have unavailable rates,not0; no candidate search there.
+-Angles5-60:13048 candidate evaluations,zero source/candidate/selected-numerical
+-failures.168 numerical rows=12 positive plotted+156 nonpositive raw rows.
+-No normalization/clipping/tail assignment or positive forcing.
+-
+-OptimizedMB best exact-tested at all56 evaluable angles;positive5-15deg,
+-peakK=.0007281372514840734 at5deg,nu.3,VA1.358333319784304,
+-sourceb083ac8400f7e1068ec045f9882bd256cbbfdec50b64d66d8b7f2d84c05eb214.
+-FixedMB positive only5deg,K=1.259549660342918e-05. Uniform no positives;
+-maxraw=-.030747146463279043 at60deg,VA.06. Maximum5deg is among evaluable
+-sampled points,not proof5beats blocked0-4. Positive optimizedMB decreases.
+-
+-Every candidate has independent covariance/uncertainty/symplectic/domain
+-checks. Selected sources:GH64/128,adaptive MI,256/16,X/P,scaling,16conditional
+-PDFs,full-Z33/129,entropy80/110 and same quantum plane. All angles have
+-closed/direct PDF and explicit-noise moment checks; no invalid plot points.
+-Plot shows green line5-15,orange isolated square5deg and Uniform no-positive
+-annotation with all three exact legend labels. NaN breaks,log-y,x0-60.
+-PNG and independent PDF render visually inspected; no clipping/overlap.
+-PDF one page,98vector drawing paths,no raster image. Reference image absent;
+-style follows task's exact labels/title/markers/grid/legend instructions.
+-Verification SHA256e571eac86a5f030854fe6c66fe91d4d0b81395384c92123de2c4e304d5e32f79.
+-CSV SHA256f5ced54765583bbbbe6d63dbcca442fb8fb01b4f7d643157d8285fb6d13d673f.
+-
+-No secure-default/global-optimum/operational/finite-key/composable claim.
+-Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
+-historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No production
+-baseline/threshold approval,training/test/heldout/publication,commit/push.
+-Ponytail full; PDF skill used for vector export/render QA; no agents or new
+-project dependencies. Deliver and STOP; furtherwork needs a new scoped request.
++7051 protected files unchanged;only own namespace and5 relevant ledgers.
++Frozen actualdf83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15
++differs historicalexpected561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1.
++Preserve UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED. No production/default/baseline/threshold changes,
++training/test/heldout/publication,commit/push. Historical receipt ledger hashes
++remain snapshots; old numerical artifact bytes are preserved.
++Ponytail full; PDF rendering/visual QA; no subagents or new dependencies.
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/check_bounded_contexts.py
+@@ -0,0 +1,21 @@
++"""Higher width-quadrature order for every secondary context used in the search."""
++import search as s
++
++
++def main():
++    checks=[]
++    for path in sorted((s.OUT/'contexts').glob('*.json')):
++        ctx=s.read(path)
++        if ctx['law']!=s.BOUNDED:continue
++        high=s.a.legacy.power_conserving(ctx['channel'],64)
++        error=max(abs(high[k]-ctx['moments'][k]) for k in ['m1','mh'])
++        if error>2e-11:raise ValueError('Width quadrature did not converge: '+path.stem)
++        checks.append(dict(context_id=path.stem,m1_high=high['m1'],mh_high=high['mh'],maximum_residual=error,
++            moments_sha256=s.key(ctx['moments']),radial_error=high['radial_quadrature_error']))
++    s.save(s.OUT/'bounded_all_contexts_validation.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        checks=checks,contexts=len(checks),maximum_residual=max(r['maximum_residual'] for r in checks),
++        threshold=2e-11,producer_sha256=s.a.sha(__file__)))
++    print('ALL BOUNDED CONTEXTS',len(checks),'max residual',max(r['maximum_residual'] for r in checks))
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/check_guards.py
+@@ -0,0 +1,26 @@
++"""Small behavioral checks at the isolated model's scientific boundaries."""
++import math
++import search as s
++
++
++def main():
++    sources=s.bank();c=next(x for x in sources if x['VA']==.6)
++    mom=dict(M0=1.,m1=.2,mh=math.sqrt(.2),normalized_within_tolerance=True)
++    value=s.model(c,mom,128,129)
++    expected=(mom['m1']-mom['mh']**2)*c['VA']+.0186*.2+.005
++    assert abs(value['N_effective']-expected)<1e-15
++    assert value['T_Holevo']==value['eta_f']==mom['mh']**2
++    assert value['sigma2_MI']==1+expected and 'eta_det' not in value
++    assert abs(value['K_raw']-(.95*value['I_AB']-value['chi_BE']))<1e-15
++    try:s.model(c,{**mom,'M0':.9,'normalized_within_tolerance':False})
++    except ValueError as e:assert str(e)=='FAILED_PDF_NORMALIZATION'
++    else:raise AssertionError('Failed PDF must never reach information evaluation')
++    assert all(x['p'].shape==(256,) and (x['p']==1/256).all() for x in sources)
++    s.save(s.OUT/'guard_checks.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        checks=['Uniform256 equal probabilities','v43 noise/no eta_det','one quantum effective plane',
++                'homodyne variance','unclipped raw rate identity','PDF failure prevents rate evaluation'],
++        source_hash=c['ensemble_hash'],producer_sha256=s.a.sha(__file__)))
++    print('CURRENTLY_VERIFIED_PASS: 6 guard checks')
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/check_source_diagonal.py
+@@ -0,0 +1,36 @@
++"""Compare the isolated diagonal solve with the original arbitrary-precision LU."""
++import hashlib
++import json
++from pathlib import Path
++import sys
++
++OUT=Path(__file__).resolve().parent;ROOT=OUT.parents[1]
++sys.path.insert(0,str(ROOT/'results/uniform_manuscript_2d_optimization_20261019'))
++import diagonal_solve_worker as d
++mp=d.mp
++
++
++def main():
++    records=[]
++    for digits in [1050,1250,1450]:
++        with mp.workdps(digits):
++            A=mp.diag([mp.mpf(1),mp.mpf('1e-50'),mp.mpf('1e-250'),mp.mpf('1e-500')])
++            B=mp.matrix([[mp.mpc(mp.mpf(i+1)/(j+3),mp.mpf(j+1)/(i+7)) for j in range(4)] for i in range(4)])
++            fast=d.diagonal_solve(A,B);reference=d.original._lu_solve_matrix(A,B)
++            error=max(abs(fast[i,j]-reference[i,j])/max(mp.mpf(1),abs(reference[i,j])) for i in range(4) for j in range(4))
++            assert error<mp.power(10,-digits+20)
++            records.append(dict(digits=digits,maximum_relative_error=mp.nstr(error,25)))
++    for A in [mp.matrix([[1,1],[0,2]]),mp.diag([1,0])]:
++        try:d.diagonal_solve(A,mp.eye(2))
++        except ValueError:pass
++        else:raise AssertionError('Invalid diagonal operand accepted')
++    result=dict(status='CURRENTLY_VERIFIED_PASS',
++        comparison='Original LU vs exact diagonal division, complex RHS and positive spectrum spanning 500 decades',
++        records=records,invalid_operands_rejected=True,
++        worker_sha256=hashlib.sha256(Path(d.__file__).read_bytes()).hexdigest(),
++        producer_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),source_convergence_not_implied=True)
++    (OUT/'source_diagonal_equivalence.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
++    print('CURRENTLY_VERIFIED_PASS: 3 precisions and invalid diagonal guards')
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/complete_search.py
+@@ -0,0 +1,177 @@
++"""Complete saved staged diagnostics; never alter old results or source caches."""
++import itertools
++import math
++import sys
++from pathlib import Path
++import search as s
++
++OUT=s.OUT
++SCHEMES=s.verified.SCHEMES
++
++
++def validated_sources():
++    for path in (OUT/'new_exact_source/exact_source_cache').glob('*.json'):
++        payload=s.read(path)
++        receipt=s.read(OUT/'new_exact_source/source_receipts'/(payload['ensemble_hash']+'.json'))
++        if receipt['payload_file_sha256']!=s.a.sha(path) or receipt['precision_ladder']!=[1050,1250,1450]:
++            raise ValueError('Fresh source receipt or precision mismatch')
++        diag=receipt['diagnostic']
++        if diag['route']=='ARBITRARY_PRECISION_FALLBACK':
++            if [r['digits'] for r in diag['fallback_rows']]!=[1050,1250,1450] or any(
++                r['rank']!=256 or not r['resolved'] for r in diag['fallback_rows'][-2:]):
++                raise ValueError('Fresh full-support convergence not evidenced')
++    return s.bank(include_new=True)
++
++
++def unique(rows):
++    return list({x['context_id']:x for x in rows}.values())
++
++
++def validate(search,row):
++    if row['raw_SKR'] is None:return row
++    ctx=search.context(s.geometry(row),row['channel_law'])
++    c=search.source_by_hash[row['source_hash']]
++    fine=s.model(c,ctx['moments'],128,129)
++    checks=s.verified.selected_checks(c,fine,ctx['moments'])
++    if checks['status']!='CURRENTLY_VERIFIED_PASS':raise ValueError('Selected numerical validation failed')
++    difference=fine['K_raw']-row['raw_SKR']
++    if abs(difference)>2e-8:raise ValueError('Selected raw rate unstable')
++    result=search.row(ctx,fine,row['stage'],'')
++    result.update(scheme=row.get('scheme','Optimized Uniform 256-QAM'),nu_raw=c['nu_raw'],
++        validation_status='CURRENTLY_VERIFIED_PASS_SECURITY_PROVISIONAL',
++        K_coarse=row['raw_SKR'],K_fine_minus_coarse=difference)
++    (OUT/'selected_validation').mkdir(exist_ok=True)
++    s.save(OUT/'selected_validation'/(s.key([row['context_id'],c['ensemble_hash']])+'.json'),
++        dict(row=result,value=fine,validation=checks))
++    return result
++
++
++def compare(search,g,law,stage):
++    uniform=search.optimize(g,stage,law)
++    mb=[c for c in s.r.catalog() if c['family']=='MB']
++    for c in mb:search.source_by_hash[c['ensemble_hash']]=c
++    fixed=next(c for c in mb if c['ensemble_hash']=='01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754')
++    rows=[uniform,search.optimize(g,stage,law,[fixed]),search.optimize(g,stage,law,mb)]
++    return [validate(search,{**row,'scheme':name}) for name,row in zip(SCHEMES,rows)]
++
++
++def extend():
++    if (OUT/'extension_receipt.json').exists():raise FileExistsError('Preserve completed extension')
++    search=s.Search(validated_sources());rows=[]
++    for diameter,sigma,angle in itertools.product([.35,.4,.45,.5,.55,.6],[.03,.1,.2],[0.,10.,20.,30.,40.,50.,60.]):
++        rows.append(search.optimize((diameter,60.,.5,sigma,angle),'C_div60_extension'))
++    s.save(OUT/'stage_C_extension.json',rows)
++    initial=s.read(OUT/'screen_receipt.json')
++    finalists=[initial['A_best'],initial['B_best'],initial['C_best'],initial['secondary_best'],s.best(rows)]
++    checked=[validate(search,row) for row in finalists if row is not None]
++    s.save(OUT/'initial_finalists_validated.json',checked)
++    # Check the independent optical quadrature before using a secondary positive.
++    ch=search.context(s.geometry(initial['secondary_best']),s.BOUNDED)['channel']
++    m32=s.a.legacy.power_conserving(ch,32);m64=s.a.legacy.power_conserving(ch,64)
++    errors={k:abs(m32[k]-m64[k]) for k in ['m1','mh','eta_f']}
++    if max(errors.values())>2e-11:raise ValueError('Bounded width quadrature failed convergence')
++    s.save(OUT/'bounded_moment_validation.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        order32=m32,order64=m64,residuals=errors,threshold=2e-11,
++        support_upper_bound=ch['eta_atm'],M0=1.,AoA_atom=ch['P0'],
++        note='Independent bounded law, not normalized or repaired Eq10'))
++    s.save(OUT/'extension_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',best=s.best(rows),
++        rows=len(rows),source_count=len(search.sources),producer_sha256=s.a.sha(Path(__file__))))
++    print('EXTENSION',s.best(rows),flush=True)
++
++
++def finish():
++    if (OUT/'completion_receipt.json').exists():raise FileExistsError('Preserve completed search')
++    search=s.Search(validated_sources())
++    A=[search.optimize((.3,35.,1.561,.1,float(angle)),'A_final',adaptive=True) for angle in range(31)]
++    B0=s.read(OUT/'stage_B_initial.json');C0=s.read(OUT/'stage_C_initial.json')+s.read(OUT/'stage_C_extension.json')
++    B=[search.optimize(s.geometry(x),'B_final') for x in sorted(s.numeric(unique(B0)),key=lambda x:-x['raw_SKR'])[:16]]
++    C=[]
++    for diameter in [.35,.4,.45,.5,.55,.6]:
++        subset=[x for x in unique(C0) if x['Dr_m']==diameter]
++        C.extend(search.optimize(s.geometry(x),'C_final') for x in sorted(s.numeric(subset),key=lambda x:-x['raw_SKR'])[:4])
++    primary=s.best(A+B+C+B0+C0)
++    secondary0=s.read(OUT/'secondary_initial.json')
++    secondary=[search.optimize(s.geometry(x),'SECONDARY_final',s.BOUNDED) for x in sorted(s.numeric(secondary0),key=lambda x:-x['raw_SKR'])[:8]]
++    secondary_best=s.best(secondary)
++    comparisons=[]
++    for row in [primary,secondary_best]:
++        comparisons.extend(compare(search,s.geometry(row),row['channel_law'],'THREE_SCHEME_FINAL'))
++    law_comparison=[]
++    for setting,row in [('primary_best_geometry',primary),('secondary_best_geometry',secondary_best)]:
++        for law in [s.RAW,s.BOUNDED]:
++            law_comparison.append(dict(**validate(search,search.optimize(s.geometry(row),'MATCHED_LAWS',law)),
++                physical_setting=setting))
++    zenith=[];three=[]
++    gd=s.geometry(secondary_best)
++    for angle in range(31):
++        g=(*gd[:4],float(angle))
++        rows=compare(search,g,s.BOUNDED,'SECONDARY_zenith')
++        three.extend(rows);zenith.append(rows[0])
++        if angle%10==0:print('FINAL SECONDARY ANGLE',angle,flush=True)
++    diameters=[]
++    for diameter in [.3,.35,.4,.45,.5,.55,.6]:
++        for law in [s.RAW,s.BOUNDED]:
++            row=search.optimize((diameter,*gd[1:]),'MATCHED_DIAMETER',law)
++            diameters.append(validate(search,row))
++    ablation=[]
++    variants=dict(baseline=(.3,35.,1.561,.1,0.),all_improved=gd,
++        revert_divergence=(.3,35.,gd[2],gd[3],0.),
++        revert_jitter=(.3,gd[1],1.561,gd[3],0.),
++        revert_position=(.3,gd[1],gd[2],.1,0.))
++    for name,g in variants.items():
++        for law in [s.RAW,s.BOUNDED]:
++            ablation.append(dict(**validate(search,search.optimize(g,'MATCHED_ABLATION',law)),ablation=name))
++    A=[validate(search,row) for row in A]
++    leaders=[validate(search,row) for row in [s.best(A),s.best(B),s.best(C)] if row is not None]
++    for name,rows in [('stage_A_final',A),('stage_B_final',B),('stage_C_final',C),
++        ('three_scheme_comparison',comparisons),('secondary_zenith',zenith),
++        ('three_scheme_zenith',three),('diameter_comparison',diameters),('ablation',ablation),
++        ('validated_leaders',leaders),('law_comparison',law_comparison)]:
++        s.save(OUT/(name+'.json'),rows);s.write(OUT/(name+'.csv'),rows)
++    primary_final=next(x for x in comparisons if x['channel_law']==s.RAW and x['scheme']==SCHEMES[0])
++    secondary_final=next(x for x in comparisons if x['channel_law']==s.BOUNDED and x['scheme']==SCHEMES[0])
++    # Enumerate every source evaluation once; blocked channels get explicit null rates.
++    all_rows=[];failures=[];channel_rows=[]
++    for path in sorted((OUT/'contexts').glob('*.json')):
++        ctx=s.read(path)
++        channel_rows.append(dict(context_id=path.stem,geometry=ctx['geometry'],law=ctx['law'],
++            moments=ctx['moments'],source_evaluations=len(ctx['evaluations']),failures=ctx['failures']))
++        if not ctx['moments']['normalized_within_tolerance']:
++            all_rows.append(dict(**search.row(ctx,None,'ALL_CONTEXTS','FAILED_PDF_NORMALIZATION'),family='Uniform',nu_raw=0.))
++        for value in ctx['evaluations'].values():
++            all_rows.append(dict(**search.row(ctx,value,'ALL_CONTEXTS',''),family=value['family'],nu_raw=value['nu_raw']))
++        for value in ctx['failures'].values():
++            failures.append(dict(context_id=path.stem,**value))
++            c=search.source_by_hash[value['source_hash']]
++            failed=search.row(ctx,None,'ALL_CONTEXTS',value['reason'])
++            failed.update(VA=c['VA'],source_hash=c['ensemble_hash'],source_path=c['source_path'],
++                source_sha256=c['source_sha256'],family=c['family'],nu_raw=c['nu_raw'])
++            all_rows.append(failed)
++    s.write(OUT/'candidate_comparison.csv',sorted(all_rows,key=lambda x:(x['raw_SKR'] is None,-(x['raw_SKR'] or 0))))
++    s.save(OUT/'channel_catalog.json',channel_rows);s.save(OUT/'candidate_failures.json',failures)
++    s.save(OUT/'source_catalog.json',[{k:c[k] for k in ['family','VA','nu_raw','ensemble_hash','source_path','source_sha256','C','w']}
++        for c in search.source_by_hash.values()])
++    gaps=[va for va in [10.,.25] if va not in {c['VA'] for c in search.sources}]
++    attempts=[s.read(p) for p in (OUT/'new_exact_source').glob('python_attempt_*.json')]
++    s.save(OUT/'completion_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',scope='FINITE_EXACT_TESTED_DIAGNOSTIC',
++        primary_best=primary_final,secondary_best=secondary_final,uniform_source_count=len(search.sources),
++        secondary_best_scope='Receiver30 optical screen, fixed at Dr.30m',
++        secondary_best_all_tested=s.best([x for x in secondary+zenith+diameters+ablation if x['channel_law']==s.BOUNDED]),
++        MB_source_count=197,source_gaps=gaps,source_attempts=attempts,
++        requested_source_availability_status='BLOCKED_BY_ENVIRONMENT' if gaps else 'CURRENTLY_VERIFIED_PASS',
++        full_VA_requested_domain_complete=not gaps,global_optimum=False,security_valid=False,
++        coverage_scope='Finite exact-tested search; completeness flag means requested initial new-source points only',
++        candidate_rows=len(all_rows),channel_contexts=len(channel_rows),candidate_failure_count=len(failures),
++        primary_positive_found=any(x['raw_SKR'] is not None and x['raw_SKR']>0 and x['channel_law']==s.RAW
++            and x['family']=='Uniform' for x in all_rows),
++        secondary_positive_found=secondary_final['raw_SKR']>0,
++        shaping_gain={law:next(x['raw_SKR'] for x in comparisons if x['channel_law']==law and x['scheme']==SCHEMES[2])
++            -next(x['raw_SKR'] for x in comparisons if x['channel_law']==law and x['scheme']==SCHEMES[0])
++            for law in [s.RAW,s.BOUNDED]},
++        producer_sha256=s.a.sha(Path(__file__)),protocol_sha256=s.a.sha(OUT/'protocol.json'),
++        completion_plan_sha256=s.a.sha(OUT/'completion_plan.json')))
++    print('COMPLETION',s.read(OUT/'completion_receipt.json'),flush=True)
++
++
++if __name__=='__main__':
++    {'extend':extend,'finish':finish}[sys.argv[1]]()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/finalize_evidence.py
+@@ -0,0 +1,201 @@
++"""Evidence-first completion and seal; preserve every pre-existing ledger block."""
++from datetime import datetime,timezone
++import difflib
++import json
++from pathlib import Path
++import subprocess
++import verify as v
++
++OUT=v.OUT;ROOT=v.ROOT
++def save(path,data):path.write_bytes((json.dumps(data,indent=2,ensure_ascii=False,allow_nan=False)+'\n').encode('utf-8'))
++
++
++def main():
++    if (OUT/'final_seal.json').exists():raise FileExistsError('Do not overwrite completed seal')
++    end=v.read(OUT/'completion_receipt.json');raw=end['primary_best'];sec=end['secondary_best']
++    assert v.read(OUT/'visual_verification.json')['status']=='CURRENTLY_VERIFIED_PASS'
++    result=v.audit()
++    result['status']='CURRENTLY_VERIFIED_PASS'
++    result['scope']='Saved finite exact-tested diagnostic; not security certification or continuous optimization'
++    result['UTC']=datetime.now(timezone.utc).isoformat()
++    result['protected_file_count']=len(v.read(OUT/'startup_manifest.json')['protected'])
++    result['candidate_rows']=end['candidate_rows']
++    result['channel_contexts']=end['channel_contexts']
++    result['producer_sha256']=v.sha(__file__)
++    save(OUT/'verification.json',result)
++    check=subprocess.run(['git','diff','--check'],cwd=ROOT,capture_output=True,text=True)
++    if check.returncode:raise RuntimeError(check.stdout+check.stderr)
++    save(OUT/'git_diff_check.json',dict(status='CURRENTLY_VERIFIED_PASS',exit_code=check.returncode))
++    for path in (OUT/'startup_ledgers').glob('*.md'):
++        if path.name=='SESSION_HANDOFF.md':continue
++        current=(ROOT/'docs'/path.name).read_bytes()
++        old_body=path.read_bytes().split(b'\n',1)[1].lstrip(b'\n')
++        if old_body not in current:raise ValueError('Pre-existing ledger content missing: '+path.name)
++    ncheck=sum(len(v.read(p)['validation']['checks']) for p in (OUT/'selected_validation').glob('*.json'))
++    protected=result['protected_file_count'];gap=str(end['source_gaps'])
++    proof=v.sha(OUT/'verification.json')
++    evidence=f"""## EVID-0218 - Uniform v43 staged search; primary no positive, bounded law separate
++
++2026-10-23 user9f6181d7. Completed isolated results/
++uniform_positive_skr_manuscript43_20261023/ with report_vi.md, candidate_comparison.csv,
++StageA/B/C, explicit channel/source exclusion catalogs, same-law three-scheme tables,
++matched aperture/parameter/law comparisons and three vectorPDF/350dpiPNG pairs.
++Prospective protocol and outcome-adaptive completion plan are hash-bound.
++Verification CURRENTLY_VERIFIED_PASS applies to saved finite diagnostic only;
++verification.json SHA256 {proof}.
++{protected} pre-existing protected files unchanged; branch/HEAD/frozen identity preserved.
++
++Only Uniform p=1/256,VA=2*nbar,real1D Gaussian-effective homodyne/RR,beta.95;
++v43 xi_ch.0186/xi_det.005 and NO eta_det. Same Tf=mh^2 and
++N=(m1-Tf)VA+.0186m1+.005M0 in MI/DBL/covariance/full-Z homodyne Holevo.
++Keep raw Eq10 [0,1] mass1e-10 gate,explicit AoA atom and true eta>1 tail;
++no normalization/clipping/tail reassignment/interpolation or source substitution.
++{end['uniform_source_count']} exact Uniform and197 MB sources; {end['candidate_rows']} CSV rows,
++{end['channel_contexts']} channel contexts,{end['candidate_failure_count']} covariance/information failures.
++{ncheck} saved selected MI/Holevo/covariance checks plus guard/source/PDF/moment checks.
++
++Primary Uniform positive found={end['primary_positive_found']}; strongest raw
++K={raw['raw_SKR']:.17g} atDr{raw['Dr_m']}m,fullDiv{raw['divergence_urad']}urad,
++jitter{raw['jitter_urad']}urad,positionSD{raw['sigma_h_m']}m,
++zenith{raw['zenith_deg']}deg,VA{raw['VA']}.
++Failed-mass geometries have unavailable rates,not0. StageC extends divergence60
++without relaxing the gate; larger receiver is not automatically normalized.
++
++Independently defined bounded random-width/circular-aperture law is SECONDARY,
++not Eq10 repair/replacement. AtDr.30,fullDiv10urad,jitter.5urad,positionSD.03m,
++zenith0,L19km,Uniform VA{sec['VA']} has K={sec['raw_SKR']:.17g}.
++All secondary contexts checked GH32/64; best channel also independent GH96/radial
++Legendre512. Same-law MB shaping gain at this receiver30 geometry is
++{end['shaping_gain']['power_conserving_random_width']:.17g} bit/use.
++Larger-aperture secondary results are separately tabulated; Dr.30 is smallest
++tested positive aperture,not a proven global/hardware minimum.
++
++GMP launch failed before source computation: Windows ApplicationControl blocked
++gmpy2 DLL. Standard Python MP fallback retained full-support/kernel and fixed
++1050/1250/1450-digit ladder,3600s budget,versioned new cache.
++Requested initial exact-source gaps={gap}; full requested initial-point
++availability={end['full_VA_requested_domain_complete']}. Failures/timeouts and
++coverage limits explicit,no invented C,w. No policy bypass.
++
++All maxima best exact-tested; no global-Z enclosure,operational/finite-key/
++composable security,flight/PAT/payload verification or secure-default claim.
++Production/security functional/frozen config/old caches/history unchanged.
++Keep UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++historical frozen-hash discrepancy,ObjectiveC USER_STOPPED. No training/test/
++heldout/publication,baseline/default/threshold approval,commit/push. STOP.
++
++"""
++    decision=f"""## DEC-0201 - Retain primary Uniform nonpositive result and separate bounded-law evidence
++
++2026-10-23 EVID-0218 accepts user9f6181d7 finite staged diagnostic artifacts.
++Primary raw Eq10 retains strict mass1e-10 gate; no positive Uniform claim
++from blocked PDFs or a secondary law. Secondary receiver30 Uniform
++K={sec['raw_SKR']:.17g} is numerical/model-provisional only,with explicit
++10urad divergence/.5urad jitter/.03m position engineering assumptions.
++Compare shaping only within the same law,geometry and noise convention.
++Requested exact-source gaps {gap} remain coverage limits; finite-catalog
++selection is not continuous/global optimization or security certification.
++OS ApplicationControl is respected; no automatic source retry or broader search.
++Keep scientific production/frozen/cache history untouched and all lifecycle/
++security/frozen blockers,ObjectiveC USER_STOPPED. No publication/default/
++baseline/threshold approval. Deliver and STOP; new scope requires new request.
++
++"""
++    state=f"""## Current: Uniform positive-SKR investigation COMPLETE WITH EXPLICIT MODEL/COVERAGE LIMITS; STOP
++
++2026-10-23 EVID-0218/DEC-0201,user9f6181d7. Deliver results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md,candidate_comparison.csv,
++stage/per-angle/aperture/ablation/source/law tables,three figure pairs and
++read-only verify.py/final_seal.json. Numeric saved-artifact checks pass;
++{protected} protected historical/scientific files unchanged.
++Primary Eq10 Uniform no positive found in valid tested points; best
++K={raw['raw_SKR']:.17g},Dr{raw['Dr_m']},div{raw['divergence_urad']},
++jitter{raw['jitter_urad']},sigma{raw['sigma_h_m']},angle{raw['zenith_deg']},VA{raw['VA']}.
++Secondary bounded random-width law is independent,not a PDF repair;receiver30
++Uniform VA{sec['VA']},K={sec['raw_SKR']:.17g},div10/jitter.5/sigma.03/zenith0.
++Same v43 xi_det.005/no eta_det,homodyne/RR/same Tf,N throughout.
++Initial exact-source gaps={gap}; no interpolation/global/secure-positive claim.
++All new source attempts use separate cache; GMP policy blocker respected.
++No production/frozen/old-source/history changes,training/test/heldout/publication
++or default/baseline/threshold promotion. Keep UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen discrepancy,ObjectiveC USER_STOPPED.
++
++"""
++    next_action="""## Current: deliver Uniform staged diagnostic and law/coverage qualifications; STOP
++
++EVID-0218/DEC-0201 complete. Open results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md for Q1-Q6 and parameter
++tables,candidate_comparison.csv and figures. verify.py reads saved evidence only.
++Do not rerun completed producers,overwrite old caches/receipts,repair raw PDF,
++mix channel laws,call finite exact-tested argmax global,or label secondary
++positive secure/flight-validated. Source gaps and OS blocker remain explicit.
++No automatic retry/optimization/publication/default/baseline/threshold work.
++Keep lifecycle/security/frozen blockers,ObjectiveC USER_STOPPED. Deliver and STOP.
++
++"""
++    # Artifact -> Evidence -> Decision -> State -> Next -> Handoff.
++    def prepend(name,block):
++        path=ROOT/name;head,rest=path.read_bytes().split(b'\n',1)
++        path.write_bytes(head+b'\n\n'+block.encode('utf-8')+rest.lstrip(b'\n'))
++    prepend('docs/EVIDENCE.md',evidence)
++    prepend('docs/DECISION_LOG.md',decision)
++    path=ROOT/'docs/PROJECT_STATE.md';old=path.read_text(encoding='utf-8')
++    start=old.index('## Current: staged Uniform positive-SKR investigation AUTHORIZED IN PROGRESS')
++    stop=old.index('## Current: manuscript43 zenith sweep COMPLETE; STOP',start)
++    path.write_bytes((old[:start]+state+old[stop:]).encode('utf-8'))
++    prepend('docs/NEXT_ACTIONS.md',next_action)
++    handoff=f"""# Session Handoff
++
++2026-10-23 EVID-0218/DEC-0201,user9f6181d7: staged Uniform diagnostic COMPLETE
++WITH MODEL/COVERAGE LIMITS. Deliver results/
++uniform_positive_skr_manuscript43_20261023/report_vi.md,candidate_comparison.csv,
++three PNG350dpi/vectorPDF pairs,source/channel/matched tables,validation and seal.
++Read-only: .venv/Scripts/python.exe -X utf8 -B
++results/uniform_positive_skr_manuscript43_20261023/verify.py.
++No evaluator rerun; no further automatic authorized work. Deliver and STOP.
++
++Primary raw Eq10 Uniform Kmax={raw['raw_SKR']:.17g} atDr{raw['Dr_m']},div{raw['divergence_urad']},
++jitter{raw['jitter_urad']},positionSD{raw['sigma_h_m']},zenith{raw['zenith_deg']},VA{raw['VA']}.
++Secondary independently bounded random-width law receiver30 Uniform
++K={sec['raw_SKR']:.17g},VA{sec['VA']},div10urad,jitter.5urad,positionSD.03m,zenith0.
++Same v43 .0186/.005,no eta_det,homodyne1D/RR/beta.95,Tf=mh^2,
++same effective N in MI,DBL,covariance/full-Z Holevo. Do not mix laws or
++transfer positive to Eq10. Dr.30 smallest tested positive only in secondary;
++engineering feasibility and security provisional.
++GMP DLL blocked by ApplicationControl; standard Python exact fallback keeps
++precision1050/1250/1450 and3600s bound,separate new cache. Gaps={gap}.
++No source interpolation,normalizationrepair/eigenclipping/positive forcing.
++
++Branch feat/image,HEAD9cc25e9f8320542b61adaec05c755e98fe93cdc2 unchanged.
++{protected} protected files unchanged;only own namespace and5 relevant ledgers.
++Frozen actualdf83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15
++differs historicalexpected561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1.
++Preserve UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED. No production/default/baseline/threshold changes,
++training/test/heldout/publication,commit/push. Historical receipt ledger hashes
++remain snapshots; old numerical artifact bytes are preserved.
++Ponytail full; PDF rendering/visual QA; no subagents or new dependencies.
++"""
++    (ROOT/'.agent/SESSION_HANDOFF.md').write_bytes(handoff.encode('utf-8'))
++    changes=[]
++    for name in v.read(OUT/'startup_manifest.json')['allowed_ledger_changes']:
++        before=(OUT/'startup_ledgers'/Path(name).name).read_text(encoding='utf-8').splitlines(True)
++        after=(ROOT/name).read_text(encoding='utf-8').splitlines(True)
++        changes.extend(difflib.unified_diff(before,after,fromfile='startup/'+name,tofile=name))
++    for path in sorted(OUT.glob('*.py')):
++        changes.extend(difflib.unified_diff([],path.read_text(encoding='utf-8').splitlines(True),
++            fromfile='/dev/null',tofile=path.relative_to(ROOT).as_posix()))
++    (OUT/'scoped_changes.patch').write_bytes(''.join(changes).encode('utf-8'))
++    check=subprocess.run(['git','diff','--check'],cwd=ROOT,capture_output=True,text=True)
++    if check.returncode:raise RuntimeError(check.stdout+check.stderr)
++    save(OUT/'final_seal.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        UTC=datetime.now(timezone.utc).isoformat(),
++        artifacts={p.relative_to(OUT).as_posix():v.sha(p) for p in sorted(OUT.rglob('*'))
++            if p.is_file() and p.name!='final_seal.json'},
++        ledgers={n:v.sha(ROOT/n) for n in v.read(OUT/'startup_manifest.json')['allowed_ledger_changes']},
++        verification_sha256=v.sha(OUT/'verification.json'),production_or_old_cache_changed=False))
++    final=v.audit()
++    print(json.dumps(final,indent=2))
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/independent_bounded.py
+@@ -0,0 +1,36 @@
++"""Independent finite-domain radial quadrature for the secondary best channel."""
++import math
++import numpy as np
++from scipy.special import roots_hermitenorm
++from scipy.stats import ncx2
++import search as s
++
++
++def main():
++    row=s.read(s.OUT/'screen_receipt.json')['secondary_best']
++    ctx=s.read(s.OUT/'contexts'/(row['context_id']+'.json'));ch=ctx['channel']
++    z,wz=roots_hermitenorm(96);wz/=math.sqrt(2*math.pi)
++    width=ch['w_eff_m']*np.exp(-(-float(ch['v'])/2+math.sqrt(float(ch['v']))*z)/2)
++    x,wx=np.polynomial.legendre.leggauss(512);x=20*(x+1);wx*=20
++    aperture=ch['D_r']/2
++    power=ncx2.cdf((2*aperture/width[:,None])**2,df=2,
++        nc=8*ch['sigma_s_m']**2*x[None,:]/width[:,None]**2)
++    assert np.isfinite(power).all() and np.all((power>=0)&(power<=1))
++    radial=wx*np.exp(-x)
++    p1=float(ch['P1']);atm=ch['eta_atm']
++    first=p1*atm*float(wz@(power@radial))
++    half=p1*math.sqrt(atm)*float(wz@(np.sqrt(power)@radial))
++    errors=dict(m1=first-ctx['moments']['m1'],mh=half-ctx['moments']['mh'])
++    assert max(abs(v) for v in errors.values())<2e-11
++    centered=ncx2.cdf((2*aperture/width)**2,df=2,nc=0)
++    centered_error=float(np.max(abs(centered+np.expm1(-2*aperture**2/width**2))))
++    assert centered_error<2e-15
++    s.save(s.OUT/'independent_bounded_validation.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        method='GH96 width x Legendre512 radial x in[0,40], direct aperture CDF',
++        radial_omitted_mass_upper_bound=math.exp(-40),m1=first,mh=half,
++        residuals=errors,centered_CDF_identity_error=centered_error,
++        producer_sha256=s.a.sha(__file__),context_id=row['context_id']))
++    print('INDEPENDENT BOUNDED',errors)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/precompute_curves.py
+@@ -0,0 +1,25 @@
++"""Cache source-independent geometry and existing-source curves while AP jobs run."""
++import complete_search as c
++s=c.s
++
++
++def main():
++    if (s.OUT/'precompute_receipt.json').exists():raise FileExistsError('Preserve completed phase')
++    search=s.Search(s.bank())
++    row=s.read(s.OUT/'screen_receipt.json')['secondary_best'];gd=s.geometry(row)
++    for angle in range(31):
++        c.compare(search,(*gd[:4],float(angle)),s.BOUNDED,'PRECOMPUTE_SECONDARY')
++        if angle%5==0:print('PRECOMPUTE',angle,'/30',flush=True)
++    for diameter in [.3,.35,.4,.45,.5,.55,.6]:
++        for law in [s.RAW,s.BOUNDED]:
++            search.optimize((diameter,*gd[1:]),'PRECOMPUTE_DIAMETER',law)
++    for g in [(.3,35.,1.561,.1,0.),gd,(.3,35.,gd[2],gd[3],0.),
++              (.3,gd[1],1.561,gd[3],0.),(.3,gd[1],gd[2],.1,0.)]:
++        for law in [s.RAW,s.BOUNDED]:search.optimize(g,'PRECOMPUTE_ABLATION',law)
++    s.save(s.OUT/'precompute_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',
++        source_count=len(search.sources),source_jobs_pending=True,contexts=len(search.contexts),
++        producer_sha256=s.a.sha(__file__),note='Final selection waits for bounded fresh-source attempts'))
++    print('PRECOMPUTE COMPLETE',flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/search.py
+@@ -0,0 +1,208 @@
++"""Staged Uniform-only search; raw PDF primary, independent bounded law separate."""
++import csv
++import hashlib
++import importlib.util
++import itertools
++import json
++import math
++from pathlib import Path
++import sys
++
++OUT=Path(__file__).resolve().parent;ROOT=OUT.parents[1]
++AUDIT=ROOT/'results/manuscript43_homodyne_audit_20261023'
++sys.path.insert(0,str(AUDIT))
++import audit_model as a
++import run_audit as r
++from compare import independent_entropy
++import mpmath as mp
++import numpy as np
++from scripts.exact_cache_provenance import source_settings,verify_source_payload
++from scripts.run_exact_mb_test2 import ensemble_hash
++from scripts.run_theta10_D55_unconstrained_three_scheme import make_ensemble,unconstrained_config
++
++spec=importlib.util.spec_from_file_location('_verified_v43_sweep',ROOT/'results/skr_vs_zenith_manuscript43_20261023/run_sweep.py')
++verified=importlib.util.module_from_spec(spec);spec.loader.exec_module(verified)
++RAW='manuscript43_Eq10_retained_0_to_1'
++BOUNDED='power_conserving_random_width'
++
++
++def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
++def save(p,v):p.write_text(json.dumps(r.clean(v),indent=2,ensure_ascii=False,allow_nan=False)+'\n',encoding='utf-8')
++def write(p,rows):
++    fields=list(dict.fromkeys(k for row in rows for k in row))
++    with p.open('w',encoding='utf-8',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(r.clean(rows))
++def key(v):return hashlib.sha256(json.dumps(v,sort_keys=True).encode()).hexdigest()
++
++
++def bank(include_new=False):
++    sources=[c for c in r.catalog() if c['family']=='Uniform' and .05<=c['VA']<=10]
++    if include_new:
++        config=unconstrained_config();settings=source_settings(config)
++        for path in sorted((OUT/'new_exact_source/exact_source_cache').glob('*.json')):
++            payload=read(path);verify_source_payload(payload,settings)
++            va=float.fromhex(payload['V_A_hex']);ensemble=make_ensemble(config,'Uniform',0.,va)
++            identity=ensemble_hash(ensemble)
++            if identity!=payload['ensemble_hash']:raise ValueError('Fresh Uniform ensemble mismatch')
++            sources.append(dict(family='Uniform',VA=va,nu_raw=0.,C=payload['C'],w=payload['w'],
++                ensemble_hash=identity,source_path=path.relative_to(ROOT).as_posix(),source_sha256=a.sha(path),
++                p=ensemble.probabilities[0].numpy(),alpha=ensemble.amplitudes[0].numpy(),
++                source_moment_route=payload['source_moment_route']))
++    unique={c['VA'].hex():c for c in sources}
++    for c in unique.values():
++        p,alpha=a.validate_source(c)
++        if not np.all(p==1/256):raise ValueError('Uniform requires exactly equal256 probabilities')
++    return sorted(unique.values(),key=lambda c:c['VA'])
++
++
++def model(c,moments,order=64,grid=33):
++    if not moments['normalized_within_tolerance']:raise ValueError('FAILED_PDF_NORMALIZATION')
++    t=moments['mh']**2;mn=.0186*moments['m1']+.005*moments['M0']
++    noise=(moments['m1']-t)*c['VA']+mn
++    if not 0<=t<=moments['m1']<=1 or noise<0:raise ValueError('Invalid effective moments/noise')
++    h=a.legacy.full_holevo(1+c['VA'],1+t*c['VA']+noise,2*math.sqrt(t)*c['C'],math.sqrt(2*noise*c['w']),grid)
++    mi=a.homodyne_mi(c['p'],c['alpha'],t,1+noise,order=order)
++    value=dict(**h,I_AB=mi,beta_I_AB=.95*mi,K_raw=.95*mi-h['chi_BE'],eta_f=t,
++        N_effective=noise,mean_eta_xi=mn,xi_f=noise/t,sigma2_MI=1+noise,T_Holevo=t,xi_det=.005,
++        **{k:c[k] for k in ['family','VA','nu_raw','ensemble_hash','C','w','source_path','source_sha256']})
++    _,pmarg=a.marginal(c['p'],c['alpha'])
++    entropy=-float(pmarg@np.log2(pmarg));capacity=.5*math.log2(1+t*c['VA']/(1+noise))
++    if not all(math.isfinite(value[k]) for k in ['I_AB','chi_BE','K_raw']) or mi < -2e-12 or mi>min(entropy,capacity)+2e-10:
++        raise ValueError('Invalid discrete homodyne information')
++    return {**value,**verified.covariance(value,c['VA'])}
++
++
++class Search:
++    def __init__(self,sources):
++        self.sources=sources;self.contexts={};self.best_rows=[];self.source_by_hash={c['ensemble_hash']:c for c in sources}
++        (OUT/'contexts').mkdir(exist_ok=True)
++
++    def context(self,g,law=RAW):
++        identity=key([list(g),law])
++        if identity in self.contexts:return self.contexts[identity]
++        path=OUT/'contexts'/(identity+'.json')
++        if path.exists():
++            result=read(path)
++        else:
++            diameter,div,jitter,sigma,angle=g
++            ch=a.legacy.optical(diameter,div,angle,sigma,mp.mpf(str(jitter))/mp.mpf('15.61'))
++            if law==RAW:
++                moments=a.raw_pdf_moments(ch)
++                if max(abs(x['residual']) for x in moments['direct'].values())>2e-10:raise ValueError('PDF quadrature failure')
++            elif law==BOUNDED:
++                mo=a.legacy.power_conserving(ch)
++                moments=dict(M0=mo['physical_mass'],m1=mo['m1'],mh=mo['mh'],P0=mo['P0'],
++                    normalized_within_tolerance=True,raw_upper_tail_mass=0.,renormalized=False,clipped=False,law=BOUNDED,
++                    independent_optical_law=True,width_GH_order=mo['width_GH_order'],radial_error=mo['radial_quadrature_error'])
++            else:raise ValueError('Unknown law')
++            result=dict(geometry=list(g),law=law,channel=r.clean(ch),moments=r.clean(moments),evaluations={},failures={})
++        self.contexts[identity]=result
++        return result
++
++    def persist(self,ctx):save(OUT/'contexts'/(key([ctx['geometry'],ctx['law']])+'.json'),ctx)
++
++    def optimize(self,g,stage,law=RAW,sources=None,adaptive=False):
++        ctx=self.context(g,law);mom=ctx['moments'];sources=self.sources if sources is None else sources
++        if not mom['normalized_within_tolerance']:
++            self.persist(ctx);value=self.row(ctx,None,stage,'FAILED_PDF_NORMALIZATION')
++            self.best_rows.append(value);return value
++        def evaluate(c):
++            identity=c['ensemble_hash']
++            if identity not in ctx['evaluations'] and identity not in ctx['failures']:
++                try:ctx['evaluations'][identity]=model(c,mom)
++                except ValueError as error:ctx['failures'][identity]=dict(VA=c['VA'],source_hash=identity,reason=str(error))
++            return ctx['evaluations'].get(identity)
++        if adaptive:
++            coarse=[c for c in sources if c['VA'] in [.05,.1,.2,.3,.5,1.,2.,3.,5.,8.,10.]]
++            coarse_values=[(c,evaluate(c)) for c in coarse];peaks=[]
++            for i,(c,v) in enumerate(coarse_values):
++                if v is None:continue
++                left=-math.inf if i==0 or coarse_values[i-1][1] is None else coarse_values[i-1][1]['K_raw']
++                right=-math.inf if i==len(coarse_values)-1 or coarse_values[i+1][1] is None else coarse_values[i+1][1]['K_raw']
++                if v['K_raw']>=max(left,right):
++                    peaks.append((coarse[max(0,i-1)]['VA'],coarse[min(len(coarse)-1,i+1)]['VA']))
++            candidates=[c for c in sources if any(lo<=c['VA']<=hi for lo,hi in peaks)]
++        else:candidates=sources
++        values=[evaluate(c) for c in candidates];values=[v for v in values if v is not None]
++        # Include coarse points too; narrowing does not discard an already tested best.
++        values.extend(v for v in ctx['evaluations'].values() if v['ensemble_hash'] in {c['ensemble_hash'] for c in sources})
++        best=max(values,key=lambda v:(v['K_raw'],-v['VA'])) if values else None
++        self.persist(ctx)
++        value=self.row(ctx,best,stage,'' if best else 'FAILED_COVARIANCE_OR_INFORMATION')
++        self.best_rows.append(value);return value
++
++    def row(self,ctx,value,stage,reason):
++        diameter,div,jitter,sigma,angle=ctx['geometry'];mo=ctx['moments'];ch=ctx['channel']
++        return dict(stage=stage,zenith_deg=angle,distance_km=ch['L_km'],Dr_m=diameter,divergence_urad=div,
++            jitter_urad=jitter,sigma_h_m=sigma,VA=None if value is None else value['VA'],
++            source_hash=None if value is None else value['ensemble_hash'],channel_law=ctx['law'],pdf_mass=mo['M0'],
++            mass_deficit=mo['raw_upper_tail_mass'],E_eta=mo['m1'],E_sqrt_eta=mo['mh'],eta_f=mo['mh']**2,
++            E_eta_xi=.0186*mo['m1']+.005*mo['M0'],xi_f=None if value is None else value['xi_f'],
++            I_AB=None if value is None else value['I_AB'],beta_I_AB=None if value is None else value['beta_I_AB'],
++            chi_BE=None if value is None else value['chi_BE'],raw_SKR=None if value is None else value['K_raw'],
++            validation_status='NUMERICALLY_VALID_SECURITY_PROVISIONAL' if value is not None else 'BLOCKED',
++            exclusion_reason=reason,context_id=key([ctx['geometry'],ctx['law']]),
++            source_path=None if value is None else value['source_path'],source_sha256=None if value is None else value['source_sha256'],
++            xi_ch=.0186,xi_det=.005,security_valid=False)
++
++
++def geometry(row):return (row['Dr_m'],row['divergence_urad'],row['jitter_urad'],row['sigma_h_m'],row['zenith_deg'])
++def numeric(rows):return [x for x in rows if x['raw_SKR'] is not None]
++def best(rows):return max(numeric(rows),key=lambda x:x['raw_SKR']) if numeric(rows) else None
++def short_sources(sources):return [c for c in sources if c['VA'] in [.05,.1,.3,1.,5.]]
++
++
++def screen():
++    if (OUT/'screen_receipt.json').exists():raise FileExistsError('Preserve completed screen')
++    sources=bank();search=Search(sources);A=[]
++    for angle in range(31):A.append(search.optimize((.3,35.,1.561,.1,float(angle)),'A_initial',adaptive=True))
++    save(OUT/'stage_A_initial.json',A)
++    print('STAGE A INITIAL',best(A),flush=True)
++    screenB=[];count=0
++    for div,jitter,sigma,angle in itertools.product([10,15,20,25,30,35,40,50,60],[.5,1.,1.561,2.,3.],[.03,.05,.1,.15,.2],[0.,10.,20.]):
++        screenB.append(search.optimize((.3,float(div),jitter,sigma,angle),'B_coarse',sources=short_sources(sources)))
++        count+=1
++        if count%75==0:print('STAGE B SCREEN',count,'/675',flush=True)
++    refinedB=[search.optimize(geometry(x),'B_full_bank') for x in sorted(numeric(screenB),key=lambda x:-x['raw_SKR'])[:16]]
++    settings=[]
++    for row in sorted(numeric(refinedB),key=lambda x:-x['raw_SKR']):
++        setting=geometry(row)[1:4]
++        if setting not in settings:settings.append(setting)
++        if len(settings)==4:break
++    fineB=[]
++    for div,jitter,sigma in settings:
++        for angle in range(21):fineB.append(search.optimize((.3,div,jitter,sigma,float(angle)),'B_angle_refine'))
++    B=screenB+refinedB+fineB;save(OUT/'stage_B_initial.json',B)
++    print('STAGE B INITIAL BEST',best(B),flush=True)
++    C=[];promising=[]
++    if not any(x['raw_SKR'] is not None and x['raw_SKR']>0 for x in A+B):
++        center=best(B)['divergence_urad'];all_div=[10,15,20,25,30,35,40,50,60];idx=all_div.index(center)
++        promising=all_div[max(0,idx-1):min(len(all_div),idx+2)]
++        for diameter in [.35,.4,.45,.5,.55,.6]:
++            coarse=[]
++            for div,jitter,sigma,angle in itertools.product(promising,[.5,1.,1.561],[.03,.1,.2],[0.,10.,20.,30.]):
++                coarse.append(search.optimize((diameter,float(div),jitter,sigma,angle),'C_coarse',sources=short_sources(sources)))
++            if not numeric(coarse):
++                for div,jitter,sigma,angle in itertools.product(promising,[.5,1.,1.561],[.03,.1,.2],[40.,50.,60.]):
++                    coarse.append(search.optimize((diameter,float(div),jitter,sigma,angle),'C_normalized_angle_fallback',sources=short_sources(sources)))
++            fine=[search.optimize(geometry(x),'C_full_bank') for x in sorted(numeric(coarse),key=lambda x:-x['raw_SKR'])[:4]]
++            C.extend(coarse+fine);print('STAGE C INITIAL',diameter,'BEST',best(coarse+fine),flush=True)
++    save(OUT/'stage_C_initial.json',C)
++    # Secondary law is separately defined, justified by the raw-PDF normalization blocker.
++    secondary=[]
++    if not any(x['raw_SKR'] is not None and x['raw_SKR']>0 for x in A+B+C):
++        for div,jitter,sigma in itertools.product([10.,15.,20.,25.,35.,50.],[.5,1.,1.561],[.03,.05,.1]):
++            secondary.append(search.optimize((.3,div,jitter,sigma,0.),'SECONDARY_bounded_screen',BOUNDED))
++        print('SECONDARY BOUNDED BEST',best(secondary),flush=True)
++    save(OUT/'secondary_initial.json',secondary)
++    save(OUT/'screen_receipt.json',dict(status='CURRENTLY_VERIFIED_PASS',source_count=len(sources),
++        A_best=best(A),B_best=best(B),C_best=best(C),secondary_best=best(secondary),
++        primary_positive_found=any(x['raw_SKR'] is not None and x['raw_SKR']>0 for x in A+B+C),
++        contexts=len(search.contexts),prospective_protocol_sha256=a.sha(OUT/'protocol.json'),
++        producer_sha256=a.sha(Path(__file__)),new_AP_sources_pending=[10.,.25]))
++    print('INITIAL SCREEN COMPLETE',len(search.contexts),'contexts',flush=True)
++
++
++if __name__=='__main__':
++    if sys.argv[1:]!=['screen']:raise ValueError('Use screen; completion producer follows saved adaptive decisions')
++    screen()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/source_job.py
+@@ -0,0 +1,38 @@
++"""Versioned Uniform source job through the preserved full-support/diagonal path."""
++import hashlib
++import importlib.util
++import json
++from pathlib import Path
++import sys
++from types import FunctionType
++
++OUT=Path(__file__).resolve().parent
++ROOT=OUT.parents[1]
++PRIOR=ROOT/'results/uniform_manuscript_2d_optimization_20261019'
++sys.path.insert(0,str(ROOT));sys.path.insert(0,str(PRIOR))
++import source_uniform_exact as base
++import source_uniform_diagonal as diagonal
++import src.cvqkd.gram_moments as gram
++
++
++def main():
++    va=float(sys.argv[1])
++    if not .05<=va<=10:raise ValueError('Uniform source VA outside authorized range')
++    target=OUT/'new_exact_source';target.mkdir(exist_ok=True)
++    gram._fallback=diagonal.fallback
++    task=FunctionType(base.main.__code__,{**base.main.__globals__,'OUT':target,'__file__':str(Path(__file__))},
++        base.main.__name__,base.main.__defaults__)
++    original_out=base.OUT
++    task()
++    assert base.OUT==original_out
++    for path in (target/'source_receipts').glob('*.json'):
++        record=json.loads(path.read_text(encoding='utf-8'))
++        if float(record['VA'])!=va:continue
++        record['isolated_diagonal_solve_equivalence']=True
++        record['historical_files_modified']=False
++        record['additional_producers_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
++            for p in [Path(__file__),PRIOR/'source_uniform_exact.py',PRIOR/'source_uniform_diagonal.py',PRIOR/'diagonal_solve_worker.py']}
++        path.write_text(json.dumps(record,indent=2,allow_nan=False)+'\n',encoding='utf-8')
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/source_python_job.py
+@@ -0,0 +1,70 @@
++"""Same exact source kernel and precision ladder, standard Python MP backend."""
++import json
++import os
++from pathlib import Path
++import sys
++import time
++
++import source_job as initial
++base=initial.base
++OUT=initial.OUT
++
++
++def main():
++    va=float(sys.argv[1])
++    if not .05<=va<=10:raise ValueError('VA outside authorized range')
++    # Do not load, relocate or override the DLL rejected by Application Control.
++    os.environ.pop('PYTHONPATH',None)
++    os.environ['PYTHONDONTWRITEBYTECODE']='1'
++    import mpmath
++    if mpmath.libmp.BACKEND!='python':raise ValueError('Expected standard Python backend')
++    base.torch.set_num_threads(1)
++    initial.gram._fallback=initial.diagonal.fallback
++    config=base.unconstrained_config()
++    ensemble=base.make_ensemble(config,'Uniform',0.,va)
++    settings=base.source_settings(config)
++    identity=dict(schema='exact-mb-source-cache-v1',ensemble_hash=base.ensemble_hash(ensemble),
++        nu_mb_raw_hex=0.0.hex(),nu_mb_repo_hex=0.0.hex(),V_A_hex=va.hex(),
++        mb_convention=base.MB_CONVENTION,
++        source_implementation={n:base.hashlib.sha256((base.ROOT/n).read_bytes()).hexdigest() for n in base.SOURCE_FILES},
++        source_settings=settings)
++    target=OUT/'new_exact_source'
++    cache=target/'exact_source_cache';receipts=target/'source_receipts'
++    cache.mkdir(parents=True,exist_ok=True);receipts.mkdir(exist_ok=True)
++    key=base.json_hash(identity);path=cache/(key+'.json')
++    attempt=target/('python_attempt_'+va.hex().replace('.','_')+'.json')
++    record=dict(VA=va,backend='python',precision_ladder=settings['precision_ladder'],
++        worker_timeout_s=3600,status='RUNNING',producer_sha256=initial.hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
++    def save():attempt.write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
++    save();began=time.perf_counter()
++    try:
++        if path.exists():raise FileExistsError('Do not overwrite completed source')
++        moments=base.c4_gram_source_moments(ensemble,
++            density_eigenvalue_tolerance=settings['density_eigenvalue_tolerance'],
++            physicality_tolerance=settings['physicality_tolerance'])
++        if base.ensemble_hash(ensemble)!=identity['ensemble_hash']:raise ValueError('Source ensemble mutated')
++        diag=moments.diagnostics[0]
++        payload=dict(**identity,cache_key=key,C=float(moments.coherent_correlation[0]),w=float(moments.w[0]),
++            support_size=diag['support_size'],source_moment_route=diag['route'],cache_origin='FRESH_EXACT_EVALUATION')
++        base.verify_source_payload(payload,settings)
++        if min(payload['C'],payload['w'])<0 or payload['support_size']!=256:raise ValueError('Nonphysical source')
++        evidence=base.clean(dict(VA=va,VA_hex=va.hex(),elapsed_seconds=time.perf_counter()-began,diagnostic=diag,
++            child_backend=dict(backend='python',mpmath=mpmath.__version__),
++            precision_ladder=settings['precision_ladder'],isolated_diagonal_solve_equivalence=True,
++            additional_producers_sha256={str(p.relative_to(base.ROOT)):initial.hashlib.sha256(p.read_bytes()).hexdigest()
++                for p in [Path(__file__),initial.PRIOR/'source_uniform_diagonal.py',initial.PRIOR/'diagonal_solve_worker.py']},
++            producer_sha256=record['producer_sha256']))
++        path.write_text(json.dumps(payload,indent=2,sort_keys=True,allow_nan=False)+'\n',encoding='utf-8')
++        evidence['payload_file_sha256']=initial.hashlib.sha256(path.read_bytes()).hexdigest()
++        (receipts/(identity['ensemble_hash']+'.json')).write_text(json.dumps(evidence,indent=2,allow_nan=False)+'\n',encoding='utf-8')
++        record.update(status='CURRENTLY_VERIFIED_PASS',source_path=path.relative_to(base.ROOT).as_posix())
++    except Exception as error:
++        record.update(status='BLOCKED_BY_ENVIRONMENT' if 'timed out' in str(error) else 'FAILED',
++            exception_type=type(error).__name__,reason=str(error))
++        raise
++    finally:
++        record['elapsed_seconds']=time.perf_counter()-began;save()
++    print(json.dumps(record),flush=True)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/verify.py
+@@ -0,0 +1,122 @@
++"""Read-only checks of saved artifacts; imports no channel/source/rate evaluator."""
++import csv
++import hashlib
++import json
++import math
++from pathlib import Path
++import subprocess
++
++OUT=Path(__file__).resolve().parent;ROOT=OUT.parents[1];REPO=ROOT.parent
++RAW='manuscript43_Eq10_retained_0_to_1';BOUNDED='power_conserving_random_width'
++def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
++def read(p):return json.loads(Path(p).read_text(encoding='utf-8-sig'))
++def rows(name):
++    with (OUT/name).open(encoding='utf-8',newline='') as f:return list(csv.DictReader(f))
++
++
++def audit():
++    checks=[]
++    def check(name,ok,**details):
++        checks.append(dict(check=name,status='CURRENTLY_VERIFIED_PASS' if ok else 'FAILED',**details))
++        if not ok:raise AssertionError(name)
++    start=read(OUT/'startup_manifest.json')
++    changed=[n for n,h in start['protected'].items() if not (REPO/n).is_file() or sha(REPO/n)!=h]
++    check('All pre-existing protected bytes unchanged',not changed,count=len(start['protected']),changed=changed)
++    check('HEAD and branch unchanged',subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()==start['HEAD']
++        and subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip()==start['branch'])
++    check('Frozen identity preserved',sha(ROOT/'docs/FINAL_MODEL_SPEC.md')==start['frozen_sha256'],
++        discrepancy_to_historical_expected=start['frozen_sha256']!=start['historical_frozen_expected'])
++    protocol=read(OUT/'protocol.json');initial=read(OUT/'screen_receipt.json')
++    check('Prospective protocol and initial producer intact',sha(OUT/'protocol.json')==initial['prospective_protocol_sha256']
++        and sha(OUT/'search.py')==initial['producer_sha256'])
++    check('Original failed launcher preserved',sha(OUT/'source_job.py')==protocol['initial_producer_sha256']['source_job.py'])
++    check('Extension producer version preserved',sha(OUT/'producer_snapshots/complete_search_extension.py')
++        ==read(OUT/'extension_receipt.json')['producer_sha256'])
++    end=read(OUT/'completion_receipt.json')
++    check('Completion producer and plan bound',sha(OUT/'complete_search.py')==end['producer_sha256']
++        and sha(OUT/'completion_plan.json')==end['completion_plan_sha256'])
++    check('No security or global optimum promotion',not end['security_valid'] and not end['global_optimum']
++        and end['full_VA_requested_domain_complete']==(not end['source_gaps']))
++    sources=read(OUT/'source_catalog.json');lookup={c['ensemble_hash']:c for c in sources}
++    check('Authenticated source payloads unchanged',all(sha(ROOT/c['source_path'])==c['source_sha256'] for c in sources),
++        sources=len(sources))
++    new=list((OUT/'new_exact_source/exact_source_cache').glob('*.json'))
++    check('Versioned fresh sources use full support and fixed precision',
++        all(read(p)['support_size']==256 and min(read(p)['C'],read(p)['w'])>=0 for p in new)
++        and all(read(p)['precision_ladder']==[1050,1250,1450]
++            for p in (OUT/'new_exact_source/source_receipts').glob('*.json')),fresh_sources=len(new))
++    check('No source jobs left pending',all(read(p)['status']!='RUNNING'
++        for p in (OUT/'new_exact_source').glob('python_attempt_*.json')))
++    all_rows=rows('candidate_comparison.csv')
++    check('All-candidate count matches receipt',len(all_rows)==end['candidate_rows'])
++    numerical=0;blocked=0;primary_uniform=[]
++    for row in all_rows:
++        if not row['raw_SKR']:
++            blocked+=1
++            assert row['exclusion_reason'] and all(not row[k] for k in ['I_AB','beta_I_AB','chi_BE','xi_f'])
++            if row['exclusion_reason']=='FAILED_PDF_NORMALIZATION':
++                assert not row['VA'] and not row['source_hash']
++            else:
++                assert row['VA'] and row['source_hash'] in lookup
++            continue
++        numerical+=1
++        va,mi,bi,chi,k,t,m1,mh,m0,etaxi,xif=[float(row[f]) for f in
++            ['VA','I_AB','beta_I_AB','chi_BE','raw_SKR','eta_f','E_eta','E_sqrt_eta','pdf_mass','E_eta_xi','xi_f']]
++        assert all(math.isfinite(x) for x in [va,mi,bi,chi,k,t,m1,mh,m0,etaxi,xif])
++        assert 0<=t<=m1<=1 and abs(t-mh**2)<2e-15 and abs(1-m0)<=1e-10+2e-16
++        assert abs(etaxi-(.0186*m1+.005*m0))<2e-15
++        assert abs(t*xif-((m1-t)*va+etaxi))<2e-12
++        assert abs(bi-.95*mi)<2e-14 and abs(k-(bi-chi))<2e-14
++        assert float(row['xi_ch'])==.0186 and float(row['xi_det'])==.005
++        source=lookup[row['source_hash']]
++        assert va==source['VA'] and row['family']==source['family']
++        assert row['source_sha256']==source['source_sha256']
++        if row['channel_law']==RAW and row['family']=='Uniform':primary_uniform.append(k)
++    check('Candidate model identities and explicit exclusions',True,numerical=numerical,blocked=blocked)
++    check('Primary positive flag refers to Uniform only',end['primary_positive_found']==any(k>0 for k in primary_uniform),
++        strongest_primary_uniform=max(primary_uniform))
++    check('Reported primary best matches all evaluated Uniform rows',
++        abs(end['primary_best']['raw_SKR']-max(primary_uniform))<2e-8)
++    validation=list((OUT/'selected_validation').glob('*.json'))
++    check('Every saved selected independent check passed',
++        all(read(p)['validation']['status']=='CURRENTLY_VERIFIED_PASS'
++            and all(c['status']=='CURRENTLY_VERIFIED_PASS' for c in read(p)['validation']['checks']) for p in validation),
++        selected=len(validation),checks=sum(len(read(p)['validation']['checks']) for p in validation))
++    for name in ['guard_checks.json','bounded_moment_validation.json','independent_bounded_validation.json',
++                 'bounded_all_contexts_validation.json','source_diagonal_equivalence.json']:
++        check(name,read(OUT/name)['status']=='CURRENTLY_VERIFIED_PASS')
++    bounded_check=read(OUT/'bounded_all_contexts_validation.json')
++    bounded_contexts={p.stem:read(p) for p in (OUT/'contexts').glob('*.json') if read(p)['law']==BOUNDED}
++    check('Width quadrature validation covers all secondary contexts',
++        {r['context_id'] for r in bounded_check['checks']}==set(bounded_contexts))
++    comparisons=read(OUT/'three_scheme_comparison.json')
++    for law in [RAW,BOUNDED]:
++        selected=[r for r in comparisons if r['channel_law']==law]
++        assert len(selected)==3
++        assert len({(r['Dr_m'],r['divergence_urad'],r['jitter_urad'],r['sigma_h_m'],r['zenith_deg'],
++            r['pdf_mass'],r['E_eta'],r['E_sqrt_eta'],r['E_eta_xi']) for r in selected})==1
++        gain=selected[2]['raw_SKR']-selected[0]['raw_SKR']
++        assert abs(gain-end['shaping_gain'][law])<1e-14
++    check('Same-law same-channel shaping gains',True)
++    pm=read(OUT/'plot_manifest.json')
++    check('Plot positive-only and one law per curve',
++        pm['positive_only'] and pm['no_connection_across_invalid'] and pm['one_law_per_curve']
++        and all(len(c['channel_laws'])==1 for c in pm['curves']))
++    check('Three figure pairs exist',len(list((OUT/'figures').glob('*.pdf')))==3
++        and len(list((OUT/'figures').glob('*.png')))==3)
++    if (OUT/'visual_verification.json').exists():
++        check('PDF rendering and visual review passed',read(OUT/'visual_verification.json')['status']=='CURRENTLY_VERIFIED_PASS')
++    seal=OUT/'final_seal.json'
++    if seal.exists():
++        seal=read(seal)
++        mismatch=[n for n,h in seal['artifacts'].items() if not (OUT/n).is_file() or sha(OUT/n)!=h]
++        check('Final artifact hashes',not mismatch,count=len(seal['artifacts']),mismatch=mismatch)
++        check('Final ledger hashes',all(sha(ROOT/n)==h for n,h in seal['ledgers'].items()))
++    return dict(status='CURRENTLY_VERIFIED_PASS',scope='FINITE_EXACT_TESTED_DIAGNOSTIC',checks=checks,
++        full_VA_requested_domain_complete=end['full_VA_requested_domain_complete'],
++        source_gaps=end['source_gaps'],security_status='UNVALIDATED_SECURITY_MODEL',
++        lifecycle='NOT_READY_FOR_PUBLICATION_SCALE_RUNS',objective_C='USER_STOPPED',
++        primary_Uniform_positive=end['primary_positive_found'],secondary_positive=end['secondary_positive_found'])
++
++
++if __name__=='__main__':print(json.dumps(audit(),indent=2))
+--- /dev/null
++++ results/uniform_positive_skr_manuscript43_20261023/write_outputs.py
+@@ -0,0 +1,392 @@
++"""Render only saved final diagnostics; no numerical/source optimization."""
++import csv
++import json
++import math
++from pathlib import Path
++import numpy as np
++import matplotlib
++matplotlib.use('Agg')
++import matplotlib.pyplot as plt
++from matplotlib.lines import Line2D
++
++OUT=Path(__file__).resolve().parent
++def read(name):return json.loads((OUT/name).read_text(encoding='utf-8-sig'))
++def fmt(x):return 'BLOCKED' if x is None else f'{x:.12g}'
++def table(rows,fields):
++    return '| '+' | '.join(fields)+' |\n| '+' | '.join(['---']*len(fields))+' |\n'+''.join(
++        '| '+' | '.join('BLOCKED' if r.get(k) is None else
++            (fmt(r.get(k)) if isinstance(r.get(k),(float,int)) else str(r.get(k,''))) for k in fields)+' |\n' for r in rows)
++
++
++def figures():
++    plt.rcParams.update({'font.family':'serif','font.size':9,'axes.labelsize':10,'legend.fontsize':8,
++        'axes.titlesize':10,'pdf.fonttype':42,'ps.fonttype':42,'lines.linewidth':1.4})
++    target=OUT/'figures';target.mkdir(exist_ok=True)
++    records=[]
++    def canvas(title,xlabel):
++        fig,ax=plt.subplots(figsize=(5.6,3.7),layout='constrained')
++        ax.set(title=title,xlabel=xlabel,ylabel='Raw SKR (bit/use)',yscale='log')
++        ax.grid(True,which='both',alpha=.24,linestyle=':')
++        return fig,ax
++    def curve(ax,rows,x,label,color,marker):
++        rows=sorted(rows,key=lambda r:r[x])
++        xx=np.array([r[x] for r in rows])
++        yy=np.array([r['raw_SKR'] if r['raw_SKR'] is not None and r['raw_SKR']>0
++            and r['validation_status']=='CURRENTLY_VERIFIED_PASS_SECURITY_PROVISIONAL' else np.nan for r in rows])
++        assert not np.any(yy[np.isfinite(yy)]<=0)
++        ax.plot(xx,yy,color=color,marker=marker,markersize=3.3,label=label)
++        records.append(dict(label=label,positive=int(np.isfinite(yy).sum()),excluded=int(np.isnan(yy).sum()),
++            channel_laws=sorted({r['channel_law'] for r in rows}),x_field=x))
++        assert len(records[-1]['channel_laws'])==1
++    def save(fig,stem):
++        fig.savefig(target/(stem+'.png'),dpi=350)
++        fig.savefig(target/(stem+'.pdf'))
++        plt.close(fig)
++    A=read('stage_A_final.json');secondary=read('secondary_zenith.json')
++    fig,ax=canvas('Uniform 256-QAM: primary and secondary channels','Zenith angle (deg)')
++    curve(ax,A,'zenith_deg','Primary Eq. (10), baseline: no positive points','0.45','s')
++    curve(ax,secondary,'zenith_deg','Independent bounded law, improved optics','#0072B2','o')
++    ax.set_xlim(0,30);ax.legend(loc='best')
++    fig.get_layout_engine().set(rect=(0,0.1,1,0.9))
++    fig.text(.5,.025,'Primary: 35 / 1.561 urad / 0.10 m; secondary: 10 / 0.5 urad / 0.03 m\n'
++        'Divergence / jitter / position SD; receiver 30 cm. Security provisional.',
++        ha='center',fontsize=7)
++    save(fig,'fig1_uniform_vs_zenith')
++    D=read('diameter_comparison.json')
++    fig,ax=canvas('Uniform 256-QAM: matched geometry across apertures','Receiver diameter (m)')
++    for law,label,color,marker in [
++        ('manuscript43_Eq10_retained_0_to_1','Primary Eq. (10): PDF mass blocked','0.45','s'),
++        ('power_conserving_random_width','Independent bounded law (secondary)','#0072B2','o')]:
++        curve(ax,[r for r in D if r['channel_law']==law],'Dr_m',label,color,marker)
++    ax.set_xticks([.3,.35,.4,.45,.5,.55,.6]);ax.legend(loc='best')
++    fig.get_layout_engine().set(rect=(0,0.08,1,0.92))
++    fig.text(.5,.025,'Zenith 0 deg; divergence 10 urad; jitter 0.5 urad; position SD 0.03 m.\n'
++        'No rate assigned to failed PDFs. Security provisional.',ha='center',fontsize=7)
++    save(fig,'fig2_uniform_vs_receiver_diameter')
++    T=read('three_scheme_zenith.json')
++    fig,ax=canvas('Independent bounded channel: three modulation schemes','Zenith angle (deg)')
++    schemes=['Optimized Uniform 256-QAM','Fixed MB-shaped 256-QAM','Optimized MB-shaped 256-QAM']
++    for scheme,color,marker in zip(schemes,['#0072B2','#D55E00','#009E73'],['o','s','^']):
++        curve(ax,[r for r in T if r['scheme']==scheme],'zenith_deg',scheme,color,marker)
++    ax.set_xlim(0,30);ax.legend(loc='best')
++    fig.get_layout_engine().set(rect=(0,0.08,1,0.92))
++    fig.text(.5,.025,'Same 30 cm receiver / 10 urad divergence / 0.5 urad jitter / 0.03 m position SD.\n'
++        'Exact catalog selection; same v43 noise, homodyne. Security provisional.',ha='center',fontsize=7)
++    save(fig,'fig3_three_scheme_bounded')
++    (OUT/'plot_manifest.json').write_text(json.dumps(dict(status='CURRENTLY_VERIFIED_PASS',
++        positive_only=True,no_connection_across_invalid=True,one_law_per_curve=True,
++        curves=records),indent=2)+'\n',encoding='utf-8')
++
++
++def report():
++    end=read('completion_receipt.json');raw=end['primary_best'];sec=end['secondary_best']
++    if end['primary_positive_found']:raise ValueError('Primary conclusion changed; update report and figure labels before authoring')
++    sec_all=end['secondary_best_all_tested']
++    comparison=read('three_scheme_comparison.json')
++    law_comparison=read('law_comparison.json')
++    ablation=read('ablation.json');diameters=read('diameter_comparison.json')
++    A=read('stage_A_final.json');B=read('stage_B_final.json');C=read('stage_C_final.json')
++    sources=read('source_catalog.json');by_hash={c['ensemble_hash']:c for c in sources}
++    sc=by_hash[sec['source_hash']]
++    stage_rows=[]
++    for name,rows in [('A',A),('B',B),('C',C)]:
++        valid=[r for r in rows if r['raw_SKR'] is not None]
++        if valid:stage_rows.append(dict(stage=name,**{k:max(valid,key=lambda r:r['raw_SKR'])[k]
++            for k in ['Dr_m','divergence_urad','jitter_urad','sigma_h_m','zenith_deg','VA','raw_SKR']}))
++    c_initial=read('stage_C_initial.json')+read('stage_C_extension.json')+C
++    per_d=[]
++    for d in [.3,.35,.4,.45,.5,.55,.6]:
++        rows=(read('stage_B_initial.json')+B) if d==.3 else [r for r in c_initial if r['Dr_m']==d]
++        rows=list({r['context_id']:r for r in rows}.values());valid=[r for r in rows if r['raw_SKR'] is not None]
++        best=max(valid,key=lambda r:r['raw_SKR']) if valid else {}
++        per_d.append(dict(Dr_m=d,valid_contexts=len(valid),blocked_contexts=len(rows)-len(valid),
++            best_raw_SKR=best.get('raw_SKR'),VA=best.get('VA'),zenith_deg=best.get('zenith_deg'),
++            divergence_urad=best.get('divergence_urad')))
++    bounded_ab=[r for r in ablation if r['channel_law']=='power_conserving_random_width']
++    base=next(r for r in bounded_ab if r['ablation']=='all_improved')['raw_SKR']
++    for row in bounded_ab:row['K_loss_on_reversion']=base-row['raw_SKR']
++    ranked=sorted([r for r in bounded_ab if r['ablation'].startswith('revert_')],key=lambda r:-r['K_loss_on_reversion'])
++    selected=list((OUT/'selected_validation').glob('*.json'))
++    check_count=sum(len(json.loads(p.read_text(encoding='utf-8'))['validation']['checks']) for p in selected)
++    source_note=('Các điểm mới yêu cầu đã có nguồn chính xác.' if not end['source_gaps'] else
++        'Còn thiếu nguồn chính xác tại VA='+','.join(map(str,end['source_gaps']))+
++        '; không được xem đây là tối ưu hoàn tất trên toàn đoạn [0.05,10].')
++    text=f"""# Uniform 256-QAM — khảo sát SKR dương, manuscript-v43
++
++## Kết quả chính và bảng parameter
++
++**PDF Eq. (10) gốc: chưa tìm được Uniform SKR dương trong các điểm hợp lệ đã thử.**
++Ứng viên mạnh nhất: K={fmt(raw['raw_SKR'])} bit/use tại Dr={raw['Dr_m']} m,
++divergence={raw['divergence_urad']} µrad, jitter={raw['jitter_urad']} µrad,
++σh={raw['sigma_h_m']} m, zenith={raw['zenith_deg']}°, VA={raw['VA']}.
++Đây là kết quả âm, không thay bằng 0. Những PDF không đạt mass gate không có MI/Holevo/SKR.
++
++**Mô hình bị chặn độc lập (secondary), tại receiver 30 cm: tìm được Uniform raw SKR dương
++K={fmt(sec['raw_SKR'])} bit/use với receiver 30 cm.**
++Kết quả này không chứng minh Uniform dương dưới Eq. (10) gốc.
++Nó giữ đúng noise-v43, homodyne Gaussian effective/RR nhưng dùng một luật thu công suất khác,
++được khai báo và suy ra riêng bên dưới. Không thay production model, không đổi tolerance.
++
++| Parameter | Giá trị |
++|---|---|
++| HAP / UAV altitude | 20 km / 1 km, giữ cố định |
++| Wavelength | 1550 nm |
++| Atmospheric zenith transmittance | 0.92; không thay độ cao/profile |
++| Wind / Cn² ground | 21 m/s / 1e-14 m^(-2/3), từ receiver30 |
++| AoA half FOV / SD | 0.00625 rad / 0.0015 rad |
++| Explicit outage atom P0 | 0.00016985667656141065 |
++| Channel / detector excess noise | 0.0186 / 0.005 SNU |
++| Separate detector efficiency | Không có eta_det trong phép tính v43 này |
++| Reconciliation / β | Reverse reconciliation / 0.95 |
++| AO / phase / boresight | OFF / OFF / 0 |
++| Baseline Dr / full divergence / jitter / σh | 0.30 m / 35 µrad / 1.561 µrad / 0.10 m |
++| Secondary best Dr / full divergence / jitter / σh | {sec['Dr_m']} m / {sec['divergence_urad']} µrad / {sec['jitter_urad']} µrad / {sec['sigma_h_m']} m |
++| Secondary best zenith / slant length / VA | {sec['zenith_deg']}° / {sec['distance_km']} km / {sec['VA']} |
++| Source energy / probabilities | VA=2 nbar; p=1/256 exactly |
++| Uniform source coverage | {end['uniform_source_count']} authenticated exact points in requested VA domain |
++| MB source coverage | 197 authenticated exact points, separate ensembles |
++| Mass / MI / Holevo numerical tolerance | 1e-10 / 2e-10 / 2e-8 |
++
++## Mô hình và công thức đang thực sự dùng
++
++Với m1=E[η], mh=E[√η], M0 là tổng mass kể cả atom AoA:
++
++\\[
++T_f=m_h^2,\\quad
++\\langle\\eta\\xi\\rangle=0.0186m_1+0.005M_0,\\quad
++N=T_f\\xi_f=(m_1-T_f)V_A+0.0186m_1+0.005M_0.
++\\]
++
++Giữ quy ước giới hạn của ηξ tại outage như evaluator manuscript-v43 đã kiểm tra;
++không thay bằng một detector plane mới. Phương sai homodyne là 1+N,
++trung bình có điều kiện là 2√Tf Re(αk). Tính MI rời rạc thực 1D
++bằng tích phân mixture Gaussian; không thay MI bằng Shannon capacity.
++Các điểm được chọn được kiểm tra lại GH128, tích phân entropy đầu ra thích nghi,
++256 ký hiệu so với 16 mức biên X, X/P và bất biến scaling cổ điển.
++
++Covariance dùng a=1+VA, b=1+Tf VA+N và cùng Tf,N trong khoảng DBL:
++
++\\[
++Z\\in[2\\sqrt{{T_f}}C-\\sqrt{{2Nw}},2\\sqrt{{T_f}}C+\\sqrt{{2Nw}}]
++\\cap[-Z_{{phys}},Z_{{phys}}],
++\\quad Z_{{phys}}^2=\\min((a-1)(b+1),(a+1)(b-1)).
++\\]
++
++\\[
++\\nu_{{1,2}}=\\frac{{\\sqrt{{(a+b)^2-4Z^2}}\\pm|a-b|}}{{2}},
++\\quad \\nu_3=\\sqrt{{a(a-Z^2/b)}},
++\\quad \\chi_{{BE}}=g((\\nu_1-1)/2)+g((\\nu_2-1)/2)-g((\\nu_3-1)/2).
++\\]
++
++g(x)=(x+1)log2(x+1)-x log2(x). Lấy max χ trên khoảng Z vật lý bằng solver số
++và kiểm tra lưới 33/129, entropy độc lập 80/110 chữ số. Đây không phải bao
++chứng nhận toàn cục bằng interval arithmetic. K=0.95 IAB−χBE, giữ mọi K âm.
++Không clip eigenvalue hoặc sửa covariance. C,w thuộc đúng ensemble gắn source hash.
++
++## Luật kênh: primary và secondary khác nhau ở đâu
++
++Primary giữ nguyên Eq. (10), tích phân trên 0<η≤1 và atom P0 tại 0.
++M0=P0+P1 C1 Q(χ²) được tính closed form và độc lập trong log η.
++Mass η>1 được lưu riêng; nếu 1−M0>1e-10, rate bị chặn trước khi tối ưu VA.
++Không renormalize, không clip η, không chuyển phần đuôi thành erasure.
++Stage A giữ nguyên lỗi mass tại 0°–4°. Đổi Dr/divergence luôn tính lại w0,wL,
++turbulence broadening, equivalent beam, pointing và atmospheric/slant geometry.
++
++Secondary là luật Gaussian beam random-width bảo toàn công suất, đã có evaluator chẩn đoán
++trong repository. Đặt B~Bernoulli(P1), S~Normal(−v/2,v),
++W=w_eff exp(−S/2), R~Rayleigh(σs), các biến độc lập:
++
++\\[
++F(a,R,W)=F_{{\\chi'^2_2((2R/W)^2)}}((2a/W)^2),\\quad
++\\eta=B\\eta_{{atm}}F(a,R,W),\\quad a=D_r/2.
++\\]
++
++Mỗi beam có tổng công suất 1, nên 0≤η≤ηatm≤1 và tổng probability đúng 1,
++atom vẫn là P0. Đây là thu công suất tròn chính xác trong một luật random-width
++được định nghĩa mới; không phải truncate/condition/renormalize Eq. (10).
++
++\\[
++m_1=P_1\\eta_{{atm}}\\,E_S[1-\\exp(-2a^2/(W^2+4\\sigma_s^2))],
++\\]
++\\[
++m_h=P_1\\sqrt{{\\eta_{{atm}}}}\\,E_S\\int_0^\\infty
++e^{{-x}}\\sqrt{{F_{{\\chi'^2_2(8\\sigma_s^2x/W^2)}}((2a/W)^2)}}\\,dx.
++\\]
++
++Tích phân GH32/64 khớp ở ứng viên dương; kiểm tra độc lập GH96×Legendre512
++trên x∈[0,40], phần mass bỏ qua ≤exp(−40), sai khác moment dưới 1e-12.
++Luật random-width chưa được hiệu chuẩn bằng phép đo turbulence/beam-wander;
++đúng support và normalization không chứng minh đây là mô hình khí quyển thực chính xác.
++
++Đối chiếu hai luật tại từng geometry cố định (không đổi noise hoặc nguồn trong một đánh giá):
++
++{table(law_comparison,['physical_setting','channel_law','pdf_mass','mass_deficit','E_eta','E_sqrt_eta','VA','raw_SKR'])}
++
++Nếu Eq. (10) thất bại ở geometry secondary tốt, không gán cho nó rate của secondary.
++
++## Stage A/B/C — primary Eq. (10)
++
++{table(stage_rows,['stage','Dr_m','divergence_urad','jitter_urad','sigma_h_m','zenith_deg','VA','raw_SKR'])}
++
++Stage A dùng 31 góc 0:1:30; coarse VA rồi lấy toàn bộ nguồn chính xác trong
++các bracket cực đại cục bộ. Stage B screen 675 geometry ở 0/10/20°, tối đa
++5 VA coarse cho kênh hợp lệ, full bank top16 và góc 0:1:20 tại 4 settings tốt nhất.
++Đây là sàng lọc có chủ đích; không tối ưu liên tục toàn miền ở mọi geometry.
++Stage C dùng 3 divergence lân cận settings B tốt, rồi mở rộng 60 µrad khi
++aperture lớn làm mass gate khó đạt; góc fallback 40/50/60° không phải thay độ cao.
++Không dùng điểm bị loại để kết luận một thiết kế có positive SKR.
++
++{table(per_d,['Dr_m','valid_contexts','blocked_contexts','best_raw_SKR','VA','zenith_deg','divergence_urad'])}
++
++Với Dr=0.60 m, chưa có geometry primary hợp lệ trong miền C đã thử;
++không kết luận mọi divergence/góc khác đều bất khả thi. Aperture lớn hơn
++không khắc phục được tự động giới hạn support của xấp xỉ PDF.
++Mọi lựa chọn VA/nu là best exact-tested; không có global bound hoặc chứng nhận minimum liên tục.
++Ở ứng viên primary mạnh nhất, βI={fmt(raw['beta_I_AB'])} còn χ={fmt(raw['chi_BE'])};
++muốn K>0 phải cải thiện chênh lệch hơn {fmt(-raw['raw_SKR'])} bit/use.
++Nếu giữ χ cố định thì MI phải vượt {fmt(raw['chi_BE']/.95)} bit/use; đây chỉ là
++điều kiện đại số, không chứng minh có thể điều khiển MI độc lập với χ bằng VA/geometry.
++Cần hoàn tất các nguồn còn thiếu và mở rộng có kiểm soát miền geometry/PDF hợp lệ
++trước khi kết luận rộng hơn. Không giảm ξch/ξdet, đổi β hay đổi homodyne để tạo positive.
++
++## Uniform dương và đối chiếu MB trên cùng kênh
++
++{table(comparison,['channel_law','scheme','Dr_m','VA','nu_raw','I_AB','beta_I_AB','chi_BE','raw_SKR'])}
++
++Secondary best Uniform tại Dr=30 cm: source hash {sec['source_hash']};
++C={fmt(sc['C'])}, w={fmt(sc['w'])}; source payload {sc['source_path']}.
++Primary best dùng source riêng ghi trong CSV và source_catalog.json.
++Fixed MB cố định (nu_raw,VA)=(0.25,1.6249995399703647), ensemble hash
++01c79ae70c9aacd627a5eb0e689b0b383df80bae9d89ba17088fd81f69e34754.
++Optimized MB chọn từ 197 nguồn xác thực; không lấy C,w của MB cho Uniform.
++
++Gshaping(primary)={fmt(end['shaping_gain']['manuscript43_Eq10_retained_0_to_1'])} bit/use;
++Gshaping(secondary)={fmt(end['shaping_gain']['power_conserving_random_width'])} bit/use.
++Chỉ trừ các rate có cùng law/geometry/noise, không so chéo primary với secondary.
++
++## Cải thiện nào có tác động lớn trong phép đối chiếu cục bộ?
++
++Giữ geometry ứng viên secondary dương rồi trả từng parameter về baseline;
++mỗi hàng đều chọn lại VA từ cùng nguồn chính xác:
++
++{table(bounded_ab,['ablation','divergence_urad','jitter_urad','sigma_h_m','VA','raw_SKR','K_loss_on_reversion'])}
++
++Trong phép đối chiếu này, mất mát lớn nhất khi {ranked[0]['ablation']},
++ΔK={fmt(ranked[0]['K_loss_on_reversion'])} bit/use.
++Đây là xếp hạng cục bộ giữa các bước thay đổi khác độ lớn và có tương tác,
++không phải độ nhạy toàn cục hay chứng minh một parameter luôn quan trọng nhất.
++Đường Dr trong diameter_comparison.csv giữ cố định mọi geometry còn lại.
++Trong toàn bộ các điểm secondary đã thử, K lớn nhất là {fmt(sec_all['raw_SKR'])}
++bit/use tại Dr={sec_all['Dr_m']} m, VA={sec_all['VA']}, zenith={sec_all['zenith_deg']}°,
++full divergence={sec_all['divergence_urad']} µrad, jitter={sec_all['jitter_urad']} µrad,
++σh={sec_all['sigma_h_m']} m. Điểm này khác với mục tiêu giữ receiver nhỏ 30 cm;
++không mặc định khả thi về tải trọng. Nếu VA tốt nhất chạm nguồn VA lớn nhất đang có,
++đỉnh theo VA vẫn chưa được bracket đầy đủ.
++
++## Trả lời Q1–Q6
++
++1. **Uniform có K dương?** Chưa tìm thấy với primary Eq. (10) gốc;
++   có với secondary bounded, cùng quy ước noise-v43 và Gaussian-effective homodyne.
++2. **Cấu hình nhỏ nhất đã thử cho kết quả dương?** Dr={sec['Dr_m']} m,
++   full divergence={sec['divergence_urad']} µrad, jitter={sec['jitter_urad']} µrad,
++   σh={sec['sigma_h_m']} m, zenith={sec['zenith_deg']}°, VA={sec['VA']},
++   K={fmt(sec['raw_SKR'])}. Chỉ là nhỏ nhất trong aperture được thử, thuộc secondary.
++3. **Giữ Dr=30 cm được không?** Được trong secondary; chưa có positive primary.
++4. **Cải thiện nào lớn nhất?** Bảng ablation định lượng tác động cục bộ; phải cải thiện
++   tracking/stabilization để dùng jitter 0.5 µrad và vị trí 3 cm.
++   Không suy từ positive secondary sang primary hoặc từ aperture sang khả năng mang tải.
++5. **MB còn lợi thế bao nhiêu?** Gshaping secondary={fmt(end['shaping_gain']['power_conserving_random_width'])}
++   bit/use; primary={fmt(end['shaping_gain']['manuscript43_Eq10_retained_0_to_1'])} bit/use
++   tại đúng geometry tương ứng, với cùng luật kênh cho mỗi phép trừ.
++6. **Kết quả nào qua kiểm tra?** Có {len(selected)} context/source được kiểm tra chọn lại,
++   {check_count} kiểm tra MI/Holevo/covariance đã lưu; mass gate áp dụng cho tất cả context.
++   Positive secondary qua các kiểm tra số và support/normalization của chính luật đó,
++   nhưng toàn bộ kết quả vẫn UNVALIDATED_SECURITY_MODEL.
++
++## Giới hạn nguồn tính toán, kỹ thuật và bảo mật
++
++{source_note}
++Hai lần khởi động backend gmpy2 bị Windows Application Control chặn trước
++khi tính C,w. Không vô hiệu hóa hoặc đi vòng policy. Fallback dùng backend Python chuẩn,
++giữ nguyên full-support C4 và ladder 1050/1250/1450 chữ số, timeout 3600 s;
++trạng thái và thời gian từng tác vụ nằm trong completion_receipt/source_attempts.
++Không nội suy, không điền C,w/SKR cho điểm thiếu, không đổi precision để lấy positive.
++Exact-source ở đây là nhánh full-support đã xác thực, không phải nghiệm giải tích
++vô hạn chữ số. Worker gốc yêu cầu hai mức cuối resolve đủ rank 256 và
++|Δx|≤1e-7+1e-6 max(|x1250|,|x1450|), x=C,w; receipt giữ nguyên các hàng precision.
++Tolerance xác thực ensemble/VA và tiêu chí hội tụ C,w là hai kiểm tra khác nhau.
++
++Div=10 µrad tương ứng w0≈0.098676 m, đường kính phát chứa 99% công suất
++khoảng 0.2995 m ở HAP, tính theo cùng Gaussian optics.
++Ở L=19 km, jitter 0.5 µrad cho dịch điểm 1σ=0.0095 m và
++σs=√(σh²+(L θjt)²)=0.0314682379551 m khi σh=0.03 m.
++Các SD và giả thiết độc lập của motion/jitter/AoA được giữ theo mô hình;
++chưa có phép đo để xác nhận tương quan giữa chúng.
++Receiver 30 cm và jitter/position cải thiện là giả thiết thiết kế, chưa có bằng chứng
++khối lượng, công suất, bandwidth PAT hay tải trọng UAV. Đường Dr lớn không phải chứng nhận
++thiết kế bay khả thi; không có dữ liệu phần cứng để bảo đảm yêu cầu này.
++
++Các khoảng full-Z có kiểm tra số, chưa phải enclosure toàn cục. Gaussian effective
++fading closure, quy ước noise tại outage, attack class/CSI, parameter estimation,
++finite size, reconciliation thực và composable security còn chưa được chứng minh.
++Giữ NOT_READY_FOR_PUBLICATION_SCALE_RUNS, ObjectiveC USER_STOPPED và blocker
++frozen-hash: actual df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15,
++khác historical expected 561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1.
++Không đổi scientific source/production code/security functional/frozen spec/config hay cache cũ;
++không training, test/held-out/publication evaluation, baseline/threshold approval, commit/push.
++
++## Artifact và đọc hình
++
++- candidate_comparison.csv: {end['candidate_rows']} hàng, gồm mọi source evaluation và
++  context bị chặn; K âm giữ nguyên, rate thiếu để trống. source_catalog.json liên kết ensemble/payload hash.
++  Có {end['candidate_failure_count']} source evaluation lỗi covariance/information, lưu riêng
++  trong candidate_failures.json và có exclusion_reason trong CSV; không dùng làm positive.
++- stage_A_final.csv: VA tốt nhất đã thử theo từng góc và lý do loại.
++- diameter_comparison.csv: cùng zenith/divergence/jitter/position cho tất cả aperture;
++  primary và secondary có cột channel_law tách biệt.
++- three_scheme_comparison.csv, three_scheme_zenith.csv: cùng kênh/noise, fixedMB rõ nguồn.
++- Figures 1–3: PNG350dpi/PDF vector, log-y chỉ K>0 đã kiểm tra;
++  NaN tạo ngắt tại các khoảng âm/invalid. Figure 1 ghi riêng primary baseline không có positive
++  và secondary cải thiện optics; không diễn giải đây là một đường dùng lẫn hai laws.
++  Figure 2 có primary mass-blocked và secondary theo cùng geometry.
++  Figure 3 chỉ secondary, 3 schemes cùng physical channel.
++- selected_validation/, bounded_moment_validation.json, independent_bounded_validation.json,
++  guard_checks.json và verification.json chứa kiểm tra; verify.py chỉ đọc artifact, không rerun số.
++
++Các artifact lịch sử được kiểm hash từ startup_manifest trước và sau công việc.
++Các hash ledger trong receipt cũ là snapshot lịch sử; không sửa receipt cũ khi cập nhật ledger
++cho nhiệm vụ mới. Tái lập các phase vào namespace mới, không ghi đè các receipt đã hoàn tất.
++"""
++    (OUT/'report_vi.md').write_text(text,encoding='utf-8')
++    # Add explicit source family to the all-candidate CSV, including MB comparisons.
++    path=OUT/'candidate_comparison.csv'
++    with path.open(encoding='utf-8',newline='') as f:rows=list(csv.DictReader(f))
++    for row in rows:
++        c=by_hash.get(row['source_hash'])
++        row['family']='Uniform' if c is None else c['family']
++        row['nu_raw']='' if c is None else c['nu_raw']
++    fields=list(rows[0])
++    with path.open('w',encoding='utf-8',newline='') as f:
++        writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader();writer.writerows(rows)
++    (OUT/'README.md').write_text("""# Reproduction and read-only verification
++
++Run from paper_uav_hap_cvqkd with .venv/Scripts/python.exe -X utf8 -B.
++Read-only check: results/uniform_positive_skr_manuscript43_20261023/verify.py
++
++Producer sequence (use a new isolated output namespace for reproduction):
++source_job.py VA: historical GMP launcher, recorded OS policy failure.
++source_python_job.py VA: unchanged full-support kernel/precision, standard MP Python backend.
++search.py screen: prospective protocol Stage A/B/C and separate secondary screen.
++complete_search.py extend: extra divergence60/raw normalization and selected checks.
++complete_search.py finish: fresh available sources, comparisons and matched curves.
++check_guards.py / independent_bounded.py: isolated boundary/independent moment checks.
++write_outputs.py: saved data only; writes CSV source labels, report and three PNG/PDF pairs.
++
++Do not rerun completed numerical phases or overwrite old caches/receipts.
++No new package or production change. New exact sources are versioned under new_exact_source.
++All maxima are best exact-tested; security remains provisional.
++""",encoding='utf-8')
++
++
++if __name__=='__main__':
++    report();figures()
