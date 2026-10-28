@@ -1,5 +1,16 @@
 # Next Actions
 
+## Current: deliver uncompiled GLOBECOM III.B source and figures; STOP
+
+EVID-0209. Open results/manuscript_globecom_III_B_revision_20261021/main.tex,
+overleaf_III_B_revision.zip and revision_report_vi.md. Two new vectorPDF/
+PNG350dpi figures use exact saved CSV data. The user's final choice is
+LaTeX/figures only. Compilation/PDF layout/page-length measurement remain
+NOT_RUN;do not retry downloading a compiler or compile automatically.
+Static recheck is verify_revision.py with Python -B;no scientific solvers.
+Keep all security/lifecycle/frozen/ObjectiveC restrictions. No further
+required work within this narrowed scope;await a new explicit request.
+
 ## Current: deliver zenith-angle root-cause figures/report; STOP
 
 EVID-0208/DEC-0191 complete. Open results/zenith_angle_root_cause_diagnostic_20261021/

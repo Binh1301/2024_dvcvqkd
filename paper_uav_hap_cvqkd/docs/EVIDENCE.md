@@ -9936,3 +9936,42 @@ old files unchanged; production/source/config/frozen specs/defaults untouched.
 No source/AP/AO, full22700/1600mission/P1-P3, training/test/publication, baseline/
 threshold certification, ObjectiveC restart, external edit or commit/push.
 Frozen historical mismatch/NOT_READY remain. Deliver audit and STOP.
+
+
+## EVID-0209 - GLOBECOM III.B-to-Conclusions LaTeX and figures only
+
+2026-10-21. User attachment ef7a21e0 requested a new isolated manuscript
+revision. After automatic review rejected the compiler download using the
+preceding read-only scope, the user explicitly chose source/figures only,
+without compilation. This final choice controls the deliverable.
+
+Deliver results/manuscript_globecom_III_B_revision_20261021/:main.tex,
+overleaf_III_B_revision.zip,two vector PDFs/PNG350dpi,figure_manifest.csv,
+revision_report_vi.md,validation_report.md and validation/final_receipt.json.
+The latest sealed single-file Overleaf source is the base; the later
+unfinished GLOBECOM attempt is not promoted. Reference PDF hash matches
+04fbdd7d6bce2642888e730f75ddc04523874458d847057c93a5476457bd52b2;
+reference pages4-6 and both new figure PNGs viewed.
+
+Prefix scientific prose/equations,title,authors,abstract and bibliography
+are unchanged after reversing documented heading-only edits. Automatic
+III.B/IV/V;P1-P3,Bellman,Nt*lambda Greedy and a one-column Algorithm1.
+TableI uses233urad/Dr0.08m,not another historical optical design.
+Fig2 shows unavailability/p;wideFig3 shows objective/J and distance/rho.
+57 exact saved mean/CI points;no solver,science or RNG calls. Explicit
+figure-counter offset reserves2/3 because the source lacks an earlier
+system illustration; no Introduction or figure is invented.
+
+Seven receipts/743members:638 raw-hash matches,105 CRLF-only text changes;
+all match content with the declared newline comparison. These are not
+claimed as raw text hash matches. All5405 prior files protected except
+four relevant state/evidence/queue/handoff ledgers. Static checks and ZIP
+integrity are CURRENTLY_VERIFIED_PASS;exact current count in static_checks.json.
+Compilation,rendered manuscript inspection and actual occupied page length
+are NOT_RUN/NOT_MEASURED by user choice. No new main.pdf;no unsupported
+layout-pass or1.5page claim. Historical PDFs remain untouched.
+
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen hash
+conflict and ObjectiveC USER_STOPPED remain. No production/cache/config/spec,
+security functional,training/test/held-out,baseline/threshold approval,
+commit/push or external upload change. Deliver source/figures;STOP.

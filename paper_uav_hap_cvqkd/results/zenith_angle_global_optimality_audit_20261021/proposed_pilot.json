@@ -1,0 +1,68 @@
+{
+  "status": "PROPOSED_NOT_APPROVED_NOT_EXECUTED",
+  "angles_deg": [
+    24,
+    30,
+    40,
+    48,
+    52,
+    60
+  ],
+  "domain_kind": "BOUNDED_NUMERICAL_EXPLORATION_NOT_PHYSICAL_CONSTRAINT",
+  "Uniform_VA_interval": [
+    0.02,
+    48
+  ],
+  "MB_nu_raw_interval": [
+    0,
+    1.6
+  ],
+  "MB_VA_interval": [
+    0.025,
+    32
+  ],
+  "first_batch_max_new_sources": 6,
+  "first_batch_max_new_rate_evaluations": 36,
+  "first_batch": [
+    {
+      "family": "Uniform",
+      "nu_raw": 0,
+      "VA": 16
+    },
+    {
+      "family": "Uniform",
+      "nu_raw": 0,
+      "VA": 24
+    },
+    {
+      "family": "Uniform",
+      "nu_raw": 0,
+      "VA": 48
+    },
+    {
+      "family": "MB",
+      "nu_raw": 0.08,
+      "VA": 16
+    },
+    {
+      "family": "MB",
+      "nu_raw": 0.125,
+      "VA": 16
+    },
+    {
+      "family": "MB",
+      "nu_raw": 0.2,
+      "VA": 16
+    }
+  ],
+  "per_source_AP_timeout_seconds": 3600,
+  "first_batch_max_source_worker_seconds": 21600,
+  "source_call_policy": "sequential; validated cache reuse first; stop on unsupported 256-state precision or provenance failure",
+  "stop_rules": [
+    "six-source budget; no automatic expansion or second batch",
+    "any unresolved exact moments/PMF/geometry/covariance/ranking stops dependent claims",
+    "upper-bound best remains boundary-limited",
+    "no all-31-angle refinement without a new scoped decision"
+  ],
+  "certificate": "GLOBAL OPTIMALITY GAP: NOT CERTIFIED"
+}

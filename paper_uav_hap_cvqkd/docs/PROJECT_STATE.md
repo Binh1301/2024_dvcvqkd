@@ -1,5 +1,21 @@
 # Project State
 
+## Current: GLOBECOM III.B LaTeX/figures delivered; compilation NOT_RUN
+
+2026-10-21 EVID-0209. New results/manuscript_globecom_III_B_revision_20261021/
+contains revised main.tex,Overleaf ZIP,two vectorPDF/PNG350dpi figures,
+reports,source mapping and static validation. User explicitly selected
+source/figures only after the compiler-download approval rejection.
+No new main.pdf,no rendered-layout PASS,no measured occupied page length.
+Scientific prefix/bibliography preserved with necessary heading-only edits;
+automaticIII.B/IV/V,Algorithm1,TableI,Fig2single-column/Fig3two-panel.
+57 saved means/CI unchanged;743 receipt members checked,CRLF-only differences
+explicit;5405 old files protected except relevant ledgers. No scientific
+or solver/RNG calls. Keep all UNVALIDATED_SECURITY_MODEL,NOT_READY,
+frozen-conflict and ObjectiveC USER_STOPPED limits. No production/cache/
+config/spec/training/test/publication/baseline/threshold or commit/push change.
+Deliver LaTeX/figures;STOP. Do not compile without a new user instruction.
+
 ## Current: zenith-angle root-cause diagnostic COMPLETE; STOP
 
 2026-10-21 EVID-0208/DEC-0191. Deliver results/
