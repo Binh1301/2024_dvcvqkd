@@ -1,0 +1,207 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "V_me",
+      "passed": true,
+      "actual": 10.21169000786013,
+      "reference": 10.21169,
+      "absolute_error": 7.860128548031753e-09,
+      "tolerance": 1e-06,
+      "unit": "m/s"
+    },
+    {
+      "check": "V_mr",
+      "passed": true,
+      "actual": 18.294478947026136,
+      "reference": 18.294479,
+      "absolute_error": 5.297386351799105e-08,
+      "tolerance": 1e-06,
+      "unit": "m/s"
+    },
+    {
+      "check": "P_min",
+      "passed": true,
+      "actual": 125.99075965238123,
+      "reference": 125.99076,
+      "absolute_error": 3.4761876577249495e-07,
+      "tolerance": 1e-06,
+      "unit": "W"
+    },
+    {
+      "check": "E_1000m_100s",
+      "passed": true,
+      "actual": 12601.691755311773,
+      "reference": 12601.691755,
+      "absolute_error": 3.1177296477835625e-07,
+      "tolerance": 1e-06,
+      "unit": "J"
+    },
+    {
+      "check": "derivatives_vs_original_power",
+      "passed": true,
+      "max_first_error": 5.920099965806003e-10,
+      "max_second_error": 9.627341339690787e-07
+    },
+    {
+      "check": "single_inflection_shape",
+      "passed": true,
+      "inflection_m_s": 4.06297847589801,
+      "induced_convexity_threshold_m_s": 4.328947953148411
+    },
+    {
+      "check": "tangency_and_minorant",
+      "passed": true,
+      "tangent_residual_W": 2.0179413695586845e-12
+    },
+    {
+      "check": "all_grid_profiles_feasible",
+      "passed": true,
+      "max_distance_residual_m": 9.094947017729282e-13,
+      "max_time_residual_s": 0.0
+    },
+    {
+      "check": "all_grid_energies_attained",
+      "passed": true,
+      "max_schedule_energy_residual_J": 5.820766091346741e-11
+    },
+    {
+      "check": "infeasible_energies_absent",
+      "passed": true,
+      "infeasible_points": 16354
+    },
+    {
+      "check": "domain_and_strategy_boundaries",
+      "passed": true
+    },
+    {
+      "check": "independent_sampled_hull_convergence",
+      "passed": true,
+      "finest_max_error_W": 6.766001092728402e-08
+    },
+    {
+      "check": "independent_linear_program_0.000000",
+      "passed": true,
+      "mean_speed_m_s": 0.0,
+      "power_gap_W": 0.0
+    },
+    {
+      "check": "independent_linear_program_0.100000",
+      "passed": true,
+      "mean_speed_m_s": 0.1,
+      "power_gap_W": 3.1279853374144295e-08
+    },
+    {
+      "check": "independent_linear_program_2.000000",
+      "passed": true,
+      "mean_speed_m_s": 2.0,
+      "power_gap_W": 6.270766448324139e-07
+    },
+    {
+      "check": "independent_linear_program_5.000000",
+      "passed": true,
+      "mean_speed_m_s": 5.0,
+      "power_gap_W": 1.5677027533911314e-06
+    },
+    {
+      "check": "independent_linear_program_6.301688",
+      "passed": true,
+      "mean_speed_m_s": 6.301687645299708,
+      "power_gap_W": 0.0
+    },
+    {
+      "check": "independent_linear_program_10.000000",
+      "passed": true,
+      "mean_speed_m_s": 10.0,
+      "power_gap_W": 0.0
+    },
+    {
+      "check": "independent_linear_program_20.000000",
+      "passed": true,
+      "mean_speed_m_s": 20.0,
+      "power_gap_W": 0.0
+    },
+    {
+      "check": "independent_linear_program_30.000000",
+      "passed": true,
+      "mean_speed_m_s": 30.0,
+      "power_gap_W": 1.7053025658242404e-13
+    },
+    {
+      "check": "random_eight_level_profiles",
+      "passed": true,
+      "profiles": 5000,
+      "minimum_gap_W": 1.017182823941738,
+      "seed": 20261028
+    },
+    {
+      "check": "original_results_reproduced",
+      "passed": true,
+      "max_scalar_absolute_difference": 0.0,
+      "max_power_curve_difference_W": 0.0
+    },
+    {
+      "check": "time_optimum_independent_search",
+      "passed": true
+    },
+    {
+      "check": "previous_study_files_unchanged",
+      "passed": true,
+      "files_checked": 24
+    }
+  ],
+  "summary": {
+    "V_me_m_s": 10.21169000786013,
+    "V_mr_m_s": 18.294478947026136,
+    "P_min_W": 125.99075965238123,
+    "P_hover_W": 168.48422,
+    "switch_speed_m_s": 6.301687645299708,
+    "inflection_speed_m_s": 4.06297847589801,
+    "chord_slope_W_per_m_s": -5.192734058403882,
+    "benchmark_energy_J": 12601.691755311773,
+    "maximum_savings_percent": 3.2398069684523843,
+    "maximum_savings_mean_speed_m_s": 2.2311134750941872,
+    "feasible_grid_points": 224727,
+    "infeasible_grid_points": 16354,
+    "variable_speed_grid_points": 146401
+  },
+  "grid": {
+    "distance_m": [
+      100,
+      5000
+    ],
+    "time_s": [
+      20,
+      1000
+    ],
+    "distance_step_m": 10,
+    "time_step_s": 2,
+    "shape": [
+      491,
+      491
+    ],
+    "feasibility": "D <= 30*t"
+  },
+  "model_source": "../main.py",
+  "model_source_sha256": "a674660b13f336c84d3f55d33ab2f67dadf1c4e8bf175a0ff70467b1f8f7393b",
+  "producer_sha256": "c989ff11e823279d31e094acf562c6f789607e6ac83599dd9d0896d733f4ebde",
+  "parameters": {
+    "P0": 79.85628,
+    "PI": 88.62794,
+    "UTIP": 120.0,
+    "V0": 4.02854,
+    "D0": 0.6,
+    "RHO": 1.225,
+    "SOLIDITY": 0.05,
+    "AREA": 0.503,
+    "VMAX": 30.0
+  },
+  "environment": {
+    "python": "3.13.7",
+    "interpreter": "E:\\Python3.13\\python.exe",
+    "numpy": "2.2.6",
+    "scipy": "1.16.2",
+    "matplotlib": "3.10.5"
+  },
+  "scope": "Ideal horizontal propulsion; instantaneous switching; no acceleration or endpoint-speed constraints."
+}
