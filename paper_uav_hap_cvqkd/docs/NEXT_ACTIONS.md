@@ -1,5 +1,23 @@
 # Next Actions
 
+## Deliver completed receiver30 zenith and spatial SKR results
+
+Open results/skr_zenith_heatmap_20261106/skr_vs_zenith.png and skr_heatmap.png;
+datasets skr_vs_zenith.csv,skr_map.csv/npz. Read report_vi.md,summary.json,
+verification.json,benchmark_recheck.json and final_manifest.json. Fresh
+numerical maps completed under explicit user direction; earlier geometry-only
+package remains archived. No automatic source/precision work, model/security
+promotion, cloud/trajectory optimization or further sweeps follow this task.
+
+## 2D SKR lookup: resolve prerequisites before numerical map
+
+Read results/skr_lookup_readiness_20261105/report_vi.md. Establish source C,w
+evidence, resolve raw Eq10 PDF support/normalization under an authorized model,
+and satisfy project lifecycle gates before MB optimization/map calculations.
+Then independently rerun 0 and 30 degree benchmarks and evaluate each unique
+geometry; mark a finite-catalog maximum as best-tested, not a global optimum.
+No rate interpolation or trajectory use of the geometry-only NaN dataset.
+
 ## Current: deliver E2 diagnostic and controlled-run plan; STOP
 
 EVID-0231/DEC-0214. Read results/phaseE2_winning_source_spectral_validation_20261026/

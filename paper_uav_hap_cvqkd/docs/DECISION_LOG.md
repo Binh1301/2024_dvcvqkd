@@ -1,5 +1,26 @@
 # Decision Log
 
+## Execute receiver30 numerical maps under fresh user direction — 2026-11-06
+
+User explicitly directs actual SKR computation/visualization and no repeated
+readiness audit. Authorize only this numerical finite-catalog task in a new
+namespace, using the existing homodyne Eq14/Eq13 model and receiver30 parameters.
+Do not promote old C,w classifications, strict Phase B or security/publication
+readiness. Rebind current dependency bytes only after scientific content matches
+historical bytes up to LF/CRLF; two changed unused validation entry points are
+recorded separately and not executed. Historical frozen-spec bytes reconstructed
+exactly into new output; originals untouched. Raw signed ranking, equal-geometry
+memoization only, no rate interpolation/new source builds. Completed package
+results/skr_zenith_heatmap_20261106/ passes numerical/data/figure checks.
+
+## 2D SKR lookup readiness 2026-11-06 — fail closed
+
+User requests verified 51x51 optimized SKR map. Existing source convergence,
+PDF normalization and lifecycle gates remain unresolved. Prepare geometry and
+historical benchmark comparison only, with missing rates explicitly NOT_RUN;
+do not infer a map from historical rates or declare finite-catalog winners
+global maxima. Scope/status and prerequisites in results/skr_lookup_readiness_20261105/report_vi.md.
+
 ## DEC-0215 - Allow positive-only display; preserve raw results and old figures
 
 2026-10-26 EVID-0232. The user's explicit display request permits masking K<=0

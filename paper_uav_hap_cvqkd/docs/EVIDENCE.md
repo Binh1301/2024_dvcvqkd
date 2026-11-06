@@ -1,5 +1,34 @@
 # Evidence Register
 
+## Receiver30 zenith and 2D numerical SKR completed — 2026-11-06
+
+Fresh user instruction authorizes actual evaluation without repeating readiness.
+New package results/skr_zenith_heatmap_20261106/: 32 zenith samples through
+30.27264131890952deg/L22km; 51x51 grid with 294 exact radial geometries.
+325 total unique contexts, 212 catalog candidates each: 68900 fresh evaluations
+plus two independent benchmark replay calls. Zero candidate/map numerical
+failures. 0/30deg benchmarks reproduce archived I,chi,K exactly at binary64.
+MB map min .0007470670338268481, max/center .0007960878080861267 bits/use.
+Four tests, 19 data/provenance checks and six adaptive MI comparisons PASS;
+300dpi PNGs visually inspected. CSV/NPZ/raw signed values, protocol/source
+bindings, 679 sealed files and report retained. Original scientific functions
+and source payload values unchanged; newline packaging differences and two
+unused validation-entry changes explicitly bound in new task metadata.
+No new C,w, interpolation, clouds/energy/trajectory/finite-size, training or
+held-out/publication evaluation. Historical source classes and security status
+preserved; completion is numerical finite-catalog evidence, not source/global
+optimization/security promotion. See report_vi.md and final_manifest.json.
+
+## 2D SKR lookup readiness 2026-11-06 — geometry only
+
+results/skr_lookup_readiness_20261105/geometry_receipt.json and verification.json
+bind 51x51 geometry, original protocol and historical benchmark rows. Two focused
+unit tests and ten geometry/archive checks CURRENTLY_VERIFIED_PASS. All 2601 rate
+values remain unavailable/NOT_RUN. Historical 0/30 degree benchmarks were read,
+not independently rerun. Strict Phase B false; C,w inconclusive and center PDF
+mass deficit exceeds tolerance. No new SKR/channel/source/optimization calls.
+See report_vi.md; serialization failure from first verification remains preserved.
+
 ## EVID-0232 - Positive-only base10 SKR figure from saved data
 
 2026-10-26, explicit user request: log10 Y and hide negative plotted values.

@@ -1,0 +1,51 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "GEOMETRY_AND_ARCHIVE_ONLY",
+  "checks": {
+    "source_hashes": true,
+    "output_hashes": true,
+    "csv_uncomputed": true,
+    "array_uncomputed": true,
+    "grid_shape": true,
+    "grid_spacing": true,
+    "geometry": true,
+    "center_and_edge": true,
+    "archived_benchmarks": true,
+    "gates": true
+  },
+  "benchmarks": [
+    {
+      "zenith_deg": 0,
+      "differences": {
+        "beta_I_AB": {
+          "absolute": 3.69279606893258e-11,
+          "relative": 2.0653917106618958e-10
+        },
+        "chi_BE": {
+          "absolute": 2.8841817822922167e-11,
+          "relative": 1.6203460195961344e-10
+        },
+        "K_raw": {
+          "absolute": 8.086126711791264e-12,
+          "relative": 1.0157330274112057e-08
+        }
+      },
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "reevaluated": false
+    },
+    {
+      "zenith_deg": 30,
+      "differences": {
+        "K_raw": {
+          "absolute": 1.5568890517070333e-09,
+          "relative": 5.135315650493393e-07
+        }
+      },
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "reevaluated": false
+    }
+  ],
+  "scientific_rate_map_status": "NOT_RUN",
+  "benchmark_reevaluation": "NOT_RUN",
+  "independent_source_validation": "NOT_RUN"
+}

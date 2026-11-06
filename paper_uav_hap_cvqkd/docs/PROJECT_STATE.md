@@ -1,5 +1,35 @@
 # Project State
 
+## Current: receiver30 SKR zenith sweep and 2D heatmap COMPLETE numerically
+
+2026-11-06 fresh explicit execution request supersedes the preceding
+geometry-only stop for this scoped numerical task. Results:
+results/skr_zenith_heatmap_20261106/. Two PNG300dpi figures, zenith CSV and
+2601-point map CSV/NPZ delivered. 32 angles0..30.2726413189deg/L22km;
+325 unique contexts x212 sources=68900 fresh candidate calls plus2 benchmark
+calls. No numerical failures; min MB map .0007470670338268481, max/center
+.0007960878080861267 bits/use. Four focused tests,19 dataset/provenance checks,
+six independent adaptive-MI comparisons and visual figure QA PASS.
+Original model functions, receiver assumptions, cached source values and
+historical results preserved; newline/current-byte bindings explicit.
+No interpolation,new C,w/AP,cloud/energy/trajectory/finite-size/training/test/
+publication access,commit/push. Source evidence labels,strictPhaseBfalse,
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,frozen history
+and ObjectiveC USER_STOPPED unchanged. These are best-tested finite-catalog
+numerical objectives, not continuous/global or composable-security claims.
+
+## Current: 2D SKR lookup request blocked; geometry-only scaffold
+
+2026-11-06. results/skr_lookup_readiness_20261105/ contains 51x51 geometry
+CSV/NPZ, fail-closed lookup scaffold, input hashes, historical benchmark
+comparison and report. Geometry/archive checks CURRENTLY_VERIFIED_PASS; 2601
+SKR values are NOT_RUN and no SKR maps are produced. C,w convergence remains
+INCONCLUSIVE, strict Phase B false and raw center PDF mass deficit exceeds the
+specified tolerance. No scientific optimization, new channel/SKR or benchmark
+re-evaluation; source/security/frozen files and existing results unchanged.
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS, UNVALIDATED_SECURITY_MODEL, historical
+frozen-hash mismatch and Objective C USER_STOPPED remain.
+
 ## Current: positive-only log10 SKR figure delivered; scientific state unchanged
 
 2026-10-26 EVID-0232/DEC-0215. New PDF/PNG:
