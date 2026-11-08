@@ -1,0 +1,131 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Phase5B author-input/reference geometry and historical noise I/O verification, no new research SKR",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase5b_validation/tests.xml",
+    "passed": 127,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "reported_wall_seconds": 7.25,
+    "baseline_tests": 112,
+    "new_cases": 15,
+    "junit_sha256": "d6a20c20630428471e805534d1e160448f6980a7b0e9ed6a6d9fa61f40220ee8"
+  },
+  "preservation": {
+    "protected_files": 1091,
+    "unchanged_files": 1090,
+    "declared_changed_existing_files": [
+      "uav_cvqkd_optimization/src/uav_qkd/skr_lookup.py"
+    ],
+    "before_manifest_sha256": "537edbbf815450929e2b29669d9d2e2120ca06de9d27f7b66d51561bcb43b225",
+    "paper_yaml_unchanged": true,
+    "rotor_profiles_unchanged": true,
+    "original_manuscript_reference_unchanged": true,
+    "historical_results_lookup_figures_unchanged": true,
+    "parent_source_unchanged": true
+  },
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "paper_mode": "NOT_RUN",
+  "ieee_rotor_status": "READY",
+  "cloud_mode_approved": false,
+  "cloud_threshold_approved": false,
+  "old_lookup_xi_ch": 0.0186,
+  "old_lookup_xi_det": 0.005,
+  "author_target_xi_ch": 0.0136,
+  "author_target_xi_det": 0.005,
+  "noise_winner_records": 650,
+  "noise_inference": "Stored N_effective scalar I/O only; no Z/w derivation or evaluator call",
+  "lookup_target_status": "INCOMPATIBLE_DUE_TO_CHANNEL_NOISE",
+  "regeneration_status": "PREPARED_NOT_RUN",
+  "regeneration_executed": false,
+  "audit_sha256": "b3f2544aea00dc9b87a8f57162f2c6db1f5d45821e5b44ef93018687a37aa4df",
+  "author_source_sha256": "e51a5e7dd012c5ac597d9fcaf392a5b2ce783b85fb42591083aaba04a7d653e7",
+  "new_skr_evaluations": 0,
+  "new_paper_runs": 0,
+  "new_cloud_realizations_outside_tests": 0,
+  "new_figures": 0,
+  "Z_w": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED",
+  "commit_or_push": false,
+  "git_diff_check": "PASS",
+  "untracked_text_trailing_whitespace": "PASS",
+  "local_links": [
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_lookup_regeneration_validation_plan_vi.md",
+      "target": "../configs/lookup/optimized_physical_setup_regeneration.yaml"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "../configs/channel/optimized_physical_setup.yaml"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "../configs/channel/hap_uav_mb_reference.yaml"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "../configs/cloud/binary_los_blockage_candidate.yaml"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "../configs/lookup/optimized_physical_setup_regeneration.yaml"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "phase5b_lookup_regeneration_validation_plan_vi.md"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "phase5_author_decisions_vi.md"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "phase5b_validation/tests.xml"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "phase5b_independent_review.md"
+    },
+    {
+      "file": "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md",
+      "target": "phase5b_validation/physical_and_noise_audit_verified.json"
+    }
+  ],
+  "files_sha256": {
+    "uav_cvqkd_optimization\\configs\\channel\\optimized_physical_setup.yaml": "c79a918d62ded22f07fd3b5c63b5736249ac68fdc1702655ff3e2f7e178b8f75",
+    "uav_cvqkd_optimization\\configs\\cloud\\binary_los_blockage_candidate.yaml": "56f2ed4cec7d5f0c034974fc9e68adcd7e9e7191b834b6dfa5b521df7f4fa0bf",
+    "uav_cvqkd_optimization\\configs\\lookup\\optimized_physical_setup_regeneration.yaml": "ea8996a011214fae925cc493945de778ad66ca156803960c50d9187f0078c1a6",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\physical_setup.py": "393b3e6dca2d62f628c1cb8cc8dd62707770f2b4d27245fd021b58bb18d119de",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\cloud_candidate.py": "0d3cb03c4a24d40ae4fb569365e4652f64d73802cef1a88ae8a6462406eafe54",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\phase5b_audit.py": "801f5c7dfae9d991e5d42eb2fc29eb1201d01fcb0eddaf9df29fd8149e8a974c",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\skr_lookup.py": "545e2eb806db6c94aae571da46739e1c08ca9f6ab68ad9eeb54fd45d65fad662",
+    "uav_cvqkd_optimization\\tests\\test_phase5b_physical_cloud.py": "5123aca39d04a58c7d4e0eaa5d098e3afce4b51975b43af2e0b6bc5e791c3b3d",
+    "uav_cvqkd_optimization\\docs\\phase5b_implementation_plan.md": "6fb708bab7648a1994ea3cd2605e921ae10a761048a7f1c1e18f00d6fc937db2",
+    "uav_cvqkd_optimization\\docs\\phase5b_lookup_regeneration_validation_plan_vi.md": "b3fbc573ddbddcfdbc1e2f4f4894fc6a29cf62998f624eacb38c5795312d48e4",
+    "uav_cvqkd_optimization\\docs\\phase5b_physical_and_cloud_decisions_vi.md": "7aac4c555b8c771ef4599c28af3261d25844c219e692bd255692640d6858c0f0",
+    "uav_cvqkd_optimization\\docs\\phase5b_independent_review.md": "428a74f9b09ecd7eae6300502b720f9b61a33edd62c7150eaf775eef61ef47e4"
+  },
+  "independent_review": {
+    "file": "docs/phase5b_independent_review.md",
+    "checkpoint_scoped_tests": 12,
+    "major_defects": 0,
+    "minor_findings": 2,
+    "disposition": [
+      "Invalid noise comparison fixed after three failing regression cases; full suite127passed",
+      "New recipe numerical role explicitly inherited diagnostic, not execution authorization"
+    ]
+  },
+  "limitations": [
+    "Gaussian footprint/capture values are nominal diffraction-only, not full turbulence/pointing/AoA/atmospheric channel",
+    "LOS intersection uses discrete samples; scientific use needs declared layer and sampling convergence",
+    "Regeneration recipe has no authorized executor and does not approve mission HAP coordinates",
+    "Missing cloud/mission/signal parameters remain null; finite-size quantity stays a proxy, no composable-security claim"
+  ]
+}

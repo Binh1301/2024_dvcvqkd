@@ -1,0 +1,51 @@
+mode: synthetic
+seed: 42
+area_m: [2000.0, 2000.0]
+initial_m: [1000.0, 1000.0]
+hap_m: [1000.0, 1000.0, 20000.0]
+uav_altitude_m: 1000.0
+dt: 1.0
+max_horizon: 12
+energy_budget_j: 1500.0
+m0: 1000000.0
+epsilon: 0.000001
+propulsion: {P0: 79.86, Pi: 88.63, U_tip: 120.0, v0: 4.03, d0: 0.6, rho: 1.225, s: 0.05, A: 0.503, v_max: 20.0}
+velocity_samples: 1001
+energy_tolerance_j: 0.001
+graph:
+  kind: restricted_lattice
+  bounds_m: [[980.0, 980.0], [1020.0, 1020.0]]
+  spacing_m: 20.0
+cloud:
+  velocity_m_s: [-5.0, 0.0]
+  clip_max: null
+  threshold_mg_m3: 8.0
+  clusters:
+    - {amplitude: 14.0, center: [1040.0, 1000.0], sigma: [12.0, 18.0]}
+    - {amplitude: 10.0, center: [1090.0, 1025.0], sigma: [25.0, 22.0]}
+    - {amplitude: 8.0, center: [1060.0, 970.0], sigma: [17.0, 20.0]}
+blockage:
+  mode: layer
+  layer_bottom_m: 5000.0
+  layer_top_m: 7000.0
+  sample_spacing_m: 2.0
+lookup:
+  synthetic: true
+  grid_shape: [11, 11]
+  rate_floor: 0.06
+  rate_peak: 0.16
+  rate_center_m: [1050.0, 1030.0]
+  rate_sigma_m: [120.0, 120.0]
+dp: {mode: exact, label_cap: 2}
+greedy:
+  lambda_bits_per_j: 100.0
+  lambda_sweep: [0.0, 50.0, 100.0, 300.0]
+  selection: synthetic_calibration_p2
+  calibration_seed: 123
+  calibration_center_jitter_m: 30.0
+sensitivities:
+  energy_budget_j: [500.0, 1000.0, 1500.0]
+  thresholds_mg_m3: [5.0, 8.0, 12.0]
+  waypoint_spacings_m: [20.0, 40.0]
+  label_caps: [1, 2, null]
+plot_times_s: [0.0, 300.0, 1000.0]

@@ -1,0 +1,158 @@
+ISMAIL et al.: FINITE-SIZE AND MODULATION OPTIMIZATION IN CV-QKD OVER UAV-BASED FSO LINK
+3035
+For numerical validation, the empirical estimate of the
+ensemble-averaged transmittance, Teffective, is obtained using
+Monte Carlo integration with Nsamples realizations per distance
+point:
+⟨T⟩≈Teffective =
+1
+Nsamples
+Nsamples
+X
+i=1
+Ti.
+(9)
+where Ti = T(ri) denotes the instantaneous transmittance for
+the ith realization of the displacement ri.
+C. Noise and Phase Distortion Modeling
+To accurately reflect the noise affecting system secu-
+rity, we incorporate both inherent system contributions and
+attack-induced components into a unified model. The total
+input-referred noise is given by [5]:
+Xtot(Teffective) =
+
+1
+Teffective
+−1
+
++ ξtot
+|
+{z
+}
+Xline
++
+XD
+Teffective
+,
+(10)
+where ξtot, detailed in [5, Eq. (32)], denotes the total excess
+noise referred to the channel input, encompassing system,
+channel, and attack-induced contributions, and XD repre-
+sents the trusted detection noise originating from receiver
+imperfections.
+A key component of ξtot is the phase distortion induced by
+atmospheric turbulence τ 2.
+Building upon our previous work [5], we adopt the
+well-established Rytov variance to efficiently and accurately
+approximate τ 2, a necessary simplification for the extensive
+numerical optimizations performed herein.
+τ 2 ≈2.46 C2
+n K7/6 L11/6,
+(11)
+where K = 2π/λ is the optical wavenumber. The corre-
+sponding turbulence-induced phase noise variance is given by
+Vchannel = 2τ 2, and is directly incorporated into the total excess
+noise budget.
+III. SECURITY ANALYSIS AND KEY RATE CALCULATION
+This section presents a comprehensive security analysis for
+the CV-QKD protocol operating over turbulent ground-to-UAV
+FSO channels. The achievable SKR is derived under three
+scenarios: (A) the asymptotic scenario assuming an infinite
+number of exchanged quantum states, (B) the finite-size sce-
+nario accounting for statistical fluctuations due to limited data
+blocks, and (C) the finite-size scenario enhanced with AO,
+which mitigates turbulence-induced phase distortions. In all
+cases, the modulation variance VA is numerically optimized
+as a function of transmission distance to maximize the SKR.
+A. Asymptotic Secret Key Rate in CV-QKD
+In the asymptotic case, it is assumed that Alice and Bob
+exchange an infinite number of quantum states, enabling
+perfect estimation of channel parameters. The exact SKR per
+pulse is computed using the Devetak–Winter bound as [5]:
+SKRexact
+asym =
+Z T0
+0
+P(T) [βIAB(T) −χBE(T)] dT,
+(12)
+For practical evaluation, the instantaneous transmittance T
+is substituted with its estimated mean value Teff = E[T], which
+we use as a conservative first-moment proxy for the ensemble
+SKR since SKR(T) is smooth and locally quasi-linear in the
+moderate-SNR operating scenario.
+SKRapprox
+asym ≈βIAB(Teffective) −χBE(Teffective).
+(13)
+The reconciliation efficiency β is modeled using an empirical
+log-based formulation that provides a smooth approximation
+of how error correction performance degrades under low
+signal-to-noise ratio (SNR) conditions due to atmospheric
+turbulence and UAV-induced pointing errors. The expression
+is given by [5]:
+β =
+log10(1 + SNR1.2)
+1.29 log10(1 + SNR) + 0.02,
+(14)
+IAB is the mutual information between Alice and Bob, and
+χBE is the Holevo bound representing the maximum infor-
+mation accessible to an eavesdropper. For Gaussian-modulated
+coherent states, the mutual information is given by [5]:
+IAB = h
+2 log2(1 + SNR(Teffective)),
+(15)
+where h = 1 for homodyne detection and h = 2 for
+heterodyne detection. The SNR depends on the modulation
+variance VA and total noise Xtot as [5]:
+SNR(Teffective) =
+VA
+1 + Xtot(Teffective),
+(16)
+where Xtot represents the total input-referred noise presented
+in Eq. (10).
+The Holevo quantity χBE is computed from the symplectic
+eigenvalues {λi}4
+i=1 of the covariance matrices describing the
+shared quantum state [5]:
+χBE = G(λ1) + G(λ2) −G(λ3) −G(λ4),
+(17)
+where G(λ) is the von Neumann entropy function for a
+Gaussian mode. The optimal asymptotic SKR is expressed as
+follows:
+SKRopt,asym = max
+VA [β(VA)IAB(VA) −χBE(VA)] .
+(18)
+B. Secret Key Rate in Finite-Size CV-QKD
+In realistic implementations, the number of exchanged
+quantum states is finite, introducing estimation uncertainties
+that degrade security. The finite-size SKR is given by
+[7],
+evaluated here using the mean transmittance Teff (first-moment
+approximation) which provides a conservative lower-bound
+estimate of the ensemble average.
+SKRfinite(VA) = nblock
+Nblock
+
+β(VA)IAB(VA)
+−χBE(VA) −∆(nblock, ϵ)
+
+,
+(19)
+where Nblock is the total number of exchanged signals, nblock
+is the number used for key generation, and ϵ is the total
+security parameter. The statistical correction term accounts for
+finite-size effects and is expressed as [8]:
+∆(nblock, ε) = 7
+s
+log2(2/ε)
+nblock
+(20)
+where ε is the total security parameter composed of failure
+probabilities from parameter estimation (εPE), error correc-
+tion (εEC), and privacy amplification (εPA), such that [7]:
+ε = εPE + εEC + εPA.
+(21)
+The optimal finite-size SKR is then expressed as follows
+SKRopt,finite = max
+VA [SKRfinite(VA)] .
+(22)
+Authorized licensed use limited to: Aizu University. Downloaded on February 28,2026 at 02:31:47 UTC from IEEE Xplore.  Restrictions apply. 

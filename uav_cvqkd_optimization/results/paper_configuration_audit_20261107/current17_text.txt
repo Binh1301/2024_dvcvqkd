@@ -1,0 +1,670 @@
+
+=== PDF PAGE 1 ===
+Performance Analysis of Probabilistically Shaped
+CV-QKD in Free-space HAP-to-UAV Systems
+TBD∗, TBD†
+∗XXX
+†Computer Communications Laboratory, The University of Aizu, Aizuwakamatsu 965-8580, Japan
+Abstract—
+Index Terms—Rotary-wing unmanned aerial vehicle (UAV),
+propulsion energy, velocity optimization, global optimality, lower
+convex envelope.
+I. PROBLEM FORMULATION
+A. Problem Descriptions
+We consider a HAP-assisted UAV-based CV-QKD sys-
+tem operating under dynamic cloud conditions. The system
+consists of a quasi-stationary HAP and a rotary-wing UAV
+connected through an FSO link. The UAV operates at a
+fixed altitude within a 2 km × 2 km area A, with continuous
+horizontal coordinates qk = (xk, yk) ∈A.
+The cloud field is assumed to move from right to left at a
+constant velocity of 5 m/s. With a slot duration of ∆t = 1 s,
+the cloud distribution shifts by 5 m per time slot. The CLWC
+values are updated accordingly, while the UAV operating area
+remains fixed.
+The operation period is divided into K time slots of duration
+∆t = 1 s. Unlike the slot duration, the number of slots K is
+variable and limited by the UAV’s available energy Emax. Let
+q0 denote the initial UAV position. The displacement in slot
+k is
+dk = ∥qk −qk−1∥.
+(1)
+Moving clouds may interrupt the HAP–UAV optical link,
+resulting in zero secret key generation during blocked periods.
+Meanwhile, UAV movement and hovering consume propulsion
+energy. Our objective is to optimize the UAV trajectory and
+operational duration to maximize secret key generation under
+the available energy budget.
+B. Asymptotic SKR Lookup Table
+0.0
+0.5
+1.0
+1.5
+2.0
+UAV horizontal X (km)
+0.0
+0.5
+1.0
+1.5
+2.0
+UAV horizontal Y (km)
+HAP projection
+(a) Absolute SKR — full data range
+7.60
+7.60
+7.60
+7.60
+7.70
+7.70
+7.70
+7.70
+7.80
+7.90
+0.0
+0.5
+1.0
+1.5
+2.0
+UAV horizontal X (km)
+0.0
+0.5
+1.0
+1.5
+2.0
+UAV horizontal Y (km)
+HAP projection
+(b) Relative variation from center
+-5%
+-5%
+-5%
+-5%
+-4%
+-4%
+-4%
+-4%
+-3%
+-2%
+-1%
+7.5
+7.6
+7.7
+7.8
+7.9
+MB asymptotic SKR (bits/use)
+×10−4
+−6
+−4
+−2
+0
+2
+4
+6
+Change from center ΔR/R0 (%)
+Fig. 1. Optimized asymptotic SKR over the UAV operating area: (a) absolute
+SKR distribution and (b) relative variation with respect to the HAP projection.
+0
+5
+10
+15
+20
+25
+30
+Zenith angle (degrees)
+10−5
+10−4
+10−3
+SKR (bits/use)
+Uniform (no positive samples)
+MB (best-tested catalog)
+Fig. 2. Asymptotic SKR versus zenith angle for uniform QAM and Maxwell–
+Boltzmann (MB) shaping.
+At each sampled UAV position q, we jointly optimize
+the Maxwell–Boltzmann shaping parameter ν and modulation
+variance VA to maximize the asymptotic SKR:
+R∗
+asy(q) = max
+ν,VA [βIAB(q, ν, VA) −χBE(q, ν, VA)] .
+(2)
+The optimized values are stored in a lookup table, with
+spatial interpolation used for arbitrary UAV positions.
+C. Finite-Size Effect
+Using the optimized asymptotic SKR from the lookup table,
+the finite-size secret key length is expressed as
+ℓ∗
+k(q) = nk
+[︁
+R∗
+asy(q) −∆(nk, ϵ)
+]︁+ ,
+(3)
+where [x]+ = max{0, x}.
+The total number of exchanged signals accumulated up to
+time slot k is Nk = fsk∆t, where fs is the signal transmission
+rate and ∆t is the slot duration. Here, nk denotes the number
+of signals used for secret key generation, while Nk is the
+total number of exchanged signals. The finite-size correction
+is given by ∆(nk, ϵ) = 7
+√︁
+log2(2/ϵ)/nk.
+The corresponding finite-size SKR is
+R∗
+k(q) = ℓ∗
+k(q)
+Nk
+.
+(4)
+D. Cloud Blockage Model
+Following the Gaussian cloud-map approach, multiple
+Gaussian-distributed CLWC clusters are generated to model
+dynamic cloud coverage. As shown in Fig. 3, the 2 km×2 km
+operating area is represented by a 50 × 50 cloud grid. The
+cloud field moves leftward at 5 m/s.
+Cloud regions with CLWC exceeding a threshold Lth are
+assumed optically opaque. The HAP–UAV link is considered
+
+
+=== PDF PAGE 2 ===
+0
+2000
+4000
+6000
+8000
+10000
+12000
+14000
+16000
+x (m)
+0
+1000
+2000
+y (m)
+t=0 s
+t=300 s
+t=1000 s
+(a) Gaussian CLWC Cloud Map
+Relative cloud-map shift
+0
+2000
+4000
+6000
+8000
+10000
+12000
+14000
+16000
+x (m)
+0
+1000
+2000
+y (m)
+t=0 s
+t=300 s
+t=1000 s
+(b) Binary Cloud Blockage Map
+Cloud blockage
+Non-blocking region
+0
+3
+6
+9
+12
+15
+CLWC (mg/m³)
+Dynamic Gaussian Cloud Map and Binary Cloud Blockage Model
+Each window: 2 km × 2 km; 50 × 50 cells; 40 m × 40 m per cell.
+Fig. 3. Dynamic Gaussian CLWC cloud map and the corresponding binary blockage regions. The red squares represent a 2 km × 2 km UAV operating area
+sampled on a 50 × 50 cloud grid. The cloud field moves leftward at 5 m/s.
+blocked when its optical path intersects such a region. Accord-
+ingly, the achievable finite-size SKR is
+Rk(q) =
+{︄
+0,
+if blocked,
+R∗
+k,clear(q),
+otherwise.
+(5)
+E. Energy Consumption
+The propulsion power of a rotary-wing UAV flying at speed
+v is modeled as
+P(v) = P0
+(︄
+1 + 3v2
+U 2
+tip
+)︄
++ Pi
+(︄√︄
+1 + v4
+4v4
+0
+−v2
+2v2
+0
+)︄1/2
++ 1
+2d0ρsAv3.
+(6)
+Here, P0 and Pi represent the blade-profile and induced
+powers during hovering, respectively. Utip is the rotor-tip
+speed, v0 is the mean induced velocity, d0 is the fuselage
+drag ratio, ρ is the air density, s is the rotor solidity, and A is
+the rotor-disc area.
+For a given travel distance D and duration t, the minimum
+propulsion energy is defined as
+Emin(D, t) = min
+v(·)
+∫︂t
+0
+P(v(τ)) dτ
+s.t.
+∫︂t
+0
+v(τ) dτ = D,
+0 ≤v(τ) ≤vmax.
+(7)
+F. Optimization Problems
+We consider two optimization objectives: maximizing the
+average finite-size SKR and maximizing the total secret key
+yield under a limited UAV propulsion energy budget.
+Let Q = {qk}K
+k=1 denote the UAV trajectory, where q0 is
+the given initial position. Both the trajectory Q and the number
+of time slots K are optimized.
+The number of valid key-generation signals in slot k is
+modeled as mk = [1 −bk(qk)]m0, where m0 denotes the
+number of key-generation signals per unblocked slot. The
+accumulated number of valid signals is nK = ∑︁K
+k=1 mk.
+The accumulated finite-size key yield is approximated by
+ˆ︁ℓK(Q) =
+[︄K
+∑︂
+k=1
+mkR∗
+asy(qk) −nK∆(nK, ϵ)
+]︄+
+,
+(8)
+1) Problem 1: Average SKR Maximization: The first objec-
+tive is to maximize the time-averaged finite-size SKR:
+(P1)
+max
+K,Q
+ˆ︁ℓK(Q)
+K∆t
+(9a)
+s.t.
+K
+∑︂
+k=1
+Emin(dk, ∆t) ≤Emax,
+(9b)
+dk ≤vmax∆t,
+∀k,
+(9c)
+qk ∈A,
+∀k,
+(9d)
+dk = ∥qk −qk−1∥,
+∀k,
+(9e)
+K ∈Z+.
+(9f)
+2) Problem 2: Total Secret Key Maximization: The second
+objective is to maximize the accumulated secret key yield:
+(P2)
+max
+K,Q
+ˆ︁ℓK(Q)
+(10a)
+s.t.
+K
+∑︂
+k=1
+Emin(dk, ∆t) ≤Emax,
+(10b)
+dk ≤vmax∆t,
+∀k,
+(10c)
+qk ∈A,
+∀k,
+(10d)
+dk = ∥qk −qk−1∥,
+∀k,
+(10e)
+K ∈Z+.
+(10f)
+Here, Emin(dk, ∆t) denotes the minimum propulsion en-
+ergy required to travel distance dk within slot k, Emax is the
+available UAV energy, and vmax is the maximum UAV speed.
+Problem (P1) prioritizes the average key generation rate,
+whereas problem (P2) maximizes the total key yield over the
+energy-limited mission.
+G. Proposed Solution Strategies
+We consider two trajectory selection strategies to address
+problem (P1): an SKR-oriented strategy and an energy-
+oriented strategy.
+
+
+=== PDF PAGE 3 ===
+At time slot k, the remaining UAV energy is given by
+Erem
+k
+= Emax −
+k−1
+∑︂
+i=1
+Emin(di, ∆t).
+(11)
+The set of feasible next positions is defined as
+Fk =
+{︁
+q ∈A : ∥q −qk−1∥≤vmax∆t,
+Emin(∥q −qk−1∥, ∆t) ≤Erem
+k
+}︁
+.
+(12)
+1) Strategy 1: SKR-Oriented: The SKR-oriented strategy
+selects the feasible UAV position that maximizes the achiev-
+able SKR in the current slot:
+q(1)
+k
+= arg max
+q∈Fk Rk(q).
+(13)
+This strategy prioritizes locations with high secret key gen-
+eration rates without explicitly penalizing propulsion energy
+beyond the energy feasibility constraint.
+2) Strategy 2: Energy-Oriented: The energy-oriented strat-
+egy jointly considers the achievable SKR and the required
+propulsion energy:
+q(2)
+k
+= arg max
+q∈Fk
+[︁
+Rk(q) −λEmin(∥q −qk−1∥, ∆t)
+]︁
+,
+(14)
+where λ ≥0 is a weighting parameter controlling the trade-off
+between SKR and propulsion energy. Both strategies satisfy
+the same energy and mobility constraints and are evaluated
+using the objective function of (P1).
+II. PROPOSED OPTIMIZATION ALGORITHM
+This section develops an energy-constrained dynamic pro-
+gramming (DP) method for UAV trajectory optimization under
+time-varying cloud blockage. The proposed method uses a
+time-expanded graph and Pareto-dominance pruning to jointly
+account for UAV location, propulsion energy, and accumulated
+key-generation signals.
+A. Time-Expanded Graph Construction
+To obtain a computationally tractable formulation, the con-
+tinuous UAV operating region A is approximated by a set of
+candidate locations
+V = {q(1), . . . , q(J)},
+(15)
+where the initial location q0 is included in V.
+A directed edge (i, j) is feasible if
+∥q(j) −q(i)∥≤vmax∆t.
+(16)
+The corresponding propulsion energy is
+cij = Emin
+(︂
+∥q(j) −q(i)∥, ∆t
+)︂
+.
+(17)
+Self-loops are included to represent hovering, with cii =
+∆tP(0).
+For each slot k and candidate location j, define
+zk,j = 1 −bk(q(j)),
+(18)
+where zk,j = 1 indicates an unblocked optical link.
+The precomputed asymptotic secret key rate (SKR) lookup
+table provides
+rj = R∗
+asy(q(j)).
+(19)
+The cloud-map grid and the UAV candidate-location graph
+are constructed independently. In particular, the graph resolu-
+tion must allow feasible UAV displacements within one time
+slot.
+B. Energy-Constrained Dynamic Programming
+Let m0 denote the number of key-generation signals in an
+unblocked slot. The accumulated number of unblocked slots
+up to slot k is
+uk =
+k
+∑︂
+i=1
+zi,ji,
+(20)
+where ji denotes the selected UAV location at slot i. Con-
+sequently, the accumulated number of valid signals is nk =
+m0uk.
+For each slot k, location j, and unblocked-slot count u,
+define a set of DP labels
+Lk(j, u) = {(e, S)},
+(21)
+where e is the cumulative propulsion energy and S is the
+accumulated asymptotic key contribution:
+S =
+k
+∑︂
+i=1
+m0zi,jirji.
+(22)
+Initially, the label set at the starting location j0 is
+L0(j0, 0) = {(0, 0)},
+(23)
+while all other label sets are empty.
+Consider a feasible transition from location i to location j
+in slot k. A predecessor label (e, S) ∈Lk−1(i, u) generates
+e′ = e + cij,
+(24)
+u′ = u + zk,j,
+(25)
+S′ = S + m0zk,jrj.
+(26)
+The new label (e′, S′) is retained only if e′ ≤Emax.
+To reduce the number of stored labels, we apply Pareto-
+dominance pruning. For the same (k, j, u), a label (e1, S1)
+dominates (e2, S2) if
+e1 ≤e2,
+S1 ≥S2,
+(27)
+with at least one strict inequality.
+The dominated label can be safely discarded because both
+labels have the same location, time index, and accumulated
+number of valid signals. Therefore, any future continuation
+feasible from the dominated label is also feasible from the
+dominating label, without reducing the final key contribution.
+C. Unified Solution of P1 and P2
+For a trajectory terminating at slot k, the accumulated finite-
+size-aware key length is approximated by
+ˆ︁ℓk = [S −m0u∆(m0u, ϵ)]+ ,
+(28)
+where the correction is taken as zero when u = 0.
+Using the finite-size penalty
+∆(n, ϵ) = 7
+√︃
+log2(2/ϵ)
+n
+,
+(29)
+the terminal key length becomes
+ˆ︁ℓk =
+[︂
+S −7
+√︁
+m0u log2(2/ϵ)
+]︂+
+.
+(30)
+The maximum achievable key length at slot k over the
+discretized state space is
+ˆ︁L∗
+k =
+max
+j,u
+(e,S)∈Lk(j,u)
+[︂
+S −7
+√︁
+m0u log2(2/ϵ)
+]︂+
+.
+(31)
+Both optimization objectives can then be evaluated using
+the same DP run.
+
+
+=== PDF PAGE 4 ===
+Algorithm 1 Energy-Constrained DP With Label Pruning
+1: Initialize L0(j0, 0) = {(0, 0)}
+2: Set all other label sets to empty
+3: for k = 1, . . . , Kmax do
+4:
+for each nonempty Lk−1(i, u) do
+5:
+for each (e, S) ∈Lk−1(i, u) do
+6:
+for each feasible successor j do
+7:
+e′ ←e + cij
+8:
+if e′ ≤Emax then
+9:
+u′ ←u + zk,j
+10:
+S′ ←S + m0zk,jrj
+11:
+Insert (e′, S′) into Lk(j, u′)
+12:
+end if
+13:
+end for
+14:
+end for
+15:
+end for
+16:
+Remove dominated labels
+17:
+Compute ˆ︁L∗
+k using (31)
+18: end for
+19: Select the best terminal state for P1
+20: Select the best terminal state for P2
+21: return Both optimized trajectories
+For P1, the maximum average secret key throughput is
+ˆ︁R∗
+avg =
+max
+1≤k≤Kmax
+ˆ︁L∗
+k
+k∆t
+(32)
+For P2, the maximum accumulated secret key length is
+ˆ︁L∗
+total =
+max
+1≤k≤Kmax
+ˆ︁L∗
+k
+(33)
+Here, Kmax is an upper bound on the number of feasible
+time slots imposed by the propulsion energy budget.
+The corresponding trajectories are recovered by backtrack-
+ing the predecessor labels of the selected terminal states.
+D. Computational Complexity
+Let J = |V| denote the number of candidate locations, dmax
+the maximum number of feasible successors per location, and
+B the maximum number of nondominated labels stored for
+each (k, j, u).
+Since 0 ≤u ≤k, the total number of label extensions is
+bounded by
+O(K2
+maxJdmaxB),
+(34)
+excluding the computational cost of dominance checks.
+Pareto-dominance pruning preserves the optimal solution on
+the discretized graph. However, the number of nondominated
+labels may still grow substantially in the worst case.
+If a fixed maximum number of labels is imposed at each
+state, the resulting method becomes an approximate DP algo-
+rithm and no longer guarantees optimality on the discretized
+graph.
+Furthermore, the spatial discretization means that the DP
+solution is not necessarily globally optimal for the original
+continuous-position problem.
+III. NUMERICAL RESULTS AND DISCUSSION
+A. Simulation Setup and Benchmark Algorithms
+We compare the proposed DP method with three benchmark
+strategies under identical cloud conditions, propulsion-energy
+constraints, and finite-size key evaluation.
+1) Stationary UAV: The UAV remains at its initial location
+throughout the mission:
+qk = q0,
+∀k.
+(35)
+Although the UAV does not change its position, hovering
+energy is consumed in every slot. The optical link may also
+become blocked or unblocked as the cloud field evolves.
+2) SKR-Greedy: At each slot, the UAV selects a feasible
+location that maximizes the instantaneous asymptotic key
+contribution.
+Define
+gk(j) = m0zk,jrj.
+(36)
+For current location i and cumulative energy e, the feasible
+successor set is
+Fk(i, e) = {j : (i, j) ∈E, e + cij ≤Emax} .
+(37)
+The SKR-Greedy decision is
+jG
+k = arg
+max
+j∈Fk(i,e) gk(j).
+(38)
+This strategy considers the current cloud condition but does
+not explicitly optimize future trajectory decisions.
+3) Energy-Aware Greedy: The energy-aware strategy bal-
+ances instantaneous key contribution and propulsion energy:
+jEG
+k
+= arg
+max
+j∈Fk(i,e) [gk(j) −λcij] ,
+(39)
+where λ ≥0 is an energy-penalty coefficient with units of
+bits/J.
+Unlike
+SKR-Greedy,
+this
+strategy
+explicitly
+penalizes
+energy-intensive movements, but it remains a myopic decision
+rule.
+4) Performance Evaluation:
+For each benchmark, all
+energy-feasible trajectory prefixes are evaluated using the same
+accumulated finite-size-aware key expression as the proposed
+DP.
+The best prefix is selected separately for P1 and P2. This
+ensures that the methods are compared under the same variable
+mission-duration setting.
+The DP method exploits the predicted cloud sequence over
+the planning horizon, whereas the greedy strategies use only
+the current-slot cloud map when selecting their next locations.
+Accordingly, the comparison also reflects the benefit of multi-
+slot cloud-aware planning.
+B. Trajectory Comparison Under Dynamic Clouds
+C. Average SKR Maximization (P1)
+D. Total Secret Key Maximization (P2)
+E. Energy Consumption and Computational Complexity

@@ -1,0 +1,34 @@
+name: arxiv_2018_v1
+source:
+  title: Energy Minimization for Wireless Communication with Rotary-Wing UAV
+  authors: [Yong Zeng, Jie Xu, Rui Zhang]
+  version: arXiv 1804.02238v1, 6 April 2018
+  url: https://arxiv.org/pdf/1804.02238v1
+  verification: VERIFIED_PRIMARY_WEB_IN_PRIOR_AUDIT
+  audit: docs/parameter_provenance.md
+  table_I: 'PDF p.27'
+  maximum_speed: 'Section V, PDF p.22'
+  power_equation: 'Eq.(6), PDF p.6'
+  coefficient_equation: 'Eq.(61), PDF p.27'
+aircraft:
+  weight_N: 100.0
+  air_density_kg_m3: 1.225
+  rotor_radius_m: 0.5
+  rotor_disc_area_m2: 0.79
+  rotor_angular_speed_rad_s: 400.0
+  rotor_tip_speed_m_s: 200.0
+  blade_count: 4
+  blade_chord_m: 0.0196
+  rotor_solidity: 0.05
+  fuselage_equivalent_flat_plate_area_m2: 0.0118
+  fuselage_drag_ratio: 0.3
+  induced_power_correction_factor: 0.1
+  blade_profile_drag_coefficient: 0.012
+  mean_induced_velocity_hover_m_s: 7.2
+  maximum_speed_m_s: 60.0
+# Preserve the original paper.yaml/table-value convention for this legacy set.
+induced_velocity_policy: table_value
+numerics:
+  plot_samples: 1201
+  grid_samples: 20001
+  optimizer_xatol_m_s: 0.0000000001

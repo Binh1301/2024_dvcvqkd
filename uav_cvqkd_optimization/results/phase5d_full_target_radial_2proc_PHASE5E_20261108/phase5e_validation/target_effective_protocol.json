@@ -1,0 +1,78 @@
+{
+  "physical": {
+    "h_hap_km": 20.0,
+    "h_uav_km": 1.0,
+    "h_atm_km": 20.0,
+    "Dr_m": 0.3,
+    "wavelength_m": 1.55e-06,
+    "divergence_full_urad": 35.0,
+    "jitter_urad": 1.561,
+    "sigma_h_m": 0.1,
+    "rho_x_m": 0.0,
+    "rho_y_m": 0.0,
+    "F0": "Infinity",
+    "tau_zen": 0.92,
+    "Cn2_ground": 1e-14,
+    "wind_m_s": 21.0,
+    "FOV_half_rad": 0.00625,
+    "sigma_AoA_rad": 0.0015,
+    "AO": "OFF",
+    "phase_noise": "OFF"
+  },
+  "beta": 0.95,
+  "measurement": "homodyne_1D_Gaussian_effective",
+  "reconciliation": "reverse_asymptotic",
+  "channel_law": "manuscript43_Eq10_retained_0_to_1",
+  "correlation_policy": "manuscript_eq14_direct",
+  "source_normalization": "VA=Vmod=2*nbar; X_A=2Re(alpha)",
+  "printed_normalization": "Vmod=nbar/2",
+  "VA_to_Vmod_mapping": "AUTHOR_CONFIRMED_VA_EQUALS_VMOD",
+  "zero_atom_noise_extension": "limit_eta_xi_equals_xi_det",
+  "nu_mapping": "nu_repo=42.5*nu_raw",
+  "source_domain": {
+    "VA": [
+      0.05,
+      10
+    ],
+    "nu_raw": [
+      0.0,
+      0.4
+    ],
+    "peak_photon_constraint": null,
+    "peak_photon_constraint_authority": "USER_SELECTED_REQUESTED_DOMAIN"
+  },
+  "numerical": {
+    "digits": [
+      80,
+      110
+    ],
+    "mass_tolerance": 1e-10,
+    "moment_tolerance": 2e-10,
+    "MI_tolerance": 2e-10,
+    "entropy_tolerance": 2e-11,
+    "covariance_tolerance": 1e-10,
+    "uncertainty_tolerance": 1e-11,
+    "source_tolerance": 2e-12,
+    "near_zero_and_tie": 1e-08,
+    "GH_orders": [
+      64,
+      128
+    ],
+    "mass_tolerance_role": "DIAGNOSTIC_ONLY_NOT_A_GATE_FOR_THIS_APPROVED_EXPERIMENT"
+  },
+  "xi_ch": 0.0136,
+  "xi_det": 0.005,
+  "scope": "PHASE5E_TARGET_EFFECTIVE_PROTOCOL_METADATA_NOT_A_SECURITY_CERTIFICATION",
+  "physical_context_protocol_sha256": "83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5",
+  "context_moments": "Fresh original validated m1,mh,M0 independent of noise; active N recomputed with target .0136 and separate detector .005",
+  "lookup_hap_projection_m": [
+    1000.0,
+    1000.0
+  ],
+  "lookup_area_m": [
+    2000.0,
+    2000.0
+  ],
+  "paper_admissible": false,
+  "source_evidence_promoted": false
+}

@@ -1,0 +1,20 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS_EXPECTED_REFUSAL",
+  "command": [
+    "E:\\Python3.13\\python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    "-m",
+    "uav_qkd.lookup_benchmark",
+    "full",
+    "--config",
+    "configs/lookup/phase5d_full_target_per_point.json",
+    "--output",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase5d_full_GATE_SMOKE_NOT_RUN"
+  ],
+  "exit_code": 1,
+  "stderr": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\lookup_benchmark.py\", line 365, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\lookup_benchmark.py\", line 361, in main\n    r=benchmark(args.output,count=args.points) if args.mode=='benchmark' else full_regeneration(args.config,args.output,approval=args.approval_file,resume=args.resume)\n                                                                              ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\lookup_benchmark.py\", line 309, in full_regeneration\n    require_full_approval(approval,sha(config_path),config['candidate_pool_sha256'])\n    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\lookup_benchmark.py\", line 42, in require_full_approval\n    if approval is None:raise ValueError('Full regeneration requires separate explicit author approval')\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Full regeneration requires separate explicit author approval\n",
+  "output_directory_created": false,
+  "native_evaluations": 0
+}

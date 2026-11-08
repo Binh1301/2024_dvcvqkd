@@ -1,0 +1,51 @@
+# Every fixture number below is SOFTWARE TEST DATA, not an author mission decision.
+mode: TEST_ONLY
+fixture_label: TEST_ONLY
+paper_mode: NOT_RUN
+cloud_candidate_author_approved: false
+lookup:
+  directory: ../../results/phase5d_full_target_radial_2proc_PHASE5E_20261108
+  package_manifest_sha256: 7b3f3b4fe7a4cd9c9f046aa456f3a1a4e4b8cf83c327f09e0fba23c28831bfa7
+  coordinate_policy: exact_nodes_only
+  rate_units: bits/use
+  coordinate_units: m
+fixture:
+  provenance: TEST_ONLY explicit software pipeline fixture; not a cloud/mission approval
+  hap_m: [1000.0, 1000.0, 20000.0]
+  uav_altitude_m: 1000.0
+  area_m: [2000.0, 2000.0]
+  initial_m: [1000.0, 1000.0]
+  dt: 2.0
+  max_horizon: 4
+  energy_budget_j: 1600.0
+  rotor_profile: ../rotor/ieee_2019.yaml
+  velocity_samples: 2001
+  energy_tolerance_j: 0.001
+  graph:
+    kind: points
+    points_m: [[960.0, 1000.0], [1000.0, 1000.0], [1040.0, 1000.0]]
+  finite_size:
+    m0: 100000000.0
+    epsilon: 3.0e-8
+    f_s: null
+    eta_valid: null
+    role: TEST_ONLY mathematical counts; not inferred from reference block or symbol rate
+  lambda_bits_per_j: 0.5
+  cloud:
+    mode: binary_los_blockage
+    role: TEST_ONLY unapproved scientific candidate exercised as software fixture
+    seed: 5701
+    realization_kind: explicit_coefficients_no_random_generation
+    velocity_m_s: [-5.0, 0.0]
+    clip_max: null
+    threshold_mg_m3: 8.0
+    layer_bottom_m: 5000.0
+    layer_top_m: 7000.0
+    sample_spacing_m: 1.0
+    clusters:
+      - amplitude: 10.0
+        center: [1010.0, 1000.0]
+        sigma: [7.0, 7.0]
+dp:
+  mode: exact
+  label_cap: null

@@ -1,0 +1,160 @@
+2332
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+the purpose of UAV trajectory optimization. To address this
+issue, one approach is to use a homogeneous approximation
+of the LoS probability, i.e., by letting ˆPk,LoS(t) ≈¯Pk,LoS, ∀t.
+For example, ¯Pk,LoS could be set as the value corresponding
+to the most likely elevation angle, or the average value based
+on certain heuristic UAV trajectory, e.g., that obtained based
+on the TSP algorithm.
+Based on the above discussions, we are interested in design-
+ing the UAV trajectory to ensure the following constraint
+¯Rk
+	
+Tt, {q(t)}, {λk(t)}
+
+≜
+ Tt
+0
+λk(t)B log2
+×
+
+1 +
+γk
+(H2 + ∥q(t) −wk∥2)α
+
+dt ≥˜Qk,
+∀k,
+(11)
+where
+˜Qk is a given expected targeting communication
+requirement and γk ≜¯Pk,LoS˜γ0. Note that ¯Rk can be inter-
+preted as an approximation of the expected user through-
+put ˆRk. Numerical results (see Fig. 6) in Section V show rather
+satisfactory accuracy for such approximation, especially for
+suburban or rural environment with relatively large modeling
+parameter D. In fact, it can be veriﬁed that for the special
+case of free-space propagation environment with no channel
+randomness, as commonly assumed in prior works on trajec-
+tory optimization [24], [26], [28], ˆPk,LoS(t) = 1, ∀k, t, and
+the above approximation becomes exact, i.e., ¯Rk = ˆRk. The
+more accurate approximation for the expected throughput ˆRk
+and the corresponding trajectory optimization are non-trivial,
+which are left as our future work.
+Compared with the communication rate expression for the
+special free-space channel model as widely assumed in prior
+works [24], [26], [28], the constraint in (11) is more general
+that differs mainly in two aspects. Firstly, it deals with the
+more general path loss exponent ˜α ≥2, instead of the
+special case with ˜α = 2. Secondly, it takes into account the
+effect of LoS probability via the parameter γk, which can be
+obtained based on a coarse approximation with a homogeneous
+regularized LoS probability with certain initial trajectories.
+Fortunately, with such a more general rate constraint, the
+commonly used methods for trajectory optimization, such as
+the travelling salesman problem with neighborhood (TSPN)
+and SCA, can be similarly applied, as given in subsequent
+sections.
+B. Energy Consumption Model for Rotary-Wing UAV
+The UAV energy consumption is in general composed of
+two main components, namely the communication related
+energy and the propulsion energy. The communication related
+energy includes that for communication circuitry, signal
+processing, signal radiation/reception, etc. In this paper,
+we assume that the communication related power is a constant,
+which is denoted as Pc in watt (W). On the other hand,
+the propulsion energy consumption is needed to keep the
+UAV aloft and support its movement, if necessary. In general,
+the propulsion energy depends on the UAV ﬂying speed as well
+as its acceleration. In this paper, for the purpose of exposition
+and more tractable analysis, we ignore the additional/fewer
+energy consumption caused by UAV acceleration/deceleration,
+which is reasonable for scenarios when the UAV maneuvering
+duration only takes a small portion of the total operation time.
+The extension to more general power consumption models is
+non-trivial, which is left as our future work. As derived in
+Appendix, for a rotary-wing UAV with speed V , the propulsion
+power consumption can be modeled as
+P(V ) = P0
+
+1 + 3V 2
+U 2
+tip
+
+
+
+
+blade proﬁle
++ Pi
+
+1 + V 4
+4v4
+0
+−V 2
+2v2
+0
+1/2
+
+
+
+induced
++ 1
+2d0ρsAV 3
+
+
+
+parasite
+,
+(12)
+where P0 and Pi are two constants deﬁned in (64) of Appen-
+dix representing the blade proﬁle power and induced power in
+hovering status, respectively, Utip denotes the tip speed of the
+rotor blade, v0 is known as the mean rotor induced velocity in
+hover, d0 and s are the fuselage drag ratio and rotor solidity,
+respectively, and ρ and A denote the air density and rotor
+disc area, respectively. The relevant parameters are explained
+in details in Table I and Appendix. It is observed from (12)
+that the propulsion power consumption of rotary-wing UAVs
+consists of three components: blade proﬁle, induced, and para-
+site power. The blade proﬁle power and parasite power, which
+increase quadratically and cubically with V , respectively, are
+needed to overcome the proﬁle drag of the blades and the
+fuselage drag, respectively. On the other hand, the induced
+power is that required to overcome the induced drag of the
+blades, which decreases with V .
+By substituting V
+= 0 into (12), we obtain the power
+consumption for hovering status as Ph = P0 + Pi, which is a
+ﬁnite value depending on the aircraft weight, air density, and
+rotor disc area, etc. (see (64) in Appendix). As V increases,
+it can be veriﬁed that P(V ) in (12) ﬁrstly decreases and then
+increases with V , i.e., hovering is in general not the most
+power-conserving status. It can be veriﬁed that the power
+function P(V ) in (12) is neither convex nor concave with
+respect to V . It is much more involved compared to the power
+model for ﬁxed-wing UAV (cf. [26, eq. (7)] ), which is a
+convex function consisting of two simple terms: one increasing
+cubically and the other decreasing inversely with V .
+When V ≫v0, by applying the ﬁrst-order Taylor approx-
+imation (1 + x)1/2 ≈1 + 1
+2x for |x| ≪1, (12) can be
+approximated as a convex function, i.e.,
+P(V ) ≈P0
+
+1 + 3V 2
+U 2
+tip
+
++ Piv0
+V
++ 1
+2d0ρsAV 3.
+(13)
+A typical plot of P(V ) versus UAV speed V is shown in Fig. 2,
+together with the three individual power components and the
+convex approximation given in (13).
+Two particular UAV speeds that are of high practi-
+cal interests are the maximum-endurance (ME) speed and
+the maximum-range (MR) speed, which are denoted as
+Vme and Vmr, respectively.
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 

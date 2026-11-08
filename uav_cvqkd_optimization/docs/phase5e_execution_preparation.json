@@ -1,0 +1,27 @@
+{
+  "status": "NOT_RUN_PENDING_EXPLICIT_PHASE5E_APPROVAL",
+  "config": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\lookup\\phase5d_full_target_radial_2proc.json",
+  "config_sha256": "0671e70ef5a5a78afed6f750859161439153f2030fe6e6b733a216f1f6616111",
+  "candidate_pool_sha256": "adb057572d5b22be1718bb7535e402129b16af813cc863d2e62b2028c0c36539",
+  "producer_sha256": "d1fecdae1f2b53dbe58288524b53ea06b7abef3a33edc9722336441304955dbb",
+  "proposed_output": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase5d_full_target_radial_2proc_PHASE5E_20261108",
+  "approval_file": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\approvals\\phase5e_full_lookup_author_approval.json",
+  "approval_present": false,
+  "workers": 2,
+  "geometry_mode": "radial_exact",
+  "expected_spatial_points": 2601,
+  "expected_groups_subject_to_equivalence_validation": 294,
+  "candidates_per_group": 212,
+  "target_noise": 0.0136,
+  "detector_noise": 0.005,
+  "native_evaluator_calls": 0,
+  "full_regeneration_started": false,
+  "paper_mode": "NOT_RUN",
+  "required_preexecution_checks": [
+    "Verify complete clear-sky physical-input equivalence and azimuth invariance for every group",
+    "Record exact2601-to-group mapping",
+    "Disable deduplication for any non-equivalent positions",
+    "After approval, add independent original-position recomputations and pilot-target comparisons"
+  ],
+  "command": "python -X utf8 -B -m uav_qkd.lookup_benchmark full --config configs/lookup/phase5d_full_target_radial_2proc.json --output results/phase5d_full_target_radial_2proc_PHASE5E_20261108 --approval-file docs/approvals/phase5e_full_lookup_author_approval.json"
+}

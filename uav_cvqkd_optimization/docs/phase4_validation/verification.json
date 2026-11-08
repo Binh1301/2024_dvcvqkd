@@ -1,0 +1,2075 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Phase4 safe reference configuration and scalar interface integration only",
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase4_validation/tests.xml",
+    "exit_code": 0,
+    "tests": 90,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "reported_wall_seconds": 6.53,
+    "junit_sha256": "60ca52557e440e58730b7b98278674dabce031df7e5f19f3fef962c192577b32"
+  },
+  "reference_audit": {
+    "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\phase4_validation\\reference_audit_verified\\reference_audit.json",
+    "sha256": "e6cdf766f528bf447c464d16705bff59baef4748a632635acfab72f64e550da6"
+  },
+  "paper_mode": "NOT_RUN",
+  "figure_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "ieee_rotor_status": "READY",
+  "source_Z_w": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED",
+  "core_evaluations": 0,
+  "closed_form_channel_evaluations": 0,
+  "parent_research_source_git_diff_empty": true,
+  "parent_research_source_untracked_empty": true,
+  "preservation_scope": {
+    "snapshot": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\ieee_2019_rotor_verification\\protected_before.json",
+    "verified_snapshot_entries": 258,
+    "documented_prior_phase_exceptions": [
+      "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\README.md",
+      "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md"
+    ],
+    "limitation": "No complete Phase4 pre-edit snapshot persisted; do not claim byte-for-byte comparison for files lacking historical hashes. Earlier README/provenance changes remain prior-phase exceptions."
+  },
+  "checked_hashes": [
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\channel\\hap_uav_mb_reference.yaml",
+      "kind": "current_reference_audit_input_sha256",
+      "expected": "be4f8756cff07e3cccc7ee4b90bee855ce69fe46c81ff94a9578a65ca26b65ff",
+      "actual": "be4f8756cff07e3cccc7ee4b90bee855ce69fe46c81ff94a9578a65ca26b65ff",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\finite_size\\ieee_2025_reference.yaml",
+      "kind": "current_reference_audit_input_sha256",
+      "expected": "ce8f097e9bc5ca9f06c75587e0371f51c98497b0394956e9b181eed98ff347cd",
+      "actual": "ce8f097e9bc5ca9f06c75587e0371f51c98497b0394956e9b181eed98ff347cd",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\execution_physical_protocol.json",
+      "kind": "current_reference_audit_input_sha256",
+      "expected": "83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5",
+      "actual": "83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\hap_uav_channel.py",
+      "kind": "current_reference_audit_producer_sha256",
+      "expected": "1710efb045c7b552edfbae724fe52ecc4a76b76414ba1184f907314fe840b333",
+      "actual": "1710efb045c7b552edfbae724fe52ecc4a76b76414ba1184f907314fe840b333",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\finite_size_reference.py",
+      "kind": "current_reference_audit_producer_sha256",
+      "expected": "bb23340fec3e96eab4213fa36ab99b087bd7a87798c047474100cdc290926f88",
+      "actual": "bb23340fec3e96eab4213fa36ab99b087bd7a87798c047474100cdc290926f88",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\cloud_channel.py",
+      "kind": "current_reference_audit_producer_sha256",
+      "expected": "36a1f2648efe1525a05bbf99b1bd25980960f96fab790b03c3c5a675a2c4cef3",
+      "actual": "36a1f2648efe1525a05bbf99b1bd25980960f96fab790b03c3c5a675a2c4cef3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\phase4_audit.py",
+      "kind": "current_reference_audit_producer_sha256",
+      "expected": "79fa200afe6edef4b6af3073a431993835242d83112d45608d8a74a13041e763",
+      "actual": "79fa200afe6edef4b6af3073a431993835242d83112d45608d8a74a13041e763",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\src\\channel\\geometry.py",
+      "kind": "reused_parent_geometry_helper",
+      "expected": "0946766d4adb1c941b8937bc3ee079fefa03c0a984ee30a2792a9a16343d8e32",
+      "actual": "0946766d4adb1c941b8937bc3ee079fefa03c0a984ee30a2792a9a16343d8e32",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\src\\channel\\atmospheric_loss.py",
+      "kind": "reused_parent_geometry_helper",
+      "expected": "074ea4594b87599ea3069c2880403bed8007d6deab16041ce1aa26f6cdb86ecf",
+      "actual": "074ea4594b87599ea3069c2880403bed8007d6deab16041ce1aa26f6cdb86ecf",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\manuscript43_canonical_model_comparison_20261023\\inputs\\available_v43.pdf",
+      "kind": "source_pdf",
+      "expected": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b",
+      "actual": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\admin\\Downloads\\2025.Finite-Size_and_Modulation_Opt_in_CV-QKD_Over_UAV-FSO_AO.pdf",
+      "kind": "source_pdf",
+      "expected": "41ca16f98229eab3dcff21619aaabde7ba5c076ef8e15823e531b24f0fa6f013",
+      "actual": "41ca16f98229eab3dcff21619aaabde7ba5c076ef8e15823e531b24f0fa6f013",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\admin\\Downloads\\Energy_Minimization_for_Wireless_Communication_With_Rotary-Wing_UAV.pdf",
+      "kind": "source_pdf",
+      "expected": "b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57",
+      "actual": "b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\rotor\\ieee_2019.yaml",
+      "kind": "historical_ieee_rotor_inputs",
+      "expected": "812a1a079f97f715f6505deaa43249024a9b2d6fc16cb0f16905055907e91f07",
+      "actual": "812a1a079f97f715f6505deaa43249024a9b2d6fc16cb0f16905055907e91f07",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\propulsion.py",
+      "kind": "historical_ieee_rotor_producers",
+      "expected": "128099855c7311a56fee9b0cd8a5bcd80b39bf3a7164ad5938647869ec5b104a",
+      "actual": "128099855c7311a56fee9b0cd8a5bcd80b39bf3a7164ad5938647869ec5b104a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\rotor_reference.py",
+      "kind": "historical_ieee_rotor_producers",
+      "expected": "3f3549ec2d4e79f54a111fa606e9b525426fa95c5c9db489043f0a664a658bff",
+      "actual": "3f3549ec2d4e79f54a111fa606e9b525426fa95c5c9db489043f0a664a658bff",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\rotor_power_figure.py",
+      "kind": "historical_ieee_rotor_producers",
+      "expected": "33dbbee3bf09df9b9044894c51cb396dbf6a6d156eb82407207a1cb78a5cbe2e",
+      "actual": "33dbbee3bf09df9b9044894c51cb396dbf6a6d156eb82407207a1cb78a5cbe2e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.pdf",
+      "kind": "historical_ieee_rotor_output",
+      "expected": "0b7be4653fafb84e6024de60ec593ea0bdcf2b4ce8be7026f2639b7fb48faf3e",
+      "actual": "0b7be4653fafb84e6024de60ec593ea0bdcf2b4ce8be7026f2639b7fb48faf3e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.png",
+      "kind": "historical_ieee_rotor_output",
+      "expected": "c64582dd970681af69f71e0a4acab1020aefc954774b9f6fdebef986d9aa78a4",
+      "actual": "c64582dd970681af69f71e0a4acab1020aefc954774b9f6fdebef986d9aa78a4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.csv",
+      "kind": "historical_ieee_rotor_output",
+      "expected": "8c5ae8281c2551cd31ec688147e2910a53ff3b17e79a93995d40b54420a07d33",
+      "actual": "8c5ae8281c2551cd31ec688147e2910a53ff3b17e79a93995d40b54420a07d33",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.caption.txt",
+      "kind": "historical_ieee_rotor_output",
+      "expected": "60cd45089150fb5c6adaad28dfab70ac131cb052d5a03295ba6fca17bd7fba77",
+      "actual": "60cd45089150fb5c6adaad28dfab70ac131cb052d5a03295ba6fca17bd7fba77",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\.gitignore",
+      "kind": "historical_protected_snapshot",
+      "expected": "4753804c87ff840c5dc4b9a0bc613fca97d4b6623ecb6eb1d0f365ba9df5f951",
+      "actual": "4753804c87ff840c5dc4b9a0bc613fca97d4b6623ecb6eb1d0f365ba9df5f951",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\pyproject.toml",
+      "kind": "historical_protected_snapshot",
+      "expected": "401dfeb926d8c84c4d38d88f06a2a13759dcaa98a6d987e8b78120d328ac7646",
+      "actual": "401dfeb926d8c84c4d38d88f06a2a13759dcaa98a6d987e8b78120d328ac7646",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\requirements.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "98e32490c81c380838c723302531e78f440a8fe9e549124acd6aa52eefb8ce56",
+      "actual": "98e32490c81c380838c723302531e78f440a8fe9e549124acd6aa52eefb8ce56",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\demo.yaml",
+      "kind": "historical_protected_snapshot",
+      "expected": "6c13a5863c21533da426875bab5b0aed5be6e5845fc3f8b2c5d7d3a7b073157e",
+      "actual": "6c13a5863c21533da426875bab5b0aed5be6e5845fc3f8b2c5d7d3a7b073157e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+      "kind": "historical_protected_snapshot",
+      "expected": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+      "actual": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\data\\README.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "514a522e8b6d21cbb9a2e3fadf4fb06a5b455da06dd421ba75139fde51076a71",
+      "actual": "514a522e8b6d21cbb9a2e3fadf4fb06a5b455da06dd421ba75139fde51076a71",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\figure_unblocking_plan_vi.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "1fec34ac6e6387086d7f2bd0841e4bc086bcf60f6756ef3fd27a8167d1a563cf",
+      "actual": "1fec34ac6e6387086d7f2bd0841e4bc086bcf60f6756ef3fd27a8167d1a563cf",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\implementation_plan.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "c4d0131ca9158c3d2cae601f4b0cc2613c0b255c729492de2d0057b52b6674cc",
+      "actual": "c4d0131ca9158c3d2cae601f4b0cc2613c0b255c729492de2d0057b52b6674cc",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\independent_review.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "ce9415e3660ad1627446432ea0f5b255a5da9a17b715b2a2d784a859fa542c9a",
+      "actual": "ce9415e3660ad1627446432ea0f5b255a5da9a17b715b2a2d784a859fa542c9a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\model_audit.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "d367831a58787b78622fa9682cf7ad7c531c3d4d5e76c04fe8661136a89a3527",
+      "actual": "d367831a58787b78622fa9682cf7ad7c531c3d4d5e76c04fe8661136a89a3527",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07",
+      "actual": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_plan.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "91976e9878472b0eb8eae106a573458707ea4fb202ab0c143d96b1a6345088eb",
+      "actual": "91976e9878472b0eb8eae106a573458707ea4fb202ab0c143d96b1a6345088eb",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "d524f313734f31be3f360844a5a0e05e7ef28485aa0a114c3814c83d75a42b84",
+      "actual": "d524f313734f31be3f360844a5a0e05e7ef28485aa0a114c3814c83d75a42b84",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_independent_review.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "a3e443b8e7d0739d80645e2da8821885fd39fa85fac7e79fb8f117a64dbe6912",
+      "actual": "a3e443b8e7d0739d80645e2da8821885fd39fa85fac7e79fb8f117a64dbe6912",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_plan.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "60f334a45ba60019f7b8ed94e67f2b49568b85825e6d2e85888b8c52fb36686d",
+      "actual": "60f334a45ba60019f7b8ed94e67f2b49568b85825e6d2e85888b8c52fb36686d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_review_resolution.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "e08438c760fbc7ca4bf615cf46320a7eb058a5c707010a62e4935eb3ac0b0ee5",
+      "actual": "e08438c760fbc7ca4bf615cf46320a7eb058a5c707010a62e4935eb3ac0b0ee5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\review_resolution.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "ca6dfddc19c5c094ed2f06b53d32658ab48620991dbb625aed5d87283a41988a",
+      "actual": "ca6dfddc19c5c094ed2f06b53d32658ab48620991dbb625aed5d87283a41988a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\source_inputs_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "90f38aed928f5b08902ef7c75a44ea23880be24fb0a8c3177ab5e582c75a2557",
+      "actual": "90f38aed928f5b08902ef7c75a44ea23880be24fb0a8c3177ab5e582c75a2557",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\validation_report_vi.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "95285b3d628a1590de82f72ea78cd6fe7900bb97a4fc200c9eb95ffb374ff9d3",
+      "actual": "95285b3d628a1590de82f72ea78cd6fe7900bb97a4fc200c9eb95ffb374ff9d3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\validation_summary.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "c54f1c19bbabf57cc0aaf915f1a705a3adaa4ab07f6d292f4491f2b28314e538",
+      "actual": "c54f1c19bbabf57cc0aaf915f1a705a3adaa4ab07f6d292f4491f2b28314e538",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_fail_closed_20261107.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "9656a8a79d635b14271bde8eefc176bf9571e34c35c2066bf4e03e29716d8a6e",
+      "actual": "9656a8a79d635b14271bde8eefc176bf9571e34c35c2066bf4e03e29716d8a6e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\README.md",
+      "kind": "historical_protected_snapshot",
+      "expected": "e1f992da7fbcc870c6b9c66fe050a959204f353ab5dbdff0060d3de6ae4107c4",
+      "actual": "e1f992da7fbcc870c6b9c66fe050a959204f353ab5dbdff0060d3de6ae4107c4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\tests_20261107.xml",
+      "kind": "historical_protected_snapshot",
+      "expected": "f45ccc3ba8b2071dea805992f855cec8c188ed24600333b09a7f73aee8d1f427",
+      "actual": "f45ccc3ba8b2071dea805992f855cec8c188ed24600333b09a7f73aee8d1f427",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\scripts\\verify_paper_configuration.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "2214b42fa3a2c46484cd8ce31b6d02257d32c07d13979a803e1cc867cb91cbaa",
+      "actual": "2214b42fa3a2c46484cd8ce31b6d02257d32c07d13979a803e1cc867cb91cbaa",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\tests\\test_integration.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "66a906b7bacb50316367f401b3f5be50978e703dc876e27c615a5de57c4edf16",
+      "actual": "66a906b7bacb50316367f401b3f5be50978e703dc876e27c615a5de57c4edf16",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\tests\\test_paper_configuration.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "25fd61ac06c34f69015b8d180c91faa7852d7a1879073de6ea14e6750055d377",
+      "actual": "25fd61ac06c34f69015b8d180c91faa7852d7a1879073de6ea14e6750055d377",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\tests\\test_paper_figures.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "3dcde23831ecabbfc5bf16166f412378cde51b66bfb84f2c429b5b7ab0d2a010",
+      "actual": "3dcde23831ecabbfc5bf16166f412378cde51b66bfb84f2c429b5b7ab0d2a010",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\tests\\test_physics.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "97aa61b4a55c92a18771c5c9e66eedfc718678f112d4240aa72cbed6bc7bfffe",
+      "actual": "97aa61b4a55c92a18771c5c9e66eedfc718678f112d4240aa72cbed6bc7bfffe",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\tests\\test_planning.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "ccecf83211414f6e8d1e4ab5da05398c7c1a2820f7eb7c1d7c8b3c7f6e02ef3c",
+      "actual": "ccecf83211414f6e8d1e4ab5da05398c7c1a2820f7eb7c1d7c8b3c7f6e02ef3c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\tests\\test_validation.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "94677b3fe747692650077373680df48497414c77a546a3c994b7080054784597",
+      "actual": "94677b3fe747692650077373680df48497414c77a546a3c994b7080054784597",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\baselines.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "190084d9c0da48c4fa3241e14812264dad310340d40e8040871c70a68279699d",
+      "actual": "190084d9c0da48c4fa3241e14812264dad310340d40e8040871c70a68279699d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\blockage.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "59e4e03a074853a33f477572f9d632da29b95ce2b6e34a0063ae94a5f37bdcb2",
+      "actual": "59e4e03a074853a33f477572f9d632da29b95ce2b6e34a0063ae94a5f37bdcb2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\cloud_model.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "1d5f668cd4e33fa6c8dbc5856c29c7fe52a4345769edebed70532ba43fbee57a",
+      "actual": "1d5f668cd4e33fa6c8dbc5856c29c7fe52a4345769edebed70532ba43fbee57a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\config.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "c2ece3338532858f109bce015bcb381de03d11473de34ee2c9b67d58222bdb37",
+      "actual": "c2ece3338532858f109bce015bcb381de03d11473de34ee2c9b67d58222bdb37",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\dp_solver.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "90ff238898f769eec77e1eb022a0733fe37d61766de339f2cdef41c6a052b84d",
+      "actual": "90ff238898f769eec77e1eb022a0733fe37d61766de339f2cdef41c6a052b84d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\evaluation.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "f423934cd43836e592a8d854b54b89ad71dcd802f42f12c5a437e5a321fa05ac",
+      "actual": "f423934cd43836e592a8d854b54b89ad71dcd802f42f12c5a437e5a321fa05ac",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\experiments.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "41ff753ab7478bdc77d56b1a5d5c56acd5cfee63c4548d5970ffb05b82307015",
+      "actual": "41ff753ab7478bdc77d56b1a5d5c56acd5cfee63c4548d5970ffb05b82307015",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\finite_size.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "63842aa98b0960b69d4f64ff0a6dd9db29ce8d13aa42d4417ba5d2fdda3f2d0d",
+      "actual": "63842aa98b0960b69d4f64ff0a6dd9db29ce8d13aa42d4417ba5d2fdda3f2d0d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\paper_figures.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "actual": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\propulsion.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "128099855c7311a56fee9b0cd8a5bcd80b39bf3a7164ad5938647869ec5b104a",
+      "actual": "128099855c7311a56fee9b0cd8a5bcd80b39bf3a7164ad5938647869ec5b104a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\run.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "0c099bf9b0880188d4302ffaa5b1c18a28ab1c55fa7587a49e61e69994f41d0b",
+      "actual": "0c099bf9b0880188d4302ffaa5b1c18a28ab1c55fa7587a49e61e69994f41d0b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\skr_lookup.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "f79ceacae18d3a3c6197e8a6daae43c22f06d82fbec34d6f10b390677a68b528",
+      "actual": "f79ceacae18d3a3c6197e8a6daae43c22f06d82fbec34d6f10b390677a68b528",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\verify.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "68e3c177c85a14056c7c603e6177598a658a792b4ed580c08b12f82e4e6f67fb",
+      "actual": "68e3c177c85a14056c7c603e6177598a658a792b4ed580c08b12f82e4e6f67fb",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\visualization.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "8a9c7d235253b10c50eabf76b80fab7b337a484d3e507dc7e3f7460aecfc7b32",
+      "actual": "8a9c7d235253b10c50eabf76b80fab7b337a484d3e507dc7e3f7460aecfc7b32",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\waypoint_graph.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "aad0fb50b2f965cdf7bf711aaefe778ef2eb9ff34dac844f1eb337055354cc54",
+      "actual": "aad0fb50b2f965cdf7bf711aaefe778ef2eb9ff34dac844f1eb337055354cc54",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\__init__.py",
+      "kind": "historical_protected_snapshot",
+      "expected": "0f764e3f16c3bbb99566efcc959189179af1e235f215382a0947f8c762077f39",
+      "actual": "0f764e3f16c3bbb99566efcc959189179af1e235f215382a0947f8c762077f39",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\input_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "f043cb22e32b8b096060815cf98605c2722a047d3175da1c1b00bfd64919947f",
+      "actual": "f043cb22e32b8b096060815cf98605c2722a047d3175da1c1b00bfd64919947f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\lambda_calibration.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "b330474cc4c8c550ee3e9d82c4f35f84485cbc67ba44fb4eb4d18310f75a2723",
+      "actual": "b330474cc4c8c550ee3e9d82c4f35f84485cbc67ba44fb4eb4d18310f75a2723",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\output_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "0b7e71a27ea002dc8f101a32353f6e09efd9d00d668fea781b2e4bd938df9342",
+      "actual": "0b7e71a27ea002dc8f101a32353f6e09efd9d00d668fea781b2e4bd938df9342",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\results.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "163ab9405c2b09487af33f89822a3bb8bf68fb0d15de51542aaa95564ce7ecd1",
+      "actual": "163ab9405c2b09487af33f89822a3bb8bf68fb0d15de51542aaa95564ce7ecd1",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\scenario.npz",
+      "kind": "historical_protected_snapshot",
+      "expected": "71ab4e28978a4e41bb9e347c88340d6456df22ba4cc68fdc147c4333f73b3e43",
+      "actual": "71ab4e28978a4e41bb9e347c88340d6456df22ba4cc68fdc147c4333f73b3e43",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\skr_input.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "c67dc9c579bab9d11fe11c8bd1e913dc8586d8db81219b57e1798a2832fc6e26",
+      "actual": "c67dc9c579bab9d11fe11c8bd1e913dc8586d8db81219b57e1798a2832fc6e26",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\summary.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "1450bb1fa6548dcb139d1a6b0e25a3454e4ae0123e6af8b4b7dee3fb1e09db20",
+      "actual": "1450bb1fa6548dcb139d1a6b0e25a3454e4ae0123e6af8b4b7dee3fb1e09db20",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\approximate_smoke_20261107\\trajectories.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "69f88888dddfb74f9d38b0fa9c0d350b8980da08f86d93a95ec548fcdcf1794d",
+      "actual": "69f88888dddfb74f9d38b0fa9c0d350b8980da08f86d93a95ec548fcdcf1794d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\approximation_gaps.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "89c80bc7b7f6607cceebce05c68a795096bb907b7e5d372cca2760cf2464d3e5",
+      "actual": "89c80bc7b7f6607cceebce05c68a795096bb907b7e5d372cca2760cf2464d3e5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figure_contact_sheet.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "885280427b956ad2b642d0dc3f2e92e3e32823a41b3a89ea2e39ee60195520d6",
+      "actual": "885280427b956ad2b642d0dc3f2e92e3e32823a41b3a89ea2e39ee60195520d6",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\lambda_calibration.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "b330474cc4c8c550ee3e9d82c4f35f84485cbc67ba44fb4eb4d18310f75a2723",
+      "actual": "b330474cc4c8c550ee3e9d82c4f35f84485cbc67ba44fb4eb4d18310f75a2723",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\output_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "5999e24e87a53e16f9881fef8d3b4c0f7e078f26866f6ef26e3e1b77a9620219",
+      "actual": "5999e24e87a53e16f9881fef8d3b4c0f7e078f26866f6ef26e3e1b77a9620219",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\results.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "a0117ac7a805a3c07274624ce7d8d39d34770d44bf65099e1e286cc33d337b62",
+      "actual": "a0117ac7a805a3c07274624ce7d8d39d34770d44bf65099e1e286cc33d337b62",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\scenario.npz",
+      "kind": "historical_protected_snapshot",
+      "expected": "71ab4e28978a4e41bb9e347c88340d6456df22ba4cc68fdc147c4333f73b3e43",
+      "actual": "71ab4e28978a4e41bb9e347c88340d6456df22ba4cc68fdc147c4333f73b3e43",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\sensitivities.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "96d0f71f2475c3ea227b470164a7a1f3bd6bcd6dc08bad50f6b6bbd86a106b00",
+      "actual": "96d0f71f2475c3ea227b470164a7a1f3bd6bcd6dc08bad50f6b6bbd86a106b00",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\skr_input.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "c67dc9c579bab9d11fe11c8bd1e913dc8586d8db81219b57e1798a2832fc6e26",
+      "actual": "c67dc9c579bab9d11fe11c8bd1e913dc8586d8db81219b57e1798a2832fc6e26",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\summary.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "08f28ad099a0b77ca153d39edb11e13b1569a3764bd182bc01bab8e4060bbb10",
+      "actual": "08f28ad099a0b77ca153d39edb11e13b1569a3764bd182bc01bab8e4060bbb10",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\trajectories.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "69f88888dddfb74f9d38b0fa9c0d350b8980da08f86d93a95ec548fcdcf1794d",
+      "actual": "69f88888dddfb74f9d38b0fa9c0d350b8980da08f86d93a95ec548fcdcf1794d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\verification.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "1a2b84ce1a1c929b14325a8b094f3ea633cd24a8fbef8e417582079944966fb3",
+      "actual": "1a2b84ce1a1c929b14325a8b094f3ea633cd24a8fbef8e417582079944966fb3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\approximation_gaps.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "b3dcdec4f6dd4cbb6b9e06415a76c8aadeb4cb3cc5cbeee81cdb6d18d0fb53ff",
+      "actual": "b3dcdec4f6dd4cbb6b9e06415a76c8aadeb4cb3cc5cbeee81cdb6d18d0fb53ff",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\input_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "f043cb22e32b8b096060815cf98605c2722a047d3175da1c1b00bfd64919947f",
+      "actual": "f043cb22e32b8b096060815cf98605c2722a047d3175da1c1b00bfd64919947f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\lambda_calibration.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "b330474cc4c8c550ee3e9d82c4f35f84485cbc67ba44fb4eb4d18310f75a2723",
+      "actual": "b330474cc4c8c550ee3e9d82c4f35f84485cbc67ba44fb4eb4d18310f75a2723",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\output_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "572219455caa6bf3653a784ce09ce98f2b460ba5c8071c866f77eb5e4ae4bd8b",
+      "actual": "572219455caa6bf3653a784ce09ce98f2b460ba5c8071c866f77eb5e4ae4bd8b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\results.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "41549613ba1246bda28277dff58c7049294a7ac8c6ce40d64f50aecd3661946a",
+      "actual": "41549613ba1246bda28277dff58c7049294a7ac8c6ce40d64f50aecd3661946a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\scenario.npz",
+      "kind": "historical_protected_snapshot",
+      "expected": "71ab4e28978a4e41bb9e347c88340d6456df22ba4cc68fdc147c4333f73b3e43",
+      "actual": "71ab4e28978a4e41bb9e347c88340d6456df22ba4cc68fdc147c4333f73b3e43",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\sensitivities.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "f5213e57ee2bf061b6d411ef9e6225be2e328de53797ee0d05a51165e9b19e57",
+      "actual": "f5213e57ee2bf061b6d411ef9e6225be2e328de53797ee0d05a51165e9b19e57",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\skr_input.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "c67dc9c579bab9d11fe11c8bd1e913dc8586d8db81219b57e1798a2832fc6e26",
+      "actual": "c67dc9c579bab9d11fe11c8bd1e913dc8586d8db81219b57e1798a2832fc6e26",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\summary.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "d6c1305e87140df82e69521d555f0f4d2ad0ec1a694a62f5c09ccd9e832e2eee",
+      "actual": "d6c1305e87140df82e69521d555f0f4d2ad0ec1a694a62f5c09ccd9e832e2eee",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\trajectories.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "69f88888dddfb74f9d38b0fa9c0d350b8980da08f86d93a95ec548fcdcf1794d",
+      "actual": "69f88888dddfb74f9d38b0fa9c0d350b8980da08f86d93a95ec548fcdcf1794d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\verification.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "112a95580d0912b417db18212775605fca8411fcab30fca835f0cd2c227382ed",
+      "actual": "112a95580d0912b417db18212775605fca8411fcab30fca835f0cd2c227382ed",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e",
+      "actual": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\binh40_text.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "a6b1ce6e0915beb3b1a9af08611f7903325f2a62140f33128bd505394ef0ac1b",
+      "actual": "a6b1ce6e0915beb3b1a9af08611f7903325f2a62140f33128bd505394ef0ac1b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\bound_B43_page3.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "f1f08501eff2acf3cc365605cf81baf965246495690eef456c1ea5012349900d",
+      "actual": "f1f08501eff2acf3cc365605cf81baf965246495690eef456c1ea5012349900d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\bound_B43_text.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "3fd4abcd49a3a513b8512f75cbef38d107c5282e3c79e9cb859fba9275743e72",
+      "actual": "3fd4abcd49a3a513b8512f75cbef38d107c5282e3c79e9cb859fba9275743e72",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f",
+      "actual": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\current16_text.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "1729b8514f95ce20c1a54124525381e02b6e2807909ca1453fabbeb0565423fb",
+      "actual": "1729b8514f95ce20c1a54124525381e02b6e2807909ca1453fabbeb0565423fb",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\current17_text.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "afab26d54087cb27d59f502f11cb134b9e0fef5514e1d0a3658e96519e7fdb5f",
+      "actual": "afab26d54087cb27d59f502f11cb134b9e0fef5514e1d0a3658e96519e7fdb5f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\cvqkd_candidate_comparison.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "3874ad86405e17381fa4b27b4b65a6c9fa63221ec8543feae0e99c8021dc8835",
+      "actual": "3874ad86405e17381fa4b27b4b65a6c9fa63221ec8543feae0e99c8021dc8835",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\final_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "a2ab25e84f09b27491c3cbcb970e8444dfb633c1e1c9efb561f69327bee0444c",
+      "actual": "a2ab25e84f09b27491c3cbcb970e8444dfb633c1e1c9efb561f69327bee0444c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\manuscript3_text.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "4b9a9f07649f39a3d547df6d51732bd0422074ff05e6c9da9c923b37789d0fd7",
+      "actual": "4b9a9f07649f39a3d547df6d51732bd0422074ff05e6c9da9c923b37789d0fd7",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\paper_A_table_page14.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "3fd3f4003779027f887daaafe3b9b1bc2f84dc6ec4321f9e5fc39c4b38f0f94e",
+      "actual": "3fd3f4003779027f887daaafe3b9b1bc2f84dc6ec4321f9e5fc39c4b38f0f94e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\paper_A_text.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "da2a11790d91f9056ac54567f9b6f36045372cb4d713b34c8ebc7a3145dcf9fe",
+      "actual": "da2a11790d91f9056ac54567f9b6f36045372cb4d713b34c8ebc7a3145dcf9fe",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\paper_yaml_before.yaml",
+      "kind": "historical_protected_snapshot",
+      "expected": "cb92b47efc141897cb85547a4be284db446dbf215282e6a2c5e737ab425defbb",
+      "actual": "cb92b47efc141897cb85547a4be284db446dbf215282e6a2c5e737ab425defbb",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\paper_yaml_changes.diff",
+      "kind": "historical_protected_snapshot",
+      "expected": "a9fead33b050a1bb0d1282bf4fd7780a632c30a54812cb8de1ca9311ad7fb794",
+      "actual": "a9fead33b050a1bb0d1282bf4fd7780a632c30a54812cb8de1ca9311ad7fb794",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\parameter_provenance.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "1ffa0fb798eaad9262d7de6539633ac78b8cc93bb57bbfae7b2db8467e93b3f5",
+      "actual": "1ffa0fb798eaad9262d7de6539633ac78b8cc93bb57bbfae7b2db8467e93b3f5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\protected_previous_results.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "a5d18a62e372cf5be84f1689f5cf3b5ca1d796a5c1c384f99afd20acef1d6b6a",
+      "actual": "a5d18a62e372cf5be84f1689f5cf3b5ca1d796a5c1c384f99afd20acef1d6b6a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934",
+      "actual": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\source_binding.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "92dbeca8380099e1c60b4ff5b3f7d74ed517f3a2112681e0c02720f0ab4f8fc6",
+      "actual": "92dbeca8380099e1c60b4ff5b3f7d74ed517f3a2112681e0c02720f0ab4f8fc6",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\source_inventory.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "995e4faa58d6ab87a68abb9add7d662c4efade958787d71f44f52f344df8155c",
+      "actual": "995e4faa58d6ab87a68abb9add7d662c4efade958787d71f44f52f344df8155c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\tests.xml",
+      "kind": "historical_protected_snapshot",
+      "expected": "58cd79c8ba7eb369871a7fb5e7ffa6f547a221a62e39206efe03b4576811f2a4",
+      "actual": "58cd79c8ba7eb369871a7fb5e7ffa6f547a221a62e39206efe03b4576811f2a4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\approximation_gaps.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "21512bd703286317035f9862a4427c851af677faec0bda3933d896507e3153f0",
+      "actual": "21512bd703286317035f9862a4427c851af677faec0bda3933d896507e3153f0",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\lambda_calibration.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "f3d05c2f10f770c7a93240f712eab141b10a532b518816e54878aa8c758a0f3f",
+      "actual": "f3d05c2f10f770c7a93240f712eab141b10a532b518816e54878aa8c758a0f3f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\output_manifest.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "329f5a94c6e5441f84d83afa60dd5961217cc1a7593d7ea5c30963c72401a30a",
+      "actual": "329f5a94c6e5441f84d83afa60dd5961217cc1a7593d7ea5c30963c72401a30a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\results.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "2a765721afad286bea8bcbc04cbfc77ed0c13c80eeeb6ecb690c8eb99cab134a",
+      "actual": "2a765721afad286bea8bcbc04cbfc77ed0c13c80eeeb6ecb690c8eb99cab134a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\scenario.npz",
+      "kind": "historical_protected_snapshot",
+      "expected": "938ff4b2e6511412d2a01283dafb12790f58c979b8c587562a49d49994999d1a",
+      "actual": "938ff4b2e6511412d2a01283dafb12790f58c979b8c587562a49d49994999d1a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\sensitivities.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "305172fe2a69cd25133aee75f9156a0e3d9b4d17bc1112ac12df9db70c0144ce",
+      "actual": "305172fe2a69cd25133aee75f9156a0e3d9b4d17bc1112ac12df9db70c0144ce",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\skr_input.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "44dcb7337336f1903d897b7462aed2893694b207354ef5dabec16fad9cbac982",
+      "actual": "44dcb7337336f1903d897b7462aed2893694b207354ef5dabec16fad9cbac982",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\summary.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "bba2c550212ca68f23b4f6396f896ab5ded43ca4897f6ba7438cb2c6d2ddde87",
+      "actual": "bba2c550212ca68f23b4f6396f896ab5ded43ca4897f6ba7438cb2c6d2ddde87",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\trajectories.csv",
+      "kind": "historical_protected_snapshot",
+      "expected": "a44e88c5973a7c3e35b0e4220a8b9319ea708c3c012efb148ad6d034f3a6b591",
+      "actual": "a44e88c5973a7c3e35b0e4220a8b9319ea708c3c012efb148ad6d034f3a6b591",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\01_gaussian_cloud_maps.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "8494791c4aba40287addadecc8f9672a0a9ba7e96f8dcbe3c4040ef58801b01d",
+      "actual": "8494791c4aba40287addadecc8f9672a0a9ba7e96f8dcbe3c4040ef58801b01d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\01_gaussian_cloud_maps.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "c9031206bde126c825c06a04925d23a40cc9c5c1ce688c1fd14dff203bfe2c3c",
+      "actual": "c9031206bde126c825c06a04925d23a40cc9c5c1ce688c1fd14dff203bfe2c3c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\02_binary_cloud_maps.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "b9eb24a97a40c838a82b682bf2f2a5eddded94e2e9e5b3e8c59739d369d0c370",
+      "actual": "b9eb24a97a40c838a82b682bf2f2a5eddded94e2e9e5b3e8c59739d369d0c370",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\02_binary_cloud_maps.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "f634d1db9babf256666bc4e2b58bc8725bf622e88a224d03e64ae4bda75b3f20",
+      "actual": "f634d1db9babf256666bc4e2b58bc8725bf622e88a224d03e64ae4bda75b3f20",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\03_trajectories_all.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "00029ab50943df71915c33d4e507ce725b7474f8e91893e5f93ce976a3baf002",
+      "actual": "00029ab50943df71915c33d4e507ce725b7474f8e91893e5f93ce976a3baf002",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\03_trajectories_all.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "e1eb328b5567fcd4dd592b35e04a530f9b9d7a0189d07fc36232f602ace71fd2",
+      "actual": "e1eb328b5567fcd4dd592b35e04a530f9b9d7a0189d07fc36232f602ace71fd2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\04_trajectories_P1.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "d3cc8d1e6b4d1255590b290611a5a541401bda813ab5586cdd46f2ebc25c16d1",
+      "actual": "d3cc8d1e6b4d1255590b290611a5a541401bda813ab5586cdd46f2ebc25c16d1",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\04_trajectories_P1.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0eac8f78da7ce777cff7fb9923f26edb4ccd0eed871ae3f8337e27f89dc85c5c",
+      "actual": "0eac8f78da7ce777cff7fb9923f26edb4ccd0eed871ae3f8337e27f89dc85c5c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\05_trajectories_P2.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "35c2a05241412fb1cce895db30f2fb6de23356aed0848a20f5c6e929fbac2a00",
+      "actual": "35c2a05241412fb1cce895db30f2fb6de23356aed0848a20f5c6e929fbac2a00",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\05_trajectories_P2.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "87c45014edcd49ddc4b833039a178443c518fe1a06f971cd0bf3d9d2738923f3",
+      "actual": "87c45014edcd49ddc4b833039a178443c518fe1a06f971cd0bf3d9d2738923f3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\06_energy_j.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "ec6bbcf4d256830959c35e4277eea73ab441b8d2ee6ca6883960b37c153fa2ca",
+      "actual": "ec6bbcf4d256830959c35e4277eea73ab441b8d2ee6ca6883960b37c153fa2ca",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\06_energy_j.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "68bf88662fd19b81167a3023a2ef3c01f497c355e1e42803d3a28f927c54f277",
+      "actual": "68bf88662fd19b81167a3023a2ef3c01f497c355e1e42803d3a28f927c54f277",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\07_asymptotic_bits.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "165a1b6ce884b19c9e3d654a7e75b85a024125b3a0aa27a1be8b60fb80f47914",
+      "actual": "165a1b6ce884b19c9e3d654a7e75b85a024125b3a0aa27a1be8b60fb80f47914",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\07_asymptotic_bits.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "2fa1af2b28980184e20eccc256ac21b7730793221f8bacbdade39e2476332825",
+      "actual": "2fa1af2b28980184e20eccc256ac21b7730793221f8bacbdade39e2476332825",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\08_valid_signals.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "4f1b81cd3dbe71294b3be2f2c5af7799afcc0d08dbf15e4a361c79dbb40c8fd5",
+      "actual": "4f1b81cd3dbe71294b3be2f2c5af7799afcc0d08dbf15e4a361c79dbb40c8fd5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\08_valid_signals.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0f3216ea18a72fa41d545ca8ba52ffa1638f48e9145b41a343b6306f5e9924a5",
+      "actual": "0f3216ea18a72fa41d545ca8ba52ffa1638f48e9145b41a343b6306f5e9924a5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\09_penalty_per_signal.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "c2e39d7c3191e18aa5beb5c3785f478963544e68f6610748309ca99a6cd0ca57",
+      "actual": "c2e39d7c3191e18aa5beb5c3785f478963544e68f6610748309ca99a6cd0ca57",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\09_penalty_per_signal.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "5d885d55f566dbe8f99fea2c183bf613fc61290de8c5bf52977c51edcb67d1de",
+      "actual": "5d885d55f566dbe8f99fea2c183bf613fc61290de8c5bf52977c51edcb67d1de",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\10_key_bits.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "eb69a8e2429a2232aad9262b456b69f2b60db7ed71b171beb877ac45212c6cd9",
+      "actual": "eb69a8e2429a2232aad9262b456b69f2b60db7ed71b171beb877ac45212c6cd9",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\10_key_bits.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "de26ca441f798453272fb02ea93b38366ed847339e778474aa807dfd573541e5",
+      "actual": "de26ca441f798453272fb02ea93b38366ed847339e778474aa807dfd573541e5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\11_average_skr_bits_s.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "57b6d366998ee6e5937a988a64ac4dc3f225336b1bce75158981d919807ed275",
+      "actual": "57b6d366998ee6e5937a988a64ac4dc3f225336b1bce75158981d919807ed275",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\11_average_skr_bits_s.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "8a60e0bdb8227f64d61a445c5bcf2b9c52ac52e971a4e19feb8e8026fd3e4b13",
+      "actual": "8a60e0bdb8227f64d61a445c5bcf2b9c52ac52e971a4e19feb8e8026fd3e4b13",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\12_runtime_memory.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "aa463ab5321e225a1a4c603f269f8591da0dc54727a6a05f147d4d2677383677",
+      "actual": "aa463ab5321e225a1a4c603f269f8591da0dc54727a6a05f147d4d2677383677",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\12_runtime_memory.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "7d4f6fb231210a5bfd3cc03c46a2a5617de90ae9d39319e7ca66e943140b9531",
+      "actual": "7d4f6fb231210a5bfd3cc03c46a2a5617de90ae9d39319e7ca66e943140b9531",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\13_energy_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "fe59a1fa6cc9ab038d45738cdd2a275d081f8e9982e3ef1160b187ecf73d6df6",
+      "actual": "fe59a1fa6cc9ab038d45738cdd2a275d081f8e9982e3ef1160b187ecf73d6df6",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\13_energy_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "346c20f4fc17df7f8d8eb7c00942a2f3dd1ecbf6ff767c5b012f08c27e27b7a4",
+      "actual": "346c20f4fc17df7f8d8eb7c00942a2f3dd1ecbf6ff767c5b012f08c27e27b7a4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\14_threshold_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "a749f8503043a1d8d1bfb9a649a22e629f6b89eeab3393827f829774865a8658",
+      "actual": "a749f8503043a1d8d1bfb9a649a22e629f6b89eeab3393827f829774865a8658",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\14_threshold_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "7a0e0e690c5dc08d3c93f71c8bc3f9cd5396adaf28d3f278cf33b2db1e8902a2",
+      "actual": "7a0e0e690c5dc08d3c93f71c8bc3f9cd5396adaf28d3f278cf33b2db1e8902a2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\15_resolution_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "22ceeb896c272c697c7e7589bc09431741973ce186081cb276b7386fbc8462b1",
+      "actual": "22ceeb896c272c697c7e7589bc09431741973ce186081cb276b7386fbc8462b1",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\15_resolution_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "d5bcff805e651c9e4b892691805748dc00223603c7c8bbb9f49e5c1557a327ec",
+      "actual": "d5bcff805e651c9e4b892691805748dc00223603c7c8bbb9f49e5c1557a327ec",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\16_pruning_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "b561184a85e1aef3bb625509b8ca863ddf2f2aece46e45bd29b56261322137c3",
+      "actual": "b561184a85e1aef3bb625509b8ca863ddf2f2aece46e45bd29b56261322137c3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\synthetic_demo_20261107\\figures\\16_pruning_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "445f24f5daa4b52b0a991ca47254c82f49d9933753329afe5fa7acfb74cc3965",
+      "actual": "445f24f5daa4b52b0a991ca47254c82f49d9933753329afe5fa7acfb74cc3965",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\01_gaussian_cloud_maps.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "471adbf574fa3849155ffa4c9f133327bbe530a9f33c9bbe19eb2a76eb4e6456",
+      "actual": "471adbf574fa3849155ffa4c9f133327bbe530a9f33c9bbe19eb2a76eb4e6456",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\01_gaussian_cloud_maps.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "da0ad87c1ff7bc6006a0c4c8fc09bdc263a24a4dabb00b78a00e0ce1dc18723a",
+      "actual": "da0ad87c1ff7bc6006a0c4c8fc09bdc263a24a4dabb00b78a00e0ce1dc18723a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\02_binary_cloud_maps.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "6ae21145fcd31432d93c9cb685295db23154c0ab2e0ab3f7977efb9ecf8b4f0b",
+      "actual": "6ae21145fcd31432d93c9cb685295db23154c0ab2e0ab3f7977efb9ecf8b4f0b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\02_binary_cloud_maps.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "3116481e40b290dac6f301b568d5497c3d0c7b3d3ae2dc7877260055ce4e5c55",
+      "actual": "3116481e40b290dac6f301b568d5497c3d0c7b3d3ae2dc7877260055ce4e5c55",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\03_trajectories_all.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "2eba08aa34de4b226b78654e0de12378bff1583176aed45df57858165c15828d",
+      "actual": "2eba08aa34de4b226b78654e0de12378bff1583176aed45df57858165c15828d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\03_trajectories_all.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "e1eb328b5567fcd4dd592b35e04a530f9b9d7a0189d07fc36232f602ace71fd2",
+      "actual": "e1eb328b5567fcd4dd592b35e04a530f9b9d7a0189d07fc36232f602ace71fd2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\04_trajectories_P1.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "3daf4208543487a8f6ce4d9b44acd6aeba250ec274ab22fe4730cdfb7fcd1247",
+      "actual": "3daf4208543487a8f6ce4d9b44acd6aeba250ec274ab22fe4730cdfb7fcd1247",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\04_trajectories_P1.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0eac8f78da7ce777cff7fb9923f26edb4ccd0eed871ae3f8337e27f89dc85c5c",
+      "actual": "0eac8f78da7ce777cff7fb9923f26edb4ccd0eed871ae3f8337e27f89dc85c5c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\05_trajectories_P2.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "b91a60571bd0e1035c54014836e13ae4bc1476349097650a15099473e6d28a3c",
+      "actual": "b91a60571bd0e1035c54014836e13ae4bc1476349097650a15099473e6d28a3c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\05_trajectories_P2.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "87c45014edcd49ddc4b833039a178443c518fe1a06f971cd0bf3d9d2738923f3",
+      "actual": "87c45014edcd49ddc4b833039a178443c518fe1a06f971cd0bf3d9d2738923f3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\06_energy_j.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "99fb5a1d8a1f7c986a1ee866deca37d779a2c04416397de06ee3426ef95330da",
+      "actual": "99fb5a1d8a1f7c986a1ee866deca37d779a2c04416397de06ee3426ef95330da",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\06_energy_j.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "68bf88662fd19b81167a3023a2ef3c01f497c355e1e42803d3a28f927c54f277",
+      "actual": "68bf88662fd19b81167a3023a2ef3c01f497c355e1e42803d3a28f927c54f277",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\07_asymptotic_bits.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "01dacc4522f9b68c6faa1e6f01ddc4f213ff2cf7858279eb701b0ba48aa14e33",
+      "actual": "01dacc4522f9b68c6faa1e6f01ddc4f213ff2cf7858279eb701b0ba48aa14e33",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\07_asymptotic_bits.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "2fa1af2b28980184e20eccc256ac21b7730793221f8bacbdade39e2476332825",
+      "actual": "2fa1af2b28980184e20eccc256ac21b7730793221f8bacbdade39e2476332825",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\08_valid_signals.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "f0dae335aaf5fbf28c3c419b37e041b79bf42edcfa4113397c1290713923bde5",
+      "actual": "f0dae335aaf5fbf28c3c419b37e041b79bf42edcfa4113397c1290713923bde5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\08_valid_signals.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0f3216ea18a72fa41d545ca8ba52ffa1638f48e9145b41a343b6306f5e9924a5",
+      "actual": "0f3216ea18a72fa41d545ca8ba52ffa1638f48e9145b41a343b6306f5e9924a5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\09_penalty_per_signal.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "0135604ceb01b74a0ae54c873c05725d0ad481296bf7764fdf635cc09e3ac919",
+      "actual": "0135604ceb01b74a0ae54c873c05725d0ad481296bf7764fdf635cc09e3ac919",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\09_penalty_per_signal.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "5d885d55f566dbe8f99fea2c183bf613fc61290de8c5bf52977c51edcb67d1de",
+      "actual": "5d885d55f566dbe8f99fea2c183bf613fc61290de8c5bf52977c51edcb67d1de",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\10_key_bits.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "9dcb8ccf2dc593c188d196b9627ec19194b6b4c40895c954272cfdfba7b01f50",
+      "actual": "9dcb8ccf2dc593c188d196b9627ec19194b6b4c40895c954272cfdfba7b01f50",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\10_key_bits.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "de26ca441f798453272fb02ea93b38366ed847339e778474aa807dfd573541e5",
+      "actual": "de26ca441f798453272fb02ea93b38366ed847339e778474aa807dfd573541e5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\11_average_skr_bits_s.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "107bb107626a0da2ca7caadef5d7fab862710cd19a60ea8cf3102fff5241088b",
+      "actual": "107bb107626a0da2ca7caadef5d7fab862710cd19a60ea8cf3102fff5241088b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\11_average_skr_bits_s.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "8a60e0bdb8227f64d61a445c5bcf2b9c52ac52e971a4e19feb8e8026fd3e4b13",
+      "actual": "8a60e0bdb8227f64d61a445c5bcf2b9c52ac52e971a4e19feb8e8026fd3e4b13",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\12_runtime_memory.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "c89c666e843b8831b68d0123d921b2fedc6cba3840e37bf13fb4d6a50e5a8c9c",
+      "actual": "c89c666e843b8831b68d0123d921b2fedc6cba3840e37bf13fb4d6a50e5a8c9c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\12_runtime_memory.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0939582cc2fd193aa1ccfb5fcccb639177d5ae151f5b4fe909d3ce1182e30e9c",
+      "actual": "0939582cc2fd193aa1ccfb5fcccb639177d5ae151f5b4fe909d3ce1182e30e9c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\13_energy_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "4d4f98c389c60ee412bd5fcb24021d45ebed9cfd64fc64cc047bb56b5083f1e4",
+      "actual": "4d4f98c389c60ee412bd5fcb24021d45ebed9cfd64fc64cc047bb56b5083f1e4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\13_energy_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "346c20f4fc17df7f8d8eb7c00942a2f3dd1ecbf6ff767c5b012f08c27e27b7a4",
+      "actual": "346c20f4fc17df7f8d8eb7c00942a2f3dd1ecbf6ff767c5b012f08c27e27b7a4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\14_threshold_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "a280a2afa93acfea56bfc5a93afe6afc0b24d56a83f4fe46b5d77a9287cf9789",
+      "actual": "a280a2afa93acfea56bfc5a93afe6afc0b24d56a83f4fe46b5d77a9287cf9789",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\14_threshold_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "7a0e0e690c5dc08d3c93f71c8bc3f9cd5396adaf28d3f278cf33b2db1e8902a2",
+      "actual": "7a0e0e690c5dc08d3c93f71c8bc3f9cd5396adaf28d3f278cf33b2db1e8902a2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\15_resolution_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "5fc491c456e753cddc1841e6d47dd9fe5ed4b7af71512db04e15c004c560799c",
+      "actual": "5fc491c456e753cddc1841e6d47dd9fe5ed4b7af71512db04e15c004c560799c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\15_resolution_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "d5bcff805e651c9e4b892691805748dc00223603c7c8bbb9f49e5c1557a327ec",
+      "actual": "d5bcff805e651c9e4b892691805748dc00223603c7c8bbb9f49e5c1557a327ec",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\16_pruning_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "32fffa7fb2d29cb1fa6dd6bc6cdb96250413ac9afbbe2f165c52f672528b3eae",
+      "actual": "32fffa7fb2d29cb1fa6dd6bc6cdb96250413ac9afbbe2f165c52f672528b3eae",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\final_demo_20261107\\figures\\16_pruning_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "445f24f5daa4b52b0a991ca47254c82f49d9933753329afe5fa7acfb74cc3965",
+      "actual": "445f24f5daa4b52b0a991ca47254c82f49d9933753329afe5fa7acfb74cc3965",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\01_gaussian_cloud_maps.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "ac36e74159a8a78995cacfcd2f6a7c744dfee23bab341e3b8bfc5c9f1ec8c25f",
+      "actual": "ac36e74159a8a78995cacfcd2f6a7c744dfee23bab341e3b8bfc5c9f1ec8c25f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\01_gaussian_cloud_maps.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "da0ad87c1ff7bc6006a0c4c8fc09bdc263a24a4dabb00b78a00e0ce1dc18723a",
+      "actual": "da0ad87c1ff7bc6006a0c4c8fc09bdc263a24a4dabb00b78a00e0ce1dc18723a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\02_binary_cloud_maps.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "6d4725a9bbefc9bc57f3d4dfbc937b9b1992a8a570c78b2ada7638423888c2f9",
+      "actual": "6d4725a9bbefc9bc57f3d4dfbc937b9b1992a8a570c78b2ada7638423888c2f9",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\02_binary_cloud_maps.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "3116481e40b290dac6f301b568d5497c3d0c7b3d3ae2dc7877260055ce4e5c55",
+      "actual": "3116481e40b290dac6f301b568d5497c3d0c7b3d3ae2dc7877260055ce4e5c55",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\03_trajectories_all.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "4bcc2427b5495873309dd3b6acdc48be8b3d687fd99ed8da2725cd6bdb3c7185",
+      "actual": "4bcc2427b5495873309dd3b6acdc48be8b3d687fd99ed8da2725cd6bdb3c7185",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\03_trajectories_all.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "e1eb328b5567fcd4dd592b35e04a530f9b9d7a0189d07fc36232f602ace71fd2",
+      "actual": "e1eb328b5567fcd4dd592b35e04a530f9b9d7a0189d07fc36232f602ace71fd2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\04_trajectories_P1.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "56cde519f4cede8d2f25dffade334e2f0c1a8882d186e02db7c095d73dccaf7c",
+      "actual": "56cde519f4cede8d2f25dffade334e2f0c1a8882d186e02db7c095d73dccaf7c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\04_trajectories_P1.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0eac8f78da7ce777cff7fb9923f26edb4ccd0eed871ae3f8337e27f89dc85c5c",
+      "actual": "0eac8f78da7ce777cff7fb9923f26edb4ccd0eed871ae3f8337e27f89dc85c5c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\05_trajectories_P2.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "b1c92f065922bdf4a943214412aa06f53a393761dfcade114255230737624ae1",
+      "actual": "b1c92f065922bdf4a943214412aa06f53a393761dfcade114255230737624ae1",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\05_trajectories_P2.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "87c45014edcd49ddc4b833039a178443c518fe1a06f971cd0bf3d9d2738923f3",
+      "actual": "87c45014edcd49ddc4b833039a178443c518fe1a06f971cd0bf3d9d2738923f3",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\06_energy_j.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "5be276ab02d1d67af47f3d484fccd951c374a0f8e61149bf089c3fecd9c9c50c",
+      "actual": "5be276ab02d1d67af47f3d484fccd951c374a0f8e61149bf089c3fecd9c9c50c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\06_energy_j.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "68bf88662fd19b81167a3023a2ef3c01f497c355e1e42803d3a28f927c54f277",
+      "actual": "68bf88662fd19b81167a3023a2ef3c01f497c355e1e42803d3a28f927c54f277",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\07_asymptotic_bits.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "d68196d018ba861e3dd216975bf8885cef26b68ffe393cf43007fbc47f1d1f2f",
+      "actual": "d68196d018ba861e3dd216975bf8885cef26b68ffe393cf43007fbc47f1d1f2f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\07_asymptotic_bits.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "2fa1af2b28980184e20eccc256ac21b7730793221f8bacbdade39e2476332825",
+      "actual": "2fa1af2b28980184e20eccc256ac21b7730793221f8bacbdade39e2476332825",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\08_valid_signals.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "a727ed6c8844808e61f49d6eca35349fc7c049256a57f4ab337092bf25217cdf",
+      "actual": "a727ed6c8844808e61f49d6eca35349fc7c049256a57f4ab337092bf25217cdf",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\08_valid_signals.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "0f3216ea18a72fa41d545ca8ba52ffa1638f48e9145b41a343b6306f5e9924a5",
+      "actual": "0f3216ea18a72fa41d545ca8ba52ffa1638f48e9145b41a343b6306f5e9924a5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\09_penalty_per_signal.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "cb62290e1eb60f8a71a28db5a4dd16863c255659be766de563632ea30f5359e1",
+      "actual": "cb62290e1eb60f8a71a28db5a4dd16863c255659be766de563632ea30f5359e1",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\09_penalty_per_signal.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "5d885d55f566dbe8f99fea2c183bf613fc61290de8c5bf52977c51edcb67d1de",
+      "actual": "5d885d55f566dbe8f99fea2c183bf613fc61290de8c5bf52977c51edcb67d1de",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\10_key_bits.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "0386f0009e20f0c26622f2145c0e0af0785b2b2a629d879c08ad1e44ed1e87ca",
+      "actual": "0386f0009e20f0c26622f2145c0e0af0785b2b2a629d879c08ad1e44ed1e87ca",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\10_key_bits.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "de26ca441f798453272fb02ea93b38366ed847339e778474aa807dfd573541e5",
+      "actual": "de26ca441f798453272fb02ea93b38366ed847339e778474aa807dfd573541e5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\11_average_skr_bits_s.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "6b0b652054a49373996956e4dd5d46cc9ce271a72b06ae4cbf2952dc5339cd50",
+      "actual": "6b0b652054a49373996956e4dd5d46cc9ce271a72b06ae4cbf2952dc5339cd50",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\11_average_skr_bits_s.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "8a60e0bdb8227f64d61a445c5bcf2b9c52ac52e971a4e19feb8e8026fd3e4b13",
+      "actual": "8a60e0bdb8227f64d61a445c5bcf2b9c52ac52e971a4e19feb8e8026fd3e4b13",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\12_runtime_memory.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "3453215801f51c2d3886757038b74e03c8e1001d251af95337058df5bba6fd5b",
+      "actual": "3453215801f51c2d3886757038b74e03c8e1001d251af95337058df5bba6fd5b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\12_runtime_memory.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "e843ca50425d26a7bfab4e9e671f5e96c53b562047b4949170121f1a9b02d723",
+      "actual": "e843ca50425d26a7bfab4e9e671f5e96c53b562047b4949170121f1a9b02d723",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\13_energy_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "2839e2b1a734bc53132b669d3e763b6e2cd41169172706ad9733a39765fe3ace",
+      "actual": "2839e2b1a734bc53132b669d3e763b6e2cd41169172706ad9733a39765fe3ace",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\13_energy_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "346c20f4fc17df7f8d8eb7c00942a2f3dd1ecbf6ff767c5b012f08c27e27b7a4",
+      "actual": "346c20f4fc17df7f8d8eb7c00942a2f3dd1ecbf6ff767c5b012f08c27e27b7a4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\14_threshold_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "a0e656ac3ced75a6ba067a304b06cf235f0ad91f5867bd8fbdfe8ebe5fb5d5a5",
+      "actual": "a0e656ac3ced75a6ba067a304b06cf235f0ad91f5867bd8fbdfe8ebe5fb5d5a5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\14_threshold_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "7a0e0e690c5dc08d3c93f71c8bc3f9cd5396adaf28d3f278cf33b2db1e8902a2",
+      "actual": "7a0e0e690c5dc08d3c93f71c8bc3f9cd5396adaf28d3f278cf33b2db1e8902a2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\15_resolution_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "25e25207c30ec89d2ff234ed4c9514428adafb9e2ca973ff9aef33e68aaa2a43",
+      "actual": "25e25207c30ec89d2ff234ed4c9514428adafb9e2ca973ff9aef33e68aaa2a43",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\15_resolution_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "d5bcff805e651c9e4b892691805748dc00223603c7c8bbb9f49e5c1557a327ec",
+      "actual": "d5bcff805e651c9e4b892691805748dc00223603c7c8bbb9f49e5c1557a327ec",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\16_pruning_sensitivity.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "3343d2b06af7e16f5678c50821576b2450b6885836639e422b4e4b026f06b84d",
+      "actual": "3343d2b06af7e16f5678c50821576b2450b6885836639e422b4e4b026f06b84d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\demo_verified_20261107\\figures\\16_pruning_sensitivity.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "445f24f5daa4b52b0a991ca47254c82f49d9933753329afe5fa7acfb74cc3965",
+      "actual": "445f24f5daa4b52b0a991ca47254c82f49d9933753329afe5fa7acfb74cc3965",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig01_rotor_power.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "e1e74a17f24752b7ee84abf976ea3308e50e728547c60627b191db09ff5726c2",
+      "actual": "e1e74a17f24752b7ee84abf976ea3308e50e728547c60627b191db09ff5726c2",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig01_rotor_power.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "97c627694decac46f06b919f143a95b7364ac56605d83cd283d70361bd562e4d",
+      "actual": "97c627694decac46f06b919f143a95b7364ac56605d83cd283d70361bd562e4d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig01_rotor_power.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "0bb6f12be1945689239c981cea4076af45a66fa9f3cc559bdbc1b664b22be09c",
+      "actual": "0bb6f12be1945689239c981cea4076af45a66fa9f3cc559bdbc1b664b22be09c",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig01_rotor_power.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "3f13894a10b6e88913269e8e7e5bea0cc29c3916b543ef1857eb8cc9e74d5970",
+      "actual": "3f13894a10b6e88913269e8e7e5bea0cc29c3916b543ef1857eb8cc9e74d5970",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig02_cloud_maps.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "1a4e399223f053737ae2031618b7517dbb7ec9a5926785dd97614a4b185cec44",
+      "actual": "1a4e399223f053737ae2031618b7517dbb7ec9a5926785dd97614a4b185cec44",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig02_cloud_maps.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "85ef954969a06935bd57a14402e825b34ab8261a200912f4802f2b9dfe34b383",
+      "actual": "85ef954969a06935bd57a14402e825b34ab8261a200912f4802f2b9dfe34b383",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig03_skr_lookup.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "28fffed9b63a1a6d42864ca599e690b89586432d3dc5059ab4e75582d77cb27a",
+      "actual": "28fffed9b63a1a6d42864ca599e690b89586432d3dc5059ab4e75582d77cb27a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig03_skr_lookup.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "4e51c25c6ac2b2bb22cce3b3d1f966779ad45aaef407cc995230a0622a9a6d40",
+      "actual": "4e51c25c6ac2b2bb22cce3b3d1f966779ad45aaef407cc995230a0622a9a6d40",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig04_trajectory_P1.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "466c495fad4c214fe736dadc3fc0a54fb40cd25dc507b96a05556a4672619123",
+      "actual": "466c495fad4c214fe736dadc3fc0a54fb40cd25dc507b96a05556a4672619123",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig04_trajectory_P1.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "f1f0ac5bfc8e66b02f15351422003d3e0aad9c879fdf2c1a01eb0aef8ebdd6b5",
+      "actual": "f1f0ac5bfc8e66b02f15351422003d3e0aad9c879fdf2c1a01eb0aef8ebdd6b5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig05_trajectory_P2.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "6f22d4d1252207d1077534e8ba505938b61a433722eed647058273b77fa83585",
+      "actual": "6f22d4d1252207d1077534e8ba505938b61a433722eed647058273b77fa83585",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig05_trajectory_P2.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "bbc5a4e007085f157fa46e1a93fe7f8c97f3de35c514bd6be8310c5905d2c978",
+      "actual": "bbc5a4e007085f157fa46e1a93fe7f8c97f3de35c514bd6be8310c5905d2c978",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig06_energy.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "5b05d6f3b2fd02605a90a9247218768311f49bf6c0eb242a5d27a0441a46f389",
+      "actual": "5b05d6f3b2fd02605a90a9247218768311f49bf6c0eb242a5d27a0441a46f389",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig06_energy.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "f9909539944c09781c283e6c9aea0e8b01dba9ccefe1b49acd90103c394f3e90",
+      "actual": "f9909539944c09781c283e6c9aea0e8b01dba9ccefe1b49acd90103c394f3e90",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig07_finite_size.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "812b059cd4207d32f31424b01799ce17d9ba0b46947e2e462c099966b51f3789",
+      "actual": "812b059cd4207d32f31424b01799ce17d9ba0b46947e2e462c099966b51f3789",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig07_finite_size.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "2d37ec0d1d75e2ae4670cdbc80a89001866eec2ccd90556f8207e10cd8249d7d",
+      "actual": "2d37ec0d1d75e2ae4670cdbc80a89001866eec2ccd90556f8207e10cd8249d7d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig08_key_comparison.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "bca90fa74994959f02db8bfb31f43b86a2d907cf76819009b169aabc14f8b466",
+      "actual": "bca90fa74994959f02db8bfb31f43b86a2d907cf76819009b169aabc14f8b466",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig08_key_comparison.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "c8a1ed25276c2e42a995c37038ff827d070a7427df1fe1f18989e59a7b11ea4f",
+      "actual": "c8a1ed25276c2e42a995c37038ff827d070a7427df1fe1f18989e59a7b11ea4f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig09_runtime_memory.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "bf72683bec766be44939ee55b1ee41b914f3b9f72730743d047d86c57d179c81",
+      "actual": "bf72683bec766be44939ee55b1ee41b914f3b9f72730743d047d86c57d179c81",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig09_runtime_memory.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "055d5808527db956bfa94c6f1bead4ec49c385d312650f926c1bb399a8c6ee78",
+      "actual": "055d5808527db956bfa94c6f1bead4ec49c385d312650f926c1bb399a8c6ee78",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig10_sensitivity.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "ac08ae86b71c1acb593ba8502066e1eeca7c98ac8fcf2207d049c38d2c790891",
+      "actual": "ac08ae86b71c1acb593ba8502066e1eeca7c98ac8fcf2207d049c38d2c790891",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig10_sensitivity.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "fe64115609b049f3cd874b0d53564a3c0c8a0afadf4af3c21b83ad292e245d04",
+      "actual": "fe64115609b049f3cd874b0d53564a3c0c8a0afadf4af3c21b83ad292e245d04",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\status.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "6e76aa9e6231e9c997eb08615c91f4aa7dbe5c1f6ddce192b92569de0b3136fe",
+      "actual": "6e76aa9e6231e9c997eb08615c91f4aa7dbe5c1f6ddce192b92569de0b3136fe",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\exploratory_QA_contact.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "45b394b7fded860340fb2b0243bc5a1fe22fcd86f2ab44923af1de67f3ac711e",
+      "actual": "45b394b7fded860340fb2b0243bc5a1fe22fcd86f2ab44923af1de67f3ac711e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\fig01_pdf_QA.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "5df7807559576a2ab8b97e1f6e9ed57aadf549cc2eb3786fb412fc311f32368a",
+      "actual": "5df7807559576a2ab8b97e1f6e9ed57aadf549cc2eb3786fb412fc311f32368a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\final_QA.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "b88da79f48c99f64afbf1eb4ac554ceaa113784db734c0c21f221beb57eaf770",
+      "actual": "b88da79f48c99f64afbf1eb4ac554ceaa113784db734c0c21f221beb57eaf770",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\final_QA_double.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "d94de6a1d31e4212a271f06e9c6e353e2516ac36e610aea62bc7c91d7c436922",
+      "actual": "d94de6a1d31e4212a271f06e9c6e353e2516ac36e610aea62bc7c91d7c436922",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\final_QA_single.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "160da6821f9d48643e912ccbce6990e5c6df55b25f623c7aba491622880a547f",
+      "actual": "160da6821f9d48643e912ccbce6990e5c6df55b25f623c7aba491622880a547f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\output_hashes.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "1d21e69f184ffb772806bc19361ce178d19288d760cf21171c40a9f643128178",
+      "actual": "1d21e69f184ffb772806bc19361ce178d19288d760cf21171c40a9f643128178",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\protected_inputs.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "1e89f00730c9758d5b5af127c62559583347d00432d7632484fcbe498194e958",
+      "actual": "1e89f00730c9758d5b5af127c62559583347d00432d7632484fcbe498194e958",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\single_cloud_QA.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "b2a67f0f068475851207d1851e89a75940c5dcc5c696f53fd4caedb7d84154ff",
+      "actual": "b2a67f0f068475851207d1851e89a75940c5dcc5c696f53fd4caedb7d84154ff",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\temporary_QA.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "8556e86a25c737a0ca5f6288ae905b81c6f3bfe75663fa4f3116f2747a44dabc",
+      "actual": "8556e86a25c737a0ca5f6288ae905b81c6f3bfe75663fa4f3116f2747a44dabc",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\tests.xml",
+      "kind": "historical_protected_snapshot",
+      "expected": "fcb1258d585bd89ea0c85c04a176da6a8d17adc7a844e3c034504507a8afa349",
+      "actual": "fcb1258d585bd89ea0c85c04a176da6a8d17adc7a844e3c034504507a8afa349",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\verification.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "f0d2eeaec164b3249d679cb217c4016d5d0a6799b62294d1409ca4ed5f56ed3d",
+      "actual": "f0d2eeaec164b3249d679cb217c4016d5d0a6799b62294d1409ca4ed5f56ed3d",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig01_rotor_power.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "6b51b0fb661ddefc1982b848b44e0f7beec87c046ef30d3477b2173ed14fb405",
+      "actual": "6b51b0fb661ddefc1982b848b44e0f7beec87c046ef30d3477b2173ed14fb405",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig01_rotor_power.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "75661e2e53e8e0785cbe49a9618557328086d2e213e124c4b67296eebee814e4",
+      "actual": "75661e2e53e8e0785cbe49a9618557328086d2e213e124c4b67296eebee814e4",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig01_rotor_power.pdf",
+      "kind": "historical_protected_snapshot",
+      "expected": "bf741e2bbaa5e913ace7c8b1ec85cb8544ab51cca9270e80bbcc38befcf9ae7b",
+      "actual": "bf741e2bbaa5e913ace7c8b1ec85cb8544ab51cca9270e80bbcc38befcf9ae7b",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig01_rotor_power.png",
+      "kind": "historical_protected_snapshot",
+      "expected": "3f13894a10b6e88913269e8e7e5bea0cc29c3916b543ef1857eb8cc9e74d5970",
+      "actual": "3f13894a10b6e88913269e8e7e5bea0cc29c3916b543ef1857eb8cc9e74d5970",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig02_cloud_maps.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "1a4e399223f053737ae2031618b7517dbb7ec9a5926785dd97614a4b185cec44",
+      "actual": "1a4e399223f053737ae2031618b7517dbb7ec9a5926785dd97614a4b185cec44",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig02_cloud_maps.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "601034c42fef34956189866f6c48ecaa0f3b026efbf351f71b980d7f2b805677",
+      "actual": "601034c42fef34956189866f6c48ecaa0f3b026efbf351f71b980d7f2b805677",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig03_skr_lookup.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "28fffed9b63a1a6d42864ca599e690b89586432d3dc5059ab4e75582d77cb27a",
+      "actual": "28fffed9b63a1a6d42864ca599e690b89586432d3dc5059ab4e75582d77cb27a",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig03_skr_lookup.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "6b4faff1c716751a2d14732bcf71a97cb782647369cfc15e7c0d4c0ad1c22db6",
+      "actual": "6b4faff1c716751a2d14732bcf71a97cb782647369cfc15e7c0d4c0ad1c22db6",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig04_trajectory_P1.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "466c495fad4c214fe736dadc3fc0a54fb40cd25dc507b96a05556a4672619123",
+      "actual": "466c495fad4c214fe736dadc3fc0a54fb40cd25dc507b96a05556a4672619123",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig04_trajectory_P1.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "d5ad44651fa7d71ca1f0cf9df2617009810bb13e6abb4eed9138bfaea2e520d5",
+      "actual": "d5ad44651fa7d71ca1f0cf9df2617009810bb13e6abb4eed9138bfaea2e520d5",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig05_trajectory_P2.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "6f22d4d1252207d1077534e8ba505938b61a433722eed647058273b77fa83585",
+      "actual": "6f22d4d1252207d1077534e8ba505938b61a433722eed647058273b77fa83585",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig05_trajectory_P2.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "cfef9593bc763fb9c3a686609ee2dd70ca12832b1ab1021aa0552e74dc7c6e37",
+      "actual": "cfef9593bc763fb9c3a686609ee2dd70ca12832b1ab1021aa0552e74dc7c6e37",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig06_energy.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "5b05d6f3b2fd02605a90a9247218768311f49bf6c0eb242a5d27a0441a46f389",
+      "actual": "5b05d6f3b2fd02605a90a9247218768311f49bf6c0eb242a5d27a0441a46f389",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig06_energy.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "a266fe4d56c7c9db2e514d31ffae8a3cc5b771449f2553d3f16523fb1bd9e7de",
+      "actual": "a266fe4d56c7c9db2e514d31ffae8a3cc5b771449f2553d3f16523fb1bd9e7de",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig07_finite_size.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "812b059cd4207d32f31424b01799ce17d9ba0b46947e2e462c099966b51f3789",
+      "actual": "812b059cd4207d32f31424b01799ce17d9ba0b46947e2e462c099966b51f3789",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig07_finite_size.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "a709c86dd7f80872a196566f4a3f29d30b2ba83376bd8d5bc2dbf56a98958a78",
+      "actual": "a709c86dd7f80872a196566f4a3f29d30b2ba83376bd8d5bc2dbf56a98958a78",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig08_key_comparison.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "bca90fa74994959f02db8bfb31f43b86a2d907cf76819009b169aabc14f8b466",
+      "actual": "bca90fa74994959f02db8bfb31f43b86a2d907cf76819009b169aabc14f8b466",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig08_key_comparison.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "aafe0b53c6f75dfc27905a2aacacee2624f58024e679e560af0e6487892d0b1e",
+      "actual": "aafe0b53c6f75dfc27905a2aacacee2624f58024e679e560af0e6487892d0b1e",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig09_runtime_memory.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "bf72683bec766be44939ee55b1ee41b914f3b9f72730743d047d86c57d179c81",
+      "actual": "bf72683bec766be44939ee55b1ee41b914f3b9f72730743d047d86c57d179c81",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig09_runtime_memory.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "18fd95072fb4686e0c5c5b1acde0c266dce78a3238d535426ac0dbbb1cf4ae1f",
+      "actual": "18fd95072fb4686e0c5c5b1acde0c266dce78a3238d535426ac0dbbb1cf4ae1f",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig10_sensitivity.caption.txt",
+      "kind": "historical_protected_snapshot",
+      "expected": "ac08ae86b71c1acb593ba8502066e1eeca7c98ac8fcf2207d049c38d2c790891",
+      "actual": "ac08ae86b71c1acb593ba8502066e1eeca7c98ac8fcf2207d049c38d2c790891",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\fig10_sensitivity.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "48be9b9175a3f6f67cb6f57fbba54e3a7d56e2df9c5d13debec5d17b2fd70a70",
+      "actual": "48be9b9175a3f6f67cb6f57fbba54e3a7d56e2df9c5d13debec5d17b2fd70a70",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_figures_validation\\initial_export\\status.json",
+      "kind": "historical_protected_snapshot",
+      "expected": "b57f1f5fd70aa06407db856f429a07f545f4760ce8c673148c8936e42ebacfe6",
+      "actual": "b57f1f5fd70aa06407db856f429a07f545f4760ce8c673148c8936e42ebacfe6",
+      "matches": true
+    },
+    {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+      "kind": "paper_yaml",
+      "expected": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+      "actual": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+      "matches": true
+    }
+  ],
+  "new_phase4_files": {
+    "uav_cvqkd_optimization\\configs\\channel\\hap_uav_mb_reference.yaml": "be4f8756cff07e3cccc7ee4b90bee855ce69fe46c81ff94a9578a65ca26b65ff",
+    "uav_cvqkd_optimization\\configs\\finite_size\\ieee_2025_reference.yaml": "ce8f097e9bc5ca9f06c75587e0371f51c98497b0394956e9b181eed98ff347cd",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\hap_uav_channel.py": "1710efb045c7b552edfbae724fe52ecc4a76b76414ba1184f907314fe840b333",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\finite_size_reference.py": "bb23340fec3e96eab4213fa36ab99b087bd7a87798c047474100cdc290926f88",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\cloud_channel.py": "36a1f2648efe1525a05bbf99b1bd25980960f96fab790b03c3c5a675a2c4cef3",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\phase4_audit.py": "79fa200afe6edef4b6af3073a431993835242d83112d45608d8a74a13041e763",
+    "uav_cvqkd_optimization\\tests\\test_phase4_integration.py": "ddf25daa7d903d1cbf049dc1aea222811620b3ae7df7f646af5e5dc674fca950",
+    "uav_cvqkd_optimization\\docs\\phase4_implementation_plan.md": "c328d6891d48bf16eaf6fb3ec04cc52e685bd577b83aede9eaeccf6741ce091a",
+    "uav_cvqkd_optimization\\docs\\phase4_interface_independent_review.md": "fdebb159072ff550e7f1e5d6774fa11b847af7c86dd974c7f8be206fc93cc98e",
+    "uav_cvqkd_optimization\\docs\\phase4_integration_report_vi.md": "ec3591d5f00c8d57c9e61a52edc4847778ce23822f9f268f8caf03d332b9346f",
+    "uav_cvqkd_optimization\\docs\\integrated_three_paper_parameter_matrix_vi.md": "c4b199cdb0d781348c8e539ad1a1c8b9b6c7a0be5833d95a39f1d25e8bc35ebf",
+    "uav_cvqkd_optimization\\docs\\skr_lookup_integration_compatibility_vi.md": "e54533e5f7ad358d804610f465dd3cef0b5a7729722acaacb3135691ce2ca930"
+  },
+  "local_links": [
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\phase4_integration_report_vi.md",
+      "target": "../configs/channel/hap_uav_mb_reference.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\phase4_integration_report_vi.md",
+      "target": "../configs/finite_size/ieee_2025_reference.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\phase4_integration_report_vi.md",
+      "target": "skr_lookup_integration_compatibility_vi.md",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\phase4_integration_report_vi.md",
+      "target": "phase4_validation/reference_audit_verified/reference_audit.json",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\integrated_three_paper_parameter_matrix_vi.md",
+      "target": "phase4_validation/source_inputs.json",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\integrated_three_paper_parameter_matrix_vi.md",
+      "target": "../configs/channel/hap_uav_mb_reference.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\integrated_three_paper_parameter_matrix_vi.md",
+      "target": "../configs/finite_size/ieee_2025_reference.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\integrated_three_paper_parameter_matrix_vi.md",
+      "target": "../configs/rotor/ieee_2019.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\integrated_three_paper_parameter_matrix_vi.md",
+      "target": "../configs/rotor/arxiv_2018_v1.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\skr_lookup_integration_compatibility_vi.md",
+      "target": "../configs/channel/hap_uav_mb_reference.yaml",
+      "exists": true
+    },
+    {
+      "document": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\skr_lookup_integration_compatibility_vi.md",
+      "target": "phase4_validation/reference_audit_verified/reference_audit.json",
+      "exists": true
+    }
+  ],
+  "commit_or_push": false,
+  "publication_or_mission_runs": 0,
+  "limits": [
+    "No paper physical/moment/SKR provider instance bound while mission/noise inputs are absent",
+    "Existing graph retains static r[j] and binary z[k,j]; general analog r[k,j] solver integration not implemented",
+    "Current receiver30 lookup has four physical differences from Section-IV reference and is not promoted",
+    "Finite-size quantity remains finite_size_aware_key_yield_proxy, not composable security proof"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Bounded Phase5C fresh numerical diagnostic pilot, not security/publication readiness",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase5c_validation/tests_final.xml",
+    "passed": 135,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "reported_wall_seconds": 9.76,
+    "baseline_tests": 127,
+    "new_cases": 8,
+    "junit_sha256": "dc4a932245ced7115ef4ff9e827b613218ba5698a1b1a98aadc99e1865b04b40"
+  },
+  "preserved_existing_files": 1094,
+  "changed_existing_files": [],
+  "before_sha256": "7cf9d675bff70a7af2b8de3e7e486fa001c407d4da1437aff135820207100537",
+  "pilot": {
+    "directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase5c_skr_noise_pilot_20261107",
+    "summary_sha256": "cf4b691eef3243d10db3f70967189115c37e3aa99765d1c4a643a52b6d4c5bd5",
+    "output_manifest_sha256": "72e4d49513100576d6e45d038457f83bd56090c753f05e07121922660dc07a31",
+    "input_manifest_sha256": "86de345e3c7908693863efcd91475b6b5077a8cb440a54d573256eb25437dca1",
+    "fresh_evaluator_calls": 2120,
+    "reproduction_candidate_rows": 1060,
+    "reproduction_max_deviation": 0.0,
+    "target_points": 5,
+    "elapsed_s": 38.059665600005246,
+    "historical_noise": 0.0186,
+    "target_noise": 0.0136,
+    "detector_noise": 0.005,
+    "full_regeneration_executed": false
+  },
+  "supplemental_validation_sha256": "20f5de31a4d4b541501eee555c6c4fe5c36a404addb20373a623ec1f2b8e8b42",
+  "executed_producer_archive_sha256": "ed15316e502d7db8a7ae24c25e5457c3fc4017df3dc79972e15a11abe076ad70",
+  "current_producer_sha256": "23c908c2347810ec15dc4c826c828f3ba07780a2437e3ddc1cfb18045c136ef0",
+  "wrapper_revision_scope": "Post-pilot guard fixes only; completed run retains actual executed source hashes and has independent supplemental validation",
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "paper_mode": "NOT_RUN",
+  "cloud_mode_approved": false,
+  "paper_admissible": false,
+  "source_evidence_promoted": false,
+  "Z_w": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED",
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "git_diff_check": "PASS",
+  "untracked_text_whitespace_check": "PASS",
+  "commit_or_push": false,
+  "source_and_docs_sha256": {
+    "uav_cvqkd_optimization\\src\\uav_qkd\\skr_pilot.py": "23c908c2347810ec15dc4c826c828f3ba07780a2437e3ddc1cfb18045c136ef0",
+    "uav_cvqkd_optimization\\tests\\test_phase5c_pilot.py": "b48fb421b178d7aae1d94769109467e2896e15a34863297550b331a9e7f0b731",
+    "uav_cvqkd_optimization\\docs\\phase5c_implementation_plan.md": "b713433a8a6ab3e1c9c431116e0672fcee9ce0cb34e05e2f3875d2e237a0f73e",
+    "uav_cvqkd_optimization\\docs\\phase5c_independent_review.md": "23df2c966adaf9b44efbc8c20d10daf665c9a0d222c9cc652aea0a8c65511c83",
+    "uav_cvqkd_optimization\\docs\\phase5c_full_regeneration_plan_vi.md": "95b22b1757625e38e6f0da28a2a4489c0cba5b1c342cc47553af73311cbc6d7f",
+    "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md": "cbab7db988d1069b805ef20abe80680ce4fded0bd7c082271f59ed5ed5b4c185"
+  },
+  "local_links": [
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_full_regeneration_plan_vi.md",
+      "target": "../results/phase5c_skr_noise_pilot_20261107/summary.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_full_regeneration_plan_vi.md",
+      "target": "phase5c_validation/pilot_validation_final.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_full_regeneration_plan_vi.md",
+      "target": "../configs/lookup/optimized_physical_setup_regeneration.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "../results/phase5c_skr_noise_pilot_20261107/summary.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "../results/phase5c_skr_noise_pilot_20261107/input_manifest.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "../results/phase5c_skr_noise_pilot_20261107/output_manifest.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "phase5c_validation/pilot_comparison.csv"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "phase5c_validation/pilot_validation_final.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "phase5c_independent_review.md"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "phase5c_validation/executed_producer_snapshot.py"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "phase5c_full_regeneration_plan_vi.md"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5c_skr_reproduction_and_pilot_vi.md",
+      "target": "phase5c_validation/tests_final.xml"
+    }
+  ],
+  "limitations": [
+    "Fixed finite-catalog numerical objective, not continuous/global optimum",
+    "Historical source/effective-fading security labels unchanged; no composable security",
+    "Timing projection294mapcontexts is an estimate, not measured full-regeneration performance",
+    "Frozen-spec historic hash discrepancy remains; explicit scoped pilot does not authorize publication work",
+    "Cloud and finite-size excluded; base mission inputs/approvals still required"
+  ]
+}

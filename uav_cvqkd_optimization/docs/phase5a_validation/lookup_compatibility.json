@@ -1,0 +1,115 @@
+{
+  "physical_subset_matches": false,
+  "full_configuration_compatibility": "NOT_ESTABLISHED",
+  "beta_matches": true,
+  "normalization_matches": true,
+  "physical_mismatches": [
+    "receiver_aperture_diameter_m",
+    "beam_full_divergence_rad",
+    "transmitter_jitter_angle_rad",
+    "uav_position_sd_m"
+  ],
+  "comparison": [
+    {
+      "parameter": "hap_altitude_m",
+      "reference": 20000.0,
+      "lookup": 20000.0,
+      "matches": true
+    },
+    {
+      "parameter": "uav_altitude_m",
+      "reference": 1000.0,
+      "lookup": 1000.0,
+      "matches": true
+    },
+    {
+      "parameter": "receiver_aperture_diameter_m",
+      "reference": 0.08,
+      "lookup": 0.3,
+      "matches": false
+    },
+    {
+      "parameter": "beam_full_divergence_rad",
+      "reference": 0.000233,
+      "lookup": 3.5e-05,
+      "matches": false
+    },
+    {
+      "parameter": "transmitter_jitter_angle_rad",
+      "reference": 1.561e-05,
+      "lookup": 1.561e-06,
+      "matches": false
+    },
+    {
+      "parameter": "uav_position_sd_m",
+      "reference": 1.0,
+      "lookup": 0.1,
+      "matches": false
+    },
+    {
+      "parameter": "wavelength_m",
+      "reference": 1.55e-06,
+      "lookup": 1.55e-06,
+      "matches": true
+    },
+    {
+      "parameter": "zenith_atmospheric_transmittance",
+      "reference": 0.92,
+      "lookup": 0.92,
+      "matches": true
+    },
+    {
+      "parameter": "ground_turbulence_cn2_m_minus_2_3",
+      "reference": 1e-14,
+      "lookup": 1e-14,
+      "matches": true
+    },
+    {
+      "parameter": "rms_wind_speed_m_s",
+      "reference": 21.0,
+      "lookup": 21.0,
+      "matches": true
+    },
+    {
+      "parameter": "receiver_fov_half_angle_rad",
+      "reference": 0.00625,
+      "lookup": 0.00625,
+      "matches": true
+    },
+    {
+      "parameter": "uav_angular_fluctuation_sd_rad",
+      "reference": 0.0015,
+      "lookup": 0.0015,
+      "matches": true
+    }
+  ],
+  "source_evidence_promoted": false,
+  "paper_admissible": false,
+  "unresolved_reference_noise": [
+    "channel_excess_noise_snu",
+    "detector_excess_noise_snu"
+  ],
+  "conclusion": "Different physical profiles: receiver30 values cannot represent the new Section-IV experiment",
+  "scope": "Metadata/lineage compatibility only; no channel/SKR/core recalculations",
+  "lookup_points": 2601,
+  "evidence_class": "INSUFFICIENT_EVIDENCE",
+  "original_scenario_use": "COMPATIBLE_ONLY_WITH_ITS_ORIGINAL_SCENARIO_NUMERIC_SCOPE",
+  "new_section_IV_use": "REQUIRES_REGENERATION_IF_SELECTED_AND_AUTHORIZED",
+  "selected_paper_scenario": "NOT_ESTABLISHED",
+  "full_admission_guard": "REJECT_UNESTABLISHED_NOT_A_GENERAL_POSITIVE_VALIDATOR",
+  "inputs": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\channel\\hap_uav_mb_reference.yaml": "be4f8756cff07e3cccc7ee4b90bee855ce69fe46c81ff94a9578a65ca26b65ff",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\execution_physical_protocol.json": "83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\skr_map.csv": "2ac3ac0cda2698e858ee55d31f97d886c36c0d711d70c43f3c4ca8910cdd14bd",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\skr_map.npz": "5751797b6ce4526e059d9ea4849a39aef99267be26b6b9362aea1af3fc15d8e4",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\source_pool.csv": "adb057572d5b22be1718bb7535e402129b16af813cc863d2e62b2028c0c36539",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\run.py": "5929597d3c2d59b50a6e887e8309c17dcae46875434840ea20cdee46da676dc5"
+  },
+  "producers": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\phase4_audit.py": "79fa200afe6edef4b6af3073a431993835242d83112d45608d8a74a13041e763",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\skr_lookup.py": "546e51d58627de9d1fb4223b3c82016537001fb3761b1da918aba6ad449d22d5"
+  },
+  "paper_mode": "NOT_RUN",
+  "new_skr_evaluations": 0,
+  "Z_w": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED"
+}

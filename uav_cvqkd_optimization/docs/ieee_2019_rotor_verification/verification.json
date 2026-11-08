@@ -1,0 +1,82 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "tests_passed": 70,
+  "baseline_tests": 59,
+  "new_test_cases": 11,
+  "numerical_values": {
+    "P0_W": 79.85628000000001,
+    "Pi_W": 88.62793774108202,
+    "hover_power_W": 168.48421774108203,
+    "v0_derived_m_s": 4.028542624594636,
+    "v0_used_m_s": 4.028542624594636,
+    "v0_table_m_s": 4.03,
+    "disc_area_pi_R2_m2": 0.5026548245743669,
+    "induced_velocity_policy": "derived"
+  },
+  "speed_checks": {
+    "ME": {
+      "speed_m_s": 10.211691198388639,
+      "objective_value": 125.99078026851394,
+      "objective_units": "W",
+      "power_W": 125.99078026851394,
+      "grid_speed_m_s": 10.212,
+      "grid_objective_value": 125.99078032387413,
+      "grid_check_passed": true,
+      "refined_grid_minima": 1
+    },
+    "MR": {
+      "speed_m_s": 18.294480351062063,
+      "objective_value": 8.828343513897792,
+      "objective_units": "J/m",
+      "power_W": 161.50995694742937,
+      "grid_speed_m_s": 18.294,
+      "grid_objective_value": 8.828343521219857,
+      "grid_check_passed": true,
+      "refined_grid_minima": 1
+    },
+    "method": "Bounded refinement of every grid local minimum plus endpoints; dense-grid objective check",
+    "grid_samples": 20001,
+    "grid_spacing_m_s": 0.0015,
+    "optimizer_xatol_m_s": 1e-10
+  },
+  "source": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "path": "C:\\Users\\admin\\Downloads\\Energy_Minimization_for_Wireless_Communication_With_Rotary-Wing_UAV.pdf",
+    "sha256": "b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57",
+    "parameter_audit": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\ieee_2019_rotor_verification\\source_identity.json",
+    "parameter_audit_sha256": "6c6a572cd95c191862b8a87466e878a2c4cb9f1ee6a86910629d6298cd10558b",
+    "reference_config_sha256": "812a1a079f97f715f6505deaa43249024a9b2d6fc16cb0f16905055907e91f07",
+    "basis": "Manual DOI/equation/Section V/Table I inspection; current PDF and raw-parameter profile match verified snapshots"
+  },
+  "PDF": {
+    "width_in": 3.5,
+    "raster_images": 0,
+    "drawing_objects": 35
+  },
+  "PNG": {
+    "width_px": 2100,
+    "height_px": 1830,
+    "dpi": [
+      599.9988,
+      599.9988
+    ]
+  },
+  "paper_mode": "NOT_RUN",
+  "default_profile_changed": false,
+  "QKD_cloud_or_mission_runs": 0,
+  "initial_review_finding": "Corrected by binding verified aircraft/policy profile hash as well as PDF bytes",
+  "repository_safety": {
+    "protected_existing_files": 260,
+    "unchanged_existing_files": 258,
+    "changed_existing_files": [
+      "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\README.md",
+      "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md"
+    ],
+    "paper_yaml_sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+    "demo_yaml_sha256": "6c13a5863c21533da426875bab5b0aed5be6e5845fc3f8b2c5d7d3a7b073157e",
+    "historical_results_unchanged": true,
+    "historical_figure_catalog_unchanged": true,
+    "old_runtime_producers_unchanged": true,
+    "commit_or_push": false
+  }
+}

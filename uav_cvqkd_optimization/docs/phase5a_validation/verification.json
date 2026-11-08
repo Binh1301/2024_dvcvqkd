@@ -1,0 +1,136 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Phase5A exogenous time-dependent graph-rate software validation only",
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase5a_validation/tests.xml",
+    "tests": 112,
+    "passed": 112,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "reported_wall_seconds": 6.29,
+    "exit_code": 0,
+    "junit_sha256": "3ab191a6f7d8399430b6d947dbc4f0b06a620910c8eeface5abfa13b817332a1",
+    "baseline_tests": 90,
+    "new_cases": 22
+  },
+  "preservation": {
+    "before_manifest_sha256": "fd9d505aa012b4cd5df1ad029d748456d6d592c9f5e88baec9885d89e16e236c",
+    "protected_count": 1067,
+    "unchanged_count": 1060,
+    "changed_count": 7,
+    "missing": [],
+    "declared_changed_files": [
+      "uav_cvqkd_optimization\\tests\\test_paper_figures.py",
+      "uav_cvqkd_optimization\\src\\uav_qkd\\baselines.py",
+      "uav_cvqkd_optimization\\src\\uav_qkd\\config.py",
+      "uav_cvqkd_optimization\\src\\uav_qkd\\dp_solver.py",
+      "uav_cvqkd_optimization\\src\\uav_qkd\\evaluation.py",
+      "uav_cvqkd_optimization\\src\\uav_qkd\\experiments.py",
+      "uav_cvqkd_optimization\\src\\uav_qkd\\skr_lookup.py"
+    ],
+    "unchanged_critical_groups": [
+      "paper.yaml",
+      "both rotor profiles and outputs",
+      "all prior result artifacts and figures",
+      "parent research source",
+      "original 2601-point SKR lookup artifacts",
+      "Phase4 source/core formulas"
+    ],
+    "limitation": "Existing source/config/solver manifests remain historical byte bindings; they are not rewritten to claim new producer compatibility"
+  },
+  "paper_mode": "NOT_RUN",
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "ieee_rotor_status": "READY",
+  "lookup_comparison_sha256": "df305efe3e6d1b72cadb07ea233adbcf513daa0fce0d8aa8f16ddd464f3943e0",
+  "new_skr_evaluations": 0,
+  "new_paper_experiments": 0,
+  "source_Z_w": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED",
+  "commit_or_push": false,
+  "git_diff_check": "PASS",
+  "untracked_text_trailing_whitespace": "PASS",
+  "parent_git_diff_empty": true,
+  "independent_review": {
+    "path": "docs/phase5a_independent_review.md",
+    "sha256": "3d34872147e7a3049ed15a2ec7843e0bc0c8fa72c2ce96ef2e1aef8ee4f4e78d",
+    "verdict": "NO_CONFIRMED_MUST_FIX_DEFECT",
+    "reviewer_reported_scoped_tests": 27,
+    "reviewer_reported_independent_enumeration_cases": 100
+  },
+  "changed_and_added_files": {
+    "uav_cvqkd_optimization\\src\\uav_qkd\\evaluation.py": "73af678954bed7bd035b635815336e50144ab61d10ec33aa6f8cff56f36efa19",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\dp_solver.py": "265b4364b538c7795844cb08c538ad1f01378835f33cc6956493fc6555af533a",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\baselines.py": "5fc4a19879b6a6522046dda611f137aa1711ece12069b5fe54eabc8b61f04697",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\experiments.py": "ca8c1f95823daf5751be158d5d96d6d55a1c892b0e276d7ce6466be3dd9cdc8c",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\skr_lookup.py": "546e51d58627de9d1fb4223b3c82016537001fb3761b1da918aba6ad449d22d5",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\config.py": "e56e104e64f046ba10bef696ba642a9a8825354d2b5d2659d5a2d9e089a590f2",
+    "uav_cvqkd_optimization\\tests\\test_paper_figures.py": "c1cdb17e417322dbaae45d6918601637319e12e1b65f0afce8bc9cb18d1d4f10",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\rate_provider.py": "fb98baf2496fb3cf2318b637cffa5fc8a6862a21d1d080f0518210bb03264b40",
+    "uav_cvqkd_optimization\\tests\\test_time_dependent_rates.py": "55213502dfd51b6df757d20978f0f257936663214a7bc0bf430fb097b4c622a1",
+    "uav_cvqkd_optimization\\docs\\phase5a_implementation_plan.md": "431235448f0f9e1389bbff4bd3e0c3f53f1480373c4f3ff0d1d65cccd2757bf9",
+    "uav_cvqkd_optimization\\docs\\phase5_author_decisions_vi.md": "22087d0cecde99017184093dfda8bfccfde7b29985cc352d6d711af1d5514deb",
+    "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md": "cdde500f165e13c893f8d6e575b0363197fdafc927556d372b5066888d8cd50b",
+    "uav_cvqkd_optimization\\docs\\phase5a_independent_review.md": "3d34872147e7a3049ed15a2ec7843e0bc0c8fa72c2ce96ef2e1aef8ee4f4e78d"
+  },
+  "local_links": [
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5_author_decisions_vi.md",
+      "target": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5_author_decisions_vi.md",
+      "target": "../configs/channel/hap_uav_mb_reference.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5_author_decisions_vi.md",
+      "target": "integrated_three_paper_parameter_matrix_vi.md"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5_author_decisions_vi.md",
+      "target": "../configs/rotor/arxiv_2018_v1.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5_author_decisions_vi.md",
+      "target": "../configs/rotor/ieee_2019.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md",
+      "target": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md",
+      "target": "../configs/channel/hap_uav_mb_reference.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md",
+      "target": "phase5a_validation/lookup_compatibility.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md",
+      "target": "phase5a_validation/tests.xml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md",
+      "target": "phase5a_independent_review.md"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5a_solver_readiness_report_vi.md",
+      "target": "phase5_author_decisions_vi.md"
+    }
+  ],
+  "limits": [
+    "No dynamic YAML/CLI or callback serialization: use Scenario/adapters/run_methods programmatically",
+    "Selected-reference lookup guard rejects mismatches and unestablished full binding; no positive admission yet",
+    "Raw numeric loading and direct arrays do not certify provenance or admissibility",
+    "Providers/Scenario/graph must stay fixed and exogenous; read-only arrays are not adversarial isolation",
+    "Only binary retained-slot accounting supported; no arbitrary fractional m_k",
+    "O(HJ) snapshot preparation distinct from method timings; DP future access differs from greedy and retrospective stopping is not online",
+    "No physical/security certification or continuous/global-optimality claim"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "scope": "AUTHOR_APPROVED_PHASE5E_NUMERICAL_DIAGNOSTIC",
+  "approved_phase": "PHASE5E",
+  "recorded_client_date": "2026-11-08",
+  "main_process_wall_s": 680.8144684,
+  "main_exit_code": 0,
+  "main_measured_stage": {
+    "wall_s": 663.3379080999985,
+    "sampled_tree_peak_rss_bytes": 1735127040,
+    "sampled_process_cpu_s": 984.296875,
+    "cpu_percent_one_core": 148.38544020789126,
+    "cpu_percent_host_capacity": 9.274090012993204,
+    "sampling_interval_s": 0.05,
+    "sample_count": 8478,
+    "memory_scope": "Sampled sum of parent+descendant RSS; shared pages may be counted repeatedly; not exact continuous/system physical peak",
+    "cpu_scope": "Process CPU-time deltas; child lifetime maxima sampled while present; short exited processes can be missed",
+    "fresh_evaluator_calls": 62328,
+    "completed_points": 294,
+    "evaluations_per_second": 93.9611610295669,
+    "workers": 2
+  },
+  "main_parent_initialization": {
+    "native": {
+      "pid": 23120,
+      "initialization_s": 11.824030399999174,
+      "torch_threads": 10,
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null
+      }
+    },
+    "resource": {
+      "wall_s": 11.844346199999563,
+      "sampled_tree_peak_rss_bytes": 521252864,
+      "sampled_process_cpu_s": 9.125,
+      "cpu_percent_one_core": 77.04097673200684,
+      "cpu_percent_host_capacity": 4.8150610457504275,
+      "sampling_interval_s": 0.05,
+      "sample_count": 159,
+      "memory_scope": "Sampled sum of parent+descendant RSS; shared pages may be counted repeatedly; not exact continuous/system physical peak",
+      "cpu_scope": "Process CPU-time deltas; child lifetime maxima sampled while present; short exited processes can be missed"
+    }
+  },
+  "main_candidate_evaluations": 62328,
+  "independent_candidate_evaluations": 1484,
+  "total_native_candidate_evaluations": 63812,
+  "independent_measured_stage": {
+    "wall_s": 25.73227279999992,
+    "sampled_tree_peak_rss_bytes": 1629106176,
+    "sampled_process_cpu_s": 39.296875,
+    "cpu_percent_one_core": 152.71435720205844,
+    "cpu_percent_host_capacity": 9.544647325128652,
+    "sampling_interval_s": 0.05,
+    "sample_count": 349,
+    "memory_scope": "Sampled sum of parent+descendant RSS; shared pages may be counted repeatedly; not exact continuous/system physical peak",
+    "cpu_scope": "Process CPU-time deltas; child lifetime maxima sampled while present; short exited processes can be missed",
+    "fresh_evaluator_calls": 1484,
+    "completed_points": 7,
+    "evaluations_per_second": 57.67077053527913,
+    "workers": 2
+  },
+  "independent_parent_initialization": {
+    "native": {
+      "pid": 5760,
+      "initialization_s": 9.80510030000005,
+      "torch_threads": 10,
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null
+      }
+    },
+    "resource": {
+      "wall_s": 9.826955700000326,
+      "sampled_tree_peak_rss_bytes": 560525312,
+      "sampled_process_cpu_s": 8.71875,
+      "cpu_percent_one_core": 88.7227974376613,
+      "cpu_percent_host_capacity": 5.545174839853831,
+      "sampling_interval_s": 0.05,
+      "sample_count": 133,
+      "memory_scope": "Sampled sum of parent+descendant RSS; shared pages may be counted repeatedly; not exact continuous/system physical peak",
+      "cpu_scope": "Process CPU-time deltas; child lifetime maxima sampled while present; short exited processes can be missed"
+    }
+  },
+  "exact_command": "python -X utf8 -B -m uav_qkd.lookup_benchmark full --config configs/lookup/phase5d_full_target_radial_2proc.json --output results/phase5d_full_target_radial_2proc_PHASE5E_20261108 --approval-file docs/approvals/phase5e_full_lookup_author_approval.json",
+  "core_output_manifest_sha256": "cbeb1a556aaaa1abe397d512a9f3aab4137c12b3b72c7fc9c0b5e80aca2192b6",
+  "lookup_config_sha256": "0671e70ef5a5a78afed6f750859161439153f2030fe6e6b733a216f1f6616111",
+  "candidate_pool_sha256": "adb057572d5b22be1718bb7535e402129b16af813cc863d2e62b2028c0c36539",
+  "preflight_sha256": "869c022b50f0b30b148c63d7518887d197cbc8c505c0357ebf4933a495afe28e",
+  "approval_sha256": "94e8e597e1e0cb6a2431ea63e230b8e1e5e6aaea4142b55ce815525979fbf845",
+  "geometry_mapping_sha256": "d94451c21efa385f81cb6fc1c0d4e36426636bfbd7bfe3a0d236ca426e10bdcc",
+  "validation_producer_sha256": "4d88448a44053571994545f12c8dd3d98d5bf56d6179d0baf1e9ec5055f51828",
+  "paper_mode": "NOT_RUN",
+  "paper_admissible": false,
+  "source_evidence_promoted": false,
+  "resource_interpretation": "Sampled parent+descendant aggregate RSS with50ms wait plus sample overhead; shared pages can be counted more than once; not exact continuous physical peak"
+}

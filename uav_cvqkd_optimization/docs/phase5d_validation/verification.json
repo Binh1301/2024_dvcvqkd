@@ -1,0 +1,136 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Phase5D bounded scientific runtime measurement and exploratory existing-proxy sensitivity",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase5d_validation/tests.xml",
+    "passed": 167,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "reported_wall_seconds": 11.87,
+    "new_cases": 32,
+    "junit_sha256": "8d943bb69a440ccfc3dcad1c9abda713d71a56af2626ec0bf7b635f0772e710a"
+  },
+  "prior_artifacts_preserved": 1133,
+  "prior_artifacts_changed": [],
+  "before_manifest_sha256": "8e9f302989fb0d14f85f06f89e44cb66d9e767119db7d88caa7998b9f06b28a1",
+  "benchmark": {
+    "directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase5d_benchmark_20261108",
+    "summary_sha256": "44098153131bbff2c8385a54ed6307764c625debb267ffb88062e383c67072b0",
+    "output_manifest_sha256": "87156fe3ab912dfd276cf445c1e27d83b3e3e0365a9a3c9bb64dcb92059e871f",
+    "spatial_points": 50,
+    "point_passes": 100,
+    "fresh_native_evaluator_calls": 21200,
+    "full_candidates_per_point": 212,
+    "MB_candidates": 179,
+    "Uniform_candidates": 33,
+    "elapsed_s": 382.5905796999999,
+    "serial_wall_s": 217.2845631,
+    "parallel_wall_s": 137.33683769999993,
+    "measured_stage_speedup": 1.5821287772377486,
+    "input_hash_entries": 552,
+    "producer_hash_entries": 60,
+    "supplemental_validation_sha256": "1e5f754f65aabf8e91bb3a274021e9b0edaaea7896d3dbfb5712a628a482b935",
+    "executed_producer_snapshot_sha256": "a5ce3bf8e54f06c077c0fecdba9f87ace59918fed355af788424cda1414e8400",
+    "current_producer_sha256": "d1fecdae1f2b53dbe58288524b53ea06b7abef3a33edc9722336441304955dbb",
+    "revision_note": "Post-benchmark changes fix future full-executor recovery/CSV/schema/provenance; actual benchmark bytes and archived executed producer unchanged"
+  },
+  "finite_size": {
+    "directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase5d_finite_size_20261108_verified",
+    "output_manifest_sha256": "99f830f17b274736b944f558ddf05a6f87f85f837632f8d055d7d926cac4b270",
+    "block_rows": 210,
+    "mission_rows": 750,
+    "symbolic_mission_parameters": {
+      "f_s": null,
+      "eta_valid": null,
+      "m0": null
+    },
+    "epsilon_sensitivity_not_mission_default": true,
+    "target_n_min_range": [
+      51863708,
+      53186033
+    ]
+  },
+  "full_gate": {
+    "smoke_sha256": "5fecf68598196865d1c766d6bd763f80c9f8f5ae7b090f78226d93c0c51e04d9",
+    "missing_approval_refused_before_output": true,
+    "scientific_full_regeneration_executed": false,
+    "controller_full_path_test": "Software-only mocked backend/export fixtures under pytest tmp, no native full grid evaluations",
+    "config_sha256": {
+      "phase5d_full_target_per_point.json": "8498840e9f102231e8efce54cf61fe0431ee68fe04a97972024402def87fb1e9",
+      "phase5d_full_target_radial_2proc.json": "0671e70ef5a5a78afed6f750859161439153f2030fe6e6b733a216f1f6616111"
+    }
+  },
+  "paper_mode": "NOT_RUN",
+  "paper_admissible": false,
+  "source_evidence_promoted": false,
+  "cloud_candidate_approved": false,
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "source_Z_w": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED",
+  "rotor_profiles_unchanged": true,
+  "paper_yaml_unchanged": true,
+  "historical_lookup_and_pilot_unchanged": true,
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "git_diff_check": "PASS",
+  "untracked_text_whitespace_check": "PASS",
+  "commit_or_push": false,
+  "source_config_docs_sha256": {
+    "uav_cvqkd_optimization\\src\\uav_qkd\\lookup_benchmark.py": "d1fecdae1f2b53dbe58288524b53ea06b7abef3a33edc9722336441304955dbb",
+    "uav_cvqkd_optimization\\src\\uav_qkd\\finite_size_feasibility.py": "ded7e352e6cc7311cdcf2eaa855ce7498dde765a1ab7169ed89ff4b1907c17b8",
+    "uav_cvqkd_optimization\\tests\\test_phase5d_benchmark.py": "b9498f4865fd8bc513266d701e2b4ceadd021a0bae5276f4944d3a29b25ad6ff",
+    "uav_cvqkd_optimization\\tests\\test_phase5d_finite_size.py": "07946d3bb76df6d13596821578e4213ee4ad4170d8c3a561bb7f74c202868d4b",
+    "uav_cvqkd_optimization\\configs\\lookup\\phase5d_full_target_per_point.json": "8498840e9f102231e8efce54cf61fe0431ee68fe04a97972024402def87fb1e9",
+    "uav_cvqkd_optimization\\configs\\lookup\\phase5d_full_target_radial_2proc.json": "0671e70ef5a5a78afed6f750859161439153f2030fe6e6b733a216f1f6616111",
+    "uav_cvqkd_optimization\\docs\\phase5d_implementation_plan.md": "dc2147dc3e4ccafc091ab5d454d352bf34ed3a5825522a2ddae6b86c0c053705",
+    "uav_cvqkd_optimization\\docs\\phase5d_independent_review.md": "23f95cce7c6049f584430b27363e5b8e82bdbb5dd055aa58bfe9a650eb7a99fb",
+    "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md": "ce32fdb6d434035c23b87439e8433fe84cf2a49d9e7f44da6c9923438d88785f",
+    "uav_cvqkd_optimization\\docs\\phase5d_finite_size_feasibility_vi.md": "7b2939bc545ec1d40b3354c30287f78faa27a16b884bb673a07eb2038573bfd9"
+  },
+  "local_links": [
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "../results/phase5d_benchmark_20261108/summary.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "../results/phase5d_benchmark_20261108/input_manifest.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "../results/phase5d_benchmark_20261108/output_manifest.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "phase5d_validation/benchmark_validation.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "../configs/lookup/phase5d_full_target_per_point.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "../configs/lookup/phase5d_full_target_radial_2proc.json"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "phase5d_finite_size_feasibility_vi.md"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5d_full_lookup_readiness_vi.md",
+      "target": "phase5d_independent_review.md"
+    }
+  ],
+  "limitations": [
+    "One benchmark pass per mode; spatial variability is not run-to-run confidence",
+    "Aggregate process RSS sampled with50ms wait plus collection overhead; not exact continuous physical RAM peak",
+    "Per-point551412 and radial62328 full-call estimates are distinct unexecuted workloads",
+    "Finite-size sensitivity uses constant per-point pilot rates, symbolic fs/eta and exploratory axes, not mission feasibility/security proof",
+    "Full regeneration requires separate config/pool-bound author approval; paper/lifecycle/source evidence gates unchanged"
+  ]
+}

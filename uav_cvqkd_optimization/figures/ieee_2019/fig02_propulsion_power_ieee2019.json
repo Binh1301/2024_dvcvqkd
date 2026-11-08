@@ -1,0 +1,144 @@
+{
+  "status": "READY",
+  "source_variant": "ieee_2019",
+  "source": {
+    "title": "Energy Minimization for Wireless Communication With Rotary-Wing UAV",
+    "authors": [
+      "Yong Zeng",
+      "Jie Xu",
+      "Rui Zhang"
+    ],
+    "version": "IEEE TWC 18(4), April 2019, pp.2329-2345",
+    "doi": "10.1109/TWC.2019.2902559",
+    "local_pdf": "C:/Users/admin/Downloads/Energy_Minimization_for_Wireless_Communication_With_Rotary-Wing_UAV.pdf",
+    "pdf_sha256": "b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57",
+    "parameter_audit": "docs/ieee_2019_rotor_verification/source_identity.json",
+    "verification": "VERIFIED_FROM_LOCAL_PDF",
+    "table_I": "journal p.2342 / PDF p.14",
+    "maximum_speed": "Section V, journal p.2339 / PDF p.11",
+    "power_equation": "Eq.(12), journal p.2332 / PDF p.4",
+    "coefficient_equation": "Eq.(64), journal p.2342 / PDF p.14"
+  },
+  "source_verification": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "path": "C:\\Users\\admin\\Downloads\\Energy_Minimization_for_Wireless_Communication_With_Rotary-Wing_UAV.pdf",
+    "sha256": "b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57",
+    "parameter_audit": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\ieee_2019_rotor_verification\\source_identity.json",
+    "parameter_audit_sha256": "6c6a572cd95c191862b8a87466e878a2c4cb9f1ee6a86910629d6298cd10558b",
+    "reference_config_sha256": "812a1a079f97f715f6505deaa43249024a9b2d6fc16cb0f16905055907e91f07",
+    "basis": "Manual DOI/equation/Section V/Table I inspection; current PDF and raw-parameter profile match verified snapshots"
+  },
+  "configuration": {
+    "name": "ieee_2019",
+    "source": {
+      "title": "Energy Minimization for Wireless Communication With Rotary-Wing UAV",
+      "authors": [
+        "Yong Zeng",
+        "Jie Xu",
+        "Rui Zhang"
+      ],
+      "version": "IEEE TWC 18(4), April 2019, pp.2329-2345",
+      "doi": "10.1109/TWC.2019.2902559",
+      "local_pdf": "C:/Users/admin/Downloads/Energy_Minimization_for_Wireless_Communication_With_Rotary-Wing_UAV.pdf",
+      "pdf_sha256": "b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57",
+      "parameter_audit": "docs/ieee_2019_rotor_verification/source_identity.json",
+      "verification": "VERIFIED_FROM_LOCAL_PDF",
+      "table_I": "journal p.2342 / PDF p.14",
+      "maximum_speed": "Section V, journal p.2339 / PDF p.11",
+      "power_equation": "Eq.(12), journal p.2332 / PDF p.4",
+      "coefficient_equation": "Eq.(64), journal p.2342 / PDF p.14"
+    },
+    "aircraft": {
+      "weight_N": 20.0,
+      "air_density_kg_m3": 1.225,
+      "rotor_radius_m": 0.4,
+      "rotor_disc_area_m2": 0.503,
+      "rotor_angular_speed_rad_s": 300.0,
+      "rotor_tip_speed_m_s": 120.0,
+      "blade_count": 4,
+      "blade_chord_m": 0.0157,
+      "rotor_solidity": 0.05,
+      "fuselage_equivalent_flat_plate_area_m2": 0.0151,
+      "fuselage_drag_ratio": 0.6,
+      "induced_power_correction_factor": 0.1,
+      "blade_profile_drag_coefficient": 0.012,
+      "mean_induced_velocity_hover_m_s": 4.03,
+      "maximum_speed_m_s": 30.0
+    },
+    "induced_velocity_policy": "derived",
+    "numerics": {
+      "plot_samples": 1201,
+      "grid_samples": 20001,
+      "optimizer_xatol_m_s": 1e-10
+    },
+    "_config_path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\rotor\\ieee_2019.yaml"
+  },
+  "derived": {
+    "P0_W": 79.85628000000001,
+    "Pi_W": 88.62793774108202,
+    "hover_power_W": 168.48421774108203,
+    "v0_derived_m_s": 4.028542624594636,
+    "v0_used_m_s": 4.028542624594636,
+    "v0_table_m_s": 4.03,
+    "disc_area_pi_R2_m2": 0.5026548245743669,
+    "induced_velocity_policy": "derived"
+  },
+  "characteristic_speeds": {
+    "ME": {
+      "speed_m_s": 10.211691198388639,
+      "objective_value": 125.99078026851394,
+      "objective_units": "W",
+      "power_W": 125.99078026851394,
+      "grid_speed_m_s": 10.212,
+      "grid_objective_value": 125.99078032387413,
+      "grid_check_passed": true,
+      "refined_grid_minima": 1
+    },
+    "MR": {
+      "speed_m_s": 18.294480351062063,
+      "objective_value": 8.828343513897792,
+      "objective_units": "J/m",
+      "power_W": 161.50995694742937,
+      "grid_speed_m_s": 18.294,
+      "grid_objective_value": 8.828343521219857,
+      "grid_check_passed": true,
+      "refined_grid_minima": 1
+    },
+    "method": "Bounded refinement of every grid local minimum plus endpoints; dense-grid objective check",
+    "grid_samples": 20001,
+    "grid_spacing_m_s": 0.0015,
+    "optimizer_xatol_m_s": 1e-10
+  },
+  "column": "single",
+  "width_in": 3.5,
+  "png_dpi": 600,
+  "paper_mode": "NOT_RUN",
+  "scope": "Reference rotor model only; no QKD/cloud/mission or security promotion",
+  "inputs": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\rotor\\ieee_2019.yaml": "812a1a079f97f715f6505deaa43249024a9b2d6fc16cb0f16905055907e91f07"
+  },
+  "producers": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\propulsion.py": "128099855c7311a56fee9b0cd8a5bcd80b39bf3a7164ad5938647869ec5b104a",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\rotor_reference.py": "3f3549ec2d4e79f54a111fa606e9b525426fa95c5c9db489043f0a664a658bff",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\rotor_power_figure.py": "33dbbee3bf09df9b9044894c51cb396dbf6a6d156eb82407207a1cb78a5cbe2e"
+  },
+  "caption": "Figure 02. Rotary-Wing UAV Propulsion Power Versus Flight Speed. Total, blade-profile, induced and parasite powers are computed from Eq.(12), with coefficients derived from Eq.(64) using the rounded Table I aircraft parameters of Zeng, Xu and Zhang, IEEE Transactions on Wireless Communications, 18(4), 2329-2345, April 2019, doi:10.1109/TWC.2019.2902559. The speed limit is 30 m/s from Section V. The induced velocity is derived as 4.028542625 m/s; Table I reports its rounded value 4.03 m/s. ME minimizes P(V); MR minimizes P(V)/V over positive speed. Both are found by grid-bracketed bounded numerical refinement and checked against a dense sweep. This is a reference-aircraft model illustration, not a measurement or a CV-QKD mission result.",
+  "outputs": {
+    "pdf": {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.pdf",
+      "sha256": "0b7be4653fafb84e6024de60ec593ea0bdcf2b4ce8be7026f2639b7fb48faf3e"
+    },
+    "png": {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.png",
+      "sha256": "c64582dd970681af69f71e0a4acab1020aefc954774b9f6fdebef986d9aa78a4"
+    },
+    "csv": {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.csv",
+      "sha256": "8c5ae8281c2551cd31ec688147e2910a53ff3b17e79a93995d40b54420a07d33"
+    },
+    "caption.txt": {
+      "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\ieee_2019\\fig02_propulsion_power_ieee2019.caption.txt",
+      "sha256": "60cd45089150fb5c6adaad28dfab70ac131cb052d5a03295ba6fca17bd7fba77"
+    }
+  }
+}

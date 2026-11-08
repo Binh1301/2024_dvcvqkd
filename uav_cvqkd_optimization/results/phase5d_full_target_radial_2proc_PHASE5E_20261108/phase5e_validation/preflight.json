@@ -1,0 +1,75 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Exact current clear-sky producer-input equivalence; not cloud equivalence",
+  "spatial_points": 2601,
+  "unique_geometries": 294,
+  "expected_main_evaluations": 62328,
+  "config_sha256": "0671e70ef5a5a78afed6f750859161439153f2030fe6e6b733a216f1f6616111",
+  "candidate_pool_sha256": "adb057572d5b22be1718bb7535e402129b16af813cc863d2e62b2028c0c36539",
+  "executor_sha256": "d1fecdae1f2b53dbe58288524b53ea06b7abef3a33edc9722336441304955dbb",
+  "exact_key": "(Fraction(x)-1000)^2+(Fraction(y)-1000)^2 integer; exact equality to executor float key; no rounding",
+  "equal_inputs_per_group": [
+    "bit-identical zenith_deg and slant distance",
+    "identical full physical protocol",
+    "identical active noise13.6e-3,detector5e-3,beta",
+    "identical ordered212-source pool and normalization"
+  ],
+  "invariance_basis": "Native channel_context accepts zenith_deg and protocol only; isotropic per-axis pointing/position noise, zero boresight, scalar RMS wind and FOV; no horizontal coordinate, azimuth or cloud argument enters clear-sky evaluator. Identical producer inputs imply identical deterministic physical moments/T/noise/MI/Holevo inputs.",
+  "azimuth_dependent_input_present": false,
+  "cloud_included": false,
+  "non_equivalent_positions": 0,
+  "max_independently_derived_zenith_disagreement_deg": 0.0,
+  "geometry_mapping_sha256": "d94451c21efa385f81cb6fc1c0d4e36426636bfbd7bfe3a0d236ca426e10bdcc",
+  "producer_files": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\run.py": "5929597d3c2d59b50a6e887e8309c17dcae46875434840ea20cdee46da676dc5",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_vs_zenith_eq14_v43_phaseB_readiness_20261024\\model.py": "4d9229e297c23c1f55732490f9fd6e54f308b40c66e665ed91e153ccae113224",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_vs_zenith_eq14_v43_phaseB_exact_reuse_20261024\\diagnostic_model.py": "ec6ced7096fc0c342257583596ad59212a3c9e712310444d5405a9972ab19453"
+  },
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS_UNCHANGED",
+  "historical_frozen_expected": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+  "actual_frozen_sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+  "frozen_discrepancy_preserved": true,
+  "authority": "Fresh explicit Phase5E numerical diagnostic authorization; no training/final-test/publication access",
+  "repository_state_sha256": {
+    "docs/FINAL_MODEL_SPEC.md": {
+      "sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+      "lines": 543
+    },
+    "docs/SECURITY_SCOPE_FREEZE.md": {
+      "sha256": "bb2b8aa4a9ada5ebd65284c98c0f66d5e7987e410466ed3f45156e17af475c37",
+      "lines": 315
+    },
+    "docs/NUMERICAL_CONVERGENCE_PREREGISTRATION.md": {
+      "sha256": "995609d02ea5c5e5ab595089986d2e90324498154fe895e57f068578c1aefb32",
+      "lines": 145
+    },
+    "docs/PROJECT_STATE.md": {
+      "sha256": "a85cf79704352cd5cd28e18bcd6995d544eba3fec7678cca5473e2e81a95ca73",
+      "lines": 3319
+    },
+    "docs/EVIDENCE.md": {
+      "sha256": "89c515dce57ad708bc0d39f55c09f36a815dc3631b731db880b9a5e6b8078bc4",
+      "lines": 11166
+    },
+    "docs/DECISION_LOG.md": {
+      "sha256": "76de969862b61088884de23a3fe96c19db3e640538d0e49e4d994265d1ee1e52",
+      "lines": 5617
+    },
+    "docs/NEXT_ACTIONS.md": {
+      "sha256": "e6b5cddbfe39902a0fe660bc4672683d105a7687cb0fb78dd68410c231b32fac",
+      "lines": 2184
+    },
+    ".agent/SESSION_HANDOFF.md": {
+      "sha256": "042417e3e3fce2d70d0e68c7f97ec189f24b706c039801b699116f920a46d74a",
+      "lines": 31
+    },
+    "docs/PROPOSED_NUMERICAL_CERTIFICATION_PROTOCOL.md": {
+      "sha256": "3e2bc8bd027ad259e8a64c50f94413095629f897acf5b89662cd0257782e6dc2",
+      "lines": 223
+    }
+  },
+  "available_ram_bytes": 15544434688,
+  "workers": 2,
+  "source_evidence_promoted": false,
+  "paper_mode": "NOT_RUN"
+}

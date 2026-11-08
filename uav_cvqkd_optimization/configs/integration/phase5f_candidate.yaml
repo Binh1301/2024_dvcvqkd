@@ -1,0 +1,44 @@
+mode: CANDIDATE_PENDING_AUTHOR_DECISIONS
+paper_mode: NOT_RUN
+cloud_candidate_author_approved: false
+lookup:
+  directory: ../../results/phase5d_full_target_radial_2proc_PHASE5E_20261108
+  package_manifest_sha256: 7b3f3b4fe7a4cd9c9f046aa456f3a1a4e4b8cf83c327f09e0fba23c28831bfa7
+  coordinate_policy: exact_nodes_only
+  rate_units: bits/use
+  coordinate_units: m
+lookup_context_only:
+  hap_m: [1000.0, 1000.0, 20000.0]
+  uav_altitude_m: 1000.0
+  area_m: [2000.0, 2000.0]
+  role: existing_lookup_geometry_not_mission_approval
+parameters:
+  hap_m: null
+  initial_m: null
+  energy_budget_j: null
+  max_horizon: null
+  graph: null
+  rotor_profile: null
+  m0: null
+  epsilon: null
+  f_s: null
+  eta_valid: null
+  lambda_bits_per_j: null
+  cloud_mode_approval: null
+  cloud_threshold_mg_m3: null
+  layer_bottom_m: null
+  layer_top_m: null
+  cloud_realization: null
+  cloud_seed: null
+  LOS_sample_spacing_m: null
+cloud_reference_geometry:
+  mode: binary_los_blockage
+  velocity_m_s: [-5.0, 0.0]
+  area_m: [2000.0, 2000.0]
+  visualization_grid: [50, 50]
+  cell_m: [40.0, 40.0]
+  reference_times_s: [0.0, 300.0, 1000.0]
+  reference_left_edges_m: [0.0, 1500.0, 5000.0]
+dp:
+  mode: exact
+  label_cap: null

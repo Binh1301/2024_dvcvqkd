@@ -1,0 +1,1597 @@
+{
+  "paper_mode": "NOT_RUN",
+  "figures": [
+    {
+      "figure": "fig01_rotor_power",
+      "status": "READY",
+      "reasons": [],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "Rotor propulsion power and its sampled lower convex envelope. The source parameter version is retained; this model illustration does not constitute a mission result. Source: https://arxiv.org/pdf/1804.02238v1.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {
+        "pdf": {
+          "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig01_rotor_power.pdf",
+          "sha256": "0bb6f12be1945689239c981cea4076af45a66fa9f3cc559bdbc1b664b22be09c"
+        },
+        "png": {
+          "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\figures\\paper\\fig01_rotor_power.png",
+          "sha256": "3f13894a10b6e88913269e8e7e5bea0cc29c3916b543ef1857eb8cc9e74d5970"
+        }
+      },
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Model illustration only; paper-mode remains NOT_RUN.",
+      "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+      "data_status": "SOURCE-VERIFIED ROTOR MODEL"
+    },
+    {
+      "figure": "fig02_cloud_maps",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Gaussian CLWC and binary cloud coverage at the configured times. Each binary mask thresholds the identical CLWC samples. Coverage alone does not determine three-dimensional optical-path intersection.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig03_skr_lookup",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Native spatial SKR samples in bits per channel use, without smoothing, clipping or new optimization. Finite-catalog maxima are not continuous global optima.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig04_trajectory_P1",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Selected P1 trajectories maximizing estimated average key rate on the supplied graph and horizon. Coincident trajectories may overlap.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig05_trajectory_P2",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Selected P2 trajectories maximizing estimated total key on the supplied graph and horizon. Coincident trajectories may overlap.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig06_energy",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Cumulative propulsion energy along the separately selected P1 and P2 trajectory prefixes. Curves end at their actual selected stopping times.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig07_finite_size",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Accumulated valid signals, asymptotic contribution, accumulated-block finite-size penalty and estimated key along P2 prefixes. The penalty is applied once to each accumulated prefix, not summed slotwise; this is a performance approximation, not a composable-security proof.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig08_key_comparison",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Selected P1 average estimated key rate and P2 total estimated key for the four methods. DP uses future cloud predictions; greedy actions use current-slot information. All methods use retrospective prefix selection.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig09_runtime_memory",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Recorded method runtime, Python allocation peak and sampled process RSS from the saved experiment. Shared precomputation is excluded; runtime includes instrumentation and RSS is sampled rather than an exact continuous peak.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim."
+    },
+    {
+      "figure": "fig10_sensitivity",
+      "status": "BLOCKED",
+      "reasons": [
+        "Paper-mode remains NOT_RUN in the source-configuration audit.",
+        "The 2,601-point lookup remains INSUFFICIENT_EVIDENCE; source/security readiness is not established.",
+        "Missing required scientific inputs: initial_m, hap_m, energy_budget_j, m0, epsilon, graph, cloud, blockage, max_horizon",
+        "No verified saved experiment directory supplied; no new results are generated."
+      ],
+      "configuration": {
+        "path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml",
+        "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308",
+        "values": {
+          "mode": "paper",
+          "seed": 42,
+          "research_use_authorized": false,
+          "physical_input_provenance": "Partial audit only: docs/parameter_provenance.md; research/publication inputs remain incomplete.",
+          "area_m": [
+            2000.0,
+            2000.0
+          ],
+          "initial_m": null,
+          "hap_m": null,
+          "uav_altitude_m": 1000.0,
+          "dt": 1.0,
+          "max_horizon": null,
+          "energy_budget_j": null,
+          "m0": null,
+          "epsilon": null,
+          "propulsion": {
+            "P0": 580.65,
+            "Pi": 790.6715228132718,
+            "U_tip": 200.0,
+            "v0": 7.2,
+            "d0": 0.3,
+            "rho": 1.225,
+            "s": 0.05,
+            "A": 0.79,
+            "v_max": 60.0
+          },
+          "velocity_samples": 2001,
+          "energy_tolerance_j": 0.001,
+          "graph": null,
+          "cloud": null,
+          "blockage": null,
+          "lookup": {
+            "synthetic": false,
+            "file": null,
+            "coordinate_units": "m",
+            "rate_units": "bits/use",
+            "sha256": null,
+            "provenance": null
+          },
+          "dp": {
+            "mode": "exact",
+            "label_cap": null
+          },
+          "greedy": {
+            "lambda_bits_per_j": null,
+            "selection": "configured_prior",
+            "lambda_provenance": null
+          },
+          "plot_times_s": [
+            0.0,
+            300.0,
+            1000.0
+          ],
+          "verified_context": {
+            "hap_altitude_m": 20000.0,
+            "pulse_rate_hz": null,
+            "eta_valid": null,
+            "cloud_velocity_m_s": [
+              -5.0,
+              0.0
+            ],
+            "cloud_visualization_grid": [
+              50,
+              50
+            ],
+            "cloud_cell_m": [
+              40.0,
+              40.0
+            ],
+            "rotor": {
+              "source_url": "https://arxiv.org/pdf/1804.02238v1",
+              "source_variant": "arxiv_v1_2018_not_IEEE_2019_parameter_table",
+              "table_page": 27,
+              "W_N": 100.0,
+              "R_m": 0.5,
+              "Omega_rad_s": 400.0,
+              "blade_count": 4,
+              "blade_chord_m": 0.0196,
+              "flat_plate_area_m2": 0.0118,
+              "induced_power_correction": 0.1,
+              "profile_drag_coefficient": 0.012,
+              "v0_derived_m_s": 7.187922934666108,
+              "hover_power_W": 1371.321522813272
+            },
+            "optical_repository_context": {
+              "source": "../../paper_uav_hap_cvqkd/results/skr_zenith_heatmap_20261106/execution_physical_protocol.json",
+              "receiver_aperture_diameter_m": 0.3,
+              "beam_divergence_full_angle_rad": 3.5e-05,
+              "pointing_jitter_per_axis_rad": 1.561e-06,
+              "uav_position_jitter_per_axis_m": 0.1,
+              "detector_efficiency": null,
+              "electronic_noise_SNU": null,
+              "channel_excess_noise_SNU": 0.0186,
+              "detector_excess_noise_SNU": 0.005,
+              "reconciliation_efficiency": 0.95,
+              "wavelength_m": 1.55e-06,
+              "atmospheric_zenith_transmittance": 0.92,
+              "nu_raw_catalog_domain": [
+                0.0,
+                0.4
+              ],
+              "VA_catalog_domain": [
+                0.05,
+                10.0
+              ],
+              "security_status": "UNVALIDATED_SECURITY_MODEL"
+            }
+          }
+        }
+      },
+      "inputs": {
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\paper.yaml": {
+          "exists": true,
+          "sha256": "f2b8b470138a9ea678bfb457e72c325c83955df58604ab019372fe479ca47308"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\parameter_provenance.md": {
+          "exists": true,
+          "sha256": "8174ab7f339717903a020563ebcb8560d2ab4dace6d3b92b687d777f0880b7ee"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\docs\\paper_configuration_audit_vi.md": {
+          "exists": true,
+          "sha256": "89964dc46f58183eff073651dea6c199ac19ba9473198f2d29886a049ed5ea07"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\configuration_validation.json": {
+          "exists": true,
+          "sha256": "a49e209aee3596f7f1a41d2724fa0d0304d05e9743f77e6a09b96ced3ed8267f"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\audit_summary.json": {
+          "exists": true,
+          "sha256": "bc224100f8fb869a8b22a3c3a4b46a18ef5dc559f1ecbe307c0218bb1089a85e"
+        },
+        "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\paper_configuration_audit_20261107\\skr_lookup_audit.json": {
+          "exists": true,
+          "sha256": "9dce65a5f58e9127cda1dce9304f741e5396042f2bee6ee18e61d3f0e3f8b934"
+        }
+      },
+      "caption": "BLOCKED: Recorded sensitivity to energy budget, CLWC threshold, waypoint spacing and DP label cap. Approximate and finite-graph results do not establish continuous global optimality.",
+      "column": "double",
+      "width_in": 7.16,
+      "png_dpi": 600,
+      "outputs": {},
+      "producer_sha256": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+      "scientific_scope": "Saved-data rendering only; no continuous/global optimum or composable-security claim.",
+      "sensitivity_objective": "P2"
+    }
+  ],
+  "counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  }
+}

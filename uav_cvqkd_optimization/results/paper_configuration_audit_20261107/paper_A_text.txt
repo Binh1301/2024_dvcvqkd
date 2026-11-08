@@ -1,0 +1,2512 @@
+
+=== PDF PAGE 1 ===
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+2329
+Energy Minimization for Wireless Communication
+With Rotary-Wing UAV
+Yong Zeng
+, Member, IEEE, Jie Xu
+, Member, IEEE, and Rui Zhang
+, Fellow, IEEE
+Abstract—This paper studies unmanned aerial vehicle (UAV)-
+enabled wireless communication, where a rotary-wing UAV is
+dispatched to communicate with multiple ground nodes (GNs).
+We aim to minimize the total UAV energy consumption, including
+both propulsion energy and communication related energy, while
+satisfying the communication throughput requirement of each
+GN. To this end, we ﬁrst derive a closed-form propulsion power
+consumption model for rotary-wing UAVs, and then formulate the
+energy minimization problem by jointly optimizing the UAV tra-
+jectory and communication time allocation among GNs, as well
+as the total mission completion time. The problem is difﬁcult to
+be optimally solved, as it is non-convex and involves inﬁnitely
+many variables over time. To tackle this problem, we ﬁrst
+consider the simple ﬂy-hover-communicate design, where the UAV
+successively visits a set of hovering locations and communicates
+with one corresponding GN while hovering at each location.
+For this design, we propose an efﬁcient algorithm to optimize
+the hovering locations and durations, as well as the ﬂying
+trajectory connecting these hovering locations, by leveraging
+the travelling salesman problem with neighborhood and convex
+optimization techniques. Next, we consider the general case,
+where the UAV also communicates while ﬂying. We propose a
+new path discretization method to transform the original problem
+into a discretized equivalent with a ﬁnite number of optimization
+variables, for which we obtain a high-quality suboptimal solution
+by applying the successive convex approximation technique. The
+numerical results show that the proposed designs signiﬁcantly
+outperform the benchmark schemes.
+Index Terms—UAV communication, rotary-wing UAV, energy
+model, energy-efﬁcient communication, trajectory optimization,
+path discretization.
+Manuscript
+received
+March
+20,
+2018;
+revised
+July
+24,
+2018,
+November 20, 2018 and January 31, 2019; accepted February 20, 2019. Date
+of publication March 8, 2019; date of current version April 9, 2019. The
+work of Y. Zeng was supported by the Australia Research Council Discovery
+Early Career Researcher Award under Grant DE190101436. The work of
+J. Xu was supported in part by the National Natural Science Foundation of
+China under Project 61871137 and in part by the Open Research Fund of the
+National Mobile Communications Research Laboratory, Southeast University,
+under Project 2019D08. This paper was presented at the IEEE Global
+Communications Conference, Abu Ahabi, UAE, 9–13 December 2018 [1].
+The associate editor coordinating the review of this paper and approving it
+for publication was S. Pollin. (Corresponding author: Jie Xu.)
+Y. Zeng is with the School of Electrical and Information Engineer-
+ing, The University of Sydney, Sydney, NSW 2006, Australia (e-mail:
+yong.zeng@sydney.edu.au).
+J. Xu is with the School of Information Engineering, Guangdong University
+of Technology, Guangzhou 510006, China, and also with the National Mobile
+Communications Research Laboratory, Southeast University, Nanjing 211189,
+China (e-mail: jiexu@gdut.edu.cn).
+R. Zhang is with the Department of Electrical and Computer Engi-
+neering, National University of Singapore, Singapore 117583 (e-mail:
+elezhang@nus.edu.sg).
+Color versions of one or more of the ﬁgures in this paper are available
+online at http://ieeexplore.ieee.org.
+Digital Object Identiﬁer 10.1109/TWC.2019.2902559
+I. INTRODUCTION
+W
+IRELESS
+communication
+using
+unmanned
+aerial
+platforms is a promising technology to achieve wire-
+less coverage in areas without or with insufﬁcient terrestrial
+infrastructures. Early efforts have been primarily focusing on
+using high altitude platforms (HAPs), which are deployed
+in stratosphere at altitude around 20 km, aiming to pro-
+vide ubiquitous coverage in rural or remote areas. Recently,
+wireless communication using low altitude platforms (LAPs),
+typically below a few kilometers above the ground, has
+received growing interest. LAPs can be implemented in var-
+ious ways, such as helikite [2] and unmanned aerial vehicles
+(UAVs) [3]–[7]. In particular, compared to other airborne solu-
+tions such as HAPs and helikite, UAV-enabled wireless com-
+munication brings new advantages [3], such as on-demand and
+more swift deployment, superior link quality in the presence
+of shorter-distance line-of-sight (LoS) communication channel
+with ground nodes (GNs), and higher network ﬂexibility with
+the fully controllable UAV movement in three dimensional
+(3D) airspace. Therefore, UAV-enabled wireless communica-
+tion has many potential use cases, including public safety
+communication, temporary trafﬁc ofﬂoading for cellular base
+stations (BSs), information dissemination and data collection
+for Internet of Things (IoTs), as well as emergency response
+and fast service recovery after natural disasters.
+Prior researches on UAV-enabled wireless communications
+can be loosely classiﬁed into two categories. In the ﬁrst
+category, UAVs are deployed as (quasi-)stationary aerial BSs.
+In this case, UAVs resemble the conventional static terrestrial
+BSs, but at a much higher altitude and thus possesses new
+channel characteristics [8]–[12]. In particular, it was shown
+that as the UAV altitude increases, the LoS probability between
+the UAV and GNs also increases [13]. By exploiting such
+unique channel characteristics, signiﬁcant efforts have been
+devoted to studying the various aspects of UAV-enabled BSs,
+such as UAV placement optimization [13]–[18], performance
+analysis [19]–[21], spectrum sharing [22], and cell asso-
+ciation [23]. In contrast, the other category considers the
+application scenarios where UAVs are employed as mobile
+BSs/relays/access points (APs) [24]–[29], whose trajectories
+can be designed to optimize the communication performance.
+For example, a UAV as a mobile relay or data collector
+can ﬂy closer to its associated GNs for communication to
+improve the overall spectrum efﬁciency [24] and/or save the
+communication energy of GNs [27]. In [24], a new framework
+1536-1276 © 2019 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See http://www.ieee.org/publications_standards/publications/rights/index.html for more information.
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 2 ===
+2330
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+Fig. 1.
+Wireless communication enabled by a rotary-wing UAV.
+of joint power allocation and UAV trajectory optimization was
+proposed for the UAV-enabled mobile relaying system, which
+has been extended to various other setups such as UAV-enabled
+data collection [27], multi-UAV coordinated/cooperative com-
+munication [28], [30], and UAV-enabled wireless power
+transfer [31].
+One critical issue of UAV-enabled wireless communica-
+tion lies in the limited on-board energy of UAVs [3], which
+needs to be efﬁciently used to enhance the communication
+performance and prolong the UAV’s endurance. Compared to
+conventional terrestrial BSs, UAVs incur additional propulsion
+energy consumption to maintain airborne and support their
+movement. As a result, the energy-efﬁcient wireless commu-
+nication design with UAV is signiﬁcantly different from that
+in conventional terrestrial communication systems. An initial
+attempt for designing energy-efﬁcient UAV communication
+was made in [26], where the energy efﬁciency in bits/Joule
+of a ﬁxed-wing UAV enabled communication system is maxi-
+mized for a given ﬂight duration. To that end, a generic energy
+model as a function of the UAV’s velocity and acceleration
+was derived for ﬁxed-wing UAVs. Based on the energy model
+in [26], the authors in [32] further revealed an interesting
+trade-off between UAV’s energy consumption and that of the
+GNs it communicating with. However, the above results for
+ﬁxed-wing UAVs cannot be applied for rotary-wing UAVs, due
+to their fundamentally different mechanical designs and hence
+drastically different propulsion energy models. Furthermore,
+the prior work [26] on energy-efﬁcient ﬁxed-wing UAV com-
+munications only considered the single-GN setup, while leav-
+ing the more general scenario with multiple GNs unaddressed.
+This thus motivates our current work to investigate energy-
+efﬁcient communication for rotary-wing UAVs in a multi-user
+setup.
+In this paper, we study a wireless communication system
+enabled by a rotary-wing UAV [1], as shown in Fig. 1. Com-
+pared to ﬁxed-wing UAVs, rotary-wing UAVs have several
+appealing advantages such as the ability to take off and
+land vertically, as well as for hovering, which render them
+more popular in the current UAV market. We consider the
+scenario where a rotary-wing UAV is dispatched as a ﬂying
+AP to communicate with multiple GNs, each of which has a
+target number of information bits to be transmitted/received
+to/from the UAV. Such a setup corresponds to many practical
+applications, such as UAV-enabled data collection for periodic
+sensing, UAV-enabled caching where the UAV pre-fetches the
+data and then transmits to the designated caching nodes [33],
+etc. Our objective is to minimize the UAV’s energy consump-
+tion, including both propulsion energy and communication
+energy, while ensuring that the communication requirement
+for each GN is satisﬁed. The main contributions of this paper
+are summarized as follows.
+First, we derive an analytical model for the propulsion
+power consumption of rotary-wing UAVs, based on the results
+in aircraft literature [34], [35]. As expected, the obtained
+model is signiﬁcantly different from that for ﬁxed-wing UAVs
+derived in our prior work [26]. For instance, for ﬁxed-wing
+UAVs with ﬂying speed V , the power consumption is a
+convex function of V consisting of two terms: one increasing
+cubically and the other decreasing inversely with V . Further-
+more, the required power consumption for ﬁxed-wing UAVs
+at V
+= 0 is inﬁnity, which mathematically reﬂects the
+well-known fact that ﬁxed-wing UAVs must maintain a mini-
+mum forward speed to remain airborne. In contrast, as will be
+seen in Section II-B, the power consumption for rotary-wing
+UAVs is given by a more complicated function that is neither
+convex nor concave with respect to V . Furthermore, the power
+consumption is ﬁnite when V = 0, reﬂecting the fact that the
+rotary-wing UAV is able to hover. Such unique properties for
+power consumption model lead to different trajectory design
+techniques for rotary-wing UAVs compared to ﬁxed-wing
+UAVs, as shown in this paper.
+Based on the derived power consumption model, we formu-
+late the energy minimization problem that jointly optimizes
+the UAV trajectory, the communication time allocation among
+the multiple GNs, as well as the total mission completion
+time. The problem is difﬁcult to be optimally solved, as it
+is non-convex and constitutes inﬁnite number of optimization
+variables that are coupled in continuous functions over time.
+To tackle this problem, we ﬁrst consider the simple ﬂy-
+hover-communicate design to gain useful insights. Under this
+design, the UAV successively visits a set of optimized hovering
+locations, and communicates with each of the GNs only
+when hovering at the corresponding location. In this case,
+the problem reduces to ﬁnding the optimal hovering locations
+and hovering duration at each location, as well as the visiting
+order and ﬂying speed among these locations. The problem
+is still NP hard, as it includes the classic NP hard travelling
+salesman problem (TSP) as a special case [36]. By leveraging
+the existing TSP-solving algorithm [37] and convex optimiza-
+tion techniques, an efﬁcient high-quality approximate solution
+is obtained for our problem.
+Next, we propose a general solution to the energy mini-
+mization problem where the UAV also communicates while
+ﬂying. To this end, we ﬁrst propose a novel discretization
+technique, called path discretization, to transform the original
+problem with inﬁnitely many variables into a more tractable
+form with a ﬁnite number of variables. Different from the
+widely used time discretization approach for UAV trajectory
+design (see e.g. [24] and [26]), path discretization does not
+require the mission completion time to be pre-speciﬁed. This is
+particularly useful for problems where the mission completion
+time is also one of the optimization variables, as for the
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 3 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2331
+energy minimization problem studied in this paper. However,
+the path-discretized problem is still non-convex, and thus
+it is challenging to ﬁnd its optimal solution. By utilizing
+the successive convex approximation (SCA) technique [24],
+an efﬁcient iterative algorithm is proposed to simultaneously
+update the UAV trajectory and communication time allocation
+at each iteration, which is able to converge to a solution
+satisfying the Karush-Kuhn-Tucker (KKT) conditions.
+II. SYSTEM MODEL AND PROBLEM FORMULATION
+A. System Model
+We consider a wireless communication system where a
+rotary-wing UAV is dispatched to communicate with K GNs,
+which are denoted by the set K = {1, · · · , K}. The horizontal
+location of the GN k ∈K is denoted as wk ∈R2×1.
+We assume that the UAV ﬂies at a constant altitude H, whereas
+the UAV altitude optimization will be exploited in our future
+work. Let Tt denote the total time required for the UAV to
+complete the mission, which is one of the design variables.
+Denote by q(t) ∈R2×1 with 0 ≤t ≤Tt the UAV trajectory
+projected onto the horizontal plane. Let Vmax denote the
+maximum UAV speed. We then have the constraint ∥˙q(t)∥≤
+Vmax. At any time instant t ∈[0, Tt], the distance between the
+UAV and GN k is given by dk(t) =
+
+H2 + ∥q(t) −wk∥2,
+k ∈K.
+Let hk(t) denote the channel coefﬁcient between the UAV
+and GN k at time t. In general, hk(t) can be decomposed as
+hk(t) =
+
+βk(t)˜hk(t),
+(1)
+where βk(t) accounts for the large-scale fading effects such
+as path loss and shadowing, and ˜hk(t) is generally a complex-
+valued random variable with E[|˜hk(t)|2] = 1 accounting for
+the small-scale fading. Furthermore, for UAV-ground links,
+the large-scale attenuation is usually modeled as a random
+variable depending on the occurrence probabilities of LoS
+and non-LoS (NLoS) links [8], [13]. Speciﬁcally, βk(t) can
+be written as [38]
+βk(t) =
+
+β0d−˜α
+k (t),
+LoS link
+κβ0d−˜α
+k (t), NLoS link,
+(2)
+where β0 is the path loss at the reference distance, ˜α is the path
+loss exponent, and κ < 1 is the additional attenuation factor
+due to the NLoS condition. In general, the LoS probability
+depends on the propagation environment and the statistic
+modeling of the building density and height. One common
+approach is to model the LoS probability between the UAV
+and GN k at time t, denoted as Pk,LoS(t), as a logistic function
+of the elevation angle as [13]
+Pk,LoS(t) =
+1
+1 + C exp (−D[θk(t) −C]),
+(3)
+where C and D are parameters that depend on the propagation
+environment, and θk(t) = 180
+π sin−1 
+H
+dk(t)
+
+is the elevation
+angle in degree. Clearly, the LoS probability Pk,LoS(t) is
+dependent on the UAV trajectory q(t).
+As a result, the channel hk(t) is a random variable with two
+different levels of randomness, namely the random occurrence
+of LoS and NLoS links, as well as the random small-scale
+fading. The expected channel power gain by averaging over
+both randomness is
+E[|hk(t)|2] = Pk,LoS(t)β0d−˜α
+k (t)+(1 −Pk,LoS(t))κβ0d−˜α
+k (t)
+= ˆPk,LoS(t)β0d−˜α
+k (t),
+(4)
+where
+ˆPk,LoS(t) = Pk,LoS(t) + (1 −Pk,LoS(t))κ can be
+interpreted as a regularized LoS probability by taking into
+account the effect of NLoS occurrence with the additional
+attenuation factor κ.
+Let P denote the transmit power when a GN is scheduled for
+communication. The achievable rate in bits per second (bps)
+between GN k and the UAV at time t is expressed as
+Rk(t) = B log2
+
+1 + P|hk(t)|2
+σ2Γ
+
+,
+(5)
+where B denotes the channel bandwidth in hertz (Hz), σ2 is
+the noise power at the receiver, Γ > 1 accounts for the gap
+from the channel capacity due to the practical modulation and
+coding scheme employed.
+We assume that the time-division multiple access (TDMA)
+protocol is applied for the UAV to serve the K GNs, in order to
+fully exploit the time-varying channels with trajectory design.
+Let a binary variable λk(t) ∈{0, 1} denote the user scheduling
+indicator at time instant t, with λk(t) = 1 indicating that GN
+k is scheduled for communication at instant t and λk(t) = 0
+otherwise. As at most one GN can be scheduled at each time
+instant t, we have
+K
+
+k=1
+λk(t) ≤1,
+∀t ∈[0, Tt].
+(6)
+Therefore, the aggregated communication throughput for
+GN k is a function of Tt, q(t), and λk(t), which can be
+expressed as
+˜Rk
+	
+Tt, {q(t)}, {λk(t)}
+
+=
+ Tt
+0
+λk(t)Rk(t)dt.
+(7)
+Note that since the channel hk(t) is a random variable in
+general, ˜Rk is also a random variable. Furthermore, as the
+probability distribution of ˜Rk is challenging to obtain, we are
+interested in the expected communication throughput, deﬁned
+as ˆRk ≜E[ ˜Rk]. Due to the concavity of the logarithmic
+function and by using the Jensen’s inequality, we have
+ˆRk =
+ Tt
+0
+λk(t)E[Rk(t)]dt
+(8)
+≤
+ Tt
+0
+λk(t)B log2
+
+1 + PE
+
+|hk(t)|2
+σ2Γ
+
+dt
+(9)
+=
+ Tt
+0
+λk(t)B log2
+
+1 +
+˜γ0 ˆPk,LoS(t)
+(H2 + ∥q(t) −wk∥2)α
+
+dt,
+(10)
+where ˜γ0 ≜Pβ0/(σ0Γ) and α ≜˜α/2. It is observed that
+the expression in (10) depends on the UAV trajectory q(t) not
+only via the UAV-GT distance, but also via the regularized LoS
+probability ˆPk,LoS(t). This makes (10) difﬁcult to handle for
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 4 ===
+2332
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+the purpose of UAV trajectory optimization. To address this
+issue, one approach is to use a homogeneous approximation
+of the LoS probability, i.e., by letting ˆPk,LoS(t) ≈¯Pk,LoS, ∀t.
+For example, ¯Pk,LoS could be set as the value corresponding
+to the most likely elevation angle, or the average value based
+on certain heuristic UAV trajectory, e.g., that obtained based
+on the TSP algorithm.
+Based on the above discussions, we are interested in design-
+ing the UAV trajectory to ensure the following constraint
+¯Rk
+	
+Tt, {q(t)}, {λk(t)}
+
+≜
+ Tt
+0
+λk(t)B log2
+×
+
+1 +
+γk
+(H2 + ∥q(t) −wk∥2)α
+
+dt ≥˜Qk,
+∀k,
+(11)
+where
+˜Qk is a given expected targeting communication
+requirement and γk ≜¯Pk,LoS˜γ0. Note that ¯Rk can be inter-
+preted as an approximation of the expected user through-
+put ˆRk. Numerical results (see Fig. 6) in Section V show rather
+satisfactory accuracy for such approximation, especially for
+suburban or rural environment with relatively large modeling
+parameter D. In fact, it can be veriﬁed that for the special
+case of free-space propagation environment with no channel
+randomness, as commonly assumed in prior works on trajec-
+tory optimization [24], [26], [28], ˆPk,LoS(t) = 1, ∀k, t, and
+the above approximation becomes exact, i.e., ¯Rk = ˆRk. The
+more accurate approximation for the expected throughput ˆRk
+and the corresponding trajectory optimization are non-trivial,
+which are left as our future work.
+Compared with the communication rate expression for the
+special free-space channel model as widely assumed in prior
+works [24], [26], [28], the constraint in (11) is more general
+that differs mainly in two aspects. Firstly, it deals with the
+more general path loss exponent ˜α ≥2, instead of the
+special case with ˜α = 2. Secondly, it takes into account the
+effect of LoS probability via the parameter γk, which can be
+obtained based on a coarse approximation with a homogeneous
+regularized LoS probability with certain initial trajectories.
+Fortunately, with such a more general rate constraint, the
+commonly used methods for trajectory optimization, such as
+the travelling salesman problem with neighborhood (TSPN)
+and SCA, can be similarly applied, as given in subsequent
+sections.
+B. Energy Consumption Model for Rotary-Wing UAV
+The UAV energy consumption is in general composed of
+two main components, namely the communication related
+energy and the propulsion energy. The communication related
+energy includes that for communication circuitry, signal
+processing, signal radiation/reception, etc. In this paper,
+we assume that the communication related power is a constant,
+which is denoted as Pc in watt (W). On the other hand,
+the propulsion energy consumption is needed to keep the
+UAV aloft and support its movement, if necessary. In general,
+the propulsion energy depends on the UAV ﬂying speed as well
+as its acceleration. In this paper, for the purpose of exposition
+and more tractable analysis, we ignore the additional/fewer
+energy consumption caused by UAV acceleration/deceleration,
+which is reasonable for scenarios when the UAV maneuvering
+duration only takes a small portion of the total operation time.
+The extension to more general power consumption models is
+non-trivial, which is left as our future work. As derived in
+Appendix, for a rotary-wing UAV with speed V , the propulsion
+power consumption can be modeled as
+P(V ) = P0
+
+1 + 3V 2
+U 2
+tip
+
+
+
+
+blade proﬁle
++ Pi
+
+1 + V 4
+4v4
+0
+−V 2
+2v2
+0
+1/2
+
+
+
+induced
++ 1
+2d0ρsAV 3
+
+
+
+parasite
+,
+(12)
+where P0 and Pi are two constants deﬁned in (64) of Appen-
+dix representing the blade proﬁle power and induced power in
+hovering status, respectively, Utip denotes the tip speed of the
+rotor blade, v0 is known as the mean rotor induced velocity in
+hover, d0 and s are the fuselage drag ratio and rotor solidity,
+respectively, and ρ and A denote the air density and rotor
+disc area, respectively. The relevant parameters are explained
+in details in Table I and Appendix. It is observed from (12)
+that the propulsion power consumption of rotary-wing UAVs
+consists of three components: blade proﬁle, induced, and para-
+site power. The blade proﬁle power and parasite power, which
+increase quadratically and cubically with V , respectively, are
+needed to overcome the proﬁle drag of the blades and the
+fuselage drag, respectively. On the other hand, the induced
+power is that required to overcome the induced drag of the
+blades, which decreases with V .
+By substituting V
+= 0 into (12), we obtain the power
+consumption for hovering status as Ph = P0 + Pi, which is a
+ﬁnite value depending on the aircraft weight, air density, and
+rotor disc area, etc. (see (64) in Appendix). As V increases,
+it can be veriﬁed that P(V ) in (12) ﬁrstly decreases and then
+increases with V , i.e., hovering is in general not the most
+power-conserving status. It can be veriﬁed that the power
+function P(V ) in (12) is neither convex nor concave with
+respect to V . It is much more involved compared to the power
+model for ﬁxed-wing UAV (cf. [26, eq. (7)] ), which is a
+convex function consisting of two simple terms: one increasing
+cubically and the other decreasing inversely with V .
+When V ≫v0, by applying the ﬁrst-order Taylor approx-
+imation (1 + x)1/2 ≈1 + 1
+2x for |x| ≪1, (12) can be
+approximated as a convex function, i.e.,
+P(V ) ≈P0
+
+1 + 3V 2
+U 2
+tip
+
++ Piv0
+V
++ 1
+2d0ρsAV 3.
+(13)
+A typical plot of P(V ) versus UAV speed V is shown in Fig. 2,
+together with the three individual power components and the
+convex approximation given in (13).
+Two particular UAV speeds that are of high practi-
+cal interests are the maximum-endurance (ME) speed and
+the maximum-range (MR) speed, which are denoted as
+Vme and Vmr, respectively.
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 5 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2333
+Fig. 2.
+Propulsion power consumption versus speed V for rotary-wing UAV.
+1) ME Speed: The ME speed Vme is the optimal UAV speed
+that maximizes the UAV endurance under any given onboard
+energy E. With E given, the UAV endurance with constant
+speed V is given by
+E
+P (V ). Thus, Vme is the optimal UAV
+speed that minimizes the power consumption, i.e., Vme =
+arg min
+V ≥0 P(V ). Though a closed-form expression for Vme is
+difﬁcult to obtain due to the complicated expression of P(V )
+in (12), it can be efﬁciently found numerically.
+2) MR Speed: On the other hand, the MR speed Vmr is the
+optimal UAV speed that maximizes the total traveling distance
+with any given onboard energy E. For any given E, the range
+with constant traveling speed V can be expressed as
+EV
+P (V ).
+Deﬁne the function
+E0(V ) ≜P(V )
+V
+= P0
+
+1
+V + 3V
+U 2
+tip
+
++ Pi
+
+V −4 +
+1
+4v4
+0
+−
+1
+2v2
+0
+1/2
++ 1
+2d0ρsAV 2,
+(14)
+which physically represents the UAV energy consumption per
+unit travelling distance in Joule/meter (J/m) with speed V .
+Thus, Vmr can be found as Vmr = arg min
+V ≥0 E0(V ), which can
+be efﬁciently found numerically. Alternatively, Vmr can also be
+obtained graphically based on the power-speed curve P(V ),
+by drawing the tangential line from the origin to the power
+curve that corresponds to the minimum slope (and hence
+power/speed ratio) [35], as illustrated in Fig. 2. In practice,
+we usually have Vme ≤Vmr ≤Vmax.
+With given UAV trajectory {q(t)}, the propulsion energy
+consumption can be expressed as
+E1(Tt, {q(t)}) =
+ Tt
+0
+P(∥v(t)∥)dt,
+(15)
+where v(t) ≜˙q(t) is the UAV velocity and ∥v(t)∥is the UAV
+speed at time instant t.
+By combining both the communication related energy and
+the propulsion energy, the total UAV energy consumption is
+E(Tt, {q(t)}, {λk(t)}) = E1(Tt, {q(t)})
++ Pc
+ Tt
+0
+ K
+
+k=1
+λk(t)
+
+dt.
+(16)
+C. Problem Formulation for UAV Energy Minimization
+Based on the above discussions, the UAV energy minimiza-
+tion problem can be formulated as
+(P1):
+min
+Tt,{q(t)},{λk(t)} E(Tt, {q(t)}, {λk(t)})
+s.t. ¯Rk(Tt, {q(t)}, {λk(t)}) ≥˜Qk,
+∀k,
+(17)
+∥˙q(t)∥≤Vmax,
+∀t ∈[0, Tt],
+(18)
+q(0) = qI,
+q(Tt) = qF ,
+(19)
+λk(t) ∈{0, 1},
+∀k ∈K, t ∈[0, Tt],
+(20)
+K
+
+k=1
+λk(t) ≤1,
+∀t ∈[0, Tt],
+(21)
+where qI, qF
+∈
+R2×1 represent the UAV’s initial and
+ﬁnal locations projected onto the horizontal plane, respec-
+tively. Note that depending on practical application scenarios,
+the constraints on the initial/ﬁnal UAV locations in (19) may
+or may not be present.
+Problem (P1) requires optimizing the UAV trajectory
+{q(t)} and communication scheduling {λk(t)}, which are
+both continuous functions with respect to time t. Therefore,
+(P1) essentially involves inﬁnite number of optimization vari-
+ables. Furthermore, (P1) includes a complicated cost function
+for the UAV energy consumption, as well as non-convex
+constraints in (17) and binary constraints in (20). Therefore,
+(P1) is difﬁcult to be directly solved. In Section III, we ﬁrst
+consider the simple ﬂy-hover-communicate protocol to make
+the problem more tractable, by which (P1) reduces to a
+problem with a ﬁnite number of optimization variables that
+only depends on the number of GNs K, instead of the (a priori
+unknown) mission completion time Tt. Then in Section IV,
+we propose a general solution to (P1) by utilizing the new
+path disretization technique to convert it into a discretized
+equivalent problem with a ﬁnite number of optimization vari-
+ables, for which a high quality approximate solution can be
+found via the SCA technique.
+III. FLY-HOVER-COMMUNICATE PROTOCOL
+Fly-hover-communicate is a very intuitive protocol that is
+also easy to implement in practice. In this protocol, the UAV
+successively visits K optimized hovering locations, each for
+one GN, and communicates with each GN only when it is
+hovering at the corresponding location. As a result, prob-
+lem (P1) reduces to ﬁnding the optimal hovering locations
+and hovering (communication) time allocations for the K GNs,
+as well as the optimal ﬂying speed and path connecting these
+hovering locations. In the following, we ﬁrst consider the
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 6 ===
+2334
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+special case with only one GN to draw useful insights, and
+then extend the study to the general case with multiple GNs.
+A. Optimal Fly-Hover-Communicate Scheme for One GN
+For the special case with one single GN, the GN index k
+is omitted for brevity. Without loss of generality, we assume
+that the GN is located at the origin with w = 0, and the
+UAV’s initial horizontal location is qI = [ ¯D, 0]T. To illustrate
+the fundamental trade-off between hovering energy and ﬂying
+energy minimization, we assume that there is no constraint on
+the UAV’s ﬁnal location in this subsection. It is not difﬁcult
+to see that under such a basic setup, the UAV should only ﬂy
+along the line segment connecting qI and the GN w.
+One extreme case of the ﬂy-hover-communicate protocol
+is that the UAV simply hovers at the initial location qI and
+communicates with the GN until the aggregated information
+bits reach the target value
+˜Q. However, when the initial
+horizontal distance ¯D is large, such a strategy usually leads to
+a very low data rate and hence requires very long mission
+completion time Tt. This in turn leads to high UAV hov-
+ering and communication energy consumption. Alternatively,
+the UAV could ﬂy closer to the GN and hover at a certain
+location with a shorter link distance to achieve a higher data
+rate. This strategy, though requiring additional energy for UAV
+traveling, reduces the time for data transmission (or hovering),
+and hence requires less energy for hovering and communi-
+cation. Therefore, with the ﬂy-hover-communicate protocol,
+in order to minimize the total UAV energy consumption, there
+must exist an optimal UAV hovering location that strikes an
+optimal balance between minimizing the traveling energy and
+hovering/communication energy.
+Denote by Ttr the UAV traveling time before reaching the
+hovering location and by V (t) the instantaneous traveling
+speed towards the GN. Thus, the total traveling distance is
+Dtr =
+ Ttr
+0
+V (t)dt, where we should have 0 ≤Dtr ≤¯D. The
+total required energy consumption for traveling is
+Etr(Ttr, {V (t)}) =
+ Ttr
+0
+P(V (t))dt.
+(22)
+Furthermore, the required communication time (or equiva-
+lently the UAV hovering time Thov) so that the constraint (11)
+is guaranteed can be obtained as
+Thov =
+Q
+log2
+
+1 +
+γ
+(H2+( ¯
+D−Dtr)2)α
+,
+(23)
+where Q ≜
+˜Q/B is the bandwidth-normalized throughput
+requirement in bits/Hz. Thus, the total required UAV hovering
+and communication energy consumption is
+Ehc(Dtr)=(Ph + Pc)Thov =
+(Ph + Pc)Q
+log2
+
+1 +
+γ
+(H2+( ¯
+D−Dtr)2)α
+.
+(24)
+Therefore, the total UAV energy consumption is
+Etot(Ttr, {V (t)}, Dtr) = Etr(Ttr, {V (t)}) + Ehc(Dtr).
+(25)
+Thus, the energy minimization problem (P1) reduces to
+(P2)
+min
+Ttr,{V (t)},Dtr Etot(Ttr, {V (t)}, Dtr)
+s.t. 0 ≤V (t) ≤Vmax,
+∀t ∈[0, Ttr],
+ Ttr
+0
+V (t)dt = Dtr,
+0 ≤Dtr ≤¯D.
+(26)
+It is not difﬁcult to see that with the ﬂy-hover-communicate
+protocol, the scheduling variable λ(t) in problem (P1) can
+be directly determined once the UAV traveling time Ttr and
+hovering time Thov are obtained.
+Lemma 1: The optimal solution to problem (P2) satisﬁes
+Ttr = Dtr/Vmr and V (t) = Vmr, ∀t ∈[0, Dtr/Vmr].
+Proof:
+Lemma 1 can be shown by change of variables.
+The details are omitted for brevity.
+Lemma 1 shows that with the ﬂy-hover-communicate pro-
+tocol, the UAV should travel with a constant speed, which
+is given by the MR speed, Vmr. Let E⋆
+0 = E0(Vmr) be the
+minimum UAV energy consumption per unit traveling distance
+obtained by substituting Vmr into (14). Then problem (P2)
+reduces to the following uni-variate optimization problem
+min
+0≤Dtr≤¯
+D DtrE⋆
+0 +
+(Ph + Pc)Q
+log2
+
+1 +
+γ
+(H2+( ¯
+D−Dtr)2)α
+.
+(27)
+Note that the ﬁrst term of (27) increases linearly with
+the traveling distance Dtr, while the second term decreases
+monotonically with Dtr. Therefore, the optimal solution of Dtr
+to problem (27) should balance the energy consumption for
+traveling and hovering, which can be efﬁciently obtained via
+a one-dimensional search.
+B. Fly-Hover-Communicate for Multiple GNs
+In this subsection, the ﬂy-hover-communicate protocol is
+extended to the general case with multiple GNs. In this
+case, (P1) reduces to ﬁnding the optimal set of K hovering
+locations, each for communicating with one GN, as well as
+the traveling path and speed among these hovering locations.
+Let ˜qk ∈R2×1 denote the horizontal coordinate of the UAV
+hovering location when it communicates with GN k. Then the
+total required communication time (or the hovering time at
+location ˜qk) so that the constraint (11) is guaranteed is
+Tk(˜qk) =
+Qk
+log2
+
+1 +
+γk
+(H2+∥˜qk−wk∥2)α
+,
+(28)
+where Qk ≜˜Qk/B is the normalized throughput requirement
+in bits/Hz. Thus, the total required hovering and communica-
+tion energy at the K locations is a function of {˜qk}, which
+can be expressed as
+Ehc({˜qk}) = (Ph + Pc)
+K
+
+k=1
+Tk(˜qk)
+=
+K
+
+k=1
+(Ph + Pc)Qk
+log2
+
+1 +
+γk
+(H2+∥˜qk−wk∥2)α
+.
+(29)
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 7 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2335
+On the other hand, the total required traveling energy
+depends on the total traveling distance Dtr to visit all the K
+hovering locations {˜qk}, as well as the traveling speed V (t)
+among them. Similar to Lemma 1, it can be shown that with
+the ﬂy-hover-communicate protocol, the UAV should always
+travel with the MR speed Vmr. Furthermore, for any given set
+of hovering locations {˜qk} and initial/ﬁnal locations qI and
+qF , the total traveling distance Dtr depends on the visiting
+order of all the K locations, which can be represented by the
+permutation variables π(k) ∈{1, · · · , K}. Speciﬁcally, π(k)
+gives the index of the kth GN served by the UAV. Therefore,
+we have
+Dtr ({˜qk}, {π(k)}) =
+K
+
+k=0
+∥˜qπ(k+1) −˜qπ(k)∥,
+(30)
+where for convenience, we have deﬁned ˜qπ(0) = qI and
+˜qπ(K+1) = qF . Thus, the total required UAV traveling energy
+with the optimal traveling speed Vmr can be written as
+Etr ({˜qk}, {π(k)}) = E⋆
+0Dtr ({˜qk}, {π(k)}).
+(31)
+The total UAV energy consumption is thus given by
+Etot ({˜qk}, {π(k)}) = Ehc({˜qk}) + Etr ({˜qk}, {π(k)}).
+(32)
+As a result, the energy minimization problem (P1) with the
+ﬂy-hover-communicate protocol reduces to
+(P3):
+min
+{˜qk},{π(k)} Etot ({˜qk}, {π(k)})
+s.t.
+
+π(1), · · · , π(K)
+
+∈P,
+(33)
+where P represents the set of all the K! possible permutations
+for the K GNs. Note that with the ﬂy-hover-communicate
+protocol, the user scheduling parameter {λk(t)} in (P1) can
+be directly obtained based on the solution to (P3).
+Problem (P3) is a non-convex optimization problem, whose
+optimal solution is difﬁcult to obtain. In fact, even with ﬁxed
+hovering locations {˜qk}, problem (P3) reduces to the classic
+TSP [36] with pre-determined initial and ﬁnal locations [29],
+which is known to be NP hard. Therefore, problem (P3)
+is also NP hard. Fortunately, by utilizing the techniques for
+solving TSP and applying convex optimization, an efﬁcient
+approximate solution to (P3) can be obtained.
+To this end, we ﬁrst introduce the slack variables Dtr and
+zk = ∥˜qk−wk∥2, by which problem (P3) can be equivalently
+written as
+(P3.1):
+min
+Dtr,{˜qk,π(k),zk} E⋆
+0Dtr+
+K
+
+k=1
+(Ph + Pc)Qk
+log2
+
+1+
+γk
+(H2+zk)α
+
+s.t.
+
+π(1), · · · , π(K)
+
+∈P,
+(34)
+K
+
+k=0
+∥˜qπ(k+1) −˜qπ(k)∥≤Dtr,
+(35)
+∥˜qk −wk∥2 ≤zk,
+∀k.
+(36)
+Note that at the optimal solution to (P3.1), all the constraints
+in (35) and (36) must be satisﬁed with strict equality, since
+otherwise, we may reduce Dtr or zk to further reduce the cost
+function of (P3.1).
+Problem (P3.1) can be interpreted as follows. For each
+GN k, constraint (36) speciﬁes a disk region centered at
+the GN location wk with radius √zk. The smaller zk is,
+the shorter the communication link distance between the UAV
+and GN k, and hence the less hovering-and-communication
+energy required (the second term of the cost function in
+(P3.1)). However, due to constraint (35), this would gener-
+ally require longer traveling distance Dtr and hence more
+traveling energy. In fact, for any ﬁxed {zk} such that the
+hovering-and-communication energy is ﬁxed, problem (P3.1)
+essentially reduces to minimizing the total traveling distance
+Dtr, while ensuring that each of the hovering location ˜qk
+has a distance no greater than √zk from the GN k. This
+is essentially the classical TSPN, with pre-determined initial
+and ﬁnal locations. TSPN is a generalization of the TSP
+and hence is NP hard as well, where both the visiting order
+{π(k)} and the locations {˜qk} inside the disk region need
+to be optimized. One effective method for solving TSPN is
+to ﬁrstly ignore the disk radius and solve the TSP problem
+over the K GN locations {wk} to obtain the visiting order
+[ˆπ(1), · · · , ˆπ(K)] [29]. Though NP hard, TSP can be approx-
+imately solved with high-quality solutions by many existing
+algorithms [37]. As such, the TSPN then reduces to ﬁnding the
+optimal waypoints {˜qk} with the obtained order {ˆπk}, which
+is a convex optimization problem and hence can be optimally
+solved [29].
+With the above idea, an efﬁcient algorithm is proposed to
+solve problem (P3.1). Speciﬁcally, the visiting order {π(k)}
+is ﬁrstly set as {ˆπ(k)} obtained by solving the TSP over the
+GNs’ locations {wk}. As such, problem (P3.1) reduces to
+(P3.2):
+min
+Dtr,{˜qk},{ηk} E⋆
+0Dtr +
+K
+
+k=1
+(Ph + Pc)Qk
+ηk
+s.t.
+K
+
+k=0
+∥˜qˆπ(k+1) −˜qˆπ(k)∥≤Dtr,
+(37)
+ηk ≥0,
+∀k,
+(38)
+ηk ≤log2
+
+1+
+γk
+(H2 + ∥˜qk −wk∥2)α
+
+,
+∀k,
+(39)
+where we have introduced the slack variables {ηk}. It is noted
+that the cost function of (P3.2) and constraints (37)–(38) are
+all convex. However, the newly introduced constraint (39)
+is non-convex. Fortunately, with similar derivation as in [24]
+and [26], for any given local point {˜q(l)
+k } at the lth iteration,
+a global concave lower bound can be obtained for the RHS
+of (39) as
+log2
+
+1 +
+γk
+(H2 + ∥˜qk −wk∥2)α
+
+≥R(l)
+k (˜qk),
+(40)
+where
+R(l)
+k (˜qk) = log2
+
+1 +
+γk
+(H2 + ∥˜q(l)
+k −wk∥2)α
+
+−βk
+
+∥˜qk −wk∥2 −∥˜q(l)
+k −wk∥2
+,
+(41)
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 8 ===
+2336
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+Algorithm 1 SCA-Based Algorithm for Solving (P3.2)
+1: Initialization: set the initial hovering locations {˜q(0)
+k }. Let
+l = 0.
+2: repeat
+3:
+Solve the convex problem (P3.3) and denote the optimal
+solution as D∗
+tr, {˜q∗
+k}, {η∗
+k}.
+4:
+Update the local point as ˜q(l+1)
+k
+= ˜q∗
+k, ∀k ∈K.
+5:
+Update l = l + 1.
+6: until the fractional decrease of the objective value of
+(P3.2) is below a given threshold ϵ.
+with βk =
+(log2 e)γkα
+(H2+∥˜q(l)
+k −wk∥2)[(H2+∥˜q(l)
+k −wk∥2)α+γk].
+By replacing the RHS of (39) with its lower bound, we have
+the following problem:
+(P3.3):
+min
+Dtr,{˜qk},{ηk} E⋆
+0Dtr +
+K
+
+k=1
+(Ph + Pc)Qk
+ηk
+s.t. (37) −(38),
+ηk ≤R(l)
+k (˜qk),
+∀k.
+(42)
+It can be veriﬁed that problem (P3.3) is convex, which can
+thus be efﬁciently solved by existing convex optimization
+toolbox such as CVX [39]. Furthermore, due to the global
+lower bound in (40), the optimal value of (P3.3) provides
+an upper bound to that of (P3.2). By successively updating
+the local point {˜q(l)
+k }, the SCA-based algorithm for solving
+(P3.2) is summarized in Algorithm 1.
+By following similar arguments as in [26] and [40], it can
+be shown that Algorithm 1 is guaranteed to converge to at least
+a solution to problem (P3.2) that satisﬁes the KKT conditions.
+IV. GENERAL SOLUTION TO (P1) WITH PATH
+DISCRETIZATION AND SCA
+The ﬂy-hover-communicate protocol in
+the
+preceding
+section gives an efﬁcient solution to (P1), where the number
+of optimization variables only depends on K, rather than
+the mission completion time Tt. However, this protocol is
+strictly sub-optimal since the UAV does not communicate
+while ﬂying and it has only binary ﬂying status. In this section,
+we propose a general solution to (P1) without such assumption
+via jointly optimizing the UAV trajectory and communication
+time allocation.
+A. Path Discretization
+Problem (P1) essentially involves an inﬁnite number of
+optimization variables coupled in continuous-time functions
+q(t) and λk(t), as well as the unknown mission completion
+time Tt, thus making it difﬁcult to be directly solved. To obtain
+a more tractable form with a ﬁnite number of optimization
+variables, (P1) can be reformulated by disretizing the variables
+{q(t)} and {λk(t)}. To this end, prior works such as [24]
+and [26] mostly adopted the method of time discretization,
+where the time horizon [0, Tt] is discretized into a ﬁnite
+number of time slots with sufﬁciently small slot length δt.
+However, this method requires that the UAV mission com-
+pletion time Tt to be pre-speciﬁed, which is not the case for
+our considered energy minimization problem with Tt being an
+optimization variable as well. One method to address the above
+issue is by ﬁrstly assuming a certain operation time Tt, based
+on which the time discretization method is applied to solve
+the corresponding optimization problem, and then exhaustively
+search for the optimal Tt. However, this would require to solve
+a prohibitively large number of optimization problems, each
+for a given assumed Tt, thus making it impractical especially
+when the optimal Tt is moderately large. To address this
+issue, in the following, we propose an alternative discretiza-
+tion method, called path discretization, with which only one
+optimization problem needs to be solved.
+We ﬁrst clarify the terminologies of trajectory versus path.
+Generally, a path speciﬁes the route that the UAV follows,
+i.e., all locations along the UAV trajectory, and it does not
+involve the time dimension. On the other hand, a trajectory
+includes its path together with the instantaneous travelling
+speed along the path, and thus it involves the time dimension.
+With path discretization, the UAV path (instead of time) is
+discretized into M +1 line segments, which are represented by
+M + 2 waypoints {qm}M+1
+m=0 , with q0 = qI and qM+1 = qF .
+We impose the following constraints:
+∥qm+1 −qm∥≤Δmax,
+∀m,
+(43)
+where Δmax is an appropriately chosen value so that within
+each line segment, the UAV is assumed to ﬂy with a constant
+velocity and the distance between the UAV and each GN
+is approximately unchanged. For instance, Δmax could be
+chosen such that Δmax ≪H. Let Tm denote the duration
+that the UAV remains in the mth line segment. The UAV
+ﬂying velocity along the mth line segment is thus given
+by vm =
+qm+1−qm
+Tm
+, ∀m. Furthermore, the total mission
+completion time Tt is given by Tt = M
+m=0 Tm.
+As a result, with path discretization, the UAV trajectory
+{q(t)} is represented by the M + 2 waypoints {qm}M+1
+m=0 ,
+together with the duration {Tm}M
+m=0 representing the time
+that the UAV spends within each line segment. With the
+given Δmax, M is chosen to be sufﬁciently large so that
+(M+1)Δmax ≥ˆD, where ˆD is an upper bound of the required
+total UAV ﬂying distance. Note that the time discretization
+and path discretization approaches share some similarities
+conceptually, i.e., they both optimize a sequence of sampling
+points to approximate the continuous trajectory. However, time
+discretization ﬁxes the time interval, while path discretization
+has the ﬂexibility to determine the time intervals adaptively.
+The advantage of path discretization over time discretization
+is mainly twofold. Firstly, different from time discretization,
+path discretization does not require to specify the mission
+completion time Tt in advance, as it can be directly determined
+once {Tm} are obtained. Secondly, path discretization is able
+to save the number of optimization variables when the UAV
+needs to hover or ﬂy with low speed for a signiﬁcant portion
+of the operation duration. For instance, consider the scenario
+that the UAV needs to hover at a particular location for
+1000 seconds. If time discretization approach is used (say
+with time interval 1 second), then we need 1000 variables
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 9 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2337
+q[1], · · · q[1000] (all are equal) to represent this status, even
+though the UAV remains stationary. In contrast, with path
+discretization, only three variables are sufﬁcient, namely q1
+and q2 (with q1 = q2) representing the hovering location and
+T1 representing the total hovering duration.
+The distance between the UAV at the mth line seg-
+ment
+and
+each
+GN
+k
+can
+be
+written
+as
+dmk
+=
+
+H2 + ∥qm −wk∥2, ∀k, m,
+and
+the corresponding rate
+expression in (11) can be expressed as
+Rmk = B log2
+
+1 +
+γk
+(H2 + ∥qm −wk∥2)α
+
+.
+(44)
+Furthermore, for each line segment m along the UAV path,
+with TDMA among the K GNs, let τmk ≥0 denote the
+allocated time for the UAV to communicate with GN k. Then
+constraint (6) can be written as K
+k=1 τmk ≤Tm, ∀m ∈
+{0, · · · , M}.
+The aggregated communication throughput for GN k in (11)
+can be written as
+¯Rk({qm}, {τmk})
+= B
+M
+
+m=0
+τmk log2
+
+1 +
+γk
+(H2 + ∥qm −wk∥2)α
+
+.
+(45)
+Furthermore, the UAV energy consumption in (16) can be
+written as (46) shown at the top of the next page, where Δm ≜
+∥qm+1 −qm∥is the length of the mth line segment. Note that
+in (46), we have used the expression (12) and the fact that the
+UAV speed at the mth line segment is ∥vm∥= Δm/Tm.
+As a result, the energy minimization problem (P1) can be
+expressed in the discrete form as
+(P4):
+min
+{qm},{Tm},{τmk} E({Tm}, {qm}, {τmk})
+s.t.
+M
+
+m=0
+τmk log2
+×
+
+1 +
+γk
+(H2 + ∥qm −wk∥2)α
+
+≥Qk,
+∀k,
+(47)
+∥qm+1 −qm∥≤min{Δmax, TmVmax},
+m = 1, · · · , M,
+(48)
+q0 = qI,
+qM+1 = qF ,
+(49)
+K
+
+k=1
+τmk ≤Tm,
+m = 0, · · · , M,
+(50)
+τmk ≥0,
+∀k ∈K, m = 0, · · · , M,
+(51)
+where (48) corresponds to the maximum UAV speed constraint
+as well as the maximum segment length constraint.
+Notice that in problem (P4), the constraints (48)–(51)
+are all convex. However, both the cost function E({Tm},
+{qm}, {τmk}) in (46) and the throughput constraint (47) are
+non-convex. Therefore, problem (P4) is non-convex and it is
+difﬁcult to ﬁnd its globally optimal solution. In the following,
+we propose an efﬁcient algorithm to ﬁnd a high quality
+solution to (P4) based on the SCA technique.
+B. Proposed Solution to (P4)
+Firstly, we deal with the non-convex cost function of (P4).
+A closer look at the expression in (46) reveals that the ﬁrst,
+third, and fourth terms are all convex functions with the respect
+to {qm}, {Tm}, and τmk, which can be shown by using
+the fact that perspective operation preserves convexity [41].
+However, the second term is non-convex. To tackle this issue,
+we introduce slack variables {ym ≥0} such that
+y2
+m =
+
+T 4m + Δ4m
+4v4
+0
+−Δ2
+m
+2v2
+0
+,
+∀m,
+(52)
+which is equivalent to
+T 4
+m
+y2m
+= y2
+m + Δ2
+m
+v2
+0
+,
+∀m.
+(53)
+Therefore, the second term of (46) can be replaced by
+the linear expression Pi
+M
+m=0 ym, with the additional con-
+straint (53).
+On the other hand, to deal with the non-convex con-
+straint (47), we introduce slack variables {Amk} such that
+A2
+mk = τmk log2
+
+1 +
+γk
+(H2 + ∥qm −wk∥2)α
+
+.
+(54)
+As a result, the constraint (47) can be equivalently written as
+M
+m=0 A2
+mk ≥Qk, ∀k. With the above manipulations, (P4)
+can be written as
+(P4.1):
+min
+{qm},{Tm},{τmk}
+{ym},{Amk}
+P0
+M
+
+m=0
+
+Tm +
+3Δ2
+m
+U 2
+tipTm
+
++ Pi
+M
+
+m=0
+ym
++ 1
+2d0ρsA
+M
+
+m=0
+Δ3
+m
+T 2m
++ Pc
+M
+
+m=0
+K
+
+k=1
+τmk
+s.t.
+M
+
+m=0
+A2
+mk ≥Qk,
+∀k,
+(55)
+T 4
+m
+y2m
+≤y2
+m + ∥qm+1 −qm∥2
+v2
+0
+,
+∀m,
+(56)
+A2
+mk
+τmk
+≤log2
+×
+
+1 +
+γk
+(H2 + ∥qm −wk∥2)α
+
+,
+∀m, k,
+(57)
+ym ≥0,
+∀m,
+(58)
+(48)–(51).
+Note that in (P4.1), the constraints (56) and (57) are obtained
+from (53) and (54) by replacing the equality sign with
+inequality constraints. This does not affect the equivalence
+between problem (P4) and (P4.1). To see this, suppose that
+at the optimal solution to (P4.1), if any of the constraint
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 10 ===
+2338
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+E({Tm}, {qm}, {τmk}) =
+M
+
+m=0
+TmP
+Δm
+Tm
+
++ Pc
+M
+
+m=0
+K
+
+k=1
+τmk
+= P0
+M
+
+m=0
+
+Tm +
+3Δ2
+m
+U 2
+tipTm
+
++ Pi
+M
+
+m=0
+
+T 4m + Δ4m
+4v4
+0
+−Δ2
+m
+2v2
+0
+1/2
++ 1
+2d0ρsA
+M
+
+m=0
+Δ3
+m
+T 2m
++ Pc
+M
+
+m=0
+K
+
+k=1
+τmk,
+(46)
+in (56) is satisﬁed with strict inequality, then we may reduce
+the corresponding value of the slack variable ym to make
+the constraint (56) satisﬁed with strict equality, and at the
+same time reduce the cost function. Therefore, at the optimal
+solution to (P4.1), all constraints in (56) must be satisﬁed
+with equality. Similarly, there always exists an optimal solu-
+tion to (P4.1) that makes all constraints in (57) satisﬁed
+with equality as well. Thus, problem (P4) and (P4.1) are
+equivalent.
+Problem (P4.1) is still non-convex due to the non-convex
+constraints (55)–(57). However, all these three constraints can
+be effectively handled with the SCA technique by deriving the
+global lower bounds at a given local point. Speciﬁcally, for the
+constraint (55), it is noted that the left hand side (LHS) is a
+convex function with respect to Amk. By using the fact that
+the ﬁrst-order Taylor expansion is a global lower bound of a
+convex function, we have the following inequality
+A2
+mk ≥A(l)2
+mk + 2A(l)
+mk(Amk −A(l)
+mk),
+(59)
+where A(l)
+mk is the value of Amk at the lth iteration.
+Similarly, for the non-convex constraint (56), the LHS is
+already a jointly convex function with respect to ym and Tm,
+and the RHS of the inequality constraint is also a convex
+function. By applying the ﬁrst-order Taylor expansion of the
+RHS, the following global lower bound can be obtained (60)
+shown at the bottom of the next page,
+where y(l)
+m and q(l)
+m are the current value of the corresponding
+variables at the lth iteration.
+Furthermore, for the non-convex constraint (57), the LHS
+is already a jointly convex function with respect to Amk and
+τmk. In addition, similar to (40), for any given local point
+{q(l)
+m } at the lth iteration, a global concave lower bound can
+be obtained for the RHS of (57) as
+log2
+
+1 +
+γk
+(H2 + ∥qm −wk∥2)α
+
+≥R(l)
+mk(qm),
+(61)
+where
+R(l)
+mk(qm) = log2
+
+1 +
+γk
+(H2 + ∥q(l)
+m −wk∥2)α
+
+−βmk
+
+∥qm −wk∥2 −∥q(l)
+m −wk∥2
+,
+(62)
+with βmk =
+(log2 e)γkα
+(H2+∥q(l)
+m −wk∥2)[(H2+∥q(l)
+m −wk∥2)α+γk].
+By replacing the non-convex constraints (55)–(57) of (P4.1)
+with their corresponding lower bounds at the lth itera-
+tion obtained above, we have the following optimization
+problem:
+(P4.2) :
+min
+{qm},{Tm},{τmk}
+{ym},{Amk}
+P0
+M
+
+m=0
+
+Tm +
+3Δ2
+m
+U 2
+tipTm
+
++ Pi
+M
+
+m=0
+ym
++ 1
+2d0ρsA
+M
+
+m=0
+Δ3
+m
+T 2m
++ Pc
+M
+
+m=0
+K
+
+k=1
+τmk
+s.t.
+M
+
+m=0
+
+A(l)2
+mk + 2A(l)
+mk(Amk −A(l)
+mk)
+
+≥Qk,
+∀k,
+T 4
+m
+y2m
+≤y(l)2
+m
++ 2y(l)
+m (ym −y(l)
+m )
+−∥q(l)
+m+1 −q(l)
+m ∥2
+v2
+0
++ 2
+v2
+0
+(q(l)
+m+1 −q(l)
+m )T (qm+1 −qm),
+∀m,
+A2
+mk
+τmk
+≤R(l)
+mk(qm),
+∀m, k,
+ym ≥0,
+∀m,
+(48)–(51).
+It can be veriﬁed that problem (P4.2) is a convex optimiza-
+tion problem, which can thus be efﬁciently solved by using
+standard convex optimization techniques or existing software
+toolbox such as CVX. Note that due to the global lower bounds
+in (59)–(61), if the constraints of problem (P4.2) are satisﬁed,
+then those for the original problem (P4.1) are guaranteed to
+be satisﬁed as well, but the reverse is not necessarily true.
+Thus, the feasible region of (P4.2) is in general a subset of
+that for (P4.1), and the optimal value of (P4.2) provides an
+upper bound to that of (P4.1). By successively updating the
+local point at each iteration via solving (P4.2), an efﬁcient
+algorithm is obtained for the non-convex optimization prob-
+lem (P4.1) or its original problem (P4). The algorithm is
+summarized as Algorithm 2.
+By following similar arguments as in [26] and [40], it can
+be shown that Algorithm 2 is guaranteed to converge to at least
+a solution that satisﬁes the KKT conditions of problem (P4.1).
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 11 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2339
+Algorithm 2 SCA-Based Algorithm for (P4)
+1: Initialization: obtain a feasible {q(0)
+m }, {T (0)
+m }, and {τ (0)
+mk}
+to (P4). Let l = 0.
+2: repeat
+3:
+Calculate the current values {y(l)
+m } and {A(l)
+mk} based on
+(52) and (54), respectively.
+4:
+Solve the convex problem (P4.2), and denote the optimal
+solution as {q∗
+m}, {T ∗
+m}, {τ ∗
+mk}.
+5:
+Update the local point q(l+1)
+m
+= q∗
+m, T (l+1)
+m
+= T ∗
+m, and
+τ(l+1)
+mk
+= τ ∗
+mk.
+6:
+Update l = l + 1.
+7: until the fractional decrease of the objective value of
+(P4.2) is below a given threshold ϵ.
+Remark 1: While Algorithm 2 is proposed to minimize the
+UAV energy consumption, it can be similarly applied for UAV
+communication with other design metrics, such as the mission
+completion time minimization problem as considered in the
+following section, by replacing the cost function of (P4) with
+M
+m=0 Tm.
+V. NUMERICAL RESULTS
+This section provides numerical results to validate the
+proposed designs. The UAV altitude is set as H = 100 m,
+which complies with the FAA regulation that small unmanned
+aircrafts should not ﬂy over 400 feet (122 m) [42]. The total
+communication bandwidth is B = 1 MHz. The transmit power
+is set as P = 20 dBm, and the reference SNR is obtained as
+˜γ0 = 52.5 dB. The communication-related power consumption
+at the UAV is ﬁxed as Pc = 5 W [43], which includes all
+other UAV power consumption except the propulsion power.
+Note that all results in Figs. 3–6 are based on the general
+probabilistic LoS channel model, whereas that in Fig. 7 is
+obtained for the special free-space channel model. Unless
+otherwise stated, the modeling parameters for the probabilistic
+LoS channel model in (3) are set as C = 10, D = 0.6,
+κ = 0.2, and ˜α = 2.3. Furthermore, the homogeneous
+regularized LoS probability ¯Pk,LoS in (11) is set as the value
+corresponding to the elevation angle of 90◦. For the UAV’s
+propulsion power consumption, the corresponding parameters
+are speciﬁed in Table I. The maximum ﬂying speed is Vmax =
+30 m/s. The UAV’s initial and ﬁnal locations are set as qI =
+[0, 0]T and qF = [800 m, 800 m]T , respectively. We consider
+the setup with K = 3 GNs, with their locations shown in
+red squares in Fig. 4. We assume that all GNs have identical
+average throughput requirements, i.e., ˜Qk = ˜Q, ∀k ∈K. For
+Algorithm 1, the initial UAV hovering locations are set to be
+the GNs’ locations, i.e., ˜q(0)
+k
+= wk.
+First, we study the convergence of Algorithm 2 (Note
+that the convergence of Algorithm 1 can be shown similarly,
+for which the result is omitted due to the space limitation).
+Fig. 3.
+Convergence of Algorithm 2 for UAV energy minimization.
+The UAV initial path {q(0)
+m } is set as that obtained by
+the optimized ﬂy-hover-communicate protocol proposed in
+Section III, and the initial duration {T (0)
+m } at each line segment
+and communication time allocation {τ(0)
+mk} is obtained by
+letting T (0)
+m
+= ¯T, ∀m, and τ (0)
+mk = ¯T/K, ∀m, k, where ¯T
+is the minimum value that makes (P4) feasible. Fig. 3 shows
+the convergence of Algorithm 2 for throughput requirement
+˜Q = 1000 Mbits. The curve “Upper bound” corresponds to the
+obtained objective value of (P4.2), while “Exact” refers to the
+true UAV energy consumption value calculated based on (46).
+It is ﬁrstly observed that the two curves match quite well
+with each other, which demonstrates that the upper bound for
+UAV energy consumption via solving the convex optimization
+problem (P4.2) is practically tight. Furthermore, Fig. 3 shows
+that the proposed algorithm converges in a few iterations,
+which demonstrates the effectiveness of SCA for the proposed
+joint trajectory and communication time allocation design.
+For four different communication throughput require-
+ment ˜Q, Fig. 4 shows the obtained UAV trajectories with
+three different designs: i) Optimized ﬂy-hover-communicate
+protocol proposed in Section III; ii) The SCA-based energy
+minimization design in Algorithm 2; and iii) The SCA-based
+time minimization design by similarly applying Algorithm 2.
+For the SCA-based energy minimization trajectory, Fig. 4 also
+shows the corresponding time instant when the UAV reaches
+the nearest position from each GN, for the convenience of
+illustrating the corresponding UAV speed shown in Fig. 5. It is
+ﬁrstly observed from Fig. 4 that for the proposed ﬂy-hover-
+communicate protocol, the optimized hovering locations are
+in general different from the GN locations. This is expected
+due to the following trade-off: while hovering exactly above
+each GN achieves the minimal communication link distance
+and hence reduces the total communication time, it requires
+the UAV to travel longer distance and hence more energy
+consumption is needed for UAV ﬂying. With the optimized
+ﬂy-hover-communicate protocol, a balance between the above
+y2
+m + ∥qm+1−qm∥2
+v2
+0
+≥y(l)2
+m
++ 2y(l)
+m (ym −y(l)
+m ) −
+∥q(l)
+m+1−q(l)
+m ∥2
+v2
+0
++ 2
+v2
+0 (q(l)
+m+1 −q(l)
+m )T (qm+1 −qm),
+(60)
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 12 ===
+2340
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+Fig. 4.
+UAV trajectories with three different designs. Red squares denote GNs, and blue circles represent the optimized hovering locations in the ﬂy-hover-
+communicate protocol.
+Fig. 5.
+UAV speed versus time for different trajectories in Fig. 4.
+two conﬂicting objectives is achieved via optimizing the
+hovering locations for communication. By comparing the four
+ﬁgures in Fig. 4, it is observed that the higher the throughput
+requirement is, the closer the optimized hovering locations will
+be from the GN locations, as expected.
+It is observed from Fig. 4(a) that for ˜Q = 100 Kbits,
+the UAV simply ﬂies in a straight line from the initial
+location to ﬁnal location for all the three schemes considered.
+This is expected since with a low communication throughput
+requirement, the UAV does not have to deviate its ﬂying
+trajectory deliberately towards the GNs. In contrast, when ˜Q
+is extremely high as 1000 Mbits, the UAV will ﬂy to the
+top of the GNs for communication, as shown in Fig. 4(d).
+For both extreme cases, although the UAV paths for the
+three schemes are similar, their ﬂying speed are in gen-
+eral different, as show in Fig. 5(a) and Fig. 5(c). On the
+other hand, for moderate communication requirement such as
+˜Q = 10 Mbits and ˜Q = 200 Mbits, the three schemes in
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 13 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2341
+Fig. 6.
+Average communication throughput based on approximation versus
+numerical simulations.
+general leads to different ﬂying paths and speeds, as shown in
+Fig. 4(b), Fig. 4(c) and Fig. 5(b). For the SCA-based algorithm
+for energy minimization, it is observed from Fig. 4(c) and
+Fig. 5(b) that as the UAV approaches the GN, it tends
+to keep ﬂying around it with a certain speed, instead of
+hovering directly above it. This may seem counter-intuitive
+at the ﬁrst glance, since such a trajectory would result in
+longer link distance with the GNs, as compared to the ﬂy-
+hover-communicate trajectory. However, a closer look at the
+power-speed curve in Fig. 2 would reveal that such a trajectory
+is expected, due to the fact that hovering is not the most
+power-conserving status for rotary-wing UAVs. As a result,
+even when the UAV reaches the top of the GN, it tends to
+maintain a certain speed so as to achieve a balance between
+minimizing the instantaneous power consumption (in watts),
+and minimizing the mission completion time (or maximizing
+the instantaneous communication rate), which is achieved by
+the SCA solution. By combining Fig. 4 and Fig. 5, it is found
+that for the SCA-based trajectory for energy minimization,
+the UAV will reduce its ﬂying speed when it is close to
+each GN, as expected. Fig. 4 and Fig. 5 also show that with the
+SCA-based algorithm for time minimization, the UAV tends
+to ﬂy to the top of each GN with the maximum speed. This
+is expected since for time minimization without considering
+the UAV energy consumption, it is preferable for the UAV to
+ﬂy to approach the GN as soon as possible to enjoy the best
+communication channel.
+Next, in order to evaluate the accuracy of the approxi-
+mation of the expected communication throughput developed
+in (9)–(11), the average throughput of all the GNs based
+on ˆRk in (9) obtained via numerical simulations is compared
+with the tractable approximation based on (11). Fig. 6 shows
+the results for ˜Q = 10 Mbits under different LoS modeling
+parameters D. For the numerical simulation of the average
+throughput, the UAV trajectory is set as that obtained via the
+SCA energy minimization solution, based on which the exact
+time-varying LoS probability is obtained by using (3). For
+the small-scale fading ˜hk(t), Rician fading model with Rician
+factor 15 dB is used for LoS condition, and Rayleigh fading
+is used for NLoS condition. The average throughput is taken
+over 103 random channel realizations at each UAV location.
+It is observed from Fig. 6 that the approximation used for
+Fig. 7.
+Energy consumption and mission completion time versus throughput
+requirement.
+trajectory optimization achieves a reasonable accuracy, espe-
+cially for relatively large D values corresponding to less dense
+environment (e.g., suburban or rural). In fact, it is observed
+that the average communication throughput of 10 Mbits is
+achieved for D ≥0.4. For the denser environment with small
+D values, the proposed optimization technique based on rate
+approximation may still be used, with an appropriately chosen
+rate margin for ˜Q.
+Last, we compare the required UAV energy consump-
+tion and mission completion time versus the communication
+throughput requirement ˜Q. Besides the three designs men-
+tioned above, we also consider three alternative benchmark
+schemes, namely “hovering at geometric center”, “hovering
+above GNs”, and “optimized path, continuous commun.”.
+Note that the former two benchmark schemes correspond
+to the special cases of the ﬂy-hover-communicate protocol
+proposed in Section III, where the hovering locations are
+ﬁxed to either the geometric center of the K GNs or each
+GN, instead of being optimized. On the other hand, the third
+scheme is an extension of the ﬂy-hover-communicate proto-
+col. For this scheme, exactly the same path is used as the
+ﬂy-hover-communicate scheme, but continuous communica-
+tion is enabled where the optimal UAV hovering time and
+communication time allocation are obtained with such a ﬁxed
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 14 ===
+2342
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+path by solving a linear program, similarly as in
+[1]. It is
+ﬁrstly observed from Fig. 7 that in terms of both energy
+consumption and required mission completion time, “hovering
+at the geometric center” outperforms “hovering above GNs”
+for low throughput requirement, whereas the reverse is true
+as ˜Q increases. On the other hand, the optimized ﬂy-hover-
+communicate scheme always outperforms both benchmark
+schemes, which is expected since it adaptively optimizes the
+hovering locations according to the communication require-
+ment. On the other hand, by enabling continuous communi-
+cations and optimal hovering time and communication time
+allocation, the “optimized path, continuous commun.” scheme
+signiﬁcantly outperforms the ﬂy-hover-communicate scheme,
+as expected. Furthermore, with the proposed SCA algorithm,
+further energy saving can be achieved, thanks to its ability to
+better balance between instantaneous power minimization and
+communication rate maximization. Similar observations can
+be made for the time minimization design.
+VI. CONCLUSION
+This paper studies the energy-efﬁcient UAV communication
+with rotary-wing UAVs. The propulsion power consumption
+model of rotary-wing UAVs is derived, based on which an
+optimization problem is formulated to minimize the total
+UAV energy consumption, while satisfying the target com-
+munication throughput requirement for multiple GNs. We ﬁrst
+propose an efﬁcient solution based on the simple ﬂy-hover-
+communicate protocol, which leverages the TSPN and convex
+optimization techniques to ﬁnd the optimized hovering loca-
+tions and durations, as well as the visiting order and speed
+among these locations. Furthermore, we propose a general
+solution, with which the UAV also communicates while ﬂying,
+by applying a new path discretization approach and the SCA
+technique. Numerical results show that the proposed designs
+outperform other benchmark schemes for rotary-ring UAV
+enabled wireless communication systems.
+APPENDIX
+POWER CONSUMPTION MODEL FOR
+ROTARY-WING UAVS
+In this appendix, we derive the power consumption model
+for rotary-wing UAVs. Note that most of the notations and
+results follow from the textbook [34]. This appendix is NOT
+intended to introduce a new physical model for the power
+consumption of rotary-wing UAVs. Instead, it mainly aims to
+solicit the existing results in classic aircraft textbooks such
+as [34] and [35], to derive an analytical energy model that is
+suitable for research in UAV communications. Interested read-
+ers may refer to [34] and [35] for more detailed theoretical
+derivations based on actuator disc theory and blade element
+theory. The notations and terminologies used in this appendix
+are summarized in Table I.
+For rotary-wing aircrafts in hovering status, the torque
+coefﬁcient qc is given by [34, eq. (2.45)], i.e., qc = δ
+8 + (1 +
+k) s
+2t3/2
+c
+. By substituting tc =
+T
+ρsAΩ2R2 and noting that the
+thrust T balances the aircraft weight in hovering status, i.e.,
+TABLE I
+MAIN NOTATIONS AND TERMINOLOGIES
+T = W, we have
+qc = δ
+8 + (1 + k)
+W 3/2
+√
+2ρ3/2sA3/2Ω3R3 .
+(63)
+Therefore, by deﬁnition of the torque coefﬁcient, the corre-
+sponding required power for hovering can be obtained based
+on the relationship P = qcρsAΩ3 R3, which can be expressed
+as (see also [35, eq. (12.13)])
+Ph = δ
+8ρsAΩ3R3
+
+
+
+≜P0
++ (1 + k) W 3/2
+√2ρA
+
+
+
+≜Pi
+.
+(64)
+The derivation of power required for forward ﬂight of a
+rotary-wing aircraft is much more complicated than that of
+the ﬁxed-wing counterpart [26]. Fortunately, under some mild
+assumptions, e.g., the drag coefﬁcient of the blade section is
+constant, the torque coefﬁcient qc for an aircraft in forward
+level ﬂight (zero climbing angle) with speed V is given by
+[34, eq. (4.20)] , i.e.,
+qc = δ
+8(1 + 3μ2) + (1 + k)λitcD + 1
+2
+ˆV 3d0,
+(65)
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 15 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2343
+where we have ignored the power/torque of the tail rotor
+since it usually only contributes a small portion of the
+total power consumption. By substituting with μ ≈ˆV
+=
+V
+ΩR and tcD
+=
+T
+ρsAΩ2 R2 , qc in (65) can be explicitly
+written as a function of the forward speed V
+and rotor
+thrust T as
+qc(V, T ) = δ
+8
+
+1 + 3V 2
+Ω2R2
+
++ (1 + k)T λi
+ρsAΩ2R2 + 1
+2d0
+V 3
+Ω3R3 .
+(66)
+By the deﬁnition of the torque coefﬁcient, the required power
+can be written as a function of V and T as
+P(V, T ) ≜qc(V, T )ρsAΩ3R3
+= P0
+
+1 + 3V 2
+Ω2R2
+
++ (1 + k)T vi0 + 1
+2d0ρsAV 3,
+(67)
+where vi0 = λiΩR is the mean induced velocity. Furthermore,
+based on [34, eq. (3.2)], for a rotary-wing aircraft with forward
+speed V and rotor thrust T , the mean induced velocity can be
+calculated as
+vi0 =
+
+T 2
+4ρ2A2 + V 4
+4 −V 2
+2
+1/2
+= v0
+
+˜κ2 + V 4
+4v4
+0
+−V 2
+2v2
+0
+1/2
+,
+(68)
+where v0 ≜
+
+W/(2ρA) is the mean induced velocity in
+hover and we have deﬁned ˜κ as the thrust-to-weight ratio,
+i.e., ˜κ ≜
+T
+W . It can be shown that for any given thrust T
+or ˜κ, vi0 is a decreasing function of V . By substituting (68)
+into (67), the required power for forward ﬂight can be more
+explicitly written as
+P(V, ˜κ) = P0
+
+1 + 3V 2
+Ω2R2
+
+
+
+
+blade proﬁle
++ Pi˜κ
+
+˜κ2 + V 4
+4v4
+0
+−V 2
+2v2
+0
+1/2
+
+
+
+induced
++ 1
+2d0ρsAV 3
+
+
+
+parasite
+,
+(69)
+where P0 and Pi are two constants deﬁned in (64).
+To obtain a more explicit expression of the required power
+in (69), we need to determine the rotor thrust T or the thrust-
+to-weight ratio ˜κ. Fig. 8 shows simpliﬁed schematics of the
+longitudinal forces acting on the aircraft in straight level ﬂight
+(see also [35, Fig. 13.2]), which include the following forces:
+(i) T : rotor thrust, normal to the disc plane and directed
+upward; (ii) D: drag of fuselage, which is in the opposite
+direction of the aircraft velocity; and (iii) W: the aircraft
+weight. Due to the balance of forces in vertical direction,
+we have T cos αT = W, where αT is the tilt angle of the
+rotor disc. Note that in practice, αT is usually very small,
+Fig. 8.
+Schematics of the main forces acting on the aircraft in straight ﬂight.
+so we have T ≈W or ˜κ ≈1 (see also [34, eq. (4.3)]).
+As a result, the expression in (69) reduces to (12) shown
+in Section II-B.
+REFERENCES
+[1] Y.
+Zeng,
+J.
+Xu,
+and
+R.
+Zhang,
+“Rotary-wing
+UAV
+enabled
+wireless
+network:
+Trajectory
+design and resource
+allocation,”
+in
+Proc.
+IEEE Global
+Commun.
+Conf.
+(GLOBECOM),
+Dec.
+2018,
+pp. 1–6.
+[2] S. Chandrasekharan et al., “Designing and implementing future aer-
+ial communication networks,” IEEE Commun. Mag., vol. 54, no. 5,
+pp. 26–34, May 2016.
+[3] Y. Zeng, R. Zhang, and T. J. Lim, “Wireless communications with
+unmanned aerial vehicles: Opportunities and challenges,” IEEE Com-
+mun. Mag., vol. 54, no. 5, pp. 36–42, May 2016.
+[4] B. Van Der Bergh, A. Chiumento, and S. Pollin, “LTE in the
+sky: Trading off propagation beneﬁts with interference costs for
+aerial nodes,” IEEE Commun. Mag., vol. 54, no. 5, pp. 44–50,
+May 2016.
+[5] I. Bor-Yaliniz and H. Yanikomeroglu, “The new frontier in RAN
+heterogeneity: Multi-tier drone-cells,” IEEE Commun. Mag., vol. 54,
+no. 11, pp. 48–55, Nov. 2016.
+[6] Y. Zeng, J. Lyu, and R. Zhang, “Cellular-connected UAV: Potential, chal-
+lenges, and promising technologies,” IEEE Wireless Commun., vol. 26,
+no. 1, pp. 120–127, Feb. 2019.
+[7] S.
+Sekander,
+H.
+Tabassum,
+and
+E.
+Hossain,
+“Multi-tier
+drone
+architecture for 5G/B5G cellular networks: Challenges, trends, and
+prospects,”
+IEEE
+Commun.
+Mag.,
+vol.
+56,
+no.
+3,
+pp.
+96–103,
+Mar. 2018.
+[8] A. Al-Hourani, S. Kandeepan, and A. Jamalipour, “Modeling air-to-
+ground path loss for low altitude platforms in urban environments,”
+in Proc. IEEE Global Commun. Conf. (GLOBECOM), Dec. 2014,
+pp. 2898–2904.
+[9] D. W. Matolak and R. Sun, “Unmanned aircraft systems: Air-ground
+channel characterization for future applications,” IEEE Veh. Technol.
+Mag., vol. 10, no. 2, pp. 79–85, Jun. 2015.
+[10] L. Zeng, X. Cheng, C.-X. Wang, and X. Yin, “A 3D geometry-based
+stochastic
+channel
+model
+for
+UAV-MIMO
+channels,”
+in
+Proc.
+IEEE
+Wireless
+Commun.
+Netw.
+Conf.
+(WCNC),
+Mar.
+2017,
+pp. 1–5.
+[11] W.
+Khawaja,
+I.
+Guvenc,
+D.
+Matolak,
+U.-C.
+Fiebig,
+and
+N. Schneckenberger. (2018). “A survey of air-to-ground propagation
+channel modeling for unmanned aerial vehicles.” [Online]. Available:
+https://arxiv.org/abs/1801.01656
+[12] A. A. Khuwaja, Y. Chen, N. Zhao, M.-S. Alouini, and P. Dobbins,
+“A survey of channel modeling for UAV communications,” IEEE
+Commun. Surveys Tuts., vol. 20, no. 4, pp. 2804–2821, 4th Quart.,
+2018.
+[13] A. Al-Hourani, S. Kandeepan, and S. Lardner, “Optimal LAP altitude
+for maximum coverage,” IEEE Wireless Commun. Lett., vol. 3, no. 6,
+pp. 569–572, Dec. 2014.
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 16 ===
+2344
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+[14] M. Mozaffari, W. Saad, M. Bennis, and M. Debbah, “Efﬁcient
+deployment of multiple unmanned aerial vehicles for optimal wire-
+less coverage,” IEEE Commun. Lett., vol. 20, no. 8, pp. 1647–1650,
+Aug. 2016.
+[15] J. Lyu, Y. Zeng, R. Zhang, and T. J. Lim, “Placement optimization of
+UAV-mounted mobile base stations,” IEEE Commun. Lett., vol. 21, no. 3,
+pp. 604–607, Mar. 2017.
+[16] J. Chen and D. Gesbert, “Optimal positioning of ﬂying relays for
+wireless networks: A LOS map approach,” in Proc. IEEE Int. Conf.
+Commun. (ICC), May 2017, pp. 1–6.
+[17] M. Alzenad, A. El-keyi, F. Lagum, and H. Yanikomeroglu, “3-D
+placement of an unmanned aerial vehicle base station (UAV-BS) for
+energy-efﬁcient maximal coverage,” IEEE Wireless Commun. Lett.,
+vol. 6, no. 4, pp. 434–437, Aug. 2017.
+[18] H. He, S. Zhang, Y. Zeng, and R. Zhang, “Joint altitude and beamwidth
+optimization for UAV-enabled multiuser communications,” IEEE Com-
+mun. Lett., vol. 22, no. 2, pp. 344–347, Feb. 2018.
+[19] A.
+Al-Hourani,
+S.
+Chandrasekharan,
+G.
+Kaandorp,
+W.
+Glenn,
+A. Jamalipour, and S. Kandeepan, “Coverage and rate analysis of aerial
+base stations,” IEEE Trans. Aerosp. Electron. Syst., vol. 52, no. 6,
+pp. 3077–3081, Dec. 2016.
+[20] M. M. Azari, F. Rosas, K.-C. Chen, and S. Pollin, “Ultra reliable UAV
+communication using altitude and cooperation diversity,” IEEE Trans.
+Commun., vol. 66, no. 1, pp. 330–344, Jan. 2018.
+[21] V. V. Chetlur and H. S. Dhillon, “Downlink coverage analysis for a
+ﬁnite 3-D wireless network of unmanned aerial vehicles,” IEEE Trans.
+Commun., vol. 65, no. 10, pp. 4543–4558, Jul. 2017.
+[22] C. Zhang and W. Zhang, “Spectrum sharing for drone networks,”
+IEEE
+J.
+Sel.
+Areas
+Commun.,
+vol.
+35,
+no.
+1,
+pp.
+136–144,
+Jan. 2017.
+[23] M. Mozaffari,
+W. Saad, M. Bennis, and M. Debbah, “Optimal
+transport theory for cell association in UAV-enabled cellular net-
+works,”
+IEEE
+Commun.
+Lett.,
+vol.
+21,
+no.
+9,
+pp.
+2053–2056,
+Sep. 2017.
+[24] Y. Zeng, R. Zhang, and T. J. Lim, “Throughput maximization for
+UAV-enabled mobile relaying systems,” IEEE Trans. Commun., vol. 64,
+no. 12, pp. 4983–4996, Dec. 2016.
+[25] J. Lyu, Y. Zeng, and R. Zhang, “Cyclical multiple access in UAV-aided
+communications: A throughput-delay tradeoff,” IEEE Wireless Commun.
+Lett., vol. 5, no. 6, pp. 600–603, Dec. 2016.
+[26] Y. Zeng and R. Zhang, “Energy-efﬁcient UAV communication with
+trajectory optimization,” IEEE Trans. Wireless Commun., vol. 16, no. 6,
+pp. 3747–3760, Jun. 2017.
+[27] C. Zhan, Y. Zeng, and R. Zhang, “Energy-efﬁcient data collection in
+UAV enabled wireless sensor network,” IEEE Wireless Commun. Lett.,
+vol. 7, no. 3, pp. 328–331, Jun. 2018.
+[28] Q. Wu, Y. Zeng, and R. Zhang, “Joint trajectory and communication
+design for multi-UAV enabled wireless networks,” IEEE Trans. Wireless
+Commun., vol. 17, no. 3, pp. 2109–2121, Mar. 2018.
+[29] Y. Zeng, X. Xu, and R. Zhang, “Trajectory design for completion
+time minimization in UAV-enabled multicasting,” IEEE Trans. Wireless
+Commun., vol. 17, no. 4, pp. 2233–2246, Apr. 2018.
+[30] L. Liu, S. Zhang, and R. Zhang. (2018). “CoMP in the sky: UAV
+placement and movement optimization for multi-user communications.”
+[Online]. Available: https://arxiv.org/abs/1802.10371
+[31] J. Xu, Y. Zeng, and R. Zhang, “UAV-enabled wireless power transfer:
+Trajectory design and energy optimization,” IEEE Trans. Wireless Com-
+mun., vol. 17, no. 8, pp. 5092–5106, Aug. 2018.
+[32] D. Yang, Q. Wu, Y. Zeng, and R. Zhang, “Energy trade-off in ground-to-
+UAV communication via trajectory design,” IEEE Trans. Veh. Technol,
+vol. 67, no. 7, pp. 6721–6726, Jul. 2018.
+[33] X.
+Xu,
+Y.
+Zeng,
+Y.
+L.
+Guan,
+and
+R.
+Zhang,
+“Overcoming
+endurance issue: UAV-enabled communications with proactive caching,”
+IEEE J. Sel. Areas Commun., vol. 36, no. 6, pp. 1231–1244,
+Jun. 2018.
+[34] A. R. S. Bramwell, G. Done, and D. Balmford, Bramwell’s Helicopter
+Dynamics (Butterworth-Heinemann), 2nd ed. Washington, DC, USA:
+AIAA, 2001.
+[35] A.
+Filippone,
+Flight
+Performance
+of
+Fixed
+and
+Rotary
+Wing
+Aircraft (Butterworth-Heinemann).
+Washington, DC, USA: AIAA,
+2006.
+[36] G. Laporte, “The traveling salesman problem: An overview of exact and
+approximate algorithms,” Eur. J. Oper. Res., vol. 59, no. 2, pp. 231–247,
+Jun. 1992.
+[37] (Feb. 2019). Travelling Salesman Problem: Solver-Based. Accessed:
+Jan. 11, 2018. [Online]. Available: https://www.mathworks.com/help/
+optim/ug/travelling-salesman-problem.html
+[38] M. Mozaffari, W. Saad, M. Bennis, and M. Debbah, “Unmanned
+aerial vehicle with underlaid device-to-device communications: Perfor-
+mance and tradeoffs,” IEEE Trans. Wireless Commun., vol. 15, no. 6,
+pp. 3949–3963, Jun. 2016.
+[39] M. Grant and S. Boyd, CVX: Matlab Software for Disciplined Convex
+Programming, Version 2.1. [Online]. Available: http://cvxr.com/cvx
+[40] A. Zappone, E. Björnson, L. Sanguinetti, and E. Jorswieck, “Globally
+optimal energy-efﬁcient power control and receiver design in wireless
+networks,” IEEE Trans. Signal Process., vol. 65, no. 11, pp. 2844–2859,
+Jun. 2017.
+[41] S. Boyd and L. Vandenberghe, Convex Optimization. Cambridge, U.K.:
+Cambridge Univ. Press, 2004.
+[42] FAA.
+Summary
+of
+Small
+Unmanned
+Aircraft
+Rule.
+Accessed:
+Feb. 18, 2019. [Online]. Available: https://www.faa.gov/uas/media/
+Part_107_Summary.pdf
+[43] O. Arnold, F. Richter, G. Fettweis, and O. Blume, “Power con-
+sumption modeling of different base station types in heterogeneous
+cellular networks,” in Proc. Future Netw. Mobile Summit, 2010,
+pp. 1–8.
+Yong
+Zeng
+(S’12–M’14)
+received
+the
+B.Eng.
+(Hons.) and Ph.D. degrees from Nanyang Techno-
+logical University, Singapore, in 2009 and 2014,
+respectively. He is currently a Lecturer with the
+School of Electrical and Information Engineer-
+ing, The University of Sydney, Australia. From
+2013 to 2018, he was a Research Fellow and a
+Senior Research Fellow with the Department of
+Electrical and Computer Engineering, National Uni-
+versity of Singapore. His research interests include
+UAV communications, wireless power transfer, mas-
+sive MIMO, and millimeter wave communications. He was a recipient of
+the Australia Research Council (ARC) Discovery Early Career Researcher
+Award (DECRA), the 2018 IEEE Communications Society Asia-Paciﬁc
+Outstanding Young Researcher Award, the 2015 and the 2017 IEEE WIRE-
+LESS COMMUNICATIONS LETTERS Exemplary Reviewer, the 2017 IEEE
+Communications Society Heinrich Hertz Prize Paper Award, the 2017 IEEE
+TRANSACTIONS ON WIRELESS COMMUNICATIONS Best Reviewer, and the
+Best Paper Award for the 10th International Conference on Information,
+Communications and Signal Processing. He is the Workshop Co-Chair for
+ICC 2018 and ICC2019 Workshop on UAV communications. He serves
+as an Associate Editor for the IEEE ACCESS, and as the Leading Guest
+Editor for the IEEE WIRELESS COMMUNICATIONS on Integrating UAVs into
+5G and Beyond and China Communications on Network-Connected UAV
+Communications.
+Jie Xu (S’12–M’13) received the B.E. and Ph.D.
+degrees from the University of Science and Tech-
+nology of China in 2007 and 2012, respectively.
+From 2012 to 2014, he was a Research Fellow with
+the Department of Electrical and Computer Engi-
+neering, National University of Singapore. From
+2015 to 2016, he was a Post-Doctoral Research
+Fellow with the Engineering Systems and Design
+Pillar, Singapore University of Technology and
+Design. He is currently a Professor with the School
+of Information Engineering, Guangdong University
+of Technology, China. His research interests include energy efﬁciency and
+energy harvesting in wireless communications, wireless information and
+power transfer, wireless security, unmanned aerial vehicle communications,
+and mobile edge computing. He was a recipient of the IEEE Signal Processing
+Society Young Author Best Paper Award in 2017. He served as a Guest Editor
+for the IEEE WIRELESS COMMUNICATIONS. He is currently an Editor of
+the IEEE WIRELESS COMMUNICATIONS LETTERS, and an Associate Editor
+of the IEEE ACCESS and the Journal of Communications and Information
+Networks.
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 
+
+
+=== PDF PAGE 17 ===
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2345
+Rui
+Zhang
+(S’00–M’07–SM’15–F’17)
+received
+the B.Eng. (Hons.) and M.Eng. degrees from the
+National University of Singapore, Singapore, and
+the Ph.D. degree from Stanford University, Stanford,
+CA, USA, all in electrical engineering.
+From 2007 to 2010, he was a Research Sci-
+entist with the Institute for Infocomm Research,
+ASTAR, Singapore. Since 2010, he has been with
+the Department of Electrical and Computer Engi-
+neering, National University of Singapore, where he
+is currently the Dean’s Chair Associate Professor
+with the Faculty of Engineering. He has authored over 300 papers. He has
+been listed as a Highly Cited Researcher (also known as the World’s
+Most Inﬂuential Scientiﬁc Minds) by Thomson Reuters (Clarivate Analytics)
+since 2015. His research interests include UAV/satellite communication,
+wireless information and power transfer, multiuser MIMO, smart and recon-
+ﬁgurable environment, and optimization methods.
+He was an elected member of the IEEE Signal Processing Society SPCOM
+Technical Committee from 2012 to 2017 and the SAM Technical Committee
+from 2013 to 2015. He serves as a member of the Steering Committee of
+the IEEE WIRELESS COMMUNICATIONS LETTERS. He served as the Vice-
+Chair of the IEEE Communications Society Asia–Paciﬁc Board Technical
+Affairs Committee from 2014 to 2015. He was a recipient of the 6th IEEE
+Communications Society Asia–Paciﬁc Region Best Young Researcher Award
+in 2011 and the Young Researcher Award of National University of Singapore
+in 2015. He was a co-recipient of the IEEE Marconi Prize Paper Award
+in Wireless Communications in 2015, the IEEE Communications Society
+Asia–Paciﬁc Region Best Paper Award in 2016, the IEEE Signal Processing
+Society Best Paper Award in 2016, the IEEE Communications Society
+Heinrich Hertz Prize Paper Award in 2017, the IEEE Signal Processing
+Society Donald G. Fink Overview Paper Award in 2017, and the IEEE
+Technical Committee on Green Communications Computing Best Journal
+Paper Award in 2017. His co-authored paper received the IEEE Signal
+Processing Society Young Author Best Paper Award in 2017. He served
+for over 30 international conferences as the TPC co-chair or an organizing
+committee member, and as the Guest Editor for three Special Issues of
+the IEEE JOURNAL OF SELECTED TOPICS IN SIGNAL PROCESSING and
+the IEEE JOURNAL ON SELECTED AREAS IN COMMUNICATIONS. He is a
+Distinguished Lecturer of the IEEE Signal Processing Society and the IEEE
+Communications Society. He served as an Editor of the IEEE TRANSACTIONS
+ON WIRELESS COMMUNICATIONS from 2012 to 2016, the IEEE JOURNAL
+ON SELECTED AREAS IN COMMUNICATIONS: Green Communications and
+Networking Series from 2015 to 2016, and the IEEE TRANSACTIONS ON SIG-
+NAL PROCESSING from 2013 to 2017. He is currently an Editor for the IEEE
+TRANSACTIONS ON COMMUNICATIONS and the IEEE TRANSACTIONS ON
+GREEN COMMUNICATIONS AND NETWORKING.
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 

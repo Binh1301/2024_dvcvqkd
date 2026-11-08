@@ -1,0 +1,1983 @@
+{
+  "data_status": "SYNTHETIC DEMONSTRATION — NOT PAPER RESULTS",
+  "config": {
+    "mode": "synthetic",
+    "seed": 42,
+    "area_m": [
+      2000.0,
+      2000.0
+    ],
+    "initial_m": [
+      1000.0,
+      1000.0
+    ],
+    "hap_m": [
+      1000.0,
+      1000.0,
+      20000.0
+    ],
+    "uav_altitude_m": 1000.0,
+    "dt": 1.0,
+    "max_horizon": 12,
+    "energy_budget_j": 1500.0,
+    "m0": 1000000.0,
+    "epsilon": 1e-06,
+    "propulsion": {
+      "P0": 79.86,
+      "Pi": 88.63,
+      "U_tip": 120.0,
+      "v0": 4.03,
+      "d0": 0.6,
+      "rho": 1.225,
+      "s": 0.05,
+      "A": 0.503,
+      "v_max": 20.0
+    },
+    "velocity_samples": 1001,
+    "energy_tolerance_j": 0.001,
+    "graph": {
+      "kind": "restricted_lattice",
+      "bounds_m": [
+        [
+          980.0,
+          980.0
+        ],
+        [
+          1020.0,
+          1020.0
+        ]
+      ],
+      "spacing_m": 20.0
+    },
+    "cloud": {
+      "velocity_m_s": [
+        -5.0,
+        0.0
+      ],
+      "clip_max": null,
+      "threshold_mg_m3": 8.0,
+      "clusters": [
+        {
+          "amplitude": 14.0,
+          "center": [
+            1040.0,
+            1000.0
+          ],
+          "sigma": [
+            12.0,
+            18.0
+          ]
+        },
+        {
+          "amplitude": 10.0,
+          "center": [
+            1090.0,
+            1025.0
+          ],
+          "sigma": [
+            25.0,
+            22.0
+          ]
+        },
+        {
+          "amplitude": 8.0,
+          "center": [
+            1060.0,
+            970.0
+          ],
+          "sigma": [
+            17.0,
+            20.0
+          ]
+        }
+      ]
+    },
+    "blockage": {
+      "mode": "layer",
+      "layer_bottom_m": 5000.0,
+      "layer_top_m": 7000.0,
+      "sample_spacing_m": 2.0
+    },
+    "lookup": {
+      "synthetic": true,
+      "grid_shape": [
+        11,
+        11
+      ],
+      "rate_floor": 0.06,
+      "rate_peak": 0.16,
+      "rate_center_m": [
+        1050.0,
+        1030.0
+      ],
+      "rate_sigma_m": [
+        120.0,
+        120.0
+      ]
+    },
+    "dp": {
+      "mode": "exact",
+      "label_cap": 2
+    },
+    "greedy": {
+      "lambda_bits_per_j": 100.0,
+      "lambda_sweep": [
+        0.0,
+        50.0,
+        100.0,
+        300.0
+      ],
+      "selection": "synthetic_calibration_p2",
+      "calibration_seed": 123,
+      "calibration_center_jitter_m": 30.0
+    },
+    "sensitivities": {
+      "energy_budget_j": [
+        500.0,
+        1000.0,
+        1500.0
+      ],
+      "thresholds_mg_m3": [
+        5.0,
+        8.0,
+        12.0
+      ],
+      "waypoint_spacings_m": [
+        20.0,
+        40.0
+      ],
+      "label_caps": [
+        1,
+        2,
+        null
+      ]
+    },
+    "plot_times_s": [
+      0.0,
+      300.0,
+      1000.0
+    ],
+    "_config_path": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\demo.yaml"
+  },
+  "graph": {
+    "waypoints": 9,
+    "movement_edges": 24,
+    "reachable_waypoints": 9,
+    "successors": [
+      3,
+      4,
+      3,
+      4,
+      5,
+      4,
+      3,
+      4,
+      3
+    ],
+    "energy_refinement": [
+      {
+        "samples": 2001,
+        "max_change_j": 0.0
+      }
+    ],
+    "energy_tolerance_j": 0.001,
+    "velocity_samples": 2001,
+    "warning": null
+  },
+  "horizon": 8,
+  "energy_horizon": 8,
+  "horizon_scope": "energy bound intersected with configured prediction horizon",
+  "selected_lambda_bits_per_j": 0.0,
+  "lambda_selection": {
+    "selection": "synthetic independent-center calibration, maximize P2; smallest lambda on ties",
+    "calibration_seed": 123,
+    "calibration_clusters": [
+      {
+        "amplitude": 14.0,
+        "center": [
+          1010.3263594895644,
+          988.9664004559635
+        ],
+        "sigma": [
+          12.0,
+          18.0
+        ]
+      },
+      {
+        "amplitude": 10.0,
+        "center": [
+          1128.6377578386775,
+          1030.8192325739783
+        ],
+        "sigma": [
+          25.0,
+          22.0
+        ]
+      },
+      {
+        "amplitude": 8.0,
+        "center": [
+          1087.6069269891957,
+          987.3131137377176
+        ],
+        "sigma": [
+          17.0,
+          20.0
+        ]
+      }
+    ],
+    "sweep": [
+      {
+        "lambda_bits_per_j": 0.0,
+        "calibration_P1": 134779.24780880712,
+        "calibration_P2": 1078233.982470457
+      },
+      {
+        "lambda_bits_per_j": 50.0,
+        "calibration_P1": 134779.24780880712,
+        "calibration_P2": 1078233.982470457
+      },
+      {
+        "lambda_bits_per_j": 100.0,
+        "calibration_P1": 134779.24780880712,
+        "calibration_P2": 1078233.982470457
+      },
+      {
+        "lambda_bits_per_j": 300.0,
+        "calibration_P1": 134779.24780880712,
+        "calibration_P2": 1078233.982470457
+      }
+    ]
+  },
+  "runs": [
+    {
+      "method": "Stationary",
+      "classification": "heuristic",
+      "lambda_bits_per_j": null,
+      "solutions": {
+        "P1": {
+          "K": 5,
+          "mission_time_s": 5.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            }
+          ],
+          "energy_j": 842.45,
+          "remaining_energy_j": 657.55,
+          "unblocked_slots": 5,
+          "blocked_slots": 0,
+          "a": 0.7443233409915567,
+          "average_skr_bits_s": 134542.32998210596,
+          "valid_signals": 5000000.0,
+          "asymptotic_bits": 744323.3409915568,
+          "penalty_bits": 71611.69108102686,
+          "penalty_per_signal": 0.014322338216205372,
+          "key_bits": 672711.6499105298,
+          "objective_value": 134542.32998210596,
+          "classification": "heuristic"
+        },
+        "P2": {
+          "K": 5,
+          "mission_time_s": 5.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            }
+          ],
+          "energy_j": 842.45,
+          "remaining_energy_j": 657.55,
+          "unblocked_slots": 5,
+          "blocked_slots": 0,
+          "a": 0.7443233409915567,
+          "average_skr_bits_s": 134542.32998210596,
+          "valid_signals": 5000000.0,
+          "asymptotic_bits": 744323.3409915568,
+          "penalty_bits": 71611.69108102686,
+          "penalty_per_signal": 0.014322338216205372,
+          "key_bits": 672711.6499105298,
+          "objective_value": 672711.6499105298,
+          "classification": "heuristic"
+        }
+      },
+      "diagnostics": {
+        "evaluated_prefixes": 8
+      },
+      "runtime_s": 0.0024409000034211203,
+      "python_peak_bytes": 21872,
+      "sampled_peak_rss_bytes": 82444288,
+      "start_rss_bytes": 82337792,
+      "sampled_incremental_rss_bytes": 106496
+    },
+    {
+      "method": "SKR-Greedy",
+      "classification": "heuristic",
+      "lambda_bits_per_j": null,
+      "solutions": {
+        "P1": {
+          "K": 8,
+          "mission_time_s": 8.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            1,
+            1,
+            1
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            },
+            {
+              "k": 6,
+              "time_s": 6.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1020.7502666871975,
+              "remaining_energy_j": 479.2497333128025,
+              "unblocked_slots": 6,
+              "blocked_slots": 0,
+              "a": 0.8854080360891139,
+              "average_skr_bits_s": 134493.55981946233,
+              "valid_signals": 6000000.0,
+              "asymptotic_bits": 885408.0360891139,
+              "penalty_bits": 78446.67717233986,
+              "penalty_per_signal": 0.013074446195389977,
+              "key_bits": 806961.358916774
+            },
+            {
+              "k": 7,
+              "time_s": 7.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1189.2402666871976,
+              "remaining_energy_j": 310.7597333128024,
+              "unblocked_slots": 7,
+              "blocked_slots": 0,
+              "a": 1.0264927311866712,
+              "average_skr_bits_s": 134537.2336598662,
+              "valid_signals": 7000000.0,
+              "asymptotic_bits": 1026492.7311866712,
+              "penalty_bits": 84732.09556760763,
+              "penalty_per_signal": 0.012104585081086803,
+              "key_bits": 941760.6356190635
+            },
+            {
+              "k": 8,
+              "time_s": 8.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1357.7302666871976,
+              "remaining_energy_j": 142.26973331280237,
+              "unblocked_slots": 8,
+              "blocked_slots": 0,
+              "a": 1.1675774262842284,
+              "average_skr_bits_s": 134624.37573990802,
+              "valid_signals": 8000000.0,
+              "asymptotic_bits": 1167577.4262842285,
+              "penalty_bits": 90582.42036496417,
+              "penalty_per_signal": 0.01132280254562052,
+              "key_bits": 1076995.0059192642
+            }
+          ],
+          "energy_j": 1357.7302666871976,
+          "remaining_energy_j": 142.26973331280237,
+          "unblocked_slots": 8,
+          "blocked_slots": 0,
+          "a": 1.1675774262842284,
+          "average_skr_bits_s": 134624.37573990802,
+          "valid_signals": 8000000.0,
+          "asymptotic_bits": 1167577.4262842285,
+          "penalty_bits": 90582.42036496417,
+          "penalty_per_signal": 0.01132280254562052,
+          "key_bits": 1076995.0059192642,
+          "objective_value": 134624.37573990802,
+          "classification": "heuristic"
+        },
+        "P2": {
+          "K": 8,
+          "mission_time_s": 8.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            1,
+            1,
+            1
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            },
+            {
+              "k": 6,
+              "time_s": 6.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1020.7502666871975,
+              "remaining_energy_j": 479.2497333128025,
+              "unblocked_slots": 6,
+              "blocked_slots": 0,
+              "a": 0.8854080360891139,
+              "average_skr_bits_s": 134493.55981946233,
+              "valid_signals": 6000000.0,
+              "asymptotic_bits": 885408.0360891139,
+              "penalty_bits": 78446.67717233986,
+              "penalty_per_signal": 0.013074446195389977,
+              "key_bits": 806961.358916774
+            },
+            {
+              "k": 7,
+              "time_s": 7.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1189.2402666871976,
+              "remaining_energy_j": 310.7597333128024,
+              "unblocked_slots": 7,
+              "blocked_slots": 0,
+              "a": 1.0264927311866712,
+              "average_skr_bits_s": 134537.2336598662,
+              "valid_signals": 7000000.0,
+              "asymptotic_bits": 1026492.7311866712,
+              "penalty_bits": 84732.09556760763,
+              "penalty_per_signal": 0.012104585081086803,
+              "key_bits": 941760.6356190635
+            },
+            {
+              "k": 8,
+              "time_s": 8.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1357.7302666871976,
+              "remaining_energy_j": 142.26973331280237,
+              "unblocked_slots": 8,
+              "blocked_slots": 0,
+              "a": 1.1675774262842284,
+              "average_skr_bits_s": 134624.37573990802,
+              "valid_signals": 8000000.0,
+              "asymptotic_bits": 1167577.4262842285,
+              "penalty_bits": 90582.42036496417,
+              "penalty_per_signal": 0.01132280254562052,
+              "key_bits": 1076995.0059192642
+            }
+          ],
+          "energy_j": 1357.7302666871976,
+          "remaining_energy_j": 142.26973331280237,
+          "unblocked_slots": 8,
+          "blocked_slots": 0,
+          "a": 1.1675774262842284,
+          "average_skr_bits_s": 134624.37573990802,
+          "valid_signals": 8000000.0,
+          "asymptotic_bits": 1167577.4262842285,
+          "penalty_bits": 90582.42036496417,
+          "penalty_per_signal": 0.01132280254562052,
+          "key_bits": 1076995.0059192642,
+          "objective_value": 1076995.0059192642,
+          "classification": "heuristic"
+        }
+      },
+      "diagnostics": {
+        "evaluated_prefixes": 8
+      },
+      "runtime_s": 0.0029968000017106533,
+      "python_peak_bytes": 26904,
+      "sampled_peak_rss_bytes": 82452480,
+      "start_rss_bytes": 82432000,
+      "sampled_incremental_rss_bytes": 20480
+    },
+    {
+      "method": "Energy-Aware Greedy",
+      "classification": "heuristic",
+      "lambda_bits_per_j": 0.0,
+      "solutions": {
+        "P1": {
+          "K": 8,
+          "mission_time_s": 8.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            1,
+            1,
+            1
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            },
+            {
+              "k": 6,
+              "time_s": 6.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1020.7502666871975,
+              "remaining_energy_j": 479.2497333128025,
+              "unblocked_slots": 6,
+              "blocked_slots": 0,
+              "a": 0.8854080360891139,
+              "average_skr_bits_s": 134493.55981946233,
+              "valid_signals": 6000000.0,
+              "asymptotic_bits": 885408.0360891139,
+              "penalty_bits": 78446.67717233986,
+              "penalty_per_signal": 0.013074446195389977,
+              "key_bits": 806961.358916774
+            },
+            {
+              "k": 7,
+              "time_s": 7.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1189.2402666871976,
+              "remaining_energy_j": 310.7597333128024,
+              "unblocked_slots": 7,
+              "blocked_slots": 0,
+              "a": 1.0264927311866712,
+              "average_skr_bits_s": 134537.2336598662,
+              "valid_signals": 7000000.0,
+              "asymptotic_bits": 1026492.7311866712,
+              "penalty_bits": 84732.09556760763,
+              "penalty_per_signal": 0.012104585081086803,
+              "key_bits": 941760.6356190635
+            },
+            {
+              "k": 8,
+              "time_s": 8.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1357.7302666871976,
+              "remaining_energy_j": 142.26973331280237,
+              "unblocked_slots": 8,
+              "blocked_slots": 0,
+              "a": 1.1675774262842284,
+              "average_skr_bits_s": 134624.37573990802,
+              "valid_signals": 8000000.0,
+              "asymptotic_bits": 1167577.4262842285,
+              "penalty_bits": 90582.42036496417,
+              "penalty_per_signal": 0.01132280254562052,
+              "key_bits": 1076995.0059192642
+            }
+          ],
+          "energy_j": 1357.7302666871976,
+          "remaining_energy_j": 142.26973331280237,
+          "unblocked_slots": 8,
+          "blocked_slots": 0,
+          "a": 1.1675774262842284,
+          "average_skr_bits_s": 134624.37573990802,
+          "valid_signals": 8000000.0,
+          "asymptotic_bits": 1167577.4262842285,
+          "penalty_bits": 90582.42036496417,
+          "penalty_per_signal": 0.01132280254562052,
+          "key_bits": 1076995.0059192642,
+          "objective_value": 134624.37573990802,
+          "classification": "heuristic"
+        },
+        "P2": {
+          "K": 8,
+          "mission_time_s": 8.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            1,
+            1,
+            1
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            },
+            {
+              "k": 6,
+              "time_s": 6.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1020.7502666871975,
+              "remaining_energy_j": 479.2497333128025,
+              "unblocked_slots": 6,
+              "blocked_slots": 0,
+              "a": 0.8854080360891139,
+              "average_skr_bits_s": 134493.55981946233,
+              "valid_signals": 6000000.0,
+              "asymptotic_bits": 885408.0360891139,
+              "penalty_bits": 78446.67717233986,
+              "penalty_per_signal": 0.013074446195389977,
+              "key_bits": 806961.358916774
+            },
+            {
+              "k": 7,
+              "time_s": 7.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1189.2402666871976,
+              "remaining_energy_j": 310.7597333128024,
+              "unblocked_slots": 7,
+              "blocked_slots": 0,
+              "a": 1.0264927311866712,
+              "average_skr_bits_s": 134537.2336598662,
+              "valid_signals": 7000000.0,
+              "asymptotic_bits": 1026492.7311866712,
+              "penalty_bits": 84732.09556760763,
+              "penalty_per_signal": 0.012104585081086803,
+              "key_bits": 941760.6356190635
+            },
+            {
+              "k": 8,
+              "time_s": 8.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1357.7302666871976,
+              "remaining_energy_j": 142.26973331280237,
+              "unblocked_slots": 8,
+              "blocked_slots": 0,
+              "a": 1.1675774262842284,
+              "average_skr_bits_s": 134624.37573990802,
+              "valid_signals": 8000000.0,
+              "asymptotic_bits": 1167577.4262842285,
+              "penalty_bits": 90582.42036496417,
+              "penalty_per_signal": 0.01132280254562052,
+              "key_bits": 1076995.0059192642
+            }
+          ],
+          "energy_j": 1357.7302666871976,
+          "remaining_energy_j": 142.26973331280237,
+          "unblocked_slots": 8,
+          "blocked_slots": 0,
+          "a": 1.1675774262842284,
+          "average_skr_bits_s": 134624.37573990802,
+          "valid_signals": 8000000.0,
+          "asymptotic_bits": 1167577.4262842285,
+          "penalty_bits": 90582.42036496417,
+          "penalty_per_signal": 0.01132280254562052,
+          "key_bits": 1076995.0059192642,
+          "objective_value": 1076995.0059192642,
+          "classification": "heuristic"
+        }
+      },
+      "diagnostics": {
+        "evaluated_prefixes": 8
+      },
+      "runtime_s": 0.0025928000031854026,
+      "python_peak_bytes": 26904,
+      "sampled_peak_rss_bytes": 82456576,
+      "start_rss_bytes": 82432000,
+      "sampled_incremental_rss_bytes": 24576
+    },
+    {
+      "method": "Pareto DP",
+      "classification": "exact-on-graph",
+      "solutions": {
+        "P1": {
+          "K": 8,
+          "mission_time_s": 8.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            1,
+            1,
+            1
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            },
+            {
+              "k": 6,
+              "time_s": 6.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1020.7502666871975,
+              "remaining_energy_j": 479.2497333128025,
+              "unblocked_slots": 6,
+              "blocked_slots": 0,
+              "a": 0.8854080360891139,
+              "average_skr_bits_s": 134493.55981946233,
+              "valid_signals": 6000000.0,
+              "asymptotic_bits": 885408.0360891139,
+              "penalty_bits": 78446.67717233986,
+              "penalty_per_signal": 0.013074446195389977,
+              "key_bits": 806961.358916774
+            },
+            {
+              "k": 7,
+              "time_s": 7.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1189.2402666871976,
+              "remaining_energy_j": 310.7597333128024,
+              "unblocked_slots": 7,
+              "blocked_slots": 0,
+              "a": 1.0264927311866712,
+              "average_skr_bits_s": 134537.2336598662,
+              "valid_signals": 7000000.0,
+              "asymptotic_bits": 1026492.7311866712,
+              "penalty_bits": 84732.09556760763,
+              "penalty_per_signal": 0.012104585081086803,
+              "key_bits": 941760.6356190635
+            },
+            {
+              "k": 8,
+              "time_s": 8.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1357.7302666871976,
+              "remaining_energy_j": 142.26973331280237,
+              "unblocked_slots": 8,
+              "blocked_slots": 0,
+              "a": 1.1675774262842284,
+              "average_skr_bits_s": 134624.37573990802,
+              "valid_signals": 8000000.0,
+              "asymptotic_bits": 1167577.4262842285,
+              "penalty_bits": 90582.42036496417,
+              "penalty_per_signal": 0.01132280254562052,
+              "key_bits": 1076995.0059192642
+            }
+          ],
+          "energy_j": 1357.7302666871976,
+          "remaining_energy_j": 142.26973331280237,
+          "unblocked_slots": 8,
+          "blocked_slots": 0,
+          "a": 1.1675774262842284,
+          "average_skr_bits_s": 134624.37573990802,
+          "valid_signals": 8000000.0,
+          "asymptotic_bits": 1167577.4262842285,
+          "penalty_bits": 90582.42036496417,
+          "penalty_per_signal": 0.01132280254562052,
+          "key_bits": 1076995.0059192642,
+          "objective_value": 134624.37573990802,
+          "classification": "exact-on-graph"
+        },
+        "P2": {
+          "K": 8,
+          "mission_time_s": 8.0,
+          "path_indices": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            1,
+            1,
+            1
+          ],
+          "trajectory_m": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ],
+            [
+              980.0,
+              1000.0
+            ]
+          ],
+          "series": [
+            {
+              "k": 1,
+              "time_s": 1.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 168.49,
+              "remaining_energy_j": 1331.51,
+              "unblocked_slots": 1,
+              "blocked_slots": 0,
+              "a": 0.14886466819831135,
+              "average_skr_bits_s": 116838.94635013306,
+              "valid_signals": 1000000.0,
+              "asymptotic_bits": 148864.66819831135,
+              "penalty_bits": 32025.72184817829,
+              "penalty_per_signal": 0.03202572184817829,
+              "key_bits": 116838.94635013306
+            },
+            {
+              "k": 2,
+              "time_s": 2.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 336.98,
+              "remaining_energy_j": 1163.02,
+              "unblocked_slots": 2,
+              "blocked_slots": 0,
+              "a": 0.2977293363966227,
+              "average_skr_bits_s": 126219.06310707031,
+              "valid_signals": 2000000.0,
+              "asymptotic_bits": 297729.3363966227,
+              "penalty_bits": 45291.210182482086,
+              "penalty_per_signal": 0.02264560509124104,
+              "key_bits": 252438.12621414062
+            },
+            {
+              "k": 3,
+              "time_s": 3.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 505.47,
+              "remaining_energy_j": 994.53,
+              "unblocked_slots": 3,
+              "blocked_slots": 0,
+              "a": 0.44659400459493404,
+              "average_skr_bits_s": 130374.60906827352,
+              "valid_signals": 3000000.0,
+              "asymptotic_bits": 446594.00459493406,
+              "penalty_bits": 55470.17739011345,
+              "penalty_per_signal": 0.018490059130037817,
+              "key_bits": 391123.8272048206
+            },
+            {
+              "k": 4,
+              "time_s": 4.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 673.96,
+              "remaining_energy_j": 826.04,
+              "unblocked_slots": 4,
+              "blocked_slots": 0,
+              "a": 0.5954586727932454,
+              "average_skr_bits_s": 132851.8072742222,
+              "valid_signals": 4000000.0,
+              "asymptotic_bits": 595458.6727932454,
+              "penalty_bits": 64051.44369635658,
+              "penalty_per_signal": 0.016012860924089146,
+              "key_bits": 531407.2290968888
+            },
+            {
+              "k": 5,
+              "time_s": 5.0,
+              "waypoint": 4,
+              "x_m": 1000.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 842.45,
+              "remaining_energy_j": 657.55,
+              "unblocked_slots": 5,
+              "blocked_slots": 0,
+              "a": 0.7443233409915567,
+              "average_skr_bits_s": 134542.32998210596,
+              "valid_signals": 5000000.0,
+              "asymptotic_bits": 744323.3409915568,
+              "penalty_bits": 71611.69108102686,
+              "penalty_per_signal": 0.014322338216205372,
+              "key_bits": 672711.6499105298
+            },
+            {
+              "k": 6,
+              "time_s": 6.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1020.7502666871975,
+              "remaining_energy_j": 479.2497333128025,
+              "unblocked_slots": 6,
+              "blocked_slots": 0,
+              "a": 0.8854080360891139,
+              "average_skr_bits_s": 134493.55981946233,
+              "valid_signals": 6000000.0,
+              "asymptotic_bits": 885408.0360891139,
+              "penalty_bits": 78446.67717233986,
+              "penalty_per_signal": 0.013074446195389977,
+              "key_bits": 806961.358916774
+            },
+            {
+              "k": 7,
+              "time_s": 7.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1189.2402666871976,
+              "remaining_energy_j": 310.7597333128024,
+              "unblocked_slots": 7,
+              "blocked_slots": 0,
+              "a": 1.0264927311866712,
+              "average_skr_bits_s": 134537.2336598662,
+              "valid_signals": 7000000.0,
+              "asymptotic_bits": 1026492.7311866712,
+              "penalty_bits": 84732.09556760763,
+              "penalty_per_signal": 0.012104585081086803,
+              "key_bits": 941760.6356190635
+            },
+            {
+              "k": 8,
+              "time_s": 8.0,
+              "waypoint": 1,
+              "x_m": 980.0,
+              "y_m": 1000.0,
+              "clear": 1,
+              "energy_j": 1357.7302666871976,
+              "remaining_energy_j": 142.26973331280237,
+              "unblocked_slots": 8,
+              "blocked_slots": 0,
+              "a": 1.1675774262842284,
+              "average_skr_bits_s": 134624.37573990802,
+              "valid_signals": 8000000.0,
+              "asymptotic_bits": 1167577.4262842285,
+              "penalty_bits": 90582.42036496417,
+              "penalty_per_signal": 0.01132280254562052,
+              "key_bits": 1076995.0059192642
+            }
+          ],
+          "energy_j": 1357.7302666871976,
+          "remaining_energy_j": 142.26973331280237,
+          "unblocked_slots": 8,
+          "blocked_slots": 0,
+          "a": 1.1675774262842284,
+          "average_skr_bits_s": 134624.37573990802,
+          "valid_signals": 8000000.0,
+          "asymptotic_bits": 1167577.4262842285,
+          "penalty_bits": 90582.42036496417,
+          "penalty_per_signal": 0.01132280254562052,
+          "key_bits": 1076995.0059192642,
+          "objective_value": 1076995.0059192642,
+          "classification": "exact-on-graph"
+        }
+      },
+      "diagnostics": {
+        "generated_labels": 513,
+        "dominated_labels": 317,
+        "heuristic_discarded_labels": 0,
+        "peak_frontier_labels": 59,
+        "horizon": 8,
+        "label_cap": null,
+        "dominance": "strict float64 within identical k,j,u; first identical duplicate retained"
+      },
+      "runtime_s": 0.010069399999338202,
+      "python_peak_bytes": 51382,
+      "sampled_peak_rss_bytes": 82485248,
+      "start_rss_bytes": 82436096,
+      "sampled_incremental_rss_bytes": 49152
+    }
+  ],
+  "approximation_comparison": [
+    {
+      "label_cap": 1,
+      "objective": "P1",
+      "exact_value": 134624.37573990802,
+      "approximate_value": 134624.37573990802,
+      "absolute_gap": 0.0,
+      "relative_gap": 0.0,
+      "heuristic_discarded_labels": 10,
+      "runtime_s": 0.009187600000586826,
+      "python_peak_bytes": 48326
+    },
+    {
+      "label_cap": 1,
+      "objective": "P2",
+      "exact_value": 1076995.0059192642,
+      "approximate_value": 1076995.0059192642,
+      "absolute_gap": 0.0,
+      "relative_gap": 0.0,
+      "heuristic_discarded_labels": 10,
+      "runtime_s": 0.009187600000586826,
+      "python_peak_bytes": 48326
+    },
+    {
+      "label_cap": 2,
+      "objective": "P1",
+      "exact_value": 134624.37573990802,
+      "approximate_value": 134624.37573990802,
+      "absolute_gap": 0.0,
+      "relative_gap": 0.0,
+      "heuristic_discarded_labels": 0,
+      "runtime_s": 0.010880800000450108,
+      "python_peak_bytes": 50518
+    },
+    {
+      "label_cap": 2,
+      "objective": "P2",
+      "exact_value": 1076995.0059192642,
+      "approximate_value": 1076995.0059192642,
+      "absolute_gap": 0.0,
+      "relative_gap": 0.0,
+      "heuristic_discarded_labels": 0,
+      "runtime_s": 0.010880800000450108,
+      "python_peak_bytes": 50518
+    }
+  ],
+  "information_scope": "DP: full predicted horizon; greedy: current slot; all methods: retrospective best prefix",
+  "memory_scope": "Per-method tracemalloc peak and process RSS sampled at 10 ms; shared precomputation excluded; runtime includes instrumentation"
+}

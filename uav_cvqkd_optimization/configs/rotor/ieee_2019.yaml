@@ -1,0 +1,36 @@
+name: ieee_2019
+source:
+  title: Energy Minimization for Wireless Communication With Rotary-Wing UAV
+  authors: [Yong Zeng, Jie Xu, Rui Zhang]
+  version: IEEE TWC 18(4), April 2019, pp.2329-2345
+  doi: 10.1109/TWC.2019.2902559
+  local_pdf: 'C:/Users/admin/Downloads/Energy_Minimization_for_Wireless_Communication_With_Rotary-Wing_UAV.pdf'
+  pdf_sha256: b2c25b3e7cd92ab93c5e31fd824cbfade30d312029557e1a187184495ed81a57
+  parameter_audit: docs/ieee_2019_rotor_verification/source_identity.json
+  verification: VERIFIED_FROM_LOCAL_PDF
+  table_I: 'journal p.2342 / PDF p.14'
+  maximum_speed: 'Section V, journal p.2339 / PDF p.11'
+  power_equation: 'Eq.(12), journal p.2332 / PDF p.4'
+  coefficient_equation: 'Eq.(64), journal p.2342 / PDF p.14'
+aircraft:
+  weight_N: 20.0
+  air_density_kg_m3: 1.225
+  rotor_radius_m: 0.4
+  rotor_disc_area_m2: 0.503
+  rotor_angular_speed_rad_s: 300.0
+  rotor_tip_speed_m_s: 120.0
+  blade_count: 4
+  blade_chord_m: 0.0157
+  rotor_solidity: 0.05
+  fuselage_equivalent_flat_plate_area_m2: 0.0151
+  fuselage_drag_ratio: 0.6
+  induced_power_correction_factor: 0.1
+  blade_profile_drag_coefficient: 0.012
+  mean_induced_velocity_hover_m_s: 4.03 # Rounded Table I value, retained for comparison.
+  maximum_speed_m_s: 30.0
+# Use the formula requested in this task; report both the derived and table v0.
+induced_velocity_policy: derived
+numerics:
+  plot_samples: 1201
+  grid_samples: 20001
+  optimizer_xatol_m_s: 0.0000000001

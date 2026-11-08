@@ -1,0 +1,146 @@
+{
+  "dataset": "paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\skr_map.csv",
+  "rows": 2601,
+  "shape_if_cartesian": [
+    51,
+    51
+  ],
+  "coordinate_units": "m",
+  "rate_units": "bits/use",
+  "domain_min_m": [
+    0.0,
+    0.0
+  ],
+  "domain_max_m": [
+    2000.0,
+    2000.0
+  ],
+  "MB_raw_min": 0.0007470670338268481,
+  "MB_raw_max": 0.0007960878080861267,
+  "MB_source_classes": {
+    "INSUFFICIENT_EVIDENCE": 2601
+  },
+  "MB_numerical_statuses": {
+    "CURRENTLY_VERIFIED_PASS": 2601
+  },
+  "duplicate_coordinates": 0,
+  "nonfinite_values": 0,
+  "npz_shapes": {
+    "x_m": [
+      51,
+      51
+    ],
+    "y_m": [
+      51,
+      51
+    ],
+    "distance_m": [
+      51,
+      51
+    ],
+    "zenith_deg": [
+      51,
+      51
+    ],
+    "mean_eta": [
+      51,
+      51
+    ],
+    "eta_f": [
+      51,
+      51
+    ],
+    "nu_opt": [
+      51,
+      51
+    ],
+    "VA_opt": [
+      51,
+      51
+    ],
+    "IAB_opt": [
+      51,
+      51
+    ],
+    "chiBE_opt": [
+      51,
+      51
+    ],
+    "K_raw_bits_per_use": [
+      51,
+      51
+    ],
+    "K_potential_bits_per_use": [
+      51,
+      51
+    ],
+    "K_raw_uniform_bits_per_use": [
+      51,
+      51
+    ],
+    "numerical_status": [
+      51,
+      51
+    ]
+  },
+  "protocol_excerpt": {
+    "reference_path": "results/manuscript43_canonical_model_comparison_20261023/inputs/available_v43.pdf",
+    "reference_sha256": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b",
+    "physical": {
+      "h_hap_km": 20.0,
+      "h_uav_km": 1.0,
+      "h_atm_km": 20.0,
+      "Dr_m": 0.3,
+      "wavelength_m": 1.55e-06,
+      "divergence_full_urad": 35.0,
+      "jitter_urad": 1.561,
+      "sigma_h_m": 0.1,
+      "rho_x_m": 0.0,
+      "rho_y_m": 0.0,
+      "F0": "Infinity",
+      "tau_zen": 0.92,
+      "Cn2_ground": 1e-14,
+      "wind_m_s": 21.0,
+      "FOV_half_rad": 0.00625,
+      "sigma_AoA_rad": 0.0015,
+      "AO": "OFF",
+      "phase_noise": "OFF"
+    },
+    "xi_ch": 0.0186,
+    "xi_det": 0.005,
+    "beta": 0.95,
+    "measurement": "homodyne_1D_Gaussian_effective",
+    "source_normalization": "VA=Vmod=2*nbar; X_A=2Re(alpha)",
+    "printed_normalization": "Vmod=nbar/2",
+    "source_domain": {
+      "VA": [
+        0.05,
+        10
+      ],
+      "nu_raw": [
+        0.0,
+        0.4
+      ],
+      "peak_photon_constraint": null,
+      "peak_photon_constraint_authority": "USER_SELECTED_REQUESTED_DOMAIN"
+    },
+    "phase_B_ready": false,
+    "security_status": "UNVALIDATED_SECURITY_MODEL",
+    "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS"
+  },
+  "hashes": {
+    "paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\skr_map.csv": "2ac3ac0cda2698e858ee55d31f97d886c36c0d711d70c43f3c4ca8910cdd14bd",
+    "paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\skr_map.npz": "5751797b6ce4526e059d9ea4849a39aef99267be26b6b9362aea1af3fc15d8e4",
+    "paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\execution_physical_protocol.json": "83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5",
+    "paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\verification.json": "02fc1b402cfd31a2c49c7c72fde6210efc78486fbc59329e40c0cd59c7762dc4",
+    "paper_uav_hap_cvqkd\\results\\manuscript43_canonical_model_comparison_20261023\\inputs\\available_v43.pdf": "f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b"
+  },
+  "paper_admissible": false,
+  "reasons": [
+    "Source classes remain INSUFFICIENT_EVIDENCE",
+    "Strict Phase B is false and lifecycle NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+    "Finite-catalog maxima are not certified continuous nu/VA optimization",
+    "Printed/source modulation normalization differs; protocol author mapping is explicitly adopted",
+    "Original CSV/NPZ schemas require an explicit lossless adapter before generic lookup loader"
+  ]
+}

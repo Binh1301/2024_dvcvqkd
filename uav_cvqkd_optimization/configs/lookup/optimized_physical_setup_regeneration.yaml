@@ -1,0 +1,115 @@
+# Exact input recipe only; no executor or historical authorization is transferred.
+name: optimized_physical_setup_regeneration
+status: PREPARED_NOT_RUN
+execution_authorized: false
+publication_authorized: false
+approval_required:
+- author confirms target xi_ch=.0136 versus historic .0186
+- explicit 2601-point regeneration authorization and lifecycle/context readiness
+optimized_setup:
+  path: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\uav_cvqkd_optimization\configs\channel\optimized_physical_setup.yaml
+  sha256: c79a918d62ded22f07fd3b5c63b5736249ac68fdc1702655ff3e2f7e178b8f75
+original_protocol:
+  path: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_zenith_heatmap_20261106\execution_physical_protocol.json
+  sha256: 83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5
+target_native_protocol:
+  physical:
+    h_hap_km: 20.0
+    h_uav_km: 1.0
+    h_atm_km: 20.0
+    Dr_m: 0.3
+    wavelength_m: 1.55e-06
+    divergence_full_urad: 35.0
+    jitter_urad: 1.561
+    sigma_h_m: 0.1
+    rho_x_m: 0.0
+    rho_y_m: 0.0
+    F0: Infinity
+    tau_zen: 0.92
+    Cn2_ground: 1.0e-14
+    wind_m_s: 21.0
+    FOV_half_rad: 0.00625
+    sigma_AoA_rad: 0.0015
+    AO: 'OFF'
+    phase_noise: 'OFF'
+  xi_ch: 0.0136
+  xi_det: 0.005
+  beta: 0.95
+  channel_law: manuscript43_Eq10_retained_0_to_1
+  correlation_policy: manuscript_eq14_direct
+  measurement: homodyne_1D_Gaussian_effective
+  reconciliation: reverse_asymptotic
+  source_normalization: VA=Vmod=2*nbar; X_A=2Re(alpha)
+  printed_normalization: Vmod=nbar/2
+  VA_to_Vmod_mapping: AUTHOR_CONFIRMED_VA_EQUALS_VMOD
+  zero_atom_noise_extension: limit_eta_xi_equals_xi_det
+  nu_mapping: nu_repo=42.5*nu_raw
+  source_domain:
+    VA:
+    - 0.05
+    - 10
+    nu_raw:
+    - 0.0
+    - 0.4
+    peak_photon_constraint: null
+    peak_photon_constraint_authority: USER_SELECTED_REQUESTED_DOMAIN
+  numerical:
+    digits:
+    - 80
+    - 110
+    mass_tolerance: 1.0e-10
+    moment_tolerance: 2.0e-10
+    MI_tolerance: 2.0e-10
+    entropy_tolerance: 2.0e-11
+    covariance_tolerance: 1.0e-10
+    uncertainty_tolerance: 1.0e-11
+    source_tolerance: 2.0e-12
+    near_zero_and_tie: 1.0e-08
+    GH_orders:
+    - 64
+    - 128
+    mass_tolerance_role: INHERITED_DIAGNOSTIC_ONLY_NOT_EXECUTION_AUTHORIZATION
+geometry:
+  role: historical_lookup_replay_not_mission_coordinate_approval
+  input:
+    path: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_lookup_readiness_20261105\geometry_only.csv
+    sha256: b9e71bd70510481b3fb57bbaf76729b411f3ab4133adeb48ca2d5bb4f518e238
+  shape:
+  - 51
+  - 51
+  x_bounds_m:
+  - 0.0
+  - 2000.0
+  y_bounds_m:
+  - 0.0
+  - 2000.0
+  node_spacing_m: 40.0
+  hap_projection_m:
+  - 1000.0
+  - 1000.0
+  hap_altitude_m: 20000.0
+  uav_altitude_m: 1000.0
+  waypoint_angle: atan2(hypot(x-1000,y-1000),19000)
+  slant_distance: hypot(19000,hypot(x-1000,y-1000))
+  evaluation_policy: exact radius-squared groups; no interpolated rates or integer-angle
+    substitution
+modulation_catalog:
+  input:
+    path: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_zenith_heatmap_20261106\source_pool.csv
+    sha256: adb057572d5b22be1718bb7535e402129b16af813cc863d2e62b2028c0c36539
+  payload_binding:
+    path: E:\py learn\adversarial_attack_DRL\2024_dvcvqkd\paper_uav_hap_cvqkd\results\skr_zenith_heatmap_20261106\source_payload_binding.json
+    sha256: f6ef31f2abd77b9952b0f615a74e55a42a177400f679beda04f843bdc486b796
+  candidate_count: 212
+  Uniform: 33
+  MB: 179
+  policy: unchanged finite catalog argmax per family; preserve signed K_raw and separately
+    max(0,K_raw) potential; no continuous optimum claim
+  new_Z_w_or_source_generation: false
+output:
+  directory: results/optimized_physical_setup_lookup_PENDING_APPROVAL
+  must_be_new_empty_directory: true
+  overwrite_historical: false
+validation_plan: ../../docs/phase5b_lookup_regeneration_validation_plan_vi.md
+paper_mode: NOT_RUN
+evidence_labels_promoted: false

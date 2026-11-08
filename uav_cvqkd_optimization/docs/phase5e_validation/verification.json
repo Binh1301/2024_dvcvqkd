@@ -1,0 +1,114 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Author-approved full clear-sky numerical diagnostic, matched-context numeric solver input only",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase5e_validation/tests.xml",
+    "passed": 177,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "reported_wall_seconds": 10.65,
+    "new_cases": 10,
+    "junit_sha256": "2917bd5b093a226d7d78706db8285941ab3f033df1867e0d41a7ac0577b5a7da"
+  },
+  "preservation": {
+    "protected_existing_files": 1366,
+    "unchanged_existing_files": 1365,
+    "changed_existing_files": [
+      "uav_cvqkd_optimization/docs/phase5e_full_skr_regeneration_report_vi.md"
+    ],
+    "changed_report_prior_bytes_archived_sha256": "314f2f3c20489b2f24595b3c9b1257ea35bf767fd7e8d0bd68786dc5d52cfb33",
+    "original_models_Z_w_MB_Holevo_rotor_paper_yaml_old_lookup_pilot_figures_unchanged": true,
+    "before_snapshot_sha256": "cc4c94a0f21726b4d5d9742474a6f2258386a640e119a17edbe5964ce6cdab53"
+  },
+  "authority": {
+    "approval_sha256": "94e8e597e1e0cb6a2431ea63e230b8e1e5e6aaea4142b55ce815525979fbf845",
+    "preflight_sha256": "869c022b50f0b30b148c63d7518887d197cbc8c505c0357ebf4933a495afe28e",
+    "prepared_config_sha256": "0671e70ef5a5a78afed6f750859161439153f2030fe6e6b733a216f1f6616111",
+    "candidate_pool_sha256": "adb057572d5b22be1718bb7535e402129b16af813cc863d2e62b2028c0c36539",
+    "workers": 2,
+    "xi_ch": 0.0136,
+    "xi_det": 0.005
+  },
+  "main": {
+    "spatial_positions": 2601,
+    "unique_geometries": 294,
+    "full_candidate_search": 212,
+    "candidate_evaluations": 62328,
+    "process_wall_s": 680.8144684,
+    "measured_stage_wall_s": 663.3379080999985,
+    "sampled_aggregate_RSS_peak_bytes": 1735127040,
+    "MB_raw_bits_per_use": {
+      "min": 0.004893349597699492,
+      "mean": 0.004933919138761928,
+      "max": 0.00495533778991275
+    },
+    "family_winner_positions": {
+      "MB": 2601,
+      "Uniform": 0
+    },
+    "winning_parameters": [
+      {
+        "family": "MB",
+        "VA": 1.358333319784304,
+        "nu_raw": 0.3,
+        "spatial_positions": 2601
+      }
+    ]
+  },
+  "validation": {
+    "pilot_points": 5,
+    "pilot_max_deviation": 0.0,
+    "independent_original_positions": 7,
+    "independent_candidate_evaluations": 1484,
+    "independent_max_deviation": 0.0,
+    "native_total_including_validation": 63812,
+    "max_GH64_128_difference": 5.551115123125783e-16,
+    "numeric_loader_round_trip": {
+      "csv": "CURRENTLY_VERIFIED_PASS_NUMERIC_API_ONLY",
+      "npz": "CURRENTLY_VERIFIED_PASS_NUMERIC_API_ONLY"
+    },
+    "core_output_manifest_sha256": "cbeb1a556aaaa1abe397d512a9f3aab4137c12b3b72c7fc9c0b5e80aca2192b6",
+    "core_output_hash_count": 594
+  },
+  "technical_integration_status": "READY_FOR_MATCHED_CONTEXT_NUMERICAL_SOLVER_INTEGRATION_ONLY",
+  "paper_mode": "NOT_RUN",
+  "paper_admissible": false,
+  "source_evidence_promoted": false,
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "source_evidence_counts": {
+    "INSUFFICIENT_EVIDENCE": 55860,
+    "VERIFIED_EXACT": 6174,
+    "VERIFIED_BY_ALTERNATIVE_EVIDENCE": 294
+  },
+  "review": {
+    "independent_code_preflight_review": true,
+    "final_peer_artifact_review": "NOT_COMPLETED_SUBAGENT_QUOTA",
+    "actual_artifact_validation": "Executed programmatic full checks plus independent coordinate-derived native recomputations; final hashes verified by primary agent"
+  },
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "git_diff_check": "PASS",
+  "untracked_text_whitespace_check": "PASS",
+  "commit_or_push": false,
+  "source_and_docs_sha256": {
+    "uav_cvqkd_optimization\\src\\uav_qkd\\phase5e_validation.py": "4d88448a44053571994545f12c8dd3d98d5bf56d6179d0baf1e9ec5055f51828",
+    "uav_cvqkd_optimization\\tests\\test_phase5e_validation.py": "d97d232bf9ae494f0868099ccf78a823d737ad18abd4a7ffdf01563955d19c6e",
+    "uav_cvqkd_optimization\\docs\\phase5e_implementation_plan.md": "8d3f7bf364818bdab6c9cd09a1a3be8baaab5d132daf2baad0331377acaa655f",
+    "uav_cvqkd_optimization\\docs\\phase5e_full_skr_regeneration_report_vi.md": "838a28f00b67e493dd52cda2e681a85a940b1cc6f56d1dffb0113b296ae9c845",
+    "uav_cvqkd_optimization\\docs\\phase5e_independent_review.md": "96a6e84d87f646a85a5a6f08bc218638754cf14170c44cf5a9898ea31e5ed43a",
+    "uav_cvqkd_optimization\\docs\\approvals\\phase5e_full_lookup_author_approval.json": "94e8e597e1e0cb6a2431ea63e230b8e1e5e6aaea4142b55ce815525979fbf845"
+  },
+  "limits": [
+    "Research-performance approximation and original source/security labels preserved; no composable-security certification",
+    "Finite catalog argmax, no continuous/global optimization claim",
+    "Sampled aggregate RSS may double-count shared pages and miss short peaks",
+    "No clouds, mission simulation, paper-mode or figure readiness promotion",
+    "On-grid numeric API verified; off-grid interpolation error and strict scientific admission remain separate"
+  ]
+}

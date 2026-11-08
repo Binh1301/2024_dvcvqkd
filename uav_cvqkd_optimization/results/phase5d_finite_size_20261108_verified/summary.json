@@ -1,0 +1,179 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "EXPLORATORY_EXISTING_PROXY_SENSITIVITY_ONLY_NO_SKR_REEVALUATION",
+  "formula": "L=max(0,n*r-7*sqrt(n*log2(2/epsilon)))",
+  "threshold": "n>n_crit=49*log2(2/epsilon)/r^2; n_min=floor(n_crit)+1; r>0",
+  "numerical_policy": "80-digit Decimal threshold guards integer rounding; proxy uses unchanged float finite_key; cancellation near n_min may yield zero at float precision",
+  "mission_formula": "n=f_s*eta_valid*clear_fraction*T",
+  "mission_product_condition": "f_s*eta_valid>n_crit/(clear_fraction*T); integer budget >=n_min/(clear_fraction*T)",
+  "cloud_policy": "n_valid is already retained; no second multiplication by clear_fraction",
+  "rates": [
+    {
+      "point_id": "p0",
+      "noise_case": "historical",
+      "r_clear_raw": 0.0007960878080861267,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 2009500590.4656353,
+      "n_crit_decimal": "2009500590.4656353811556757236823109913709258538024970433844549867274165040651962",
+      "n_min": 2009500591,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p0",
+      "noise_case": "target",
+      "r_clear_raw": 0.00495533778991275,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 51863707.009317376,
+      "n_crit_decimal": "51863707.009317373480795509553522372146883868709763492871934251885043482883673017",
+      "n_min": 51863708,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p1",
+      "noise_case": "historical",
+      "r_clear_raw": 0.0007904843942003748,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 2038090585.5112817,
+      "n_crit_decimal": "2038090585.5112816151368103492294687174101317622109472013287893541651927977048923",
+      "n_min": 2038090586,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p1",
+      "noise_case": "target",
+      "r_clear_raw": 0.004948237183717591,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 52012660.25089037,
+      "n_crit_decimal": "52012660.250890369281902693618320893586325505464966972807409942514285119769556376",
+      "n_min": 52012661,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p2",
+      "noise_case": "historical",
+      "r_clear_raw": 0.0007470670338268481,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 2281870210.7724166,
+      "n_crit_decimal": "2281870210.7724167239519233076221172848872428333493837486310129565349320655228811",
+      "n_min": 2281870211,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p2",
+      "noise_case": "target",
+      "r_clear_raw": 0.004893349597699492,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 53186032.56088785,
+      "n_crit_decimal": "53186032.560887853047569987128173826209368899064507362429065045390446619256565078",
+      "n_min": 53186033,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p3",
+      "noise_case": "historical",
+      "r_clear_raw": 0.000796048935176985,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 2009696852.3728938,
+      "n_crit_decimal": "2009696852.3728938477037278311906159485416463181093019762532272978550198868547366",
+      "n_min": 2009696853,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p3",
+      "noise_case": "target",
+      "r_clear_raw": 0.004955288516825029,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 51864738.4316782,
+      "n_crit_decimal": "51864738.431678195058368892161818609054943630274532760910078790592598749537374653",
+      "n_min": 51864739,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p4",
+      "noise_case": "historical",
+      "r_clear_raw": 0.0007490046937105033,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 2270079178.609237,
+      "n_crit_decimal": "2270079178.6092370700152422031791089065276699441213362631658310849362973637562297",
+      "n_min": 2270079179,
+      "positive_possible": true
+    },
+    {
+      "point_id": "p4",
+      "noise_case": "target",
+      "r_clear_raw": 0.004895794346111787,
+      "source_evidence_class": "INSUFFICIENT_EVIDENCE",
+      "security_valid": false,
+      "n_crit": 53132928.20450931,
+      "n_crit_decimal": "53132928.204509310081949952205639881546156767598613069801366408845024277713345193",
+      "n_min": 53132929,
+      "positive_possible": true
+    }
+  ],
+  "axes": {
+    "n_valid": [
+      100000,
+      1000000,
+      10000000,
+      80000000,
+      100000000,
+      1000000000,
+      10000000000
+    ],
+    "epsilon": [
+      1e-06,
+      3e-08,
+      1e-10
+    ],
+    "T_s": [
+      1,
+      10,
+      100,
+      300,
+      1000
+    ],
+    "clear_fraction": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "role": "EXPLORATORY_ANALYSIS_AXES_NOT_AUTHOR_SELECTED_MISSION"
+  },
+  "mission_parameters": {
+    "f_s": null,
+    "eta_valid": null,
+    "m0": null
+  },
+  "reference_only": {
+    "role": "finite_size_reference_only_not_a_mission_default",
+    "key_fraction": 0.8,
+    "epsilon_reference": 3.0000000000000004e-08,
+    "n_block_reference": 80000000.0,
+    "delta_reference_bits_per_signal": 0.003989881969840257
+  },
+  "row_counts": {
+    "block_sensitivity": 210,
+    "mission_sensitivity": 750
+  },
+  "limitations": [
+    "Constant clear raw rate per pilot point; no trajectory or variable-rate mission assertion",
+    "Reference epsilon is a proxy sensitivity input, not a composed security proof",
+    "Positive proxy is not certified extractable key; pilot security_valid=false and INSUFFICIENT_EVIDENCE",
+    "No f_s, eta_valid, mission duration, clear fraction or mission m0 has been selected"
+  ],
+  "paper_mode": "NOT_RUN",
+  "security_valid": false,
+  "paper_admissible": false,
+  "evidence_labels_promoted": false
+}

@@ -1,0 +1,139 @@
+{
+  "scope": "EXPLICIT_USER_AUTHORIZED_PHASE5C_FIVE_POSITION_DIAGNOSTIC_ONLY",
+  "author_target_noise": 0.0136,
+  "historical_noise": 0.0186,
+  "detector_noise": 0.005,
+  "physical": {
+    "h_hap_km": 20.0,
+    "h_uav_km": 1.0,
+    "h_atm_km": 20.0,
+    "Dr_m": 0.3,
+    "wavelength_m": 1.55e-06,
+    "divergence_full_urad": 35.0,
+    "jitter_urad": 1.561,
+    "sigma_h_m": 0.1,
+    "rho_x_m": 0.0,
+    "rho_y_m": 0.0,
+    "F0": "Infinity",
+    "tau_zen": 0.92,
+    "Cn2_ground": 1e-14,
+    "wind_m_s": 21.0,
+    "FOV_half_rad": 0.00625,
+    "sigma_AoA_rad": 0.0015,
+    "AO": "OFF",
+    "phase_noise": "OFF"
+  },
+  "points": [
+    {
+      "point_id": "p0",
+      "role": "projection",
+      "x_m": 1000.0,
+      "y_m": 1000.0,
+      "radius2_m2": 0.0,
+      "zenith_deg": 0.0,
+      "distance_m": 19000.0
+    },
+    {
+      "point_id": "p1",
+      "role": "intermediate",
+      "x_m": 1480.0,
+      "y_m": 1000.0,
+      "radius2_m2": 230400.0,
+      "zenith_deg": 1.4471645036976082,
+      "distance_m": 19006.06219078534
+    },
+    {
+      "point_id": "p2",
+      "role": "farthest",
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "radius2_m2": 2000000.0,
+      "zenith_deg": 4.256806675887519,
+      "distance_m": 19052.55888325765
+    },
+    {
+      "point_id": "p3",
+      "role": "additional_high_lookup",
+      "x_m": 1000.0,
+      "y_m": 960.0,
+      "radius2_m2": 1600.0,
+      "zenith_deg": 0.12062251550695383,
+      "distance_m": 19000.042105216504
+    },
+    {
+      "point_id": "p4",
+      "role": "additional_low_lookup",
+      "x_m": 40.0,
+      "y_m": 0.0,
+      "radius2_m2": 1921600.0,
+      "zenith_deg": 4.17283984038707,
+      "distance_m": 19050.501305739963
+    }
+  ],
+  "candidates": 212,
+  "MB_candidates": 179,
+  "Uniform_candidates": 33,
+  "selection": "per-family signed raw K argmax; first catalog tie retained",
+  "effective_protocols": {
+    "reproduction": {
+      "xi_ch": 0.0186,
+      "xi_det": 0.005,
+      "beta": 0.95,
+      "numerical": {
+        "digits": [
+          80,
+          110
+        ],
+        "mass_tolerance": 1e-10,
+        "moment_tolerance": 2e-10,
+        "MI_tolerance": 2e-10,
+        "entropy_tolerance": 2e-11,
+        "covariance_tolerance": 1e-10,
+        "uncertainty_tolerance": 1e-11,
+        "source_tolerance": 2e-12,
+        "near_zero_and_tie": 1e-08,
+        "GH_orders": [
+          64,
+          128
+        ],
+        "mass_tolerance_role": "DIAGNOSTIC_ONLY_NOT_A_GATE_FOR_THIS_APPROVED_EXPERIMENT"
+      }
+    },
+    "target": {
+      "xi_ch": 0.0136,
+      "xi_det": 0.005,
+      "beta": 0.95,
+      "numerical": {
+        "digits": [
+          80,
+          110
+        ],
+        "mass_tolerance": 1e-10,
+        "moment_tolerance": 2e-10,
+        "MI_tolerance": 2e-10,
+        "entropy_tolerance": 2e-11,
+        "covariance_tolerance": 1e-10,
+        "uncertainty_tolerance": 1e-11,
+        "source_tolerance": 2e-12,
+        "near_zero_and_tie": 1e-08,
+        "GH_orders": [
+          64,
+          128
+        ],
+        "mass_tolerance_role": "DIAGNOSTIC_ONLY_NOT_A_GATE_FOR_THIS_APPROVED_EXPERIMENT"
+      }
+    }
+  },
+  "atol": 2e-10,
+  "rtol": 0.0,
+  "random_seed": null,
+  "randomness": "None: deterministic source vectors, analytic moments, GH64/128 and native multiprecision",
+  "physical_context_lineage": "Fresh original validated physical contexts; use only noise-independent m1,mh,M0 for active effective noise",
+  "target_authority": "Current explicit Phase5C task, not the inherited historical experiment-spec authorization",
+  "paper_mode": "NOT_RUN",
+  "full_regeneration_authorized": false,
+  "cloud": "NOT_USED",
+  "finite_size": "NOT_USED",
+  "source_evidence_promoted": false,
+  "security_valid": false
+}

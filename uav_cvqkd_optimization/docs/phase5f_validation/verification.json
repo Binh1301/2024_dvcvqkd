@@ -1,0 +1,114 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "Phase5E source to dynamic LOS/finite-size/four-method TEST_ONLY technical integration",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase5f_validation/tests.xml",
+    "passed": 193,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "reported_wall_seconds": 12.21,
+    "new_cases": 16,
+    "junit_sha256": "fc907413155cbe2a10d900a1293754b48860810de3399cf56673fa1ffb7143dd"
+  },
+  "existing_artifacts_preserved": 2004,
+  "changed_existing_artifacts": [],
+  "before_manifest_sha256": "142262139a46c401994df73ec6507e6a1c67b4be019d6c2d2fd5c36afe46e5b2",
+  "research_result_files_before": 1023,
+  "research_result_files_after": 1023,
+  "research_result_additions": 0,
+  "source": {
+    "kind": "REAL_PHASE5E_NUMERICAL_DIAGNOSTIC",
+    "package_sha256": "7b3f3b4fe7a4cd9c9f046aa456f3a1a4e4b8cf83c327f09e0fba23c28831bfa7",
+    "exact_nodes": 2601,
+    "grid_shape": [
+      51,
+      51
+    ],
+    "coordinate_units": "m",
+    "rate_units": "bits/use",
+    "xi_ch": 0.0136,
+    "xi_det": 0.005,
+    "paper_admissible": false
+  },
+  "dry_run": {
+    "directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\test_artifacts\\phase5f_dry_run_20261108",
+    "data_status": "TEST_ONLY — NOT RESEARCH OR PAPER RESULTS",
+    "output_manifest_sha256": "f1d6ef40d0d68a9b5569b155b049f4f3d361b1d400566715f24a36c9fec6a0f0",
+    "output_hashes": 4,
+    "input_hashes": 7,
+    "producer_hashes": 31,
+    "methods": 4,
+    "selected_prefixes": 8,
+    "metric_checks": 48,
+    "slot_rows": 12,
+    "shared_input_digest": "4ea44b862ca5a0ea5791dea53d5820d0ee8819d777f411475c9660654cc8185a"
+  },
+  "semantics": "Effective scheduled rate=z*Rclear; Scenario retained rate remains clear, m=m0*z; one accumulated-prefix penalty",
+  "cloud_candidate_author_approved": false,
+  "paper_mode": "NOT_RUN",
+  "paper_admissible": false,
+  "source_evidence_promoted": false,
+  "phase6_base_run": "BLOCKED_PENDING_AUTHOR_DECISIONS_AND_AUTHORIZATION",
+  "native_SKR_evaluator_calls": 0,
+  "lookup_regenerations": 0,
+  "mission_fs": null,
+  "mission_eta_valid": null,
+  "mission_m0": null,
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "source_Z_w": "UNCHANGED_NOT_REVALIDATED",
+  "rotor_profiles_and_paper_yaml_unchanged": true,
+  "branch": "feat/11-6",
+  "HEAD": "1be9be90a51fffd02515ff572a108ec8142a6dc1",
+  "git_diff_check": "PASS",
+  "untracked_text_whitespace": "PASS",
+  "commit_or_push": false,
+  "independent_review": "Both initial findings reproduced/fixed and bounded artifact follow-up PASS",
+  "source_config_docs_sha256": {
+    "uav_cvqkd_optimization\\src\\uav_qkd\\phase5f_integration.py": "e31a145345f06f2e738156eeb9435b4f1e09bbf60942b041bb2901a8cc34449f",
+    "uav_cvqkd_optimization\\tests\\test_phase5f_integration.py": "8aa4b3154f8859897d0ed3ff0a6024be89d4e6d2eb75f725bb519053690d9df4",
+    "uav_cvqkd_optimization\\configs\\integration\\phase5f_candidate.yaml": "6da2d1bfd1b2bafa5c97dc02fddc6eba255d0ebe18cc755acae3c5b897452740",
+    "uav_cvqkd_optimization\\configs\\integration\\phase5f_test_only.yaml": "4f7ac22ebbda5d33d79b8edacbf56cbffc244284e6a9943e4ee76cebd36d6eb5",
+    "uav_cvqkd_optimization\\docs\\phase5f_implementation_plan.md": "46fdb9478835a874c142032273c2e0fc6d744c679191918dc90f2ffc8671a73d",
+    "uav_cvqkd_optimization\\docs\\phase5f_independent_review.md": "f40a6205c1e8e5fd987197dc0d9d555edcefb17cea7ed0f2ba190108d1f794e1",
+    "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md": "f7443c7759dbf4e96507b291b055769fe6ee18268888868c142e56edd557d89b"
+  },
+  "local_links": [
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md",
+      "target": "../src/uav_qkd/phase5f_integration.py"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md",
+      "target": "../configs/integration/phase5f_candidate.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md",
+      "target": "../configs/integration/phase5f_test_only.yaml"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md",
+      "target": "../test_artifacts/phase5f_dry_run_20261108"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md",
+      "target": "phase5f_independent_review.md"
+    },
+    {
+      "document": "uav_cvqkd_optimization\\docs\\phase5f_dynamic_cloud_solver_integration_vi.md",
+      "target": "phase5f_validation/tests.xml"
+    }
+  ],
+  "limits": [
+    "Only TEST_ONLY runner enabled; no research mission/scientific cloud approval",
+    "Exact lookup nodes only; off-grid interpolation not enabled",
+    "Sampled LOS intersection needs mission spacing/convergence decisions",
+    "DP predicted future vs greedy current-slot actions; retrospective prefix stopping shared, no equal-information/online claim",
+    "Finite-size remains research-performance proxy, no composable-security certification"
+  ]
+}

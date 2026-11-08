@@ -1,0 +1,144 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "reference-config/interface audit only",
+  "paper_mode": "NOT_RUN",
+  "Z_w_core": "AUTHOR_CONFIRMED_CORRECT_UNCHANGED_NOT_REVALIDATED",
+  "core_evaluations": 0,
+  "closed_form_channel_evaluations": 0,
+  "reference_geometry": {
+    "slant_distance_m": 21939.310229205777,
+    "zenith_angle_rad": 0.5235987755982988,
+    "atmospheric_transmittance": 0.9082089654181442,
+    "geometry_mode": "reference_angle",
+    "producer_sha256": {
+      "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\src\\channel\\geometry.py": "0946766d4adb1c941b8937bc3ee079fefa03c0a984ee30a2792a9a16343d8e32",
+      "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\src\\channel\\atmospheric_loss.py": "074ea4594b87599ea3069c2880403bed8007d6deab16041ce1aa26f6cdb86ecf"
+    },
+    "hap_altitude_m": 20000.0,
+    "uav_altitude_m": 1000.0,
+    "zenith_atmospheric_transmittance": 0.92,
+    "hap_horizontal_m": null,
+    "uav_horizontal_m": null
+  },
+  "finite_reference": {
+    "epsilon_reference": 3.0000000000000004e-08,
+    "n_block_reference": 80000000.0,
+    "delta_reference_bits_per_signal": 0.003989881969840257
+  },
+  "lookup_compatibility": {
+    "physical_subset_matches": false,
+    "full_configuration_compatibility": "NOT_ESTABLISHED",
+    "beta_matches": true,
+    "normalization_matches": true,
+    "physical_mismatches": [
+      "receiver_aperture_diameter_m",
+      "beam_full_divergence_rad",
+      "transmitter_jitter_angle_rad",
+      "uav_position_sd_m"
+    ],
+    "comparison": [
+      {
+        "parameter": "hap_altitude_m",
+        "reference": 20000.0,
+        "lookup": 20000.0,
+        "matches": true
+      },
+      {
+        "parameter": "uav_altitude_m",
+        "reference": 1000.0,
+        "lookup": 1000.0,
+        "matches": true
+      },
+      {
+        "parameter": "receiver_aperture_diameter_m",
+        "reference": 0.08,
+        "lookup": 0.3,
+        "matches": false
+      },
+      {
+        "parameter": "beam_full_divergence_rad",
+        "reference": 0.000233,
+        "lookup": 3.5e-05,
+        "matches": false
+      },
+      {
+        "parameter": "transmitter_jitter_angle_rad",
+        "reference": 1.561e-05,
+        "lookup": 1.561e-06,
+        "matches": false
+      },
+      {
+        "parameter": "uav_position_sd_m",
+        "reference": 1.0,
+        "lookup": 0.1,
+        "matches": false
+      },
+      {
+        "parameter": "wavelength_m",
+        "reference": 1.55e-06,
+        "lookup": 1.55e-06,
+        "matches": true
+      },
+      {
+        "parameter": "zenith_atmospheric_transmittance",
+        "reference": 0.92,
+        "lookup": 0.92,
+        "matches": true
+      },
+      {
+        "parameter": "ground_turbulence_cn2_m_minus_2_3",
+        "reference": 1e-14,
+        "lookup": 1e-14,
+        "matches": true
+      },
+      {
+        "parameter": "rms_wind_speed_m_s",
+        "reference": 21.0,
+        "lookup": 21.0,
+        "matches": true
+      },
+      {
+        "parameter": "receiver_fov_half_angle_rad",
+        "reference": 0.00625,
+        "lookup": 0.00625,
+        "matches": true
+      },
+      {
+        "parameter": "uav_angular_fluctuation_sd_rad",
+        "reference": 0.0015,
+        "lookup": 0.0015,
+        "matches": true
+      }
+    ],
+    "source_evidence_promoted": false,
+    "paper_admissible": false,
+    "unresolved_reference_noise": [
+      "channel_excess_noise_snu",
+      "detector_excess_noise_snu"
+    ],
+    "conclusion": "Different physical profiles: receiver30 values cannot represent the new Section-IV experiment"
+  },
+  "missing_mission_inputs": [
+    "HAP horizontal coordinates",
+    "q0",
+    "E_max",
+    "graph",
+    "prediction horizon",
+    "f_s",
+    "eta_valid or m0",
+    "cloud mode approval and sourced attenuation or layer/threshold/LOS settings",
+    "lambda",
+    "security claim scope"
+  ],
+  "input_sha256": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\channel\\hap_uav_mb_reference.yaml": "be4f8756cff07e3cccc7ee4b90bee855ce69fe46c81ff94a9578a65ca26b65ff",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\configs\\finite_size\\ieee_2025_reference.yaml": "ce8f097e9bc5ca9f06c75587e0371f51c98497b0394956e9b181eed98ff347cd",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\paper_uav_hap_cvqkd\\results\\skr_zenith_heatmap_20261106\\execution_physical_protocol.json": "83c5ea6383d2f029e72dfc90fbba1162a65044dfd6ef546bee9dc620108752e5"
+  },
+  "producer_sha256": {
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\hap_uav_channel.py": "1710efb045c7b552edfbae724fe52ecc4a76b76414ba1184f907314fe840b333",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\finite_size_reference.py": "bb23340fec3e96eab4213fa36ab99b087bd7a87798c047474100cdc290926f88",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\cloud_channel.py": "36a1f2648efe1525a05bbf99b1bd25980960f96fab790b03c3c5a675a2c4cef3",
+    "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\src\\uav_qkd\\phase4_audit.py": "79fa200afe6edef4b6af3073a431993835242d83112d45608d8a74a13041e763"
+  }
+}

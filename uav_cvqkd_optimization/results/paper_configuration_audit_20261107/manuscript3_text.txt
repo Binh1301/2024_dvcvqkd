@@ -1,0 +1,2847 @@
+
+=== PDF PAGE 1 ===
+Received XX Month, XXXX; revised XX Month, XXXX; accepted XX Month, XXXX; Date of publication XX Month, XXXX; date of
+current version XX Month, XXXX.
+Digital Object Identifier 10.1109/TMLCN.2022.1234567
+Heterogeneous MADRL for Joint UAV
+Deployment and Optical IRS Allocation
+in Air-Ground Integrated Networks
+Hung V. Le1, Student Member, IEEE, Hoang D. Le1, Member, IEEE
+and Duy-Tuan Dao2, Anh T. Pham1, Senior Member, IEEE
+1Department of Computer Science and Engineering, The University of Aizu, Fukushima 965- 8580, Japan
+2The University of Danang-University of Science and Technology, Da Nang 50000, Vietnam
+Corresponding author: Hoang D. Le (email: hoangle@u-aizu.ac.jp).
+This work is supported by the Telecommunications Advancement Foundation (TAF).
+ABSTRACT This paper introduces an air–ground integrated network (AGIN) architecture for 6G networks
+to deliver high-speed connectivity to mobile users (MUs) in hard-to-reach areas. Particularly, the AGIN
+architecture integrates a free-space optics (FSO)–based high-altitude platform (HAP) for backhaul and
+unmanned aerial vehicles (UAVs) for last-mile radio-frequency (RF) access. Notably, the HAP, equipped
+with an optical intelligent reflecting surface (OIRS), provides FSO-based backhaul links to multiple UAV-
+mounted base stations (BSs). For this AGIN architecture, we aim to jointly control UAV placement and
+OIRS element allocation to maximize the number of MUs served by the UAVs while minimizing UAV
+energy consumption under dynamic backhaul and access link conditions. To this end, we propose a hetero-
+geneous centralized training and decentralized execution (CTDE)-based multi-agent deep reinforcement
+learning (MADRL) framework that jointly optimizes UAV placement and OIRS element allocation by
+employing heterogeneous actor networks for UAV placement and OIRS allocation, respectively. Moreover,
+we address the saturation problem through modifications to the tanh function and the actor loss, and
+resolve the issue of invalid actions by imposing a constraint on the action output in continuous-action deep
+reinforcement learning. Simulation results demonstrate that the proposed CTDE-based MADRL framework
+effectively maximizes the number of served MUs while reducing UAV energy consumption compared with
+state-of-the-art approaches. Additionally, the results confirm the effectiveness of the proposed modifications
+in mitigating the saturation problem and demonstrate that incorporating OIRS further enhances network
+performance by increasing the number of served MUs while reducing UAV energy consumption.
+INDEX TERMS Aerial networks, free-space optics (FSO), optical intelligent reflecting surface (OIRS),
+multi-agent deep reinforcement learning (MADRL), joint optimization, heterogeneous actors.
+I. Introduction
+Rapid advancements in non-terrestrial networks (NTNs) to-
+ward beyond 5G (B5G)/6G wireless networks have been
+witnessed in recent years [1]. Aerial networks, incorporating
+high-altitude platforms (HAPs) and unmanned aerial vehicles
+(UAVs), have emerged as a key component of NTNs [2]. To
+support extremely high-speed connectivity in such networks,
+free-space optical (FSO) communication has attracted con-
+siderable attention thanks to its vast available bandwidth [3].
+To address the strict line-of-sight requirement of FSO links,
+an optical intelligent reflecting surface (OIRS) is considered
+as an effective solution [4]. OIRS can extend coverage while
+enabling low-cost deployment and low power consumption,
+which are especially essential for aerial networks [3].
+In this context, OIRS can be deployed on HAP to provide
+FSO backhaul links to multiple UAVs. These UAV-mounted
+base stations (BSs) then deliver radio-frequency (RF) access
+to ground mobile users (MUs). Such an architecture forms
+a promising air-ground integrated network (AGIN), par-
+ticularly for hard-to-reach and infrastructure-limited areas.
+Nevertheless, weather conditions, such as cloud coverage
+and atmospheric turbulence, can significantly affect the FSO
+This work is licensed under a Creative Commons Attribution 4.0 License. For more information, see https://creativecommons.org/licenses/by/4.0/
+VOLUME ,
+1
+
+
+=== PDF PAGE 2 ===
+Author et al.:
+backhaul links. Additionally, the mobility of both UAVs
+and MUs creates a dynamic last-mile RF access network,
+further complicating end-to-end network optimization. The
+dynamic nature of these networks necessitates real-time
+optimization algorithms that can quickly adapt to changing
+network conditions.
+Deep reinforcement learning (DRL) has recently emerged
+as an effective solution for addressing optimization prob-
+lems in NTNs [5]. It can adapt to dynamic networks in
+real time thanks to its fast inference during deployment.
+Existing studies [6], [7] have shown that DRL-based network
+optimization can achieve competitive performance while
+reducing online computational complexity compared to con-
+ventional heuristic approaches. DRL is generally divided into
+two categories: single-agent DRL (SADRL) and multi-agent
+DRL (MADRL) [8]. SADRL is designed for centralized
+execution, which requires global observations. In contrast,
+MADRL enables decentralized execution, where only local
+observations are available. As a result, MADRL is a potential
+approach for the considered AGIN involving multiple UAVs.
+MADRL is further classified into decentralized training and
+execution (DTE)-based MADRL and centralized training
+with decentralized execution (CTDE)-based MADRL [8],
+[9]. Recent works have demonstrated that CTDE-based
+MADRL significantly outperforms DTE-based MADRL in
+cooperative tasks [8], [9]. This is because CTDE lever-
+ages global information during training to mitigate non-
+stationarity and enable coordinated policies. In contrast, DTE
+relies solely on local observations, which may lead to selfish
+behavior and suboptimal performance.
+In this study, we propose a DRL-based optimization
+framework for dynamic AGINs. Since the considered AGIN
+requires a high degree of cooperation between UAV place-
+ment and OIRS allocation, we adopt a CTDE-based MADRL
+framework to enable joint decision-making. To accommodate
+the different observation and action spaces of UAV place-
+ment and OIRS allocation, we further design heterogeneous
+actor networks for the two control tasks. Moreover, we
+introduce the modifications to the CTDE-based MADRL
+framework to mitigate the saturation problem and prevent
+invalid actions in continuous DRL.
+A. Motivation
+1) Heterogeneous CTDE-based MADRL for AGIN networks
+While existing studies [10]–[19] have investigated UAV
+placement and OIRS element allocation separately, these two
+tasks are inherently coupled in AGINs. Optimizing them
+independently may therefore lead to suboptimal network
+performance, motivating the adoption of a CTDE-based
+MADRL framework for joint control. Furthermore, the UAV
+and OIRS agents possess different observation and action
+spaces, making homogeneous policy networks in conven-
+tional CTDE-based MADRL unsuitable. Therefore, hetero-
+geneous policy network architectures should be designed to
+accommodate the characteristics of different agents. In this
+study, we propose a heterogeneous CTDE-based MADRL
+framework, in which each agent’s policy network is designed
+according to the characteristics of its action space [20],
+[21]. This design is particularly important in MADRL-
+based network optimization, where agents control different
+network entities with heterogeneous observation and action
+properties.
+2) Saturation problems and invalid actions in continuous DRL
+Recently, current continuous DRL models have faced the
+saturation problem [22], which refers to the phenomenon
+where the continuous action values output by the tanh or
+sigmoid activation functions fall into their saturation regions.
+This issue may occur in DRL models with continuous action
+spaces, motivating this study to propose modifications to
+the DRL framework that prevent the output action values
+from falling into these saturation regions. Another concern
+in continuous DRL models is that the special characteristics
+of agents’ actions must be considered to satisfy system
+constraints, while the exploration noise in continuous DRL
+models may cause the action outputs to violate these con-
+straints. Specifically, the action of the OIRS is constrained by
+the total number of available reflecting elements. However,
+the exploration noise in continuous DRL may violate this
+constraint, resulting in invalid actions.
+In summary, although conventional CTDE-based MADRL
+has demonstrated promising performance in cooperative op-
+timization, it is not well suited for controlling heterogeneous
+network entities in AGINs. This limitation arises because
+different network entities possess distinct observation and
+action characteristics, whereas conventional CTDE methods
+employ homogeneous actor network architectures. Further-
+more, continuous-control MADRL suffers from saturation
+and invalid-action issues, which degrade learning stability
+and policy quality. Therefore, this study proposes a hetero-
+geneous CTDE-based MADRL framework for AGINs, in
+which the saturation and invalid-action issues are mitigated
+through the proposed modifications.
+B. Key Contributions
+The primary objective of this paper is to develop a het-
+erogeneous CTDE-based end-to-end optimization framework
+for OIRS-aided AGIN with integrated FSO backhaul and
+RF access. The proposed framework jointly optimizes UAV
+placement and OIRS element allocation to maximize the
+number of served MUs while minimizing UAV energy con-
+sumption. Tables 1 and 2 provide a clear comparison between
+our work and state-of-the-art optimization frameworks for
+UAV placement and OIRS element allocation, respectively.
+It is worth noting that this study substantially extends our
+preliminary work in [23], which developed a DTE-based
+MADRL framework for UAV placement with equal OIRS
+element allocation under simplified channel models.
+Key contributions of our work are summarized as follows:
+2
+VOLUME ,
+
+
+=== PDF PAGE 3 ===
+TABLE 1: Related works on optimal UAV placement in NTNs.
+Work/Year
+Multi-UAV
+Placement
+Energy-Aware
+UAV
+DRL Framework
+Dynamic FSO
+Backhaul1
+Dynamic RF
+Access2
+[10]/2023
+✓
+CTDE-MADRL
+✓
+[11]/2024
+✓
+✓
+✓
+[12]/2024
+✓
+DTE-MADRL
+✓
+[13]/2024
+✓
+✓
+SADRL
+✓
+[14]/2024
+SADRL
+✓
+✓
+[15]/2025
+✓
+[16]/2025
+✓
+Our work
+✓
+✓
+Heterogeneous CTDE-MADRL
+✓
+✓
+TABLE 2: Related works on OIRS element allocation.
+Reference
+Year
+Allocation scheme
+DRL
+Network environment
+Objective
+Salam et al. [17]
+2024
+OIRS elements
+✗
+Static
+Spectral Efficiency and Fairness
+An et al. [18]
+2024
+OIRS elements
+✗
+Static
+Energy Efficiency
+Dang et al. [19]
+2025
+OIRS elements
+✗
+Static
+Achievable Data Rate
+Our work
+OIRS elements
+✓
+Dynamic
+Joint number of served MUs and energy consumption
+• We introduce an OIRS-aided AGIN that integrates an
+FSO-based HAP backhaul with UAV-mounted BSs for
+RF last-mile access. Comprehensive models for the
+FSO and RF channels and UAV energy consumption
+are developed. Based on the end-to-end AGIN, we
+formulate a joint optimization problem to maximize the
+number of served MUs while minimizing UAV power
+consumption.
+• To address the joint optimization problem, we propose
+a heterogeneous CTDE-based MADRL framework that
+jointly optimizes the UAV placement and OIRS element
+allocation. The proposed heterogeneous CTDE-based
+MADRL is based on the multi-agent deep deterministic
+policy gradient (MADDPG) algorithm, where heteroge-
+neous actor networks are designed for UAV placement
+and OIRS element allocation.
+• Notably, the framework enhances the conventional
+MADDPG algorithm by mitigating the saturation prob-
+lem in continuous-action DRL models via modifica-
+tions to the tanh activation function and the actor
+loss function. Additionally, we propose a modification
+to address the invalid actions induced by exploration
+noise, taking into account the characteristics of OIRS
+element allocation.
+• Finally, we provide insightful results demonstrating the
+effectiveness of the proposed heterogeneous CTDE-
+based MADRL framework compared with state-of-the-
+art approaches. The results also validate the proposed
+modifications for mitigating saturation problems in con-
+tinuous MADRL and demonstrate that incorporating
+OIRS further improves network performance.
+The remainder of this paper is organized as follows.
+Section II reviews the existing studies. Section III describes
+the system and channel models. The proposed MADRL
+framework for UAV placement and OIRS element allocation
+is presented in Section IV. Detailed simulation results and
+discussions are provided in Section V. Finally, Section VI
+summarizes our findings and discusses future directions.
+For the sake of clarity, the notations of the proposed
+MADRL framework are presented in Table 3.
+II. Related Works
+A. Optimization Framework in NTNs
+Extensive studies have developed optimization frameworks
+for NTNs, particularly focusing on optimal UAV placement,
+such as [10]–[16]. Nevertheless, most existing works focus
+on RF-based last-mile access, while ignoring the backhaul
+or assuming it to be sufficient. Notably, Guan et al. pro-
+posed a multi-agent proximal policy optimization (PPO)-
+based framework to maximize the number of served users
+while preserving overall network throughput in multi-UAV
+networks [10]. The authors in [11] proposed a conventional
+optimization algorithm for UAV 3D placement and resource
+allocation in multihop wireless networks, where backhaul
+links depend on UAV positions and access links vary with
+user mobility. In [12], the authors investigated a DRL ap-
+proach for jointly optimizing the 3D placement of multiple
+UAV-mounted BSs under mission-critical scenarios. A DRL-
+based framework for multi-UAV placement was provided
+in [13] under the assumption of static backhaul networks.
+The SADRL-aided end-to-end optimization framework for
+mixed FSO/RF-based NTNs was provided in [14]. In [15],
+the authors developed a large language model (LLM)-driven
+iterative prompting framework for multi-UAV placement in a
+static integrated access and backhaul network. Most recently,
+the authors in [16] exploited a RL framework integrating the
+VOLUME ,
+3
+
+
+=== PDF PAGE 4 ===
+Author et al.:
+sensing to optimize UAV placement under foggy conditions
+in hybrid FSO/RF networks.
+As summarized in Table 1, existing studies do not jointly
+account for dynamic FSO backhaul conditions1, dynamic
+RF access networks2, and energy-aware UAV operation.
+Additionally, prior works predominantly rely on conventional
+optimization methods [11], [16], SADRL [13], [14], or DTE-
+based MADRL [12]. However, a CTDE-based MADRL
+framework for end-to-end AGIN optimization that accounts
+for the dynamics of both backhaul and access links has
+not been available in the literature. Such a framework
+can improve robustness in agent cooperation and reward
+convergence through centralized training. Notably, while
+existing studies have employed homogeneous MADRL with
+identical actor architectures only for UAV placement, we
+propose a heterogeneous CTDE-based MADRL framework
+with heterogeneous actor networks to jointly optimize UAV
+placement and OIRS allocation.
+B. OIRS Element Allocation
+Another important concern in OIRS-aided AGIN is the allo-
+cation of OIRS elements to facilitate backhaul connectivity
+for multiple UAVs over time-varying channels. In other
+words, an effective element allocation scheme is essential
+for network optimization, which requires a dedicated opti-
+mization framework.
+Recent studies have investigated OIRS element allocation
+strategies [17]–[19]. Specifically, Salam et al. proposed a
+distance-based mirror assignment (DMA) scheme to enhance
+spectral efficiency and user fairness in multi-user underwater
+wireless optical systems [17]. In [18], the authors investi-
+gated the energy efficiency maximization in an IRS-assisted
+visible light communications (VLC)-RF vehicular system,
+which was then addressed by a block coordinate descent
+(BCD)-based iterative algorithm. Most recently, the authors
+in [19] proposed a two-phase rate-optimized spatial resource
+allocation (R-SRA) algorithm for OIRS-aided HAP-assisted
+multi-UAV networks.
+As summarized in Table 2, existing works [17]–[19]
+employ conventional optimization methods for OIRS ele-
+ment allocation under static network assumptions. However,
+in dynamic environments, e.g., with moving clouds and
+UAVs in mobility, such methods cannot effectively adapt to
+time-varying conditions. This necessitates an efficient OIRS
+element allocation scheme, which is not yet available in the
+literature.
+III. System and Channel Models
+A. System Descriptions
+Figure 1 depicts the considered end-to-end network archi-
+tecture for rural and remote regions, with a particular focus
+1Dynamic backhaul means that the backhaul capacity changes due to
+weather conditions, and not because of the UAV’s movement.
+2Dynamic access means that the access links change because users move,
+not because the UAV itself is moving.
+TABLE 3: Parameter description of the proposed MADRL
+framework found in Sec. III.
+Notation
+Description
+t
+Time slot
+m
+The index of the agent of UAV
+sm
+t
+The observation of UAV m in time slot t
+am
+t
+The action of UAV m in time slot t
+Rm
+t
+The reward of UAV m in time slot t
+sIRS
+t
+The observation of OIRS in time slot t
+aIRS
+t
+The action of OIRS in time slot t
+RIRS
+t
+The reward of OIRS in time slot t
+xt
+The global state in time slot t
+at
+The joint action in time slot t
+θm
+The parameters of actor network of UAV m
+θIRS
+The parameters of actor network of OIRS
+µθm(.)
+The actor network of UAV m
+πθIRS(.)
+The actor network of OIRS
+Qµ
+m(.)
+The critic network of UAV m
+Qµ
+IRS(.)
+The critic network of OIRS
+µ
+The set of actor networks
+Q
+The set of critic networks
+N noise
+t
+Exploration noise in time slot t
+θ′
+m
+The parameters of target actor network of UAV m
+θ′
+IRS
+The parameters of target actor network of OIRS
+µ′
+θ′m(.)
+The target actor network of UAV m
+π′
+θ′
+IRS(.)
+The target actor network of OIRS
+ϵ
+Soft update rate
+on temporary event scenarios. The system integrates FSO-
+based backhaul links with RF-based access links. Specifi-
+cally, multiple UAV-mounted base stations are deployed to
+deliver high-speed wireless connectivity to ground mobile
+users (MUs) through RF transmissions. For the backhaul, an
+OIRS mounted on a HAP3 reflects high-capacity FSO signals
+from a remote optical ground station toward the UAVs. The
+primary objective of this network architecture is to maximize
+the number of MUs served by the UAVs4, thereby enabling
+reliable high-data-rate Internet access.
+The UAV operation period is divided into T equal time
+slots, each with duration τ, which is selected to ensure
+quasi-static network conditions within each slot. We con-
+sider a deployment of M UAVs tasked with serving the
+maximum possible number of high-data-rate mobile users
+(MUs) within a target area containing N MUs. Let m ∈
+M
+=
+{1, 2, . . . , M}, n
+∈
+N
+=
+{1, 2, . . . , N}, and
+t ∈T = {1, 2, . . . , T} denote indices of UAVs, MUs, and
+time slots, respectively. Two-dimensional positions of the
+m-th UAV and the n-th MU in time slot t are represented
+3Practical stratospheric HAP systems, such as SoftBank’s HAP platforms
+[24], are typically designed for quasi-stationary operation.
+4Remaining MUs are directly served by the HAP via RF links; however,
+these links provide limited data rates because of the long propagation
+distance.
+4
+VOLUME ,
+
+
+=== PDF PAGE 5 ===
+Moving Cloud Area
+Atmospheric 
+turbulence
+2 km
+2 km
+RF Access Links by HAP
+RF Access Links by UAVs
+UAV Trajectory
+FSO Backhaul Links
+UAV
+UAV
+UAV
+Shadowing area 
+due to clouds
+Optical 
+Ground Station
+OIRS-mounted HAP
+MUs served by UAVs
+MUs served by HAP
+FIGURE 1: The considered OIRS-aided AGIN architecture.
+by (xUAV
+m,t , yUAV
+m,t ) and (xMU
+n,t , yMU
+n,t ), respectively. The HAP
+and the UAVs operate at fixed altitudes hHAP and hUAV
+m
+,
+respectively, and each UAV is assumed to move at a speed
+vm,t. The mobility of MUs is modeled using the Gauss–
+Markov mobility model [25, Sec. II-D].
+B. OIRS-aided HAP Backhaul Channel Models
+1) OIRS-based FSO Channel Modeling
+For the OIRS-assisted FSO link of the m-th UAV, three pri-
+mary channel impairments are considered5: atmospheric and
+reflection loss hal
+m,t, geometric loss hgeo
+m,t, and atmospheric
+turbulence htur
+m,t. As a result, the composite FSO channel
+gain can be expressed as hm,t = hal
+m,t hgeo
+m,t htur
+m,t.
+The atmospheric and reflection loss over the FSO-based
+ground-to-HAP and HAP-to-UAV links are modeled follow-
+ing [27, (7)]. Specifically, the combined atmospheric and
+reflection loss for the m-th UAV in time slot t is expressed
+as
+hal
+m,t = δIRShal1
+m,thal2
+m,t,
+(1)
+where δIRS
+is the OIRS’s reflection efficiency, while
+hal1
+m,t and hal2
+m,t are the atmospheric losses on ground-
+to-HAP and HAP-to-UAV links, respectively. Particularly,
+hal1
+m,t = exp(−βu
+m,tdu
+m,t) with βu
+m,t and du
+m,t respectively the
+weather-dependent attenuation coefficient and distance on
+ground-to-HAP links. Additionally, we consider the presence
+of moving clouds on the HAP-to-UAV links, in which hal2
+m,t
+is modeled by Beer-Lambert law [28, (11)], expressed as
+hal2
+m,t = exp
+ −βd
+m,tHcl sec(ξd
+m,t)
+
+,
+(2)
+where Hcl is the vertical extent of clouds and ξd
+m,t is zenith
+angle corresponding to the link between HAP and m-th UAV
+in time slot t. Additionally, βd
+m,t is the cloud attenuation
+coefficient given as [28, (12)]
+βd
+m,t,dB[dB/km] =
+3.91
+V d
+m,t[km]
+λm[nm]
+550
+−εm
+,
+(3)
+5We assume that a fine tracking system [26] is deployed, such that the
+impact of pointing misalignment can be neglected.
+OIRS mounted on HAP
+Incident
+beam
+Reflected 
+beam
+OIRS mounted on HAP
+z
+y
+x
+ 
+FIGURE 2: Illustration of incident/reflected angles and OIRS
+size.
+where εm is the size distribution of the scattering particles,
+determined by Kim model [29, (4)]. In addition, visibility
+V d
+m,t is determined by V =
+1.002
+(Nc×M c
+m,t)0.6473 reported in [28,
+Sec. B-1], where Nc(cm−3) is the number cloud droplet
+concentration and M c
+m,t(g/m3) represents the Cloud Liquid
+Water Content (CLWC) at the location of the m-th UAV.
+As for the geometric loss, power scaling model reported
+in [4, Sec. III] is adopted. Here, the geometric loss depends
+on the relative size of the reflected FSO beam, which
+is mainly determined by the OIRS dimensions, the inci-
+dent and reflected angles, and the UAV receiver’s aperture.
+Accordingly, three power-scaling regimes are considered:
+quadratic, linear, and saturation. The OIRS has dimensions
+ΣIRS = Lx × Ly, where Lx and Ly are the lengths of the
+OIRS in x-axis and y-axis, respectively. The OIRS consists
+of Eelements reflecting elements that are dynamically allocated
+among the UAVs. Specifically, the OIRS area allocated to
+the m-th UAV is denoted by Σm,t
+IRS . This allocated area is
+determined by the number of elements Ξm,t allocated to
+the m-th UAV, expressed as Σm,t
+IRS = Ξm,t × Σelement, where
+Σelement =
+Lx×Ly
+Eelements is the surface area of a single OIRS
+element. The incident and reflected angles, denoted by θm,i
+and θm,r, are given in Fig. 2, where θm,r = 90◦−ξd
+m,t.
+G1, G2, G3 terms are 3 key components in power scal-
+ing law of OIRS, described as follows. G1 is defined as
+G1 =
+16π2(Σm,t
+IRS )
+2|sin(θm,r)||sin(θm,i)|
+λ4m
+gLSgPD, where gLS =
+2π(wu
+o )2
+4π(du
+m,t)
+2 , and gPD =
+πa2
+m
+4π(dd
+m,t)
+2 . Here, wu
+o is the beam
+waist at du
+m,t = 0, am is the radius of the m-th UAV’s
+detector, and dd
+m,t is the distance between HAP and the
+m-th UAV. Additionally, G2 =
+4πΣm,t
+IRS |sin(θm,i)|
+λ2m
+gLS, and
+G3 = erf
+p π
+2
+am
+Weq,x
+
+erf
+p π
+2
+am
+Weq,y
+
+, where Weq,x and
+Weq,y are found in [4, (24)]. Based on [4, Sec. III-D],
+channel gain hgeo
+m,t is determined by G1, G2, G3 and OIRS
+size Σm,t
+IRS as
+• If G3 ≥
+2(dd
+m,t)
+2(wu
+o )2|sin(θm,i)|
+(du
+m,t)
+2a2
+m|sin(θm,r)| , then
+hgeo
+m,t =
+
+
+
+
+
+G1,
+Σm,t
+IRS < S1, (quadratic)
+G2,
+S1 ≤Σm,t
+IRS ≤S2, (linear)
+G3,
+Σm,t
+IRS > S2, (saturate)
+(4)
+VOLUME ,
+5
+
+
+=== PDF PAGE 6 ===
+Author et al.:
+• If G3 <
+2(dd
+m,t)
+2(wu
+o )2|sin(θm,i)|
+(du
+m,t)
+2a2m|sin(θm,r)| , then
+hgeo
+m,t =
+(
+G1,
+Σm,t
+IRS ≤S3, (quadratic)
+G3,
+Σm,t
+IRS > S3, (saturate)
+(5)
+where threshold values S1, S2, S3 are expressed as
+S1 =
+λ2
+m(dd
+m,t)
+2
+πa2m|sin(θm,r)|, S2 =
+πG3(wu
+d ))2
+2|sin(θm,i)|, and S3 =
+√G3λmdd
+m,twu
+d
+am√
+2 sin(θm,i) sin(θm,r) with wu
+d the beam waist at dis-
+tance du
+m,t.
+As for atmospheric turbulence, it is given by [19, Sec. II-
+B]
+htur
+m,t = htur1
+m,thtur2
+m,t,
+(6)
+where htur1
+m,t and htur2
+m,t denote the atmospheric turbulence
+for the ground-to-HAP and HAP-to-UAV links, respectively.
+Under weak turbulence, the intensity fluctuations follow a
+log-normal probability density function (PDF) expressed as
+f
+ htur
+m,t
+
+=
+1
+htur
+m,t
+p
+2πσ2
+R
+exp
+ 
+−
+ ln
+ htur
+m,t
+
++ σ2
+R/2
+2
+2σ2
+R
+!
+,
+(7)
+where σ2
+R = σ2
+R1 + σ2
+R2. Here, σ2
+R1, σ2
+R2 are the Rytov
+variances for the ground-to-HAP and HAP-to-UAV links,
+respectively. The Rytov variance is found in [28, Sec. III-B].
+2) FSO Backhaul Capacity
+Given the composite channel gain hm,t = hal
+m,thgeo
+m,thtur
+m,t, the
+FSO backhaul capacity of the m-th UAV over the time slot
+t is computed as
+CFSO
+m,t = Bm,FSO log2
+ 
+1 + ηmPm,Thal
+m,thgeo
+m,thtur
+m,t
+σ2
+m,FSO
+!
+,
+(8)
+where Bm,FSO is the FSO bandwidth allocated to the m-th
+UAV link, ηm is the photodetector’s responsivity, Pm,T is the
+transmitted power, and σ2
+m,FSO is the receiver noise variance.
+C. UAV-based RF Access Links
+1) UAV-to-Ground Channel Modeling
+The channel gain on the RF link between the m-th UAV and
+the n-th MU is modeled following [30, (2)], and is expressed
+as
+gUAV
+n,m,t = |ψn,m,t|2 θm
+q dUAV
+n,m,t
+2 + (hUAV
+m )2/d
+−αm
+,
+(9)
+where αm ≥2 denotes the path-loss exponent, hUAV
+m
+is the
+m-th UAV’s altitude, and ψn,m,t represents the small-scale
+Rician fading coefficient. Specifically, ψn,m,t is given by
+ψn,m,t =
+q
+κ
+1+κψL +
+q
+1
+1+κψM where κ is the ratio of
+energy in LoS component ψL and multi-path component
+ψM, reported in [30, (2)]. Additionally, the channel gain
+at the reference distance d = 1 m with carrier wave-
+length λm,c is given by θm,n = −20 log10
+
+4πd
+λm,c
+
+(dB).
+Also, dUAV
+n,m,t denotes the horizontal distance between m-
+th UAV and n-th MU in time slot t, defined as dUAV
+n,m,t =
+q xMU
+n,t −xUAV
+m,t
+2 +
+ yMU
+n,t −yUAV
+m,t
+2.
+2) Achievable Data Rate of Users
+Given the channel gain gUAV
+n,m,t in (9), the achievable data rate
+of the n-th MU served by the m-th UAV is expressed as
+RRF
+n,m,t = BRF log2
+ 
+1 + P UAV
+n,m,tgUAV
+m,n,t
+σ2
+RF
+!
+,
+(10)
+where BRF denotes the UAV’s RF bandwidth allocated to
+each MU, P UAV
+n,m,t is the transmitted power of the m-th UAV
+for the n-th MU, and σ2
+RF is the noise variance.
+D. User Association
+A user association with power allocation scheme is adopted
+to adaptively allocate transmit power levels to achieve a
+fixed target data rate for MUs. To model the association
+between an MU and a UAV, we first define the coverage
+radius DUAV
+m
+of m-th UAV determine MUs within the m-th
+UAV’s coverage, given as [31, (10)]
+DUAV
+m
+= hUAV
+m
+tan(φm),
+(11)
+where hUAV
+m
+is the m-th UAV’s altitude, and φm is the m-th
+UAV’s half divergence angle, reported in [31, Fig. 2]. Given
+the coverage radius DUAV
+m , we introduce cn,m,t ∈{0, 1} to
+indicate the presence of the n-th MU within the m-th UAV’s
+coverage in time slot t, i.e.,
+cn,m,t =
+(
+1,
+if dUAV
+n,m,t = min{dUAV
+n,1,t, · · · , dUAV
+n,M,t} ≤DUAV
+m ,
+0,
+otherwise,
+(12)
+where dUAV
+n,m,t denotes the horizontal distance between m-
+th UAV and n-th MU in time slot t, found in Sec. II-C-
+1. dUAV
+n,m,t = min{dUAV
+n,1,t, · · · , dUAV
+n,M,t} indicates that n-th MU
+can be associated with the m-th UAV if it is the closest UAV
+to the MU. Also, dUAV
+n,m,t ≤DUAV
+m
+implies that n-th MU can
+be associated with the m-th UAV if the MU is within the
+m-th UAV’s coverage. Then, we express a set of MUs within
+the m-th UAV’s coverage in time slot t as
+Nm,t = {n|cn,m,t = 1}n∈N .
+(13)
+In the user association algorithm, instead of allocating a
+fixed power to each MU, an adaptive transmit power alloca-
+tion scheme is employed to serve multiple MUs. Specifically,
+the m-th UAV assigns an appropriate transmit power to the
+n-th MU to maintain the target data rate RRF
+target. From (10), to
+maintain RRF
+n,m,t = RRF
+target, the transmit power to be allocated
+to the n-th MU is calculated by
+P UAV
+n,m,t =
+ σ2
+RF/gUAV
+m,n,t
+ 
+2RRF
+target/BRF −1
+
+.
+(14)
+Notably, due to limited transmit power and constrained
+backhaul capacity, a UAV cannot always support all MUs
+within its coverage area. Therefore, only a subset of MUs
+6
+VOLUME ,
+
+
+=== PDF PAGE 7 ===
+FIGURE 3: Full cloud map created by using the Gaussian distribution of CLWC.
+Algorithm 1 User association algorithm with a transmit
+power allocation scheme
+1: Input: Nm,t: Set of MUs within the m-th UAV’s cov-
+erage in time slot t, determined by (13)
+2: Output: Hm,t: Set of MUs served by the m-th UAV in
+time slot t; CFSO,remain
+m,t
+: Remaining backhaul capacity of
+m-th UAV after the UAV transmits the data rate to MUs.
+3: Compute required transmit power levels {P UAV
+n,m,t}n∈Nm,t
+using equation (14)
+4: Initialize a set of MUs served by the m-th UAV: Hm,t ←
+∅
+5: Initialize the remaining backhaul capacity CFSO, remain
+m,t
+:=
+CFSO
+m,t
+6: repeat
+7:
+Select MU with the lowest power requirement: n∗←
+arg minn{P UAV
+n,m,t}n∈Nm,t
+8:
+The UAV allocates transmit power to this MU:
+P UAV
+m,max ←P UAV
+m,max −P UAV
+n∗,m,t
+9:
+The UAV transmits target data rate RRF
+target to this MU:
+CFSO,remain
+m,t
+←CFSO,remain
+m,t
+−RRF
+target
+10:
+Update the set of served MUs: Hm,t ←Hm,t ∪{n∗}
+11: until Run out of backhaul capacity or UAV’s transmit
+power, or all MUs within the m-th UAV’s coverage are
+served: CFSO
+m,t < 0 or P UAV
+n
+< 0 or |Hm,t| = |Nm,t|
+is selected to maximize the total number of served MUs. To
+this end, a user association algorithm incorporating a power
+allocation scheme is presented in Algorithm 1, which is run
+in every time slot t by the m-th UAV.
+E. UAV Energy Consumption Model
+In this study, propulsion energy is treated as the primary
+component of the UAV’s overall energy consumption. It
+represents the energy required for the UAV to hover and
+maneuver. To model the UAV’s propulsion energy consump-
+tion, we define two terms, P0 and Pi, which denote the blade
+profile power and the induced power in hovering conditions,
+respectively. Expressions for P0 and Pi are given as
+P0 = δ
+8ρsAΩ3R3;
+Pi = (1 + k) W 3/2
+√2ρA,
+(15)
+where δ is the profile drag coefficient, ρ is the air density
+(kg/m3), s is the rotor solidity, Ωis the blade angular velocity
+(rad/s), R is the rotor radius (m), k is the incremental
+correction factor to induced power, W is the aircraft weight
+(N), A is the rotor disc area (m2).
+The propulsion power P(V ) of rotary-wing UAVs is
+modeled as a function of UAV’s velocity V given as [32]
+P(V ) = P0
+ 
+1 + 3V 2
+U 2
+tip
+!
++ Pi
+ s
+1 + V 4
+4v4
+0
+−V 2
+2v2
+0
+!1/2
++ 1
+2d0ρsAV 3,
+(16)
+where the two constants P0 and Pi represent the blade
+profile power and the induced power in hovering conditions,
+expressed in (15). Utip denotes the tip speed of the rotor blade
+and is computed as Utip = ΩR. v0 is the mean rotor-induced
+velocity in hover, given by v0 =
+q
+W
+2ρA. d0 denotes the
+fuselage drag ratio. The UAV’s propulsion energy consump-
+tion over T time slots is computed as PT
+t=1 P (vm,t). The
+relationship between velocity V and the propulsion power
+consumption P(V ) is depicted in Fig.7.
+F. Cloud coverage model
+To model cloud coverage, we represent each cloud using
+a Gaussian distribution of CLWC. By generating multiple
+Gaussian-distributed clouds, we obtain the complete cloud
+map, as illustrated in Fig. 3. The region enclosed by the
+red square corresponds to the cloud map of the target area.
+Shifting the red square is equivalent to cloud movement. In
+the cloud map, darker gray regions indicate higher CLWC
+values at the corresponding locations.
+IV. Proposed MADRL-based framework for UAV
+placement and OIRS allocation
+A. Problem Formulation
+The objective is to find the optimal UAV positions, U =
+{(xUAV
+m,t , yUAV
+m,t )}m∈M, t∈T , and the optimal OIRS element
+allocation, A
+=
+{Ξm,t}m∈M, t∈T , to jointly maximize
+the total number of served MUs PT
+t=1
+PM
+m=1 |Hm,t| and
+minimize the energy consumption PT
+t=1
+PM
+m=1 P(vm,t) of
+M UAVs over T time slots. Joint optimization problem is
+formulated as
+VOLUME ,
+7
+
+
+=== PDF PAGE 8 ===
+Author et al.:
+P : max
+U,A
+Z =
+T
+X
+t=1
+M
+X
+m=1
+|Hm,t| −Λ
+T
+X
+t=1
+M
+X
+m=1
+P(vm,t),
+(17a)
+s.t.
+|Hm,t|RRF
+target ≤CFSO
+m,t , ∀m,
+(17b)
+X
+n∈Hm,t
+P UAV
+m,n,t ≤P UAV
+m,max, ∀m, t
+(17c)
+xmin ≤xUAV
+m,t ≤xmax, ∀m, t,
+(17d)
+ymin ≤yUAV
+m,t ≤ymax, ∀m, t,
+(17e)
+vm,t ≤vm
+max, ∀m, t
+(17f)
+M
+X
+m=1
+Σm,t
+IRS = ΣIRS, ∀t
+(17g)
+where Hm,t is the set of MUs served by the m-th UAV
+found in Algorithm 1. Here, constraints (17b) and (17c)
+represent the limited backhaul capacity and UAV’s transmit
+power, respectively. Additionally, (17d) and (17e) indicate
+the placement constraints. (17f) denotes the maximum ve-
+locity of the UAV. (17g) indicates that the allocated areas
+for the UAVs must be equal to the area of the OIRS. (17g)
+can be equivalently written as PM
+m=1 Ξm,t = Eelements. In
+(17a), Λ = ΛscaleΛweight , where Λscale is a scaling factor
+for the power value, Λweight is a weighting parameter that
+reflects the importance of energy consumption. Specifically,
+when the number of served MUs, PT
+t=1
+PM
+m=1 |Hm,t|, and
+the UAVs’ power consumption, PT
+t=1
+PM
+m=1 P(vm,t), are
+not in the same scale, Λscale is used to normalize them to
+a comparable scale. For example, if PT
+t=1
+PM
+m=1 |Hm,t| is
+in the order of hundreds while PT
+t=1
+PM
+m=1 P(vm,t) is in
+the order of thousands, Λscale can be set to 0.1 to scale the
+latter down to the order of hundreds. Additionally, Λweight is
+used to adjust the relative importance between the number
+of served MUs, PT
+t=1
+PM
+m=1 |Hm,t|, and the UAVs’ power
+consumption, PT
+t=1
+PM
+m=1 P(vm,t). If 0 < Λweight < 1, the
+optimization prioritizes maximizing the number of served
+MUs; whereas, if Λweight > 1, it prioritizes minimizing the
+UAVs’ power consumption.
+B. MDP Formulation
+For real-time UAV placement and OIRS allocation, we use
+an online DRL-based approach to address the optimization
+problem P. To implement DRL, we need to reformulate P
+as a Markov Decision Process (MDP) described as follows.
+1) Observation Space
+Let sm
+t denote the observation of the m-th UAV in time slot
+t. It is formulated as in (18) and includes the locations of
+all UAVs (xUAV
+m,t , yUAV
+m,t )}m∈M, a heatmap of MUs not served
+by any UAV H({(xMU
+n,t, yMU
+n,t )}n/∈Hm,t, ∀m∈M), a heatmap of
+MUs within the UAV’s coverage H({(xMU
+n,t, yMU
+n,t ) | cm,n,t =
+1}n∈N ), a cloud map heatmap Ht
+Cloud, the current backhaul
+capacity CFSO
+m,t , and the total number of MUs currently served
+by all UAVs |Hm,t|.
+In addition, let sIRS
+t
+denote the observation of the
+OIRS,
+which
+includes
+the
+locations
+of
+all
+UAVs
+(xUAV
+m,t , yUAV
+m,t )}m∈M,
+a
+heatmap
+of
+MUs
+not
+served
+by
+any
+UAV
+H({(xMU
+n,t, yMU
+n,t )}n/∈Hm,t, ∀m∈M),
+the
+heatmap
+of
+MUs
+within
+each
+UAV’s
+coverage
+H({(xMU
+n,t, yMU
+n,t )
+|
+cm,n,t
+=
+1}n∈N ), a cloud map
+heatmap Ht
+Cloud, the current backhaul capacity of all UAVs
+{CFSO
+m,t }m∈M, the number of users within each UAV’s
+coverage {|Nm,t|}m∈M, the number of MUs served by
+each UAV {|Hm,t|}m∈M, and allocated areas of the OIRS
+for each UAV {Σm,t
+IRS }m∈M, expressed in (19).
+2) Action Space
+Each UAV has a continuous action space, where its move-
+ment in time slot t is represented by the vector am
+t
+=
+[∆xUAV
+m,t , ∆yUAV
+m,t ]. Here, ∆xUAV
+m,t and ∆yUAV
+m,t denote the UAV’s
+displacement along the x- and y-axes, respectively. Thus, the
+action dimension for each UAV is 2. The UAV’s velocity in
+time slot t is given by vm,t =
+q
+(∆xUAV
+m,t )2 + (∆yUAV
+m,t )2.
+The OIRS action is characterized by the allocation of its
+elements among the UAVs. Specifically, the allocation is
+represented by the vector aIRS
+t
+= [e1,t
+IRS, e2,t
+IRS, . . . , eM,t
+IRS ], where
+e1,t
+IRS+e2,t
+IRS+· · ·+eM,t
+IRS = 1. Here, em,t
+IRS denotes the proportion
+of OIRS elements assigned to the m-th UAV in time slot t.
+3) Reward Function
+The reward of the m-th UAV in time slot t is defined as
+Rm
+t
+= |Hm,t| −ΛP(vm,t), where the term |Hm,t| incen-
+tivizes the UAV to maximize the number of served MUs,
+while P(vm,t) penalizes the UAV’s energy consumption. Λ
+is described in the problem formulation P, including the
+scaling factor Λscale and weighting factor Λweight.
+The reward of the OIRS in time slot t is formulated as
+RIRS
+t
+=
+M
+X
+m=1
+|Hm,t| −σ({|Nm,t| −|Hm,t|}m∈M)
+−σ
+ (
+CFSO,remain
+m,t
+100 × 106
+)
+m∈M
+!
+,
+(20)
+where the first term PM
+m=1 |Hm,t| encourages the OIRS
+to allocate its reflective area among UAVs so as to max-
+imize the total number of served MUs. The second term,
+σ({|Nm,t|−|Hm,t|}m∈M), represents the standard deviation
+of the number of unserved MUs within the coverage of
+UAVs. The third term, σ
+n
+Cm,tFSO,remain
+100×106
+o
+m∈M
+
+, represents
+the standard deviation of the remaining backhaul capacity
+CFSO,remain
+m,t
+, normalized in units of 100 Mbps. CFSO,remain
+m,t
+is
+the output of Algorithm.1. These second and third terms are
+introduced to promote fair OIRS element allocation among
+UAVs, preventing the OIRS from allocating an excessive
+8
+VOLUME ,
+
+
+=== PDF PAGE 9 ===
+sm
+t = [{(xUAV
+m,t , yUAV
+m,t )}m∈M, H({(xMU
+n,t, yMU
+n,t )}n/∈Hm,t∀m∈M), H({(xMU
+n,t, yMU
+n,t )|cm,n,t = 1}n∈N ), Ht
+Cloud, CFSO
+m,t ,
+M
+X
+m=1
+|Hm,t|].
+(18)
+sIRS
+t
+=
+
+{(xUAV
+m,t , yUAV
+m,t )}m∈M, H({(xMU
+n,t, yMU
+n,t )}n/∈Hm,t, ∀m∈M), H({(xMU
+n,t, yMU
+n,t ) | cm,n,t = 1}n∈N ),
+Ht
+Cloud, {CFSO
+m,t }m∈M, {|Nm,t|}m∈M, {|Hm,t|}m∈M, {Σm,t
+IRS }m∈M
+
+.
+(19)
+ …
+Centralized Training
+Actor M
+Decentralized
+Execution
+Critic M
+Actor 1
+Critic 1
+OIRS critic
+s,r
+a
+Actor m
+…
+…
+…
+…
+UAV displacement:
+s,r : Return observations, rewards
+a
+: Take actions
+: Modified tanh function
+: ReLU function
+: Tanh function
+s,r
+a
+s,r
+a
+UAV location
+Cloud map
+User movement
+OIRS
+End-to-end network environment
+Control
+Control
+IRS actor
+…
+…
+…
+OIRS allocation:
+Normalization
+…
+Critic
+OIRS actor
+Control
+…
+…
+…
+Q value
+…
+Global state and joint action
+Target
+actor m
+Target
+critic m
+Exploration noise
+Replay buffer 
+Actor m
+Critic m
+Soft update
+Soft update
+Take a minibatch of S samples
+OIRS exploration noise
+Actor optimizer
+Critic optimizer
+Update
+Actor loss  
+Update critic’s 
+parameters 
+Critic loss
+Target
+OIRS actor
+Target
+OIRS critic
+OIRS actor
+OIRS critic
+Soft update
+Soft update
+Actor optimizer
+Critic optimizer
+Update
+Critic loss
+Modified actor loss
+Actor loss  
+Q-value
+Action
+Q-value
+Action
+OIRS agent
+UAV agent
+z
+y
+x
+Control
+…
+…
+…
+Control
+Update critic’s 
+parameters 
+FIGURE 4: The proposed heterogeneous CTDE-based MADRL framework.
+number of elements to only a subset of UAVs. The standard
+deviation term contributes not only to fair resource allocation
+but also to overall optimization performance. Specifically,
+this term promotes a balanced allocation among UAVs by
+preventing excessive resource assignment to any single UAV,
+thereby avoiding backhaul capacity waste, which would
+otherwise reduce the total number of MUs that can be
+served. For example, in a system with three UAVs, two
+UAVs may still have surplus backhaul capacity, while the
+remaining UAV can serve only a subset of the MUs within
+its coverage area due to insufficient backhaul capacity. In
+this case, the OIRS reallocates reflecting elements from the
+two underutilized UAVs to the backhaul-constrained UAV,
+thereby increasing the total number of served MUs.
+C. Proposed MADDPG-based Framework
+As the optimization problem P requires a high level of
+cooperation among UAV placement and OIRS allocation
+decisions, CTDE-based MADRL is more suitable than DTE-
+based MADRL. In practice, previous DRL studies have
+shown that CTDE-based MADRL models achieve signifi-
+cantly higher rewards than DTE-based approaches especially
+in cooperative tasks [33], [34]. Additionally, our problem
+requires a continuous-control MADRL framework. However,
+VOLUME ,
+9
+
+
+=== PDF PAGE 10 ===
+Author et al.:
+4
+2
+0
+2
+4
+x
+1.0
+0.5
+0.0
+0.5
+1.0
+tanh(x)
+Saturation region
+Saturation region
+FIGURE 5: The saturation region of tanh function.
+20
+10
+0
+10
+20
+x
+1.0
+0.5
+0.0
+0.5
+1.0
+tanh(x)
+too steep
+(a)
+100
+50
+0
+50
+100
+x
+1.0
+0.5
+0.0
+0.5
+1.0
+tanh (x)
+more gentle
+(b)
+FIGURE 6: (a) Original tanh function; (b) Modified tanh
+function.
+only a few CTDE-based MADRL models support continuous
+control [35], such as MADDPG [34], MATD3 [36] and
+FACMAC [35], while most CTDE-based MADRL mod-
+els are primarily designed for discrete-control tasks, such
+as MAPPO, QMIX, VDN, QTRAN, and COMA. These
+discrete-control MADRL models would require action dis-
+cretization for UAV movement and OIRS allocation. Such
+discretization may significantly enlarge the joint action space
+and reduce control precision in the considered continu-
+ous AGIN optimization problem. In addition, among the
+continuous-control CTDE-based MADRL models, MAD-
+DPG is the most suitable candidate due to its lower complex-
+ity and competitive performance compared to MATD3 [36],
+FACMAC [35].
+Therefore, to address the network optimization problem P,
+we propose a heterogeneous CTDE-based MADRL frame-
+work built on MADDPG, as illustrated in Fig. 4. In this
+framework, we employ an enhanced MADDPG algorithm to
+substantially improve the performance of the original MAD-
+DPG model [34]. Owing to the highly dynamic and complex
+nature of the considered network environment, under which
+the conventional MADDPG fails to perform effectively,
+we introduce an improved MADDPG architecture. In this
+improved model, we revise the tanh activation functions and
+redesign the loss functions to mitigate the saturation problem
+[22, Sec. III-E] and redesign exploration noise to prevent
+invalid OIRS allocations during exploration. While the study
+in [22] investigated the saturation problem in single-agent
+0
+10
+20
+30
+40
+The velocity of UAV (m/s)
+0
+100
+200
+300
+400
+500
+600
+700
+800
+Power Consumption (W)
+FIGURE 7: Propulsion power consumption vs. the UAV
+velocity.
+Algorithm 2 Proposed MADDPG-based algorithm
+1: Initialize N noise, N noise
+IRS
+∈N(µ, σ2) for action explo-
+ration
+2: Initialize actor networks µ = {µθ1, ..., µθM , πθIRS}
+3: Initialize critic networks Q = {Qµ
+1 , ..., Qµ
+M, Qµ
+IRS}
+4: for episode = 1 to the-number-of-episodes Eepisode do
+5:
+Initialize initial state x1 = (s1
+1, ..., sM
+1 , sIRS
+1 )
+6:
+for t = 1 to max-episode-length T do
+7:
+for each agent m and agent of OIRS, select actions
+am
+t = µθm(sm
+t )+N noise, aIRS
+t
+= πθIRS(sIRS
+t
+)+N noise
+IRS
+w.r.t. the current policy and exploration
+8:
+Execute action at = (a1
+t, ..., aM
+t , aIRS
+t
+) and observe
+reward rt = {R1
+t , ..., RM
+t , RIRS
+t
+} and new state
+xt+1
+9:
+Store (xt, at, rt, xt+1) in replay buffer D
+10:
+for each agent m and OIRS agent do
+11:
+Sample a random minibatch of S
+samples
+(xj, aj, rj, xj+1) from D
+12:
+Update critic by minimizing the loss functions
+Lcritic(θm), Lcritic(θIRS), computed by (21) and
+(22)
+13:
+Update actor by minimizing the loss functions
+Lactor(θm), Lactor(θIRS), computed by (23) and
+(24)
+14:
+end for
+15:
+Update target network parameters for each agent m
+and agent of OIRS: θ′
+m ←ϵθm +(1−ϵ)θ′
+m, θ′
+IRS ←
+ϵθIRS + (1 −ϵ)θ′
+IRS
+16:
+end for
+17: end for
+DRL, our work focuses on mitigating this problem in multi-
+agent DRL, particularly within CTDE-based MADRL.
+Unlike the conventional MADDPG, which employs iden-
+tical actor network architectures for all agents, we adopt
+heterogeneous actor designs: UAV agents share the same
+actor architecture, while the OIRS agent uses a different
+architecture tailored to its action space. Figure 4 depicts the
+10
+VOLUME ,
+
+
+=== PDF PAGE 11 ===
+Lcritic(θm) = 1
+S
+X
+j
+(yj −Qµ
+m(xj, a1
+j, ..., , aM
+j , aIRS
+j
+))2; yj = Rm
+j + γQµ′
+m (xj, a′1
+j , ..., , a′M
+j , a′IRS
+j
+)|a′m=µ′
+θ′m(sm
+j ),a′IRS=π′
+θ′
+IRS
+(sIRS
+j )
+(21)
+Lcritic(θIRS) = 1
+S
+X
+j
+(yj −Qµ
+IRS(xj, a1
+j, ..., , aM
+j , aIRS
+j
+))2; yj = RIRS
+j
++ γQµ′
+IRS(xj, a′1
+j , ..., , a′M
+j , a′IRS
+j
+)|a′m=µ′
+θ′m(sm
+j ),a′IRS=π′
+θ′
+IRS
+(sIRS
+j )
+(22)
+proposed MADRL framework. The left block shows how the
+proposed MADRL interacts with the network environment.
+The two right blocks describe how the actor and critic of
+each agent are trained and updated. Agents 1 to M, which
+control the UAVs, are trained using the UAV agent block,
+while the OIRS agent, responsible for OIRS allocation, is
+trained using the OIRS agent block. Bottom blocks depict
+architectures of the critic and actor networks and illustrate
+how they control UAVs and OIRS. The framework operates
+according to Algorithm 2.
+Our proposed MADRL framework is built on the MAD-
+DPG model, which follows the
+CTDE paradigm. In this
+model, during training, the critic of each agent receives not
+only its own observations and actions but also those of
+the other agents, as illustrated in Fig. 4. After training is
+completed, however, the critics are no longer needed; each
+agent’s actor operates solely based on its own local obser-
+vations, as illustrated in Fig. 4. Our MADRL framework
+is trained using the Algorithm.2. The algorithm operates as
+follows. (i) The parameters of actor networks µ and critic
+networks Q, along with the exploration noise N noise, N noise
+IRS ,
+are initialized (lines 1–3). For each episode, the following
+steps are repeated. (ii) The initial state is initialized (line
+5). During the episode, actions at are executed and the
+corresponding rewards rt and next states xt+1 are observed
+(lines 7–8). The resulting transitions (xt, at, rt, xt+1) are
+stored in the replay buffer D (line 9). A random mini-
+batch is then sampled from the replay buffer D to train and
+update the critic and actor networks (lines 11–13). Finally,
+the parameters of the target networks µ′ are updated (line
+15). Regarding the critic network architecture, the UAV and
+OIRS agents have the same critic network, as illustrated
+in Fig. 4. The critic network consists of two hidden layers
+with ReLU activation functions, followed by a single node
+in the final layer that outputs the Q value. In contrast,
+the actor network architecture for the UAV agent differs
+from that of the OIRS agent. The UAV actor network has
+two hidden layers with tanh activation functions, and an
+output layer with a modified tanh activation, which limits
+the maximum value of the UAV’s movement. The UAV’s
+action, represented as [o1, o2], where o1, o2 ∈[−1, 1], is
+5Target network is a slowly updated copy of online networks used to
+stabilize training [34]. Here, variables or functions denoted by a prime
+symbol x′ correspond to the target networks, e.g., µ′, θ′
+m, ...
+computed by [∆xUAV
+m,t , ∆yUAV
+m,t ] = [o1, o2] × vm
+max. The actor
+network of the OIRS consists of two hidden layers without
+activation functions, and the output of the final layer is
+normalized so that the sum equals 1, as em,t
+IRS =
+pm
+PM
+i=1 pi ,
+where [p1, p2, . . . , pM] is the output of the final layer. The
+number of elements Ξm,t allocated m-th UAV is computed
+by the expression Ξm,t = ⌊Eelements × em,t
+IRS ⌋6.
+Regarding the modification of tanh activation function,
+the original tanh function tanh(x) =
+ex−e−x
+ex+e−x exhibits a
+steep slope, causing the output to quickly enter the saturation
+region, depicted in Fig. 5. To mitigate this issue, we intro-
+duce an additional scaling parameter ζ to control the slope
+of the activation. The modified tanh function is defined as
+tanhζ(x) = eζx−e−ζx
+eζx+e−ζx , which allows smoother gradients and
+reduces the likelihood of premature saturation. In Fig. 6, the
+original tanh function is too steep and has a narrow non-
+saturation region. In contrast, the proposed modified tanh
+function is smoother and provides a wider non-saturation
+region.
+Also, we propose a modification to the UAV agent’s actor
+loss function to mitigate the saturation problem. Specifically,
+we incorporate a penalty term into the actor loss functions of
+all UAV agents. For each agent m, the actor loss is defined
+as
+Lactor(θm) = −Qµ
+m(xj, a1
+j, . . . , aM
+j , aIRS
+j
+)
+|
+{z
+}
+Original loss
++ ω[ max(zm
+t −X, 0) + max(−zm
+t −X, 0)]
+|
+{z
+}
+Penalty term
+,
+(23)
+where am
+t = tanhζ(zm
+t ) and zm
+t
+is the pre-activation value
+of am
+t . X is the saturation threshold used to penalize zm
+t
+when zm
+t
+falls into the saturation region. ω controls the
+importance of the penalty term. For the OIRS agent, the
+actor loss function does not include the penalty term and is
+expressed as
+Lactor(θIRS) = −Qµ
+IRS(xj, a1
+j, . . . , aM
+j , aIRS
+j
+).
+(24)
+Exploration
+noise
+is
+commonly
+used
+to
+enhance
+the
+exploration
+capability
+of
+DRL
+models.
+However,
+in
+our
+framework,
+the
+action
+of
+the
+OIRS
+agent,
+6After rounding down when computing the number of allocated OIRS
+elements, some elements may remain. These remaining elements are then
+allocated, in order, to the UAVs with the fewest allocated elements.
+VOLUME ,
+11
+
+
+=== PDF PAGE 12 ===
+Author et al.:
+0
+100
+200
+300
+400
+500
+Training episode
+1
+0
+1
+2
+3
+Reward (105)
+Proposed CTDE-MADRL
+CTDE-MADRL with tanh function modification
+CTDE-MADRL with actor loss modification
+FIGURE 8: Performance comparison of the proposed CTDE-
+based MADRL under the exclusion of each modification.
+aIRS
+t
+= [e1,t
+IRS, e2,t
+IRS, . . . , eM,t
+IRS ], must satisfy the constraint
+PM
+m=1 em,t
+IRS
+=
+1. Adding exploration noise may vio-
+late this constraint, resulting in PM
+m=1 em,t
+IRS ̸= 1. There-
+fore, N noise
+IRS
+is redefined as N noise
+IRS
+= [n1, n2, . . . , nM],
+where nM
+=
+−(n1 + n2 + · · · + nM−1) and ni
+∼
+N(µ, σ2)∀i ∈{1, 2, . . . , M −1}. This construction guaran-
+tees that PM
+m=1 em,t
+IRS = 1 after adding the exploration noise,
+i.e., aIRS
+t
+⊕N noise
+IRS .
+V. Simulation Results and Discussions
+In this section, we conduct simulations to assess the per-
+formance of the considered OIRS-aided AGIN under the
+proposed heterogeneous CTDE-based MADRL framework.
+A. Parameter Settings
+In simulations, M
+=
+3 UAVs are deployed within a
+2 km × 2 km target area containing N = 300 MUs. The
+spatial distribution of MUs follows a Gaussian distribution
+N(1000, 300), characterized by a mean of 1000 and a
+variance of 300. Additionally, 20% of the MUs follow
+the Gauss-Markov mobility model. We consider a total of
+T = 1000 time slots, where each slot has a duration of τ = 1
+second. During the training phase, the UAVs are initialized
+at randomly generated positions.
+The parameters regarding the backhaul link, access link,
+and UAV energy models are described in Table 4. The
+moving clouds affecting the HAP-to-UAV links are rep-
+resented using Gaussian-distributed CLWC values over a
+cloud map of size 50 × 50, which drifts from right to left
+at a velocity of 5 m/s. The CLWC parameters follow the
+characteristics of Cumulus clouds, with a droplet concentra-
+tion of Nc = 250 cm−3 and a dynamic CLWC range of
+M c
+m,t ∈[1,15] mg/m3.
+TABLE 4: Simulation parameter settings.
+Backhaul
+Description
+Value
+hHAP
+HAP’s altitude
+20 (km)
+du
+m,t
+Ground-HAP distance
+40 (km)
+Pm,T
+Transmitted power
+1 (W)
+wu
+o
+Beam waist
+0.02(m)
+λ1, λ2, λ3
+Optical wavelengths
+1550, 1555, 1560 (nm)
+σ2
+FSO
+Noise power
+10−5 (W)
+Bm,FSO
+FSO bandwidth
+1 (GHz)
+Eelements
+Number of OIRS elements
+100
+Lx × Ly
+OIRS’s size
+25(cm) × 25 (cm)
+am
+UAV detector radius
+10 (cm)
+ηm
+Detector responsivity
+0.9
+Access
+Description
+Value
+hUAV
+m
+UAV’s altitude
+350 (m)
+vm
+max
+UAV’s maximum velocity
+40 (m/s)
+φm
+UAV’s half divergence angle
+π/4 (rad)
+BRF
+RF bandwidth per MU
+20 (MHz)
+f1,c, f2,c, f3,c
+UAVs’ carrier frequencies
+5,6,7 (Hz)
+P UAV
+m,max
+UAV’s max transmit power
+10 (W)
+αm
+Path loss exponent
+2.7
+σ2
+RF
+Noise power
+10−14 (W)
+RRF
+target
+Targeted data rate of MUs
+100 (Mbps)
+κ, ψL, ψM
+Rician channel’s parameters
+50,1,CN(0, 1)
+UAV Energy
+Description
+Value
+δ
+Profile drag coefficient
+0.012
+ρ
+Air density
+1.225 (kg/m3)
+Ω
+Blade angular velocity
+300 (rad/s)
+R
+Rotor radius
+0.4 (m)
+k
+Incremental induced power
+correction
+0.1
+W
+Aircraft weight
+20 (N)
+A
+Rotor disc area
+0.503 (m2)
+d0
+Fuselage drag ratio
+0.6
+TABLE 5: Training complexity comparison among CTDE-
+based MADRL models.
+CTDE MADRL Algorithm
+Training Complexity
+Proposed CTDE MADRL
+O
+ S(M + 1)
+ P µ + P Q
+MATD3 [36]
+O
+ S(M + 1)
+ P µ + 2P Q
+FACMAC [35]
+O
+ S(M + 1)
+ P µ + P Q
++ SP mix
+Regarding the proposed MADRL framework, M = 3
+agents control the movements of the three UAVs, and an
+additional agent allocates OIRS elements. The actor and
+critic networks for both the UAVs and the OIRS are trained
+using the Adam optimizer with a learning rate of 0.0005.
+The replay buffer D has a capacity of 106 transitions. The
+initial exploration noise is set to N noise
+1
+= N(µ = 0, σ2 =
+0.2), N noise
+IRS,1 = N(µ = 0, σ2 = 0.2) and is gradually
+decayed over 3 × 106 steps to a minimum value of 0.05.
+We use a discount factor of γ = 0.95 and a batch size
+12
+VOLUME ,
+
+
+=== PDF PAGE 13 ===
+0
+100
+200
+300
+400
+500
+Training episode
+1
+0
+1
+2
+3
+Reward (105)
+Proposed CTDE-MADRL
+DTE-MADRL
+SADRL
+Conventional CTDE-MADRL
+FIGURE 9: Comparison of reward convergence among the
+proposed MADRL model and benchmark methods.
+0
+100
+200
+300
+400
+500
+Training episode
+1
+0
+1
+2
+3
+Reward (105)
+Conventional FACMAC
+Conventional MATD3
+FACMAC with proposed modifications
+MATD3 with proposed modifications
+Proposed CTDE-MADRL
+FIGURE 10: Comparison of reward convergence between
+the proposed CTDE-based MADRL model and other CTDE-
+based MADRL models.
+of S = 1024. All actor and critic networks are initialized
+using orthogonal initialization. For the UAV agent, both the
+actor and critic networks consist of two hidden layers with
+64 neurons each. Similarly, for the OIRS agent, the actor
+and critic networks each contain two hidden layers with 64
+neurons. Our proposed MADRL framework is trained for
+Eepisode = 500 episodes, with each episode consisting of T =
+1000 steps. Scaling parameters Λscaling = 0.1, Λweight = 0.1.
+tanh modification parameter ζ = 0.05. Saturation threshold
+X = 40.
+0
+500
+1000
+1500
+2000
+x(m)
+0
+500
+1000
+1500
+2000
+y(m)
+UAV1
+UAV2
+UAV3
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+CLWC
+(a) Time slot t = 5
+UAV1
+UAV2
+UAV3
+0
+10
+20
+30
+40
+50
+60
+Number of OIRS elements
+49
+10
+41
+(b) Time slot t = 5
+0
+500
+1000
+1500
+2000
+x(m)
+0
+500
+1000
+1500
+2000
+y(m)
+UAV1
+UAV2
+UAV3
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+CLWC
+(c) Time slot t = 500
+UAV1
+UAV2
+UAV3
+0
+10
+20
+30
+40
+50
+60
+Number of OIRS elements
+24
+40
+36
+(d) Time slot t = 500
+0
+500
+1000
+1500
+2000
+x(m)
+0
+500
+1000
+1500
+2000
+y(m)
+UAV1
+UAV2
+UAV3
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+CLWC
+(e) Time slot t = 1000
+UAV1
+UAV2
+UAV3
+0
+10
+20
+30
+40
+50
+60
+Number of OIRS elements
+35
+28
+37
+(f) Time slot t = 1000
+FIGURE 11: Trajectories of UAVs and OIRS element allo-
+cation to each UAV for different time slots. Squares, circles,
+and triangles represent UAVs, MUs served by UAVs, and
+MUs served by the HAP, respectively.
+B. Benchmark Schemes
+To highlight the performance of our proposed framework,
+we consider three benchmark groups:
+• First group7 includes (i) CTDE-based MADRL with
+tanh modification and (ii) CTDE-based MADRL with
+actor loss modification. This is to highlight the need to
+modify both the tanh and actor loss functions.
+7In this comparison, the main improvements arise from the tanh modi-
+fication and the actor loss, while the exploration noise modification for the
+OIRS agent could not be removed because doing so would result in invalid
+actions.
+VOLUME ,
+13
+
+
+=== PDF PAGE 14 ===
+Author et al.:
+0
+200
+400
+600
+800
+1000
+Time Slot (s)
+0
+20
+40
+60
+80
+Remaining backhaul (102 Mbps)
+0
+200
+400
+600
+800
+1000
+Time Slot (s)
+0
+10
+20
+30
+40
+50
+60
+70
+Number of unserved MUs
+0
+20
+40
+60
+80
+Number of allocated OIRS elements
+0
+20
+40
+60
+80
+Number of allocated OIRS elements
+(a) UAV 1
+0
+200
+400
+600
+800
+1000
+Time Slot (s)
+0
+20
+40
+60
+80
+Remaining backhaul (102 Mbps)
+0
+200
+400
+600
+800
+1000
+Time Slot (s)
+0
+10
+20
+30
+40
+50
+60
+70
+Number of unserved MUs
+0
+20
+40
+60
+80
+Number of allocated OIRS elements
+0
+20
+40
+60
+80
+Number of allocated OIRS elements
+(b) UAV 2
+0
+200
+400
+600
+800
+1000
+Time Slot (s)
+0
+20
+40
+60
+80
+Remaining backhaul (102 Mbps)
+0
+200
+400
+600
+800
+1000
+Time Slot (s)
+0
+10
+20
+30
+40
+50
+60
+70
+Number of unserved MUs
+0
+20
+40
+60
+80
+Number of allocated OIRS elements
+0
+20
+40
+60
+80
+Number of allocated OIRS elements
+(c) UAV 3
+FIGURE 12: The proposed OIRS element allocation over time for different UAVs.
+(a)
+(b)
+FIGURE 13: Trajectories of UAVs with (a) equal OIRS allo-
+cation and (b) the proposed DRL-assisted OIRS allocation.
+Squares, circles, and triangles represent UAVs, MUs served
+by UAVs, and MUs served by the HAP, respectively.
+• Second group8 is used for learning model comparison,
+consisting of (i) DTE-MADRL, (ii) SADRL, and (iii)
+conventional CTDE-MADRL. Here, DTE-MADRL de-
+notes a decentralized scheme without sharing global
+observations or joint actions during training, where
+multiple DDPG agents independently control each UAV
+and the OIRS. In contrast, SADRL employs a single
+8Our proposed modifications are applied to DTE-MADRL and SADRL,
+but not to the conventional CTDE-MADRL.
+DDPG agent to jointly control all UAVs and the OIRS.
+Conventional CTDE-MADRL refers to the baseline
+CTDE framework without the proposed modifications.
+• Third group 9 is used for the comparison of our pro-
+posed CTDE-based MADRL with other CTDE-based
+MADRL models, including MATD3 and FACMAC.
+Specifically, MATD3 employs decentralized actors and
+twin centralized critics for each agent [36], whereas
+FACMAC uses decentralized actors together with per-
+agent utility networks and a mixing network that com-
+bines them into a global value function [35]. This is to
+demonstrate that the proposed CTDE-based MADRL
+framework built upon MADDPG is the most suitable
+candidate among CTDE-based MADRL models for
+continuous action spaces.
+• Fourth group aims to highlight the effectiveness
+of DRL-based OIRS allocation, where the proposed
+CTDE-MADRL without the OIRS agent is used as a
+benchmark.
+C. Performance Evaluation and Comparison
+First, we highlight the importance of modifying both the
+tanh and actor loss functions in CTDE-based MADRL for
+dynamic networks. In particular, Fig. 8 compares the reward
+convergence of the proposed CTDE-based MADRL with that
+of the first group’s benchmark schemes. As seen, without the
+actor loss modification, the achievable reward is considerably
+degraded. Moreover, the CTDE-based MADRL becomes
+nearly ineffective when only the actor loss function is
+modified. This results in the need for the modification of both
+the tanh and actor loss functions in dynamic networks, for
+9Our proposed modifications are applied to MATD3 and FACMAC.
+14
+VOLUME ,
+
+
+=== PDF PAGE 15 ===
+0
+200
+400
+600
+800
+1000
+Time slot (s)
+1000
+2000
+3000
+4000
+5000
+Energy consumption (J)
+DRL-assisted OIRS allocation
+Equal OIRS allocation
+(a)
+DRL-assisted
+ OIRS allocation
+Equal OIRS 
+allocation
+0
+200
+400
+600
+800
+1000
+1200
+Average Energy Consumption (J)
+493.9
+969.2
+(b)
+0
+200
+400
+600
+800
+1000
+Time slot (s)
+100
+120
+140
+160
+180
+200
+Number of MUs served by UAVs
+DRL-assisted OIRS allocation
+Equal OIRS allocation
+(c)
+DRL-assisted
+ OIRS allocation
+Equal OIRS 
+allocation
+0
+25
+50
+75
+100
+125
+150
+175
+200
+Average number of served MUs
+166
+156
+(d)
+FIGURE 14: Performance comparison with (a) energy consumption over time, (b) average energy consumption, (c) number
+of served MUs over time, and (d) average number of served MUs.
+which our proposed scheme achieves significantly improved
+performance.
+Next, Fig. 9 further demonstrates the effectiveness of
+the proposed CTDE-based MADRL by comparing it with
+the conventional DRL approaches in the second group’s
+benchmark schemes. As is expected, the proposed framework
+outperforms conventional approaches in both reward conver-
+gence and stability. After convergence, while the rewards
+of DTE-MADRL and SADRL continue to fluctuate, the
+proposed CTDE-MADRL remains stable and consistently
+achieves a reward of 3 × 105. Here, the moderate and
+fluctuating reward of DTE-MADRL indicates insufficient
+cooperation among agents. Also, the low reward of SADRL
+is due to combining the rewards of UAV and OIRS agents
+despite their distinct, task-specific objectives, demonstrating
+that SADRL is unsuitable for such integrated networks.
+Moreover, the conventional CTDE-MADRL achieves a sig-
+nificantly lower reward due to the saturation problem, high-
+lighting the importance of the proposed modifications to the
+CTDE-MADRL model.
+Additionally, the computational complexity of a MADRL
+model mainly stems from the parameter complexity of the
+actor and critic networks and the number of agents [37].
+Since we do not modify the actor or critic architectures
+and continue to employ the same traditional neural network
+structures as in conventional MADDPG, the computational
+complexity of the proposed MADDPG remains largely com-
+parable to that of the original MADDPG. For each agent i, let
+P µ
+i and P Q
+i
+represent the numbers of trainable parameters in
+the actor and critic networks, respectively. During centralized
+training, each agent updates both its actor and critic networks
+using a mini-batch of size S. Therefore, with M + 1 agents
+(M UAV agents and 1 OIRS agent), the computational com-
+plexity per training iteration is O
+ S(M + 1)
+ P µ + P Q
+.
+During decentralized execution, only actors are employed,
+the complexity per execution time step is O ((M + 1)P µ).
+The above complexity analysis indicates that the proposed
+CTDE-based MADRL framework scales linearly with both
+the number of agents and the parameter sizes of the actor
+and critic networks. This linear scaling is particularly ad-
+vantageous for multi-UAV systems, where the number of
+cooperative agents may increase as the network expands.
+Therefore, the proposed framework remains computationally
+tractable even when the number of UAVs increases mod-
+erately. Overall, the complexity analysis confirms that the
+proposed CTDE-based MADRL framework preserves the
+computational efficiency of the original MADDPG while
+providing significantly improved optimization performance
+and maintaining good scalability as the number of UAVs
+and OIRSs increases.
+Figure 10 demonstrates the reward convergence of the
+proposed CTDE-based MADRL model and other state-of-
+the-art CTDE-based MADRL models. As shown, the pro-
+posed CTDE-based MADRL frameworks built on MADDPG
+and MATD3 achieve the same converged reward, whereas
+FACMAC attains a significantly lower converged reward.
+This indicates that our modifications remain effective when
+applied to MATD3, but do not perform as well when applied
+to FACMAC. In terms of training complexity, MATD3 has
+higher complexity because it employs two critic networks,
+resulting in an additional complexity of O(2P Q). Similarly,
+FACMAC has higher training complexity due to the use
+of both an individual critic network and a mixing critic
+network, resulting in an additional complexity of O(2P mix).
+In contrast, the proposed MADDPG-based framework uses
+only one critic network per agent, resulting in an addi-
+tional complexity of O(P Q). A comparison of the training
+complexities of these CTDE-based MADRL models is pro-
+vided in Table 5. These results indicate that the proposed
+CTDE-based MADRL framework built on MADDPG is the
+most suitable candidate among state-of-the-art CTDE-based
+MADRL algorithms for continuous action spaces, offering
+the best balance between reward convergence and training
+complexity.
+Figure 11 depicts the trajectories of UAVs and the cor-
+responding allocation of OIRS elements to each UAV over
+VOLUME ,
+15
+
+
+=== PDF PAGE 16 ===
+Author et al.:
+different time slots. At time slot t = 5, UAV1 and UAV3
+initiate movement toward the MU cluster, where they serve
+more MUs than UAV2. Accordingly, the numbers of OIRS
+elements allocated to UAV1, UAV2, and UAV3 are 49, 41,
+and 10, respectively. At time slot t = 500, UAV1 is located
+in an area without cloud coverage, while UAV2 and UAV3
+are in the regions of dense and light cloud coverage, respec-
+tively. Under these cloud conditions, more OIRS elements
+are allocated to UAV2 with 40, followed by UAV3 and
+UAV1 with 36 and 24, respectively. At the final time slot
+t = 1000, the number of MUs served by each UAV and the
+cloud density at their respective locations are approximately
+identical. As a result, the differences in the number of
+allocated OIRS elements among the UAVs are negligible.
+This figure indicates that the allocation of OIRS elements
+depends on both cloud density and MU distribution at the
+UAVs’ positions. It is worth noting that the proposed CTDE-
+based MADRL framework requires only a few milliseconds
+for inference at each time step, while significant variations in
+cloud conditions and MU mobility typically happen on the
+order of seconds. This indicates that the proposed framework
+is capable of adapting to environmental changes in practical
+AGIN scenarios through real-time decision making.
+In addition to Fig. 11, we further illustrate in Fig. 12 the
+allocation of OIRS elements for each UAV over time with
+respect to the remaining backhaul capacity and the number of
+unserved MUs associated with each UAV. As observed, the
+allocation of OIRS elements is proportional to the number of
+MUs served by each UAV. Particularly, when the number of
+served MUs decreases due to backhaul capacity limitations,
+additional OIRS elements are allocated to compensate; oth-
+erwise, fewer elements are allocated. In contrast, an inverse
+relationship is seen between the allocated OIRS elements
+and the remaining backhaul capacity, whereby a reduction
+in remaining backhaul capacity leads to an increase in OIRS
+allocation, and vice versa.
+We now confirm the effectiveness of the OIRS element
+allocation using the proposed DRL framework by comparing
+it with the conventional equal-allocation scheme [23] in
+Fig. 13. Specifically, Fig. 13 illustrates the trajectories of
+all UAVs at time slot t = 1000. As shown in Fig. 13(a),
+under the conventional equal-allocation scheme, UAVs tend
+to move frequently to avoid cloud coverage, leading to
+increased energy consumption. In contrast, with the DRL-
+assisted OIRS allocation, UAVs require less movement to
+mitigate the impact of cloud coverage, thanks to the effective
+OIRS allocation, as depicted in Fig. 13(b).
+Finally, we further emphasize the necessity of the pro-
+posed DRL-assisted OIRS allocation framework over time
+in terms of both UAV energy consumption and the number
+of served MUs, as illustrated in Fig. 14. In particular,
+Fig. 14a depicts the average energy consumption of all UAVs
+over time. Using this figure, we can see that UAVs with
+equal OIRS allocation consume significantly more energy
+than those with DRL-assisted OIRS allocation at almost
+all time slots, as they move more frequently and at higher
+velocities. Also, as shown in Fig. 14b, the average energy
+consumption of UAVs with DRL-assisted OIRS allocation
+is significantly lower than that of equal OIRS allocation.
+Here, DRL-assisted OIRS allocation reduces average energy
+consumption by approximately 500 J compared to the equal
+OIRS allocation. On the other hand, the OIRS allocation
+enables a higher number of served MUs compared to the
+equal OIRS allocation. Figure 14c illustrates that the average
+number of MUs served by all UAVs with DRL-assisted OIRS
+allocation is higher than that with equal OIRS allocation at
+almost all time slots. As depicted in Fig. 14d, DRL-assisted
+OIRS allocation increases the number of served MUs by
+approximately 10 MUs.
+VI. Concluding Remarks and Future Directions
+This paper presented the AGIN architecture, which inte-
+grates the OIRS-aided HAP for FSO backhaul with multiple
+UAV-mounted BSs for RF last-mile access. Comprehen-
+sive channel models for both HAP-based FSO backhaul
+and UAV-based RF access links, together with the UAV
+energy consumption model, were provided. The objective
+was to jointly maximize the number of served MUs and
+minimize UAV energy consumption by optimizing UAV
+placement and OIRS element allocation. To this end, we
+proposed an improved heterogeneous CTDE-based MADRL
+framework based on the MADDPG algorithm. Simulation
+results demonstrated that the proposed improved CTDE-
+based MADRL outperformed the conventional CTDE-based
+MADRL, DTE-based MADRL, and SADRL approaches
+under the dynamic network environments. Furthermore, we
+confirmed the effectiveness of the proposed DRL-based
+OIRS element allocation in increasing the number of served
+MUs while minimizing UAV energy consumption compared
+to the conventional equal-allocation scheme.
+Building upon these findings, future work may explore
+the application of heterogeneous CTDE-based MADRL to
+broader network optimization problems that require coop-
+erative decision-making and real-time implementation. In
+addition, further efforts can focus on extending and gen-
+eralizing the proposed modifications to address the sat-
+uration problem and invalid actions in MADRL models.
+Moreover, investigating advanced enhancements such as pre-
+dictive learning, multi-HAP, large-scale network scenarios,
+and practical constraints (e.g., imperfect CSI, inter-UAV
+interference, handover overhead, and hardware limitations)
+would further improve the robustness and applicability of
+AGIN architectures while exploiting the potential of OIRS
+to enhance network performance.
+REFERENCES
+[1] C.-T. Liu and J.-Y. Pan, “An overview of mobility enhancements
+for non-terrestrial networks in 3GPP 5G NR system,” IEEE Commun.
+Standards Mag., pp. 1–1, 2025.
+[2] M. M. Azari, S. Solanki, S. Chatzinotas, O. Kodheli, H. Sallouha,
+A. Colpaert, J. F. M. Montoya, S. Pollin, A. Haqiqatnejad, and
+A. Mostaani, “Evolution of non-terrestrial networks from 5G to 6G:
+16
+VOLUME ,
+
+
+=== PDF PAGE 17 ===
+A survey,” IEEE Commun. Surv. Tutor., vol. 24, no. 4, pp. 2633–2672,
+2022.
+[3] S. Shang, E. Zedini, and M.-S. Alouini, “Enhancing non-terrestrial
+network performance with free-space optical links and intelligent
+reflecting surfaces,” IEEE Trans. Wireless Commun., 2024.
+[4] H. Ajam, M. Najafi, V. Jamali, and R. Schober, “Optical IRSs: Power
+scaling law, optimal deployment, and comparison with relays,” IEEE
+Trans. Commun., vol. 72, no. 2, pp. 954–970, Feb. 2024.
+[5] T. Naous, M. Itani, M. Awad, and S. Sharafeddine, “Reinforcement
+learning in the sky: A survey on enabling intelligence in NTN-based
+communications,” IEEE Access, vol. 11, pp. 19 941–19 968, 2023.
+[6] F. Meng, P. Chen, L. Wu, and J. Cheng, “Power allocation in multi-user
+cellular networks: Deep reinforcement learning approaches,” IEEE
+Trans. Wireless Commun., vol. 19, no. 10, pp. 6255–6267, 2020.
+[7] P. Luong, F. Gagnon, L.-N. Tran, and F. Labeau, “Deep reinforcement
+learning-based resource allocation in cooperative uav-assisted wireless
+networks,” IEEE Trans. Wireless Commun., vol. 20, no. 11, pp. 7610–
+7625, 2021.
+[8] W. Zhao, S. Cui, W. Qiu, Z. He, Z. Liu, X. Zheng, B. Mao, and
+N. Kato, “A survey on drl-based uav communications and networking:
+Drl fundamentals, applications and implementations,” IEEE Commun.
+Surv. Tutor., 2025.
+[9] Y. Bai, H. Zhao, X. Zhang, Z. Chang, R. J¨antti, and K. Yang, “Toward
+autonomous multi-UAV wireless networks: A survey of reinforcement
+learning-based approaches,” IEEE Commun. Surveys Tuts., vol. 25,
+no. 4, pp. 3038–3067, 2023.
+[10] Y. Guan, S. Zou, H. Peng, W. Ni, Y. Sun, and H. Gao, “Cooperative
+UAV trajectory design for disaster area emergency communications:
+A multi-agent PPO method,” IEEE Internet Things J., 2023.
+[11] M. Nikooroo, O. Esrafilian, Z. Becvar, and D. Gesbert, “Optimization
+of placement and resource allocation in uav-aided multihop wireless
+networks,” IEEE Internet of Things Journal, vol. 11, no. 11, pp.
+20 051–20 071, 2024.
+[12] H. Zhang, Z. Qi, J. Li, A. Aronsson, J. Bosch, and H. H. Olsson,
+“5G network on wings: A deep reinforcement learning approach to
+the UAV-based integrated access and backhaul,” IEEE Trans. Mach.
+Learn. Commun. Netw., 2024.
+[13] Y. Bai, Z. Chang, and R. J¨antti, “Deep reinforcement learning-enabled
+dynamic UAV deployment and power control in multi-UAV wireless
+networks,” in Proc. IEEE Int. Conf. Commun. (ICC), 2024, pp. 1286–
+1290.
+[14] T. V. Nguyen, H. D. Le, V. Mai, S. R. Swaminathan, and A. T.
+Pham, “Deep reinforcement learning for UAV placement over mixed
+FSO/RF-based non-terrestrial networks,” in Proc. IEEE VTS Asia
+Pacific Wireless Commun. Symp. (APWCS), 2024, pp. 1–5.
+[15] Y. Wang, J. Farooq, H. Ghazzai, and G. Setti, “Multi-UAV placement
+for integrated access and backhauling using LLM-driven optimization,”
+in Proc. IEEE Wireless Commun. Netw. Conf. (WCNC), 2025, pp. 1–6.
+[16] M. Nafees, M. Baniasadi, J. R. Hopgood, M. Safari, and J. S.
+Thompson, “Integrated sensing and communication for UAV trajectory
+optimization in mixed FSO-RF networks in dynamic weather condi-
+tions,” in Proc. IEEE Wireless Commun. Netw. Conf. (WCNC), 2025,
+pp. 1–6.
+[17] R. Salam, V. A. Bohara, and A. Srivastava, “Smart element allocation
+strategies for dynamic optical IRS in underwater wireless communi-
+cation,” IEEE Trans. Veh. Technol., 2024.
+[18] N. An, F. Yang, L. Cheng, J. Song, and Z. Han, “IRS-assisted
+aggregated VLC-RF system: Resource allocation for energy efficiency
+maximization,” IEEE Trans. Wireless Commun., vol. 23, no. 10, pp.
+12 578–12 593, 2024.
+[19] K. D. Dang, H. D. Le, C. T. Nguyen, V. Mai, and A. T. Pham, “Spatial
+resource allocation for optical IRS-aided HAP-assisted multi-UAV
+networks,” in Proc. IEEE 101st Veh. Technol. Conf. (VTC-Spring),
+2025, pp. 1–6.
+[20] Y. Zhong, J. G. Kuba, X. Feng, S. Hu, J. Ji, and Y. Yang,
+“Heterogeneous-agent reinforcement learning,” Journal of Machine
+Learning Research, vol. 25, no. 32, pp. 1–67, 2024.
+[21] J. Yu, L. Liang, C. Guo, Z. Guo, S. Jin, and G. Y. Li, “Heterogeneous
+multi-agent reinforcement learning for distributed channel access in
+wlans,” IEEE Transactions on Cognitive Communications and Net-
+working, 2026.
+[22] R. Ding, F. Gao, and X. S. Shen, “3D UAV trajectory design and
+frequency band allocation for energy-efficient and fair communica-
+tion: A deep reinforcement learning approach,” IEEE Trans. Wireless
+Commun., vol. 19, no. 12, pp. 7796–7809, 2020.
+[23] H. V. Le, H. D. Le, D.-T. Dao, and A. T. Pham, “Multi-agent deep
+reinforcement learning for uav placement in optical irs-aided aerial
+networks,” in Proc. 30th Asia-Pacific Conference on Communications
+(APCC).
+IEEE, 2025, pp. 1–6.
+[24] SoftBank Corp., “High-altitude platform station,” 2026, accessed:
+May 14, 2026. [Online]. Available: https://www.softbank.jp/en/corp/
+philosophy/technology/special/ntn-solution/haps/
+[25] T. V. Nguyen, H. D. Le, V. Mai, S. R., and A. T. Pham, “Deep
+reinforcement learning for UAV placement over mixed FSO/RF-based
+non-terrestrial networks,” in IEEE VTS Asia Pacific Wireless Commun.
+Symp., 2024, pp. 1–5.
+[26] Z.-K. Weng and et al., “High-mobility 40-Gbps free-space optical link
+by a three-stage high-speed beam stabilizer and 2-D photodetector
+array based diversity reception,” Optica Opt. Express, no. 33, pp.
+16 820–16 832, 2025.
+[27] M. Najafi, B. Schmauss, and R. Schober, “Intelligent reflecting sur-
+faces for free space optical communication systems,” IEEE Trans.
+Comm., vol. 69, no. 9, pp. 6134–6151, Sept. 2021.
+[28] H. D. Le, H. D. Nguyen, C. T. Nguyen, and A. T. Pham, “FSO-based
+space-air-ground integrated vehicular networks: Cooperative HARQ
+with rate adaptation,” IEEE Trans. Aerosp. Electron. Syst., vol. 59,
+no. 4, pp. 4076–4091, Aug. 2023.
+[29] H. D. Le, T. V. Nguyen, and A. T. Pham, “Cloud attenuation statistical
+model for satellite-based FSO communications,” IEEE Antennas Wirel.
+Propag. Lett., vol. 20, no. 5, pp. 643–647, May 2021.
+[30] Z. Wang, L. Duan, and R. Zhang, “Adaptive deployment for UAV-
+aided communication networks,” IEEE Trans. Wireless Commun.,
+vol. 18, no. 9, pp. 4531–4543, Sept. 2019.
+[31] Z. Hu, S. Liu, D. Zhou, F. Xu, J. Ma, and X. Ning, “Deep rein-
+forcement learning for task offloading and resource allocation in UAV
+cluster-assisted mobile-edge computing,” IEEE J. Miniatur. Air Space
+Syst., vol. 6, no. 2, pp. 92–102, Jun. 2025.
+[32] Y. Zeng, J. Xu, and R. Zhang, “Energy minimization for wireless com-
+munication with rotary-wing UAV,” IEEE Trans. Wireless Commun.,
+vol. 18, no. 4, pp. 2329–2345, 2019.
+[33] C. Yu, A. Velu, E. Vinitsky, J. Gao, Y. Wang, A. Bayen, and
+Y. Wu, “The surprising effectiveness of PPO in cooperative multi-
+agent games,” Adv. Neural Inf. Process. Syst., vol. 35, pp. 24 611–
+24 624, 2022.
+[34] R. Lowe, Y. Wu, A. Tamar, J. Harb, P. Abbeel, and I. Mordatch,
+“Multi-agent actor-critic for mixed cooperative-competitive environ-
+ments,” Adv. Neural Inf. Process. Syst., vol. 30, 2017.
+[35] B. Peng, T. Rashid, C. S. de Witt, P.-A. Kamienny, P. H. S. Torr,
+W. B¨ohmer, and S. Whiteson, “Facmac: Factored multi-agent cen-
+tralized policy gradients,” Advances in Neural Information Processing
+Systems, vol. 34, pp. 12 208–12 221, 2021.
+[36] J. Ackermann, V. Gabler, T. Osa, and M. Sugiyama, “Reducing
+overestimation bias in multi-agent domains using double centralized
+critics,” arXiv preprint arXiv:1910.01465, 2019.
+[37] W. Li, S. Li, J. Hao, Q. Wu, and R. Wang, “Efficient task offloading
+and resource allocation in haps-assisted leo satellite networks: A
+mappo with exact potential game approach,” IEEE Internet Things
+J., 2025.
+VOLUME ,
+17

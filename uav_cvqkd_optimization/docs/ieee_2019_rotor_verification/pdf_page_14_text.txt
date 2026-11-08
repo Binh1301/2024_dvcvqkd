@@ -1,0 +1,103 @@
+2342
+IEEE TRANSACTIONS ON WIRELESS COMMUNICATIONS, VOL. 18, NO. 4, APRIL 2019
+path by solving a linear program, similarly as in
+[1]. It is
+ﬁrstly observed from Fig. 7 that in terms of both energy
+consumption and required mission completion time, “hovering
+at the geometric center” outperforms “hovering above GNs”
+for low throughput requirement, whereas the reverse is true
+as ˜Q increases. On the other hand, the optimized ﬂy-hover-
+communicate scheme always outperforms both benchmark
+schemes, which is expected since it adaptively optimizes the
+hovering locations according to the communication require-
+ment. On the other hand, by enabling continuous communi-
+cations and optimal hovering time and communication time
+allocation, the “optimized path, continuous commun.” scheme
+signiﬁcantly outperforms the ﬂy-hover-communicate scheme,
+as expected. Furthermore, with the proposed SCA algorithm,
+further energy saving can be achieved, thanks to its ability to
+better balance between instantaneous power minimization and
+communication rate maximization. Similar observations can
+be made for the time minimization design.
+VI. CONCLUSION
+This paper studies the energy-efﬁcient UAV communication
+with rotary-wing UAVs. The propulsion power consumption
+model of rotary-wing UAVs is derived, based on which an
+optimization problem is formulated to minimize the total
+UAV energy consumption, while satisfying the target com-
+munication throughput requirement for multiple GNs. We ﬁrst
+propose an efﬁcient solution based on the simple ﬂy-hover-
+communicate protocol, which leverages the TSPN and convex
+optimization techniques to ﬁnd the optimized hovering loca-
+tions and durations, as well as the visiting order and speed
+among these locations. Furthermore, we propose a general
+solution, with which the UAV also communicates while ﬂying,
+by applying a new path discretization approach and the SCA
+technique. Numerical results show that the proposed designs
+outperform other benchmark schemes for rotary-ring UAV
+enabled wireless communication systems.
+APPENDIX
+POWER CONSUMPTION MODEL FOR
+ROTARY-WING UAVS
+In this appendix, we derive the power consumption model
+for rotary-wing UAVs. Note that most of the notations and
+results follow from the textbook [34]. This appendix is NOT
+intended to introduce a new physical model for the power
+consumption of rotary-wing UAVs. Instead, it mainly aims to
+solicit the existing results in classic aircraft textbooks such
+as [34] and [35], to derive an analytical energy model that is
+suitable for research in UAV communications. Interested read-
+ers may refer to [34] and [35] for more detailed theoretical
+derivations based on actuator disc theory and blade element
+theory. The notations and terminologies used in this appendix
+are summarized in Table I.
+For rotary-wing aircrafts in hovering status, the torque
+coefﬁcient qc is given by [34, eq. (2.45)], i.e., qc = δ
+8 + (1 +
+k) s
+2t3/2
+c
+. By substituting tc =
+T
+ρsAΩ2R2 and noting that the
+thrust T balances the aircraft weight in hovering status, i.e.,
+TABLE I
+MAIN NOTATIONS AND TERMINOLOGIES
+T = W, we have
+qc = δ
+8 + (1 + k)
+W 3/2
+√
+2ρ3/2sA3/2Ω3R3 .
+(63)
+Therefore, by deﬁnition of the torque coefﬁcient, the corre-
+sponding required power for hovering can be obtained based
+on the relationship P = qcρsAΩ3 R3, which can be expressed
+as (see also [35, eq. (12.13)])
+Ph = δ
+8ρsAΩ3R3
+
+
+
+≜P0
++ (1 + k) W 3/2
+√2ρA
+
+
+
+≜Pi
+.
+(64)
+The derivation of power required for forward ﬂight of a
+rotary-wing aircraft is much more complicated than that of
+the ﬁxed-wing counterpart [26]. Fortunately, under some mild
+assumptions, e.g., the drag coefﬁcient of the blade section is
+constant, the torque coefﬁcient qc for an aircraft in forward
+level ﬂight (zero climbing angle) with speed V is given by
+[34, eq. (4.20)] , i.e.,
+qc = δ
+8(1 + 3μ2) + (1 + k)λitcD + 1
+2
+ˆV 3d0,
+(65)
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 

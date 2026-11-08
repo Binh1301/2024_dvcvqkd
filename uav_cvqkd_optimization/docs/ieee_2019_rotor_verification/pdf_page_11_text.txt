@@ -1,0 +1,140 @@
+ZENG et al.: ENERGY MINIMIZATION FOR WIRELESS COMMUNICATION WITH ROTARY-WING UAV
+2339
+Algorithm 2 SCA-Based Algorithm for (P4)
+1: Initialization: obtain a feasible {q(0)
+m }, {T (0)
+m }, and {τ (0)
+mk}
+to (P4). Let l = 0.
+2: repeat
+3:
+Calculate the current values {y(l)
+m } and {A(l)
+mk} based on
+(52) and (54), respectively.
+4:
+Solve the convex problem (P4.2), and denote the optimal
+solution as {q∗
+m}, {T ∗
+m}, {τ ∗
+mk}.
+5:
+Update the local point q(l+1)
+m
+= q∗
+m, T (l+1)
+m
+= T ∗
+m, and
+τ(l+1)
+mk
+= τ ∗
+mk.
+6:
+Update l = l + 1.
+7: until the fractional decrease of the objective value of
+(P4.2) is below a given threshold ϵ.
+Remark 1: While Algorithm 2 is proposed to minimize the
+UAV energy consumption, it can be similarly applied for UAV
+communication with other design metrics, such as the mission
+completion time minimization problem as considered in the
+following section, by replacing the cost function of (P4) with
+M
+m=0 Tm.
+V. NUMERICAL RESULTS
+This section provides numerical results to validate the
+proposed designs. The UAV altitude is set as H = 100 m,
+which complies with the FAA regulation that small unmanned
+aircrafts should not ﬂy over 400 feet (122 m) [42]. The total
+communication bandwidth is B = 1 MHz. The transmit power
+is set as P = 20 dBm, and the reference SNR is obtained as
+˜γ0 = 52.5 dB. The communication-related power consumption
+at the UAV is ﬁxed as Pc = 5 W [43], which includes all
+other UAV power consumption except the propulsion power.
+Note that all results in Figs. 3–6 are based on the general
+probabilistic LoS channel model, whereas that in Fig. 7 is
+obtained for the special free-space channel model. Unless
+otherwise stated, the modeling parameters for the probabilistic
+LoS channel model in (3) are set as C = 10, D = 0.6,
+κ = 0.2, and ˜α = 2.3. Furthermore, the homogeneous
+regularized LoS probability ¯Pk,LoS in (11) is set as the value
+corresponding to the elevation angle of 90◦. For the UAV’s
+propulsion power consumption, the corresponding parameters
+are speciﬁed in Table I. The maximum ﬂying speed is Vmax =
+30 m/s. The UAV’s initial and ﬁnal locations are set as qI =
+[0, 0]T and qF = [800 m, 800 m]T , respectively. We consider
+the setup with K = 3 GNs, with their locations shown in
+red squares in Fig. 4. We assume that all GNs have identical
+average throughput requirements, i.e., ˜Qk = ˜Q, ∀k ∈K. For
+Algorithm 1, the initial UAV hovering locations are set to be
+the GNs’ locations, i.e., ˜q(0)
+k
+= wk.
+First, we study the convergence of Algorithm 2 (Note
+that the convergence of Algorithm 1 can be shown similarly,
+for which the result is omitted due to the space limitation).
+Fig. 3.
+Convergence of Algorithm 2 for UAV energy minimization.
+The UAV initial path {q(0)
+m } is set as that obtained by
+the optimized ﬂy-hover-communicate protocol proposed in
+Section III, and the initial duration {T (0)
+m } at each line segment
+and communication time allocation {τ(0)
+mk} is obtained by
+letting T (0)
+m
+= ¯T, ∀m, and τ (0)
+mk = ¯T/K, ∀m, k, where ¯T
+is the minimum value that makes (P4) feasible. Fig. 3 shows
+the convergence of Algorithm 2 for throughput requirement
+˜Q = 1000 Mbits. The curve “Upper bound” corresponds to the
+obtained objective value of (P4.2), while “Exact” refers to the
+true UAV energy consumption value calculated based on (46).
+It is ﬁrstly observed that the two curves match quite well
+with each other, which demonstrates that the upper bound for
+UAV energy consumption via solving the convex optimization
+problem (P4.2) is practically tight. Furthermore, Fig. 3 shows
+that the proposed algorithm converges in a few iterations,
+which demonstrates the effectiveness of SCA for the proposed
+joint trajectory and communication time allocation design.
+For four different communication throughput require-
+ment ˜Q, Fig. 4 shows the obtained UAV trajectories with
+three different designs: i) Optimized ﬂy-hover-communicate
+protocol proposed in Section III; ii) The SCA-based energy
+minimization design in Algorithm 2; and iii) The SCA-based
+time minimization design by similarly applying Algorithm 2.
+For the SCA-based energy minimization trajectory, Fig. 4 also
+shows the corresponding time instant when the UAV reaches
+the nearest position from each GN, for the convenience of
+illustrating the corresponding UAV speed shown in Fig. 5. It is
+ﬁrstly observed from Fig. 4 that for the proposed ﬂy-hover-
+communicate protocol, the optimized hovering locations are
+in general different from the GN locations. This is expected
+due to the following trade-off: while hovering exactly above
+each GN achieves the minimal communication link distance
+and hence reduces the total communication time, it requires
+the UAV to travel longer distance and hence more energy
+consumption is needed for UAV ﬂying. With the optimized
+ﬂy-hover-communicate protocol, a balance between the above
+y2
+m + ∥qm+1−qm∥2
+v2
+0
+≥y(l)2
+m
++ 2y(l)
+m (ym −y(l)
+m ) −
+∥q(l)
+m+1−q(l)
+m ∥2
+v2
+0
++ 2
+v2
+0 (q(l)
+m+1 −q(l)
+m )T (qm+1 −qm),
+(60)
+Authorized licensed use limited to: Aizu University. Downloaded on October 27,2026 at 08:25:18 UTC from IEEE Xplore.  Restrictions apply. 

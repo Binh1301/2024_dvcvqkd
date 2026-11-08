@@ -1,0 +1,61 @@
+# Author-tuned overrides; inherited source metadata applies only to unchanged fields.
+name: optimized_physical_setup
+role: author_supplied_tuned_setup_not_mission_configuration
+source:
+  title: Performance Analysis of Probabilistically Shaped CV-QKD in Free-space HAP-to-UAV
+    Systems
+  publication_status: author_manuscript_not_claimed_published_or_peer_reviewed
+  section: Section IV, PDF page 3
+  manuscript_path: ../../../paper_uav_hap_cvqkd/results/manuscript43_canonical_model_comparison_20261023/inputs/available_v43.pdf
+  manuscript_sha256: f970cd6d810874c8d16fb2ba18aebbe322c27f4fa045387345422201d36fc27b
+hap_altitude_m: 20000.0
+uav_altitude_m: 1000.0
+hap_horizontal_m: null
+uav_initial_horizontal_m: null
+reference_zenith_angle_deg: 30.0
+beam_full_divergence_rad: 3.5e-05
+wavelength_m: 1.55e-06
+wavefront_curvature_radius_m: infinity
+transmitter_jitter_angle_rad: 1.561e-06
+receiver_aperture_diameter_m: 0.3
+boresight_x_m: 0.0
+boresight_y_m: 0.0
+uav_position_sd_m: 0.1
+uav_angular_fluctuation_sd_rad: 0.0015
+receiver_fov_half_angle_rad: 0.00625
+atmospheric_altitude_m: 20000.0
+zenith_atmospheric_transmittance: 0.92
+ground_turbulence_cn2_m_minus_2_3: 1.0e-14
+rms_wind_speed_m_s: 21.0
+reconciliation_efficiency: 0.95
+channel_excess_noise_snu: 0.0136
+detector_excess_noise_snu: 0.005
+detector_efficiency: null
+effective_channel_definition: manuscript_Eq17_E_sqrt_eta_squared
+moment_definition: manuscript_Eq18_20_existing_provider_required
+existing_module_normalization: VA=Vmod=2*nbar
+printed_manuscript_normalization: Vmod=nbar/2
+normalization_mapping_authority: existing_documented_AUTHOR_CONFIRMED_VA_EQUALS_VMOD
+core_Z_w_decision: AUTHOR_CONFIRMED_CORRECT_KEEP_UNCHANGED
+cloud_coupling:
+  mode: null
+  author_approved: false
+  provenance: null
+paper_mode: NOT_RUN
+author_supplied_provenance:
+  status: AUTHOR_SUPPLIED
+  attachment_path: C:\Users\admin\.codex\attachments\0b6f2dda-dec9-4f7f-b9dd-bc91f529e420\Pasted
+    text.txt
+  attachment_sha256: dbf5366e7adc83f0a08c298da84ad3f0516e877c2373e7bf81bc64720cf0a9b2
+  date: '2026-11-07'
+  confirmed_fields:
+  - receiver_aperture_diameter_m
+  - beam_full_divergence_rad
+  - transmitter_jitter_angle_rad
+  - uav_position_sd_m
+  - detector_excess_noise_snu
+  - channel_excess_noise_snu
+  inherited_reference: hap_uav_mb_reference.yaml
+  inherited_reference_sha256: be4f8756cff07e3cccc7ee4b90bee855ce69fe46c81ff94a9578a65ca26b65ff
+historical_noise_conflict_requires_confirmation: true
+execution_authorized: false
