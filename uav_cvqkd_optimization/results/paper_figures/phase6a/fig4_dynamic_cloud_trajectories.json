@@ -1,0 +1,95 @@
+{
+  "generation_status": "GENERATED_NUMERICAL_DIAGNOSTIC",
+  "paper_ready": false,
+  "paper_admissible": false,
+  "figure_number": 4,
+  "objective": "P2",
+  "source_directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase6a_baseline_20261109_rss_retry_20261110",
+  "source_hashes": {
+    "cloud_realization.npz": "f3e3cc6819104bb3bc6cf8cadf127e8505c47f4b6f5d3b37b12e028d1a1392ac",
+    "comparison_P1.csv": "14db9ba306402ab95324cd30124895adc94b415c718bbc0f2a865258f75df23b",
+    "comparison_P2.csv": "fa9ebb5e68b961fc0313fd9efcb353984449e00ba70c1230aafcc1b69211f515",
+    "config.json": "2e67258d58985f0661d73f3d6ebfc5ceaf93825b7131c37966ccb36ec86c91a6",
+    "input_manifest.json": "e30362a2be476366dd7294a731c4e6186173dd2f87950a25e491b33adb732d34",
+    "output_manifest.json": "63e3aecd66cf5b44b86e916ac147206367072a8a437c2c1c1ecac26ea9447eba",
+    "preflight.json": "126a812acd5bdc5a3f5ca6cd0399e9c7fd34583f7db9b5c2354ccf07af2e2ba0",
+    "results.json": "825715844e9573b9c2b1aede5e56cb174edbdbc3b171985a1b08302fb6e2459d",
+    "scenario.npz": "0c2722b1b09a7d7b83cd3feb533211d450d727a6a544a0bfb1696d4cef15241e",
+    "energy-aware_greedy\\P1_trajectory.csv": "64141b6a9dd711c042058af32de4559ae551848ad65d76f0ba53ca63b73e77d1",
+    "energy-aware_greedy\\P2_trajectory.csv": "64141b6a9dd711c042058af32de4559ae551848ad65d76f0ba53ca63b73e77d1",
+    "energy-aware_greedy\\result.json": "74e6c0bd2c7c939a0bdfac2358c32a2aa238755e56fc83cb0d9bea15572ccec4",
+    "pareto_dp\\P1_trajectory.csv": "5daf38c982cb18d03087c0e5007ed36af5de8b4bb8aaa0a5f1e7d969c808089f",
+    "pareto_dp\\P2_trajectory.csv": "5daf38c982cb18d03087c0e5007ed36af5de8b4bb8aaa0a5f1e7d969c808089f",
+    "pareto_dp\\progress.json": "9b8b28d1e0edb8b58cb646642b7a4812f5feeec1ce28470b7b26980d8a1a7ba7",
+    "pareto_dp\\progress.tmp": "823a1d7050f31d1287af1e3e4b1113fa9e758be7a8051d6e6b06f5405d254cd3",
+    "pareto_dp\\result.json": "c448b90bdfab8a8edf8ed6926c98a0fc7a4b7297fddc7ccd9a7ba9e8e0e8dcc2",
+    "skr-greedy\\P1_trajectory.csv": "3d18eb7d1ab48f59f830be63fa9aefd746a83ea8275b76f58b62a5e5cb021852",
+    "skr-greedy\\P2_trajectory.csv": "3d18eb7d1ab48f59f830be63fa9aefd746a83ea8275b76f58b62a5e5cb021852",
+    "skr-greedy\\result.json": "32b8a95d26dbaee6f4fa70c943f01193f5b3d0c58d2034b00ab7189d2cfd9499",
+    "stationary\\P1_trajectory.csv": "469bbcabb95b1779b0880e07212c0699db497a8e5f46d3d93fd25c2bca0f097b",
+    "stationary\\P2_trajectory.csv": "469bbcabb95b1779b0880e07212c0699db497a8e5f46d3d93fd25c2bca0f097b",
+    "stationary\\result.json": "744657f9ddf093d7b771bcab7e798a0a3502264d2da753fb57b2d0e29d8addd6"
+  },
+  "producer_sha256": "b5a2217eacd0815e1401897cad8bcbe489a1d6fe135e1f4eac89ade8801ce0bf",
+  "render_dependency_sha256": {
+    "cloud_model.py": "1d5f668cd4e33fa6c8dbc5856c29c7fe52a4345769edebed70532ba43fbee57a",
+    "blockage.py": "59e4e03a074853a33f477572f9d632da29b95ce2b6e34a0063ae94a5f37bdcb2",
+    "finite_size.py": "63842aa98b0960b69d4f64ff0a6dd9db29ce8d13aa42d4417ba5d2fdda3f2d0d",
+    "paper_figures.py": "efc3cd08f923c435ed8141d3c2353770f5d1c3e3df1a55f07e95d96ccd832a68",
+    "phase6a_experiment.py": "72cfc0ae58dd1e770bc651ce341398e5b3f9a0a23dad7b3e81c6d517dc21dd57"
+  },
+  "software": {
+    "numpy": "2.2.6",
+    "matplotlib": "3.10.5",
+    "backend": "Agg"
+  },
+  "figure_size_in": [
+    7.16,
+    3.25
+  ],
+  "validation": {
+    "prefix_rows": 800,
+    "coordinate_units": "m",
+    "energy_units": "J",
+    "rate_units": "bits/s",
+    "key_units": "bits"
+  },
+  "units": {
+    "coordinates": "km converted from m",
+    "energy": "kJ converted from J",
+    "time": "s",
+    "key": "bits",
+    "rate": "bits/s"
+  },
+  "caption": "UAV trajectories under dynamic cloud blockage (P2). Shading indicates sampled HAP–UAV LOS blockage for UAV coordinates on a 50-by-50 visualization grid; it is not an endpoint-cloud-cell test. Paths show saved slot endpoints up to each snapshot. Historical segments crossing a snapshot-shaded region do not imply blockage at their traversal times; continuous inter-slot LOS clearance is not certified. Cloud drift is (-5, 0) m/s. All methods share the initial point and HAP ground projection. Coincident current positions use nested markers. DP uses a perfect future-cloud forecast; greedy actions are myopic. Phase 6A numerical diagnostic, not security-certified results.",
+  "outputs": {
+    "fig4_dynamic_cloud_trajectories.pdf": "84e9fb528b0ea6a4dda2cd3d770254c9cd6a907b08cb868e7ce5fff5e9cd2fc4",
+    "fig4_dynamic_cloud_trajectories.svg": "8f99beee3bb0399e1e9face025a01129829d76c42baee2ce724f7f8dce81b87e",
+    "fig4_dynamic_cloud_trajectories.png": "05fe26ddf61d10ebb4c3f723e1a491adcec36b5a60ffbfc08b900ffedec10e74"
+  },
+  "png_dpi": 600,
+  "limitations": [
+    "Synthetic cloud scenario",
+    "Finite-size performance proxy, not composable security",
+    "DP forecast oracle vs myopic greedy",
+    "Nonbinding base energy budget",
+    "Exact only on discretized proxy graph"
+  ],
+  "snapshot_times_s": [
+    0,
+    300,
+    1000
+  ],
+  "visualization_shape": [
+    50,
+    50
+  ],
+  "simulation_graph_shape": [
+    11,
+    11
+  ],
+  "LOS_3d_sampling_m": 20,
+  "maps_source": "Saved400Gaussian coefficients; reconstructed LOS only; no new realization/optimization",
+  "derived_map_sha256": "e5b06a6a5435b4d184b309711b1a82757254f3e0b4a2e414355e6526a0fe63bf",
+  "graph_snapshot_agreement": true
+}

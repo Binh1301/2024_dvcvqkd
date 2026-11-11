@@ -1,0 +1,91 @@
+{
+  "mode": "NUMERICAL_DIAGNOSTIC",
+  "scope": "AUTHOR_APPROVED_PHASE6A",
+  "paper_mode": "NOT_RUN",
+  "paper_admissible": false,
+  "lookup": {
+    "directory": "../../results/phase5d_full_target_radial_2proc_PHASE5E_20261108",
+    "package_manifest_sha256": "7b3f3b4fe7a4cd9c9f046aa456f3a1a4e4b8cf83c327f09e0fba23c28831bfa7",
+    "coordinate_policy": "exact_nodes_only",
+    "coordinate_units": "m",
+    "rate_units": "bits/use"
+  },
+  "mission": {
+    "hap_m": [
+      1000,
+      1000,
+      20000
+    ],
+    "uav_altitude_m": 1000,
+    "initial_m": [
+      1000,
+      1000
+    ],
+    "area_m": [
+      2000,
+      2000
+    ],
+    "duration_s": 1000,
+    "dt_s": 10,
+    "slots": 100,
+    "graph_side_nodes": 11,
+    "spacing_m": 200,
+    "edges": "cardinal_plus_hover",
+    "vmax_m_s": 30,
+    "rotor_profile": "../rotor/ieee_2019.yaml",
+    "energy_budget_hover_multiplier": 1.1,
+    "velocity_samples": 2001,
+    "energy_tolerance_j": 0.001
+  },
+  "cloud": {
+    "mode": "binary_los_blockage",
+    "scenario_author_approved": true,
+    "realization_seed": 20261108,
+    "components": 400,
+    "recipe_sha256": "9a010f772d45430cf3abc53ec6f4187bd5060edbc412174eaaf29671dd3e785d",
+    "velocity_m_s": [
+      -5,
+      0
+    ],
+    "layer_bottom_m": 2000,
+    "layer_top_m": 4000,
+    "sample_spacing_3d_m": 20,
+    "comparison_spacing_3d_m": 10,
+    "threshold_percentile": 90,
+    "percentile_method": "linear",
+    "domain_m": [
+      16000,
+      2000
+    ],
+    "initial_grid_shape": [
+      50,
+      400
+    ],
+    "initial_cell_m": 40,
+    "vertical_assumption": "CLWC is vertically uniform inside synthetic slab; zero blockage outside slab"
+  },
+  "finite_size": {
+    "reference": "configs/finite_size/ieee_2025_reference.yaml",
+    "N_full": 100000000,
+    "key_allocation_fraction": 0.8,
+    "epsilon_PE": 1e-08,
+    "epsilon_EC": 1e-08,
+    "epsilon_PA": 1e-08,
+    "epsilon_total": 3e-08,
+    "symbol_rate_uses_s": 100000,
+    "m0_signals_per_clear_slot": 800000,
+    "claim": "Finite-size performance approximation; not a composable-security proof"
+  },
+  "greedy": {
+    "normalized_balance_weight": 0.5,
+    "normalization": "reward_scale=max(m0*Rclear) over graph; energy_scale=max allowed edge energy; lambda=reward_scale/energy_scale bits/J; frozen before optimization"
+  },
+  "dp": {
+    "mode": "exact",
+    "label_cap": null,
+    "operational_wall_limit_s": 300,
+    "operational_rss_limit_bytes": 4294967296,
+    "reduced_benchmark_side_nodes": 5,
+    "reduced_benchmark_slots": 20
+  }
+}

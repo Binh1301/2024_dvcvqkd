@@ -1,0 +1,258 @@
+# CODEX — AUTHOR-APPROVED PHASE 6A NUMERICAL EXPERIMENT
+
+Repository:
+E:/py learn/adversarial_attack_DRL/2024_dvcvqkd/uav_cvqkd_optimization/
+
+## AUTHORIZATION
+
+The author authorizes execution of Phase 6A as a NUMERICAL_DIAGNOSTIC simulation using the configuration specified below.
+
+This authorization covers actual execution of the four trajectory algorithms for P1 and P2.
+
+Do not require another approval after successful preflight.
+
+Do not interpret this as approval for paper-ready figures, composable security claims, or changes to the manuscript.
+
+## 1. Use the verified Phase 5E lookup
+
+Source directory:
+
+results/phase5d_full_target_radial_2proc_PHASE5E_20261108/
+
+Use the existing CSV/NPZ and metadata.
+
+Channel excess noise = 0.0136 SNU.
+Detector excess noise = 0.005 SNU.
+
+Do not regenerate SKR.
+Do not modify Z/w, MB-QAM, Holevo, rotor profiles, paper.yaml, or historical lookup.
+
+Preserve raw signed SKR in bits/use.
+
+## 2. Cloud scenario
+
+Activate binary_los_blockage for this numerical scenario.
+
+Use:
+
+- Existing synthetic Gaussian cloud field.
+- 400 Gaussian components.
+- Cloud drift = (-5, 0) m/s.
+- Seed = 20261108.
+- Cloud bottom altitude = 2000 m.
+- Cloud top altitude = 4000 m.
+- LOS sampling interval = 20 m.
+- Convergence comparison = 10 m.
+
+Define the blockage threshold before optimization as the 90th percentile of the original synthetic CLWC field over its complete initial simulation domain.
+
+Freeze the threshold and save its actual numeric value in the manifest.
+
+Do not recompute the threshold independently for each time, waypoint, or algorithm.
+
+Use full 3D HAP–UAV LOS intersection with the cloud slab.
+
+The 2D CLWC field is assumed vertically uniform within the synthetic cloud slab. Document this assumption.
+
+A blocked LOS gives zero raw key contribution.
+
+Do not use the UAV endpoint cell as a substitute for LOS testing.
+
+Do not double-count cloud erasure.
+
+These cloud parameters are scenario assumptions, not values attributed to the manuscript.
+
+## 3. Mission configuration
+
+- HAP projection = (1000, 1000) m.
+- HAP altitude = 20000 m.
+- UAV altitude = 1000 m.
+- Initial UAV position = (1000, 1000) m.
+- Operating area = [0, 2000] × [0, 2000] m.
+- Horizon = 1000 s.
+- Delta_t = 10 s.
+- Number of slots = 100.
+- Waypoint graph = 11 × 11 nodes.
+- Graph spacing = 200 m.
+- Graph edges = four cardinal directions plus hover.
+- Vmax = 30 m/s.
+- Rotor profile = IEEE 2019.
+- Emax = 1.1 × P_hover × 1000 s.
+
+Compute P_hover from the actual IEEE 2019 rotor profile.
+
+Do not invent P_hover or Emax numerically.
+
+All graph nodes must map exactly to existing Phase 5E lookup positions.
+
+Check that each graph edge is physically feasible within Delta_t.
+
+Preserve the existing solver convention for evaluating q_k at t_k = k × Delta_t.
+
+## 4. Finite-size configuration
+
+Reference: Ismail et al., IEEE Communications Letters 2025.
+
+- N_full = 1e8.
+- Key allocation fraction = 0.8.
+- epsilon_PE = 1e-8.
+- epsilon_EC = 1e-8.
+- epsilon_PA = 1e-8.
+- epsilon_total = 3e-8.
+- f_s = 1e5 uses/s.
+- m0 = 0.8 × f_s × Delta_t = 800000 signals/slot.
+
+For a prefix of K slots:
+
+n_K = m0 × sum(z_k)
+
+S_K = m0 × sum(z_k × R_clear(q_k))
+
+ell_K = max(0, S_K - 7 × sqrt(n_K × log2(2/epsilon_total)))
+
+P1 = max over feasible K of ell_K / (K × Delta_t).
+
+P2 = max over feasible K of ell_K.
+
+Use the existing finite-size proxy implementation if consistent with these definitions.
+
+Apply the finite-size penalty once per evaluated prefix, not once per slot.
+
+Keep emitted-signal count, key allocation fraction, and cloud erasure separately documented.
+
+This is a finite-size performance approximation for MB-shaped QAM, not a composable-security proof.
+
+## 5. Four algorithms
+
+Run:
+
+1. Stationary UAV.
+2. SKR-Greedy.
+3. Energy-Aware Greedy.
+4. Proposed Pareto DP.
+
+Run both P1 and P2.
+
+Use exactly the same:
+
+- Lookup source.
+- Cloud realization and threshold.
+- Initial UAV state.
+- Mission horizon.
+- Waypoint graph.
+- Rotor model.
+- Energy budget.
+- Finite-size settings.
+- Time convention.
+- Stopping-time rules.
+
+For Energy-Aware Greedy:
+
+Inspect the current lambda definition and its units before running.
+
+Use a predeclared balanced normalized weight lambda = 0.5 only if the implemented score uses dimensionless normalized rate and energy terms.
+
+If lambda has physical units or the implementation is not normalized, derive and document a dimensionally consistent coefficient before execution. Do not silently use 0.5 with incompatible units.
+
+Do not tune lambda after seeing algorithm results.
+
+For Pareto DP:
+
+Measure actual label counts, runtime, and memory.
+
+Do not claim exact optimization if state pruning, beam limits, or label caps affect optimality.
+
+If full DP is computationally infeasible, report the failure transparently and run a smaller separately labeled benchmark; do not substitute it silently into the full comparison.
+
+Report whether DP has perfect future-cloud knowledge while greedy algorithms are myopic. If so, label DP as a forecast-oracle comparison, not an equal-information superiority claim.
+
+## 6. Preflight and execution
+
+Before full execution:
+
+- Verify lookup metadata and configuration hashes.
+- Verify graph nodes and edge speeds.
+- Verify rotor energy feasibility.
+- Verify finite-size clear-sky reference values.
+- Verify cloud seed and threshold.
+- Verify cloud LOS convergence at 20 m versus 10 m on representative samples.
+- Verify all four algorithms receive the same scenario inputs.
+- Verify the existing approval gate can support an author-approved numerical diagnostic run.
+
+Do not bypass or disable safety, provenance, or paper-mode guards.
+
+If the current runner only supports TEST_ONLY, implement a distinct approved NUMERICAL_DIAGNOSTIC mode with explicit manifest and validation.
+
+After successful preflight, RUN the actual four-algorithm experiment for P1 and P2.
+
+Do not stop merely to ask for another approval.
+
+If a material scientific or computational incompatibility is detected, stop the affected run, document the issue, and do not fabricate a replacement result.
+
+## 7. Required output
+
+Save to a new results directory under:
+
+results/phase6a_baseline_20261109/
+
+Use a unique run identifier if that directory already exists.
+
+For every algorithm and objective, save:
+
+- Full trajectory (x, y, t).
+- LOS clear/blocked state per slot.
+- Raw SKR per slot.
+- Accumulated valid key-generation signals.
+- Finite-size accumulated key-yield proxy.
+- Cumulative propulsion energy.
+- Total energy consumption.
+- Optimal stopping time.
+- P1 objective in bits/s.
+- P2 objective in bits.
+- Runtime and peak memory.
+- Feasibility and solver status.
+- Input hashes and provenance.
+
+Generate comparison tables for all four algorithms, separately for P1 and P2.
+
+If every method produces zero key yield, report that result honestly without retuning the scenario.
+
+## 8. Scientific interpretation
+
+Separate:
+
+- Source-derived physical model.
+- Phase 5E verified numerical lookup.
+- IEEE 2025 finite-size reference.
+- Synthetic cloud assumptions.
+- Mission scenario assumptions.
+- Actual computed results.
+
+Do not claim the cloud threshold or layer altitude came from the manuscript.
+
+Do not claim composable security.
+
+Do not mark paper-ready figures or security evidence as validated.
+
+Do not commit or push.
+
+## 9. Final report
+
+Create:
+
+docs/phase6a_baseline_numerical_experiment_vi.md
+
+Report:
+
+1. Preflight PASS/FAIL.
+2. Whether all eight algorithm–objective runs completed.
+3. P1 and P2 comparison tables.
+4. Actual key yield, energy and stopping time.
+5. Cloud clear fraction for each trajectory.
+6. DP runtime, memory and optimality status.
+7. Lambda definition and chosen value.
+8. Future-information differences between methods.
+9. Tests passed/failed.
+10. Sensitivity experiments needed next.
+
+START PHASE 6A NOW AFTER SUCCESSFUL PREFLIGHT.

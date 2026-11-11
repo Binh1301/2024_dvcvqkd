@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "required": [
+    "schema_version",
+    "runs"
+  ],
+  "runs": "Array of at least2 objects with directory:string (relative to this JSON)",
+  "directory_contract": "Sealed Phase6A-format config.json/results.json/scenario.npz/cloud_realization.npz/trajectories/input_manifest/output_manifest; four methods and P1/P2 feasible solutions",
+  "constraints": [
+    "Distinct energy budgets",
+    "Same non-budget config and scientific arrays",
+    "No demo substitutes",
+    "Raw rate units bits/use; objective units P1bits/s/P2bits; time slots/seconds separate"
+  ],
+  "selected_stopping_times": "K_slots and duration_s are extracted from each saved objective and exported in fig6_plotted_data.csv",
+  "invocation": "python -m uav_qkd.phase6a_figures --output NEW_DIRECTORY --energy-sweep PATH_TO_REAL_SWEEP_JSON"
+}

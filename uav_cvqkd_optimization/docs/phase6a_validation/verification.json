@@ -1,0 +1,86 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "AUTHOR_APPROVED_PHASE6A_NUMERICAL_DIAGNOSTIC",
+  "tests": {
+    "command": "python -X utf8 -m pytest -q --junitxml=docs/phase6a_validation/tests.xml",
+    "passed": 206,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "reported_wall_s": 103.31,
+    "new_cases": 13
+  },
+  "preflight": "CURRENTLY_VERIFIED_PASS",
+  "completed_algorithm_objective_pairs": 8,
+  "preserved_original_files": 1267,
+  "changed_original_files": [],
+  "results_directory": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase6a_baseline_20261109_rss_retry_20261110",
+  "initial_failed_attempt": "E:\\py learn\\adversarial_attack_DRL\\2024_dvcvqkd\\uav_cvqkd_optimization\\results\\phase6a_baseline_20261109",
+  "result_seals": {
+    "results\\phase6a_baseline_20261109": {
+      "output_manifest_sha256": "282149352f86f2757e14c0c3e0d419183889908d4432c3fa270b30681344146b",
+      "sealed_files": 22
+    },
+    "results\\phase6a_baseline_20261109_rss_retry_20261110": {
+      "output_manifest_sha256": "63e3aecd66cf5b44b86e916ac147206367072a8a437c2c1c1ecac26ea9447eba",
+      "sealed_files": 22
+    }
+  },
+  "config_sha256": "3b6cad3b92ab0ec5a019c72391487d7b288ba0294600f036e365449054d07e25",
+  "scenario_sha256": "ea1088ae527fba4251bb10fef75177220b64dae8d3e83bc73fc3d63e704f4f40",
+  "DP": {
+    "runtime_s": 172.8151738000015,
+    "classification": "exact-on-graph",
+    "generated_labels": 10436173,
+    "dominated_labels": 8072853,
+    "heuristic_discarded_labels": 0,
+    "peak_frontier_labels": 97060,
+    "horizon": 100,
+    "label_cap": null,
+    "dominance": "strict float64 within identical k,j,u; first identical duplicate retained"
+  },
+  "memory": {
+    "primary_scope": "Uninterrupted parent sampled child RSS100ms",
+    "primary_peak_bytes": 252895232,
+    "child10ms_sampler_interrupted": true,
+    "python_allocation_peak": "NOT_MEASURED",
+    "not_exact_continuous_peak": true
+  },
+  "telemetry": {
+    "executed_sources_archived_and_hash_verified": true,
+    "current_lock_fix_RED_GREEN_verified": true,
+    "no_scientific_result_modified": true
+  },
+  "paper_mode": "NOT_RUN",
+  "paper_admissible": false,
+  "source_security_evidence_promoted": false,
+  "catalog_counts": {
+    "READY": 1,
+    "BLOCKED": 9,
+    "EXPLORATORY": 0
+  },
+  "native_quantum_calls_in_experiment": 0,
+  "lookup_regeneration": false,
+  "figures_generated": false,
+  "commit_or_push": false,
+  "git_diff_check": "PASS",
+  "new_text_whitespace": "PASS",
+  "source_docs_artifact_hashes": {
+    "src\\uav_qkd\\phase6a_experiment.py": "72cfc0ae58dd1e770bc651ce341398e5b3f9a0a23dad7b3e81c6d517dc21dd57",
+    "tests\\test_phase6a_experiment.py": "de2cc289ab91f6d6dc424568ed8cc94feed1a1efc55d803ba35e8f086e311f43",
+    "configs\\integration\\phase6a_numerical_diagnostic.json": "70868854d58b6f57b50f4e337180db629a92ea7dc0393d708efca77961ddbb8e",
+    "docs\\phase6a_baseline_numerical_experiment_vi.md": "4ae279aedcb70a5b51fe6b9d508f735f1b982094a2000fd553016f5f6002d637",
+    "docs\\phase6a_implementation_plan.md": "f73eaa23c9f939424c26da78d2ad568273a92203d6845cd89003ef4e190034d8",
+    "docs\\phase6a_independent_review.md": "d56b61abe111e28e4714002731e242f61d8103f7e5ac11cf192ead73ecc2d990",
+    "docs\\approvals\\phase6a_author_request.txt": "29d42c8c190e4a6e821e54e8852d0bf95b781935ff91d59fcff5cdcd7d689016",
+    "docs\\approvals\\phase6a_author_approval.json": "eb50315b2470d7e5451345c87d1ce7c8b07d7bf7ab1578b99b85b18c4d96408f",
+    "docs\\phase6a_validation\\artifact_verification.json": "476b3b78c9bd5b35a4d0fb3e7acff82f559ba21d7c151966b648ca237a9fb289",
+    "docs\\phase6a_validation\\executed_runner_rss_retry.py": "fa835d18142afa7972ff2c2fecb2ecccd963b45fe9f15a3327a8619fb7edd45e",
+    "docs\\phase6a_validation\\executed_runner_with_tracemalloc.py": "9926fc03472a3d00ec041490e368b414434628fbd121d76ab7d9ffcedf54dc21",
+    "docs\\phase6a_validation\\focused_tests.xml": "452942cd11db3cfe8cee76a8940515faee88156ede4efcf6dcb8b5b0052873c4",
+    "docs\\phase6a_validation\\protected_before.json": "4f05e89e80a863384adbd74fdc067360757c081fcfc9438872ba85377a3fefd5",
+    "docs\\phase6a_validation\\telemetry_console_observation.json": "a5f3cbf111ff58be2aca0dcad45627eb027dfb049f05de9a0ab74c2153592b80",
+    "docs\\phase6a_validation\\tests.xml": "d80eea5faea7a9f4e69b90dab55b7a612908c32b16f97f18f5d58b6db9187482",
+    "docs\\phase6a_validation\\verify_artifacts.py": "d628c64df00080c5fbda8d8d9c40a48e510123a696002f6992dd154efc068fe9"
+  }
+}

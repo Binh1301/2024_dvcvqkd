@@ -1,0 +1,19 @@
+{
+  "observation_kind": "Manually preserved excerpt from actual tool stdout, not a complete shell log",
+  "tool_session_id": 44926,
+  "tool_output_chunk_id": "4e5c11",
+  "attempt": "results/phase6a_baseline_20261109_rss_retry_20261110",
+  "exception_thread": "Thread-1 (sample)",
+  "exception_type": "PermissionError",
+  "exception_excerpt": "[WinError 5] Access is denied: progress.tmp -> progress.json",
+  "executed_source_location": "phase6a_experiment.py:204 sample -> _atomic at line186 -> Path.replace",
+  "executed_source_archive": "docs/phase6a_validation/executed_runner_rss_retry.py",
+  "last_saved_progress_elapsed_s": 148.04159820000132,
+  "child_sampler_peak_bytes_incomplete": 235724800,
+  "parent_sampler_peak_bytes_primary": 252895232,
+  "parent_sampling_interval_s": 0.1,
+  "solver_completion": "END Pareto DP FEASIBLE; completed_pairs=8",
+  "child_exit_code": 0,
+  "scope": "Progress I/O stopped child RSS sampler early; parent RSS watchdog and scientific solver completion remained available",
+  "correction": "Current telemetry retries transient rename locks and continues sampling after progress I/O errors; two RED-to-GREEN regression tests. Sealed results were not edited."
+}

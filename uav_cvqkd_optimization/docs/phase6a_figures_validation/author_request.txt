@@ -1,0 +1,313 @@
+# TASK: Generate Publication-Quality Numerical Results Figures for UAV–HAP CV-QKD Optimization
+
+You are working on a research project concerning **energy-constrained UAV trajectory optimization for probabilistically shaped CV-QKD under dynamic cloud blockage**.
+
+## 1. Project context
+
+Project directory:
+
+`E:/py learn/adversarial_attack_DRL/2024_dvcvqkd/uav_cvqkd_optimization/`
+
+Existing Phase 6A report:
+
+`docs/phase6a_baseline_numerical_experiment_vi.md`
+
+Existing result directory:
+
+`results/phase6a_baseline_20261109_rss_retry_20261110/`
+
+The system includes:
+
+- HAP-to-UAV free-space optical CV-QKD link.
+- Probabilistically shaped, Maxwell–Boltzmann-modulated CV-QKD.
+- UAV horizontal operating area: 2 km × 2 km.
+- Cloud map discretization: 50 × 50 cells.
+- Dynamic cloud movement: 5 m/s, right to left.
+- Time-slot duration: Δt = 1 s.
+- Energy-constrained UAV trajectory optimization.
+- Finite-size secret key accumulation using the project's existing proxy.
+- Two optimization objectives:
+  - P1: Maximize average secret key rate (bits/s).
+  - P2: Maximize accumulated secret key length (bits).
+
+Existing algorithms:
+
+1. Stationary UAV
+2. SKR-Greedy
+3. Energy-Aware Greedy
+4. Pareto Dynamic Programming (DP)
+
+Phase 6A has completed eight algorithm–objective combinations, with 206 tests passed.
+
+Previously reported summary results include:
+
+| Algorithm | Average SKR (bits/s) | Total key (bits) | Energy (kJ) | LOS clear |
+|---|---:|---:|---:|---:|
+| Stationary | 25.160 | 25,160.23 | 168.484 | 77% |
+| SKR-Greedy | 33.623 | 33,623.05 | 169.661 | 81% |
+| Energy-Aware Greedy | 33.276 | 33,276.47 | 169.171 | 81% |
+| Pareto DP | 77.040 | 77,040.11 | 170.641 | 100% |
+
+These are rounded reported values. The original result files are the authoritative source.
+
+All reported runs select K = 1000 slots. The energy budget is currently nonbinding. Pareto DP has advance knowledge of the cloud evolution and is exact only for its discretized proxy graph.
+
+**Primary task:** Produce scientifically accurate, publication-quality plots from the existing simulation outputs.
+
+Do not invent missing experimental results.
+
+## 2. First: inspect the existing project
+
+Before generating figures:
+
+1. Read the Phase 6A report.
+2. Inspect the existing result files and their schemas.
+3. Identify trajectory arrays, timestamps, cloud maps, blockage indicators, key accumulation, energy consumption, and terminal metrics.
+4. Identify the distinction between P1 and P2 runs.
+5. Identify whether full time-series data are available or only final results.
+6. Reuse existing simulation functions wherever appropriate.
+
+Do not silently recompute experiments using different assumptions.
+
+If necessary data are missing, document the missing inputs rather than generating synthetic curves.
+
+## 3. Figure 4 — UAV Trajectory under Dynamic Cloud Blockage
+
+**Objective:** Visually explain why Pareto DP performs better than the greedy baselines.
+
+Create a multi-panel figure using actual optimized UAV trajectories and actual cloud-blockage maps.
+
+Preferred layout: three panels corresponding to selected simulation snapshots, such as t = 0 s, t = 300 s, and t = 999 s, subject to data availability.
+
+Each panel should show:
+
+- UAV operating boundary: 2 km × 2 km.
+- Cloud-blocked and cloud-clear regions.
+- Actual trajectories of all four algorithms.
+- Initial UAV position.
+- Current UAV position at the selected snapshot.
+- HAP ground projection, if relevant.
+- Cloud movement direction.
+- A clear, consistent legend.
+
+Use the actual blockage definition used by the simulator, including the HAP–UAV optical-path intersection if applicable.
+
+Do not assume that a cloud cell directly above the UAV is necessarily the blocking cell.
+
+The cloud map must reflect the correct time-dependent geometry. The UAV operating area remains fixed.
+
+If all trajectories become visually cluttered, use four algorithm panels with consistent spatial scales, or separate static and dynamic trajectory views.
+
+Suggested title:
+
+**Fig. 4. UAV trajectories under dynamic cloud blockage for different optimization algorithms.**
+
+Interpretation should emphasize:
+
+- Which algorithms enter blocked regions?
+- How long does each remain blocked?
+- Does Pareto DP anticipate future cloud movement?
+- What additional movement or propulsion energy is required?
+
+## 4. Figure 5 — Accumulated Secret Key versus Mission Time
+
+**Objective:** Compare the temporal performance of the four algorithms.
+
+Create a line chart:
+
+- X-axis: Mission time (s).
+- Y-axis: Accumulated secret key (bits).
+- Four curves representing the four algorithms.
+
+Use actual saved key-accumulation histories or reconstruct them only when all required slot-level data and the exact existing finite-size proxy formula are available.
+
+Important:
+
+- Do not assume that key accumulation is linear.
+- Do not simply multiply final average SKR by elapsed time.
+- Do not replace finite-size accumulation with asymptotic SKR.
+- Account for blocked slots and the finite-size correction.
+- Identify explicitly whether the figure shows P1 or P2 trajectories.
+- Ensure the final plotted values agree with the corresponding saved terminal results within numerical tolerance.
+
+If useful, add a second panel showing per-slot SKR or cumulative clear-LOS percentage, but only when supported by saved data.
+
+Suggested title:
+
+**Fig. 5. Accumulated finite-size secret key versus mission duration for different trajectory optimization algorithms.**
+
+## 5. Figure 6 — Average SKR and Total Secret Key versus Energy Budget
+
+**Objective:** Study the impact of available UAV energy and compare P1 with P2.
+
+Create a two-panel figure:
+
+(a) Average SKR versus available energy budget.
+
+(b) Total secret key length versus available energy budget.
+
+Use:
+
+- X-axis: Available energy budget E_max (kJ).
+- Panel (a): Average SKR (bits/s).
+- Panel (b): Total secret key (bits).
+
+Distinguish P1 and P2 consistently.
+
+However, Phase 6A currently provides a single nonbinding energy-budget condition.
+
+**Do not fabricate energy-budget sensitivity results.**
+
+First search whether valid multi-budget simulations already exist.
+
+If they exist, generate this figure using those results.
+
+If they do not exist:
+
+1. Create a reusable plotting script that accepts future energy-budget sweep results.
+2. Define and document the required input schema.
+3. Do not generate a misleading multi-budget curve.
+4. Report Figure 6 as pending experimental data.
+5. Recommend energy budgets that explore both feasible binding and nonbinding regimes without assuming their outcomes.
+
+Record the optimized stopping time K* for both objectives at each budget.
+
+Suggested title:
+
+**Fig. 6. Impact of UAV energy budget on (a) average secret key rate and (b) accumulated secret key length.**
+
+## 6. Figure 7 — Energy–Key Generation Trade-off
+
+**Objective:** Compare energy efficiency and key generation across algorithms.
+
+Plot each algorithm as a point using the Phase 6A saved results:
+
+- X-axis: Total propulsion energy (kJ).
+- Y-axis: Accumulated secret key length (bits).
+
+Use one distinct marker per algorithm.
+
+Annotate points clearly without overlapping text.
+
+Optionally encode the LOS-clear ratio in marker size or a separate annotation, if it remains readable.
+
+Important:
+
+- These results come from a single energy-budget scenario.
+- Do not label their connection as a Pareto frontier.
+- Do not claim that Pareto DP dominates another algorithm in both energy and total key when it consumes more energy.
+- If additional multi-budget results are available, they may be plotted separately to analyze the broader trade-off.
+- Compute key generation per joule only as a secondary descriptive metric, with a clearly stated denominator.
+
+Suggested title:
+
+**Fig. 7. Propulsion energy versus accumulated secret key generation for different trajectory optimization algorithms.**
+
+## 7. IEEE figure requirements
+
+All figures must be appropriate for an IEEE two-column research paper.
+
+Use Python with Matplotlib.
+
+Formatting requirements:
+
+- Clean, professional academic appearance.
+- Consistent typography and line styles.
+- IEEE-compatible single-column or double-column dimensions.
+- Readable labels after insertion into LaTeX.
+- No oversized titles embedded inside figures.
+- Mathematical notation consistent with the manuscript.
+- Scientific units and correct number formatting.
+- Colorblind-friendly colors.
+- Distinct line styles and markers for grayscale readability.
+- No unnecessary 3D graphics or decorative effects.
+- Consistent colors for the same algorithms across every figure.
+- Proper axis limits and legends.
+- Avoid overlapping labels and excessive whitespace.
+
+Export formats:
+
+- PDF: vector quality whenever possible.
+- SVG: editable vector version.
+- PNG: 600 DPI.
+
+Suggested output directory:
+
+`results/paper_figures/phase6a/`
+
+Suggested filenames:
+
+- `fig4_dynamic_cloud_trajectories`
+- `fig5_accumulated_key_vs_time`
+- `fig6_energy_budget_sensitivity`
+- `fig7_energy_key_tradeoff`
+
+Do not produce a fabricated image solely to satisfy the expected filename.
+
+## 8. Verification requirements
+
+For each generated figure:
+
+1. Identify its exact data source.
+2. Check numerical consistency with the Phase 6A report.
+3. Verify coordinate units (meters versus kilometers).
+4. Verify energy units (joules versus kJ).
+5. Verify that average SKR is in bits/s.
+6. Verify that accumulated key length is in bits.
+7. Verify that P1 and P2 results are not accidentally mixed.
+8. Confirm that the reported K* matches the plotted duration.
+9. Verify that LOS-clear percentages match the trajectory/blockage data.
+10. Confirm that no missing data were silently replaced with fabricated values.
+
+For the current K = 1000 s cases, explicitly check:
+
+Average SKR = accumulated key / actual mission duration.
+
+Report any discrepancy above numerical rounding error.
+
+## 9. Required deliverables
+
+Generate:
+
+1. Publication-quality figures supported by existing data.
+2. Reusable Python plotting scripts.
+3. A Markdown report describing each figure, the source files, verification results, and interpretation.
+4. IEEE-style LaTeX figure insertion snippets.
+5. Suggested IEEE-style figure captions.
+6. A list of missing experiments required to complete any unavailable figures.
+
+Also provide a short scientific discussion explaining:
+
+- Why Pareto DP achieves higher key generation.
+- Whether the improvement arises mainly from better cloud avoidance.
+- How the extra propulsion energy compares with the additional secret key.
+- Why P1 and P2 currently select the same stopping time.
+- Which conclusions remain limited by clairvoyant cloud knowledge, the proxy finite-size model, and a nonbinding energy constraint.
+
+Do not claim security proof, practical real-time feasibility, or continuous-space global optimality from Phase 6A alone.
+
+## 10. Execution restrictions
+
+- Do not change existing optimization algorithms.
+- Do not change physical parameters or proxy definitions.
+- Do not rerun full optimization experiments.
+- Do not initiate paper-mode experiments.
+- Do not initiate sensitivity simulations.
+- Do not commit or push to Git.
+- Do not overwrite the original Phase 6A result files.
+- Do not generate fake data to complete missing plots.
+
+You may create new plotting scripts, visualizations, validation tests, and reports in dedicated output directories.
+
+## 11. Final response
+
+After completing the task, report:
+
+- Which of Figures 4–7 were successfully produced.
+- The location of every generated figure.
+- Which figures are pending and why.
+- Any inconsistencies discovered in the data.
+- A brief interpretation of the results.
+- The exact additional experiments required for the remaining figures.
+
+Prioritize correctness, scientific reproducibility, and publication quality over producing all four images at any cost.
