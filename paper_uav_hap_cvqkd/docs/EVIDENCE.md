@@ -1,5 +1,35 @@
 # Evidence Register
 
+## EVID-0233 - Isolated Ibrahim Algorithm-1 dynamic cloud diagnostic
+
+2026-11-11, user attachment 596f14b1 authorizes standalone cloud implementation,
+example figures and focused tests, without QKD/mobility integration. Added
+src/ibrahim_cloud.py, configs/ibrahim_cloud_demo.json,
+scripts/visualize_ibrahim_cloud.py, tests/test_ibrahim_cloud.py and
+docs/IBRAHIM_CLOUD_README.md. Results: results/ibrahim_cloud_demo_20261111/.
+Read report_vi.md, run_report.json, validation.json and unit_tests.log.
+
+CURRENTLY_VERIFIED_PASS: 10 focused tests; 24 sealed artifacts; 205 protected
+tracked production/config/frozen inputs unchanged. Default 50x50/2km/40m,
+u5, dt1s, vx=-5m/s, vy0, 1000s, seed20261111, p.002/P.05 illustrative only.
+Fixed gamma .6308975316793873 from G0 70th percentile. Initial coverage30%,
+time mean10.8842757243%, final7.6%; no per-slot recalibration. Noise-free pulse
+centroid moves -40m in8s, fractional .125-cell weights verified. Five400dpi
+PNG/PDF pairs, GIF and full-slot CSV/selected NPZ produced; PDFium renders
+visually inspected. Final typography rerender used saved NPZ, no science rerun.
+
+Paper line9 plus-index/pixel sign is explicitly distinguished from requested
+SI physical pullback. Periodic bilinear interpolation, numerical diffusion,
+Gaussian-kernel settings and fixed reference-minmax normalization are declared
+choices, not paper-supplied numerical settings or physical CLWC calibration.
+400s geometric wrap is not exact field recurrence. No existing cloud/QKD/
+channel/SKR/finite-size/UAV/cache/frozen source edited; no security functional,
+baseline/threshold approval, training/final-test/heldout/publication evaluation.
+Full repository suite NOT_RUN; scoped unittest and saved-package verifier PASS.
+UNVALIDATED_SECURITY_MODEL, NOT_READY_FOR_PUBLICATION_SCALE_RUNS, frozen
+historical-hash discrepancy and ObjectiveC USER_STOPPED remain unchanged.
+
+
 ## EVID-0232 - Positive-only base10 SKR figure from saved data
 
 2026-10-26, explicit user request: log10 Y and hide negative plotted values.

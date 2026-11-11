@@ -1,5 +1,24 @@
 # Project State
 
+## Current: isolated Ibrahim dynamic cloud emulator COMPLETE; QKD state unchanged
+
+2026-11-11 EVID-0233/DEC-0216. Standalone module/config/visualizer/10 focused
+unit tests and README added. Package: results/ibrahim_cloud_demo_20261111/;
+read report_vi.md, run_report.json and validation.json. CURRENTLY_VERIFIED_PASS:
+24 sealed artifacts,205 protected tracked inputs unchanged; five400dpiPNG/PDF
+pairs plus GIF/NPZ/CSV. Default1000s/50x50/2km/vx-5m/s/u5/p.002/P.05; fixed
+G0 gamma gives30% initial,10.8843% time-average,7.6% final coverage. Noise-free
+centroid -40m in8s. Numerical diffusion and400s periodic-domain limitation
+explicit; no physical CLWC claim. This is SYNTHETIC_CLOUD_DIAGNOSTIC_ONLY.
+No existing QKD/channel/SKR/finite-size/UAV source, frozen model, lookup/cache,
+security functional, baseline or threshold approval changed. No training,
+final-test access, heldout or publication evaluation. Frozen hash discrepancy,
+E2 INCONCLUSIVE, strictPhaseBfalse, UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC USER_STOPPED remain.
+Deliver; no downstream integration or rerun is automatic. Older entries below
+are historical task snapshots, not authorization for additional experiments.
+
+
 ## Current: positive-only log10 SKR figure delivered; scientific state unchanged
 
 2026-10-26 EVID-0232/DEC-0215. New PDF/PNG:

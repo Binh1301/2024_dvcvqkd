@@ -1,0 +1,116 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "scope": "SYNTHETIC_CLOUD_DIAGNOSTIC_ONLY",
+  "parameters": {
+    "p": 0.002,
+    "P": 0.05,
+    "nx": 50,
+    "ny": 50,
+    "width_m": 2000.0,
+    "height_m": 2000.0,
+    "u": 5,
+    "dt_s": 1.0,
+    "vx_m_s": -5.0,
+    "vy_m_s": 0.0,
+    "duration_s": 1000.0,
+    "seed": 20261111,
+    "threshold_mode": "coverage",
+    "gamma": null,
+    "target_coverage": 0.3,
+    "blur_sigma_cells": 1.0,
+    "blur_radius_cells": 4,
+    "normalization": "reference_minmax"
+  },
+  "parameter_origin": "HAP-UAV illustrative choices; p, P, interpolation, blur and normalization are not reported numerical settings from Ibrahim et al.",
+  "snapshot_times_s": [
+    0,
+    40,
+    80
+  ],
+  "gamma_fixed_all_slots": 0.6308975316793873,
+  "threshold_reference": "initial raw G0; empirical linear quantile; never recalibrated",
+  "normalization_reference_bounds": [
+    -2.053760466365046,
+    2.1508505103484716
+  ],
+  "coverage": {
+    "initial": 0.3,
+    "final": 0.076,
+    "time_mean_including_t0": 0.10884275724275726,
+    "minimum": 0.0696,
+    "maximum": 0.3,
+    "temporal_std": 0.028527962516532182,
+    "snapshots": [
+      0.3,
+      0.16,
+      0.1368
+    ],
+    "slots_including_t0": 1001,
+    "scope": "one seeded, correlated mission; no independent-sample confidence interval"
+  },
+  "motion": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "probe_dt_s": 1.0,
+    "probe_p": 0.0,
+    "probe_P": 0.0,
+    "configured_dx_m": 40.0,
+    "configured_one_second_shift_x_cells": -0.125,
+    "pulse_value_after_1s_at_initial_cell": 0.875,
+    "measured_x_displacement_after_8s_m": -40.0,
+    "expected_x_displacement_after_8s_m": -40.0,
+    "metric": "centroid, not peak; linear interpolation broadens the pulse"
+  },
+  "max_normalization_clipped_fraction": 0.0,
+  "wrapping_period_x_s": 400.0,
+  "assumptions": [
+    "independent N(0,1) fine/coarse draws per step; PCG64",
+    "periodic bilinear coarse interpolation with coarse knots every u cells",
+    "periodic first-order semi-Lagrangian advection; repeated steps diffuse structure",
+    "unit-sum Gaussian blur on raw continuous field, with periodic boundary",
+    "fixed reference min-max intensity normalization clips only display intensity",
+    "no meteorological thickness calibration; no physical CLWC or attenuation",
+    "geometric wrapping period is not exact field recurrence under diffusion/evolution"
+  ],
+  "reference_pdf": {
+    "path": "C:\\Users\\HP\\Downloads\\Anticipating_Optical_Availability_in_Hybrid_RF_FSO_Links_Using_RF_Beacons_and_Deep_Learning.pdf",
+    "sha256": "5c6b0e98561e6bdb528f5530d1e6349178e7097a5d5e781c4df39464a38cd948",
+    "algorithm_pdf_page": 10
+  },
+  "provenance": {
+    "git_branch": "feat/uav-power",
+    "git_head": "729a15c59eacffd8475de0f2afe310869b34a574",
+    "config_sha256": "e19aaa43aeba9251dd0555bc80f9c33c13831127239ce1cd314c4bee3fc486b7",
+    "producer_sha256": {
+      "scripts/visualize_ibrahim_cloud.py": "bf4189d3a0c02ec630dc139719cc480fa194af2a36d35f56572314b5e8f88f95",
+      "src/ibrahim_cloud.py": "e1cb850068fbc68062d63a5ac11f6b548a4f2edadccdce200a2a2d1312ef4145",
+      "tests/test_ibrahim_cloud.py": "169172a4c81edb26adbed04ce797018e07904a619051024fb121443814b912f8"
+    },
+    "numpy": "2.5.2",
+    "scipy": "1.18.1",
+    "matplotlib": "3.10.7",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "initial_producer_sha256": {
+      "scripts/visualize_ibrahim_cloud.py": "6e71da9296a0097c4454bd2594f4c814c74fcb5755bced3d9197efba93a386a5",
+      "src/ibrahim_cloud.py": "e1cb850068fbc68062d63a5ac11f6b548a4f2edadccdce200a2a2d1312ef4145",
+      "tests/test_ibrahim_cloud.py": "169172a4c81edb26adbed04ce797018e07904a619051024fb121443814b912f8"
+    }
+  },
+  "lifecycle": "NOT_READY_FOR_PUBLICATION_SCALE_RUNS",
+  "security_model": "UNVALIDATED_SECURITY_MODEL",
+  "frozen_spec_actual_sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+  "frozen_spec_historical_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+  "frozen_spec_historical_mismatch": true,
+  "scientific_integration": {
+    "QKD_channel_changed": false,
+    "SKR_changed": false,
+    "finite_size_changed": false,
+    "UAV_optimization_changed": false,
+    "training_or_final_test_access": false
+  },
+  "protected_tracked_files": {
+    "count": 205,
+    "changed": []
+  },
+  "figure_finalization": "Rerendered from saved NPZ only: separated motion arrows from titles and categorical black/white mask colorbar; no simulation rerun.",
+  "advection_convention": "Paper line 9 uses plus-index lookup with pixel speed; this implementation follows the user-requested SI physical pullback G(x-vx*dt,y-vy*dt), not literal substitution of negative physical speed into the printed index formula."
+}

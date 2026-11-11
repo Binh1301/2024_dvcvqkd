@@ -1,5 +1,20 @@
 # Next Actions
 
+## Current: deliver independent Ibrahim cloud diagnostic; no automatic integration
+
+2026-11-11 EVID-0233/DEC-0216. Deliver docs/IBRAHIM_CLOUD_README.md and
+results/ibrahim_cloud_demo_20261111/report_vi.md with figureA/B/C/D, GIF and
+saved arrays/coverage CSV. Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B results/ibrahim_cloud_demo_20261111/verify.py
+
+The1000s cloud-only example and10 scoped tests are complete. Preserve fixed
+gamma and report coverage drift, interpolation diffusion and400s wrapping.
+Future cloud-to-position/time sampling or R=[1-b]R_clear integration requires
+a new scoped request; do not change existing QKD/channel/SKR/finite-size/UAV
+models or launch source, optimization, training/test/publication jobs.
+All frozen-hash, E2/evidence/security/lifecycle/ObjectiveC restrictions remain.
+
+
 ## Current: deliver E2 diagnostic and controlled-run plan; STOP
 
 EVID-0231/DEC-0214. Read results/phaseE2_winning_source_spectral_validation_20261026/

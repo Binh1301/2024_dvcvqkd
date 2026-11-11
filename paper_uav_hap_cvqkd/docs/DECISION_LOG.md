@@ -1,5 +1,20 @@
 # Decision Log
 
+## DEC-0216 - Scope Ibrahim cloud emulator as an independent synthetic diagnostic
+
+2026-11-11, EVID-0233. The explicit user request authorizes a new isolated
+Algorithm-1 namespace and a1000s illustrative cloud-only run. Preserve both
+p/P coefficients and raw/noise-mask/BN separation. Adopt physical velocity
+pullback and subpixel periodic interpolation with explicit disclosure of the
+printed pixel-index sign convention. p.002/P.05, kernel and normalization are
+illustrative numerical choices; fixed G0 quantile calibration is not a QKD
+threshold approval. Report observed coverage drift rather than forcing30%.
+Do not replace existing cloud models, couple CLWC/attenuation or integrate SKR,
+finite-size or UAV optimization. No lifecycle/security/default/baseline promotion.
+The frozen historical-hash mismatch remains a blocker for model-sensitive work.
+Deliver this standalone diagnostic; no automatic downstream experiment.
+
+
 ## DEC-0215 - Allow positive-only display; preserve raw results and old figures
 
 2026-10-26 EVID-0232. The user's explicit display request permits masking K<=0
