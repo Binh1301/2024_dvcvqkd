@@ -1,0 +1,108 @@
+{
+  "model_name": "Ibrahim-style Multiscale Gaussian Cloud Model with Stationary Temporal Evolution and Wind Advection",
+  "parameters": {
+    "nx": 50,
+    "ny": 50,
+    "dx_m": 40.0,
+    "dy_m": 40.0,
+    "dt_s": 1.0,
+    "slots": 1000,
+    "vx_m_s": -5.0,
+    "vy_m_s": 0.0,
+    "tau_c_s": 300.0,
+    "seed": 20261111,
+    "u": 5,
+    "w_f": 0.35,
+    "w_c": 1.0,
+    "guard_m": 1000.0,
+    "initial_fraction": 0.3,
+    "intensity_transform": "softplus",
+    "intensity_scale": 1.0,
+    "intensity_offset": 0.0
+  },
+  "rho": 0.9966722160545233,
+  "innovation_scale": 0.08151376414425716,
+  "gamma_fixed": 0.6946257315928469,
+  "mask_semantics": "cloud presence diagnostic only; NOT optical blockage",
+  "X_semantics": "dimensionless Gaussian latent; target ensemble mean=0, variance=1",
+  "intensity_semantics": "relative nonnegative intensity; NOT physical CLWC",
+  "normalization": "fixed linear DC projection and deterministic marginal variance factors; no sample-std or per-frame normalization",
+  "domain": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "synthetic_shape_yx": [
+      105,
+      225
+    ],
+    "coarse_shape_yx": [
+      21,
+      45
+    ],
+    "synthetic_extent_xy_m": [
+      9000.0,
+      4200.0
+    ],
+    "crop_index_origin_yx": [
+      25,
+      25
+    ],
+    "guard_required_m": 1000.0,
+    "padding_horizon_s": 1000.0,
+    "last_output_time_s": 999.0,
+    "backtraces": [
+      {
+        "time_s": 0.0,
+        "x_backtrace_interval_m": [
+          1000.0,
+          3000.0
+        ],
+        "x_minimum_margin_m": 1000.0,
+        "y_backtrace_interval_m": [
+          1000.0,
+          3000.0
+        ],
+        "y_minimum_margin_m": 1000.0
+      },
+      {
+        "time_s": 400.0,
+        "x_backtrace_interval_m": [
+          3000.0,
+          5000.0
+        ],
+        "x_minimum_margin_m": 3000.0,
+        "y_backtrace_interval_m": [
+          1000.0,
+          3000.0
+        ],
+        "y_minimum_margin_m": 1000.0
+      },
+      {
+        "time_s": 999.0,
+        "x_backtrace_interval_m": [
+          5995.0,
+          7995.0
+        ],
+        "x_minimum_margin_m": 1005.0,
+        "y_backtrace_interval_m": [
+          1000.0,
+          3000.0
+        ],
+        "y_minimum_margin_m": 1000.0
+      },
+      {
+        "time_s": 1000.0,
+        "x_backtrace_interval_m": [
+          6000.0,
+          8000.0
+        ],
+        "x_minimum_margin_m": 1000.0,
+        "y_backtrace_interval_m": [
+          1000.0,
+          3000.0
+        ],
+        "y_minimum_margin_m": 1000.0
+      }
+    ],
+    "proof": "For any innovation birth time s<=t, age t-s lies in [0,horizon]. Backtraces r-v*(t-s) stay inside the unwrapped synthetic rectangle with this guard. No characteristic needs modulo reduction.",
+    "limitation": "Fourier interpolation has global support; this is no geometric re-entry, not compact-support causal independence from periodic covariance images."
+  }
+}

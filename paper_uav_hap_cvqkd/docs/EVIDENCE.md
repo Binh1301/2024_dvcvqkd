@@ -1,5 +1,86 @@
 # Evidence Register
 
+## EVID-0235 - Exponential spatial GRF cloud field with exact wind and AR(1)
+
+2026-11-11, user attachment0dbecb9d authorizes independent cloud generation only.
+New src/stochastic_cloud_grf.py, config, runner/plotter/tests and
+docs/STOCHASTIC_CLOUD_GRF_README.md. Package results/stochastic_cloud_grf_20261111/;
+read report_vi.md, validation.json, spectrum/frozen/boundary/support validations
+and artifact_verification.json. CURRENTLY_VERIFIED_PASS:12new+21old regression
+unit tests=33;152predeclared four-SE ensemble checks;11seeds x1000slots;
+56sealed artifacts and941protected pre-existing files unchanged. Pre-existing
+EVID0234/DEC0217 dirty worktree and untracked Ibrahim files preserved; startup
+diff/handoff saved. No old experiment rerun or overwrite.
+
+Target Ks=exp(-distance/200m), mean0/marginalvariance1 in ensemble. Positive
+circulant embedding minEigen.0124993489975,max1256.73727707,negative/clipped0,
+reconstruction error3.33e-16. Internal3200x150,5x40m/16000x6000m; output50x50,
+40m/2km; dt1s,k0..999,vx-5m/s,tau300. Refined lattice gives exact integer wind
+permutation, -0.125outputcell/slot,-40m/8slots; frozen fullvariancechange0,
+covariancechange3.33e-16, value multiset bitwise preserved. Backtraces stay
+unwrapped at400/999s through1000s guard horizon. All exported space-time pair
+offsets <=6955/1960m lie below8000/3000m embedding halfperiods; exact target
+covariance on required lattice, no fractional spectral covariance substitution.
+
+Fixed ensemble theta=.5244005127080407, A=q1. Main coverage33.32%->27.56%,
+time mean28.88036%;11seed mean mission30.01817%+/-2.055pp and final30.00727%
++/-4.05552pp approximate95%CI. Initial target is expected30%, not forced each
+frame. ROI population variance expectation.951924560732 distinguished from
+marginalsecondmoment1. All152four-SE checks PASS;5pointwise95%CIs exclude
+target,maxerror3.10073SE, so no simultaneous-confidence or perfect-match claim.
+
+158195observed track segments record ROI/time censoring and merge/split/lost
+association; not physical cloud lifetimes. Eight400dpiPNG/PDF pairs,E/F/Gvector,
+1000frameGIF,fullcroppedNPZ and CSV/histogram/covariance outputs visually checked.
+Primary Peleg publisher HTML and Carpentieri author preprint accessed; final
+ETH published-PDF endpoint403 disclosed. AR(1) is explicitly a proposed simplified
+model, not verbatim source replication or meteorologically calibrated CLWC.
+Existing cloud/QKD/channel/SKR/finite-size/UAV/frozen/cache/manuscript unchanged;
+no optical blockage/attenuation, baseline selection/QKD threshold approval,
+training/final-test/heldout/publication evaluation. Full repository suite NOT_RUN.
+Frozen-hash discrepancy,E2INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED unchanged.
+
+
+## EVID-0234 - Proposed stationary multiscale Gaussian cloud model, eleven-seed validation
+
+2026-11-11, user attachment34fe1283 authorizes independent cloud generation,
+stationary temporal law and padded wind advection only. New module/config/
+runner/plotter/tests and docs/IBRAHIM_STATIONARY_CLOUD_README.md. Package:
+results/ibrahim_stationary_cloud_20261111/. Read report_vi.md, validation.json,
+boundary_validation.json, numerical_validation.json, artifact_verification.json.
+
+CURRENTLY_VERIFIED_PASS:11 focused unit tests,67 predeclared descriptive
+ensemble checks,11 seeds x1000 slots,44 sealed artifacts,236 protected existing
+production/config/frozen/baseline files unchanged. Baseline read-only verifier
+PASS; no baseline simulation rerun. Default crop50x50/40m, dt1s,k0..999,
+vx-5m/s, tau300, rho.9966722160545233, weights.35/1, u5; all illustrative.
+Independent normalized Gaussian innovations share the initial target covariance.
+Odd-grid Fourier shifts preserve C; no per-frame/sample-std normalization.
+Synthetic225x105/9000x4200m with1000m guard; backtraces remain unwrapped through
+1000s, explicit400/999s checks. No geometric re-entry, not compact-support
+independence from the finite-torus covariance. Spectral variance error9.99e-15
+and max covariance error2.62e-14 after1000 shifts; displacement -40m/8s.
+
+Main gamma.6946257315928469 fixed from initial crop30%; main average24.072%,
+final19.08%. Across11 seeds final29.7236% +/-3.9562pp approximate95%CI; initial
+ROI variance1.01403+/-.09832, final.99985+/-.08678. No forced30% per slot.
+Connected-component and material-frame temporal correlations recorded with
+seed-level uncertainty; proof and empirical checks are not meteorological fit.
+Six400dpiPNG/PDF pairs, E/F vector, complete1000-frameGIF and full croppedNPZ.
+PDF/GIF visualQA checked. Final audit fixes GIF y orientation and moves tagged
+packet y into the observation band with positive control; probe/tests repeated,
+no ensemble/field rerun or parameter/criterion change. Original source/probe
+snapshots and unchanged pre-run receipt retained in finalization provenance.
+
+Old cloud/QKD/channel/SKR/finite-size/UAV/frozen/cache/manuscript untouched.
+New source is cloud-only; no optical blockage/CLWC calibration or integration,
+security functional/baseline/QKD threshold approval, training/final-test/heldout/
+publication evaluation. Full repository suite NOT_RUN. Frozen hash discrepancy,
+E2 INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED unchanged.
+
+
 ## EVID-0233 - Isolated Ibrahim Algorithm-1 dynamic cloud diagnostic
 
 2026-11-11, user attachment 596f14b1 authorizes standalone cloud implementation,

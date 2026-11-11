@@ -1,5 +1,50 @@
 # Project State
 
+## Current: independent exponential-GRF cloud diagnostic COMPLETE; QKD unchanged
+
+2026-11-11 EVID-0235/DEC-0218. New package:
+results/stochastic_cloud_grf_20261111/; read report_vi.md/README and model guide
+docs/STOCHASTIC_CLOUD_GRF_README.md. ExponentialKs ell200m, ARtau300s, prescribed
+wind-5m/s; internally5x40m with positive FFT embedding16x6km, output50x50/2km.
+Exact internal permutation avoids diffusion; no observation re-entry in1000s,
+and all output-pair covariance offsets stay below embedding halfperiods.
+11seeds/1000slots,33scoped tests and152four-SE checks PASS;56sealed artifacts,
+941protected old files unchanged. Eight400dpiPNG/PDF pairs+1000frameGIF and full
+G/intensity/presenceNPZ, covariance/histogram/morphology/track CSVs delivered.
+Expected30%fixed ensemble threshold; main33.32%->27.56%, mean28.88036%;ensemble
+mission30.01817%+/-2.055pp approximate95%CI. Fivepointwise95%CIs miss targets,
+max3.10073SE; no simultaneous certification. Relative intensity and observed
+track spans uncalibrated, not CLWC/optical blockage/physical cloud lifetimes.
+Prior dirty EVID0234/DEC0217 work and both Ibrahim packages preserved. No old
+scientific/channel/QKD/SKR/finite-size/UAV/frozen/cache/manuscript change,
+baseline/QKD threshold approval, training/test/heldout/publication evaluation.
+Full repository suite NOT_RUN. Frozen historical-hash discrepancy,E2INCONCLUSIVE,
+strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS
+and ObjectiveC USER_STOPPED unchanged. Deliver; no automatic downstream run.
+
+
+## Current: proposed stationary Fourier cloud diagnostic COMPLETE; QKD unchanged
+
+2026-11-11 EVID-0234/DEC-0217. Package:
+results/ibrahim_stationary_cloud_20261111/. Read report_vi.md and model README
+in docs/IBRAHIM_STATIONARY_CLOUD_README.md. Cloud-only Gaussian stationary AR
+law, covariance-matched multiscale innovations, spectral wind shift and padded
+9000x4200m domain; only50x50/2km observation crop exported.1000slots/11seeds,
+11unit tests/67ensemble checks PASS;44sealed artifacts/236protected old inputs
+verify. SixPNG400dpi/PDF pairs+1000frameGIF and fullX/intensity/diagnostic-maskNPZ.
+No re-entry along observation characteristics through1000s; global Fourier
+support and finite-torus covariance remain explicit limitations. Main coverage
+30%->19.08%, mean24.072%; ensemble final29.7236%+/-3.9562pp approximate95%CI.
+No forced30%, physical CLWC, optical blockage or broad superiority claim.
+Old Ibrahim baseline/README/producer and all existing QKD/channel/SKR/finite-size/
+UAV/cache/frozen/manuscript unchanged. New source is independent cloud-only.
+No security functional, baseline/QKD threshold approval, training/final-test/
+heldout/publication evaluation. Frozen historical-hash discrepancy, E2
+INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC USER_STOPPED remain.
+Deliver complete diagnostic; no automatic integration or downstream experiment.
+
+
 ## Current: isolated Ibrahim dynamic cloud emulator COMPLETE; QKD state unchanged
 
 2026-11-11 EVID-0233/DEC-0216. Standalone module/config/visualizer/10 focused

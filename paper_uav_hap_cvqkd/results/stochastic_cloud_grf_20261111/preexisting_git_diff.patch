@@ -1,0 +1,198 @@
+diff --git a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+index 7920a5cf..dd44e8ac 100644
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,28 +1,37 @@
+ # Session Handoff
+ 
+-2026-11-11 EVID-0233/DEC-0216. Isolated Ibrahim Algorithm1 cloud task COMPLETE.
+-Read docs/IBRAHIM_CLOUD_README.md and results/ibrahim_cloud_demo_20261111/
+-report_vi.md, run_report.json, validation.json. Added standalone src/config/
+-visualizer/tests only; existing cloud and QKD paths are not connected.
++2026-11-11 EVID-0234/DEC-0217. Independent proposed stationary cloud task COMPLETE.
++Read docs/IBRAHIM_STATIONARY_CLOUD_README.md and
++results/ibrahim_stationary_cloud_20261111/report_vi.md, validation.json,
++artifact_verification.json. New source/config/runner/plotter/tests only for
++cloud generation. Old Ibrahim module/config/README/results remain unchanged.
+ 
+-50x50/2km/40m, u5, dt1s, vx-5m/s, vy0,1000s,seed20261111,p.002/P.05
+-illustrative. Fixed G0 gamma=.6308975316793873; coverage30% initial,
+-10.8842757243% time mean,7.6% final. Numerical diffusion and400s periodic
+-reentry disclosed; paper plus-index sign vs physical pullback explicit.
+-Separate raw/mask/BN/intensity; no physical CLWC/attenuation or QKD threshold.
++Stationary Gaussian law with identical initial/innovation covariance; fixed
++linear DC/variance normalization, no sample-std or per-frame adjustment. Odd
++Fourier domain225x105/9000x4200m, crop50x50/2km, guard1000m. dt1s/K1000/k0..999,
++vx-5m/s, tau300/rho.9966722161, u5, weights.35/1; illustrative assumptions.
++No geometric observation re-entry through1000s, including400/999s probes;
++global Fourier support/finite-torus covariance limitations explicitly stated.
++Spectral1000-shift covariance error2.62e-14; displacement-40m/8s.
++Main gamma.6946257315928469, initial30%, average24.072%, final19.08%.
++Eleven-seed final29.7236%+/-3.9562pp approximate95%CI; no forced30%.
+ 
+-CURRENTLY_VERIFIED_PASS:10 focused unit tests;24 sealed artifacts;205 protected
+-tracked production/config/frozen files intact; five400dpiPNG/PDF pairs+GIF,
+-snapshotNPZ/full1001-slotCSV. PDFium preview visual QA complete. Full repository
+-suite NOT_RUN. Saved-package read-only verifier, from project root:
+-.venv/Scripts/python.exe -X utf8 -B results/ibrahim_cloud_demo_20261111/verify.py
++CURRENTLY_VERIFIED_PASS:11unit tests,67predeclared descriptive checks,
++44sealed artifacts,236protected existing files. Six400dpiPNG/PDF pairs,
++E/F pure vector, full1000frameGIF and X/intensity/presenceNPZ. PDF/GIF QA done.
++Finalization only fixes GIF y-up orientation and strengthens tagged-packet
++probe with in-band y and positive control; targeted probe/tests repeated,
++no latent/ensemble simulation rerun or criterion change. Initial sources/probe
++and pre-run receipt preserved. Full repository suite NOT_RUN.
++Read-only from project root:
++.venv/Scripts/python.exe -X utf8 -B results/ibrahim_stationary_cloud_20261111/verify.py
+ 
+-Branch feat/uav-power; starting HEAD729a15c59eacffd8475de0f2afe310869b34a574,
+-starting worktree clean. No existing scientific source/security functional,
+-frozen specification/channel/SKR/finite-size/UAV/lookup/cache change, baseline
+-selection or QKD threshold approval. No training/final-test/heldout/publication.
+-Frozen actual df83ea63...b78c15 differs from historical AGENTS expected561fecc9...
+-a2a7b1: preserve this existing model-sensitive blocker. E2 C,w INCONCLUSIVE,
+-strictPhaseBfalse,INSUFFICIENT_EVIDENCE,UNVALIDATED_SECURITY_MODEL,
+-NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC USER_STOPPED unchanged.
+-Deliver and stop; no automatic integration, new-inflow extension or downstream run.
++Branch feat/cloud-11-11, initial HEAD0c039f394511ce43c0038e76694c4f15e446b1eb,
++initial worktree clean. No optical blockage/physicalCLWC/attenuation/QKD/SKR/
++finite-size/UAV integration or existing scientific/security/frozen/cache/
++manuscript change. No baseline selection/QKD threshold approval, training,
++final-test/heldout/publication evaluation, lifecycle/security promotion.
++Frozen actualdf83ea63...b78c15 versus historical561fecc9...a2a7b1 discrepancy,
++E2 INCONCLUSIVE,strictPhaseBfalse,INSUFFICIENT_EVIDENCE,
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
++USER_STOPPED remain unchanged. Deliver and stop; no automatic downstream task.
+diff --git a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+index 75bddf4e..cacda9ef 100644
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -1,5 +1,22 @@
+ # Decision Log
+ 
++## DEC-0217 - Isolate proposed stationary clouds; preserve original Ibrahim example
++
++2026-11-11 EVID-0234. User explicitly requests a proposed Ibrahim-style model,
++not a silent replacement of Algorithm1 or its previous experiment. Retain old
++p/P settings and results unchanged. New covariance-matched Gaussian AR law,
++Fourier interpolation/advection, odd padded grid and relative intensity are
++proposed illustrative choices, not paper settings or a meteorological model.
++Normalize marginal variance by fixed linear factors, never random sample-std
++or per-frame renormalization. Fixed t0 quantile is a presence diagnostic only,
++not optical blockage or a QKD threshold. Report main-seed coverage drift and
++independent-seed uncertainty. Bound the no-reentry claim to characteristics
++inside the guard; disclose global Fourier support/finite periodic covariance.
++Do not infer overall superiority from one-seed baseline versus new ensemble.
++Accept scoped cloud numerical evidence only; no QKD/frozen/lifecycle adoption,
++source jobs, optimization, training or publication evaluation is authorized.
++
++
+ ## DEC-0216 - Scope Ibrahim cloud emulator as an independent synthetic diagnostic
+ 
+ 2026-11-11, EVID-0233. The explicit user request authorizes a new isolated
+diff --git a/paper_uav_hap_cvqkd/docs/EVIDENCE.md b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+index c6dfbd75..cded0cba 100644
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -1,5 +1,44 @@
+ # Evidence Register
+ 
++## EVID-0234 - Proposed stationary multiscale Gaussian cloud model, eleven-seed validation
++
++2026-11-11, user attachment34fe1283 authorizes independent cloud generation,
++stationary temporal law and padded wind advection only. New module/config/
++runner/plotter/tests and docs/IBRAHIM_STATIONARY_CLOUD_README.md. Package:
++results/ibrahim_stationary_cloud_20261111/. Read report_vi.md, validation.json,
++boundary_validation.json, numerical_validation.json, artifact_verification.json.
++
++CURRENTLY_VERIFIED_PASS:11 focused unit tests,67 predeclared descriptive
++ensemble checks,11 seeds x1000 slots,44 sealed artifacts,236 protected existing
++production/config/frozen/baseline files unchanged. Baseline read-only verifier
++PASS; no baseline simulation rerun. Default crop50x50/40m, dt1s,k0..999,
++vx-5m/s, tau300, rho.9966722160545233, weights.35/1, u5; all illustrative.
++Independent normalized Gaussian innovations share the initial target covariance.
++Odd-grid Fourier shifts preserve C; no per-frame/sample-std normalization.
++Synthetic225x105/9000x4200m with1000m guard; backtraces remain unwrapped through
++1000s, explicit400/999s checks. No geometric re-entry, not compact-support
++independence from the finite-torus covariance. Spectral variance error9.99e-15
++and max covariance error2.62e-14 after1000 shifts; displacement -40m/8s.
++
++Main gamma.6946257315928469 fixed from initial crop30%; main average24.072%,
++final19.08%. Across11 seeds final29.7236% +/-3.9562pp approximate95%CI; initial
++ROI variance1.01403+/-.09832, final.99985+/-.08678. No forced30% per slot.
++Connected-component and material-frame temporal correlations recorded with
++seed-level uncertainty; proof and empirical checks are not meteorological fit.
++Six400dpiPNG/PDF pairs, E/F vector, complete1000-frameGIF and full croppedNPZ.
++PDF/GIF visualQA checked. Final audit fixes GIF y orientation and moves tagged
++packet y into the observation band with positive control; probe/tests repeated,
++no ensemble/field rerun or parameter/criterion change. Original source/probe
++snapshots and unchanged pre-run receipt retained in finalization provenance.
++
++Old cloud/QKD/channel/SKR/finite-size/UAV/frozen/cache/manuscript untouched.
++New source is cloud-only; no optical blockage/CLWC calibration or integration,
++security functional/baseline/QKD threshold approval, training/final-test/heldout/
++publication evaluation. Full repository suite NOT_RUN. Frozen hash discrepancy,
++E2 INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED unchanged.
++
++
+ ## EVID-0233 - Isolated Ibrahim Algorithm-1 dynamic cloud diagnostic
+ 
+ 2026-11-11, user attachment 596f14b1 authorizes standalone cloud implementation,
+diff --git a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+index 162b3300..2f81756a 100644
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,5 +1,20 @@
+ # Next Actions
+ 
++## Current: deliver stationary cloud package; no automatic physical/QKD integration
++
++2026-11-11 EVID-0234/DEC-0217. Open results/ibrahim_stationary_cloud_20261111/
++report_vi.md and README.md. Model commands/formula/assumptions in
++docs/IBRAHIM_STATIONARY_CLOUD_README.md. Read-only verification from project root:
++.venv/Scripts/python.exe -X utf8 -B results/ibrahim_stationary_cloud_20261111/verify.py
++
++Eleven-seed1000-slot cloud generation,11tests,67ensemble checks and A-F/GIF are
++complete. Preserve raw arrays, fixed gamma, baseline and pre-run/finalization
++receipts. Do not rerun automatically or tune statistics/coverage for aesthetics.
++No optical blockage/attenuation/CLWC calibration, QKD/SKR/finite-size/UAV coupling,
++sourcejob, lifecycle/security promotion or training/test/publication run follows.
++Any future physical calibration or integration needs a separate scoped request.
++
++
+ ## Current: deliver independent Ibrahim cloud diagnostic; no automatic integration
+ 
+ 2026-11-11 EVID-0233/DEC-0216. Deliver docs/IBRAHIM_CLOUD_README.md and
+diff --git a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+index 5ac1060f..0fe5a5fa 100644
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,5 +1,27 @@
+ # Project State
+ 
++## Current: proposed stationary Fourier cloud diagnostic COMPLETE; QKD unchanged
++
++2026-11-11 EVID-0234/DEC-0217. Package:
++results/ibrahim_stationary_cloud_20261111/. Read report_vi.md and model README
++in docs/IBRAHIM_STATIONARY_CLOUD_README.md. Cloud-only Gaussian stationary AR
++law, covariance-matched multiscale innovations, spectral wind shift and padded
++9000x4200m domain; only50x50/2km observation crop exported.1000slots/11seeds,
++11unit tests/67ensemble checks PASS;44sealed artifacts/236protected old inputs
++verify. SixPNG400dpi/PDF pairs+1000frameGIF and fullX/intensity/diagnostic-maskNPZ.
++No re-entry along observation characteristics through1000s; global Fourier
++support and finite-torus covariance remain explicit limitations. Main coverage
++30%->19.08%, mean24.072%; ensemble final29.7236%+/-3.9562pp approximate95%CI.
++No forced30%, physical CLWC, optical blockage or broad superiority claim.
++Old Ibrahim baseline/README/producer and all existing QKD/channel/SKR/finite-size/
++UAV/cache/frozen/manuscript unchanged. New source is independent cloud-only.
++No security functional, baseline/QKD threshold approval, training/final-test/
++heldout/publication evaluation. Frozen historical-hash discrepancy, E2
++INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC USER_STOPPED remain.
++Deliver complete diagnostic; no automatic integration or downstream experiment.
++
++
+ ## Current: isolated Ibrahim dynamic cloud emulator COMPLETE; QKD state unchanged
+ 
+ 2026-11-11 EVID-0233/DEC-0216. Standalone module/config/visualizer/10 focused

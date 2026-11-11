@@ -1,5 +1,37 @@
 # Next Actions
 
+## Current: deliver standalone exponential-GRF clouds; no automatic integration
+
+2026-11-11 EVID-0235/DEC-0218. Deliver results/stochastic_cloud_grf_20261111/
+report_vi.md, README.md, A-H/PDF400dpiPNG,1000frameGIF and NPZ/CSV data.
+Commands and derivations: docs/STOCHASTIC_CLOUD_GRF_README.md.
+Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B results/stochastic_cloud_grf_20261111/verify.py
+
+The cloud-only11seed/1000slot diagnostic,33scoped tests and152four-SE checks
+are complete. Preserve fixed threshold, raw data, all deviations/censor flags,
+pre-existing dirty Ibrahim work and source-access limitations. Do not tune
+parameters for attractive coverage/plots or rerun automatically. Physical
+weather/CLWC calibration, optical blockage/attenuation and QKD/SKR/finite-size/
+UAV coupling are not implemented or authorized as follow-on work. No security,
+publication, baseline/QKD threshold or source-evidence promotion follows.
+
+
+## Current: deliver stationary cloud package; no automatic physical/QKD integration
+
+2026-11-11 EVID-0234/DEC-0217. Open results/ibrahim_stationary_cloud_20261111/
+report_vi.md and README.md. Model commands/formula/assumptions in
+docs/IBRAHIM_STATIONARY_CLOUD_README.md. Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B results/ibrahim_stationary_cloud_20261111/verify.py
+
+Eleven-seed1000-slot cloud generation,11tests,67ensemble checks and A-F/GIF are
+complete. Preserve raw arrays, fixed gamma, baseline and pre-run/finalization
+receipts. Do not rerun automatically or tune statistics/coverage for aesthetics.
+No optical blockage/attenuation/CLWC calibration, QKD/SKR/finite-size/UAV coupling,
+sourcejob, lifecycle/security promotion or training/test/publication run follows.
+Any future physical calibration or integration needs a separate scoped request.
+
+
 ## Current: deliver independent Ibrahim cloud diagnostic; no automatic integration
 
 2026-11-11 EVID-0233/DEC-0216. Deliver docs/IBRAHIM_CLOUD_README.md and

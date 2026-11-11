@@ -1,5 +1,44 @@
 # Decision Log
 
+## DEC-0218 - Bound exponential-GRF clouds to synthetic cloud-generation diagnostics
+
+2026-11-11 EVID-0235. User requests explicit exponential covariance plus wind
+and stationary AR(1), in a new namespace preserving both Ibrahim experiments.
+Use a positive circulant embedding without eigenvalue clipping; retain DC and
+ensemble variance normalization, no sample/per-frame correction. The 5m internal
+x lattice makes the prescribed5m/slot wind an exact permutation and avoids
+fractional band-limited covariance error on the40m output grid. Incommensurate
+wind settings fail rather than round. Padding protects both unwrapped source
+characteristics and every exported covariance offset against periodic folding.
+
+Use fixed analytic-Gaussian ensemble threshold for expected30%presence; do not
+force per-frame coverage or interpret presence as optical blockage. A/q/ell/tau,
+guard/refinement/tracking are illustrative uncalibrated settings. Report all
+Monte Carlo deviations, including pointwise95%misses despite four-SE PASS.
+Observed component-segment spans with censoring are not physical cloud lives.
+Peleg/Carpentieri motivate the design family; the single-scale AR(1) is proposed,
+not a verbatim equation or source reproduction. Accept cloud-only evidence;
+no existing/frozen QKD model, security/publication setting, physical calibration
+or downstream integration is adopted. Preserve pre-existing dirty work.
+
+
+## DEC-0217 - Isolate proposed stationary clouds; preserve original Ibrahim example
+
+2026-11-11 EVID-0234. User explicitly requests a proposed Ibrahim-style model,
+not a silent replacement of Algorithm1 or its previous experiment. Retain old
+p/P settings and results unchanged. New covariance-matched Gaussian AR law,
+Fourier interpolation/advection, odd padded grid and relative intensity are
+proposed illustrative choices, not paper settings or a meteorological model.
+Normalize marginal variance by fixed linear factors, never random sample-std
+or per-frame renormalization. Fixed t0 quantile is a presence diagnostic only,
+not optical blockage or a QKD threshold. Report main-seed coverage drift and
+independent-seed uncertainty. Bound the no-reentry claim to characteristics
+inside the guard; disclose global Fourier support/finite periodic covariance.
+Do not infer overall superiority from one-seed baseline versus new ensemble.
+Accept scoped cloud numerical evidence only; no QKD/frozen/lifecycle adoption,
+source jobs, optimization, training or publication evaluation is authorized.
+
+
 ## DEC-0216 - Scope Ibrahim cloud emulator as an independent synthetic diagnostic
 
 2026-11-11, EVID-0233. The explicit user request authorizes a new isolated

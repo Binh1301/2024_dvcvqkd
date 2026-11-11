@@ -1,0 +1,120 @@
+{
+  "model_name": "Spatiotemporal Stochastic Cloud Field Model using Spatially Correlated GRF, Wind Advection and AR(1) Temporal Evolution",
+  "parameters": {
+    "nx": 50,
+    "ny": 50,
+    "dx_m": 40.0,
+    "dy_m": 40.0,
+    "dt_s": 1.0,
+    "slots": 1000,
+    "vx_m_s": -5.0,
+    "vy_m_s": 0.0,
+    "ell_c_m": 200.0,
+    "tau_c_s": 300.0,
+    "seed": 20261111,
+    "refine_x": 8,
+    "refine_y": 1,
+    "guard_m": 1000.0,
+    "embedding_scale": 1,
+    "initial_fraction": 0.3,
+    "threshold_mode": "ensemble",
+    "theta_c": null,
+    "A": 1.0,
+    "q": 1.0,
+    "tracking_iou": 0.1
+  },
+  "theta_c_actual": 0.5244005127080407,
+  "rho": 0.9966722160545233,
+  "innovation_scale": 0.08151376414425716,
+  "threshold_origin": "Analytic N(0,1) ensemble quantile",
+  "latent_units": "dimensionless Gaussian",
+  "intensity_units": "relative uncalibrated proxy; NOT CLWC",
+  "diagnostic_mask_semantics": "cloud presence only; NOT optical blockage",
+  "coordinates": "array[k,y,x]; centres in metres, y increases upward; point samples, no area averaging",
+  "boundary": {
+    "status": "CURRENTLY_VERIFIED_PASS",
+    "internal_shape_yx": [
+      150,
+      3200
+    ],
+    "internal_spacing_xy_m": [
+      5.0,
+      40.0
+    ],
+    "synthetic_extent_xy_m": [
+      16000.0,
+      6000.0
+    ],
+    "sampling_origin_indices_yx": [
+      26,
+      204
+    ],
+    "step_internal_yx": [
+      0,
+      -1
+    ],
+    "output_displacement_xy_cells": [
+      -0.125,
+      0.0
+    ],
+    "guard_m": 1000.0,
+    "horizon_s": 1000.0,
+    "backtraces": [
+      {
+        "time_s": 0.0,
+        "x_backtrace_edges_m": [
+          1000.0,
+          3000.0
+        ],
+        "x_margin_m": 1000.0,
+        "y_backtrace_edges_m": [
+          1020.0,
+          3020.0
+        ],
+        "y_margin_m": 1020.0
+      },
+      {
+        "time_s": 400.0,
+        "x_backtrace_edges_m": [
+          3000.0,
+          5000.0
+        ],
+        "x_margin_m": 3000.0,
+        "y_backtrace_edges_m": [
+          1020.0,
+          3020.0
+        ],
+        "y_margin_m": 1020.0
+      },
+      {
+        "time_s": 999.0,
+        "x_backtrace_edges_m": [
+          5995.0,
+          7995.0
+        ],
+        "x_margin_m": 5995.0,
+        "y_backtrace_edges_m": [
+          1020.0,
+          3020.0
+        ],
+        "y_margin_m": 1020.0
+      },
+      {
+        "time_s": 1000.0,
+        "x_backtrace_edges_m": [
+          6000.0,
+          8000.0
+        ],
+        "x_margin_m": 6000.0,
+        "y_backtrace_edges_m": [
+          1020.0,
+          3020.0
+        ],
+        "y_margin_m": 1020.0
+      }
+    ],
+    "proof": "Every innovation age lies between 0 and horizon. Linear backward characteristics attain extremes at endpoints; all crop edges stay inside the unwrapped rectangle. Internal advection is an exact permutation.",
+    "limit": "Finite periodic embedding, not infinite-domain independence; required spatial/time covariance stencils must also remain below half-period in each coordinate."
+  },
+  "advection": "Exact integer internal shift; -5m is -1 internal x cell and -0.125 output x cell per slot"
+}

@@ -1,0 +1,85 @@
+{
+  "status": "CURRENTLY_VERIFIED_PASS",
+  "internal_shape_yx": [
+    150,
+    3200
+  ],
+  "internal_spacing_xy_m": [
+    5.0,
+    40.0
+  ],
+  "synthetic_extent_xy_m": [
+    16000.0,
+    6000.0
+  ],
+  "sampling_origin_indices_yx": [
+    26,
+    204
+  ],
+  "step_internal_yx": [
+    0,
+    -1
+  ],
+  "output_displacement_xy_cells": [
+    -0.125,
+    0.0
+  ],
+  "guard_m": 1000.0,
+  "horizon_s": 1000.0,
+  "backtraces": [
+    {
+      "time_s": 0.0,
+      "x_backtrace_edges_m": [
+        1000.0,
+        3000.0
+      ],
+      "x_margin_m": 1000.0,
+      "y_backtrace_edges_m": [
+        1020.0,
+        3020.0
+      ],
+      "y_margin_m": 1020.0
+    },
+    {
+      "time_s": 400.0,
+      "x_backtrace_edges_m": [
+        3000.0,
+        5000.0
+      ],
+      "x_margin_m": 3000.0,
+      "y_backtrace_edges_m": [
+        1020.0,
+        3020.0
+      ],
+      "y_margin_m": 1020.0
+    },
+    {
+      "time_s": 999.0,
+      "x_backtrace_edges_m": [
+        5995.0,
+        7995.0
+      ],
+      "x_margin_m": 5995.0,
+      "y_backtrace_edges_m": [
+        1020.0,
+        3020.0
+      ],
+      "y_margin_m": 1020.0
+    },
+    {
+      "time_s": 1000.0,
+      "x_backtrace_edges_m": [
+        6000.0,
+        8000.0
+      ],
+      "x_margin_m": 6000.0,
+      "y_backtrace_edges_m": [
+        1020.0,
+        3020.0
+      ],
+      "y_margin_m": 1020.0
+    }
+  ],
+  "proof": "Every innovation age lies between 0 and horizon. Linear backward characteristics attain extremes at endpoints; all crop edges stay inside the unwrapped rectangle. Internal advection is an exact permutation.",
+  "limit": "Finite periodic embedding, not infinite-domain independence; required spatial/time covariance stencils must also remain below half-period in each coordinate."
+}
