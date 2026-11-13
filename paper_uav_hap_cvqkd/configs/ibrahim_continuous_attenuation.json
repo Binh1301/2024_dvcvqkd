@@ -1,0 +1,26 @@
+{
+  "model_name": "2D Spatiotemporal Continuous Cloud Attenuation Model",
+  "input_npz": "results/ibrahim_stationary_cloud_20261111/cloud_fields.npz",
+  "input_metadata": "results/ibrahim_stationary_cloud_20261111/metadata.json",
+  "input_manifest": "results/ibrahim_stationary_cloud_20261111/artifact_hashes.json",
+  "gamma0_mode": "reuse_saved_gamma_fixed",
+  "wavelength_nm": 1550.0,
+  "reference_zenith_deg": 0.0,
+  "equation6_at_6_km": "upper_branch_1.3_explicit_gap_completion",
+  "primary_scenario": "reference",
+  "scenarios": [
+    {"name": "reference", "l0_g_m3": 0.1, "droplet_cm3": 100.0, "thickness_km": 0.5},
+    {"name": "L0_low", "l0_g_m3": 0.05, "droplet_cm3": 100.0, "thickness_km": 0.5},
+    {"name": "L0_high", "l0_g_m3": 0.3, "droplet_cm3": 100.0, "thickness_km": 0.5},
+    {"name": "H_thin", "l0_g_m3": 0.1, "droplet_cm3": 100.0, "thickness_km": 0.1},
+    {"name": "H_thick", "l0_g_m3": 0.1, "droplet_cm3": 100.0, "thickness_km": 1.0},
+    {"name": "N_low", "l0_g_m3": 0.1, "droplet_cm3": 50.0, "thickness_km": 0.5},
+    {"name": "N_high", "l0_g_m3": 0.1, "droplet_cm3": 300.0, "thickness_km": 0.5}
+  ],
+  "snapshot_slots": [0, 100, 200, 400, 600, 800, 999],
+  "spatial_lags_cells": [0, 1, 2, 3, 4, 5, 8, 10, 15, 20],
+  "temporal_lags_slots": [0, 1, 2, 4, 8, 20, 40, 80, 100, 200, 400, 800, 999],
+  "probe_indices_yx": [[12, 12], [25, 25], [37, 37]],
+  "zenith_comparison_deg": [0, 30, 60],
+  "assumptions": "All L0/N/H are illustrative and uncalibrated; fixed positive-part Gaussian mapping is proposed, not supplied by Ibrahim. Vertical reference maps do not assume an actual HAP-UAV cloud intersection. No clipping, binary blockage, per-frame normalization, or QKD integration."
+}

@@ -1,5 +1,164 @@
 # Evidence Register
 
+## EVID-0239 - Independent binary QKD availability diagnostic; official threshold pending
+
+2026-11-13 completion of user task f0d5073e, requested output namespace dated
+20261112: results/ibrahim_binary_qkd_20261112/. Read report_vi.md, metadata.json,
+official_055_status.json, verification.json, export_audit.json and tests.log.
+Deterministically reuses original stationary Gaussian 1000x50x50 frames and saved
+continuous CLWC/A/T; axes remain [t,y,x], reference vertical cloud columns rather
+than ray-traced UAV links. No Gaussian regeneration or physical-array changes.
+
+Prioritized configs/redesigned_baseline_global_mb_va.yaml, Dr=0.55 m. Executed
+native SKR/Holevo import probe fails WinError4551 (torch_python.dll); actual log
+saved. BLOCKED_BY_ENVIRONMENT. SKR evaluation and threshold search NOT_RUN;
+no official Acrit, clear-sky feasibility, monotonicity or root validation claimed.
+All official states are b=255/unresolved, qkd_available=False with mask=False;
+official blockage and availability ratios are null. No silent 0.1 dB fallback.
+
+Separate user-authorized illustrative scalar threshold 0.1 dB assumes all source
+columns clear-feasible. b=0 for A<0.1, b=1 for A>=0.1. Baseline-unavailable and
+unknown states are independently supported and tested. Diagnostic 596876/2500000
+blocked cell-slots =23.875040%; 596876/601800 cloud-affected A>0 cell-slots
+=99.181788%. All blocked cell-slots still have physical T>0. Neither statistic
+establishes secure-key feasibility for Dr=0.55 m or physical optical extinction.
+
+CURRENTLY_VERIFIED_PASS for scoped software/data checks: 18 new tests plus 49
+cloud regressions =67 tests, all 2.5 million classifications, source hashes,
+NPZ reload/coordinates, denominators and unknowns, 2011 protected old files.
+Six 400dpi PNG/native-vector PDF pairs rendered and visually inspected; all PDF
+fonts embedded, zero raster images. GIF has 1000 frames, every map pixel checked
+against saved data in original time order, with official unknown separate.
+Sealed artifact/producer inventories and read-only verify.py bind exports to
+inputs/config/current producers. Full repository suite NOT_RUN due native Torch
+blocker; 67 is explicitly scoped. Initial preexport metadata-reader failure and
+original producer/probe are preserved, no old datasets overwritten.
+
+No old QKD/SKR/channel/security/trajectory/frozen/cache/cloud/results edits,
+source/AP jobs, training/final-test/heldout/publication evaluation, baseline or
+threshold approval, or lifecycle promotion. Frozen historical-hash discrepancy,
+E2 INCONCLUSIVE, strict Phase B false, UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED remain.
+
+## EVID-0238 - User-selected centered Eq14 cloud-loss diagnostic, conditional crossings
+
+2026-11-12, user resolved preflight: use nearest Eq14 branch accepting uncertified
+Cw, HAPxy(1000,1000)m, UAV50x50cellcenters in2km square, HAP20km/UAV1km.
+Completed package results/cloud_threshold_eq14_diagnostic_20261112_v4/: read
+report_vi.md,execution_summary.json,adapter_validation.json,selected_root_validation.json,
+verification.json,design_receipt.json,scan_plan.json,resume_provenance.json.
+CURRENTLY_VERIFIED_PASS applies to numerical/software diagnostic only:11unit tests,
+12independent adaptive-MI/matrix-covariance endpoint checks,9exhaustive-catalog
+checkpoints and209sourceA0 replay,552sealed artifacts,1263old files unchanged.
+257geometries:251exact radial groups for2500UAVpositions,vertical/domaincorner,
+and19.5/20/21/22km extended conditions. No spatial/Cw interpolation.
+
+79full201-level raw sweeps0..100dB/.5;178remaining groups use raw evaluations
+around crossing plus200full-range nonpositive MI-upper-bound checks.72completed
+full-sweep checkpoints reused unchanged from v3; 37042selected evaluation rows.
+Completion v4 runtime90.14s excludes checkpoint production/validation/failed attempts.
+Three400dpiPNG/PDF figures rendered/inspected,embedded fonts,1/2purevector.
+Grid midpoint crossings .09326171875...09912109375dB,bracketwidth.0009765625dB.
+Vertical [.0986328125,.099609375],far-grid[.0927734375,.09375]. Fixed clear-sky
+optimum and reselected212catalog have identical crossing brackets at all grid
+positions. At22km clearK=-.003126012864bit/use,no positive additional margin;
+root null,not a root atA0. Catalog curve is nonmonotonic in the negative region;
+no sampled positive re-entry. No official outage rule/security threshold certified.
+
+Preserved functions execute Eq13/14,homodyne discreteMI GH64/128,Holevo80/110digits.
+Power attenuation scales m1/mh only;M0/P0 and detector term unchanged. Native
+historical CLI import failed Windows4551 torch_python.dll. Isolated numeric-function
+loading avoids unrelated Torch import without policy/DLL changes or fake Torch.
+195archivedPMF/alpha pairs plus14binary input recoveries match original digests;
+3unavailable arrays must be excluded by covariance/MI upper bounds. All212source
+identities retained;all delivered catalog selections resolved to1e-10bit/use.
+Cw not recomputed,interpolated or promoted. Finite catalog reselection is NOT
+continuous/global VA,nu reoptimization; the latter remains NOT_RUN with incomplete
+continuous source coverage and blocked optimizer dependency. Original full task's
+continuous ExperimentB is therefore not claimed complete.
+
+Earlier v1 failed source-exclusion and v2 failed JSONboolean export; v3 full-sweep
+checkpoints preserved and reused byhash in v4. No old QKD/channel/SKR/security/
+finite-size/UAV/cloud/cache/frozen/manuscript code/results changed. New diagnostic
+adapters only. No sourceAP/training/final-test/heldout/publication evaluation,
+security/lifecycle/baseline/default/threshold approval. Full repository testsNOT_RUN.
+Frozen-hash mismatch,E2INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED remain unchanged.
+
+
+## EVID-0237 - Cloud critical-attenuation preflight; physical threshold NOT_RUN
+
+2026-11-12 user attachment95482481 requests fixed/reoptimized cloud thresholds.
+Package results/cloud_threshold_readiness_20261112/:report_vi.md,readiness.json,
+geometry_bounds.json,existing_geometry.csv,saved_clear_sky_reference.csv,
+input_hashes.json,protected_inputs.json,unit_tests.log,verification.json.
+CURRENTLY_VERIFIED_PASS applies only to8software tests and audit provenance,
+1070protected pre-existing files/13scientific inputs unchanged. No physical Acrit,
+new channel/MI/Holevo/SKR/Cw/optimizer call or figures produced; thresholds null,
+requested study incomplete. Root callback tests are synthetic fixtures, not SKR.
+
+Current protocol binds Eq14 homodyne Dr.30m,xi_det.005 against a separate frozen
+ideal-heterodyne Dr.55m branch; selection pending user clarification. Strict
+PhaseBfalse,74insufficient pool sources,winningCw INCONCLUSIVE/no rigorous error
+bound, and frozen historical-hash discrepancy independently rechecked. Existing
+UAV manuscript grid1km10x10 with offsetHAP is distinct from cloud2km50x50.
+Conditional centered2km geometry bounds computed only as geometry, not layout
+approval. Library prepares sample/moment pushforward and0..100dB/.5 coarse scan,
+bisectionwidth.005dB, raw negative retention, nonmonotonic/no-margin/censored
+outcomes. Noise derivation preserves unattenuated detector term and zero atom.
+No selected-evaluator adapter connected and no outage threshold certified.
+Previous uncommitted attenuation package/ledgers preserved in startup archives.
+No scientific/security/frozen/cloud result/model/publication setting change;
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC
+USER_STOPPED unchanged. Full repository suite NOT_RUN. Await branch/layout
+resolution; diagnostic source acceptance is distinct from physical certification.
+
+
+## EVID-0236 - Saved-field continuous cloud attenuation, uncalibrated scenarios
+
+2026-11-12, user attachment8769ef3f authorizes standalone continuous CLWC/optical
+attenuation from the saved Ibrahim Stationary Gaussian source. New independent
+src/ibrahim_continuous_attenuation.py, config, runner/plotter/report/verifier/tests
+and docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md. Results:
+results/ibrahim_continuous_attenuation_20261112/; read report_vi.md, metadata.json,
+validation.json, design_receipt.json, verification_provenance.json and
+artifact_verification.json. Source X1000x50x50 reused byte-for-byte, seed20261111,
+40m/dt1s/vx-5m/s/tau300s; zero Gaussian regeneration and zero RNG draws by runner.
+
+CURRENTLY_VERIFIED_PASS:16new+33old cloud unit tests=49; three previous cloud
+packages pass read-only verification.65sealed result artifacts,1003old protected
+files unchanged. Seven400dpiPNG/PDF pairs and1000frameGIF; all PDF fonts embedded,
+E/F/G pure vector; final visualQA and GIF pixels at0/400/999 verified.
+
+L=L0*max(G-gamma,0), gamma=.6946257315928469 fixed from source; L0/N/H are
+explicitly illustrative, uncalibrated assumptions. Paper Eqs5-7 followed literally:
+V=1.002/(LN)^.6473, omega=3.91/V*(1550/550)^(-x). Printed Eq6 has THREE branches,
+omitsV6; explicit x(6)=1.3 completion, original jumps at6/50 retained. No smoothing,
+clipping, saturation or binary optical blockage. L=0 gives omega=A0,T1; infinite
+visibility is a limiting sentinel only, not stored in physical arrays. All stored
+L/omega/A/T finite; 0<T<=1. Reference uses vertical full-slab geometry; independent
+segment/slab API handles misses/partial paths and samples cloud midpoint instead
+of UAVxy. Midpoint horizontal approximation, not a ray integral or actual QKD geometry.
+
+Seven one-parameter scenarios; reference L0.1g/m3,N100cm^-3,H.5km has meanA
+.923228323046dB,max15.511380783dB,Tmin.028110069651,zeroA75.928%.
+Empirical Ax40m correlation.74879422, Eulerlag1s.98585024; eight-slot spatial
+correlation peaks at-40m (.95050286), consistent with saved wind. Nonlinearity
+changes covariance; no Gaussian-rho substitution or iid confidence claim.
+L0/N affect optics through L0*N, preventing separate optical-only identification.
+Transform+statistics+compression30.708s for seven scenarios; plotting separate.
+
+Original plot/report producers archived before presentation/documentation-only
+finalization; no field/ensemble/parameter rerun. Initial branchfeat/cloud-11-11,
+HEAD3e5823f745323bbdbac7165bae1b6676463309e9, initial worktree clean. No existing
+QKD/channel/SKR/finite-size/UAV/cloud source, prior results, frozen specification,
+cache/manuscript or security/publication settings changed. No training/test/
+heldout/publication evaluation or baseline/QKD threshold approval. Full repository
+suite NOT_RUN; physical calibration/actualQKD integration NOT_RUN. Frozen historical
+hash mismatch,E2INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED remain.
+
+
 ## EVID-0235 - Exponential spatial GRF cloud field with exact wind and AR(1)
 
 2026-11-11, user attachment0dbecb9d authorizes independent cloud generation only.

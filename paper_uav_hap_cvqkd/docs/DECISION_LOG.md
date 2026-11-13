@@ -1,5 +1,83 @@
 # Decision Log
 
+## DEC-0222 - Keep binary cloud diagnostic separate from official QKD availability
+
+2026-11-13 EVID-0239. User task f0d5073e explicitly permits an independent
+illustrative 0.1 dB conversion if the prioritized 0.55 m evaluator cannot run.
+Accept completed diagnostic conversion and exports only; the native import
+failure does not supply an official threshold or imply zero/100% availability.
+Preserve b=255 unknown separately, carry resolved_mask with Boolean availability,
+and exclude known baseline-unavailable cells from cloud-induced denominators.
+The classifier's validated_input mode is a caller assertion, never certification.
+
+Keep original continuous physical T and all prior cloud/QKD artifacts immutable.
+Saved cloud columns are not slant HAP-UAV losses at each UAV position. No automatic
+trajectory reward/outage integration: first establish admissible 0.55 m source/
+security evidence, clear-sky maps, first-transition/monotonicity and cloud-layer
+geometry/calibration. Binary effective T/R is only a separate optional surrogate;
+no physical maps were invented. No official threshold, source-evidence, security,
+frozen-model or publication lifecycle promotion follows. Existing gates remain.
+
+## DEC-0221 - Bind cloud-loss calculations to the user's selected Eq14 diagnostic
+
+2026-11-12 EVID-0238. User explicitly chose historical Eq14 with uncertified Cw
+and centered2km/50x50UAVgeometry; branch/layout preflight questions are resolved
+for this diagnostic only. Preserve Dr.30m/homodyne/xi_det.005 and exact historical
+source identities. Do not reinterpret this as adoption of a different frozen
+security model, Cw evidence upgrade, publication permission or operational outage.
+Use deterministic power-loss pushforward, keep detector noise unattenuated.
+Retain conditional root brackets and sampled monotonicity/re-entry evidence.
+
+Finite212catalog selection may use the classical MI upper bound only to screen
+sources; report raw rates from preserved discrete MI/Holevo. Missing array states
+may be recovered only by exact original byte digests; otherwise unresolved
+positive-possible candidates block root conclusions. Bound-negative grid points
+are labeled as bound checks, not fabricated raw evaluations. Keep full raw curves
+for representative conditions and completed checkpoints. Do not interpolate maps.
+Continuous VA,nu optimization remains NOT_RUN; finite-source results cannot be
+called a continuous/global optimum. Report that limitation explicitly. No automatic
+expensive source recovery, gate waiver or use as official QKD cloud outage follows.
+
+
+## DEC-0220 - Do not conflate cloud-threshold root accuracy with model evidence
+
+2026-11-12 EVID-0237. Prepare root/moment software and scientific preflight under
+the new user task. Keep numerical thresholds null until the security/receiver/
+aperture branch and UAV/HAP layout are bound. Current Eq14 and frozen direct-Z
+heterodyne conventions are not interchangeable. Historical Cw diagnostic use
+requires an explicit interpretation and cannot certify operational outage;
+continuous reoptimization cannot be replaced by a212-source envelope or Cw
+interpolation. User clarification pending. A sub.01dB bracket alone says nothing
+about uncertainty in Cw or optimizer convergence. No gate override, publication
+promotion, source computation or expensive run initiated by this preparation.
+
+
+## DEC-0219 - Keep continuous cloud attenuation independent and uncalibrated
+
+2026-11-12 EVID-0236. User's new scoped task permits saved-field attenuation only,
+superseding earlier no-automatic-attenuation follow-on statements only for this
+diagnostic. Reuse original Ibrahim Stationary X and fixed gamma; no Gaussian
+regeneration, field resampling, per-frame normalization or optical blockage mask.
+Rectified Gaussian CLWC with configurable L0,N,H is an uncalibrated surrogate,
+not a physical mapping supplied by Ibrahim or inferred from thickness normalization.
+
+Implement literal published Eqs5-7 and its three printed visibility regimes.
+Record the V=6 omission; choose upper-branch x=1.3 only at that missing point and
+retain printed6/50km jumps. Continuous-valued does not mean globally continuous.
+Do not silently replace with common five-branch Kim, smooth the boundaries, add
+a unit conversion factor or clip loss/transmittance. Finite float64 range failures
+raise errors; keep A/logT for extreme attenuation instead of introducing floors.
+
+Use vertical reference maps and separate finite-segment cloud intersection API.
+The midpoint approximation is explicit, not an actual HAP-UAV intersection claim
+or a horizontal path integral. Empirically evaluate nonlinear G/L/A/T correlations;
+L0*N degeneracy and one-mission dependence are limitations, not calibration.
+Accept only reproducible numerical/software diagnostic evidence. Keep all previous
+models/results, QKD/channel/security/frozen/publication state untouched; no future
+integration or lifecycle-gated action follows automatically. Physical calibration
+and operational adoption need new scoped work and meteorological evidence.
+
+
 ## DEC-0218 - Bound exponential-GRF clouds to synthetic cloud-generation diagnostics
 
 2026-11-11 EVID-0235. User requests explicit exponential covariance plus wind

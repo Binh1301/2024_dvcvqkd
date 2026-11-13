@@ -1,0 +1,73 @@
+{
+  "status": "BLOCKED_BY_SCIENTIFIC_PREREQUISITES",
+  "requested_task_complete": false,
+  "numerical_thresholds_available": false,
+  "blockers": [
+    "FROZEN_SPEC_HASH_DISCREPANCY_UNRESOLVED",
+    "STRICT_PHASE_B_NOT_READY",
+    "WINNER_CW_CONVERGENCE_INCONCLUSIVE",
+    "SECURITY_BRANCH_REQUIRES_EXPLICIT_SELECTION",
+    "UAV_GRID_AND_HAP_HORIZONTAL_PLACEMENT_NOT_BOUND_TO_2KM_REGION",
+    "CONTINUOUS_REOPTIMIZATION_HAS_NO_COMPLETE_CERTIFIED_SOURCE_COVERAGE"
+  ],
+  "actual_frozen_sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+  "historical_expected_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1",
+  "phase_B_ready": false,
+  "source_status_counts": {
+    "VERIFIED_EXACT": 6,
+    "VERIFIED_BY_ALTERNATIVE_EVIDENCE": 1,
+    "INSUFFICIENT_EVIDENCE": 74,
+    "INVALID": 0
+  },
+  "winning_source_evidence": "INSUFFICIENT_EVIDENCE",
+  "E2_conclusion": "INCONCLUSIVE",
+  "rigorous_Cw_error_bound": null,
+  "selected_physical_branch": null,
+  "publication_training": false,
+  "new_channel_evaluations": 0,
+  "new_MI_evaluations": 0,
+  "new_Holevo_evaluations": 0,
+  "new_source_Cw_computations": 0,
+  "new_optimizer_calls": 0,
+  "critical_attenuation_fixed_db": null,
+  "critical_attenuation_reoptimized_db": null,
+  "threshold_outage_rule_certified": false,
+  "historical_eq14_parameters": {
+    "physical": {
+      "h_hap_km": 20.0,
+      "h_uav_km": 1.0,
+      "h_atm_km": 20.0,
+      "Dr_m": 0.3,
+      "wavelength_m": 1.55e-06,
+      "divergence_full_urad": 35.0,
+      "jitter_urad": 1.561,
+      "sigma_h_m": 0.1,
+      "rho_x_m": 0.0,
+      "rho_y_m": 0.0,
+      "F0": "Infinity",
+      "tau_zen": 0.92,
+      "Cn2_ground": 1e-14,
+      "wind_m_s": 21.0,
+      "FOV_half_rad": 0.00625,
+      "sigma_AoA_rad": 0.0015,
+      "AO": "OFF",
+      "phase_noise": "OFF"
+    },
+    "beta": 0.95,
+    "xi_ch": 0.0186,
+    "xi_det": 0.005,
+    "measurement": "homodyne_1D_Gaussian_effective",
+    "source_domain": {
+      "VA": [
+        0.05,
+        10
+      ],
+      "nu_raw": [
+        0.0,
+        0.4
+      ],
+      "peak_photon_constraint": null,
+      "peak_photon_constraint_authority": "USER_SELECTED_REQUESTED_DOMAIN"
+    }
+  }
+}

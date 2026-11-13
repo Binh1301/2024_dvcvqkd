@@ -1,0 +1,150 @@
+{
+  "scope": "UNCALIBRATED_CONTINUOUS_ATTENUATION_DIAGNOSTIC_ONLY",
+  "input_sha256": "3ddf3a7547fa73a17c6502558b92d01781eb68abf36c6d9f0c9f40a3f401d1cc",
+  "input_metadata_sha256": "e6b116392589099c05d2d208c2bf3bad8092957061a147ec371101267565b5fa",
+  "input_manifest_sha256": "92a2b57bbd1d634ffc1cb69ffa9e95a2027afcbd10b6b71696e50aa4d7ccdeaf",
+  "config_sha256": "1d62da2f749ee14f593e883476fa40c8579afd831f90dee4e3ea6886f6d2b0b3",
+  "producer_hashes": {
+    "src/ibrahim_continuous_attenuation.py": "d36af3a188477fe0d1fbc3c70df5b3ff5dc979362c840f1f8bbc2950f01666be",
+    "scripts/run_ibrahim_continuous_attenuation.py": "66d90d736158b19b271e09af4a8871467ca89e6837ac2a2e7b1d618809d65987",
+    "scripts/plot_ibrahim_continuous_attenuation.py": "f19b9a9f29a743f58b02ee77ee83fe1a4e9da71598ad166c01cddb753035f5af",
+    "scripts/report_ibrahim_continuous_attenuation.py": "f93b4e84a2964c9a421ae76591cf29380a14a2e936d32cde217fc31e983e21fd",
+    "tests/test_ibrahim_continuous_attenuation.py": "ed5caab9141d190a92881a48b092d69b16edf5cfd78bc2e3b4329146ec3801b0"
+  },
+  "settings": {
+    "model_name": "2D Spatiotemporal Continuous Cloud Attenuation Model",
+    "input_npz": "results/ibrahim_stationary_cloud_20261111/cloud_fields.npz",
+    "input_metadata": "results/ibrahim_stationary_cloud_20261111/metadata.json",
+    "input_manifest": "results/ibrahim_stationary_cloud_20261111/artifact_hashes.json",
+    "gamma0_mode": "reuse_saved_gamma_fixed",
+    "wavelength_nm": 1550.0,
+    "reference_zenith_deg": 0.0,
+    "equation6_at_6_km": "upper_branch_1.3_explicit_gap_completion",
+    "primary_scenario": "reference",
+    "scenarios": [
+      {
+        "name": "reference",
+        "l0_g_m3": 0.1,
+        "droplet_cm3": 100.0,
+        "thickness_km": 0.5
+      },
+      {
+        "name": "L0_low",
+        "l0_g_m3": 0.05,
+        "droplet_cm3": 100.0,
+        "thickness_km": 0.5
+      },
+      {
+        "name": "L0_high",
+        "l0_g_m3": 0.3,
+        "droplet_cm3": 100.0,
+        "thickness_km": 0.5
+      },
+      {
+        "name": "H_thin",
+        "l0_g_m3": 0.1,
+        "droplet_cm3": 100.0,
+        "thickness_km": 0.1
+      },
+      {
+        "name": "H_thick",
+        "l0_g_m3": 0.1,
+        "droplet_cm3": 100.0,
+        "thickness_km": 1.0
+      },
+      {
+        "name": "N_low",
+        "l0_g_m3": 0.1,
+        "droplet_cm3": 50.0,
+        "thickness_km": 0.5
+      },
+      {
+        "name": "N_high",
+        "l0_g_m3": 0.1,
+        "droplet_cm3": 300.0,
+        "thickness_km": 0.5
+      }
+    ],
+    "snapshot_slots": [
+      0,
+      100,
+      200,
+      400,
+      600,
+      800,
+      999
+    ],
+    "spatial_lags_cells": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      10,
+      15,
+      20
+    ],
+    "temporal_lags_slots": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      20,
+      40,
+      80,
+      100,
+      200,
+      400,
+      800,
+      999
+    ],
+    "probe_indices_yx": [
+      [
+        12,
+        12
+      ],
+      [
+        25,
+        25
+      ],
+      [
+        37,
+        37
+      ]
+    ],
+    "zenith_comparison_deg": [
+      0,
+      30,
+      60
+    ],
+    "assumptions": "All L0/N/H are illustrative and uncalibrated; fixed positive-part Gaussian mapping is proposed, not supplied by Ibrahim. Vertical reference maps do not assume an actual HAP-UAV cloud intersection. No clipping, binary blockage, per-frame normalization, or QKD integration."
+  },
+  "source_parameters": {
+    "nx": 50,
+    "ny": 50,
+    "dx_m": 40.0,
+    "dy_m": 40.0,
+    "dt_s": 1.0,
+    "slots": 1000,
+    "vx_m_s": -5.0,
+    "vy_m_s": 0.0,
+    "tau_c_s": 300.0,
+    "seed": 20261111,
+    "u": 5,
+    "w_f": 0.35,
+    "w_c": 1.0,
+    "guard_m": 1000.0,
+    "initial_fraction": 0.3,
+    "intensity_transform": "softplus",
+    "intensity_scale": 1.0,
+    "intensity_offset": 0.0
+  },
+  "gamma_fixed": 0.6946257315928469,
+  "pre_transform": true,
+  "gaussian_regeneration_count": 0,
+  "rng_draw_count": 0,
+  "acceptance": "Deterministic formula/unit/hash checks; empirical correlations are descriptive, not pass/fail target fits"
+}

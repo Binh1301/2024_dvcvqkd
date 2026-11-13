@@ -1,5 +1,69 @@
 # Next Actions
 
+## Current: deliver binary diagnostic; no automatic official trajectory coupling
+
+2026-11-13 EVID-0239/DEC-0222. Deliver
+results/ibrahim_binary_qkd_20261112/report_vi.md, README.md, diagnostic NPZs,
+official_pending_status.npz, statistics CSV/JSON, six PNG400dpi/vector PDFs and
+1000-frame GIF. Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B results/ibrahim_binary_qkd_20261112/verify.py
+
+Diagnostic conversion is complete. Official Dr=0.55 m threshold/clear feasibility
+remains pending (native Torch WinError4551; no numerical SKR/root run). Do not
+use the 0.1 dB illustration or all-unknown official map as operational outage.
+Future scientific coupling needs working evaluator plus independent admissible
+source/security evidence, clear maps, first-transition/monotonicity checks and
+ray/cloud-layer geometry/calibration. These are unresolved work, not authorized
+automatic jobs. Preserve all original fields and artifacts; no source/AP,
+Objective C restart, training/test/heldout/publication or lifecycle promotion.
+
+## Current: deliver conditional Eq14 crossing maps; continuous/global optimization remains open
+
+2026-11-12 EVID-0238/DEC-0221. Deliver
+results/cloud_threshold_eq14_diagnostic_20261112_v4/report_vi.md,
+critical_thresholds.csv,critical_threshold_map.csv,threshold_maps.npz and3figure
+pairs. Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B results/cloud_threshold_eq14_diagnostic_20261112_v4/verify.py
+
+User's Eq14/centered2km geometry choices have been executed for the conditional
+finite-source study. Do not ask those same questions again. Preserve brackets,
+negative rates, nonmonotonicity, failed-attempt records and reused checkpoints.
+Continuous VA,nu reoptimization is not finished; it requires a working original
+optimizer/source path and explicit bounded source-evaluation plan, never Cw
+interpolation or silently relabeled finite catalog. No automatic AP, ObjectiveC
+restart, official outage/security adoption or publication/test/heldout run follows.
+
+
+## Current: resolve cloud-threshold branch/layout before numerical experiments
+
+2026-11-12 EVID-0237/DEC-0220. Read results/cloud_threshold_readiness_20261112/
+report_vi.md and readiness.json. User clarification pending: Eq14 diagnostic
+using unvalidated source evidence versus evidence-qualified physical threshold.
+Bind optical aperture/receiver/Holevo/noise and actual UAV grid/HAP xy first.
+Current artifacts contain no Acrit values or SKR plots; do not infer a zero margin.
+Prepared library tests do not authorize a scientific threshold or reoptimization.
+Preserve previous cloud attenuation results and dirty user work. No automatic AP,
+ObjectiveC restart, test/heldout/publication run or source/evidence promotion.
+
+
+## Current: deliver independent continuous attenuation; no automatic QKD coupling
+
+2026-11-12 EVID-0236/DEC-0219. Deliver
+results/ibrahim_continuous_attenuation_20261112/report_vi.md, README, A-G/PDF/
+400dpiPNG,1000frameGIF and cloud_clwc/cloud_attenuation_db/cloud_transmittanceNPZ.
+Implementation/math/commands: docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md.
+Read-only verification from project root:
+.venv/Scripts/python.exe -X utf8 -B scripts/verify_ibrahim_continuous_attenuation.py results/ibrahim_continuous_attenuation_20261112
+
+49scoped tests,65sealed artifacts and1003protected old hashes verified. Keep the
+original Gaussian field, all previous cloud packages and this sealed namespace
+immutable. Do not tune illustrative parameters or replace the printed Eq6 branches.
+For any new scenario use a new output directory. Meteorological calibration,
+actual HAP-UAV cloud geometry/path integration and QKD adoption are separate
+future tasks, not automatic continuation. No lifecycle/security/publication,
+baseline/QKD threshold or source-evidence promotion follows. Deliver and stop.
+
+
 ## Current: deliver standalone exponential-GRF clouds; no automatic integration
 
 2026-11-11 EVID-0235/DEC-0218. Deliver results/stochastic_cloud_grf_20261111/

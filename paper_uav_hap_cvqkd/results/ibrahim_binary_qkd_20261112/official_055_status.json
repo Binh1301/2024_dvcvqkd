@@ -1,0 +1,57 @@
+{
+  "status": "BLOCKED_BY_ENVIRONMENT",
+  "receiver_diameter_m": 0.55,
+  "configuration": "configs/redesigned_baseline_global_mb_va.yaml",
+  "configuration_sha256": "8deb1aa04e4a64aa22cacce6ac8d3945231881ba5dc7ac435f2657aa8fc942aa",
+  "configuration_declared_status": "ACTIVE_FROZEN_AUTHOR_AUTHORIZED",
+  "settings": {
+    "schema": "redesigned-baseline-global-mb-va-v1",
+    "status": "ACTIVE_FROZEN_AUTHOR_AUTHORIZED",
+    "base_config": "configs/default.yaml",
+    "channel": {
+      "tau_zen": 0.92,
+      "beam_waist_m": 0.1,
+      "receiver_diameter_m": 0.55,
+      "aperture_radius_m": 0.275,
+      "adaptive_optics_enabled": false,
+      "phase_noise_enabled": false,
+      "epsilon_total_snu": 0.0186
+    },
+    "cvqkd": {
+      "beta_reconciliation": 0.95,
+      "v_min_snu": null,
+      "v_max_snu": null,
+      "v_a_budget_snu": null,
+      "n_peak_photons": null,
+      "peak_constraint_enabled": false,
+      "budget_constraint_enabled": false,
+      "holevo_mode": "direct_z_minus"
+    },
+    "optimization": {
+      "method": "adaptive_coarse_to_fine_exact_grid",
+      "nu_min": 0.0,
+      "initial_nu_max": 0.4,
+      "initial_va_min": 0.05,
+      "initial_va_max": 3.0,
+      "expansion_factor": 2.0,
+      "boundary_min_exact_points": 3,
+      "boundary_closure_absolute_margin": 1e-06,
+      "boundary_closure_relative_margin": 0.001,
+      "global_status_on_incomplete_boundary": "GLOBAL_OPTIMUM_UNRESOLVED"
+    }
+  },
+  "native_import_returncode": 1,
+  "native_import_succeeded": false,
+  "SKR_evaluation_executed": false,
+  "threshold_search_executed": false,
+  "threshold_validated": false,
+  "critical_attenuation_db": null,
+  "clear_sky_availability": "UNRESOLVED",
+  "fallback_to_0p1db": false,
+  "scientific_prerequisites": [
+    "Frozen historical-hash discrepancy remains unresolved",
+    "Configuration declaration is not a validated position-dependent threshold",
+    "Source/security convergence and admissible branch evidence required before operational threshold adoption"
+  ],
+  "interpretation": "Import probe only, not a numerical 0.55 m SKR evaluation. Diagnostic workflow continues independently."
+}

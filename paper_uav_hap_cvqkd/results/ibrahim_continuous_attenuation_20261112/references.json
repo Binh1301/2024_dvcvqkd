@@ -1,0 +1,42 @@
+{
+  "paper": {
+    "title": "Anticipating Optical Availability in Hybrid RF/FSO Links Using RF Beacons and Deep Learning",
+    "authors": "Ibrahim et al.",
+    "year": 2024,
+    "doi": "10.1109/TMLCN.2024.3457490",
+    "primary_url": "https://doi.org/10.1109/TMLCN.2024.3457490",
+    "local_pdf": "C:\\Users\\HP\\Downloads\\Anticipating_Optical_Availability_in_Hybrid_RF_FSO_Links_Using_RF_Beacons_and_Deep_Learning.pdf",
+    "local_pdf_sha256": "5c6b0e98561e6bdb528f5530d1e6349178e7097a5d5e781c4df39464a38cd948",
+    "inspected_pages_pdf_1based": [
+      5,
+      6,
+      9,
+      10
+    ],
+    "inspected_sections": [
+      "II-A, equations 5-7",
+      "IV-A, Algorithm 1 and following paragraph"
+    ],
+    "online_access": "IEEE HTML returned robot/JavaScript verification; full local user-provided published PDF inspected, pages 5 and 10 rendered",
+    "findings": {
+      "equation6": "Only 3 printed branches, with V=6 omitted; add explicit x(6)=1.3 convention, retain genuine branch jumps",
+      "gaussian_to_CLWC": "Not specified/calibrated; thickness normalization is not CLWC",
+      "simulation_specific_loss": "IV-A uses simplified 3 dB/km RF and 300 dB/km FSO; not adopted here"
+    }
+  },
+  "plausibility_reference": {
+    "title": "OPAC water cloud model table (GEISA/AERIS)",
+    "url": "https://geisa.aeris-data.fr/opac/",
+    "role": "Order-of-magnitude reference only, not site calibration",
+    "table": "Water clouds and fog, Table 2",
+    "stratus_continental": {
+      "L_g_m3": 0.28,
+      "N_cm3": 250
+    },
+    "stratus_maritime": {
+      "L_g_m3": 0.3,
+      "N_cm3": 80
+    }
+  },
+  "scope": "Published physical laws are distinguished from proposed stationary latent model and uncalibrated CLWC/N/H assumptions"
+}

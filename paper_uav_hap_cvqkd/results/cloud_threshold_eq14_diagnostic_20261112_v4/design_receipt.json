@@ -1,0 +1,35 @@
+{
+  "user_selected_branch": "manuscript_eq14_direct",
+  "user_accepted_uncertified_Cw": true,
+  "security_valid": false,
+  "geometry": {
+    "HAP_xyz_m": [
+      1000,
+      1000,
+      20000
+    ],
+    "UAV_altitude_m": 1000,
+    "side_m": 2000,
+    "cells_per_side": 50
+  },
+  "coarse_A_db": [
+    0,
+    100,
+    0.5
+  ],
+  "root_bracket_width_db": 0.001,
+  "workers": 6,
+  "finite_catalog_sources": 212,
+  "continuous_global_optimization": false,
+  "source_generation": false,
+  "model_settings": "unchanged historical Eq14 Dr.30m homodyne xi_det.005",
+  "branch": "feat/cloud-11-11",
+  "HEAD": "3e5823f745323bbdbac7165bae1b6676463309e9",
+  "git_status": " M .agent/SESSION_HANDOFF.md\n M docs/DECISION_LOG.md\n M docs/EVIDENCE.md\n M docs/NEXT_ACTIONS.md\n M docs/PROJECT_STATE.md\n?? configs/ibrahim_continuous_attenuation.json\n?? docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md\n?? results/cloud_threshold_eq14_diagnostic_20261112/\n?? results/cloud_threshold_eq14_diagnostic_20261112_v2/\n?? results/cloud_threshold_eq14_diagnostic_20261112_v3/\n?? results/cloud_threshold_readiness_20261112/\n?? results/ibrahim_continuous_attenuation_20261112/\n?? scripts/audit_cloud_threshold_readiness.py\n?? scripts/plot_ibrahim_continuous_attenuation.py\n?? scripts/report_eq14_cloud_threshold.py\n?? scripts/report_ibrahim_continuous_attenuation.py\n?? scripts/run_eq14_cloud_threshold.py\n?? scripts/run_ibrahim_continuous_attenuation.py\n?? scripts/verify_ibrahim_continuous_attenuation.py\n?? src/cloud_threshold_search.py\n?? src/eq14_cloud_diagnostic.py\n?? src/ibrahim_continuous_attenuation.py\n?? tests/test_cloud_threshold_search.py\n?? tests/test_eq14_cloud_diagnostic.py\n?? tests/test_ibrahim_continuous_attenuation.py\n",
+  "producer_hashes": {
+    "src/eq14_cloud_diagnostic.py": "9555003c387e75111fe52e1ae644e1e0c54c1d522e63466f931a1abbc2be7347",
+    "scripts/run_eq14_cloud_threshold.py": "3bd04dfa2f5a59d9eab71ef47cdd757666d2d199201870215544527002a1e148"
+  },
+  "import_blocker": "Historical CLI import fails WinError4551 torch_python.dll; isolated existing numerical definitions used, no policy changes",
+  "preliminary_probes": "Original CLI failed before SKR; isolated-route probes recorded in session, not claimed as main-run counts"
+}

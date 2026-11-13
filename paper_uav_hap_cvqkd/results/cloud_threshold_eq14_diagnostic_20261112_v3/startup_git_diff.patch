@@ -1,0 +1,295 @@
+diff --git a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+index 8aa54b45..cc2b4117 100644
+--- a/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
++++ b/paper_uav_hap_cvqkd/.agent/SESSION_HANDOFF.md
+@@ -1,38 +1,30 @@
+ # Session Handoff
+ 
+-2026-11-11 EVID-0235/DEC-0218. New exponential-GRF stochastic cloud task COMPLETE.
+-Read docs/STOCHASTIC_CLOUD_GRF_README.md and results/stochastic_cloud_grf_20261111/
+-report_vi.md, validation.json, artifact_verification.json. New independent
+-module/config/runner/plotter/tests only; prior Ibrahim models/results unchanged.
++2026-11-12 EVID-0237/DEC-0220. Critical cloud attenuation study INCOMPLETE.
++New results/cloud_threshold_readiness_20261112/report_vi.md and readiness.json
++record model/geometry/evidence blockers; both threshold fields null. User asked
++via async clarification to select Eq14 historical diagnostic or evidence-qualified
++physical result. No answer received during preflight. Do not invent the choice.
+ 
+-Ks=exp(-distance/ell200m),tau300s,rho=exp(-1/300),wind(-5,0)m/s,1000slots0..999.
+-Internal5x40m/3200x150 embedding16x6km; output40m/50x50/2km. MinEigen.01249935,
+-negative/clipped0,exact internal-grid wind permutation and -40m/8slots; frozen
+-fullvariancechange0/covariancechange3.33e-16 before evolving runs. Guard/backtrace
+-and covariance-support checks exclude observation re-entry and periodic folding
+-for all exported point/time pairs. No arbitrary off-lattice-wind interpolation:
+-change refinement or fail. All parameters illustrative, no weather calibration.
++New src/cloud_threshold_search.py, scripts/audit_cloud_threshold_readiness.py,
++tests/test_cloud_threshold_search.py: 8tests PASS. Generic callback scanner0..100
++by.5dB plus bisectionwidth.005; no assumed SKR law, physical evaluator not connected.
++Sample/moment cloud scaling preserves zero atom, original retained mass and
++unattenuated detector noise. Nonmonotonic/multiple crossings refuse single rule;
++no-positive-clear and right-censored outcomes retain null threshold.
+ 
+-CURRENTLY_VERIFIED_PASS:11independentseeds,12new+21Ibrahim regressiontests=33,
+-152four-SEchecks,56sealed artifacts,941oldprotectedfiles unchanged. Eight400dpi
+-PNG/PDFs(E/F/Gvector),1000frameGIF and fullNPZ/CSV/histogram/track data delivered.
+-Fixed ensembletheta.5244005127080407 expected30%; maininitial33.32%,final27.56%,
+-timeavg28.88036%. Ensemble timeavg30.01817%+/-2.055pp approximate95%CI.
+-5pointwise95%CIs exclude targets,max3.10073SE; not simultaneous certification.
+-158195track segments have ROI/time and association ambiguity recorded; not
+-physical cloud lifetimes. Intensity is uncalibrated proxy, not CLWC/blockage.
+-Read-only verification from project root:
+-.venv/Scripts/python.exe -X utf8 -B results/stochastic_cloud_grf_20261111/verify.py
++Audit verifies Eq14 historical protocol/source hashes, PhaseBfalse/E2INCONCLUSIVE,
++74insufficient source records, no rigorousCw error bound, and frozenhash discrepancy.
++Eq14 Dr.30m/homodyne/xi_det.005 differs from frozen Dr.55m/idealheterodyne.
++Existing UAV grid1km10x10 with offset HAP differs from2km cloud grid. Centered2km
++bounds are conditional geometry only, not an adopted model. SavedA0table is
++historical diagnostic, not a new attenuation sweep. No physical Acrit/figures,
++new channel/MI/Holevo/SKR/Cw/optimization/training/test/publication calls.
+ 
+-Starting branch feat/cloud-11-11,HEAD0c039f394511ce43c0038e76694c4f15e446b1eb.
+-Starting worktree was DIRTY with prior EVID0234/DEC0217 registries and untracked
+-stationary-Ibrahim source/artifacts; preserved, startup diff/handoff archived.
+-No existing scientific/security/frozen/channel/SKR/finite-size/UAV/cache/
+-manuscript change, QKD baseline/threshold approval or publication setting change.
+-No physical/optical integration,training/final-test/heldout/publication evaluation.
+-Full repository suite NOT_RUN. Peleg publisher HTML and Carpentieri author
+-preprint checked; published ETHPDF403 documented; simplified AR(1) is proposed.
+-Frozen-hash mismatch df83ea63...b78c15 vs561fecc9...a2a7b1,E2INCONCLUSIVE,
+-strictPhaseBfalse,INSUFFICIENT_EVIDENCE,UNVALIDATED_SECURITY_MODEL,
+-NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED remain unchanged.
+-Deliver and stop; no automatic integration or extra experiment.
++1070old protected files and13scientific inputs unchanged. Prior uncommitted
++attenuation package and ledger edits preserved; startupdiff and ledgers archived.
++Branchfeat/cloud-11-11,HEAD3e5823f745323bbdbac7165bae1b6676463309e9.
++No QKD/security/frozen/cloud/result/cache/manuscript model or publication setting
++changed. UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,
++ObjectiveC USER_STOPPED remain. Full repository suite NOT_RUN. Resume only with
++resolved scientific branch/layout; diagnostic acceptance cannot certify outage.
+diff --git a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+index 1f3a5363..f317c3cf 100644
+--- a/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
++++ b/paper_uav_hap_cvqkd/docs/DECISION_LOG.md
+@@ -1,5 +1,44 @@
+ # Decision Log
+ 
++## DEC-0220 - Do not conflate cloud-threshold root accuracy with model evidence
++
++2026-11-12 EVID-0237. Prepare root/moment software and scientific preflight under
++the new user task. Keep numerical thresholds null until the security/receiver/
++aperture branch and UAV/HAP layout are bound. Current Eq14 and frozen direct-Z
++heterodyne conventions are not interchangeable. Historical Cw diagnostic use
++requires an explicit interpretation and cannot certify operational outage;
++continuous reoptimization cannot be replaced by a212-source envelope or Cw
++interpolation. User clarification pending. A sub.01dB bracket alone says nothing
++about uncertainty in Cw or optimizer convergence. No gate override, publication
++promotion, source computation or expensive run initiated by this preparation.
++
++
++## DEC-0219 - Keep continuous cloud attenuation independent and uncalibrated
++
++2026-11-12 EVID-0236. User's new scoped task permits saved-field attenuation only,
++superseding earlier no-automatic-attenuation follow-on statements only for this
++diagnostic. Reuse original Ibrahim Stationary X and fixed gamma; no Gaussian
++regeneration, field resampling, per-frame normalization or optical blockage mask.
++Rectified Gaussian CLWC with configurable L0,N,H is an uncalibrated surrogate,
++not a physical mapping supplied by Ibrahim or inferred from thickness normalization.
++
++Implement literal published Eqs5-7 and its three printed visibility regimes.
++Record the V=6 omission; choose upper-branch x=1.3 only at that missing point and
++retain printed6/50km jumps. Continuous-valued does not mean globally continuous.
++Do not silently replace with common five-branch Kim, smooth the boundaries, add
++a unit conversion factor or clip loss/transmittance. Finite float64 range failures
++raise errors; keep A/logT for extreme attenuation instead of introducing floors.
++
++Use vertical reference maps and separate finite-segment cloud intersection API.
++The midpoint approximation is explicit, not an actual HAP-UAV intersection claim
++or a horizontal path integral. Empirically evaluate nonlinear G/L/A/T correlations;
++L0*N degeneracy and one-mission dependence are limitations, not calibration.
++Accept only reproducible numerical/software diagnostic evidence. Keep all previous
++models/results, QKD/channel/security/frozen/publication state untouched; no future
++integration or lifecycle-gated action follows automatically. Physical calibration
++and operational adoption need new scoped work and meteorological evidence.
++
++
+ ## DEC-0218 - Bound exponential-GRF clouds to synthetic cloud-generation diagnostics
+ 
+ 2026-11-11 EVID-0235. User requests explicit exponential covariance plus wind
+diff --git a/paper_uav_hap_cvqkd/docs/EVIDENCE.md b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+index 9bb168e6..a763e1fc 100644
+--- a/paper_uav_hap_cvqkd/docs/EVIDENCE.md
++++ b/paper_uav_hap_cvqkd/docs/EVIDENCE.md
+@@ -1,5 +1,78 @@
+ # Evidence Register
+ 
++## EVID-0237 - Cloud critical-attenuation preflight; physical threshold NOT_RUN
++
++2026-11-12 user attachment95482481 requests fixed/reoptimized cloud thresholds.
++Package results/cloud_threshold_readiness_20261112/:report_vi.md,readiness.json,
++geometry_bounds.json,existing_geometry.csv,saved_clear_sky_reference.csv,
++input_hashes.json,protected_inputs.json,unit_tests.log,verification.json.
++CURRENTLY_VERIFIED_PASS applies only to8software tests and audit provenance,
++1070protected pre-existing files/13scientific inputs unchanged. No physical Acrit,
++new channel/MI/Holevo/SKR/Cw/optimizer call or figures produced; thresholds null,
++requested study incomplete. Root callback tests are synthetic fixtures, not SKR.
++
++Current protocol binds Eq14 homodyne Dr.30m,xi_det.005 against a separate frozen
++ideal-heterodyne Dr.55m branch; selection pending user clarification. Strict
++PhaseBfalse,74insufficient pool sources,winningCw INCONCLUSIVE/no rigorous error
++bound, and frozen historical-hash discrepancy independently rechecked. Existing
++UAV manuscript grid1km10x10 with offsetHAP is distinct from cloud2km50x50.
++Conditional centered2km geometry bounds computed only as geometry, not layout
++approval. Library prepares sample/moment pushforward and0..100dB/.5 coarse scan,
++bisectionwidth.005dB, raw negative retention, nonmonotonic/no-margin/censored
++outcomes. Noise derivation preserves unattenuated detector term and zero atom.
++No selected-evaluator adapter connected and no outage threshold certified.
++Previous uncommitted attenuation package/ledgers preserved in startup archives.
++No scientific/security/frozen/cloud result/model/publication setting change;
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC
++USER_STOPPED unchanged. Full repository suite NOT_RUN. Await branch/layout
++resolution; diagnostic source acceptance is distinct from physical certification.
++
++
++## EVID-0236 - Saved-field continuous cloud attenuation, uncalibrated scenarios
++
++2026-11-12, user attachment8769ef3f authorizes standalone continuous CLWC/optical
++attenuation from the saved Ibrahim Stationary Gaussian source. New independent
++src/ibrahim_continuous_attenuation.py, config, runner/plotter/report/verifier/tests
++and docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md. Results:
++results/ibrahim_continuous_attenuation_20261112/; read report_vi.md, metadata.json,
++validation.json, design_receipt.json, verification_provenance.json and
++artifact_verification.json. Source X1000x50x50 reused byte-for-byte, seed20261111,
++40m/dt1s/vx-5m/s/tau300s; zero Gaussian regeneration and zero RNG draws by runner.
++
++CURRENTLY_VERIFIED_PASS:16new+33old cloud unit tests=49; three previous cloud
++packages pass read-only verification.65sealed result artifacts,1003old protected
++files unchanged. Seven400dpiPNG/PDF pairs and1000frameGIF; all PDF fonts embedded,
++E/F/G pure vector; final visualQA and GIF pixels at0/400/999 verified.
++
++L=L0*max(G-gamma,0), gamma=.6946257315928469 fixed from source; L0/N/H are
++explicitly illustrative, uncalibrated assumptions. Paper Eqs5-7 followed literally:
++V=1.002/(LN)^.6473, omega=3.91/V*(1550/550)^(-x). Printed Eq6 has THREE branches,
++omitsV6; explicit x(6)=1.3 completion, original jumps at6/50 retained. No smoothing,
++clipping, saturation or binary optical blockage. L=0 gives omega=A0,T1; infinite
++visibility is a limiting sentinel only, not stored in physical arrays. All stored
++L/omega/A/T finite; 0<T<=1. Reference uses vertical full-slab geometry; independent
++segment/slab API handles misses/partial paths and samples cloud midpoint instead
++of UAVxy. Midpoint horizontal approximation, not a ray integral or actual QKD geometry.
++
++Seven one-parameter scenarios; reference L0.1g/m3,N100cm^-3,H.5km has meanA
++.923228323046dB,max15.511380783dB,Tmin.028110069651,zeroA75.928%.
++Empirical Ax40m correlation.74879422, Eulerlag1s.98585024; eight-slot spatial
++correlation peaks at-40m (.95050286), consistent with saved wind. Nonlinearity
++changes covariance; no Gaussian-rho substitution or iid confidence claim.
++L0/N affect optics through L0*N, preventing separate optical-only identification.
++Transform+statistics+compression30.708s for seven scenarios; plotting separate.
++
++Original plot/report producers archived before presentation/documentation-only
++finalization; no field/ensemble/parameter rerun. Initial branchfeat/cloud-11-11,
++HEAD3e5823f745323bbdbac7165bae1b6676463309e9, initial worktree clean. No existing
++QKD/channel/SKR/finite-size/UAV/cloud source, prior results, frozen specification,
++cache/manuscript or security/publication settings changed. No training/test/
++heldout/publication evaluation or baseline/QKD threshold approval. Full repository
++suite NOT_RUN; physical calibration/actualQKD integration NOT_RUN. Frozen historical
++hash mismatch,E2INCONCLUSIVE,strictPhaseBfalse,UNVALIDATED_SECURITY_MODEL,
++NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC USER_STOPPED remain.
++
++
+ ## EVID-0235 - Exponential spatial GRF cloud field with exact wind and AR(1)
+ 
+ 2026-11-11, user attachment0dbecb9d authorizes independent cloud generation only.
+diff --git a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+index 94aace4d..3ebd8443 100644
+--- a/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
++++ b/paper_uav_hap_cvqkd/docs/NEXT_ACTIONS.md
+@@ -1,5 +1,35 @@
+ # Next Actions
+ 
++## Current: resolve cloud-threshold branch/layout before numerical experiments
++
++2026-11-12 EVID-0237/DEC-0220. Read results/cloud_threshold_readiness_20261112/
++report_vi.md and readiness.json. User clarification pending: Eq14 diagnostic
++using unvalidated source evidence versus evidence-qualified physical threshold.
++Bind optical aperture/receiver/Holevo/noise and actual UAV grid/HAP xy first.
++Current artifacts contain no Acrit values or SKR plots; do not infer a zero margin.
++Prepared library tests do not authorize a scientific threshold or reoptimization.
++Preserve previous cloud attenuation results and dirty user work. No automatic AP,
++ObjectiveC restart, test/heldout/publication run or source/evidence promotion.
++
++
++## Current: deliver independent continuous attenuation; no automatic QKD coupling
++
++2026-11-12 EVID-0236/DEC-0219. Deliver
++results/ibrahim_continuous_attenuation_20261112/report_vi.md, README, A-G/PDF/
++400dpiPNG,1000frameGIF and cloud_clwc/cloud_attenuation_db/cloud_transmittanceNPZ.
++Implementation/math/commands: docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md.
++Read-only verification from project root:
++.venv/Scripts/python.exe -X utf8 -B scripts/verify_ibrahim_continuous_attenuation.py results/ibrahim_continuous_attenuation_20261112
++
++49scoped tests,65sealed artifacts and1003protected old hashes verified. Keep the
++original Gaussian field, all previous cloud packages and this sealed namespace
++immutable. Do not tune illustrative parameters or replace the printed Eq6 branches.
++For any new scenario use a new output directory. Meteorological calibration,
++actual HAP-UAV cloud geometry/path integration and QKD adoption are separate
++future tasks, not automatic continuation. No lifecycle/security/publication,
++baseline/QKD threshold or source-evidence promotion follows. Deliver and stop.
++
++
+ ## Current: deliver standalone exponential-GRF clouds; no automatic integration
+ 
+ 2026-11-11 EVID-0235/DEC-0218. Deliver results/stochastic_cloud_grf_20261111/
+diff --git a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+index c95dc20d..2e3acf43 100644
+--- a/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
++++ b/paper_uav_hap_cvqkd/docs/PROJECT_STATE.md
+@@ -1,5 +1,50 @@
+ # Project State
+ 
++## Current: cloud critical-attenuation study INCOMPLETE; scientific preflight recorded
++
++2026-11-12 EVID-0237/DEC-0220. results/cloud_threshold_readiness_20261112/.
++Read report_vi.md/readiness.json. Both physical Acrit fields null; no SKR sweep,
++fixed/reoptimized results or threshold figures. Eight root/pushforward tests PASS,
++1070old protected files unchanged. Distinct Eq14 homodyneDr.30 and frozen
++heterodyneDr.55 branches require selection; UAV1km grid and cloud2km region
++require geometry binding. User clarification asked. E2Cw remains INCONCLUSIVE,
++strictPhaseBfalse/frozenhash mismatch unresolved. New numerical library does not
++contain an assumed SKR formula or connect an unselected scientific evaluator.
++Existing attenuation package and pre-existing dirty work preserved. No security,
++publication, source-evidence, baseline/threshold approval or model promotion.
++No sourcejob/channel/MI/Holevo/SKR/optimizer/training/test/heldout/publication run.
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
++USER_STOPPED remain. Full repository suite NOT_RUN. This is preparation only.
++
++
++## Current: independent continuous cloud attenuation diagnostic COMPLETE
++
++2026-11-12 EVID-0236/DEC-0219. Package:
++results/ibrahim_continuous_attenuation_20261112/; read report_vi.md, README and
++docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md. Saved Ibrahim Stationary G
++1000x50x50/40m/dt1s/seed20261111 reused; zero Gaussian regeneration. Fixedgamma
++.6946257315928469; positive-part CLWC, literal Ibrahim visibility/optical formulas,
++1550nm, separate reference-slab/segment-intersection geometry. Eq6 has three
++printed branches and a gap atV6; explicit x(6)=1.3, genuine jumps retained.
++Seven L0/N/H illustrative scenarios, all ILLUSTRATIVE_UNCALIBRATED. No binary
++optical blockage, attenuation clipping or per-frame normalization.
++
++CURRENTLY_VERIFIED_PASS:49scoped tests(16new+33old),three prior cloud read-only
++verifiers,65sealed artifacts/1003old protected files unchanged. Seven400dpiPNG/
++PDF pairs,1000frameGIF and full reference CLWC/A/TNPZ,scenario/correlation/geometry
++CSV/JSON evidence. Reference meanA.9232283dB,max15.51138dB,Tmin.02811007;
++empirical nonlinear correlations measured rather than equated with Gaussian law.
++No meteorological calibration or actual QKD-geometry validation; software-only
++future interface, midpoint approximation and L0*N degeneracy explicit.
++
++Existing QKD/channel/SKR/finite-size/UAV/cloud/frozen/cache/manuscript unchanged;
++no security functional/publication setting, baseline/QKD threshold approval,
++training/final-test/heldout/publication evaluation. Full repository suite NOT_RUN.
++Frozen historical-hash discrepancy,E2INCONCLUSIVE,strictPhaseBfalse,
++UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
++ObjectiveC USER_STOPPED remain. Deliver; no automatic downstream integration.
++
++
+ ## Current: independent exponential-GRF cloud diagnostic COMPLETE; QKD unchanged
+ 
+ 2026-11-11 EVID-0235/DEC-0218. New package:

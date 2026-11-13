@@ -1,0 +1,39 @@
+{
+  "gaussian_input": "results/ibrahim_stationary_cloud_20261111/cloud_fields.npz",
+  "continuous_directory": "results/ibrahim_continuous_attenuation_20261112",
+  "official_configuration": "configs/redesigned_baseline_global_mb_va.yaml",
+  "diagnostic_threshold_db": 0.1,
+  "diagnostic_clear_sky_feasibility": "ASSUMED_TRUE_AT_ALL_REFERENCE_COLUMNS",
+  "diagnostic_scope": "ILLUSTRATIVE_SCALAR_THRESHOLD_ONLY_NOT_VALIDATED_0P55M_QKD",
+  "coordinate_interpretation": "Saved vertical reference cloud columns, not ray-traced UAV positions",
+  "axis_order": [
+    "time",
+    "y",
+    "x"
+  ],
+  "snapshot_slots": [
+    0,
+    400,
+    999
+  ],
+  "dynamic_snapshot_slots": [
+    100,
+    600,
+    999
+  ],
+  "probe_indices_yx": [
+    [
+      12,
+      12
+    ],
+    [
+      25,
+      25
+    ],
+    [
+      37,
+      37
+    ]
+  ],
+  "official_fallback_to_diagnostic": false
+}

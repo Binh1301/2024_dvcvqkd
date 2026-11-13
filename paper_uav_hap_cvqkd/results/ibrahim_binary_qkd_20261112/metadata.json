@@ -1,0 +1,249 @@
+{
+  "model": "Independent QKD-aware binary availability classification",
+  "scope": "ILLUSTRATIVE_SCALAR_THRESHOLD_ONLY_NOT_VALIDATED_0P55M_QKD",
+  "diagnostic_threshold_source": "USER_AUTHORIZED_ILLUSTRATIVE_0P1_DB_NOT_QKD_CALIBRATED",
+  "official_threshold_validated": false,
+  "official_status": "BLOCKED_BY_ENVIRONMENT",
+  "threshold_equality": "A>=threshold is unavailable",
+  "binary_encoding": {
+    "0": "available within assumed diagnostic",
+    "1": "unavailable",
+    "255": "unresolved"
+  },
+  "classification_status_encoding": {
+    "0": "caller-supplied validated threshold",
+    "1": "known clear-sky unavailable",
+    "2": "unresolved",
+    "3": "diagnostic assumed threshold"
+  },
+  "qkd_available_encoding": "Boolean True only for resolved b=0; False at unknown. Always carry resolved_mask.",
+  "clear_sky_encoding": {
+    "0": "known unavailable",
+    "1": "known/assumed feasible according to scope",
+    "255": "unknown"
+  },
+  "axis_order": "t,y,x",
+  "coordinate_interpretation": "Saved vertical reference cloud columns, not ray-traced UAV positions",
+  "diagnostic_clear_feasibility": "ASSUMED_TRUE_NOT_MEASURED_OR_VALIDATED",
+  "original_seed": 20261111,
+  "wind_m_s": [
+    -5,
+    0
+  ],
+  "dt_s": 1.0,
+  "last_frame_s": 999,
+  "inputs": {
+    "results/ibrahim_stationary_cloud_20261111/cloud_fields.npz": "3ddf3a7547fa73a17c6502558b92d01781eb68abf36c6d9f0c9f40a3f401d1cc",
+    "results/ibrahim_continuous_attenuation_20261112/cloud_clwc.npz": "89cf7826f51422ccfd6703d56044cd4ce36761f52b64ddb483e56fb7fc4e37a8",
+    "results/ibrahim_continuous_attenuation_20261112/cloud_attenuation_db.npz": "120888149064bff51bfcc1166f1af1f2c86ebcfde7d26e98dc9c661f20144a23",
+    "results/ibrahim_continuous_attenuation_20261112/cloud_transmittance.npz": "d879c11c7525cb8f7439cbb75527f6dac49d434a351a4d53f862ea3eb6784583"
+  },
+  "input_npz_structures": {
+    "cloud_fields.npz": {
+      "X": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "intensity": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "diagnostic_mask": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "uint8"
+      },
+      "time_s": {
+        "shape": [
+          1000
+        ],
+        "dtype": "float64"
+      },
+      "x_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "y_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "initial_fine": {
+        "shape": [
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "initial_coarse": {
+        "shape": [
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "metadata_json": {
+        "shape": [],
+        "dtype": "<U2231"
+      }
+    },
+    "cloud_clwc.npz": {
+      "clwc_g_m3": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "time_s": {
+        "shape": [
+          1000
+        ],
+        "dtype": "float64"
+      },
+      "x_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "y_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "gamma_fixed": {
+        "shape": [],
+        "dtype": "float64"
+      },
+      "l0_g_m3": {
+        "shape": [],
+        "dtype": "float64"
+      },
+      "units": {
+        "shape": [],
+        "dtype": "<U5"
+      }
+    },
+    "cloud_attenuation_db.npz": {
+      "attenuation_db": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "specific_db_km": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "time_s": {
+        "shape": [
+          1000
+        ],
+        "dtype": "float64"
+      },
+      "x_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "y_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "units": {
+        "shape": [],
+        "dtype": "<U2"
+      },
+      "reference_zenith_deg": {
+        "shape": [],
+        "dtype": "float64"
+      }
+    },
+    "cloud_transmittance.npz": {
+      "transmittance": {
+        "shape": [
+          1000,
+          50,
+          50
+        ],
+        "dtype": "float64"
+      },
+      "time_s": {
+        "shape": [
+          1000
+        ],
+        "dtype": "float64"
+      },
+      "x_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "y_m": {
+        "shape": [
+          50
+        ],
+        "dtype": "float64"
+      },
+      "units": {
+        "shape": [],
+        "dtype": "<U25"
+      }
+    }
+  },
+  "physical_arrays_modified": false,
+  "Gaussian_frames_regenerated": 0,
+  "cloud_geometry_or_normalization_changed": false,
+  "official_critical_threshold_npz_created": false,
+  "binary_T_or_R_approximation_exported": false,
+  "binary_approximation_reason": "No validated clear-sky 0.55 m T/R maps; optional API only, no invented physical inputs",
+  "binary_conversion_seconds": 3.6635266000012052,
+  "statistics": {
+    "total_cell_slots": 2500000,
+    "cloud_affected_cell_slots": 601800,
+    "diagnostic_clear_assumed_feasible_cell_slots": 2500000,
+    "diagnostic_blocked_cell_slots": 596876,
+    "diagnostic_available_cell_slots": 1903124,
+    "diagnostic_blocked_fraction": 0.2387504,
+    "diagnostic_cloud_induced_fraction_given_assumed_clear": 0.2387504,
+    "diagnostic_blocked_fraction_given_cloud_affected": 0.9918178796942506,
+    "cloud_affected_but_diagnostic_available_cell_slots": 4924,
+    "first_frame_blocked_fraction": 0.298,
+    "last_frame_blocked_fraction": 0.1892,
+    "official_unresolved_cell_slots": 2500000,
+    "official_blocked_fraction": null,
+    "official_cloud_induced_fraction_given_clear": null,
+    "official_secure_availability_fraction": null,
+    "source_mean_attenuation_db": 0.923228323046336,
+    "source_maximum_attenuation_db": 15.511380782990276,
+    "source_minimum_physical_transmittance": 0.028110069650957845,
+    "blocked_cells_with_nonzero_physical_transmittance": 596876
+  }
+}

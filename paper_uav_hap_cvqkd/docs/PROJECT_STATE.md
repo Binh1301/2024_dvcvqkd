@@ -1,5 +1,101 @@
 # Project State
 
+## Current: independent binary QKD cloud diagnostic COMPLETE; official 0.55 m pending
+
+2026-11-13 EVID-0239/DEC-0222. Package dated per user request:
+results/ibrahim_binary_qkd_20261112/; report_vi.md, metadata.json, verification.json,
+official_055_status.json and docs/IBRAHIM_BINARY_QKD_README.md are entry points.
+Original 1000 saved Gaussian/continuous frames reused without regeneration;
+reference cloud-column geometry and [t,y,x] axes preserved. Separate illustrative
+0.1 dB threshold assumes clear feasibility; diagnostic blockage 23.875040% over
+2500000 cell-slots, 99.181788% over 601800 A>0 cell-slots. Physical T unchanged.
+
+Native SKR/Holevo import probe for prioritized Dr=0.55 m is BLOCKED_BY_ENVIRONMENT
+(Windows4551 torch_python.dll). Numerical SKR/root evaluation NOT_RUN, official
+threshold unvalidated, all official map cells unresolved with fail-closed Boolean
+availability and explicit masks. Official ratios null; no fallback or official
+critical-threshold NPZ. Dr=0.30 m historical crossing is not a Dr=0.55 m result.
+
+CURRENTLY_VERIFIED_PASS:67 scoped tests (18 new+49 regressions), full 2.5 million
+classification checks, 2011 protected old files unchanged; six 400dpi PNG/vector
+PDF pairs rendered/inspected, embedded fonts/zero raster images, 1000 GIF frames
+pixel-checked in original order. Full repository suite NOT_RUN. No official UAV
+trajectory integration or physical/security validation. No old QKD/SKR/channel/
+cloud/frozen/cache/results changes, source/AP/training/test/heldout/publication,
+baseline/threshold approval or lifecycle promotion. Frozen-hash discrepancy,
+E2 INCONCLUSIVE, strict Phase B false, UNVALIDATED_SECURITY_MODEL,
+NOT_READY_FOR_PUBLICATION_SCALE_RUNS and Objective C USER_STOPPED remain.
+
+## Current: conditional Eq14 cloud-threshold diagnostic COMPLETE; continuous optimization NOT_RUN
+
+2026-11-12 EVID-0238/DEC-0221. User selected Eq14uncertifiedCw and centered
+HAPxy(1000,1000)m/2km50x50UAVgrid. Package:
+results/cloud_threshold_eq14_diagnostic_20261112_v4/; read report_vi.md and
+verification.json.257geometry groups,2500positions;79full201raw sweeps,
+178root-neighborhood/full-range sign-bound groups.72prior full sweeps reused byhash.
+Grid crossing midpoints .0932617...0991211dB,bracketswidth.0009765625dB;
+fixed-clear-optimum and finite212catalog reselection coincide at grid crossings.
+22km clearK negative,no positive additional margin. Catalog raw curve is not
+globally monotonic; no sampled positive re-entry; no official outage rule adopted.
+
+CURRENTLY_VERIFIED_PASS:11tests,12independent endpoint checks,9catalog checkpoints,
+209A0replays,552sealed artifacts,1263old protected files unchanged. Three400dpiPNG/
+PDFs and CSV/NPZmaps delivered. Exact preserved math definitions avoid Windows4551
+Torch import;209array pairs match source digests,3other sources bounded out.
+No Cw generation/interpolation. Continuous/global VA,nu optimization NOT_RUN:
+finite212source selection is explicitly a limited comparison, not ExperimentB
+continuous completion. No production/security/frozen/cloud model or prior result
+change,training/test/heldout/publication run,source/evidence/lifecycle promotion.
+Full repo testsNOT_RUN;E2INCONCLUSIVE,strictPhaseBfalse,frozenhash discrepancy,
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS,ObjectiveC
+USER_STOPPED unchanged. Deliver; no automatic source jobs or official integration.
+
+
+## Current: cloud critical-attenuation study INCOMPLETE; scientific preflight recorded
+
+2026-11-12 EVID-0237/DEC-0220. results/cloud_threshold_readiness_20261112/.
+Read report_vi.md/readiness.json. Both physical Acrit fields null; no SKR sweep,
+fixed/reoptimized results or threshold figures. Eight root/pushforward tests PASS,
+1070old protected files unchanged. Distinct Eq14 homodyneDr.30 and frozen
+heterodyneDr.55 branches require selection; UAV1km grid and cloud2km region
+require geometry binding. User clarification asked. E2Cw remains INCONCLUSIVE,
+strictPhaseBfalse/frozenhash mismatch unresolved. New numerical library does not
+contain an assumed SKR formula or connect an unselected scientific evaluator.
+Existing attenuation package and pre-existing dirty work preserved. No security,
+publication, source-evidence, baseline/threshold approval or model promotion.
+No sourcejob/channel/MI/Holevo/SKR/optimizer/training/test/heldout/publication run.
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS and ObjectiveC
+USER_STOPPED remain. Full repository suite NOT_RUN. This is preparation only.
+
+
+## Current: independent continuous cloud attenuation diagnostic COMPLETE
+
+2026-11-12 EVID-0236/DEC-0219. Package:
+results/ibrahim_continuous_attenuation_20261112/; read report_vi.md, README and
+docs/IBRAHIM_CONTINUOUS_ATTENUATION_README.md. Saved Ibrahim Stationary G
+1000x50x50/40m/dt1s/seed20261111 reused; zero Gaussian regeneration. Fixedgamma
+.6946257315928469; positive-part CLWC, literal Ibrahim visibility/optical formulas,
+1550nm, separate reference-slab/segment-intersection geometry. Eq6 has three
+printed branches and a gap atV6; explicit x(6)=1.3, genuine jumps retained.
+Seven L0/N/H illustrative scenarios, all ILLUSTRATIVE_UNCALIBRATED. No binary
+optical blockage, attenuation clipping or per-frame normalization.
+
+CURRENTLY_VERIFIED_PASS:49scoped tests(16new+33old),three prior cloud read-only
+verifiers,65sealed artifacts/1003old protected files unchanged. Seven400dpiPNG/
+PDF pairs,1000frameGIF and full reference CLWC/A/TNPZ,scenario/correlation/geometry
+CSV/JSON evidence. Reference meanA.9232283dB,max15.51138dB,Tmin.02811007;
+empirical nonlinear correlations measured rather than equated with Gaussian law.
+No meteorological calibration or actual QKD-geometry validation; software-only
+future interface, midpoint approximation and L0*N degeneracy explicit.
+
+Existing QKD/channel/SKR/finite-size/UAV/cloud/frozen/cache/manuscript unchanged;
+no security functional/publication setting, baseline/QKD threshold approval,
+training/final-test/heldout/publication evaluation. Full repository suite NOT_RUN.
+Frozen historical-hash discrepancy,E2INCONCLUSIVE,strictPhaseBfalse,
+UNVALIDATED_SECURITY_MODEL,NOT_READY_FOR_PUBLICATION_SCALE_RUNS and
+ObjectiveC USER_STOPPED remain. Deliver; no automatic downstream integration.
+
+
 ## Current: independent exponential-GRF cloud diagnostic COMPLETE; QKD unchanged
 
 2026-11-11 EVID-0235/DEC-0218. New package:

@@ -1,0 +1,53 @@
+{
+  "settings": {
+    "gaussian_input": "results/ibrahim_stationary_cloud_20261111/cloud_fields.npz",
+    "continuous_directory": "results/ibrahim_continuous_attenuation_20261112",
+    "official_configuration": "configs/redesigned_baseline_global_mb_va.yaml",
+    "diagnostic_threshold_db": 0.1,
+    "diagnostic_clear_sky_feasibility": "ASSUMED_TRUE_AT_ALL_REFERENCE_COLUMNS",
+    "diagnostic_scope": "ILLUSTRATIVE_SCALAR_THRESHOLD_ONLY_NOT_VALIDATED_0P55M_QKD",
+    "coordinate_interpretation": "Saved vertical reference cloud columns, not ray-traced UAV positions",
+    "axis_order": [
+      "time",
+      "y",
+      "x"
+    ],
+    "snapshot_slots": [
+      0,
+      400,
+      999
+    ],
+    "dynamic_snapshot_slots": [
+      100,
+      600,
+      999
+    ],
+    "probe_indices_yx": [
+      [
+        12,
+        12
+      ],
+      [
+        25,
+        25
+      ],
+      [
+        37,
+        37
+      ]
+    ],
+    "official_fallback_to_diagnostic": false
+  },
+  "config_sha256": "76ffee8917cf58cf1f93c64e793ce3ddc1858b59264121c5e9bc96eff178fac9",
+  "producer_hashes": {
+    "configs/ibrahim_binary_qkd.json": "76ffee8917cf58cf1f93c64e793ce3ddc1858b59264121c5e9bc96eff178fac9",
+    "scripts/run_ibrahim_binary_qkd.py": "1853830036a48008829a638791cff023ce072490112a55a92f78b018b8ac8e05",
+    "src/ibrahim_binary_qkd.py": "5e24756e8e611b8cefe888c28524f605313a766f4958549db599500414dee538",
+    "tests/test_ibrahim_binary_qkd.py": "284e85ff036b13eeb4eb89c4ca33708bc4e698a099a745bfc448dfff476a9dff"
+  },
+  "gaussian_regeneration": false,
+  "QKD_source_modification": false,
+  "authorized_fallback": "Independent illustrative diagnostic only; no official threshold fallback",
+  "frozen_actual_sha256": "df83ea63af3b475ecca03a44d22d3240ab24d695ff0ebef31f0cd6747db78c15",
+  "frozen_historical_expected_sha256": "561fecc97cdf9967034ffd6865c1605804b624b98f47a091e47f17e520a2a7b1"
+}
